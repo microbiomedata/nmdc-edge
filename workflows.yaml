@@ -1,0 +1,65 @@
+Workflows:
+  - Name: Reads QC
+    Enabled: True
+    Git_repo: https://github.com/microbiomedata/ReadsQC
+    Version: v0.0.1
+    WDL: rqcfilter.wdl
+    Activity: read_QC_analysis_activity_set
+    Predecessor: null
+    Trigger_on: Metagenome Raw Reads
+    Inputs:
+      "jgi_rqcfilter.input_files": do:Metagenome Raw Reads
+ 
+  - Name: Metagenome Assembly
+    Enabled: True
+    Git_repo: https://github.com/microbiomedata/metaAssembly
+    Version: v0.0.1
+    WDL: jgi_assembly.wdl
+    Activity: metagenome_assembly_set
+    Predecessor: Reads QC
+    Trigger_on: Filtered Sequencing Reads
+    Trigger_set: read_QC_analysis_activity_set
+    Inputs:
+      "jgi_meta.input_file": do:Filtered Sequencing Reads
+      "jgi_meta.rename_contig_prefix": actid
+ 
+  - Name: Metagenome Annotation
+    Enabled: True
+    Git_repo: https://github.com/microbiomedata/mg_annotation
+    Version: v0.0.1
+    WDL: nmdc-metag_annotation.wdl
+    Activity: metagenome_annotation_activity_set
+    Predecessor: Metagenome Assembly
+    Trigger_on: Assembly Contigs
+    Trigger_set: metagenome_assembly_set
+    Inputs:
+      "annotation.imgap_input_file": do:Assembly Contigs
+      "annotation.imgap_project_id": actid
+ 
+  - Name: MAGs
+    Enabled: False
+    Git_repo: https://github.com/microbiomedata/mg_annotation
+    Git_repo: https://github.com/microbiomedata/metaMAGs
+    Version: v0.0.1
+    WDL: mbin_nmdc.wdl
+    Activity: mags_activity_set
+    Predecessor: Metagenome Annotation
+    Trigger_on: Functional Annotation GFF
+    Trigger_set: metagenome_annotation_activity_set
+    Inputs:
+      "nmdc_mags.contig_file": do:Assembly Contigs
+      "nmdc_mags.gff_file": do:Functional Annotation GFF
+      "nmdc_mags.cath_funfam_file": https://data.microbiomedata.org/data/nmdc:mga0rt44/annotation/nmdc_mga0rt44_cath_funfam.gff
+      "nmdc_mags.supfam_file": https://data.microbiomedata.org/data/nmdc:mga0rt44/annotation/nmdc_mga0rt44_supfam.gff
+      "nmdc_mags.cog_file": https://data.microbiomedata.org/data/nmdc:mga0rt44/annotation/nmdc_mga0rt44_cog.gff
+      "nmdc_mags.proj_name": nmdc:mga0rt44
+      "nmdc_mags.pfam_file": https://data.microbiomedata.org/data/nmdc:mga0rt44/annotation/nmdc_mga0rt44_pfam.gff
+      "nmdc_mags.product_names_file": https://data.microbiomedata.org/data/nmdc:mga0rt44/annotation/nmdc_mga0rt44_product_names.tsv
+      "nmdc_mags.tigrfam_file": https://data.microbiomedata.org/data/nmdc:mga0rt44/annotation/nmdc_mga0rt44_tigrfam.gff
+      "nmdc_mags.ec_file": do:Annotation Enzyme Commission
+      "nmdc_mags.ko_file": do:Annotation KEGG Orthology
+      "nmdc_mags.sam_file": do:Assembly Coverage BAM
+      "nmdc_mags.smart_file": https://data.microbiomedata.org/data/nmdc:mga0rt44/annotation/nmdc_mga0rt44_smart.gff
+      "nmdc_mags.proteins_file": do:Annotation Amino Acid FASTA
+      "nmdc_mags.gene_phylogeny_file": https://data.microbiomedata.org/data/nmdc:mga0rt44/annotation/nmdc_mga0rt44_gene_phylogeny.tsv
+ 

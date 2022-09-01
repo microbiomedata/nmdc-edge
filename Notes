@@ -1,0 +1,16 @@
+
+
+Issues
+
+- How do we identify only the active versions?
+- What to do about IDs and embedded IDs
+
+
+Scenarios to run through
+
+- Entirely new raw read data set
+  - Show this through the entire cycle
+- IMG data set that has everything but RBA
+- New version of a workflow is activates
+
+
