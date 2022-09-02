@@ -1,12 +1,6 @@
 import json
 import os
 from pymongo import MongoClient
-import sys
-from yaml import load
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
 
 
 def init_nmdc_mongo():
@@ -15,10 +9,12 @@ def init_nmdc_mongo():
     nmdc = client.nmdc
     return nmdc
 
+
 _sets = ['metagenome_annotation_activity_set',
          'metagenome_assembly_set',
          'mags_activity_set',
          'read_QC_analysis_activity_set']
+
 
 if __name__ == "__main__":
 
