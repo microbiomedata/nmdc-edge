@@ -5,6 +5,7 @@ try:
     from yaml import CLoader as Loader
 except ImportError:
     from yaml import Loader
+from datetime import datetime
 
 
 class JobMaker():
@@ -55,11 +56,11 @@ class JobMaker():
                 root_dos.append(d)
         return acts, root_dos
 
-    def create_job(self, job):
+    def add_job_rec(self, job):
         """
         This takes a job and using the workflow definition,
         resolves all the information needed to create a
-        job submission.
+        job record.
         """
         wf = job['wf']
         doid = job['data_object_id']
@@ -102,11 +103,23 @@ class JobMaker():
                 "git_repo": wf["Git_repo"],
                 "release": wf["Version"],
                 "wdl": wf["WDL"],
+                "trigger_object": job['data_object_id'],
                 "inputs": inp
                 }
+
+        jr = {
+            "workflow": {
+                "id": "{Name}: {Version}".format(**wf)
+            },
+            "id": "nmdc:TODO",
+            "created_at": datetime.today().replace(microsecond=0),
+            "config": ji,
+            "claims": []
+        }
+        rec = self.db.jobs.insert_one(jr, bypass_document_validation=True)
         # This would make the job record
         # print(json.dumps(ji, indent=2))
-        return ji
+        return rec
 
     def find_jobs(self, wf):
         """
@@ -124,9 +137,13 @@ class JobMaker():
         trig = wf['Trigger_on']
         comp_dos = {}
         # Filter by git_repo and version
-        q = {'version': vers, 'git_repo': git_repo}
-        # TODO: this should be jobs
+        q = {'config.git_repo': git_repo,
+             'config.release': vers}
+        for j in self.db.jobs.find(q):
+            do = j['config']['trigger_object']
+            comp_dos[do] = j
         # Find all jobs of for this workflow
+        q = {'version': vers, 'git_repo': git_repo}
         for act in self.db[act_set].find(q):
             for do in act['has_input']:
                 comp_dos[do] = act
@@ -149,7 +166,7 @@ class JobMaker():
         for w in self.workflows['Workflows']:
             jobs = self.find_jobs(w)
             for job in jobs:
-                jr = self.create_job(job)
+                jr = self.add_job_rec(job)
                 if jr:
                     job_recs.append(jr)
         return job_recs
