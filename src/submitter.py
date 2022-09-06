@@ -3,18 +3,9 @@
 import os
 import requests
 import json
-from wfutils2 import wfsub
-from yaml import load
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
+from .wfutils import wfsub
 
 _STAGE_DIR = os.path.join(os.environ["SCRATCH"], "staging")
-
-
-def load_workflows():
-    load(open('workflows.yaml'), Loader=Loader)
 
 
 def mock_get_job():
@@ -44,7 +35,6 @@ def staging(inp):
 
 if __name__ == "__main__":
     wfs = wfsub()
-    wf = "MAGS"
     job = mock_get_job()
     inp = staging(job['job_info']['inputs'])
     job['job_info']['inputs'] = inp
