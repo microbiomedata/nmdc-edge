@@ -10,6 +10,14 @@ test_data = os.path.join(test_dir, "..", "test_data")
 trigger_set = 'metagenome_annotation_activity_set'
 trigger_id = 'nmdc:55a79b5dd58771e28686665e3c3faa0c'
 trigger_doid = 'nmdc:1d87115c442a1f83190ae47c7fe4011f'
+cols = [
+    'data_object_set',
+    'mags_activity_set',
+    'metagenome_assembly_set',
+    'jobs',
+    'metagenome_annotation_activity_set',
+    'read_QC_analysis_activity_set'
+    ]
 
 
 @fixture
@@ -35,20 +43,13 @@ def load(db, fn, col=None, reset=False):
 
 
 def reset_db(db):
-    cols = [
-        'data_object_set',
-        'mags_activity_set',
-        'metagenome_assembly_set',
-        'jobs',
-        'metagenome_annotation_activity_set'
-        'read_QC_analysis_activity_set'
-        ]
     for c in cols:
         db[c].delete_many({})
 
 
 def init_test(db):
-    for fn in os.listdir(test_data):
+    for col in cols:
+        fn = '%s.json' % (col)
         load(db, fn, reset=True)
 
 

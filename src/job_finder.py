@@ -104,6 +104,7 @@ class JobMaker():
                 "release": wf["Version"],
                 "wdl": wf["WDL"],
                 "trigger_object": job['data_object_id'],
+                "input_prefix": wf["Input_prefix"],
                 "inputs": inp
                 }
 
