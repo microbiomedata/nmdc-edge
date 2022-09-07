@@ -76,13 +76,13 @@ class wfsub:
         Submit a job
         """
         # Write input file
-        inputs = job['job_info']['inputs']
+        inputs = job['config']['inputs']
         labels = dict()
         params = dict()
         cleanup = []
         for p in ['release', 'wdl', 'git_repo']:
-            params[p] = job['job_info'][p]
-            labels[p] = job['job_info'][p]
+            params[p] = job['config'][p]
+            labels[p] = job['config'][p]
         cf = self.config.conf
         labels["pipeline_version"] = params['release']
         labels["pipeline"] = "TODO"
@@ -119,8 +119,8 @@ class wfsub:
             files['workflowOptions'] = open(options)
 
         if not dryrun:
-            resp = requests.post(cf['url'], data={}, files=files)
-            job_id = json.loads(resp.text)['id']
+            resp = requests.post(cf['url'], data={}, files=files).json()
+            job_id = resp['id']
         else:
             job_id = "dryrun"
         for fld in files:

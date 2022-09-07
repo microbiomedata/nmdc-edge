@@ -1,6 +1,6 @@
 import json
 import os
-from src.submitter import staging
+from src.submitter import staging, submit
 import requests
 from pytest import fixture
 
@@ -11,9 +11,11 @@ test_data = os.path.join(test_dir, "..", "test_data")
 
 # custom class to be the mock return value of requests.get()
 class MockResponse:
+    status_code = 200
+
     @staticmethod
     def json():
-        return {"mock_key": "mock_response"}
+        return {"id": "mock_id_response"}
 
     @staticmethod
     def iter_content(chunk_size=0):
@@ -28,6 +30,11 @@ def mock_response(monkeypatch):
         return MockResponse()
 
     monkeypatch.setattr(requests, "get", mock_get)
+
+    def mock_post(*args, **kwargs):
+        return MockResponse()
+
+    monkeypatch.setattr(requests, "post", mock_post)
 
 
 def read_json(fn):
@@ -44,3 +51,12 @@ def test_staging(mock_response):
     job = read_json(fn)
     resp = staging(job['config']['inputs'])
     print(resp)
+
+
+def test_submit(mock_response):
+    """
+    Test basic job creation
+    """
+    fn = "rqc_response.json"
+    job = read_json(fn)
+    resp = submit(job)

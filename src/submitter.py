@@ -33,6 +33,20 @@ def staging(inp):
     return inp
 
 
+def submit(job):
+    # print(job)
+    conf = job['config']
+    inp = staging(conf['inputs'])
+    ninp = dict()
+    for k, v in inp.items():
+        nk = '%s.%s' % (conf['input_prefix'], k)
+        ninp[nk] = v
+    job['config']['inputs'] = ninp
+    wfs = wfsub()
+    resp = wfs.submit(job, verbose=True, dryrun=False)
+    return resp
+
+
 if __name__ == "__main__":
     wfs = wfsub()
     job = mock_get_job()
