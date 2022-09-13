@@ -1,12 +1,20 @@
 Workflows:
+  - Name: Sequencing
+    Enabled: False
+    Git_repo: null
+    Version: v1.0.0
+    Activity: metagenome_sequencing_activity_set
+    Predecessor: null
+    Input_prefix: null
+    Inputs: []
+ 
   - Name: Reads QC
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
     Version: v0.0.1
     WDL: rqcfilter.wdl
     Activity: read_QC_analysis_activity_set
-    Predecessor: null
-    Trigger_on: Metagenome Raw Reads
+    Predecessor: Sequencing
     Input_prefix: jgi_rqcfilter
     Inputs:
       "input_files": do:Metagenome Raw Reads
@@ -18,7 +26,6 @@ Workflows:
     WDL: jgi_assembly.wdl
     Activity: metagenome_assembly_set
     Predecessor: Reads QC
-    Trigger_on: Filtered Sequencing Reads
     Input_prefix: jgi_meta
     Inputs:
       "input_file": do:Filtered Sequencing Reads
@@ -31,7 +38,6 @@ Workflows:
     WDL: nmdc-metag_annotation.wdl
     Activity: metagenome_annotation_activity_set
     Predecessor: Metagenome Assembly
-    Trigger_on: Assembly Contigs
     Input_prefix: annotation
     Inputs:
       "imgap_input_file": do:Assembly Contigs
@@ -45,7 +51,6 @@ Workflows:
     WDL: mbin_nmdc.wdl
     Activity: mags_activity_set
     Predecessor: Metagenome Annotation
-    Trigger_on: Functional Annotation GFF
     Input_prefix: nmdc_mags
     Inputs:
       "contig_file": do:Assembly Contigs
@@ -71,7 +76,6 @@ Workflows:
     WDL: ReadbasedAnalysis.wdl
     Activity: read_based_analysis_activity_set
     Predecessor: Reads QC
-    Trigger_on: Filtered Sequencing Reads
     Input_prefix: nmdc_rqc
     Inputs:
       "input_file": do:Filtered Sequencing Reads

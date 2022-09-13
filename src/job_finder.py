@@ -63,27 +63,27 @@ class JobMaker():
         job record.
         """
         wf = job['wf']
-        doid = job['data_object_id']
+        trig_actid = job['trigger_activity_id']
+        trigger_set = job['trigger_set']
         pred = wf['Predecessor']
-        if pred:
-            pred_wf = self.workflow_by_name[pred]
-            trigger_set = pred_wf['Activity']
+        if not pred:
+            # This can't happen
+            return
+        pred_wf = self.workflow_by_name[pred]
 
-            # Find the activity that generated the data object id
-            act = self.db[trigger_set].find_one({"has_output": doid})
+        # Find the activity that generated the data object id
+        act = self.db[trigger_set].find_one({"id": trig_actid})
 
-            # Ignore if the trigger object isn't the latest version
-            if act is None or pred_wf['Version'] != act.get('version'):
-                return
+        # Ignore if the trigger activity isn't the latest version
+        if act is None or pred_wf['Version'] != act.get('version'):
+            return
 
-            # Get the provenance
-            acts, root_dos = self.coll_prov_acts(act, trigger_set, {})
-            dos = root_dos
-            for aid, act in acts.items():
-                for did in act['has_output']:
-                    dos.append(did)
-        else:
-            dos = [doid]
+        # Get the provenance
+        acts, root_dos = self.coll_prov_acts(act, trigger_set, {})
+        dos = root_dos
+        for aid, act in acts.items():
+            for did in act['has_output']:
+                dos.append(did)
 
         # Now collect all the data objects and their types
         do_by_type = dict()
@@ -103,7 +103,7 @@ class JobMaker():
                 "git_repo": wf["Git_repo"],
                 "release": wf["Version"],
                 "wdl": wf["WDL"],
-                "trigger_object": job['data_object_id'],
+                "trigger_activity": trig_actid,
                 "input_prefix": wf["Input_prefix"],
                 "inputs": inp
                 }
@@ -135,28 +135,34 @@ class JobMaker():
         act_set = wf['Activity']
         git_repo = wf['Git_repo']
         vers = wf['Version']
-        trig = wf['Trigger_on']
-        comp_dos = {}
+        pred = wf['Predecessor']
+        if not pred:
+            # Nothing to do
+            return []
+        pred_wf = self.workflow_by_name[pred]
+        trigger_set = pred_wf['Activity']
+        comp_acts = {}
         # Filter by git_repo and version
         q = {'config.git_repo': git_repo,
              'config.release': vers}
         for j in self.db.jobs.find(q):
-            do = j['config']['trigger_object']
-            comp_dos[do] = j
+            act = j['config']['trigger_activity']
+            comp_acts[act] = j
         # Find all jobs of for this workflow
         q = {'version': vers, 'git_repo': git_repo}
         for act in self.db[act_set].find(q):
-            for do in act['has_input']:
-                comp_dos[do] = act
+            comp_acts[act['id']] = act
 
         # Check triggers
+        # TODO: filter based on active version
         todo = []
-        q = {'data_object_type': trig}
-        for do in self.db.data_object_set.find(q):
-            doid = do['id']
-            if doid in comp_dos:
+        for act in self.db[trigger_set].find():
+            actid = act['id']
+            if actid in comp_acts:
                 continue
-            todo.append({'wf': wf, 'data_object_id': doid})
+            todo.append({'wf': wf,
+                         'trigger_set': trigger_set,
+                         'trigger_activity_id': actid})
         return todo
 
     def cycle(self):
