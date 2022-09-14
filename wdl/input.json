@@ -1,0 +1,8 @@
+{
+    "nmdc_rqcfilter.database": "/global/cfs/projectdirs/m3408/aim2/database", 
+    "nmdc_rqcfilter.input_files":"/global/cfs/cdirs/m3408/aim2/dev/ReadsQC/Ecoli_10x-int.fastq.gz", 
+    "nmdc_rqcfilter.outdir": "/global/cfs/cdirs/m3408/aim2/dev/ReadsQC/rqcfilter_out2",
+    "nmdc_rqcfilter.proj": "test",
+    "nmdc_rqcfilter.resource": "NERSC",
+    "nmdc_rqcfilter.informed_by": "test"
+}
