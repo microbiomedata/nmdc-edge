@@ -8,6 +8,7 @@ import hashlib
 import mimetypes
 from time import time
 from datetime import datetime
+import logging
 
 
 def _get_sha256(fn):
@@ -27,17 +28,6 @@ def _get_sha256(fn):
             f.write(sha)
             f.write('\n')
     return sha
-
-
-class remote_job():
-    def __init__(self, jid, jdata):
-        self.jobdata = jdata
-        self.id = jid
-        self.claimed = None
-        self.opid = None
-
-    def claim(self):
-        self.claimed = True
 
 
 class nmdcapi():
@@ -209,7 +199,7 @@ class nmdcapi():
             resp = requests.get(url, data=json.dumps(d),
                                 headers=self.header).json()
             if 'resources' not in resp:
-                sys.stderr.write(str(resp))
+                logging.warning(str(resp))
                 break
             results.extend(resp['resources'])
             if 'next_page_token' not in resp or not resp['next_page_token']:
@@ -239,10 +229,10 @@ class nmdcapi():
         while True:
             resp = requests.get(url, headers=self.header).json()
             if 'resources' not in resp:
-                sys.stderr.write(str(resp))
+                logging.warning(str(resp))
                 break
             results.extend(resp['resources'])
-            if not resp['next_page_token']:
+            if 'next_page_token' not in resp or not resp['next_page_token']:
                 break
             url = orig_url + "&page_token=%s" % (resp['next_page_token'])
         return results
@@ -265,10 +255,10 @@ class nmdcapi():
             resp = requests.get(url, data=json.dumps(d),
                                 headers=self.header).json()
             if 'resources' not in resp:
-                sys.stderr.write(str(resp))
+                logging.warning(str(resp))
                 break
             results.extend(resp['resources'])
-            if not resp['next_page_token']:
+            if 'next_page_token' not in resp or not resp['next_page_token']:
                 break
             url = orig_url + "&page_token=%s" % (resp['next_page_token'])
         return results
@@ -306,7 +296,7 @@ def usage():
     print("usage: ....")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     nmdc = nmdcapi()
     if len(sys.argv) < 2:
         usage()

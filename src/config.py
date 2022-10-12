@@ -1,5 +1,6 @@
 import sys
 import os
+import logging
 
 
 class config():
@@ -27,8 +28,8 @@ class config():
                 (k, v) = line.rstrip().split('=')
                 conf[k.lower()] = v
             if 'cromwell_url' not in conf:
-                print("Missing URL")
-                sys.exit(1)
+                logging.error("Missing URL")
+                raise ValueError("Missing cromwell URL")
             conf['url'] = conf['cromwell_url']
             if 'api' not in conf['url']:
                 conf['url'] = conf['url'].rstrip('/') + "/api/workflows/v1"

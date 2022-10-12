@@ -5,11 +5,11 @@ import json
 import tempfile
 import requests
 from .config import config
-from .nmdcapi import nmdcapi
+import logging
 
 
 class job():
-    nmdc = nmdcapi()
+    # nmdc = nmdcapi()
     config = config().conf
     cromurl = config['url']
     data_dir = config['data_dir']
@@ -46,10 +46,6 @@ class job():
         if self.jobid and not nocheck:
             self.check_status()
 
-        if self.opid and not nocheck:
-            opstat = self.nmdc.get_op(self.opid)
-            self.done = opstat['done']
-
     def get_state(self):
         data = {
                 "type": self.type,
@@ -64,15 +60,9 @@ class job():
                 }
         return data
 
-    def log(self, msg):
-        if self.debug:
-            print(msg)
-
-    def json_log(self, data, title="None"):
-        if self.debug:
-            if title:
-                print(title)
-                print(json.dumps(data, indent=2))
+    def json_log(self, data, title="json_log"):
+        logging.debug(title)
+        logging.debug(json.dumps(data, indent=2))
 
     def check_status(self):
         """
@@ -147,10 +137,10 @@ class job():
         status = self.check_status()
         states = ['Failed', 'Aborted', 'Aborting', "Unsubmitted"]
         if not force and status not in states:
-            self.log("Skipping: %s %s" % (self.activity_id, status))
+            logging.info("Skipping: %s %s" % (self.activity_id, status))
             return
         # Reuse the ID from before
-        # self.log("Resubmit %s" % (self.activity_id))
+        # logging.info("Resubmit %s" % (self.activity_id))
 
         cleanup = []
         files = {}
@@ -188,7 +178,7 @@ class job():
             else:
                 job_id = "dryrun"
 
-            print("Submitted: %s" % (job_id))
+            logging.info(f"Submitted: {job_id}")
             self.jobid = job_id
             self.done = False
 

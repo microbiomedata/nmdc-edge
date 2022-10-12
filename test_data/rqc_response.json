@@ -10,8 +10,12 @@
     "wdl": "rqcfilter.wdl",
     "trigger_object": "nmdc:22afa3d49b73eaec2e9787a6b88fbdc3",
     "input_prefix": "jgi_rqcfilter",
+    "activity_id": "nmdc:mga0xxx",
+    "iteration": "2",
+    "directory": "qa",
     "inputs": {
-      "input_files": "https://data.microbiomedata.org/data/raw/11570.5.212273.GTCTAGG-ACCTAGA.fastq.gz"
+      "input_files": "https://data.microbiomedata.org/data/raw/11570.5.212273.GTCTAGG-ACCTAGA.fastq.gz",
+      "resource": "{resource}"
     }
   },
   "claims": []
