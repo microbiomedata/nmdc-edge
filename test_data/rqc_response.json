@@ -6,7 +6,7 @@
   "created_at": "2022-09-05T12:37:34.000Z",
   "config": {
     "git_repo": "https://github.com/microbiomedata/ReadsQC",
-    "release": "v0.0.1",
+    "release": "b1.0.5",
     "wdl": "rqcfilter.wdl",
     "trigger_object": "nmdc:22afa3d49b73eaec2e9787a6b88fbdc3",
     "input_prefix": "jgi_rqcfilter",

@@ -172,6 +172,16 @@ class nmdcapi():
         resp = requests.post(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
+    def post_objects(self, obj_data, json_obj=None):
+        url = self._base_url + 'v1/outputs'
+
+        # objects_file = open(json_obj)
+        # obj_data = json.load(objects_file)
+
+        resp = requests.post(url, headers=self.header,
+                             data=json.dumps(obj_data))
+        return resp.json()
+
     def set_type(self, obj, typ):
         url = '%sobjects/%s/types' % (self._base_url, obj)
         d = [typ]
