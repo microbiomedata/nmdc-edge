@@ -1,23 +1,14 @@
 CROMWELL_URL=http://cori21-ib0:8088
-TEMPLATE_DIR=/global/cfs/cdirs/m3408/aim2/tools
-WDL_DIR=/global/cfs/cdirs/m3408/aim2/dev/wdl/
-WATCH_STATE=/global/cfs/cdirs/m3408/ficus/state
-AGENT_STATE=/global/cfs/cdirs/m3408/ficus/agent2.state
-DATA_DIR=/global/cfs/cdirs/m3408/ficus/pipeline_products
-JAMO_DIR=/global/cfs/cdirs/m3408/ficus/jamo
+AGENT_STATE=./test_data/agent.state
+DATA_DIR=./test_data/data_dir
 
 # Raw data space
 # This needs to be public so data can be fetch via http
 RAW_DIR=/global/cfs/cdirs/m3408/ficus/pipeline_products/raw
 
-# Watch List
-WATCH_LIST=/global/cfs/cdirs/m3408/ficus/pipeline_products/watch.lst
-
 # Staging area for Cromwell
-STAGE_DIR=/global/cscratch1/sd/nmdcda/drop
+STAGE_DIR=./test_data/stage
 NMDC_API=http://localhost:9999
 RESOURCE=NERSC-Cori
 SITE=NERSC
 URL_ROOT=https://data.microbiomedata.org/data/
-ACTIVITY_ID_STATE=/global/cfs/cdirs/m3408/aim2/.activity_id_state
-WORKFLOWS=/global/cfs/cdirs/m3408/aim2/tools/wf_configs.yaml

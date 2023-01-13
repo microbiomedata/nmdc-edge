@@ -1,0 +1,15 @@
+{
+  "data_object_set": [
+  {
+    "description": "A file",
+    "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/assembly/afile",
+    "md5_checksum": "4781ac74d431cc2a1b09a6dcd6c68c50",
+    "file_size_bytes": 16,
+    "id": "nmdc:37573bca240f88091720ae61ae5c9452",
+    "name": "afilename",
+    "data_object_type": "Assembly Contigs"
+  }
+  ]
+}
+
+
