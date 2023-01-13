@@ -31,7 +31,8 @@ def _get_sha256(fn):
 
 
 class nmdcapi():
-    _base_url = 'https://api.dev.microbiomedata.org/'
+    # _base_url = 'https://api.dev.microbiomedata.org/'
+    _base_url = 'https://api-dev.microbiomedata.org/'
 
     def __init__(self):
         try:

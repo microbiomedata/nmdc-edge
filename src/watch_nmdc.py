@@ -11,6 +11,7 @@ import shutil
 import traceback
 import jsonschema
 import logging
+from pymongo import MongoClient
 
 
 class watcher():
@@ -19,7 +20,7 @@ class watcher():
     # This is mainly used for testing
     cycles = -1
 
-    _ALLOWED = ['Reads QC: v0.0.1']
+    _ALLOWED = ['Reads QC: b1.0.6', 'Readbased Analysis: v1.0.2-beta','Metagenome Assembly: v1.0.3-beta','Metagenome Annotation: v1.0.0-beta','MAGs: v1.0.4-beta']
 #    _ALLOWED = ['metag-1.0.0', 'metat-1.0.0']
 #    _ALLOWED = ['metag-1.0.0']
 
@@ -32,6 +33,13 @@ class watcher():
         self.raw_dir = self.config.conf['raw_dir']
         self.jobs = []
         self.restored = False
+        mongo_url = os.environ.get("MONGO_URL")
+        db = os.environ.get("MONGO_DB", "nmdc")
+        self.db = None
+        if mongo_url:
+            client = MongoClient(mongo_url)
+            self.db = client[db]
+
 
     def restore(self, nocheck=False):
         """
@@ -141,6 +149,7 @@ class watcher():
             # claim job
             claim = self.nmdc.claim_job(jid)
             if not claim['claimed']:
+                logging.debug(claim)
                 self.submit(j, claim['id'])
                 self.ckpt()
             else:
@@ -161,9 +170,13 @@ class watcher():
             schema = self._load_json(schemafile)
             try:
                 jsonschema.validators.validate(results, schema)
+                return True
             except jsonschema.exceptions.ValidationError as ex:
                 logging.error("Failed validation")
                 logging.error(ex)
+                print("Failed validation")
+                print(ex)
+        return True
 
     def fix_urls(self, dos, actid, subdir):
         root = self.config.conf['url_root'].rstrip('/')
@@ -171,6 +184,25 @@ class watcher():
             fn = do['url'].split('/')[-1]
             new_url = f"{root}/{actid}/{subdir}/{fn}"
             do['url'] = new_url
+
+
+    def mock_post(self, objs):
+        if not self.validate_objects(objs):
+            logging.error("Failed validation")
+            return None
+        for col in objs.keys():
+            col_name = col
+            if col == "read_qc_analysis_activity_set":
+                col_name = "read_QC_analysis_activity_set"
+            print(col, col_name)
+            try:
+                resp = self.db[col_name].insert_many(objs[col])
+                print(resp)
+            except Exception as ex:
+                print("Error with insert")
+                print(ex)
+        return True
+
 
     def post_job_done(self, job):
         # Prepare the result record
@@ -180,6 +212,8 @@ class watcher():
         subdir = "{directory}.{iteration}".format(**job.conf)
         outdir = os.path.join(dd, job.activity_id, subdir)
         obj = dict()
+        informed_by = job.conf["was_informed_by"]
+        outdir = os.path.join(dd, informed_by, subdir)
         if not os.path.exists(outdir):
             os.makedirs(outdir)
         for k, v in md['outputs'].items():
@@ -187,7 +221,7 @@ class watcher():
             if k.endswith("objects"):
                 obj = json.load(open(v))
                 # TODO Move this into the workflow
-                self.fix_urls(obj['data_object_set'], job.activity_id, subdir)
+                self.fix_urls(obj['data_object_set'], informed_by, subdir)
                 if not os.path.exists(np):
                     json.dump(obj, open(np, "w"))
             else:
@@ -198,7 +232,11 @@ class watcher():
         mdf = os.path.join(outdir, "metadata.json")
         if not os.path.exists(mdf):
             json.dump(md, open(mdf, "w"))
-        resp = self.nmdc.post_objects(obj)
+        if True:
+            resp = self.nmdc.post_objects(obj)
+        else:
+            resp = self.mock_post(obj)
+        logging.info(resp)
         job.done = True
         resp = self.nmdc.update_op(job.opid, done=True,
                                    meta=md)
@@ -268,7 +306,7 @@ def main():  # pragma: no cover
                     print("Skipping %s: %s" % (val, job.last_status))
                     continue
                 job.cromwell_submit(force=True)
-                jprint(job.get_state())
+                #jprint(job.get_state())
                 w.ckpt()
 
         elif sys.argv[1] == 'sync':

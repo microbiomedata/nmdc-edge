@@ -4,3 +4,4 @@ test_data/data_dir/
 test_data/afile.sha256
 htmlcov/
 .coverage
+attic
