@@ -14,6 +14,8 @@ import logging
 from pymongo import MongoClient
 
 
+logger = logging.getLogger(__name__)
+
 class watcher():
     _POLL = 20
     _MAX_FAILS = 2
@@ -85,13 +87,13 @@ class watcher():
         """
         The endless loop
         """
-        logging.info("Entering polling loop")
+        logger.info("Entering polling loop")
         while self.cycles != 0:
             try:
                 self.cycle()
             except Exception as e:
-                logging.error("Error")
-                logging.error(e)
+                logger.error("Error")
+                logger.error(e)
                 traceback.print_exc(file=sys.stdout)
             if self.cycles > 0:
                 self.cycles -= 1
@@ -107,12 +109,12 @@ class watcher():
         wfid = njob['workflow']['id']
         # Collect some info from the object
         if 'object_id_latest' in njob['config']:
-            logging.warning("Old record. Skipping.")
+            logger.warning("Old record. Skipping.")
             return
         job = self.find_job_by_opid(opid)
         if job:
-            logging.debug("Previously cached job")
-            logging.info("Reusing activity %s" % (job.activity_id))
+            logger.debug("Previously cached job")
+            logger.info("Reusing activity %s" % (job.activity_id))
         else:
             # Create a new job
             job = wfjob(wfid, njob['id'], njob['config'], opid,
@@ -143,20 +145,20 @@ class watcher():
             jid = j['id']
             if j.get('claims') and len(j.get('claims')) > 0:
                 continue
-            logging.debug(f"try to claim: {jid}")
+            logger.debug(f"try to claim: {jid}")
             self.nmdc.refresh_token()
 
             # claim job
             claim = self.nmdc.claim_job(jid)
             if not claim['claimed']:
-                logging.debug(claim)
+                logger.debug(claim)
                 self.submit(j, claim['id'])
                 self.ckpt()
             else:
                 # Previously claimed
                 opid = claim['detail']['id']
                 # op = self.nmdc.get_op(opid)
-                logging.info("Previously claimed.")
+                logger.info("Previously claimed.")
                 self.submit(j, opid)
                 self.ckpt()
 
@@ -172,10 +174,8 @@ class watcher():
                 jsonschema.validators.validate(results, schema)
                 return True
             except jsonschema.exceptions.ValidationError as ex:
-                logging.error("Failed validation")
-                logging.error(ex)
-                print("Failed validation")
-                print(ex)
+                logger.error("Failed validation")
+                logger.error(ex)
         return True
 
     def fix_urls(self, dos, actid, subdir):
@@ -185,35 +185,31 @@ class watcher():
             new_url = f"{root}/{actid}/{subdir}/{fn}"
             do['url'] = new_url
 
-
     def mock_post(self, objs):
         if not self.validate_objects(objs):
-            logging.error("Failed validation")
+            logger.error("Failed validation")
             return None
         for col in objs.keys():
             col_name = col
             if col == "read_qc_analysis_activity_set":
                 col_name = "read_QC_analysis_activity_set"
-            print(col, col_name)
             try:
                 resp = self.db[col_name].insert_many(objs[col])
-                print(resp)
             except Exception as ex:
-                print("Error with insert")
-                print(ex)
+                logger.warning("Error with insert")
+                logger.warning(ex)
         return True
 
 
     def post_job_done(self, job):
         # Prepare the result record
-        logging.info("Running post for op %s" % (job.opid))
+        logger.info("Running post for op %s" % (job.opid))
         md = job.get_metadata()
         dd = self.config.get_data_dir()
-        subdir = "{directory}.{iteration}".format(**job.conf)
-        outdir = os.path.join(dd, job.activity_id, subdir)
         obj = dict()
         informed_by = job.conf["was_informed_by"]
-        outdir = os.path.join(dd, informed_by, subdir)
+        subdir = os.path.join(informed_by, job.activity_id)
+        outdir = os.path.join(dd, subdir)
         if not os.path.exists(outdir):
             os.makedirs(outdir)
         for k, v in md['outputs'].items():
@@ -221,22 +217,22 @@ class watcher():
             if k.endswith("objects"):
                 obj = json.load(open(v))
                 # TODO Move this into the workflow
-                self.fix_urls(obj['data_object_set'], informed_by, subdir)
+                self.fix_urls(obj['data_object_set'], informed_by, job.activity_id)
                 if not os.path.exists(np):
                     json.dump(obj, open(np, "w"))
             else:
                 if os.path.exists(np):
-                    logging.warning(f"output {np} exist.  Skipping\n")
+                    logger.warning(f"Skipping output {np} already exist")
                     continue
                 shutil.copyfile(v, np)
         mdf = os.path.join(outdir, "metadata.json")
         if not os.path.exists(mdf):
             json.dump(md, open(mdf, "w"))
-        if True:
-            resp = self.nmdc.post_objects(obj)
-        else:
+        if "MOCK_POST" in os.environ:
             resp = self.mock_post(obj)
-        logging.info(resp)
+        else:
+            resp = self.nmdc.post_objects(obj)
+        logger.info("response: " + str(resp))
         job.done = True
         resp = self.nmdc.update_op(job.opid, done=True,
                                    meta=md)
@@ -264,6 +260,10 @@ def jprint(obj):
 
 
 def main():  # pragma: no cover
+    logging_level = os.getenv('NMDC_LOG_LEVEL', logging.INFO)
+    logging.basicConfig(level=logging_level,
+                        format='%(asctime)s %(levelname)s: %(message)s')
+    logger = logging.getLogger(__name__)
     w = watcher()
     if len(sys.argv) > 1:
         # Manual mode
@@ -273,7 +273,7 @@ def main():  # pragma: no cover
                 job = w.nmdc.get_job(jobid)
                 claims = job['claims']
                 if len(claims) == 0:
-                    print("todo")
+                    logger.error("todo: Handle Empty Claims")
                     sys.exit(1)
                     claim = w.nmdc.claim_job(jobid)
                     opid = claim['detail']['id']
