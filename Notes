@@ -14,3 +14,28 @@ Scenarios to run through
 - New version of a workflow is activates
 
 
+How to test and develop
+
+module load python
+export PYTHONPATH=/global/cfs/cdirs/m3408/aim2/dev/nmdc_automation
+export MONGO_URL='user mongo credentials'
+Running the job finder (this will run one cycle)
+
+python ./src/job_finder.py
+
+Running the watcher
+
+python ./src/watch_nmdc.py daemon
+
+You may need to reset the watch state which is in....
+rm /global/cfs/cdirs/m3408/ficus/agent2.state
+Note: Once we are in production we should make sure we don't just 
+delete this file.
+
+
+Rerun a step
+Delete the first element in the claims
+
+Cause a full resubmit, delete the activities.
+
+
