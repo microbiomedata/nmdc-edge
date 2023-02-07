@@ -13,7 +13,7 @@ Workflows:
     Type: nmdc:ReadQCAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: b1.0.6
+    Version: b1.0.7
     WDL: rqcfilter.wdl
     Collection: read_qc_analysis_activity_set
     Predecessor: Sequencing

@@ -6,6 +6,9 @@ import tempfile
 import requests
 from .config import config
 import logging
+from time import time
+import datetime
+import pytz
 
 
 class job():
@@ -22,6 +25,9 @@ class job():
     activity_templ = None
     outputs = None
     input_data_objects = []
+    start = None
+    end = None
+    # TODO: Add these to the checkpoint
 
     def __init__(self, typ=None, nmdc_jobid=None, conf=None,
                  opid=None, activity_id="TODO", state=None, nocheck=False):
@@ -87,6 +93,8 @@ class job():
             data = resp.json()
             state = data['status']
         self.last_status = state
+        if state == "Succeeded" and not self.end:
+            self.end = datetime.datetime.now(pytz.utc).isoformat()
         return state
 
     def get_metadata(self):
@@ -189,6 +197,7 @@ class job():
                 job_id = "dryrun"
 
             logging.info(f"Submitted: {job_id}")
+            self.start = datetime.datetime.now(pytz.utc).isoformat()
             self.jobid = job_id
             self.done = False
 

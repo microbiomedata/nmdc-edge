@@ -195,7 +195,7 @@ class watcher():
         root = self.config.conf['url_root'].rstrip('/')
         return f"{root}/{informed_by}/{act_id}/{fname}"
 
-    def _get_output(self, informed_by, act_id):
+    def _get_output_dir(self, informed_by, act_id):
         dd = self.config.get_data_dir()
         outdir = os.path.join(dd, informed_by, act_id)
         if not os.path.exists(outdir):
@@ -209,7 +209,7 @@ class watcher():
         job_outs = md['outputs']
         informed_by = job.conf["was_informed_by"]
         act_id = job.activity_id
-        outdir = self._get_output(informed_by, act_id)
+        outdir = self._get_output_dir(informed_by, act_id)
 
         obj = dict()
         output_ids = []
@@ -227,7 +227,7 @@ class watcher():
             id = "nmdc:dobj-xxx"
             desc = r['description'].replace('{id}', act_id)
             do = {
-                "id": id,
+                "id": r["id"],
                 "name": r['name'],
                 "description": desc,
                 "file_size_bytes": os.stat(full_name).st_size,
@@ -238,7 +238,6 @@ class watcher():
             }
             output_dos.append(do)
             output_ids.append(id)
-            print(do)
 
         # Generate Activity
         name = job.activity_templ["name"].replace("{id}", act_id)
@@ -251,9 +250,9 @@ class watcher():
             "id": act_id,
             "execution_resource": self.config.conf['resource'],
             "name": name,
-            "started_at_time": "TODO",
+            "started_at_time": job.start,
             "type": job.activity_templ["type"],
-            "ended_at_time": "TODO"
+            "ended_at_time": job.end
         }
         for k, v in job.activity_templ.items():
             if v.startswith('{outputs.'):
