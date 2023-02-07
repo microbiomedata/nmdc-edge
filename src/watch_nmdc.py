@@ -12,9 +12,15 @@ import traceback
 import jsonschema
 import logging
 from pymongo import MongoClient
+import hashlib
 
 
 logger = logging.getLogger(__name__)
+
+
+def _md5(file):
+    return hashlib.md5(open(file,'rb').read()).hexdigest()
+
 
 class watcher():
     _POLL = 20
@@ -185,21 +191,92 @@ class watcher():
             new_url = f"{root}/{actid}/{subdir}/{fn}"
             do['url'] = new_url
 
-    def mock_post(self, objs):
-        if not self.validate_objects(objs):
-            logger.error("Failed validation")
-            return None
-        for col in objs.keys():
-            col_name = col
-            if col == "read_qc_analysis_activity_set":
-                col_name = "read_QC_analysis_activity_set"
-            try:
-                resp = self.db[col_name].insert_many(objs[col])
-            except Exception as ex:
-                logger.warning("Error with insert")
-                logger.warning(ex)
-        return True
+    def _get_url(self, informed_by, act_id, fname):
+        root = self.config.conf['url_root'].rstrip('/')
+        return f"{root}/{informed_by}/{act_id}/{fname}"
 
+    def _get_output(self, informed_by, act_id):
+        dd = self.config.get_data_dir()
+        outdir = os.path.join(dd, informed_by, act_id)
+        if not os.path.exists(outdir):
+            os.makedirs(outdir)
+        return outdir
+
+    def post_job_done_new(self, job):
+        # Prepare the result record
+        logger.info("Running post for op %s" % (job.opid))
+        md = job.get_metadata()
+        job_outs = md['outputs']
+        informed_by = job.conf["was_informed_by"]
+        act_id = job.activity_id
+        outdir = self._get_output(informed_by, act_id)
+
+        obj = dict()
+        output_ids = []
+        output_dos = []
+        # Generate DOs
+        prefix = job.conf['input_prefix']
+        for r in job.outputs:
+            outkey = f"{prefix}.{r['output']}"
+            full_name = job_outs[outkey]
+            print(outkey, full_name)
+            fname = os.path.basename(full_name)
+            np = os.path.join(outdir, fname)
+            shutil.copyfile(full_name, np)
+            md5 = _md5(full_name)
+            id = "nmdc:dobj-xxx"
+            desc = r['description'].replace('{id}', act_id)
+            do = {
+                "id": id,
+                "name": r['name'],
+                "description": desc,
+                "file_size_bytes": os.stat(full_name).st_size,
+                "type": "nmdc:DataObject",
+                "data_object_type": r['data_object_type'],
+                "md5_checksum": md5,
+                "url": self._get_url(informed_by, act_id, fname)
+            }
+            output_dos.append(do)
+            output_ids.append(id)
+            print(do)
+
+        # Generate Activity
+        name = job.activity_templ["name"].replace("{id}", act_id)
+        act = {
+            "has_input": [],
+            "git_url": job.conf['git_repo'],
+            "version": job.conf['release'],
+            "has_output": output_ids,
+            "was_informed_by": informed_by,
+            "id": act_id,
+            "execution_resource": self.config.conf['resource'],
+            "name": name,
+            "started_at_time": "TODO",
+            "type": job.activity_templ["type"],
+            "ended_at_time": "TODO"
+        }
+        for k, v in job.activity_templ.items():
+            if v.startswith('{outputs.'):
+                out_key = f"{prefix}.{v[9:-1]}"
+                act[k] = job_outs[out_key]
+
+        # Add input object IDs
+        for obj in job.input_data_objects:
+            act["has_input"].append(obj['id'])
+
+        mdf = os.path.join(outdir, "metadata.json")
+        if not os.path.exists(mdf):
+            json.dump(md, open(mdf, "w"))
+
+        obj['data_object_set'] = output_dos
+        obj['todo_set'] = [act]
+        jprint(obj)
+        resp = self.nmdc.post_objects(obj)
+        logger.info("response: " + str(resp))
+        job.done = True
+        resp = self.nmdc.update_op(job.opid, done=True,
+                                   meta=md)
+        return resp
 
     def post_job_done(self, job):
         # Prepare the result record
@@ -228,10 +305,7 @@ class watcher():
         mdf = os.path.join(outdir, "metadata.json")
         if not os.path.exists(mdf):
             json.dump(md, open(mdf, "w"))
-        if "MOCK_POST" in os.environ:
-            resp = self.mock_post(obj)
-        else:
-            resp = self.nmdc.post_objects(obj)
+        resp = self.nmdc.post_objects(obj)
         logger.info("response: " + str(resp))
         job.done = True
         resp = self.nmdc.update_op(job.opid, done=True,
@@ -244,7 +318,10 @@ class watcher():
                 continue
             status = job.check_status()
             if status == 'Succeeded' and job.opid and not job.done:
-                self.post_job_done(job)
+                if job.outputs:
+                    self.post_job_done_new(job)
+                else:
+                    self.post_job_done(job)
                 self.ckpt()
             elif status == 'Failed' and job.opid:
                 if job.failed_count < self._MAX_FAILS:

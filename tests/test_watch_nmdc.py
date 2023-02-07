@@ -54,7 +54,7 @@ def test_watcher(monkeypatch):
 def test_claim_jobs(monkeypatch):
     tdir = os.path.dirname(__file__)
     wfc = os.path.join(tdir, "..", "test_data", "wf_config")
-    rqcf = os.path.join(tdir, "..", "test_data", "rqc_response.json")
+    rqcf = os.path.join(tdir, "..", "test_data", "rqc_response2.json")
     rqc = json.load(open(rqcf))
 
     def mock_status():
@@ -65,8 +65,12 @@ def test_claim_jobs(monkeypatch):
 
     def mock_get_metadata():
         return {'outputs': {
-          "afile": "./test_data/afile",
-          "objects": "./test_data/objects.json"
+          "nmdc_rqcfilter.filtered_final": "./test_data/afile",
+          "nmdc_rqcfilter.filtered_stats_final": "./test_data/bfile",
+          "nmdc_rqcfilter.input_read_bases": 123,
+          "nmdc_rqcfilter.output_read_bases": 456,
+          "nmdc_rqcfilter.input_read_count": 789,
+          "nmdc_rqcfilter.output_read_count": 1011,
           }}
 
     monkeypatch.setenv("WF_CONFIG_FILE", wfc)

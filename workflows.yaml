@@ -1,81 +1,98 @@
 Workflows:
   - Name: Sequencing
+    Type: nmdc:MetagenomeSequencing
     Enabled: False
     Git_repo: null
     Version: v1.0.0
-    Activity: metagenome_sequencing_activity_set
+    Collection: metagenome_sequencing_activity_set
     Predecessor: null
     Input_prefix: null
     Inputs: []
- 
+
   - Name: Reads QC
+    Type: nmdc:ReadQCAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
     Version: b1.0.6
     WDL: rqcfilter.wdl
-    Activity: read_qc_analysis_activity_set
+    Collection: read_qc_analysis_activity_set
     Predecessor: Sequencing
     Input_prefix: nmdc_rqcfilter
-    ID_type: mgrqc
     Inputs:
       input_files: do:Metagenome Raw Reads
-      informed_by: "{was_informed_by}"
-      resource: "NERSC-Cori"
       proj: "{activity_id}"
- 
+    Activity:
+      name: "Read QC Activity for {id}"
+      input_read_bases: "{outputs.input_read_bases}"
+      input_read_count: "{outputs.input_read_count}"
+      output_read_bases: "{outputs.output_read_bases}"
+      output_read_count: "{outputs.output_read_count}"
+      type: nmdc:ReadQcAnalysisActivity
+    Outputs:
+      - output: filtered_final
+        name: Reads QC result fastq (clean data)
+        suffix: "_filtered.fastq.gz"
+        data_object_type: Filtered Sequencing Reads
+        description: "Reads QC for {id}"
+      - output: filtered_stats_final
+        name: Reads QC summary statistics
+        suffix: "_filterStats.txt"
+        data_object_type: QC Statistics
+        description: "Reads QC summary for {id}"
+
   - Name: Metagenome Assembly
+    Type: nmdc:MetagenomeAssembly
     Enabled: True
     Git_repo: https://github.com/microbiomedata/metaAssembly
-    Version: v1.0.3-beta 
+    Version: v1.0.3-beta
     WDL: jgi_assembly.wdl
-    Activity: metagenome_assembly_set
+    Collection: metagenome_assembly_set
     Predecessor: Reads QC
     Input_prefix: jgi_metaASM
-    ID_type: mgasm
     Inputs:
       input_file: do:Filtered Sequencing Reads
-      rename_contig_prefix: actid
+      rename_contig_prefix: "{activity_id}"
       informed_by: "{was_informed_by}"
       resource: "NERSC-Cori"
       proj: "{activity_id}"
       git_url: https://github.com/microbiomedata/metaAssembly
- 
+
   - Name: Metagenome Annotation
+    Type: nmdc:MetagenomeAnnotationActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Version: v1.0.0-beta
     WDL: annotation_full.wdl
-    Activity: metagenome_annotation_activity_set
+    Collection: metagenome_annotation_activity_set
     Predecessor: Metagenome Assembly
     Input_prefix: annotation
-    ID_type: mgann
     Inputs:
       input_file: do:Assembly Contigs
-      imgap_project_id: "actid"
+      imgap_project_id: "{activity_id}"
       resource: "NERSC-Cori"
       proj: "{activity_id}"
       informed_by: "{was_informed_by}"
       git_url: https://github.com/microbiomedata/mg_annotation
- 
+
   - Name: MAGs
+    Type: nmdc:MAGsAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Git_repo: https://github.com/microbiomedata/metaMAGs
     Version: v1.0.4-beta
     WDL: mbin_nmdc.wdl
-    Activity: mags_activity_set
+    Collection: mags_activity_set
     Predecessor: Metagenome Annotation
     Input_prefix: nmdc_mags
-    ID_type: mgmag
     Inputs:
       contig_file: do:Assembly Contigs
       gff_file: do:Functional Annotation GFF
       cath_funfam_file: do:CATH FunFams (Functional Families) Annotation GFF
-      supfam_file: do:SUPERFam Annotation GFF 
-      cog_file: do:Clusters of Orthologous Groups (COG) Annotation GFF 
+      supfam_file: do:SUPERFam Annotation GFF
+      cog_file: do:Clusters of Orthologous Groups (COG) Annotation GFF
       proj_name: "{activity_id}"
       pfam_file: do:Pfam Annotation GFF
-      product_names_file: do:Product names
+      product_names_file: do:Product Names
       tigrfam_file: do:TIGRFam Annotation GFF
       ec_file: do:Annotation Enzyme Commission
       ko_file: do:Annotation KEGG Orthology
@@ -88,21 +105,22 @@ Workflows:
       informed_by: "{was_informed_by}"
       git_url: https://github.com/microbiomedata/metaMAGs
       url_root: https://data.microbiomedata.org/data/
- 
+
   - Name: Readbased Analysis
+    Type: nmdc:ReadBasedTaxonomyAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadbasedAnalysis
     Version: v1.0.2-beta
     WDL: ReadbasedAnalysis.wdl
-    Activity: read_based_analysis_activity_set
+    Collection: read_based_analysis_activity_set
     Predecessor: Reads QC
-    Input_prefix: nmdc_rba
-    ID_type: mgrba
+    Input_prefix: ReadbasedAnalysis
     Inputs:
       input_file: do:Filtered Sequencing Reads
-      prefix: actid
+      prefix: "{activity_id}"
       resource: "NERSC-Cori"
       proj: "{activity_id}"
       informed_by: "{was_informed_by}"
       git_url: https://github.com/microbiomedata/ReadbasedAnalysis
       url_root: https://data.microbiomedata.org/data/
+

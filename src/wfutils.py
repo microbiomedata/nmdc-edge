@@ -19,6 +19,9 @@ class job():
     dryrun = False
     # Future
     options = None
+    activity_templ = None
+    outputs = None
+    input_data_objects = []
 
     def __init__(self, typ=None, nmdc_jobid=None, conf=None,
                  opid=None, activity_id="TODO", state=None, nocheck=False):
@@ -42,6 +45,13 @@ class job():
             self.jobid = None
             self.failed_count = 0
             self.last_status = "Unsubmitted"
+
+        if 'outputs' in self.conf:
+            self.outputs = self.conf['outputs']
+        if 'activity' in self.conf:
+            self.activity_templ = self.conf['activity']
+        if 'input_data_objects' in self.conf:
+            self.input_data_objects = self.conf['input_data_objects']
 
         if self.jobid and not nocheck:
             self.check_status()

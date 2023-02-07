@@ -152,7 +152,7 @@ def test_update_op(logged_in, monkeypatch):
     monkeypatch.setattr(requests, "patch", mock_patch)
     resp = n.update_op("abc", done=True, results={"a": "b"}, meta={"d": "e"})
     assert "b" in resp["metadata"]
-    assert resp['url'] == 'https://api.dev.microbiomedata.org/operations/abc'
+    assert resp['url'] == 'https://api-dev.microbiomedata.org/operations/abc'
 
 
 def test_jobs(logged_in, monkeypatch):
