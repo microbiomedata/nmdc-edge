@@ -23,10 +23,10 @@ Workflows:
       proj: "{activity_id}"
     Activity:
       name: "Read QC Activity for {id}"
-      input_read_bases: "{outputs.input_read_bases}"
-      input_read_count: "{outputs.input_read_count}"
-      output_read_bases: "{outputs.output_read_bases}"
-      output_read_count: "{outputs.output_read_count}"
+      input_read_bases: "{outputs.stats.input_read_bases}"
+      input_read_count: "{outputs.stats.input_read_count}"
+      output_read_bases: "{outputs.stats.output_read_bases}"
+      output_read_count: "{outputs.stats.output_read_count}"
       type: nmdc:ReadQcAnalysisActivity
     Outputs:
       - output: filtered_final

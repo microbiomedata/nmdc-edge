@@ -67,11 +67,13 @@ def test_claim_jobs(monkeypatch):
         return {'outputs': {
           "nmdc_rqcfilter.filtered_final": "./test_data/afile",
           "nmdc_rqcfilter.filtered_stats_final": "./test_data/bfile",
-          "nmdc_rqcfilter.input_read_bases": 123,
-          "nmdc_rqcfilter.output_read_bases": 456,
-          "nmdc_rqcfilter.input_read_count": 789,
-          "nmdc_rqcfilter.output_read_count": 1011,
-          }}
+          "nmdc_rqcfilter.stats": {
+            "input_read_count": 11431762,
+            "input_read_bases": 1726196062,
+            "output_read_bases": 1244017053,
+            "output_read_count": 8312566
+            },
+        }}
 
     monkeypatch.setenv("WF_CONFIG_FILE", wfc)
     cleanup()

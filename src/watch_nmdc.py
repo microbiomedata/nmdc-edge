@@ -257,7 +257,13 @@ class watcher():
         for k, v in job.activity_templ.items():
             if v.startswith('{outputs.'):
                 out_key = f"{prefix}.{v[9:-1]}"
-                act[k] = job_outs[out_key]
+                if out_key not in job_outs:
+                    ele = out_key.split(".")
+                    map_name = ".".join(ele[0:-1])
+                    key_name = ele[-1]
+                    act[k] = job_outs[map_name][key_name]
+                else:
+                    act[k] = job_outs[out_key]
 
         # Add input object IDs
         for obj in job.input_data_objects:

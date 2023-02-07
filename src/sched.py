@@ -208,7 +208,7 @@ class Scheduler():
             outputs = []
             for output in wf["Outputs"]:
                 # Mint an ID
-                output["id"] = self.call_minter("type:DataObject", informed_by)
+                output["id"] = self.call_minter("nmdc:DataObject", informed_by)
                 outputs.append(output)
             job_config["outputs"] = outputs
 
