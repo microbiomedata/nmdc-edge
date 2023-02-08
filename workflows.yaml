@@ -297,19 +297,14 @@ Workflows:
     Type: nmdc:ReadBasedTaxonomyAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadbasedAnalysis
-    Version: v1.0.4-beta
+    Version: v1.0.5-beta
     WDL: ReadbasedAnalysis.wdl
     Collection: read_based_analysis_activity_set
     Predecessor: Reads QC
     Input_prefix: ReadbasedAnalysis
     Inputs:
       input_file: do:Filtered Sequencing Reads
-      prefix: "{activity_id}"
-      resource: "NERSC-Cori"
       proj: "{activity_id}"
-      informed_by: "{was_informed_by}"
-      git_url: https://github.com/microbiomedata/ReadbasedAnalysis
-      url_root: https://data.microbiomedata.org/data/
     Activity:
       name: "Readbased Taxonomy Analysis Activity for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
