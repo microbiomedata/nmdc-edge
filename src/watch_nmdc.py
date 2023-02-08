@@ -28,7 +28,7 @@ class watcher():
     # This is mainly used for testing
     cycles = -1
 
-    _ALLOWED = ['Reads QC: b1.0.6', 'Readbased Analysis: v1.0.2-beta','Metagenome Assembly: v1.0.3-beta','Metagenome Annotation: v1.0.0-beta','MAGs: v1.0.4-beta']
+    _ALLOWED = ['Reads QC: b1.0.7', 'Readbased Analysis: v1.0.2-beta','Metagenome Assembly: v1.0.3-beta','Metagenome Annotation: v1.0.0-beta','MAGs: v1.0.4-beta']
 #    _ALLOWED = ['metag-1.0.0', 'metat-1.0.0']
 #    _ALLOWED = ['metag-1.0.0']
 
@@ -224,7 +224,7 @@ class watcher():
             np = os.path.join(outdir, fname)
             shutil.copyfile(full_name, np)
             md5 = _md5(full_name)
-            id = "nmdc:dobj-xxx"
+            id = r["id"]
             desc = r['description'].replace('{id}', act_id)
             do = {
                 "id": r["id"],
@@ -266,16 +266,18 @@ class watcher():
                     act[k] = job_outs[out_key]
 
         # Add input object IDs
-        for obj in job.input_data_objects:
-            act["has_input"].append(obj['id'])
+        for dobj in job.input_data_objects:
+            act["has_input"].append(dobj['id'])
 
         mdf = os.path.join(outdir, "metadata.json")
         if not os.path.exists(mdf):
             json.dump(md, open(mdf, "w"))
 
         obj['data_object_set'] = output_dos
-        obj['todo_set'] = [act]
-        jprint(obj)
+        act_set = job.conf['activity_set']
+        obj[act_set] = [act]
+        objf = os.path.join(outdir, "object.json")
+        json.dump(obj, open(objf, "w"))
         resp = self.nmdc.post_objects(obj)
         logger.info("response: " + str(resp))
         job.done = True

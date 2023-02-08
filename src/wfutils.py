@@ -41,6 +41,8 @@ class job():
             self.last_status = state['last_status']
             self.failed_count = state.get('failed_count', 0)
             self.done = state.get('done', None)
+            self.start = state.get('start')
+            self.end = state.get('end')
         else:
             self.activity_id = activity_id
             self.type = typ
@@ -72,6 +74,8 @@ class job():
                 "last_status": self.last_status,
                 "done": self.done,
                 "failed_count": self.failed_count,
+                "start": self.start,
+                "end": self.end,
                 "opid": self.opid
                 }
         return data

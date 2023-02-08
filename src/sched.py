@@ -195,6 +195,7 @@ class Scheduler():
                 "release": wf["Version"],
                 "wdl": wf["WDL"],
                 "activity_id": activity_id,
+                "activity_set": wf["Collection"],
                 "was_informed_by": informed_by,
                 "trigger_activity": trig_actid,
                 "iteration": iteration,

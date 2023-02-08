@@ -164,7 +164,7 @@ class nmdcapi():
         return resp.json()
 
     def post_objects(self, obj_data, json_obj=None):
-        url = self._base_url + 'v1/outputs'
+        url = self._base_url + 'v1/workflows/activities'
 
         # objects_file = open(json_obj)
         # obj_data = json.load(objects_file)
