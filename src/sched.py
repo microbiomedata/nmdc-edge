@@ -217,7 +217,7 @@ class Scheduler():
             "workflow": {
                 "id": "{Name}: {Version}".format(**wf)
             },
-            "id": self.get_id(),
+            "id": activity_id,
             "created_at": datetime.today().replace(microsecond=0),
             "config": job_config,
             "claims": []
