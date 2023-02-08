@@ -28,7 +28,7 @@ class watcher():
     # This is mainly used for testing
     cycles = -1
 
-    _ALLOWED = ['Reads QC: b1.0.7', 'Readbased Analysis: v1.0.2-beta','Metagenome Assembly: v1.0.3-beta','Metagenome Annotation: v1.0.0-beta','MAGs: v1.0.4-beta']
+    _ALLOWED = ['Reads QC: b1.0.7', 'Readbased Analysis: v1.0.4-beta','Metagenome Assembly: v1.0.4-beta','Metagenome Annotation: v1.0.1-beta','MAGs: v1.0.4-beta']
 #    _ALLOWED = ['metag-1.0.0', 'metat-1.0.0']
 #    _ALLOWED = ['metag-1.0.0']
 
