@@ -52,10 +52,7 @@ Workflows:
     Inputs:
       input_file: do:Filtered Sequencing Reads
       rename_contig_prefix: "{activity_id}"
-      informed_by: "{was_informed_by}"
-      resource: "NERSC-Cori"
       proj: "{activity_id}"
-      git_url: https://github.com/microbiomedata/metaAssembly
     Activity:
       name: "Metagenome Assembly Activity for {id}"
       type: nmdc:MetagenomeAssembly
@@ -115,18 +112,15 @@ Workflows:
     Type: nmdc:MetagenomeAnnotationActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
-    Version: v1.0.1-beta
+    Version: v1.0.2-beta
     WDL: annotation_full.wdl
     Collection: metagenome_annotation_activity_set
     Predecessor: Metagenome Assembly
     Input_prefix: annotation
     Inputs:
       input_file: do:Assembly Contigs
-      imgap_project_id: "{activity_id}"
-      resource: "NERSC-Cori"
+      imgap_project_id: "scaffold"
       proj: "{activity_id}"
-      informed_by: "{was_informed_by}"
-      git_url: https://github.com/microbiomedata/mg_annotation
     Activity:
       name: "Metagenome Annotation Analysis Activity for {id}"
       type: nmdc:MetagenomeAnnotationActivity
@@ -242,7 +236,7 @@ Workflows:
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Git_repo: https://github.com/microbiomedata/metaMAGs
-    Version: v1.0.4-beta
+    Version: v1.0.5-beta
     WDL: mbin_nmdc.wdl
     Collection: mags_activity_set
     Predecessor: Metagenome Annotation
@@ -263,11 +257,7 @@ Workflows:
       smart_file: do:SMART Annotation GFF
       proteins_file: do:Annotation Amino Acid FASTA
       gene_phylogeny_file: do:Gene Phylogeny
-      resource: "NERSC-Cori"
       proj: "{activity_id}"
-      informed_by: "{was_informed_by}"
-      git_url: https://github.com/microbiomedata/metaMAGs
-      url_root: https://data.microbiomedata.org/data/
     Activity:
       name: "Metagenome Assembled Genomes Analysis Activity for {id}"
       type: nmdc:MAGsAnalysisActivity
@@ -299,7 +289,7 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/ReadbasedAnalysis
     Version: v1.0.5-beta
     WDL: ReadbasedAnalysis.wdl
-    Collection: read_based_analysis_activity_set
+    Collection: read_based_taxonomy_analysis_activity_set
     Predecessor: Reads QC
     Input_prefix: ReadbasedAnalysis
     Inputs:
@@ -307,10 +297,6 @@ Workflows:
       proj: "{activity_id}"
     Activity:
       name: "Readbased Taxonomy Analysis Activity for {id}"
-      input_read_bases: "{outputs.stats.input_read_bases}"
-      input_read_count: "{outputs.stats.input_read_count}"
-      output_read_bases: "{outputs.stats.output_read_bases}"
-      output_read_count: "{outputs.stats.output_read_count}"
       type: nmdc:ReadBasedTaxonomyAnalysisActivity
     Outputs:
     - output: final_gottcha2_report_tsv

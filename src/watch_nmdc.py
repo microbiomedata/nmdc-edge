@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 
 def _md5(file):
-    return hashlib.md5(open(file,'rb').read()).hexdigest()
+    return hashlib.md5(open(file, 'rb').read()).hexdigest()
 
 
 class watcher():
@@ -28,7 +28,11 @@ class watcher():
     # This is mainly used for testing
     cycles = -1
 
-    _ALLOWED = ['Reads QC: b1.0.7', 'Readbased Analysis: v1.0.4-beta','Metagenome Assembly: v1.0.4-beta','Metagenome Annotation: v1.0.1-beta','MAGs: v1.0.4-beta']
+    _ALLOWED = ['Reads QC: b1.0.7',
+                'Readbased Analysis: v1.0.5-beta',
+                'Metagenome Assembly: v1.0.4-beta',
+                'Metagenome Annotation: v1.0.2-beta',
+                'MAGs: v1.0.5-beta']
 #    _ALLOWED = ['metag-1.0.0', 'metat-1.0.0']
 #    _ALLOWED = ['metag-1.0.0']
 
@@ -47,7 +51,6 @@ class watcher():
         if mongo_url:
             client = MongoClient(mongo_url)
             self.db = client[db]
-
 
     def restore(self, nocheck=False):
         """
@@ -301,7 +304,8 @@ class watcher():
             if k.endswith("objects"):
                 obj = json.load(open(v))
                 # TODO Move this into the workflow
-                self.fix_urls(obj['data_object_set'], informed_by, job.activity_id)
+                self.fix_urls(obj['data_object_set'], informed_by,
+                              job.activity_id)
                 if not os.path.exists(np):
                     json.dump(obj, open(np, "w"))
             else:
@@ -390,7 +394,7 @@ def main():  # pragma: no cover
                     print("Skipping %s: %s" % (val, job.last_status))
                     continue
                 job.cromwell_submit(force=True)
-                #jprint(job.get_state())
+                # jprint(job.get_state())
                 w.ckpt()
 
         elif sys.argv[1] == 'sync':

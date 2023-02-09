@@ -6,7 +6,6 @@ import tempfile
 import requests
 from .config import config
 import logging
-from time import time
 import datetime
 import pytz
 

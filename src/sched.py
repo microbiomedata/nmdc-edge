@@ -217,12 +217,12 @@ class Scheduler():
             "workflow": {
                 "id": "{Name}: {Version}".format(**wf)
             },
-            "id": activity_id,
+            "id": self.get_id(),
             "created_at": datetime.today().replace(microsecond=0),
             "config": job_config,
             "claims": []
         }
-        rec = self.db.jobs.insert_one(jr, bypass_document_validation=True)
+        self.db.jobs.insert_one(jr, bypass_document_validation=True)
         logging.info(f'JOB RECORD: {jr["id"]}')
         # This would make the job record
         # print(json.dumps(ji, indent=2))
@@ -238,7 +238,23 @@ class Scheduler():
         u = str(uuid.uuid1())
         return f"nmdc:{u}"
 
+    def mock_mint(self, id_type):
+        """
+        Return a fixed pattern
+        """
+        mapping = {
+            "nmdc:ReadQcAnalysisActivity": "mgrqc",
+            "nmdc:MetagenomeAssembly": "mgasm",
+            "nmdc:MetagenomeAnnotationActivity": "mgann",
+            "nmdc:MAGsAnalysisActivity": "mgmag",
+            "nmdc:ReadBasedTaxonomyAnalysisActivity": "mgrbt"
+        }
+        return f"nmdc:wf{mapping[id_type]}-11-xxxxxx"
+
     def call_minter(self, id_type, informed_by):
+        if os.environ.get("MOCK_MINT") and id_type != "nmdc:DataObject":
+            return self.mock_mint(id_type)
+
         self.refresh_token()
         url = f"{self.api_url}/pids/mint"
         data = {
@@ -271,7 +287,7 @@ class Scheduler():
 
         # This is a temporary workaround and should be removed
         # once the schema names are all fixed.
-        act_set = wf['Collection'] #.replace("_qc_", "_QC_")
+        act_set = wf['Collection']
         q = {"was_informed_by": informed_by}
         ct = 0
         root_id = None
