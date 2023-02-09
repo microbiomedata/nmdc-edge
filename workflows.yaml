@@ -256,7 +256,7 @@ Workflows:
       sam_file: do:Assembly Coverage BAM
       smart_file: do:SMART Annotation GFF
       proteins_file: do:Annotation Amino Acid FASTA
-      gene_phylogeny_file: do:Gene Phylogeny
+      gene_phylogeny_file: do:Gene Phylogeny tsv
       proj: "{activity_id}"
     Activity:
       name: "Metagenome Assembled Genomes Analysis Activity for {id}"
