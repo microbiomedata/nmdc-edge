@@ -81,7 +81,6 @@ class watcher():
             f.write(json.dumps(data, indent=2))
 
     def cycle(self):
-        self.nmdc.refresh_token()
         # Restore the state in case some other
         # process made a change
         self.restore()
@@ -89,7 +88,6 @@ class watcher():
         if not os.environ.get("SKIP_CLAIM"):
             self.claim_jobs()
         # Check existing jobs
-        self.nmdc.refresh_token()
         self.check_status()
 
     def watch(self):
@@ -155,7 +153,6 @@ class watcher():
             if j.get('claims') and len(j.get('claims')) > 0:
                 continue
             logger.debug(f"try to claim: {jid}")
-            self.nmdc.refresh_token()
 
             # claim job
             claim = self.nmdc.claim_job(jid)
