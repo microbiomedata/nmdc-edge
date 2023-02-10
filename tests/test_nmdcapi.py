@@ -16,7 +16,7 @@ def mock_api(monkeypatch, requests_mock):
     requests_mock.post("http://localhost/token", json=resp)
 
 
-def test_basics(monkeypatch, mock_api, requests_mock):
+def test_basics(mock_api, requests_mock):
     n = nmdcapi()
 
     requests_mock.post("http://localhost/ids/mint", json={})
@@ -31,7 +31,7 @@ def test_basics(monkeypatch, mock_api, requests_mock):
     assert "metadata" in resp
 
 
-def test_objects(monkeypatch, mock_api, requests_mock):
+def test_objects(mock_api, requests_mock):
     n = nmdcapi()
 
     requests_mock.post("http://localhost/objects", json={})
@@ -56,7 +56,7 @@ def test_objects(monkeypatch, mock_api, requests_mock):
     assert "a" in resp
 
 
-def test_list_funcs(monkeypatch, mock_api, requests_mock):
+def test_list_funcs(mock_api, requests_mock):
     n = nmdcapi()
     mock_resp = json.load(open("./test_data/mock_jobs.json"))
 
@@ -74,7 +74,7 @@ def test_list_funcs(monkeypatch, mock_api, requests_mock):
     assert resp is not None
 
 
-def test_update_op(monkeypatch, mock_api, requests_mock):
+def test_update_op(mock_api, requests_mock):
     n = nmdcapi()
 
     mock_resp = {'metadata': {"b": "c"}}
@@ -88,7 +88,7 @@ def test_update_op(monkeypatch, mock_api, requests_mock):
     assert "b" in resp["metadata"]
 
 
-def test_jobs(monkeypatch, mock_api, requests_mock):
+def test_jobs(mock_api, requests_mock):
     n = nmdcapi()
 
     requests_mock.get("http://localhost/jobs/abc", json="jobs/")
