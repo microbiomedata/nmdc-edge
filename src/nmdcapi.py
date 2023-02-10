@@ -31,41 +31,47 @@ def _get_sha256(fn):
 
 
 class nmdcapi():
-    # _base_url = 'https://api.dev.microbiomedata.org/'
-    _base_url = 'https://api-dev.microbiomedata.org/'
+    token = None
+    expires = 0
+    _base_url = None
+    client_id = None
+    client_secret = None
 
     def __init__(self):
-        try:
-            self.get_token()
-        except Exception as e:
-            self.expires = 0
-            self.token = None
-            raise e
+        self._base_url = os.environ.get("NMDC_API_URL")
+        if self._base_url[-1] != '/':
+            self._base_url += '/'
+        self.client_id = os.environ.get("NMDC_CLIENT_ID")
+        self.client_secret = os.environ.get("NMDC_CLIENT_SECRET")
+        # cfile = os.path.join(os.environ['HOME'], '.nmdc-creds.json')
+        # if not os.path.exists(cfile):
+        #     self.token = None
+        #     return
 
-    def refresh_token(self):
-        # If it expires in 60 seconds, refresh
-        if self.expires + 60 > time():
-            self.get_token()
+        # with open(cfile) as f:
+        #     creds = json.loads(f.read())
+        # self.client_id = creds["CLIENT_ID"]
+
+    def refresh_token(func):
+        def _get_token(self, *args, **kwargs):
+            # If it expires in 60 seconds, refresh
+            if not self.token or self.expires + 60 > time():
+                self.get_token()
+            return func(self, *args, **kwargs)
+        return _get_token
 
     def get_token(self):
         """
         Get a token using a client id/secret.
         """
-        cfile = os.path.join(os.environ['HOME'], '.nmdc-creds.json')
-        if not os.path.exists(cfile):
-            self.token = None
-            return
-
-        with open(cfile) as f:
-            creds = json.loads(f.read())
         h = {
                 'accept': 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         data = {
                 'grant_type': 'client_credentials',
-                'client_id': creds['client_id'],
-                'client_secret': creds['client_secret'],
+                'client_id': self.client_id,
+                'client_secret': self.client_secret
                 }
         url = self._base_url + 'token'
         resp = requests.post(url, headers=h, data=data).json()
@@ -83,6 +89,33 @@ class nmdcapi():
     def get_header(self):
         return self.header
 
+    @refresh_token
+    def minter(self, id_type, informed_by=None):
+        url = f"{self._base_url}pids/mint"
+        data = {
+                "schema_class": {"id": id_type},
+                "how_many": 1
+               }
+        resp = requests.post(url,
+                             data=json.dumps(data),
+                             headers=self.header)
+        if not resp.ok:
+            raise ValueError("Failed to mint ID")
+        id = resp.json()[0]
+        if informed_by:
+            url = f"{self._base_url}pids/bind"
+            data = {
+                    "id_name": id,
+                    "metadata_record": {"informed_by": informed_by}
+                }
+            resp = requests.post(url,
+                                 data=json.dumps(data),
+                                 headers=self.header)
+            if not resp.ok:
+                raise ValueError("Failed to bind metadata to pid")
+        return id
+
+    @refresh_token
     def mint(self, ns, typ, ct):
         """
         Mint a new ID.
@@ -101,6 +134,7 @@ class nmdcapi():
         resp = requests.post(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
+    @refresh_token
     def get_object(self, obj, decode=False):
         """
         Helper function to get object info
@@ -116,6 +150,7 @@ class nmdcapi():
 
         return data
 
+    @refresh_token
     def create_object(self, fn, description, dataurl):
         """
         Helper function to create an object.
@@ -163,6 +198,7 @@ class nmdcapi():
         resp = requests.post(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
+    @refresh_token
     def post_objects(self, obj_data, json_obj=None):
         url = self._base_url + 'v1/workflows/activities'
 
@@ -173,12 +209,14 @@ class nmdcapi():
                              data=json.dumps(obj_data))
         return resp.json()
 
+    @refresh_token
     def set_type(self, obj, typ):
         url = '%sobjects/%s/types' % (self._base_url, obj)
         d = [typ]
         resp = requests.put(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
+    @refresh_token
     def bump_time(self, obj):
         url = '%sobjects/%s' % (self._base_url, obj)
         now = datetime.today().isoformat()
@@ -189,6 +227,7 @@ class nmdcapi():
         resp = requests.patch(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
+    @refresh_token
     def list_jobs(self, filt=None, max=20):
         url = '%sjobs?max_page_size=%s' % (self._base_url, max)
         d = {}
@@ -208,11 +247,13 @@ class nmdcapi():
             url = orig_url + "&page_token=%s" % (resp['next_page_token'])
         return results
 
+    @refresh_token
     def get_job(self, job):
         url = '%sjobs/%s' % (self._base_url, job)
         resp = requests.get(url, headers=self.header)
         return resp.json()
 
+    @refresh_token
     def claim_job(self, job):
         url = '%sjobs/%s:claim' % (self._base_url, job)
         resp = requests.post(url, headers=self.header)
@@ -238,6 +279,7 @@ class nmdcapi():
             url = orig_url + "&page_token=%s" % (resp['next_page_token'])
         return results
 
+    @refresh_token
     def list_objs(self, filt=None, max_page_size=40):
         url = '%sobjects?max_page_size=%d' % (self._base_url, max_page_size)
         if filt:
@@ -245,6 +287,7 @@ class nmdcapi():
         results = self._page_query(url)
         return results
 
+    @refresh_token
     def list_ops(self, filt=None, max_page_size=40):
         url = '%soperations?max_page_size=%d' % (self._base_url, max_page_size)
         d = {}
@@ -264,11 +307,13 @@ class nmdcapi():
             url = orig_url + "&page_token=%s" % (resp['next_page_token'])
         return results
 
+    @refresh_token
     def get_op(self, opid):
         url = '%soperations/%s' % (self._base_url, opid)
         resp = requests.get(url, headers=self.header)
         return resp.json()
 
+    @refresh_token
     def update_op(self, opid, done=None, results=None, meta=None):
         url = '%soperations/%s' % (self._base_url, opid)
         d = dict()
