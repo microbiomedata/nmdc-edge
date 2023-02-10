@@ -1,7 +1,6 @@
 from src.wfutils import job
 import os
 import json
-import requests
 from pytest import fixture
 
 
@@ -10,15 +9,6 @@ def wfconf(monkeypatch):
     tdir = os.path.dirname(__file__)
     wfc = os.path.join(tdir, "..", "test_data", "wf_config")
     monkeypatch.setenv("WF_CONFIG_FILE", wfc)
-
-
-class MockResponse:
-    def __init__(self, resp, status_code=200):
-        self.resp = resp
-        self.status_code = status_code
-
-    def json(self):
-        return self.resp
 
 
 def test_job(wfconf, requests_mock):
@@ -45,12 +35,11 @@ def test_log(wfconf):
     ajob.json_log({"a": "b"}, title="Test")
 
 
-def test_check_meta(monkeypatch, wfconf):
-    def mock_get(*args, **kwargs):
-        return MockResponse({"status": "Submitted"})
-
-    # apply the monkeypatch for requests.get to mock_get
-    monkeypatch.setattr(requests, "get", mock_get)
+def test_check_meta(wfconf, requests_mock):
+    url = "http://localhost:8088/api/workflows/v1/1234/status"
+    requests_mock.get(url, json={"status": "Submitted"})
+    url = "http://localhost:8088/api/workflows/v1/1234/metadata"
+    requests_mock.get(url, json={"status": "Submitted"})
     ajob = job("example", "jobid", conf={})
     ajob.jobid = "1234"
     resp = ajob.check_status()
