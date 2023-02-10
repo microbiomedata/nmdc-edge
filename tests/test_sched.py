@@ -42,7 +42,6 @@ def mock_api(monkeypatch, requests_mock):
     requests_mock.post("http://localhost/pids/bind", json=resp)
 
 
-
 def read_json(fn):
     fp = os.path.join(test_data, fn)
     data = json.load(open(fp))
@@ -72,10 +71,10 @@ def init_test(db):
 
 
 def mock_progress(db, wf):
-    s = wf['Collection']
+    s = wf.collection
     data = read_json("%s.json" % (s))[0]
-    data['git_repo'] = wf['Git_repo']
-    data['version'] = wf['Version']
+    data['git_repo'] = wf.git_repo
+    data['version'] = wf.version
     db[s].delete_many({})
     db[s].insert_one(data)
 
