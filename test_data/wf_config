@@ -1,4 +1,4 @@
-CROMWELL_URL=http://cori21-ib0:8088
+CROMWELL_URL=http://localhost:8088
 AGENT_STATE=./test_data/agent.state
 DATA_DIR=./test_data/data_dir
 
