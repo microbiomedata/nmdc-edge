@@ -2,15 +2,15 @@ Workflows:
   - Name: Sequencing
     Type: nmdc:MetagenomeSequencing
     Enabled: False
-    Git_repo: null
+    Git_repo: ""
     Version: v1.0.0
     Collection: metagenome_sequencing_activity_set
     Predecessor: null
     Input_prefix: null
-    Inputs: null
+    Inputs: {}
     WDL: null
     Activity: null
-    Outputs: null
+    Outputs: []
 
   - Name: Reads QC
     Type: nmdc:ReadQcAnalysisActivity

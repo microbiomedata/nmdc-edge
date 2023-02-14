@@ -10,9 +10,11 @@ from .workflows import load_workflows
 from functools import lru_cache
 from pymongo import MongoClient
 from pymongo.database import Database as MongoDatabase
+from .activities import Activites
 
 
 _POLL_INTERVAL = 60
+_WF_YAML_ENV = "NMDC_WORKFLOW_YAML_FILE"
 
 
 @lru_cache
@@ -32,9 +34,27 @@ def get_mongo_db() -> MongoDatabase:
 This is still a prototype implementation.  The plan
 is to migrate this fucntion into Dagster.
 """
+class Job():
+    """
+    Class to hold information for new jobs
+    """
+    trigger_id = None
+    informed_by = None
+    trigger_act = None
+
+    def __init__(self, workflow, trigger_set, act_id,
+                 trigger_act=None):
+        self.workflow = workflow
+        self.trigger_set = trigger_set
+        self.trigger_id = act_id
+        if trigger_act:
+            self.trigger_act = trigger_act
+            self.informed_by = trigger_act.was_informed_by
+            self.trigger_id = trigger_act.id
 
 
 class Scheduler():
+    # TODO: Get this from the config
     _sets = ['metagenome_annotation_activity_set',
              'metagenome_assembly_set',
              'read_qc_analysis_activity_set',
@@ -44,14 +64,10 @@ class Scheduler():
     def __init__(self, db, wfn="workflows.yaml"):
         logging.info("Initializing Scheduler")
         # Init
-        self.workflows = load_workflows(wfn)
+        wf_file = os.environ.get(_WF_YAML_ENV, wfn)
+        self.workflows = load_workflows(wf_file)
         self.db = db
         self.api = nmdcapi()
-
-        # Build a workflow map for later use
-        self.workflow_by_name = dict()
-        for wf in self.workflows:
-            self.workflow_by_name[wf.name] = wf
 
     async def run(self):
         logging.info("Starting Scheduler")
@@ -77,6 +93,10 @@ class Scheduler():
         acts[rec_id] = act
         inp = act["has_input"]
         root_dos = []
+        # This runs through each input and finds the
+        # activity that generated it as an output.
+        # It then calls this function on the associated
+        # activity to go up the provenance chain
         for d in inp:
             hit = False
             for set in self._sets:
@@ -90,32 +110,29 @@ class Scheduler():
                 root_dos.append(d)
         return acts, root_dos
 
-    def add_job_rec(self, job):
+    def resolve_objects(self, job):
         """
-        This takes a job and using the workflow definition,
-        resolves all the information needed to create a
-        job record.
+        Resolve objects using the old method
         """
-        wf = job['wf']
-        trig_actid = job['trigger_activity_id']
-        trigger_set = job['trigger_set']
-        pred = wf.predecessor
-        if not pred:
+        wf = job.workflow
+        trig_actid = job.trigger_id
+        if not wf.predecessor:
             # This can't happen
             logging.error("Missing predecessor")
             return
-        pred_wf = self.workflow_by_name[pred]
+        pred_wf = wf.parent
 
         # Find the activity that generated the data object id
-        act = self.db[trigger_set].find_one({"id": trig_actid})
-        informed_by = act.get("was_informed_by", "undefined")
+        act = self.db[job.trigger_set].find_one({"id": trig_actid})
+        job.trigger_act = act
+        job.informed_by = act.get("was_informed_by", "undefined")
 
         # Ignore if the trigger activity isn't the latest version
         if act is None or pred_wf.version != act.get('version'):
             return
 
         # Get the provenance
-        acts, root_dos = self.coll_prov_acts(act, trigger_set, {})
+        acts, root_dos = self.coll_prov_acts(act, job.trigger_set, {})
         dos = root_dos
         for aid, act in acts.items():
             for did in act['has_output']:
@@ -128,11 +145,33 @@ class Scheduler():
             if dobj and 'data_object_type' in dobj:
                 dobj.pop("_id")
                 do_by_type[dobj['data_object_type']] = dobj
-        base_id, iteration = self.get_activity_id(wf, informed_by)
+        return do_by_type
+
+    def add_job_rec(self, job):
+        """
+        This takes a job and using the workflow definition,
+        resolves all the information needed to create a
+        job record.
+        """
+        if job.trigger_act:
+            # Get all the data objects
+            next_act = job.trigger_act
+            do_by_type = dict()
+            while next_act:
+                for do_type, val in next_act.data_objects_by_type.items():
+                    do_by_type[do_type] = val.__dict__
+                # do_by_type.update(next_act.data_objects_by_type.__dict__)
+                next_act = next_act.parent
+
+        else:
+            do_by_type = self.resolve_objects(job)
+
+        wf = job.workflow
+        base_id, iteration = self.get_activity_id(wf, job.informed_by)
         activity_id = f"{base_id}.{iteration}"
         inp_objects = []
         inp = dict()
-        for k, v in wf.inputs.items():
+        for k, v in job.workflow.inputs.items():
             if v.startswith('do:'):
                 do_type = v[3:]
                 dobj = do_by_type.get(do_type)
@@ -141,8 +180,8 @@ class Scheduler():
                 inp_objects.append(dobj)
                 v = dobj["url"]
             # TODO: Make this smarter
-            if v == "{was_informed_by}":
-                v = informed_by
+            elif v == "{was_informed_by}":
+                v = job.informed_by
             elif v == "{activity_id}":
                 v = activity_id
 
@@ -155,8 +194,8 @@ class Scheduler():
                 "wdl": wf.wdl,
                 "activity_id": activity_id,
                 "activity_set": wf.collection,
-                "was_informed_by": informed_by,
-                "trigger_activity": trig_actid,
+                "was_informed_by": job.informed_by,
+                "trigger_activity": job.trigger_id,
                 "iteration": iteration,
                 "input_prefix": wf.input_prefix,
                 "inputs": inp,
@@ -168,13 +207,14 @@ class Scheduler():
             outputs = []
             for output in wf.outputs:
                 # Mint an ID
-                output["id"] = self.api.minter("nmdc:DataObject", informed_by)
+                output["id"] = self.api.minter("nmdc:DataObject",
+                                               job.informed_by)
                 outputs.append(output)
             job_config["outputs"] = outputs
 
         jr = {
             "workflow": {
-                "id": "{wf.ame}: {wf.version}"
+                "id": f"{wf.name}: {wf.version}"
             },
             "id": self.generate_job_id(),
             "created_at": datetime.today().replace(microsecond=0),
@@ -215,27 +255,20 @@ class Scheduler():
         See if anything exist for this and if not
         mint a new id.
         """
-
-        # This is a temporary workaround and should be removed
-        # once the schema names are all fixed.
-        act_set_name = wf.collection
-        q = {"was_informed_by": informed_by}
-        ct = 0
-        root_id = None
-
         # We need to see if any version exist and
         # if so get its ID
-        for doc in self.db[act_set_name].find(q):
+        ct = 0
+        q = {"was_informed_by": informed_by}
+        for doc in self.db[wf.collection].find(q):
             ct += 1
             last_id = doc['id']
 
         if ct == 0:
             # Get an ID
-            id_type = wf.type
             if os.environ.get("MOCK_MINT"):
-                root_id = self.mock_mint(id_type)
+                root_id = self.mock_mint(wf.type)
             else:
-                root_id = self.api.minter(id_type, informed_by)
+                root_id = self.api.minter(wf.type, informed_by)
             return root_id, 1
         else:
             root_id = '.'.join(last_id.split('.')[0:-1])
@@ -251,39 +284,34 @@ class Scheduler():
         # Skip disabled workflows
         if not wf.enabled:
             return []
-        act_set_name = wf.collection
-        git_repo = wf.git_repo
-        vers = wf.version
-        pred = wf.predecessor
-        if not pred:
+        if not wf.predecessor:
             # Nothing to do
             return []
-        pred_wf = self.workflow_by_name[pred]
+        pred_wf = wf.parent
         trigger_set = pred_wf.collection
         completed_acts = {}
         # Filter by git_repo and version
         # Find all existing jobs for this workflow
-        q = {'config.git_repo': git_repo,
-             'config.release': vers}
+        q = {'config.git_repo': wf.git_repo,
+             'config.release': wf.version}
         for j in self.db.jobs.find(q):
             act = j['config']['trigger_activity']
             completed_acts[act] = j
         # Find all completed activities for this workflow
-        q = {'version': vers, 'git_repo': git_repo}
-        for act in self.db[act_set_name].find(q):
+        q = {'version': wf.version,
+             'git_repo': wf.git_repo}
+        for act in self.db[wf.collection].find(q):
             completed_acts[act['id']] = act
 
         # Check triggers
         # TODO: filter based on active version
-        todo = []
+        new_jobs = []
         for act in self.db[trigger_set].find():
             actid = act['id']
             if actid in completed_acts:
                 continue
-            todo.append({'wf': wf,
-                         'trigger_set': trigger_set,
-                         'trigger_activity_id': actid})
-        return todo
+            new_jobs.append(Job(wf, trigger_set, actid,))
+        return new_jobs
 
     def cycle(self):
         """
@@ -304,6 +332,72 @@ class Scheduler():
                     logging.error(str(ex))
                     raise ex
         return job_recs
+
+    def find_new_jobs(self, wf, activities, parent_acts):
+        """
+        This function is given a workflow and identifies new
+        jobs to create by looking at the workflow's trigger data
+        types and what has been previously processed.
+        """
+
+        completed_acts = set()
+        # Filter by git_repo and version
+        # Find all existing jobs for this workflow
+        q = {'config.git_repo': wf.git_repo,
+             'config.release': wf.version}
+        for j in self.db.jobs.find(q):
+            act = j['config']['trigger_activity']
+            completed_acts.add(act)
+
+        # Look at the activity linkage and
+        # find any completed activities for this
+        # workflow.  Record the parent id
+        for act in activities:
+            if act.parent:
+                completed_acts.add(act.parent.id)
+
+        # Check triggers
+        # TODO: filter based on active version
+        # trigger_collection = wf.parents[0].collection
+        new_jobs = []
+        for act in parent_acts:
+            # print(act.workflow.collection)
+            if act.id not in completed_acts:
+                new_jobs.append(Job(wf, 
+                                    act.workflow.collection, 
+                                    act.id,
+                                    trigger_act=act))
+        return new_jobs
+
+
+    def cycle2(self):
+        """
+        This function does a single cycle of looking for new jobs
+        """
+        activities = Activites(self.db, self.workflows)
+        acts_by_wf = dict()
+        for wf in self.workflows:
+            acts_by_wf[wf] = []
+        for act in activities.activities:
+            acts_by_wf[act.workflow].append(act)
+        job_recs = []
+        for wf in self.workflows:
+            if not wf.enabled or not wf.predecessor:
+                continue
+            logging.debug("Checking: " + wf.name)
+            for parent_wf in wf.parents:
+                parent_acts = acts_by_wf[parent_wf]
+                jobs = self.find_new_jobs(wf, acts_by_wf[wf], parent_acts)
+                for job in jobs:
+                    try:
+                        jr = self.add_job_rec(job)
+                        if jr:
+                            job_recs.append(jr)
+                    except Exception as ex:
+                        logging.error(str(ex))
+                        raise ex
+        return job_recs
+
 
 
 def main():
