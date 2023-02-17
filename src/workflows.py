@@ -60,5 +60,6 @@ class Workflow():
     def add_parent(self, parent):
         self.parents.add(parent)
 
+
 if __name__ == "__main__":
     load_workflows("workflows.yaml")

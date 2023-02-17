@@ -93,49 +93,13 @@ def test_submit(db, mock_api):
     jm = Scheduler(db)
 
     # This should result in one RQC job
-    resp = jm.cycle2()
+    resp = jm.cycle()
     assert len(resp) == 1
 
     # The job should now be in a submitted state
     # make this pass
-    resp = jm.cycle2()
-    assert len(resp) == 0
-
-
-def xtest_progress(db, mock_api):
-    init_test(db)
-    reset_db(db)
-    load(db, "data_object_set.json")
-    load(db, "metagenome_sequencing_activity_set.json")
-    jm = Scheduler(db)
-    workflow_by_name = dict()
-    for wf in jm.workflows:
-        workflow_by_name[wf.name] = wf
-
-    # This should result in one RQC job
-    resp = jm.cycle()
-    assert len(resp) == 1
-
-    wf = workflow_by_name['Reads QC']
-    mock_progress(db, wf)
-    resp = jm.cycle()
-    assert len(resp) == 2
     resp = jm.cycle()
     assert len(resp) == 0
-
-    wf = workflow_by_name['Metagenome Assembly']
-    mock_progress(db, wf)
-    resp = jm.cycle()
-    assert len(resp) == 1
-
-    wf = workflow_by_name['Metagenome Annotation']
-    mock_progress(db, wf)
-    resp = jm.cycle()
-    assert len(resp) == 1
-
-    db.jobs.delete_many({})
-    resp = jm.cycle2()
-    assert len(resp) == 2
 
 
 def test_progress2(db, mock_api):
@@ -150,35 +114,35 @@ def test_progress2(db, mock_api):
         workflow_by_name[wf.name] = wf
 
     # This should result in one RQC job
-    resp = jm.cycle2()
+    resp = jm.cycle()
     assert len(resp) == 1
 
     wf = workflow_by_name['Reads QC']
     mock_progress(db, wf)
-    resp = jm.cycle2()
+    resp = jm.cycle()
     assert len(resp) == 2
-    resp = jm.cycle2()
+    resp = jm.cycle()
     assert len(resp) == 0
 
     wf = workflow_by_name['Metagenome Assembly']
     mock_progress(db, wf)
-    resp = jm.cycle2()
+    resp = jm.cycle()
     assert len(resp) == 1
 
     wf = workflow_by_name['Metagenome Annotation']
     mock_progress(db, wf)
-    resp = jm.cycle2()
+    resp = jm.cycle()
     assert len(resp) == 1
 
     # We should have job records for everything now
-    resp = jm.cycle2()
+    resp = jm.cycle()
     assert len(resp) == 0
 
     # Let's remove the job records.
     # Since we don't have activity records for
     # MAGS or RBA, we should see two new jobs
     db.jobs.delete_many({})
-    resp = jm.cycle2()
+    resp = jm.cycle()
     assert len(resp) == 2
 
 
@@ -194,27 +158,27 @@ def test_multiple_versions(db, mock_api):
         workflow_by_name[wf.name] = wf
 
     # This should result in two RQC jobs
-    resp = jm.cycle2()
+    resp = jm.cycle()
     assert len(resp) == 2
 
     # We simulate one of the jobs finishing
     wf = workflow_by_name['Reads QC']
     mock_progress(db, wf)
-    resp = jm.cycle2()
+    resp = jm.cycle()
     # We should see one asm and one rba job
     assert len(resp) == 2
-    resp = jm.cycle2()
+    resp = jm.cycle()
     assert len(resp) == 0
     # Now simulate one of the other jobs finishing
     load(db, "data_object_set2.json", col="data_object_set")
     load(db, "read_qc_analysis_activity_set2.json", col="read_qc_analysis_activity_set")
-    resp = jm.cycle2()
+    resp = jm.cycle()
     # We should see one asm and one rba job
     assert len(resp) == 2
-    resp = jm.cycle2()
+    resp = jm.cycle()
 
     # Empty the job queue.  We should see 4 jobs
     db.jobs.delete_many({})
-    resp = jm.cycle2()
+    resp = jm.cycle()
     assert len(resp) == 4
 

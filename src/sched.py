@@ -6,11 +6,10 @@ import os
 from time import sleep
 from .nmdcapi import nmdcapi
 from .workflows import load_workflows
-
 from functools import lru_cache
 from pymongo import MongoClient
 from pymongo.database import Database as MongoDatabase
-from .activities import Activites
+from .activities import load_activities
 
 
 _POLL_INTERVAL = 60
@@ -34,6 +33,8 @@ def get_mongo_db() -> MongoDatabase:
 This is still a prototype implementation.  The plan
 is to migrate this fucntion into Dagster.
 """
+
+
 class Job():
     """
     Class to hold information for new jobs
@@ -75,96 +76,20 @@ class Scheduler():
             self.cycle()
             await asyncio.sleep(_POLL_INTERVAL)
 
-    def coll_prov_acts(self, act, rset, acts, root_dos=[]):
-        """
-        This is a recursive function that will walk up the
-        object provenance (has_input, has_output) to find
-        all the preceeding activities and data objects.
-
-        It returns the set of activities and "root" objects.
-        Root objects are data objects with no matching
-        has_output.  So they must be the original raw data.
-        """
-        activity_id = act['id']
-        rec_id = f'{rset}:{activity_id}'
-        if rec_id in acts:
-            return acts
-        act.pop("_id")
-        acts[rec_id] = act
-        inp = act["has_input"]
-        root_dos = []
-        # This runs through each input and finds the
-        # activity that generated it as an output.
-        # It then calls this function on the associated
-        # activity to go up the provenance chain
-        for d in inp:
-            hit = False
-            for set in self._sets:
-                nact = self.db[set].find_one({"has_output": d})
-                if nact is None:
-                    continue
-                hit = True
-                acts, root_dos = self.coll_prov_acts(nact, set,
-                                                     acts, root_dos)
-            if not hit:
-                root_dos.append(d)
-        return acts, root_dos
-
-    def resolve_objects(self, job):
-        """
-        Resolve objects using the old method
-        """
-        wf = job.workflow
-        trig_actid = job.trigger_id
-        if not wf.predecessor:
-            # This can't happen
-            logging.error("Missing predecessor")
-            return
-        pred_wf = wf.parent
-
-        # Find the activity that generated the data object id
-        act = self.db[job.trigger_set].find_one({"id": trig_actid})
-        job.trigger_act = act
-        job.informed_by = act.get("was_informed_by", "undefined")
-
-        # Ignore if the trigger activity isn't the latest version
-        if act is None or pred_wf.version != act.get('version'):
-            return
-
-        # Get the provenance
-        acts, root_dos = self.coll_prov_acts(act, job.trigger_set, {})
-        dos = root_dos
-        for aid, act in acts.items():
-            for did in act['has_output']:
-                dos.append(did)
-
-        # Now collect all the data objects and their types
-        do_by_type = dict()
-        for did in dos:
-            dobj = self.db["data_object_set"].find_one({"id": did})
-            if dobj and 'data_object_type' in dobj:
-                dobj.pop("_id")
-                do_by_type[dobj['data_object_type']] = dobj
-        return do_by_type
-
     def add_job_rec(self, job):
         """
         This takes a job and using the workflow definition,
         resolves all the information needed to create a
         job record.
         """
-        if job.trigger_act:
-            # Get all the data objects
-            next_act = job.trigger_act
-            do_by_type = dict()
-            while next_act:
-                for do_type, val in next_act.data_objects_by_type.items():
-                    do_by_type[do_type] = val.__dict__
-                # do_by_type.update(next_act.data_objects_by_type.__dict__)
-                next_act = next_act.parent
-
-        else:
-            do_by_type = self.resolve_objects(job)
+        # Get all the data objects
+        next_act = job.trigger_act
+        do_by_type = dict()
+        while next_act:
+            for do_type, val in next_act.data_objects_by_type.items():
+                do_by_type[do_type] = val.__dict__
+            # do_by_type.update(next_act.data_objects_by_type.__dict__)
+            next_act = next_act.parent
 
         wf = job.workflow
         base_id, iteration = self.get_activity_id(wf, job.informed_by)
@@ -274,65 +199,6 @@ class Scheduler():
             root_id = '.'.join(last_id.split('.')[0:-1])
             return root_id, ct+1
 
-    def new_jobs(self, wf):
-        """
-        This function is given a workflow and identifies new
-        jobs to create by looking at the workflow's trigger data
-        types and what has been previously processed.
-        """
-
-        # Skip disabled workflows
-        if not wf.enabled:
-            return []
-        if not wf.predecessor:
-            # Nothing to do
-            return []
-        pred_wf = wf.parent
-        trigger_set = pred_wf.collection
-        completed_acts = {}
-        # Filter by git_repo and version
-        # Find all existing jobs for this workflow
-        q = {'config.git_repo': wf.git_repo,
-             'config.release': wf.version}
-        for j in self.db.jobs.find(q):
-            act = j['config']['trigger_activity']
-            completed_acts[act] = j
-        # Find all completed activities for this workflow
-        q = {'version': wf.version,
-             'git_repo': wf.git_repo}
-        for act in self.db[wf.collection].find(q):
-            completed_acts[act['id']] = act
-
-        # Check triggers
-        # TODO: filter based on active version
-        new_jobs = []
-        for act in self.db[trigger_set].find():
-            actid = act['id']
-            if actid in completed_acts:
-                continue
-            new_jobs.append(Job(wf, trigger_set, actid,))
-        return new_jobs
-
-    def cycle(self):
-        """
-        This function does a single cycle of looking for new jobs
-        """
-        job_recs = []
-        for wf in self.workflows:
-            if not wf.enabled:
-                continue
-            logging.debug("Checking: " + wf.name)
-            jobs = self.new_jobs(wf)
-            for job in jobs:
-                try:
-                    jr = self.add_job_rec(job)
-                    if jr:
-                        job_recs.append(jr)
-                except Exception as ex:
-                    logging.error(str(ex))
-                    raise ex
-        return job_recs
-
     def find_new_jobs(self, wf, activities, parent_acts):
         """
         This function is given a workflow and identifies new
@@ -363,23 +229,17 @@ class Scheduler():
         for act in parent_acts:
             # print(act.workflow.collection)
             if act.id not in completed_acts:
-                new_jobs.append(Job(wf, 
-                                    act.workflow.collection, 
+                new_jobs.append(Job(wf,
+                                    act.workflow.collection,
                                     act.id,
                                     trigger_act=act))
         return new_jobs
 
-
-    def cycle2(self):
+    def cycle(self):
         """
         This function does a single cycle of looking for new jobs
         """
-        activities = Activites(self.db, self.workflows)
-        acts_by_wf = dict()
-        for wf in self.workflows:
-            acts_by_wf[wf] = []
-        for act in activities.activities:
-            acts_by_wf[act.workflow].append(act)
+        acts_by_wf = load_activities(self.db, self.workflows)
         job_recs = []
         for wf in self.workflows:
             if not wf.enabled or not wf.predecessor:
@@ -397,7 +257,6 @@ class Scheduler():
                         logging.error(str(ex))
                         raise ex
         return job_recs
-
 
 
 def main():

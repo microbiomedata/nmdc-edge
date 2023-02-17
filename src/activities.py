@@ -2,14 +2,25 @@ import logging
 from .workflows import Workflow
 
 
+def load_activities(db, workflows: Workflow, filter={}):
+    acts = Activites(db, workflows, filter=filter)
+    acts_by_wf = dict()
+    for wf in workflows:
+        acts_by_wf[wf] = []
+    for act in acts.activities:
+        acts_by_wf[act.workflow].append(act)
+    return acts_by_wf
+
+
 class Activites():
     def __init__(self, db, workflows: Workflow, filter={}):
-        # This is map from the do ID to the activity
-        # that created it.
+        # Build up a filter of what types are used
         required_types = set()
         for wf in workflows:
             required_types.update(set(wf.do_types))
 
+        # This is map from the do ID to the activity
+        # that created it.
         data_obj_act = dict()
         data_objs_by_id = dict()
         for rec in db.data_object_set.find():
@@ -53,22 +64,23 @@ class Activites():
                     continue
                 parent_act = data_obj_act[do_id]
                 if not parent_act:
-                    logging.warning(f"Parent act is none")
+                    logging.warning("Parent act is none")
                     continue
                 # We only want to use it as a parent
                 # if it is the right parent workflow.
                 # Some inputs may come from ancestors further up
                 if act.was_informed_by != parent_act.was_informed_by:
-                    logging.warning(f"Mismatched informed by found for {do_id} in {act.id} ({act.name})")
+                    logging.warning("Mismatched informed by found for"
+                                    f"{do_id} in {act.id} ({act.name})")
                     continue
                 if parent_act.workflow in act_pred_wfs:
                     # This is the one
-                    found = True
-                    act.parent = parent_act                    
+                    act.parent = parent_act
                     parent_act.children.append(act)
                     break
-            if len(act.workflow.parents) >0 and not act.parent:
-                logging.warning(f"Didn't find a parent for {act.id} ({act.name}) {act.workflow.name}")
+            if len(act.workflow.parents) > 0 and not act.parent:
+                logging.warning("Didn't find a parent for "
+                                f"{act.id} ({act.name}) {act.workflow.name}")
         # Now all the activities have their parent
         self.activities = activities
 
@@ -88,8 +100,6 @@ class DataObject(object):
         for f in self._FIELDS:
             setattr(self, f, rec.get(f))
 
-    
-        
 
 class Activity(object):
     _FIELDS = [
