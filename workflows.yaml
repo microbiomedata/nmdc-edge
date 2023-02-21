@@ -2,7 +2,7 @@ Workflows:
   - Name: Sequencing
     Type: nmdc:MetagenomeSequencing
     Enabled: False
-    Git_repo: ""
+    Git_repo: https://github.com/microbiomedata/RawSequencingData
     Version: v1.0.0
     Collection: metagenome_sequencing_activity_set
     Predecessor: null

@@ -29,6 +29,8 @@ class Activites():
                 continue
             data_objs_by_id[do.id] = do
 
+        # Build up a set of relevant activities and a map from
+        # the output objects to the activity that generated them.
         activities = []
         for wf in workflows:
             q = filter
@@ -37,42 +39,49 @@ class Activites():
             for rec in db[wf.collection].find(q):
                 act = Activity(rec, wf)
                 for do_id in act.has_output:
-                    # If its a dupe, set it to none
-                    # so we can ignore it later.
                     if do_id in data_objs_by_id:
                         do = data_objs_by_id[do_id]
                         act.add_data_object(do)
+                    # If its a dupe, set it to none
+                    # so we can ignore it later.
+                    # Once we re-id the data objects this
+                    # shouldn't happen
                     if do_id in data_obj_act:
                         logging.warning(f"Duplicate output object {do_id}")
                         data_obj_act[do_id] = None
                     else:
                         data_obj_act[do_id] = act
                 activities.append(act)
-        # We know have a list of all the activites and
-        # a map all of the data objects they generated.
+
+        # We now have a list of all the activites and
+        # a map of all of the data objects they generated.
         # Let's use this to find the parent activity
         # for each child activity
         for act in activities:
-            # Go through its inputs
             act_pred_wfs = act.workflow.parents
             if not act_pred_wfs:
                 continue
+            # Go through its inputs
             for do_id in act.has_input:
                 if do_id not in data_obj_act:
                     # This really shouldn't happen
                     logging.warning(f"Missing data object {do_id}")
                     continue
                 parent_act = data_obj_act[do_id]
+                # This is to cover the case where it was a duplicate.
+                # This shouldn't happen in the future.
                 if not parent_act:
                     logging.warning("Parent act is none")
                     continue
-                # We only want to use it as a parent
-                # if it is the right parent workflow.
-                # Some inputs may come from ancestors further up
+                # Let's make sure these came from the same source
+                # This is just a safeguard
                 if act.was_informed_by != parent_act.was_informed_by:
                     logging.warning("Mismatched informed by found for"
                                     f"{do_id} in {act.id} ({act.name})")
                     continue
+                # We only want to use it as a parent if it is the right
+                # parent workflow. Some inputs may come from ancestors
+                # further up
                 if parent_act.workflow in act_pred_wfs:
                     # This is the one
                     act.parent = parent_act

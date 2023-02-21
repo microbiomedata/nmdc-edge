@@ -45,11 +45,6 @@ class Workflow():
         for f in _FIELDS:
             attr_name = f.lower().replace(" ", "_")
             setattr(self, attr_name, wf[f])
-    #   - output: filtered_final
-    #     name: Reads QC result fastq (clean data)
-    #     suffix: "_filtered.fastq.gz"
-    #     data_object_type: Filtered Sequencing Reads
-    #     description: "Reads QC for {id}"
         for _, inp_param in self.inputs.items():
             if inp_param.startswith("do:"):
                 self.do_types.append(inp_param[3:])
