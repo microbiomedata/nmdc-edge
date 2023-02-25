@@ -3,13 +3,7 @@ from .workflows import Workflow
 
 
 def load_activities(db, workflows: Workflow, filter={}):
-    acts = Activites(db, workflows, filter=filter)
-    acts_by_wf = dict()
-    for wf in workflows:
-        acts_by_wf[wf] = []
-    for act in acts.activities:
-        acts_by_wf[act.workflow].append(act)
-    return acts_by_wf
+    return Activites(db, workflows, filter=filter).activities
 
 
 class Activites():
@@ -120,11 +114,11 @@ class Activity(object):
         "has_output",
         "was_informed_by",
     ]
-    parent = None
-    children = []
-    data_objects_by_type = dict()
 
     def __init__(self, activity_rec: dict, wf):
+        self.parent = None
+        self.children = []
+        self.data_objects_by_type = dict()
         self.workflow = wf
         for f in self._FIELDS:
             setattr(self, f, activity_rec[f])

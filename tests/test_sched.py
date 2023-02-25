@@ -102,7 +102,7 @@ def test_submit(db, mock_api):
     assert len(resp) == 0
 
 
-def test_progress2(db, mock_api):
+def test_progress(db, mock_api):
     init_test(db)
     reset_db(db)
     db.jobs.delete_many({})

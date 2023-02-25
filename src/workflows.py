@@ -21,28 +21,26 @@ def load_workflows(yaml_file):
     return workflows
 
 
-_FIELDS = ["Name",
-           "Type",
-           "Enabled",
-           "Git_repo",
-           "Version",
-           "WDL",
-           "Collection",
-           "Predecessor",
-           "Input_prefix",
-           "Inputs",
-           "Activity",
-           "Outputs"
-           ]
-
-
 class Workflow():
+    _FIELDS = ["Name",
+            "Type",
+            "Enabled",
+            "Git_repo",
+            "Version",
+            "WDL",
+            "Collection",
+            "Predecessor",
+            "Input_prefix",
+            "Inputs",
+            "Activity",
+            "Outputs"
+            ]
 
     def __init__(self, wf: dict):
         self.children = set()
         self.parents = set()
         self.do_types = []
-        for f in _FIELDS:
+        for f in self._FIELDS:
             attr_name = f.lower().replace(" ", "_")
             setattr(self, attr_name, wf[f])
         for _, inp_param in self.inputs.items():
