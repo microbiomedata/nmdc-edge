@@ -1,9 +1,8 @@
 from pymongo import MongoClient
 import json
 import os
-from src.activities import Activites
+from src.activities import load_activities
 from pytest import fixture
-from time import time
 from src.workflows import load_workflows
 
 
@@ -66,7 +65,6 @@ def mock_progress(db, wf):
     db[s].insert_one(data)
 
 
-
 def test_activies(db):
     """
     Test basic job creation
@@ -77,10 +75,10 @@ def test_activies(db):
     load(db, "data_object_set.json", reset=True)
     for wf in wfs:
         mock_progress(db, wf)
-    acts = Activites(db, wfs)
+    acts = load_activities(db, wfs)
     assert acts is not None
-    assert len(acts.activities) == 5
+    assert len(acts) == 5
     acts_by_wf = dict()
-    for act in acts.activities:
+    for act in acts:
         acts_by_wf[act.workflow] = act
         print(act.__dict__)
