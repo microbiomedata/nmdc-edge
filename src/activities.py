@@ -22,7 +22,7 @@ def _load_data_objects(db, workflows: list[Workflow]):
     return data_objs_by_id
 
 
-def _read_acitivites(db, workflows: list[Workflow], filter):
+def _read_acitivites(db, workflows: list[Workflow], filter: dict):
     """
     Read in all the activities for the defined workflows.
     """
@@ -106,7 +106,7 @@ def _find_data_object_activities(activities, data_objs_by_id):
     return data_obj_act
 
 
-def load_activities(db, workflows: list[Workflow], filter={}):
+def load_activities(db, workflows: list[Workflow], filter: dict = {}):
     """
     This reads the activities from Mongo.  It also
     finds the parent and child relationships between

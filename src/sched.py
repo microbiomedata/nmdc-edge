@@ -3,13 +3,13 @@ import asyncio
 from datetime import datetime
 import uuid
 import os
-from time import sleep
+from time import sleep as _sleep
 from .nmdcapi import nmdcapi
-from .workflows import load_workflows
+from .workflows import load_workflows, Workflow
 from functools import lru_cache
 from pymongo import MongoClient
 from pymongo.database import Database as MongoDatabase
-from .activities import load_activities
+from .activities import load_activities, Activity
 from semver.version import Version
 
 
@@ -30,7 +30,7 @@ def get_mongo_db() -> MongoDatabase:
     return _client[os.getenv("MONGO_DBNAME")]
 
 
-def within_range(wf1, wf2):
+def within_range(wf1: Workflow, wf2: Workflow) -> bool:
     """
     Determine if two workflows are within a major and minor
     version of each other.
@@ -60,7 +60,8 @@ class Job():
     Class to hold information for new jobs
     """
 
-    def __init__(self, workflow, trigger_act):
+    def __init__(self, workflow: Workflow,
+                 trigger_act: str):
         self.workflow = workflow
         self.trigger_act = trigger_act
         self.informed_by = trigger_act.was_informed_by
@@ -89,7 +90,7 @@ class Scheduler():
             self.cycle()
             await asyncio.sleep(_POLL_INTERVAL)
 
-    def add_job_rec(self, job):
+    def add_job_rec(self, job: Job):
         """
         This takes a job and using the workflow definition,
         resolves all the information needed to create a
@@ -165,7 +166,7 @@ class Scheduler():
         # print(json.dumps(ji, indent=2))
         return jr
 
-    def generate_job_id(self):
+    def generate_job_id(self) -> str:
         """
         Generate an ID for the job
 
@@ -177,7 +178,7 @@ class Scheduler():
 
     def mock_mint(self, id_type):  # pragma: no cover
         """
-        Return a fixed pattern
+        Return a fixed pattern used for testing
         """
         mapping = {
             "nmdc:ReadQcAnalysisActivity": "mgrqc",
@@ -188,7 +189,7 @@ class Scheduler():
         }
         return f"nmdc:wf{mapping[id_type]}-11-xxxxxx"
 
-    def get_activity_id(self, wf, informed_by):
+    def get_activity_id(self, wf: Workflow, informed_by: str):
         """
         See if anything exist for this and if not
         mint a new id.
@@ -213,7 +214,7 @@ class Scheduler():
             return root_id, ct+1
 
     @lru_cache(maxsize=128)
-    def get_existing_jobs(self, wf):
+    def get_existing_jobs(self, wf: Workflow):
         existing_jobs = set()
         # Filter by git_repo and version
         # Find all existing jobs for this workflow
@@ -224,7 +225,7 @@ class Scheduler():
             existing_jobs.add(act)
         return existing_jobs
 
-    def find_new_jobs(self, act):
+    def find_new_jobs(self, act: Activity) -> list[Job]:
         """
         For a given activity see if there are any new jobs
         that should be created.
@@ -253,7 +254,7 @@ class Scheduler():
 
         return new_jobs
 
-    def cycle(self):
+    def cycle(self) -> list:
         """
         This function does a single cycle of looking for new jobs
         """
@@ -274,10 +275,13 @@ class Scheduler():
 
 
 def main():
+    """
+    Main function
+    """
     sched = Scheduler(get_mongo_db())
     while True:
         sched.cycle()
-        sleep(_POLL_INTERVAL)
+        _sleep(_POLL_INTERVAL)
 
 
 if __name__ == "__main__":

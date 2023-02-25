@@ -1,3 +1,4 @@
+from __future__ import annotations
 from yaml import load
 try:
     from yaml import CLoader as Loader
@@ -5,7 +6,7 @@ except ImportError:
     from yaml import Loader
 
 
-def load_workflows(yaml_file):
+def load_workflows(yaml_file) -> list[Workflow]:
     workflows = []
     data = load(open(yaml_file), Loader)
     for wf in data["Workflows"]:
@@ -22,21 +23,29 @@ def load_workflows(yaml_file):
 
 
 class Workflow():
+    """
+    Workflow object class
+    """
+
     _FIELDS = ["Name",
-            "Type",
-            "Enabled",
-            "Git_repo",
-            "Version",
-            "WDL",
-            "Collection",
-            "Predecessor",
-            "Input_prefix",
-            "Inputs",
-            "Activity",
-            "Outputs"
-            ]
+               "Type",
+               "Enabled",
+               "Git_repo",
+               "Version",
+               "WDL",
+               "Collection",
+               "Predecessor",
+               "Input_prefix",
+               "Inputs",
+               "Activity",
+               "Outputs"
+               ]
 
     def __init__(self, wf: dict):
+        """
+        Create a workflow object from a
+        dictionary
+        """
         self.children = set()
         self.parents = set()
         self.do_types = []
@@ -47,10 +56,10 @@ class Workflow():
             if inp_param.startswith("do:"):
                 self.do_types.append(inp_param[3:])
 
-    def add_child(self, child):
+    def add_child(self, child: Workflow):
         self.children.add(child)
 
-    def add_parent(self, parent):
+    def add_parent(self, parent: Workflow):
         self.parents.add(parent)
 
 
