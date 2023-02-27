@@ -4,7 +4,6 @@ import os
 from src.sched import Scheduler
 from pytest import fixture
 from time import time
-from copy import deepcopy
 
 
 test_dir = os.path.dirname(__file__)
@@ -102,7 +101,7 @@ def test_submit(db, mock_api):
     assert len(resp) == 0
 
 
-def test_progress2(db, mock_api):
+def test_progress(db, mock_api):
     init_test(db)
     reset_db(db)
     db.jobs.delete_many({})
@@ -171,7 +170,8 @@ def test_multiple_versions(db, mock_api):
     assert len(resp) == 0
     # Now simulate one of the other jobs finishing
     load(db, "data_object_set2.json", col="data_object_set")
-    load(db, "read_qc_analysis_activity_set2.json", col="read_qc_analysis_activity_set")
+    load(db, "read_qc_analysis_activity_set2.json",
+         col="read_qc_analysis_activity_set")
     resp = jm.cycle()
     # We should see one asm and one rba job
     assert len(resp) == 2
@@ -181,4 +181,3 @@ def test_multiple_versions(db, mock_api):
     db.jobs.delete_many({})
     resp = jm.cycle()
     assert len(resp) == 4
-

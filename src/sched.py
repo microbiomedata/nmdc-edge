@@ -3,13 +3,14 @@ import asyncio
 from datetime import datetime
 import uuid
 import os
-from time import sleep
+from time import sleep as _sleep
 from .nmdcapi import nmdcapi
-from .workflows import load_workflows
+from .workflows import load_workflows, Workflow
 from functools import lru_cache
 from pymongo import MongoClient
 from pymongo.database import Database as MongoDatabase
-from .activities import load_activities
+from .activities import load_activities, Activity
+from semver.version import Version
 
 
 _POLL_INTERVAL = 60
@@ -29,6 +30,25 @@ def get_mongo_db() -> MongoDatabase:
     return _client[os.getenv("MONGO_DBNAME")]
 
 
+def within_range(wf1: Workflow, wf2: Workflow) -> bool:
+    """
+    Determine if two workflows are within a major and minor
+    version of each other.
+    """
+    def get_version(wf):
+        v_string = wf1.version.lstrip("b").lstrip("v")
+        return Version.parse(v_string)
+
+    # Apples and oranges
+    if wf1.name != wf2.name:
+        return False
+    v1 = get_version(wf1)
+    v2 = get_version(wf2)
+    if v1.major == v2.major and v1.minor == v2.minor:
+        return True
+    return False
+
+
 """
 This is still a prototype implementation.  The plan
 is to migrate this fucntion into Dagster.
@@ -39,19 +59,13 @@ class Job():
     """
     Class to hold information for new jobs
     """
-    trigger_id = None
-    informed_by = None
-    trigger_act = None
 
-    def __init__(self, workflow, trigger_set, act_id,
-                 trigger_act=None):
+    def __init__(self, workflow: Workflow,
+                 trigger_act: str):
         self.workflow = workflow
-        self.trigger_set = trigger_set
-        self.trigger_id = act_id
-        if trigger_act:
-            self.trigger_act = trigger_act
-            self.informed_by = trigger_act.was_informed_by
-            self.trigger_id = trigger_act.id
+        self.trigger_act = trigger_act
+        self.informed_by = trigger_act.was_informed_by
+        self.trigger_id = trigger_act.id
 
 
 class Scheduler():
@@ -76,7 +90,7 @@ class Scheduler():
             self.cycle()
             await asyncio.sleep(_POLL_INTERVAL)
 
-    def add_job_rec(self, job):
+    def add_job_rec(self, job: Job):
         """
         This takes a job and using the workflow definition,
         resolves all the information needed to create a
@@ -152,7 +166,7 @@ class Scheduler():
         # print(json.dumps(ji, indent=2))
         return jr
 
-    def generate_job_id(self):
+    def generate_job_id(self) -> str:
         """
         Generate an ID for the job
 
@@ -162,9 +176,9 @@ class Scheduler():
         u = str(uuid.uuid1())
         return f"nmdc:{u}"
 
-    def mock_mint(self, id_type):
+    def mock_mint(self, id_type):  # pragma: no cover
         """
-        Return a fixed pattern
+        Return a fixed pattern used for testing
         """
         mapping = {
             "nmdc:ReadQcAnalysisActivity": "mgrqc",
@@ -175,7 +189,7 @@ class Scheduler():
         }
         return f"nmdc:wf{mapping[id_type]}-11-xxxxxx"
 
-    def get_activity_id(self, wf, informed_by):
+    def get_activity_id(self, wf: Workflow, informed_by: str):
         """
         See if anything exist for this and if not
         mint a new id.
@@ -199,71 +213,75 @@ class Scheduler():
             root_id = '.'.join(last_id.split('.')[0:-1])
             return root_id, ct+1
 
-    def find_new_jobs(self, wf, activities, parent_acts):
-        """
-        This function is given a workflow and identifies new
-        jobs to create by looking at the workflow's trigger data
-        types and what has been previously processed.
-        """
-
-        completed_acts = set()
+    @lru_cache(maxsize=128)
+    def get_existing_jobs(self, wf: Workflow):
+        existing_jobs = set()
         # Filter by git_repo and version
         # Find all existing jobs for this workflow
         q = {'config.git_repo': wf.git_repo,
              'config.release': wf.version}
         for j in self.db.jobs.find(q):
             act = j['config']['trigger_activity']
-            completed_acts.add(act)
+            existing_jobs.add(act)
+        return existing_jobs
 
-        # Look at the activity linkage and
-        # find any completed activities for this
-        # workflow.  Record the parent id
-        for act in activities:
-            if act.parent:
-                completed_acts.add(act.parent.id)
-
-        # Check triggers
-        # TODO: filter based on active version
-        # trigger_collection = wf.parents[0].collection
+    def find_new_jobs(self, act: Activity) -> list[Job]:
+        """
+        For a given activity see if there are any new jobs
+        that should be created.
+        """
         new_jobs = []
-        for act in parent_acts:
-            # print(act.workflow.collection)
-            if act.id not in completed_acts:
-                new_jobs.append(Job(wf,
-                                    act.workflow.collection,
-                                    act.id,
-                                    trigger_act=act))
+        # Loop over the derived workflows for this
+        # activities' workflow
+        for wf in act.workflow.children:
+            # Ignore disabled workflows
+            if not wf.enabled:
+                continue
+            # See if we already have a job for this
+            if act.id in self.get_existing_jobs(wf):
+                continue
+            # Look at previously generated derived
+            # activities to see if this is already done.
+            for child_act in act.children:
+                if within_range(child_act.workflow, wf):
+                    break
+            else:
+                # These means no existing activities were
+                # found that matched this workflow, so we
+                # add a job
+                logging.debug(f"Creating a job {wf.name} for {act.id}")
+                new_jobs.append(Job(wf, act))
+
         return new_jobs
 
-    def cycle(self):
+    def cycle(self) -> list:
         """
         This function does a single cycle of looking for new jobs
         """
-        acts_by_wf = load_activities(self.db, self.workflows)
+        acts = load_activities(self.db, self.workflows)
+        self.get_existing_jobs.cache_clear()
         job_recs = []
-        for wf in self.workflows:
-            if not wf.enabled or not wf.predecessor:
-                continue
-            logging.debug("Checking: " + wf.name)
-            for parent_wf in wf.parents:
-                parent_acts = acts_by_wf[parent_wf]
-                jobs = self.find_new_jobs(wf, acts_by_wf[wf], parent_acts)
-                for job in jobs:
-                    try:
-                        jr = self.add_job_rec(job)
-                        if jr:
-                            job_recs.append(jr)
-                    except Exception as ex:
-                        logging.error(str(ex))
-                        raise ex
+        for act in acts:
+            jobs = self.find_new_jobs(act)
+            for job in jobs:
+                try:
+                    jr = self.add_job_rec(job)
+                    if jr:
+                        job_recs.append(jr)
+                except Exception as ex:
+                    logging.error(str(ex))
+                    raise ex
         return job_recs
 
 
 def main():
+    """
+    Main function
+    """
     sched = Scheduler(get_mongo_db())
     while True:
         sched.cycle()
-        sleep(_POLL_INTERVAL)
+        _sleep(_POLL_INTERVAL)
 
 
 if __name__ == "__main__":
