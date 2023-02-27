@@ -2,7 +2,7 @@ Workflows:
   - Name: Sequencing
     Type: nmdc:MetagenomeSequencing
     Enabled: False
-    Git_repo: ""
+    Git_repo: https://github.com/microbiomedata/RawSequencingData
     Version: v1.0.0
     Collection: metagenome_sequencing_activity_set
     Predecessor: null
@@ -47,7 +47,7 @@ Workflows:
     Type: nmdc:ReadQcAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: b1.0.8
+    Version: b1.1.8
     WDL: rqcfilter.wdl
     Collection: read_qc_analysis_activity_set
     Predecessor: Sequencing
