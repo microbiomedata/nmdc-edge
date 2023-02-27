@@ -11,12 +11,11 @@ import pytz
 
 
 class job():
-    # nmdc = nmdcapi()
-    config = config().conf
-    cromurl = config['url']
-    data_dir = config['data_dir']
-    resource = config['resource']
-    url_root = config['url_root']
+    config = None
+    cromurl = None
+    data_dir = None
+    resource = None
+    url_root = None
     debug = False
     dryrun = False
     # Future
@@ -30,6 +29,11 @@ class job():
 
     def __init__(self, typ=None, nmdc_jobid=None, conf=None,
                  opid=None, activity_id="TODO", state=None, nocheck=False):
+        self.config = config().conf
+        self.cromurl = self.config['url']
+        self.data_dir = self.config['data_dir']
+        self.resource = self.config['resource']
+        self.url_root = self.config['url_root']
         if state:
             self.activity_id = state['activity_id']
             self.nmdc_jobid = state['nmdc_jobid']

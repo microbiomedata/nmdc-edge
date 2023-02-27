@@ -105,7 +105,7 @@
     "file_size_bytes": 614513871,
     "id": "nmdc:205d1c4d44756cdadc7f2263375cd5cc",
     "name": "gold:Gp0213371_Gene Phylogeny",
-    "data_object_type": "Gene Phylogeny"
+    "data_object_type": "Gene Phylogeny tsv"
   },
   {
     "description": "KO TSV file for gold:Gp0213371",

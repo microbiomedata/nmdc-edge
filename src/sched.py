@@ -1,24 +1,19 @@
 import logging
 import asyncio
-from yaml import load
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
 from datetime import datetime
 import uuid
 import os
-import requests
-import json
 from time import sleep
-from time import time
-
+from .nmdcapi import nmdcapi
+from .workflows import load_workflows
 from functools import lru_cache
 from pymongo import MongoClient
 from pymongo.database import Database as MongoDatabase
+from .activities import load_activities
 
 
 _POLL_INTERVAL = 60
+_WF_YAML_ENV = "NMDC_WORKFLOW_YAML_FILE"
 
 
 @lru_cache
@@ -40,7 +35,27 @@ is to migrate this fucntion into Dagster.
 """
 
 
+class Job():
+    """
+    Class to hold information for new jobs
+    """
+    trigger_id = None
+    informed_by = None
+    trigger_act = None
+
+    def __init__(self, workflow, trigger_set, act_id,
+                 trigger_act=None):
+        self.workflow = workflow
+        self.trigger_set = trigger_set
+        self.trigger_id = act_id
+        if trigger_act:
+            self.trigger_act = trigger_act
+            self.informed_by = trigger_act.was_informed_by
+            self.trigger_id = trigger_act.id
+
+
 class Scheduler():
+    # TODO: Get this from the config
     _sets = ['metagenome_annotation_activity_set',
              'metagenome_assembly_set',
              'read_qc_analysis_activity_set',
@@ -50,49 +65,10 @@ class Scheduler():
     def __init__(self, db, wfn="workflows.yaml"):
         logging.info("Initializing Scheduler")
         # Init
-        self.workflows = load(open(wfn), Loader=Loader)
+        wf_file = os.environ.get(_WF_YAML_ENV, wfn)
+        self.workflows = load_workflows(wf_file)
         self.db = db
-        self.token = None
-        self.expires = 0
-        self.api_url = os.environ.get("NMDC_API_URL")
-        self.client_id = os.environ.get("NMDC_CLIENT_ID")
-        self.client_secret = os.environ.get("NMDC_CLIENT_SECRET")
-
-        # Build a workflow map for later use
-        self.workflow_by_name = dict()
-        for w in self.workflows['Workflows']:
-            self.workflow_by_name[w['Name']] = w
-
-    def refresh_token(self):
-        # If it expires in 60 seconds, refresh
-        if not self.token or self.expires + 60 > time():
-            self.get_token()
-
-    def get_token(self):
-        """
-        Get a token using a client id/secret.
-        """
-        h = {
-                'accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        data = {
-                'grant_type': 'client_credentials',
-                'client_id': self.client_id,
-                'client_secret': self.client_secret
-                }
-        url = self.api_url + '/token'
-        resp = requests.post(url, headers=h, data=data).json()
-        expt = resp['expires']
-        self.expires = time() + expt['minutes'] * 60
-
-        self.token = resp['access_token']
-        self.api_headers = {
-                       'accept': 'application/json',
-                       'Content-Type': 'application/json',
-                       'Authorization': 'Bearer %s' % (self.token)
-                       }
-        return resp
+        self.api = nmdcapi()
 
     async def run(self):
         logging.info("Starting Scheduler")
@@ -100,80 +76,27 @@ class Scheduler():
             self.cycle()
             await asyncio.sleep(_POLL_INTERVAL)
 
-    def coll_prov_acts(self, act, rset, acts, root_dos=[]):
-        """
-        This is a recursive function that will walk up the
-        object provenance (has_input, has_output) to find
-        all the preceeding activities and data objects.
-
-        It returns the set of activities and "root" objects.
-        Root objects are data objects with no matching
-        has_output.  So they must be the original raw data.
-        """
-        activity_id = act['id']
-        rec_id = f'{rset}:{activity_id}'
-        if rec_id in acts:
-            return acts
-        act.pop("_id")
-        acts[rec_id] = act
-        inp = act["has_input"]
-        root_dos = []
-        for d in inp:
-            hit = False
-            for set in self._sets:
-                nact = self.db[set].find_one({"has_output": d})
-                if nact is None:
-                    continue
-                hit = True
-                acts, root_dos = self.coll_prov_acts(nact, set,
-                                                     acts, root_dos)
-            if not hit:
-                root_dos.append(d)
-        return acts, root_dos
-
     def add_job_rec(self, job):
         """
         This takes a job and using the workflow definition,
         resolves all the information needed to create a
         job record.
         """
-        wf = job['wf']
-        trig_actid = job['trigger_activity_id']
-        trigger_set = job['trigger_set']
-        pred = wf['Predecessor']
-        if not pred:
-            # This can't happen
-            logging.error("Missing predecessor")
-            return
-        pred_wf = self.workflow_by_name[pred]
-
-        # Find the activity that generated the data object id
-        act = self.db[trigger_set].find_one({"id": trig_actid})
-        informed_by = act.get("was_informed_by", "undefined")
-
-        # Ignore if the trigger activity isn't the latest version
-        if act is None or pred_wf['Version'] != act.get('version'):
-            return
-
-        # Get the provenance
-        acts, root_dos = self.coll_prov_acts(act, trigger_set, {})
-        dos = root_dos
-        for aid, act in acts.items():
-            for did in act['has_output']:
-                dos.append(did)
-
-        # Now collect all the data objects and their types
+        # Get all the data objects
+        next_act = job.trigger_act
         do_by_type = dict()
-        for did in dos:
-            dobj = self.db["data_object_set"].find_one({"id": did})
-            if dobj and 'data_object_type' in dobj:
-                dobj.pop("_id")
-                do_by_type[dobj['data_object_type']] = dobj
-        base_id, iteration = self.get_activity_id(wf, informed_by)
+        while next_act:
+            for do_type, val in next_act.data_objects_by_type.items():
+                do_by_type[do_type] = val.__dict__
+            # do_by_type.update(next_act.data_objects_by_type.__dict__)
+            next_act = next_act.parent
+
+        wf = job.workflow
+        base_id, iteration = self.get_activity_id(wf, job.informed_by)
         activity_id = f"{base_id}.{iteration}"
         inp_objects = []
         inp = dict()
-        for k, v in wf['Inputs'].items():
+        for k, v in job.workflow.inputs.items():
             if v.startswith('do:'):
                 do_type = v[3:]
                 dobj = do_by_type.get(do_type)
@@ -182,8 +105,8 @@ class Scheduler():
                 inp_objects.append(dobj)
                 v = dobj["url"]
             # TODO: Make this smarter
-            if v == "{was_informed_by}":
-                v = informed_by
+            elif v == "{was_informed_by}":
+                v = job.informed_by
             elif v == "{activity_id}":
                 v = activity_id
 
@@ -191,33 +114,34 @@ class Scheduler():
 
         # Build the respoonse
         job_config = {
-                "git_repo": wf["Git_repo"],
-                "release": wf["Version"],
-                "wdl": wf["WDL"],
+                "git_repo": wf.git_repo,
+                "release": wf.version,
+                "wdl": wf.wdl,
                 "activity_id": activity_id,
-                "activity_set": wf["Collection"],
-                "was_informed_by": informed_by,
-                "trigger_activity": trig_actid,
+                "activity_set": wf.collection,
+                "was_informed_by": job.informed_by,
+                "trigger_activity": job.trigger_id,
                 "iteration": iteration,
-                "input_prefix": wf["Input_prefix"],
+                "input_prefix": wf.input_prefix,
                 "inputs": inp,
                 "input_data_objects": inp_objects
                 }
-        if "Activity" in wf:
-            job_config["activity"] = wf["Activity"]
-        if "Outputs" in wf:
+        if wf.activity:
+            job_config["activity"] = wf.activity
+        if wf.outputs:
             outputs = []
-            for output in wf["Outputs"]:
+            for output in wf.outputs:
                 # Mint an ID
-                output["id"] = self.call_minter("nmdc:DataObject", informed_by)
+                output["id"] = self.api.minter("nmdc:DataObject",
+                                               job.informed_by)
                 outputs.append(output)
             job_config["outputs"] = outputs
 
         jr = {
             "workflow": {
-                "id": "{Name}: {Version}".format(**wf)
+                "id": f"{wf.name}: {wf.version}"
             },
-            "id": self.get_id(),
+            "id": self.generate_job_id(),
             "created_at": datetime.today().replace(microsecond=0),
             "config": job_config,
             "claims": []
@@ -228,11 +152,11 @@ class Scheduler():
         # print(json.dumps(ji, indent=2))
         return jr
 
-    def get_id(self):
+    def generate_job_id(self):
         """
         Generate an ID for the job
 
-        Note: This is currently Napa compliant.  Since these are somewhat
+        Note: This is not currently Napa compliant.  Since these are somewhat
         ephemeral I'm not sure if it matters though.
         """
         u = str(uuid.uuid1())
@@ -251,121 +175,87 @@ class Scheduler():
         }
         return f"nmdc:wf{mapping[id_type]}-11-xxxxxx"
 
-    def call_minter(self, id_type, informed_by):
-        if os.environ.get("MOCK_MINT") and id_type != "nmdc:DataObject":
-            return self.mock_mint(id_type)
-
-        self.refresh_token()
-        url = f"{self.api_url}/pids/mint"
-        data = {
-                "schema_class": {"id": id_type},
-                "how_many": 1
-               }
-        resp = requests.post(url,
-                             data=json.dumps(data),
-                             headers=self.api_headers)
-        if not resp.ok:
-            raise ValueError("Failed to mint ID")
-        id = resp.json()[0]
-        url = f"{self.api_url}/pids/bind"
-        data = {
-                "id_name": id,
-                "metadata_record": {"informed_by": informed_by}
-               }
-        resp = requests.post(url,
-                             data=json.dumps(data),
-                             headers=self.api_headers)
-        if not resp.ok:
-            raise ValueError("Failed to bind metadata to pid")
-        return id
-
     def get_activity_id(self, wf, informed_by):
         """
         See if anything exist for this and if not
         mint a new id.
         """
-
-        # This is a temporary workaround and should be removed
-        # once the schema names are all fixed.
-        act_set = wf['Collection']
-        q = {"was_informed_by": informed_by}
+        # We need to see if any version exist and
+        # if so get its ID
         ct = 0
-        root_id = None
-
-        for doc in self.db[act_set].find(q):
+        q = {"was_informed_by": informed_by}
+        for doc in self.db[wf.collection].find(q):
             ct += 1
             last_id = doc['id']
 
         if ct == 0:
             # Get an ID
-            id_type = wf['Type']
-            root_id = self.call_minter(id_type, informed_by)
+            if os.environ.get("MOCK_MINT"):
+                root_id = self.mock_mint(wf.type)
+            else:
+                root_id = self.api.minter(wf.type, informed_by)
             return root_id, 1
         else:
             root_id = '.'.join(last_id.split('.')[0:-1])
             return root_id, ct+1
 
-    def new_jobs(self, wf):
+    def find_new_jobs(self, wf, activities, parent_acts):
         """
         This function is given a workflow and identifies new
         jobs to create by looking at the workflow's trigger data
         types and what has been previously processed.
         """
 
-        # Skip disabled workflows
-        if not wf['Enabled']:
-            return []
-        act_set = wf['Collection']
-        git_repo = wf['Git_repo']
-        vers = wf['Version']
-        pred = wf['Predecessor']
-        if not pred:
-            # Nothing to do
-            return []
-        pred_wf = self.workflow_by_name[pred]
-        trigger_set = pred_wf['Collection']
-        comp_acts = {}
+        completed_acts = set()
         # Filter by git_repo and version
-        q = {'config.git_repo': git_repo,
-             'config.release': vers}
+        # Find all existing jobs for this workflow
+        q = {'config.git_repo': wf.git_repo,
+             'config.release': wf.version}
         for j in self.db.jobs.find(q):
             act = j['config']['trigger_activity']
-            comp_acts[act] = j
-        # Find all jobs of for this workflow
-        q = {'version': vers, 'git_repo': git_repo}
-        for act in self.db[act_set].find(q):
-            comp_acts[act['id']] = act
+            completed_acts.add(act)
+
+        # Look at the activity linkage and
+        # find any completed activities for this
+        # workflow.  Record the parent id
+        for act in activities:
+            if act.parent:
+                completed_acts.add(act.parent.id)
 
         # Check triggers
         # TODO: filter based on active version
-        todo = []
-        for act in self.db[trigger_set].find():
-            actid = act['id']
-            if actid in comp_acts:
-                continue
-            todo.append({'wf': wf,
-                         'trigger_set': trigger_set,
-                         'trigger_activity_id': actid})
-        return todo
+        # trigger_collection = wf.parents[0].collection
+        new_jobs = []
+        for act in parent_acts:
+            # print(act.workflow.collection)
+            if act.id not in completed_acts:
+                new_jobs.append(Job(wf,
+                                    act.workflow.collection,
+                                    act.id,
+                                    trigger_act=act))
+        return new_jobs
 
     def cycle(self):
         """
         This function does a single cycle of looking for new jobs
         """
+        acts_by_wf = load_activities(self.db, self.workflows)
         job_recs = []
-        for w in self.workflows['Workflows']:
-            if not w["Enabled"]:
+        for wf in self.workflows:
+            if not wf.enabled or not wf.predecessor:
                 continue
-            logging.debug("Checking: " + w['Name'])
-            jobs = self.new_jobs(w)
-            for job in jobs:
-                try:
-                    jr = self.add_job_rec(job)
-                    if jr:
-                        job_recs.append(jr)
-                except Exception as ex:
-                    logging.error(str(ex))
-                    raise ex
+            logging.debug("Checking: " + wf.name)
+            for parent_wf in wf.parents:
+                parent_acts = acts_by_wf[parent_wf]
+                jobs = self.find_new_jobs(wf, acts_by_wf[wf], parent_acts)
+                for job in jobs:
+                    try:
+                        jr = self.add_job_rec(job)
+                        if jr:
+                            job_recs.append(jr)
+                    except Exception as ex:
+                        logging.error(str(ex))
+                        raise ex
         return job_recs
 
 

@@ -8,6 +8,7 @@
     "release": "b1.0.6",
     "wdl": "rqcfilter.wdl",
     "activity_id": "nmdc:abcd.1",
+    "activity_set": "read_qc_analysis_activity_set",
     "was_informed_by": "gold:Gp0213371",
     "trigger_activity": "nmdc:107ade35423143e39dc30b12832ac759",
     "iteration": 1,
