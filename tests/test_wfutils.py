@@ -1,43 +1,45 @@
 from src.wfutils import job
 import os
 import json
-import requests
+from pytest import fixture
 
 
-class MockResponse:
-    def __init__(self, resp, status_code=200):
-        self.resp = resp
-        self.status_code = status_code
-
-    def json(self):
-        return self.resp
+@fixture
+def wfconf(monkeypatch):
+    tdir = os.path.dirname(__file__)
+    wfc = os.path.join(tdir, "..", "test_data", "wf_config")
+    monkeypatch.setenv("WF_CONFIG_FILE", wfc)
 
 
-def test_job():
+def test_job(wfconf, requests_mock):
+    requests_mock.real_http = True
+    data = {"id": "123"}
+    requests_mock.post("http://localhost:8088/api/workflows/v1", json=data)
     tdir = os.path.dirname(__file__)
     tdata = os.path.join(tdir, "..", "test_data")
     rqcf = os.path.join(tdata, "rqc_response.json")
     rqc = json.load(open(rqcf))
     ajob = job("example", "jobid", conf=rqc['config'])
     ajob.debug = True
-    ajob.dryrun = True
+    ajob.dryrun = False
     assert ajob.get_state()
-    status = ajob.cromwell_submit()
-    print(status)
+    ajob.cromwell_submit()
+    last = requests_mock.request_history[-1]
+    assert last.method == "POST"
+    assert last.url == "http://localhost:8088/api/workflows/v1"
 
 
-def test_log():
+def test_log(wfconf):
     ajob = job("example", "jobid", conf={})
     ajob.debug = True
     ajob.json_log({"a": "b"}, title="Test")
 
 
-def test_check_meta(monkeypatch):
-    def mock_get(*args, **kwargs):
-        return MockResponse({"status": "Submitted"})
-
-    # apply the monkeypatch for requests.get to mock_get
-    monkeypatch.setattr(requests, "get", mock_get)
+def test_check_meta(wfconf, requests_mock):
+    url = "http://localhost:8088/api/workflows/v1/1234/status"
+    requests_mock.get(url, json={"status": "Submitted"})
+    url = "http://localhost:8088/api/workflows/v1/1234/metadata"
+    requests_mock.get(url, json={"status": "Submitted"})
     ajob = job("example", "jobid", conf={})
     ajob.jobid = "1234"
     resp = ajob.check_status()
@@ -46,7 +48,7 @@ def test_check_meta(monkeypatch):
     assert resp
 
 
-def test_set_state():
+def test_set_state(wfconf):
     ajob = job("example", "jobid", conf={})
     state = ajob.get_state()
     assert state

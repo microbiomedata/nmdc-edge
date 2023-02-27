@@ -6,22 +6,34 @@ import tempfile
 import requests
 from .config import config
 import logging
+import datetime
+import pytz
 
 
 class job():
-    # nmdc = nmdcapi()
-    config = config().conf
-    cromurl = config['url']
-    data_dir = config['data_dir']
-    resource = config['resource']
-    url_root = config['url_root']
+    config = None
+    cromurl = None
+    data_dir = None
+    resource = None
+    url_root = None
     debug = False
     dryrun = False
     # Future
     options = None
+    activity_templ = None
+    outputs = None
+    input_data_objects = []
+    start = None
+    end = None
+    # TODO: Add these to the checkpoint
 
     def __init__(self, typ=None, nmdc_jobid=None, conf=None,
                  opid=None, activity_id="TODO", state=None, nocheck=False):
+        self.config = config().conf
+        self.cromurl = self.config['url']
+        self.data_dir = self.config['data_dir']
+        self.resource = self.config['resource']
+        self.url_root = self.config['url_root']
         if state:
             self.activity_id = state['activity_id']
             self.nmdc_jobid = state['nmdc_jobid']
@@ -32,6 +44,8 @@ class job():
             self.last_status = state['last_status']
             self.failed_count = state.get('failed_count', 0)
             self.done = state.get('done', None)
+            self.start = state.get('start')
+            self.end = state.get('end')
         else:
             self.activity_id = activity_id
             self.type = typ
@@ -42,6 +56,13 @@ class job():
             self.jobid = None
             self.failed_count = 0
             self.last_status = "Unsubmitted"
+
+        if 'outputs' in self.conf:
+            self.outputs = self.conf['outputs']
+        if 'activity' in self.conf:
+            self.activity_templ = self.conf['activity']
+        if 'input_data_objects' in self.conf:
+            self.input_data_objects = self.conf['input_data_objects']
 
         if self.jobid and not nocheck:
             self.check_status()
@@ -56,6 +77,8 @@ class job():
                 "last_status": self.last_status,
                 "done": self.done,
                 "failed_count": self.failed_count,
+                "start": self.start,
+                "end": self.end,
                 "opid": self.opid
                 }
         return data
@@ -77,6 +100,8 @@ class job():
             data = resp.json()
             state = data['status']
         self.last_status = state
+        if state == "Succeeded" and not self.end:
+            self.end = datetime.datetime.now(pytz.utc).isoformat()
         return state
 
     def get_metadata(self):
@@ -179,6 +204,7 @@ class job():
                 job_id = "dryrun"
 
             logging.info(f"Submitted: {job_id}")
+            self.start = datetime.datetime.now(pytz.utc).isoformat()
             self.jobid = job_id
             self.done = False
 

@@ -36,6 +36,78 @@
     "data_object_type": "Functional Annotation GFF"
   },
   {
+    "description": "CATH FunFams GFF file for gold:Gp0213371",
+    "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/annotation/nmdc_mga0vx38_cath.gff",
+    "md5_checksum": "a225e5bf4d6a504b9823636ac9e38224",
+    "file_size_bytes": 614513871,
+    "id": "nmdc:a225e5bf4d6a504b9823636ac9e38224",
+    "name": "gold:Gp0213371_CATH FunFams (Functional Families) Annotation GFF",
+    "data_object_type": "CATH FunFams (Functional Families) Annotation GFF"
+  },
+  {
+    "description": "SUPERFam GFF file for gold:Gp0213371",
+    "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/annotation/nmdc_mga0vx38_cath.gff",
+    "md5_checksum": "c2826e164cceee905d5d2878c4c87dfb",
+    "file_size_bytes": 614513871,
+    "id": "nmdc:c2826e164cceee905d5d2878c4c87dfb",
+    "name": "gold:Gp0213371_SUPERFam Annotation GFF",
+    "data_object_type": "SUPERFam Annotation GFF"
+  },
+  {
+    "description": "Clusters of Orthologous Groups (COG) Annotation GFF file for gold:Gp0213371",
+    "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/annotation/nmdc_mga0vx38_cath.gff",
+    "md5_checksum": "225c2a620cc15cfd371f9aa6e0c5208c",
+    "file_size_bytes": 614513871,
+    "id": "nmdc:225c2a620cc15cfd371f9aa6e0c5208c",
+    "name": "gold:Gp0213371_Clusters of Orthologous Groups (COG) Annotation GFF",
+    "data_object_type": "Clusters of Orthologous Groups (COG) Annotation GFF"
+  },
+  {
+    "description": "Pfam Annotation GFF file for gold:Gp0213371",
+    "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/annotation/nmdc_mga0vx38_cath.gff",
+    "md5_checksum": "36c458d8648ece4e8c3af9b13319b9b8",
+    "file_size_bytes": 614513871,
+    "id": "nmdc:36c458d8648ece4e8c3af9b13319b9b8",
+    "name": "gold:Gp0213371_Pfam Annotation GFF",
+    "data_object_type": "Pfam Annotation GFF"
+  },
+  {
+    "description": "Product Names file for gold:Gp0213371",
+    "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/annotation/nmdc_mga0vx38_cath.gff",
+    "md5_checksum": "af9892ee8372ba97bff93424079221d8",
+    "file_size_bytes": 614513871,
+    "id": "nmdc:af9892ee8372ba97bff93424079221d8",
+    "name": "gold:Gp0213371_Product Names",
+    "data_object_type": "Product Names"
+  },
+  {
+    "description": "TIGRFam Annotation GFF file for gold:Gp0213371",
+    "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/annotation/nmdc_mga0vx38_cath.gff",
+    "md5_checksum": "02f081900336db5b9553328c93c40d21",
+    "file_size_bytes": 614513871,
+    "id": "nmdc:02f081900336db5b9553328c93c40d21",
+    "name": "gold:Gp0213371_TIGRFam Annotation GFF",
+    "data_object_type": "TIGRFam Annotation GFF"
+  },
+  {
+    "description": "SMART Annotation GFF file for gold:Gp0213371",
+    "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/annotation/nmdc_mga0vx38_cath.gff",
+    "md5_checksum": "5b7a1c3890012eab0fb111979dd6ca3f",
+    "file_size_bytes": 614513871,
+    "id": "nmdc:5b7a1c3890012eab0fb111979dd6ca3f",
+    "name": "gold:Gp0213371_SMART Annotation GFF",
+    "data_object_type": "SMART Annotation GFF"
+  },
+  {
+    "description": "Gene Phylogeny file for gold:Gp0213371",
+    "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/annotation/nmdc_mga0vx38_cath.gff",
+    "md5_checksum": "205d1c4d44756cdadc7f2263375cd5cc",
+    "file_size_bytes": 614513871,
+    "id": "nmdc:205d1c4d44756cdadc7f2263375cd5cc",
+    "name": "gold:Gp0213371_Gene Phylogeny",
+    "data_object_type": "Gene Phylogeny tsv"
+  },
+  {
     "description": "KO TSV file for gold:Gp0213371",
     "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/annotation/nmdc_mga0vx38_ko.tsv",
     "md5_checksum": "a8e41f5700ab72a4f61f3d1dd45285c8",

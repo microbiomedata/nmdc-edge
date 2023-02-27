@@ -2,7 +2,7 @@ Workflows:
   - Name: Sequencing
     Type: nmdc:MetagenomeSequencing
     Enabled: False
-    Git_repo: https://github.com/microbiomedata/RawSequencingData
+    Git_repo: ""
     Version: v1.0.0
     Collection: metagenome_sequencing_activity_set
     Predecessor: null
@@ -17,6 +17,37 @@ Workflows:
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
     Version: b1.0.7
+    WDL: rqcfilter.wdl
+    Collection: read_qc_analysis_activity_set
+    Predecessor: Sequencing
+    Input_prefix: nmdc_rqcfilter
+    Inputs:
+      input_files: do:Metagenome Raw Reads
+      proj: "{activity_id}"
+    Activity:
+      name: "Read QC Activity for {id}"
+      input_read_bases: "{outputs.stats.input_read_bases}"
+      input_read_count: "{outputs.stats.input_read_count}"
+      output_read_bases: "{outputs.stats.output_read_bases}"
+      output_read_count: "{outputs.stats.output_read_count}"
+      type: nmdc:ReadQcAnalysisActivity
+    Outputs:
+      - output: filtered_final
+        name: Reads QC result fastq (clean data)
+        suffix: "_filtered.fastq.gz"
+        data_object_type: Filtered Sequencing Reads
+        description: "Reads QC for {id}"
+      - output: filtered_stats_final
+        name: Reads QC summary statistics
+        suffix: "_filterStats.txt"
+        data_object_type: QC Statistics
+        description: "Reads QC summary for {id}"
+
+  - Name: Reads QC
+    Type: nmdc:ReadQcAnalysisActivity
+    Enabled: True
+    Git_repo: https://github.com/microbiomedata/ReadsQC
+    Version: b1.0.8
     WDL: rqcfilter.wdl
     Collection: read_qc_analysis_activity_set
     Predecessor: Sequencing
