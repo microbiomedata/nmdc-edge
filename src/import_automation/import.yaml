@@ -1,0 +1,300 @@
+Workflows:
+  - Name: Sequencing
+    Type: nmdc:MetagenomeSequencing
+    Git_repo: https://github.com/microbiomedata/RawSequencingData
+    Version: v1.0.0
+    Collection: metagenome_sequencing_activity_set
+    WDL: null
+    Activity: null
+    Outputs: []
+
+  - Name: Reads QC
+    Type: nmdc:ReadQcAnalysisActivity
+    Git_repo: https://github.com/microbiomedata/ReadsQC
+    Version: b1.0.7
+    Collection: read_qc_analysis_activity_set
+    Inputs:
+      - Metagenome Raw Reads
+    Activity:
+      name: "Read QC Activity for {id}"
+      input_read_bases: "{outputs.stats.input_read_bases}"
+      input_read_count: "{outputs.stats.input_read_count}"
+      output_read_bases: "{outputs.stats.output_read_bases}"
+      output_read_count: "{outputs.stats.output_read_count}"
+      type: nmdc:ReadQcAnalysisActivity
+    Outputs:
+      - Filtered Sequencing Reads
+      - QC Statistics
+
+  - Name: Metagenome Assembly
+    Type: nmdc:MetagenomeAssembly
+    Git_repo: https://github.com/microbiomedata/metaAssembly
+    Version: v1.0.4-beta
+    Collection: metagenome_assembly_set
+    Inputs:
+      - Filtered Sequencing Reads
+    Activity:
+      name: "Metagenome Assembly Activity for {id}"
+      type: nmdc:MetagenomeAssembly
+      asm_score: "{outputs.stats.asm_score}"
+      contig_bp: "{outputs.stats.contig_bp}"
+      contigs: "{outputs.stats.contigs}"
+      ctg_l50: "{outputs.stats.ctg_l50}"
+      ctg_l90: "{outputs.stats.ctg_l90}"
+      ctg_logsum: "{outputs.stats.ctg_logsum}"
+      ctg_max: "{outputs.stats.ctg_max}"
+      ctg_n50: "{outputs.stats.ctg_n50}"
+      ctg_n90: "{outputs.stats.ctg_n90}"
+      ctg_powsum: "{outputs.stats.ctg_powsum}"
+      gap_pct: "{outputs.stats.gap_pct}"
+      gc_avg: "{outputs.stats.gc_avg}"
+      gc_std: "{outputs.stats.gc_std}"
+      scaf_bp: "{outputs.stats.scaf_bp}"
+      scaf_l50: "{outputs.stats.scaf_l50}"
+      scaf_l90: "{outputs.stats.scaf_l90}"
+      scaf_l_gt50k: "{outputs.stats.scaf_l_gt50k}"
+      scaf_logsum: "{outputs.stats.scaf_logsum}"
+      scaf_max: "{outputs.stats.scaf_max}"
+      scaf_n50: "{outputs.stats.scaf_n50}"
+      scaf_n90: "{outputs.stats.scaf_n90}"
+      scaf_n_gt50k: "{outputs.stats.scaf_n_gt50k}"
+      scaf_pct_gt50k: "{outputs.stats.scaf_pct_gt50k}"
+      scaf_powsum: "{outputs.stats.scaf_powsum}"
+      scaffolds: "{outputs.stats.scaffolds}"
+    Outputs:
+      - Assembly Contigs
+      - Assembly Scaffolds
+      - Assembly Coverage Stats
+      - Assembly AGP
+      - Assembly Coverage BAM
+
+  - Name: Metagenome Annotation
+    Type: nmdc:MetagenomeAnnotationActivity
+    Git_repo: https://github.com/microbiomedata/mg_annotation
+    Version: v1.0.2-beta
+    Collection: metagenome_annotation_activity_set
+    Inputs:
+      - Assembly Contigs
+    Activity:
+      name: "Metagenome Annotation Analysis Activity for {id}"
+      type: nmdc:MetagenomeAnnotationActivity
+    Outputs:
+      - Annotation Amino Acid FASTA
+      - Structural Annotation GFF
+      - Functional Annotation GFF
+      - Annotation KEGG Orthology
+      - Annotation Enzyme Commission
+      - Clusters of Orthologous Groups (COG) Annotation GFF
+      - Pfam Annotation GFF
+      - TIGRFam Annotation GFF
+      - SMART Annotation GFF
+      - SUPERFam Annotation GFF
+      - CATH FunFams (Functional Families) Annotation GFF
+      - CRT Annotation GFF
+      - Genmark Annotation GFF
+      - Prodigal Annotation GFF
+      - TRNA Annotation GFF
+      - RFAM Annotation GFF
+      - KO_EC Annotation GFF
+      - Product Names
+      - Gene Phylogeny tsv
+      - Crisprt Terms
+      - Annotation Statistics
+
+
+  - Name: MAGs
+    Git_repo: https://github.com/microbiomedata/metaMAGs
+    Version: v1.0.5-beta
+    Collection: mags_activity_set
+    Inputs:
+      - Assembly Contigs
+      - Functional Annotation GFF
+      - CATH FunFams (Functional Families) Annotation GFF
+      - SUPERFam Annotation GFF
+      - Clusters of Orthologous Groups (COG) Annotation GFF
+      - Pfam Annotation GFF
+      - Product Names
+      - TIGRFam Annotation GFF
+      - Annotation Enzyme Commission
+      - Annotation KEGG Orthology
+      - Assembly Coverage BAM
+      - SMART Annotation GFF
+      - Annotation Amino Acid FASTA
+      - Gene Phylogeny tsv
+    Activity:
+      name: "Metagenome Assembled Genomes Analysis Activity for {id}"
+      type: nmdc:MAGsAnalysisActivity
+    Outputs:
+      - CheckM Statistics
+      - Metagenome Bins
+      - GTDBTK Bacterial Summary 
+      - GTDBTK Archaeal Summary
+
+Data Objects:
+  GTDBTK Bacterial Summary:
+    data_object_type: GTDBTK Bacterial Summary
+    description: Bacterial Summary for {id}
+    name: GTDBTK bacterial summary
+    suffix: _xxx
+    pattern: xxx
+  CheckM Statistics:
+    data_object_type: CheckM Statistics
+    description: CheckM for {id}
+    name: CheckM statistics report
+    suffix: _checkm_qa.out
+  Metagenome Bins:
+    data_object_type: Metagenome Bins
+    description: Metagenome Bins for {id}
+    name: Metagenome bin tarfiles archive
+    suffix: _hqmq_bin.zip
+  GTDBTK Bacterial Summary:
+    data_object_type: GTDBTK Bacterial Summary
+    description: Bacterial Summary for {id}
+    name: GTDBTK bacterial summary
+    suffix: _gtdbtk.bac122.summary.tsv
+  GTDBTK Archaeal Summary:
+    data_object_type: GTDBTK Archaeal Summary
+    description: Archaeal Summary for {id}
+    name: GTDBTK archaeal summary
+    suffix: _gtdbtk.ar122.summary.tsv
+
+  Annotation Amino Acid FASTA:
+    data_object_type: Annotation Amino Acid FASTA
+    description: FASTA Amino Acid File for {id}
+    name: FASTA amino acid file for annotated proteins
+    suffix: _proteins.faa
+  Structural Annotation GFF:
+    data_object_type: Structural Annotation GFF
+    description: Structural Annotation for {id}
+    name: GFF3 format file with structural annotations
+    suffix: _structural_annotation.gff
+  Functional Annotation GFF:
+    data_object_type: Functional Annotation GFF
+    description: Functional Annotation for {id}
+    name: GFF3 format file with functional annotations
+    suffix: _functional_annotation.gff
+  Annotation KEGG Orthology:
+    data_object_type: Annotation KEGG Orthology
+    description: KEGG Orthology for {id}
+    name: Tab delimited file for KO annotation
+    suffix: _ko.tsv
+  Annotation Enzyme Commission:
+    data_object_type: Annotation Enzyme Commission
+    description: EC Annotations for {id}
+    name: Tab delimited file for EC annotation
+    suffix: _ec.tsv
+  Clusters of Orthologous Groups (COG) Annotation GFF:
+    data_object_type: Clusters of Orthologous Groups (COG) Annotation GFF
+    description: COGs for {id}
+    name: GFF3 format file with COGs
+    suffix: _cog.gff
+  Pfam Annotation GFF:
+    data_object_type: Pfam Annotation GFF
+    description: Pfam Annotation for {id}
+    name: GFF3 format file with Pfam
+    suffix: _pfam.gff
+  TIGRFam Annotation GFF:
+    data_object_type: TIGRFam Annotation GFF
+    description: TIGRFam for {id}
+    name: GFF3 format file with TIGRfam
+    suffix: _tigrfam.gff
+  TODO:
+    data_object_type: SMART Annotation GFF
+    description: SMART Annotations for {id}
+    name: GFF3 format file with SMART
+    suffix: _smart.gff
+  TODO:
+    data_object_type: SUPERFam Annotation GFF
+    description: SUPERFam Annotations for {id}
+    name: GFF3 format file with SUPERFam
+    suffix: _supfam.gff
+  TODO:
+    data_object_type: CATH FunFams (Functional Families) Annotation GFF
+    description: CATH FunFams for {id}
+    name: GFF3 format file with CATH FunFams
+    suffix: _cath_funfam.gff
+  TODO:
+    data_object_type: CRT Annotation GFF
+    description: CRT Annotations for {id}
+    name: GFF3 format file with CRT
+    suffix: _crt.gff
+  TODO:
+    data_object_type: Genmark Annotation GFF
+    description: Genemark Annotations for {id}
+    name: GFF3 format file with Genemark
+    suffix: _genemark.gff
+  TODO:
+    data_object_type: Prodigal Annotation GFF
+    description: Prodigal Annotations {id}
+    name: GFF3 format file with Prodigal
+    suffix: _prodigal.gff
+  TODO:
+    data_object_type: TRNA Annotation GFF
+    description: TRNA Annotations {id}
+    name: GFF3 format file with TRNA
+    suffix: _trna.gff
+  TODO:
+    data_object_type: RFAM Annotation GFF
+    description: RFAM Annotations for {id}
+    name: GFF3 format file with RFAM
+    suffix: _rfam.gff
+  TODO:
+    data_object_type: KO_EC Annotation GFF
+    description: KO_EC Annotations for {id}
+    name: GFF3 format file with KO_EC
+    suffix: _ko_ec.gff
+  TODO:
+    data_object_type: Product Names
+    description: Product names for {id}
+    name: Product names file
+    suffix: _product_names.tsv
+  TODO:
+    data_object_type: Gene Phylogeny tsv
+    description: Gene Phylogeny for {id}
+    name: Gene Phylogeny file
+    suffix: _gene_phylogeny.tsv
+  TODO:
+    data_object_type: Crisprt Terms
+    description: Crispr Terms for {id}
+    name: Crispr Terms
+    suffix: _crt.crisprs
+  TODO:
+    data_object_type: Annotation Statistics
+    description: Annotation Stats for {id}
+    name: Annotation statistics report
+    suffix: _stats.tsv
+  TODO:
+        name: Reads QC result fastq (clean data)
+        suffix: "_filtered.fastq.gz"
+        data_object_type: Filtered Sequencing Reads
+        description: "Reads QC for {id}"
+  TODO:
+        name: Reads QC summary statistics
+        suffix: "_filterStats.txt"
+        data_object_type: QC Statistics
+        description: "Reads QC summary for {id}"
+  TODO:
+        name: Final assembly contigs fasta
+        suffix: "_contigs.fna"
+        data_object_type: Assembly Contigs
+        description: "Assembly contigs for {id}"
+  TODO:
+        name: Final assembly scaffolds fasta
+        suffix: "_scaffolds.fna"
+        data_object_type: Assembly Scaffolds
+        description: "Assembly scaffolds for {id}"
+  TODO:
+        name: Assembled contigs coverage information
+        suffix: "_covstats.txt"
+        data_object_type: Assembly Coverage Stats
+        description: "Coverage Stats for {id}"
+  TODO:
+        name: An AGP format file that describes the assembly
+        suffix: "_assembly.agp"
+        data_object_type: Assembly AGP
+        description: "AGP for {id}"
+  TODO:
+        name: Sorted bam file of reads mapping back to the final assembly
+        suffix: "_pairedMapped_sorted.bam"
+        data_object_type: Assembly Coverage BAM
+        description: "Sorted Bam for {id}"
