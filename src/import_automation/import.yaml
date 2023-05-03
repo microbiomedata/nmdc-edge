@@ -1,14 +1,16 @@
 Workflows:
   - Name: Sequencing
+    Import: true
     Type: nmdc:MetagenomeSequencing
     Git_repo: https://github.com/microbiomedata/RawSequencingData
     Version: v1.0.0
     Collection: metagenome_sequencing_activity_set
-    WDL: null
     Activity: null
-    Outputs: []
+    Outputs:
+      - Metagenome Raw Reads
 
   - Name: Reads QC
+    Import: true
     Type: nmdc:ReadQcAnalysisActivity
     Git_repo: https://github.com/microbiomedata/ReadsQC
     Version: b1.0.7
@@ -26,7 +28,30 @@ Workflows:
       - Filtered Sequencing Reads
       - QC Statistics
 
+  - Name: Readbased Taxonomy
+    Import: false
+    Type: nmdc:ReadBasedTaxonomyAnalysisActivity
+    Git_repo: https://github.com/microbiomedata/ReadsQC
+    Version: 1.0.4-beta
+    Collection: read_based_taxonomy_analysis_activity_set
+    Inputs:
+      - Filtered Sequencing Reads
+    Activity:
+      name: Readbased Taxonomy Analysis Activity for {id}
+      type: nmdc:ReadBasedTaxonomyAnalysisActivity
+    Outputs:
+      - GOTTCHA2 Classification Report
+      - GOTTCHA2 Report Full
+      - GOTTCHA2 Krona Plot
+      - Centrifuge Taxonomic Classification
+      - Centrifuge Classification Report
+      - Centrifuge Krona Plot
+      - Kraken2 Taxonomic Classification
+      - Kraken2 Classification Report
+      - Kraken2 Krona Plot
+
   - Name: Metagenome Assembly
+    Import: true
     Type: nmdc:MetagenomeAssembly
     Git_repo: https://github.com/microbiomedata/metaAssembly
     Version: v1.0.4-beta
@@ -103,6 +128,8 @@ Workflows:
 
 
   - Name: MAGs
+    Imports: true
+    Type: nmdc:MAGsAnalysisActivity
     Git_repo: https://github.com/microbiomedata/metaMAGs
     Version: v1.0.5-beta
     Collection: mags_activity_set
@@ -131,170 +158,342 @@ Workflows:
       - GTDBTK Archaeal Summary
 
 Data Objects:
-  GTDBTK Bacterial Summary:
-    data_object_type: GTDBTK Bacterial Summary
-    description: Bacterial Summary for {id}
-    name: GTDBTK bacterial summary
-    suffix: _xxx
-    pattern: xxx
+  Metagenome Raw Reads:
+    data_object_type: Metagenome Raw Reads
+    description: Metagenome Raw Reads for {id}
+    name: Raw sequencer read data
+    suffix: .fastq.gz
+    input_to: [nmdc:ReadQcAnalysisActivity]
+    output_of: nmdc:MetagenomeSequencing
+    action: none
   CheckM Statistics:
     data_object_type: CheckM Statistics
     description: CheckM for {id}
     name: CheckM statistics report
     suffix: _checkm_qa.out
+    input_to: []
+    output_of:  nmdc:MAGsAnalysisActivity
+    action: rename
   Metagenome Bins:
     data_object_type: Metagenome Bins
     description: Metagenome Bins for {id}
     name: Metagenome bin tarfiles archive
     suffix: _hqmq_bin.zip
+    input_to: []
+    output_of:  nmdc:MAGsAnalysisActivity
+    action: zip
   GTDBTK Bacterial Summary:
     data_object_type: GTDBTK Bacterial Summary
     description: Bacterial Summary for {id}
     name: GTDBTK bacterial summary
     suffix: _gtdbtk.bac122.summary.tsv
+    input_to: []
+    output_of:  nmdc:MAGsAnalysisActivity
+    action: rename
   GTDBTK Archaeal Summary:
     data_object_type: GTDBTK Archaeal Summary
     description: Archaeal Summary for {id}
     name: GTDBTK archaeal summary
     suffix: _gtdbtk.ar122.summary.tsv
-
+    input_to: []
+    output_of:  nmdc:MAGsAnalysisActivity
+    action: rename
   Annotation Amino Acid FASTA:
     data_object_type: Annotation Amino Acid FASTA
     description: FASTA Amino Acid File for {id}
     name: FASTA amino acid file for annotated proteins
     suffix: _proteins.faa
+    input_to: [nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
   Structural Annotation GFF:
     data_object_type: Structural Annotation GFF
     description: Structural Annotation for {id}
     name: GFF3 format file with structural annotations
     suffix: _structural_annotation.gff
+    input_to: []
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
   Functional Annotation GFF:
     data_object_type: Functional Annotation GFF
     description: Functional Annotation for {id}
     name: GFF3 format file with functional annotations
     suffix: _functional_annotation.gff
+    input_to: [nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
   Annotation KEGG Orthology:
     data_object_type: Annotation KEGG Orthology
     description: KEGG Orthology for {id}
     name: Tab delimited file for KO annotation
     suffix: _ko.tsv
+    input_to: [nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
   Annotation Enzyme Commission:
     data_object_type: Annotation Enzyme Commission
     description: EC Annotations for {id}
     name: Tab delimited file for EC annotation
     suffix: _ec.tsv
+    input_to: [nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
   Clusters of Orthologous Groups (COG) Annotation GFF:
     data_object_type: Clusters of Orthologous Groups (COG) Annotation GFF
     description: COGs for {id}
     name: GFF3 format file with COGs
     suffix: _cog.gff
+    input_to: [nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
   Pfam Annotation GFF:
     data_object_type: Pfam Annotation GFF
     description: Pfam Annotation for {id}
     name: GFF3 format file with Pfam
     suffix: _pfam.gff
+    input_to: [nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
   TIGRFam Annotation GFF:
     data_object_type: TIGRFam Annotation GFF
     description: TIGRFam for {id}
     name: GFF3 format file with TIGRfam
     suffix: _tigrfam.gff
-  TODO:
+    input_to: [nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  SMART Annotation GFF:
     data_object_type: SMART Annotation GFF
     description: SMART Annotations for {id}
     name: GFF3 format file with SMART
     suffix: _smart.gff
-  TODO:
+    input_to: [nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  SUPERFam Annotation GFF:
     data_object_type: SUPERFam Annotation GFF
     description: SUPERFam Annotations for {id}
     name: GFF3 format file with SUPERFam
     suffix: _supfam.gff
-  TODO:
+    input_to: [nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  CATH FunFams (Functional Families) Annotation GFF:
     data_object_type: CATH FunFams (Functional Families) Annotation GFF
     description: CATH FunFams for {id}
     name: GFF3 format file with CATH FunFams
     suffix: _cath_funfam.gff
-  TODO:
+    input_to: [nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  CRT Annotation GFF:
     data_object_type: CRT Annotation GFF
     description: CRT Annotations for {id}
     name: GFF3 format file with CRT
     suffix: _crt.gff
-  TODO:
+    input_to: []
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  Genmark Annotation GFF:
     data_object_type: Genmark Annotation GFF
     description: Genemark Annotations for {id}
     name: GFF3 format file with Genemark
     suffix: _genemark.gff
-  TODO:
+    input_to: []
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  Prodigal Annotation GFF:
     data_object_type: Prodigal Annotation GFF
     description: Prodigal Annotations {id}
     name: GFF3 format file with Prodigal
     suffix: _prodigal.gff
-  TODO:
+    input_to: []
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  TRNA Annotation GFF:
     data_object_type: TRNA Annotation GFF
     description: TRNA Annotations {id}
     name: GFF3 format file with TRNA
     suffix: _trna.gff
-  TODO:
+    input_to: []
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  RFAM Annotation GFF:
     data_object_type: RFAM Annotation GFF
     description: RFAM Annotations for {id}
     name: GFF3 format file with RFAM
     suffix: _rfam.gff
-  TODO:
+    input_to: []
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  KO_EC Annotation GFF:
     data_object_type: KO_EC Annotation GFF
     description: KO_EC Annotations for {id}
     name: GFF3 format file with KO_EC
     suffix: _ko_ec.gff
-  TODO:
+    input_to: []
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  Product Names:
     data_object_type: Product Names
     description: Product names for {id}
     name: Product names file
     suffix: _product_names.tsv
-  TODO:
+    input_to: [nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  Gene Phylogeny tsv:
     data_object_type: Gene Phylogeny tsv
     description: Gene Phylogeny for {id}
     name: Gene Phylogeny file
     suffix: _gene_phylogeny.tsv
-  TODO:
+    input_to: [nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  Crisprt Terms:
     data_object_type: Crisprt Terms
     description: Crispr Terms for {id}
     name: Crispr Terms
     suffix: _crt.crisprs
-  TODO:
+    input_to: []
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  Annotation Statistics:
     data_object_type: Annotation Statistics
     description: Annotation Stats for {id}
     name: Annotation statistics report
     suffix: _stats.tsv
-  TODO:
-        name: Reads QC result fastq (clean data)
-        suffix: "_filtered.fastq.gz"
-        data_object_type: Filtered Sequencing Reads
-        description: "Reads QC for {id}"
-  TODO:
-        name: Reads QC summary statistics
-        suffix: "_filterStats.txt"
-        data_object_type: QC Statistics
-        description: "Reads QC summary for {id}"
-  TODO:
-        name: Final assembly contigs fasta
-        suffix: "_contigs.fna"
-        data_object_type: Assembly Contigs
-        description: "Assembly contigs for {id}"
-  TODO:
-        name: Final assembly scaffolds fasta
-        suffix: "_scaffolds.fna"
-        data_object_type: Assembly Scaffolds
-        description: "Assembly scaffolds for {id}"
-  TODO:
-        name: Assembled contigs coverage information
-        suffix: "_covstats.txt"
-        data_object_type: Assembly Coverage Stats
-        description: "Coverage Stats for {id}"
-  TODO:
-        name: An AGP format file that describes the assembly
-        suffix: "_assembly.agp"
-        data_object_type: Assembly AGP
-        description: "AGP for {id}"
-  TODO:
-        name: Sorted bam file of reads mapping back to the final assembly
-        suffix: "_pairedMapped_sorted.bam"
-        data_object_type: Assembly Coverage BAM
-        description: "Sorted Bam for {id}"
+    input_to: []
+    output_of: nmdc:MetagenomeAnnotationActivity
+    action: rename
+  Filtered Sequencing Reads:
+    data_object_type: Filtered Sequencing Reads
+    description: Reads QC for {id}
+    name: Reads QC result fastq (clean data)
+    suffix: _filtered.fastq.gz
+    input_to: [nmdc:ReadBasedTaxonomyAnalysisActivity,nmdc:MetagenomeAssembly]
+    output_of: nmdc:ReadQcAnalysisActivity
+    action: rename
+  QC Statistics:
+    data_object_type: QC Statistics 
+    description: Reads QC summary for {id} 
+    name: Reads QC summary statistics
+    suffix: _filterStats.txt
+    input_to: []
+    output_of: nmdc:ReadQcAnalysisActivity
+    action: rename
+  Assembly Contigs:
+    data_object_type: Assembly Contigs
+    description: Assembly contigs for {id}
+    name: Final assembly contigs fasta
+    suffix: _contigs.fna
+    input_to: [nmdc:MetagenomeAnnotationActivity,nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAssembly
+    action: rename
+  Assembly Scaffolds:
+    data_object_type: Assembly Scaffolds
+    description: Assembly scaffolds for {id}
+    name: Final assembly scaffolds fasta
+    suffix: _scaffolds.fna
+    input_to: []
+    output_of: nmdc:MetagenomeAssembly
+    action: rename
+  Assembly Coverage Stats:
+    data_object_type: Assembly Coverage Stats
+    description: Coverage Stats for {id}
+    name: Assembled contigs coverage information
+    suffix: _covstats.txt
+    input_to: []
+    output_of: nmdc:MetagenomeAssembly
+    action: rename
+  Assembly AGP:
+    data_object_type: Assembly AGP
+    description: AGP for {id}
+    name: An AGP format file that describes the assembly
+    suffix: _assembly.agp
+    input_to: []
+    output_of: nmdc:MetagenomeAssembly
+    action: rename
+  Assembly Coverage BAM:
+    data_object_type: Assembly Coverage BAM
+    description: Sorted Bam for {id}
+    name: Sorted bam file of reads mapping back to the final assembly
+    suffix: _pairedMapped_sorted.bam
+    input_to: [nmdc:MAGsAnalysisActivity]
+    output_of: nmdc:MetagenomeAssembly
+    action: rename
+  GOTTCHA2 Report Full:
+    data_object_type: GOTTCHA2 Report Full
+    description: GOTTCHA2 Full Report for {id}
+    name: GOTTCHA2 report file
+    suffix:  _gottcha2_full.tsv
+    input_to: []
+    output_of: nmdc:ReadBasedTaxonomyAnalysisActivity
+    action: rename
+  GOTTCHA2 Classification Report:
+    data_object_type: GOTTCHA2 Classification Report
+    description: GOTTCHA2 Classification for {id}
+    name: GOTTCHA2 classification report file
+    suffix: _gottcha2_classification.tsv
+    input_to: []
+    output_of: nmdc:ReadBasedTaxonomyAnalysisActivity
+    action: rename
+  GOTTCHA2 Krona Plot:
+    data_object_type: GOTTCHA2 Krona Plot
+    description: GOTTCHA2 Krona for {id}
+    name: GOTTCHA2 krona plot HTML file
+    suffix: _gottcha2_krona.html
+    input_to: []
+    output_of: nmdc:ReadBasedTaxonomyAnalysisActivity
+    action: rename
+  Centrifuge Taxonomic Classification:
+    data_object_type: Centrifuge Taxonomic Classification
+    description: Centrifuge Report for {id}
+    name: Centrifuge output read classification file
+    suffix: _centrifuge_classification.tsv
+    input_to: []
+    output_of: nmdc:ReadBasedTaxonomyAnalysisActivity
+    action: rename
+  Centrifuge output report file:
+    data_object_type: Centrifuge output report file
+    description: Centrifuge output report file for {id}
+    name: Centrifuge Classification Report
+    suffix: _centrifuge_report.tsv
+    input_to: []
+    output_of: nmdc:ReadbasedTaxonomyAnalysisActivity
+    action: rename
+  Centrifule Krona Plot:
+    data_object_type: Centrifuge Krona Plot
+    description: Centrifuge Krona for {id}
+    name: Centrifuge krona plot HTML file
+    suffix: _centrifuge_krona.html
+    input_to: []
+    output_of: ndmc:ReadbasedTaxonomyAnalysisActivity
+    action: rename
+  Kraken2 Classification Report:
+    data_object_type: Kraken2 Classification Report
+    description: Kraken2 report for {id}
+    name: Kraken2 outpur report file
+    suffix: _kraken2_report.tsv
+    input_to: []
+    output_of: ndmc:ReadbasedTaxonomyAnalysisActivity
+    action: rename
+  Kraken2 Taxonomic Classification:
+    data_object_type: Kraken2 Taxonomic Classification
+    description: Kraken2 classification for {id}
+    name: Kraken2 output read classification file
+    suffix: _kraken2_classification.tsv
+    input_to: []
+    output_of: ndmc:ReadbasedTaxonomyAnalysisActivity
+    action: rename
+  Kraken2 Krona Plot:
+    data_object_type: Kraken2 Krona Plot
+    description: Kraken2 Krona plot for {id}
+    name: Kraken2 Krona plot HTML file
+    suffix: _kraken2_krona.html
+    input_to: []
+    output_of: nmdc:ReadbasedTaxonomyAnalysisActivity
+    action: rename
+
+Workflow Metadata:
+  - Execution Resource: JGI
