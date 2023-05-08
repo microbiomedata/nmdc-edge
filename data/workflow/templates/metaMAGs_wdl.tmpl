@@ -1,0 +1,15 @@
+    String? <WORKFLOW>_outdir
+    String  <WORKFLOW>_proj_name
+    File <WORKFLOW>_contig_file
+    File <WORKFLOW>_sam_file
+    File <WORKFLOW>_gff_file
+    File? <WORKFLOW>_map_file
+    File? <WORKFLOW>_domain_file
+    Int <WORKFLOW>_cpu=16
+    Int <WORKFLOW>_pplacer_cpu=1
+    String <WORKFLOW>_database="/expanse/projects/nmdc/refdata/GTDBTK_DB"
+
+    call <WORKFLOW>.nmdc_mags  as <ALIAS> {
+        input: outdir=<WORKFLOW>_outdir, proj_name=<WORKFLOW>_proj_name, contig_file=<WORKFLOW>_contig_file, sam_file=<WORKFLOW>_sam_file, gff_file=<WORKFLOW>_gff_file, 
+        map_file=<WORKFLOW>_map_file, domain_file=<WORKFLOW>_domain_file, cpu=<WORKFLOW>_cpu, pplacer_cpu=<WORKFLOW>_pplacer_cpu, gtdbtk_database=<WORKFLOW>_database, scratch_dir=<WORKFLOW>_outdir 
+    }

@@ -1,0 +1,11 @@
+export const ADD_ERRORS = "ADD_ERRORS";
+export const CLEAN_ERRORS = "CLEAN_ERRORS";
+export const ADD_MESSAGES = "ADD_MESSAGES";
+export const CLEAN_MESSAGES = "CLEAN_MESSAGES";
+export const USER_LOADING = "USER_LOADING";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const SET_NEW_USER = "SET_NEW_USER";
+export const SUBMIT_FORM = "SUBMIT_FORM";
+export const PAGE_LOADING = "PAGE_LOADING";
+export const PAGE_PATH = "PAGE_PATH";
+export const SIDEBAR_SET = "SIDEBAR_SET";

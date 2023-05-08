@@ -1,0 +1,29 @@
+URL=https://<WEB_SERVER_DOMAIN>
+
+REACT_APP_NAME=NMDC EDGE
+
+#on/off
+REACT_APP_SOCIAL_LOGIN=off
+REACT_APP_SOCIAL_SECRET=LC_bTfruLjF-MFtvw7WVDQv3
+REACT_APP_GOOGLE_ID=72994759589-t8v3cq0fbqoir3lio8g6ufc8ak4f1feo.apps.googleusercontent.com
+REACT_APP_FACEBOOK_ID=252260343192323
+REACT_APP_ORCID_AUTH=on
+ORCID_CLIENT_ID=APP-CTM81LRCLW9QLGB9
+ORCID_AUTH_URL=https://orcid.org/oauth/authorize
+ORCID_RETURN_PAGE=https://<WEB_SERVER_DOMAIN>/oauth
+REACT_APP_ORCID_AUTH_URL=$ORCID_AUTH_URL?response_type=token&redirect_uri=$ORCID_RETURN_PAGE&client_id=$ORCID_CLIENT_ID&scope=openid&nonce=whatever
+
+#sendmail
+REACT_APP_EMAIL_NOTIFICATION=true
+REACT_APP_REGISTER_SUBJECT=Your EDGE login account
+REACT_APP_REGISTER_MSG=Thanks for using EDGE! Please activate your account by clicking on the link $URL/activate
+REACT_APP_RESETPASSWD_SUBJECT=Reset your EDGE login password
+REACT_APP_RESETPASSWD_MSG=Someone requested a password reset for your account. If this was not you, please disregard this email. If you'd like to continue, click the link $URL/resetpassword
+  
+#file upload
+REACT_APP_FILEUPLOAD_ALLOWED_EXTENSIONS=fastq|fq|fa|fasta|fna|faa|contigs|fastq.gz|fq.gz|fa.gz|fasta.gz|contigs.gz|fna.gz|fa.bz2|fasta.bz2|contigs.bz2|fna.bz2|fa.xz|fasta.xz|contigs.xz|fna.xz|gbk|gff|genbank|gb|xlsx|txt|bed|config|tsv|csv|raw|d|bam|sam
+
+#project output file/folder download
+REACT_APP_API_URL=https://<WEB_SERVER_DOMAIN>
+#1.5G
+REACT_APP_FOLDER_DOWNLOAD_MAX_SIZE=1610612740

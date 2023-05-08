@@ -1,0 +1,54 @@
+import { colors } from '../../../common/Colors';
+export const defaults = {
+    //onSubmit, onBlur, onChange
+    form_mode: 'onChange',
+
+    inputStyle: { borderRadius: '5px', backgroundColor: 'white' },
+    inputStyleWarning: { borderRadius: '5px', borderLeftColor: colors.danger, backgroundColor: 'white' },
+}
+
+export const workflowOptions = [
+    { value: 'Metaproteomics', label: 'Metaproteomics' },
+];
+
+export const workflowInputTips = {
+    'Metaproteomics': {
+        raw_tip: 'RAW MS/MS file, should correspond to fastq input to Metagenome workflow',
+        fasta_tip: 'Fasta file, output (nmdc_id_proteins.faa) of a MetagenomeAnnotation workflow',
+        gff_tip: 'GFF file, output (nmdc_id_functional_annotation.gff) of a MetagenomeAnnotation workflow',
+        thermo_raw :'Does mass spec file come from ThermoFisher instrument?',
+        qvalue_threshold: 'Q value for analyzing peptides of interest',
+        study: 'name of study from sequencing project, if none put in any name'
+    },
+}
+
+export const workflowlist = {
+    'Metaproteomics': {
+        title: 'Metaproteomics',
+        name: 'Metaproteomics Workflow',
+        // img: '/docs/images/Metaproteomics.png',
+        // thumbnail: '/docs/images/Metaproteomics-thumbnail.png',
+        link: 'https://github.com/microbiomedata/metaPro',
+        doclink: 'https://nmdc-proteomics-workflow.readthedocs.io/en/latest/',
+        info: 'Metaproteomics workflow/pipeline is an end-to-end data processing and analyzing pipeline for studying proteomes i.e studying protein identification and characterization using MS/MS data.'
+    },
+}
+
+export const initialMetaP = {
+
+    dataRanges: {
+        'qvalue_threshold': { min: 0.01, max: 0.10, step: 0.01 },
+    },
+
+    validForm: false,
+    errMessage: '',
+    input_raw: '',
+    input_raw_display: '',
+    input_fasta: '',
+    input_fasta_display: '',
+    input_gff: '',
+    input_gff_display: '',
+    thermo_raw: true,
+    qvalue_threshold: 0.05,
+    study:'',
+}

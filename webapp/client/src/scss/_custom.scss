@@ -1,0 +1,233 @@
+// Here you can add other styles
+$primary: #321fdb;
+$secondary: #ced2d8;
+$success: #2eb85c;
+$danger: #e55353;
+$warning: #f9b115;
+$info: #3399ff;
+$light: #ebedef;
+$dark: #636f83;
+//containers
+.c-main {
+    background-color: white;
+    padding-top: 20px;
+}
+
+.dropdown-menu {
+    background-color: #f0f3f5;
+}
+
+.no-outline-on-focus:focus {
+    outline: none;
+}
+
+.link-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.link-button:hover,
+.link-button:focus {
+    text-decoration: none;
+}
+
+.button:active, 
+ button:active,
+.button:focus, 
+ button:focus,
+.button:hover, 
+ button:hover{
+    border:none !important;
+    outline:none !important;
+}
+
+.no-outline.focus, .no-outline:focus {
+    outline: 0;
+    box-shadow: none!important;
+}
+
+.edge-header-nav-link {
+    //font-weight: bold;
+    @include hover-focus() {
+        font-weight: bold;
+    }
+  }
+
+//UM
+.um-card {
+    background-color: $light;
+}
+
+.edge-text-center {
+    text-align: center;
+}
+
+.edge-footer-item {
+    padding-top: 0px;
+    padding-right: 30px;
+    padding-bottom: 0px;
+    padding-left: 80px;
+}
+.edge-footer {    
+    justify-content: center;
+}
+
+//form
+.red-text {
+    color: $danger;
+}
+.white-text {
+    color: white;
+}
+
+.edge-text-font {
+    font-family: 'Helvetica', sans-serif;
+}
+.edge-text-size-large {
+    font-size: 1.25em;
+}
+.edge-text-size-small {
+    font-size: 0.85em;
+}
+
+.edge-sub-field {
+    color: $success !important;
+}
+
+.edge-center{
+    margin: 0 auto;
+    text-align: center;
+}
+.edge-right{
+    margin: 0 auto;
+    text-align: right;
+}
+.edge-left{
+    margin: 0 auto;
+    text-align: left;
+}
+
+.edge-additional-options-toggle {
+    color: $dark !important;
+    font-size: 0.9em;
+    font-weight: 300 !important;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.edge-link-large {
+    color: $primary !important;
+    font-size: 1.2em;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.edge-card-header-action {
+    cursor: pointer;
+}
+
+.edge-card-header-title {
+    font-weight: bold;
+}
+
+.edge-react-switch {
+    vertical-align: middle;
+    margin-left: 4px;
+}
+
+.edge-display-linebreak {
+    white-space: pre-line;
+}
+
+.edge-loader {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.edge-form-input-error {
+    color: red;
+}
+
+.edge-form-input-error::before {
+    display: inline;
+    content: "⚠ ";
+}
+
+.edge-modal-body {
+    max-width: 800px;
+    max-height: 500px;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.edge-component-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+//tooltip
+.hide {
+    display: none;
+}
+.__react_component_tooltip {
+    pointer-events: auto !important;
+}
+
+//react-select
+.mySelect__value-container{
+    overflow-y: auto !important;
+    max-height: 300px;
+ }
+
+/* over write css in react-select module */
+.mySelect__menu-list {
+    max-height: 300px !important;
+}
+
+.edge-iframe {
+    display: block;
+    width: 100vw;
+    height: calc(100vh - 300px);
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+    box-sizing: border-box;
+    padding-top: 0px;
+}
+.edge-fab-file-selector {
+  margin-left: 10;
+  color: $primary;
+  background-color: white;
+}
+.edge-fab-file-selector-icon {
+    margin-right: 5px;
+    font-size: 1.2em;
+  }
+
+.workflow-card {
+    margin-bottom: 5px;
+}
+
+.workflow-result-card {
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+.v-h-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:75vh;  
+}

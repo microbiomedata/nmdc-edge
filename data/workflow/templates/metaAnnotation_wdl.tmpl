@@ -1,0 +1,9 @@
+    String  <WORKFLOW>_imgap_input_fasta
+    String  <WORKFLOW>_imgap_project_id
+    String  <WORKFLOW>_outdir
+    Int     <WORKFLOW>_additional_threads=42
+    String  <WORKFLOW>_database_location="/databases/img/"
+
+    call <WORKFLOW>.annotation as <ALIAS> {
+        input: imgap_input_fasta=<WORKFLOW>_imgap_input_fasta, imgap_project_id=<WORKFLOW>_imgap_project_id, outdir=<WORKFLOW>_outdir ,additional_threads=<WORKFLOW>_additional_threads, database_location=<WORKFLOW>_database_location
+    }

@@ -1,0 +1,16 @@
+    Map[String, Boolean] <WORKFLOW>_enabled_tools
+    Map[String, String] <WORKFLOW>_db = {
+        "gottcha2": "/expanse/projects/nmdc/refdata/GOTTCHA2",
+        "kraken2": "/expanse/projects/nmdc/refdata/Kraken2",
+        "centrifuge": "/expanse/projects/nmdc/refdata/Centrifuge"
+    }
+    Array[File] <WORKFLOW>_reads
+    Int <WORKFLOW>_cpu = 4
+    String <WORKFLOW>_prefix
+    String <WORKFLOW>_outdir
+    Boolean? <WORKFLOW>_paired = false
+
+    call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
+        input: enabled_tools=<WORKFLOW>_enabled_tools, db=<WORKFLOW>_db, reads=<WORKFLOW>_reads, cpu=<WORKFLOW>_cpu, prefix=<WORKFLOW>_prefix, 
+        outdir=<WORKFLOW>_outdir, paired=<WORKFLOW>_paired
+    }

@@ -1,0 +1,495 @@
+import "rqcfilter.wdl" as readsQC
+import "ReadbasedAnalysis.wdl" as readbasedAnalysis
+import "jgi_assembly.wdl" as metaAssembly
+import "annotation.wdl" as metaAnnotation
+import "mbin_nmdc.wdl" as metaMAGs
+
+workflow main_workflow {
+	# Workflow Booleans
+	Boolean DoReadsQC = true
+	Boolean DoReadbasedAnalysis = true
+	Boolean DoMetaAssembly = true
+	Boolean DoAnnotation = true
+	Boolean DoMetaMAGs = true
+	Boolean input_interleaved = true
+	String? proj = "metagenome_workflow" 
+    String? activity_id = "${proj}"  # "nmdc:GpXXXXXXXx"
+    String? informed_by = "gold:GpXXXXXXX"
+    String resource = "SDSC - Expanse"
+    
+    # https://nmdc-edge.org/projects/pCxA9JY0P0SckQQR/output/ReadbasedAnalysis/Readsbased_NMDC_test.json
+    String url_root = "https://nmdc-edge.org/projects/"
+    String url_base = url_root + sub(proj, "[^A-Za-z0-9]", "_") + "/output/"
+    String git_url = "https://gitlab.com/edge-lanl/nmdc-edge"
+	
+	## Fastq input files
+	Array[File] input_files
+	
+	call start {
+		input: container="microbiomedata/workflowmeta:1.0.0"
+	}
+	
+	if (!input_interleaved) {
+		Array[File] input_fq1
+		Array[File] input_fq2
+		## the zip() function generates an array of pairs, use .left and .right to access
+		scatter(file in zip(input_fq1,input_fq2)){
+			call interleave_reads {
+				input:
+					input_files = [file.left,file.right],
+					output_file = basename(file.left) + "_" + basename(file.right),
+					container = "microbiomedata/bbtools:38.92"
+			}
+		}
+	} 
+	
+	Array[File]? interleaved_input_fastqs = if (input_interleaved) then input_files else interleave_reads.out_fastq
+	
+	## QC workflow
+	String? readsQC_outdir
+	String readsQC_bbtools_container="microbiomedata/bbtools:38.92"
+	String readsQC_database="/expanse/projects/nmdc/refdata"
+	String readsQC_memory="60g"
+	String readsQC_threads="4"
+	Array[File] readsQC_input_fq1=[]
+	Array[File] readsQC_input_fq2=[]
+
+	if (DoReadsQC){
+		call readsQC.jgi_rqcfilter as jgi_rqcfilter_call {
+			input: 
+				input_files=interleaved_input_fastqs,
+				input_fq1=readsQC_input_fq1,
+				input_fq2=readsQC_input_fq2,
+				outdir=readsQC_outdir, 
+				bbtools_container=readsQC_bbtools_container, 
+				database=readsQC_database, 
+				memory=readsQC_memory, 
+				threads=readsQC_threads
+		}
+	}
+
+	## ReadbasedAnalysis workflow
+	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
+		"gottcha2": true,
+		"kraken2": true,
+		"centrifuge": true
+	}
+	Map[String, String] readbasedAnalysis_db = {
+		"gottcha2": "/expanse/projects/nmdc/refdata/GOTTCHA2",
+		"kraken2": "/expanse/projects/nmdc/refdata/Kraken2",
+		"centrifuge": "/expanse/projects/nmdc/refdata/Centrifuge"
+	}
+	String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.2"
+	Array[File]? readbasedAnalysis_reads = if (DoReadsQC) then jgi_rqcfilter_call.clean_fastq_files else interleaved_input_fastqs 
+	Int readbasedAnalysis_cpu = 4
+	String readbasedAnalysis_prefix
+	String readbasedAnalysis_outdir
+	Boolean? readbasedAnalysis_paired = true
+	
+	if (DoReadbasedAnalysis){
+	
+		call split_interleaved_fastq {
+			input:
+				reads=readbasedAnalysis_reads,
+				container=readsQC_bbtools_container
+		}
+	
+		call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
+			input: 
+				enabled_tools=readbasedAnalysis_enabled_tools, 
+				db=readbasedAnalysis_db, 
+				reads=split_interleaved_fastq.outFastq, 
+				cpu=readbasedAnalysis_cpu, 
+				prefix=readbasedAnalysis_prefix, 
+				outdir=readbasedAnalysis_outdir, 
+				paired=readbasedAnalysis_paired,
+				docker=ReadbasedAnalysis_container
+		}
+	}
+
+	## Assembly workflow
+	Array[File]? metaAssembly_input_file = if (DoReadsQC) then jgi_rqcfilter_call.clean_fastq_files else interleaved_input_fastqs 
+	String? metaAssembly_outdir
+	String metaAssembly_rename_contig_prefix="scaffold"
+	Float metaAssembly_uniquekmer=1000
+	String metaAssembly_bbtools_container="microbiomedata/bbtools:38.92"
+	String metaAssembly_spades_container="microbiomedata/spades:3.15.0"
+	String metaAssembly_memory="100g"
+	String metaAssembly_threads="4"
+	Array[File] metaAssembly_input_fq1=[]
+	Array[File] metaAssembly_input_fq2=[]
+
+	if (DoMetaAssembly){
+		call metaAssembly.jgi_metaASM as metaAssembly_call {
+			input: 
+				input_file=metaAssembly_input_file, 
+				input_fq1=metaAssembly_input_fq1,
+				input_fq2=metaAssembly_input_fq2,
+				outdir=metaAssembly_outdir, 
+				rename_contig_prefix=metaAssembly_rename_contig_prefix, 
+				uniquekmer=metaAssembly_uniquekmer, 
+				bbtools_container=metaAssembly_bbtools_container, 
+				spades_container=metaAssembly_spades_container, 
+				memory=metaAssembly_memory, 
+				threads=metaAssembly_threads
+		}
+	}
+	
+	## Annotation workflow
+	File?  metaAnnotation_imgap_input_fasta = metaAssembly_call.final_contig
+	String  metaAnnotation_imgap_project_id
+	String  metaAnnotation_outdir
+	Int     metaAnnotation_additional_threads=8
+	String  metaAnnotation_database_location="/databases/img/"
+
+	if (DoAnnotation){
+		call metaAnnotation.annotation as metaAnnotation_call {
+			input: 
+				imgap_input_fasta=metaAnnotation_imgap_input_fasta,
+				imgap_project_id=metaAnnotation_imgap_project_id,
+				outdir=metaAnnotation_outdir,
+				additional_threads=metaAnnotation_additional_threads,
+				database_location=metaAnnotation_database_location
+		}
+	}
+	
+	## MAGs workflow
+	String? metaMAGs_outdir
+	String  metaMAGs_proj_name
+	File? metaMAGs_contig_file = metaAssembly_call.final_contig
+	File? metaMAGs_sam_file = metaAssembly_call.final_bam
+	File? metaMAGs_gff_file = metaAnnotation_call.functional_gff
+	File? metaMAGs_map_file
+	File? metaMAGs_domain_file
+	Int metaMAGs_cpu=16
+	Int metaMAGs_pplacer_cpu=1
+	String metaMAGs_database="/expanse/projects/nmdc/refdata/GTDBTK_DB"
+	String metaMAGs_container = "microbiomedata/nmdc_mbin:0.1.6"
+	
+	if (DoMetaMAGs){
+		call metaMAGs.nmdc_mags as metaMAGs_call {
+			input: 
+				outdir=metaMAGs_outdir,
+				proj_name=metaMAGs_proj_name,
+				contig_file=metaMAGs_contig_file,
+				sam_file=metaMAGs_sam_file,
+				gff_file=metaMAGs_gff_file, 
+				map_file=metaMAGs_map_file,
+				domain_file=metaMAGs_domain_file,
+				cpu=metaMAGs_cpu,
+				pplacer_cpu=metaMAGs_pplacer_cpu,
+				gtdbtk_database=metaMAGs_database,
+				scratch_dir=metaMAGs_outdir,
+				container=metaMAGs_container
+		}
+	}
+	
+	call finish {
+		input: container="microbiomedata/workflowmeta:1.0.0",
+			start=start.start,
+			resource=resource,
+			url_base=url_base,
+			git_url=git_url,
+			informed_by=informed_by,
+			DoReadsQC = DoReadsQC,
+			DoReadbasedAnalysis = DoReadbasedAnalysis,
+			DoMetaAssembly = DoMetaAssembly,
+			DoAnnotation = DoAnnotation,
+			DoMetaMAGs = DoMetaMAGs,
+			read = if (input_interleaved) then input_files else flatten([input_fq1,input_fq2]),
+			filtered = jgi_rqcfilter_call.filtered,
+			filtered_stats = jgi_rqcfilter_call.stats,
+			fasta=metaAssembly_call.contig,
+			scaffold=metaAssembly_call.scaffold,
+			agp=metaAssembly_call.agp,
+			bam=metaAssembly_call.bam,
+			covstats=metaAssembly_call.covstats,
+			proteins_faa=metaAnnotation_call.proteins_faa,
+			functional_gff=metaAnnotation_call.functional_gff,
+			structural_gff=metaAnnotation_call.structural_gff,
+			ko_tsv=metaAnnotation_call.ko_tsv,
+			ec_tsv=metaAnnotation_call.ec_tsv,
+			cog_gff=metaAnnotation_call.cog_gff,
+			pfam_gff=metaAnnotation_call.pfam_gff,
+			tigrfam_gff=metaAnnotation_call.tigrfam_gff,
+			smart_gff=metaAnnotation_call.smart_gff,
+			supfam_gff=metaAnnotation_call.supfam_gff,
+			cath_funfam_gff=metaAnnotation_call.cath_funfam_gff,
+			ko_ec_gff=metaAnnotation_call.ko_ec_gff,
+			stats_tsv=metaAnnotation_call.stats_tsv,
+			stats_json=metaAnnotation_call.stats_json,
+			gottcha2_report_tsv = ReadbasedAnalysis_call.gottcha2_report_tsv,
+			gottcha2_full_tsv = ReadbasedAnalysis_call.gottcha2_full_tsv,
+			gottcha2_krona_html = ReadbasedAnalysis_call.gottcha2_krona_html,
+			centrifuge_classification_tsv = ReadbasedAnalysis_call.centrifuge_classification_tsv,
+			centrifuge_report_tsv = ReadbasedAnalysis_call.centrifuge_report_tsv,
+			centrifuge_krona_html = ReadbasedAnalysis_call.centrifuge_krona_html,
+			kraken2_classification_tsv = ReadbasedAnalysis_call.kraken2_classification_tsv,
+			kraken2_report_tsv = ReadbasedAnalysis_call.kraken2_report_tsv,
+			kraken2_krona_html = ReadbasedAnalysis_call.kraken2_krona_html,
+			short=metaMAGs_call.final_tooShort_fa,
+			lowdepth=metaMAGs_call.final_lowDepth_fa,
+			unbinned=metaMAGs_call.final_unbinned_fa,
+			checkm=metaMAGs_call.final_checkm,
+			bac_summary = metaMAGs_call.final_gtdbtk_bac_summary,
+			ar_summary = metaMAGs_call.final_gtdbtk_ar_summary,
+			final_hqmq_bins = metaMAGs_call.final_hqmq_bins,
+			metabat_bins = metaMAGs_call.metabat_bins,
+			qadir=readsQC_outdir,
+			assemdir=metaAssembly_outdir,
+			annodir=metaAnnotation_outdir,
+			magsdir=metaMAGs_outdir,
+			rbadir=readbasedAnalysis_outdir
+	}
+}
+
+task split_interleaved_fastq{
+	Array[File] reads
+	String container
+	String? memory = "4G"
+	String output1 = "input.left.fastq.gz"
+	String output2 = "input.right.fastq.gz"
+
+	runtime {
+		docker: container
+		mem: "4 GiB"
+		cpu:  1	 
+	}
+	command {
+		 cat ${sep=" " reads} > infile.fastq.gz	
+		 reformat.sh -Xmx${default="10G" memory} in=infile.fastq.gz out1=${output1} out2=${output2}
+	}
+	
+	output {
+		Array[File] outFastq = [output1, output2]
+	}
+}
+
+task interleave_reads{
+
+	Array[File] input_files
+	String output_file = "interleaved.fastq.gz"
+	String container
+	
+	command <<<
+		if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then 
+			paste <(gunzip -c ${input_files[0]} | paste - - - -) <(gunzip -c ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}
+			echo ${output_file}
+		else
+			if [[ "${output_file}" == *.gz ]]; then
+				paste <(cat ${input_files[0]} | paste - - - -) <(cat ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}
+				echo ${output_file}
+			else
+				paste <(cat ${input_files[0]} | paste - - - -) <(cat ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}.gz
+				echo ${output_file}.gz
+			fi
+		fi
+	>>>
+	
+	runtime {
+		docker: container
+		memory: "1 GiB"
+		cpu:  1
+	}
+	
+	output {
+		File out_fastq = read_string(stdout())
+	}
+}
+
+task start {
+	String container
+	command <<<
+		set -e
+		# Capture the start time
+		date --iso-8601=seconds > start.txt
+	>>>
+	output{
+		String start = read_string("start.txt")
+	}
+	runtime {
+		memory: "1 GiB"
+		cpu:  1
+		maxRetries: 1
+		docker: container
+	}
+}
+
+
+task finish {
+	String container
+	String start
+	String informed_by
+	String resource
+	String url_base
+	String git_url
+	Boolean DoReadsQC
+	Boolean DoReadbasedAnalysis 
+	Boolean DoMetaAssembly
+	Boolean DoAnnotation 
+	Boolean DoMetaMAGs
+	Array[File] read
+	Array[File] filtered
+	Array[File] filtered_stats
+	File? fasta
+	File? scaffold
+	File? agp
+	File? bam
+	File? covstats
+	File? proteins_faa
+	File? structural_gff
+	File? functional_gff
+	File? ko_tsv
+	File? ec_tsv
+	File? cog_gff
+	File? pfam_gff
+	File? tigrfam_gff
+	File? smart_gff
+	File? supfam_gff
+	File? cath_funfam_gff
+	File? ko_ec_gff
+	File? stats_tsv
+	File? stats_json
+	# Future
+	#    File gene_phylogeny_tsv
+	#    File proteins_cog_domtblout
+	#    File proteins_pfam_domtblout
+	#    File proteins_tigrfam_domtblout
+	#    File proteins_smart_domtblout
+	#    File proteins_supfam_domtblout
+	#    File proteins_cath_funfam_domtblout
+	#    File product_names_tsv
+	#    File crt_crisprs
+	File? short
+	File? lowdepth
+	File? unbinned
+	File? checkm
+	File? bac_summary
+	File? ar_summary
+	File? final_hqmq_bins
+	File? metabat_bins
+	File? gottcha2_report_tsv
+	File? gottcha2_full_tsv
+	File? gottcha2_krona_html
+	File? centrifuge_classification_tsv
+	File? centrifuge_report_tsv
+	File? centrifuge_krona_html
+	File? kraken2_classification_tsv
+	File? kraken2_report_tsv
+	File? kraken2_krona_html
+	String qadir="qa/"
+	String assemdir="assembly/"
+	String annodir="annotation/"
+	String magsdir="MAGs/"
+	String rbadir="ReadbasedAnalysis/"
+
+	command{
+		set -e
+		mkdir -p ${annodir}
+		end=`date --iso-8601=seconds`
+	
+		if ${DoReadsQC}; then
+		# Generate QA objects
+			/scripts/rqcstats.py ${filtered_stats[0]} > stats.json
+			/scripts/generate_objects.py --type "qa" --id ${informed_by} \
+				--start ${start} --end $end \
+				--resource '${resource}' --url ${url_base} --giturl ${git_url} \
+				--extra stats.json \
+				--inputs ${sep=' ' read} \
+				--outputs \
+				${filtered[0]} 'Filtered Reads' \
+				${filtered_stats[0]} 'Filtered Stats'
+			cp activity.json data_objects.json ${qadir}/
+		fi
+		
+		if ${DoMetaAssembly}; then
+			# Generate assembly objects
+			/scripts/generate_objects.py --type "assembly" --id ${informed_by} \
+				--start ${start} --end $end \
+				--resource '${resource}' --url ${url_base} --giturl ${git_url} \
+				--inputs ${sep=" " filtered} \
+				--outputs \
+				${covstats} 'Metagenome Contig Coverage Stats' \
+				${fasta} 'Assembled contigs fasta' \
+				${scaffold} 'Assembled scaffold fasta' \
+				${agp} 'Assembled AGP file' \
+				${bam} 'Metagenome Alignment BAM file'
+			cp activity.json data_objects.json ${assemdir}/
+		fi
+		
+		if ${DoAnnotation}; then
+			# Generate annotation objects
+			nmdc gff2json ${functional_gff} -of features.json -oa annotations.json -ai ${informed_by}
+
+			/scripts/generate_objects.py --type "annotation" --id ${informed_by} \
+				--start ${start} --end $end \
+				--resource '${resource}' --url ${url_base} --giturl ${git_url} \
+				--inputs ${fasta} \
+				--outputs \
+				${proteins_faa} 'Protein FAA' \
+				${structural_gff} 'Structural annotation GFF file' \
+				${functional_gff} 'Functional annotation GFF file' \
+				${ko_tsv} 'KO TSV file' \
+				${ec_tsv} 'EC TSV file' \
+				${cog_gff} 'COG GFF file' \
+				${pfam_gff} 'PFAM GFF file' \
+				${tigrfam_gff} 'TigrFam GFF file' \
+				${smart_gff} 'SMART GFF file' \
+				${supfam_gff} 'SuperFam GFF file' \
+				${cath_funfam_gff} 'Cath FunFam GFF file' \
+				${ko_ec_gff} 'KO_EC GFF file'
+
+			cp ${proteins_faa} ${structural_gff} ${functional_gff} \
+				${ko_tsv} ${ec_tsv} ${cog_gff} ${pfam_gff} ${tigrfam_gff} \
+				${smart_gff} ${supfam_gff} ${cath_funfam_gff} ${ko_ec_gff} \
+				${stats_tsv} ${stats_json} \
+				${annodir}/
+			cp features.json annotations.json activity.json data_objects.json ${annodir}/
+		fi
+		
+		if ${DoMetaMAGs} ; then
+			#IFS=""
+			/scripts/generate_objects.py --type "MAGs" --id ${informed_by} \
+				--start ${start} --end $end \
+				--resource '${resource}' --url ${url_base} --giturl ${git_url} \
+				--inputs ${fasta} ${bam} ${functional_gff} \
+				--outputs \
+				${short} "tooShort (< 3kb) filtered contigs fasta file by metaBat2" \
+				${lowdepth} "lowDepth (mean cov <1 )  filtered contigs fasta file by metabat2" \
+				${unbinned} "unbinned fasta file from metabat2" \
+				${" " + checkm + " \"metabat2 bin checkm quality assessment result\""} \
+				${" " + bac_summary + " \"gtdbtk bacterial assignment result summary table\""} \
+				${" " + ar_summary + " \"gtdbtk archaea assignment result summary table\""}  \
+				${" " + final_hqmq_bins + " \"high quality and medium quality bin fasta output\""} \
+				${" " + metabat_bins +  " \"initial metabat bining result fasta output\""} 
+		 
+		
+			cp activity.json data_objects.json ${magsdir}/
+		fi
+		
+		if ${DoReadbasedAnalysis} ; then
+			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \
+				--start ${start} --end $end \
+				--resource '${resource}' --url ${url_base} --giturl ${git_url} \
+				--inputs ${sep=" " filtered} \
+				--outputs \
+				${gottcha2_report_tsv} "Gottcha2 TSV report" \
+				${gottcha2_full_tsv} "Gottcha2 full TSV report" \
+				${gottcha2_krona_html} "Gottcha2 Krona HTML report" \
+				${centrifuge_classification_tsv} "Centrifuge classification TSV report" \
+				${centrifuge_report_tsv} "Centrifuge TSV report" \
+				${centrifuge_krona_html} "Centrifuge Krona HTML report" \
+				${kraken2_classification_tsv} "Kraken classification TSV report" \
+				${kraken2_report_tsv} "Kraken2 TSV report" \
+				${kraken2_krona_html} "Kraken2 Krona HTML report"
+			cp activity.json data_objects.json ${rbadir}/
+		fi
+	}
+
+	runtime {
+		memory: "10 GiB"
+		cpu:  4
+		maxRetries: 1
+		docker: container
+	}
+}
