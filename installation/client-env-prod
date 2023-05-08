@@ -4,17 +4,14 @@ REACT_APP_NAME=NMDC EDGE
 
 #on/off
 REACT_APP_SOCIAL_LOGIN=off
-REACT_APP_SOCIAL_SECRET=LC_bTfruLjF-MFtvw7WVDQv3
-REACT_APP_GOOGLE_ID=72994759589-t8v3cq0fbqoir3lio8g6ufc8ak4f1feo.apps.googleusercontent.com
-REACT_APP_FACEBOOK_ID=252260343192323
 REACT_APP_ORCID_AUTH=on
-ORCID_CLIENT_ID=APP-CTM81LRCLW9QLGB9
+ORCID_CLIENT_ID=<yout orcid client id>
 ORCID_AUTH_URL=https://orcid.org/oauth/authorize
 ORCID_RETURN_PAGE=https://<WEB_SERVER_DOMAIN>/oauth
 REACT_APP_ORCID_AUTH_URL=$ORCID_AUTH_URL?response_type=token&redirect_uri=$ORCID_RETURN_PAGE&client_id=$ORCID_CLIENT_ID&scope=openid&nonce=whatever
 
 #sendmail
-REACT_APP_EMAIL_NOTIFICATION=true
+REACT_APP_EMAIL_NOTIFICATION=false
 REACT_APP_REGISTER_SUBJECT=Your EDGE login account
 REACT_APP_REGISTER_MSG=Thanks for using EDGE! Please activate your account by clicking on the link $URL/activate
 REACT_APP_RESETPASSWD_SUBJECT=Reset your EDGE login password

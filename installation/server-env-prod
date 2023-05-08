@@ -8,7 +8,7 @@ UI_BUILD_PATH=<APP_HOME>/webapp/client/build
 #HTTPS_KEY=
 #HTTPS_CERT=
 
-JWT_KEY=JS8WRymtsX
+JWT_KEY=<a random string>
 
 MONGO_URI=mongodb://localhost:27017/nmdcedge
 
@@ -37,14 +37,14 @@ FILEUPLOAD_DELETE_GRACE_PERIOD=5
 FILEUPLOAD_MAX_SIZE_BYTES=10737418200
 
 #sendmail env
-SENDMAIL_PROJECT=on
+SENDMAIL_PROJECT=off
 PROJECT_STATUS_TEMPLATE=<APP_HOME>/data/project/status.tmpl
 PROJECT_URL=https://<WEB_SERVER_DOMAIN>/user/project?code=
-SENDMAIL_FROM=edge.bioinformatics.lanl@gmail.com
-SENDMAIL_KEY=Tzw%St4<&(EVRPRr
-SENDMAIL_SERVICE=mailgun
-SENDMAIL_USER=key-dd37a9b050d95b9dfc76993fcdf93aa9
-SENDMAIL_PASS=mail.edgebioinformatics.org
+SENDMAIL_FROM=<your email>
+SENDMAIL_KEY=<a random string>
+SENDMAIL_SERVICE=<your email service>
+SENDMAIL_USER=<your mail user id>
+SENDMAIL_PASS=<your mail server password>
 
 #WDL env
 WORKFLOW_WDL_IMPORTS=<APP_HOME>/data/workflow/WDL/imports.zip
