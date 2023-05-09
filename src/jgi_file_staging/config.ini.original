@@ -1,0 +1,12 @@
+[JDP]
+proxies = {'http_proxy': 'http://proxyout.lanl.gov:8080', 'https_proxy': 'http://proxyout.lanl.gov:8080'}
+max_restore_request = 1e13
+
+[GLOBUS]
+globus_user_name = mflynn@nersc.gov
+mailto= mflynn@lanl.gov
+jgi_globus_id = 65fa2422-e080-11ec-990f-3b4cfda38030
+nersc_globus_id = ae777bc6-bf84-11ed-9917-cb2cff506ca5
+nersc_manifests_directory = /global/homes/n/nmdcda/m3408/aim2/dev/bioscales_mapping/globus_manifests
+globus_root_dir = 73709
+dest_root_dir = /global/homes/n/nmdcda/m3408/aim2/dev/bioscales_mapping/
