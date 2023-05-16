@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "nmdc-automation"
+version = "0.1.0"
+description = "Python Package to manage automation of submitting workflows end to end or importing existing products that are NMDC Schema compliant"
+authors = ["Michal Babinski <mbabinski@lanl.gov>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "nmdc_automation"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pymongo = "^4.3.3"
+pyYAML = "^6.0"
+requests = "^2.28.2"
+nmdc-schema = "^7.5.0"
+deepdiff = "^6.2.1"
+pytz = "^2023.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.1"
+
+
+[tool.poetry-dynamic-versioning]
+enable = false
+vcs = "git"
+style = "pep440"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
