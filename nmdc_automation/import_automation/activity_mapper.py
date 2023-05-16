@@ -9,11 +9,9 @@ import hashlib
 import yaml
 from itertools import zip_longest
 import nmdc_schema.nmdc as nmdc
-from generate_objects import get_md5
 from linkml_runtime.dumpers import json_dumper
-from nmdcapi import nmdcapi
-# from repack import get_contigs,create_new_zip
-from utils import object_action, file_link
+from nmdc_automation.api.nmdcapi import nmdcapi
+from utils import object_action, file_link, get_md5
 
 logger = logging.getLogger(__name__) 
 runtime = nmdcapi()
@@ -219,7 +217,7 @@ if __name__=='__main__':
         sys.exit()
     input_tsv = sys.argv[1]
     
-    logging.basicConfig(filename='processingGROW.log',
+    logging.basicConfig(filename='processingTest.log',
                     filemode='a',
                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                     datefmt='%H:%M:%S',
@@ -227,7 +225,7 @@ if __name__=='__main__':
     
     destination_root_dir = '/global/cfs/cdirs/m3408/ficus/pipeline_products'
     
-    imports_yaml = "/global/cfs/cdirs/m3408/aim2/dev/refactor_23/nmdc_automation/src/import_automation/import.yaml"
+    imports_yaml = "/global/cfs/cdirs/m3408/aim2/dev/refactor_23/nmdc_automation/configs/import.yaml"
     
     with open(input_tsv) as bioscales_file:
         mappings = csv.reader(bioscales_file, delimiter='\t')
