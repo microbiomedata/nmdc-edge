@@ -163,7 +163,7 @@ Data Objects:
     - data_object_type: Metagenome Raw Reads
       description: Metagenome Raw Reads for {id}
       name: Raw sequencer read data
-      import_suffix: .fastq.gz
+      import_suffix: .[ACGT]+.fastq.gz
       nmdc_suffix: .fastq.gz
       input_to: [nmdc:ReadQcAnalysisActivity]
       output_of: nmdc:MetagenomeSequencing
@@ -367,7 +367,7 @@ Data Objects:
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
-    - data_object_type: Crisprt Terms
+    - data_object_type: Crispr Terms
       description: Crispr Terms for {id}
       name: Crispr Terms
       import_suffix: _crt.crisprs
@@ -388,7 +388,7 @@ Data Objects:
     - data_object_type: Filtered Sequencing Reads
       description: Reads QC for {id}
       name: Reads QC result fastq (clean data)
-      import_suffix: _filtered.fastq.gz
+      import_suffix: filter-METAGENOME.fastq.gz
       nmdc_suffix: _filtered.fastq.gz
       input_to: [nmdc:ReadBasedTaxonomyAnalysisActivity,nmdc:MetagenomeAssembly]
       output_of: nmdc:ReadQcAnalysisActivity
@@ -499,7 +499,7 @@ Data Objects:
       import_suffix: _centrifuge_krona.html
       nmdc_suffix: _centrifuge_krona.html
       input_to: []
-      output_of: ndmc:ReadbasedTaxonomyAnalysisActivity
+      output_of: nmdc:ReadbasedTaxonomyAnalysisActivity
       mulitple: false
       action: rename
     - data_object_type: Kraken2 Classification Report
@@ -508,7 +508,7 @@ Data Objects:
       import_suffix: _kraken2_report.tsv
       nmdc_suffix: _kraken2_report.tsv
       input_to: []
-      output_of: ndmc:ReadbasedTaxonomyAnalysisActivity
+      output_of: nmdc:ReadbasedTaxonomyAnalysisActivity
       mulitple: false
       action: rename
     - data_object_type: Kraken2 Taxonomic Classification
@@ -517,7 +517,7 @@ Data Objects:
       import_suffix: _kraken2_classification.tsv
       nmdc_suffix: _kraken2_classification.tsv
       input_to: []
-      output_of: ndmc:ReadbasedTaxonomyAnalysisActivity
+      output_of: nmdc:ReadbasedTaxonomyAnalysisActivity
       mulitple: false
       action: rename
     - data_object_type: Kraken2 Krona Plot
@@ -541,4 +541,4 @@ Data Objects:
       action: zip
 
 Workflow Metadata:
-  - Execution Resource: JGI
+  Execution Resource: JGI
