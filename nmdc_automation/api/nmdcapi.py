@@ -3,6 +3,7 @@
 import json
 import sys
 import os
+from os.path import join, dirname
 import requests
 import hashlib
 import mimetypes
@@ -39,7 +40,8 @@ class nmdcapi():
     client_secret = None
 
     def __init__(self):
-        api_config = dotenv_values(".env")
+        dotenv_path = join(dirname(__file__), '.env')
+        api_config = dotenv_values(dotenv_path)
         self._base_url = api_config["NMDC_API_URL"]
         if self._base_url[-1] != '/':
             self._base_url += '/'
