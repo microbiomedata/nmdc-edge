@@ -8,6 +8,7 @@ import hashlib
 import mimetypes
 from time import time
 from datetime import datetime
+from dotenv import dotenv_values
 import logging
 
 
@@ -38,19 +39,13 @@ class nmdcapi():
     client_secret = None
 
     def __init__(self):
-        self._base_url = os.environ.get("NMDC_API_URL")
+        api_config = dotenv_values(".env")
+        self._base_url = api_config["NMDC_API_URL"]
         if self._base_url[-1] != '/':
             self._base_url += '/'
-        self.client_id = os.environ.get("NMDC_CLIENT_ID")
-        self.client_secret = os.environ.get("NMDC_CLIENT_SECRET")
-        # cfile = os.path.join(os.environ['HOME'], '.nmdc-creds.json')
-        # if not os.path.exists(cfile):
-        #     self.token = None
-        #     return
-
-        # with open(cfile) as f:
-        #     creds = json.loads(f.read())
-        # self.client_id = creds["CLIENT_ID"]
+        self.client_id = api_config["NMDC_CLIENT_ID"]
+        self.client_secret = api_config["NMDC_CLIENT_SECRET"]
+        
 
     def refresh_token(func):
         def _get_token(self, *args, **kwargs):
