@@ -32,8 +32,8 @@ The main scheduling loop does the following:
 
 ## Implementation
 
-* src/job_finder.py has most of the key logic for the runtime scheduling piece
-* src/submitter.py has a rough implementation of what would happen on the compute/cromwell side.
+* nmdc_automation/workflow_automation/job_finder.py has most of the key logic for the runtime scheduling piece
+* nmdc_automation/workflow_automation/submitter.py has a rough implementation of what would happen on the compute/cromwell side.
 
 ## Install Dependencies
 To install the environment using poetry, there are a few steps to take. 
