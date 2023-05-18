@@ -34,3 +34,14 @@ The main scheduling loop does the following:
 
 * src/job_finder.py has most of the key logic for the runtime scheduling piece
 * src/submitter.py has a rough implementation of what would happen on the compute/cromwell side.
+
+## Install Dependencies
+To install the environment using poetry, there are a few steps to take. 
+If Poetry is no installed, run:
+`pip install poetry`
+
+Once poetry is installed, you can run:
+`poetry install` 
+
+To use the environment, you can shell into the env:
+`poetry shell`
