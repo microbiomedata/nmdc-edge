@@ -136,7 +136,7 @@ fi
 #build client
 echo "build client..."
 cd $app_home/webapp/client
-npm install
+npm install --legacy-peer-deps
 npm run build
 #build server
 echo "build server..."
