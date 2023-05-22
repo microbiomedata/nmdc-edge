@@ -82,7 +82,7 @@ function UserTable(props) {
             err += "Last Name is required.\n";
         }
         if (!newUser.password || newUser.password.trim() === '' || newUser.password.trim().length < 8) {
-            err += "Password is required and must be at lease 8 characters in length.\n";
+            err += "Password is required and must be at least 8 characters in length.\n";
         }
         if (!newUser.email || !validateEmail(newUser.email)) {
             err += "Invalid email.\n";
@@ -109,7 +109,7 @@ function UserTable(props) {
             err += "Last Name is required.\n";
         }
         if (newUser.password && (newUser.password.trim() === '' || newUser.password.trim().length < 8)) {
-            err += "Password must be at lease 8 characters in length.\n";
+            err += "Password must be at least 8 characters in length.\n";
         }
         if (newUser.password) {
             newUser.password2 = newUser.password;

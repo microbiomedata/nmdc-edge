@@ -26,10 +26,10 @@ function Login(props) {
       required: " Password is required",
       minLength: { value: 8, message: 'Must be at least 8 characters long' },
       validate: {
-        hasUpperCase: (value) => /[A-Z]/.test(value) || 'Must contain at lease one uppercase letter',
-        hasLowerCase: (value) => /[a-z]/.test(value) || 'Must contain at lease one lowercase letter',
-        hasNumber: (value) => /[0-9]/.test(value) || 'Must contain at lease one number',
-        hasSpecialChar: (value) => /[^A-Za-z0-9 ]/.test(value) || 'Must contain at lease one special character',
+        hasUpperCase: (value) => /[A-Z]/.test(value) || 'Must contain at least one uppercase letter',
+        hasLowerCase: (value) => /[a-z]/.test(value) || 'Must contain at least one lowercase letter',
+        hasNumber: (value) => /[0-9]/.test(value) || 'Must contain at least one number',
+        hasSpecialChar: (value) => /[^A-Za-z0-9 ]/.test(value) || 'Must contain at least one special character',
       }
     })
   };
