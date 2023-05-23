@@ -1,34 +1,74 @@
 from zipfile import ZipFile
 from typing import Union, List
 import logging
+import hashlib
 import os
 
 logger = logging.getLogger(__name__) 
 
+           
+def object_action(file_s: Union[str, List[str]], action: str, activity_id: str,
+                  nmdc_suffix: str, activity_dir: str = None, multiple: bool = False) -> str:
+    """
+    Perform an action (non, rename, zip) on an object based on the provided parameters.
 
-def object_action(file_s,action, activity_id, nmdc_suffix,activity_dir=None, multiple=False):
-    
+    Args:
+        file_s (Union[str, List[str]]): The object or list of objects to perform the action on.
+        action (str): The action to perform. Possible values are 'none', 'rename', or 'zip'.
+        activity_id (str): The activity ID associated with the object.
+        nmdc_suffix (str): The NMDC suffix.
+        activity_dir (str, optional): The directory where the activity is located. Defaults to None.
+        multiple (bool, optional): Indicates if multiple files are involved. Defaults to False.
+
+    Returns:
+        str: Expected file name for import
+
+    """
+
     if action == 'none':
         return get_basename(file_s)
     elif action == 'rename':
         return rename(activity_id, nmdc_suffix)
     elif action == 'zip':
-        if multiple == True:
+        if multiple:
+            zip_names = []
             for file in file_s:
                 zip_name = zip_file(activity_id, nmdc_suffix, file, activity_dir)
-            return zip_name
+                zip_names.append(zip_name)
+            return zip_names
         else:
-            zip_file(file_s)
+            return zip_file(file_s)
     else:
         logger.error(f"No mapping action found for {file_s}")
-            
+        
  
-def get_basename(file):
+def get_basename(file: str) -> str:
+    """
+    Get file basename
+
+    Args:
+        file: import file
+
+    Returns:
+        str: file basename
+    """
+    
     
     return os.path.basename(file)
     
     
-def rename(activity_id, nmdc_suffix):
+def rename(activity_id:str, nmdc_suffix: str) -> str:
+    """
+    Renames file to target nmdc target activity name
+
+    Args:
+        activity_id (str): activity id for corresponding data object
+        nmdc_suffix (str): expected target suffix
+
+    Returns:
+        str: nmdc file name
+    """
+    
     
     activity_file_id = activity_id.replace(':','_' )
     
@@ -37,8 +77,19 @@ def rename(activity_id, nmdc_suffix):
     return nmdc_file_name
 
                 
-def zip_file(activity_id, nmdc_suffix,file,project_dir):
-    '''Zip bin files'''
+def zip_file(activity_id: str, nmdc_suffix: str, file: str,project_dir: str):
+    '''Add files of type Multiples to a zip file and represent as one data object
+    
+    Args:
+        activity_id (str): The activity ID associated with the object.
+        nmdc_suffix (str): The NMDC suffix.
+        file (str): The file associated with objects of type Multiples.
+        project_dir (str, optional): The directory where the activity is located.
+
+    Returns:
+        str: Expected file name for import of Multiples as one data object.
+    
+    '''
     
     zip_file_name = rename(activity_id, nmdc_suffix)
     
@@ -54,6 +105,18 @@ def zip_file(activity_id, nmdc_suffix,file,project_dir):
 
         
 def file_link(import_project_dir: str,import_file: Union[str, List[str]], destination_dir: str, updated_file: str):
+    """
+    Link original file to nmdc file on system path
+
+    Args:
+        import_project_dir (str): Directory of project being imported
+        import_file (Union[str, List[str]]): Filed be imported
+        destination_dir (str): Destination directory of nmdc compliant file
+        updated_file (str): nmdcc compliant file
+
+    Returns:
+        str: os linked path of updated file
+    """
     
     if type(import_file) == list:
         print("Object has already been linked in objection specific import action")
@@ -75,3 +138,25 @@ def file_link(import_project_dir: str,import_file: Union[str, List[str]], destin
             logger.info(f'{linked_path} already exists')
                 
         return linked_path
+    
+def get_md5(fn: str) -> str:
+    """
+    Generate md5 for file
+    
+    Args:
+        fn (str): file name
+
+    Returns:
+        md5:  md5 hash of file
+        """
+        
+    md5f = fn + '.md5'
+    if os.path.exists(md5f):
+        with open(md5f) as f:
+            md5 = f.read().rstrip()
+    else:
+        md5 = hashlib.md5(open(fn, 'rb').read()).hexdigest()
+        with open(md5f, 'w') as f:
+            f.write(md5)
+            f.write('\n')
+    return md5
