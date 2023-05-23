@@ -4,12 +4,12 @@ from datetime import datetime
 import uuid
 import os
 from time import sleep as _sleep
-from .nmdcapi import nmdcapi
-from .workflows import load_workflows, Workflow
+from nmdc_automation.api.nmdcapi import nmdcapi
+from nmdc_automation.workflow_automation.workflows import load_workflows, Workflow
 from functools import lru_cache
 from pymongo import MongoClient
 from pymongo.database import Database as MongoDatabase
-from .activities import load_activities, Activity
+from nmdc_automation.workflow_automation.activities import load_activities, Activity
 from semver.version import Version
 
 

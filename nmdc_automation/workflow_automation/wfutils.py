@@ -4,10 +4,11 @@ import os
 import json
 import tempfile
 import requests
-from .config import config
+from nmdc_automation.workflow_automation.config import config
 import logging
 import datetime
 import pytz
+import hashlib
 
 
 class job():
@@ -221,3 +222,9 @@ def _json_tmp(data):
     with os.fdopen(fp, 'w') as fd:
         fd.write(json.dumps(data))
     return fname
+
+def jprint(obj):
+    print(json.dumps(obj, indent=2))
+    
+def _md5(file):
+    return hashlib.md5(open(file, 'rb').read()).hexdigest()

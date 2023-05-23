@@ -1,8 +1,9 @@
 import logging
-from .workflows import Workflow
+from typing import List
+from nmdc_automation.workflow_automation.workflows import Workflow
 
 
-def _load_data_objects(db, workflows: list[Workflow]):
+def _load_data_objects(db, workflows: List[Workflow]):
     """
     Read all of the data objects and generate
     a map by ID
@@ -22,7 +23,7 @@ def _load_data_objects(db, workflows: list[Workflow]):
     return data_objs_by_id
 
 
-def _read_acitivites(db, workflows: list[Workflow], filter: dict):
+def _read_acitivites(db, workflows: List[Workflow], filter: dict):
     """
     Read in all the activities for the defined workflows.
     """
