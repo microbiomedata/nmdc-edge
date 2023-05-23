@@ -1,0 +1,28 @@
+[cromwell]
+cromwell_url = "http://xxxxx"
+cromwell_api = "http://localhost:9999"
+
+[directories]
+stage_dir = "/path/to/stage/dir"
+template_dir = "/path/to/template/dir"
+data_dir = "/path/to/product/directory"
+raw_dir = "/path/to/raw/data/files"
+
+[site]
+resource = "Resource Name"
+site = "Processing Site"
+
+[nmdc]
+url_root = "https://data.microbiomedata.org/data/"
+
+[state]
+watch_state = "State File"
+agent_state = "/path/to/agent.state"
+activity_id_state = "/Path/to/activity_id_state"
+
+[workflows]
+workflows = "/Path/to/workflow_config_yaml"
+
+[credentials]
+client_id = "xxxxxx"
+client_secret = "xxxxxxxx"
