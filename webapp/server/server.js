@@ -22,6 +22,8 @@ const cromwellMonitor = require("./crons/cromwellMonitor");
 const fileUploadMonitor = require("./crons/fileUploadMonitor");
 const projectMonitor = require("./crons/projectMonitor");
 const projectStatusMonitor = require("./crons/projectStatusMonitor");
+const dbBackup = require("./crons/dbBackup");
+const dbBackupClean = require("./crons/dbBackupClean");
 
 const app = express();
 app.use(express.json());
@@ -112,6 +114,14 @@ if (process.env.NODE_ENV === 'prod') {
   //monitor project deletion every day at 10pm
   cron.schedule(process.env.CRON_PROJECT_MONITOR, function () {
     projectMonitor();
+  });
+  //backup nmdcedge DB every day at 10pm
+  cron.schedule(process.env.CRON_DB_BACKUP, function () {
+    dbBackup();
+  });
+  //delete older DB backups every day at 12am
+  cron.schedule(process.env.CRON_DB_BACKUP_CLEAN, function () {
+    dbBackupClean();
   });
 }
 
