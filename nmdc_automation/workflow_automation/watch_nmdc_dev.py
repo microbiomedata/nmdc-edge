@@ -17,7 +17,7 @@ from nmdc_automation.workflow_automation.wfutils import job as wfjob
 logger = logging.getLogger(__name__)
 
 
-class watcher:
+class Watcher:
     def __init__(self, site_configuration_file):
         self._POLL = 20
         self._MAX_FAILS = 2
@@ -29,7 +29,7 @@ class watcher:
         self.stage_dir = self.config.get_stage_dir()
         self.raw_dir = self.config.conf['directories']['raw_dir']
         self.jobs = []
-        self.nmdc = nmdcapi(self.client_id, self.client_secret)
+        self.nmdc = nmdcapi()
 
     def restore(self, nocheck=False):
         """
@@ -47,7 +47,7 @@ class watcher:
             job_id = job['nmdc_jobid']
             if job_id in seen:
                 continue
-            job_record = wfjob(state=job, nocheck=nocheck)
+            job_record = wfjob(self.config.conf,state=job, nocheck=nocheck)
             new_job_list.append(job_record)
             seen[job_id] = True
 
