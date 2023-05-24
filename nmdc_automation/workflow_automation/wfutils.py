@@ -28,13 +28,13 @@ class job():
     end = None
     # TODO: Add these to the checkpoint
 
-    def __init__(self, typ=None, nmdc_jobid=None, conf=None,
+    def __init__(self, config,typ=None, nmdc_jobid=None, conf=None,
                  opid=None, activity_id="TODO", state=None, nocheck=False):
-        self.config = config().conf
+        self.config = config
         self.cromurl = self.config['url']
-        self.data_dir = self.config['data_dir']
-        self.resource = self.config['resource']
-        self.url_root = self.config['url_root']
+        self.data_dir = self.config['directories']['data_dir']
+        self.resource = self.config['site']['resource']
+        self.url_root = self.config['nmdc']['url_root']
         if state:
             self.activity_id = state['activity_id']
             self.nmdc_jobid = state['nmdc_jobid']
