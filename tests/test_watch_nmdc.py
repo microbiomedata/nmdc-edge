@@ -1,7 +1,8 @@
-from src.watch_nmdc import watcher
+from nmdc_automation.workflow_automation.watch_nmdc_dev import Watcher
 import os
 import json
 import shutil
+import unittest
 from pytest import fixture
 from time import time
 
@@ -62,10 +63,10 @@ def cleanup():
 def test_watcher(mock_api, requests_mock, wfconf):
     url = "http://localhost:8088/api/workflows/v1/123/status"
     requests_mock.get(url, json={"status": "Succeeded"})
-    w = watcher()
+    w = Watcher()
     w.nmdc = mock_nmdc([])
     w.restore()
-    w.ckpt()
+    w.job_checkpoint()
     w.restore()
 
 
@@ -96,7 +97,7 @@ def test_claim_jobs(monkeypatch, mock_api, requests_mock, wfconf):
         }}
 
     cleanup()
-    w = watcher()
+    w = Watcher()
     w.nmdc = mock_nmdc([rqc])
     w.claim_jobs()
     w.jobs[0].jobid = "1234"
@@ -124,8 +125,9 @@ def test_reclaim_job(mock_api, requests_mock, wfconf):
     data = {"id": "123"}
     requests_mock.post("http://localhost:8088/api/workflows/v1", json=data)
 
-    w = watcher()
+    w = Watcher()
     w.nmdc = mock_nmdc([rqc], claimed=True)
     w.claim_jobs()
     resp = w.find_job_by_opid("sys:xxx")
     assert resp
+    

@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import json
 import os
-from src.sched import Scheduler
+from nmdc_automation.workflow_automation.sched import Scheduler
 from pytest import fixture
 from time import time
 

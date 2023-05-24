@@ -1,9 +1,9 @@
 from pymongo import MongoClient
 import json
 import os
-from src.activities import load_activities
+from nmdc_automation.workflow_automation.activities import load_activities
 from pytest import fixture
-from src.workflows import load_workflows
+from nmdc_automation.workflow_automation.workflows import load_workflows
 
 
 test_dir = os.path.dirname(__file__)

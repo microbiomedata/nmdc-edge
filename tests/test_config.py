@@ -1,4 +1,4 @@
-from src.config import config
+from nmdc_automation.workflow_automation.config import config
 import pytest
 
 

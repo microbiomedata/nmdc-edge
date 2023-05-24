@@ -1,4 +1,4 @@
-from src.nmdcapi import nmdcapi, jprint
+from nmdc_automation.api.nmdcapi import nmdcapi, jprint
 import pytest
 import json
 import os
