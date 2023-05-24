@@ -205,6 +205,15 @@ Data Objects:
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
+    - data_object_type: Contig Mapping File
+      description: Contig mapping file for {id}
+      name: Contig mappings between contigs and scaffolds
+      import_suffix: _contig_names_mapping.tsv
+      nmdc_suffix: _contig_names_mapping.tsv
+      input_to: []
+      output_of: nmdc:MetagenomeAnnotationActivity
+      mulitple: false
+      action: rename
     - data_object_type: Structural Annotation GFF
       description: Structural Annotation for {id}
       name: GFF3 format file with structural annotations
@@ -385,6 +394,15 @@ Data Objects:
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
+    - data_object_type: Annotation Info File
+      description: Annotation Info File for {id}
+      name: File containing annotation info
+      import_suffix: _imgap.info
+      nmdc_suffix: _imgap.info
+      input_to: []
+      output_of: nmdc:MetagenomeAnnotationActivity
+      mulitple: false
+      action: rename
     - data_object_type: Filtered Sequencing Reads
       description: Reads QC for {id}
       name: Reads QC result fastq (clean data)
@@ -399,6 +417,15 @@ Data Objects:
       name: Reads QC summary statistics
       import_suffix: _filtered-report.txt
       nmdc_suffix: _filterStats.txt
+      input_to: []
+      output_of: nmdc:ReadQcAnalysisActivity
+      mulitple: false
+      action: rename
+    - data_object_type: Read Filtering Info File 
+      description: Read Filtering Info File for {id}
+      name: File containing read filtering information
+      import_suffix: _readsQC.info
+      nmdc_suffix: _readsQC.info
       input_to: []
       output_of: nmdc:ReadQcAnalysisActivity
       mulitple: false
@@ -421,6 +448,14 @@ Data Objects:
       output_of: nmdc:MetagenomeAssembly
       mulitple: false
       action: rename
+    - data_object_type: Assembly Info File
+      description: Assembly info file for {id}
+      name: File containing assembly information
+      import_suffix: README.txt
+      nmdc_suffix: _metaAsm.info
+      input_to: []
+      output_of: nmdc:MetagenomeAssembly
+      mulitple: false
     - data_object_type: Assembly Coverage Stats
       description: Coverage Stats for {id}
       name: Assembled contigs coverage information
@@ -448,6 +483,7 @@ Data Objects:
       output_of: nmdc:MetagenomeAssembly
       mulitple: false
       action: rename
+    - data_object_type: 
     - data_object_type: GOTTCHA2 Report Full
       description: GOTTCHA2 Full Report for {id}
       name: GOTTCHA2 report file
