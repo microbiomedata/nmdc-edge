@@ -494,19 +494,8 @@ task finish {
 		fi
 		
 		if ${DoMetaMAGs} ; then
-			mkdir -p hqmq
-		 	cp ${lowdepth}  ${magsdir}/${prefix}_bins.lowDepth.fa
-			cp ${short} ${magsdir}/${prefix}_bins.tooShort.fa
-			cp ${unbinned} ${magsdir}/${prefix}_bins.unbinned.fa
-			${ if defined(checkm) then
-				"cp " + checkm + " " + magsdir + "/"  + prefix + "_checkm_qa.out"
- 			else
-				"echo \"no mags\" > " + magsdir + "/"  + prefix + "_checkm_qa.out"
-			}
-			sed -i ${sed_bin} ${magsdir}/${prefix}_checkm_qa.out
-			sed -e ${sed_bin} ${mags_stats_json} > ${magsdir}/MAGs_stats.json
-			sed -e ${sed_bin} ${mags_stats_tsv} > ${magsdir}/mbin_datafile_${prefix}.txt
 			if [ ${n_hqmq} -gt 0 ] ; then
+			    mkdir -p hqmq
 				if ${DoAnnotation}; then
 				(cd hqmq && cp ${sep=" " hqmq_bin_fasta_files} .)
 				(cd hqmq && for binFA in *.fa; do
@@ -529,25 +518,9 @@ task finish {
 					zip ${prefix}_$binID.zip ${prefix}_$binID/*
 					done
 				)
-				(cd hqmq && zip ../${prefix}_hqmq_bin.zip *.zip)
-				else
-					cp ${final_hqmq_bins} ${magsdir}/${prefix}_hqmq_bin.zip	
+				(cd hqmq && zip ${magsdir}/${prefix}_hqmq_bins.zip *.zip)
 				fi
-			else
-				(cd hqmq && touch no_hqmq_mags.txt)
-				(cd hqmq && zip ../${prefix}_hqmq_bin.zip *.txt)
 			fi
-			cp ${prefix}_hqmq_bin.zip ${magsdir}/.
-			
-			mkdir meta
-			if [ ${n_bin} -gt 0 ] ; then
-				cp ${metabat_bins} ${magsdir}/${prefix}_metabat_bin.zip
-			else
-				(cd meta && touch no_mags.txt)
-				(cd meta && zip ${magsdir}/${prefix}_metabat_bin.zip *.txt)
-			fi
-					
-			rm -f ${magsdir}/bins.lowDepth.fa ${magsdir}/bins.tooShort.fa ${magsdir}/bins.unbinned.fa ${magsdir}/checkm_qa.out ${magsdir}/MAGs_stats.tsv ${magsdir}/metabat-bins.zip ${magsdir}/hqmq-metabat-bins.zip
 
 			#IFS=""
 			/scripts/generate_objects.py --type "MAGs" --id ${informed_by} \
@@ -556,9 +529,9 @@ task finish {
 				--resource '${resource}' --url ${url_base} --giturl ${git_url} \
 				--inputs ${fasta} ${bam} ${functional_gff} \
 				--outputs \
-				${short} "tooShort (< 3kb) filtered contigs fasta file by metaBat2" \
-				${lowdepth} "lowDepth (mean cov <1 )  filtered contigs fasta file by metabat2" \
-				${unbinned} "unbinned fasta file from metabat2" \
+				${magsdir}/${prefix}_bins.tooShort.fa "tooShort (< 3kb) filtered contigs fasta file by metaBat2" \
+				${magsdir}/${prefix}_bins.lowDepth.fa "lowDepth (mean cov <1 )  filtered contigs fasta file by metabat2" \
+				${magsdir}/${prefix}_bins.unbinned.fa "unbinned fasta file from metabat2" \
 				${magsdir}/${prefix}_hqmq_bin.zip "high-quality and medium-quality bins" \
 				${magsdir}/${prefix}_checkm_qa.out "metabat2 bin checkm quality assessment result" \
 				${" " + bac_summary + " \"gtdbtk bacterial assignment result summary table\""} \

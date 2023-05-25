@@ -33,7 +33,7 @@ workflow nmdc_mags {
     }
     call generate_objects {
          input: container="microbiomedata/workflowmeta:1.0.5.1",
-		proj = proj_name,
+                proj = proj_name,
                 start = mbin_nmdc.start,
                 informed_by = "${informed_by}",
                 resource = "${resource}",
@@ -47,7 +47,7 @@ workflow nmdc_mags {
                 short = mbin_nmdc.short,
                 checkm = mbin_nmdc.checkm,
                 json_stats = mbin_nmdc.json_stats,
-		tsv_stats = mbin_nmdc.tsv_stats,
+                tsv_stats = mbin_nmdc.tsv_stats,
                 bac_summary = mbin_nmdc.bacsum,
                 ar_summary = mbin_nmdc.arcsum,
                 metabat_bin_fasta_files = mbin_nmdc.bin_fasta_files,
@@ -62,12 +62,13 @@ workflow nmdc_mags {
                    low=mbin_nmdc.low,
                    unbinned=mbin_nmdc.unbinned,
                    json_stats=mbin_nmdc.json_stats,
- 		   tsv_stats = mbin_nmdc.tsv_stats,
+                   tsv_stats = mbin_nmdc.tsv_stats,
                    hqmq_bin_fasta_zip=generate_objects.hqmq_bin_fasta_zip,
                    bin_fasta_zip=generate_objects.metabat_bin_fasta_zip,
                    checkm=mbin_nmdc.checkm,
                    gtdbtk_bac_summary=mbin_nmdc.bacsum,
                    gtdbtk_ar_summary=mbin_nmdc.arcsum,
+                   proj = proj_name,
                    outdir=outdir
                    
         }
@@ -84,12 +85,12 @@ workflow nmdc_mags {
         File? final_lowDepth_fa = make_output.lowDepth_fa
         File? final_unbinned_fa = make_output.unbinned_fa
         File? final_stats = make_output.stats
-	File? final_stats_tsv = make_output.tsvstats
+        File? final_stats_tsv = make_output.tsvstats
         File short = mbin_nmdc.short
         File low = mbin_nmdc.low
         File unbinned = mbin_nmdc.unbinned
         File? checkm = mbin_nmdc.checkm
-	Array[File] hqmq_bin_fasta_files = mbin_nmdc.hqmq_bin_fasta_files
+        Array[File] hqmq_bin_fasta_files = mbin_nmdc.hqmq_bin_fasta_files
         Array[File] bin_fasta_files = mbin_nmdc.bin_fasta_files
     }
     parameter_meta {
@@ -112,7 +113,7 @@ workflow nmdc_mags {
         final_lowDepth_fa: "lowDepth (mean cov <1 )  filtered contigs fasta file by metabat2"
         final_unbinned_fa: "unbinned fasta file from metabat2"
         final_stats: "statistics summary in json format"
-	final_stats_tsv: "statistics summary in tsv format"
+        final_stats_tsv: "statistics summary in tsv format"
         activityjson: "nmdc activity json file"
         objectjson: "nmdc data object json file"
     }
@@ -169,7 +170,7 @@ task mbin_nmdc {
         File unbinned = "bins.unbinned.fa"
         File? checkm = "checkm_qa.out"
         File json_stats= "MAGs_stats.json"
-	File tsv_stats= "MAGs_stats.tsv"
+        File tsv_stats= "MAGs_stats.tsv"
         File? bacsum = "gtdbtk_output/gtdbtk.bac120.summary.tsv"
         File? arcsum = "gtdbtk_output/gtdbtk.ar122.summary.tsv"
         Array[File] hqmq_bin_fasta_files = glob("hqmq-metabat-bins/*fa")
@@ -245,6 +246,7 @@ task make_output{
     File short
     File low
     File unbinned
+    String proj
     File? hqmq_bin_fasta_zip
     File? bin_fasta_zip
     File? checkm
@@ -255,29 +257,49 @@ task make_output{
     String container
     File activity_json
     File object_json
+    String sed_bin="s/bins./${proj}_/g"
  
-    command{
+    command <<<
         mkdir -p ${outdir}
-        cp ${short} ${low} ${unbinned} ${json_stats} ${checkm} \
-                   ${gtdbtk_bac_summary} ${gtdbtk_ar_summary} \
-                   ${activity_json} ${object_json} ${tsv_stats}  \
+        cp ${gtdbtk_bac_summary} ${gtdbtk_ar_summary} \
+                   ${activity_json} ${object_json}  \
                    ${outdir}
+        cp ${low}  ${outdir}/${proj}_bins.lowDepth.fa
+        cp ${short} ${outdir}/${proj}_bins.tooShort.fa
+        cp ${unbinned} ${outdir}/${proj}_bins.unbinned.fa
+       
+        sed -e ${sed_bin} ${json_stats} > ${outdir}/MAGs_stats.json
+        sed -e ${sed_bin} ${tsv_stats} > ${outdir}/mbin_datafile_${proj}.txt
         # These may not exist
-        ${"cp " + hqmq_bin_fasta_zip + " " + outdir} 
-        ${"cp " + bin_fasta_zip + " " + outdir}
+        ${  if defined(checkm) then
+                "cp " + checkm + " " + outdir + "/"  + proj + "_checkm_qa.out"
+            else
+                "echo \"no mags\" > " + outdir + "/"  + proj + "_checkm_qa.out"
+        }
+        sed -i ${sed_bin} ${outdir}/${proj}_checkm_qa.out
+        ${  if defined(bin_fasta_zip) then
+                 "cp " + bin_fasta_zip + " " + outdir + "/"  + proj + "_metabat_bins.zip"
+            else
+                 "mkdir -p meta && cd meta && touch no_mags.txt && zip " + outdir + "/" + proj + "_metabat_bins.zip *.txt"
+        }
+        ${  if defined(hqmq_bin_fasta_zip) then
+                 "cp " + hqmq_bin_fasta_zip + " " + outdir + "/"  + proj + "_hqmq_bins.zip"
+            else
+                 "mkdir -p hqmq && cd hqmq && touch no_hqmq_mags.txt && zip " + outdir + "/" + proj + "_hqmq_bins.zip *.txt"
+        }
         chmod 755 -R ${outdir}
-    }
+    >>>
     output {
-        File? hqmq_bin_fa_zip = "${outdir}/hqmq-metabat-bins.zip"
-        File? metabat_bin_fa_zip = "${outdir}/metabat-bins.zip"
-        File? checkm_output = "${outdir}/checkm_qa.out"
+        File? hqmq_bin_fa_zip = "${outdir}/$(proj)_hqmq_bins.zip"
+        File? metabat_bin_fa_zip = "${outdir}/${proj}_metabat_bins.zip"
+        File? checkm_output = "${outdir}/${proj}_checkm_qa.out"
         File? bac_summary = "${outdir}/gtdbtk.bac120.summary.tsv"
         File? ar_summary = "${outdir}/gtdbtk.ar122.summary.tsv"
-        File unbinned_fa = "${outdir}/bins.unbinned.fa"
-        File tooShort_fa = "${outdir}/bins.tooShort.fa"
-        File lowDepth_fa = "${outdir}/bins.lowDepth.fa"
+        File unbinned_fa = "${outdir}/${proj}_bins.unbinned.fa"
+        File tooShort_fa = "${outdir}/${proj}_bins.tooShort.fa"
+        File lowDepth_fa = "${outdir}/${proj}_bins.lowDepth.fa"
         File stats = "${outdir}/MAGs_stats.json"
-	File tsvstats = "${outdir}/MAGs_stats.tsv"
+        File tsvstats = "${outdir}/mbin_datafile_${proj}.txt"
         File outactivity = "${outdir}/activity.json"
         File outobject = "${outdir}/data_objects.json"
     }
