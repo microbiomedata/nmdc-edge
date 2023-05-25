@@ -9,7 +9,7 @@ task cal_scores{
 
 
 	command {
-		Rscript script.R -r ${fc_file} -n ${name_of_feat} -o ${name_of_feat}_sc.tsv -s ${project_name}
+		Rscript edgeR.R -r ${fc_file} -n ${name_of_feat} -o ${name_of_feat}_sc.tsv -s ${project_name}
 	}
 
 	output {
