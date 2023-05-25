@@ -8,12 +8,12 @@ import yaml
 import pandas as pd
 import configparser
 from datetime import datetime
-from jgi_file_staging import get_access_token, check_access_token, get_analysis_projects_from_proposal_id, \
-    get_sample_files, get_sequence_id, insert_samples_into_mongodb, get_mongo_db, get_sample_files_list, \
+from src.jgi_file_staging import get_access_token, check_access_token, get_analysis_projects_from_proposal_id, \
+    get_sample_files, get_sequence_id, insert_samples_into_mongodb, get_mongo_db, get_files_and_agg_ids, \
     combine_sample_ids_with_agg_ids, update_sample_in_mongodb, restore_files, check_restore_status, \
     get_globus_manifests, create_globus_batch_file, submit_globus_batch_file, update_file_statuses, \
     create_globus_dataframe, insert_globus_status_into_mongodb, update_globus_task_status, update_globus_statuses, \
-    get_globus_task_status
+    get_globus_task_status, remove_unneeded_files
 
 from functools import wraps
 
@@ -27,7 +27,15 @@ def mock_decorator(*args, **kwargs):
         return decorated_function
     return decorator
 
+
+patch('jgi_file_staging.click.command', mock_decorator).start()
+patch('jgi_file_staging.click.argument', mock_decorator).start()
+# patch('jgi_file_staging.cli.command', mock_decorator).start()
+patch('jgi_file_staging.click.core', mock_decorator).start()
+
+
 from jgi_file_staging import get_samples_data
+
 
 class JgiFileTestCase(unittest.TestCase):
     def setUp(self) -> None:
@@ -145,28 +153,28 @@ class JgiFileTestCase(unittest.TestCase):
         self.assertFalse(success)
 
     @patch('jgi_file_staging.requests.get')
-    def test_get_sample_files_list(self, mock_get):
+    def test_get_files_and_agg_ids(self, mock_get):
         with open(os.path.join(self.fixtures, 'files_data.json'), 'r') as f:
             files_json = json.load(f)
         mock_get.return_value.json.return_value = files_json
         mock_get.return_value.status_code = 200
-        files_dict, agg_id_list = get_sample_files_list(1323459, 'ed42ef155670')
+        files_dict, agg_id_list = get_files_and_agg_ids(1323459, 'ed42ef155670')
         self.assertEqual(files_dict[0][0]['file_name'], 'Table_8_-_3300049478.taxonomic_composition.txt')
         self.assertEqual(files_dict[0][0]['file_type'], 'report')
         self.assertEqual(agg_id_list[0], 1323348)
 
     @patch('jgi_file_staging.requests.get')
-    def test_get_sample_files_list_no_organisms(self, mock_get):
+    def test_get_files_and_agg_ids_no_organisms(self, mock_get):
         with open(os.path.join(self.fixtures, 'files_data.json'), 'r') as f:
             files_json = json.load(f)
         files_json.pop('organisms')
         mock_get.return_value.json.return_value = files_json
         mock_get.return_value.status_code = 200
-        files_dict, agg_id_list = get_sample_files_list(1323459, 'ed42ef155670')
+        files_dict, agg_id_list = get_files_and_agg_ids(1323459, 'ed42ef155670')
         self.assertEqual(files_dict, None)
         self.assertEqual(agg_id_list, [])
 
-    @patch('jgi_file_staging.get_sample_files_list')
+    @patch('jgi_file_staging.get_files_and_agg_ids')
     @patch('jgi_file_staging.requests.get')
     @patch('jgi_file_staging.get_access_token')
     def test_get_sample_files(self, mock_token, mock_get, mock_get_files_list):
@@ -184,6 +192,21 @@ class JgiFileTestCase(unittest.TestCase):
         grow_samples = get_sample_files(os.path.join(self.fixtures, 'grow_samples.txt'), 'ed42ef155670')
         self.assertEqual(grow_samples[0]['file_name'], 'Table_8_-_3300049478.taxonomic_composition.txt')
 
+    @patch('jgi_file_staging.get_files_and_agg_ids')
+    @patch('jgi_file_staging.requests.get')
+    @patch('jgi_file_staging.get_access_token')
+    def test_remove_unneeded_files(self, mock_token, mock_get, mock_get_files_list):
+        with open(os.path.join(self.fixtures, 'seq_files_df.json'), 'r') as f:
+            files_data_list = json.load(f)
+
+        seq_files_df = pd.DataFrame(files_data_list)
+        self.assertFalse(seq_files_df[seq_files_df.file_name == '52554.2.382557.CCCTGTAT-GGATAACG.fastq.gz'].empty)
+        self.assertFalse(seq_files_df[seq_files_df.file_name == 'Ga0451670_proteins.img_nr.last.blasttab'].empty)
+        grow_samples_df = remove_unneeded_files(seq_files_df, ['img_nr.last.blasttab', 'domtblout'])
+        self.assertEqual(len(grow_samples_df), 70)
+        self.assertTrue(grow_samples_df[grow_samples_df.file_name == '52554.2.382557.CCCTGTAT-GGATAACG.fastq.gz'].empty)
+        self.assertTrue(grow_samples_df[grow_samples_df.file_name == 'Ga0451670_proteins.img_nr.last.blasttab'].empty)
+
     def test_combine_sample_ids_with_agg_ids(self):
         with open(os.path.join(self.fixtures, 'files_data.json'), 'r') as f:
             files_json = json.load(f)
@@ -195,7 +218,7 @@ class JgiFileTestCase(unittest.TestCase):
                 agg_id_list.append(org['agg_id'])
         all_files_list = []
         combine_sample_ids_with_agg_ids(files_data_list, agg_id_list, 'Gb0291644', 1310172, all_files_list)
-        self.assertEqual(len(all_files_list), 85)
+        self.assertEqual(len(all_files_list), 86)
         self.assertEqual(all_files_list[0]['file_name'], 'Table_8_-_3300049478.taxonomic_composition.txt')
         self.assertEqual(all_files_list[0]['file_status'], 'PURGED')
         self.assertEqual(all_files_list[12]['md5sum'], 'c407751c775a82b72053b72532690e21')
@@ -203,14 +226,13 @@ class JgiFileTestCase(unittest.TestCase):
         self.assertEqual(all_files_list[-1]['seq_id'], 1310172)
         self.assertEqual(all_files_list[-1]['jdp_file_id'], '61b40ec08277d7ede605605c')
 
-    @patch('jgi_file_staging.click')
     @patch('jgi_file_staging.requests.get')
     @patch('jgi_file_staging.get_sequence_id')
     @patch('jgi_file_staging.check_access_token')
     @patch('jgi_file_staging.get_access_token')
     @patch('jgi_file_staging.get_analysis_projects_from_proposal_id')
     @mongomock.patch(servers=(('localhost', 27017),))
-    def test_get_samples_data(self, mock_analysis_projects, mock_token, mock_check_token, mock_sequence_id, mock_get, mock_click):
+    def test_get_samples_data(self, mock_analysis_projects, mock_token, mock_check_token, mock_sequence_id, mock_get):
         with open(os.path.join(self.fixtures, 'gold_analysis_data.txt'), 'r') as f:
             files_json = json.load(f)
         mock_analysis_projects.return_value = files_json
@@ -221,10 +243,13 @@ class JgiFileTestCase(unittest.TestCase):
             files_json = json.load(f)
         mock_get.return_value.json.return_value = files_json
         mock_get.return_value.status_code = 200
-        get_samples_data(os.path.join(self.fixtures, 'grow_samples.txt'), 505780, 'grow')
+        get_samples_data(os.path.join(self.fixtures, 'grow_samples.txt'), 505780, 'grow', self.config_file)
         mdb = get_mongo_db()
         sample = mdb.samples.find_one({'apGoldId': 'Ga0499978'})
         self.assertEqual(sample['studyId'], 'Gs0149396')
+
+
+
 
     @patch('jgi_file_staging.update_file_statuses')
     @patch('jgi_file_staging.requests.post')
