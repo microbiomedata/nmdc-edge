@@ -42,7 +42,7 @@ def cli():
 @click.argument('config_file', type=click.Path(dir_okay=True, resolve_path=True))
 def get_samples_data(samples_csv_file: str, proposal_id: int, project: str, config_file: str) -> None:
     """
-
+    Get JGI sample metadata using the gold API and store in a mongodb
     :param samples_csv_file: CSV file with biosample ID's
     :param proposal_id: JGI proposal ID
     :param project: Name of project (e.g., GROW, Bioscales, NEON)
@@ -107,6 +107,61 @@ def get_sample_files(samples_csv_file: str, ACCESS_TOKEN: str) -> List[dict]:
     return all_files_list
 
 
+def get_sequence_id(gold_id: str, ACCESS_TOKEN: str):
+    # given a gold biosample id, get the JGI sequencing ID
+    gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId={gold_id}'
+    headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": "application/json", 'User-agent': 'nmdc bot 0.1'}
+    time.sleep(0.5)
+    gold_biosample_response = requests.get(gold_biosample_url, headers=headers)
+    if gold_biosample_response.status_code == 200:
+        gold_biosample_data = gold_biosample_response.json()[0]
+        return gold_biosample_data['itsSpid']
+    else:
+        logging.debug(f"gold_biosample_response: {gold_biosample_response.text}")
+        return None
+
+
+def get_analysis_projects_from_proposal_id(proposal_id: int, ACCESS_TOKEN: str) -> List[dict]:
+    gold_analysis_url = f'https://gold-ws.jgi.doe.gov/api/v1/analysis_projects?itsProposalId={proposal_id}'
+    headers = {'Authorization': f'Bearer {ACCESS_TOKEN}', "accept": "application/json"}
+    gold_analysis_response = requests.get(gold_analysis_url, headers=headers)
+    gold_analysis_data = gold_analysis_response.json()
+    return gold_analysis_data
+
+
+def get_files_and_agg_ids(sequencing_id, ACCESS_TOKEN) -> (List[dict], List[str]):
+    # Given a JGI sequencing ID, get the list of files and agg_ids associated with the biosample
+    logging.debug(f"sequencing_id {sequencing_id}")
+    seqid_url = f"https://files.jgi.doe.gov/search/?q={sequencing_id}&a=false&h=false&d=asc&p=1&x=10&api_version=2"
+    headers = {'X-CSRFToken': f'Token {ACCESS_TOKEN}', "accept": "application/json"}
+    seqid_response = requests.get(seqid_url, headers=headers)
+    sys.exit(f"{seqid_response.text}") if seqid_response.status_code != 200 else None
+    files_data = seqid_response.json()
+    files_data_list = []
+    agg_id_list = []
+    if 'organisms' in files_data.keys():
+        for org in files_data['organisms']:
+            files_data_list.append(org['files'])
+            agg_id_list.append(org['agg_id'])
+        return files_data_list, agg_id_list
+    else:
+        return None, []
+
+
+def combine_sample_ids_with_agg_ids(sample_files_list, agg_id_list, biosample_id, seq_id, all_files_list) -> None:
+    for sample, agg_id in zip(sample_files_list, agg_id_list):
+        for files_dict in sample:
+            seq_unit_name = files_dict['metadata']['seq_unit_name'] if 'seq_unit_name' in files_dict[
+                'metadata'].keys() else None
+            all_files_list.append({'biosample_id': biosample_id, 'seq_id': seq_id, 'file_name': files_dict['file_name'],
+                                   'file_status': files_dict['file_status'], 'file_size': files_dict['file_size'],
+                                   'jdp_file_id': files_dict['_id'], 'md5sum': files_dict['md5sum'],
+                                   'file_type': files_dict['file_type'],
+                                   'analysis_project_id': agg_id, 'seq_unit_name': seq_unit_name})
+            if 'metadata' not in files_dict.keys():
+                print(f"biosample_id {biosample_id}, seq_id{seq_id}")
+
+
 def remove_unneeded_files(seq_files_df: pd.DataFrame, remove_files_list: list) -> pd.DataFrame:
     """
     Remove files that are not needed
@@ -145,28 +200,6 @@ def remove_duplicate_analysis_files(seq_files_df: pd.DataFrame) -> pd.DataFrame:
     return seq_files_df
 
 
-def get_sequence_id(gold_id: str, ACCESS_TOKEN: str):
-    # given a gold biosample id, get the JGI sequencing ID
-    gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId={gold_id}'
-    headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": "application/json", 'User-agent': 'nmdc bot 0.1'}
-    time.sleep(0.5)
-    gold_biosample_response = requests.get(gold_biosample_url, headers=headers)
-    if gold_biosample_response.status_code == 200:
-        gold_biosample_data = gold_biosample_response.json()[0]
-        return gold_biosample_data['itsSpid']
-    else:
-        logging.debug(f"gold_biosample_response: {gold_biosample_response.text}")
-        return None
-
-
-def get_analysis_projects_from_proposal_id(proposal_id: int, ACCESS_TOKEN: str) -> List[dict]:
-    gold_analysis_url = f'https://gold-ws.jgi.doe.gov/api/v1/analysis_projects?itsProposalId={proposal_id}'
-    headers = {'Authorization': f'Bearer {ACCESS_TOKEN}', "accept": "application/json"}
-    gold_analysis_response = requests.get(gold_analysis_url, headers=headers)
-    gold_analysis_data = gold_analysis_response.json()
-    return gold_analysis_data
-
-
 def insert_samples_into_mongodb(sample_list: list) -> None:
     """ create workflows from list of samples to process"""
     mdb = get_mongo_db()
@@ -194,38 +227,6 @@ def update_sample_in_mongodb(sample: dict, update_dict: dict) -> bool:
     except ValidationError as e:
         logging.debug(f'Update error: {e}')
         return False
-
-
-def combine_sample_ids_with_agg_ids(sample_files_list, agg_id_list, biosample_id, seq_id, all_files_list) -> None:
-    for sample, agg_id in zip(sample_files_list, agg_id_list):
-        for files_dict in sample:
-            seq_unit_name = files_dict['metadata']['seq_unit_name'] if 'seq_unit_name' in files_dict[
-                'metadata'].keys() else None
-            all_files_list.append({'biosample_id': biosample_id, 'seq_id': seq_id, 'file_name': files_dict['file_name'],
-                                   'file_status': files_dict['file_status'], 'file_size': files_dict['file_size'],
-                                   'jdp_file_id': files_dict['_id'], 'md5sum': files_dict['md5sum'], 'file_type': files_dict['file_type'],
-                                   'analysis_project_id': agg_id, 'seq_unit_name': seq_unit_name})
-            if 'metadata' not in files_dict.keys():
-                print(f"biosample_id {biosample_id}, seq_id{seq_id}")
-
-
-def get_files_and_agg_ids(sequencing_id, ACCESS_TOKEN) -> (List[dict], List[str]):
-    # Given a JGI sequencing ID, get the list of files associated with the biosample
-    logging.debug(f"sequencing_id {sequencing_id}")
-    seqid_url = f"https://files.jgi.doe.gov/search/?q={sequencing_id}&a=false&h=false&d=asc&p=1&x=10&api_version=2"
-    headers = {'X-CSRFToken': f'Token {ACCESS_TOKEN}', "accept": "application/json"}
-    seqid_response = requests.get(seqid_url, headers=headers)
-    sys.exit(f"{seqid_response.text}") if seqid_response.status_code != 200 else None
-    files_data = seqid_response.json()
-    files_data_list = []
-    agg_id_list = []
-    if 'organisms' in files_data.keys():
-        for org in files_data['organisms']:
-            files_data_list.append(org['files'])
-            agg_id_list.append(org['agg_id'])
-        return files_data_list, agg_id_list
-    else:
-        return None, []
 
 
 @cli.command()
@@ -377,6 +378,7 @@ def create_globus_batch_file(project, config):
         f.write('\n'.join(write_list))
     return globus_batch_filename, globus_analysis_df
 
+
 @cli.command()
 @click.argument('config_file', type=click.Path(dir_okay=True, resolve_path=True))
 @click.argument('project')
@@ -430,6 +432,7 @@ cli.add_command(submit_globus_batch_file)
 cli.add_command(update_globus_statuses)
 
 if __name__ == '__main__':
-    cli()
+    pass
+    # cli()
 
 
