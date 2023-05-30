@@ -160,6 +160,18 @@ task mbin_nmdc {
         mbin_nmdc.py ${"--map " + map} ${"--domain " + domain} ${"--scratch_dir " + scratch_dir} --pplacer_cpu ${pplacer_cpu} --cpu ${cpu} ${name} ${fasta} ${sam} ${gff}
         mbin_stats.py $PWD
         touch MAGs_stats.tsv
+
+        if [ ! -f "${filename_stat}" ]; then
+            echo "no mags" > ${filename_stat}
+        fi
+        if [ ! -f  "gtdbtk_output/gtdbtk.bac120.summary.tsv" ]; then
+            mkdir -p gtdbtk_output
+            echo "No GTDBTK Bacterial Results for ${name}" > gtdbtk_output/gtdbtk.bac120.summary.tsv
+        fi
+        if [ ! -f  "gtdbtk_output/gtdbtk.ar122.summary.tsv" ]; then
+            mkdir -p gtdbtk_output
+            echo "No GTDBTK Archaeal Results for ${name}" > gtdbtk_output/gtdbtk.ar122.summary.tsv
+        fi
      }
      output {
         File runScript = "script"
@@ -261,22 +273,17 @@ task make_output{
  
     command <<<
         mkdir -p ${outdir}
-        cp ${gtdbtk_bac_summary} ${gtdbtk_ar_summary} \
-                   ${activity_json} ${object_json}  \
-                   ${outdir}
+        cp ${activity_json} ${object_json} ${outdir}
         cp ${low}  ${outdir}/${proj}_bins.lowDepth.fa
         cp ${short} ${outdir}/${proj}_bins.tooShort.fa
         cp ${unbinned} ${outdir}/${proj}_bins.unbinned.fa
-       
+        cp ${checkm} ${outdir}/${proj}_checkm_qa.out
+        sed -i ${sed_bin} ${outdir}/${proj}_checkm_qa.out
         sed -e ${sed_bin} ${json_stats} > ${outdir}/MAGs_stats.json
         sed -e ${sed_bin} ${tsv_stats} > ${outdir}/mbin_datafile_${proj}.txt
+        sed -e ${sed_bin} ${gtdbtk_bac_summary} > ${outdir}/gtdbtk.bac120.summary.tsv
+        sed -e ${sed_bin} ${gtdbtk_ar_summary} > ${outdir}/gtdbtk.ar122.summary.tsv
         # These may not exist
-        ${  if defined(checkm) then
-                "cp " + checkm + " " + outdir + "/"  + proj + "_checkm_qa.out"
-            else
-                "echo \"no mags\" > " + outdir + "/"  + proj + "_checkm_qa.out"
-        }
-        sed -i ${sed_bin} ${outdir}/${proj}_checkm_qa.out
         ${  if defined(bin_fasta_zip) then
                  "cp " + bin_fasta_zip + " " + outdir + "/"  + proj + "_metabat_bins.zip"
             else
