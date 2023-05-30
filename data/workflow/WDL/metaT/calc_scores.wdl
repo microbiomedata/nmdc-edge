@@ -9,8 +9,7 @@ task cal_scores{
 
 
 	command {
-
-		python /bin/calc_PMs.py scores -r ${fc_file} -n {name_of_feat} -o {name_of_feat}_sc.tsv -s ${project_name}
+	   python /bin/apps/calc_PMs.py scores -r ${fc_file} -n ${name_of_feat} -o ${name_of_feat}_sc.tsv -s ${project_name}
 	}
 
 	output {

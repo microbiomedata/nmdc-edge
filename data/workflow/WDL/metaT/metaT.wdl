@@ -9,7 +9,7 @@ import "calc_scores.wdl" as cs
 import "to_json.wdl" as tj
 
 workflow nmdc_metat {
-    String  metat_container = "microbiomedata/meta_t:latest"
+    String  metat_container = "migun/meta_t2:latest"
     String  featcounts_container = "mbabinski17/featcounts:dev"
     String  feature_types_container = "mbabinski17/rpkm_sort:0.0.5"
     String  proj
