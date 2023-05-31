@@ -116,7 +116,6 @@ workflow nmdc_metat {
 		pkm_sc_fn = cal_scores.sc_tbl,
 		name_of_feat = feat,
 		gff_db_fn = create_gffdb.gff_db_fn,
-                py_pack_path = metat_folder + "/pyp_metat",
 		DOCKER = metat_container
 		}
 	
@@ -133,7 +132,6 @@ workflow nmdc_metat {
                 pkm_sc_fn = cs2.sc_tbl,
                 name_of_feat = feat,
                 gff_db_fn = create_gffdb.gff_db_fn,
-                py_pack_path = metat_folder + "/pyp_metat",
                 DOCKER = metat_container
                 }
         }
