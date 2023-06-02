@@ -24,12 +24,14 @@ class Watcher:
         self.config = config(site_configuration_file)
         self.client_id = self.config.conf['credentials']['client_id']
         self.client_secret = self.config.conf['credentials']['client_secret']
-        self.cromurl = self.config.conf['url']
+        self.cromurl = self.config.conf['cromwell']['cromwell_url']
         self.state_file = self.config.conf['state']['agent_state']
         self.stage_dir = self.config.get_stage_dir()
         self.raw_dir = self.config.conf['directories']['raw_dir']
         self.jobs = []
         self.nmdc = nmdcapi()
+        
+        self._ALLOWED = self.config._generate_allowed_workflows()
 
     def restore(self, nocheck=False):
         """
@@ -90,7 +92,7 @@ class Watcher:
             logger.debug("Previously cached job")
             logger.info(f"Reusing activity {job.activity_id}")
         else:
-            job = wfjob(wfid, njob['id'], njob['config'], opid, activity_id=njob['config']['activity_id'])
+            job = wfjob(config=self.config.conf,typ = wfid, nmdc_jobid = njob['id'], conf = njob['config'],opid = opid, activity_id=njob['config']['activity_id'])
             self.jobs.append(job)
 
         job.cromwell_submit(force=force)
@@ -181,12 +183,12 @@ class Watcher:
             id = product_record["id"]
             desc = product_record['description'].replace('{id}', act_id)
             do = {
-                "id": r["id"],
-                "name": r['name'],
+                "id": product_record["id"],
+                "name": product_record['name'],
                 "description": desc,
                 "file_size_bytes": os.stat(full_name).st_size,
                 "type": "nmdc:DataObject",
-                "data_object_type": r['data_object_type'],
+                "data_object_type": product_record['data_object_type'],
                 "md5_checksum": md5,
                 "url": self._get_url(informed_by, act_id, fname)
             }
@@ -292,3 +294,5 @@ class Watcher:
                 self.job_checkpoint()
             elif job.opid and not job.done:
                 continue
+            
+        
