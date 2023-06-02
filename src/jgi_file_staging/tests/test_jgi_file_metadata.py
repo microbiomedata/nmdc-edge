@@ -20,6 +20,9 @@ class JgiFileTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.fixtures = os.path.join(os.path.dirname(__file__), 'fixtures')
         self.config_file = os.path.join(self.fixtures, 'config.ini')
+        config = configparser.ConfigParser(allow_no_value=True)
+        config.read(self.config_file)
+        self.config = config
 
     def tearDown(self) -> None:
         mdb = get_mongo_db()
@@ -37,7 +40,7 @@ class JgiFileTestCase(unittest.TestCase):
     def test_check_access_token(self, mock_get):
         mock_get.return_value.status_code = 200
         ACCESS_TOKEN = "ed42ef1556708305eaf8"
-        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN)
+        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN, eval(self.config['JDP']['delay']))
         self.assertEqual(ACCESS_TOKEN, "ed42ef1556708305eaf8")
 
     @patch('jgi_file_metadata.requests.get')
@@ -51,18 +54,18 @@ class JgiFileTestCase(unittest.TestCase):
         mock_get.side_effect = [response_mock1, response_mock2]
 
         ACCESS_TOKEN = "ed42ef1556708305eaf8"
-        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN)
+        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN, eval(self.config['JDP']['delay']))
         self.assertEqual(ACCESS_TOKEN, "ed42ef155670")
 
     @patch('jgi_file_metadata.requests.get')
     def test_get_sequence_id(self, mock_get):
         mock_get.return_value.status_code = 200
         mock_get.return_value.json.return_value = [{'itsSpid': 1323348}]
-        sequence_id = get_sequence_id('Ga0499978', "ed42ef155670")
+        sequence_id = get_sequence_id('Ga0499978', "ed42ef155670", eval(self.config['JDP']['delay']))
         self.assertEqual(sequence_id, 1323348)
 
         mock_get.return_value.status_code = 403
-        sequence_id = get_sequence_id('Ga0499978', "ed42ef155670")
+        sequence_id = get_sequence_id('Ga0499978', "ed42ef155670", eval(self.config['JDP']['delay']))
         self.assertEqual(sequence_id, None)
 
     @patch('jgi_file_metadata.requests.get')
@@ -168,7 +171,8 @@ class JgiFileTestCase(unittest.TestCase):
         mock_token.return_value = "ed42ef155670"
         mock_get.return_value.json.return_value = [{'itsSpid': 1323348}]
         mock_get.return_value.status_code = 200
-        grow_samples = get_sample_files(os.path.join(self.fixtures, 'grow_samples.txt'), 'ed42ef155670')
+        grow_samples = get_sample_files(os.path.join(self.fixtures, 'grow_samples.txt'), 'ed42ef155670',
+                                        eval(self.config['JDP']['delay']))
         self.assertEqual(grow_samples[0]['file_name'], 'Table_8_-_3300049478.taxonomic_composition.txt')
 
     @patch('jgi_file_metadata.get_files_and_agg_ids')

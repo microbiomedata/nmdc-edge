@@ -41,7 +41,7 @@ def get_samples_data(samples_csv_file: str, proposal_id: int, project: str, conf
     config = configparser.ConfigParser()
     config.read(config_file)
     ACCESS_TOKEN = get_access_token()
-    all_files_list = get_sample_files(samples_csv_file, ACCESS_TOKEN)
+    all_files_list = get_sample_files(samples_csv_file, ACCESS_TOKEN, eval(config['JDP']['delay']))
     gold_analysis_data = get_analysis_projects_from_proposal_id(proposal_id, ACCESS_TOKEN)
     files_df = pd.DataFrame(all_files_list)
     files_df = remove_unneeded_files(files_df, eval(config['JDP']['remove_files']))
@@ -61,10 +61,10 @@ def get_access_token() -> str:
     return response.text
 
 
-def check_access_token(ACCESS_TOKEN: str) -> str:
+def check_access_token(ACCESS_TOKEN: str, delay: float) -> str:
     gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId=Gb0291582'
     headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": "application/json", 'User-agent': 'nmdc bot 0.1'}
-    time.sleep(0.5)
+    time.sleep(delay)
     gold_biosample_response = requests.get(gold_biosample_url, headers=headers)
     if gold_biosample_response.status_code == 200:
         return ACCESS_TOKEN
@@ -72,7 +72,7 @@ def check_access_token(ACCESS_TOKEN: str) -> str:
         return get_access_token()
 
 
-def get_sample_files(samples_csv_file: str, ACCESS_TOKEN: str) -> List[dict]:
+def get_sample_files(samples_csv_file: str, ACCESS_TOKEN: str, delay: float) -> List[dict]:
     """
     Get all sample files for a project
     :param samples_csv_file: csv file with biosample id's
@@ -84,9 +84,9 @@ def get_sample_files(samples_csv_file: str, ACCESS_TOKEN: str) -> List[dict]:
     all_files_list = []
     for idx, biosample_id in samples_df.itertuples():
         logging.debug(f"biosample {biosample_id}")
-        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN)
+        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN, delay)
         try:
-            seq_id = get_sequence_id(biosample_id, ACCESS_TOKEN)
+            seq_id = get_sequence_id(biosample_id, ACCESS_TOKEN, delay)
             sample_files_list, agg_id_list = get_files_and_agg_ids(seq_id, ACCESS_TOKEN)
         except IndexError as e:
             logging.exception(f'skipping biosample_id: {biosample_id}')
@@ -95,11 +95,11 @@ def get_sample_files(samples_csv_file: str, ACCESS_TOKEN: str) -> List[dict]:
     return all_files_list
 
 
-def get_sequence_id(gold_id: str, ACCESS_TOKEN: str):
+def get_sequence_id(gold_id: str, ACCESS_TOKEN: str, delay: float):
     # given a gold biosample id, get the JGI sequencing ID
     gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId={gold_id}'
     headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": "application/json", 'User-agent': 'nmdc bot 0.1'}
-    time.sleep(0.5)
+    time.sleep(delay)
     gold_biosample_response = requests.get(gold_biosample_url, headers=headers)
     if gold_biosample_response.status_code == 200:
         gold_biosample_data = gold_biosample_response.json()[0]
