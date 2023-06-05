@@ -47,8 +47,8 @@ class WorkflowJob():
         self.url_root = self.config['nmdc']['url_root']
 
     def load_workflow_config(self):
-        with open(self.config['worfklows']['workflows_config'], 'r') as file:
-            self.worfklow_config = yaml.safe_load(file)
+        with open(self.config['workflows']['workflows_config'], 'r') as file:
+            self.workflow_config = yaml.safe_load(file)
         self.outputs = self.workflow_config.get('Outputs')
         self.activity_templ = self.workflow_config.get('Activity')
         self.input_data_objects = self.workflow_config.get('Inputs')
@@ -81,6 +81,49 @@ class WorkflowJob():
         self.jobid = None
         self.failed_count = 0
         self.last_status = self.DEFAULT_STATUS
+        
+    def get_state(self):
+        data = {
+            "type": self.type,
+            "cromwell_jobid": self.jobid,
+            "nmdc_jobid": self.nmdc_jobid,
+            "conf": self.workflow_config,
+            "activity_id": self.activity_id,
+            "last_status": self.last_status,
+            "done": self.done,
+            "failed_count": self.failed_count,
+            "start": self.start,
+            "end": self.end,
+            "opid": self.opid
+            }
+        return data
+    
+    def check_status(self):
+        """
+        Check the status in Cromwell
+        """
+        if not self.jobid:
+            self.last_status = "Unsubmitted"
+            return self.last_status
+
+        url = f"{self.cromurl}/{self.jobid}/status"
+
+        try:
+            resp = requests.get(url)
+            resp.raise_for_status()  # raises an HTTPError if the response status was unsuccessful
+        except requests.exceptions.RequestException as e:
+            logging.error(f"Error checking status: {e}")
+            self.last_status = "Error"
+            return self.last_status
+
+        data = resp.json()
+        state = data.get('status', "Unknown")
+        self.last_status = state
+
+        if state == "Succeeded" and not self.end:
+            self.end = datetime.datetime.now(pytz.utc).isoformat()
+
+        return state
         
     def get_metadata(self):
         """
