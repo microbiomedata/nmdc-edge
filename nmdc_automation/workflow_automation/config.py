@@ -40,7 +40,7 @@ class config():
         
     def _generate_allowed_workflows(self):
         
-        with open(self.conf['workflows']['workflows'], 'r') as stream:
+        with open(self.conf['workflows']['workflows_config'], 'r') as stream:
             workflows = yaml.safe_load(stream)
 
         # Initialize an empty list to store the results
