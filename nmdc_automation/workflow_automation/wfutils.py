@@ -6,6 +6,7 @@ import tempfile
 import requests
 import nmdc_schema.nmdc as nmdc
 import logging
+import urllib
 import datetime
 import pytz
 import hashlib
@@ -14,9 +15,16 @@ from linkml_runtime.dumpers import json_dumper
 
 class WorkflowJob():
     
+    DEFAULT_STATUS = "Unsubmitted"
+    SUCCESS_STATUS = "Succeeded"
+    METADATA_URL_SUFFIX = "/metadata"
+    LABEL_SUBMITTER_VALUE = "nmdcda"
+    LABEL_PARAMETERS = ['release', 'wdl', 'git_repo']
+    CHUNK_SIZE = 1000000  # 1 MB
+    GIT_RELEASES_PATH = "/releases/download"
+    
     debug = False
     dryrun = False
-    # Future
     options = None
     activity_templ = None
     outputs = None
@@ -24,178 +32,144 @@ class WorkflowJob():
     start = None
     end = None
 
-    def __init__(self, config,typ=None, nmdc_jobid=None, 
-                 opid=None, activity_id="TODO", state=None, nocheck=False):
+    def __init__(self, config, typ=None, nmdc_jobid=None, opid=None, activity_id="TODO", state=None, nocheck=False):
         self.config = config
+        self.set_config_attributes()
+        self.load_workflow_config()
+        self.set_initial_state(state, activity_id, typ, nmdc_jobid, opid)
+        if self.jobid and not nocheck:
+            self.check_status()
+
+    def set_config_attributes(self):
         self.cromurl = self.config['cromwell']['cromwell_url']
         self.data_dir = self.config['directories']['data_dir']
         self.resource = self.config['site']['resource']
         self.url_root = self.config['nmdc']['url_root']
+
+    def load_workflow_config(self):
         with open(self.config['worfklows']['workflows_config'], 'r') as file:
             self.worfklow_config = yaml.safe_load(file)
+        self.outputs = self.workflow_config.get('Outputs')
+        self.activity_templ = self.workflow_config.get('Activity')
+        self.input_data_objects = self.workflow_config.get('Inputs')
+
+    def set_initial_state(self, state, activity_id, typ, nmdc_jobid, opid):
         if state:
-            self.activity_id = state['activity_id']
-            self.nmdc_jobid = state['nmdc_jobid']
-            self.opid = state.get('opid', None)
-            self.type = state['type']
-            self.workflow_config = state['conf']
-            self.jobid = state['cromwell_jobid']
-            self.last_status = state['last_status']
-            self.failed_count = state.get('failed_count', 0)
-            self.done = state.get('done', None)
-            self.start = state.get('start')
-            self.end = state.get('end')
+            self.load_state_from_dict(state)
         else:
-            self.activity_id = activity_id
-            self.type = typ
-            self.nmdc_jobid = nmdc_jobid
-            self.opid = opid
-            self.done = None
-            self.jobid = None
-            self.failed_count = 0
-            self.last_status = "Unsubmitted"
+            self.set_default_state(activity_id, typ, nmdc_jobid, opid)
 
-        if 'outputs' in self.workflow_config:
-            self.outputs = self.workflow_config['outputs']
-        if 'activity' in self.workflow_config:
-            self.activity_templ = self.workflow_config['activity']
-        if 'input_data_objects' in self.workflow_config:
-            self.input_data_objects = self.workflow_config['input_data_objects']
+    def load_state_from_dict(self, state):
+        self.activity_id = state['activity_id']
+        self.nmdc_jobid = state['nmdc_jobid']
+        self.opid = state.get('opid', None)
+        self.type = state['type']
+        self.workflow_config = state['conf']
+        self.jobid = state['cromwell_jobid']
+        self.last_status = state['last_status']
+        self.failed_count = state.get('failed_count', 0)
+        self.done = state.get('done', None)
+        self.start = state.get('start')
+        self.end = state.get('end')
 
-        if self.jobid and not nocheck:
-            self.check_status()
-
-    def get_state(self):
-        data = {
-                "type": self.type,
-                "cromwell_jobid": self.jobid,
-                "nmdc_jobid": self.nmdc_jobid,
-                "conf": self.workflow_config,
-                "activity_id": self.activity_id,
-                "last_status": self.last_status,
-                "done": self.done,
-                "failed_count": self.failed_count,
-                "start": self.start,
-                "end": self.end,
-                "opid": self.opid
-                }
-        return data
-
-    def json_log(self, data, title="json_log"):
-        logging.debug(title)
-        logging.debug(json.dumps(data, indent=2))
-
-    def check_status(self):
-        """
-        Check the status in Cromwell
-        """
-        if not self.jobid:
-            return "Unsubmitted"
-        url = f"{self.cromurl}/{self.jobid}/status"
-        resp = requests.get(url)
-        state = "Unknown"
-        if resp.status_code == 200:
-            data = resp.json()
-            state = data['status']
-        self.last_status = state
-        if state == "Succeeded" and not self.end:
-            self.end = datetime.datetime.now(pytz.utc).isoformat()
-        return state
-
+    def set_default_state(self, activity_id, typ, nmdc_jobid, opid):
+        self.activity_id = activity_id
+        self.type = typ
+        self.nmdc_jobid = nmdc_jobid
+        self.opid = opid
+        self.done = None
+        self.jobid = None
+        self.failed_count = 0
+        self.last_status = self.DEFAULT_STATUS
+        
     def get_metadata(self):
         """
         Check the status in Cromwell
         """
         if not self.jobid:
-            return "Unsubmitted"
-        url = f"{self.cromurl}/{self.jobid}/metadata"
+            return self.DEFAULT_STATUS
+        url = f"{self.cromurl}/{self.jobid}{self.METADATA_URL_SUFFIX}"
         resp = requests.get(url)
-        md = {}
-        if resp.status_code == 200:
-            md = resp.json()
-        return md
-    
+        resp.raise_for_status()  # Raises an HTTPError if the status is 4xx, 5xx
+        return resp.json()
+
     def _generate_inputs(self):
         inputs = {}
         prefix = self.workflow_config['input_prefix']
         for k, v in self.workflow_config['inputs'].items():
             nk = f'{prefix}.{k}'
-            # TODO: clean this up
             if v == "{resource}":
                 v = self.config['site']['resource']
             inputs[nk] = v
         return inputs
 
     def _generate_labels(self):
-        labels = dict()
-        for p in ['release', 'wdl', 'git_repo']:
-            labels[p] = self.workflow_config[p]
+        labels = self.get_label_parameters()
         labels["pipeline_version"] = labels['release']
         labels["pipeline"] = labels['wdl']
         labels["activity_id"] = self.activity_id
         labels["opid"] = self.opid
-        labels["submitter"] = "nmdcda"
+        labels["submitter"] = self.LABEL_SUBMITTER_VALUE
         return labels
 
+    def get_label_parameters(self):
+        return {param: self.workflow_config[param] for param in self.LABEL_PARAMETERS}
+    
     def fetch_release_file(self, fn, suffix=None):
         release = self.workflow_config['release']
-        url = self.workflow_config['git_repo'].rstrip('/')
-        url += f"/releases/download/{release}/{fn}"
+        base_url = self.workflow_config['git_repo'].rstrip('/')
+        url = urllib.parse.urljoin(base_url, f"{self.GIT_RELEASES_PATH}/{release}/{fn}")
 
         resp = requests.get(url, stream=True)
-        if resp.status_code != 200:
-            raise ValueError("Bad response")
+        resp.raise_for_status()  # Raises HTTPError for 4xx and 5xx responses
+
         fp, fname = tempfile.mkstemp(suffix=suffix)
-        with os.fdopen(fp, 'wb') as fd:
-            for chunk in resp.iter_content(chunk_size=1000000):
-                fd.write(chunk)
+        try:
+            with os.fdopen(fp, 'wb') as fd:
+                for chunk in resp.iter_content(chunk_size=self.CHUNK_SIZE):
+                    fd.write(chunk)
+        except:
+            os.unlink(fname)  # Remove the file in case of error
+            raise  # Re-raise the exception
+
         return fname
+    
+    def generate_files(self, conf):
+        wdl_file = self.fetch_release_file(conf['wdl'], suffix='.wdl')
+        bundle_file = self.fetch_release_file("bundle.zip", suffix='.zip')
+        files = {
+            'workflowSource': open(wdl_file),
+            'workflowDependencies': open(bundle_file, 'rb'),
+            'workflowInputs': open(_json_tmp(self._generate_inputs())),
+            'labels': open(_json_tmp(self._generate_labels()))
+        }
+        if self.options:
+            files['workflowOptions'] = open(self.options)
+        return files
 
     def cromwell_submit(self, force=False):
-        """
-        Check if a task needs to be submitted.
-        """
-
         # Refresh the log
         status = self.check_status()
         states = ['Failed', 'Aborted', 'Aborting', "Unsubmitted"]
         if not force and status not in states:
             logging.info("Skipping: %s %s" % (self.activity_id, status))
             return
-    
+
         cleanup = []
-        files = {}
-        job_id = "unknown"
         conf = self.workflow_config
         try:
-            inputs = self._generate_inputs()
-            labels = self._generate_labels()
-            wdl_file = self.fetch_release_file(conf['wdl'], suffix='.wdl')
-            cleanup.append(wdl_file)
-            bundle_file = self.fetch_release_file("bundle.zip", suffix='.zip')
-            cleanup.append(bundle_file)
-            self.json_log(inputs, title="Inputs")
-            self.json_log(labels, title="Labels")
-            infname = _json_tmp(inputs)
-            cleanup.append(infname)
-            lblname = _json_tmp(labels)
-            cleanup.append(lblname)
+            self.json_log(self._generate_inputs(), title="Inputs")
+            self.json_log(self._generate_labels(), title="Labels")
+            files = self.generate_files(conf)
+            cleanup.extend(files.values())
 
-            files['workflowSource'] = open(wdl_file)
-            files['workflowDependencies'] = open(bundle_file, 'rb')
-            files['workflowInputs'] = open(infname)
-            files['labels'] = open(lblname)
-
-            # TODO: Add something to handle priority
-            if self.options:
-                files['workflowOptions'] = open(self.options)
-
+            job_id = "unknown"
             if not self.dryrun:
                 resp = requests.post(self.cromurl, data={}, files=files)
-                if resp.ok:
-                    data = resp.json()
-                    self.json_log(data, title="Response")
-                    job_id = data['id']
+                resp.raise_for_status() 
+                data = resp.json()
+                self.json_log(data, title="Response")
+                job_id = data['id']
             else:
                 job_id = "dryrun"
 
@@ -203,13 +177,10 @@ class WorkflowJob():
             self.start = datetime.datetime.now(pytz.utc).isoformat()
             self.jobid = job_id
             self.done = False
-
         finally:
-            for fld in files:
-                files[fld].close()
-
-            for f in cleanup:
-                os.unlink(f)
+            for file in cleanup:
+                file.close()
+                os.unlink(file.name)
 
 
 class NmdcSchema():
