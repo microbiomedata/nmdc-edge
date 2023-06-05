@@ -90,17 +90,17 @@ class WorkflowJob():
             return self.DEFAULT_STATUS
         url = f"{self.cromurl}/{self.jobid}{self.METADATA_URL_SUFFIX}"
         resp = requests.get(url)
-        resp.raise_for_status()  # Raises an HTTPError if the status is 4xx, 5xx
+        resp.raise_for_status() 
         return resp.json()
 
     def _generate_inputs(self):
         inputs = {}
-        prefix = self.workflow_config['input_prefix']
-        for k, v in self.workflow_config['inputs'].items():
-            nk = f'{prefix}.{k}'
-            if v == "{resource}":
-                v = self.config['site']['resource']
-            inputs[nk] = v
+        prefix = self.workflow_config['Input_prefix']
+        for input, input_object in self.workflow_config['Inputs'].items():
+            input_prefix = f'{prefix}.{input}'
+            if input_object == "{resource}":
+                input_object = self.config['site']['resource']
+            inputs[input_prefix] = input_object
         return inputs
 
     def _generate_labels(self):
@@ -121,7 +121,7 @@ class WorkflowJob():
         url = urllib.parse.urljoin(base_url, f"{self.GIT_RELEASES_PATH}/{release}/{fn}")
 
         resp = requests.get(url, stream=True)
-        resp.raise_for_status()  # Raises HTTPError for 4xx and 5xx responses
+        resp.raise_for_status() 
 
         fp, fname = tempfile.mkstemp(suffix=suffix)
         try:
@@ -129,8 +129,8 @@ class WorkflowJob():
                 for chunk in resp.iter_content(chunk_size=self.CHUNK_SIZE):
                     fd.write(chunk)
         except:
-            os.unlink(fname)  # Remove the file in case of error
-            raise  # Re-raise the exception
+            os.unlink(fname) 
+            raise  
 
         return fname
     
