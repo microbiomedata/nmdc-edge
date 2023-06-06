@@ -22,7 +22,7 @@ class Watcher:
     def __init__(self, site_configuration_file):
         self._POLL = 20
         self._MAX_FAILS = 2
-        self.should_skip_claim = bool(os.environ.get("SKIP_CLAIM"))
+        self.should_skip_claim = False
         self.config = config(site_configuration_file)
         self.client_id = self.config.conf['credentials']['client_id']
         self.client_secret = self.config.conf['credentials']['client_secret']
@@ -54,7 +54,7 @@ class Watcher:
         
     def _find_jobs(self, data: dict, nocheck: bool):
         new_job_list = []
-        seen = dict()
+        seen = {}
         for job in data['jobs']:
             job_id = job['nmdc_jobid']
             if job_id in seen:
@@ -90,21 +90,21 @@ class Watcher:
     def find_job_by_opid(self, opid):
         return next((job for job in self.jobs if job.opid == opid), None)
                 
-    def submit(self, njob, opid, force=False):
-        wfid = njob['workflow']['id']
-        if 'object_id_latest' in njob['config']:
+    def submit(self, new_job, opid, force=False):
+        common_workflow_id = new_job['workflow']['id']
+        if 'object_id_latest' in new_job['config']:
             logger.warning("Old record. Skipping.")
             return
-        self.create_or_use_existing_job(njob, opid, wfid)
+        self.create_or_use_existing_job(new_job, opid, common_workflow_id)
         self.jobs[-1].cromwell_submit(force=force)
 
-    def create_or_use_existing_job(self, njob, opid, wfid):
+    def create_or_use_existing_job(self, new_job, opid, common_workflow_id):
         job = self.find_job_by_opid(opid)
         if job:
             logger.debug("Previously cached job")
             logger.info(f"Reusing activity {job.activity_id}")
         else:
-            job = wfjob(config=self.config.conf, typ=wfid, nmdc_jobid=njob['id'], conf=njob['config'], opid=opid, activity_id=njob['config']['activity_id'])
+            job = wfjob(site_config=self.config.conf, typ=common_workflow_id, nmdc_jobid=new_job['id'], workflow_config=new_job['config'], opid=opid, activity_id=new_job['config']['activity_id'])
             self.jobs.append(job)
 
     def refresh_remote_jobs(self):
@@ -288,5 +288,4 @@ class Watcher:
     def process_failed_job(self, job):
         if job.failed_count < self._MAX_FAILS:
             job.failed_count += 1
-            job.cromwell_submit()
-        
+            job.cromwell_submit()       
