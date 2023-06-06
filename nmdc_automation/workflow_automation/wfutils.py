@@ -32,10 +32,12 @@ class WorkflowJob():
     start = None
     end = None
 
-    def __init__(self, config, typ=None, nmdc_jobid=None, opid=None, activity_id="TODO", state=None, nocheck=False):
-        self.config = config
+    def __init__(self, site_config, typ=None, workflow_config=None,nmdc_jobid=None, opid=None, activity_id=None, state=None, nocheck=False):
+        self.config = site_config
+        self.workflow_config = workflow_config
         self.set_config_attributes()
-        self.load_workflow_config()
+        if workflow_config:
+            self.load_workflow_config()
         self.set_initial_state(state, activity_id, typ, nmdc_jobid, opid)
         if self.jobid and not nocheck:
             self.check_status()
@@ -47,11 +49,9 @@ class WorkflowJob():
         self.url_root = self.config['nmdc']['url_root']
 
     def load_workflow_config(self):
-        with open(self.config['workflows']['workflows_config'], 'r') as file:
-            self.workflow_config = yaml.safe_load(file)
-        self.outputs = self.workflow_config.get('Outputs')
-        self.activity_templ = self.workflow_config.get('Activity')
-        self.input_data_objects = self.workflow_config.get('Inputs')
+        self.outputs = self.workflow_config.get('outputs')
+        self.activity_templ = self.workflow_config.get('activity')
+        self.input_data_objects = self.workflow_config.get('input_data_objects')
 
     def set_initial_state(self, state, activity_id, typ, nmdc_jobid, opid):
         if state:
@@ -110,9 +110,9 @@ class WorkflowJob():
 
         try:
             resp = requests.get(url)
-            resp.raise_for_status()  # raises an HTTPError if the response status was unsuccessful
+            resp.raise_for_status() 
         except requests.exceptions.RequestException as e:
-            logging.error(f"Error checking status: {e}")
+            # logging.error(f"Error checking status: {e}")
             self.last_status = "Error"
             return self.last_status
 
@@ -135,11 +135,15 @@ class WorkflowJob():
         resp = requests.get(url)
         resp.raise_for_status() 
         return resp.json()
+    
+    def json_log(self, data, title="json_log"):
+        logging.debug(title)
+        logging.debug(json.dumps(data, indent=2))
 
     def _generate_inputs(self):
         inputs = {}
-        prefix = self.workflow_config['Input_prefix']
-        for input, input_object in self.workflow_config['Inputs'].items():
+        prefix = self.workflow_config['input_prefix']
+        for input, input_object in self.workflow_config['inputs'].items():
             input_prefix = f'{prefix}.{input}'
             if input_object == "{resource}":
                 input_object = self.config['site']['resource']
@@ -161,8 +165,11 @@ class WorkflowJob():
     def fetch_release_file(self, fn, suffix=None):
         release = self.workflow_config['release']
         base_url = self.workflow_config['git_repo'].rstrip('/')
-        url = urllib.parse.urljoin(base_url, f"{self.GIT_RELEASES_PATH}/{release}/{fn}")
+        url = base_url + f"{self.GIT_RELEASES_PATH}/{release}/{fn}"
 
+        print(f"BASE URL: {base_url}")
+        print(f"URL: {url}")
+        
         resp = requests.get(url, stream=True)
         resp.raise_for_status() 
 
