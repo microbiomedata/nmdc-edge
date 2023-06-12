@@ -1,5 +1,6 @@
 import os
 import tomli
+import yaml
 import logging
 
 
@@ -36,6 +37,24 @@ class config():
             return f"[{', '.join(v for v in value)}]"
         else:
             raise TypeError(f"{type(value).__name__} {value!r} is not supported")
+        
+    def _generate_allowed_workflows(self):
+        
+        with open(self.conf['workflows']['workflows_config'], 'r') as stream:
+            workflows = yaml.safe_load(stream)
+
+        # Initialize an empty list to store the results
+        enabled_workflows = []
+
+        # Iterate over the workflows
+        for workflow in workflows['Workflows']:
+            # Check if the workflow is enabled
+            if workflow['Enabled']:
+                # Concatenate name and version and append to list
+                enabled_workflows.append(f"{workflow['Name']}: {workflow['Version']}")
+
+        # Print the results
+        return enabled_workflows
 
     def get_data_dir(self):
         return self.conf['directories']['data_dir']

@@ -109,11 +109,9 @@ class GoldMapper():
             
             file_destination_name = object_action(multiple_objects_list, data_object_dict['action'], activity_id, data_object_dict['nmdc_suffix'], activity_dir=activity_dir, multiple=True)
             
-            print(file_destination_name)
             
             updated_file = file_link(self.project_dir, multiple_objects_list, activity_dir, file_destination_name)
             
-            print(updated_file)
             
             filemeta = os.stat(updated_file)
             
@@ -165,7 +163,7 @@ class GoldMapper():
                 database_activity_set.append(
                     database_activity_range(
                         id=activity_id, #call minter for activity type
-                        name=f"Sequencing Activity for {activity_id}",
+                        name=workflow['Activity']['name'].replace("{id}", activity_id),
                         git_url=workflow['Git_repo'],
                         version=workflow['Version'],
                         part_of=[self.omics_id],
@@ -183,7 +181,7 @@ class GoldMapper():
         
         activity_store_dict = {
             'nmdc:MetagenomeSequencing': (self.nmdc_db.metagenome_sequencing_activity_set, nmdc.MetagenomeSequencingActivity, runtime.minter("nmdc:MetagenomeSequencingActivity")),
-            'nmdc:ReadQcAnalysisActivity': (self.nmdc_db.read_qc_analysis_activity_set,nmdc.MetagenomeSequencingActivity, runtime.minter("nmdc:ReadQcAnalysisActivity")),
+            'nmdc:ReadQcAnalysisActivity': (self.nmdc_db.read_qc_analysis_activity_set,nmdc.ReadQcAnalysisActivity, runtime.minter("nmdc:ReadQcAnalysisActivity")),
             'nmdc:ReadBasedTaxonomyAnalysisActivity': (self.nmdc_db.read_based_taxonomy_analysis_activity_set, nmdc.ReadBasedTaxonomyAnalysisActivity, runtime.minter("nmdc:ReadBasedTaxonomyAnalysisActivity")),
             'nmdc:MetagenomeAssembly': (self.nmdc_db.metagenome_assembly_set, nmdc.MetagenomeAssembly, runtime.minter("nmdc:MetagenomeAssembly")),
             'nmdc:MetagenomeAnnotationActivity': (self.nmdc_db.metagenome_annotation_activity_set, nmdc.MetagenomeAnnotationActivity, runtime.minter("nmdc:MetagenomeAnnotationActivity")),
