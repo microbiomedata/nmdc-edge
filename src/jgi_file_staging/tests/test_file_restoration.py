@@ -128,7 +128,7 @@ class MyTestCase(unittest.TestCase):
         insert_samples_into_mongodb(grow_analysis_df.to_dict('records'))
         config = configparser.ConfigParser()
         config.read(self.config_file)
-        update_file_statuses('test_project', config)
+        update_file_statuses('test_project', self.config_file)
         mdb = get_mongo_db()
         samples = [s for s in mdb.samples.find({'file_status': 'pending'})]
         self.assertEqual(len(samples), 5)

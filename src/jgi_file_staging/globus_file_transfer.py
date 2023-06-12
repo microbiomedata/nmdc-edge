@@ -7,6 +7,7 @@ import logging
 import click
 from mongo import get_mongo_db
 import subprocess
+import argparse
 from file_restoration import update_sample_in_mongodb
 
 logging.basicConfig(filename='file_staging.log',
@@ -116,3 +117,17 @@ def update_globus_statuses():
     for task in tasks:
         task_status = get_globus_task_status(task['task_id'])
         update_globus_task_status(task['task_id'], task_status)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('project_name')
+    parser.add_argument('config_file')
+    parser.add_argument('-u', '--update_globus_statuses', action='store_true', help='update globus task statuses',
+                        default=False)
+    args = vars((parser.parse_args()))
+
+    if args['update_globus_statuses']:
+        update_globus_statuses()
+    else:
+        submit_globus_batch_file(args['project_name'], args['config_file'])

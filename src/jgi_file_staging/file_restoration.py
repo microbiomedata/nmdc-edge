@@ -8,6 +8,7 @@ from datetime import datetime
 from mongo import get_mongo_db
 from models import Sample
 from pydantic import ValidationError
+import argparse
 
 logging.basicConfig(filename='file_staging.log',
                     format='%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
@@ -40,7 +41,7 @@ def restore_files(project: str, config_file: str) -> str:
     """
     config = configparser.ConfigParser()
     config.read(config_file)
-    update_file_statuses(project, config)
+    update_file_statuses(project, config_file)
     mdb = get_mongo_db()
     restore_df = pd.DataFrame([sample for sample in mdb.samples.find({'file_status': 'PURGED', 'project': project})])
     JDP_TOKEN = os.environ.get('JDP_TOKEN')
@@ -81,7 +82,9 @@ def restore_files(project: str, config_file: str) -> str:
     return f"requested restoration of {count} files"
 
 
-def update_file_statuses(project, config):
+def update_file_statuses(project, config_file):
+    config = configparser.ConfigParser()
+    config.read(config_file)
     mdb = get_mongo_db()
 
     restore_df = pd.DataFrame([sample for sample in mdb.samples.find({'file_status': 'pending', 'project': project})])
@@ -110,3 +113,12 @@ def check_restore_status(restore_request_id, config):
         logging.exception(r.text)
         return None
 
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('project_name')
+    parser.add_argument('config_file')
+    parser.add_argument('-u', '--update_globus_statuses', action='store_true', help='update globus task statuses',
+                        default=False)
+    args = vars((parser.parse_args()))
+    restore_files(args['project_name'], args['config_file'])
