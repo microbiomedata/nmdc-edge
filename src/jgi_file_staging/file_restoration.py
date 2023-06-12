@@ -89,11 +89,12 @@ def update_file_statuses(project, config_file):
 
     restore_df = pd.DataFrame([sample for sample in mdb.samples.find({'file_status': 'pending', 'project': project})])
     logging.debug(f"number of requests to restore: {len(restore_df)}")
-    for request_id in restore_df.request_id.unique():
-        response = check_restore_status(request_id, config)
-        for jdp_file_id in response['file_ids']:
-            update_sample_in_mongodb(restore_df.loc[restore_df.jdp_file_id == jdp_file_id, :].to_dict('records')[0],
-                                     {'jdp_file_id': jdp_file_id, 'file_status': response['status']})
+    if not restore_df.empty:
+        for request_id in restore_df.request_id.unique():
+            response = check_restore_status(request_id, config)
+            for jdp_file_id in response['file_ids']:
+                update_sample_in_mongodb(restore_df.loc[restore_df.jdp_file_id == jdp_file_id, :].to_dict('records')[0],
+                                         {'jdp_file_id': jdp_file_id, 'file_status': response['status']})
 
 
 def check_restore_status(restore_request_id, config):
