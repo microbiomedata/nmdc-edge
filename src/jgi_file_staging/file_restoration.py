@@ -88,6 +88,7 @@ def update_file_statuses(project, config_file):
     mdb = get_mongo_db()
 
     restore_df = pd.DataFrame([sample for sample in mdb.samples.find({'file_status': 'pending', 'project': project})])
+    logging.debug(f"number of requests to restore: {len(restore_df)}")
     for request_id in restore_df.request_id.unique():
         response = check_restore_status(request_id, config)
         for jdp_file_id in response['file_ids']:
@@ -118,7 +119,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('project_name')
     parser.add_argument('config_file')
-    parser.add_argument('-u', '--update_globus_statuses', action='store_true', help='update globus task statuses',
+    parser.add_argument('-u', '--update_file_statuses', action='store_true', help='update status of file restorations',
                         default=False)
     args = vars((parser.parse_args()))
-    restore_files(args['project_name'], args['config_file'])
+    if args['update_file_statuses']:
+        update_file_statuses(args['project_name'], args['config_file'])
+    else:
+        restore_files(args['project_name'], args['config_file'])
