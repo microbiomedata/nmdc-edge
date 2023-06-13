@@ -15,14 +15,14 @@ logging.basicConfig(filename='file_staging.log',
                     datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG)
 
 
-def get_globus_manifests(config_file):
+def get_globus_manifests(config):
     """
     This gets the Globus file manifests with the list of Globus paths for each requested file
     This function requires installation of the Globus CLI
     :return:
     """
-    config = configparser.ConfigParser()
-    config.read(config_file)
+    # config = configparser.ConfigParser()
+    # config.read(config_file)
     jgi_globus_id = config['GLOBUS']['jgi_globus_id']
     nersc_globus_id = config['GLOBUS']['nersc_globus_id']
     nersc_manifests_directory = config['GLOBUS']['nersc_manifests_directory']
@@ -32,6 +32,7 @@ def get_globus_manifests(config_file):
     ls_output = subprocess.run(['globus', 'ls', f'{jgi_globus_id}:/{globus_root_dir}/'], capture_output=True, text=True)
 
     for sub_dir in ls_output.stdout.split('\n'):
+        logging.debug(f"sub_dir {sub_dir}")
         if not sub_dir:
             break
         # list contents of subdirectory and get Globus Download manifest file name
@@ -39,7 +40,7 @@ def get_globus_manifests(config_file):
                                     capture_output=True, text=True)
         sub_output_split = sub_output.stdout.split('\n')
         manifest_file_name = [fn for fn in sub_output_split if 'Globus_Download' in fn][0]
-
+        logging.debug(f"manifest filename {manifest_file_name}")
         if 'Globus_Download' in manifest_file_name:
             logging.debug(f"transferring {manifest_file_name}")
             # Use Globus to transfer manifest file to destination directory
@@ -48,7 +49,8 @@ def get_globus_manifests(config_file):
                             f"{nersc_globus_id}:{nersc_manifests_directory}{manifest_file_name}"])
 
 
-def create_globus_dataframe(manifests_dir):
+def create_globus_dataframe(manifests_dir, config):
+    get_globus_manifests(config)
     globus_df = pd.DataFrame()
     for manifest in os.listdir(manifests_dir):
         mani_df = pd.read_csv(os.path.join(manifests_dir, manifest))
@@ -62,9 +64,9 @@ def create_globus_batch_file(project, config):
 
     root_dir = config['GLOBUS']['globus_root_dir']
     dest_root_dir = os.path.join(config['GLOBUS']['dest_root_dir'], f'{project}_analysis_projects')
-    globus_df = create_globus_dataframe(config['GLOBUS']['nersc_manifests_directory'])
+    globus_df = create_globus_dataframe(config['GLOBUS']['nersc_manifests_directory'], config)
     mdb = get_mongo_db()
-    samples_df = pd.DataFrame(mdb.samples.find({'file_status': 'RESTORED'}))
+    samples_df = pd.DataFrame(mdb.samples.find({'file_status': 'ready'}))
     globus_analysis_df = pd.merge(samples_df, globus_df, left_on='jdp_file_id', right_on='file_id')
     write_list = []
     for idx, row in globus_analysis_df.iterrows():
@@ -75,6 +77,7 @@ def create_globus_batch_file(project, config):
     with open(globus_batch_filename, 'w') as f:
         f.write('\n'.join(write_list))
     return globus_batch_filename, globus_analysis_df
+
 
 def submit_globus_batch_file(project, config_file):
     config = configparser.ConfigParser()
