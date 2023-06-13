@@ -77,7 +77,7 @@ class GoldMapper():
                     self.nmdc_db.data_object_set.append(
                         nmdc.DataObject(
                             file_size_bytes=filemeta.st_size,
-                            name=data_object_dict['name'],
+                            name=file_destination_name,
                             url=f"{self.url}/{self.omics_id}/{activity_id}/{file_destination_name}",
                             data_object_type=data_object_dict['data_object_type'],
                             type=self.data_object_type,
