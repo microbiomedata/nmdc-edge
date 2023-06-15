@@ -35,12 +35,12 @@ function submitWorkflow(proj, workflow, inputsize) {
     }
 
     formData.append("workflowType", process.env.CROMWELL_WORKFLOW_TYPE);
-    if (workflow && workflow.name === 'Metaproteomics') {
-        // don't set type version
-        logger.debug("Don't set workflowTypeVersio" )
-    } else {
-        formData.append("workflowTypeVersion", process.env.CROMWELL_WORKFLOW_TYPE_VERSION);
-    }
+    // if (workflow && workflow.name === 'Metaproteomics') {
+    //     // don't set type version
+    //     logger.debug("Don't set workflowTypeVersio")
+    // } else {
+    //     formData.append("workflowTypeVersion", process.env.CROMWELL_WORKFLOW_TYPE_VERSION);
+    // }
     formData.append("workflowDependencies", fs.createReadStream(imports), { contentType: 'application/zip' });
     logger.debug("workflowDependencies: " + imports);
 
@@ -216,6 +216,15 @@ const generateWorkflowResult = function (proj) {
                     result['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
                 }
             });
+        } else if (workflowConf.workflow.name === 'sra2fastq') {
+            //use relative path 
+            //const sraDataDir = process.env.SRA_DATA_HOME;
+            const accessions = workflowConf.workflow.accessions.toUpperCase().split(/\s*(?:,|$)\s*/);;
+            accessions.forEach((accession) => {
+                // link sra downloads to project output
+                fs.symlinkSync("../../../../sra/"+accession, outdir+"/"+accession)
+
+            })
         }
 
         fs.writeFileSync(result_json, JSON.stringify(result));

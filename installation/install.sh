@@ -70,6 +70,7 @@ if [ ! -d  $io_home ]; then
   mkdir ${io_home}/log
   mkdir ${io_home}/projects
   mkdir ${io_home}/public
+  mkdir ${io_home}/sra
   #ln -s ${app_home}/data/test_data ${io_home}/public/test_data
 fi
 

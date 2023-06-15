@@ -95,7 +95,18 @@ workflowlist = {
         inputs_tmpl: 'metaProteomics_inputs.tmpl',
         options_json: 'metaProteomics_options.json',
         outdir: 'output/Metaproteomics',
-        cromwell_calls: ['metapro.job_analysis']
+        cromwell_calls: ['main_workflow.metapro']
+    },
+    'sra2fastq': {
+        wdl: 'sra2fastq.wdl',
+        wdl_imports: 'sra/imports.zip',
+        name: 'sra',
+        full_name: 'sra2fastq',
+        wdl_tmpl: 'sra2fastq_wdl.tmpl',
+        inputs_tmpl: 'sra2fastq_inputs.tmpl',
+        options_json: 'sra2fast_options.json',
+        outdir: 'output/sra2fastq',
+        cromwell_calls: ['main_workflow.sra']
     },
 }
 

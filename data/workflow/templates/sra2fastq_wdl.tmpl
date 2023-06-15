@@ -1,0 +1,10 @@
+Array[Object] <WORKFLOW>_accessions
+Boolean <WORKFLOW>_clean=true
+String <WORKFLOW>_OUTDIR
+
+call <WORKFLOW>.sra as <ALIAS> {
+        input: 
+        accessions=<WORKFLOW>_accessions,
+        clean=<WORKFLOW>_clean,
+        OUTDIR=<WORKFLOW>_OUTDIR
+    }

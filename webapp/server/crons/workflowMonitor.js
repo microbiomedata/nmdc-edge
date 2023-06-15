@@ -108,13 +108,6 @@ module.exports = function workflowMonitor() {
 };
 
 function generateWDL(proj_home, workflow) {
-    if (workflow.name === 'Metaproteomics') {
-        const tmpl = process.env.WORKFLOW_WDL_HOME + "/metapro_main.wdl";
-        const wdl = String(fs.readFileSync(tmpl));
-        //write to pipeline.wdl
-        fs.writeFileSync(proj_home + '/pipeline.wdl', wdl);
-        return true;
-    }
     //build wdl
     let imports = '';
     let mainWDL = '';
@@ -348,6 +341,16 @@ async function generateInputs(proj_home, workflow, proj) {
         templInputs = templInputs.replace(/<THERMO_RAW>/, JSON.stringify(workflow['thermo_raw']));
         templInputs = templInputs.replace(/<QVALUE_THRESHOLD>/, JSON.stringify(workflow['qvalue_threshold']));
         templInputs = templInputs.replace(/<STUDY>/, JSON.stringify(workflow['study']));
+    } else if (workflow.name === 'sra2fastq') {
+        const sraDataDir = process.env.SRA_DATA_HOME;
+        //accessions string to arrray
+        const accessions = workflow['accessions'].toUpperCase().split(/\s*(?:,|$)\s*/);
+        //filter out accessions already exist in sra data home
+        const accessions4workflow = accessions.filter(
+            accession => !fs.existsSync(sraDataDir + "/" + accession)
+        );
+        templInputs = templInputs.replace(/<ACCESSIONS>/, JSON.stringify(accessions4workflow));
+        templInputs = templInputs.replace(/<OUTDIR>/, '"' + sraDataDir + '"');
     }
     inputs += templInputs + "\n";
     inputs += "}\n";

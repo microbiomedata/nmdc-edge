@@ -12,6 +12,7 @@ JWT_KEY=<a random string>
 
 MONGO_URI=mongodb://localhost:27017/nmdcedge
 
+SRA_DATA_HOME=<IO_HOME>/sra
 PUBLIC_DATA_HOME=<IO_HOME>/public
 DOCS_HOME=<APP_HOME>/data/docs
 
