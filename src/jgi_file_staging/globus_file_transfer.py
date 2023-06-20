@@ -67,6 +67,7 @@ def create_globus_batch_file(project, config):
     globus_df = create_globus_dataframe(config['GLOBUS']['nersc_manifests_directory'], config)
     mdb = get_mongo_db()
     samples_df = pd.DataFrame(mdb.samples.find({'file_status': 'ready'}))
+    logging.debug(f"samples_df columns {samples_df.columns}, globus_df columns {globus_df.columns}")
     globus_analysis_df = pd.merge(samples_df, globus_df, left_on='jdp_file_id', right_on='file_id')
     write_list = []
     for idx, row in globus_analysis_df.iterrows():
@@ -80,6 +81,11 @@ def create_globus_batch_file(project, config):
 
 
 def submit_globus_batch_file(project, config_file):
+    """
+    *Must run globus login first!*
+    get globus manifests
+    create
+    """
     config = configparser.ConfigParser()
     config.read(config_file)
     jgi_globus_id = config['GLOBUS']['jgi_globus_id']
