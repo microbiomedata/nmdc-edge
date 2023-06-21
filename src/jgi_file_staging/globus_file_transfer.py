@@ -43,9 +43,8 @@ def get_globus_manifest(config, request_id):
 
 
 def create_globus_dataframe(manifests_dir, config, request_id_list):
-    # for request_id in request_id_list:
-    #     manifest_file = get_globus_manifest(config, request_id)
-    globus_manifest_files = [get_globus_manifest(config, request_id) for request_id in request_id_list]
+
+    globus_manifest_files = [get_globus_manifest(config, int(request_id)) for request_id in request_id_list]
 
     globus_df = pd.DataFrame()
     for manifest in globus_manifest_files:
