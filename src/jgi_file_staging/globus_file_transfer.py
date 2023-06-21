@@ -34,9 +34,11 @@ def get_globus_manifest(config, request_id):
     if 'Globus_Download' in manifest_file_name:
         logging.debug(f"transferring {manifest_file_name}")
         # Use Globus to transfer manifest file to destination directory
-        subprocess.run(['globus', 'transfer', '--sync-level', 'exists',
+        manifest_sub_out = subprocess.run(['globus', 'transfer', '--sync-level', 'exists',
                         f"{jgi_globus_id}:/{globus_root_dir}/R{request_id}/{manifest_file_name}",
-                        f"{nersc_globus_id}:{nersc_manifests_directory}{manifest_file_name}"])
+                        f"{nersc_globus_id}:{nersc_manifests_directory}{manifest_file_name}"],
+                                          capture_output=True, text=True)
+        logging.debug(f"manifest globus transfer: {manifest_sub_out}")
         return manifest_file_name
     else:
         return None
