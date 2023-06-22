@@ -1,4 +1,5 @@
 import configparser
+import sys
 
 import pandas as pd
 import os
@@ -60,6 +61,9 @@ def create_globus_dataframe(manifests_dir, config, request_id_list):
 def create_globus_batch_file(project, config):
     mdb = get_mongo_db()
     samples_df = pd.DataFrame(mdb.samples.find({'file_status': 'ready'}))
+    if samples_df.empty:
+        logging.debug(f"no samples ready to transfer")
+        sys.exit('no samples ready to transfer')
     logging.debug(f"nan request_ids {samples_df['request_id']}")
     root_dir = config['GLOBUS']['globus_root_dir']
     dest_root_dir = os.path.join(config['GLOBUS']['dest_root_dir'], f'{project}_analysis_projects')
