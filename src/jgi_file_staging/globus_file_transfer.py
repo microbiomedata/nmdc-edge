@@ -77,7 +77,7 @@ def create_globus_batch_file(project, config):
         filepath = os.path.join(root_dir, row.subdir, row['directory/path'], row.filename)
         dest_file_path = os.path.join(dest_root_dir, row.apGoldId, row.filename)
         write_list.append(f"{filepath} {dest_file_path}")
-    globus_batch_filename = f'{project}_globus_batch_file.txt'
+    globus_batch_filename = f"{project}_{samples_df['request_id']}_globus_batch_file.txt"
     with open(globus_batch_filename, 'w') as f:
         f.write('\n'.join(write_list))
     return globus_batch_filename, globus_analysis_df
@@ -93,19 +93,18 @@ def submit_globus_batch_file(project, config_file):
     config.read(config_file)
     jgi_globus_id = config['GLOBUS']['jgi_globus_id']
     nersc_globus_id = config['GLOBUS']['nersc_globus_id']
-    try:
-        batch_file, globus_analysis_df = create_globus_batch_file(project,
-                                                                  config)
 
-        output = subprocess.run(['globus', 'transfer', '--batch', batch_file, jgi_globus_id,
-                                 nersc_globus_id], capture_output=True, text=True)
+    batch_file, globus_analysis_df = create_globus_batch_file(project,
+                                                              config)
 
-        logging.debug(output.stdout)
-        globus_analysis_df.apply(lambda x: update_sample_in_mongodb(x, {'file_status': 'transferring'}), axis=1)
-        insert_globus_status_into_mongodb(output.stdout.split('\n')[1].split(':')[1], 'submitted')
-        return output.stdout
-    finally:
-        os.remove(f'{project}_globus_batch_file.txt') if os.path.exists(f'{project}_globus_batch_file.txt') else None
+    output = subprocess.run(['globus', 'transfer', '--batch', batch_file, jgi_globus_id,
+                             nersc_globus_id], capture_output=True, text=True)
+
+    logging.debug(output.stdout)
+    globus_analysis_df.apply(lambda x: update_sample_in_mongodb(x, {'file_status': 'transferring'}), axis=1)
+    insert_globus_status_into_mongodb(output.stdout.split('\n')[1].split(':')[1], 'submitted')
+    return output.stdout
+
 
 
 def insert_globus_status_into_mongodb(task_id, task_status):
