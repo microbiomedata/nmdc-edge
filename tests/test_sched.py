@@ -13,7 +13,7 @@ trigger_id = 'nmdc:55a79b5dd58771e28686665e3c3faa0c'
 trigger_doid = 'nmdc:1d87115c442a1f83190ae47c7fe4011f'
 cols = [
     'data_object_set',
-    'metagenome_sequencing_activity_set',
+    "omics_processing_set",
     'mags_activity_set',
     'metagenome_assembly_set',
     'jobs',
@@ -87,9 +87,9 @@ def test_submit(db, mock_api):
     init_test(db)
     reset_db(db)
     load(db, "data_object_set.json")
-    load(db, "metagenome_sequencing_activity_set.json")
+    load(db, "omics_processing_set.json")
 
-    jm = Scheduler(db)
+    jm = Scheduler(db, wfn="./configs/workflows.yaml")
 
     # This should result in one RQC job
     resp = jm.cycle()
@@ -106,8 +106,8 @@ def test_progress(db, mock_api):
     reset_db(db)
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
-    load(db, "metagenome_sequencing_activity_set.json")
-    jm = Scheduler(db)
+    load(db, "omics_processing_set.json")
+    jm = Scheduler(db, wfn="./configs/workflows.yaml")
     workflow_by_name = dict()
     for wf in jm.workflows:
         workflow_by_name[wf.name] = wf
@@ -150,8 +150,8 @@ def test_multiple_versions(db, mock_api):
     reset_db(db)
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
-    load(db, "metagenome_sequencing_activity_set.json")
-    jm = Scheduler(db, wfn="workflows2.yaml")
+    load(db, "omics_processing_set.json")
+    jm = Scheduler(db, wfn="./configs/workflows2.yaml")
     workflow_by_name = dict()
     for wf in jm.workflows:
         workflow_by_name[wf.name] = wf
