@@ -1,25 +1,25 @@
 import "viral-plasmid_tasks.wdl" as tasks
 
 workflow viral {
-    String database
-    String genomad_db = database + '/genomad_db-v1.3'
-    String checkv_db = database + '/checkv-db-v1.4'
-    File fasta
-    Map[String, Boolean] option
-    Float? min_score
-    Int? min_virus_hallmark
-    Int? min_plasmid_hallmark
-    Int? min_plasmid_hallmarks_short_seqs
-    Int? min_virus_hallmarks_short_seqs
-    Float? min_plasmid_marker_enrichment
-    Float? min_virus_marker_enrichment
-    Int? max_uscg
-    Boolean? score_calibration
-    Float? fdr
-    Int cpu
-    String outdir
-    String docker = "mbabinski17/genomad:1.5.1"
-    String checkV_docker = "mbabinski17/checkv:1.0.1"
+        String database
+        String genomad_db = database + '/genomad_db-v1.3'
+        String checkv_db = database + '/checkv-db-v1.4'
+        File fasta
+        Map[String, Boolean] option
+        Float? min_score
+        Int? min_virus_hallmark
+        Int? min_plasmid_hallmark
+        Int? min_plasmid_hallmarks_short_seqs
+        Int? min_virus_hallmarks_short_seqs
+        Float? min_plasmid_marker_enrichment
+        Float? min_virus_marker_enrichment
+        Int? max_uscg
+        Boolean? score_calibration
+        Float? fdr
+        Int cpu
+        String outdir
+        String docker = "mbabinski17/genomad:1.5.2"
+        String checkV_docker = "mbabinski17/checkv:1.0.1"
 
     call tasks.geNomad_full as gn {
         input: ASM_FASTA = fasta,
