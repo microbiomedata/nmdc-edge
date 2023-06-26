@@ -10,7 +10,11 @@ UI_BUILD_PATH=<APP_HOME>/webapp/client/build
 
 JWT_KEY=<a random string>
 
+DB_NAME=nmdcedge
 MONGO_URI=mongodb://localhost:27017/nmdcedge
+DB_BACKUP_DIR=<IO_HOME>/db
+# 1 week
+DB_BACKUP_CLEAN_AGE_INSECONDES=604800
 
 SRA_DATA_HOME=<IO_HOME>/sra
 PUBLIC_DATA_HOME=<IO_HOME>/public
@@ -78,3 +82,7 @@ CRON_FILEUPLOAD_MONITOR=0 0 * * *
 CRON_PROJECT_STATUS_MONITOR=*/1 * * * *
 # monitor project deletion every day at 10pm
 CRON_PROJECT_MONITOR=0 22 * * *
+#backup nmdcedge database
+CRON_DB_BACKUP=0 1 * * *
+#delete old db backups
+CRON_DB_BACKUP_CLEAN=0 2 * * *
