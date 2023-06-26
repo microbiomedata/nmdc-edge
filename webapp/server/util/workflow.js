@@ -35,12 +35,11 @@ function submitWorkflow(proj, workflow, inputsize) {
     }
 
     formData.append("workflowType", process.env.CROMWELL_WORKFLOW_TYPE);
-    // if (workflow && workflow.name === 'Metaproteomics') {
-    //     // don't set type version
-    //     logger.debug("Don't set workflowTypeVersio")
-    // } else {
-    //     formData.append("workflowTypeVersion", process.env.CROMWELL_WORKFLOW_TYPE_VERSION);
-    // }
+    const wdlVersion = workflowlist[workflow.name]['wdl_version'];
+    if (wdlVersion) {
+        logger.debug("wdlVersion:" + wdlVersion)
+        formData.append("workflowTypeVersion", wdlVersion);
+    }
     formData.append("workflowDependencies", fs.createReadStream(imports), { contentType: 'application/zip' });
     logger.debug("workflowDependencies: " + imports);
 
@@ -222,7 +221,7 @@ const generateWorkflowResult = function (proj) {
             const accessions = workflowConf.workflow.accessions.toUpperCase().split(/\s*(?:,|$)\s*/);;
             accessions.forEach((accession) => {
                 // link sra downloads to project output
-                fs.symlinkSync("../../../../sra/"+accession, outdir+"/"+accession)
+                fs.symlinkSync("../../../../sra/" + accession, outdir + "/" + accession)
 
             })
         }
