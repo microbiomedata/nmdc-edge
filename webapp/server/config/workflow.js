@@ -116,7 +116,7 @@ workflowlist = {
         options_json: 'sra2fast_options.json',
         outdir: 'output/sra2fastq',
         cromwell_calls: ['main_workflow.sra'],
-        wdl_version: 'draft-2'
+        wdl_version: '1.0'
     },
 }
 
