@@ -40,7 +40,6 @@ def load(db, fn, col=None, reset=False):
     data = read_json(fn)
     if not data:
         return
-    print("Loading %d recs into %s" % (len(data), col))
     if len(data) > 0:
         db[col].insert_many(data)
 
@@ -71,14 +70,14 @@ def test_activies(db):
     """
     # init_test(db)
     reset_db(db)
-    wfs = load_workflows("workflows.yaml")
+    wfs = load_workflows("./configs/workflows.yaml")
     load(db, "data_object_set.json", reset=True)
     for wf in wfs:
+        if wf.name in ["Sequencing", "ReadsQC Interleave"]:
+            continue
         mock_progress(db, wf)
     acts = load_activities(db, wfs)
     assert acts is not None
     assert len(acts) == 5
-    acts_by_wf = dict()
-    for act in acts:
-        acts_by_wf[act.workflow] = act
-        print(act.__dict__)
+    assert len(acts[0].children) == 1
+    assert acts[0].children[0] == acts[1]
