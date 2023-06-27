@@ -361,6 +361,11 @@ Workflows:
       description: Archaeal Summary for {id}
       name: GTDBTK archaeal summary
       suffix: _gtdbtk.ar122.summary.tsv
+    - output: final_version
+      data_object_tye: Metagenome Bins Info File
+      description: Metagenome Bins Info File for {id}
+      name: Metagenome Bins Info File
+      suffix: _bin.info
 
   - Name: Readbased Analysis
     Type: nmdc:ReadBasedTaxonomyAnalysisActivity
