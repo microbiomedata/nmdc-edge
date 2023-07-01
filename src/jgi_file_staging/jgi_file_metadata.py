@@ -8,8 +8,8 @@ import logging
 import time
 import argparse
 
-from mongo import get_mongo_db
-from models import Sample
+from .mongo import get_mongo_db
+from .models import Sample
 from typing import List
 from pydantic import ValidationError
 
@@ -182,7 +182,7 @@ def remove_duplicate_analysis_files(seq_files_df: pd.DataFrame) -> pd.DataFrame:
     seq_unit_name_list = ['.'.join(filename.split('.')[:4]) for filename in seq_unit_name_list]
     drop_idx = []
     for idx, row in seq_files_df.iterrows():
-        if 'fastq' in row.file_name:
+        if 'fastq' in row.file_name and row.file_name != 'input.corr.fastq.gz':
             for seq_name in seq_unit_name_list:
                 if seq_name not in row.file_name:
                     drop_idx.append(idx)
