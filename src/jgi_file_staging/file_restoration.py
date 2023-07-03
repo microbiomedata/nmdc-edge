@@ -45,7 +45,7 @@ def restore_files(project: str, config_file: str) -> str:
     mdb = get_mongo_db()
     restore_df = pd.DataFrame(
         [sample for sample in mdb.samples.find({'file_status':
-                                                {'$in': {['PURGED', 'BACKUP_COMPLETE']}}, 'project': project})])
+                                                {'$in': ['PURGED', 'BACKUP_COMPLETE']}, 'project': project})])
     JDP_TOKEN = os.environ.get('JDP_TOKEN')
     headers = {'Authorization': JDP_TOKEN, "accept": "application/json"}
     url = 'https://files.jgi.doe.gov/download_files/'
