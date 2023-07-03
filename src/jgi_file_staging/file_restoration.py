@@ -43,10 +43,12 @@ def restore_files(project: str, config_file: str) -> str:
     config.read(config_file)
     update_file_statuses(project, config_file)
     mdb = get_mongo_db()
-    restore_df = pd.DataFrame([sample for sample in mdb.samples.find({'file_status': 'PURGED', 'project': project})])
+    restore_df = pd.DataFrame(
+        [sample for sample in mdb.samples.find({'file_status':
+                                                {'$in': {['PURGED', 'BACKUP_COMPLETE']}}, 'project': project})])
     JDP_TOKEN = os.environ.get('JDP_TOKEN')
     headers = {'Authorization': JDP_TOKEN, "accept": "application/json"}
-    url = f'https://files.jgi.doe.gov/download_files/'
+    url = 'https://files.jgi.doe.gov/download_files/'
     proxies = eval(config['JDP']['proxies'])
     begin_idx = restore_df.iloc[0, :].name
     # break requests up into batches because of the limit to the size of the request
