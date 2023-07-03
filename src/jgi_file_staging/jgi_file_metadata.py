@@ -8,8 +8,8 @@ import logging
 import time
 import argparse
 
-from .mongo import get_mongo_db
-from .models import Sample
+from mongo import get_mongo_db
+from models import Sample
 from typing import List
 from pydantic import ValidationError
 
@@ -26,6 +26,8 @@ logging.basicConfig(filename='file_staging.log',
 
 Config file contains parameters that can change.
 """
+
+ACCEPT = "application/json"
 
 
 def get_samples_data(samples_csv_file: str, proposal_id: int, project: str, config_file: str) -> None:
@@ -62,8 +64,8 @@ def get_access_token() -> str:
 
 
 def check_access_token(ACCESS_TOKEN: str, delay: float) -> str:
-    gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId=Gb0291582'
-    headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": "application/json", 'User-agent': 'nmdc bot 0.1'}
+    gold_biosample_url = 'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId=Gb0291582'
+    headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
     time.sleep(delay)
     gold_biosample_response = requests.get(gold_biosample_url, headers=headers)
     if gold_biosample_response.status_code == 200:
@@ -88,7 +90,7 @@ def get_sample_files(samples_csv_file: str, ACCESS_TOKEN: str, delay: float) -> 
         try:
             seq_id = get_sequence_id(biosample_id, ACCESS_TOKEN, delay)
             sample_files_list, agg_id_list = get_files_and_agg_ids(seq_id, ACCESS_TOKEN)
-        except IndexError as e:
+        except IndexError:
             logging.exception(f'skipping biosample_id: {biosample_id}')
             continue
         combine_sample_ids_with_agg_ids(sample_files_list, agg_id_list, biosample_id, seq_id, all_files_list)
@@ -98,7 +100,7 @@ def get_sample_files(samples_csv_file: str, ACCESS_TOKEN: str, delay: float) -> 
 def get_sequence_id(gold_id: str, ACCESS_TOKEN: str, delay: float):
     # given a gold biosample id, get the JGI sequencing ID
     gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId={gold_id}'
-    headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": "application/json", 'User-agent': 'nmdc bot 0.1'}
+    headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
     time.sleep(delay)
     gold_biosample_response = requests.get(gold_biosample_url, headers=headers)
     if gold_biosample_response.status_code == 200:
@@ -111,7 +113,7 @@ def get_sequence_id(gold_id: str, ACCESS_TOKEN: str, delay: float):
 
 def get_analysis_projects_from_proposal_id(proposal_id: int, ACCESS_TOKEN: str) -> List[dict]:
     gold_analysis_url = f'https://gold-ws.jgi.doe.gov/api/v1/analysis_projects?itsProposalId={proposal_id}'
-    headers = {'Authorization': f'Bearer {ACCESS_TOKEN}', "accept": "application/json"}
+    headers = {'Authorization': f'Bearer {ACCESS_TOKEN}', "accept": ACCEPT}
     gold_analysis_response = requests.get(gold_analysis_url, headers=headers)
     gold_analysis_data = gold_analysis_response.json()
     return gold_analysis_data
@@ -121,7 +123,7 @@ def get_files_and_agg_ids(sequencing_id, ACCESS_TOKEN) -> (List[dict], List[str]
     # Given a JGI sequencing ID, get the list of files and agg_ids associated with the biosample
     logging.debug(f"sequencing_id {sequencing_id}")
     seqid_url = f"https://files.jgi.doe.gov/search/?q={sequencing_id}&a=false&h=false&d=asc&p=1&x=10&api_version=2"
-    headers = {'X-CSRFToken': f'Token {ACCESS_TOKEN}', "accept": "application/json"}
+    headers = {'X-CSRFToken': f'Token {ACCESS_TOKEN}', "accept": ACCEPT}
     seqid_response = requests.get(seqid_url, headers=headers)
     sys.exit(f"{seqid_response.text}") if seqid_response.status_code != 200 else None
     files_data = seqid_response.json()
@@ -143,9 +145,10 @@ def combine_sample_ids_with_agg_ids(sample_files_list, agg_id_list, biosample_id
                 'metadata'].keys() else None
             file_format = files_dict['metadata']['file_format'] if 'file_format' in files_dict[
                 'metadata'].keys() else None
+            md5sum = files_dict['md5sum'] if 'md5sum' in files_dict.keys() else None
             all_files_list.append({'biosample_id': biosample_id, 'seq_id': seq_id, 'file_name': files_dict['file_name'],
                                    'file_status': files_dict['file_status'], 'file_size': files_dict['file_size'],
-                                   'jdp_file_id': files_dict['_id'], 'md5sum': files_dict['md5sum'],
+                                   'jdp_file_id': files_dict['_id'], 'md5sum': md5sum,
                                    'file_format': file_format,
                                    'analysis_project_id': agg_id, 'seq_unit_name': seq_unit_name})
             if 'metadata' not in files_dict.keys():
