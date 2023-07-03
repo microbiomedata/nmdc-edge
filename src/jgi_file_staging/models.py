@@ -14,9 +14,9 @@ class Sample(BaseModel):
     file_status: str
     file_size: int
     jdp_file_id: str
-    md5sum: str
+    md5sum: Optional[str]
     analysis_project_id: str
     create_date: datetime = datetime.now()
     update_date: Optional[datetime]
-    request_id: Optional[int]
+    request_id: Optional[str]
 
