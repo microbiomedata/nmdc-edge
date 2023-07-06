@@ -112,7 +112,9 @@ class Watcher:
         Return a filtered list of nmdc jobs.
         """
         filt = {"workflow.id": {"$in": self._ALLOWED}}
+        print("Looking for jobs")
         jobs = self.runtime_api.list_jobs(filt=filt)
+        print("Found jobs")
         known = set(job.nmdc_jobid for job in self.jobs)
         return [job for job in jobs if job['id'] not in known]
 
@@ -163,7 +165,7 @@ class Watcher:
     def post_job_done_new(self, job):
         logger.info(f"Running post for op {job.opid}")
         metadata = job.get_metadata()
-        informed_by = job.conf["was_informed_by"]
+        informed_by = job.workflow_config["was_informed_by"]
         act_id = job.activity_id
         outdir = self._get_output_dir(informed_by, act_id)
 
@@ -190,7 +192,7 @@ class Watcher:
 
     def generate_data_objects(self, job, job_outs, outdir, informed_by, act_id):
         output_ids = []
-        prefix = job.conf['input_prefix']
+        prefix = job.workflow_config['input_prefix']
         
         for product_record in job.outputs:
             outkey = f"{prefix}.{product_record['output']}"
@@ -213,14 +215,14 @@ class Watcher:
     def create_activity_record(self, job, act_id, activity_inputs, output_ids):
         activity_type = job.activity_templ["type"]
         name = job.activity_templ["name"].replace("{id}", act_id)
-        schema.create_activity_record(activity_record=activity_type, activity_name=name, workflow=job.conf, activity_id=act_id, resource=self.config['site']['resource'],
+        schema.create_activity_record(activity_record=activity_type, activity_name=name, workflow=job.workflow_config, activity_id=act_id, resource=self.config['site']['resource'],
                                     has_inputs_list=activity_inputs, has_output_list=output_ids, start_time=job.start, end_time=job.end)
 
     def post_job_done(self, job):
         logger.info(f"Running post for op {job.opid}")
         metadata = job.get_metadata()
         data_dir = self.config.get_data_dir()
-        informed_by = job.conf["was_informed_by"]
+        informed_by = job.workflow_config["was_informed_by"]
         subdir = os.path.join(informed_by, job.activity_id)
         outdir = os.path.join(data_dir, subdir)
 
@@ -230,11 +232,11 @@ class Watcher:
 
         self.write_metadata_if_not_exists(metadata, outdir)
 
-        resp = self.nmdc.post_objects(obj)
+        resp = self.runtime_api.post_objects(obj)
         logger.info(f"Response: {resp}")
 
         job.done = True
-        resp = self.nmdc.update_op(job.opid, done=True, meta=metadata)
+        resp = self.runtime_api.update_op(job.opid, done=True, meta=metadata)
 
         return resp
 
@@ -246,7 +248,7 @@ class Watcher:
                 with open(value) as f:
                     obj = json.load(f)
 
-                self.fix_urls(obj['data_object_set'], job.conf["was_informed_by"], job.activity_id)
+                self.fix_urls(obj['data_object_set'], job.workflow_config["was_informed_by"], job.activity_id)
 
                 if not os.path.exists(new_path):
                     with open(new_path, "w") as f:
