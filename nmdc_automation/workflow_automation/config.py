@@ -49,9 +49,9 @@ class config():
         # Iterate over the workflows
         for workflow in workflows['Workflows']:
             # Check if the workflow is enabled
-            if workflow['Enabled']:
+            if workflow.get('Enabled', True):
                 # Concatenate name and version and append to list
-                enabled_workflows.append(f"{workflow['Name']}: {workflow['Version']}")
+                enabled_workflows.append(f"{workflow['Name']}: {workflow.get('Version','')}")
 
         # Print the results
         return enabled_workflows
