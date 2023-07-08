@@ -41,12 +41,15 @@ class nmdcapi():
 
     def __init__(self):
         dotenv_path = join(dirname(__file__), '.env')
-        api_config = dotenv_values(dotenv_path)
-        self._base_url = api_config["NMDC_API_URL"]
+        if os.path.exists(dotenv_path):
+            src = dotenv_values(dotenv_path)
+        else:
+            src = os.environ
+        self._base_url = src.get("NMDC_API_URL")
+        self.client_id = src.get("NMDC_CLIENT_ID")
+        self.client_secret = src.get("NMDC_CLIENT_SECRET")
         if self._base_url[-1] != '/':
             self._base_url += '/'
-        self.client_id = api_config["NMDC_CLIENT_ID"]
-        self.client_secret = api_config["NMDC_CLIENT_SECRET"]
         
 
     def refresh_token(func):
