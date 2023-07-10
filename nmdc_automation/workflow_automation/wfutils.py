@@ -215,6 +215,7 @@ class WorkflowJob():
 
             job_id = "unknown"
             if not self.dryrun:
+                print(self.cromurl)
                 resp = requests.post(self.cromurl, data={}, files=files)
                 resp.raise_for_status() 
                 data = resp.json()
