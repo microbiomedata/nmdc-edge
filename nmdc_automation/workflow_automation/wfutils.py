@@ -71,6 +71,7 @@ class WorkflowJob():
         self.done = state.get('done', None)
         self.start = state.get('start')
         self.end = state.get('end')
+        self.load_workflow_config()
 
     def set_default_state(self, activity_id, typ, nmdc_jobid, opid):
         self.activity_id = activity_id
@@ -239,6 +240,7 @@ class NmdcSchema():
     def __init__(self):
         self.nmdc_db = nmdc.Database()
         self._data_object_string = "nmdc:DataObject"
+        self.activity_store = self.activity_map()
         
     def make_data_object(self,name: str,full_file_name: str,file_url: str, data_object_type: str, dobj_id: str, md5_sum: str,description: str, omics_id: str) -> None:
         """Create nmdc database data object
@@ -266,31 +268,31 @@ class NmdcSchema():
                 description=description.replace("{id}", omics_id)
             ))
                     
-    def create_activity_record(self, activity_name, workflow, activity_id, resource, has_inputs_list, has_output_list, omic_id, start_time, end_time):
+    def create_activity_record(self, activity_record, activity_name, workflow, activity_id, resource, has_inputs_list, has_output_list, omic_id, start_time, end_time):
         
         
         
-        database_activity_set = self.activity_store[activity_name[0]]
+        database_activity_set = self.activity_store[activity_record][0]
                 
-        database_activity_range = self.activity_store[activity_name[1]]
+        database_activity_range = self.activity_store[activity_record][1]
         
         database_activity_set.append(
                     database_activity_range(
                         id=activity_id, #call minter for activity type
                         name=activity_name,
-                        git_url=workflow['Git_repo'],
-                        version=workflow['Version'],
+                        git_url=workflow['git_repo'],
+                        version=workflow['release'],
                         part_of=[omic_id],
                         execution_resource=resource,
                         started_at_time=start_time,
                         has_input=has_inputs_list,
                         has_output=has_output_list, 
-                        type=workflow['Type'],
+                        type=activity_record,
                         ended_at_time=end_time, 
                         was_informed_by=omic_id, 
                     ))
         
-    def activity_imap(self):
+    def activity_map(self):
         '''Inform Object Mapping Process what activies need to be imported and distrubuted across the process'''
         
         activity_store_dict = {
