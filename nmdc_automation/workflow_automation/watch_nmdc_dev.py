@@ -13,7 +13,7 @@ from nmdc_automation.api.nmdcapi import nmdcapi
 from nmdc_automation.workflow_automation.config import config
 from nmdc_automation.workflow_automation.wfutils import _md5
 from nmdc_automation.workflow_automation.wfutils import WorkflowJob as wfjob
-from nmdc_automation.workflow_automation.wfutils import NmdcSchema as schema
+from nmdc_automation.workflow_automation.wfutils import NmdcSchema
 
 logger = logging.getLogger(__name__)
 
@@ -103,7 +103,11 @@ class Watcher:
         if job:
             logger.debug("Previously cached job")
             logger.info(f"Reusing activity {job.activity_id}")
+            print("PREVIOUSLY USED JOB")
+            self.jobs.append(job)
         else:
+            print("NEW JOB")
+            print(new_job)
             job = wfjob(site_config=self.config.conf, typ=common_workflow_id, nmdc_jobid=new_job['id'], workflow_config=new_job['config'], opid=opid, activity_id=new_job['config']['activity_id'])
             self.jobs.append(job)
 
@@ -162,27 +166,24 @@ class Watcher:
             os.makedirs(outdir)
         return outdir
 
-    def post_job_done_new(self, job):
+    def post_job_done(self, job):
         logger.info(f"Running post for op {job.opid}")
         metadata = job.get_metadata()
         informed_by = job.workflow_config["was_informed_by"]
         act_id = job.activity_id
         outdir = self._get_output_dir(informed_by, act_id)
+        schema = NmdcSchema()
 
-        output_ids = self.generate_data_objects(job, metadata['outputs'], outdir, informed_by, act_id)
+        output_ids = self.generate_data_objects(job, metadata['outputs'], outdir, informed_by, act_id,schema)
         activity_inputs = [dobj['id'] for dobj in job.input_data_objects]
 
-        self.create_activity_record(job, act_id, activity_inputs, output_ids)
+        self.create_activity_record(job, act_id, activity_inputs, output_ids, schema)
         
         self.write_metadata_if_not_exists(metadata, outdir)
 
         nmdc_database_obj = schema.get_database_object_dump()
-
-        objf = os.path.join(outdir, "object.json")
-        with open(objf, "w") as f:
-            json.dump({}, f)
-        
-        resp = self.runtime_api.post_objects(nmdc_database_obj)
+        nmdc_database_obj_dict = json.loads(nmdc_database_obj)
+        resp = self.runtime_api.post_objects(nmdc_database_obj_dict)
         logger.info(f"Response: {resp}")
 
         job.done = True
@@ -190,7 +191,7 @@ class Watcher:
 
         return resp
 
-    def generate_data_objects(self, job, job_outs, outdir, informed_by, act_id):
+    def generate_data_objects(self, job, job_outs, outdir, informed_by, act_id, schema):
         output_ids = []
         prefix = job.workflow_config['input_prefix']
         
@@ -212,33 +213,13 @@ class Watcher:
 
         return output_ids
 
-    def create_activity_record(self, job, act_id, activity_inputs, output_ids):
+    def create_activity_record(self, job, act_id, activity_inputs, output_ids, schema):
         activity_type = job.activity_templ["type"]
         name = job.activity_templ["name"].replace("{id}", act_id)
-        schema.create_activity_record(activity_record=activity_type, activity_name=name, workflow=job.workflow_config, activity_id=act_id, resource=self.config['site']['resource'],
-                                    has_inputs_list=activity_inputs, has_output_list=output_ids, start_time=job.start, end_time=job.end)
+        omic_id = job.workflow_config['was_informed_by']
+        schema.create_activity_record(activity_record=activity_type, activity_name=name, workflow=job.workflow_config, activity_id=act_id, resource=self.config.conf['site']['resource'],
+                                    has_inputs_list=activity_inputs, has_output_list=output_ids,omic_id=omic_id, start_time=job.start, end_time=job.end)
 
-    def post_job_done(self, job):
-        logger.info(f"Running post for op {job.opid}")
-        metadata = job.get_metadata()
-        data_dir = self.config.get_data_dir()
-        informed_by = job.workflow_config["was_informed_by"]
-        subdir = os.path.join(informed_by, job.activity_id)
-        outdir = os.path.join(data_dir, subdir)
-
-        os.makedirs(outdir, exist_ok=True)
-
-        obj = self.process_job_outputs(job, metadata, outdir)
-
-        self.write_metadata_if_not_exists(metadata, outdir)
-
-        resp = self.runtime_api.post_objects(obj)
-        logger.info(f"Response: {resp}")
-
-        job.done = True
-        resp = self.runtime_api.update_op(job.opid, done=True, meta=metadata)
-
-        return resp
 
     def process_job_outputs(self, job, metadata, outdir):
         obj = dict()
@@ -280,12 +261,8 @@ class Watcher:
 
         self.job_checkpoint()
 
-
     def process_successful_job(self, job):
-        if job.outputs:
-            self.post_job_done_new(job)
-        else:
-            self.post_job_done(job)
+        self.post_job_done(job)
 
     def process_failed_job(self, job):
         if job.failed_count < self._MAX_FAILS:
