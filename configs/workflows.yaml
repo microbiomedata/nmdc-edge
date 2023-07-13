@@ -58,7 +58,7 @@ Workflows:
         data_object_type: Read Filtering Info File
         description: "Read filtering info for {id}"
 
-  - Name: ReadsQC Interleave
+  - Name: Reads QC Interleave
     Type: nmdc:ReadQcAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
@@ -69,10 +69,10 @@ Workflows:
     Inputs:
       proj: "{activity_id}"
       input_file_1: do:Metagenome Raw Read 1
-      input_file_1: do:Metagenome Raw Read 2
+      input_file_2: do:Metagenome Raw Read 2
     Filter Input Objects:
-    - Metagenome Raw Reads 1
-    - Metagenome Raw Reads 2
+    - Metagenome Raw Read 1
+    - Metagenome Raw Read 2
     Predecessors:
     - Sequencing Noninterleaved
     Input_prefix: nmdc_rqcfilter
