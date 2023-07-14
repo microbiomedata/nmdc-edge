@@ -28,7 +28,7 @@ def read_json(fn):
     if os.path.exists(fp):
         return json.load(open(fp))
     else:
-        print(f"Missing {fn}")
+        print(f"\nWarning: Missing {fn}")
         return None
 
 
@@ -51,7 +51,7 @@ def reset_db(db):
             db[c].delete_many({})
 
 
-def mock_progress(db, wf):
+def fix_versions(db, wf):
     s = wf.collection
     resp = read_json("%s.json" % (s))
     if not resp:
@@ -75,7 +75,7 @@ def test_activies(db):
     for wf in wfs:
         if wf.name in ["Sequencing", "ReadsQC Interleave"]:
             continue
-        mock_progress(db, wf)
+        fix_versions(db, wf)
     acts = load_activities(db, wfs)
     assert acts is not None
     assert len(acts) == 5

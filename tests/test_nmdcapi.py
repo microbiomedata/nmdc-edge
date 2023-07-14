@@ -107,5 +107,7 @@ def test_jobs(mock_api, requests_mock):
     assert resp["claimed"] is True
 
 
-def test_jprint():
+def test_jprint(capsys):
     jprint({"a": "b"})
+    captured = capsys.readouterr()
+    assert captured.out == '{\n  "a": "b"\n}\n'

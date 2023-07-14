@@ -19,8 +19,9 @@ class config():
             conf['url'] = conf['cromwell']['cromwell_url']
             if 'api' not in conf['url']:
                 conf['url'] = conf['url'].rstrip('/') + "/api/workflows/v1"
-        except OSError:
+        except OSError as e:
             logging.error(f'Could not open/read configuration file {self.conf_file}, please provide path to site_configuration.toml')
+            raise e
         return conf
     
     def _dumps_value(value):
