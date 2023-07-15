@@ -4,9 +4,9 @@ import logging
 import hashlib
 import os
 
-logger = logging.getLogger(__name__) 
+logger = logging.getLogger(__name__)
 
-           
+
 def object_action(file_s: Union[str, List[str]], action: str, activity_id: str,
                   nmdc_suffix: str, activity_dir: str = None, multiple: bool = False) -> str:
     """
@@ -40,8 +40,8 @@ def object_action(file_s: Union[str, List[str]], action: str, activity_id: str,
             return zip_file(file_s)
     else:
         logger.error(f"No mapping action found for {file_s}")
-        
- 
+
+
 def get_basename(file: str) -> str:
     """
     Get file basename
@@ -52,12 +52,11 @@ def get_basename(file: str) -> str:
     Returns:
         str: file basename
     """
-    
-    
+
     return os.path.basename(file)
-    
-    
-def rename(activity_id:str, nmdc_suffix: str) -> str:
+
+
+def rename(activity_id: str, nmdc_suffix: str) -> str:
     """
     Renames file to target nmdc target activity name
 
@@ -68,18 +67,17 @@ def rename(activity_id:str, nmdc_suffix: str) -> str:
     Returns:
         str: nmdc file name
     """
-    
-    
-    activity_file_id = activity_id.replace(':','_' )
-    
+
+    activity_file_id = activity_id.replace(':', '_')
+
     nmdc_file_name = activity_file_id + nmdc_suffix
-    
+
     return nmdc_file_name
 
-                
-def zip_file(activity_id: str, nmdc_suffix: str, file: str,project_dir: str):
+
+def zip_file(activity_id: str, nmdc_suffix: str, file: str, project_dir: str):
     '''Add files of type Multiples to a zip file and represent as one data object
-    
+
     Args:
         activity_id (str): The activity ID associated with the object.
         nmdc_suffix (str): The NMDC suffix.
@@ -88,23 +86,23 @@ def zip_file(activity_id: str, nmdc_suffix: str, file: str,project_dir: str):
 
     Returns:
         str: Expected file name for import of Multiples as one data object.
-    
+
     '''
-    
+
     zip_file_name = rename(activity_id, nmdc_suffix)
-    
-    if not os.path.exists(os.path.join(project_dir,zip_file_name)):
+
+    if not os.path.exists(os.path.join(project_dir, zip_file_name)):
         os.makedirs(project_dir)
         with ZipFile(os.path.join(project_dir, zip_file_name), mode='w') as zipped_file:
             zipped_file.write(file)
     else:
         with ZipFile(os.path.join(project_dir, zip_file_name), mode='a') as zipped_file:
             zipped_file.write(file)
-            
+
     return zip_file_name
 
-        
-def file_link(import_project_dir: str,import_file: Union[str, List[str]], destination_dir: str, updated_file: str):
+
+def file_link(import_project_dir: str, import_file: Union[str, List[str]], destination_dir: str, updated_file: str):
     """
     Link original file to nmdc file on system path
 
@@ -117,39 +115,39 @@ def file_link(import_project_dir: str,import_file: Union[str, List[str]], destin
     Returns:
         str: os linked path of updated file
     """
-    
+
     if type(import_file) == list:
         print("Object has already been linked in objection specific import action")
         return os.path.join(destination_dir, updated_file)
-    
-    elif type(import_file) == str:    
+
+    elif type(import_file) == str:
         try:
             os.makedirs(destination_dir)
         except FileExistsError:
             logger.debug(f'{destination_dir} already exists')
-        
-            
-        original_path = os.path.join(import_project_dir,import_file)
-        linked_path = os.path.join(destination_dir,updated_file)
-        
+
+        original_path = os.path.join(import_project_dir, import_file)
+        linked_path = os.path.join(destination_dir, updated_file)
+
         try:
             os.link(original_path, linked_path)
         except FileExistsError:
             logger.info(f'{linked_path} already exists')
-                
+
         return linked_path
-    
+
+
 def get_md5(fn: str) -> str:
     """
     Generate md5 for file
-    
+
     Args:
         fn (str): file name
 
     Returns:
         md5:  md5 hash of file
         """
-        
+
     md5f = fn + '.md5'
     if os.path.exists(md5f):
         with open(md5f) as f:
