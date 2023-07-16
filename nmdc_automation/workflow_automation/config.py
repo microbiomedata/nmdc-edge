@@ -23,22 +23,7 @@ class config():
             logging.error(f'Could not open/read configuration file {self.conf_file}, please provide path to site_configuration.toml')
             raise e
         return conf
-    
-    def _dumps_value(value):
-        '''
-        Check type of config value
-        '''
-        if isinstance(value, bool):
-            return "true" if value else "false"
-        elif isinstance(value, (int, float)):
-            return str(value)
-        elif isinstance(value, str):
-            return f'"{value}"'
-        elif isinstance(value, list):
-            return f"[{', '.join(v for v in value)}]"
-        else:
-            raise TypeError(f"{type(value).__name__} {value!r} is not supported")
-        
+
     def _generate_allowed_workflows(self):
         
         with open(self.conf['workflows']['workflows_config'], 'r') as stream:
