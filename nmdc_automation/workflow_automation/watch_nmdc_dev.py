@@ -100,10 +100,9 @@ class Watcher:
         if job:
             logger.debug("Previously cached job")
             logger.info(f"Reusing activity {job.activity_id}")
-            print("PREVIOUSLY USED JOB")
             self.jobs.append(job)
         else:
-            print("NEW JOB")
+            logging.debug("NEW JOB")
             logging.debug(new_job)
             job = wfjob(site_config=self.config.conf,
                         typ=common_workflow_id,
@@ -118,9 +117,9 @@ class Watcher:
         Return a filtered list of nmdc jobs.
         """
         filt = {"workflow.id": {"$in": self._ALLOWED}}
-        print("Looking for jobs")
+        logging.debug("Looking for jobs")
         jobs = self.runtime_api.list_jobs(filt=filt)
-        print("Found jobs")
+        logging.debug(f"Found {len(jobs)} jobs")
         known = set(job.nmdc_jobid for job in self.jobs)
         return [job for job in jobs if job['id'] not in known]
 
@@ -145,16 +144,6 @@ class Watcher:
     def submit_and_checkpoint_job(self, job, opid):
         self.submit(job, opid)
         self.job_checkpoint()
-
-    def _load_json(self, file_name):
-        return json.loads(open(file_name).read())
-
-    def fix_urls(self, data_object_list, actid, subdir):
-        root = self.config.conf['nmdc']['url_root']
-        for data_object in data_object_list:
-            file_name = data_object['url'].split('/')[-1]
-            new_url = f"{root}/{actid}/{subdir}/{file_name}"
-            data_object['url'] = new_url
 
     def _get_url(self, informed_by, act_id, fname):
         root = self.config.conf['nmdc']['url_root']
@@ -239,31 +228,6 @@ class Watcher:
                                       omic_id=omic_id,
                                       start_time=job.start,
                                       end_time=job.end)
-
-    def process_job_outputs(self, job, metadata, outdir):
-        obj = dict()
-        for key, value in metadata['outputs'].items():
-            new_path = os.path.join(outdir, os.path.basename(value))
-            if key.endswith("objects"):
-                with open(value) as f:
-                    obj = json.load(f)
-
-                self.fix_urls(obj['data_object_set'],
-                              job.workflow_config["was_informed_by"],
-                              job.activity_id)
-
-                if not os.path.exists(new_path):
-                    with open(new_path, "w") as f:
-                        json.dump(obj, f)
-            else:
-                self.copy_output_if_not_exists(value, new_path)
-        return obj
-
-    def copy_output_if_not_exists(self, old_path, new_path):
-        if os.path.exists(new_path):
-            logger.warning(f"Skipping output {new_path} already exists")
-        else:
-            shutil.copyfile(old_path, new_path)
 
     def write_metadata_if_not_exists(self, metadata, outdir):
         metadata_filepath = os.path.join(outdir, "metadata.json")
