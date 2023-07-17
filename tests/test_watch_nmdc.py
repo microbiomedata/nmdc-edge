@@ -2,96 +2,51 @@ from nmdc_automation.workflow_automation.watch_nmdc_dev import Watcher
 import os
 import json
 import shutil
-import unittest
 from pytest import fixture
-from time import time
-from nmdc_automation.workflow_automation.config import config
-
-
-@fixture
-def mock_api(monkeypatch, requests_mock):
-    monkeypatch.setenv("NMDC_API_URL", "http://localhost")
-    monkeypatch.setenv("NMDC_CLIENT_ID", "anid")
-    monkeypatch.setenv("NMDC_CLIENT_SECRET", "asecret")
-    resp = {"expires": {"minutes": time()+60},
-            "access_token": "abcd"
-            }
-    requests_mock.post("http://localhost/token", json=resp)
+# This is an autose fixture that will be applied to all tests
+from common import mock_api     # noqa: F401
 
 
 @fixture
 def site_conf():
-    return config("./configs/site_configuration.toml")
-
-
-@fixture
-def wfconf(monkeypatch):
     tdir = os.path.dirname(__file__)
-    wfc = os.path.join(tdir, "..", "test_data", "wf_config")
-    monkeypatch.setenv("WF_CONFIG_FILE", wfc)
+    return os.path.join(tdir, "..", "configs",
+                        "site_configuration.toml")
 
 
-class mock_nmdc():
-    def __init__(self, objs, claimed=False):
-        self.objs = objs
-        self.claimed = claimed
-
-    def list_jobs(self, filt=None):
-        return self.objs
-
-    def refresh_token(self):
-        return
-
-    def post_objects(self, obj):
-        return
-
-    def update_op(self, opid, done=False, meta=None):
-        return
-
-    def claim_job(self, job):
-        d = self.objs[0]
-        d['claimed'] = self.claimed
-        if self.claimed:
-            d['detail'] = {'id': 'sys:xxx'}
-        return d
-
-    def get_op(self, opid):
-        return {}
-
-
+@fixture(autouse=True)
 def cleanup():
     tdir = os.path.dirname(__file__)
     dd = os.path.join(tdir, "..", "test_data", "nmdc:mga0xxx")
     if os.path.exists(dd):
         shutil.rmtree(dd)
+    omics_id = "nmdc:omprc-11-nhy4pz43/"
+    if os.path.exists(f"/tmp/{omics_id}"):
+        shutil.rmtree(f"/tmp/{omics_id}")
+    if os.path.exists("/tmp/agent.state"):
+        os.unlink("/tmp/agent.state")
 
 
-def test_watcher(mock_api, requests_mock):
-    url = "http://localhost:8088/api/workflows/v1/123/status"
-    requests_mock.get(url, json={"status": "Succeeded"})
-    w = Watcher("./configs/site_configuration.toml")
-    w.nmdc = mock_nmdc([])
-    w.restore()
-    w.job_checkpoint()
-    w.restore()
-
-
-def test_claim_jobs(monkeypatch, mock_api, requests_mock, wfconf):
-    requests_mock.real_http = True
-    data = {"id": "123"}
-    requests_mock.post("http://localhost:8088/api/workflows/v1", json=data)
+@fixture
+def mock_nmdc_api(requests_mock):
     tdir = os.path.dirname(__file__)
     rqcf = os.path.join(tdir, "..", "test_data", "rqc_response2.json")
     rqc = json.load(open(rqcf))
+    resp = {"resources": [rqc]}
+    requests_mock.get("http://localhost/jobs", json=resp)
+    requests_mock.post("http://localhost/v1/workflows/activities", json={})
+    requests_mock.patch("http://localhost/operations/nmdc:1234", json={})
+    requests_mock.get("http://localhost/operations/nmdc:1234",
+                      json={'metadata': {}})
 
-    def mock_status():
-        return "Succeeded"
 
-    def mock_restore():
-        return
-
-    def mock_get_metadata():
-        return {'outputs': {
+@fixture(autouse=True)
+def mock_cromwell(requests_mock):
+    requests_mock.real_http = True
+    data = {"id": "1234"}
+    cromwell_url = "http://localhost:8088/api/workflows/v1"
+    requests_mock.post(cromwell_url, json=data)
+    metadata = {'outputs': {
           "nmdc_rqcfilter.filtered_final": "./test_data/afile",
           "nmdc_rqcfilter.filtered_stats_final": "./test_data/bfile",
           "nmdc_rqcfilter.stats": {
@@ -101,39 +56,44 @@ def test_claim_jobs(monkeypatch, mock_api, requests_mock, wfconf):
             "output_read_count": 8312566
             },
         }}
-
-    cleanup()
-    w = Watcher("./configs/site_configuration.toml")
-    w.runtime_api = mock_nmdc([rqc])
-    w.claim_jobs()
-    w.jobs[0].jobid = "1234"
-    w.jobs[0].check_status = mock_status
-    w.jobs[0].get_metadata = mock_get_metadata
-    w.jobs[0].opid = "sys:xxx"
-    w.jobs[0].end = "2023-07-05T12:37:34.000"
-
-    # Need to over-ride restore so the job isn't redone
-    w.restore = mock_restore
-
-    w.cycle()
-    # TODO: Add some asserts
-    w.cycles = 1
-    w._POLL = 0
-    cleanup()
+    requests_mock.get(f"{cromwell_url}/1234/metadata", json=metadata)
+    data = {"status": "Succeeded"}
+    requests_mock.get(f"{cromwell_url}/1234/status", json=data)
 
 
-def test_reclaim_job(mock_api, requests_mock, wfconf):
+def test_watcher(site_conf):
+    w = Watcher(site_conf)
+    w.restore()
+    w.job_checkpoint()
+    w.restore()
+
+
+def test_claim_jobs(requests_mock, site_conf, mock_nmdc_api):
     requests_mock.real_http = True
-    tdir = os.path.dirname(__file__)
-    rqcf = os.path.join(tdir, "..", "test_data", "rqc_response.json")
-    rqc = json.load(open(rqcf))
-
-    data = {"id": "123"}
-    requests_mock.post("http://localhost:8088/api/workflows/v1", json=data)
-    requests_mock.post("http://localhost:8088/api/workflows/v1", json=data)
-
-    w = Watcher("./configs/site_configuration.toml")
-    w.runtime_api = mock_nmdc([rqc], claimed=True)
+    w = Watcher(site_conf)
+    job_id = "nmdc:b7eb8cda-a6aa-11ed-b1cf-acde48001122"
+    resp = {
+            'id': 'nmdc:1234',
+            'detail': {'id': 'nmdc:1234'}
+            }
+    requests_mock.post(f"http://localhost/jobs/{job_id}:claim", json=resp)
     w.claim_jobs()
-    resp = w.find_job_by_opid("sys:xxx")
+    w.cycle()
+    resp = w.find_job_by_opid("nmdc:1234")
+    assert resp
+
+
+def test_reclaim_job(requests_mock, site_conf, mock_nmdc_api):
+    requests_mock.real_http = True
+
+    w = Watcher(site_conf)
+    job_id = "nmdc:b7eb8cda-a6aa-11ed-b1cf-acde48001122"
+    resp = {
+            'id': 'nmdc:1234',
+            'detail': {'id': 'nmdc:1234'}
+            }
+    requests_mock.post(f"http://localhost/jobs/{job_id}:claim", json=resp,
+                       status_code=409)
+    w.claim_jobs()
+    resp = w.find_job_by_opid("nmdc:1234")
     assert resp

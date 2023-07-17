@@ -19,7 +19,7 @@ def _get_sha256(fn):
         with open(hashfn) as f:
             sha = f.read().rstrip()
     else:
-        print("hashing %s" % (fn))
+        logging.info("hashing %s" % (fn))
         shahash = hashlib.sha256()
         with open(fn, "rb") as f:
             # Read and update hash string value in blocks of 4K

@@ -24,8 +24,12 @@ def gold_mapper(nmdc_api):
                     os.path.abspath("./test_data/test_72.tar.gz")]
     proj_dir = os.path.abspath("./test_data")
     omics_id = "nmdc:omprc-11-importT"
-    shutil.rmtree(f"/tmp/{omics_id}")
-    return GoldMapper(test_files, omics_id, yaml_file, proj_dir)
+    root_dir = f"/tmp/{omics_id}"
+    if os.path.exists(root_dir):
+        shutil.rmtree(root_dir)
+    gm = GoldMapper(test_files, omics_id, yaml_file, proj_dir)
+    gm.root_dir = root_dir
+    return gm
 
 
 def test_unique_object_mapper(gold_mapper):

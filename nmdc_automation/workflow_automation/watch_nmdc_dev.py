@@ -3,11 +3,9 @@
 from time import sleep
 import os
 import json
-import sys
 import logging
 import shutil
-from pymongo import MongoClient
-from json import dumps, loads
+from json import loads
 from os.path import exists
 from nmdc_automation.api.nmdcapi import nmdcapi
 from nmdc_automation.workflow_automation.config import config
@@ -33,9 +31,7 @@ class Watcher:
         self.jobs = []
         self.runtime_api = nmdcapi()
         self._ALLOWED = self.config._generate_allowed_workflows()
-        
-   
-    #####Restoring#################
+
     def restore(self, nocheck: bool = False):
         """
         Restore from checkpoint
@@ -45,13 +41,13 @@ class Watcher:
             return
 
         self.jobs = self._find_jobs(data, nocheck)
-        
+
     def _load_state_file(self):
         if not exists(self.state_file):
             return
         with open(self.state_file, 'r') as f:
             return loads(f.read())
-        
+
     def _find_jobs(self, data: dict, nocheck: bool):
         new_job_list = []
         seen = {}
@@ -62,7 +58,7 @@ class Watcher:
             job_record = wfjob(self.config.conf, state=job, nocheck=nocheck)
             new_job_list.append(job_record)
             seen[job_id] = True
-            
+
         return new_job_list
     #################################
 
@@ -83,13 +79,14 @@ class Watcher:
         while True:
             try:
                 self.cycle()
-            except (IOError, ValueError,TypeError, AttributeError) as e:
-                logger.exception(f"Error occurred during cycle: {e}", exc_info=True)
+            except (IOError, ValueError, TypeError, AttributeError) as e:
+                logger.exception(f"Error occurred during cycle: {e}",
+                                 exc_info=True)
             sleep(self._POLL)
 
     def find_job_by_opid(self, opid):
         return next((job for job in self.jobs if job.opid == opid), None)
-                
+
     def submit(self, new_job, opid, force=False):
         common_workflow_id = new_job['workflow']['id']
         if 'object_id_latest' in new_job['config']:
@@ -103,12 +100,16 @@ class Watcher:
         if job:
             logger.debug("Previously cached job")
             logger.info(f"Reusing activity {job.activity_id}")
-            print("PREVIOUSLY USED JOB")
             self.jobs.append(job)
         else:
-            print("NEW JOB")
-            print(new_job)
-            job = wfjob(site_config=self.config.conf, typ=common_workflow_id, nmdc_jobid=new_job['id'], workflow_config=new_job['config'], opid=opid, activity_id=new_job['config']['activity_id'])
+            logging.debug("NEW JOB")
+            logging.debug(new_job)
+            job = wfjob(site_config=self.config.conf,
+                        typ=common_workflow_id,
+                        nmdc_jobid=new_job['id'],
+                        workflow_config=new_job['config'],
+                        opid=opid,
+                        activity_id=new_job['config']['activity_id'])
             self.jobs.append(job)
 
     def refresh_remote_jobs(self):
@@ -116,9 +117,9 @@ class Watcher:
         Return a filtered list of nmdc jobs.
         """
         filt = {"workflow.id": {"$in": self._ALLOWED}}
-        print("Looking for jobs")
+        logging.debug("Looking for jobs")
         jobs = self.runtime_api.list_jobs(filt=filt)
-        print("Found jobs")
+        logging.debug(f"Found {len(jobs)} jobs")
         known = set(job.nmdc_jobid for job in self.jobs)
         return [job for job in jobs if job['id'] not in known]
 
@@ -144,17 +145,6 @@ class Watcher:
         self.submit(job, opid)
         self.job_checkpoint()
 
-    def _load_json(self, file_name):
-        return json.loads(open(file_name).read())
-
-    
-    def fix_urls(self, data_object_list, actid, subdir):
-        root = self.config.conf['nmdc']['url_root']
-        for data_object in data_object_list:
-            file_name = data_object['url'].split('/')[-1]
-            new_url = f"{root}/{actid}/{subdir}/{file_name}"
-            data_object['url'] = new_url
-
     def _get_url(self, informed_by, act_id, fname):
         root = self.config.conf['nmdc']['url_root']
         return f"{root}/{informed_by}/{act_id}/{fname}"
@@ -174,11 +164,14 @@ class Watcher:
         outdir = self._get_output_dir(informed_by, act_id)
         schema = NmdcSchema()
 
-        output_ids = self.generate_data_objects(job, metadata['outputs'], outdir, informed_by, act_id,schema)
+        output_ids = self.generate_data_objects(job, metadata['outputs'],
+                                                outdir, informed_by, act_id,
+                                                schema)
         activity_inputs = [dobj['id'] for dobj in job.input_data_objects]
 
-        self.create_activity_record(job, act_id, activity_inputs, output_ids, schema)
-        
+        self.create_activity_record(job, act_id, activity_inputs,
+                                    output_ids, schema)
+
         self.write_metadata_if_not_exists(metadata, outdir)
 
         nmdc_database_obj = schema.get_database_object_dump()
@@ -191,10 +184,11 @@ class Watcher:
 
         return resp
 
-    def generate_data_objects(self, job, job_outs, outdir, informed_by, act_id, schema):
+    def generate_data_objects(self, job, job_outs, outdir,
+                              informed_by, act_id, schema):
         output_ids = []
         prefix = job.workflow_config['input_prefix']
-        
+
         for product_record in job.outputs:
             outkey = f"{prefix}.{product_record['output']}"
             full_name = job_outs[outkey]
@@ -205,44 +199,35 @@ class Watcher:
             md5 = _md5(full_name)
             file_url = self._get_url(informed_by, act_id, file_name)
             id = product_record["id"]
-            do = schema.make_data_object(name=product_record['name'], full_file_name=full_name, file_url=file_url, 
-                                        data_object_type=product_record['data_object_type'], dobj_id=product_record['id'], md5_sum=md5, 
-                                        description=product_record['description'], omics_id=act_id)
+            schema.make_data_object(name=product_record['name'],
+                                    full_file_name=full_name,
+                                    file_url=file_url,
+                                    data_object_type=product_record['data_object_type'],
+                                    dobj_id=product_record['id'],
+                                    md5_sum=md5,
+                                    description=product_record['description'],
+                                    omics_id=act_id)
 
             output_ids.append(id)
 
         return output_ids
 
-    def create_activity_record(self, job, act_id, activity_inputs, output_ids, schema):
+    def create_activity_record(self, job, act_id, activity_inputs,
+                               output_ids, schema):
         activity_type = job.activity_templ["type"]
         name = job.activity_templ["name"].replace("{id}", act_id)
         omic_id = job.workflow_config['was_informed_by']
-        schema.create_activity_record(activity_record=activity_type, activity_name=name, workflow=job.workflow_config, activity_id=act_id, resource=self.config.conf['site']['resource'],
-                                    has_inputs_list=activity_inputs, has_output_list=output_ids,omic_id=omic_id, start_time=job.start, end_time=job.end)
-
-
-    def process_job_outputs(self, job, metadata, outdir):
-        obj = dict()
-        for key, value in metadata['outputs'].items():
-            new_path = os.path.join(outdir, os.path.basename(value))
-            if key.endswith("objects"):
-                with open(value) as f:
-                    obj = json.load(f)
-
-                self.fix_urls(obj['data_object_set'], job.workflow_config["was_informed_by"], job.activity_id)
-
-                if not os.path.exists(new_path):
-                    with open(new_path, "w") as f:
-                        json.dump(obj, f)
-            else:
-                self.copy_output_if_not_exists(value, new_path)
-        return obj
-
-    def copy_output_if_not_exists(self, old_path, new_path):
-        if os.path.exists(new_path):
-            logger.warning(f"Skipping output {new_path} already exists")
-        else:
-            shutil.copyfile(old_path, new_path)
+        resource = self.config.conf['site']['resource']
+        schema.create_activity_record(activity_record=activity_type,
+                                      activity_name=name,
+                                      workflow=job.workflow_config,
+                                      activity_id=act_id,
+                                      resource=resource,
+                                      has_inputs_list=activity_inputs,
+                                      has_output_list=output_ids,
+                                      omic_id=omic_id,
+                                      start_time=job.start,
+                                      end_time=job.end)
 
     def write_metadata_if_not_exists(self, metadata, outdir):
         metadata_filepath = os.path.join(outdir, "metadata.json")
@@ -267,4 +252,4 @@ class Watcher:
     def process_failed_job(self, job):
         if job.failed_count < self._MAX_FAILS:
             job.failed_count += 1
-            job.cromwell_submit()       
+            job.cromwell_submit()
