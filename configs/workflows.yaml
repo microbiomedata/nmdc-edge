@@ -22,7 +22,7 @@ Workflows:
     Type: nmdc:ReadQcAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: b1.0.7
+    Version: v1.0.7
     WDL: rqcfilter.wdl
     Collection: read_qc_analysis_activity_set
     Filter Input Objects:
@@ -62,7 +62,7 @@ Workflows:
     Type: nmdc:ReadQcAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: b1.0.7
+    Version: v1.0.7
     Collection: read_qc_analysis_activity_set
     WDL: make_interleave_reads.wdl
     Input_prefix: make_interleaved_reads
@@ -104,7 +104,7 @@ Workflows:
     Type: nmdc:MetagenomeAssembly
     Enabled: True
     Git_repo: https://github.com/microbiomedata/metaAssembly
-    Version: v1.0.4-beta
+    Version: v1.0.3
     WDL: jgi_assembly.wdl
     Collection: metagenome_assembly_set
     Predecessors:
@@ -179,7 +179,7 @@ Workflows:
     Type: nmdc:MetagenomeAnnotationActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
-    Version: v1.0.2-beta
+    Version: v1.0.4
     WDL: annotation_full.wdl
     Collection: metagenome_annotation_activity_set
     Predecessors:
@@ -218,6 +218,11 @@ Workflows:
         description: EC Annotations for {id}
         name: Tab delimited file for EC annotation
         suffix: _ec.tsv
+      - output: lineage_tsv
+        data_object_type: Scaffold Lineage tsv
+        description: Scaffold Lineage tsv for {id}
+        name: Phylogeny at the scaffold level
+        suffix: _scaffold_lineage.tsv
       - output: cog_gff
         data_object_type: Clusters of Orthologous Groups (COG) Annotation GFF
         description: COGs for {id}
@@ -314,7 +319,7 @@ Workflows:
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Git_repo: https://github.com/microbiomedata/metaMAGs
-    Version: v1.0.5-beta
+    Version: v1.0.6
     WDL: mbin_nmdc.wdl
     Collection: mags_activity_set
     Predecessors:
@@ -361,7 +366,7 @@ Workflows:
       description: Archaeal Summary for {id}
       name: GTDBTK archaeal summary
       suffix: _gtdbtk.ar122.summary.tsv
-    - output: final_version
+    - output: mags_version
       data_object_tye: Metagenome Bins Info File
       description: Metagenome Bins Info File for {id}
       name: Metagenome Bins Info File
@@ -371,7 +376,7 @@ Workflows:
     Type: nmdc:ReadBasedTaxonomyAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadbasedAnalysis
-    Version: v1.0.5-beta
+    Version: v1.0.5
     WDL: ReadbasedAnalysis.wdl
     Collection: read_based_taxonomy_analysis_activity_set
     Predecessors:
