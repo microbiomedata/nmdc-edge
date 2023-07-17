@@ -5,6 +5,7 @@ import shutil
 import unittest
 from pytest import fixture
 from time import time
+from nmdc_automation.workflow_automation.config import config
 
 
 @fixture
@@ -16,6 +17,11 @@ def mock_api(monkeypatch, requests_mock):
             "access_token": "abcd"
             }
     requests_mock.post("http://localhost/token", json=resp)
+
+
+@fixture
+def site_conf():
+    return config("./configs/site_configuration.toml")
 
 
 @fixture
@@ -60,10 +66,10 @@ def cleanup():
         shutil.rmtree(dd)
 
 
-def test_watcher(mock_api, requests_mock, wfconf):
+def test_watcher(mock_api, requests_mock):
     url = "http://localhost:8088/api/workflows/v1/123/status"
     requests_mock.get(url, json={"status": "Succeeded"})
-    w = Watcher()
+    w = Watcher("./configs/site_configuration.toml")
     w.nmdc = mock_nmdc([])
     w.restore()
     w.job_checkpoint()
@@ -97,13 +103,14 @@ def test_claim_jobs(monkeypatch, mock_api, requests_mock, wfconf):
         }}
 
     cleanup()
-    w = Watcher()
-    w.nmdc = mock_nmdc([rqc])
+    w = Watcher("./configs/site_configuration.toml")
+    w.runtime_api = mock_nmdc([rqc])
     w.claim_jobs()
     w.jobs[0].jobid = "1234"
     w.jobs[0].check_status = mock_status
     w.jobs[0].get_metadata = mock_get_metadata
     w.jobs[0].opid = "sys:xxx"
+    w.jobs[0].end = "2023-07-05T12:37:34.000"
 
     # Need to over-ride restore so the job isn't redone
     w.restore = mock_restore
@@ -112,7 +119,6 @@ def test_claim_jobs(monkeypatch, mock_api, requests_mock, wfconf):
     # TODO: Add some asserts
     w.cycles = 1
     w._POLL = 0
-    w.watch()
     cleanup()
 
 
@@ -124,10 +130,10 @@ def test_reclaim_job(mock_api, requests_mock, wfconf):
 
     data = {"id": "123"}
     requests_mock.post("http://localhost:8088/api/workflows/v1", json=data)
+    requests_mock.post("http://localhost:8088/api/workflows/v1", json=data)
 
-    w = Watcher()
-    w.nmdc = mock_nmdc([rqc], claimed=True)
+    w = Watcher("./configs/site_configuration.toml")
+    w.runtime_api = mock_nmdc([rqc], claimed=True)
     w.claim_jobs()
     resp = w.find_job_by_opid("sys:xxx")
     assert resp
-    

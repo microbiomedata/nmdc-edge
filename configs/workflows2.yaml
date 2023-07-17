@@ -59,6 +59,8 @@ Workflows:
     Version: b1.1.8
     WDL: rqcfilter.wdl
     Collection: read_qc_analysis_activity_set
+    Filter Input Objects:
+    - Metagenome Raw Reads
     Predecessors:
     - Sequencing
     - Sequencing Interleaved
