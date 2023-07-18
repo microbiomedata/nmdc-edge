@@ -24,13 +24,15 @@ def get_mongo_db() -> MongoDatabase:
             raise KeyError(f"Missing MONGO_{k}")
     _client = MongoClient(
         host=os.getenv("MONGO_HOST"),
+        port=int(os.getenv("MONGO_PORT", "27017")),
         username=os.getenv("MONGO_USERNAME"),
         password=os.getenv("MONGO_PASSWORD"),
+        directConnection=True,
     )
     return _client[os.getenv("MONGO_DBNAME")]
 
 
-def within_range(wf1: Workflow, wf2: Workflow) -> bool:
+def within_range(wf1: Workflow, wf2: Workflow, force=False) -> bool:
     """
     Determine if two workflows are within a major and minor
     version of each other.
@@ -44,6 +46,8 @@ def within_range(wf1: Workflow, wf2: Workflow) -> bool:
         return False
     v1 = get_version(wf1)
     v2 = get_version(wf2)
+    if force:
+        return v1==v2
     if v1.major == v2.major and v1.minor == v2.minor:
         return True
     return False
@@ -83,6 +87,10 @@ class Scheduler():
         self.workflows = load_workflows(wf_file)
         self.db = db
         self.api = nmdcapi()
+        self.force = False
+        if os.environ.get("FORCE") == "1":
+            logging.info("Setting force on")
+            self.force = True
 
     async def run(self):
         logging.info("Starting Scheduler")
@@ -160,7 +168,7 @@ class Scheduler():
             "config": job_config,
             "claims": []
         }
-        self.db.jobs.insert_one(jr, bypass_document_validation=True)
+        self.db.jobs.insert_one(jr)
         logging.info(f'JOB RECORD: {jr["id"]}')
         # This would make the job record
         # print(json.dumps(ji, indent=2))
@@ -243,18 +251,18 @@ class Scheduler():
             # Look at previously generated derived
             # activities to see if this is already done.
             for child_act in act.children:
-                if within_range(child_act.workflow, wf):
+                if within_range(child_act.workflow, wf, force=self.force):
                     break
             else:
                 # These means no existing activities were
                 # found that matched this workflow, so we
                 # add a job
-                logging.debug(f"Creating a job {wf.name} for {act.id}")
+                logging.debug(f"Creating a job {wf.name}:{wf.version} for {act.id}")
                 new_jobs.append(Job(wf, act))
 
         return new_jobs
 
-    def cycle(self) -> list:
+    def cycle(self, dryrun: bool = False, skiplist: set = set(), allowlist = None) -> list:
         """
         This function does a single cycle of looking for new jobs
         """
@@ -262,8 +270,18 @@ class Scheduler():
         self.get_existing_jobs.cache_clear()
         job_recs = []
         for act in acts:
+            if act.was_informed_by in skiplist:
+                logging.debug(f"Skipping: {act.was_informed_by}")
+                continue
+            if allowlist and act.was_informed_by not in allowlist:
+                continue
             jobs = self.find_new_jobs(act)
             for job in jobs:
+                if dryrun:
+                    msg = f"new job: informed_by: {job.informed_by} trigger: {job.trigger_id} "
+                    msg += f"wf: {job.workflow.name}"
+                    logging.info(msg)
+                    continue
                 try:
                     jr = self.add_job_rec(job)
                     if jr:
@@ -274,16 +292,30 @@ class Scheduler():
         return job_recs
 
 
-def main():
+def main():  # pragma: no cover
     """
     Main function
     """
     sched = Scheduler(get_mongo_db())
+    dryrun = False
+    if os.environ.get("DRYRUN") == "1":
+        dryrun = True
+    skiplist = set()
+    allowlist = None
+    if os.environ.get("SKIPLISTFILE"):
+        with open(os.environ.get("SKIPLISTFILE")) as f:
+            for line in f:
+                skiplist.add(line.rstrip())
+    if os.environ.get("ALLOWLISTFILE"):
+        allowlist = set()
+        with open(os.environ.get("ALLOWLISTFILE")) as f:
+            for line in f:
+                allowlist.add(line.rstrip())
     while True:
-        sched.cycle()
+        sched.cycle(dryrun=dryrun, skiplist=skiplist, allowlist=allowlist)
         _sleep(_POLL_INTERVAL)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     logging.basicConfig(level=logging.INFO)
     main()

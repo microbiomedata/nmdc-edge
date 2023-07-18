@@ -21,7 +21,7 @@ Workflows:
     Type: nmdc:ReadQcAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: b1.0.7
+    Version: v1.0.7
     WDL: rqcfilter.wdl
     Collection: read_qc_analysis_activity_set
     Filter Input Objects:
@@ -56,7 +56,7 @@ Workflows:
     Type: nmdc:ReadQcAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: b1.1.8
+    Version: v1.1.8
     WDL: rqcfilter.wdl
     Collection: read_qc_analysis_activity_set
     Filter Input Objects:
@@ -91,7 +91,7 @@ Workflows:
     Type: nmdc:ReadQcAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: b1.0.7
+    Version: v1.0.7
     Collection: read_qc_analysis_activity_set
     WDL: make_interleave_reads.wdl
     Input_prefix: make_interleaved_reads
