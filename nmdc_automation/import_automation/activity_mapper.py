@@ -62,7 +62,7 @@ class GoldMapper():
                     logging.warning("Missing suffix")
                     continue
                 elif re.search(data_object_dict['import_suffix'], file, re.IGNORECASE):
-                    activity_id = self.relate_object_by_activity_id(data_object_dict['output_of'])
+                    activity_id = self.get_activity_id(data_object_dict['output_of'])
 
                     file_destination_name = object_action(file, data_object_dict['action'], activity_id, data_object_dict['nmdc_suffix'])
 
@@ -104,7 +104,7 @@ class GoldMapper():
                 if re.search(data_object_dict['import_suffix'], file, re.IGNORECASE):
                     multiple_objects_list.append(file)
 
-            activity_id = self.relate_object_by_activity_id(data_object_dict['output_of'])
+            activity_id = self.get_activity_id(data_object_dict['output_of'])
 
             activity_dir = os.path.join(self.root_dir, activity_id)
 
@@ -162,7 +162,7 @@ class GoldMapper():
             # Lookup the nmdc schema range class
             database_activity_range = getattr(nmdc, workflow["ActivityRange"])
             # Mint an ID
-            activity_id = runtime.minter(workflow["Type"])
+            activity_id = self.get_activity_id(workflow["Type"])
             database_activity_set.append(
                 database_activity_range(
                     id=activity_id,
@@ -179,14 +179,14 @@ class GoldMapper():
                     was_informed_by=self.omics_id,
                 ))
 
-    def relate_object_by_activity_id(self, output_of: str) -> str:
-        '''Map data object to activity type and returns minted activity id
+    def get_activity_id(self, output_of: str) -> str:
+        '''Lookup and returns minted activity id
 
         Args:
             output_of (str): The activity type the data object is an output of.
 
         Returns:
-            str: The activity id that the data object is an output of.
+            str: The activity id for this workflow type.
         '''
         if output_of not in self.activity_ids:
             wf = self.workflows_by_type[output_of]
