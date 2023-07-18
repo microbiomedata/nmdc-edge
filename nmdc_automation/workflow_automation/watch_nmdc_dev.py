@@ -199,7 +199,7 @@ class Watcher:
             md5 = _md5(full_name)
             file_url = self._get_url(informed_by, act_id, file_name)
             id = product_record["id"]
-            schema.make_data_object(name=product_record['name'],
+            schema.make_data_object(name=file_name,
                                     full_file_name=full_name,
                                     file_url=file_url,
                                     data_object_type=product_record['data_object_type'],
