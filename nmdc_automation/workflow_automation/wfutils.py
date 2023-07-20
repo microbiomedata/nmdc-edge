@@ -52,8 +52,7 @@ class WorkflowJob():
     def load_workflow_config(self):
         self.outputs = self.workflow_config.get('outputs')
         self.activity_templ = self.workflow_config.get('activity')
-        self.input_data_objects = \
-            self.workflow_config.get('input_data_objects')
+        self.input_data_objects = self.workflow_config.get('input_data_objects')
 
     def set_initial_state(self, state, activity_id, typ, nmdc_jobid, opid):
         if state:
@@ -115,7 +114,7 @@ class WorkflowJob():
             resp = requests.get(url)
             resp.raise_for_status()
         except requests.exceptions.RequestException as ex:
-            logging.error(f"Error checking status: {ex}")
+            # logging.error(f"Error checking status: {ex}")
             self.last_status = "Error"
             return self.last_status
 
@@ -315,7 +314,7 @@ class NmdcSchema():
                                         nmdc.MetagenomeAssembly),
             'nmdc:MetagenomeAnnotationActivity': (self.nmdc_db.metagenome_annotation_activity_set,
                                                   nmdc.MetagenomeAnnotationActivity),
-            'nmdc:MAGsAnalysisActivity': (self.nmdc_db.mags_activity_set,
+            'nmdc:MagsAnalysisActivity': (self.nmdc_db.mags_activity_set,
                                           nmdc.MagsAnalysisActivity)
         }
 
