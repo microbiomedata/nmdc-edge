@@ -315,7 +315,7 @@ Workflows:
         suffix: _imgap.info
 
   - Name: MAGs
-    Type: nmdc:MAGsAnalysisActivity
+    Type: nmdc:MagsAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Git_repo: https://github.com/microbiomedata/metaMAGs
@@ -368,7 +368,7 @@ Workflows:
       name: GTDBTK archaeal summary
       suffix: _gtdbtk.ar122.summary.tsv
     - output: mags_version
-      data_object_tye: Metagenome Bins Info File
+      data_object_type: Metagenome Bins Info File
       description: Metagenome Bins Info File for {id}
       name: Metagenome Bins Info File
       suffix: _bin.info
