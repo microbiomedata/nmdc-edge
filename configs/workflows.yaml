@@ -68,14 +68,13 @@ Workflows:
     Input_prefix: nmdc_rqcfilter
     Inputs:
       proj: "{activity_id}"
-      input_file_1: do:Metagenome Raw Read 1
-      input_file_2: do:Metagenome Raw Read 2
+      input_fastq1: do:Metagenome Raw Read 1
+      input_fastq2: do:Metagenome Raw Read 2
     Filter Input Objects:
     - Metagenome Raw Read 1
     - Metagenome Raw Read 2
     Predecessors:
     - Sequencing Noninterleaved
-    Input_prefix: nmdc_rqcfilter
     Activity:
       name: "Read QC Activity for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
