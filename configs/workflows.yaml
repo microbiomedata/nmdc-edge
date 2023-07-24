@@ -345,7 +345,7 @@ Workflows:
       proj: "{activity_id}"
     Activity:
       name: "Metagenome Assembled Genomes Analysis Activity for {id}"
-      type: nmdc:MAGsAnalysisActivity
+      type: nmdc:MagsAnalysisActivity
     Outputs:
     - output: final_checkm
       data_object_type: CheckM Statistics
