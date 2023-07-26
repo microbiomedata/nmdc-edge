@@ -381,6 +381,7 @@ Workflows:
     Collection: read_based_taxonomy_analysis_activity_set
     Predecessors:
     - Reads QC
+    - Reads QC Interleave
     Input_prefix: ReadbasedAnalysis
     Inputs:
       input_file: do:Filtered Sequencing Reads
