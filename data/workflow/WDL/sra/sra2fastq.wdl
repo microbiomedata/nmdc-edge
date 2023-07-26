@@ -41,8 +41,13 @@ task sra2fastq {
      command <<<
 
         sra2fastq.py ~{sep=' ' accessions} ~{"--outdir=" + outdir}  ~{true=" --clean True" false="" clean} ~{" --platform_restrict=" + platform_restrict} ~{" --filesize_restrict=" + filesize_restrict} ~{" --runs_restrict=" + runs_restrict}
-        mkdir -p ~{ext_dir}
-        mv ~{outdir + "/*"} ~{ext_dir}
+
+        ~{ 
+           if defined(ext_dir) then 
+               "mkdir -p " + ext_dir + "; cp -R " + outdir + "/* " + ext_dir 
+           else 
+               ":"
+         }
     >>>
     output {
         Array[File] outputFiles = glob("${outdir}/*")
