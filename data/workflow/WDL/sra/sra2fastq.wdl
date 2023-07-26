@@ -23,6 +23,9 @@ workflow sra {
         runs_restrict = runs_restrict
 
     }
+    output {
+       Array[File] outputFiles = sra2fastq.outputFiles 
+    }
 }
 
 task sra2fastq {
