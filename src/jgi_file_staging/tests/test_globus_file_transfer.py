@@ -4,6 +4,8 @@ from unittest.mock import patch, Mock
 import mongomock
 import pandas as pd
 import configparser
+from datetime import datetime
+from testfixtures import Replace, mock_datetime
 
 from globus_file_transfer import get_globus_manifest, get_mongo_db, get_globus_task_status, create_globus_batch_file, \
     create_globus_dataframe, insert_globus_status_into_mongodb, update_globus_statuses, submit_globus_batch_file
@@ -94,16 +96,17 @@ class MyTestCase(unittest.TestCase):
         grow_analysis_df['request_id'] = 201572
         insert_samples_into_mongodb(grow_analysis_df.to_dict('records'))
         try:
-            globus_batch_filename, globus_analysis_df = create_globus_batch_file('test_project',
-                                                                                 self.config)
-            self.assertEqual(globus_batch_filename, 'test_project_globus_batch_file.txt')
+            with Replace('globus_file_transfer.datetime', mock_datetime(2022, 1, 1, 12, 22, 55, delta=0)) as d:
+                globus_batch_filename, globus_analysis_df = create_globus_batch_file('test_project',
+                                                                                     self.config)
+            self.assertEqual(globus_batch_filename, 'test_project_201572_2022-01-01_12-22-55_globus_batch_file.txt')
             self.assertEqual(len(globus_analysis_df), 3)
             self.assertEqual(globus_analysis_df.loc[0, 'jdp_file_id'], '6190d7d30de2fc3298da6f7a')
             self.assertEqual(globus_analysis_df.loc[1, 'apGoldId'], 'Ga0499978')
             self.assertEqual(globus_analysis_df.loc[2, 'file_name'], 'Ga0499978_imgap.info')
             self.assertTrue(os.path.exists(globus_batch_filename))
         finally:
-            os.remove('test_project_globus_batch_file.txt') if os.path.exists('test_project_globus_batch_file.txt') \
+            os.remove('test_project_201572_2022-01-01_12-22-55_globus_batch_file.txt') if os.path.exists('test_project_201572_2022-01-01_12-22-55_globus_batch_file.txt') \
                 else None
 
     @patch('globus_file_transfer.get_globus_manifest')
