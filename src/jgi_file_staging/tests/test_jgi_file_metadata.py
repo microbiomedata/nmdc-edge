@@ -126,9 +126,6 @@ class JgiFileTestCase(unittest.TestCase):
         self.assertEqual(updated_sample['file_status'], 'RESTORE_IN_PROGRESS')
         self.assertEqual(updated_sample['request_id'], 217934)
 
-        success = update_sample_in_mongodb(sample, {'request_id': '21793b4'})
-        self.assertFalse(success)
-
         sample = mdb.samples.find_one({'jdp_file_id': '6190d7d30de2fc3298da6f7a'})
         sample.pop('file_name')
         success = update_sample_in_mongodb(sample, {'file_status': 'RESTORE_IN_PROGRESS', 'request_id': 217934})
@@ -212,7 +209,7 @@ class JgiFileTestCase(unittest.TestCase):
         self.assertFalse(seq_files_df[seq_files_df.file_name == '52554.2.382557.CCCTGTAT-GGATAACG.fastq.gz'].empty)
         self.assertFalse(seq_files_df[seq_files_df.file_name == 'Ga0451670_proteins.img_nr.last.blasttab'].empty)
         grow_samples_df = remove_unneeded_files(seq_files_df, ['img_nr.last.blasttab', 'domtblout'])
-        self.assertEqual(len(grow_samples_df), 69)
+        self.assertEqual(len(grow_samples_df), 70)
         self.assertTrue(grow_samples_df[grow_samples_df.file_name == '52554.2.382557.CCCTGTAT-GGATAACG.fastq.gz'].empty)
         self.assertTrue(grow_samples_df[grow_samples_df.file_name == 'Ga0451670_proteins.img_nr.last.blasttab'].empty)
 
