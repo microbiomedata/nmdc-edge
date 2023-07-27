@@ -1,11 +1,10 @@
 import configparser
 import sys
-
+from datetime import datetime
 import pandas as pd
 import os
 import logging
 
-import click
 from mongo import get_mongo_db
 import subprocess
 import argparse
@@ -77,7 +76,7 @@ def create_globus_batch_file(project, config):
         filepath = os.path.join(root_dir, row.subdir, row['directory/path'], row.filename)
         dest_file_path = os.path.join(dest_root_dir, row.apGoldId, row.filename)
         write_list.append(f"{filepath} {dest_file_path}")
-    globus_batch_filename = f"{project}_{samples_df['request_id']}_globus_batch_file.txt"
+    globus_batch_filename = f"{project}_{samples_df['request_id'].unique()[0]}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_globus_batch_file.txt"
     with open(globus_batch_filename, 'w') as f:
         f.write('\n'.join(write_list))
     return globus_batch_filename, globus_analysis_df
