@@ -164,6 +164,6 @@ if __name__ == '__main__':
     if args['update_globus_statuses']:
         update_globus_statuses()
     if args['get_list_staged_files']:
-        get_list_staged_files(args['project_name'], args['config_file'])
+        get_list_missing_staged_files(args['project_name'], args['config_file'])
     else:
         submit_globus_batch_file(args['project_name'], args['config_file'])
