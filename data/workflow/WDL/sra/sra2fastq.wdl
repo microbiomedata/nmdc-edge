@@ -48,9 +48,11 @@ task sra2fastq {
            else 
                ":"
          }
+
+         for acc in ~{sep=' ' accessions}; do  printf '%s\n' ~{outdir}/$acc/* >> file_list; done
     >>>
     output {
-        Array[File] outputFiles = glob("${outdir}/*")
+        Array[File] outputFiles = read_lines("file_list")
     }
 
     runtime {
