@@ -70,6 +70,8 @@ if [ ! -d  $io_home ]; then
   mkdir ${io_home}/log
   mkdir ${io_home}/projects
   mkdir ${io_home}/public
+  mkdir ${io_home}/db
+  mkdir ${io_home}/sra
   #ln -s ${app_home}/data/test_data ${io_home}/public/test_data
 fi
 
@@ -102,6 +104,12 @@ cd $app_home/data/workflow/WDL/virusPlasmids
 zip -r imports.zip *.wdl
 if [ "$?" != "0" ]; then
   echo "Cannot create $app_home/data/workflow/WDL/virusPlasmids/imports.zip!" 1>&2
+  exit 1
+fi
+cd $app_home/data/workflow/WDL/sra
+zip -r imports.zip *.wdl
+if [ "$?" != "0" ]; then
+  echo "Cannot create $app_home/data/workflow/WDL/sra/imports.zip!" 1>&2
   exit 1
 fi
 

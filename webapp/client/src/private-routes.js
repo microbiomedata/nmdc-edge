@@ -18,8 +18,8 @@ const MetaGPipeline = React.lazy(() => import('./pipelines/MetaG/Pipeline/Main')
 const MetaTWorkflow = React.lazy(() => import('./pipelines/MetaT/Workflow/Main'));
 const OrganicMWorkflow = React.lazy(() => import('./pipelines/OrganicM/Workflow/Main'));
 const VirusWorkflow = React.lazy(() => import('./pipelines/Virus/Workflow/Main'));
-
 const MetaPWorkflow = React.lazy(() => import('./pipelines/MetaP/Workflow/Main'));
+const SRAData = React.lazy(() => import('./pipelines/SRA/Workflow/Main'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const privateRoutes = [
@@ -39,12 +39,10 @@ const privateRoutes = [
   { path: '/metag/pipeline', name: 'MetaGP', component: MetaGPipeline },
 
   { path: '/metat/workflow', name: 'MetaT', component: MetaTWorkflow },
-
   { path: '/organicm/workflow', name: 'Organic', component: OrganicMWorkflow },
-
   { path: '/virus_plasmid/workflow', name: 'Virus', component: VirusWorkflow },
-
   { path: '/metap/workflow', name: 'MetaP', component: MetaPWorkflow },
+  { path: '/sra/data', name: 'SRA', component: SRAData },
 
 ];
 

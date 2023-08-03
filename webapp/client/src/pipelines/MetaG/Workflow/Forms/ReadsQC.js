@@ -21,7 +21,8 @@ export function ReadsQC(props) {
             <Collapse isOpen={!collapseParms} id={"collapseParameters-" + props.name} >
                 <CardBody>
                     <MyTooltip id='ReadsQC' text="Input Raw Reads" tooltip={workflowInputTips['ReadsQC']['fastq_tip']} showTooltip={true} place="right" />
-                    <FastqInput name={props.name} full_name={props.full_name} setParams={props.setParams} collapseParms={true} dataSources={['upload', 'public', 'globus']} />
+                    <FastqInput name={props.name} full_name={props.full_name} setParams={props.setParams} collapseParms={true} 
+                    dataSources={['upload', 'project', 'public', 'globus']} projectTypes={['sra2fastq']} />
                 </CardBody>
             </Collapse>
         </Card>

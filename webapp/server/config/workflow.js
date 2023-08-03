@@ -7,7 +7,8 @@ workflowlist = {
         wdl_tmpl: 'readbasedAnalysis_wdl.tmpl',
         inputs_tmpl: 'readbasedAnalysis_inputs.tmpl',
         outdir: 'output/ReadbasedAnalysis',
-        cromwell_calls: ['main_workflow.ReadbasedAnalysis']
+        cromwell_calls: ['main_workflow.ReadbasedAnalysis'],
+        wdl_version: 'draft-2'
     },
     ReadsQC: {
         wdl: 'rqcfilter.wdl',
@@ -18,7 +19,8 @@ workflowlist = {
         inputs_tmpl: 'readsQC_inputs.tmpl',
         options_json: 'readsQC_options.json',
         outdir: 'output/ReadsQC',
-        cromwell_calls: ['main_workflow.jgi_rqcfilter']
+        cromwell_calls: ['main_workflow.jgi_rqcfilter'],
+        wdl_version: 'draft-2'
     },
     MetaAnnotation: {
         wdl: 'annotation.wdl',
@@ -29,7 +31,8 @@ workflowlist = {
         inputs_tmpl: 'metaAnnotation_inputs.tmpl',
         options_json: 'metaAnnotation_options.json',
         outdir: 'output/MetagenomeAnnotation',
-        cromwell_calls: ['main_workflow.annotation']
+        cromwell_calls: ['main_workflow.annotation'],
+        wdl_version: 'draft-2'
     },
     MetaAssembly: {
         wdl: 'jgi_assembly.wdl',
@@ -40,7 +43,8 @@ workflowlist = {
         inputs_tmpl: 'metaAssembly_inputs.tmpl',
         options_json: 'metaAssembly_options.json',
         outdir: 'output/MetagenomeAssembly',
-        cromwell_calls: ['main_workflow.jgi_metaASM']
+        cromwell_calls: ['main_workflow.jgi_metaASM'],
+        wdl_version: 'draft-2'
     },
     MetaMAGs: {
         wdl: 'mbin_nmdc.wdl',
@@ -51,7 +55,8 @@ workflowlist = {
         inputs_tmpl: 'metaMAGs_inputs.tmpl',
         options_json: 'metaMAGs_options.json',
         outdir: 'output/MetagenomeMAGs',
-        cromwell_calls: ['main_workflow.nmdc_mags']
+        cromwell_calls: ['main_workflow.nmdc_mags'],
+        wdl_version: 'draft-2'
     },
     Metatranscriptome: {
         wdl: 'metaT.wdl',
@@ -62,7 +67,8 @@ workflowlist = {
         inputs_tmpl: 'metaT_inputs.tmpl',
         options_json: 'metaT_options.json',
         outdir: 'output/Metatranscriptome',
-        cromwell_calls: ['main_workflow.nmdc_metat']
+        cromwell_calls: ['main_workflow.nmdc_metat'],
+        wdl_version: 'draft-2'
     },
     EnviroMS: {
         wdl: 'enviroMS.wdl',
@@ -73,7 +79,8 @@ workflowlist = {
         inputs_tmpl: 'enviroMS_inputs.tmpl',
         options_json: 'enviroMS_options.json',
         outdir: 'output/EnviroMS',
-        cromwell_calls: ['main_workflow.enviroMS']
+        cromwell_calls: ['main_workflow.enviroMS'],
+        wdl_version: 'draft-2'
     },
     'virus_plasmid': {
         wdl: 'viral-plasmid_wf.wdl',
@@ -84,7 +91,8 @@ workflowlist = {
         inputs_tmpl: 'virus_plasmid_inputs.tmpl',
         options_json: 'virus_plasmid_options.json',
         outdir: 'output/virus_plasmid',
-        cromwell_calls: ['main_workflow.viral']
+        cromwell_calls: ['main_workflow.viral'],
+        wdl_version: 'draft-2'
     },
     'Metaproteomics': {
         wdl: 'metapro_main.wdl',
@@ -95,7 +103,20 @@ workflowlist = {
         inputs_tmpl: 'metaProteomics_inputs.tmpl',
         options_json: 'metaProteomics_options.json',
         outdir: 'output/Metaproteomics',
-        cromwell_calls: ['metapro.job_analysis']
+        cromwell_calls: ['main_workflow.metapro'],
+        wdl_version: '1.0'
+    },
+    'sra2fastq': {
+        wdl: 'sra2fastq.wdl',
+        wdl_imports: 'sra/imports.zip',
+        name: 'sra',
+        full_name: 'sra2fastq',
+        wdl_tmpl: 'sra2fastq_wdl.tmpl',
+        inputs_tmpl: 'sra2fastq_inputs.tmpl',
+        options_json: 'sra2fast_options.json',
+        outdir: 'output/sra2fastq',
+        cromwell_calls: ['main_workflow.sra'],
+        wdl_version: '1.0'
     },
 }
 
@@ -107,6 +128,7 @@ pipelinelist = {
         wdl_tmpl: 'metagenome_pipeline_wdl.tmpl',
         inputs_tmpl: 'metagenome_pipeline_inputs.tmpl',
         options_json: 'metagenome_pipeline_options.json',
+        wdl_version: 'draft-2',
         outdir: 'output',
         workflows: {
             ReadsQC: {

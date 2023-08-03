@@ -114,7 +114,7 @@ export function ReadbasedAnalysis(props) {
                     </Row>
                     <br></br>
                     <MyTooltip id='ReadbasedAnalysis' text="Input Raw Reads" tooltip={workflowInputTips['ReadbasedAnalysis']['fastq_tip']} showTooltip={true} place="right" />
-                    <FastqInput projectTypes={['ReadsQC']} singleType={'single-end'} name={props.name} full_name={props.full_name} setParams={updateFastqInputs} collapseParms={true} paired-input-max={form['paired-input-max']} />
+                    <FastqInput projectTypes={['ReadsQC','sra2fastq']} singleType={'single-end'} name={props.name} full_name={props.full_name} setParams={updateFastqInputs} collapseParms={true} paired-input-max={form['paired-input-max']} />
                 </CardBody>
             </Collapse>
         </Card >
