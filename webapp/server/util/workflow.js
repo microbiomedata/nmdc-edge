@@ -18,15 +18,18 @@ function submitWorkflow(proj, workflow, inputsize) {
 
     //imports.wdl
     let imports = process.env.WORKFLOW_WDL_HOME + "/imports.zip";
+    let wdlVersion = process.env.CROMWELL_WORKFLOW_TYPE_VERSION;
     //options_json
     if (workflow) {
         let options_json = null;
         if (workflow.name) {
             options_json = process.env.WORKFLOW_TEMPLATE_HOME + "/" + workflowlist[workflow.name]['options_json'];
             imports = process.env.WORKFLOW_WDL_HOME + "/" + workflowlist[workflow.name]['wdl_imports'];
+            wdlVersion = workflowlist[workflow.name]['wdl_version'];
         } else {
             options_json = process.env.WORKFLOW_TEMPLATE_HOME + "/" + pipelinelist[workflow]['options_json'];
             imports = process.env.WORKFLOW_WDL_HOME + "/" + pipelinelist[workflow]['wdl_imports'];
+            wdlVersion = pipelinelist[workflow]['wdl_version'];
         }
         if (fs.existsSync(options_json)) {
             formData.append("workflowOptions", fs.createReadStream(options_json));
@@ -35,7 +38,6 @@ function submitWorkflow(proj, workflow, inputsize) {
     }
 
     formData.append("workflowType", process.env.CROMWELL_WORKFLOW_TYPE);
-    const wdlVersion = workflowlist[workflow.name]['wdl_version'];
     if (wdlVersion) {
         logger.debug("wdlVersion:" + wdlVersion)
         formData.append("workflowTypeVersion", wdlVersion);
