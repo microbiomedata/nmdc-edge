@@ -144,7 +144,9 @@ async function generateInputs(proj_home, conf, proj) {
                 const fileCode = path.basename(fq);
                 let name = await common.getRealName(fileCode);
                 const inputFq = inputDir + "/" + name;
-                fs.symlinkSync(fq, inputFq, 'file');
+                if(!fs.existsSync(inputFq)) {
+                    fs.symlinkSync(fq, inputFq, 'file');
+                }
                 inputs.push(inputFq);
             } else {
                 inputs.push(fq);
