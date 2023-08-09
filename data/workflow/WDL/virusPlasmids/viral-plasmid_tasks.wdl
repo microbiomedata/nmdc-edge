@@ -104,10 +104,15 @@ task checkV {
 
 
     command <<<
-
-	   checkv end_to_end ${VIRUS_FASTA} ${OUTDIR_v} -d ${CHECKV_DB} -t ${CPU} && \
-	   rm -rf ${OUTDIR_tmp}
-
+        if [[ ! -s ${VIRUS_FASTA} ]]; then
+            echo "none found" > "${OUTDIR_v}/quality_summary.tsv"
+            echo "none found" > "${OUTDIR_v}/completeness.tsv"
+            echo "none found" > "${OUTDIR_v}/contamination.tsv"
+            echo "none found" > "${OUTDIR_v}/complete_genomes.tsv"
+        else
+	        checkv end_to_end ${VIRUS_FASTA} ${OUTDIR_v} -d ${CHECKV_DB} -t ${CPU} && \
+	        rm -rf ${OUTDIR_tmp}
+        fi
     >>>
     output {
         File quality_summary = "${OUTDIR_v}/quality_summary.tsv"
