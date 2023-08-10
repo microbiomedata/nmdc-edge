@@ -105,6 +105,7 @@ task checkV {
 
     command <<<
         if [[ ! -s ${VIRUS_FASTA} ]]; then
+            mkdir -p ${OUTDIR_v}
             echo "none found" > "${OUTDIR_v}/quality_summary.tsv"
             echo "none found" > "${OUTDIR_v}/completeness.tsv"
             echo "none found" > "${OUTDIR_v}/contamination.tsv"
