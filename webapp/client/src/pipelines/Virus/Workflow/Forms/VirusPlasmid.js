@@ -6,6 +6,7 @@ import {
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
+import { validFile } from '../../../../common/util';
 import FileSelector from '../../../../common/FileSelector';
 import MySelect from '../../../../common/MySelect';
 import { WarningTooltip, MyTooltip } from '../../../../common/MyTooltip';
@@ -109,6 +110,11 @@ export function VirusPlasmid(props) {
     }
 
     const handleFastaFileSelection = (filename, type, index, key) => {
+        if (!validFile(key)) {
+            form.validForm = false;
+            props.setParams(form, props.full_name);
+            return;
+        }
         setState({
             ...form,
             ['input_fasta']: filename, ['input_fasta_display']: key
@@ -179,7 +185,11 @@ export function VirusPlasmid(props) {
                             <MyTooltip id='VirusPlasmid-fasta' text="Input Assembled Fasta File" tooltip={workflowInputTips['virus_plasmid']['fasta_tip']} showTooltip={true} place="right" />
                         </Col>
                         <Col xs="12" md="9">
-                            <FileSelector onChange={handleFastaFileSelection} dataSources={['upload', 'public', 'globus', 'project']}
+                            <FileSelector onChange={handleFastaFileSelection}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http/https url'}
+                                validFile={validFile}
+                                dataSources={['upload', 'public', 'globus', 'project']}
                                 projectScope={'self+shared'}
                                 projectTypes={['Metagenome Pipeline', 'Metagenome Assembly']}
                                 fileTypes={['fasta', 'fa', 'fna', 'contigs', 'fasta.gz', 'fa.gz', 'fna.gz', 'contigs.gz', 'fasta.bz2', 'fa.bz2', 'fna.bz2', 'contigs.bz2', 'fasta.xz', 'fa.xz', 'fna.xz', 'contigs.xz']} fieldname={'input_fasta'} viewFile={false} />

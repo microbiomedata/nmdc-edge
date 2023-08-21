@@ -3,6 +3,7 @@ import {
     Card, CardBody, Col, Row, Collapse,
 } from 'reactstrap';
 
+import { validFile } from '../../../../common/util';
 import FileSelector from '../../../../common/FileSelector';
 
 import { useForm } from "react-hook-form";
@@ -15,7 +16,7 @@ export function MetaAnnotation(props) {
         mode: defaults['form_mode'],
     });
 
-    const [form, setState] = useState({...initialMetaAnnotation});
+    const [form, setState] = useState({ ...initialMetaAnnotation });
     const [collapseParms, setCollapseParms] = useState(true);
     const [doValidation, setDoValidation] = useState(0);
 
@@ -24,6 +25,12 @@ export function MetaAnnotation(props) {
     }
 
     const handleFastaFileSelection = (filename, type, index, key) => {
+        if (!validFile(key)) {
+            form.validForm = false;
+            props.setParams(form, props.full_name);
+            return;
+        }
+
         setState({
             ...form,
             ['input_fasta']: filename, ['input_fasta_display']: key
@@ -67,8 +74,13 @@ export function MetaAnnotation(props) {
                         <Col md="3">
                             <MyTooltip id='MetaAnnotation' text="Input FASTA File" tooltip={workflowInputTips['MetaAnnotation']['fasta_tip']} showTooltip={true} place="right" /></Col>
                         <Col xs="12" md="9">
-                            <FileSelector onChange={handleFastaFileSelection} dataSources={['project', 'upload', 'public', 'globus']}
-                                fileTypes={['fasta', 'fa', 'fna', 'fasta.gz', 'fa.gz', 'fna.gz']} projectTypes={['Metagenome Assembly']} viewFile={false} />
+                            <FileSelector onChange={handleFastaFileSelection}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http/https url'}
+                                validFile={validFile}
+                                dataSources={['project', 'upload', 'public', 'globus']}
+                                fileTypes={['fasta', 'fa', 'fna', 'fasta.gz', 'fa.gz', 'fna.gz']}
+                                projectTypes={['Metagenome Assembly']} viewFile={false} />
 
                             <input type="hidden" name="fasta_hidden" id="fasta_hidden"
                                 value={form['input_fasta']}

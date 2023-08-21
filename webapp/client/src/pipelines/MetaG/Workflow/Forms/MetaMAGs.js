@@ -3,6 +3,7 @@ import {
     Card, CardBody, Col, Row, Collapse,
 } from 'reactstrap';
 
+import { validFile } from '../../../../common/util';
 import FileSelector from '../../../../common/FileSelector';
 import { MyTooltip } from '../../../../common/MyTooltip';
 
@@ -15,7 +16,7 @@ export function MetaMAGs(props) {
         mode: defaults['form_mode'],
     });
 
-    const [form, setState] = useState({...initialMetaMAGs});
+    const [form, setState] = useState({ ...initialMetaMAGs });
     const [collapseParms, setCollapseParms] = useState(true);
     const [doValidation, setDoValidation] = useState(0);
 
@@ -24,6 +25,25 @@ export function MetaMAGs(props) {
     }
 
     const handleFileSelection = (filename, fieldname, index, key) => {
+        if (!validFile(key)) {
+            form.validForm = false;
+            props.setParams(form, props.full_name);
+            return;
+        }
+        setState({
+            ...form,
+            ['input_' + fieldname]: filename, ['input_' + fieldname + '_display']: key
+        });
+        setValue(fieldname + "_hidden", filename, { shouldValidate: true });
+        setDoValidation(doValidation + 1);
+    }
+
+    const handleOptionalFileSelection = (filename, fieldname, index, key) => {
+        if (key && !validFile(key)) {
+            form.validForm = false;
+            props.setParams(form, props.full_name);
+            return;
+        }
         setState({
             ...form,
             ['input_' + fieldname]: filename, ['input_' + fieldname + '_display']: key
@@ -74,9 +94,14 @@ export function MetaMAGs(props) {
                             <MyTooltip id='MetaMAGs-contig' text="Input Contig File" tooltip={workflowInputTips['MetaMAGs']['contig_tip']} showTooltip={true} place="right" />
                         </Col>
                         <Col xs="12" md="9">
-                            <FileSelector onChange={handleFileSelection} dataSources={['project', 'upload', 'public', 'globus']}
-                                projectTypes={['Metagenome Annotation']} 
-                                fileTypes={['fasta', 'fa','faa', 'fasta.gz', 'fa.gz', 'fna', 'fna.gz']} fieldname={'contig'} viewFile={false} />
+                            <FileSelector onChange={handleFileSelection}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http/https url'}
+                                validFile={validFile}
+                                dataSources={['project', 'upload', 'public', 'globus']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['fasta', 'fa', 'faa', 'fasta.gz', 'fa.gz', 'fna', 'fna.gz']}
+                                fieldname={'contig'} viewFile={false} />
 
                             <input type="hidden" name="contig_hidden" id="contig_hidden"
                                 value={form['input_contig']}
@@ -90,7 +115,11 @@ export function MetaMAGs(props) {
                             <MyTooltip id='MetaMAGs-sam' text="Input Sam/Bam File" tooltip={workflowInputTips['MetaMAGs']['sam_tip']} showTooltip={true} place="right" />
                         </Col>
                         <Col xs="12" md="9">
-                            <FileSelector onChange={handleFileSelection} dataSources={['upload', 'public']}
+                            <FileSelector onChange={handleFileSelection}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http/https url'}
+                                validFile={validFile}
+                                dataSources={['upload', 'public']}
                                 fileTypes={['sam', 'bam']} fieldname={'sam'} viewFile={false} />
 
                             <input type="hidden" name="sam_hidden" id="sam_hidden"
@@ -105,8 +134,12 @@ export function MetaMAGs(props) {
                             <MyTooltip id='MetaMAGs-gff' text="Input GFF File" tooltip={workflowInputTips['MetaMAGs']['gff_tip']} showTooltip={true} place="right" />
                         </Col>
                         <Col xs="12" md="9">
-                            <FileSelector onChange={handleFileSelection} dataSources={['project', 'upload', 'public']}
-                                projectTypes={['Metagenome Annotation']} 
+                            <FileSelector onChange={handleFileSelection}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http/https url'}
+                                validFile={validFile}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
                                 fileTypes={['gff']} fieldname={'gff'} viewFile={false} />
 
                             <input type="hidden" name="gff_hidden" id="gff_hidden"
@@ -121,8 +154,12 @@ export function MetaMAGs(props) {
                             <MyTooltip id='MetaMAGs-map' text="Input Map File" tooltip={workflowInputTips['MetaMAGs']['map_tip']} showTooltip={true} place="right" />
                         </Col>
                         <Col xs="12" md="9">
-                            <FileSelector onChange={handleFileSelection} dataSources={['upload', 'public']}
-                                fileTypes={['txt']} fieldname={'map'} viewFile={false} placeholder={'Optional'}
+                            <FileSelector onChange={handleOptionalFileSelection}
+                                enableInput={true}
+                                placeholder={'(Optional) Select a file or enter a file http/https url'}
+                                validFile={validFile}
+                                dataSources={['upload', 'public']}
+                                fileTypes={['txt']} fieldname={'map'} viewFile={false} 
                                 isOptional={true} cleanupInput={true} />
                         </Col>
                     </Row>
