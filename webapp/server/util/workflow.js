@@ -1,4 +1,5 @@
 const fs = require('fs');
+const ufs = require("url-file-size");
 const moment = require('moment');
 const FormData = require('form-data');
 const Papa = require('papaparse');
@@ -440,15 +441,15 @@ function findInputsize(conf) {
         const fastqs = conf.inputs.fastqs;
         if (conf.inputs.interleaved) {
             fastqs.forEach(file => {
-                let stats = fs.statSync(file);
+                let stats = fileStats(file);
                 size += stats.size;
 
             });
         } else {
             fastqs.forEach(paired => {
-                let stats = fs.statSync(paired.fq1);
+                let stats = fileStats(paired.fq1);
                 size += stats.size;
-                stats = fs.statSync(paired.fq2);
+                stats = fileStats(paired.fq2);
                 size += stats.size;
             });
         }
@@ -459,14 +460,14 @@ function findInputsize(conf) {
             const fastqs = conf.workflow.input_fastq.fastqs;
             if (conf.workflow.input_fastq.interleaved) {
                 fastqs.forEach(file => {
-                    let stats = fs.statSync(file);
+                    let stats = fileStats(file);
                     size += stats.size;
                 });
             } else {
                 fastqs.forEach(paired => {
-                    let stats = fs.statSync(paired.fq1);
+                    let stats = fileStats(paired.fq1);
                     size += stats.size;
-                    stats = fs.statSync(paired.fq2);
+                    stats = fileStats(paired.fq2);
                     size += stats.size;
                 });
             }
@@ -474,48 +475,61 @@ function findInputsize(conf) {
         else if (workflow === 'ReadbasedAnalysis') {
             const fastqs = conf.workflow.reads;
             fastqs.forEach(file => {
-                let stats = fs.statSync(file);
+                let stats = fileStats(file);
                 size += stats.size;
             });
         }
         else if (workflow === 'MetaAnnotation') {
-            let stats = fs.statSync(conf.workflow.input_fasta);
+            let stats = fileStats(conf.workflow.input_fasta);
             size += stats.size;
         }
         else if (workflow === 'MetaMAGs') {
-            let stats = fs.statSync(conf.workflow.input_contig);
+            let stats = fileStats(conf.workflow.input_contig);
             size += stats.size;
-            stats = fs.statSync(conf.workflow.input_sam);
+            stats = fileStats(conf.workflow.input_sam);
             size += stats.size;
-            stats = fs.statSync(conf.workflow.input_gff);
+            stats = fileStats(conf.workflow.input_gff);
             size += stats.size;
             if (conf.workflow.input_map) {
-                stats = fs.statSync(conf.workflow.input_map);
+                stats = fileStats(conf.workflow.input_map);
                 size += stats.size;
             }
         }
         else if (workflow === 'EnviroMS') {
             const ins = conf.workflow.file_paths;
             ins.forEach(file => {
-                let stats = fs.statSync(file);
+                let stats = fileStats(file);
                 size += stats.size;
             });
         }
         else if (workflow === 'virus_plasmid') {
             const file = conf.workflow.input_fasta;
-            let stats = fs.statSync(file);
+            let stats = fileStats(file);
             size += stats.size;
         }
         else if (workflow === 'Metaproteomics') {
-            let stats = fs.statSync(conf.workflow.input_raw);
+            let stats = fileStats(conf.workflow.input_raw);
             size += stats.size;
-            stats = fs.statSync(conf.workflow.input_fasta);
+            stats = fileStats(conf.workflow.input_fasta);
             size += stats.size;
-            stats = fs.statSync(conf.workflow.input_gff);
+            stats = fileStats(conf.workflow.input_gff);
             size += stats.size;
         }
     }
     return size;
+}
+
+function fileStats(file) {
+    let stats = {};
+    if (file.toLowerCase().startsWith('http')) {
+        ufs(file)
+            .then(size => stats.size = size)
+            .catch(err => stats.size = 0);
+        stats.size = 0;
+    } else {
+        stats = fs.statSync(file);
+    }
+    return stats;
 }
 
 module.exports = { submitWorkflow, generateWorkflowResult, generatePipelineResult, generateRunStats, findInputsize };

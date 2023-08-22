@@ -38,6 +38,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "randomatic": "^3.1.1",
+    "url-file-size": "^1.0.5-1",
     "validator": "^11.1.0",
     "winston": "^3.3.3",
     "winston-daily-rotate-file": "^4.5.5"
