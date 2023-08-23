@@ -4,13 +4,14 @@ import {
 } from 'reactstrap';
 
 import { MyTooltip } from '../../../../common/MyTooltip';
+import { validFile } from '../../../../common/util';
 import FileSelector from '../../../../common/FileSelector';
 import { Header } from '../../../Common/Forms/CardHeader';
 import { initialMetaMAGs, workflowInputTips } from '../Defaults';
 
 export function MetaMAGs(props) {
 
-    const [form, setState] = useState({...initialMetaMAGs});
+    const [form, setState] = useState({ ...initialMetaMAGs });
     const [collapseParms, setCollapseParms] = useState(false);
     const [doValidation, setDoValidation] = useState(0);
 
@@ -30,6 +31,13 @@ export function MetaMAGs(props) {
     }
 
     const handleFileSelection = (filename, fieldname, index, key) => {
+        if (key && !validFile(key)) {
+            form.validForm = false;
+            props.setParams(form, props.name);
+            return;
+        } 
+
+        form.validForm = true;
         setState({
             ...form,
             ['input_' + fieldname]: filename, ['input_' + fieldname + '_display']: key
@@ -67,8 +75,12 @@ export function MetaMAGs(props) {
                             <MyTooltip id='Metagenome-map' text="Input Map File" tooltip={workflowInputTips['MetaMAGs']['map_tip']} showTooltip={true} place="right" />
                         </Col>
                         <Col xs="12" md="9">
-                            <FileSelector onChange={handleFileSelection} dataSources={['project', 'upload', 'public']}
-                                fileTypes={['txt', 'tsv']} fieldname={'map'} viewFile={false} placeholder={'Optional'}
+                            <FileSelector onChange={handleFileSelection}
+                                enableInput={true}
+                                placeholder={'(Optional) Select a file or enter a file http/https url'}
+                                validFile={validFile}
+                                dataSources={['project', 'upload', 'public']}
+                                fileTypes={['txt', 'tsv']} fieldname={'map'} viewFile={false}
                                 isOptional={true} cleanupInput={true} />
 
                         </Col>
@@ -79,8 +91,12 @@ export function MetaMAGs(props) {
                             <MyTooltip id='Metagenome-domain' text="Input Domain File" tooltip={workflowInputTips['MetaMAGs']['domain_tip']} showTooltip={true} place="right" />
                         </Col>
                         <Col xs="12" md="9">
-                            <FileSelector onChange={handleFileSelection} dataSources={['project', 'upload', 'public']}
-                                fileTypes={['txt', 'tsv']} fieldname={'domain'} viewFile={false} placeholder={'Optional'}
+                            <FileSelector onChange={handleFileSelection}
+                                enableInput={true}
+                                placeholder={'(Optional) Select a file or enter a file http/https url'}
+                                validFile={validFile}
+                                dataSources={['project', 'upload', 'public']}
+                                fileTypes={['txt', 'tsv']} fieldname={'domain'} viewFile={false}
                                 isOptional={true} cleanupInput={true} />
 
                         </Col>

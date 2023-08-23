@@ -3,6 +3,7 @@ import {
     Button, ButtonGroup, Col, Row,
 } from 'reactstrap';
 
+import { validFile } from '../../../common/util';
 import FileSelector from '../../../common/FileSelector';
 import { WarningTooltip } from '../../../common/MyTooltip';
 import { useForm, useFieldArray, Controller } from "react-hook-form";
@@ -49,6 +50,11 @@ export function FastqInput(props) {
     }
 
     const handleFastqFileSelection = (path, type, index, key) => {
+        if(!validFile(key)) {
+            form.validForm = false;
+            props.setParams(form, props.name);
+            return;
+        }
         if (type === 'fastqPaired1') {
             if (form.fastqPaired[index]) {
                 form.fastqPaired[index].fq1 = path;
@@ -200,6 +206,9 @@ export function FastqInput(props) {
                                     <Controller
                                         render={({ field: { ref, ...rest }, fieldState }) => (
                                             <FileSelector {...rest} {...fieldState}
+                                                enableInput={true}
+                                                placeholder={'Select a file or enter a file http/https url'}
+                                                validFile={validFile}
                                                 dataSources={props.dataSources ? props.dataSources : ['project', 'upload', 'public', 'globus']}
                                                 fileTypes={['fastq', 'fq', 'fastq.gz', 'fq.gz']}
                                                 projectTypes={props.projectTypes ? props.projectTypes : null}
@@ -270,6 +279,9 @@ export function FastqInput(props) {
                                     <Controller
                                         render={({ field: { ref, ...rest }, fieldState }) => (
                                             <FileSelector {...rest} {...fieldState}
+                                                enableInput={true}
+                                                placeholder={'Select a file or enter a file http/https url'}
+                                                validFile={validFile}
                                                 dataSources={props.dataSources ? props.dataSources : ['project', 'upload', 'public', 'globus']}
                                                 fileTypes={['fastq', 'fq', 'fastq.gz', 'fq.gz']} viewFile={false}
                                                 projectTypes={props.projectTypes ? props.projectTypes : null}
@@ -292,6 +304,9 @@ export function FastqInput(props) {
                                     <Controller
                                         render={({ field: { ref, ...rest }, fieldState }) => (
                                             <FileSelector {...rest} {...fieldState}
+                                                enableInput={true}
+                                                placeholder={'Select a file or enter a file http/https url'}
+                                                validFile={validFile}
                                                 dataSources={props.dataSources ? props.dataSources : ['project', 'upload', 'public', 'globus']}
                                                 fileTypes={['fastq', 'fq', 'fastq.gz', 'fq.gz']} viewFile={false}
                                                 projectTypes={props.projectTypes ? props.projectTypes : null}

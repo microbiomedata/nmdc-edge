@@ -13,7 +13,7 @@ export const workflowOptions = [
 
 export const workflowInputTips = {
     EnviroMS: {
-        txt_tip: 'Generic mass list in profile and centroid mode (include all delimiters types and Excel formats)'
+        txt_tip: 'Generic mass list in profile and centroid mode (include all delimiters types and Excel formats)<br />Note: The file size limit for the URL input is 10GB'
     }
 }
 

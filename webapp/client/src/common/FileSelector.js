@@ -176,7 +176,7 @@ export const FileSelector = (props) => {
                 handleSelectedFile={handleSelectedFile} toggle={toggleFBModal} />
             <FileViewerDialog type={props.viewFileType} isOpen={view_file} toggle={e => setView_file(!view_file)} title={file_path} src={file_content} />
             <InputGroup>
-                <Input style={(props.isOptional || file) ? inputStyle : inputStyleWarning} type="text" onChange={(e) => handleUserInputFile(e.target.value)}
+                <Input style={((props.isOptional && !file) || (props.validFile? props.validFile(file): file)) ? inputStyle : inputStyleWarning} type="text" onChange={(e) => handleUserInputFile(e.target.value)}
                     placeholder={props.placeholder ? props.placeholder : "Select a file"} value={file || ""}
                     disabled={disable_input} />
                 <InputGroupAddon addonType="append">

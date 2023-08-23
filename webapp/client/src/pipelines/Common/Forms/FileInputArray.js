@@ -3,6 +3,7 @@ import {
     Button, Col, Row,
 } from 'reactstrap';
 
+import { validFile } from '../../../common/util';
 import FileSelector from '../../../common/FileSelector';
 import { WarningTooltip } from '../../../common/MyTooltip';
 import { useForm, useFieldArray, Controller } from "react-hook-form";
@@ -21,7 +22,7 @@ export function FileInputArray(props) {
     );
 
     //need initial array for workflow selected more than once, otherwise workflows will share same inputs
-    const [form, setState] = useState({...initialFileInputArray});
+    const [form, setState] = useState({ ...initialFileInputArray });
     const [doValidation, setDoValidation] = useState(0);
 
     const resetFileInputArray = () => {
@@ -30,6 +31,11 @@ export function FileInputArray(props) {
     }
 
     const handleInputFileSelection = (path, type, index, key) => {
+        if(!validFile(key)) {
+            form.validForm = false;
+            props.setParams(form, props.name);
+            return;
+        }
         form.inputFiles[index] = path;
         form.inputFilesDisplay[index] = key;
         setValue("fileInput" + index + "_hidden", path, { shouldValidate: true });
@@ -120,7 +126,10 @@ export function FileInputArray(props) {
                             <Controller
                                 render={({ field: { ref, ...rest }, fieldState }) => (
                                     <FileSelector {...rest} {...fieldState}
-                                        dataSources={props.dataSources? props.dataSources: ['upload', 'public', 'globus']}
+                                        enableInput={true}
+                                        placeholder={'Select a file or enter a file http/https url'}
+                                        validFile={validFile}
+                                        dataSources={props.dataSources ? props.dataSources : ['upload', 'public', 'globus']}
                                         fileTypes={props.fileTypes} viewFile={false}
                                         fieldname={'fileInput'} index={index} onChange={handleInputFileSelection}
                                     />

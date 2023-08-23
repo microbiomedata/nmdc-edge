@@ -6,6 +6,7 @@ import {
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
+import { validFile } from '../../../../common/util';
 import FileSelector from '../../../../common/FileSelector';
 import { MyTooltip } from '../../../../common/MyTooltip';
 import { useForm } from "react-hook-form";
@@ -46,6 +47,11 @@ export function Metaproteomics(props) {
     }
 
     const handleRawFileSelection = (filename, type, index, key) => {
+        if (!validFile(key)) {
+            form.validForm = false;
+            props.setParams(form, props.full_name);
+            return;
+        }
         setState({
             ...form,
             'input_raw': filename, 'input_raw_display': key
@@ -55,6 +61,11 @@ export function Metaproteomics(props) {
     }
 
     const handleFastaFileSelection = (filename, type, index, key) => {
+        if (!validFile(key)) {
+            form.validForm = false;
+            props.setParams(form, props.full_name);
+            return;
+        }
         const gffFilename = filename.replace('_proteins.faa', '_functional_annotation.gff');
         const gffKey = key.replace('_proteins.faa', '_functional_annotation.gff');
         setState({
@@ -102,7 +113,11 @@ export function Metaproteomics(props) {
                             <MyTooltip id='MetaP-raw' text="Input Raw File" tooltip={workflowInputTips['Metaproteomics']['raw_tip']} showTooltip={true} place="right" />
                         </Col>
                         <Col xs="12" md="9">
-                            <FileSelector onChange={handleRawFileSelection} dataSources={['upload', 'public', 'globus']}
+                            <FileSelector onChange={handleRawFileSelection}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http/https url'}
+                                validFile={validFile}
+                                dataSources={['upload', 'public', 'globus']}
                                 fileTypes={['raw', 'raw.gz']} fieldname={'input_raw'} viewFile={false} />
 
                             <input type="hidden" name="raw_hidden" id="raw_hidden"
@@ -116,7 +131,11 @@ export function Metaproteomics(props) {
                             <MyTooltip id='MetaP-fasta' text="Input Fasta File" tooltip={workflowInputTips['Metaproteomics']['fasta_tip']} showTooltip={true} place="right" />
                         </Col>
                         <Col xs="12" md="9">
-                            <FileSelector onChange={handleFastaFileSelection} dataSources={['upload', 'public', 'globus', 'project']}
+                            <FileSelector onChange={handleFastaFileSelection}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http/https url'}
+                                validFile={validFile}
+                                dataSources={['upload', 'public', 'globus', 'project']}
                                 endsWith={true} fileTypes={['_proteins.faa']} fieldname={'input_fasta'} viewFile={false}
                                 projectScope={'self+shared'}
                                 projectTypes={['Metagenome Pipeline', 'Metagenome Annotation']} />

@@ -17,22 +17,22 @@ export const workflowOptions = [
 
 export const workflowInputTips = {
     ReadsQC: {
-        fastq_tip: 'ReadsQC requires paired-end Illumina data in FASTQ format as the input; the file can be interleaved and can becompressed. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz'
+        fastq_tip: 'ReadsQC requires paired-end Illumina data in FASTQ format as the input; the file can be interleaved and can becompressed. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
     },
     ReadbasedAnalysis: {
-        fastq_tip: 'Input is single- or paired-end sequencing files (This can be the output from ReadsQC Workflow.) <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz'
+        fastq_tip: 'Input is single- or paired-end sequencing files (This can be the output from ReadsQC Workflow.) <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
     },
     MetaAssembly: {
-        fastq_tip: 'Metagenome Assembly requires paired-end Illumina data as an FASTQ file. This input can be the output from the ReadsQC workflow. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz'
+        fastq_tip: 'Metagenome Assembly requires paired-end Illumina data as an FASTQ file. This input can be the output from the ReadsQC workflow. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
     },
     MetaAnnotation: {
-        fasta_tip: 'Metagenome Annotation requires a .fasta file of assembled contigs. This input can be the output of the Metagenome Assembly workflow. <br/>Acceptable file formats: .fasta, .fa, .fna'
+        fasta_tip: 'Metagenome Annotation requires a .fasta file of assembled contigs. This input can be the output of the Metagenome Assembly workflow. <br/>Acceptable file formats: .fasta, .fa, .fna<br />Note: The file size limit for the URL input is 10GB'
     },
     MetaMAGs: {
-        contig_tip: 'Input contig',
-        sam_tip: 'Input sam or bam file',
-        gff_tip: 'input gff',
-        map_tip: 'input map'
+        contig_tip: 'Input contig<br />Note: The file size limit for the URL input is 10GB',
+        sam_tip: 'Input sam or bam file<br />Note: The file size limit for the URL input is 10GB',
+        gff_tip: 'input gff<br />Note: The file size limit for the URL input is 10GB',
+        map_tip: 'input map<br />Note: The file size limit for the URL input is 10GB'
     },
 }
 

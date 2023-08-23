@@ -13,7 +13,7 @@ export const workflowOptions = [
 
 export const workflowInputTips = {
     'virus_plasmid': {
-        fasta_tip: 'virus_plasmid requires an assembled fasta file for input. The workflow will not work correctly with raw reads.',
+        fasta_tip: 'virus_plasmid requires an assembled fasta file for input. The workflow will not work correctly with raw reads.<br />Note: The file size limit for the URL input is 10GB',
         min_score: 'Minimum score to flag a sequence as virus or plasmid.',
         min_plasmid_marker_enrichment: 'Minimum allowed value for the plasmid marker enrichment score.',
         min_virus_marker_enrichment: 'Minimum allowed value for the virus marker enrichment score.',
