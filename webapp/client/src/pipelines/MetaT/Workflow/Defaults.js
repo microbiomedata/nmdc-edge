@@ -13,7 +13,7 @@ export const workflowOptions = [
 
 export const workflowInputTips = {
     Metatranscriptome: {
-        fastq_tip: 'Metatranscriptome requires interleaved data in FASTQ format as the input; the file can be compressed. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz'
+        fastq_tip: 'Metatranscriptome requires interleaved data in FASTQ format as the input; the file can be compressed. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
     },
 }
 

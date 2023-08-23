@@ -13,9 +13,9 @@ export const workflowOptions = [
 
 export const workflowInputTips = {
     'Metaproteomics': {
-        raw_tip: 'RAW MS/MS file, should correspond to fastq input to Metagenome workflow',
-        fasta_tip: 'Fasta file, output (nmdc_id_proteins.faa) of a MetagenomeAnnotation workflow',
-        gff_tip: 'GFF file, output (nmdc_id_functional_annotation.gff) of a MetagenomeAnnotation workflow',
+        raw_tip: 'RAW MS/MS file, should correspond to fastq input to Metagenome workflow<br />Note: The file size limit for the URL input is 10GB',
+        fasta_tip: 'Fasta file, output (nmdc_id_proteins.faa) of a MetagenomeAnnotation workflow<br />Note: The file size limit for the URL input is 10GB',
+        gff_tip: 'GFF file, output (nmdc_id_functional_annotation.gff) of a MetagenomeAnnotation workflow<br />Note: The file size limit for the URL input is 10GB',
         thermo_raw :'Does mass spec file come from ThermoFisher instrument?',
         qvalue_threshold: 'Q value for analyzing peptides of interest',
         study: 'name of study from sequencing project, if none put in any name'
