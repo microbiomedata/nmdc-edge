@@ -523,12 +523,18 @@ function fileStats(file) {
     let stats = {};
     if (file.toLowerCase().startsWith('http')) {
         ufs(file)
-            .then(size => stats.size = size)
-            .catch(err => stats.size = 0);
+            .then(size => {
+                stats.size = size;
+                return stats;
+            })
+            .catch(err => {
+                stats.size = 0;
+                return stats;
+            });
     } else {
         stats = fs.statSync(file);
+        return stats;
     }
-    return stats;
 }
 
 module.exports = { submitWorkflow, generateWorkflowResult, generatePipelineResult, generateRunStats, findInputsize };
