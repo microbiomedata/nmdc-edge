@@ -525,7 +525,6 @@ function fileStats(file) {
         ufs(file)
             .then(size => stats.size = size)
             .catch(err => stats.size = 0);
-        stats.size = 0;
     } else {
         stats = fs.statSync(file);
     }
