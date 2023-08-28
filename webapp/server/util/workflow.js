@@ -440,18 +440,18 @@ async function findInputsize(conf) {
     if (pipeline === 'Metagenome Pipeline') {
         const fastqs = conf.inputs.fastqs;
         if (conf.inputs.interleaved) {
-            fastqs.forEach(async file => {
+            await Promise.all(fastqs.map(async (file) => {
                 let stats = await fileStats(file);
                 size += stats.size;
 
-            });
+            }));
         } else {
-            fastqs.forEach(async paired => {
+            await Promise.all(fastqs.map(async (paired) => {
                 let stats = await fileStats(paired.fq1);
                 size += stats.size;
                 stats = await fileStats(paired.fq2);
                 size += stats.size;
-            });
+            }));
         }
 
     } else {
@@ -459,25 +459,25 @@ async function findInputsize(conf) {
         if (workflow === 'ReadsQC' || workflow === 'MetaAssembly' || workflow === 'Metatranscriptome') {
             const fastqs = conf.workflow.input_fastq.fastqs;
             if (conf.workflow.input_fastq.interleaved) {
-                fastqs.forEach(async file => {
+                await Promise.all(fastqs.map(async (file) => {
                     let stats = await fileStats(file);
                     size += stats.size;
-                });
+                }));
             } else {
-                fastqs.forEach(async paired => {
+                await Promise.all(fastqs.map(async (paired) => {
                     let stats = await fileStats(paired.fq1);
                     size += stats.size;
                     stats = await fileStats(paired.fq2);
                     size += stats.size;
-                });
+                }));
             }
         }
         else if (workflow === 'ReadbasedAnalysis') {
             const fastqs = conf.workflow.reads;
-            fastqs.forEach(async file => {
+            await Promise.all(fastqs.map(async (file) => {
                 let stats = await fileStats(file);
                 size += stats.size;
-            });
+            }));
         }
         else if (workflow === 'MetaAnnotation') {
             let stats = await fileStats(conf.workflow.input_fasta);
@@ -497,10 +497,10 @@ async function findInputsize(conf) {
         }
         else if (workflow === 'EnviroMS') {
             const ins = conf.workflow.file_paths;
-            ins.forEach(async file => {
+            await Promise.all(ins.map(async (file) => {
                 let stats = await fileStats(file);
                 size += stats.size;
-            });
+            }));
         }
         else if (workflow === 'virus_plasmid') {
             const file = conf.workflow.input_fasta;
@@ -516,17 +516,18 @@ async function findInputsize(conf) {
             size += stats.size;
         }
     }
+    //console.log("file size", size)
     return size;
 }
 
 async function fileStats(file) {
-  if (file.toLowerCase().startsWith('http')) {
-    return await ufs(file)
-      .then(size => { return { size: size } })
-      .catch(err => { return { size: 0 } });
-  } else {
-    return fs.statSync(file);
-  }
+    if (file.toLowerCase().startsWith('http')) {
+        return await ufs(file)
+            .then(size => { return { size: size } })
+            .catch(err => { return { size: 0 } });
+    } else {
+        return fs.statSync(file);
+    }
 }
 
 module.exports = { submitWorkflow, generateWorkflowResult, generatePipelineResult, generateRunStats, findInputsize };
