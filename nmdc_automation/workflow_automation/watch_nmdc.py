@@ -19,15 +19,15 @@ logger = logging.getLogger(__name__)
 class Watcher:
     def __init__(self, site_configuration_file):
         self._POLL = 20
-        self._MAX_FAILS = 3
+        self._MAX_FAILS = 4
         self.should_skip_claim = False
         self.config = config(site_configuration_file)
-        self.client_id = self.config.conf['credentials']['client_id']
-        self.client_secret = self.config.conf['credentials']['client_secret']
-        self.cromurl = self.config.conf['cromwell']['cromwell_url']
-        self.state_file = self.config.conf['state']['agent_state']
+        self.client_id = self.config.conf["credentials"]["client_id"]
+        self.client_secret = self.config.conf["credentials"]["client_secret"]
+        self.cromurl = self.config.conf["cromwell"]["cromwell_url"]
+        self.state_file = self.config.conf["state"]["agent_state"]
         self.stage_dir = self.config.get_stage_dir()
-        self.raw_dir = self.config.conf['directories']['raw_dir']
+        self.raw_dir = self.config.conf["directories"]["raw_dir"]
         self.jobs = []
         self.runtime_api = nmdcapi()
         self._ALLOWED = self.config._generate_allowed_workflows()
@@ -45,14 +45,14 @@ class Watcher:
     def _load_state_file(self):
         if not exists(self.state_file):
             return
-        with open(self.state_file, 'r') as f:
+        with open(self.state_file, "r") as f:
             return loads(f.read())
 
     def _find_jobs(self, data: dict, nocheck: bool):
         new_job_list = []
         seen = {}
-        for job in data['jobs']:
-            job_id = job['nmdc_jobid']
+        for job in data["jobs"]:
+            job_id = job["nmdc_jobid"]
             if job_id in seen:
                 continue
             job_record = wfjob(self.config.conf, state=job, nocheck=nocheck)
@@ -60,11 +60,12 @@ class Watcher:
             seen[job_id] = True
 
         return new_job_list
+
     #################################
 
     def job_checkpoint(self):
         jobs = [job.get_state() for job in self.jobs]
-        data = {'jobs': jobs}
+        data = {"jobs": jobs}
         with open(self.state_file, "w") as f:
             json.dump(data, f, indent=2)
 
@@ -80,16 +81,15 @@ class Watcher:
             try:
                 self.cycle()
             except (IOError, ValueError, TypeError, AttributeError) as e:
-                logger.exception(f"Error occurred during cycle: {e}",
-                                 exc_info=True)
+                logger.exception(f"Error occurred during cycle: {e}", exc_info=True)
             sleep(self._POLL)
 
     def find_job_by_opid(self, opid):
         return next((job for job in self.jobs if job.opid == opid), None)
 
     def submit(self, new_job, opid, force=False):
-        common_workflow_id = new_job['workflow']['id']
-        if 'object_id_latest' in new_job['config']:
+        common_workflow_id = new_job["workflow"]["id"]
+        if "object_id_latest" in new_job["config"]:
             logger.warning("Old record. Skipping.")
             return
         self.create_or_use_existing_job(new_job, opid, common_workflow_id)
@@ -104,12 +104,14 @@ class Watcher:
         else:
             logging.debug("NEW JOB")
             logging.debug(new_job)
-            job = wfjob(site_config=self.config.conf,
-                        typ=common_workflow_id,
-                        nmdc_jobid=new_job['id'],
-                        workflow_config=new_job['config'],
-                        opid=opid,
-                        activity_id=new_job['config']['activity_id'])
+            job = wfjob(
+                site_config=self.config.conf,
+                typ=common_workflow_id,
+                nmdc_jobid=new_job["id"],
+                workflow_config=new_job["config"],
+                opid=opid,
+                activity_id=new_job["config"]["activity_id"],
+            )
             self.jobs.append(job)
 
     def refresh_remote_jobs(self):
@@ -121,23 +123,23 @@ class Watcher:
         jobs = self.runtime_api.list_jobs(filt=filt)
         logging.debug(f"Found {len(jobs)} jobs")
         known = set(job.nmdc_jobid for job in self.jobs)
-        return [job for job in jobs if job['id'] not in known]
+        return [job for job in jobs if job["id"] not in known]
 
     def claim_jobs(self):
         for job in self.refresh_remote_jobs():
-            job_id = job['id']
-            if job.get('claims') and len(job.get('claims')) > 0:
+            job_id = job["id"]
+            if job.get("claims") and len(job.get("claims")) > 0:
                 continue
             logger.debug(f"Trying to claim: {job_id}")
 
             # Claim job
             claim = self.runtime_api.claim_job(job_id)
-            if not claim['claimed']:
+            if not claim["claimed"]:
                 logger.debug(claim)
-                self.submit_and_checkpoint_job(job, claim['id'])
+                self.submit_and_checkpoint_job(job, claim["id"])
             else:
                 # Previously claimed
-                opid = claim['detail']['id']
+                opid = claim["detail"]["id"]
                 logger.info("Previously claimed.")
                 self.submit_and_checkpoint_job(job, opid)
 
@@ -146,7 +148,7 @@ class Watcher:
         self.job_checkpoint()
 
     def _get_url(self, informed_by, act_id, fname):
-        root = self.config.conf['nmdc']['url_root']
+        root = self.config.conf["nmdc"]["url_root"]
         return f"{root}/{informed_by}/{act_id}/{fname}"
 
     def _get_output_dir(self, informed_by, act_id):
@@ -164,13 +166,12 @@ class Watcher:
         outdir = self._get_output_dir(informed_by, act_id)
         schema = NmdcSchema()
 
-        output_ids = self.generate_data_objects(job, metadata['outputs'],
-                                                outdir, informed_by, act_id,
-                                                schema)
-        activity_inputs = [dobj['id'] for dobj in job.input_data_objects]
+        output_ids = self.generate_data_objects(
+            job, metadata["outputs"], outdir, informed_by, act_id, schema
+        )
+        activity_inputs = [dobj["id"] for dobj in job.input_data_objects]
 
-        self.create_activity_record(job, act_id, activity_inputs,
-                                    output_ids, schema)
+        self.create_activity_record(job, act_id, activity_inputs, output_ids, schema)
 
         self.write_metadata_if_not_exists(metadata, outdir)
 
@@ -184,10 +185,9 @@ class Watcher:
 
         return resp
 
-    def generate_data_objects(self, job, job_outs, outdir,
-                              informed_by, act_id, schema):
+    def generate_data_objects(self, job, job_outs, outdir, informed_by, act_id, schema):
         output_ids = []
-        prefix = job.workflow_config['input_prefix']
+        prefix = job.workflow_config["input_prefix"]
 
         for product_record in job.outputs:
             outkey = f"{prefix}.{product_record['output']}"
@@ -199,35 +199,38 @@ class Watcher:
             md5 = _md5(full_name)
             file_url = self._get_url(informed_by, act_id, file_name)
             id = product_record["id"]
-            schema.make_data_object(name=file_name,
-                                    full_file_name=full_name,
-                                    file_url=file_url,
-                                    data_object_type=product_record['data_object_type'],
-                                    dobj_id=product_record['id'],
-                                    md5_sum=md5,
-                                    description=product_record['description'],
-                                    omics_id=act_id)
+            schema.make_data_object(
+                name=file_name,
+                full_file_name=full_name,
+                file_url=file_url,
+                data_object_type=product_record["data_object_type"],
+                dobj_id=product_record["id"],
+                md5_sum=md5,
+                description=product_record["description"],
+                omics_id=act_id,
+            )
 
             output_ids.append(id)
 
         return output_ids
 
-    def create_activity_record(self, job, act_id, activity_inputs,
-                               output_ids, schema):
+    def create_activity_record(self, job, act_id, activity_inputs, output_ids, schema):
         activity_type = job.activity_templ["type"]
         name = job.activity_templ["name"].replace("{id}", act_id)
-        omic_id = job.workflow_config['was_informed_by']
-        resource = self.config.conf['site']['resource']
-        schema.create_activity_record(activity_record=activity_type,
-                                      activity_name=name,
-                                      workflow=job.workflow_config,
-                                      activity_id=act_id,
-                                      resource=resource,
-                                      has_inputs_list=activity_inputs,
-                                      has_output_list=output_ids,
-                                      omic_id=omic_id,
-                                      start_time=job.start,
-                                      end_time=job.end)
+        omic_id = job.workflow_config["was_informed_by"]
+        resource = self.config.conf["site"]["resource"]
+        schema.create_activity_record(
+            activity_record=activity_type,
+            activity_name=name,
+            workflow=job.workflow_config,
+            activity_id=act_id,
+            resource=resource,
+            has_inputs_list=activity_inputs,
+            has_output_list=output_ids,
+            omic_id=omic_id,
+            start_time=job.start,
+            end_time=job.end,
+        )
 
     def write_metadata_if_not_exists(self, metadata, outdir):
         metadata_filepath = os.path.join(outdir, "metadata.json")
@@ -239,9 +242,9 @@ class Watcher:
         for job in self.jobs:
             if not job.done:
                 status = job.check_status()
-                if status == 'Succeeded' and job.opid:
+                if status == "Succeeded" and job.opid:
                     self.process_successful_job(job)
-                elif status == 'Failed' and job.opid:
+                elif status == "Failed" and job.opid:
                     self.process_failed_job(job)
 
         self.job_checkpoint()
