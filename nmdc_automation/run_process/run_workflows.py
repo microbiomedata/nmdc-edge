@@ -3,7 +3,7 @@ from typing import List
 import logging
 import os
 import sys
-from nmdc_automation.workflow_automation.watch_nmdc_dev import Watcher
+from nmdc_automation.workflow_automation.watch_nmdc import Watcher
 
 
 
