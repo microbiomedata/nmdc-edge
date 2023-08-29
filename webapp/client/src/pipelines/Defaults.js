@@ -3,7 +3,7 @@ export const intro = {
     name: 'NMDC EDGE Introduction/Quick Start',
     pdf: '/docs/help/quickStart.pdf',
     video: '/docs/videos/nmdc-edge.mp4',
-    bgcolor: '#6A9E5D'
+        bgcolor: '#4F3C80'
 }
 
 export const pipelinelist = {
@@ -32,7 +32,7 @@ export const pipelinelist = {
             'Metagenome Annotation': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/4_MetaGAnnotation_index.html',
             'Metagenome MAGs': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/5_MAG_index.html'
         },
-        bgcolor: '#40AAE8'
+        bgcolor: '#4F3C80'
     },
     MetaT: {
         title: 'Metatranscriptomics',
@@ -48,16 +48,6 @@ export const pipelinelist = {
         },
         bgcolor: '#4F3C80'
     },
-    MetaP: {
-        title: 'Metaproteomics',
-        name: 'Metaproteomics',
-        bgcolor: '#D8322D'
-    },
-    MetaB: {
-        title: 'Metabolomics',
-        name: 'Metabolomics',
-        bgcolor: '#ED5339'
-    },
     OrganicM: {
         title: 'Organic Matter',
         name: 'Organic Matter',
@@ -67,7 +57,22 @@ export const pipelinelist = {
         doclink: {
             'EnviroMS': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/9_NOM_index.html#',
         },
-        bgcolor: '#EA8339'
+        bgcolor: '#4F3C80'
     },
-
+    geNomad: {
+        title: 'Viruses and Plasmids',
+        name: 'Viruses and Plasmids',
+        video: {
+            'Viruses and Plasmids': '/docs/videos/Viruses_plasmids_tutorial_v1.mp4',
+        },
+        pdf: {
+            'Viruses and Plasmids': '/docs/help/geNomad.pdf',
+        },
+        bgcolor: '#4F3C80'
+    },
+    MetaP: {
+        title: 'Metaproteomics',
+        name: 'Metaproteomics',
+        bgcolor: '#4F3C80'
+    },
 }
