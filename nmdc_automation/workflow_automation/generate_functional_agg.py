@@ -48,23 +48,19 @@ def get_kegg_counts(id, url):
             for line in resp.iter_lines():
                 do_line(line.decode(), cts)
     for func, ct in cts.items():
-        rec = {
-               'metagenome_annotation_id': id,
-               'gene_function_id': func,
-               'count': ct
-              }
+        rec = {"metagenome_annotation_id": id, "gene_function_id": func, "count": ct}
         rows.append(rec)
-    print(f' - {len(rows)} terms')
+    print(f" - {len(rows)} terms")
     return rows
 
 
 def find_anno(nmdc, dos):
     for doid in dos:
         do = nmdc.data_object_set.find_one({"id": doid})
-        if 'data_object_type' not in do:
+        if "data_object_type" not in do:
             continue
-        if do['data_object_type'] == 'Functional Annotation GFF':
-            return do['url']
+        if do["data_object_type"] == "Functional Annotation GFF":
+            return do["url"]
     return None
 
 
@@ -74,9 +70,9 @@ if __name__ == "__main__":
     acts = []
     for actrec in nmdc.metagenome_annotation_activity_set.find({}):
         # New annotations should have this
-        if 'part_of' not in actrec:
+        if "part_of" not in actrec:
             continue
-        act = actrec['part_of'][0]
+        act = actrec["part_of"][0]
         acts.append(act)
         act_recs[act] = actrec
 
@@ -87,16 +83,16 @@ if __name__ == "__main__":
         f = {"metagenome_annotation_id": act}
         if act in done:
             continue
-        url = find_anno(nmdc, act_recs[act]['has_output'])
+        url = find_anno(nmdc, act_recs[act]["has_output"])
         url = url.replace("data/nmdc_mta", "data/nmdc:mta", 1)
         print(f"{act}: {url}")
         rows = get_kegg_counts(act, url)
 
         if len(rows) > 0:
-            print(' - %s' % (str(rows[0])))
+            print(" - %s" % (str(rows[0])))
             nmdc.functional_annotation_agg.insert_many(rows)
         else:
-            print(f' - No rows for {act}')
+            print(f" - No rows for {act}")
 
 # Schema
 #

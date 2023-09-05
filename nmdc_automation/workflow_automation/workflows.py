@@ -1,5 +1,6 @@
 from __future__ import annotations
 from yaml import load
+
 try:
     from yaml import CLoader as Loader
 except ImportError:
@@ -23,26 +24,27 @@ def load_workflows(yaml_file) -> list[Workflow]:
     return workflows
 
 
-class Workflow():
+class Workflow:
     """
     Workflow object class
     """
 
-    _FIELDS = ["Name",
-               "Type",
-               "Enabled",
-               "Git_repo",
-               "Version",
-               "WDL",
-               "Collection",
-               "Predecessors",
-               "Input_prefix",
-               "Inputs",
-               "Activity",
-               "Filter Input Objects",
-               "Filter Output Objects",
-               "Outputs"
-               ]
+    _FIELDS = [
+        "Name",
+        "Type",
+        "Enabled",
+        "Git_repo",
+        "Version",
+        "WDL",
+        "Collection",
+        "Predecessors",
+        "Input_prefix",
+        "Inputs",
+        "Activity",
+        "Filter Input Objects",
+        "Filter Output Objects",
+        "Outputs",
+    ]
 
     def __init__(self, wf: dict):
         """

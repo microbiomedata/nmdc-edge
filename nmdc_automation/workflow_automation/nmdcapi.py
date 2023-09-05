@@ -12,7 +12,7 @@ import logging
 
 
 def _get_sha256(fn):
-    hashfn = fn + '.sha256'
+    hashfn = fn + ".sha256"
     if os.path.exists(hashfn):
         with open(hashfn) as f:
             sha = f.read().rstrip()
@@ -24,13 +24,13 @@ def _get_sha256(fn):
             for byte_block in iter(lambda: f.read(1048576), b""):
                 shahash.update(byte_block)
         sha = shahash.hexdigest()
-        with open(hashfn, 'w') as f:
+        with open(hashfn, "w") as f:
             f.write(sha)
-            f.write('\n')
+            f.write("\n")
     return sha
 
 
-class nmdcapi():
+class nmdcapi:
     token = None
     expires = 0
     _base_url = None
@@ -39,8 +39,8 @@ class nmdcapi():
 
     def __init__(self):
         self._base_url = os.environ.get("NMDC_API_URL")
-        if self._base_url[-1] != '/':
-            self._base_url += '/'
+        if self._base_url[-1] != "/":
+            self._base_url += "/"
         self.client_id = os.environ.get("NMDC_CLIENT_ID")
         self.client_secret = os.environ.get("NMDC_CLIENT_SECRET")
         # cfile = os.path.join(os.environ['HOME'], '.nmdc-creds.json')
@@ -58,6 +58,7 @@ class nmdcapi():
             if not self.token or self.expires + 60 > time():
                 self.get_token()
             return func(self, *args, **kwargs)
+
         return _get_token
 
     def get_token(self):
@@ -65,25 +66,25 @@ class nmdcapi():
         Get a token using a client id/secret.
         """
         h = {
-                'accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
+            "accept": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+        }
         data = {
-                'grant_type': 'client_credentials',
-                'client_id': self.client_id,
-                'client_secret': self.client_secret
-                }
-        url = self._base_url + 'token'
+            "grant_type": "client_credentials",
+            "client_id": self.client_id,
+            "client_secret": self.client_secret,
+        }
+        url = self._base_url + "token"
         resp = requests.post(url, headers=h, data=data).json()
-        expt = resp['expires']
-        self.expires = time() + expt['minutes'] * 60
+        expt = resp["expires"]
+        self.expires = time() + expt["minutes"] * 60
 
-        self.token = resp['access_token']
+        self.token = resp["access_token"]
         self.header = {
-                       'accept': 'application/json',
-                       'Content-Type': 'application/json',
-                       'Authorization': 'Bearer %s' % (self.token)
-                       }
+            "accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": "Bearer %s" % (self.token),
+        }
         return resp
 
     def get_header(self):
@@ -92,25 +93,15 @@ class nmdcapi():
     @refresh_token
     def minter(self, id_type, informed_by=None):
         url = f"{self._base_url}pids/mint"
-        data = {
-                "schema_class": {"id": id_type},
-                "how_many": 1
-               }
-        resp = requests.post(url,
-                             data=json.dumps(data),
-                             headers=self.header)
+        data = {"schema_class": {"id": id_type}, "how_many": 1}
+        resp = requests.post(url, data=json.dumps(data), headers=self.header)
         if not resp.ok:
             raise ValueError("Failed to mint ID")
         id = resp.json()[0]
         if informed_by:
             url = f"{self._base_url}pids/bind"
-            data = {
-                    "id_name": id,
-                    "metadata_record": {"informed_by": informed_by}
-                }
-            resp = requests.post(url,
-                                 data=json.dumps(data),
-                                 headers=self.header)
+            data = {"id_name": id, "metadata_record": {"informed_by": informed_by}}
+            resp = requests.post(url, data=json.dumps(data), headers=self.header)
             if not resp.ok:
                 raise ValueError("Failed to bind metadata to pid")
         return id
@@ -124,13 +115,8 @@ class nmdcapi():
                 type/shoulder (e.g. mga0, mta0)
                 count/number of IDs to generate
         """
-        url = self._base_url + 'ids/mint'
-        d = {
-                "populator": "",
-                "naa": ns,
-                "shoulder": typ,
-                "number": ct
-            }
+        url = self._base_url + "ids/mint"
+        d = {"populator": "", "naa": ns, "shoulder": typ, "number": ct}
         resp = requests.post(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
@@ -139,14 +125,14 @@ class nmdcapi():
         """
         Helper function to get object info
         """
-        url = '%sobjects/%s' % (self._base_url, obj)
+        url = "%sobjects/%s" % (self._base_url, obj)
         resp = requests.get(url, headers=self.header)
         data = resp.json()
-        if decode and 'description' in data:
+        if decode and "description" in data:
             try:
-                data['metadata'] = json.loads(data['description'])
+                data["metadata"] = json.loads(data["description"])
             except Exception:
-                data['metadata'] = None
+                data["metadata"] = None
 
         return data
 
@@ -155,114 +141,105 @@ class nmdcapi():
         """
         Helper function to create an object.
         """
-        url = self._base_url + 'objects'
+        url = self._base_url + "objects"
         fmeta = os.stat(fn)
         name = os.path.split(fn)[-1]
         mtypes = mimetypes.MimeTypes().guess_type(fn)
         if mtypes[1] is None:
             mt = mtypes[0]
         else:
-            mt = 'application/%s' % (mtypes[1])
+            mt = "application/%s" % (mtypes[1])
 
         sha = _get_sha256(fn)
         now = datetime.today().isoformat()
         d = {
-             "aliases": None,
-             "description": description,
-             "mime_type": mt,
-             "name": name,
-             "access_methods": [
-               {
-                 "access_id": None,
-                 "access_url": {
-                    "url": dataurl,
-                 },
-                 "region": None,
-                 "type": "https"
-               }
-             ],
-             "checksums": [
-               {
-                 "checksum": sha,
-                 "type": "sha256"
-               }
-             ],
-             "contents": None,
-             "created_time": now,
-             "size": fmeta.st_size,
-             "updated_time": None,
-             "version": None,
-             "id": sha,
-             "self_uri": "todo"
+            "aliases": None,
+            "description": description,
+            "mime_type": mt,
+            "name": name,
+            "access_methods": [
+                {
+                    "access_id": None,
+                    "access_url": {
+                        "url": dataurl,
+                    },
+                    "region": None,
+                    "type": "https",
+                }
+            ],
+            "checksums": [{"checksum": sha, "type": "sha256"}],
+            "contents": None,
+            "created_time": now,
+            "size": fmeta.st_size,
+            "updated_time": None,
+            "version": None,
+            "id": sha,
+            "self_uri": "todo",
         }
         resp = requests.post(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
     @refresh_token
     def post_objects(self, obj_data, json_obj=None):
-        url = self._base_url + 'v1/workflows/activities'
+        url = self._base_url + "v1/workflows/activities"
 
         # objects_file = open(json_obj)
         # obj_data = json.load(objects_file)
 
-        resp = requests.post(url, headers=self.header,
-                             data=json.dumps(obj_data))
+        resp = requests.post(url, headers=self.header, data=json.dumps(obj_data))
         return resp.json()
 
     @refresh_token
     def set_type(self, obj, typ):
-        url = '%sobjects/%s/types' % (self._base_url, obj)
+        url = "%sobjects/%s/types" % (self._base_url, obj)
         d = [typ]
         resp = requests.put(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
     @refresh_token
     def bump_time(self, obj):
-        url = '%sobjects/%s' % (self._base_url, obj)
+        url = "%sobjects/%s" % (self._base_url, obj)
         now = datetime.today().isoformat()
 
-        d = {
-             "created_time": now
-             }
+        d = {"created_time": now}
         resp = requests.patch(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
     @refresh_token
     def list_jobs(self, filt=None, max=20):
-        url = '%sjobs?max_page_size=%s' % (self._base_url, max)
+        url = "%sjobs?max_page_size=%s" % (self._base_url, max)
         d = {}
         if filt:
-            url += '&filter=%s' % (json.dumps(filt))
+            url += "&filter=%s" % (json.dumps(filt))
         orig_url = url
         results = []
         while True:
-            resp = requests.get(url, data=json.dumps(d),
-                                headers=self.header).json()
-            if 'resources' not in resp:
+            resp = requests.get(url, data=json.dumps(d), headers=self.header).json()
+            if "resources" not in resp:
                 logging.warning(str(resp))
                 break
-            results.extend(resp['resources'])
-            if 'next_page_token' not in resp or not resp['next_page_token']:
+            results.extend(resp["resources"])
+            if "next_page_token" not in resp or not resp["next_page_token"]:
                 break
-            url = orig_url + "&page_token=%s" % (resp['next_page_token'])
+            url = orig_url + "&page_token=%s" % (resp["next_page_token"])
         return results
 
     @refresh_token
     def get_job(self, job):
-        url = '%sjobs/%s' % (self._base_url, job)
+        url = "%sjobs/%s" % (self._base_url, job)
         resp = requests.get(url, headers=self.header)
         return resp.json()
 
     @refresh_token
     def claim_job(self, job):
-        url = '%sjobs/%s:claim' % (self._base_url, job)
+        url = "%sjobs/%s:claim" % (self._base_url, job)
         resp = requests.post(url, headers=self.header)
         if resp.status_code == 409:
             claimed = True
         else:
             claimed = False
         data = resp.json()
-        data['claimed'] = claimed
+        data["claimed"] = claimed
         return data
 
     def _page_query(self, url):
@@ -270,66 +247,65 @@ class nmdcapi():
         results = []
         while True:
             resp = requests.get(url, headers=self.header).json()
-            if 'resources' not in resp:
+            if "resources" not in resp:
                 logging.warning(str(resp))
                 break
-            results.extend(resp['resources'])
-            if 'next_page_token' not in resp or not resp['next_page_token']:
+            results.extend(resp["resources"])
+            if "next_page_token" not in resp or not resp["next_page_token"]:
                 break
-            url = orig_url + "&page_token=%s" % (resp['next_page_token'])
+            url = orig_url + "&page_token=%s" % (resp["next_page_token"])
         return results
 
     @refresh_token
     def list_objs(self, filt=None, max_page_size=40):
-        url = '%sobjects?max_page_size=%d' % (self._base_url, max_page_size)
+        url = "%sobjects?max_page_size=%d" % (self._base_url, max_page_size)
         if filt:
-            url += '&filter=%s' % (json.dumps(filt))
+            url += "&filter=%s" % (json.dumps(filt))
         results = self._page_query(url)
         return results
 
     @refresh_token
     def list_ops(self, filt=None, max_page_size=40):
-        url = '%soperations?max_page_size=%d' % (self._base_url, max_page_size)
+        url = "%soperations?max_page_size=%d" % (self._base_url, max_page_size)
         d = {}
         if filt:
-            url += '&filter=%s' % (json.dumps(filt))
+            url += "&filter=%s" % (json.dumps(filt))
         orig_url = url
         results = []
         while True:
-            resp = requests.get(url, data=json.dumps(d),
-                                headers=self.header).json()
-            if 'resources' not in resp:
+            resp = requests.get(url, data=json.dumps(d), headers=self.header).json()
+            if "resources" not in resp:
                 logging.warning(str(resp))
                 break
-            results.extend(resp['resources'])
-            if 'next_page_token' not in resp or not resp['next_page_token']:
+            results.extend(resp["resources"])
+            if "next_page_token" not in resp or not resp["next_page_token"]:
                 break
-            url = orig_url + "&page_token=%s" % (resp['next_page_token'])
+            url = orig_url + "&page_token=%s" % (resp["next_page_token"])
         return results
 
     @refresh_token
     def get_op(self, opid):
-        url = '%soperations/%s' % (self._base_url, opid)
+        url = "%soperations/%s" % (self._base_url, opid)
         resp = requests.get(url, headers=self.header)
         return resp.json()
 
     @refresh_token
     def update_op(self, opid, done=None, results=None, meta=None):
-        url = '%soperations/%s' % (self._base_url, opid)
+        url = "%soperations/%s" % (self._base_url, opid)
         d = dict()
         if done is not None:
-            d['done'] = done
+            d["done"] = done
         if results:
-            d['result'] = results
+            d["result"] = results
         if meta:
             # Need to preserve the existing metadata
             cur = self.get_op(opid)
-            if not cur['metadata']:
+            if not cur["metadata"]:
                 # this means we messed up the record before.
                 # This can't be fixed so just return
                 return None
-            d['metadata'] = cur['metadata']
-            d['metadata']['extra'] = meta
+            d["metadata"] = cur["metadata"]
+            d["metadata"]["extra"] = meta
         resp = requests.patch(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
@@ -346,59 +322,59 @@ if __name__ == "__main__":  # pragma: no cover
     nmdc = nmdcapi()
     if len(sys.argv) < 2:
         usage()
-    elif sys.argv[1] == 'set_type':
+    elif sys.argv[1] == "set_type":
         obj = sys.argv[2]
         typ = sys.argv[3]
         nmdc.set_type(obj, typ)
-    elif sys.argv[1] == 'undo':
+    elif sys.argv[1] == "undo":
         for opid in sys.argv[2:]:
             resp = nmdc.update_op(opid, done=False)
             jprint(resp)
-    elif sys.argv[1] == 'get_job':
+    elif sys.argv[1] == "get_job":
         obj = sys.argv[2]
         jprint(nmdc.get_job(obj))
-    elif sys.argv[1] == 'list_jobs':
+    elif sys.argv[1] == "list_jobs":
         filt = None
         if len(sys.argv) > 2:
             filt = sys.argv[2]
             print(filt)
         jprint(nmdc.list_jobs(filt=filt))
-    elif sys.argv[1] == 'list_ops':
+    elif sys.argv[1] == "list_ops":
         filt = None
         if len(sys.argv) > 2:
             filt = json.loads(sys.argv[2])
         jprint(nmdc.list_ops(filt=filt))
-    elif sys.argv[1] == 'list_objs':
+    elif sys.argv[1] == "list_objs":
         filt = None
         if len(sys.argv) > 2:
             filt = json.loads(sys.argv[2])
         jprint(nmdc.list_objs(filt=filt))
-    elif sys.argv[1].startswith('get_obj'):
+    elif sys.argv[1].startswith("get_obj"):
         obj = sys.argv[2]
         d = nmdc.get_object(obj, decode=True)
         jprint(d)
-    elif sys.argv[1] == 'bump_time':
+    elif sys.argv[1] == "bump_time":
         obj = sys.argv[2]
         nmdc.bump_time(obj)
-    elif sys.argv[1].startswith('get_op'):
+    elif sys.argv[1].startswith("get_op"):
         opid = sys.argv[2]
         jprint(nmdc.get_op(opid))
-    elif sys.argv[1] == 'dumpops':
+    elif sys.argv[1] == "dumpops":
         site = sys.argv[2]
-        ops = nmdc.list_ops(filt={'metadata.site_id': site})
+        ops = nmdc.list_ops(filt={"metadata.site_id": site})
         jprint(ops)
-    elif sys.argv[1] == 'mint':
+    elif sys.argv[1] == "mint":
         typ = sys.argv[2]
         ct = int(sys.argv[3])
         ids = nmdc.mint("nmdc", typ, ct)
         jprint(ids)
-    elif sys.argv[1] == 'mkobj':
+    elif sys.argv[1] == "mkobj":
         fn = sys.argv[2]
         desc = sys.argv[3]
         url = sys.argv[4]
         resp = nmdc.create_object(fn, desc, url)
         jprint(resp)
-    elif sys.argv[1] == 'dumpjobs':
+    elif sys.argv[1] == "dumpjobs":
         filt = None
         if len(sys.argv) == 4:
             filt = {sys.argv[2]: sys.argv[3]}
