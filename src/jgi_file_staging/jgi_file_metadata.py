@@ -47,12 +47,13 @@ def get_samples_data(samples_csv_file: str, proposal_id: int, project: str, conf
     ACCESS_TOKEN = get_access_token()
     all_files_list = get_sample_files(samples_csv_file, ACCESS_TOKEN, eval(config['JDP']['delay']))
     files_df = pd.DataFrame(all_files_list)
-    files_df = remove_unneeded_files(files_df, eval(config['JDP']['remove_files']))
 
     gold_analysis_data = get_analysis_projects_from_proposal_id(proposal_id, ACCESS_TOKEN)
     gold_analysis_data_df = pd.DataFrame(gold_analysis_data)
     gold_analysis_files_df = pd.merge(gold_analysis_data_df, files_df, left_on='itsApId',
                                       right_on='analysis_project_id')
+    gold_analysis_files_df = remove_unneeded_files(gold_analysis_files_df, eval(config['JDP']['remove_files']))
+
     gold_analysis_files_df['project'] = project
     insert_samples_into_mongodb(gold_analysis_files_df.to_dict('records'))
 
@@ -186,18 +187,36 @@ def remove_duplicate_analysis_files(seq_files_df: pd.DataFrame) -> pd.DataFrame:
     :param seq_files_df:
     :return: DataFrame
     """
-    seq_unit_name_list = seq_files_df.loc[seq_files_df.file_name.str.contains('assembly'), 'seq_unit_name'].values
-    seq_unit_name_list = [eval(e) for e in seq_unit_name_list]
-    seq_unit_name_list = ['.'.join(filename.split('.')[:4]) for filename in seq_unit_name_list]
-    seq_unit_name_list = ['.'.join(e.split('.')[:4]) for e in list(chain(*seq_unit_name_list))]
+    ap_gold_ids = list(seq_files_df.apGoldId.unique())
+
     drop_idx = []
-    for idx, row in seq_files_df.iterrows():
-        # find rows with fastq files to remove (fastq file name is not in list of seq_unit_names and is not
-        # input.corr.fastq.gz)
-        if ~np.any([seq in row.file_name for seq in seq_unit_name_list]) and row.file_name != 'input.corr.fastq.gz':
-            drop_idx.append(idx)
+    for gold_id in ap_gold_ids:
+        print(gold_id)
+        seq_unit_names_list = get_seq_unit_names(seq_files_df, gold_id)
+        for idx, row in seq_files_df.loc[seq_files_df.apGoldId == gold_id, :].iterrows():
+            # find rows with fastq files to remove (fastq file name is not in list of seq_unit_names and is not
+            # input.corr.fastq.gz)
+            if 'fastq' in row.file_name and ~np.any(
+                    [seq in row.file_name for seq in seq_unit_names_list]) and row.file_name != 'input.corr.fastq.gz':
+                drop_idx.append(idx)
     seq_files_df.drop(drop_idx, inplace=True)
     return seq_files_df
+
+
+def get_seq_unit_names(analysis_files_df, gold_id):
+    seq_unit_names = []
+    for seq_unit in analysis_files_df.loc[pd.notna(analysis_files_df.seq_unit_name) &
+                                          (analysis_files_df.apGoldId == gold_id) &
+                                          (analysis_files_df.file_name.str.contains('assembly')), 'seq_unit_name']:
+        if isinstance(seq_unit, list):
+            seq_unit_names.append(*seq_unit)
+        elif '[' in seq_unit:
+            seq_unit_names.append(eval(seq_unit)[0])
+        else:
+            seq_unit_names.append(seq_unit)
+    seq_unit_names_list = list(set(seq_unit_names))
+    seq_unit_names_list = ['.'.join(filename.split('.')[:4]) for filename in seq_unit_names_list]
+    return seq_unit_names_list
 
 
 def insert_samples_into_mongodb(sample_list: list) -> None:
