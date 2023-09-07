@@ -76,7 +76,7 @@ def restore_files(project: str, config_file: str) -> str:
             count += len(request_ids)
             restore_df.loc[begin_idx:end_idx, 'request_id'] = request_json['request_id']
             restore_df.loc[begin_idx:end_idx, 'file_status'] = 'pending'
-            logging.debug(begin_idx, end_idx, restore_df.loc[begin_idx:end_idx, 'file_size'].sum(), sum_files)
+            logging.debug(f"{begin_idx, end_idx, restore_df.loc[begin_idx:end_idx, 'file_size'].sum(), sum_files}")
         begin_idx = end_idx
     restore_df.apply(lambda x: update_sample_in_mongodb(x, {'request_id': x['request_id'],
                                                             'file_status': x['file_status']}), axis=1)

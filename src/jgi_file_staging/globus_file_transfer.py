@@ -1,11 +1,10 @@
 import configparser
 import sys
-
+from datetime import datetime
 import pandas as pd
 import os
 import logging
 
-import click
 from mongo import get_mongo_db
 import subprocess
 import argparse
@@ -77,7 +76,7 @@ def create_globus_batch_file(project, config):
         filepath = os.path.join(root_dir, row.subdir, row['directory/path'], row.filename)
         dest_file_path = os.path.join(dest_root_dir, row.apGoldId, row.filename)
         write_list.append(f"{filepath} {dest_file_path}")
-    globus_batch_filename = f"{project}_{samples_df['request_id']}_globus_batch_file.txt"
+    globus_batch_filename = f"{project}_{samples_df['request_id'].unique()[0]}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_globus_batch_file.txt"
     with open(globus_batch_filename, 'w') as f:
         f.write('\n'.join(write_list))
     return globus_batch_filename, globus_analysis_df
@@ -130,15 +129,41 @@ def update_globus_statuses():
         update_globus_task_status(task['task_id'], task_status)
 
 
+def get_list_missing_staged_files(project_name, config_file) -> list:
+    """
+    Get list of files on file system for a project and compare to list of files in database
+    """
+    config = configparser.ConfigParser()
+    config.read(config_file)
+    base_dir = config['GLOBUS']['dest_root_dir']
+    proj_list = []
+    for analysis_proj in os.listdir(base_dir):
+        [proj_list.append({'analysis_project': analysis_proj, 'file': f})
+         for f in os.listdir(os.path.join(base_dir, analysis_proj))]
+
+    stage_df = pd.DataFrame(proj_list)
+    stage_df['file_key'] = stage_df.apply(lambda x: f"{x.analysis_project}-{x.file}", axis=1)
+    mdb = get_mongo_db()
+    samples_df = pd.DataFrame([s for s in mdb.samples.find({'project': project_name})])
+    samples_df['file_key'] = samples_df.apply(lambda x: f"{x.apGoldId}-{x.file_name}", axis=1)
+    db_samples_df = pd.merge(samples_df, stage_df, left_on='file_key', right_on='file_key', how='outer')
+    db_samples_df.to_csv('merge_db_staged.csv', index=False)
+    return db_samples_df.loc[pd.isna(db_samples_df.analysis_project), ['apGoldId', 'file_name']].to_dict('records')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('project_name')
     parser.add_argument('config_file')
     parser.add_argument('-u', '--update_globus_statuses', action='store_true', help='update globus task statuses',
                         default=False)
+    parser.add_argument('-f', '--get_list_staged_files', action='store_true',
+                        help='get list of files that have been staged', default=False)
     args = vars((parser.parse_args()))
 
     if args['update_globus_statuses']:
         update_globus_statuses()
+    if args['get_list_staged_files']:
+        get_list_missing_staged_files(args['project_name'], args['config_file'])
     else:
         submit_globus_batch_file(args['project_name'], args['config_file'])

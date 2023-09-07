@@ -7,8 +7,14 @@ import os
 logger = logging.getLogger(__name__)
 
 
-def object_action(file_s: Union[str, List[str]], action: str, activity_id: str,
-                  nmdc_suffix: str, activity_dir: str = None, multiple: bool = False) -> str:
+def object_action(
+    file_s: Union[str, List[str]],
+    action: str,
+    activity_id: str,
+    nmdc_suffix: str,
+    activity_dir: str = None,
+    multiple: bool = False,
+) -> str:
     """
     Perform an action (non, rename, zip) on an object based on the provided parameters.
 
@@ -25,11 +31,11 @@ def object_action(file_s: Union[str, List[str]], action: str, activity_id: str,
 
     """
 
-    if action == 'none':
+    if action == "none":
         return get_basename(file_s)
-    elif action == 'rename':
+    elif action == "rename":
         return rename(activity_id, nmdc_suffix)
-    elif action == 'zip':
+    elif action == "zip":
         if multiple:
             zip_names = []
             for file in file_s:
@@ -68,7 +74,7 @@ def rename(activity_id: str, nmdc_suffix: str) -> str:
         str: nmdc file name
     """
 
-    activity_file_id = activity_id.replace(':', '_')
+    activity_file_id = activity_id.replace(":", "_")
 
     nmdc_file_name = activity_file_id + nmdc_suffix
 
@@ -76,7 +82,7 @@ def rename(activity_id: str, nmdc_suffix: str) -> str:
 
 
 def zip_file(activity_id: str, nmdc_suffix: str, file: str, project_dir: str):
-    '''Add files of type Multiples to a zip file and represent as one data object
+    """Add files of type Multiples to a zip file and represent as one data object
 
     Args:
         activity_id (str): The activity ID associated with the object.
@@ -87,23 +93,30 @@ def zip_file(activity_id: str, nmdc_suffix: str, file: str, project_dir: str):
     Returns:
         str: Expected file name for import of Multiples as one data object.
 
-    '''
+    """
 
     zip_file_name = rename(activity_id, nmdc_suffix)
 
     if not os.path.exists(os.path.join(project_dir, zip_file_name)):
+
         if not os.path.exists(project_dir):
             os.makedirs(project_dir)
         with ZipFile(os.path.join(project_dir, zip_file_name), mode='w') as zipped_file:
+
             zipped_file.write(file)
     else:
-        with ZipFile(os.path.join(project_dir, zip_file_name), mode='a') as zipped_file:
+        with ZipFile(os.path.join(project_dir, zip_file_name), mode="a") as zipped_file:
             zipped_file.write(file)
 
     return zip_file_name
 
 
-def file_link(import_project_dir: str, import_file: Union[str, List[str]], destination_dir: str, updated_file: str):
+def file_link(
+    import_project_dir: str,
+    import_file: Union[str, List[str]],
+    destination_dir: str,
+    updated_file: str,
+):
     """
     Link original file to nmdc file on system path
 
@@ -125,7 +138,7 @@ def file_link(import_project_dir: str, import_file: Union[str, List[str]], desti
         try:
             os.makedirs(destination_dir)
         except FileExistsError:
-            logger.debug(f'{destination_dir} already exists')
+            logger.debug(f"{destination_dir} already exists")
 
         original_path = os.path.join(import_project_dir, import_file)
         linked_path = os.path.join(destination_dir, updated_file)
@@ -133,7 +146,7 @@ def file_link(import_project_dir: str, import_file: Union[str, List[str]], desti
         try:
             os.link(original_path, linked_path)
         except FileExistsError:
-            logger.info(f'{linked_path} already exists')
+            logger.info(f"{linked_path} already exists")
 
         return linked_path
 
@@ -147,15 +160,15 @@ def get_md5(fn: str) -> str:
 
     Returns:
         md5:  md5 hash of file
-        """
+    """
 
-    md5f = fn + '.md5'
+    md5f = fn + ".md5"
     if os.path.exists(md5f):
         with open(md5f) as f:
             md5 = f.read().rstrip()
     else:
-        md5 = hashlib.md5(open(fn, 'rb').read()).hexdigest()
-        with open(md5f, 'w') as f:
+        md5 = hashlib.md5(open(fn, "rb").read()).hexdigest()
+        with open(md5f, "w") as f:
             f.write(md5)
-            f.write('\n')
+            f.write("\n")
     return md5

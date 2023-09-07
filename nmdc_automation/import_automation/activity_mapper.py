@@ -14,10 +14,14 @@ logger = logging.getLogger(__name__)
 runtime = nmdcapi()
 
 
-class GoldMapper():
-
-    def __init__(self, file_list: List[str], omics_id: str, yaml_file: str, project_directory: str):
-
+class GoldMapper:
+    def __init__(
+        self,
+        file_list: List[str],
+        omics_id: str,
+        yaml_file: str,
+        project_directory: str,
+    ):
         """
         Initialize the GoldMapper object.
 
@@ -29,15 +33,17 @@ class GoldMapper():
             project_directory: Project directory path.
         """
 
-        with open(yaml_file, 'r') as file:
+        with open(yaml_file, "r") as file:
             self.import_data = yaml.safe_load(file)
 
         self.nmdc_db = nmdc.Database()
         self.file_list = file_list
         self.omics_id = omics_id
-        self.root_dir = os.path.join(self.import_data['Workflow Metadata']['Root Directory'], omics_id)
+        self.root_dir = os.path.join(
+            self.import_data["Workflow Metadata"]["Root Directory"], omics_id
+        )
         self.project_dir = project_directory
-        self.url = self.import_data['Workflow Metadata']['Source URL']
+        self.url = self.import_data["Workflow Metadata"]["Source URL"]
         self.data_object_type = "nmdc:DataObject"
         self.objects = {}
         self.activity_ids = {}
@@ -46,29 +52,31 @@ class GoldMapper():
             self.workflows_by_type[wf['Type']] = wf
 
     def unique_object_mapper(self) -> None:
-
         """
         Map unique data objects from the file list based on unique matching import suffix.
         The method relates each object to an activity ID and updates the file with object action.
         It updates the nmdc database with the DataObject and stores the information in the objects dictionary.
         """
 
-        for data_object_dict in self.import_data['Data Objects']['Unique']:
+        for data_object_dict in self.import_data["Data Objects"]["Unique"]:
             for file in self.file_list:
-
                 if data_object_dict is None:
                     continue
-                elif 'import_suffix' not in data_object_dict:
+                elif "import_suffix" not in data_object_dict:
                     logging.warning("Missing suffix")
                     continue
+
                 elif re.search(data_object_dict['import_suffix'], file, re.IGNORECASE):
                     activity_id = self.get_activity_id(data_object_dict['output_of'])
 
                     file_destination_name = object_action(file, data_object_dict['action'], activity_id, data_object_dict['nmdc_suffix'])
 
+
                     activity_dir = os.path.join(self.root_dir, activity_id)
 
-                    updated_file = file_link(self.project_dir, file, activity_dir, file_destination_name)
+                    updated_file = file_link(
+                        self.project_dir, file, activity_dir, file_destination_name
+                    )
 
                     filemeta = os.stat(updated_file)
 
@@ -81,16 +89,17 @@ class GoldMapper():
                             file_size_bytes=filemeta.st_size,
                             name=file_destination_name,
                             url=f"{self.url}/{self.omics_id}/{activity_id}/{file_destination_name}",
-                            data_object_type=data_object_dict['data_object_type'],
+                            data_object_type=data_object_dict["data_object_type"],
                             type=self.data_object_type,
                             id=dobj,
                             md5_checksum=md5,
+
                             description=data_object_dict['description'].replace("{id}", self.omics_id)
                             ))
                     self.objects[data_object_dict['data_object_type']] = (data_object_dict['input_to'], [data_object_dict['output_of']], dobj)
 
-    def multiple_objects_mapper(self) -> None:
 
+    def multiple_objects_mapper(self) -> None:
         """
         Maps multiple data objects from the file list based on matching import suffix into one nmdc data object.
         The method relates each object to an activity ID and updates the file with object action.
@@ -99,18 +108,32 @@ class GoldMapper():
 
         multiple_objects_list = []
 
-        for data_object_dict in self.import_data['Data Objects']['Multiples']:
+        for data_object_dict in self.import_data["Data Objects"]["Multiples"]:
             for file in self.file_list:
-                if re.search(data_object_dict['import_suffix'], file, re.IGNORECASE):
+                if re.search(data_object_dict["import_suffix"], file, re.IGNORECASE):
                     multiple_objects_list.append(file)
+
 
             activity_id = self.get_activity_id(data_object_dict['output_of'])
 
+
             activity_dir = os.path.join(self.root_dir, activity_id)
 
-            file_destination_name = object_action(multiple_objects_list, data_object_dict['action'], activity_id, data_object_dict['nmdc_suffix'], activity_dir=activity_dir, multiple=True)
+            file_destination_name = object_action(
+                multiple_objects_list,
+                data_object_dict["action"],
+                activity_id,
+                data_object_dict["nmdc_suffix"],
+                activity_dir=activity_dir,
+                multiple=True,
+            )
 
-            updated_file = file_link(self.project_dir, multiple_objects_list, activity_dir, file_destination_name)
+            updated_file = file_link(
+                self.project_dir,
+                multiple_objects_list,
+                activity_dir,
+                file_destination_name,
+            )
 
             filemeta = os.stat(updated_file)
 
@@ -121,19 +144,25 @@ class GoldMapper():
             self.nmdc_db.data_object_set.append(
                 nmdc.DataObject(
                     file_size_bytes=filemeta.st_size,
-                    name=data_object_dict['name'],
+                    name=data_object_dict["name"],
                     url=f"{self.url}/{self.omics_id}/{activity_dir}/{file_destination_name}",
-                    data_object_type=data_object_dict['data_object_type'],
+                    data_object_type=data_object_dict["data_object_type"],
                     type=self.data_object_type,
                     id=dobj,
                     md5_checksum=md5,
-                    description=data_object_dict['description'].replace("{id}", self.omics_id)
-                ))
+                    description=data_object_dict["description"].replace(
+                        "{id}", self.omics_id
+                    ),
+                )
+            )
 
-            self.objects[data_object_dict['data_object_type']] = (data_object_dict['input_to'], [data_object_dict['output_of']], dobj)
+            self.objects[data_object_dict["data_object_type"]] = (
+                data_object_dict["input_to"],
+                [data_object_dict["output_of"]],
+                dobj,
+            )
 
     def activity_mapper(self) -> None:
-
         """
         Maps activities from the import data to the NMDC database.
         The function creates a database activity set for each workflow type in the import data,
@@ -143,6 +172,7 @@ class GoldMapper():
         a 'Type', 'Git_repo', and 'Version'. It also assumes that the import data includes a 'Workflow Metadata'
         section with an 'Execution Resource'.
         """
+
 
         for workflow in self.import_data['Workflows']:
             if not workflow.get('Import'):
@@ -195,7 +225,10 @@ class GoldMapper():
             return id
         return self.activity_ids[output_of]
 
-    def attach_objects_to_activity(self, activity_type: str) -> Tuple[List[str], List[str]]:
+
+    def attach_objects_to_activity(
+        self, activity_type: str
+    ) -> Tuple[List[str], List[str]]:
         """
         Get data objects that inform activity inputs and outputs.
 
@@ -225,7 +258,6 @@ class GoldMapper():
         return data_object_inputs_to_list, data_object_outputs_of_list
 
     def post_nmdc_database_object(self) -> Dict:
-
         """
         Post the nmdc database object.
 
@@ -236,8 +268,7 @@ class GoldMapper():
             Dict: The response from the runtime API after posting the object.
         """
 
-        nmdc_database_object = json_dumper.dumps(self.nmdc_db,
-                                                 inject_type=False)
+        nmdc_database_object = json_dumper.dumps(self.nmdc_db, inject_type=False)
         res = runtime.post_objects(nmdc_database_object)
         return res
 

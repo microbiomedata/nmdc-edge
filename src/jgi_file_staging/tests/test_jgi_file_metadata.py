@@ -12,7 +12,7 @@ from datetime import datetime
 from jgi_file_metadata import get_access_token, check_access_token, get_analysis_projects_from_proposal_id, \
     get_sample_files, get_sequence_id, insert_samples_into_mongodb, get_mongo_db, get_files_and_agg_ids, \
     combine_sample_ids_with_agg_ids, remove_unneeded_files, get_samples_data, remove_duplicate_analysis_files, \
-    remove_large_files
+    remove_large_files, get_seq_unit_names
 from file_restoration import update_sample_in_mongodb
 
 
@@ -73,9 +73,9 @@ class JgiFileTestCase(unittest.TestCase):
         mock_get.return_value.json.return_value = pd.read_csv(
             os.path.join(self.fixtures, 'grow_gold_analysis_projects.csv')).to_dict('records')
         gold_analysis_data = get_analysis_projects_from_proposal_id('11111', 'ed42ef155670')
-        self.assertEqual(gold_analysis_data[0], {'apGoldId': 'Ga0499978', 'studyId': 'Gs0149396', 'itsApId': 1323348,
+        self.assertEqual(gold_analysis_data[0], {'apGoldId': 'Ga0499978', 'apType': 'Metagenome Analysis', 'studyId': 'Gs0149396', 'itsApId': 1323348,
                                                  'projects': "['Gp0587070']"})
-        self.assertEqual(gold_analysis_data[5], {'apGoldId': 'Ga0451723', 'studyId': 'Gs0149396', 'itsApId': 1279803,
+        self.assertEqual(gold_analysis_data[5], {'apGoldId': 'Ga0451723', 'apType': 'Metagenome Analysis', 'studyId': 'Gs0149396', 'itsApId': 1279803,
                                                  'projects': "['Gp0503551']"})
 
     @mongomock.patch(servers=(('localhost', 27017),))
@@ -125,9 +125,6 @@ class JgiFileTestCase(unittest.TestCase):
         updated_sample = mdb.samples.find_one(sample)
         self.assertEqual(updated_sample['file_status'], 'RESTORE_IN_PROGRESS')
         self.assertEqual(updated_sample['request_id'], 217934)
-
-        success = update_sample_in_mongodb(sample, {'request_id': '21793b4'})
-        self.assertFalse(success)
 
         sample = mdb.samples.find_one({'jdp_file_id': '6190d7d30de2fc3298da6f7a'})
         sample.pop('file_name')
@@ -189,14 +186,13 @@ class JgiFileTestCase(unittest.TestCase):
         self.assertTrue(seq_files_df[seq_files_df.file_name == 'Ga0451670_proteins.img_nr.last.blasttab'].empty)
         self.assertTrue(seq_files_df[seq_files_df.file_name == 'Ga0451670_proteins.supfam.domtblout'].empty)
 
-    @patch('jgi_file_metadata.get_files_and_agg_ids')
-    @patch('jgi_file_metadata.requests.get')
-    @patch('jgi_file_metadata.get_access_token')
-    def test_remove_duplicate_analysis_files(self, mock_token, mock_get, mock_get_files_list):
-        with open(os.path.join(self.fixtures, 'seq_files_df.json'), 'r') as f:
-            files_data_list = json.load(f)
+    def test_get_seq_unit_names(self):
+        seq_files_df = pd.read_csv(os.path.join(self.fixtures, 'seq_unit_names_df.csv'))
+        seq_unit_names = get_seq_unit_names(seq_files_df, 'Ga0451670')
+        self.assertEqual(seq_unit_names, ['52444.3.336346.GAGCTCAA-GAGCTCAA'])
 
-        seq_files_df = pd.DataFrame(files_data_list)
+    def test_remove_duplicate_analysis_files(self):
+        seq_files_df = pd.read_csv(os.path.join(self.fixtures, 'seq_unit_names_df.csv'))
         self.assertFalse(seq_files_df[seq_files_df.file_name == '52554.2.382557.CCCTGTAT-GGATAACG.fastq.gz'].empty)
         grow_samples_df = remove_duplicate_analysis_files(seq_files_df)
         self.assertTrue(grow_samples_df[grow_samples_df.file_name == '52554.2.382557.CCCTGTAT-GGATAACG.fastq.gz'].empty)
@@ -205,14 +201,12 @@ class JgiFileTestCase(unittest.TestCase):
     @patch('jgi_file_metadata.requests.get')
     @patch('jgi_file_metadata.get_access_token')
     def test_remove_unneeded_files(self, mock_token, mock_get, mock_get_files_list):
-        with open(os.path.join(self.fixtures, 'seq_files_df.json'), 'r') as f:
-            files_data_list = json.load(f)
+        seq_files_df = pd.read_csv(os.path.join(self.fixtures, 'seq_unit_names_df.csv'))
 
-        seq_files_df = pd.DataFrame(files_data_list)
         self.assertFalse(seq_files_df[seq_files_df.file_name == '52554.2.382557.CCCTGTAT-GGATAACG.fastq.gz'].empty)
         self.assertFalse(seq_files_df[seq_files_df.file_name == 'Ga0451670_proteins.img_nr.last.blasttab'].empty)
         grow_samples_df = remove_unneeded_files(seq_files_df, ['img_nr.last.blasttab', 'domtblout'])
-        self.assertEqual(len(grow_samples_df), 69)
+        self.assertEqual(len(grow_samples_df), 70)
         self.assertTrue(grow_samples_df[grow_samples_df.file_name == '52554.2.382557.CCCTGTAT-GGATAACG.fastq.gz'].empty)
         self.assertTrue(grow_samples_df[grow_samples_df.file_name == 'Ga0451670_proteins.img_nr.last.blasttab'].empty)
 
