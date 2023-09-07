@@ -41,7 +41,7 @@ def object_action(
             for file in file_s:
                 zip_name = zip_file(activity_id, nmdc_suffix, file, activity_dir)
                 zip_names.append(zip_name)
-            return zip_names
+            return zip_names[0]
         else:
             return zip_file(file_s)
     else:
@@ -98,8 +98,11 @@ def zip_file(activity_id: str, nmdc_suffix: str, file: str, project_dir: str):
     zip_file_name = rename(activity_id, nmdc_suffix)
 
     if not os.path.exists(os.path.join(project_dir, zip_file_name)):
-        os.makedirs(project_dir)
-        with ZipFile(os.path.join(project_dir, zip_file_name), mode="w") as zipped_file:
+
+        if not os.path.exists(project_dir):
+            os.makedirs(project_dir)
+        with ZipFile(os.path.join(project_dir, zip_file_name), mode='w') as zipped_file:
+
             zipped_file.write(file)
     else:
         with ZipFile(os.path.join(project_dir, zip_file_name), mode="a") as zipped_file:
@@ -128,7 +131,7 @@ def file_link(
     """
 
     if type(import_file) == list:
-        print("Object has already been linked in objection specific import action")
+        logging.info("Object has already been linked in objection specific import action")
         return os.path.join(destination_dir, updated_file)
 
     elif type(import_file) == str:

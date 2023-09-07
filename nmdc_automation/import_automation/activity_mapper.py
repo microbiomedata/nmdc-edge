@@ -46,7 +46,10 @@ class GoldMapper:
         self.url = self.import_data["Workflow Metadata"]["Source URL"]
         self.data_object_type = "nmdc:DataObject"
         self.objects = {}
-        self.activity_store = self.activity_imports()
+        self.activity_ids = {}
+        self.workflows_by_type = {}
+        for wf in self.import_data["Workflows"]:
+            self.workflows_by_type[wf['Type']] = wf
 
     def unique_object_mapper(self) -> None:
         """
@@ -62,17 +65,12 @@ class GoldMapper:
                 elif "import_suffix" not in data_object_dict:
                     logging.warning("Missing suffix")
                     continue
-                elif re.search(data_object_dict["import_suffix"], file, re.IGNORECASE):
-                    activity_id = self.relate_object_by_activity_id(
-                        data_object_dict["output_of"]
-                    )
 
-                    file_destination_name = object_action(
-                        file,
-                        data_object_dict["action"],
-                        activity_id,
-                        data_object_dict["nmdc_suffix"],
-                    )
+                elif re.search(data_object_dict['import_suffix'], file, re.IGNORECASE):
+                    activity_id = self.get_activity_id(data_object_dict['output_of'])
+
+                    file_destination_name = object_action(file, data_object_dict['action'], activity_id, data_object_dict['nmdc_suffix'])
+
 
                     activity_dir = os.path.join(self.root_dir, activity_id)
 
@@ -95,17 +93,11 @@ class GoldMapper:
                             type=self.data_object_type,
                             id=dobj,
                             md5_checksum=md5,
-                            description=data_object_dict["description"].replace(
-                                "{id}", self.omics_id
-                            ),
-                        )
-                    )
 
-                    self.objects[data_object_dict["data_object_type"]] = (
-                        data_object_dict["input_to"],
-                        [data_object_dict["output_of"]],
-                        dobj,
-                    )
+                            description=data_object_dict['description'].replace("{id}", self.omics_id)
+                            ))
+                    self.objects[data_object_dict['data_object_type']] = (data_object_dict['input_to'], [data_object_dict['output_of']], dobj)
+
 
     def multiple_objects_mapper(self) -> None:
         """
@@ -121,9 +113,9 @@ class GoldMapper:
                 if re.search(data_object_dict["import_suffix"], file, re.IGNORECASE):
                     multiple_objects_list.append(file)
 
-            activity_id = self.relate_object_by_activity_id(
-                data_object_dict["output_of"]
-            )
+
+            activity_id = self.get_activity_id(data_object_dict['output_of'])
+
 
             activity_dir = os.path.join(self.root_dir, activity_id)
 
@@ -181,93 +173,58 @@ class GoldMapper:
         section with an 'Execution Resource'.
         """
 
-        for workflow in self.import_data["Workflows"]:
-            if workflow["Type"] in self.activity_store:
-                has_inputs_list, has_output_list = self.attach_objects_to_activity(
-                    workflow["Type"]
-                )
-                # quick fix because nmdc-schema does not support [], even though raw product has none
-                if len(has_inputs_list) == 0:
-                    has_inputs_list = ["None"]
 
-                database_activity_set = self.activity_store[workflow["Type"]][0]
+        for workflow in self.import_data['Workflows']:
+            if not workflow.get('Import'):
+                continue
+            logging.info(f"Processing {workflow['Name']}")
+            has_inputs_list, has_output_list = self.attach_objects_to_activity(workflow['Type'])
+            # quick fix because nmdc-schema does not support [], even though raw product has none
+            if len(has_inputs_list) == 0:
+                has_inputs_list = ['None']
+            if len(has_output_list) == 0:
+                logging.warning("No outputs.  That seems odd.")
+                has_output_list = ['None']
 
-                database_activity_range = self.activity_store[workflow["Type"]][1]
 
-                activity_id = self.activity_store[workflow["Type"]][2]
+            # Lookup the nmdc database class
+            database_activity_set = getattr(self.nmdc_db, workflow["Collection"])
+            # Lookup the nmdc schema range class
+            database_activity_range = getattr(nmdc, workflow["ActivityRange"])
+            # Mint an ID
+            activity_id = self.get_activity_id(workflow["Type"])
+            database_activity_set.append(
+                database_activity_range(
+                    id=activity_id,
+                    name=workflow['Activity']['name'].replace("{id}", activity_id),
+                    git_url=workflow['Git_repo'],
+                    version=workflow['Version'],
+                    part_of=[self.omics_id],
+                    execution_resource=self.import_data['Workflow Metadata']['Execution Resource'],
+                    started_at_time=datetime.datetime.now(pytz.utc).isoformat(),
+                    has_input=has_inputs_list,
+                    has_output=has_output_list,
+                    type=workflow['Type'],
+                    ended_at_time=datetime.datetime.now(pytz.utc).isoformat(),
+                    was_informed_by=self.omics_id,
+                ))
 
-                database_activity_set.append(
-                    database_activity_range(
-                        id=activity_id,  # call minter for activity type
-                        name=workflow["Activity"]["name"].replace("{id}", activity_id),
-                        git_url=workflow["Git_repo"],
-                        version=workflow["Version"],
-                        part_of=[self.omics_id],
-                        execution_resource=self.import_data["Workflow Metadata"][
-                            "Execution Resource"
-                        ],
-                        started_at_time=datetime.datetime.now(pytz.utc).isoformat(),
-                        has_input=has_inputs_list,
-                        has_output=has_output_list,
-                        type=workflow["Type"],
-                        ended_at_time=datetime.datetime.now(pytz.utc).isoformat(),
-                        was_informed_by=self.omics_id,
-                    )
-                )
-
-    def activity_imports(self) -> Dict[str, Tuple[Callable, Callable, str]]:
-        """Inform Object Mapping Process what activies need to be imported and distrubuted across the process"""
-
-        activity_store_dict = {
-            "nmdc:MetagenomeSequencing": (
-                self.nmdc_db.metagenome_sequencing_activity_set,
-                nmdc.MetagenomeSequencingActivity,
-                runtime.minter("nmdc:MetagenomeSequencingActivity"),
-            ),
-            "nmdc:ReadQcAnalysisActivity": (
-                self.nmdc_db.read_qc_analysis_activity_set,
-                nmdc.ReadQcAnalysisActivity,
-                runtime.minter("nmdc:ReadQcAnalysisActivity"),
-            ),
-            "nmdc:ReadBasedTaxonomyAnalysisActivity": (
-                self.nmdc_db.read_based_taxonomy_analysis_activity_set,
-                nmdc.ReadBasedTaxonomyAnalysisActivity,
-                runtime.minter("nmdc:ReadBasedTaxonomyAnalysisActivity"),
-            ),
-            "nmdc:MetagenomeAssembly": (
-                self.nmdc_db.metagenome_assembly_set,
-                nmdc.MetagenomeAssembly,
-                runtime.minter("nmdc:MetagenomeAssembly"),
-            ),
-            "nmdc:MetagenomeAnnotationActivity": (
-                self.nmdc_db.metagenome_annotation_activity_set,
-                nmdc.MetagenomeAnnotationActivity,
-                runtime.minter("nmdc:MetagenomeAnnotationActivity"),
-            ),
-            "nmdc:MAGsAnalysisActivity": (
-                self.nmdc_db.mags_activity_set,
-                nmdc.MagsAnalysisActivity,
-                runtime.minter("nmdc:MagsAnalysisActivity"),
-            ),
-        }
-
-        for activity_config in self.import_data["Workflows"]:
-            if not activity_config["Import"]:
-                del activity_store_dict[activity_config["Type"]]
-
-        return activity_store_dict
-
-    def relate_object_by_activity_id(self, output_of: str) -> str:
-        """Map data object to activity type and returns minted activity id
+    def get_activity_id(self, output_of: str) -> str:
+        '''Lookup and returns minted activity id
 
         Args:
             output_of (str): The activity type the data object is an output of.
 
         Returns:
-            str: The activity id that the data object is an output of.
-        """
+            str: The activity id for this workflow type.
+        '''
+        if output_of not in self.activity_ids:
+            wf = self.workflows_by_type[output_of]
+            id = runtime.minter(wf["Type"])
+            self.activity_ids[output_of] = id
+            return id
+        return self.activity_ids[output_of]
 
-        return self.activity_store[output_of][2]
 
     def attach_objects_to_activity(
         self, activity_type: str

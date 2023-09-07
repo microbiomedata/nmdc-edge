@@ -1,10 +1,11 @@
 Workflows:
   - Name: Sequencing
-    Import: true
+    Import: false
     Type: nmdc:MetagenomeSequencing
     Git_repo: https://github.com/microbiomedata/RawSequencingData
     Version: v1.0.0
     Collection: metagenome_sequencing_activity_set
+    ActivityRange: MetagenomeSequencingActivity
     Activity: null
     Outputs:
       - Metagenome Raw Reads
@@ -15,6 +16,7 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/ReadsQC
     Version: b1.0.7
     Collection: read_qc_analysis_activity_set
+    ActivityRange: ReadQcAnalysisActivity
     Inputs:
       - Metagenome Raw Reads
     Activity:
@@ -34,6 +36,7 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/ReadsQC
     Version: 1.0.4-beta
     Collection: read_based_taxonomy_analysis_activity_set
+    ActivityRange: ReadBasedTaxonomyAnalysisActivity
     Inputs:
       - Filtered Sequencing Reads
     Activity:
@@ -56,6 +59,7 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/metaAssembly
     Version: v1.0.4-beta
     Collection: metagenome_assembly_set
+    ActivityRange: MetagenomeAssembly
     Inputs:
       - Filtered Sequencing Reads
     Activity:
@@ -99,6 +103,7 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Version: v1.0.2-beta
     Collection: metagenome_annotation_activity_set
+    ActivityRange: MetagenomeAnnotationActivity
     Inputs:
       - Assembly Contigs
     Activity:
@@ -130,10 +135,11 @@ Workflows:
 
   - Name: MAGs
     Import: true
-    Type: nmdc:MAGsAnalysisActivity
+    Type: nmdc:MagsAnalysisActivity
     Git_repo: https://github.com/microbiomedata/metaMAGs
     Version: v1.0.5-beta
     Collection: mags_activity_set
+    ActivityRange: MagsAnalysisActivity
     Inputs:
       - Assembly Contigs
       - Functional Annotation GFF
@@ -151,7 +157,7 @@ Workflows:
       - Gene Phylogeny tsv
     Activity:
       name: "Metagenome Assembled Genomes Analysis Activity for {id}"
-      type: nmdc:MAGsAnalysisActivity
+      type: nmdc:MagsAnalysisActivity
     Outputs:
       - CheckM Statistics
       - Metagenome Bins
@@ -175,7 +181,7 @@ Data Objects:
       import_suffix: _checkm_qa.out
       nmdc_suffix: _checkm_qa.out
       input_to: []
-      output_of:  nmdc:MAGsAnalysisActivity
+      output_of:  nmdc:MagsAnalysisActivity
       mulitple: false
       action: rename
     - data_object_type: GTDBTK Bacterial Summary
@@ -184,7 +190,7 @@ Data Objects:
       import_suffix: _gtdbtk.bac122.summary.tsv
       nmdc_suffix: _gtdbtk.bac122.summary.tsv
       input_to: []
-      output_of:  nmdc:MAGsAnalysisActivity
+      output_of:  nmdc:MagsAnalysisActivity
       mulitple: false
       action: rename
     - data_object_type: GTDBTK Archaeal Summary
@@ -193,7 +199,7 @@ Data Objects:
       import_suffix: _gtdbtk.ar122.summary.tsv
       nmdc_suffix: _gtdbtk.ar122.summary.tsv
       input_to: []
-      output_of:  nmdc:MAGsAnalysisActivity
+      output_of:  nmdc:MagsAnalysisActivity
       mulitple: false
       action: rename
     - data_object_type: Annotation Amino Acid FASTA
@@ -201,7 +207,7 @@ Data Objects:
       name: FASTA amino acid file for annotated proteins
       import_suffix: _proteins.faa
       nmdc_suffix: _proteins.faa
-      input_to: [nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
@@ -228,7 +234,7 @@ Data Objects:
       name: GFF3 format file with functional annotations
       import_suffix: _functional_annotation.gff
       nmdc_suffix: _functional_annotation.gff
-      input_to: [nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
@@ -237,7 +243,7 @@ Data Objects:
       name: Tab delimited file for KO annotation
       import_suffix: _ko.tsv
       nmdc_suffix: _ko.tsv
-      input_to: [nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
@@ -246,7 +252,7 @@ Data Objects:
       name: Tab delimited file for EC annotation
       import_suffix: _ec.tsv
       nmdc_suffix: _ec.tsv
-      input_to: [nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
@@ -255,7 +261,7 @@ Data Objects:
       name: GFF3 format file with COGs
       import_suffix: _cog.gff
       nmdc_suffix: _cog.gff
-      input_to: [nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
@@ -264,7 +270,7 @@ Data Objects:
       name: GFF3 format file with Pfam
       import_suffix: _pfam.gff
       nmdc_suffix: _pfam.gff
-      input_to: [nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
@@ -273,7 +279,7 @@ Data Objects:
       name: GFF3 format file with TIGRfam
       import_suffix: _tigrfam.gff
       nmdc_suffix: _tigrfam.gff
-      input_to: [nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
@@ -282,7 +288,7 @@ Data Objects:
       name: GFF3 format file with SMART
       import_suffix: _smart.gff
       nmdc_suffix: _smart.gff
-      input_to: [nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
@@ -291,7 +297,7 @@ Data Objects:
       name: GFF3 format file with SUPERFam
       import_suffix: _supfam.gff
       nmdc_suffix: _supfam.gff
-      input_to: [nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
@@ -300,7 +306,7 @@ Data Objects:
       name: GFF3 format file with CATH FunFams
       import_suffix: _cath_funfam.gff
       nmdc_suffix: _cath_funfam.gff
-      input_to: [nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
@@ -363,7 +369,7 @@ Data Objects:
       name: Product names file
       import_suffix: _product_names.tsv
       nmdc_suffix: _product_names.tsv
-      input_to: [nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
@@ -372,7 +378,7 @@ Data Objects:
       name: Gene Phylogeny file
       import_suffix: _gene_phylogeny.tsv
       nmdc_suffix: _gene_phylogeny.tsv
-      input_to: [nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
@@ -435,7 +441,7 @@ Data Objects:
       name: Final assembly contigs fasta
       import_suffix: _contigs.fna
       nmdc_suffix: _contigs.fna
-      input_to: [nmdc:MetagenomeAnnotationActivity,nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MetagenomeAnnotationActivity,nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAssembly
       mulitple: false
       action: rename
@@ -479,7 +485,7 @@ Data Objects:
       name: Sorted bam file of reads mapping back to the final assembly
       import_suffix: _pairedMapped_sorted.bam
       nmdc_suffix: _pairedMapped_sorted.sam
-      input_to: [nmdc:MAGsAnalysisActivity]
+      input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAssembly
       mulitple: false
       action: rename
@@ -572,7 +578,7 @@ Data Objects:
       import_suffix: _[0-9]+.tar.gz
       nmdc_suffix: _hqmq_bin.zip
       input_to: []
-      output_of:  nmdc:MAGsAnalysisActivity
+      output_of:  nmdc:MagsAnalysisActivity
       mulitple: true
       action: zip
 
