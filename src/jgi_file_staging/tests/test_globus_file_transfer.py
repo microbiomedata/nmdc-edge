@@ -9,8 +9,8 @@ from pathlib import Path
 from testfixtures import Replace, mock_datetime
 
 from globus_file_transfer import get_globus_manifest, get_mongo_db, get_globus_task_status, create_globus_batch_file, \
-    create_globus_dataframe, insert_globus_status_into_mongodb, update_globus_statuses, submit_globus_batch_file, \
-    get_list_missing_staged_files
+    create_globus_dataframe, insert_globus_status_into_mongodb, update_globus_statuses, submit_globus_batch_file
+from staged_files import get_list_missing_staged_files
 
 from jgi_file_metadata import insert_samples_into_mongodb
 
@@ -58,7 +58,7 @@ class GlobusTestCase(unittest.TestCase):
 
         mock_run.side_effect = [process_mock_2, process_mock_3, process_mock_4, process_mock_5,
                                 process_mock_6, process_mock_7]
-        get_globus_manifest(self.config, 201670)
+        get_globus_manifest(201670, config=self.config)
         self.assertEqual(mock_run.call_count, 2)
         self.assertEqual(mock_run.mock_calls[0].args[0], ['globus', 'ls',
                                                           '65fa2422-e080-11ec-990f-3b4cfda38030:/73709/R201670'])
@@ -260,7 +260,8 @@ Bytes Per Second:             371815009''', 'returncode': 0}
                         'Ga0499978_ko.tsv', 'Ga0499978_proteins.faa',
                         'pairedMapped_sorted.bam.cov', 'Table_8_-_3300049478.taxonomic_composition.txt',
                         'Ga0499978_annotation_config.yaml']
-        analysis_projects_dir = Path(self.fixtures, 'analysis_projects', 'Ga0499978')
+        project_name = 'test_project'
+        analysis_projects_dir = Path(self.fixtures, 'analysis_projects', f"{project_name}_analysis_projects", 'Ga0499978')
         shutil.rmtree(analysis_projects_dir) if Path.exists(analysis_projects_dir) else None
         Path.mkdir(analysis_projects_dir, parents=True)
         [Path.touch(Path(analysis_projects_dir, grow_file)) for grow_file in staged_files]
@@ -276,7 +277,7 @@ Bytes Per Second:             371815009''', 'returncode': 0}
         insert_samples_into_mongodb(grow_analysis_df.to_dict('records'))
         output_file = Path(os.path.dirname(__file__), 'merge_db_staged.csv')
         try:
-            missing_files = get_list_missing_staged_files('test_project', self.config_file)
+            missing_files = get_list_missing_staged_files(project_name, self.config_file)
             self.assertTrue(os.path.exists(output_file))
             self.assertTrue('rqc-stats.pdf' in [el['file_name'] for el in missing_files if el['file_name'] == 'rqc-stats.pdf'])
         finally:
