@@ -15,12 +15,15 @@ logging.basicConfig(filename='file_staging.log',
                     datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG)
 
 
-def get_globus_manifest(config, request_id):
+def get_globus_manifest(request_id, config_file=None, config=None):
     """
     This gets the Globus file manifest with the list of Globus paths for each requested file
     This function requires installation of the Globus CLI
     :return:
     """
+    if config_file:
+        config = configparser.ConfigParser()
+        config.read(config_file)
     jgi_globus_id = config['GLOBUS']['jgi_globus_id']
     nersc_globus_id = config['GLOBUS']['nersc_globus_id']
     nersc_manifests_directory = config['GLOBUS']['nersc_manifests_directory']
@@ -105,7 +108,6 @@ def submit_globus_batch_file(project, config_file):
     return output.stdout
 
 
-
 def insert_globus_status_into_mongodb(task_id, task_status):
     mdb = get_mongo_db()
     mdb.globus.insert_one({'task_id': task_id, 'task_status': task_status})
@@ -129,41 +131,19 @@ def update_globus_statuses():
         update_globus_task_status(task['task_id'], task_status)
 
 
-def get_list_missing_staged_files(project_name, config_file) -> list:
-    """
-    Get list of files on file system for a project and compare to list of files in database
-    """
-    config = configparser.ConfigParser()
-    config.read(config_file)
-    base_dir = config['GLOBUS']['dest_root_dir']
-    proj_list = []
-    for analysis_proj in os.listdir(base_dir):
-        [proj_list.append({'analysis_project': analysis_proj, 'file': f})
-         for f in os.listdir(os.path.join(base_dir, analysis_proj))]
-
-    stage_df = pd.DataFrame(proj_list)
-    stage_df['file_key'] = stage_df.apply(lambda x: f"{x.analysis_project}-{x.file}", axis=1)
-    mdb = get_mongo_db()
-    samples_df = pd.DataFrame([s for s in mdb.samples.find({'project': project_name})])
-    samples_df['file_key'] = samples_df.apply(lambda x: f"{x.apGoldId}-{x.file_name}", axis=1)
-    db_samples_df = pd.merge(samples_df, stage_df, left_on='file_key', right_on='file_key', how='outer')
-    db_samples_df.to_csv('merge_db_staged.csv', index=False)
-    return db_samples_df.loc[pd.isna(db_samples_df.analysis_project), ['apGoldId', 'file_name']].to_dict('records')
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('project_name')
     parser.add_argument('config_file')
+    parser.add_argument('-r', '--request_id', help='Globus request id (from file restoration api)')
     parser.add_argument('-u', '--update_globus_statuses', action='store_true', help='update globus task statuses',
                         default=False)
-    parser.add_argument('-f', '--get_list_staged_files', action='store_true',
-                        help='get list of files that have been staged', default=False)
+
     args = vars((parser.parse_args()))
 
     if args['update_globus_statuses']:
         update_globus_statuses()
-    if args['get_list_staged_files']:
-        get_list_missing_staged_files(args['project_name'], args['config_file'])
+    elif args['request_id']:
+        get_globus_manifest(args['request_id'], config_file=args['config_file'])
     else:
         submit_globus_batch_file(args['project_name'], args['config_file'])
