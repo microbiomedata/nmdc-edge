@@ -9,7 +9,7 @@ import hashlib
 import mimetypes
 from time import time
 from datetime import datetime
-from dotenv import dotenv_values
+from nmdc_automation.config import Config
 import logging
 
 
@@ -32,22 +32,18 @@ def _get_sha256(fn):
     return sha
 
 
-class nmdcapi:
+class NmdcRuntimeApi:
     token = None
     expires = 0
     _base_url = None
     client_id = None
     client_secret = None
 
-    def __init__(self):
-        dotenv_path = join(dirname(__file__), ".env")
-        if os.path.exists(dotenv_path):
-            src = dotenv_values(dotenv_path)
-        else:
-            src = os.environ
-        self._base_url = src.get("NMDC_API_URL")
-        self.client_id = src.get("NMDC_CLIENT_ID")
-        self.client_secret = src.get("NMDC_CLIENT_SECRET")
+    def __init__(self, site_configuration):
+        self.config = Config(site_configuration)
+        self._base_url = self.config.api_url
+        self.client_id = self.config.client_id
+        self.client_secret = self.config.client_secret
         if self._base_url[-1] != "/":
             self._base_url += "/"
 
@@ -317,67 +313,3 @@ def usage():
     print("usage: ....")
 
 
-if __name__ == "__main__":  # pragma: no cover
-    nmdc = nmdcapi()
-    if len(sys.argv) < 2:
-        usage()
-    elif sys.argv[1] == "set_type":
-        obj = sys.argv[2]
-        typ = sys.argv[3]
-        nmdc.set_type(obj, typ)
-    elif sys.argv[1] == "undo":
-        for opid in sys.argv[2:]:
-            resp = nmdc.update_op(opid, done=False)
-            jprint(resp)
-    elif sys.argv[1] == "get_job":
-        obj = sys.argv[2]
-        jprint(nmdc.get_job(obj))
-    elif sys.argv[1] == "list_jobs":
-        filt = None
-        if len(sys.argv) > 2:
-            filt = sys.argv[2]
-            print(filt)
-        jprint(nmdc.list_jobs(filt=filt))
-    elif sys.argv[1] == "list_ops":
-        filt = None
-        if len(sys.argv) > 2:
-            filt = json.loads(sys.argv[2])
-        jprint(nmdc.list_ops(filt=filt))
-    elif sys.argv[1] == "list_objs":
-        filt = None
-        if len(sys.argv) > 2:
-            filt = json.loads(sys.argv[2])
-        jprint(nmdc.list_objs(filt=filt))
-    elif sys.argv[1].startswith("get_obj"):
-        obj = sys.argv[2]
-        d = nmdc.get_object(obj, decode=True)
-        jprint(d)
-    elif sys.argv[1] == "bump_time":
-        obj = sys.argv[2]
-        nmdc.bump_time(obj)
-    elif sys.argv[1].startswith("get_op"):
-        opid = sys.argv[2]
-        jprint(nmdc.get_op(opid))
-    elif sys.argv[1] == "dumpops":
-        site = sys.argv[2]
-        ops = nmdc.list_ops(filt={"metadata.site_id": site})
-        jprint(ops)
-    elif sys.argv[1] == "mint":
-        typ = sys.argv[2]
-        ct = int(sys.argv[3])
-        ids = nmdc.mint("nmdc", typ, ct)
-        jprint(ids)
-    elif sys.argv[1] == "mkobj":
-        fn = sys.argv[2]
-        desc = sys.argv[3]
-        url = sys.argv[4]
-        resp = nmdc.create_object(fn, desc, url)
-        jprint(resp)
-    elif sys.argv[1] == "dumpjobs":
-        filt = None
-        if len(sys.argv) == 4:
-            filt = {sys.argv[2]: sys.argv[3]}
-        ops = nmdc.list_jobs(filt=filt)
-        jprint(ops)
-    else:
-        usage()
