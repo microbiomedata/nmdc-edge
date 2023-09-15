@@ -3,12 +3,16 @@ import re
 import logging
 import datetime
 import pytz
+import json
 import yaml
 from typing import List, Dict, Callable, Tuple
 import nmdc_schema.nmdc as nmdc
 from linkml_runtime.dumpers import json_dumper
 from nmdc_automation.api.nmdcapi import nmdcapi
-from nmdc_automation.import_automation.utils import object_action, file_link, get_md5
+from nmdc_automation.import_automation.utils import (object_action, 
+                                                     file_link, 
+                                                     get_md5,
+                                                     filter_import_by_type)
 
 logger = logging.getLogger(__name__)
 runtime = nmdcapi()
@@ -17,6 +21,7 @@ runtime = nmdcapi()
 class GoldMapper:
     def __init__(
         self,
+        iteration,
         file_list: List[str],
         omics_id: str,
         yaml_file: str,
@@ -37,6 +42,7 @@ class GoldMapper:
             self.import_data = yaml.safe_load(file)
 
         self.nmdc_db = nmdc.Database()
+        self.iteration = iteration
         self.file_list = file_list
         self.omics_id = omics_id
         self.root_dir = os.path.join(
@@ -48,8 +54,9 @@ class GoldMapper:
         self.objects = {}
         self.activity_ids = {}
         self.workflows_by_type = {}
+        
         for wf in self.import_data["Workflows"]:
-            self.workflows_by_type[wf['Type']] = wf
+            self.workflows_by_type[wf["Type"]] = wf
 
     def unique_object_mapper(self) -> None:
         """
@@ -59,6 +66,8 @@ class GoldMapper:
         """
 
         for data_object_dict in self.import_data["Data Objects"]["Unique"]:
+            if not filter_import_by_type(self.import_data["Workflows"], data_object_dict["output_of"]):
+                continue
             for file in self.file_list:
                 if data_object_dict is None:
                     continue
@@ -66,10 +75,10 @@ class GoldMapper:
                     logging.warning("Missing suffix")
                     continue
 
-                elif re.search(data_object_dict['import_suffix'], file, re.IGNORECASE):
-                    activity_id = self.get_activity_id(data_object_dict['output_of'])
+                elif re.search(data_object_dict["import_suffix"], file):
+                    activity_id = self.get_activity_id(data_object_dict["output_of"])
 
-                    file_destination_name = object_action(file, data_object_dict['action'], activity_id, data_object_dict['nmdc_suffix'])
+                    file_destination_name = object_action(file, data_object_dict["action"], activity_id, data_object_dict["nmdc_suffix"])
 
 
                     activity_dir = os.path.join(self.root_dir, activity_id)
@@ -94,9 +103,9 @@ class GoldMapper:
                             id=dobj,
                             md5_checksum=md5,
 
-                            description=data_object_dict['description'].replace("{id}", self.omics_id)
+                            description=data_object_dict["description"].replace("{id}", self.omics_id)
                             ))
-                    self.objects[data_object_dict['data_object_type']] = (data_object_dict['input_to'], [data_object_dict['output_of']], dobj)
+                    self.objects[data_object_dict["data_object_type"]] = (data_object_dict["input_to"], [data_object_dict["output_of"]], dobj)
 
 
     def multiple_objects_mapper(self) -> None:
@@ -110,11 +119,11 @@ class GoldMapper:
 
         for data_object_dict in self.import_data["Data Objects"]["Multiples"]:
             for file in self.file_list:
-                if re.search(data_object_dict["import_suffix"], file, re.IGNORECASE):
+                if re.search(data_object_dict["import_suffix"], file):
                     multiple_objects_list.append(file)
 
 
-            activity_id = self.get_activity_id(data_object_dict['output_of'])
+            activity_id = self.get_activity_id(data_object_dict["output_of"])
 
 
             activity_dir = os.path.join(self.root_dir, activity_id)
@@ -174,19 +183,18 @@ class GoldMapper:
         """
 
 
-        for workflow in self.import_data['Workflows']:
-            if not workflow.get('Import'):
+        for workflow in self.import_data["Workflows"]:
+            if not workflow.get("Import"):
                 continue
             logging.info(f"Processing {workflow['Name']}")
-            has_inputs_list, has_output_list = self.attach_objects_to_activity(workflow['Type'])
+            has_inputs_list, has_output_list = self.attach_objects_to_activity(workflow["Type"])
             # quick fix because nmdc-schema does not support [], even though raw product has none
-            if len(has_inputs_list) == 0:
-                has_inputs_list = ['None']
             if len(has_output_list) == 0:
                 logging.warning("No outputs.  That seems odd.")
-                has_output_list = ['None']
-
-
+                has_output_list = ["None"]
+            #input may be none for metagenome sequencing
+            if len(has_inputs_list) == 0:
+                    has_inputs_list = ["None"]
             # Lookup the nmdc database class
             database_activity_set = getattr(self.nmdc_db, workflow["Collection"])
             # Lookup the nmdc schema range class
@@ -220,7 +228,7 @@ class GoldMapper:
         '''
         if output_of not in self.activity_ids:
             wf = self.workflows_by_type[output_of]
-            id = runtime.minter(wf["Type"])
+            id = runtime.minter(wf["Type"]) + "." + self.iteration
             self.activity_ids[output_of] = id
             return id
         return self.activity_ids[output_of]
@@ -268,7 +276,7 @@ class GoldMapper:
             Dict: The response from the runtime API after posting the object.
         """
 
-        nmdc_database_object = json_dumper.dumps(self.nmdc_db, inject_type=False)
+        nmdc_database_object = json.loads(json_dumper.dumps(self.nmdc_db, inject_type=False))
         res = runtime.post_objects(nmdc_database_object)
         return res
 
