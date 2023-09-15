@@ -1,6 +1,6 @@
 import logging
 from typing import List
-from nmdc_automation.workflow_automation.workflows import Workflow
+from .workflows import Workflow
 
 
 def _load_data_objects(db, workflows: List[Workflow]):

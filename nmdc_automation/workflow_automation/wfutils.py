@@ -51,10 +51,10 @@ class WorkflowJob:
             self.check_status()
 
     def set_config_attributes(self):
-        self.cromurl = self.config["cromwell"]["cromwell_url"]
-        self.data_dir = self.config["directories"]["data_dir"]
-        self.resource = self.config["site"]["resource"]
-        self.url_root = self.config["nmdc"]["url_root"]
+        self.cromurl = self.config.cromwell_url
+        self.data_dir = self.config.data_dir
+        self.resource = self.config.resource
+        self.url_root = self.config.url_root
 
     def load_workflow_config(self):
         self.outputs = self.workflow_config.get("outputs")
@@ -155,7 +155,7 @@ class WorkflowJob:
         for input, input_object in self.workflow_config["inputs"].items():
             input_prefix = f"{prefix}.{input}"
             if input_object == "{resource}":
-                input_object = self.config["site"]["resource"]
+                input_object = self.config.resource
             inputs[input_prefix] = input_object
         return inputs
 

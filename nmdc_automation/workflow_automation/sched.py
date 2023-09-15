@@ -4,7 +4,7 @@ from datetime import datetime
 import uuid
 import os
 from time import sleep as _sleep
-from nmdc_automation.api.nmdcapi import nmdcapi
+from nmdc_automation.api.nmdcapi import NmdcRuntimeApi
 from nmdc_automation.workflow_automation.workflows import load_workflows, Workflow
 from functools import lru_cache
 from pymongo import MongoClient
@@ -84,7 +84,7 @@ class Scheduler:
         wf_file = os.environ.get(_WF_YAML_ENV, wfn)
         self.workflows = load_workflows(wf_file)
         self.db = db
-        self.api = nmdcapi()
+        self.api = NmdcRuntimeApi()
 
     async def run(self):
         logging.info("Starting Scheduler")

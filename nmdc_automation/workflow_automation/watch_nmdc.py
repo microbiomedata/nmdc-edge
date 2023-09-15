@@ -7,11 +7,10 @@ import logging
 import shutil
 from json import loads
 from os.path import exists
-from nmdc_automation.api.nmdcapi import nmdcapi
-from nmdc_automation.workflow_automation.config import config
-from nmdc_automation.workflow_automation.wfutils import _md5
-from nmdc_automation.workflow_automation.wfutils import WorkflowJob as wfjob
-from nmdc_automation.workflow_automation.wfutils import NmdcSchema
+from nmdc_automation.api import NmdcRuntimeApi
+from nmdc_automation.config import Config
+from .wfutils import WorkflowJob as wfjob
+from .wfutils import NmdcSchema, _md5
 
 logger = logging.getLogger(__name__)
 
@@ -19,18 +18,18 @@ logger = logging.getLogger(__name__)
 class Watcher:
     def __init__(self, site_configuration_file):
         self._POLL = 20
-        self._MAX_FAILS = 4
+        self._MAX_FAILS = 2
         self.should_skip_claim = False
-        self.config = config(site_configuration_file)
-        self.client_id = self.config.conf["credentials"]["client_id"]
-        self.client_secret = self.config.conf["credentials"]["client_secret"]
-        self.cromurl = self.config.conf["cromwell"]["cromwell_url"]
-        self.state_file = self.config.conf["state"]["agent_state"]
-        self.stage_dir = self.config.get_stage_dir()
-        self.raw_dir = self.config.conf["directories"]["raw_dir"]
+        self.config = Config(site_configuration_file)
+        self.client_id = self.config.client_id
+        self.client_secret = self.config.client_secret
+        self.cromurl = self.config.cromwell_url
+        self.state_file = self.config.agent_state
+        self.stage_dir = self.config.stage_dir
+        self.raw_dir = self.config.raw_dir
         self.jobs = []
-        self.runtime_api = nmdcapi()
-        self._ALLOWED = self.config._generate_allowed_workflows()
+        self.runtime_api = NmdcRuntimeApi(site_configuration_file)
+        self._ALLOWED = self.config.allowed_workflows
 
     def restore(self, nocheck: bool = False):
         """
@@ -55,7 +54,7 @@ class Watcher:
             job_id = job["nmdc_jobid"]
             if job_id in seen:
                 continue
-            job_record = wfjob(self.config.conf, state=job, nocheck=nocheck)
+            job_record = wfjob(self.config, state=job, nocheck=nocheck)
             new_job_list.append(job_record)
             seen[job_id] = True
 
@@ -105,7 +104,7 @@ class Watcher:
             logging.debug("NEW JOB")
             logging.debug(new_job)
             job = wfjob(
-                site_config=self.config.conf,
+                site_config=self.config,
                 typ=common_workflow_id,
                 nmdc_jobid=new_job["id"],
                 workflow_config=new_job["config"],
