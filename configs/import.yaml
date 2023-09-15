@@ -1,12 +1,14 @@
 Workflows:
   - Name: Sequencing
-    Import: false
-    Type: nmdc:MetagenomeSequencing
+    Import: true
+    Type: nmdc:MetagenomeSequencingActivity
     Git_repo: https://github.com/microbiomedata/RawSequencingData
     Version: v1.0.0
     Collection: metagenome_sequencing_activity_set
     ActivityRange: MetagenomeSequencingActivity
-    Activity: null
+    Activity:
+      name: "Metagenome Sequencing Activity for {id}"
+      type: nmdc:MetagenomeSequencingActivity
     Outputs:
       - Metagenome Raw Reads
 
@@ -14,7 +16,7 @@ Workflows:
     Import: true
     Type: nmdc:ReadQcAnalysisActivity
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: b1.0.7
+    Version: v1.0.8
     Collection: read_qc_analysis_activity_set
     ActivityRange: ReadQcAnalysisActivity
     Inputs:
@@ -34,7 +36,7 @@ Workflows:
     Import: false
     Type: nmdc:ReadBasedTaxonomyAnalysisActivity
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: 1.0.4-beta
+    Version: v1.0.5
     Collection: read_based_taxonomy_analysis_activity_set
     ActivityRange: ReadBasedTaxonomyAnalysisActivity
     Inputs:
@@ -57,7 +59,7 @@ Workflows:
     Import: true
     Type: nmdc:MetagenomeAssembly
     Git_repo: https://github.com/microbiomedata/metaAssembly
-    Version: v1.0.4-beta
+    Version: v1.0.3
     Collection: metagenome_assembly_set
     ActivityRange: MetagenomeAssembly
     Inputs:
@@ -98,10 +100,10 @@ Workflows:
       - Assembly Coverage BAM
 
   - Name: Metagenome Annotation
-    Import: true
+    Import: false
     Type: nmdc:MetagenomeAnnotationActivity
     Git_repo: https://github.com/microbiomedata/mg_annotation
-    Version: v1.0.2-beta
+    Version: v1.0.4
     Collection: metagenome_annotation_activity_set
     ActivityRange: MetagenomeAnnotationActivity
     Inputs:
@@ -134,10 +136,10 @@ Workflows:
 
 
   - Name: MAGs
-    Import: true
+    Import: false
     Type: nmdc:MagsAnalysisActivity
     Git_repo: https://github.com/microbiomedata/metaMAGs
-    Version: v1.0.5-beta
+    Version: v1.0.6
     Collection: mags_activity_set
     ActivityRange: MagsAnalysisActivity
     Inputs:
@@ -169,10 +171,10 @@ Data Objects:
     - data_object_type: Metagenome Raw Reads
       description: Metagenome Raw Reads for {id}
       name: Raw sequencer read data
-      import_suffix: .[ACGT]+.fastq.gz
+      import_suffix: .[A-Z]+-[A-Z]+.fastq.gz
       nmdc_suffix: .fastq.gz
       input_to: [nmdc:ReadQcAnalysisActivity]
-      output_of: nmdc:MetagenomeSequencing
+      output_of: nmdc:MetagenomeSequencingActivity
       mulitple: false
       action: none
     - data_object_type: CheckM Statistics
@@ -319,7 +321,7 @@ Data Objects:
       output_of: nmdc:MetagenomeAnnotationActivity
       mulitple: false
       action: rename
-    - data_object_type: Genmark Annotation GFF
+    - data_object_type: Genemark Annotation GFF
       description: Genemark Annotations for {id}
       name: GFF3 format file with Genemark
       import_suffix: _genemark.gff
@@ -421,7 +423,7 @@ Data Objects:
     - data_object_type: QC Statistics 
       description: Reads QC summary for {id} 
       name: Reads QC summary statistics
-      import_suffix: _filtered-report.txt
+      import_suffix: .filtered-report.txt
       nmdc_suffix: _filterStats.txt
       input_to: []
       output_of: nmdc:ReadQcAnalysisActivity
@@ -439,7 +441,7 @@ Data Objects:
     - data_object_type: Assembly Contigs
       description: Assembly contigs for {id}
       name: Final assembly contigs fasta
-      import_suffix: _contigs.fna
+      import_suffix: assembly.contigs.fasta
       nmdc_suffix: _contigs.fna
       input_to: [nmdc:MetagenomeAnnotationActivity,nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAssembly
@@ -462,10 +464,11 @@ Data Objects:
       input_to: []
       output_of: nmdc:MetagenomeAssembly
       mulitple: false
+      action: rename
     - data_object_type: Assembly Coverage Stats
       description: Coverage Stats for {id}
       name: Assembled contigs coverage information
-      import_suffix: _covstats.txt
+      import_suffix: pairedMapped_sorted.bam.cov
       nmdc_suffix: _covstats.txt
       input_to: []
       output_of: nmdc:MetagenomeAssembly
@@ -483,13 +486,12 @@ Data Objects:
     - data_object_type: Assembly Coverage BAM
       description: Sorted Bam for {id}
       name: Sorted bam file of reads mapping back to the final assembly
-      import_suffix: _pairedMapped_sorted.bam
-      nmdc_suffix: _pairedMapped_sorted.sam
+      import_suffix: pairedMapped.sam.gz
+      nmdc_suffix: _pairedMapped_sorted.sam.gz
       input_to: [nmdc:MagsAnalysisActivity]
       output_of: nmdc:MetagenomeAssembly
       mulitple: false
       action: rename
-    - data_object_type: 
     - data_object_type: GOTTCHA2 Report Full
       description: GOTTCHA2 Full Report for {id}
       name: GOTTCHA2 report file
