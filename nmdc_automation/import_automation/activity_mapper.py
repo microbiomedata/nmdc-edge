@@ -8,15 +8,13 @@ import yaml
 from typing import List, Dict, Callable, Tuple
 import nmdc_schema.nmdc as nmdc
 from linkml_runtime.dumpers import json_dumper
-from nmdc_automation.api.nmdcapi import nmdcapi
-from nmdc_automation.import_automation.utils import (object_action, 
-                                                     file_link, 
-                                                     get_md5,
-                                                     filter_import_by_type)
+from nmdc_automation.api import NmdcRuntimeApi
+from .utils import (object_action, 
+                    file_link, 
+                    get_md5,
+                    filter_import_by_type)
 
 logger = logging.getLogger(__name__)
-runtime = nmdcapi()
-
 
 class GoldMapper:
     def __init__(
@@ -26,6 +24,7 @@ class GoldMapper:
         omics_id: str,
         yaml_file: str,
         project_directory: str,
+        site_config_file: str
     ):
         """
         Initialize the GoldMapper object.
@@ -54,6 +53,8 @@ class GoldMapper:
         self.objects = {}
         self.activity_ids = {}
         self.workflows_by_type = {}
+        
+        self.runtime = NmdcRuntimeApi(site_config_file)
         
         for wf in self.import_data["Workflows"]:
             self.workflows_by_type[wf["Type"]] = wf
@@ -91,7 +92,7 @@ class GoldMapper:
 
                     md5 = get_md5(updated_file)
 
-                    dobj = runtime.minter(self.data_object_type)
+                    dobj = self.runtime.minter(self.data_object_type)
 
                     self.nmdc_db.data_object_set.append(
                         nmdc.DataObject(
@@ -148,7 +149,7 @@ class GoldMapper:
 
             md5 = get_md5(updated_file)
 
-            dobj = runtime.minter(self.data_object_type)
+            dobj = self.runtime.minter(self.data_object_type)
 
             self.nmdc_db.data_object_set.append(
                 nmdc.DataObject(
@@ -228,7 +229,7 @@ class GoldMapper:
         '''
         if output_of not in self.activity_ids:
             wf = self.workflows_by_type[output_of]
-            id = runtime.minter(wf["Type"]) + "." + self.iteration
+            id = self.runtime.minter(wf["Type"]) + "." + self.iteration
             self.activity_ids[output_of] = id
             return id
         return self.activity_ids[output_of]
@@ -277,7 +278,7 @@ class GoldMapper:
         """
 
         nmdc_database_object = json.loads(json_dumper.dumps(self.nmdc_db, inject_type=False))
-        res = runtime.post_objects(nmdc_database_object)
+        res = self.runtime.post_objects(nmdc_database_object)
         return res
 
     def get_database_object_dump(self) -> nmdc.Database:

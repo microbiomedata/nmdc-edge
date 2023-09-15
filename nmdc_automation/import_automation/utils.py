@@ -172,3 +172,20 @@ def get_md5(fn: str) -> str:
             f.write(md5)
             f.write("\n")
     return md5
+
+def filter_import_by_type(workflow_data: dict, nmdc_type: str) -> dict:
+    """
+    Filter workflows and check if they should be imported
+
+    Args:
+        workflow_data (dict): Workflows
+        nmdc_type (str): ndmc:xxxxxActivity
+
+    Returns:
+        dict: Filtered workflows
+    """
+
+    for workflow in workflow_data:
+        if workflow["Type"] == nmdc_type:
+            return workflow["Import"]
+        
