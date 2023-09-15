@@ -11,7 +11,7 @@ Workflows:
     - Metagenome Raw Reads
 
   - Name: Sequencing
-    Type: nmdc:MetagenomeSequencing
+    Type: nmdc:MetagenomeSequencingActivity
     Enabled: False
     Git_repo: https://github.com/microbiomedata/RawSequencingData
     Version: v1.0.0
