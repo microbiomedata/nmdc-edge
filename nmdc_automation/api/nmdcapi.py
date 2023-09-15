@@ -311,5 +311,3 @@ def jprint(obj):
 
 def usage():
     print("usage: ....")
-
-

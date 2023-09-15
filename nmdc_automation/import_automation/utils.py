@@ -98,11 +98,9 @@ def zip_file(activity_id: str, nmdc_suffix: str, file: str, project_dir: str):
     zip_file_name = rename(activity_id, nmdc_suffix)
 
     if not os.path.exists(os.path.join(project_dir, zip_file_name)):
-
         if not os.path.exists(project_dir):
             os.makedirs(project_dir)
-        with ZipFile(os.path.join(project_dir, zip_file_name), mode='w') as zipped_file:
-
+        with ZipFile(os.path.join(project_dir, zip_file_name), mode="w") as zipped_file:
             zipped_file.write(file)
     else:
         with ZipFile(os.path.join(project_dir, zip_file_name), mode="a") as zipped_file:
@@ -131,7 +129,9 @@ def file_link(
     """
 
     if type(import_file) == list:
-        logging.info("Object has already been linked in objection specific import action")
+        logging.info(
+            "Object has already been linked in objection specific import action"
+        )
         return os.path.join(destination_dir, updated_file)
 
     elif type(import_file) == str:
@@ -173,6 +173,7 @@ def get_md5(fn: str) -> str:
             f.write("\n")
     return md5
 
+
 def filter_import_by_type(workflow_data: dict, nmdc_type: str) -> dict:
     """
     Filter workflows and check if they should be imported
@@ -188,4 +189,3 @@ def filter_import_by_type(workflow_data: dict, nmdc_type: str) -> dict:
     for workflow in workflow_data:
         if workflow["Type"] == nmdc_type:
             return workflow["Import"]
-        

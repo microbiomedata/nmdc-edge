@@ -9,12 +9,10 @@ from typing import List, Dict, Callable, Tuple
 import nmdc_schema.nmdc as nmdc
 from linkml_runtime.dumpers import json_dumper
 from nmdc_automation.api import NmdcRuntimeApi
-from .utils import (object_action, 
-                    file_link, 
-                    get_md5,
-                    filter_import_by_type)
+from .utils import object_action, file_link, get_md5, filter_import_by_type
 
 logger = logging.getLogger(__name__)
+
 
 class GoldMapper:
     def __init__(
@@ -24,7 +22,7 @@ class GoldMapper:
         omics_id: str,
         yaml_file: str,
         project_directory: str,
-        site_config_file: str
+        site_config_file: str,
     ):
         """
         Initialize the GoldMapper object.
@@ -53,9 +51,9 @@ class GoldMapper:
         self.objects = {}
         self.activity_ids = {}
         self.workflows_by_type = {}
-        
+
         self.runtime = NmdcRuntimeApi(site_config_file)
-        
+
         for wf in self.import_data["Workflows"]:
             self.workflows_by_type[wf["Type"]] = wf
 
@@ -67,7 +65,9 @@ class GoldMapper:
         """
 
         for data_object_dict in self.import_data["Data Objects"]["Unique"]:
-            if not filter_import_by_type(self.import_data["Workflows"], data_object_dict["output_of"]):
+            if not filter_import_by_type(
+                self.import_data["Workflows"], data_object_dict["output_of"]
+            ):
                 continue
             for file in self.file_list:
                 if data_object_dict is None:
@@ -79,8 +79,12 @@ class GoldMapper:
                 elif re.search(data_object_dict["import_suffix"], file):
                     activity_id = self.get_activity_id(data_object_dict["output_of"])
 
-                    file_destination_name = object_action(file, data_object_dict["action"], activity_id, data_object_dict["nmdc_suffix"])
-
+                    file_destination_name = object_action(
+                        file,
+                        data_object_dict["action"],
+                        activity_id,
+                        data_object_dict["nmdc_suffix"],
+                    )
 
                     activity_dir = os.path.join(self.root_dir, activity_id)
 
@@ -103,11 +107,16 @@ class GoldMapper:
                             type=self.data_object_type,
                             id=dobj,
                             md5_checksum=md5,
-
-                            description=data_object_dict["description"].replace("{id}", self.omics_id)
-                            ))
-                    self.objects[data_object_dict["data_object_type"]] = (data_object_dict["input_to"], [data_object_dict["output_of"]], dobj)
-
+                            description=data_object_dict["description"].replace(
+                                "{id}", self.omics_id
+                            ),
+                        )
+                    )
+                    self.objects[data_object_dict["data_object_type"]] = (
+                        data_object_dict["input_to"],
+                        [data_object_dict["output_of"]],
+                        dobj,
+                    )
 
     def multiple_objects_mapper(self) -> None:
         """
@@ -123,9 +132,7 @@ class GoldMapper:
                 if re.search(data_object_dict["import_suffix"], file):
                     multiple_objects_list.append(file)
 
-
             activity_id = self.get_activity_id(data_object_dict["output_of"])
-
 
             activity_dir = os.path.join(self.root_dir, activity_id)
 
@@ -183,19 +190,20 @@ class GoldMapper:
         section with an 'Execution Resource'.
         """
 
-
         for workflow in self.import_data["Workflows"]:
             if not workflow.get("Import"):
                 continue
             logging.info(f"Processing {workflow['Name']}")
-            has_inputs_list, has_output_list = self.attach_objects_to_activity(workflow["Type"])
+            has_inputs_list, has_output_list = self.attach_objects_to_activity(
+                workflow["Type"]
+            )
             # quick fix because nmdc-schema does not support [], even though raw product has none
             if len(has_output_list) == 0:
                 logging.warning("No outputs.  That seems odd.")
                 has_output_list = ["None"]
-            #input may be none for metagenome sequencing
+            # input may be none for metagenome sequencing
             if len(has_inputs_list) == 0:
-                    has_inputs_list = ["None"]
+                has_inputs_list = ["None"]
             # Lookup the nmdc database class
             database_activity_set = getattr(self.nmdc_db, workflow["Collection"])
             # Lookup the nmdc schema range class
@@ -205,35 +213,37 @@ class GoldMapper:
             database_activity_set.append(
                 database_activity_range(
                     id=activity_id,
-                    name=workflow['Activity']['name'].replace("{id}", activity_id),
-                    git_url=workflow['Git_repo'],
-                    version=workflow['Version'],
+                    name=workflow["Activity"]["name"].replace("{id}", activity_id),
+                    git_url=workflow["Git_repo"],
+                    version=workflow["Version"],
                     part_of=[self.omics_id],
-                    execution_resource=self.import_data['Workflow Metadata']['Execution Resource'],
+                    execution_resource=self.import_data["Workflow Metadata"][
+                        "Execution Resource"
+                    ],
                     started_at_time=datetime.datetime.now(pytz.utc).isoformat(),
                     has_input=has_inputs_list,
                     has_output=has_output_list,
-                    type=workflow['Type'],
+                    type=workflow["Type"],
                     ended_at_time=datetime.datetime.now(pytz.utc).isoformat(),
                     was_informed_by=self.omics_id,
-                ))
+                )
+            )
 
     def get_activity_id(self, output_of: str) -> str:
-        '''Lookup and returns minted activity id
+        """Lookup and returns minted activity id
 
         Args:
             output_of (str): The activity type the data object is an output of.
 
         Returns:
             str: The activity id for this workflow type.
-        '''
+        """
         if output_of not in self.activity_ids:
             wf = self.workflows_by_type[output_of]
             id = self.runtime.minter(wf["Type"]) + "." + self.iteration
             self.activity_ids[output_of] = id
             return id
         return self.activity_ids[output_of]
-
 
     def attach_objects_to_activity(
         self, activity_type: str
@@ -277,7 +287,9 @@ class GoldMapper:
             Dict: The response from the runtime API after posting the object.
         """
 
-        nmdc_database_object = json.loads(json_dumper.dumps(self.nmdc_db, inject_type=False))
+        nmdc_database_object = json.loads(
+            json_dumper.dumps(self.nmdc_db, inject_type=False)
+        )
         res = self.runtime.post_objects(nmdc_database_object)
         return res
 

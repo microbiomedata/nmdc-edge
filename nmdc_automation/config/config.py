@@ -1,9 +1,10 @@
 import tomli
 import yaml
 
+
 class Config:
     def __init__(self, path):
-        with open(path, 'rb') as file:
+        with open(path, "rb") as file:
             self.config_data = tomli.load(file)
 
     @property
@@ -69,7 +70,7 @@ class Config:
     @property
     def client_secret(self):
         return self.config_data["credentials"]["client_secret"]
-    
+
     @property
     def allowed_workflows(self):
         """Generate a list of allowed workflows."""

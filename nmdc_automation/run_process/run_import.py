@@ -29,7 +29,12 @@ def project_import(import_file, import_yaml, site_configuration, iteration):
             ]
 
             gold_mappings = GoldMapper(
-                iteration, files_list, omics_processing_id, import_yaml, project_path, site_configuration
+                iteration,
+                files_list,
+                omics_processing_id,
+                import_yaml,
+                project_path,
+                site_configuration,
             )
 
             gold_mappings.unique_object_mapper()

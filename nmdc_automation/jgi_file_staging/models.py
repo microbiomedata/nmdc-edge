@@ -19,4 +19,3 @@ class Sample(BaseModel):
     create_date: datetime = datetime.now()
     update_date: Optional[datetime]
     request_id: Optional[str]
-
