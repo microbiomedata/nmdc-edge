@@ -13,8 +13,9 @@ def cli():
 @cli.command()
 @click.argument("import_file", type=click.Path(exists=True))
 @click.argument("import_yaml", type=click.Path(exists=True))
+@click.argument("site_configuration", type=click.Path(exists=True))
 @click.option("--iteration", default=1, type=str, help="Number of iterations")
-def project_import(import_file, import_yaml, iteration):
+def project_import(import_file, import_yaml, site_configuration, iteration):
     with open(import_file) as bioscales_file:
         mappings = csv.reader(bioscales_file, delimiter="\t")
 
@@ -28,7 +29,7 @@ def project_import(import_file, import_yaml, iteration):
             ]
 
             gold_mappings = GoldMapper(
-                iteration, files_list, omics_processing_id, import_yaml, project_path
+                iteration, files_list, omics_processing_id, import_yaml, project_path, site_configuration
             )
 
             gold_mappings.unique_object_mapper()
