@@ -147,11 +147,11 @@ class Watcher:
         self.job_checkpoint()
 
     def _get_url(self, informed_by, act_id, fname):
-        root = self.config.conf["nmdc"]["url_root"]
+        root = self.config.url_root
         return f"{root}/{informed_by}/{act_id}/{fname}"
 
     def _get_output_dir(self, informed_by, act_id):
-        data_directory = self.config.get_data_dir()
+        data_directory = self.config.data_dir
         outdir = os.path.join(data_directory, informed_by, act_id)
         if not os.path.exists(outdir):
             os.makedirs(outdir)
@@ -217,7 +217,7 @@ class Watcher:
         activity_type = job.activity_templ["type"]
         name = job.activity_templ["name"].replace("{id}", act_id)
         omic_id = job.workflow_config["was_informed_by"]
-        resource = self.config.conf["site"]["resource"]
+        resource = self.config.resource
         schema.create_activity_record(
             activity_record=activity_type,
             activity_name=name,
