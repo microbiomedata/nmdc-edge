@@ -14,7 +14,7 @@ task profilerGottcha2 {
                     -t ${CPU} \
                     -o . \
                     -p ${PREFIX} \
-                    --database /refdata/GOTTCHA2/RefSeq-r90.cg.BacteriaArchaeaViruses.species.fna
+                    --database ${DB}
         
         grep "^species" ${PREFIX}.tsv | ktImportTaxonomy -t 3 -m 9 -o ${PREFIX}.krona.html - || true
     >>>
