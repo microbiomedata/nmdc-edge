@@ -96,8 +96,7 @@ workflow main_workflow {
 	
 		call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
 			input: 
-				enabled_tools=readbasedAnalysis_enabled_tools, 
-				DB=readbasedAnalysis_db,
+				enabled_tools=readbasedAnalysis_enabled_tools,
 				reads=split_interleaved_fastq.outFastq, 
 				cpu=readbasedAnalysis_cpu, 
 				prefix=readbasedAnalysis_prefix, 
