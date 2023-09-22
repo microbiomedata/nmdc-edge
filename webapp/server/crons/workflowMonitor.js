@@ -122,6 +122,7 @@ function generateWDL(proj_home, workflow) {
     }
 
     imports += 'import "' + workflowSettings['wdl'] + '" as ' + workflowname + "\n";
+    imports += 'import "' + workflowSettings['wdl'] + '_output" as ' + workflowname + "Output\n";
     const tmpl = process.env.WORKFLOW_TEMPLATE_HOME + "/" + workflowSettings['wdl_tmpl'];
     let templWDL = String(fs.readFileSync(tmpl));
     templWDL = templWDL.replace(/<WORKFLOW>/g, workflowname);
