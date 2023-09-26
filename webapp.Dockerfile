@@ -5,8 +5,9 @@
 # Usage:
 # 1. Build with:     $ docker build -t nmdc-edge-web-app:latest -f webapp.Dockerfile .
 # 2. Then, run with: $ docker run --rm -p 8000:80 nmdc-edge-web-app
+# -----------------------------------------------------------------------------
 
-FROM node:16-alpine
+FROM node:18-alpine
 
 # Declare arguments (and specify their default values) for use within this Dockerfile.
 # Note: Their values can be overriden via `$ docker build --build-arg <varname>=<value>`.
@@ -43,7 +44,7 @@ RUN rc-update add mongodb default
 # Update npm, itself, to the latest version.
 RUN npm install -g npm@latest
 
-# Install the latest version of PM2 (https://github.com/Unitech/pm2).
+# Install the latest version of PM2 globally (https://github.com/Unitech/pm2).
 RUN npm install -g pm2@latest
 
 # Set up both the web app client and the web app server.
@@ -103,10 +104,10 @@ RUN cd webapp/client && npm install --legacy-peer-deps
 #
 # Build the web app client (i.e. React app).
 #
-# Note: If using Node 18, add `NODE_OPTIONS=--openssl-legacy-provider` before `npm run build`
+# Note: Prefix the `npm run build` command with `NODE_OPTIONS=--openssl-legacy-provider`
 #       in order to work around https://github.com/microbiomedata/nmdc-edge/issues/15.
 #
-RUN cd webapp/client && npm run build
+RUN cd webapp/client && NODE_OPTIONS=--openssl-legacy-provider npm run build
 #
 # Build the web app server (e.g. Express app).
 #
