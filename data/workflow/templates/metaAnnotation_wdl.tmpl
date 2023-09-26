@@ -10,6 +10,4 @@
     call MetaAnnotationOutput.annotation_output as annotation_output {
         input:imgap_project_type=<WORKFLOW>_imgap_project_id, outdir=<WORKFLOW>_outdir, final_stats_tsv=<ALIAS>.stats_tsv, functional_gff=<ALIAS>.functional_gff
     }
-    call <WORKFLOW>Output.<ALIAS>_output as <ALIAS>_output {
-        input: imgap_project_type=<WORKFLOW>_imgap_project_id, outdir=<WORKFLOW>_outdir , final_stats_tsv=<ALIAS>.stats_tsv, functional_gff=<ALIAS>.functional_gff
-    }
+
