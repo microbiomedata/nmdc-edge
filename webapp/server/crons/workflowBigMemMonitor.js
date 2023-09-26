@@ -22,7 +22,7 @@ module.exports = function workflowBigMemMonitor() {
             jobInputsize += job.inputsize;
         });
         //only process one request at each time
-        Project.find({ 'type': { $in: ['virus_plasmid'] }, 'status': 'in queue' }).sort({ updated: 1 }).then(projs => {
+        Project.find({ 'type': { $in: ['virus_plasmid'] }, 'status': 'in queue' }).sort({ updated: 1 }).then(async projs => {
             let proj = projs[0];
             if (!proj) {
                 logger.debug("No workflow big mem request to process");
@@ -35,7 +35,7 @@ module.exports = function workflowBigMemMonitor() {
             let conf = JSON.parse(rawdata);
 
             //check input size
-            let inputsize = findInputsize(conf);
+            let inputsize = await findInputsize(conf);
             if (inputsize > process.env.MAX_CROMWELL_JOBS_INPUTSIZE) {
                 logger.debug("Project " + proj.code + " input size exceeded the limit.");
                 //fail project

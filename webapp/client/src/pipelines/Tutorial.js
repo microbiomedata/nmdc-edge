@@ -15,7 +15,7 @@ function Tutorial() {
                         <Col xs="3" md="3" lg="3"></Col>
                         <Col xs="3" md="3" lg="3"><center>The basics</center></Col>
                         <Col xs="3" md="3" lg="3"><center>User Guides</center></Col>
-                        <Col xs="3" md="3" lg="3"><center>CLI Information</center></Col>
+                        <Col xs="3" md="3" lg="3"><center>Command Line & Additional Documentation</center></Col>
                     </Row>
                     <br></br>
                     <TutorialBar

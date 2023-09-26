@@ -22,7 +22,7 @@ module.exports = function workflowMonitor() {
             jobInputsize += job.inputsize;
         });
         //only process one request at each time
-        Project.find({ 'type': { $nin: ['virus_plasmid', 'Metagenome Pipeline'] }, 'status': 'in queue' }).sort({ updated: 1 }).then(projs => {
+        Project.find({ 'type': { $nin: ['virus_plasmid', 'Metagenome Pipeline'] }, 'status': 'in queue' }).sort({ updated: 1 }).then(async projs => {
             let proj = projs[0];
             if (!proj) {
                 logger.debug("No workflow request to process");
@@ -35,7 +35,7 @@ module.exports = function workflowMonitor() {
             let conf = JSON.parse(rawdata);
 
             //check input size
-            let inputsize = findInputsize(conf);
+            let inputsize = await findInputsize(conf);
             if (inputsize > process.env.MAX_CROMWELL_JOBS_INPUTSIZE) {
                 logger.debug("Project " + proj.code + " input size exceeded the limit.");
                 //fail project
@@ -122,6 +122,9 @@ function generateWDL(proj_home, workflow) {
     }
 
     imports += 'import "' + workflowSettings['wdl'] + '" as ' + workflowname + "\n";
+    if(workflowname === 'MetaAnnotation') {
+        imports += 'import "annotation_output.wdl" as MetaAnnotationOutput' + "\n";
+    }
     const tmpl = process.env.WORKFLOW_TEMPLATE_HOME + "/" + workflowSettings['wdl_tmpl'];
     let templWDL = String(fs.readFileSync(tmpl));
     templWDL = templWDL.replace(/<WORKFLOW>/g, workflowname);

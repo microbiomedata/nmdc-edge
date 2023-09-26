@@ -60,6 +60,11 @@
     "auto-changelog": "~2.2.1",
     "react-scripts": "^4.0.3"
   },
+  "overrides": {
+    "react-facebook-login": {
+      "react": "$react"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
