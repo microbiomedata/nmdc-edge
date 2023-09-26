@@ -11,6 +11,6 @@
     Boolean? <WORKFLOW>_paired = false
 
     call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
-        input: enabled_tools=<WORKFLOW>_enabled_tools, db=<WORKFLOW>_db, reads=<WORKFLOW>_reads, cpu=<WORKFLOW>_cpu, prefix=<WORKFLOW>_prefix, 
+        input: enabled_tools=<WORKFLOW>_enabled_tools, reads=<WORKFLOW>_reads, cpu=<WORKFLOW>_cpu, prefix=<WORKFLOW>_prefix,
         outdir=<WORKFLOW>_outdir, paired=<WORKFLOW>_paired
     }
