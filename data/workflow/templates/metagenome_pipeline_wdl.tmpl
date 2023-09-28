@@ -48,7 +48,7 @@ workflow main_workflow {
 	## QC workflow
 	String? readsQC_outdir
 	String readsQC_bbtools_container="microbiomedata/bbtools:38.96"
-	String readsQC_database="/expanse/projects/nmdc/refdata"
+	String readsQC_database="/refdata"
 	String readsQC_memory="60g"
 	String readsQC_threads="4"
 	Array[File] readsQC_input_fq1=[]
@@ -96,8 +96,7 @@ workflow main_workflow {
 	
 		call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
 			input: 
-				enabled_tools=readbasedAnalysis_enabled_tools, 
-				db=readbasedAnalysis_db, 
+				enabled_tools=readbasedAnalysis_enabled_tools,
 				reads=split_interleaved_fastq.outFastq, 
 				cpu=readbasedAnalysis_cpu, 
 				prefix=readbasedAnalysis_prefix, 
@@ -140,7 +139,7 @@ workflow main_workflow {
 	String  metaAnnotation_imgap_project_id
 	String  metaAnnotation_outdir
 	Int     metaAnnotation_additional_threads=8
-	String  metaAnnotation_database_location="/databases/img/"
+	String  metaAnnotation_database_location="/refdata/img/"
 
 	if (DoAnnotation){
 		call metaAnnotation.annotation as metaAnnotation_call {
