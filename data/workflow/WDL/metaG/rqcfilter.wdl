@@ -45,15 +45,7 @@ workflow jgi_rqcfilter {
     }
 
     # rqcfilter.stat implicit as Array because of scatter
-    # Optional staging to an output directory
-    if (defined(outdir)){
 
-        call make_output {
-           	input: outdir=outdir,
-                       filtered= if (input_interleaved) then rqcInt.filtered else rqcPE.filtered,
-                       container=bbtools_container
-        }
-    }
 
     output{
         Array[File]? filtered = if (input_interleaved) then rqcInt.filtered else rqcPE.filtered
