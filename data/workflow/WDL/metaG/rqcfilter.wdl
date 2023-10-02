@@ -52,7 +52,6 @@ workflow jgi_rqcfilter {
         Array[File]? stats = if (input_interleaved) then rqcInt.stat else rqcPE.stat
         Array[File]? stats2 = if (input_interleaved) then rqcInt.stat2 else rqcPE.stat2
         Array[File]? statsjson = if (input_interleaved) then rqcInt.json_out else rqcPE.json_out
-        Array[File]? clean_fastq_files = make_output.fastq_files
     }
     
     parameter_meta {
