@@ -1,5 +1,5 @@
 workflow readsqc_output {
-    Array[File] input_files
+    File input_files
     String? outdir
     String bbtools_container="microbiomedata/bbtools:38.96"
 
