@@ -12,24 +12,23 @@ workflow readsqc_output {
 
 task make_output{
  	String outdir
-	Array[String] filtered
+	String filtered
 	String dollar ="$"
 	String container
 
  	command<<<
 			mkdir -p ${outdir}
-			for i in ${sep=' ' filtered}
-			do
-				f=${dollar}(basename $i)
-				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.anqdpht*}
-				mkdir -p ${outdir}/$prefix
-				cp -f $dir/../filtered/filterStats.txt ${outdir}/$prefix
-				cp -f $dir/../filtered/filterStats2.txt ${outdir}/$prefix
-				cp -f $dir/../filtered/filterStats.json ${outdir}/$prefix
-				cp -f $i ${outdir}/$prefix
-				echo ${outdir}/$prefix/$f
-			done
+
+            f=${dollar}(basename $filtered)
+            dir=${dollar}(dirname $filtered)
+            prefix=${dollar}{f%.anqdpht*}
+            mkdir -p ${outdir}/$prefix
+            cp -f $dir/../filtered/filterStats.txt ${outdir}/$prefix
+            cp -f $dir/../filtered/filterStats2.txt ${outdir}/$prefix
+            cp -f $dir/../filtered/filterStats.json ${outdir}/$prefix
+            cp -f $i ${outdir}/$prefix
+            echo ${outdir}/$prefix/$f
+
  			chmod 764 -R ${outdir}
  	>>>
 	runtime {
