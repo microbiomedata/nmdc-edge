@@ -1,16 +1,20 @@
 workflow nmdc_rqcfilter {
     String  container="bfoster1/img-omics:0.1.9"
+    String  bbtools_container="microbiomedata/bbtools:38.96"
     String  proj
-    String  input_files
+    String  input_fastq1
+    String  input_fastq2
     String  database="/refdata/"
 
     call stage {
-        input: container=container,
-            input_file=input_files
+        input: container=bbtools_container,
+            memory="10G",
+            input_fastq1=input_fastq1,
+            input_fastq2=input_fastq2
     }
     # Estimate RQC runtime at an hour per compress GB
     call rqcfilter as qc {
-        input: input_files=stage.read,
+        input: input_files=stage.interleaved_reads,
             threads=16,
             database=database,
             memory="60G"
@@ -25,7 +29,7 @@ workflow nmdc_rqcfilter {
         input: container="microbiomedata/workflowmeta:1.1.1",
            proj=proj,
            start=stage.start,
-           read = stage.read,
+           read = stage.interleaved_reads,
            filtered = qc.filtered,
            filtered_stats = qc.stat,
            filtered_stats2 = qc.stat2
@@ -42,23 +46,31 @@ workflow nmdc_rqcfilter {
 
 task stage {
    String container
-   String target="raw.fastq.gz"
-   String input_file
+   String memory
+   String target_reads_1="raw_reads_1.fastq.gz"
+   String target_reads_2="raw_reads_2.fastq.gz"
+   String output_interleaved="raw_interleaved.fastq.gz"
+   String input_fastq1
+   String input_fastq2
 
    command <<<
        set -e
-       if [ $( echo ${input_file}|egrep -c "https*:") -gt 0 ] ; then
-           wget ${input_file} -O ${target}
+       if [ $( echo ${input_fastq1} | egrep -c "https*:") -gt 0 ] ; then
+           wget ${input_fastq1} -O ${target_reads_1}
+           wget ${input_fastq2} -O ${target_reads_2}
        else
-           ln ${input_file} ${target} || cp ${input_file} ${target}
+           ln ${input_fastq1} ${target_reads_1} || cp ${input_fastq1} ${target_reads_1}
+           ln ${input_fastq2} ${target_reads_2} || cp ${input_fastq2} ${target_reads_2}
        fi
+
+       reformat.sh -Xmx${memory} in1=${target_reads_1} in2=${target_reads_2} out=${output_interleaved}
        # Capture the start time
        date --iso-8601=seconds > start.txt
 
    >>>
 
    output{
-      File read = "${target}"
+      File interleaved_reads = "${output_interleaved}"
       String start = read_string("start.txt")
    }
    runtime {
