@@ -37,7 +37,7 @@ task gzip_input_int{
 
         else
             gzip -f ${input_files}
-            f="${dollar}(basename ${input_files}).gz"
+            mv "${input_files}.gz" ${outdir}/        
         fi
  	>>>
 	runtime {
@@ -46,7 +46,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        File input_files_gz = f
+        File input_files_gz = "${outdir}/${basename(input_files)}.gz"
 	}
 }
 
