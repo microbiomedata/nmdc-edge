@@ -71,4 +71,3 @@ task gzip_input_pe {
         File input_fastq2_gz = "${input_fastq2}.gz"
 	}
 }
-}
