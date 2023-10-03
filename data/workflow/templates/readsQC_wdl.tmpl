@@ -20,3 +20,8 @@
 		input_fq1=<WORKFLOW>_input_fq1, 
 		input_fq2=<WORKFLOW>_input_fq2
     }
+    call <WORKFLOW>_output.readsqc_output as readsqc_output {
+        input:
+            input_files = nmdc_rqcfilter.filtered_final,
+            outdir = <WORKFLOW>_outdir
+    }
