@@ -29,7 +29,8 @@ task gzip_input_int{
     String output_file=""
  	command<<<
 
-        if [[ $(file -b --mime-type ${) == 'application/gzip' ]]; then
+        if [[ $(file -b --mime-type ${) == 'application/gzip' ]]
+        then
             gzip ${sep=' ' input_files}
             output_file = "${input_files}.gz"
         else
