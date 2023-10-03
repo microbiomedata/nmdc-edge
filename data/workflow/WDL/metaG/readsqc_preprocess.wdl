@@ -8,6 +8,7 @@ workflow readsqc_preprocess {
 
     if (input_interleaved) {
         call gzip_input_int as gzip_int {
+        input:
             input_files=input_files,
             container=bbtools_container
         }
@@ -15,6 +16,7 @@ workflow readsqc_preprocess {
 
     if (!input_interleaved) {
         call gzip_input_pe as gzip_pe {
+        input:
             input_fastq1=input_fastq1,
             input_fastq2=input_fastq2,
             container=bbtools_container
