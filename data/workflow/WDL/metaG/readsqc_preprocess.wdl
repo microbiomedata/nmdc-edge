@@ -33,7 +33,7 @@ task gzip_input_int{
             f=${dollar}(basename ${input_files})
 
         else
-            gzip ${input_files}
+            gzip -f ${input_files}
         fi
  	>>>
 	runtime {
@@ -54,9 +54,9 @@ task gzip_input_pe {
 
  	command<<<
         if file --mime -b ${input_fastq1} | grep gzip > /dev/null ; then
-            gzip ${input_fastq1}
-            gzip ${input_fastq2}
-            output=${dollar}(basename input_fastq1)
+            gzip -f ${input_fastq1}
+            gzip -f ${input_fastq2}
+
         fi
  	>>>
 	runtime {
