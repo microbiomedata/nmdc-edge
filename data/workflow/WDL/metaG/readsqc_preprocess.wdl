@@ -53,7 +53,7 @@ task gzip_input_pe {
 	String container
 
  	command<<<
-        if [[ $(file -b --mime-type ${) == 'application/gzip' ]]; then
+        if file --mime -b ${input_fastq1} | grep gzip > /dev/null ; then
             gzip ${input_fastq1}
             gzip ${input_fastq2}
             output=${dollar}(basename input_fastq1)
