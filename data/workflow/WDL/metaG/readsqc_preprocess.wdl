@@ -28,14 +28,13 @@ task gzip_input_int{
     String dollar ="$"
     String output_file=""
  	command<<<
-
-        if [[ $(file -b --mime-type ${) == 'application/gzip' ]]
-        then
-            gzip input_files
-            output_file = "${input_files}.gz"
-        else
+        if file --mime -b ${input_files} | grep gzip > /dev/null ; then
             f=${dollar}(basename ${input_files})
             output_file = ${dollar}{f%.gz}
+
+        else
+            gzip input_files
+            output_file = "${input_files}.gz"
         fi
  	>>>
 	runtime {
