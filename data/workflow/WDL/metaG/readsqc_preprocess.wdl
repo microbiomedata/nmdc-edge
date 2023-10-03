@@ -33,7 +33,7 @@ task gzip_input_int{
     String f="out"
  	command<<<
         if file --mime -b ${input_files} | grep gzip > /dev/null ; then
-            mv ${input_files} $outdir/
+            mv ${input_files} ${outdir}/
 
         else
             gzip -f ${input_files}
