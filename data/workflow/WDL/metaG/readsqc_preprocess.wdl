@@ -53,6 +53,7 @@ task gzip_input_pe {
     File input_fastq1
     File input_fastq2
 	String container
+    String dollar ="$"
 
  	command<<<
         if file --mime -b ${input_fastq1} | grep gzip > /dev/null ; then
