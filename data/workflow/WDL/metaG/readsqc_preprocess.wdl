@@ -10,7 +10,8 @@ workflow readsqc_preprocess {
         call gzip_input_int as gzip_int {
         input:
             input_files=input_files,
-            container=bbtools_container
+            container=bbtools_container,
+            outdir=outdir
         }
     }
 
@@ -27,6 +28,7 @@ workflow readsqc_preprocess {
 task gzip_input_int{
  	File input_files
 	String container
+	String outdir
     String dollar ="$"
     String f="out"
  	command<<<
@@ -35,7 +37,7 @@ task gzip_input_int{
 
         else
             gzip -f ${input_files}
-            f=${dollar}(basename ${input_files})
+            f="${dollar}(basename ${input_files}).gz"
         fi
  	>>>
 	runtime {
@@ -44,7 +46,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        File input_files_gz = "${f}.gz"
+        File input_files_gz = f
 	}
 }
 
