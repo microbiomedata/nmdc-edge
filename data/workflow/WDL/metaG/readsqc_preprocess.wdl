@@ -32,11 +32,11 @@ task gzip_input_int{
  	command<<<
         if file --mime -b ${input_files} | grep gzip > /dev/null ; then
             f=${dollar}(basename ${input_files})
-            output_file = ${dollar}{f%.gz}
+            output_file = `${dollar}{f%.gz}`
 
         else
             gzip ${input_files}
-            output_file = "${input_files}.gz"
+            output_file = `${input_files}.gz`
         fi
  	>>>
 	runtime {
