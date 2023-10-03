@@ -35,7 +35,7 @@ task gzip_input_int{
             output_file = ${dollar}{f%.gz}
 
         else
-            gzip input_files
+            gzip ${input_files}
             output_file = "${input_files}.gz"
         fi
  	>>>
