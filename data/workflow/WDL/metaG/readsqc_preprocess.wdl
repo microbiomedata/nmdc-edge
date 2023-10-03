@@ -31,7 +31,7 @@ task gzip_input_int{
 
         if [[ $(file -b --mime-type ${) == 'application/gzip' ]]
         then
-            gzip ${sep=' ' input_files}
+            gzip input_files
             output_file = "${input_files}.gz"
         else
             f=${dollar}(basename ${input_files})
