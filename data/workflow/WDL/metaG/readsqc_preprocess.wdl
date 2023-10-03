@@ -34,6 +34,7 @@ task gzip_input_int{
 
         else
             gzip -f ${input_files}
+            f=${dollar}(basename ${input_files})
         fi
  	>>>
 	runtime {
@@ -42,7 +43,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        File input_files_gz = "${input_files}.gz"
+        File input_files_gz = "${f}.gz"
 	}
 }
 
