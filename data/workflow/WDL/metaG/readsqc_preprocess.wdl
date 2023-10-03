@@ -45,7 +45,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        File input_files_gz = output_file
+        File input_files_gz = "${output_file}"
 	}
 }
 
