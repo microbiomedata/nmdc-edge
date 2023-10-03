@@ -28,6 +28,7 @@ task gzip_input_int{
  	File input_files
 	String container
     String dollar ="$"
+    String f="out"
  	command<<<
         if file --mime -b ${input_files} | grep gzip > /dev/null ; then
             f=${dollar}(basename ${input_files})
