@@ -46,7 +46,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        File input_files_gz = "${outdir}/${basename(input_files)}.gz"
+        File input_files_gz = "${outdir}/${basename(input_files)}.gz" if input_interleaved else "${outdir}/${basename(input_files)}"
 	}
 }
 
