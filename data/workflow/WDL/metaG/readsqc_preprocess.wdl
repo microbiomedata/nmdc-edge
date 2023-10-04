@@ -30,14 +30,15 @@ task gzip_input_int{
 	String container
 	String outdir
     String dollar ="$"
-    String f = basename(input_files)+".gz"
+
  	command<<<
         if file --mime -b ${input_files} | grep gzip > /dev/null ; then
             mv ${input_files} ${outdir}/
-
+            out_file = basename(input_files)
         else
             gzip -f ${input_files}
-            mv "${input_files}.gz" ${outdir}/        
+            mv "${input_files}.gz" ${outdir}/
+            out_file =  basename(input_files)+".gz"
         fi
  	>>>
 	runtime {
@@ -46,7 +47,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        File input_files_gz = "${outdir}/${f}"
+        File input_files_gz = "${outdir}/${out_file}"
 	}
 }
 
