@@ -55,13 +55,16 @@ task gzip_input_pe {
     File input_fastq1
     File input_fastq2
 	String container
-    String dollar ="$"
+    String out_file1 = basename(input_fastq1,".gz")
+    String out_file2 = basename(input_fastq2,".gz")
 
  	command<<<
         if file --mime -b ${input_fastq1} | grep gzip > /dev/null ; then
+            mv ${input_fastq1} ${outdir}/
+            mv ${input_fastq2} ${outdir}/
+        else
             gzip -f ${input_fastq1}
             gzip -f ${input_fastq2}
-
         fi
  	>>>
 	runtime {
@@ -70,7 +73,7 @@ task gzip_input_pe {
             cpu:  1
         }
 	output{
-        File input_fastq1_gz = "${input_fastq1}.gz"
-        File input_fastq2_gz = "${input_fastq2}.gz"
+        File input_fastq1_gz = "${outdir}/${out_file1}.gz"
+        File input_fastq2_gz = "${outdir}/${out_file2}.gz"
 	}
 }
