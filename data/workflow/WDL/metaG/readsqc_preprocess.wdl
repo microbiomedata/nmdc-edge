@@ -55,6 +55,7 @@ task gzip_input_pe {
     File input_fastq1
     File input_fastq2
 	String container
+	String outdir
     String out_file1 = basename(input_fastq1,".gz")
     String out_file2 = basename(input_fastq2,".gz")
 
