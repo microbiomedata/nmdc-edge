@@ -23,7 +23,7 @@ workflowlist = {
         wdl_version: 'draft-2'
     },
     MetaAnnotation: {
-        wdl: 'annotation_full.wdl',
+        wdl: 'annotation.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'annotation',
         full_name: 'Metagenome Annotation',
