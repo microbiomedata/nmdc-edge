@@ -30,6 +30,7 @@ task gzip_input_int{
 	String container
 	String outdir
     String dollar ="$"
+    String out_file=""
 
  	command<<<
         if file --mime -b ${input_files} | grep gzip > /dev/null ; then
