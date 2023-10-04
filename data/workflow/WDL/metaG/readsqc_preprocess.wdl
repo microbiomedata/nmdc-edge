@@ -20,7 +20,8 @@ workflow readsqc_preprocess {
         input:
             input_fastq1=input_fastq1,
             input_fastq2=input_fastq2,
-            container=bbtools_container
+            container=bbtools_container,
+            outdir=outdir
         }
     }
 }
