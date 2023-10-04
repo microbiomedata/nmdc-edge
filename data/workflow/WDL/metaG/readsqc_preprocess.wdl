@@ -30,16 +30,16 @@ task gzip_input_int{
 	String container
 	String outdir
     String dollar ="$"
-    String out_file=""
+    String out_file = basename(input_files)
 
  	command<<<
         if file --mime -b ${input_files} | grep gzip > /dev/null ; then
             mv ${input_files} ${outdir}/
-            out_file = basename(input_files)
+
         else
             gzip -f ${input_files}
             mv "${input_files}.gz" ${outdir}/
-            out_file =  basename(input_files)+".gz"
+            out_file =  ${out_file}+".gz"
         fi
  	>>>
 	runtime {
