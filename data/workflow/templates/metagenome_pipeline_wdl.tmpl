@@ -2,6 +2,7 @@ import "rqcfilter.wdl" as readsQC
 import "ReadbasedAnalysis.wdl" as readbasedAnalysis
 import "jgi_assembly.wdl" as metaAssembly
 import "annotation.wdl" as metaAnnotation
+import "annotation_output.wdl" as metaAnnotationOutput
 import "mbin_nmdc.wdl" as metaMAGs
 
 workflow main_workflow {
@@ -150,6 +151,13 @@ workflow main_workflow {
 				additional_threads=metaAnnotation_additional_threads,
 				database_location=metaAnnotation_database_location
 		}
+		call MetaAnnotationOutput.annotation_output as annotation_output {
+          input:
+              imgap_project_type=metaAnnotation_imgap_project_id,
+              outdir=metaAnnotation_outdir,
+              final_stats_tsv=metaAnnotation_call.stats_tsv,
+              functional_gff=metaAnnotation_call.functional_gff
+      }
 	}
 	
 	## MAGs workflow
