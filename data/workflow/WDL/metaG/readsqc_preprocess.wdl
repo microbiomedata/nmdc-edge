@@ -67,6 +67,8 @@ task gzip_input_pe {
         else
             gzip -f ${input_fastq1}
             gzip -f ${input_fastq2}
+            mv "${input_fastq1}.gz" ${outdir}/
+            mv "${input_fastq2}.gz" ${outdir}/
         fi
  	>>>
 	runtime {
