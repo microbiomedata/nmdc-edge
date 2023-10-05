@@ -24,6 +24,12 @@ workflow readsqc_preprocess {
             outdir=outdir
         }
     }
+
+    output {
+       File? input_fastq1_gz = gzip_input_pe.input_fastq1_gz
+       File? input_fastq2_gz = gzip_input_pe.input_fastq2_gz
+       File? input_files_gz = gzip_input_int.input_files_gz
+    }
 }
 
 task gzip_input_int{
