@@ -151,7 +151,7 @@ workflow main_workflow {
 				additional_threads=metaAnnotation_additional_threads,
 				database_location=metaAnnotation_database_location
 		}
-		call MetaAnnotationOutput.annotation_output as annotation_output {
+		call metaAnnotationOutput.annotation_output as annotation_output {
           input:
               imgap_project_type=metaAnnotation_imgap_project_id,
               outdir=metaAnnotation_outdir,
