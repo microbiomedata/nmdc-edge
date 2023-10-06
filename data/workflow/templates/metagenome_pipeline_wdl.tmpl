@@ -67,7 +67,7 @@ workflow main_workflow {
 		call readsQC_output.readsqc_output as readsqc_output {
             input:
                 input_files = nmdc_rqcfilter_call.filtered_final,
-                outdir = ReadsQC_outdir
+                outdir = readsQC_outdir
         }
 	}
 
