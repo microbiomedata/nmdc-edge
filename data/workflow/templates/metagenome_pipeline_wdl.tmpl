@@ -114,7 +114,7 @@ workflow main_workflow {
 	}
 
 	## Assembly workflow
-	Array[File]? metaAssembly_input_file = if (DoReadsQC) then jgi_rqcfilter_call.clean_fastq_files else interleaved_input_fastqs 
+	Array[File]? metaAssembly_input_file = if (DoReadsQC) then nmdc_rqcfilter_call.filtered_final else interleaved_input_fastqs
 	String? metaAssembly_outdir
 	String metaAssembly_rename_contig_prefix="scaffold"
 	Float metaAssembly_uniquekmer=1000
