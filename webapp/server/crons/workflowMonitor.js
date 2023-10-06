@@ -125,6 +125,10 @@ function generateWDL(proj_home, workflow) {
     if(workflowname === 'MetaAnnotation') {
         imports += 'import "annotation_output.wdl" as MetaAnnotationOutput' + "\n";
     }
+    if(workflowname === 'ReadsQC') {
+        imports += 'import "readsqc_preprocess.wdl" as ReadsQC_preprocess' + "\n";
+        imports += 'import "readsqc_output.wdl" as ReadsQC_output' + "\n";
+    }
     const tmpl = process.env.WORKFLOW_TEMPLATE_HOME + "/" + workflowSettings['wdl_tmpl'];
     let templWDL = String(fs.readFileSync(tmpl));
     templWDL = templWDL.replace(/<WORKFLOW>/g, workflowname);
