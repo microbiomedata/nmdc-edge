@@ -60,13 +60,9 @@ workflow main_workflow {
 		call readsQC.nmdc_rqcfilter  as nmdc_rqcfilter_call {
 			input: 
 				input_files=interleaved_input_fastqs,
-				input_fq1=readsQC_input_fq1,
-				input_fq2=readsQC_input_fq2,
-				outdir=readsQC_outdir, 
 				container=readsQC_container,
-				database=readsQC_database, 
-				memory=readsQC_memory, 
-				threads=readsQC_threads
+				database=readsQC_database,
+				proj=proj
 		}
 		call readsQC_output.readsqc_output as readsqc_output {
             input:
