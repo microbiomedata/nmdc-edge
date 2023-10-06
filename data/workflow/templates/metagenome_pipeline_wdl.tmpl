@@ -56,7 +56,7 @@ workflow main_workflow {
 	Array[File] readsQC_input_fq2=[]
 
 	if (DoReadsQC){
-		call readsQC.jgi_rqcfilter as jgi_rqcfilter_call {
+		call readsQC.nmdc_rqcfilter  as nmdc_rqcfilter_call {
 			input: 
 				input_files=interleaved_input_fastqs,
 				input_fq1=readsQC_input_fq1,
@@ -67,6 +67,11 @@ workflow main_workflow {
 				memory=readsQC_memory, 
 				threads=readsQC_threads
 		}
+		call ReadsQC_output.readsqc_output as readsqc_output {
+            input:
+                input_files = nmdc_rqcfilter_call.filtered_final,
+                outdir = ReadsQC_outdir
+        }
 	}
 
 	## ReadbasedAnalysis workflow
