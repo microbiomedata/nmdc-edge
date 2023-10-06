@@ -1,4 +1,5 @@
 import "rqcfilter.wdl" as readsQC
+import "rqcfilter_output.wdl" as readsQC_output
 import "ReadbasedAnalysis.wdl" as readbasedAnalysis
 import "jgi_assembly.wdl" as metaAssembly
 import "annotation.wdl" as metaAnnotation
@@ -67,7 +68,7 @@ workflow main_workflow {
 				memory=readsQC_memory, 
 				threads=readsQC_threads
 		}
-		call ReadsQC_output.readsqc_output as readsqc_output {
+		call readsQC_output.readsqc_output as readsqc_output {
             input:
                 input_files = nmdc_rqcfilter_call.filtered_final,
                 outdir = ReadsQC_outdir
