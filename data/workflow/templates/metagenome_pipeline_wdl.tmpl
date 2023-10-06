@@ -59,7 +59,7 @@ workflow main_workflow {
 	if (DoReadsQC){
 		call readsQC.nmdc_rqcfilter  as nmdc_rqcfilter_call {
 			input: 
-				input_files=interleaved_input_fastqs,
+				input_files=interleaved_input_fastqs[0],
 				container=readsQC_container,
 				database=readsQC_database,
 				proj=proj
