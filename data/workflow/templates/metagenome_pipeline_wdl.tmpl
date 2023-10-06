@@ -49,7 +49,7 @@ workflow main_workflow {
 	
 	## QC workflow
 	String? readsQC_outdir
-	String readsQC_bbtools_container="microbiomedata/bbtools:38.96"
+	String readsQC_container="bfoster1/img-omics:0.1.9"
 	String readsQC_database="/refdata"
 	String readsQC_memory="60g"
 	String readsQC_threads="4"
@@ -63,7 +63,7 @@ workflow main_workflow {
 				input_fq1=readsQC_input_fq1,
 				input_fq2=readsQC_input_fq2,
 				outdir=readsQC_outdir, 
-				bbtools_container=readsQC_bbtools_container, 
+				container=readsQC_container,
 				database=readsQC_database, 
 				memory=readsQC_memory, 
 				threads=readsQC_threads
@@ -98,7 +98,7 @@ workflow main_workflow {
 		call split_interleaved_fastq {
 			input:
 				reads=readbasedAnalysis_reads,
-				container=readsQC_bbtools_container
+				container=readsQC_container
 		}
 	
 		call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
