@@ -1,4 +1,5 @@
 import "rqcfilter.wdl" as readsQC
+import "readsqc_preprocess.wdl" as readsQC_preprocess
 import "readsqc_output.wdl" as readsQC_output
 import "ReadbasedAnalysis.wdl" as readbasedAnalysis
 import "jgi_assembly.wdl" as metaAssembly
@@ -31,21 +32,7 @@ workflow main_workflow {
 		input: container="microbiomedata/workflowmeta:1.0.5.1"
 	}
 	
-	if (!input_interleaved) {
-		Array[File] input_fq1
-		Array[File] input_fq2
-		## the zip() function generates an array of pairs, use .left and .right to access
-		scatter(file in zip(input_fq1,input_fq2)){
-			call interleave_reads {
-				input:
-					input_files = [file.left,file.right],
-					output_file = basename(file.left) + "_" + basename(file.right),
-					container = "microbiomedata/bbtools:38.96"
-			}
-		}
-	} 
-	
-	Array[File]? interleaved_input_fastqs = if (input_interleaved) then input_files else interleave_reads.out_fastq
+
 	
 	## QC workflow
 	String? readsQC_outdir
@@ -57,20 +44,51 @@ workflow main_workflow {
 	Array[File] readsQC_input_fq2=[]
 
 	if (DoReadsQC){
-		call readsQC.nmdc_rqcfilter  as nmdc_rqcfilter_call {
-			input: 
-				input_files=interleaved_input_fastqs[0],
-				container=readsQC_container,
-				database=readsQC_database,
-				proj=proj
-		}
-		call readsQC_output.readsqc_output as readsqc_output {
-            input:
-                input_files = nmdc_rqcfilter_call.filtered_final,
-                outdir = readsQC_outdir
+		if (input_interleaved) {
+            call readsQC_preprocess.readsqc_preprocess as readsqc_preprocess_int {
+                input:
+                    input_files=select_first(input_files),
+                    input_interleaved=true,
+                    outdir=ReadsQC_outdir
+            }
+            call ReadsQC.nmdc_rqcfilter  as nmdc_rqcfilter {
+                input:
+                    input_files=readsqc_preprocess_int.input_files_gz,
+                    database=ReadsQC_database,
+                    proj="test_rqc"
+            }
         }
+        if (!input_interleaved) {
+            call ReadsQC_preprocess.readsqc_preprocess as readsqc_preprocess_pe {
+                input:
+                    input_fastq1=select_first(readsQC_input_fq1),
+                    input_fastq2=select_first(readsQC_input_fq2),
+                    outdir=ReadsQC_outdir,
+                    input_interleaved=false
+            }
+            call ReadsQC_int.nmdc_rqcfilter as nmdc_rqcfilter_int {
+                input:
+                    input_fastq1=readsqc_preprocess_pe.input_fastq1_gz,
+                    input_fastq2=readsqc_preprocess_pe.input_fastq2_gz,
+                    database=ReadsQC_database,
+                    proj="test_rqc"
+            }
+        }
+    }
+    if (!input_interleaved) {
+
+		## the zip() function generates an array of pairs, use .left and .right to access
+		scatter(file in zip(input_fq1,input_fq2)){
+			call interleave_reads {
+				input:
+					input_files = [file.left,file.right],
+					output_file = basename(file.left) + "_" + basename(file.right),
+					container = "microbiomedata/bbtools:38.96"
+			}
+		}
 	}
 
+	Array[File]? interleaved_input_fastqs = if (input_interleaved) then input_files else interleave_reads.out_fastq
 	## ReadbasedAnalysis workflow
 	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
 		"gottcha2": true,
