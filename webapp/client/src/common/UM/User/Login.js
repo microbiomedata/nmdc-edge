@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form";
 import CIcon from '@coreui/icons-react';
 import { MyTooltip } from '../../MyTooltip';
 import { UM_messages } from '../Common/Defaults';
-import { SocialLogin } from '../Common/SocialLogin';
 import { ORCIDLogin } from '../Common/ORCIDLogin';
 
 function Login(props) {
@@ -76,7 +75,7 @@ function Login(props) {
       <Container>
         <Row className="justify-content-center">
 
-          <Col md={process.env.REACT_APP_SOCIAL_LOGIN === 'on' ? 10 : 6}>
+          <Col md={6}>
             <CardGroup>
               <Card className="p-4 um-card">
                 <CardBody>
@@ -153,7 +152,7 @@ function Login(props) {
                         <Button color="link" className="px-0">No account? Create one</Button>
                       </Link>
                     </Col>
-                    {process.env.REACT_APP_ORCID_AUTH === 'on' && process.env.REACT_APP_SOCIAL_LOGIN === 'off' &&
+                    {process.env.REACT_APP_ORCID_AUTH === 'on' &&
                       <>
                         <Col xs="12">
                           <hr></hr>
@@ -164,13 +163,6 @@ function Login(props) {
                   </Row>
                 </CardBody>
               </Card>
-              {process.env.REACT_APP_SOCIAL_LOGIN === 'on' &&
-                <Card className="text-white bg-primary py-5" >
-                  <CardBody>
-                    <SocialLogin />
-                  </CardBody>
-                </Card>
-              }
             </CardGroup>
             {
               process.env.REACT_APP_DISTRIBUTION_NOTE &&
