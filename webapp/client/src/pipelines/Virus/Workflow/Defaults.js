@@ -103,6 +103,7 @@ export const initialVirusPlasmid = {
         "nn_classification": false
     },
     input_fasta: '',
+    input_fasta_validInput: false,
     input_fasta_display: '',
     option: {
         'conservative': false,

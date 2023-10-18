@@ -116,6 +116,7 @@ export const initialMetaAnnotation = {
     validForm: false,
     errMessage: '',
     input_fasta: '',
+    input_fasta_validInput: false,
     input_fasta_display: ''
 }
 
@@ -132,6 +133,10 @@ export const initialMetaMAGs = {
     input_sam: '',
     input_gff: '',
     input_map: '',
+    input_contig_validInput: false,
+    input_sam_validInput: false,
+    input_gff_validInput: false,
+    input_map_validInput: true,
     input_contig_display: '',
     input_sam_display: '',
     input_gff_display: '',

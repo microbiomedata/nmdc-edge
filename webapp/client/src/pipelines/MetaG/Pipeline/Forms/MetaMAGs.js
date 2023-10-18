@@ -31,16 +31,20 @@ export function MetaMAGs(props) {
     }
 
     const handleFileSelection = (filename, fieldname, index, key) => {
-        if (key && !validFile(key)) {
+        if (key && !validFile(key, filename)) {
+            setState({
+                ...form,
+                ['input_' + fieldname + '_validInput']: false
+            });
             form.validForm = false;
             props.setParams(form, props.name);
             return;
-        } 
+        }
 
         form.validForm = true;
         setState({
             ...form,
-            ['input_' + fieldname]: filename, ['input_' + fieldname + '_display']: key
+            ['input_' + fieldname]: filename, ['input_' + fieldname + '_validInput']: true, ['input_' + fieldname + '_display']: key
         });
         setDoValidation(doValidation + 1);
     }
@@ -77,8 +81,8 @@ export function MetaMAGs(props) {
                         <Col xs="12" md="9">
                             <FileSelector onChange={handleFileSelection}
                                 enableInput={true}
-                                placeholder={'(Optional) Select a file or enter a file http/https url'}
-                                validFile={validFile}
+                                placeholder={'(Optional) Select a file or enter a file http(s) url'}
+                                validFile={form.input_map_validInput}
                                 dataSources={['project', 'upload', 'public']}
                                 fileTypes={['txt', 'tsv']} fieldname={'map'} viewFile={false}
                                 isOptional={true} cleanupInput={true} />
@@ -93,8 +97,8 @@ export function MetaMAGs(props) {
                         <Col xs="12" md="9">
                             <FileSelector onChange={handleFileSelection}
                                 enableInput={true}
-                                placeholder={'(Optional) Select a file or enter a file http/https url'}
-                                validFile={validFile}
+                                placeholder={'(Optional) Select a file or enter a file http(s) url'}
+                                validFile={form.input_domain_validInput}
                                 dataSources={['project', 'upload', 'public']}
                                 fileTypes={['txt', 'tsv']} fieldname={'domain'} viewFile={false}
                                 isOptional={true} cleanupInput={true} />

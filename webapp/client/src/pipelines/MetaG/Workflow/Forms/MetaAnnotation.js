@@ -25,7 +25,12 @@ export function MetaAnnotation(props) {
     }
 
     const handleFastaFileSelection = (filename, type, index, key) => {
-        if (!validFile(key)) {
+        if (!validFile(key, filename)) {
+
+            setState({
+                ...form,
+                ['input_fasta_validInput']: false
+            });
             form.validForm = false;
             props.setParams(form, props.full_name);
             return;
@@ -33,7 +38,7 @@ export function MetaAnnotation(props) {
 
         setState({
             ...form,
-            ['input_fasta']: filename, ['input_fasta_display']: key
+            ['input_fasta']: filename, ['input_fasta_validInput']: true, ['input_fasta_display']: key
         });
         setValue("fasta_hidden", filename, { shouldValidate: true });
         setDoValidation(doValidation + 1);
@@ -76,8 +81,8 @@ export function MetaAnnotation(props) {
                         <Col xs="12" md="9">
                             <FileSelector onChange={handleFastaFileSelection}
                                 enableInput={true}
-                                placeholder={'Select a file or enter a file http/https url'}
-                                validFile={validFile}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.input_fasta_validInput}
                                 dataSources={['project', 'upload', 'public', 'globus']}
                                 fileTypes={['fasta', 'fa', 'fna', 'fasta.gz', 'fa.gz', 'fna.gz']}
                                 projectTypes={['Metagenome Assembly']} viewFile={false} />
