@@ -55,9 +55,9 @@ and run `python run_workflows.py watcher --config ../../configs/site_configurati
 `nmdc_automation/run_process/run_worklfows.py` is designed to take in data files avilable on disk, transform them into NMDC analysis records, and submit them back to the central data store via runtime-api. Currently this process is only suitable for data processed at JGI, but with collaboration, data from other processing centers could be transformed and ingested into NMDC. 
 To submit the import process, `cd` in `nmdc_automation/run_process` and run `python run_import.py project-import import.tsv ../../configs/import.yaml`, where import.tsv expects the follow format:
 
-`
+
 | omics_id | project_id | directory |
 |----------|------------|-----------|
 |nmdc:omprc-11-q8b9dh63 | Ga0597031  | /path/to/project/Ga0597031 |
-`
+
 
