@@ -56,8 +56,8 @@ and run `python run_workflows.py watcher --config ../../configs/site_configurati
 To submit the import process, `cd` in `nmdc_automation/run_process` and run `python run_import.py project-import import.tsv ../../configs/import.yaml`, where import.tsv expects the follow format:
 
 `
-omics_id | project_id | directory
-----------------------------------------------------------------
-nmdc:omprc-11-q8b9dh63 Ga0597031 /global/cfs/cdirs/m3408/aim2/dev/bioscales_mapping/neon_analysis_projects/Ga0597031
+| omics_id | project_id | directory |
+|----------|------------|-----------|
+|nmdc:omprc-11-q8b9dh63 | Ga0597031  | /path/to/project/Ga0597031 |
 `
 
