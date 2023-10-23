@@ -71,6 +71,8 @@ export const initialMetaMAGs = {
     paramsOn: true,
     input_map: '',
     input_domain: '',
+    input_map_validInput: true,
+    input_domain_validInput: true,
     input_map_display: '',
     input_domain_display: '',
 }

@@ -7,14 +7,10 @@ import { validFile } from '../../../../common/util';
 import FileSelector from '../../../../common/FileSelector';
 import { MyTooltip } from '../../../../common/MyTooltip';
 
-import { useForm } from "react-hook-form";
-import { defaults, initialMetaMAGs, workflowInputTips } from '../Defaults';
+import { initialMetaMAGs, workflowInputTips } from '../Defaults';
 import { Header } from '../../../Common/Forms/CardHeader';
 
 export function MetaMAGs(props) {
-    const { register, setValue, formState: { errors }, trigger } = useForm({
-        mode: defaults['form_mode'],
-    });
 
     const [form, setState] = useState({ ...initialMetaMAGs });
     const [collapseParms, setCollapseParms] = useState(true);
@@ -25,63 +21,65 @@ export function MetaMAGs(props) {
     }
 
     const handleFileSelection = (filename, fieldname, index, key) => {
-        if (!validFile(key)) {
+        if (!validFile(key, filename)) {
+            setState({
+                ...form,
+                ['input_' + fieldname + '_validInput']: false
+            });
             form.validForm = false;
             props.setParams(form, props.full_name);
             return;
         }
         setState({
             ...form,
-            ['input_' + fieldname]: filename, ['input_' + fieldname + '_display']: key
+            ['input_' + fieldname]: filename, ['input_' + fieldname + '_validInput']: true, ['input_' + fieldname + '_display']: key
         });
-        setValue(fieldname + "_hidden", filename, { shouldValidate: true });
         setDoValidation(doValidation + 1);
     }
 
     const handleOptionalFileSelection = (filename, fieldname, index, key) => {
-        if (key && !validFile(key)) {
+        if (key && !validFile(key, filename)) {
+            setState({
+                ...form,
+                ['input_' + fieldname + '_validInput']: false
+            });
             form.validForm = false;
             props.setParams(form, props.full_name);
             return;
         }
         setState({
             ...form,
-            ['input_' + fieldname]: filename, ['input_' + fieldname + '_display']: key
+            ['input_' + fieldname]: filename, ['input_' + fieldname + '_validInput']: true, ['input_' + fieldname + '_display']: key
         });
-        setValue(fieldname + "_hidden", filename, { shouldValidate: true });
         setDoValidation(doValidation + 1);
     }
 
     //trigger validation method when input changes
     useEffect(() => {
-        //validate form
-        trigger().then(result => {
-            form.validForm = result;
-            if (result) {
-                form.errMessage = '';
-            } else {
-                let errMessage = '';
+        let errMessage = '';
 
-                if (errors.contig_hidden) {
-                    errMessage += errors.contig_hidden.message + "<br />";
-                }
-                if (errors.bam_hidden) {
-                    errMessage += errors.bam_hidden.message + "<br />";
-                }
-                if (errors.gff_hidden) {
-                    errMessage += errors.gff_hidden.message + "<br />";
-                }
-                if (errMessage !== '') {
-                    errMessage = "<br /><div class='edge-form-input-error'>Metagenome MAGs</div>" + errMessage;
-                } else {
-                    //errors only contains deleted dynamic input hidden errors
-                    form.validForm = true;
-                }
-                form.errMessage = errMessage;
-            }
-            //force updating parent's inputParams
-            props.setParams(form, props.full_name);
-        });
+        if (!form.input_contig_validInput) {
+            errMessage += "Invalid contig input<br />";
+        }
+        if (!form.input_sam_validInput) {
+            errMessage += "Invalid sam/bam input<br />";
+        }
+        if (!form.input_gff_validInput) {
+            errMessage += "Invalid gff input<br />";
+        }
+        if (!form.input_map_validInput) {
+            errMessage += "Invalid map input<br />";
+        }
+
+        if (errMessage !== '') {
+            form.validForm = false;
+        } else {
+            //errors only contains deleted dynamic input hidden errors
+            form.validForm = true;
+        }
+        form.errMessage = errMessage;
+        //force updating parent's inputParams
+        props.setParams(form, props.full_name);
     }, [doValidation]);// eslint-disable-line react-hooks/exhaustive-deps
 
     return (
@@ -96,16 +94,12 @@ export function MetaMAGs(props) {
                         <Col xs="12" md="9">
                             <FileSelector onChange={handleFileSelection}
                                 enableInput={true}
-                                placeholder={'Select a file or enter a file http/https url'}
-                                validFile={validFile}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.input_contig_validInput}
                                 dataSources={['project', 'upload', 'public', 'globus']}
                                 projectTypes={['Metagenome Annotation']}
                                 fileTypes={['fasta', 'fa', 'faa', 'fasta.gz', 'fa.gz', 'fna', 'fna.gz']}
                                 fieldname={'contig'} viewFile={false} />
-
-                            <input type="hidden" name="contig_hidden" id="contig_hidden"
-                                value={form['input_contig']}
-                                {...register("contig_hidden", { required: 'Contig file is required' })} />
                         </Col>
                     </Row>
                     <br></br>
@@ -117,14 +111,10 @@ export function MetaMAGs(props) {
                         <Col xs="12" md="9">
                             <FileSelector onChange={handleFileSelection}
                                 enableInput={true}
-                                placeholder={'Select a file or enter a file http/https url'}
-                                validFile={validFile}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.input_sam_validInput}
                                 dataSources={['upload', 'public']}
                                 fileTypes={['sam', 'bam']} fieldname={'sam'} viewFile={false} />
-
-                            <input type="hidden" name="sam_hidden" id="sam_hidden"
-                                value={form['input_sam']}
-                                {...register("sam_hidden", { required: 'Sam file is required' })} />
                         </Col>
                     </Row>
                     <br></br>
@@ -136,15 +126,11 @@ export function MetaMAGs(props) {
                         <Col xs="12" md="9">
                             <FileSelector onChange={handleFileSelection}
                                 enableInput={true}
-                                placeholder={'Select a file or enter a file http/https url'}
-                                validFile={validFile}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.input_gff_validInput}
                                 dataSources={['project', 'upload', 'public']}
                                 projectTypes={['Metagenome Annotation']}
                                 fileTypes={['gff']} fieldname={'gff'} viewFile={false} />
-
-                            <input type="hidden" name="gff_hidden" id="gff_hidden"
-                                value={form['input_gff']}
-                                {...register("gff_hidden", { required: 'GFF file is required' })} />
                         </Col>
                     </Row>
                     <br></br>
@@ -156,10 +142,10 @@ export function MetaMAGs(props) {
                         <Col xs="12" md="9">
                             <FileSelector onChange={handleOptionalFileSelection}
                                 enableInput={true}
-                                placeholder={'(Optional) Select a file or enter a file http/https url'}
-                                validFile={validFile}
+                                placeholder={'(Optional) Select a file or enter a file http(s) url'}
+                                validFile={form.input_map_validInput}
                                 dataSources={['upload', 'public']}
-                                fileTypes={['txt']} fieldname={'map'} viewFile={false} 
+                                fileTypes={['txt']} fieldname={'map'} viewFile={false}
                                 isOptional={true} cleanupInput={true} />
                         </Col>
                     </Row>

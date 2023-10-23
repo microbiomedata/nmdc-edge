@@ -47,21 +47,29 @@ export function Metaproteomics(props) {
     }
 
     const handleRawFileSelection = (filename, type, index, key) => {
-        if (!validFile(key)) {
+        if (!validFile(key, filename)) {
+            setState({
+                ...form,
+                'input_raw_validInput': false
+            });
             form.validForm = false;
             props.setParams(form, props.full_name);
             return;
         }
         setState({
             ...form,
-            'input_raw': filename, 'input_raw_display': key
+            'input_raw': filename, 'input_raw_validInput': true, 'input_raw_display': key
         });
         setValue("raw_hidden", filename, { shouldValidate: true });
         setDoValidation(doValidation + 1);
     }
 
     const handleFastaFileSelection = (filename, type, index, key) => {
-        if (!validFile(key)) {
+        if (!validFile(key, filename)) {
+            setState({
+                ...form,
+                'input_fasta_validInput': false
+            });
             form.validForm = false;
             props.setParams(form, props.full_name);
             return;
@@ -70,7 +78,7 @@ export function Metaproteomics(props) {
         const gffKey = key.replace('_proteins.faa', '_functional_annotation.gff');
         setState({
             ...form,
-            'input_fasta': filename, 'input_fasta_display': key,
+            'input_fasta': filename, 'input_fasta_validInput': true, 'input_fasta_display': key,
             'input_gff': gffFilename, 'input_gff_display': gffKey
         });
         setValue("fasta_hidden", filename, { shouldValidate: true });
@@ -115,8 +123,8 @@ export function Metaproteomics(props) {
                         <Col xs="12" md="9">
                             <FileSelector onChange={handleRawFileSelection}
                                 enableInput={true}
-                                placeholder={'Select a file or enter a file http/https url'}
-                                validFile={validFile}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.input_raw_validInput}
                                 dataSources={['upload', 'public', 'globus']}
                                 fileTypes={['raw', 'raw.gz']} fieldname={'input_raw'} viewFile={false} />
 
@@ -133,8 +141,8 @@ export function Metaproteomics(props) {
                         <Col xs="12" md="9">
                             <FileSelector onChange={handleFastaFileSelection}
                                 enableInput={true}
-                                placeholder={'Select a file or enter a file http/https url'}
-                                validFile={validFile}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.input_fasta_validInput}
                                 dataSources={['upload', 'public', 'globus', 'project']}
                                 endsWith={true} fileTypes={['_proteins.faa']} fieldname={'input_fasta'} viewFile={false}
                                 projectScope={'self+shared'}
