@@ -3,7 +3,7 @@ URL=https://<WEB_SERVER_DOMAIN>
 REACT_APP_NAME=NMDC EDGE
 
 #on/off
-REACT_APP_SOCIAL_LOGIN=off
+REACT_APP_SOCIAL_SECRET=<OAUTH_SECRET>
 REACT_APP_ORCID_AUTH=on
 ORCID_CLIENT_ID=<yout orcid client id>
 ORCID_AUTH_URL=https://orcid.org/oauth/authorize

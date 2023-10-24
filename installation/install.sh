@@ -120,24 +120,35 @@ echo "web_server_domain=$web_server_domain" > $app_home/host.env
 echo "web_server_port=$web_server_port" >> $app_home/host.env
 
 #setup .env and server_pm2.json
+export LC_CTYPE=C
+oauth_secret=`cat /dev/urandom|tr -dc '[:alpha:]'|fold -w ${1:-20}|head -n 1`
+sendmail_key=`cat /dev/urandom|tr -dc '[:alpha:]'|fold -w ${1:-20}|head -n 1`
+jwt_key=`cat /dev/urandom|tr -dc '[:alpha:]'|fold -w ${1:-20}|head -n 1`
+
 cp $pwd/$clientenv $app_home/webapp/client/.env
 cp $pwd/server-env-prod $app_home/webapp/server/.env
 cp $pwd/server_pm2.tmpl $pwd/server_pm2.json
 if [[ $opt == 'Mac' ]]; then
   sed -i "" "s/\<WEB_SERVER_DOMAIN\>/${web_server_domain}/g" $app_home/webapp/client/.env
   sed -i "" "s/\<WEB_SERVER_PORT\>/${web_server_port}/g" $app_home/webapp/client/.env
+  sed -i "" "s/\<OAUTH_SECRET\>/${oauth_secret}/g" $app_home/webapp/client/.env
   sed -i "" "s/\<WEB_SERVER_DOMAIN\>/${web_server_domain}/g" $app_home/webapp/server/.env
   sed -i "" "s/\<WEB_SERVER_PORT\>/${web_server_port}/g" $app_home/webapp/server/.env
   sed -i "" "s/\<APP_HOME\>/${app_home//\//\\/}/g" $app_home/webapp/server/.env
   sed -i "" "s/\<IO_HOME\>/${io_home//\//\\/}/g" $app_home/webapp/server/.env
+  sed -i "" "s/\<JWT_KEY\>/${jwt_key}/g" $app_home/webapp/server/.env
+  sed -i "" "s/\<SENDMAIL_KEY\>/${sendmail_key}/g" $app_home/webapp/server/.env
   sed -i "" "s/\<APP_HOME\>/${app_home//\//\\/}/g" $pwd/server_pm2.json
 else
   sed -i "s/<WEB_SERVER_DOMAIN>/${web_server_domain}/g" $app_home/webapp/client/.env
   sed -i "s/<WEB_SERVER_PORT>/${web_server_port}/g" $app_home/webapp/client/.env
+  sed -i "s/<OAUTH_SECRET>/${oauth_secret}/g" $app_home/webapp/client/.env
   sed -i "s/<WEB_SERVER_DOMAIN>/${web_server_domain}/g" $app_home/webapp/server/.env
   sed -i "s/<WEB_SERVER_PORT>/${web_server_port}/g" $app_home/webapp/server/.env
   sed -i "s/<APP_HOME>/${app_home//\//\\/}/g" $app_home/webapp/server/.env
   sed -i "s/<IO_HOME>/${io_home//\//\\/}/g" $app_home/webapp/server/.env
+  sed -i "s/<JWT_KEY>/${jwt_key}/g" $app_home/webapp/server/.env
+  sed -i "s/<SENDMAIL_KEY>/${sendmail_key}/g" $app_home/webapp/server/.env
   sed -i "s/<APP_HOME>/${app_home//\//\\/}/g" $pwd/server_pm2.json
 fi
 

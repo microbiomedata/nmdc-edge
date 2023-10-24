@@ -8,7 +8,7 @@ UI_BUILD_PATH=<APP_HOME>/webapp/client/build
 #HTTPS_KEY=
 #HTTPS_CERT=
 
-JWT_KEY=<a random string>
+JWT_KEY=<JWT_KEY>
 
 DB_NAME=nmdcedge
 MONGO_URI=mongodb://localhost:27017/nmdcedge
@@ -46,7 +46,7 @@ SENDMAIL_PROJECT=off
 PROJECT_STATUS_TEMPLATE=<APP_HOME>/data/project/status.tmpl
 PROJECT_URL=https://<WEB_SERVER_DOMAIN>/user/project?code=
 SENDMAIL_FROM=<your email>
-SENDMAIL_KEY=<a random string>
+SENDMAIL_KEY=<SENDMAIL_KEY>
 SENDMAIL_SERVICE=<your email service>
 SENDMAIL_USER=<your mail user id>
 SENDMAIL_PASS=<your mail server password>
