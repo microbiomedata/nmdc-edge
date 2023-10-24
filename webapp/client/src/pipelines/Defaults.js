@@ -2,6 +2,7 @@ export const intro = {
     title: 'Introduction',
     name: 'NMDC EDGE Introduction/Quick Start',
     pdf: '/docs/help/quickStart.pdf',
+    pdfSpanish: '/docs/help/quickStartSpanish.pdf',
     video: '/docs/videos/nmdc-edge.mp4',
         bgcolor: '#4F3C80'
 }
@@ -25,6 +26,13 @@ export const pipelinelist = {
             'Metagenome Annotation': '/docs/help/MetagenomeAnnotation.pdf',
             'Metagenome MAGs': '/docs/help/MetagenomeMAGs.pdf',
         },
+        pdfSpanish: {
+            'ReadsQC': '/docs/help/ReadsQCSpanish.pdf',
+            'Read-based Taxonomy Classification': '/docs/help/ReadBasedAnalysisSpanish.pdf',
+            'Metagenome Assembly': '/docs/help/MetagenomeAssemblySpanish.pdf',
+            'Metagenome Annotation': '/docs/help/MetagenomeAnnotationSpanish.pdf',
+            'Metagenome MAGs': '/docs/help/MetagenomeMAGsSpanish.pdf',
+        },
         doclink: {
             'ReadsQC': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/1_RQC_index.html',
             'Read-based Taxonomy Classification': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/2_ReadAnalysis_index.html',
@@ -43,6 +51,9 @@ export const pipelinelist = {
         pdf: {
             'Metatranscriptome': '/docs/help/MetaT.pdf',
         },
+        pdfSpanish: {
+            'Metatranscriptome': '/docs/help/MetaTSpanish.pdf',
+        },
         doclink: {
             'Metatranscriptome': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/6_MetaT_index.html',
         },
@@ -53,6 +64,9 @@ export const pipelinelist = {
         name: 'Organic Matter',
         pdf: {
             'EnviroMS': '/docs/help/EnviroMS.pdf',
+        },
+        pdfSpanish: {
+            'EnviroMS': '/docs/help/EnviroMSSpanish.pdf',
         },
         doclink: {
             'EnviroMS': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/9_NOM_index.html#',
@@ -67,6 +81,9 @@ export const pipelinelist = {
         },
         pdf: {
             'Viruses and Plasmids': '/docs/help/geNomad.pdf',
+        },
+        pdfSpanish: {
+            'Viruses and Plasmids': '/docs/help/geNomadSpanish.pdf',
         },
         bgcolor: '#4F3C80'
     },
