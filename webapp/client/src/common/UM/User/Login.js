@@ -164,12 +164,6 @@ function Login(props) {
                 </CardBody>
               </Card>
             </CardGroup>
-            {
-              process.env.REACT_APP_DISTRIBUTION_NOTE &&
-              <span className="pt-3 text-muted edge-text-size-small">
-                {process.env.REACT_APP_DISTRIBUTION_NOTE}
-              </span>
-            }
           </Col>
         </Row>
       </Container>
