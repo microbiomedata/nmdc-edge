@@ -120,7 +120,9 @@ echo "web_server_domain=$web_server_domain" > $app_home/host.env
 echo "web_server_port=$web_server_port" >> $app_home/host.env
 
 #setup .env and server_pm2.json
+#Add this export for MacOS, otherwise will get 'tr: Illegal byte sequence' error
 export LC_CTYPE=C
+#Generate random 20 character string (upper and lowercase)
 oauth_secret=`cat /dev/urandom|tr -dc '[:alpha:]'|fold -w ${1:-20}|head -n 1`
 sendmail_key=`cat /dev/urandom|tr -dc '[:alpha:]'|fold -w ${1:-20}|head -n 1`
 jwt_key=`cat /dev/urandom|tr -dc '[:alpha:]'|fold -w ${1:-20}|head -n 1`
