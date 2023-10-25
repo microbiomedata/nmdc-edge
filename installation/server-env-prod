@@ -9,6 +9,7 @@ UI_BUILD_PATH=<APP_HOME>/webapp/client/build
 #HTTPS_CERT=
 
 JWT_KEY=<JWT_KEY>
+OAUTH_SECRET=<OAUTH_SECRET>
 
 DB_NAME=nmdcedge
 MONGO_URI=mongodb://localhost:27017/nmdcedge

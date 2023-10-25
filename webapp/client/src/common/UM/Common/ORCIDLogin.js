@@ -63,7 +63,7 @@ export function ORCIDLogin(props) {
             lastname: data.family_name,
             email: data.sub + "@orcid.org",
             socialtype: 'orcid',
-            password: data.sub + process.env.REACT_APP_SOCIAL_SECRET
+            password: data.sub
         };
 
         setUserData(user);
