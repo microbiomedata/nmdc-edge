@@ -304,6 +304,12 @@ class NmdcRuntimeApi:
         resp = requests.patch(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
+    @refresh_token
+    def run_query(self, query):
+        url = "%squeries:run" % self._base_url
+        resp = requests.post(url, headers=self.header, data=json.dumps(query))
+        return resp.json()
+
 
 def jprint(obj):
     print(json.dumps(obj, indent=2))
