@@ -371,6 +371,21 @@ class NmdcRuntimeUserApi:
         rv.raise_for_status()
         return rv
 
+    def get_omics_processing_records_for_nmdc_study(self, nmdc_study_id: str):
+        """
+        Retrieve all OmicsProcessing records for the given NMDC study ID.
+        """
+        url = "queries:run"
+        params = {"find": "omics_processing_set",
+                  "filter": {"part_of": {"$elemMatch": {"$eq": nmdc_study_id}}}}
+        response = self.request("POST", url, params_or_json_data=params)
+        if response.status_code != 200:
+            raise Exception(
+                f"Error retrieving OmicsProcessing records for study {nmdc_study_id}"
+                )
+        omics_processing_records = response.json()["cursor"]["firstBatch"]
+        return omics_processing_records
+
 def jprint(obj):
     print(json.dumps(obj, indent=2))
 

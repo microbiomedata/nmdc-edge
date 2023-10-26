@@ -50,21 +50,12 @@ def rebuild_workflow_records(study_id: str, site_config: bool):
         username=config.napa_username, password=config.napa_password,
         base_url=config.napa_base_url, )
 
-    # 1. Retrieve all OmicsProcessing records for the given GOLD study ID
-    url = "queries:run"
-    params = {"find": "omics_processing_set",
-              "filter": {"part_of": {"$elemMatch": {"$eq": study_id}}}}
-    response = query_api_client.request("POST", url, params_or_json_data=params)
-    if response.status_code != 200:
-        raise Exception(
-            f"Error retrieving OmicsProcessing records for study {study_id}"
-            )
-    omics_processing_records = response.json()["cursor"]["firstBatch"]
+    # 1. Retrieve all OmicsProcessing records for the updated NMDC study ID
+    omics_processing_records = query_api_client.get_omics_processing_records_for_nmdc_study(study_id)
     logging.info(
         f"Retrieved {len(omics_processing_records)} OmicsProcessing records for study {study_id}"
         )
-
-    # 2. For each OmicsProcessing record, retrieve the corresponding
+    # 2. For each OmicsProcessing record, retrieve the informed_by records
 
 
 if __name__ == "__main__":
