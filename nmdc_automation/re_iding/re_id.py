@@ -2,12 +2,20 @@
 import os
 import sys
 import re
+import yaml
+import datetime
+import pytz
 from pymongo import MongoClient
 import hashlib
 import json
 from subprocess import check_output
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import Config
+import nmdc_schema.nmdc as nmdc
+from linkml_runtime.dumpers import json_dumper
+
+###GLOBAL######
+nmdc_db = nmdc.Database()
 
 base = "https://data.microbiomedata.org/data"
 base_dir = "/global/cfs/cdirs/m3408/results"
@@ -22,6 +30,11 @@ sets = [
 
 mapping_log = open("mapping.log", "a")
 
+def read_workflows_config(config_file):
+    with open(config_file, "r") as file:
+        workflow_data = yaml.safe_load(file)
+        
+    return workflow_data
 
 def log_mapping(idtype, old, new):
     """
@@ -112,6 +125,7 @@ def minter(config,shoulder):
     runtime_api = NmdcRuntimeApi(config)
     
     return runtime_api.minter(shoulder)
+
 
 def compute_new_paths(old_url, new_base_dir, omic_id, act_id):
     """
@@ -294,42 +308,48 @@ def assembly_coverage_bam(src, dst, omic_id, act_id):
 def xassembly_info_file(src, dst, omic_id, act_id):
     return []
 
-def readqcanalysisactivity(db, doc, new_omic_id):
-    new_act_id = minter("wfrqc") + ".1"
-    log_mapping("activity", doc["id"], new_act_id)
-    doc["id"] = new_act_id
-    doc["git_url"] = "https://github.com/microbiomedata/ReadsQC"
-    doc["version"] = "v1.0.8"
-    doc["was_informed_by"] = new_omic_id
-    doc["name"] = f"Read QC Activity for {new_act_id}"
-    new_ids, new_data_objects = copy_outputs(db, doc['has_output'], new_omic_id, new_act_id)
-    doc["has_output"] = new_ids
-    return doc, new_data_objects
+def make_activity_set(nmdc_db, omics_id, has_input, has_output,workflow_record):
+    database_activity_set = getattr(nmdc_db, workflow_record["Collection"])
+    # Lookup the nmdc schema range class
+    database_activity_range = getattr(nmdc_db, workflow_record["ActivityRange"])
+    # Mint an ID
+    new_id = minter(workflow_record["Type"])
+    
+    activity_id = new_id
+    database_activity_set.append(
+        database_activity_range(
+            id=activity_id,
+            name=workflow_record["Activity"]["name"].replace("{id}", activity_id),
+            git_url=workflow_record["Git_repo"],
+            version=workflow_record["Version"],
+            part_of=[omics_id],
+            execution_resource="Perlmutter - Nersc",
+            started_at_time=datetime.datetime.now(pytz.utc).isoformat(),
+            has_input=has_input,
+            has_output=has_output,
+            type=workflow_record["Type"],
+            ended_at_time=datetime.datetime.now(pytz.utc).isoformat(),
+            was_informed_by=omics_id,
+        )
+    )
 
+def make_data_object(data_object_record, omics_id):
 
-def metagenomeassembly(db, doc, new_omic_id):
-    new_act_id = minter("wfmgas") + ".1"
-    log_mapping("activity", doc["id"], new_act_id)
-    doc["id"] = new_act_id
-    doc["git_url"] = "https://github.com/microbiomedata/metaAssembly"
-    doc["version"] = "v1.0.3"
-    doc["was_informed_by"] = new_omic_id
-    doc["name"] = f"Metagenome Assembly Activity for {new_act_id}"
-    new_ids, new_data_objects = copy_outputs(db, doc['has_output'], new_omic_id, new_act_id)
-    doc["has_output"] = new_ids
-    return doc, new_data_objects
+    nmdc_db.data_object_set.append(
+        nmdc.DataObject(
+            file_size_bytes=data_object_record["file_size"],
+            name=data_object_record["data_object_name"],
+            url=data_object_record["data_object_url"],
+            data_object_type=["data_object_type"],
+            type="nmdc:DataObject",
+            id=minter("nmdc:DataObject"),
+            md5_checksum=data_object_record["md5_checksum"],
+            description=data_object_record["description"].replace(
+                "{id}",omics_id
+            ),
+        )
+    )
 
-def readbasedanalysis(db, doc, new_omic_id):
-    new_act_id = minter("wfrbt") + ".1"
-    log_mapping("activity", doc["id"], new_act_id)
-    doc["id"] = new_act_id
-    doc["git_url"] = "https://github.com/microbiomedata/ReadbasedAnalysis"
-    doc["version"] = "v1.0.5"
-    doc["was_informed_by"] = new_omic_id
-    doc["name"] = f"Metagenome Assembly Activity for {new_act_id}"
-    new_ids, new_data_objects = copy_outputs(db, doc['has_output'], new_omic_id, new_act_id)
-    doc["has_output"] = new_ids
-    return doc, new_data_objects
 
 if __name__ == "__main__":
     mongo_url = os.environ["MONGO_URL"]
