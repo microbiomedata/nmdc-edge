@@ -4,11 +4,12 @@ import json
 import sys
 import os
 from os.path import join, dirname
+from pydantic import BaseModel
 import requests
 import hashlib
 import mimetypes
 from time import time
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from nmdc_automation.config import Config
 import logging
 
@@ -31,6 +32,10 @@ def _get_sha256(fn):
             f.write("\n")
     return sha
 
+def expiry_dt_from_now(days=0, hours=0, minutes=0, seconds=0):
+    return datetime.now(timezone.utc) + timedelta(days=days, hours=hours,
+                                          minutes=minutes,
+                              seconds=seconds)
 
 class NmdcRuntimeApi:
     token = None
@@ -310,6 +315,61 @@ class NmdcRuntimeApi:
         resp = requests.post(url, headers=self.header, data=json.dumps(query))
         return resp.json()
 
+
+class NmdcRuntimeUserApi:
+    """
+    Basic Runtime API Client with user/password authentication.
+    """
+    def __init__(self, username: str, password: str, base_url: str):
+        self.username = username
+        self.password = password
+        self.base_url = base_url
+        self.headers = {}
+        self.token_response = None
+        self.refresh_token_after = None
+
+    def ensure_token(self):
+        if (self.refresh_token_after is None or datetime.now(timezone.utc) >
+                self.refresh_token_after):
+            self.get_token()
+    def get_token(self):
+        token_request_body = {
+            "grant_type": "password",
+            "username": self.username,
+            "password": self.password,
+            "scope": '',
+            "client_id": "",
+            "client_secret": "",
+        }
+        headers = {
+            'accept': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+        }
+        rv = requests.post(
+            self.base_url + "token", data=token_request_body
+            )
+        self.token_response = rv.json()
+        if "access_token" not in self.token_response:
+            raise Exception(f"Getting token failed: {self.token_response}")
+
+        self.headers[
+            "Authorization"] = f'Bearer {self.token_response["access_token"]}'
+        self.refresh_token_after = expiry_dt_from_now(
+            **self.token_response["expires"]
+        ) - timedelta(seconds=5)
+
+    def request(self, method, url_path, params_or_json_data=None):
+        self.ensure_token()
+        kwargs = {"url": self.base_url + url_path, "headers": self.headers}
+        if isinstance(params_or_json_data, BaseModel):
+            params_or_json_data = params_or_json_data.dict(exclude_unset=True)
+        if method.upper() == "GET":
+            kwargs["params"] = params_or_json_data
+        else:
+            kwargs["json"] = params_or_json_data
+        rv = requests.request(method, **kwargs)
+        rv.raise_for_status()
+        return rv
 
 def jprint(obj):
     print(json.dumps(obj, indent=2))

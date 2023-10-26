@@ -14,7 +14,13 @@ site = "Processing Site"
 
 [nmdc]
 url_root = "https://data.microbiomedata.org/data/"
-api_url = "https://api-napa.microbiomedata.org/"
+api_url = "https://api.microbiomedata.org/"
+
+[napa]
+base_url = "https://api-napa.microbiomedata.org/"
+username = "mbthornton"
+password = "H8jkYxc6rwrzA_k7g_fM"
+
 
 [state]
 watch_state = "State File"
