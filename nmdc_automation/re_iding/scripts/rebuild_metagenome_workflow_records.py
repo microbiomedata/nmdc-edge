@@ -19,6 +19,31 @@ STUDY_ID = "nmdc:sty-11-aygzgv51"
 NAPA_CONFIG = Path("../../../configs/napa_config.toml")
 
 
+def _get_legacy_id(omics_processing_record: dict) -> str:
+    """
+    Get the legacy ID for the given OmicsProcessing record.
+    """
+    legacy_id = None
+    legacy_ids = []
+    gold_ids = omics_processing_record.get("gold_sequencing_project_identifiers", [])
+    legacy_ids.extend(gold_ids)
+    alternative_ids = omics_processing_record.get("alternative_identifiers", [])
+    legacy_ids.extend(alternative_ids)
+    if len(legacy_ids) == 0:
+        logging.warning(
+            f"No legacy IDs found for omics_processing_record: {omics_processing_record['id']}"
+        )
+        return None
+    elif len(legacy_ids) > 1:
+        logging.warning(
+            f"Multiple legacy IDs found for omics_processing_record: {omics_processing_record['id']}"
+        )
+        return None
+    else:
+        legacy_id = legacy_ids[0]
+    logging.info(f"legacy_id: {legacy_id}")
+    return legacy_id
+
 @click.command()
 @click.option("--study_id", default=STUDY_ID, help="Updated study ID")
 @click.option(
@@ -51,11 +76,17 @@ def rebuild_workflow_records(study_id: str, site_config: bool):
         base_url=config.napa_base_url, )
 
     # 1. Retrieve all OmicsProcessing records for the updated NMDC study ID
-    omics_processing_records = query_api_client.get_omics_processing_records_for_nmdc_study(study_id)
+    omics_processing_records = query_api_client.get_omics_processing_records_for_nmdc_study(
+        study_id
+        )
     logging.info(
         f"Retrieved {len(omics_processing_records)} OmicsProcessing records for study {study_id}"
-        )
-    # 2. For each OmicsProcessing record, retrieve the informed_by records
+    )
+    # 2. For each OmicsProcessing record, find the legacy identifier:
+    for omics_processing_record in omics_processing_records:
+        legacy_id = _get_legacy_id(omics_processing_record)
+        logging.info(f"legacy_id: {legacy_id}")
+
 
 
 if __name__ == "__main__":
