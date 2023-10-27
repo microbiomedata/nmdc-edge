@@ -53,6 +53,7 @@ def _read_acitivites(db, workflows: List[Workflow],
     """
     activities = []
     for wf in workflows:
+        logging.debug(f"Checking {wf.name}:{wf.version}")
         q = filter
         q['git_url'] = wf.git_repo
         q['version'] = wf.version
