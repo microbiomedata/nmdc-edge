@@ -41,7 +41,6 @@ def _get_legacy_id(omics_processing_record: dict) -> str:
         return None
     else:
         legacy_id = legacy_ids[0]
-    logging.info(f"legacy_id: {legacy_id}")
     return legacy_id
 
 @click.command()
@@ -84,9 +83,37 @@ def rebuild_workflow_records(study_id: str, site_config: bool):
     )
     # 2. For each OmicsProcessing record, find the legacy identifier:
     for omics_processing_record in omics_processing_records:
+        logging.info(f"omics_processing_record: "
+                     f"{omics_processing_record['id']}")
         legacy_id = _get_legacy_id(omics_processing_record)
         logging.info(f"legacy_id: {legacy_id}")
 
+        # reads QC records
+        # Downstream WorkflowExecutionActivity records depend on the `has_output`
+        # data object of the ReadQcAnalysisActivity record.
+        set_name = "read_qc_analysis_activity_set"
+        read_qc_records = query_api_client.get_workflow_activity_informed_by(
+            set_name, legacy_id
+        )
+        logging.info(f"Found {len(read_qc_records)} read_qc_records")
+
+        # downstream workflow activity sets
+        taxonomy_records, read_based_analysis_records, metagenome_assembly_records, \
+            metagenome_annotation_records, mags_records = [], [], [], [], []
+
+        downstream_workflow_activity_sets = {
+            "read_based_taxonomy_analysis_activity_set": taxonomy_records,
+            "read_based_analysis_activity_set": read_based_analysis_records,
+            "metagenome_assembly_set": metagenome_assembly_records,
+            "metagenome_annotation_activity_set": metagenome_annotation_records,
+            "mags_activity_set": mags_records,
+        }
+
+        for set_name, records in downstream_workflow_activity_sets.items():
+            records = query_api_client.get_workflow_activity_informed_by(
+                set_name, legacy_id
+            )
+            logging.info(f"Found {len(records)} {set_name} records")
 
 
 if __name__ == "__main__":

@@ -386,6 +386,23 @@ class NmdcRuntimeUserApi:
         omics_processing_records = response.json()["cursor"]["firstBatch"]
         return omics_processing_records
 
+    def get_workflow_activity_informed_by(self, workflow_activity_set: str,
+                                          informed_by_id: str):
+        """
+        Retrieve a workflow activity record for the given workflow activity set
+        and informed by a given OmicsProcessing ID.
+        """
+        url = "queries:run"
+        params = {"find": workflow_activity_set,
+                  "filter": {"was_informed_by": informed_by_id}}
+        response = self.request("POST", url, params_or_json_data=params)
+        if response.status_code != 200:
+            raise Exception(
+                f"Error retrieving {workflow_activity_set} record informed by {informed_by_id}"
+                )
+        workflow_activity_record = response.json()["cursor"]["firstBatch"]
+        return workflow_activity_record
+
 def jprint(obj):
     print(json.dumps(obj, indent=2))
 
