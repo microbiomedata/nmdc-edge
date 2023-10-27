@@ -11,7 +11,7 @@ Workflows:
     - Metagenome Raw Reads
 
   - Name: Sequencing
-    Type: nmdc:MetagenomeSequencing
+    Type: nmdc:MetagenomeSequencingActivity
     Enabled: False
     Git_repo: https://github.com/microbiomedata/RawSequencingData
     Version: v1.0.0
@@ -22,7 +22,7 @@ Workflows:
     Type: nmdc:ReadQcAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: v1.0.7
+    Version: v1.0.8
     WDL: rqcfilter.wdl
     Collection: read_qc_analysis_activity_set
     Filter Input Objects:
@@ -59,20 +59,19 @@ Workflows:
     Type: nmdc:ReadQcAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: v1.0.7
+    Version: v1.0.8
     Collection: read_qc_analysis_activity_set
-    WDL: make_interleave_reads.wdl
-    Input_prefix: make_interleaved_reads
+    WDL: interleave_rqcfilter.wdl
+    Input_prefix: nmdc_rqcfilter
     Inputs:
       proj: "{activity_id}"
-      input_file_1: do:Metagenome Raw Read 1
-      input_file_2: do:Metagenome Raw Read 2
+      input_fastq1: do:Metagenome Raw Read 1
+      input_fastq2: do:Metagenome Raw Read 2
     Filter Input Objects:
     - Metagenome Raw Read 1
     - Metagenome Raw Read 2
     Predecessors:
     - Sequencing Noninterleaved
-    Input_prefix: nmdc_rqcfilter
     Activity:
       name: "Read QC Activity for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
@@ -236,7 +235,7 @@ Workflows:
         description: CRT Annotations for {id}
         name: GFF3 format file with CRT
       - output: genemark_gff
-        data_object_type: Genmark Annotation GFF
+        data_object_type: Genemark Annotation GFF
         description: Genemark Annotations for {id}
         name: GFF3 format file with Genemark
       - output: prodigal_gff
@@ -264,7 +263,7 @@ Workflows:
         description: Gene Phylogeny for {id}
         name: Gene Phylogeny file
       - output: crt_crisprs
-        data_object_type: Crisprt Terms
+        data_object_type: Crispr Terms
         description: Crispr Terms for {id}
         name: Crispr Terms
       - output: stats_tsv
@@ -281,7 +280,7 @@ Workflows:
         name: File containing annotation info
 
   - Name: MAGs
-    Type: nmdc:MAGsAnalysisActivity
+    Type: nmdc:MagsAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Git_repo: https://github.com/microbiomedata/metaMAGs
@@ -303,6 +302,7 @@ Workflows:
       tigrfam_file: do:TIGRFam Annotation GFF
       ec_file: do:Annotation Enzyme Commission
       ko_file: do:Annotation KEGG Orthology
+      lineage_file: do:Scaffold Lineage tsv
       sam_file: do:Assembly Coverage BAM
       smart_file: do:SMART Annotation GFF
       proteins_file: do:Annotation Amino Acid FASTA
@@ -310,7 +310,7 @@ Workflows:
       proj: "{activity_id}"
     Activity:
       name: "Metagenome Assembled Genomes Analysis Activity for {id}"
-      type: nmdc:MAGsAnalysisActivity
+      type: nmdc:MagsAnalysisActivity
     Outputs:
     - output: final_checkm
       data_object_type: CheckM Statistics
@@ -330,7 +330,7 @@ Workflows:
       name: GTDBTK archaeal summary
       suffix: _gtdbtk.ar122.summary.tsv
     - output: mags_version
-      data_object_tye: Metagenome Bins Info File
+      data_object_type: Metagenome Bins Info File
       description: Metagenome Bins Info File for {id}
       name: Metagenome Bins Info File
 
@@ -343,6 +343,7 @@ Workflows:
     Collection: read_based_taxonomy_analysis_activity_set
     Predecessors:
     - Reads QC
+    - Reads QC Interleave
     Input_prefix: ReadbasedAnalysis
     Inputs:
       input_file: do:Filtered Sequencing Reads

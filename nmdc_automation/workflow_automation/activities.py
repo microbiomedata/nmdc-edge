@@ -1,6 +1,6 @@
 import logging
 from typing import List
-from nmdc_automation.workflow_automation.workflows import Workflow
+from .workflows import Workflow
 
 
 def _load_data_objects(db, workflows: List[Workflow]):
@@ -55,8 +55,8 @@ def _read_acitivites(db, workflows: List[Workflow],
     for wf in workflows:
         logging.debug(f"Checking {wf.name}:{wf.version}")
         q = filter
-        q['git_url'] = wf.git_repo
-        q['version'] = wf.version
+        q["git_url"] = wf.git_repo
+        q["version"] = wf.version
         for rec in db[wf.collection].find(q):
             if wf.collection == "omics_processing_set" and \
                rec["id"].startswith("gold"):
@@ -162,8 +162,7 @@ def load_activities(db, workflows: list[Workflow], filter: dict = {}):
     # Build up a set of relevant activities and a map from
     # the output objects to the activity that generated them.
     activities = _read_acitivites(db, workflows, data_objs_by_id, filter)
-    data_obj_act = _find_data_object_activities(activities,
-                                                data_objs_by_id)
+    data_obj_act = _find_data_object_activities(activities, data_objs_by_id)
 
     # Now populate the parent and children values for the
     # activities
@@ -175,6 +174,7 @@ class DataObject(object):
     """
     Data Object Class
     """
+
     _FIELDS = [
         "id",
         "name",
@@ -182,7 +182,7 @@ class DataObject(object):
         "url",
         "md5_checksum",
         "file_size_bytes",
-        "data_object_type"
+        "data_object_type",
     ]
 
     def __init__(self, rec: dict):
@@ -194,6 +194,7 @@ class Activity(object):
     """
     Activity Object Class
     """
+
     _FIELDS = [
         "id",
         "name",
@@ -202,7 +203,7 @@ class Activity(object):
         "has_input",
         "has_output",
         "was_informed_by",
-        "type"
+        "type",
     ]
 
     def __init__(self, activity_rec: dict, wf: Workflow):

@@ -3,39 +3,47 @@ from typing import List
 import logging
 import os
 import sys
-from nmdc_automation.workflow_automation.watch_nmdc_dev import Watcher
-
+from nmdc_automation.workflow_automation import Watcher
 
 
 @click.group()
 def cli():
     pass
 
+
 @cli.group()
-@click.option('-config','--config', 'site_configuration_file', type=click.Path(exists=True), required=True)
+@click.option(
+    "-config",
+    "--config",
+    "site_configuration_file",
+    type=click.Path(exists=True),
+    required=True,
+)
 @click.pass_context
 def watcher(ctx, site_configuration_file):
-    
-    logging_level = os.getenv('NMDC_LOG_LEVEL', logging.INFO)
-    logging.basicConfig(level=logging_level, format='%(asctime)s %(levelname)s: %(message)s')
+    logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
+    logging.basicConfig(
+        level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
+    )
     logger = logging.getLogger(__name__)
-    
+
     ctx.obj = Watcher(site_configuration_file)
+
 
 @watcher.command()
 @click.pass_context
-@click.argument('job_ids', nargs=-1)
-def submit(ctx,job_ids):
+@click.argument("job_ids", nargs=-1)
+def submit(ctx, job_ids):
     watcher = ctx.obj
     watcher.restore()
     for job_id in job_ids:
         job = watcher.nmdc.get_job(job_id)
-        claims = job['claims']
+        claims = job["claims"]
         if not claims:
             print("todo: Handle Empty Claims")
             sys.exit(1)
         else:
-            opid = claims[0]['op_id']
+            opid = claims[0]["op_id"]
             job = watcher.find_job_by_opid(opid)
             if job:
                 print(f"{job_id} use resubmit")
@@ -43,18 +51,19 @@ def submit(ctx,job_ids):
         watcher.submit(job, opid, force=True)
         watcher.job_checkpoint()
 
+
 @watcher.command()
 @click.pass_context
-@click.argument('activity_ids', nargs=-1)
-def resubmit(ctx,activity_ids):
+@click.argument("activity_ids", nargs=-1)
+def resubmit(ctx, activity_ids):
     watcher = ctx.obj
     watcher.restore()
     for act_id in activity_ids:
         job = None
-        if act_id.startswith('nmdc:sys'):
-            key = 'opid'
+        if act_id.startswith("nmdc:sys"):
+            key = "opid"
         else:
-            key = 'activity_id'
+            key = "activity_id"
         for found_job in watcher.jobs:
             job_record = found_job.get_state()
             if job_record[key] == act_id:
@@ -77,20 +86,21 @@ def sync(ctx):
     watcher.restore()
     watcher.update_op_state_all()
 
+
 @watcher.command()
 @click.pass_context
 def daemon(ctx):
     watcher = ctx.obj
     watcher.watch()
 
+
 @watcher.command()
 @click.pass_context
-@click.argument('opid')
-def reset(ctx,opid):
+@click.argument("opid")
+def reset(ctx, opid):
     watcher = ctx.obj
     print(watcher.nmdc.update_op(opid, done=False))
 
-if __name__ == '__main__':
-    cli()
 
-    
+if __name__ == "__main__":
+    cli()
