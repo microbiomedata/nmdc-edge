@@ -8,7 +8,7 @@ after re-ID-ing of OmicsProcessing records.
 import logging
 import time
 from pathlib import Path
-
+import json
 import click
 
 from nmdc_automation.api import NmdcRuntimeUserApi
@@ -73,7 +73,7 @@ def rebuild_workflow_records(study_id: str, site_config: bool):
     query_api_client = NmdcRuntimeUserApi(
         username=config.napa_username, password=config.napa_password,
         base_url=config.napa_base_url, )
-
+    
     # 1. Retrieve all OmicsProcessing records for the updated NMDC study ID
     omics_processing_records = query_api_client.get_omics_processing_records_for_nmdc_study(
         study_id
@@ -81,6 +81,8 @@ def rebuild_workflow_records(study_id: str, site_config: bool):
     logging.info(
         f"Retrieved {len(omics_processing_records)} OmicsProcessing records for study {study_id}"
     )
+    
+    workflow_records_per_study = []
     # 2. For each OmicsProcessing record, find the legacy identifier:
     for omics_processing_record in omics_processing_records:
         logging.info(f"omics_processing_record: "
@@ -113,7 +115,11 @@ def rebuild_workflow_records(study_id: str, site_config: bool):
             records = query_api_client.get_workflow_activity_informed_by(
                 set_name, legacy_id
             )
+            workflow_records_per_study.append(records)
             logging.info(f"Found {len(records)} {set_name} records")
+        
+    with open(f"{study_id}_assocated_record_dump.json", 'w') as json_file:
+        json.dump(workflow_records_per_study, json_file, indent=4)
 
 
 if __name__ == "__main__":
