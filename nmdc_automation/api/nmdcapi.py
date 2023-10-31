@@ -403,6 +403,19 @@ class NmdcRuntimeUserApi:
         workflow_activity_record = response.json()["cursor"]["firstBatch"]
         return workflow_activity_record
 
+    def get_data_object_by_id(self, data_object_id: str):
+        """
+        Retrieve a data object record for the given data object ID.
+        """
+        url = f"data_objects/{data_object_id}"
+        response = self.request("GET", url)
+        if response.status_code != 200:
+            raise Exception(
+                f"Error retrieving data object record for {data_object_id}"
+                )
+        data_object_record = response.json()
+        return data_object_record
+
 def jprint(obj):
     print(json.dumps(obj, indent=2))
 

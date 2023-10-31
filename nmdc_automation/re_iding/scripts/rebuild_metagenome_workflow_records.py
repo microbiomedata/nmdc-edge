@@ -83,12 +83,21 @@ def rebuild_workflow_records(study_id: str, site_config: bool):
     )
     
     workflow_records_per_study = []
+
     # 2. For each OmicsProcessing record, find the legacy identifier:
     for omics_processing_record in omics_processing_records:
         logging.info(f"omics_processing_record: "
                      f"{omics_processing_record['id']}")
         legacy_id = _get_legacy_id(omics_processing_record)
         logging.info(f"legacy_id: {legacy_id}")
+
+        omics_processing_record["downstream_workflow_activity_records"] = []
+
+        if (omics_processing_record["omics_type"]["has_raw_value"] !=
+                "Metagenome"):
+            logging.info(f"omics_processing_record {omics_processing_record['id']} "
+                         f"is not a Metagenome")
+            continue
 
         # reads QC records
         # Downstream WorkflowExecutionActivity records depend on the `has_output`
@@ -97,7 +106,19 @@ def rebuild_workflow_records(study_id: str, site_config: bool):
         read_qc_records = query_api_client.get_workflow_activity_informed_by(
             set_name, legacy_id
         )
+        # Add the data objects referenced by the `has_output` property
+        for record in read_qc_records:
+            record["output_data_objects"] = []
+            for data_object_id in record["has_output"]:
+                data_object_record = query_api_client.get_data_object_by_id(
+                    data_object_id
+                )
+                record["output_data_objects"].append(data_object_record)
+
+
         logging.info(f"Found {len(read_qc_records)} read_qc_records")
+        omics_processing_record[
+            "downstream_workflow_activity_records"].extend(read_qc_records)
 
         # downstream workflow activity sets
         taxonomy_records, read_based_analysis_records, metagenome_assembly_records, \
@@ -115,11 +136,21 @@ def rebuild_workflow_records(study_id: str, site_config: bool):
             records = query_api_client.get_workflow_activity_informed_by(
                 set_name, legacy_id
             )
+            # Add the data objects referenced by the `has_output` property
+            for record in records:
+                record["output_data_objects"] = []
+                for data_object_id in record["has_output"]:
+                    data_object_record = query_api_client.get_data_object_by_id(
+                        data_object_id
+                    )
+                    record["output_data_objects"].append(data_object_record)
+            omics_processing_record[
+                "downstream_workflow_activity_records"].extend(records)
             workflow_records_per_study.append(records)
             logging.info(f"Found {len(records)} {set_name} records")
         
     with open(f"{study_id}_assocated_record_dump.json", 'w') as json_file:
-        json.dump(workflow_records_per_study, json_file, indent=4)
+        json.dump(omics_processing_records, json_file, indent=4)
 
 
 if __name__ == "__main__":
