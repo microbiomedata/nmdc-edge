@@ -1,6 +1,7 @@
 import subprocess
 import gzip 
 import os
+import json
 import hashlib
 from subprocess import check_output
 
@@ -19,6 +20,20 @@ def md5_sum(fn):
         while chunk := f.read(8192):
             file_hash.update(chunk)
     return file_hash.hexdigest()
+
+def read_json_file(filename):
+    """
+    Read a JSON file and return its content as a dictionary.
+
+    Parameters:
+    - filename (str): The path to the JSON file.
+
+    Returns:
+    - dict: The content of the JSON file.
+    """
+    with open(filename, 'r') as json_file:
+        data = json.load(json_file)
+    return data
 
 def rewrite_id(src, dst, old_id, new_id, prefix=None):
     """
