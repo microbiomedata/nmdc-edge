@@ -14,7 +14,7 @@ from linkml_runtime.dumpers import json_dumper
 
 ###GLOBAL######
 nmdc_db = nmdc.Database()
-runtime_api = NmdcRuntimeApi("../../configs/site_configuration.toml")
+runtime_api = NmdcRuntimeApi("../../configs/napa_config.toml")
 base = "https://data.microbiomedata.org/data"
 base_dir = "/global/cfs/cdirs/m3408/results"
 
@@ -32,7 +32,7 @@ def read_workflows_config(config_file):
     with open(config_file, "r") as file:
         workflow_data = yaml.safe_load(file)
         
-    return workflow_data
+    return workflow_data["Workflows"]
 
 def log_mapping(idtype, old, new):
     """
@@ -265,6 +265,56 @@ def post_database_object_to_runtime(datase_object):
     res = runtime_api.post_objects(nmdc_database_object)
     return res
 
+def get_omics_id(omics_record):
+    return omics_record["id"]
+
+def get_record_by_type(omics_children_records, record_type):
+    """
+    Reads a JSON file and returns the record that matches the given type.
+
+    Parameters:
+    - filename (str): The path to the JSON file.
+    - record_type (str): The desired type value to match.
+
+    Returns:
+    - dict: The first record that matches the given type, or None if not found.
+    """
+    
+    for analysis_record in omics_children_records["downstream_workflow_activity_records"]:
+        if analysis_record.get("type") == record_type:
+            return analysis_record
+                
+    return None
+
+def reads_qc_update(omics_record, template_file):
+    
+    workflow_type = "nmdc:ReadQCAnalysisActivity"
+    
+    reads_qc_record = get_record_by_type(omics_record, workflow_type)
+    for template in read_workflows_config(template_file):
+        if template['Type'] == "nmdc:ReadQcAnalysisActivity":
+            reads_qc_template = template
+            
+    #TODO:
+    #Use nmdc_schema db and update workflow recors and data objects for reads qc (update files)
+            
+    print(reads_qc_record, reads_qc_template)
+    
+    
+def process_analysis_sets(study_records, template_file,dry_run=False):
+    
+    count = 0
+    for omic_record in study_records:
+        omics_id = get_omics_id(omic_record)
+        print(omics_id)
+        reads_qc_update(omic_record, template_file)
+        if dry_run == True:
+            count += 1
+        if count == 1:
+            break
+    
+    
+
 def main():
     #TODO
     #1. Read in json dump of analysis records 
@@ -276,16 +326,7 @@ def main():
     pass
 
 if __name__ == "__main__":
-    mongo_url = os.environ["MONGO_URL"]
-    client = MongoClient(mongo_url, directConnection=True)
-    db = client.nmdc
-    # Read mapping list
-    # This should have:
-    # was_informed_by_old\twas_informed_by_new
-    # e.g.
-    # nmdc:mga0xxxxx    nmdc:omprc-11-xxxxx
-    omic_map = read_map()
-    for omic in omic_map:
-        process(db, omic, omic_map[omic])
-    # for each omics process
-    #     for act in [
+    test_file = "scripts/nmdc:sty-11-aygzgv51_assocated_record_dump.json"
+    template_file = "/global/cfs/cdirs/m3408/aim2/dev/reiding_scripts/nmdc_automation/configs/re_iding_worklfows.yaml"
+    stegen_data = read_json_file(test_file)
+    process_analysis_sets(stegen_data, template_file, dry_run=True)
