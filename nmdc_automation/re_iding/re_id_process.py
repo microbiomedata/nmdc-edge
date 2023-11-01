@@ -11,6 +11,7 @@ from nmdc_automation.api import NmdcRuntimeApi
 from re_id_file_operations import *
 import nmdc_schema.nmdc as nmdc
 from linkml_runtime.dumpers import json_dumper
+import shutil 
 
 ###GLOBAL######
 nmdc_db = nmdc.Database()
@@ -109,7 +110,7 @@ def process(db, old_id, new_id):
     return assocaited_data_object
 
 
-def minter(config,shoulder):
+def minter(shoulder):
     """
     Creates a new ID based on the provided shoulder.
     
@@ -120,8 +121,6 @@ def minter(config,shoulder):
     - A new ID string
     """
     
-    runtime_api = NmdcRuntimeApi(config)
-    
     return runtime_api.minter(shoulder)
 
 
@@ -130,9 +129,20 @@ def compute_new_paths(old_url, new_base_dir, omic_id, act_id):
     Use the url to compute the new file name path and url
     """
     file_name = old_url.split("/")[-1]
+    suffix = old_url.split("https://data.microbiomedata.org/data/")[1]
+    old_file_path = base_dir + "/" + suffix
     file_extenstion = file_name.lstrip("nmdc_").split("_", maxsplit=1)[-1]
     new_file_name = f"{act_id}_{file_extenstion}"
     destination = os.path.join(new_base_dir, new_file_name)
+    
+    try:
+        os.link(old_file_path, destination)
+        print(f"Successfully created link between {old_file_path} and {destination}")
+    except OSError as e:
+        print(f"An error occurred while linking the file: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+    
     new_url = f"{base}/{omic_id}/{act_id}/{new_file_name}"
     return new_url, destination, new_file_name
 
@@ -215,47 +225,43 @@ def copy_outputs(db, outputs, omic_id, act_id):
     return new_ids, new_data_objects
 
 
-def make_activity_set(nmdc_db, omics_id, has_input, has_output,workflow_record):
-    database_activity_set = getattr(nmdc_db, workflow_record["Collection"])
+def make_activity_set(omics_id, activity_id, has_input, has_output, started_time, ended_time, workflow_record_template):
+    #look at activity range
+    database_activity_set = getattr(nmdc_db, workflow_record_template["Collection"])
     # Lookup the nmdc schema range class
-    database_activity_range = getattr(nmdc_db, workflow_record["ActivityRange"])
-    # Mint an ID
-    new_id = minter(workflow_record["Type"])
+    database_activity_range = getattr(nmdc, workflow_record_template["ActivityRange"])
     
-    activity_id = new_id
     database_activity_set.append(
         database_activity_range(
             id=activity_id,
-            name=workflow_record["Activity"]["name"].replace("{id}", activity_id),
-            git_url=workflow_record["Git_repo"],
-            version=workflow_record["Version"],
+            name=workflow_record_template["Activity"]["name"].replace("{id}", activity_id),
+            git_url=workflow_record_template["Git_repo"],
+            version=workflow_record_template["Version"],
             part_of=[omics_id],
             execution_resource="Perlmutter - Nersc",
-            started_at_time=datetime.datetime.now(pytz.utc).isoformat(),
+            started_at_time=started_time,
             has_input=has_input,
             has_output=has_output,
-            type=workflow_record["Type"],
-            ended_at_time=datetime.datetime.now(pytz.utc).isoformat(),
+            type=workflow_record_template["Type"],
+            ended_at_time=ended_time,
             was_informed_by=omics_id,
         )
     )
 
-def make_data_object(data_object_record, omics_id):
+def make_data_object(data_object_record, new_do_id, new_url, updated_name, updated_description):
 
     nmdc_db.data_object_set.append(
         nmdc.DataObject(
-            file_size_bytes=data_object_record["file_size"],
-            name=data_object_record["data_object_name"],
-            url=data_object_record["data_object_url"],
-            data_object_type=["data_object_type"],
+            file_size_bytes=data_object_record["file_size_bytes"],
+            name=updated_name,
+            url=new_url,
+            data_object_type=data_object_record["data_object_type"],
             type="nmdc:DataObject",
-            id=minter("nmdc:DataObject"),
+            id=new_do_id,
             md5_checksum=data_object_record["md5_checksum"],
-            description=data_object_record["description"].replace(
-                "{id}",omics_id
+            description=updated_description
             ),
         )
-    )
 
 def post_database_object_to_runtime(datase_object):
     
@@ -266,39 +272,80 @@ def post_database_object_to_runtime(datase_object):
     return res
 
 def get_omics_id(omics_record):
-    return omics_record["id"]
+    for rec in omics_record["omics_processing_set"]:
+        return rec["id"]
 
-def get_record_by_type(omics_children_records, record_type):
+def get_record_by_type(related_omic_records, record_type):
     """
-    Reads a JSON file and returns the record that matches the given type.
+    Returns the record that matches the given type.
 
     Parameters:
-    - filename (str): The path to the JSON file.
+    - related_omic_records (dict): records for an omics processing record.
     - record_type (str): The desired type value to match.
 
     Returns:
     - dict: The first record that matches the given type, or None if not found.
     """
     
-    for analysis_record in omics_children_records["downstream_workflow_activity_records"]:
-        if analysis_record.get("type") == record_type:
-            return analysis_record
-                
-    return None
+    return related_omic_records[record_type]
 
-def reads_qc_update(omics_record, template_file):
+def get_data_object_by_type(related_omic_records, old_activity_record):
     
-    workflow_type = "nmdc:ReadQCAnalysisActivity"
+    data_object_list = []
+    
+    for act_record in old_activity_record:
+        has_output_list = act_record["has_output"]
+    for do_record in related_omic_records["data_object_set"]:
+        if do_record["id"] in has_output_list:
+            data_object_list.append(do_record)
+            
+    return data_object_list
+        
+def get_associate_data_object_template(data_object_type,data_object_templates):
+    for data_object in data_object_templates:
+        if data_object_type == data_object["data_object_type"]:
+            return data_object
+    return None
+    
+def reads_qc_update(omics_record, template_file, omic_id):
+    
+    workflow_type = "read_qc_analysis_activity_set"
     
     reads_qc_record = get_record_by_type(omics_record, workflow_type)
+    reads_qc_data_objects = get_data_object_by_type(omics_record, reads_qc_record)
     for template in read_workflows_config(template_file):
         if template['Type'] == "nmdc:ReadQcAnalysisActivity":
             reads_qc_template = template
             
-    #TODO:
-    #Use nmdc_schema db and update workflow recors and data objects for reads qc (update files)
             
-    print(reads_qc_record, reads_qc_template)
+    new_act_id = minter(reads_qc_template["Type"])
+    new_qc_base_dir = os.path.join(base_dir, omic_id, new_act_id)
+    os.makedirs(new_qc_base_dir,exist_ok=True)
+    updated_has_output_list = []
+    
+    for data_object in reads_qc_data_objects:
+        dobj_tmpl = get_associate_data_object_template(data_object["data_object_type"],reads_qc_template["Outputs"])
+        new_do_id = minter("nmdc:DataObject")
+        new_description = re.sub('[^ ]+$', f"{omic_id}", data_object["description"])
+        new_url, destination, _ = compute_new_paths(data_object["url"], new_qc_base_dir, omic_id, new_act_id)
+        make_data_object(data_object, new_do_id, new_url, dobj_tmpl["name"], new_description)
+        updated_has_output_list.append(new_do_id)
+    
+    for rec in reads_qc_record:
+        has_input = rec["has_input"]
+        started_time = rec["started_at_time"]
+        ended_time = rec["ended_at_time"]
+    #need to change has input to be updated as well, 
+    make_activity_set(omic_id, new_act_id, has_input, updated_has_output_list, started_time, ended_time, reads_qc_template)
+        
+    
+    nmdc_database_object = json.loads(
+            json_dumper.dumps(nmdc_db, inject_type=False)
+        )
+        
+    print(nmdc_database_object)
+    
+    return destination
     
     
 def process_analysis_sets(study_records, template_file,dry_run=False):
@@ -307,9 +354,16 @@ def process_analysis_sets(study_records, template_file,dry_run=False):
     for omic_record in study_records:
         omics_id = get_omics_id(omic_record)
         print(omics_id)
-        reads_qc_update(omic_record, template_file)
+        destination = reads_qc_update(omic_record, template_file, omics_id)
         if dry_run == True:
             count += 1
+        dir_path = os.path.dirname(destination)
+        parent_dir_path = os.path.dirname(dir_path)
+        try:
+            shutil.rmtree(parent_dir_path)
+            print(f"Directory {parent_dir_path} and all its contents removed successfully!")
+        except OSError as e:
+            print(f"Error: {e}")
         if count == 1:
             break
     
