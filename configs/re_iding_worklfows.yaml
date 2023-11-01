@@ -6,6 +6,7 @@ Workflows:
     Version: v1.0.8
     WDL: rqcfilter.wdl
     Collection: read_qc_analysis_activity_set
+    ActivityRange: ReadQcAnalysisActivity
     Filter Input Objects:
     - Metagenome Raw Reads
     Predecessors:
@@ -46,6 +47,7 @@ Workflows:
     Version: v1.0.3
     WDL: jgi_assembly.wdl
     Collection: metagenome_assembly_set
+    ActivityRange: MetagenomeAssembly
     Predecessors:
     - Reads QC
     - Reads QC Interleave
@@ -121,6 +123,7 @@ Workflows:
     Version: v1.0.5
     WDL: ReadbasedAnalysis.wdl
     Collection: read_based_taxonomy_analysis_activity_set
+    ActivityRange: ReadBasedTaxonomyAnalysisActivity
     Predecessors:
     - Reads QC
     - Reads QC Interleave
