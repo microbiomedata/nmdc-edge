@@ -383,6 +383,12 @@ task finish_mags {
         File final_unbinned_fa = "${prefix}_bins.unbinned.fa"
         File final_short = "${prefix}_bins.tooShort.fa"
         File final_version = "${prefix}_bin.info"
+        String start = stage.start
+        File stats_json = mbin_nmdc.stats_json
+        File bacsum = mbin_nmdc.bacsum
+        File arcsum = mbin_nmdc.arcsum
+        File bin_fasta_files = mbin_nmdc.bin_fasta_files
+        File hqmq_bin_fasta_files = mbin_nmdc.hqmq_bin_fasta_files
     }
 
     runtime {
