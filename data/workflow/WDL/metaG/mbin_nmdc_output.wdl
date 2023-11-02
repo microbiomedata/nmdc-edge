@@ -37,7 +37,7 @@ workflow mbin_nmdc_output {
                 unbinned = unbinned,
                 short = short,
                 checkm = checkm,
-                json_stats = json_stats
+                json_stats = json_stats,
                 bac_summary = bacsum,
                 ar_summary = arcsum,
                 metabat_bin_fasta_files = bin_fasta_files,
