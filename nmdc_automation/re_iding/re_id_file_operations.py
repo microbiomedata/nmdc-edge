@@ -7,7 +7,7 @@ from subprocess import check_output
 
 
 base_dir = "/global/cfs/cdirs/m3408/results"
-bam_script = "/global/u2/n/nmdcda/tasks/re_id/rewrite_bam.sh"
+bam_script = os.path.abspath("scripts/rewrite_bam.sh")
 
 
 def md5_sum(fn):
@@ -134,7 +134,7 @@ def get_old_file_path(data_object_record):
 def assembly_file_operations(data_object_record, destination, act_id):
     # get old file path upfront
     old_file_path = get_old_file_path(data_object_record)
-    
+
     if data_object_record["data_object_type"] == "Assembly Coverage Stats":
         md5, size = assembly_coverage_stats(old_file_path, destination, act_id)
     elif data_object_record["data_object_type"] == "Assembly Contigs":
