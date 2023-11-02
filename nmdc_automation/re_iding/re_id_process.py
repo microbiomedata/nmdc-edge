@@ -77,6 +77,7 @@ def minter(shoulder):
 
     return runtime_api.minter(shoulder)
 
+
 def get_new_paths(old_url, new_base_dir, omic_id, act_id):
     """
     Use the url to return the string value of name path and url
@@ -176,7 +177,6 @@ def make_activity_set(
 def make_data_object(
     file_size, updated_name, new_url, do_type, new_do_id, updated_description, md5_value
 ):
-    
     nmdc_db.data_object_set.append(
         nmdc.DataObject(
             file_size_bytes=file_size,
@@ -295,17 +295,23 @@ def reads_qc_update(omics_record, template_file, omic_id):
         # save filtered reads
         if data_object["data_object_type"] == "Filtered Sequencing Reads":
             input_to_downstream_workflows.append(new_do_id)
-        #get reusable slots
+        # get reusable slots
         file_size = data_object["file_size_bytes"]
         data_object_type = data_object["data_object_type"]
         md5_sum = data_object["md5_checksum"]
-        #get new values for slots
+        # get new values for slots
         new_description = re.sub("[^ ]+$", f"{omic_id}", data_object["description"])
         new_url, destination, _ = compute_new_paths(
             data_object["url"], new_qc_base_dir, omic_id, new_act_id
         )
         make_data_object(
-            file_size, dobj_tmpl["name"], new_url, data_object_type, new_do_id, new_description, md5_sum
+            file_size,
+            dobj_tmpl["name"],
+            new_url,
+            data_object_type,
+            new_do_id,
+            new_description,
+            md5_sum,
         )
         updated_has_output_list.append(new_do_id)
 
@@ -357,20 +363,29 @@ def assembly_update(omics_record, template_file, omic_id, workflow_inputs):
 
     # make new data objects
     for data_object in assembly_data_objects:
-        
         data_object["data_object_type"] = find_type(data_object)
         dobj_tmpl = get_associate_data_object_template(
             data_object["data_object_type"], assembly_template["Outputs"]
         )
-        #generate new dataobject type
+        # generate new dataobject type
         new_do_id = minter("nmdc:DataObject")
         new_description = re.sub("[^ ]+$", f"{omic_id}", data_object["description"])
-        new_url, destination, _ = get_new_paths(data_object["url"], new_asm_base_dir, omic_id, new_act_id)
-        updated_md5, updated_file_size = assembly_file_operations(data_object, destination, new_act_id)
-        #get do_type
-        do_type = data_object["data_object_type"] 
+        new_url, destination, _ = get_new_paths(
+            data_object["url"], new_asm_base_dir, omic_id, new_act_id
+        )
+        updated_md5, updated_file_size = assembly_file_operations(
+            data_object, destination, new_act_id
+        )
+        # get do_type
+        do_type = data_object["data_object_type"]
         make_data_object(
-            updated_file_size, dobj_tmpl["name"], new_url, do_type, new_do_id, new_description, updated_md5
+            updated_file_size,
+            dobj_tmpl["name"],
+            new_url,
+            do_type,
+            new_do_id,
+            new_description,
+            updated_md5,
         )
         updated_has_output_list.append(new_do_id)
 
@@ -418,31 +433,36 @@ def readbased_update(omics_record, template_file, omic_id, workflow_inputs):
 
     # make new data objects
     for data_object in readbased_data_objects:
-        
         data_object["data_object_type"] = find_type(data_object)
-           
+
         dobj_tmpl = get_associate_data_object_template(
             data_object["data_object_type"], assembly_template["Outputs"]
         )
-        #generate new dataobject type
+        # generate new dataobject type
         new_do_id = minter("nmdc:DataObject")
         file_size = data_object["file_size_bytes"]
         data_object_type = data_object["data_object_type"]
         md5_sum = data_object["md5_checksum"]
-        #get new values for slots
+        # get new values for slots
         new_description = re.sub("[^ ]+$", f"{omic_id}", data_object["description"])
         new_url, destination, _ = compute_new_paths(
             data_object["url"], new_readbased_base_dir, omic_id, new_act_id
         )
         make_data_object(
-            file_size, dobj_tmpl["name"], new_url, data_object_type, new_do_id, new_description, md5_sum
+            file_size,
+            dobj_tmpl["name"],
+            new_url,
+            data_object_type,
+            new_do_id,
+            new_description,
+            md5_sum,
         )
         updated_has_output_list.append(new_do_id)
 
     for rec in readbased_record:
         started_time = rec["started_at_time"]
         ended_time = rec["ended_at_time"]
-    
+
     make_activity_set(
         omic_id,
         new_act_id,
@@ -452,7 +472,6 @@ def readbased_update(omics_record, template_file, omic_id, workflow_inputs):
         ended_time,
         assembly_template,
     )
-
 
 
 def process_analysis_sets(study_records, template_file, dry_run=False):
@@ -480,6 +499,7 @@ def process_analysis_sets(study_records, template_file, dry_run=False):
             print(f"Error: {e}")
         if count == 1:
             break
+
 
 def main():
     # TODO
