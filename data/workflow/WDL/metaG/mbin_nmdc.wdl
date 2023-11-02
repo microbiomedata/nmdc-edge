@@ -115,6 +115,7 @@ workflow nmdc_mags {
         File arcsum = mbin_nmdc.arcsum
         Array[File] bin_fasta_files = mbin_nmdc.bin_fasta_files
         Array[File] hqmq_bin_fasta_files = mbin_nmdc.hqmq_bin_fasta_files
+        File tsv_stats = mbin_nmdc.stats_tsv
     }
 
 

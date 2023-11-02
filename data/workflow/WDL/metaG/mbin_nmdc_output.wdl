@@ -10,6 +10,7 @@ workflow mbin_nmdc_output {
     File short
     File checkm
     File json_stats
+    File tsv_stats
     File bacsum
     File arcsum
     Array[File] bin_fasta_files
@@ -36,7 +37,7 @@ workflow mbin_nmdc_output {
                 unbinned = unbinned,
                 short = short,
                 checkm = checkm,
-                json_stats = json_stats,
+                json_stats = json_stats
                 bac_summary = bacsum,
                 ar_summary = arcsum,
                 metabat_bin_fasta_files = bin_fasta_files,
@@ -51,6 +52,7 @@ workflow mbin_nmdc_output {
                    low=low,
                    unbinned=unbinned,
                    json_stats=json_stats,
+                   tsv_stats=tsv_stats,
                    hqmq_bin_fasta_zip=generate_objects.hqmq_bin_fasta_zip,
                    bin_fasta_zip=generate_objects.metabat_bin_fasta_zip,
                    checkm=checkm,
@@ -149,6 +151,7 @@ task make_output{
         cp ${checkm} ${outdir}/${proj}_checkm_qa.out
         sed -i ${sed_bin} ${outdir}/${proj}_checkm_qa.out
         sed -e ${sed_bin} ${json_stats} > ${outdir}/MAGs_stats.json
+        sed -e ${sed_bin} ${tsv_stats} > ${outdir}/mbin_datafile_${proj}.txt
         sed -e ${sed_bin} ${gtdbtk_bac_summary} > ${outdir}/gtdbtk.bac120.summary.tsv
         sed -e ${sed_bin} ${gtdbtk_ar_summary} > ${outdir}/gtdbtk.ar122.summary.tsv
         # These may not exist
@@ -173,6 +176,7 @@ task make_output{
         File unbinned_fa = "${outdir}/${proj}_bins.unbinned.fa"
         File tooShort_fa = "${outdir}/${proj}_bins.tooShort.fa"
         File lowDepth_fa = "${outdir}/${proj}_bins.lowDepth.fa"
+        File tsvstats = "${outdir}/mbin_datafile_${proj}.txt"
         File stats = "${outdir}/MAGs_stats.json"
         File outactivity = "${outdir}/activity.json"
         File outobject = "${outdir}/data_objects.json"
