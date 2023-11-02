@@ -135,6 +135,7 @@ task make_output{
     File? bin_fasta_zip
     File? checkm
     File json_stats
+    File tsv_stats
     File? gtdbtk_bac_summary
     File? gtdbtk_ar_summary
     String container
