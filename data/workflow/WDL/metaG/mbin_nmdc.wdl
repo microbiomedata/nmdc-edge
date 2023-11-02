@@ -1,5 +1,5 @@
 workflow nmdc_mags {
-    String proj
+    String proj_name
     String contig_file
     String sam_file
     String gff_file
@@ -22,9 +22,8 @@ workflow nmdc_mags {
     Int threads=64
     Int pthreads=1
     String gtdbtk_db="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
-    String checkm_db="/refdata/checkM_DB/checkm_data_2015_01_16"
-    String package_container = "microbiomedata/nmdc_mbin_vis:0.2"
-    String container = "microbiomedata/nmdc_mbin@sha256:63f2b48a8a24a07a03b5a9ddb87922a7b1eec78de57bf5da05e1c6a581b0586f"
+    String checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
+    String container = "microbiomedata/nmdc_mbin@sha256:bb1dd3bad177f7a49fa79713f16181d6143dab904b462c7429b3085bb84410f9"
 
     call stage {
         input:
@@ -48,7 +47,7 @@ workflow nmdc_mags {
 
     call mbin_nmdc {
         input:
-                name=proj,
+                name=proj_name,
                 fna = stage.contig,
                 aln = stage.sam,
                 gff = stage.gff,
@@ -60,8 +59,7 @@ workflow nmdc_mags {
                 mbin_container = container
     }
     call package {
-         input:  proj = proj,
-                 bins=flatten([mbin_nmdc.hqmq_bin_fasta_files,mbin_nmdc.lq_bin_fasta_files]),
+         input:  bins=mbin_nmdc.hqmq_bin_fasta_files,
                  json_stats=mbin_nmdc.stats_json,
                  gff_file=stage.gff,
                  proteins_file=stage.proteins,
@@ -74,7 +72,7 @@ workflow nmdc_mags {
                  smart_file=stage.smart,
                  supfam_file=stage.supfam,
                  product_names_file=stage.product_names,
-                 container=package_container
+                 container=container
     }
 
     call finish_mags {
@@ -83,7 +81,7 @@ workflow nmdc_mags {
         contigs=stage.contig,
         anno_gff=stage.gff,
         sorted_bam=stage.sam,
-        proj=proj,
+        proj=proj_name,
         start=stage.start,
         checkm = mbin_nmdc.checkm,
         bacsum= mbin_nmdc.bacsum,
@@ -97,18 +95,13 @@ workflow nmdc_mags {
         stats_json = mbin_nmdc.stats_json,
         stats_tsv = mbin_nmdc.stats_tsv,
         hqmq_bin_fasta_files = mbin_nmdc.hqmq_bin_fasta_files,
-        bin_fasta_files = mbin_nmdc.lq_bin_fasta_files,
-        hqmq_bin_tarfiles = package.hqmq_bin_tarfiles,
-        lq_bin_tarfiles = package.lq_bin_tarfiles,
-        barplot = package.barplot,
-        heatmap = package.heatmap,
-        kronaplot = package.kronaplot,
-        ko_matrix = package.ko_matrix
+        bin_fasta_files = mbin_nmdc.bin_fasta_files,
+        hqmq_bin_tarfiles = package.hqmq_bin_tarfiles
+
     }
 
     output {
         File final_hqmq_bins_zip = finish_mags.final_hqmq_bins_zip
-        File final_lq_bins_zip = finish_mags.final_lq_bins_zip
         File final_gtdbtk_bac_summary = finish_mags.final_gtdbtk_bac_summary
         File final_gtdbtk_ar_summary = finish_mags.final_gtdbtk_ar_summary
         File short = finish_mags.final_short
@@ -116,10 +109,6 @@ workflow nmdc_mags {
         File final_unbinned_fa  = finish_mags.final_unbinned_fa
         File final_checkm = finish_mags.final_checkm
         File mags_version = finish_mags.final_version
-        File final_stats_json = finish_mags.final_stats_json
-        File barplot = finish_mags.final_barplot
-        File heatmap = finish_mags.final_heatmap
-        File kronaplot = finish_mags.final_kronaplot
     }
 
 
@@ -139,20 +128,21 @@ task mbin_nmdc {
     String mbin_container
 
 
-    command<<<
-        set -euo pipefail
-        export GTDBTK_DATA_PATH=${gtdbtk_env}
-        export CHECKM_DATA_PATH=${checkm_env}
-        mbin.py ${"--threads " + threads} ${"--pthreads " + pthreads} --fna ${fna} --gff ${gff} --aln ${aln} --lintsv ${lineage}
+     command {
+        export TIME="time result\ncmd:%C\nreal %es\nuser %Us \nsys  %Ss \nmemory:%MKB \ncpu %P"
+        set -eo pipefail
+        # Capture the start time
+        date --iso-8601=seconds > start.txt
+        # set TMPDIR to avoid AF_UNIX path too long error 
+        export TMPDIR=/tmp
+        #export TMPDIR=$HOME 
+        export GTDBTK_DATA_PATH=${database}
+        mbin_nmdc.py ${"--map " + map} ${"--domain " + domain} ${"--scratch_dir " + scratch_dir} --pplacer_cpu ${pplacer_cpu} --cpu ${cpu} ${name} ${fasta} ${sam} ${gff}
         mbin_stats.py $PWD
-        mbin_versions.py > mbin_nmdc_versions.log
         touch MAGs_stats.tsv
 
-        if [ -f  gtdbtk-output/gtdbtk.bac120.summary.tsv ]; then
-            echo "bacterial summary exists."
-        else
-            mkdir -p gtdbtk-output
-            echo "No Bacterial Results for ${name}" > gtdbtk-output/gtdbtk.bac120.summary.tsv
+        if [ ! -f "${filename_stat}" ]; then
+            echo "no mags" > ${filename_stat}
         fi
 
         if [ -f  gtdbtk-output/gtdbtk.ar122.summary.tsv ]; then
@@ -179,7 +169,7 @@ task mbin_nmdc {
 
     runtime{
         docker : mbin_container
-        memory : "120 G"
+        memory : "60 G"
 	    time : "2:00:00"
         cpu : threads
     }
@@ -196,7 +186,7 @@ task mbin_nmdc {
         File bacsum = "gtdbtk-output/gtdbtk.bac120.summary.tsv"
         File arcsum = "gtdbtk-output/gtdbtk.ar122.summary.tsv"
         Array[File] hqmq_bin_fasta_files = glob("hqmq-metabat-bins/*fa")
-        Array[File] lq_bin_fasta_files = glob("filtered-metabat-bins/*fa")
+        Array[File] bin_fasta_files = glob("metabat-bins/*fa")
     }
 }
 
@@ -296,8 +286,6 @@ task stage {
 
 
 task package{
-     String proj
-     String prefix=sub(proj, ":", "_")
      Array[File] bins
      File json_stats
      File gff_file
@@ -314,30 +302,15 @@ task package{
      String container
 
      command {
-         set -e
-         create_tarfiles.py ${prefix} \
+             python3 /opt/conda/bin/create_tarfiles.py \
                      ${json_stats} ${gff_file} ${proteins_file} ${cog_file} \
                      ${ec_file} ${ko_file} ${pfam_file} ${tigrfam_file} \
                      ${cath_funfam_file} ${smart_file} ${supfam_file} \
                      ${product_names_file} \
                      ${sep=" " bins}
-
-        if [ -f ${prefix}_heatmap.pdf ]; then
-            echo "KO analysis plot exists."
-        else
-            echo "No KO analysis result for ${proj}" > ${prefix}_heatmap.pdf
-            echo "No KO analysis result for ${proj}" > ${prefix}_barplot.pdf
-            echo "No KO analysis result for ${proj}" > ${prefix}_ko_krona.html
-            echo "No KO analysis result for ${proj}" > ${prefix}_module_completeness.tab
-        fi
      }
      output {
-         Array[File] hqmq_bin_tarfiles = flatten([glob("*_HQ.tar.gz"), glob("*_MQ.tar.gz")])
-         Array[File] lq_bin_tarfiles = glob("*_LQ.tar.gz")
-         File barplot = prefix + "_barplot.pdf"
-         File heatmap = prefix + "_heatmap.pdf"
-         File kronaplot = prefix + "_ko_krona.html"
-         File ko_matrix = prefix + "_module_completeness.tab"
+         Array[File] hqmq_bin_tarfiles = glob("*tar.gz")
      }
      runtime {
          docker: container
@@ -365,15 +338,10 @@ task finish_mags {
     Array[File] hqmq_bin_fasta_files
     Array[File] bin_fasta_files
     Array[File] hqmq_bin_tarfiles
-    Array[File] lq_bin_tarfiles
     File stats_json
     File stats_tsv
     Int n_hqmq=length(hqmq_bin_tarfiles)
     Int n_bin=length(bin_fasta_files)
-    File barplot
-    File heatmap
-    File kronaplot
-    File ko_matrix
 
     command {
         set -e
@@ -383,48 +351,33 @@ task finish_mags {
         ln ${short} ${prefix}_bins.tooShort.fa
         ln ${unbinned} ${prefix}_bins.unbinned.fa
         ln ${checkm} ${prefix}_checkm_qa.out
+        ln ${stats_json} ${prefix}_mags_stats.json
         ln ${mbin_version} ${prefix}_bin.info
         ln ${bacsum} ${prefix}_gtdbtk.bac122.summary.tsv
         ln ${arcsum} ${prefix}_gtdbtk.ar122.summary.tsv
-        ln ${barplot} ${prefix}_barplot.pdf
-        ln ${heatmap} ${prefix}_heatmap.pdf
-        ln ${kronaplot} ${prefix}_kronaplot.html
-        ln ${ko_matrix} ${prefix}_ko_matrix.txt
 
         # cp all tarfiles, zip them under prefix, if empty touch no_mags.txt
         mkdir -p hqmq
         if [ ${n_hqmq} -gt 0 ] ; then
             (cd hqmq && cp ${sep=" " hqmq_bin_tarfiles} .)
             (cd hqmq && cp ${mbin_sdb} .)
-            (cd hqmq && zip -j ../${prefix}_hqmq_bin.zip *tar.gz mbin.sdb ../*pdf ../*kronaplot.html ../*ko_matrix.txt)
+            (zip ../${prefix}_hqmq_bin.zip *tar.gz mbin.sdb)
         else
             (cd hqmq && touch no_hqmq_mags.txt)
             (cd hqmq && cp ${mbin_sdb} .)
             (cd hqmq && zip ../${prefix}_hqmq_bin.zip *.txt mbin.sdb)
         fi
 
-        mkdir -p lq
-        if [ ${n_bin} -gt 0 ] ; then
-            (cd lq && cp ${sep=" " lq_bin_tarfiles} .)
-            (cd lq && cp ${mbin_sdb} .)
-            (cd lq && zip -j ../${prefix}_lq_bin.zip *tar.gz mbin.sdb ../*pdf ../*kronaplot.html ../*ko_matrix.txt)
-        else
-            (cd lq && touch no_lq_mags.txt)
-            (cd lq && cp ${mbin_sdb} .)
-            (cd lq && zip ../${prefix}_lq_bin.zip *.txt mbin.sdb)
-        fi
-
         # Fix up attribute name
         cat ${stats_json} | \
            sed 's/: null/: "null"/g' | \
-           sed 's/lowDepth_/low_depth_/' > ${prefix}_mags_stats.json
+           sed 's/lowDepth_/low_depth_/' > stats.json
 
     }
 
     output {
         File final_checkm = "${prefix}_checkm_qa.out"
         File final_hqmq_bins_zip = "${prefix}_hqmq_bin.zip"
-        File final_lq_bins_zip = "${prefix}_lq_bin.zip"
         File final_stats_json = "${prefix}_mags_stats.json"
         File final_gtdbtk_bac_summary = "${prefix}_gtdbtk.bac122.summary.tsv"
         File final_gtdbtk_ar_summary = "${prefix}_gtdbtk.ar122.summary.tsv"
@@ -432,9 +385,6 @@ task finish_mags {
         File final_unbinned_fa = "${prefix}_bins.unbinned.fa"
         File final_short = "${prefix}_bins.tooShort.fa"
         File final_version = "${prefix}_bin.info"
-        File final_kronaplot = "${prefix}_kronaplot.html"
-        File final_heatmap = "${prefix}_heatmap.pdf"
-        File final_barplot = "${prefix}_barplot.pdf"
     }
 
     runtime {
