@@ -156,9 +156,9 @@ Workflows:
       name: Centrifuge output read classification file
       suffix: _centrifuge_classification.tsv
     - output: final_centrifuge_report_tsv
-      data_object_type: Centrifuge output report file
+      data_object_type: Centrifuge Classification Report
       description: Centrifuge Report for {id}
-      name: Centrifuge Classification Report
+      name: Centrifuge output report file
       suffix: _centrifuge_report.tsv
     - output: final_centrifuge_krona_html
       data_object_type: Centrifuge Krona Plot
