@@ -181,9 +181,11 @@ workflow main_workflow {
 	File? metaMAGs_map_file
 	File? metaMAGs_domain_file
 	Int metaMAGs_cpu=16
-	Int metaMAGs_pplacer_cpu=1
-	String metaMAGs_database="/expanse/projects/nmdc/refdata/GTDBTK_DB"
-	String metaMAGs_container = "microbiomedata/nmdc_mbin:0.1.6"
+	Int metaMAGs_threads=64
+	Int metaMAGs_pthreads=1
+	String metaMAGs_database="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
+    String checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
+    String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:bb1dd3bad177f7a49fa79713f16181d6143dab904b462c7429b3085bb84410f9"
 	
 	if (DoMetaMAGs && DoAnnotation){
 		call metaMAGs.nmdc_mags as metaMAGs_call {
@@ -207,8 +209,10 @@ workflow main_workflow {
 				map_file=metaMAGs_map_file,
 				domain_file=metaMAGs_domain_file,
 				cpu=metaMAGs_cpu,
-				pplacer_cpu=metaMAGs_pplacer_cpu,
-				gtdbtk_database=metaMAGs_database,
+				threads=metaMAGs_threads,
+				pthreads=metaMAGs_pthreads
+				gtdbtk_db=metaMAGs_database,
+				checkm_db=checkm_db,
 				scratch_dir=metaMAGs_outdir,
 				container=metaMAGs_container
 		}
