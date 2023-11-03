@@ -100,11 +100,12 @@ def rebuild_workflow_records(study_id: str, site_config: bool):
         db.omics_processing_set.append(omics_processing_record)
 
         # downstream workflow activity sets
-        (read_qc_records, metagenome_assembly_records,
-            metagenome_annotation_records, mags_records) = [], [], [], []
+        (read_qc_records, readbased_records, metagenome_assembly_records,
+            metagenome_annotation_records, mags_records) = [], [], [], [], []
 
         downstream_workflow_activity_sets = {
             "read_qc_analysis_activity_set": read_qc_records,
+            "read_based_taxonomy_analysis_activity_set": readbased_records,
             "metagenome_assembly_set": metagenome_assembly_records,
             "metagenome_annotation_activity_set": metagenome_annotation_records,
             "mags_activity_set": mags_records,
