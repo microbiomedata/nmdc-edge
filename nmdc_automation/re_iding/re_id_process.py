@@ -438,6 +438,7 @@ def readbased_update(omics_record, template_file, omic_id, workflow_inputs):
         dobj_tmpl = get_associate_data_object_template(
             data_object["data_object_type"], assembly_template["Outputs"]
         )
+        print(dobj_tmpl)
         # generate new dataobject type
         new_do_id = minter("nmdc:DataObject")
         file_size = data_object["file_size_bytes"]
@@ -514,6 +515,6 @@ def main():
 
 if __name__ == "__main__":
     test_file = "scripts/nmdc:sty-11-aygzgv51_assocated_record_dump.json"
-    template_file = "../../nmdc_automation/configs/re_iding_worklfows.yaml"
+    template_file = "../../configs/re_iding_worklfows.yaml"
     stegen_data = read_json_file(test_file)
     process_analysis_sets(stegen_data, template_file, dry_run=True)
