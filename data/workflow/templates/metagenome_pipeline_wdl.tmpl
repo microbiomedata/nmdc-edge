@@ -168,6 +168,18 @@ workflow main_workflow {
 	File? metaMAGs_contig_file = metaAssembly_call.final_contig
 	File? metaMAGs_sam_file = metaAssembly_call.final_bam
 	File? metaMAGs_gff_file = metaAnnotation_call.functional_gff
+	String metaMAGs_proteins_file = metaAnnotation_call.proteins_file
+    String metaMAGs_cog_file = metaAnnotation_call.cog_file
+    String metaMAGs_ec_file = metaAnnotation_call.ec_file
+    String metaMAGs_ko_file = metaAnnotation_call.ko_file
+    String metaMAGs_pfam_file = metaAnnotation_call.pfam_file
+    String metaMAGs_tigrfam_file = metaAnnotation_call.tigrfam_file
+    String metaMAGs_cath_funfam_file = metaAnnotation_call.cath_funfam_file
+    String metaMAGs_smart_file = metaAnnotation_call.
+    String metaMAGs_supfam_file = metaAnnotation_call.
+    String metaMAGs_product_names_file = metaAnnotation_call.product_names_tsv
+    String metaMAGs_gene_phylogeny_file = metaAnnotation_call.gene_phylogeny_file
+    String metaMAGs_lineage_file = metaAnnotation_call.lineage_file
 	File? metaMAGs_map_file
 	File? metaMAGs_domain_file
 	Int metaMAGs_cpu=16
@@ -177,12 +189,23 @@ workflow main_workflow {
 	
 
 		call metaMAGs.nmdc_mags as metaMAGs_call {
-			input: 
-				outdir=metaMAGs_outdir,
+			input:
 				proj_name=metaMAGs_proj_name,
 				contig_file=metaMAGs_contig_file,
 				sam_file=metaMAGs_sam_file,
-				gff_file=metaMAGs_gff_file, 
+				gff_file=metaMAGs_gff_file,
+				proteins_file=metaMAGs_proteins_file,
+				cog_file=metaMAGs_cog_file,
+				ec_file=metaMAGs_ec_file,
+				ko_file=metaMAGs_ko_file,
+                pfam_file=metaMAGs_pfam_file,
+                tigrfam_file=metaMAGs_tigrfam_file,
+                cath_funfam_file=metaMAGs_cath_funfam_file,
+                smart_file=metaMAGs_smart_file,
+                supfam_file=metaMAGs_supfam_file,
+                product_names_file=metaMAGs_product_names_file,
+                gene_phylogeny_file=metaMAGs_gene_phylogeny_file,
+                lineage_file=metaMAGs_lineage_file,
 				map_file=metaMAGs_map_file,
 				domain_file=metaMAGs_domain_file,
 				cpu=metaMAGs_cpu,
