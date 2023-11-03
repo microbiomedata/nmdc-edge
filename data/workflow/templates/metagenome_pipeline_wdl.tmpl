@@ -166,18 +166,18 @@ workflow main_workflow {
 	File? metaMAGs_contig_file = metaAssembly_call.final_contig
 	File? metaMAGs_sam_file = metaAssembly_call.final_bam
 	File? metaMAGs_gff_file = metaAnnotation_call.functional_gff
-	String metaMAGs_proteins_file = metaAnnotation_call.proteins_file
-    String metaMAGs_cog_file = metaAnnotation_call.cog_file
-    String metaMAGs_ec_file = metaAnnotation_call.ec_file
-    String metaMAGs_ko_file = metaAnnotation_call.ko_file
-    String metaMAGs_pfam_file = metaAnnotation_call.pfam_file
-    String metaMAGs_tigrfam_file = metaAnnotation_call.tigrfam_file
-    String metaMAGs_cath_funfam_file = metaAnnotation_call.cath_funfam_file
-    String metaMAGs_smart_file = metaAnnotation_call.smart_file
-    String metaMAGs_supfam_file = metaAnnotation_call.supfam_file
-    String metaMAGs_product_names_file = metaAnnotation_call.product_names_tsv
-    String metaMAGs_gene_phylogeny_file = metaAnnotation_call.gene_phylogeny_file
-    String metaMAGs_lineage_file = metaAnnotation_call.lineage_file
+	File metaMAGs_proteins_file = metaAnnotation_call.proteins_file
+    File metaMAGs_cog_file = metaAnnotation_call.cog_file
+    File metaMAGs_ec_file = metaAnnotation_call.ec_file
+    File metaMAGs_ko_file = metaAnnotation_call.ko_file
+    File metaMAGs_pfam_file = metaAnnotation_call.pfam_file
+    File metaMAGs_tigrfam_file = metaAnnotation_call.tigrfam_file
+    File metaMAGs_cath_funfam_file = metaAnnotation_call.cath_funfam_file
+    File metaMAGs_smart_file = metaAnnotation_call.smart_file
+    File metaMAGs_supfam_file = metaAnnotation_call.supfam_file
+    File metaMAGs_product_names_file = metaAnnotation_call.product_names_tsv
+    File metaMAGs_gene_phylogeny_file = metaAnnotation_call.gene_phylogeny_file
+    File metaMAGs_lineage_file = metaAnnotation_call.lineage_file
 	File? metaMAGs_map_file
 	File? metaMAGs_domain_file
 	Int metaMAGs_cpu=16
