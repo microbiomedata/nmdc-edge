@@ -438,7 +438,7 @@ def readbased_update(omics_record, template_file, omic_id, workflow_inputs):
         dobj_tmpl = get_associate_data_object_template(
             data_object["data_object_type"], assembly_template["Outputs"]
         )
-        print(dobj_tmpl)
+        
         # generate new dataobject type
         new_do_id = minter("nmdc:DataObject")
         file_size = data_object["file_size_bytes"]
@@ -446,7 +446,7 @@ def readbased_update(omics_record, template_file, omic_id, workflow_inputs):
         md5_sum = data_object["md5_checksum"]
         # get new values for slots
         new_description = re.sub("[^ ]+$", f"{omic_id}", data_object["description"])
-        new_url, destination, _ = compute_new_paths(
+        new_url, _, _ = compute_new_paths(
             data_object["url"], new_readbased_base_dir, omic_id, new_act_id
         )
         make_data_object(
