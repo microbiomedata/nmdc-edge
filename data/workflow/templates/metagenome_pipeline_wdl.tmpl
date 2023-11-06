@@ -146,6 +146,7 @@ workflow main_workflow {
 		call metaAnnotation.annotation as metaAnnotation_call {
 			input: 
 				input_file=metaAnnotation_imgap_input_fasta,
+				proj=metaAnnotation_imgap_project_id,
 				imgap_project_id=metaAnnotation_imgap_project_id,
 				additional_threads=metaAnnotation_additional_threads,
 				database_location=metaAnnotation_database_location
