@@ -145,9 +145,8 @@ workflow main_workflow {
 	if (DoAnnotation){
 		call metaAnnotation.annotation as metaAnnotation_call {
 			input: 
-				imgap_input_fasta=metaAnnotation_imgap_input_fasta,
+				input_file=metaAnnotation_imgap_input_fasta,
 				imgap_project_id=metaAnnotation_imgap_project_id,
-				outdir=metaAnnotation_outdir,
 				additional_threads=metaAnnotation_additional_threads,
 				database_location=metaAnnotation_database_location
 		}
