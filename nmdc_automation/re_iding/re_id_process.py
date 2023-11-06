@@ -12,6 +12,7 @@ from re_id_file_operations import *
 import nmdc_schema.nmdc as nmdc
 from linkml_runtime.dumpers import json_dumper
 import shutil
+import logging
 
 ###GLOBAL######
 nmdc_db = nmdc.Database()
@@ -19,6 +20,16 @@ runtime_api = NmdcRuntimeApi("../../configs/napa_config.toml")
 base = "https://data.microbiomedata.org/data"
 base_dir = "/global/cfs/cdirs/m3408/results"
 
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler()
+    ]
+)
+
+logger = logging.getLogger(__name__)
 
 sets = [
     "read_qc_analysis_activity_set",
@@ -106,14 +117,14 @@ def compute_new_paths(old_url, new_base_dir, omic_id, act_id):
 
     try:
         os.link(old_file_path, destination)
-        print(f"Successfully created link between {old_file_path} and {destination}")
+        logging.info(f"Successfully created link between {old_file_path} and {destination}")
     except OSError as e:
-        print(f"An error occurred while linking the file: {e}")
+        logging.error(f"An error occurred while linking the file: {e}")
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        logging.error(f"Unexpected error: {e}")
 
-    new_url = f"{base}/{omic_id}/{act_id}/{new_file_name}"
-    return new_url, destination, new_file_name
+    new_url = f"{base}/{omic_id}/{act_id}/{modified_new_file_name}"
+    return new_url, destination, modified_new_file_name
 
 
 def find_type(obj):
@@ -158,7 +169,7 @@ def make_activity_set(
         database_activity_range(
             id=activity_id,
             name=workflow_record_template["Activity"]["name"].replace(
-                "{id}", activity_id
+                "{id}", omics_id
             ),
             git_url=workflow_record_template["Git_repo"],
             version=workflow_record_template["Version"],
@@ -270,6 +281,8 @@ def reads_qc_update(omics_record, template_file, omic_id):
         nmdc_database_object: dump of nmdc object
     """
 
+    logging.info(f"Updating Reads QC for {omic_id}")
+
     workflow_type = "read_qc_analysis_activity_set"
     # extract needed metaadata
     reads_qc_record = get_record_by_type(omics_record, workflow_type)
@@ -283,6 +296,15 @@ def reads_qc_update(omics_record, template_file, omic_id):
     new_qc_base_dir = os.path.join(base_dir, omic_id, new_act_id)
     os.makedirs(new_qc_base_dir, exist_ok=True)
     updated_has_output_list = []
+    
+    # scrape useful old metadata
+    for rec in reads_qc_record:
+        has_input = rec["has_input"]
+        started_time = rec["started_at_time"]
+        ended_time = rec["ended_at_time"]
+        old_act_id = rec["id"]
+    
+    log_mapping("act_id", old_act_id, new_act_id)
 
     # hold input to downstream workflows
     input_to_downstream_workflows = []
@@ -292,6 +314,8 @@ def reads_qc_update(omics_record, template_file, omic_id):
             data_object["data_object_type"], reads_qc_template["Outputs"]
         )
         new_do_id = minter("nmdc:DataObject")
+        #log the new id
+        log_mapping("dobj", data_object["id"], new_do_id)
         # save filtered reads
         if data_object["data_object_type"] == "Filtered Sequencing Reads":
             input_to_downstream_workflows.append(new_do_id)
@@ -316,10 +340,6 @@ def reads_qc_update(omics_record, template_file, omic_id):
         updated_has_output_list.append(new_do_id)
 
     # make updated activity record
-    for rec in reads_qc_record:
-        has_input = rec["has_input"]
-        started_time = rec["started_at_time"]
-        ended_time = rec["ended_at_time"]
     # need to change has input to be updated as well,
     make_activity_set(
         omic_id,
@@ -347,6 +367,8 @@ def assembly_update(omics_record, template_file, omic_id, workflow_inputs):
         nmdc_database_object: dump of nmdc object
     """
 
+    logging.info(f"Updating Assembly for {omic_id}")
+
     workflow_type = "metagenome_assembly_set"
     # extract needed metaadata
     assembly_record = get_record_by_type(omics_record, workflow_type)
@@ -360,6 +382,14 @@ def assembly_update(omics_record, template_file, omic_id, workflow_inputs):
     new_asm_base_dir = os.path.join(base_dir, omic_id, new_act_id)
     os.makedirs(new_asm_base_dir, exist_ok=True)
     updated_has_output_list = []
+    
+    #get useful old metadata
+    for rec in assembly_record:
+        started_time = rec["started_at_time"]
+        ended_time = rec["ended_at_time"]
+        old_act_id = rec["id"]
+    
+    log_mapping("act_id", old_act_id, new_act_id)
 
     # make new data objects
     for data_object in assembly_data_objects:
@@ -369,6 +399,9 @@ def assembly_update(omics_record, template_file, omic_id, workflow_inputs):
         )
         # generate new dataobject type
         new_do_id = minter("nmdc:DataObject")
+        #log the new id
+        log_mapping("dobj", data_object["id"], new_do_id)
+        #continue updating metdata for data objects
         new_description = re.sub("[^ ]+$", f"{omic_id}", data_object["description"])
         new_url, destination, _ = get_new_paths(
             data_object["url"], new_asm_base_dir, omic_id, new_act_id
@@ -389,9 +422,6 @@ def assembly_update(omics_record, template_file, omic_id, workflow_inputs):
         )
         updated_has_output_list.append(new_do_id)
 
-    for rec in assembly_record:
-        started_time = rec["started_at_time"]
-        ended_time = rec["ended_at_time"]
     # need to change has input to be updated as well,
     make_activity_set(
         omic_id,
@@ -417,6 +447,8 @@ def readbased_update(omics_record, template_file, omic_id, workflow_inputs):
         nmdc_database_object: dump of nmdc object
     """
 
+    logging.info(f"Updating Readbased for {omic_id}")
+
     workflow_type = "read_based_taxonomy_analysis_activity_set"
     # extract needed metaadata
     readbased_record = get_record_by_type(omics_record, workflow_type)
@@ -430,6 +462,15 @@ def readbased_update(omics_record, template_file, omic_id, workflow_inputs):
     new_readbased_base_dir = os.path.join(base_dir, omic_id, new_act_id)
     os.makedirs(new_readbased_base_dir, exist_ok=True)
     updated_has_output_list = []
+    
+    #get useful old metadata
+    for rec in readbased_record:
+        started_time = rec["started_at_time"]
+        ended_time = rec["ended_at_time"]
+        old_act_id = rec["id"]
+
+    #log new activity id
+    log_mapping("act_id", old_act_id, new_act_id)
 
     # make new data objects
     for data_object in readbased_data_objects:
@@ -441,6 +482,9 @@ def readbased_update(omics_record, template_file, omic_id, workflow_inputs):
         
         # generate new dataobject type
         new_do_id = minter("nmdc:DataObject")
+        #log the new id
+        log_mapping("dobj", data_object["id"], new_do_id)
+        #continue updating metdata for data objects
         file_size = data_object["file_size_bytes"]
         data_object_type = data_object["data_object_type"]
         md5_sum = data_object["md5_checksum"]
@@ -460,10 +504,7 @@ def readbased_update(omics_record, template_file, omic_id, workflow_inputs):
         )
         updated_has_output_list.append(new_do_id)
 
-    for rec in readbased_record:
-        started_time = rec["started_at_time"]
-        ended_time = rec["ended_at_time"]
-
+    #make updated activity record
     make_activity_set(
         omic_id,
         new_act_id,
@@ -475,46 +516,43 @@ def readbased_update(omics_record, template_file, omic_id, workflow_inputs):
     )
 
 
-def process_analysis_sets(study_records, template_file, dry_run=False):
+def process_analysis_sets(study_id,study_records, template_file, dry_run=False):
     count = 0
     for omic_record in study_records:
         omics_id = get_omics_id(omic_record)
-        print(omics_id)
+        logging.info(f"Starting re-iding process for {omics_id}")
+        log_mapping("omics_id", "gold", omics_id)
         downstream_input, destination = reads_qc_update(
             omic_record, template_file, omics_id
         )
         assembly_update(omic_record, template_file, omics_id, downstream_input)
         readbased_update(omic_record, template_file, omics_id, downstream_input)
         nmdc_database_object = json.loads(json_dumper.dumps(nmdc_db, inject_type=False))
-        print(nmdc_database_object)
+        logging.info(f"Writing nmdc database object dump to json file for {study_id}")
+        with open(f'{study_id}_updated_records.json', 'w') as json_file:
+            json.dump(nmdc_database_object, json_file, indent=4)
         if dry_run == True:
             count += 1
         dir_path = os.path.dirname(destination)
         parent_dir_path = os.path.dirname(dir_path)
         try:
-            # shutil.rmtree(parent_dir_path)
-            print(
-                f"Directory {parent_dir_path} and all its contents removed successfully!"
+            shutil.rmtree(parent_dir_path)
+            logging.info(
+                f"Running in dry_run mode, directory {parent_dir_path} and all its contents removed successfully!"
             )
         except OSError as e:
-            print(f"Error: {e}")
+            logging.info(f"Error: {e}")
         if count == 1:
             break
 
 
-def main():
-    # TODO
-    # 1. Read in json dump of analysis records
-    # 2. Process records for reads qc - generate new metadata, make new records and data objects (this will include file copies and renaming)
-    # 3. save data of updated reads qc records
-    # 4. Fetch old records for readbased analysis and assembly, generate new metadata, make new records and data objects (this will include file copies and renaming files and ids in files)
-    # 5. Validate new records, submit them via runtime api
-    # 6. Write seperate process to delete old records once we have
-    pass
+def main(study_id,study_data, template_file, dry_run=False):
+    process_analysis_sets(study_id,study_data, template_file, dry_run)
 
 
 if __name__ == "__main__":
     test_file = "scripts/nmdc:sty-11-aygzgv51_assocated_record_dump.json"
+    study_id = "nmdc:sty-11-aygzgv51"
     template_file = "../../configs/re_iding_worklfows.yaml"
     stegen_data = read_json_file(test_file)
-    process_analysis_sets(stegen_data, template_file, dry_run=True)
+    main(study_id,stegen_data, template_file, dry_run=True)
