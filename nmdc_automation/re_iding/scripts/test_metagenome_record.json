@@ -1,0 +1,640 @@
+[
+  {
+        "functional_annotation_agg": [],
+        "library_preparation_set": [],
+        "processed_sample_set": [],
+        "extraction_set": [],
+        "activity_set": [],
+        "biosample_set": [],
+        "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2861414297,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d740280d8785342fcf7e39",
+                "name": "9422.8.132674.GTTTCG.fastq.gz"
+            },
+            {
+                "name": "Gp0115663_Filtered Reads",
+                "description": "Filtered Reads for Gp0115663",
+                "data_object_type": "Filtered Sequencing Reads",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/qa/nmdc_mga0h9dt75_filtered.fastq.gz",
+                "md5_checksum": "7bf778baef033d36f118f8591256d6ef",
+                "id": "nmdc:7bf778baef033d36f118f8591256d6ef",
+                "file_size_bytes": 2571324879
+            },
+            {
+                "name": "Gp0115663_Filtered Stats",
+                "description": "Filtered Stats for Gp0115663",
+                "data_object_type": "QC Statistics",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/qa/nmdc_mga0h9dt75_filterStats.txt",
+                "md5_checksum": "b99ce8adc125c95f0bfdadf36a3f6848",
+                "id": "nmdc:b99ce8adc125c95f0bfdadf36a3f6848",
+                "file_size_bytes": 290
+            },
+            {
+                "name": "Gp0115663_Gottcha2 TSV report",
+                "description": "Gottcha2 TSV report for Gp0115663",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/ReadbasedAnalysis/nmdc_mga0h9dt75_gottcha2_report.tsv",
+                "md5_checksum": "bc7c1bda004aab357c8f6cf5a42242f9",
+                "id": "nmdc:bc7c1bda004aab357c8f6cf5a42242f9",
+                "file_size_bytes": 13174
+            },
+            {
+                "name": "Gp0115663_Gottcha2 full TSV report",
+                "description": "Gottcha2 full TSV report for Gp0115663",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/ReadbasedAnalysis/nmdc_mga0h9dt75_gottcha2_report_full.tsv",
+                "md5_checksum": "9481434cadd0d6c154e2ec4c11ef0e04",
+                "id": "nmdc:9481434cadd0d6c154e2ec4c11ef0e04",
+                "file_size_bytes": 1035818
+            },
+            {
+                "name": "Gp0115663_Gottcha2 Krona HTML report",
+                "description": "Gottcha2 Krona HTML report for Gp0115663",
+                "data_object_type": "GOTTCHA2 Krona Plot",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/ReadbasedAnalysis/nmdc_mga0h9dt75_gottcha2_krona.html",
+                "md5_checksum": "6b5bc6ce7f11c1336a5f85a98fc18541",
+                "id": "nmdc:6b5bc6ce7f11c1336a5f85a98fc18541",
+                "file_size_bytes": 262669
+            },
+            {
+                "name": "Gp0115663_Centrifuge classification TSV report",
+                "description": "Centrifuge classification TSV report for Gp0115663",
+                "data_object_type": "Centrifuge Taxonomic Classification",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/ReadbasedAnalysis/nmdc_mga0h9dt75_centrifuge_classification.tsv",
+                "md5_checksum": "933c71bbc2f4a2e84d50f0d3864cf940",
+                "id": "nmdc:933c71bbc2f4a2e84d50f0d3864cf940",
+                "file_size_bytes": 2189843623
+            },
+            {
+                "name": "Gp0115663_Centrifuge TSV report",
+                "description": "Centrifuge TSV report for Gp0115663",
+                "data_object_type": "Centrifuge Classification Report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/ReadbasedAnalysis/nmdc_mga0h9dt75_centrifuge_report.tsv",
+                "md5_checksum": "1a208e2519770ef50740ac39f1b9ba9a",
+                "id": "nmdc:1a208e2519770ef50740ac39f1b9ba9a",
+                "file_size_bytes": 260134
+            },
+            {
+                "name": "Gp0115663_Centrifuge Krona HTML report",
+                "description": "Centrifuge Krona HTML report for Gp0115663",
+                "data_object_type": "Centrifuge Krona Plot",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/ReadbasedAnalysis/nmdc_mga0h9dt75_centrifuge_krona.html",
+                "md5_checksum": "f112a3840464ae7a9cf4a3bf295edd5c",
+                "id": "nmdc:f112a3840464ae7a9cf4a3bf295edd5c",
+                "file_size_bytes": 2343980
+            },
+            {
+                "name": "Gp0115663_Kraken classification TSV report",
+                "description": "Kraken classification TSV report for Gp0115663",
+                "data_object_type": "Kraken2 Taxonomic Classification",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/ReadbasedAnalysis/nmdc_mga0h9dt75_kraken2_classification.tsv",
+                "md5_checksum": "7ca01ea379f0baed96f87d1435925f95",
+                "id": "nmdc:7ca01ea379f0baed96f87d1435925f95",
+                "file_size_bytes": 1785563917
+            },
+            {
+                "name": "Gp0115663_Kraken2 TSV report",
+                "description": "Kraken2 TSV report for Gp0115663",
+                "data_object_type": "Kraken2 Classification Report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/ReadbasedAnalysis/nmdc_mga0h9dt75_kraken2_report.tsv",
+                "md5_checksum": "c85f2f2b4a518c4adb23970448a5cb45",
+                "id": "nmdc:c85f2f2b4a518c4adb23970448a5cb45",
+                "file_size_bytes": 699896
+            },
+            {
+                "name": "Gp0115663_Kraken2 Krona HTML report",
+                "description": "Kraken2 Krona HTML report for Gp0115663",
+                "data_object_type": "Kraken2 Krona Plot",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/ReadbasedAnalysis/nmdc_mga0h9dt75_kraken2_krona.html",
+                "md5_checksum": "94ee1bc2dc74830a21d5c3471d6cf223",
+                "id": "nmdc:94ee1bc2dc74830a21d5c3471d6cf223",
+                "file_size_bytes": 4221977
+            },
+            {
+                "name": "Gp0115663_Assembled contigs fasta",
+                "description": "Assembled contigs fasta for Gp0115663",
+                "data_object_type": "Assembly Contigs",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/assembly/nmdc_mga0h9dt75_contigs.fna",
+                "md5_checksum": "deddd162bf0128fba13b3bc1ca38d1aa",
+                "id": "nmdc:deddd162bf0128fba13b3bc1ca38d1aa",
+                "file_size_bytes": 90115831
+            },
+            {
+                "name": "Gp0115663_Assembled scaffold fasta",
+                "description": "Assembled scaffold fasta for Gp0115663",
+                "data_object_type": "Assembly Scaffolds",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/assembly/nmdc_mga0h9dt75_scaffolds.fna",
+                "md5_checksum": "b3573e3cda5a06611de71ca04c5c14cc",
+                "id": "nmdc:b3573e3cda5a06611de71ca04c5c14cc",
+                "file_size_bytes": 89604715
+            },
+            {
+                "name": "Gp0115663_Metagenome Contig Coverage Stats",
+                "description": "Metagenome Contig Coverage Stats for Gp0115663",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/assembly/nmdc_mga0h9dt75_covstats.txt",
+                "md5_checksum": "c6d0d4cea985ca6fb50a060e15b4a856",
+                "id": "nmdc:c6d0d4cea985ca6fb50a060e15b4a856",
+                "file_size_bytes": 13412363
+            },
+            {
+                "name": "Gp0115663_Assembled AGP file",
+                "description": "Assembled AGP file for Gp0115663",
+                "data_object_type": "Assembly AGP",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/assembly/nmdc_mga0h9dt75_assembly.agp",
+                "md5_checksum": "f450e3800e17691d5874c89fc46c186a",
+                "id": "nmdc:f450e3800e17691d5874c89fc46c186a",
+                "file_size_bytes": 12542171
+            },
+            {
+                "name": "Gp0115663_Metagenome Alignment BAM file",
+                "description": "Metagenome Alignment BAM file for Gp0115663",
+                "data_object_type": "Assembly Coverage BAM",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/assembly/nmdc_mga0h9dt75_pairedMapped_sorted.bam",
+                "md5_checksum": "31dc958d116d02122509e90b0883954f",
+                "id": "nmdc:31dc958d116d02122509e90b0883954f",
+                "file_size_bytes": 2773429299
+            },
+            {
+                "name": "Gp0115663_Protein FAA",
+                "description": "Protein FAA for Gp0115663",
+                "data_object_type": "Annotation Amino Acid FASTA",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/annotation/nmdc_mga0h9dt75_proteins.faa",
+                "md5_checksum": "879988d212ecec46928b8598e2f8391f",
+                "id": "nmdc:879988d212ecec46928b8598e2f8391f",
+                "file_size_bytes": 50165060
+            },
+            {
+                "name": "Gp0115663_Structural annotation GFF file",
+                "description": "Structural annotation GFF file for Gp0115663",
+                "data_object_type": "Structural Annotation GFF",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/annotation/nmdc_mga0h9dt75_structural_annotation.gff",
+                "md5_checksum": "884b95102f5965cc0ee2d9b7f198e5a4",
+                "id": "nmdc:884b95102f5965cc0ee2d9b7f198e5a4",
+                "file_size_bytes": 2767
+            },
+            {
+                "name": "Gp0115663_Functional annotation GFF file",
+                "description": "Functional annotation GFF file for Gp0115663",
+                "data_object_type": "Functional Annotation GFF",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/annotation/nmdc_mga0h9dt75_functional_annotation.gff",
+                "md5_checksum": "002e4ebc728f8b91cb5f298d340ab013",
+                "id": "nmdc:002e4ebc728f8b91cb5f298d340ab013",
+                "file_size_bytes": 55139586
+            },
+            {
+                "name": "Gp0115663_KO TSV file",
+                "description": "KO TSV file for Gp0115663",
+                "data_object_type": "Annotation KEGG Orthology",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/annotation/nmdc_mga0h9dt75_ko.tsv",
+                "md5_checksum": "6851078f29716d89e3f41f0969ae7bf0",
+                "id": "nmdc:6851078f29716d89e3f41f0969ae7bf0",
+                "file_size_bytes": 6023696
+            },
+            {
+                "name": "Gp0115663_EC TSV file",
+                "description": "EC TSV file for Gp0115663",
+                "data_object_type": "Annotation Enzyme Commission",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/annotation/nmdc_mga0h9dt75_ec.tsv",
+                "md5_checksum": "4f88c89459f36655eb7c1eceec19602a",
+                "id": "nmdc:4f88c89459f36655eb7c1eceec19602a",
+                "file_size_bytes": 3982918
+            },
+            {
+                "name": "Gp0115663_COG GFF file",
+                "description": "COG GFF file for Gp0115663",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/annotation/nmdc_mga0h9dt75_cog.gff",
+                "md5_checksum": "a068b9ce6ebb7deb15ff932b513817a9",
+                "id": "nmdc:a068b9ce6ebb7deb15ff932b513817a9",
+                "file_size_bytes": 27362917
+            },
+            {
+                "name": "Gp0115663_PFAM GFF file",
+                "description": "PFAM GFF file for Gp0115663",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/annotation/nmdc_mga0h9dt75_pfam.gff",
+                "md5_checksum": "618b18fa8635c80cc0091371f451a6f0",
+                "id": "nmdc:618b18fa8635c80cc0091371f451a6f0",
+                "file_size_bytes": 21572048
+            },
+            {
+                "name": "Gp0115663_TigrFam GFF file",
+                "description": "TigrFam GFF file for Gp0115663",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/annotation/nmdc_mga0h9dt75_tigrfam.gff",
+                "md5_checksum": "17e55a1a1a133ffbf8cbe4024d997a6f",
+                "id": "nmdc:17e55a1a1a133ffbf8cbe4024d997a6f",
+                "file_size_bytes": 2900068
+            },
+            {
+                "name": "Gp0115663_SMART GFF file",
+                "description": "SMART GFF file for Gp0115663",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/annotation/nmdc_mga0h9dt75_smart.gff",
+                "md5_checksum": "8f80142c0f5723af5a3b44b7ff4e4339",
+                "id": "nmdc:8f80142c0f5723af5a3b44b7ff4e4339",
+                "file_size_bytes": 6905519
+            },
+            {
+                "name": "Gp0115663_SuperFam GFF file",
+                "description": "SuperFam GFF file for Gp0115663",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/annotation/nmdc_mga0h9dt75_supfam.gff",
+                "md5_checksum": "fdd2e8741ffef40db383674a10bb4d11",
+                "id": "nmdc:fdd2e8741ffef40db383674a10bb4d11",
+                "file_size_bytes": 38787856
+            },
+            {
+                "name": "Gp0115663_Cath FunFam GFF file",
+                "description": "Cath FunFam GFF file for Gp0115663",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/annotation/nmdc_mga0h9dt75_cath_funfam.gff",
+                "md5_checksum": "8eb49ac20a6c2721d6db227f4fb3356a",
+                "id": "nmdc:8eb49ac20a6c2721d6db227f4fb3356a",
+                "file_size_bytes": 30134783
+            },
+            {
+                "name": "Gp0115663_KO_EC GFF file",
+                "description": "KO_EC GFF file for Gp0115663",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/annotation/nmdc_mga0h9dt75_ko_ec.gff",
+                "md5_checksum": "75f481e0d98793cfb4f9508cb3e31622",
+                "id": "nmdc:75f481e0d98793cfb4f9508cb3e31622",
+                "file_size_bytes": 19194308
+            },
+            {
+                "name": "gold:Gp0452679_metabat2 bin checkm quality assessment result",
+                "description": "metabat2 bin checkm quality assessment result for gold:Gp0452679",
+                "data_object_type": "CheckM Statistics",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0fsjy84/MAGs/nmdc_mga0fsjy84_checkm_qa.out",
+                "md5_checksum": "d41d8cd98f00b204e9800998ecf8427e",
+                "id": "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                "file_size_bytes": 0
+            },
+            {
+                "name": "Gp0115663_tooShort (< 3kb) filtered contigs fasta file by metaBat2",
+                "description": "tooShort (< 3kb) filtered contigs fasta file by metaBat2 for Gp0115663",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/MAGs/nmdc_mga0h9dt75_bins.tooShort.fa",
+                "md5_checksum": "c092b018cb4652c4ca0620b37a4b3fad",
+                "id": "nmdc:c092b018cb4652c4ca0620b37a4b3fad",
+                "file_size_bytes": 70411007
+            },
+            {
+                "name": "Gp0115663_unbinned fasta file from metabat2",
+                "description": "unbinned fasta file from metabat2 for Gp0115663",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/MAGs/nmdc_mga0h9dt75_bins.unbinned.fa",
+                "md5_checksum": "70d7c8a307f47adb05056bee1b01f9d4",
+                "id": "nmdc:70d7c8a307f47adb05056bee1b01f9d4",
+                "file_size_bytes": 15998690
+            },
+            {
+                "name": "Gp0115663_metabat2 bin checkm quality assessment result",
+                "description": "metabat2 bin checkm quality assessment result for Gp0115663",
+                "data_object_type": "CheckM Statistics",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/MAGs/nmdc_mga0h9dt75_checkm_qa.out",
+                "md5_checksum": "4545ab2039ae70f4439a93316f4fb7bc",
+                "id": "nmdc:4545ab2039ae70f4439a93316f4fb7bc",
+                "file_size_bytes": 1530
+            },
+            {
+                "name": "Gp0115663_high-quality and medium-quality bins",
+                "description": "high-quality and medium-quality bins for Gp0115663",
+                "data_object_type": "Metagenome Bins",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/MAGs/nmdc_mga0h9dt75_hqmq_bin.zip",
+                "md5_checksum": "280b63ae1cc1fa8d6154a0681d47c399",
+                "id": "nmdc:280b63ae1cc1fa8d6154a0681d47c399",
+                "file_size_bytes": 182
+            },
+            {
+                "name": "Gp0115663_metabat2 bins",
+                "description": "metabat2 bins for Gp0115663",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0h9dt75/MAGs/nmdc_mga0h9dt75_metabat_bin.zip",
+                "md5_checksum": "27c07072f175571200b5931550adb8aa",
+                "id": "nmdc:27c07072f175571200b5931550adb8aa",
+                "file_size_bytes": 1114314
+            }
+        ],
+        "dissolving_activity_set": [],
+        "functional_annotation_set": [],
+        "genome_feature_set": [],
+        "mags_activity_set": [
+            {
+                "_id": {
+                    "$oid": "649b0052ec087f6bbab34734"
+                },
+                "has_input": [
+                    "nmdc:deddd162bf0128fba13b3bc1ca38d1aa",
+                    "nmdc:31dc958d116d02122509e90b0883954f",
+                    "nmdc:002e4ebc728f8b91cb5f298d340ab013"
+                ],
+                "too_short_contig_num": 159810,
+                "part_of": [
+                    "nmdc:mga0h9dt75"
+                ],
+                "binned_contig_num": 684,
+                "git_url": "https://github.com/microbiomedata/metaG/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:c092b018cb4652c4ca0620b37a4b3fad",
+                    "nmdc:70d7c8a307f47adb05056bee1b01f9d4",
+                    "nmdc:4545ab2039ae70f4439a93316f4fb7bc",
+                    "nmdc:280b63ae1cc1fa8d6154a0681d47c399",
+                    "nmdc:27c07072f175571200b5931550adb8aa"
+                ],
+                "was_informed_by": "gold:Gp0115663",
+                "input_contig_num": 169782,
+                "id": "nmdc:b31abf9d7fe53e2f802bb53e2d13542b",
+                "execution_resource": "NERSC-Cori",
+                "name": "MAGs Analysis Activity for nmdc:mga0h9dt75",
+                "mags_list": [
+                    {
+                        "number_of_contig": 61,
+                        "completeness": 13.82,
+                        "bin_name": "bins.1",
+                        "gene_count": 294,
+                        "bin_quality": "LQ",
+                        "gtdbtk_species": "",
+                        "gtdbtk_order": "",
+                        "num_16s": 1,
+                        "gtdbtk_family": "",
+                        "gtdbtk_domain": "",
+                        "contamination": 0.62,
+                        "gtdbtk_class": "",
+                        "gtdbtk_phylum": "",
+                        "num_5s": 1,
+                        "num_23s": 0,
+                        "gtdbtk_genus": "",
+                        "num_t_rna": 0
+                    },
+                    {
+                        "number_of_contig": 485,
+                        "completeness": 66.03,
+                        "bin_name": "bins.2",
+                        "gene_count": 2871,
+                        "bin_quality": "LQ",
+                        "gtdbtk_species": "",
+                        "gtdbtk_order": "",
+                        "num_16s": 0,
+                        "gtdbtk_family": "",
+                        "gtdbtk_domain": "",
+                        "contamination": 10.87,
+                        "gtdbtk_class": "",
+                        "gtdbtk_phylum": "",
+                        "num_5s": 1,
+                        "num_23s": 0,
+                        "gtdbtk_genus": "",
+                        "num_t_rna": 32
+                    },
+                    {
+                        "number_of_contig": 56,
+                        "completeness": 34.23,
+                        "bin_name": "bins.3",
+                        "gene_count": 337,
+                        "bin_quality": "LQ",
+                        "gtdbtk_species": "",
+                        "gtdbtk_order": "",
+                        "num_16s": 0,
+                        "gtdbtk_family": "",
+                        "gtdbtk_domain": "",
+                        "contamination": 0.0,
+                        "gtdbtk_class": "",
+                        "gtdbtk_phylum": "",
+                        "num_5s": 0,
+                        "num_23s": 0,
+                        "gtdbtk_genus": "",
+                        "num_t_rna": 9
+                    },
+                    {
+                        "number_of_contig": 63,
+                        "completeness": 6.9,
+                        "bin_name": "bins.4",
+                        "gene_count": 276,
+                        "bin_quality": "LQ",
+                        "gtdbtk_species": "",
+                        "gtdbtk_order": "",
+                        "num_16s": 0,
+                        "gtdbtk_family": "",
+                        "gtdbtk_domain": "",
+                        "contamination": 0.0,
+                        "gtdbtk_class": "",
+                        "gtdbtk_phylum": "",
+                        "num_5s": 0,
+                        "num_23s": 0,
+                        "gtdbtk_genus": "",
+                        "num_t_rna": 6
+                    },
+                    {
+                        "number_of_contig": 19,
+                        "completeness": 4.45,
+                        "bin_name": "bins.5",
+                        "gene_count": 463,
+                        "bin_quality": "LQ",
+                        "gtdbtk_species": "",
+                        "gtdbtk_order": "",
+                        "num_16s": 0,
+                        "gtdbtk_family": "",
+                        "gtdbtk_domain": "",
+                        "contamination": 0.0,
+                        "gtdbtk_class": "",
+                        "gtdbtk_phylum": "",
+                        "num_5s": 0,
+                        "num_23s": 0,
+                        "gtdbtk_genus": "",
+                        "num_t_rna": 4
+                    }
+                ],
+                "unbinned_contig_num": 9288,
+                "started_at_time": "2021-10-11T02:28:26Z",
+                "type": "nmdc:MAGsAnalysisActivity",
+                "ended_at_time": "2021-10-11T04:56:04+00:00"
+            }
+        ],
+        "material_sample_set": [],
+        "material_sampling_activity_set": [],
+        "metabolomics_analysis_activity_set": [],
+        "metagenome_annotation_activity_set": [
+            {
+                "_id": {
+                    "$oid": "649b005bbf2caae0415ef9d6"
+                },
+                "has_input": [
+                    "nmdc:deddd162bf0128fba13b3bc1ca38d1aa"
+                ],
+                "part_of": [
+                    "nmdc:mga0h9dt75"
+                ],
+                "git_url": "https://github.com/microbiomedata/metaG/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:879988d212ecec46928b8598e2f8391f",
+                    "nmdc:884b95102f5965cc0ee2d9b7f198e5a4",
+                    "nmdc:002e4ebc728f8b91cb5f298d340ab013",
+                    "nmdc:6851078f29716d89e3f41f0969ae7bf0",
+                    "nmdc:4f88c89459f36655eb7c1eceec19602a",
+                    "nmdc:a068b9ce6ebb7deb15ff932b513817a9",
+                    "nmdc:618b18fa8635c80cc0091371f451a6f0",
+                    "nmdc:17e55a1a1a133ffbf8cbe4024d997a6f",
+                    "nmdc:8f80142c0f5723af5a3b44b7ff4e4339",
+                    "nmdc:fdd2e8741ffef40db383674a10bb4d11",
+                    "nmdc:8eb49ac20a6c2721d6db227f4fb3356a",
+                    "nmdc:75f481e0d98793cfb4f9508cb3e31622"
+                ],
+                "was_informed_by": "gold:Gp0115663",
+                "id": "nmdc:b31abf9d7fe53e2f802bb53e2d13542b",
+                "execution_resource": "NERSC-Cori",
+                "name": "Annotation Activity for nmdc:mga0h9dt75",
+                "started_at_time": "2021-10-11T02:28:26Z",
+                "type": "nmdc:MetagenomeAnnotationActivity",
+                "ended_at_time": "2021-10-11T04:56:04+00:00"
+            }
+        ],
+        "metagenome_assembly_set": [
+            {
+                "_id": {
+                    "$oid": "649b005f2ca5ee4adb139fb9"
+                },
+                "has_input": [
+                    "nmdc:7bf778baef033d36f118f8591256d6ef"
+                ],
+                "part_of": [
+                    "nmdc:mga0h9dt75"
+                ],
+                "ctg_logsum": 214373,
+                "scaf_logsum": 215363,
+                "gap_pct": 0.00188,
+                "git_url": "https://github.com/microbiomedata/metaG/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:deddd162bf0128fba13b3bc1ca38d1aa",
+                    "nmdc:b3573e3cda5a06611de71ca04c5c14cc",
+                    "nmdc:c6d0d4cea985ca6fb50a060e15b4a856",
+                    "nmdc:f450e3800e17691d5874c89fc46c186a",
+                    "nmdc:31dc958d116d02122509e90b0883954f"
+                ],
+                "asm_score": 6.577,
+                "was_informed_by": "gold:Gp0115663",
+                "ctg_powsum": 24284,
+                "scaf_max": 68135,
+                "id": "nmdc:b31abf9d7fe53e2f802bb53e2d13542b",
+                "scaf_powsum": 24422,
+                "execution_resource": "NERSC-Cori",
+                "contigs": 169784,
+                "name": "Assembly Activity for nmdc:mga0h9dt75",
+                "ctg_max": 68135,
+                "gc_std": 0.11726,
+                "contig_bp": 83494920,
+                "gc_avg": 0.46001,
+                "started_at_time": "2021-10-11T02:28:26Z",
+                "scaf_bp": 83496490,
+                "type": "nmdc:MetagenomeAssembly",
+                "scaffolds": 169645,
+                "ended_at_time": "2021-10-11T04:56:04+00:00",
+                "ctg_l50": 470,
+                "ctg_l90": 290,
+                "ctg_n50": 45584,
+                "ctg_n90": 141996,
+                "scaf_l50": 470,
+                "scaf_l90": 290,
+                "scaf_n50": 45550,
+                "scaf_n90": 141870,
+                "scaf_l_gt50k": 68135,
+                "scaf_n_gt50k": 1,
+                "scaf_pct_gt50k": 0.08160224
+            }
+        ],
+        "metagenome_sequencing_activity_set": [],
+        "metaproteomics_analysis_activity_set": [],
+        "metatranscriptome_activity_set": [],
+        "nom_analysis_activity_set": [],
+        "omics_processing_set": [
+            {
+                "_id": {
+                    "$oid": "649b009773e8249959349b33"
+                },
+                "id": "nmdc:omprc-11-bn8jcq58",
+                "name": "Sand microcosm microbial communities from a hyporheic zone in Columbia River, Washington, USA - GW-RW T2_23-Sept-14",
+                "description": "Sterilized sand packs were incubated back in the ground and collected at time point T2.",
+                "has_input": [
+                    "nmdc:bsm-11-qq8s6x03"
+                ],
+                "has_output": [
+                    "jgi:55d740280d8785342fcf7e39"
+                ],
+                "part_of": [
+                    "nmdc:sty-11-aygzgv51"
+                ],
+                "add_date": "2015-05-28",
+                "mod_date": "2021-06-15",
+                "ncbi_project_name": "Sand microcosm microbial communities from a hyporheic zone in Columbia River, Washington, USA - GW-RW T2_23-Sept-14",
+                "omics_type": {
+                    "has_raw_value": "Metagenome"
+                },
+                "principal_investigator": {
+                    "has_raw_value": "James Stegen"
+                },
+                "processing_institution": "JGI",
+                "type": "nmdc:OmicsProcessing",
+                "gold_sequencing_project_identifiers": [
+                    "gold:Gp0115663"
+                ]
+            }
+        ],
+        "reaction_activity_set": [],
+        "read_qc_analysis_activity_set": [
+            {
+                "_id": {
+                    "$oid": "649b009d6bdd4fd20273c88b"
+                },
+                "has_input": [
+                    "nmdc:30a06664f29cffbbbc49abad86eae6fc"
+                ],
+                "part_of": [
+                    "nmdc:mga0h9dt75"
+                ],
+                "git_url": "https://github.com/microbiomedata/metaG/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:7bf778baef033d36f118f8591256d6ef",
+                    "nmdc:b99ce8adc125c95f0bfdadf36a3f6848"
+                ],
+                "was_informed_by": "gold:Gp0115663",
+                "input_read_count": 32238374,
+                "output_read_bases": 4608772924,
+                "id": "nmdc:b31abf9d7fe53e2f802bb53e2d13542b",
+                "execution_resource": "NERSC-Cori",
+                "input_read_bases": 4867994474,
+                "name": "Read QC Activity for nmdc:mga0h9dt75",
+                "output_read_count": 30774080,
+                "started_at_time": "2021-10-11T02:28:26Z",
+                "type": "nmdc:ReadQCAnalysisActivity",
+                "ended_at_time": "2021-10-11T04:56:04+00:00"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "_id": {
+                    "$oid": "649b009bff710ae353f8cf4f"
+                },
+                "has_input": [
+                    "nmdc:7bf778baef033d36f118f8591256d6ef"
+                ],
+                "git_url": "https://github.com/microbiomedata/metaG/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:bc7c1bda004aab357c8f6cf5a42242f9",
+                    "nmdc:9481434cadd0d6c154e2ec4c11ef0e04",
+                    "nmdc:6b5bc6ce7f11c1336a5f85a98fc18541",
+                    "nmdc:933c71bbc2f4a2e84d50f0d3864cf940",
+                    "nmdc:1a208e2519770ef50740ac39f1b9ba9a",
+                    "nmdc:f112a3840464ae7a9cf4a3bf295edd5c",
+                    "nmdc:7ca01ea379f0baed96f87d1435925f95",
+                    "nmdc:c85f2f2b4a518c4adb23970448a5cb45",
+                    "nmdc:94ee1bc2dc74830a21d5c3471d6cf223"
+                ],
+                "was_informed_by": "gold:Gp0115663",
+                "id": "nmdc:b31abf9d7fe53e2f802bb53e2d13542b",
+                "execution_resource": "NERSC-Cori",
+                "name": "ReadBased Analysis Activity for nmdc:mga0h9dt75",
+                "started_at_time": "2021-10-11T02:28:26Z",
+                "type": "nmdc:ReadbasedAnalysis",
+                "ended_at_time": "2021-10-11T04:56:04+00:00"
+            }
+        ],
+        "study_set": [],
+        "field_research_site_set": [],
+        "collecting_biosamples_from_site_set": [],
+        "date_created": null,
+        "etl_software_version": null,
+        "pooling_set": []
+    }
+]
