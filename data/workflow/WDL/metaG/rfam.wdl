@@ -4,12 +4,12 @@ workflow rfam {
   String imgap_project_id
   String imgap_project_type
   Int    additional_threads
-  String database_location="/refdata/database"
+  String database_location="/refdata/img/"
   String cm="${database_location}"+"Rfam/13.0/Rfam.cm"
   String claninfo_tsv="${database_location}"+"Rfam/13.0/Rfam.claninfo"
   String feature_lookup_tsv="${database_location}"+"Rfam/13.0/Rfam_feature_lookup.tsv"
   String container
-
+  
 
   call run {
     input:
@@ -24,9 +24,9 @@ workflow rfam {
   }
 
   output {
-    File misc_bind_misc_feature_regulatory_gff = run.misc_bind_misc_feature_regulatory_gff
-    File rrna_gff = run.rrna_gff
-    File ncrna_tmrna_gff = run.ncrna_tmrna_gff
+    File rfam_gff = run.rfam_gff
+    File rfam_tbl = run.tbl
+    String rfam_version = run.rfam_ver
   }
 }
 
@@ -42,6 +42,7 @@ task run {
   String feature_lookup_tsv
   Int    threads
   String container
+  String rfam_version_file = "rfam_version.txt"
 
   command <<<
     set -euo pipefail
@@ -56,12 +57,10 @@ task run {
             ${clan_filter_bin} "$tool_and_version" \
             ${claninfo_tsv} ${feature_lookup_tsv} > ${project_id}_rfam.gff
     fi
-
-    awk -F'\t' '$3 == "misc_bind" || $3 == "misc_feature" || $3 == "regulatory" {print $0}' \
-        ${project_id}_rfam.gff > ${project_id}_rfam_misc_bind_misc_feature_regulatory.gff
-    awk -F'\t' '$3 == "rRNA" {print $0}' ${project_id}_rfam.gff > ${project_id}_rfam_rrna.gff
-    awk -F'\t' '$3 == "ncRNA" || $3 == "tmRNA" {print $0}' \
-        ${project_id}_rfam.gff > ${project_id}_rfam_ncrna_tmrna.gff
+ 
+  #get database version
+  rfam_version=$(basename $(dirname ${cm}))
+  echo "Rfam $rfam_version" > ${rfam_version_file}
   >>>
 
   runtime {
@@ -73,8 +72,6 @@ task run {
   output {
     File tbl = "${project_id}_rfam.tbl"
     File rfam_gff = "${project_id}_rfam.gff"
-    File misc_bind_misc_feature_regulatory_gff = "${project_id}_rfam_misc_bind_misc_feature_regulatory.gff"
-    File rrna_gff = "${project_id}_rfam_rrna.gff"
-    File ncrna_tmrna_gff = "${project_id}_rfam_ncrna_tmrna.gff"
+    String rfam_ver = read_string(rfam_version_file)
   }
 }
