@@ -31,6 +31,7 @@ task make_output {
 		GFFPath=`dirname ${gff}`
         echo $GFFPath
 		cp $Statspath/* ${OUTPATH}/
+		cp ${OUTPATH}/${projectName}_stats.json ${OUTPATH}/${projectName}_structural_annotation_stats.json
 		cp $GFFPath/* ${OUTPATH}/
         ls ${OUTPATH}
 		chmod 764 -R ${OUTPATH}

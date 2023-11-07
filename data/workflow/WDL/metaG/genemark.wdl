@@ -72,7 +72,7 @@ task gm_meta {
   
   String bin="/opt/omics/bin/gmhmmp2"
 
-  String model="/opt/omics/programs/GeneMark/GeneMarkS-2/v1.07/mgm_11.mod"
+  String model="/opt/omics/programs/gms2_linux_64/mgm_11.mod"
   File   input_fasta
   String project_id
   String container

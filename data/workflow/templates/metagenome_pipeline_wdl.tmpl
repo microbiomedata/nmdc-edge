@@ -1,7 +1,7 @@
 import "rqcfilter.wdl" as readsQC
 import "ReadbasedAnalysis.wdl" as readbasedAnalysis
 import "jgi_assembly.wdl" as metaAssembly
-import "annotation.wdl" as metaAnnotation
+import "annotation_full.wdl" as metaAnnotation
 import "annotation_output.wdl" as metaAnnotationOutput
 import "mbin_nmdc.wdl" as metaMAGs
 
@@ -145,9 +145,9 @@ workflow main_workflow {
 	if (DoAnnotation){
 		call metaAnnotation.annotation as metaAnnotation_call {
 			input: 
-				imgap_input_fasta=metaAnnotation_imgap_input_fasta,
+				input_file=metaAnnotation_imgap_input_fasta,
+				proj=metaAnnotation_imgap_project_id,
 				imgap_project_id=metaAnnotation_imgap_project_id,
-				outdir=metaAnnotation_outdir,
 				additional_threads=metaAnnotation_additional_threads,
 				database_location=metaAnnotation_database_location
 		}
@@ -227,15 +227,12 @@ workflow main_workflow {
 			genemark_gff=metaAnnotation_call.genemark_gff,
 			prodigal_gff=metaAnnotation_call.prodigal_gff,
 			trna_gff=metaAnnotation_call.trna_gff,
-			misc_bind_misc_feature_regulatory_gff=metaAnnotation_call.misc_bind_misc_feature_regulatory_gff,
-			rrna_gff=metaAnnotation_call.rrna_gff,
-			ncrna_tmrna_gff=metaAnnotation_call.ncrna_tmrna_gff,
 			crt_crisprs=metaAnnotation_call.crt_crisprs,
 			product_names_tsv=metaAnnotation_call.product_names_tsv,
 			gene_phylogeny_tsv=metaAnnotation_call.gene_phylogeny_tsv,
 			ko_ec_gff=metaAnnotation_call.ko_ec_gff,
 			stats_tsv=metaAnnotation_call.stats_tsv,
-			stats_json=metaAnnotation_call.stats_json,
+			# stats_json=metaAnnotation_call.stats_json,
 			gottcha2_report_tsv = ReadbasedAnalysis_call.gottcha2_report_tsv,
 			gottcha2_full_tsv = ReadbasedAnalysis_call.gottcha2_full_tsv,
 			gottcha2_krona_html = ReadbasedAnalysis_call.gottcha2_krona_html,
@@ -484,9 +481,6 @@ task finish {
 				${genemark_gff} 'Genemark GFF file' \
 				${prodigal_gff} 'Prodigal GFF file' \
 				${trna_gff} 'tRNA GFF File' \
-				${misc_bind_misc_feature_regulatory_gff} 'RFAM misc binding GFF file' \
-				${rrna_gff} 'RFAM rRNA GFF file' \
-				${ncrna_tmrna_gff} 'RFAM rmRNA GFF file' \
 				${crt_crisprs} 'CRISPRS file' \
 				${product_names_tsv} 'Product Names tsv' \
 				${gene_phylogeny_tsv} 'Gene Phylogeny tsv' \
