@@ -8,6 +8,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2861414297,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d740280d8785342fcf7e39",
+                "name": "9422.8.132674.GTTTCG.fastq.gz"
+            },
+            {
                 "name": "Gp0115663_Filtered Reads",
                 "description": "Filtered Reads for Gp0115663",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -639,6 +646,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2080914094,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d817fc0d8785342fcf8274",
+                "name": "9387.2.132031.CCGTCC.fastq.gz"
+            },
+            {
                 "name": "Gp0115666_Filtered Reads",
                 "description": "Filtered Reads for Gp0115666",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -1209,6 +1223,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 3050291373,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d740240d8785342fcf7e37",
+                "name": "9422.8.132674.GTGGCC.fastq.gz"
+            },
             {
                 "name": "Gp0115668_Filtered Reads",
                 "description": "Filtered Reads for Gp0115668",
@@ -1802,6 +1823,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 6863035214,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55a9cb010d87852b21508920",
+                "name": "9289.1.128215.GGACTCC-AGAGTAG.fastq.gz"
+            },
             {
                 "name": "Gp0115679_Filtered Reads",
                 "description": "Filtered Reads for Gp0115679",
@@ -2529,6 +2557,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 1840708400,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d818010d8785342fcf8278",
+                "name": "9387.2.132031.GTCCGC.fastq.gz"
+            },
+            {
                 "name": "Gp0115667_Filtered Reads",
                 "description": "Filtered Reads for Gp0115667",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -3141,6 +3176,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 1792111281,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d817f20d8785342fcf826c",
+                "name": "9387.2.132031.TAGCTT.fastq.gz"
+            },
+            {
                 "name": "Gp0115664_Filtered Reads",
                 "description": "Filtered Reads for Gp0115664",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -3692,6 +3734,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 4674996922,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55f23d790d8785306f96497e",
+                "name": "9491.1.134352.AGTCAA.fastq.gz"
+            },
             {
                 "name": "Gp0115678_Filtered Reads",
                 "description": "Filtered Reads for Gp0115678",
@@ -4343,6 +4392,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2106076506,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde547ded5e3df1ee13fa",
+                "name": "10533.1.165310.GAGCTCA-TTGAGCT.fastq.gz"
+            },
+            {
                 "name": "Gp0127623_Filtered Reads",
                 "description": "Filtered Reads for Gp0127623",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -4894,6 +4950,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2351763069,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde787ded5e3df1ee1416",
+                "name": "10533.2.165322.CGGTTGT-AACAACC.fastq.gz"
+            },
             {
                 "name": "Gp0127625_Filtered Reads",
                 "description": "Filtered Reads for Gp0127625",
@@ -5523,6 +5586,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2167583658,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde7b7ded5e3df1ee1418",
+                "name": "10533.2.165322.TACCAAC-GGTTGGT.fastq.gz"
+            },
+            {
                 "name": "Gp0127626_Filtered Reads",
                 "description": "Filtered Reads for Gp0127626",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -6037,6 +6107,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2150489977,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde577ded5e3df1ee13fc",
+                "name": "10533.1.165310.ATAGCGG-ACCGCTA.fastq.gz"
+            },
             {
                 "name": "Gp0127624_Filtered Reads",
                 "description": "Filtered Reads for Gp0127624",
@@ -6628,6 +6705,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2057112594,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde587ded5e3df1ee13fd",
+                "name": "10533.1.165310.CCAGTGT-AACACTG.fastq.gz"
+            },
+            {
                 "name": "Gp0127629_Filtered Reads",
                 "description": "Filtered Reads for Gp0127629",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -7199,6 +7283,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2825784199,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fe09a7ded5e3df1ee1485",
+                "name": "10533.3.165334.CTGACAC-TGTGTCA.fastq.gz"
+            },
+            {
                 "name": "Gp0127628_Filtered Reads",
                 "description": "Filtered Reads for Gp0127628",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -7750,6 +7841,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2291612962,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde5b7ded5e3df1ee13ff",
+                "name": "10533.1.165310.TCGCTGT-AACAGCG.fastq.gz"
+            },
             {
                 "name": "Gp0127631_Filtered Reads",
                 "description": "Filtered Reads for Gp0127631",
@@ -8341,6 +8439,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2557650099,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde7c7ded5e3df1ee1419",
+                "name": "10533.2.165322.TGTACAC-GGTGTAC.fastq.gz"
+            },
+            {
                 "name": "Gp0127630_Filtered Reads",
                 "description": "Filtered Reads for Gp0127630",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -8911,6 +9016,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2003194973,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde5e7ded5e3df1ee1401",
+                "name": "10533.1.165310.GGACTGT-AACAGTC.fastq.gz"
+            },
             {
                 "name": "Gp0127633_Filtered Reads",
                 "description": "Filtered Reads for Gp0127633",
@@ -9559,6 +9671,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 1875083220,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fe0967ded5e3df1ee1482",
+                "name": "10533.3.165334.GCCTTGT-AACAAGG.fastq.gz"
+            },
+            {
                 "name": "Gp0127627_Filtered Reads",
                 "description": "Filtered Reads for Gp0127627",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -10052,6 +10171,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2456584646,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde807ded5e3df1ee141b",
+                "name": "10533.2.165322.AGCTAAC-GGTTAGC.fastq.gz"
+            },
             {
                 "name": "Gp0127632_Filtered Reads",
                 "description": "Filtered Reads for Gp0127632",
@@ -10624,6 +10750,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2759159406,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fe09f7ded5e3df1ee1489",
+                "name": "10533.3.165334.ACAGCAA-GTTGCTG.fastq.gz"
+            },
+            {
                 "name": "Gp0127636_Filtered Reads",
                 "description": "Filtered Reads for Gp0127636",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -11117,6 +11250,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2620687542,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fe09c7ded5e3df1ee1487",
+                "name": "10533.3.165334.ACGGAAC-TGTTCCG.fastq.gz"
+            },
             {
                 "name": "Gp0127634_Filtered Reads",
                 "description": "Filtered Reads for Gp0127634",
@@ -11688,6 +11828,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2197847748,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde607ded5e3df1ee1403",
+                "name": "10533.1.165310.GTTCGGT-AACCGAA.fastq.gz"
+            },
             {
                 "name": "Gp0127635_Filtered Reads",
                 "description": "Filtered Reads for Gp0127635",
@@ -12298,6 +12445,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 1954789686,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde647ded5e3df1ee1406",
+                "name": "10533.1.165310.CGTAGGT-AACCTAC.fastq.gz"
+            },
+            {
                 "name": "Gp0127637_Filtered Reads",
                 "description": "Filtered Reads for Gp0127637",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -12888,6 +13042,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 1920284821,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde837ded5e3df1ee141d",
+                "name": "10533.2.165322.TCATCAC-GGTGATG.fastq.gz"
+            },
+            {
                 "name": "Gp0127638_Filtered Reads",
                 "description": "Filtered Reads for Gp0127638",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -13402,6 +13563,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 3408915289,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d7402a0d8785342fcf7e3b",
+                "name": "9422.8.132674.CGTACG.fastq.gz"
+            },
             {
                 "name": "Gp0115670_Filtered Reads",
                 "description": "Filtered Reads for Gp0115670",
@@ -14053,6 +14221,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2350177247,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d7402c0d8785342fcf7e3e",
+                "name": "9422.8.132674.GGTAGC.fastq.gz"
+            },
+            {
                 "name": "Gp0115674_Filtered Reads",
                 "description": "Filtered Reads for Gp0115674",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -14665,6 +14840,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 1698585233,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d817f70d8785342fcf8270",
+                "name": "9387.2.132031.CTTGTA.fastq.gz"
+            },
+            {
                 "name": "Gp0115673_Filtered Reads",
                 "description": "Filtered Reads for Gp0115673",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -15236,6 +15418,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2065080622,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d817fa0d8785342fcf8272",
+                "name": "9387.2.132031.ATGTCA.fastq.gz"
+            },
+            {
                 "name": "Gp0115671_Filtered Reads",
                 "description": "Filtered Reads for Gp0115671",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -15806,6 +15995,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 3492714581,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d740220d8785342fcf7e35",
+                "name": "9422.8.132674.GTGAAA.fastq.gz"
+            },
             {
                 "name": "Gp0115676_Filtered Reads",
                 "description": "Filtered Reads for Gp0115676",
@@ -16456,6 +16652,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 6700067822,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55a9caff0d87852b2150891e",
+                "name": "9289.1.128215.TCCTGAG-TATCCTC.fastq.gz"
+            },
             {
                 "name": "Gp0115677_Filtered Reads",
                 "description": "Filtered Reads for Gp0115677",
@@ -17126,6 +17329,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 1777604881,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d817f30d8785342fcf826d",
+                "name": "9387.2.132031.GGCTAC.fastq.gz"
+            },
+            {
                 "name": "Gp0115675_Filtered Reads",
                 "description": "Filtered Reads for Gp0115675",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -17715,6 +17925,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 4637325661,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55f23d820d8785306f964980",
+                "name": "9491.1.134352.AGTTCC.fastq.gz"
+            },
             {
                 "name": "Gp0115665_Filtered Reads",
                 "description": "Filtered Reads for Gp0115665",
@@ -18363,6 +18580,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 1988838112,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d817fe0d8785342fcf8276",
+                "name": "9387.2.132031.GTAGAG.fastq.gz"
+            },
+            {
                 "name": "Gp0115669_Filtered Reads",
                 "description": "Filtered Reads for Gp0115669",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -18952,6 +19176,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 3054717241,
+                "type": "nmdc:DataObject",
+                "id": "jgi:55d7402b0d8785342fcf7e3c",
+                "name": "9422.8.132674.GAGTGG.fastq.gz"
+            },
             {
                 "name": "Gp0115672_Filtered Reads",
                 "description": "Filtered Reads for Gp0115672",
@@ -19641,6 +19872,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2619328583,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fe0a17ded5e3df1ee148a",
+                "name": "10533.3.165334.ACCATCC-TGGATGG.fastq.gz"
+            },
+            {
                 "name": "Gp0127640_Filtered Reads",
                 "description": "Filtered Reads for Gp0127640",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -20192,6 +20430,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2061929348,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde697ded5e3df1ee140a",
+                "name": "10533.1.165310.GCTACGT-AACGTAG.fastq.gz"
+            },
             {
                 "name": "Gp0127641_Filtered Reads",
                 "description": "Filtered Reads for Gp0127641",
@@ -20764,6 +21009,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2168673471,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde6c7ded5e3df1ee140c",
+                "name": "10533.1.165310.TCCGAGT-AACTCGG.fastq.gz"
+            },
+            {
                 "name": "Gp0127643_Filtered Reads",
                 "description": "Filtered Reads for Gp0127643",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -21316,6 +21568,15 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "data_object_type": "Metagenome Raw Reads",
+                "url": "https://data.microbiomedata.org/data/raw/10533.3.165334.AGTCTCA-GTGAGAC.fastq.gz",
+                "file_size_bytes": 939616475,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fe0a87ded5e3df1ee148e",
+                "name": "10533.3.165334.AGTCTCA-GTGAGAC.fastq.gz"
+            },
+            {
                 "name": "Gp0127644_Filtered Reads",
                 "description": "Filtered Reads for Gp0127644",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -21867,6 +22128,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 1941323184,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde667ded5e3df1ee1407",
+                "name": "10533.1.165310.TGTGCGT-AACGCAC.fastq.gz"
+            },
             {
                 "name": "Gp0127639_Filtered Reads",
                 "description": "Filtered Reads for Gp0127639",
@@ -22515,6 +22783,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2500707412,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fe0a67ded5e3df1ee148d",
+                "name": "10533.3.165334.CGCTTAA-GTTAAGC.fastq.gz"
+            },
+            {
                 "name": "Gp0127642_Filtered Reads",
                 "description": "Filtered Reads for Gp0127642",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -23029,6 +23304,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2463257736,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde867ded5e3df1ee1420",
+                "name": "10533.2.165322.TTCGTAC-GGTACGA.fastq.gz"
+            },
             {
                 "name": "Gp0127646_Filtered Reads",
                 "description": "Filtered Reads for Gp0127646",
@@ -23584,6 +23866,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2446032142,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fe0ac7ded5e3df1ee1491",
+                "name": "10533.3.165334.GTAACGA-GTCGTTA.fastq.gz"
+            },
             {
                 "name": "Gp0127648_Filtered Reads",
                 "description": "Filtered Reads for Gp0127648",
@@ -24156,6 +24445,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2236205196,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde8a7ded5e3df1ee1422",
+                "name": "10533.2.165322.ACGGTCT-AAGACCG.fastq.gz"
+            },
+            {
                 "name": "Gp0127647_Filtered Reads",
                 "description": "Filtered Reads for Gp0127647",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -24711,6 +25007,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2092289780,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde6e7ded5e3df1ee140d",
+                "name": "10533.1.165310.CCTCAGT-AACTGAG.fastq.gz"
+            },
+            {
                 "name": "Gp0127645_Filtered Reads",
                 "description": "Filtered Reads for Gp0127645",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -25262,6 +25565,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2196954131,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde8c7ded5e3df1ee1424",
+                "name": "10533.2.165322.GAACGCT-AAGCGTT.fastq.gz"
+            },
             {
                 "name": "Gp0127649_Filtered Reads",
                 "description": "Filtered Reads for Gp0127649",
@@ -25833,6 +26143,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2318220660,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fe0af7ded5e3df1ee1493",
+                "name": "10533.3.165334.CAATCGA-GTCGATT.fastq.gz"
+            },
             {
                 "name": "Gp0127652_Filtered Reads",
                 "description": "Filtered Reads for Gp0127652",
@@ -26443,6 +26760,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2711112988,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fe0b17ded5e3df1ee1494",
+                "name": "10533.3.165334.TGACTGA-GTCAGTC.fastq.gz"
+            },
+            {
                 "name": "Gp0127654_Filtered Reads",
                 "description": "Filtered Reads for Gp0127654",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -26998,6 +27322,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2411560282,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fe0b47ded5e3df1ee1496",
+                "name": "10533.3.165334.ACGATGA-GTCATCG.fastq.gz"
+            },
+            {
                 "name": "Gp0127656_Filtered Reads",
                 "description": "Filtered Reads for Gp0127656",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -27549,6 +27880,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2103957707,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde907ded5e3df1ee1426",
+                "name": "10533.2.165322.GTGAGCT-AAGCTCA.fastq.gz"
+            },
             {
                 "name": "Gp0127651_Filtered Reads",
                 "description": "Filtered Reads for Gp0127651",
@@ -28102,6 +28440,13 @@
         "biosample_set": [],
         "data_object_set": [
             {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 2116898122,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde947ded5e3df1ee1429",
+                "name": "10533.2.165322.GTCTCCT-AAGGAGA.fastq.gz"
+            },
+            {
                 "name": "Gp0127655_Filtered Reads",
                 "description": "Filtered Reads for Gp0127655",
                 "data_object_type": "Filtered Sequencing Reads",
@@ -28653,6 +28998,13 @@
         "activity_set": [],
         "biosample_set": [],
         "data_object_set": [
+            {
+                "description": "Raw sequencer read data",
+                "file_size_bytes": 1827996307,
+                "type": "nmdc:DataObject",
+                "id": "jgi:574fde937ded5e3df1ee1428",
+                "name": "10533.2.165322.CCTTCCT-AAGGAAG.fastq.gz"
+            },
             {
                 "name": "Gp0127653_Filtered Reads",
                 "description": "Filtered Reads for Gp0127653",

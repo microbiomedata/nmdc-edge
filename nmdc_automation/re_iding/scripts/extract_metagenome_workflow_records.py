@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
-# nmdc_schema/napa_compliance/scripts/rebuild_metagenome_workflow_records.py
+# nmdc_schema/napa_compliance/scripts/extract_metagenome_workflow_records.py
 """
-rebuild_metagenome_workflow_records.py: Rebuild metagenome workflow records
-after re-ID-ing of OmicsProcessing records.
+extract_metagenome_workflow_records.py: Extract metagenome workflow records
+for re-ID-ing of OmicsProcessing records.
 """
 import logging
 import time
@@ -50,9 +50,9 @@ def _get_legacy_id(omics_processing_record: dict) -> str:
     "--site_config", type=click.Path(exists=True), default=NAPA_CONFIG,
     help="Site configuration file"
 )
-def rebuild_workflow_records(study_id: str, site_config: bool):
+def extract_workflow_records(study_id: str, site_config: bool):
     """
-    Rebuild metagenome workflow records after re-ID-ing of Study, Biosample, and
+    Extract metagenome workflow records for re-ID-ing of Study, Biosample, and
     OmicsProcessing records by:
     1. Retrieving all OmicsProcessing records for updated study ID
     2. For each OmicsProcessing record, retrieve the corresponding
@@ -63,8 +63,10 @@ def rebuild_workflow_records(study_id: str, site_config: bool):
         d. MetagenomeAnnotationActivity
         e. MagsAnalysisActivity
     3. For each WorkflowExecutionActivity record:
-    TODO - summarize Michal's flowchart here
-
+       a. Retrieve the corresponding DataObject records
+    4. Create a database object for each OmicsProcessing record and its
+    associated WorkflowExecutionActivity and DataObject records
+    5. Write the database object to a JSON file
     """
     start_time = time.time()
     logging.info("starting missing_neon_soils_ecosystem_data.py...")
@@ -98,6 +100,11 @@ def rebuild_workflow_records(study_id: str, site_config: bool):
                          f"is not a Metagenome")
             continue
         db.omics_processing_set.append(omics_processing_record)
+        for data_object_id in omics_processing_record["has_output"]:
+            data_object_record = query_api_client.get_data_object_by_id(
+                data_object_id
+            )
+            db.data_object_set.append(data_object_record)
 
         # downstream workflow activity sets
         (read_qc_records, readbased_records, metagenome_assembly_records,
@@ -130,4 +137,4 @@ def rebuild_workflow_records(study_id: str, site_config: bool):
 
 
 if __name__ == "__main__":
-    rebuild_workflow_records()
+    extract_workflow_records()
