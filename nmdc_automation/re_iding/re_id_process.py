@@ -3,8 +3,7 @@ import os
 import sys
 import re
 import yaml
-import datetime
-import pytz
+import click
 from pymongo import MongoClient
 import json
 from nmdc_automation.api import NmdcRuntimeApi
@@ -516,8 +515,25 @@ def readbased_update(omics_record, template_file, omic_id, workflow_inputs):
     )
 
 
-def process_analysis_sets(study_id,study_records, template_file, dry_run=False):
+@click.command()
+@click.argument('study_id')
+@click.argument('study_records_file', type=click.Path(exists=True))
+@click.argument('template_file', type=click.Path(exists=True))
+@click.option('--dry-run', is_flag=True, help='Run the script in dry-run mode without making any changes.')
+def process_analysis_sets(study_id,study_records_file, template_file, dry_run):
+    """
+    Process analysis activity sets for a given STUDY_ID using STUDY_RECORDS and TEMPLATE_FILE.
+
+    \b
+    STUDY_ID: The identifier for the study.
+    STUDY_RECORDS: The path to the JSON file containing study records.
+    TEMPLATE_FILE: The path to the template file containing .
+    """
     count = 0
+    
+    #read in json to memory:
+    study_records = read_json_file(study_records_file)
+    
     for omic_record in study_records:
         omics_id = get_omics_id(omic_record)
         logging.info(f"Starting re-iding process for {omics_id}")
@@ -545,14 +561,8 @@ def process_analysis_sets(study_id,study_records, template_file, dry_run=False):
         if count == 1:
             break
 
-
-def main(study_id,study_data, template_file, dry_run=False):
-    process_analysis_sets(study_id,study_data, template_file, dry_run)
-
-
 if __name__ == "__main__":
-    test_file = "scripts/nmdc:sty-11-aygzgv51_assocated_record_dump.json"
-    study_id = "nmdc:sty-11-aygzgv51"
-    template_file = "../../configs/re_iding_worklfows.yaml"
-    stegen_data = read_json_file(test_file)
-    main(study_id,stegen_data, template_file, dry_run=True)
+    # test_file = "scripts/nmdc:sty-11-aygzgv51_assocated_record_dump.json"
+    # study_id = "nmdc:sty-11-aygzgv51"
+    # template_file = "../../configs/re_iding_worklfows.yaml"
+    process_analysis_sets()
