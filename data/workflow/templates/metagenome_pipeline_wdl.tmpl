@@ -170,8 +170,8 @@ workflow main_workflow {
     File? metaMAGs_cog_file = metaAnnotation_call.cog_gff
     File? metaMAGs_ec_file = metaAnnotation_call.ec_tsv
     File? metaMAGs_ko_file = metaAnnotation_call.ko_tsv
-    File? metaMAGs_pfam_file = metaAnnotation_call.pfam_gffs
-    File? metaMAGs_tigrfam_file = metaAnnotation_call.tigrfam_gffs
+    File? metaMAGs_pfam_file = metaAnnotation_call.pfam_gff
+    File? metaMAGs_tigrfam_file = metaAnnotation_call.tigrfam_gff
     File? metaMAGs_cath_funfam_file = metaAnnotation_call.cath_funfam_gff
     File? metaMAGs_smart_file = metaAnnotation_call.smart_gff
     File? metaMAGs_supfam_file = metaAnnotation_call.supfam_gff
@@ -250,7 +250,6 @@ workflow main_workflow {
 			smart_gff=metaAnnotation_call.smart_gff,
 			supfam_gff=metaAnnotation_call.supfam_gff,
 			cath_funfam_gff=metaAnnotation_call.cath_funfam_gff,
-			crt_gff=metaAnnotation_call.crt_gff,
 			genemark_gff=metaAnnotation_call.genemark_gff,
 			prodigal_gff=metaAnnotation_call.prodigal_gff,
 			trna_gff=metaAnnotation_call.trna_gff,
