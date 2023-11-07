@@ -100,6 +100,11 @@ def extract_workflow_records(study_id: str, site_config: bool):
                          f"is not a Metagenome")
             continue
         db.omics_processing_set.append(omics_processing_record)
+        for data_object_id in omics_processing_record["has_output"]:
+            data_object_record = query_api_client.get_data_object_by_id(
+                data_object_id
+            )
+            db.data_object_set.append(data_object_record)
 
         # downstream workflow activity sets
         (read_qc_records, readbased_records, metagenome_assembly_records,
