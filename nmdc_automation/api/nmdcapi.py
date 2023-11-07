@@ -403,6 +403,21 @@ class NmdcRuntimeUserApi:
         workflow_activity_record = response.json()["cursor"]["firstBatch"]
         return workflow_activity_record
 
+    def get_data_objects_by_description(self, description: str):
+        """
+        Retrieve data objects the given description in its description.
+        """
+        response = self.request(
+            "POST",
+            "queries:run",
+            params_or_json_data={
+                "find": "data_object_set",
+                "filter": {"description": {"$regex": description, "$options": "i"}},
+            },
+        )
+        response.raise_for_status()
+        return response.json()["cursor"]["firstBatch"]
+
     def get_data_object_by_id(self, data_object_id: str):
         """
         Retrieve a data object record for the given data object ID.

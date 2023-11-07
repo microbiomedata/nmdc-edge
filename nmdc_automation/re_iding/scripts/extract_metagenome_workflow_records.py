@@ -124,11 +124,25 @@ def extract_workflow_records(study_id: str, site_config: bool):
             db.__setattr__(set_name, records)
             # Add the data objects referenced by the `has_output` property
             for record in records:
+                logging.info(f"record: {record['id']}, {record['name']}")
                 for data_object_id in record["has_output"]:
                     data_object_record = query_api_client.get_data_object_by_id(
                         data_object_id
                     )
+                    logging.info(f"data_object_record: "
+                                 f"{data_object_record['id']}, {data_object_record['description']}")
                     db.data_object_set.append(data_object_record)
+
+        # Search for orphaned data objects with the legacy ID in the description
+        orphaned_data_objects = query_api_client.get_data_objects_by_description(
+                legacy_id
+        )
+        # check that we don't already have the data object in the set
+        for data_object in orphaned_data_objects:
+            if data_object["id"] not in [d["id"] for d in db.data_object_set]:
+                db.data_object_set.append(data_object)
+                logging.info(f"Added orphaned data object: "
+                             f"{data_object['id']}, {data_object['description']}")
 
         retrieved_databases.append(db)
         
