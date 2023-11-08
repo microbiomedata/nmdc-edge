@@ -277,7 +277,7 @@ workflow main_workflow {
 			final_hqmq_bins = metaMAGs_call.final_hqmq_bins_zip,
 			mags_stats_json=metaMAGs_call.stats_json,
 			mags_stats_tsv=metaMAGs_call.tsv_stats,
-			hqmq_bin_fasta_files=if (DoMetaMAGs) then metaMAGs_call.final_hqmq_bins_zip else [start.start_file],
+			hqmq_bin_fasta_files=if (DoMetaMAGs) then metaMAGs_call.hqmq_bin_fasta_files else [start.start_file],
 			bin_fasta_files=if (DoMetaMAGs) then metaMAGs_call.bin_fasta_files else [start.start_file],
 			qadir=readsQC_outdir,
 			assemdir=metaAssembly_outdir,
