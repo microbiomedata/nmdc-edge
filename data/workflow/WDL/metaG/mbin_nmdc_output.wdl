@@ -174,13 +174,13 @@ task make_output{
         File? checkm_output = "${outdir}/${proj}_checkm_qa.out"
         File? bac_summary = "${outdir}/gtdbtk.bac120.summary.tsv"
         File? ar_summary = "${outdir}/gtdbtk.ar122.summary.tsv"
-        File unbinned_fa = "${outdir}/${proj}_bins.unbinned.fa"
-        File tooShort_fa = "${outdir}/${proj}_bins.tooShort.fa"
-        File lowDepth_fa = "${outdir}/${proj}_bins.lowDepth.fa"
-        File tsvstats = "${outdir}/mbin_datafile_${proj}.txt"
-        File stats = "${outdir}/MAGs_stats.json"
-        File outactivity = "${outdir}/activity.json"
-        File outobject = "${outdir}/data_objects.json"
+        File? unbinned_fa = "${outdir}/${proj}_bins.unbinned.fa"
+        File? tooShort_fa = "${outdir}/${proj}_bins.tooShort.fa"
+        File? lowDepth_fa = "${outdir}/${proj}_bins.lowDepth.fa"
+        File? tsvstats = "${outdir}/mbin_datafile_${proj}.txt"
+        File? stats = "${outdir}/MAGs_stats.json"
+        File? outactivity = "${outdir}/activity.json"
+        File? outobject = "${outdir}/data_objects.json"
     }
     runtime {
         docker: container
