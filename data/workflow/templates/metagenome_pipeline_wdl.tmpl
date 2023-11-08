@@ -4,6 +4,7 @@ import "jgi_assembly.wdl" as metaAssembly
 import "annotation_full.wdl" as metaAnnotation
 import "annotation_output.wdl" as metaAnnotationOutput
 import "mbin_nmdc.wdl" as metaMAGs
+import "mbin_nmdc_output.wdl" as metaMAGsOutput
 
 workflow main_workflow {
 	# Workflow Booleans
@@ -216,6 +217,25 @@ workflow main_workflow {
 				scratch_dir=metaMAGs_outdir,
 				container=metaMAGs_container
 		}
+		call metaMAGsOutput.mbin_nmdc_output as mbin_nmdc_output {
+          input:
+            proj_name=metaMAGs_proj_name,
+            start=metaMAGs_call.start,
+            contig_file=metaMAGs_contig_file,
+            sam_file=metaMAGs_sam_file
+            gff_file=metaMAGs_gff_file
+            low=metaMAGs_call.low
+            unbinned=metaMAGs_call.final_unbinned_fa
+            short=metaMAGs_call.short
+            checkm=metaMAGs_call.final_checkm
+            json_stats=metaMAGs_call.json_stats
+            tsv_stats=metaMAGs_call.tsv_stats
+            bacsum=metaMAGs_call.bacsum
+            arcsum=metaMAGs_call.arcsum
+            bin_fasta_files=metaMAGs_call.bin_fasta_files
+            hqmq_bin_fasta_files=metaMAGs_call.hqmq_bin_fasta_files
+            outdir=metaMAGs_outdir
+        }
 	}
 	
 	call finish {
@@ -399,7 +419,6 @@ task finish {
 	File? genemark_gff
 	File? prodigal_gff
 	File? trna_gff
-	File? misc_bind_misc_feature_regulatory_gff
 	File? rrna_gff
 	File? ncrna_tmrna_gff
 	File? ko_ec_gff
