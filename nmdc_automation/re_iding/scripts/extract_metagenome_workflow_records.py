@@ -2,8 +2,9 @@
 # coding: utf-8
 # nmdc_schema/napa_compliance/scripts/extract_metagenome_workflow_records.py
 """
-extract_metagenome_workflow_records.py: Extract metagenome workflow records
-for re-ID-ing of OmicsProcessing records.
+extract_metagenome_workflow_records.py: Starting with OmicsProcessing, extract
+metagenome workflow activity records and their associated data objects. Write
+the results, as a list of nmdc-schema Database instances to a JSON file.
 """
 import logging
 import time
