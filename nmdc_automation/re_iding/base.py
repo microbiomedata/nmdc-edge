@@ -6,6 +6,7 @@ records and data objects.
 import copy
 import logging
 from typing import Dict, List
+import os
 import re
 import yaml
 
@@ -20,7 +21,10 @@ from nmdc_automation.re_iding.db_utils import (OMICS_PROCESSING_SET,
                                                check_for_single_omics_processing_record,
                                                get_data_object_record_by_id,
                                                get_omics_processing_id)
-from nmdc_automation.re_iding.file_utils import find_data_object_type
+from nmdc_automation.re_iding.file_utils import (find_data_object_type,
+                                                compute_new_paths,
+                                                get_new_paths,
+                                                assembly_file_operations)
 
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
 BASE_DIR = "/global/cfs/cdirs/m3408/results"
@@ -142,6 +146,12 @@ class ReIdTool:
             activity_type = "nmdc:ReadQcAnalysisActivity"
             omics_processing_id = new_omics_processing.id
             has_input = new_omics_processing.has_output
+            
+            new_activity_id = self.api_client.minter(activity_type)
+            logging.info("New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
+            
+            new_readsqc_base_dir = os.path.join(BASE_DIR, omics_processing_id, new_activity_id)
+            os.makedirs(new_readsqc_base_dir, exist_ok=True)
 
             updated_has_output = []
             # Get ReadQC data objects and update IDs
@@ -149,8 +159,12 @@ class ReIdTool:
                 logger.info(f"old_do_id: {old_do_id}")
                 old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
                 data_object_type = find_data_object_type(old_do_rec)
+                new_file_path = compute_new_paths(
+                old_do_rec["url"], new_readsqc_base_dir, omics_processing_id, new_activity_id
+                )
+                logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
                 new_do = self._make_new_data_object(
-                    omics_processing_id, activity_type, old_do_rec,
+                    omics_processing_id, activity_type, new_activity_id, old_do_rec,
                     data_object_type,
                 )
                 # add new data object to new database and update has_output
@@ -159,7 +173,7 @@ class ReIdTool:
 
             # Get new ReadQC activity set
             new_reads_qc = self._make_new_activity_set_object(
-                omics_processing_id, reads_qc_rec, has_input, updated_has_output
+                omics_processing_id, new_activity_id, reads_qc_rec, has_input, updated_has_output
             )
             # update activity-specific properties
             unset_properties = [
@@ -189,14 +203,28 @@ class ReIdTool:
             new_read_qc = new_db.read_qc_analysis_activity_set[0]
             has_input = new_read_qc.has_output
             updated_has_output = []
+            
+            new_activity_id = self.api_client.minter(activity_type)
+            logging.info("New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
+            
+            new_assembly_base_dir = os.path.join(BASE_DIR, omics_processing_id, new_activity_id)
+            os.makedirs(new_assembly_base_dir, exist_ok=True)
+            
             for old_do_id in assembly_rec["has_output"]:
                 logger.info(f"old_do_id: {old_do_id}")
                 old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
                 data_object_type = find_data_object_type(old_do_rec)
                 if not data_object_type:
                     continue
+                new_file_path = get_new_paths(old_do_rec["url"],new_assembly_base_dir, new_activity_id)
+                updated_md5, updated_file_size = assembly_file_operations(
+                old_do_rec, new_file_path, new_activity_id)
+                logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
+                #update md5 and file byte size in place to use _make_new_data_object function without functions
+                old_do_rec["file_size_bytes"] = updated_file_size
+                old_do_rec["md5_checksum"] = updated_md5
                 new_do = self._make_new_data_object(
-                    omics_processing_id, activity_type, old_do_rec, data_object_type
+                    omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
                 )
                 # add new data object to new database and update has_output
                 new_db.data_object_set.append(new_do)
@@ -204,7 +232,7 @@ class ReIdTool:
 
             # Get new Metagenome Assembly activity set
             new_assembly = self._make_new_activity_set_object(
-                omics_processing_id, assembly_rec, has_input,
+                omics_processing_id, new_activity_id, assembly_rec, has_input,
                 updated_has_output
             )
             # update activity-specific properties
@@ -234,8 +262,15 @@ class ReIdTool:
             "read_based_taxonomy_analysis_activity_set"]:
             activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
             omics_processing_id = new_omics_processing.id
-            new_assembly = new_db.metagenome_assembly_set[0]
-            has_input = new_assembly.has_output
+            new_read_qc = new_db.read_qc_analysis_activity_set[0]
+            has_input = new_read_qc.has_output
+            
+            new_activity_id = self.api_client.minter(activity_type)
+            logging.info("New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
+            
+            new_readbased_base_dir = os.path.join(BASE_DIR, omics_processing_id, new_activity_id)
+            os.makedirs(new_readbased_base_dir, exist_ok=True)
+            
             updated_has_output = []
             for old_do_id in read_based_rec["has_output"]:
                 logger.info(f"old_do_id: {old_do_id}")
@@ -243,8 +278,12 @@ class ReIdTool:
                 data_object_type = find_data_object_type(old_do_rec)
                 if not data_object_type:
                     continue
+                new_file_path = compute_new_paths(
+                old_do_rec["url"], new_readbased_base_dir, omics_processing_id, new_activity_id
+                )
+                logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
                 new_do = self._make_new_data_object(
-                    omics_processing_id, activity_type, old_do_rec, data_object_type
+                    omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
                 )
                 # add new data object to new database and update has_output
                 new_db.data_object_set.append(new_do)
@@ -252,7 +291,7 @@ class ReIdTool:
 
             # Get new ReadBasedTaxonomyAnalysisActivity activity set
             new_read_based = self._make_new_activity_set_object(
-                omics_processing_id, read_based_rec, has_input,
+                omics_processing_id, new_activity_id,read_based_rec, has_input,
                 updated_has_output
             )
             # update activity-specific properties
@@ -269,7 +308,7 @@ class ReIdTool:
 
         return new_db
 
-    def _make_new_activity_set_object(self, omics_processing_id: str,
+    def _make_new_activity_set_object(self, omics_processing_id: str, new_activity_id: str,
             activity_set_rec: Dict, has_input: List,
             has_output: List) -> WorkflowExecutionActivity:
         """
@@ -283,7 +322,7 @@ class ReIdTool:
             activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
         template = self._workflow_template_for_type(activity_type)
         activity_class = getattr(nmdc, template["ActivityRange"])
-        new_activity_id = self.api_client.minter(activity_type)
+        
         logger.info(
             f"{activity_type}\t{activity_set_rec['id']}\t{new_activity_id}"
             )
@@ -304,6 +343,7 @@ class ReIdTool:
 
     def _make_new_data_object(self, omics_processing_id: str,
                               activity_type: str,
+                              new_activity_id: str,
                               data_object_rec: Dict,
                               data_object_type: str) -> NmdcDataObject:
         """
@@ -318,9 +358,9 @@ class ReIdTool:
             "[^ ]+$", f"{omics_processing_id}", data_object_rec["description"]
         )
         logger.info(f"new_description: {new_description}")
-        new_filename = self._make_new_filename(new_data_object_id, data_object_rec)
+        new_filename = self._make_new_filename(new_activity_id, data_object_rec)
         logger.info(f"new_filename: {new_filename}")
-        new_url = f"{BASE_DIR}/{omics_processing_id}/{new_data_object_id}/{new_filename}"
+        new_url = f"{BASE_DIR}/{omics_processing_id}/{new_activity_id}/{new_filename}"
 
         data_object = NmdcDataObject(
             id=new_data_object_id,
@@ -334,18 +374,14 @@ class ReIdTool:
             )
         return data_object
 
-    def _make_new_filename(self, new_data_object_id: str,
+    def _make_new_filename(self, new_activity_id: str,
             data_object_record: Dict) -> str:
         """
         Return the updated filename.
         """
         filename = data_object_record["url"].split("/")[-1]
         file_extenstion = filename.lstrip("nmdc_").split("_", maxsplit=1)[-1]
-        new_filename = f"{new_data_object_id}_{file_extenstion}".replace(":",
+        new_filename = f"{new_activity_id}_{file_extenstion}".replace(":",
                                                                          "_")
         return new_filename
-
-
-
-
 
