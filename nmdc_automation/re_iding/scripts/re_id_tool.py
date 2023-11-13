@@ -10,7 +10,7 @@ from pathlib import Path
 import json
 import click
 
-from nmdc_automation.api import NmdcRuntimeApi
+from nmdc_automation.api import NmdcRuntimeApi, NmdcRuntimeUserApi
 from nmdc_automation.config import Config
 import nmdc_schema.nmdc as nmdc
 from nmdc_automation.re_iding.base import ReIdTool
@@ -65,6 +65,93 @@ def extract_records(ctx, study_id):
     """
     start_time = time.time()
     logging.info(f"Extracting workflow records for study_id: {study_id}")
+    logging.info(f"study_id: {study_id}")
+
+    config = Config(ctx.obj['site_config'])
+    api_client = NmdcRuntimeUserApi(username=config.napa_username, password=config.napa_password,
+        base_url=config.napa_base_url)
+
+    # 1. Retrieve all OmicsProcessing records for the updated NMDC study ID
+    omics_processing_records = api_client.get_omics_processing_records_for_nmdc_study(
+        study_id
+    )
+    logging.info(
+        f"Retrieved {len(omics_processing_records)} OmicsProcessing records for study {study_id}"
+    )
+
+    retrieved_databases = []
+    # 2. For each OmicsProcessing record, find the legacy identifier:
+    for omics_processing_record in omics_processing_records:
+        db = nmdc.Database()
+        logging.info(
+            f"omics_processing_record: "
+            f"{omics_processing_record['id']}"
+            )
+        legacy_id = _get_legacy_id(omics_processing_record)
+        logging.info(f"legacy_id: {legacy_id}")
+
+        if (omics_processing_record["omics_type"]["has_raw_value"] !=
+                "Metagenome"):
+            logging.info(
+                f"omics_processing_record {omics_processing_record['id']} "
+                f"is not a Metagenome"
+                )
+            continue
+        db.omics_processing_set.append(omics_processing_record)
+        for data_object_id in omics_processing_record["has_output"]:
+            data_object_record = api_client.get_data_object_by_id(
+                data_object_id
+            )
+            db.data_object_set.append(data_object_record)
+
+        # downstream workflow activity sets
+        (read_qc_records, readbased_records, metagenome_assembly_records,
+         metagenome_annotation_records, mags_records) = [], [], [], [], []
+
+        downstream_workflow_activity_sets = {
+            "read_qc_analysis_activity_set": read_qc_records,
+            "read_based_taxonomy_analysis_activity_set": readbased_records,
+            "metagenome_assembly_set": metagenome_assembly_records,
+            "metagenome_annotation_activity_set": metagenome_annotation_records,
+            "mags_activity_set": mags_records,
+        }
+        for set_name, records in downstream_workflow_activity_sets.items():
+            records = api_client.get_workflow_activity_informed_by(
+                set_name, legacy_id
+            )
+            db.__setattr__(set_name, records)
+            # Add the data objects referenced by the `has_output` property
+            for record in records:
+                logging.info(f"record: {record['id']}, {record['name']}")
+                for data_object_id in record["has_output"]:
+                    data_object_record = api_client.get_data_object_by_id(
+                        data_object_id
+                    )
+                    logging.info(
+                        f"data_object_record: "
+                        f"{data_object_record['id']}, {data_object_record['description']}"
+                        )
+                    db.data_object_set.append(data_object_record)
+
+        # Search for orphaned data objects with the legacy ID in the description
+        orphaned_data_objects = api_client.get_data_objects_by_description(
+            legacy_id
+        )
+        # check that we don't already have the data object in the set
+        for data_object in orphaned_data_objects:
+            if data_object["id"] not in [d["id"] for d in db.data_object_set]:
+                db.data_object_set.append(data_object)
+                logging.info(
+                    f"Added orphaned data object: "
+                    f"{data_object['id']}, {data_object['description']}"
+                    )
+
+        retrieved_databases.append(db)
+
+    with open(f"{study_id}_assocated_record_dump.json", 'w') as json_file:
+        json.dump(
+            [o.__dict__ for o in retrieved_databases], json_file, indent=4
+            )
 
 
 @cli.command()
@@ -114,13 +201,13 @@ def process_records(ctx, dryrun, study_id, data_dir):
         new_db = reid_tool.update_omics_processing_has_output(db_record, new_db)
         new_db = reid_tool.update_reads_qc_analysis_activity_set(db_record, new_db)
 
+        re_ided_db_records.append(new_db)
 
 
-        # Re-ID db_record
-        # Update data file headers
-        # Write re-IDed db_record to db_outfile
-        # Write updated data file to datafile_dir
-        # Log results
+    with open(f"{study_id}_updated_record_dump.json", 'w') as json_file:
+        json.dump(
+            [o.__dict__ for o in re_ided_db_records], json_file, indent=4
+            )
 
 
 def _get_data_dir(data_dir, dryrun):
@@ -149,6 +236,29 @@ def _get_database_paths(study_id, dryrun):
         db_outfile = DATA_DIR.joinpath(f"{study_id}{db_outfile_suffix}")
     return db_infile, db_outfile
 
+def _get_legacy_id(omics_processing_record: dict) -> str:
+    """
+    Get the legacy ID for the given OmicsProcessing record.
+    """
+    legacy_id = None
+    legacy_ids = []
+    gold_ids = omics_processing_record.get("gold_sequencing_project_identifiers", [])
+    legacy_ids.extend(gold_ids)
+    alternative_ids = omics_processing_record.get("alternative_identifiers", [])
+    legacy_ids.extend(alternative_ids)
+    if len(legacy_ids) == 0:
+        logging.warning(
+            f"No legacy IDs found for omics_processing_record: {omics_processing_record['id']}"
+        )
+        return None
+    elif len(legacy_ids) > 1:
+        logging.warning(
+            f"Multiple legacy IDs found for omics_processing_record: {omics_processing_record['id']}"
+        )
+        return None
+    else:
+        legacy_id = legacy_ids[0]
+    return legacy_id
 
 if __name__ == '__main__':
     cli(obj={})
