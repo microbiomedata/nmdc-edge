@@ -203,6 +203,8 @@ def process_records(ctx, dryrun, study_id, data_dir):
         new_db = reid_tool.update_reads_qc_analysis_activity_set(db_record, new_db)
         # update Metagenome Assembly
         new_db = reid_tool.update_metagenome_assembly_set(db_record, new_db)
+        # update Read Based Taxonomy Analysis
+        new_db = reid_tool.update_read_based_taxonomy_analysis_activity_set(db_record, new_db)
 
         re_ided_db_records.append(new_db)
 

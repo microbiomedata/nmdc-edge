@@ -205,7 +205,20 @@ class ReIdTool:
             # update activity-specific properties
         return new_db
 
+    def update_read_based_taxonomy_analysis_activity_set(self, db_record: Dict,
+            new_db: NmdcDatabase) -> (NmdcDatabase):
+        """
+        Return a new Database instance with the read_based_taxonomy_analysis_activity_set
+        and its data objects updated to new IDs.
+        """
+        logger.info(f"Updating read_based_taxonomy_analysis_activity_set for "
+                    f"{db_record[OMICS_PROCESSING_SET][0]['id']}")
+        new_omics_processing = new_db.omics_processing_set[0]
 
+        for readbased_rec in db_record["read_based_taxonomy_analysis_activity_set"]:
+            pass
+
+        return new_db
 
     def _make_new_activity_set_object(self, omics_processing_id: str,
             activity_set_rec: Dict, has_input: List,

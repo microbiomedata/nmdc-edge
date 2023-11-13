@@ -8,7 +8,7 @@
         "biosample_set": [],
         "data_object_set": [
             {
-                "id": "nmdc:dobj-11-6bpfeq94",
+                "id": "nmdc:dobj-11-4vnpfh80",
                 "name": "9422.8.132674.GTTTCG.fastq.gz",
                 "description": "Raw sequencer read data",
                 "alternative_identifiers": [],
@@ -21,7 +21,7 @@
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-dqtqva56",
+                "id": "nmdc:dobj-11-jt200525",
                 "name": "Reads QC result fastq (clean data)",
                 "description": "Filtered Reads for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -30,11 +30,11 @@
                 "data_object_type": null,
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-dqtqva56/nmdc_dobj-11-dqtqva56_filtered.fastq.gz",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-jt200525/nmdc_dobj-11-jt200525_filtered.fastq.gz",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-450z1443",
+                "id": "nmdc:dobj-11-qvxhra11",
                 "name": "Reads QC summary statistics",
                 "description": "Filtered Stats for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -43,11 +43,11 @@
                 "data_object_type": null,
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-450z1443/nmdc_dobj-11-450z1443_filterStats.txt",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-qvxhra11/nmdc_dobj-11-qvxhra11_filterStats.txt",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-g1z1r257",
+                "id": "nmdc:dobj-11-9b3c8a90",
                 "name": "Final assembly contigs fasta",
                 "description": "Assembled contigs fasta for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -56,11 +56,11 @@
                 "data_object_type": null,
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-g1z1r257/nmdc_dobj-11-g1z1r257_contigs.fna",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-9b3c8a90/nmdc_dobj-11-9b3c8a90_contigs.fna",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-m0s9ek67",
+                "id": "nmdc:dobj-11-302hqy22",
                 "name": "Final assembly scaffolds fasta",
                 "description": "Assembled scaffold fasta for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -69,11 +69,11 @@
                 "data_object_type": null,
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-m0s9ek67/nmdc_dobj-11-m0s9ek67_scaffolds.fna",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-302hqy22/nmdc_dobj-11-302hqy22_scaffolds.fna",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-3degsk51",
+                "id": "nmdc:dobj-11-8c4dad48",
                 "name": "An AGP format file that describes the assembly",
                 "description": "Assembled AGP file for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -82,11 +82,11 @@
                 "data_object_type": null,
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-3degsk51/nmdc_dobj-11-3degsk51_assembly.agp",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-8c4dad48/nmdc_dobj-11-8c4dad48_assembly.agp",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-zfemcr89",
+                "id": "nmdc:dobj-11-sqshnm40",
                 "name": "Sorted bam file of reads mapping back to the final assembly",
                 "description": "Metagenome Alignment BAM file for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -95,7 +95,7 @@
                 "data_object_type": null,
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-zfemcr89/nmdc_dobj-11-zfemcr89_pairedMapped_sorted.bam",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-sqshnm40/nmdc_dobj-11-sqshnm40_pairedMapped_sorted.bam",
                 "type": "nmdc:Data_Object"
             }
         ],
@@ -127,7 +127,7 @@
                     "gold:Gp0115663"
                 ],
                 "has_output": [
-                    "nmdc:dobj-11-6bpfeq94"
+                    "nmdc:dobj-11-4vnpfh80"
                 ],
                 "insdc_experiment_identifiers": [],
                 "instrument_name": null,
@@ -211,7 +211,7 @@
         "reaction_activity_set": [],
         "read_qc_analysis_activity_set": [
             {
-                "id": "nmdc:wfrqc-11-rssxx935",
+                "id": "nmdc:wfrqc-11-5d5fmd43",
                 "name": "Read QC Activity for nmdc:omprc-11-bn8jcq58",
                 "started_at_time": "2021-10-11T02:28:26Z",
                 "ended_at_time": "2021-10-11T04:56:04+00:00",
@@ -220,11 +220,11 @@
                 "execution_resource": "NERSC - Perlmutter",
                 "git_url": "https://github.com/microbiomedata/ReadsQC",
                 "has_input": [
-                    "nmdc:dobj-11-6bpfeq94"
+                    "nmdc:dobj-11-4vnpfh80"
                 ],
                 "has_output": [
-                    "nmdc:dobj-11-dqtqva56",
-                    "nmdc:dobj-11-450z1443"
+                    "nmdc:dobj-11-jt200525",
+                    "nmdc:dobj-11-qvxhra11"
                 ],
                 "type": "nmdc:ReadQcAnalysisActivity",
                 "part_of": [
