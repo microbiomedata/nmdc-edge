@@ -13,7 +13,7 @@ import click
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import Config
 import nmdc_schema.nmdc as nmdc
-from nmdc_automation.re_iding.base import update_omics_processing_has_output
+from nmdc_automation.re_iding.base import ReIdTool
 from nmdc_automation.re_iding.db_utils import get_omics_processing_id
 
 # Defaults
@@ -89,9 +89,13 @@ def process_records(ctx, dryrun, study_id, data_dir):
     config = ctx.obj['site_config']
     api_client = NmdcRuntimeApi(config)
 
+
     # Get Database dump file paths and the data directory
     db_infile, db_outfile = _get_database_paths(study_id, dryrun)
     data_dir = _get_data_dir(data_dir, dryrun)
+
+    # Initialize re-ID tool
+    reid_tool = ReIdTool(api_client, data_dir)
 
 
     # Read extracted DB records
@@ -107,7 +111,8 @@ def process_records(ctx, dryrun, study_id, data_dir):
 
         new_db = nmdc.Database()
         # update OmicsProcessing has_output and related DataObject records
-        new_db = update_omics_processing_has_output(db_record, new_db, api_client)
+        new_db = reid_tool.update_omics_processing_has_output(db_record, new_db)
+        new_db = reid_tool.update_reads_qc_analysis_activity_set(db_record, new_db)
 
 
 
