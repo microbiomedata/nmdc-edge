@@ -1,6 +1,6 @@
 # nmdc_automation/nmdc_automation/re_iding/db_utils.py
 """
-nmdc_db_utils.py: Provides utility functions for working with NMDC Database
+db_utils.py: Provides utility functions for working with NMDC Database
 records and data objects as dicts.
 """
 from dataclasses import dataclass

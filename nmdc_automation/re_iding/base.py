@@ -20,6 +20,7 @@ from nmdc_automation.re_iding.db_utils import (OMICS_PROCESSING_SET,
                                                check_for_single_omics_processing_record,
                                                get_data_object_record_by_id,
                                                get_omics_processing_id)
+from nmdc_automation.re_iding.file_utils import find_data_object_type
 
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
 BASE_DIR = "/global/cfs/cdirs/m3408/results"
@@ -142,8 +143,10 @@ class ReIdTool:
             for old_do_id in reads_qc_rec["has_output"]:
                 logger.info(f"old_do_id: {old_do_id}")
                 old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
+                data_object_type = find_data_object_type(old_do_rec)
                 new_do = self._make_new_data_object(
-                    omics_processing_id, activity_type, old_do_rec
+                    omics_processing_id, activity_type, old_do_rec,
+                    data_object_type,
                 )
                 # add new data object to new database and update has_output
                 new_db.data_object_set.append(new_do)
@@ -184,14 +187,11 @@ class ReIdTool:
             for old_do_id in assembly_rec["has_output"]:
                 logger.info(f"old_do_id: {old_do_id}")
                 old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
-                # TODO we need to handle missing data_object_type - until
-                #  then though..
-                if not old_do_rec.get("data_object_type"):
-                    logger.warning(f"Skipping {old_do_id} - no "
-                                   f"data_object_type")
+                data_object_type = find_data_object_type(old_do_rec)
+                if not data_object_type:
                     continue
                 new_do = self._make_new_data_object(
-                    omics_processing_id, activity_type, old_do_rec
+                    omics_processing_id, activity_type, old_do_rec, data_object_type
                 )
                 # add new data object to new database and update has_output
                 new_db.data_object_set.append(new_do)
@@ -249,11 +249,12 @@ class ReIdTool:
         return activity
 
     def _make_new_data_object(self, omics_processing_id: str,
-            activity_type: str, data_object_rec: Dict) -> NmdcDataObject:
+                              activity_type: str,
+                              data_object_rec: Dict,
+                              data_object_type: str) -> NmdcDataObject:
         """
         Return a new data object with updated IDs.
         """
-        data_object_type = data_object_rec.get("data_object_type")
         template = self.data_object_template(
             activity_type, data_object_type
             )

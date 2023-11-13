@@ -199,8 +199,11 @@ def process_records(ctx, dryrun, study_id, data_dir):
         new_db = nmdc.Database()
         # update OmicsProcessing has_output and related DataObject records
         new_db = reid_tool.update_omics_processing_has_output(db_record, new_db)
-        # update ReadsQC
+        # update ReadsQC:
+        # db records
         new_db = reid_tool.update_reads_qc_analysis_activity_set(db_record, new_db)
+        # files
+        # TODO - update reads qc files
         # update Metagenome Assembly
         new_db = reid_tool.update_metagenome_assembly_set(db_record, new_db)
         # update Read Based Taxonomy Analysis
