@@ -12,7 +12,7 @@ from typing import Dict, Optional
 
 
 base_dir = "/global/cfs/cdirs/m3408/results"
-bam_script = os.path.abspath("scripts/rewrite_bam.sh")
+bam_script = os.path.abspath("rewrite_bam.sh")
 base = "https://data.microbiomedata.org/data"
 
 logging.basicConfig(
@@ -164,19 +164,19 @@ def get_old_file_path(data_object_record):
     return old_file_path
 
 
-def assembly_file_operations(data_object_record, destination, act_id):
+def assembly_file_operations(data_object_record, data_object_type, destination, act_id):
     # get old file path upfront
     old_file_path = get_old_file_path(data_object_record)
 
-    if data_object_record["data_object_type"] == "Assembly Coverage Stats":
+    if data_object_type == "Assembly Coverage Stats":
         md5, size = assembly_coverage_stats(old_file_path, destination, act_id)
-    elif data_object_record["data_object_type"] == "Assembly Contigs":
+    elif data_object_type == "Assembly Contigs":
         md5, size = assembly_contigs(old_file_path, destination, act_id)
-    elif data_object_record["data_object_type"] == "Assembly Scaffolds":
+    elif data_object_type == "Assembly Scaffolds":
         md5, size = assembly_scaffolds(old_file_path, destination, act_id)
-    elif data_object_record["data_object_type"] == "Assembly AGP":
+    elif data_object_type == "Assembly AGP":
         md5, size = assembly_agp(old_file_path, destination, act_id)
-    elif data_object_record["data_object_type"] == "Assembly Coverage BAM":
+    elif data_object_type == "Assembly Coverage BAM":
         md5, size = assembly_coverage_bam(
             bam_script, old_file_path, destination, act_id
         )
