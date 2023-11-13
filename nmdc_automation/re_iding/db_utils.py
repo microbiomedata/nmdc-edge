@@ -11,6 +11,7 @@ from nmdc_schema.nmdc import Database, DataObject
 OMICS_PROCESSING_SET = "omics_processing_set"
 DATA_OBJECT_SET = "data_object_set"
 READS_QC_SET = "read_qc_analysis_activity_set"
+METAGENOME_ASSEMBLY_SET = "metagenome_assembly_set"
 
 
 

@@ -16,6 +16,7 @@ import nmdc_schema.nmdc as nmdc
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.re_iding.db_utils import (OMICS_PROCESSING_SET,
                                                READS_QC_SET,
+                                               METAGENOME_ASSEMBLY_SET,
                                                check_for_single_omics_processing_record,
                                                get_data_object_record_by_id,
                                                get_omics_processing_id)
@@ -130,7 +131,6 @@ class ReIdTool:
             f"{db_record[OMICS_PROCESSING_SET][0]['id']}"
             )
         new_omics_processing = new_db.omics_processing_set[0]
-        logger.info(new_omics_processing)
         for reads_qc_rec in db_record[READS_QC_SET]:
             # old records have non-conforming type
             activity_type = "nmdc:ReadQcAnalysisActivity"
@@ -165,6 +165,48 @@ class ReIdTool:
             new_db.read_qc_analysis_activity_set.append(new_reads_qc)
         return new_db
 
+    def update_metagenome_assembly_set(self, db_record: Dict,
+            new_db: NmdcDatabase) -> (NmdcDatabase):
+        """
+        Return a new Database instance with the metagenome_assembly_set
+        and its data objects updated to new IDs.
+        """
+        logger.info(f"Updating metagenome_assembly_set for "
+                    f"{db_record[OMICS_PROCESSING_SET][0]['id']}")
+        new_omics_processing = new_db.omics_processing_set[0]
+
+        for assembly_rec in db_record[METAGENOME_ASSEMBLY_SET]:
+            activity_type = "nmdc:MetagenomeAssembly"
+            omics_processing_id = new_omics_processing.id
+            new_read_qc = new_db.read_qc_analysis_activity_set[0]
+            has_input = new_read_qc.has_output
+            updated_has_output = []
+            for old_do_id in assembly_rec["has_output"]:
+                logger.info(f"old_do_id: {old_do_id}")
+                old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
+                # TODO we need to handle missing data_object_type - until
+                #  then though..
+                if not old_do_rec.get("data_object_type"):
+                    logger.warning(f"Skipping {old_do_id} - no "
+                                   f"data_object_type")
+                    continue
+                new_do = self._make_new_data_object(
+                    omics_processing_id, activity_type, old_do_rec
+                )
+                # add new data object to new database and update has_output
+                new_db.data_object_set.append(new_do)
+                updated_has_output.append(new_do.id)
+
+            # Get new Metagenome Assembly activity set
+            new_reads_qc = self._make_new_activity_set_object(
+                omics_processing_id, assembly_rec, has_input,
+                updated_has_output
+            )
+            # update activity-specific properties
+        return new_db
+
+
+
     def _make_new_activity_set_object(self, omics_processing_id: str,
             activity_set_rec: Dict, has_input: List,
             has_output: List) -> WorkflowExecutionActivity:
@@ -198,7 +240,7 @@ class ReIdTool:
         """
         Return a new data object with updated IDs.
         """
-        data_object_type = data_object_rec["data_object_type"]
+        data_object_type = data_object_rec.get("data_object_type")
         template = self.data_object_template(
             activity_type, data_object_type
             )
