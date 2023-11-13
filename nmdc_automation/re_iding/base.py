@@ -21,6 +21,7 @@ from nmdc_automation.re_iding.db_utils import (OMICS_PROCESSING_SET,
                                                get_omics_processing_id)
 
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
+BASE_DIR = "/global/cfs/cdirs/m3408/results"
 
 logging.basicConfig(
     level=logging.INFO,
@@ -188,3 +189,33 @@ class ReIdTool:
             "[^ ]+$", f"{omics_processing_id}", data_object_rec["description"]
         )
         logger.info(f"new_description: {new_description}")
+        new_filename = self._make_new_filename(new_data_object_id, data_object_rec)
+        logger.info(f"new_filename: {new_filename}")
+        new_url = f"{BASE_DIR}/{omics_processing_id}/{new_data_object_id}/{new_filename}"
+
+        data_object = NmdcDataObject(
+            id=new_data_object_id,
+            name=template["name"].replace("{id}", omics_processing_id),
+            description=new_description,
+            type="nmdc:Data_Object",
+            file_size_bytes=data_object_rec["file_size_bytes"],
+            md5_checksum=data_object_rec["md5_checksum"],
+            url=new_url,
+            )
+        return data_object
+
+    def _make_new_filename(self, new_data_object_id: str,
+            data_object_record: Dict) -> str:
+        """
+        Return the updated filename.
+        """
+        filename = data_object_record["url"].split("/")[-1]
+        file_extenstion = filename.lstrip("nmdc_").split("_", maxsplit=1)[-1]
+        new_filename = f"{new_data_object_id}_{file_extenstion}".replace(":",
+                                                                         "_")
+        return new_filename
+
+
+
+
+
