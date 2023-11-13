@@ -1,0 +1,198 @@
+[
+    {
+        "functional_annotation_agg": [],
+        "library_preparation_set": [],
+        "processed_sample_set": [],
+        "extraction_set": [],
+        "activity_set": [],
+        "biosample_set": [],
+        "data_object_set": [
+            {
+                "id": "nmdc:dobj-11-9t9hwj09",
+                "name": "9422.8.132674.GTTTCG.fastq.gz",
+                "description": "Raw sequencer read data",
+                "alternative_identifiers": [],
+                "file_size_bytes": 2861414297,
+                "md5_checksum": null,
+                "data_object_type": null,
+                "compression_type": null,
+                "was_generated_by": null,
+                "url": null,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:dobj-11-03dw0x03",
+                "name": "Reads QC result fastq (clean data)",
+                "description": "Filtered Reads for nmdc:omprc-11-bn8jcq58",
+                "alternative_identifiers": [],
+                "file_size_bytes": 2571324879,
+                "md5_checksum": "7bf778baef033d36f118f8591256d6ef",
+                "data_object_type": null,
+                "compression_type": null,
+                "was_generated_by": null,
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-03dw0x03/nmdc_dobj-11-03dw0x03_filtered.fastq.gz",
+                "type": "nmdc:Data_Object"
+            },
+            {
+                "id": "nmdc:dobj-11-ds6gd769",
+                "name": "Reads QC summary statistics",
+                "description": "Filtered Stats for nmdc:omprc-11-bn8jcq58",
+                "alternative_identifiers": [],
+                "file_size_bytes": 290,
+                "md5_checksum": "b99ce8adc125c95f0bfdadf36a3f6848",
+                "data_object_type": null,
+                "compression_type": null,
+                "was_generated_by": null,
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-ds6gd769/nmdc_dobj-11-ds6gd769_filterStats.txt",
+                "type": "nmdc:Data_Object"
+            }
+        ],
+        "dissolving_activity_set": [],
+        "functional_annotation_set": [],
+        "genome_feature_set": [],
+        "mags_activity_set": [],
+        "material_sample_set": [],
+        "material_sampling_activity_set": [],
+        "metabolomics_analysis_activity_set": [],
+        "metagenome_annotation_activity_set": [],
+        "metagenome_assembly_set": [],
+        "metagenome_sequencing_activity_set": [],
+        "metaproteomics_analysis_activity_set": [],
+        "metatranscriptome_activity_set": [],
+        "nom_analysis_activity_set": [],
+        "omics_processing_set": [
+            {
+                "id": "nmdc:omprc-11-bn8jcq58",
+                "name": "Sand microcosm microbial communities from a hyporheic zone in Columbia River, Washington, USA - GW-RW T2_23-Sept-14",
+                "description": "Sterilized sand packs were incubated back in the ground and collected at time point T2.",
+                "alternative_identifiers": [],
+                "has_input": [
+                    "nmdc:bsm-11-qq8s6x03"
+                ],
+                "add_date": "2015-05-28",
+                "chimera_check": null,
+                "gold_sequencing_project_identifiers": [
+                    "gold:Gp0115663"
+                ],
+                "has_output": [
+                    "nmdc:dobj-11-9t9hwj09"
+                ],
+                "insdc_experiment_identifiers": [],
+                "instrument_name": null,
+                "mod_date": "2021-06-15",
+                "ncbi_project_name": "Sand microcosm microbial communities from a hyporheic zone in Columbia River, Washington, USA - GW-RW T2_23-Sept-14",
+                "nucl_acid_amp": null,
+                "nucl_acid_ext": null,
+                "omics_type": {
+                    "has_raw_value": "Metagenome",
+                    "was_generated_by": null,
+                    "type": null,
+                    "term": null
+                },
+                "part_of": [
+                    "nmdc:sty-11-aygzgv51"
+                ],
+                "pcr_cond": null,
+                "pcr_primers": null,
+                "principal_investigator": {
+                    "has_raw_value": "James Stegen",
+                    "was_generated_by": null,
+                    "type": null,
+                    "orcid": null,
+                    "profile_image_url": null,
+                    "email": null,
+                    "name": null,
+                    "websites": []
+                },
+                "processing_institution": {
+                    "_code": {
+                        "text": "JGI",
+                        "description": null,
+                        "meaning": null,
+                        "unit": null,
+                        "is_a": null,
+                        "mixins": [],
+                        "extensions": {},
+                        "annotations": {},
+                        "alt_descriptions": {},
+                        "title": null,
+                        "deprecated": null,
+                        "todos": [],
+                        "notes": [],
+                        "comments": [],
+                        "examples": [],
+                        "in_subset": [],
+                        "from_schema": null,
+                        "imported_from": null,
+                        "source": null,
+                        "in_language": null,
+                        "see_also": [],
+                        "deprecated_element_has_exact_replacement": null,
+                        "deprecated_element_has_possible_replacement": null,
+                        "aliases": [],
+                        "structured_aliases": {},
+                        "mappings": [],
+                        "exact_mappings": [],
+                        "close_mappings": [],
+                        "related_mappings": [],
+                        "narrow_mappings": [],
+                        "broad_mappings": [],
+                        "created_by": null,
+                        "contributors": [],
+                        "created_on": null,
+                        "last_updated_on": null,
+                        "modified_by": null,
+                        "status": null,
+                        "rank": null,
+                        "categories": [],
+                        "keywords": []
+                    }
+                },
+                "samp_vol_we_dna_ext": null,
+                "seq_meth": null,
+                "seq_quality_check": null,
+                "target_gene": null,
+                "target_subfragment": null,
+                "type": "nmdc:OmicsProcessing"
+            }
+        ],
+        "reaction_activity_set": [],
+        "read_qc_analysis_activity_set": [
+            {
+                "id": "nmdc:wfrqc-11-wt45ty13",
+                "name": "Read QC Activity for nmdc:omprc-11-bn8jcq58",
+                "started_at_time": "2021-10-11T02:28:26Z",
+                "ended_at_time": "2021-10-11T04:56:04+00:00",
+                "was_informed_by": "nmdc:omprc-11-bn8jcq58",
+                "used": null,
+                "execution_resource": "NERSC - Perlmutter",
+                "git_url": "https://github.com/microbiomedata/ReadsQC",
+                "has_input": [
+                    "nmdc:dobj-11-9t9hwj09"
+                ],
+                "has_output": [
+                    "nmdc:dobj-11-03dw0x03",
+                    "nmdc:dobj-11-ds6gd769"
+                ],
+                "type": "nmdc:ReadQcAnalysisActivity",
+                "part_of": [
+                    "nmdc:omprc-11-bn8jcq58"
+                ],
+                "version": "v1.0.8",
+                "input_read_count": null,
+                "input_base_count": null,
+                "output_read_count": null,
+                "output_base_count": null,
+                "input_read_bases": null,
+                "output_read_bases": null
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [],
+        "study_set": [],
+        "field_research_site_set": [],
+        "collecting_biosamples_from_site_set": [],
+        "date_created": null,
+        "etl_software_version": null,
+        "pooling_set": []
+    }
+]

@@ -47,13 +47,12 @@ class ReIdTool:
         Return the workflow template for the given workflow name.
         """
         templates = []
+        workflow_type = workflow_type.replace("QC", "Qc")
         for t in self.workflow_template:
             type = t["Type"]
             if type == workflow_type:
                 templates.append(t)
 
-        # templates = [t for t in self.workflow_template if
-        #              t["Type"] == workflow_type]
         if len(templates) == 0:
             raise ValueError(f"No workflow template found for {workflow_type}")
         elif len(templates) > 1:
@@ -137,6 +136,7 @@ class ReIdTool:
             activity_type = "nmdc:ReadQcAnalysisActivity"
             omics_processing_id = new_omics_processing.id
             has_input = new_omics_processing.has_output
+
             updated_has_output = []
             # Get ReadQC data objects and update IDs
             for old_do_id in reads_qc_rec["has_output"]:
@@ -145,8 +145,15 @@ class ReIdTool:
                 new_do = self._make_new_data_object(
                     omics_processing_id, activity_type, old_do_rec
                 )
+                # add new data object to new database and update has_output
                 new_db.data_object_set.append(new_do)
                 updated_has_output.append(new_do.id)
+
+            # Get new ReadQC activity set
+            new_reads_qc = self._make_new_activity_set_object(
+                omics_processing_id, reads_qc_rec, has_input, updated_has_output
+            )
+            new_db.read_qc_analysis_activity_set.append(new_reads_qc)
         return new_db
 
     def _make_new_activity_set_object(self, omics_processing_id: str,
@@ -155,23 +162,26 @@ class ReIdTool:
         """
         Return a new activity set object with updated IDs.
         """
-        activity_type = activity_set_rec["type"]
-        template = self.workflow_template(activity_type)
+        activity_type = activity_set_rec["type"].replace("QC", "Qc")
+        template = self._workflow_template_for_type(activity_type)
         activity_class = getattr(nmdc, template["ActivityRange"])
         new_activity_id = self.api_client.minter(activity_type)
         logger.info(
             f"{activity_type}\t{activity_set_rec['id']}\t{new_activity_id}"
             )
         activity = activity_class(
-            id=new_activity_id, name=template["Activity"]["name"].replace(
-                "{id}", omics_processing_id
-                ), git_url=template["Git_repo"], version=template["Version"],
+            id=new_activity_id,
+            name=template["Activity"]["name"].replace("{id}", omics_processing_id),
+            git_url=template["Git_repo"], version=template["Version"],
             part_of=[omics_processing_id],
             execution_resource="NERSC - Perlmutter",
             started_at_time=activity_set_rec["started_at_time"],
-            has_input=has_input, has_output=has_output,
+            has_input=has_input,
+            has_output=has_output,
             ended_at_time=activity_set_rec["ended_at_time"],
-            was_informed_by=omics_processing_id, )
+            was_informed_by=omics_processing_id,
+            type=template["Type"],
+        )
         return activity
 
     def _make_new_data_object(self, omics_processing_id: str,

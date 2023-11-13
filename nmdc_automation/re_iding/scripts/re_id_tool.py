@@ -199,15 +199,16 @@ def process_records(ctx, dryrun, study_id, data_dir):
         new_db = nmdc.Database()
         # update OmicsProcessing has_output and related DataObject records
         new_db = reid_tool.update_omics_processing_has_output(db_record, new_db)
+        # update ReadsQC
         new_db = reid_tool.update_reads_qc_analysis_activity_set(db_record, new_db)
 
         re_ided_db_records.append(new_db)
 
 
-    with open(f"{study_id}_updated_record_dump.json", 'w') as json_file:
-        json.dump(
-            [o.__dict__ for o in re_ided_db_records], json_file, indent=4
-            )
+    json_data = json.dumps(re_ided_db_records, default=lambda o: o.__dict__, indent=4)
+    logging.info(f"Writing re_ided_db_records to {db_outfile}")
+    with open(db_outfile, "w") as f:
+        f.write(json_data)
 
 
 def _get_data_dir(data_dir, dryrun):
