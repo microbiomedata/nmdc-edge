@@ -153,6 +153,15 @@ class ReIdTool:
             new_reads_qc = self._make_new_activity_set_object(
                 omics_processing_id, reads_qc_rec, has_input, updated_has_output
             )
+            # update activity-specific properties
+            new_reads_qc.input_read_count = reads_qc_rec.get("input_read_count")
+            new_reads_qc.input_base_count = reads_qc_rec.get("input_base_count")
+            new_reads_qc.output_read_count = reads_qc_rec.get("output_read_count")
+            new_reads_qc.output_base_count = reads_qc_rec.get("output_base_count")
+            new_reads_qc.input_read_bases = reads_qc_rec.get("input_read_bases")
+            new_reads_qc.output_read_bases = reads_qc_rec.get("output_read_bases")
+
+
             new_db.read_qc_analysis_activity_set.append(new_reads_qc)
         return new_db
 

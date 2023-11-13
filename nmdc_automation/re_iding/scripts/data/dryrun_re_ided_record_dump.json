@@ -8,7 +8,7 @@
         "biosample_set": [],
         "data_object_set": [
             {
-                "id": "nmdc:dobj-11-9t9hwj09",
+                "id": "nmdc:dobj-11-3w7nex07",
                 "name": "9422.8.132674.GTTTCG.fastq.gz",
                 "description": "Raw sequencer read data",
                 "alternative_identifiers": [],
@@ -21,7 +21,7 @@
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-03dw0x03",
+                "id": "nmdc:dobj-11-aazp9v53",
                 "name": "Reads QC result fastq (clean data)",
                 "description": "Filtered Reads for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -30,11 +30,11 @@
                 "data_object_type": null,
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-03dw0x03/nmdc_dobj-11-03dw0x03_filtered.fastq.gz",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-aazp9v53/nmdc_dobj-11-aazp9v53_filtered.fastq.gz",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-ds6gd769",
+                "id": "nmdc:dobj-11-wtayma27",
                 "name": "Reads QC summary statistics",
                 "description": "Filtered Stats for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -43,7 +43,7 @@
                 "data_object_type": null,
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-ds6gd769/nmdc_dobj-11-ds6gd769_filterStats.txt",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-wtayma27/nmdc_dobj-11-wtayma27_filterStats.txt",
                 "type": "nmdc:Data_Object"
             }
         ],
@@ -75,7 +75,7 @@
                     "gold:Gp0115663"
                 ],
                 "has_output": [
-                    "nmdc:dobj-11-9t9hwj09"
+                    "nmdc:dobj-11-3w7nex07"
                 ],
                 "insdc_experiment_identifiers": [],
                 "instrument_name": null,
@@ -159,7 +159,7 @@
         "reaction_activity_set": [],
         "read_qc_analysis_activity_set": [
             {
-                "id": "nmdc:wfrqc-11-wt45ty13",
+                "id": "nmdc:wfrqc-11-08etj008",
                 "name": "Read QC Activity for nmdc:omprc-11-bn8jcq58",
                 "started_at_time": "2021-10-11T02:28:26Z",
                 "ended_at_time": "2021-10-11T04:56:04+00:00",
@@ -168,23 +168,23 @@
                 "execution_resource": "NERSC - Perlmutter",
                 "git_url": "https://github.com/microbiomedata/ReadsQC",
                 "has_input": [
-                    "nmdc:dobj-11-9t9hwj09"
+                    "nmdc:dobj-11-3w7nex07"
                 ],
                 "has_output": [
-                    "nmdc:dobj-11-03dw0x03",
-                    "nmdc:dobj-11-ds6gd769"
+                    "nmdc:dobj-11-aazp9v53",
+                    "nmdc:dobj-11-wtayma27"
                 ],
                 "type": "nmdc:ReadQcAnalysisActivity",
                 "part_of": [
                     "nmdc:omprc-11-bn8jcq58"
                 ],
                 "version": "v1.0.8",
-                "input_read_count": null,
+                "input_read_count": 32238374,
                 "input_base_count": null,
-                "output_read_count": null,
+                "output_read_count": 30774080,
                 "output_base_count": null,
-                "input_read_bases": null,
-                "output_read_bases": null
+                "input_read_bases": 4867994474,
+                "output_read_bases": 4608772924
             }
         ],
         "read_based_taxonomy_analysis_activity_set": [],
