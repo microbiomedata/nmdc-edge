@@ -49,7 +49,12 @@ class ReIdTool:
         Return the workflow template for the given workflow name.
         """
         templates = []
+        # There are some inconsistencies in the workflow names between
+        # template and object records
         workflow_type = workflow_type.replace("QC", "Qc")
+        if workflow_type == "nmdc:ReadbasedAnalysis":
+            workflow_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
+
         for t in self.workflow_template:
             type = t["Type"]
             if type == workflow_type:
@@ -157,13 +162,13 @@ class ReIdTool:
                 omics_processing_id, reads_qc_rec, has_input, updated_has_output
             )
             # update activity-specific properties
-            new_reads_qc.input_read_count = reads_qc_rec.get("input_read_count")
-            new_reads_qc.input_base_count = reads_qc_rec.get("input_base_count")
-            new_reads_qc.output_read_count = reads_qc_rec.get("output_read_count")
-            new_reads_qc.output_base_count = reads_qc_rec.get("output_base_count")
-            new_reads_qc.input_read_bases = reads_qc_rec.get("input_read_bases")
-            new_reads_qc.output_read_bases = reads_qc_rec.get("output_read_bases")
-
+            unset_properties = [
+                p for p in new_reads_qc.__dict__ if not new_reads_qc.__dict__[p]
+            ]
+            # check for that value in old record
+            for p in unset_properties:
+                if p in reads_qc_rec:
+                    setattr(new_reads_qc, p, reads_qc_rec[p])
 
             new_db.read_qc_analysis_activity_set.append(new_reads_qc)
         return new_db
@@ -198,11 +203,21 @@ class ReIdTool:
                 updated_has_output.append(new_do.id)
 
             # Get new Metagenome Assembly activity set
-            new_reads_qc = self._make_new_activity_set_object(
+            new_assembly = self._make_new_activity_set_object(
                 omics_processing_id, assembly_rec, has_input,
                 updated_has_output
             )
             # update activity-specific properties
+            # get new_assembly properties with no set value
+            unset_properties = [
+                p for p in new_assembly.__dict__ if not new_assembly.__dict__[p]
+            ]
+            # check for that value in old record
+            for p in unset_properties:
+                if p in assembly_rec:
+                    setattr(new_assembly, p, assembly_rec[p])
+
+            new_db.metagenome_assembly_set.append(new_assembly)
         return new_db
 
     def update_read_based_taxonomy_analysis_activity_set(self, db_record: Dict,
@@ -215,8 +230,42 @@ class ReIdTool:
                     f"{db_record[OMICS_PROCESSING_SET][0]['id']}")
         new_omics_processing = new_db.omics_processing_set[0]
 
-        for readbased_rec in db_record["read_based_taxonomy_analysis_activity_set"]:
-            pass
+        for read_based_rec in db_record[
+            "read_based_taxonomy_analysis_activity_set"]:
+            activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
+            omics_processing_id = new_omics_processing.id
+            new_assembly = new_db.metagenome_assembly_set[0]
+            has_input = new_assembly.has_output
+            updated_has_output = []
+            for old_do_id in read_based_rec["has_output"]:
+                logger.info(f"old_do_id: {old_do_id}")
+                old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
+                data_object_type = find_data_object_type(old_do_rec)
+                if not data_object_type:
+                    continue
+                new_do = self._make_new_data_object(
+                    omics_processing_id, activity_type, old_do_rec, data_object_type
+                )
+                # add new data object to new database and update has_output
+                new_db.data_object_set.append(new_do)
+                updated_has_output.append(new_do.id)
+
+            # Get new ReadBasedTaxonomyAnalysisActivity activity set
+            new_read_based = self._make_new_activity_set_object(
+                omics_processing_id, read_based_rec, has_input,
+                updated_has_output
+            )
+            # update activity-specific properties
+            # get new_read_based properties with no set value
+            unset_properties = [
+                p for p in new_read_based.__dict__ if not new_read_based.__dict__[p]
+            ]
+            # check for that value in old record
+            for p in unset_properties:
+                if p in read_based_rec:
+                    setattr(new_read_based, p, read_based_rec[p])
+
+            new_db.read_based_taxonomy_analysis_activity_set.append(new_read_based)
 
         return new_db
 
@@ -224,9 +273,14 @@ class ReIdTool:
             activity_set_rec: Dict, has_input: List,
             has_output: List) -> WorkflowExecutionActivity:
         """
-        Return a new activity set object with updated IDs.
+        Return a new activity set object with updated IDs and common properties:
+        - id, name, git_url, version, part_of, execution_resource,
+        started_at_time, ended_at_time, was_informed_by, type, has_input,
+        has_output
         """
         activity_type = activity_set_rec["type"].replace("QC", "Qc")
+        if activity_type == "nmdc:ReadbasedAnalysis":
+            activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
         template = self._workflow_template_for_type(activity_type)
         activity_class = getattr(nmdc, template["ActivityRange"])
         new_activity_id = self.api_client.minter(activity_type)
@@ -276,6 +330,7 @@ class ReIdTool:
             file_size_bytes=data_object_rec["file_size_bytes"],
             md5_checksum=data_object_rec["md5_checksum"],
             url=new_url,
+            data_object_type=data_object_type,
             )
         return data_object
 
