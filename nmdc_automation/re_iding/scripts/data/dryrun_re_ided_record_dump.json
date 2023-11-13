@@ -8,7 +8,7 @@
         "biosample_set": [],
         "data_object_set": [
             {
-                "id": "nmdc:dobj-11-q4pmsv93",
+                "id": "nmdc:dobj-11-bgp6z123",
                 "name": "9422.8.132674.GTTTCG.fastq.gz",
                 "description": "Raw sequencer read data",
                 "alternative_identifiers": [],
@@ -21,7 +21,7 @@
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-hfr31e20",
+                "id": "nmdc:dobj-11-b20kzg40",
                 "name": "Reads QC result fastq (clean data)",
                 "description": "Filtered Reads for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -73,11 +73,11 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-hfr31e20/nmdc_dobj-11-hfr31e20_filtered.fastq.gz",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfrqc-11-5sfwhy50/nmdc_wfrqc-11-5sfwhy50_filtered.fastq.gz",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-xc5jhn80",
+                "id": "nmdc:dobj-11-mhccey92",
                 "name": "Reads QC summary statistics",
                 "description": "Filtered Stats for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -129,16 +129,16 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-xc5jhn80/nmdc_dobj-11-xc5jhn80_filterStats.txt",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfrqc-11-5sfwhy50/nmdc_wfrqc-11-5sfwhy50_filterStats.txt",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-wz0zg037",
+                "id": "nmdc:dobj-11-b27rkd90",
                 "name": "Final assembly contigs fasta",
                 "description": "Assembled contigs fasta for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
-                "file_size_bytes": 90115831,
-                "md5_checksum": "deddd162bf0128fba13b3bc1ca38d1aa",
+                "file_size_bytes": 90794959,
+                "md5_checksum": "1a2ade31cf1edad5430ef0939d94ac43",
                 "data_object_type": {
                     "_code": {
                         "text": "Assembly Contigs",
@@ -185,16 +185,16 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-wz0zg037/nmdc_dobj-11-wz0zg037_contigs.fna",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-xc17b248/nmdc_wfmgas-11-xc17b248_contigs.fna",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-dc20ch29",
+                "id": "nmdc:dobj-11-tcg9he98",
                 "name": "Final assembly scaffolds fasta",
                 "description": "Assembled scaffold fasta for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
-                "file_size_bytes": 89604715,
-                "md5_checksum": "b3573e3cda5a06611de71ca04c5c14cc",
+                "file_size_bytes": 90283295,
+                "md5_checksum": "642e3bae5809fa7a2f0be592e0693a10",
                 "data_object_type": {
                     "_code": {
                         "text": "Assembly Scaffolds",
@@ -241,16 +241,16 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-dc20ch29/nmdc_dobj-11-dc20ch29_scaffolds.fna",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-xc17b248/nmdc_wfmgas-11-xc17b248_scaffolds.fna",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-zr4b4z40",
+                "id": "nmdc:dobj-11-z5f6jq78",
                 "name": "Assembled contigs coverage information",
                 "description": "Metagenome Contig Coverage Stats for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
-                "file_size_bytes": 13412363,
-                "md5_checksum": "c6d0d4cea985ca6fb50a060e15b4a856",
+                "file_size_bytes": 14091491,
+                "md5_checksum": "298156a0eddb0aa59ea3e312406fb56f",
                 "data_object_type": {
                     "_code": {
                         "text": "Assembly Coverage Stats",
@@ -297,16 +297,16 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-zr4b4z40/nmdc_dobj-11-zr4b4z40_covstats.txt",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-xc17b248/nmdc_wfmgas-11-xc17b248_covstats.txt",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-fe6kea76",
+                "id": "nmdc:dobj-11-kv8gp304",
                 "name": "An AGP format file that describes the assembly",
                 "description": "Assembled AGP file for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
-                "file_size_bytes": 12542171,
-                "md5_checksum": "f450e3800e17691d5874c89fc46c186a",
+                "file_size_bytes": 13901555,
+                "md5_checksum": "c319c47a6c2f2469ecdcaf972abd8f2b",
                 "data_object_type": {
                     "_code": {
                         "text": "Assembly AGP",
@@ -353,16 +353,16 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-fe6kea76/nmdc_dobj-11-fe6kea76_assembly.agp",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-xc17b248/nmdc_wfmgas-11-xc17b248_assembly.agp",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-f8bj1b18",
+                "id": "nmdc:dobj-11-xkzgxw24",
                 "name": "Sorted bam file of reads mapping back to the final assembly",
                 "description": "Metagenome Alignment BAM file for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
-                "file_size_bytes": 2773429299,
-                "md5_checksum": "31dc958d116d02122509e90b0883954f",
+                "file_size_bytes": 0,
+                "md5_checksum": "d41d8cd98f00b204e9800998ecf8427e",
                 "data_object_type": {
                     "_code": {
                         "text": "Assembly Coverage BAM",
@@ -409,11 +409,11 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-f8bj1b18/nmdc_dobj-11-f8bj1b18_pairedMapped_sorted.bam",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-xc17b248/nmdc_wfmgas-11-xc17b248_pairedMapped_sorted.bam",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-rw9dtn21",
+                "id": "nmdc:dobj-11-vw7fz645",
                 "name": "GOTTCHA2 classification report file",
                 "description": "Gottcha2 TSV report for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -465,11 +465,11 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-rw9dtn21/nmdc_dobj-11-rw9dtn21_gottcha2_report.tsv",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-wy6fa249/nmdc_wfrbt-11-wy6fa249_gottcha2_report.tsv",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-0wqjwr10",
+                "id": "nmdc:dobj-11-bhnxqw16",
                 "name": "GOTTCHA2 report file",
                 "description": "Gottcha2 full TSV report for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -521,11 +521,11 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-0wqjwr10/nmdc_dobj-11-0wqjwr10_gottcha2_report_full.tsv",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-wy6fa249/nmdc_wfrbt-11-wy6fa249_gottcha2_report_full.tsv",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-405tgq07",
+                "id": "nmdc:dobj-11-hycy9b80",
                 "name": "GOTTCHA2 krona plot HTML file",
                 "description": "Gottcha2 Krona HTML report for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -577,11 +577,11 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-405tgq07/nmdc_dobj-11-405tgq07_gottcha2_krona.html",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-wy6fa249/nmdc_wfrbt-11-wy6fa249_gottcha2_krona.html",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-h7mbw370",
+                "id": "nmdc:dobj-11-8prvd856",
                 "name": "Centrifuge output read classification file",
                 "description": "Centrifuge classification TSV report for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -633,11 +633,11 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-h7mbw370/nmdc_dobj-11-h7mbw370_centrifuge_classification.tsv",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-wy6fa249/nmdc_wfrbt-11-wy6fa249_centrifuge_classification.tsv",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-8a9rmt95",
+                "id": "nmdc:dobj-11-acryw383",
                 "name": "Centrifuge output report file",
                 "description": "Centrifuge TSV report for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -689,11 +689,11 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-8a9rmt95/nmdc_dobj-11-8a9rmt95_centrifuge_report.tsv",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-wy6fa249/nmdc_wfrbt-11-wy6fa249_centrifuge_report.tsv",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-wbynk051",
+                "id": "nmdc:dobj-11-f6j3wm49",
                 "name": "Centrifug krona plot HTML file",
                 "description": "Centrifuge Krona HTML report for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -745,11 +745,11 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-wbynk051/nmdc_dobj-11-wbynk051_centrifuge_krona.html",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-wy6fa249/nmdc_wfrbt-11-wy6fa249_centrifuge_krona.html",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-wpw7gs92",
+                "id": "nmdc:dobj-11-xbn3d347",
                 "name": "Kraken2 output read classification file",
                 "description": "Kraken classification TSV report for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -801,11 +801,11 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-wpw7gs92/nmdc_dobj-11-wpw7gs92_kraken2_classification.tsv",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-wy6fa249/nmdc_wfrbt-11-wy6fa249_kraken2_classification.tsv",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-s4wxq602",
+                "id": "nmdc:dobj-11-sf23g974",
                 "name": "Kraken2 output report file",
                 "description": "Kraken2 TSV report for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -857,11 +857,11 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-s4wxq602/nmdc_dobj-11-s4wxq602_kraken2_report.tsv",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-wy6fa249/nmdc_wfrbt-11-wy6fa249_kraken2_report.tsv",
                 "type": "nmdc:Data_Object"
             },
             {
-                "id": "nmdc:dobj-11-vf207x18",
+                "id": "nmdc:dobj-11-cn18ys57",
                 "name": "Kraken2 Krona plot HTML file",
                 "description": "Kraken2 Krona HTML report for nmdc:omprc-11-bn8jcq58",
                 "alternative_identifiers": [],
@@ -913,7 +913,7 @@
                 },
                 "compression_type": null,
                 "was_generated_by": null,
-                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:dobj-11-vf207x18/nmdc_dobj-11-vf207x18_kraken2_krona.html",
+                "url": "/global/cfs/cdirs/m3408/results/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-wy6fa249/nmdc_wfrbt-11-wy6fa249_kraken2_krona.html",
                 "type": "nmdc:Data_Object"
             }
         ],
@@ -927,7 +927,7 @@
         "metagenome_annotation_activity_set": [],
         "metagenome_assembly_set": [
             {
-                "id": "nmdc:wfmgas-11-wa0zvp69",
+                "id": "nmdc:wfmgas-11-xc17b248",
                 "name": "Metagenome Assembly Activity for nmdc:omprc-11-bn8jcq58",
                 "started_at_time": "2021-10-11T02:28:26Z",
                 "ended_at_time": "2021-10-11T04:56:04+00:00",
@@ -936,15 +936,15 @@
                 "execution_resource": "NERSC - Perlmutter",
                 "git_url": "https://github.com/microbiomedata/metaAssembly",
                 "has_input": [
-                    "nmdc:dobj-11-hfr31e20",
-                    "nmdc:dobj-11-xc5jhn80"
+                    "nmdc:dobj-11-b20kzg40",
+                    "nmdc:dobj-11-mhccey92"
                 ],
                 "has_output": [
-                    "nmdc:dobj-11-wz0zg037",
-                    "nmdc:dobj-11-dc20ch29",
-                    "nmdc:dobj-11-zr4b4z40",
-                    "nmdc:dobj-11-fe6kea76",
-                    "nmdc:dobj-11-f8bj1b18"
+                    "nmdc:dobj-11-b27rkd90",
+                    "nmdc:dobj-11-tcg9he98",
+                    "nmdc:dobj-11-z5f6jq78",
+                    "nmdc:dobj-11-kv8gp304",
+                    "nmdc:dobj-11-xkzgxw24"
                 ],
                 "type": "nmdc:MetagenomeAssembly",
                 "part_of": [
@@ -1000,7 +1000,7 @@
                     "gold:Gp0115663"
                 ],
                 "has_output": [
-                    "nmdc:dobj-11-q4pmsv93"
+                    "nmdc:dobj-11-bgp6z123"
                 ],
                 "insdc_experiment_identifiers": [],
                 "instrument_name": null,
@@ -1084,7 +1084,7 @@
         "reaction_activity_set": [],
         "read_qc_analysis_activity_set": [
             {
-                "id": "nmdc:wfrqc-11-wq4r6842",
+                "id": "nmdc:wfrqc-11-5sfwhy50",
                 "name": "Read QC Activity for nmdc:omprc-11-bn8jcq58",
                 "started_at_time": "2021-10-11T02:28:26Z",
                 "ended_at_time": "2021-10-11T04:56:04+00:00",
@@ -1093,11 +1093,11 @@
                 "execution_resource": "NERSC - Perlmutter",
                 "git_url": "https://github.com/microbiomedata/ReadsQC",
                 "has_input": [
-                    "nmdc:dobj-11-q4pmsv93"
+                    "nmdc:dobj-11-bgp6z123"
                 ],
                 "has_output": [
-                    "nmdc:dobj-11-hfr31e20",
-                    "nmdc:dobj-11-xc5jhn80"
+                    "nmdc:dobj-11-b20kzg40",
+                    "nmdc:dobj-11-mhccey92"
                 ],
                 "type": "nmdc:ReadQcAnalysisActivity",
                 "part_of": [
@@ -1114,7 +1114,7 @@
         ],
         "read_based_taxonomy_analysis_activity_set": [
             {
-                "id": "nmdc:wfrbt-11-psqmn810",
+                "id": "nmdc:wfrbt-11-wy6fa249",
                 "name": "Readbased Taxonomy Analysis Activity for nmdc:omprc-11-bn8jcq58",
                 "started_at_time": "2021-10-11T02:28:26Z",
                 "ended_at_time": "2021-10-11T04:56:04+00:00",
@@ -1123,22 +1123,19 @@
                 "execution_resource": "NERSC - Perlmutter",
                 "git_url": "https://github.com/microbiomedata/ReadbasedAnalysis",
                 "has_input": [
-                    "nmdc:dobj-11-wz0zg037",
-                    "nmdc:dobj-11-dc20ch29",
-                    "nmdc:dobj-11-zr4b4z40",
-                    "nmdc:dobj-11-fe6kea76",
-                    "nmdc:dobj-11-f8bj1b18"
+                    "nmdc:dobj-11-b20kzg40",
+                    "nmdc:dobj-11-mhccey92"
                 ],
                 "has_output": [
-                    "nmdc:dobj-11-rw9dtn21",
-                    "nmdc:dobj-11-0wqjwr10",
-                    "nmdc:dobj-11-405tgq07",
-                    "nmdc:dobj-11-h7mbw370",
-                    "nmdc:dobj-11-8a9rmt95",
-                    "nmdc:dobj-11-wbynk051",
-                    "nmdc:dobj-11-wpw7gs92",
-                    "nmdc:dobj-11-s4wxq602",
-                    "nmdc:dobj-11-vf207x18"
+                    "nmdc:dobj-11-vw7fz645",
+                    "nmdc:dobj-11-bhnxqw16",
+                    "nmdc:dobj-11-hycy9b80",
+                    "nmdc:dobj-11-8prvd856",
+                    "nmdc:dobj-11-acryw383",
+                    "nmdc:dobj-11-f6j3wm49",
+                    "nmdc:dobj-11-xbn3d347",
+                    "nmdc:dobj-11-sf23g974",
+                    "nmdc:dobj-11-cn18ys57"
                 ],
                 "type": "nmdc:ReadBasedTaxonomyAnalysisActivity",
                 "part_of": [
