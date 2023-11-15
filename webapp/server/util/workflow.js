@@ -520,14 +520,42 @@ async function findInputsize(conf) {
             size += stats.size;
         }
         else if (workflow === 'MetaMAGs') {
-            let stats = await fileStats(conf.workflow.input_contig);
+            let stats = await fileStats(conf.workflow.contig_file);
             size += stats.size;
-            stats = await fileStats(conf.workflow.input_sam);
+            stats = await fileStats(conf.workflow.sam_file);
             size += stats.size;
-            stats = await fileStats(conf.workflow.input_gff);
+            stats = await fileStats(conf.workflow.gff_file);
             size += stats.size;
-            if (conf.workflow.input_map) {
-                stats = await fileStats(conf.workflow.input_map);
+            stats = await fileStats(conf.workflow.proteins_file);
+            size += stats.size;
+            stats = await fileStats(conf.workflow.cog_file);
+            size += stats.size;
+            stats = await fileStats(conf.workflow.ec_file);
+            size += stats.size;
+            stats = await fileStats(conf.workflow.ko_file);
+            size += stats.size;
+            stats = await fileStats(conf.workflow.pfam_file);
+            size += stats.size;
+            stats = await fileStats(conf.workflow.tigrfam_file);
+            size += stats.size;
+            stats = await fileStats(conf.workflow.cath_funfam_file);
+            size += stats.size;
+            stats = await fileStats(conf.workflow.smart_file);
+            size += stats.size;
+            stats = await fileStats(conf.workflow.supfam_file);
+            size += stats.size;
+            stats = await fileStats(conf.workflow.product_names_file);
+            size += stats.size;
+            stats = await fileStats(conf.workflow.gene_phylogeny_file);
+            size += stats.size;
+            stats = await fileStats(conf.workflow.lineage_file);
+            size += stats.size;
+            if (conf.workflow.map_file) {
+                stats = await fileStats(conf.workflow.map_file);
+                size += stats.size;
+            }
+            if (conf.workflow.domain_file) {
+                stats = await fileStats(conf.workflow.domain_file);
                 size += stats.size;
             }
         }
@@ -562,7 +590,11 @@ async function fileStats(file) {
             .then(size => { return { size: size } })
             .catch(err => { return { size: 0 } });
     } else {
-        return fs.statSync(file);
+        try {
+            return fs.statSync(file);
+        } catch (e) {
+            return { size: 0 };
+        }
     }
 }
 
