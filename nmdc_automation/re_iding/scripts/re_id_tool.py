@@ -10,6 +10,8 @@ from pathlib import Path
 import json
 import click
 
+from linkml_runtime.dumpers import json_dumper
+
 from nmdc_automation.api import NmdcRuntimeApi, NmdcRuntimeUserApi
 from nmdc_automation.config import Config
 import nmdc_schema.nmdc as nmdc
@@ -148,10 +150,10 @@ def extract_records(ctx, study_id):
 
         retrieved_databases.append(db)
 
-    with open(f"{study_id}_assocated_record_dump.json", 'w') as json_file:
-        json.dump(
-            [o.__dict__ for o in retrieved_databases], json_file, indent=4
-            )
+    json_data = json.loads(json_dumper.dumps(retrieved_databases, inject_type=False))
+    db_outfile = DATA_DIR.joinpath(f"{study_id}_associated_record_dump.json")
+    with open(db_outfile, "w") as f:
+        f.write(json.dumps(json_data, indent=4))
 
 
 @cli.command()
@@ -171,6 +173,8 @@ def process_records(ctx, dryrun, study_id, data_dir):
     """
     start_time = time.time()
     logging.info(f"Processing workflow records for study_id: {study_id}")
+    if dryrun:
+        logging.info("Running in dryrun mode")
 
     # Get API client
     config = ctx.obj['site_config']
@@ -180,6 +184,7 @@ def process_records(ctx, dryrun, study_id, data_dir):
     # Get Database dump file paths and the data directory
     db_infile, db_outfile = _get_database_paths(study_id, dryrun)
     data_dir = _get_data_dir(data_dir, dryrun)
+    logging.info(f"Using data_dir: {data_dir}")
 
     # Initialize re-ID tool
     reid_tool = ReIdTool(api_client, data_dir)
@@ -212,10 +217,10 @@ def process_records(ctx, dryrun, study_id, data_dir):
         re_ided_db_records.append(new_db)
 
 
-    json_data = json.dumps(re_ided_db_records, default=lambda o: o.__dict__, indent=4)
-    logging.info(f"Writing re_ided_db_records to {db_outfile}")
+    json_data = json.loads(json_dumper.dumps(re_ided_db_records,
+                                             inject_type=False))
     with open(db_outfile, "w") as f:
-        f.write(json_data)
+        f.write(json.dumps(json_data, indent=4))
 
 
 def _get_data_dir(data_dir, dryrun):
