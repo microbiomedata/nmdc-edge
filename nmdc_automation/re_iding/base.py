@@ -27,6 +27,7 @@ from nmdc_automation.re_iding.file_utils import (find_data_object_type,
                                                 assembly_file_operations)
 
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
+DATA_BASE_URL = "https://data.microbiomedata.org/data"
 # BASE_DIR = "/global/cfs/cdirs/m3408/results"
 
 logging.basicConfig(
@@ -164,7 +165,7 @@ class ReIdTool:
                 old_do_rec["url"], new_readsqc_base_dir, new_activity_id, self.data_dir
                 )
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
-                new_do = self._make_new_data_object(
+                new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec,
                     data_object_type,
                 )
@@ -226,7 +227,7 @@ class ReIdTool:
                 #update md5 and file byte size in place to use _make_new_data_object function without functions
                 old_do_rec["file_size_bytes"] = updated_file_size
                 old_do_rec["md5_checksum"] = updated_md5
-                new_do = self._make_new_data_object(
+                new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
                 )
                 # add new data object to new database and update has_output
@@ -286,7 +287,7 @@ class ReIdTool:
                 old_do_rec["url"], new_readbased_base_dir, new_activity_id, self.data_dir
                 )
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
-                new_do = self._make_new_data_object(
+                new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
                 )
                 # add new data object to new database and update has_output
@@ -345,11 +346,11 @@ class ReIdTool:
         )
         return activity
 
-    def _make_new_data_object(self, omics_processing_id: str,
-                              activity_type: str,
-                              new_activity_id: str,
-                              data_object_rec: Dict,
-                              data_object_type: str) -> NmdcDataObject:
+    def make_new_data_object(self, omics_processing_id: str,
+                             activity_type: str,
+                             new_activity_id: str,
+                             data_object_record: Dict,
+                             data_object_type: str) -> NmdcDataObject:
         """
         Return a new data object with updated IDs.
         """
@@ -357,14 +358,14 @@ class ReIdTool:
             activity_type, data_object_type
             )
         new_data_object_id = self.api_client.minter("nmdc:DataObject")
-        logger.info(f"nmdcDataObject\t{data_object_rec['id']}\t{new_data_object_id}")
+        logger.info(f"nmdcDataObject\t{data_object_record['id']}\t{new_data_object_id}")
         new_description = re.sub(
-            "[^ ]+$", f"{omics_processing_id}", data_object_rec["description"]
+            "[^ ]+$", f"{omics_processing_id}", data_object_record["description"]
         )
         logger.info(f"new_description: {new_description}")
-        new_filename = self._make_new_filename(new_activity_id, data_object_rec)
+        new_filename = self._make_new_filename(new_activity_id, data_object_record)
         logger.info(f"new_filename: {new_filename}")
-        new_url = (f"{self.data_dir}/{omics_processing_id}/{new_activity_id}"
+        new_url = (f"{DATA_BASE_URL}/{omics_processing_id}/{new_activity_id}"
                    f"/{new_filename}")
 
         data_object = NmdcDataObject(
@@ -372,8 +373,8 @@ class ReIdTool:
             name=template["name"].replace("{id}", omics_processing_id),
             description=new_description,
             type="nmdc:Data_Object",
-            file_size_bytes=data_object_rec["file_size_bytes"],
-            md5_checksum=data_object_rec["md5_checksum"],
+            file_size_bytes=data_object_record["file_size_bytes"],
+            md5_checksum=data_object_record["md5_checksum"],
             url=new_url,
             data_object_type=data_object_type,
             )
