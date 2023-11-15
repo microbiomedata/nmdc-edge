@@ -1,5 +1,4 @@
-# This is a Dockerfile you can use to build a Docker image that runs the
-# NMDC EDGE web app and a MongoDB server, all within a single Docker container.
+# This is a Dockerfile you can use to build a Docker image that runs the NMDC EDGE web app within a Docker container.
 # Its design was influenced by the installation script at `installation/install.sh`.
 #
 # Usage:
@@ -19,27 +18,8 @@ ARG WEB_SERVER_PORT_ON_DOCKER_HOST=8000
 # Note: `apk` (Alpine Package Keeper) is the Alpine Linux equivalent of `apt`.
 #       Docs: https://wiki.alpinelinux.org/wiki/Alpine_Package_Keeper
 #
-# Note: We add repositories from an older Alpine version because MongoDB isn't
-#       available in the repositories of current Alpine versions. References:
-#       - https://www.mongodb.com/community/forums/t/why-is-there-no-mongodb-alpine-image/199185
-#       - https://unix.stackexchange.com/a/569565
-#
-#       Also, we install `openrc` so we can run `rc-update`.
-#
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.9/main'      >> /etc/apk/repositories
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.9/community' >> /etc/apk/repositories
 RUN apk update && apk add \
-  zip \
-  openrc \
-  mongodb \
-  mongodb-tools
-
-# Create a folder that the MongoDB server will look for.
-RUN mkdir -p /data/db
-
-# Configure the system to start the MongoDB server whenever the system boots.
-# Reference: https://wiki.alpinelinux.org/wiki/OpenRC
-RUN rc-update add mongodb default
+  zip
 
 # Update npm, itself, to the latest version.
 RUN npm install -g npm@latest
@@ -94,13 +74,7 @@ RUN cd /app/data/workflow/WDL/sra           && zip -r imports.zip *.wdl
 #
 # Install the npm packages upon which the web app client depends.
 #
-# TODO: Once the project offers a `package-lock.json` file, run `npm ci` here instead
-#       of `npm install` (see https://github.com/microbiomedata/nmdc-edge/issues/14).
-#
-# Note: We use the `--legacy-peer-deps` option (as shown in `installation/install.sh`)
-#       to work around https://github.com/microbiomedata/nmdc-edge/issues/13.
-#
-RUN cd webapp/client && npm install --legacy-peer-deps
+RUN cd webapp/client && npm ci
 #
 # Build the web app client (i.e. React app).
 #
@@ -113,12 +87,11 @@ RUN cd webapp/client && NODE_OPTIONS=--openssl-legacy-provider npm run build
 #
 RUN cd webapp/server && npm ci
 
-# Run the MongoDB server in the background, and run PM2 in the foreground.
-# PM2 will serve the web app server (i.e. Express app).
+# Run PM2 in the foreground. PM2 will serve the NMDC EDGE web app.
 #
 # Note: We use `pm2-runtime` (instead of `pm2` directly), as shown in the PM2
 #       documentation about using PM2 inside containers.
 #       Docs: https://pm2.keymetrics.io/docs/usage/docker-pm2-nodejs/
 #
 EXPOSE 80
-CMD ["sh", "-c", "mongod --fork --syslog && pm2-runtime start server_pm2.json"]
+CMD ["pm2-runtime", "start server_pm2.json"]
