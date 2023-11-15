@@ -116,6 +116,15 @@ function generateWDL(proj_home, workflow) {
     const workflowname = workflow.name;
     const workflowalias = workflowSettings['name'];
 
+    //without wdl template
+    const tmpl_pipeline = process.env.WORKFLOW_WDL_HOME + "/" + workflowSettings['wdl_pipeline'];
+    if(fs.existsSync(tmpl_pipeline)) {
+        //add pipeline.wdl link
+        fs.symlinkSync(tmpl_pipeline, proj_home + '/pipeline.wdl', 'file');
+        return true;
+    }
+
+    //with wdl template
     const wdlVersion = workflowSettings['wdl_version'];
     if(wdlVersion === '1.0') {
         imports = "version 1.0\n";

@@ -349,7 +349,7 @@ router.post("/sociallogin", (req, res) => {
     }
     logger.debug("/api/user/sociallogin: " + JSON.stringify(req.body.email));
     const email = dbsanitize(req.body.email);
-    const password = req.body.password;
+    const password = req.body.password + process.env.OAUTH_SECRET;
     const socialType = req.body.socialtype;
 
     common.encodePassword(password).then(hash => {

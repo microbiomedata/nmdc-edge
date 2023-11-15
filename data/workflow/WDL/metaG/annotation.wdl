@@ -91,16 +91,6 @@ workflow annotation {
        container=container
   }
 
-  if (defined(outdir)) {
-  call make_output {
-      input:
-        OUTPATH = outdir,
-        stats = final_stats.tsv,
-        gff = merge_outputs.functional_gff,
-        projectName = imgap_project_type,
-        container = container
-  }
-  }
 
   output {
     File? proteins_faa = merge_outputs.proteins_faa
@@ -312,30 +302,3 @@ task final_stats {
   }
 }
 
-task make_output {
-    String OUTPATH
-    String stats
-    String gff
-    String projectName
-    String container
-
-    command <<<
-        echo ${OUTPATH}
-
-        mkdir -p ${OUTPATH}
-		Statspath=`dirname ${stats}`
-        echo $Statspath
-		GFFPath=`dirname ${gff}`
-        echo $GFFPath
-		cp $Statspath/* ${OUTPATH}/
-		cp $GFFPath/* ${OUTPATH}/
-        ls ${OUTPATH}
-		chmod 764 -R ${OUTPATH}
-    >>>
-
-    runtime{
-        mem: "1GB"
-        cpu: 1
-        docker: container
-    }
-}

@@ -1,12 +1,13 @@
-    String  <WORKFLOW>_imgap_input_fasta
+    String  <WORKFLOW>_input_file
     String  <WORKFLOW>_imgap_project_id
     String  <WORKFLOW>_outdir
     Int     <WORKFLOW>_additional_threads=42
-    String  <WORKFLOW>_database_location="/databases/img/"
+    String  <WORKFLOW>_database_location="/refdata/img/"
 
     call <WORKFLOW>.annotation as <ALIAS> {
-        input: imgap_input_fasta=<WORKFLOW>_imgap_input_fasta, imgap_project_id=<WORKFLOW>_imgap_project_id, outdir=<WORKFLOW>_outdir, additional_threads=<WORKFLOW>_additional_threads, database_location=<WORKFLOW>_database_location
+        input: input_file=<WORKFLOW>_input_file, proj=<WORKFLOW>_imgap_project_id,imgap_project_id=<WORKFLOW>_imgap_project_id, additional_threads=<WORKFLOW>_additional_threads, database_location=<WORKFLOW>_database_location
     }
     call MetaAnnotationOutput.annotation_output as annotation_output {
         input:imgap_project_type=<WORKFLOW>_imgap_project_id, outdir=<WORKFLOW>_outdir, final_stats_tsv=<ALIAS>.stats_tsv, functional_gff=<ALIAS>.functional_gff
     }
+

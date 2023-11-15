@@ -40,20 +40,17 @@ const TheHeaderDropdown = (props) => {
           <CIcon name="cil-list-numbered" className="mfe-2" />
           Job Queue
         </CDropdownItem>
-        {(!process.env.REACT_APP_FILEUPLOAD || process.env.REACT_APP_FILEUPLOAD.toLowerCase() !== 'off') && <>
-          <CDropdownItem header tag="div" color="secondary" className="text-center" >
-            <strong>Files</strong>
-          </CDropdownItem>
-          <CDropdownItem to="/user/uploadfiles" >
-            <CIcon name="cil-cloud-upload" className="mfe-2" />
+        <CDropdownItem header tag="div" color="secondary" className="text-center" >
+          <strong>Files</strong>
+        </CDropdownItem>
+        <CDropdownItem to="/user/uploadfiles" >
+          <CIcon name="cil-cloud-upload" className="mfe-2" />
           Upload Files
         </CDropdownItem>
-          <CDropdownItem to="/user/files" >
-            <CIcon name="cil-layers" className="mfe-2" />
+        <CDropdownItem to="/user/files" >
+          <CIcon name="cil-layers" className="mfe-2" />
           Manage Uploads
         </CDropdownItem>
-        </>
-        }
         {props.user.profile.type === 'admin' && <>
           <CDropdownItem header tag="div" color="secondary" className="text-center" >
             <strong>Admin Tools</strong>
@@ -65,8 +62,8 @@ const TheHeaderDropdown = (props) => {
           {(!process.env.REACT_APP_FILEUPLOAD || process.env.REACT_APP_FILEUPLOAD.toLowerCase() !== 'off') && <>
             <CDropdownItem to="/admin/filelist" >
               <CIcon name="cil-layers" className="mfe-2" />
-            Manage Uploads
-          </CDropdownItem>
+              Manage Uploads
+            </CDropdownItem>
           </>
           }
           <CDropdownItem to="/admin/userlist" >

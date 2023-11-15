@@ -27,16 +27,19 @@ export function FileInputArray(props) {
 
     const resetFileInputArray = () => {
         form.inputFiles = [];
+        form.inputFiles_validInput = [];
         form.inputFilesDisplay = [];
     }
 
     const handleInputFileSelection = (path, type, index, key) => {
-        if(!validFile(key)) {
+        if (!validFile(key, path)) {
+            form.inputFiles_validInput[index] = false;
             form.validForm = false;
             props.setParams(form, props.name);
             return;
         }
         form.inputFiles[index] = path;
+        form.inputFiles_validInput[index] = true;
         form.inputFilesDisplay[index] = key;
         setValue("fileInput" + index + "_hidden", path, { shouldValidate: true });
 
@@ -60,7 +63,7 @@ export function FileInputArray(props) {
     //default 1 dataset
     useEffect(() => {
         fileInputAppend({ name: "inputFiles" });
-        setState({ ...form, ['inputFiles']: [], ['inputFilesDisplay']: [] });
+        setState({ ...form, ['inputFiles']: [], ['inputFiles_validInput']: [], ['inputFilesDisplay']: [] });
         setDoValidation(doValidation + 1);
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
@@ -127,8 +130,8 @@ export function FileInputArray(props) {
                                 render={({ field: { ref, ...rest }, fieldState }) => (
                                     <FileSelector {...rest} {...fieldState}
                                         enableInput={true}
-                                        placeholder={'Select a file or enter a file http/https url'}
-                                        validFile={validFile}
+                                        placeholder={'Select a file or enter a file http(s) url'}
+                                        validFile={form.inputFiles_validInput[index]}
                                         dataSources={props.dataSources ? props.dataSources : ['upload', 'public', 'globus']}
                                         fileTypes={props.fileTypes} viewFile={false}
                                         fieldname={'fileInput'} index={index} onChange={handleInputFileSelection}
@@ -150,6 +153,7 @@ export function FileInputArray(props) {
                             <Button size="sm" className="btn-pill" color="ghost-primary"
                                 onClick={() => {
                                     form.inputFiles.splice(index, 1);
+                                    form.inputFiles_validInput.splice(index, 1);
                                     form.inputFilesDisplay.splice(index, 1);
                                     fileInputRemove(index);
                                     setDoValidation(doValidation + 1);

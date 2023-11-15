@@ -14,6 +14,7 @@ workflow crt {
   output {
     File crisprs = run.crisprs
     File gff = run.gff
+    File crt_out = run.crt_out
   }
 }
 
@@ -41,6 +42,7 @@ task run {
   output {
     File crisprs = "${project_id}_crt.crisprs"
     File gff = "${project_id}_crt.gff"
+    File crt_out = "${project_id}_crt.out"
   }
 }
 

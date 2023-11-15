@@ -23,7 +23,7 @@ workflowlist = {
         wdl_version: 'draft-2'
     },
     MetaAnnotation: {
-        wdl: 'annotation.wdl',
+        wdl: 'annotation_full.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'annotation',
         full_name: 'Metagenome Annotation',
@@ -95,7 +95,7 @@ workflowlist = {
         wdl_version: 'draft-2'
     },
     'Metaproteomics': {
-        wdl: 'metapro_main.wdl',
+        wdl_pipeline: 'metaP/metapro_main.wdl',
         wdl_imports: 'metaP/imports.zip',
         name: 'metapro',
         full_name: 'Metaproteomics',
@@ -103,7 +103,7 @@ workflowlist = {
         inputs_tmpl: 'metaProteomics_inputs.tmpl',
         options_json: 'metaProteomics_options.json',
         outdir: 'output/Metaproteomics',
-        cromwell_calls: ['main_workflow.metapro'],
+        cromwell_calls: ['metapro.job_analysis','metapro.report_gen','metapro.make_output','metapro.gen_metadata'],
         wdl_version: '1.0'
     },
     'sra2fastq': {

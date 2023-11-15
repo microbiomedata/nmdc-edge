@@ -18,21 +18,12 @@ export const FileSelector = (props) => {
     const [file_path, setFile_path] = useState('');
     const [files_loading, setFiles_loading] = useState(false);
     const [disable_view_file, setDisable_view_file] = useState(true);
-    const [disable_input, setDisable_input] = useState(true);
+    const [disable_input, setDisable_input] = useState(!props.enableInput);
+    const [cleanup_input, setCleanup_input] = useState(props.cleanupInput)
     const [view_file, setView_file] = useState(false);
     const [file_content, setFile_content] = useState('');
     const [openFBModal, setOpenFBModal] = useState(false);
     const [files, setFiles] = useState([]);
-
-    useEffect(() => {
-        if (props.enableInput === true) {
-            setDisable_input(false);
-        }
-    }, [props]);
-
-    useEffect(() => {
-        deleteFile();
-    }, [props.reset]);
 
     const loadFiles = () => {
         setFiles_loading(true);
@@ -128,6 +119,8 @@ export const FileSelector = (props) => {
 
     const handleSelectedFile = (fileKey) => {
         //console.log(fileKey)
+        setDisable_input(true)
+        setCleanup_input(true)
         setOpenFBModal(false);
         setFile_path(fileKey.path);
         setFile(fileKey.key);
@@ -164,6 +157,8 @@ export const FileSelector = (props) => {
             });;
     }
     const deleteFile = () => {
+        setDisable_input(false)
+        setCleanup_input(false)
         setFile_path("");
         setFile("");
         props.onChange("", props.fieldname, props.index, "");
@@ -176,7 +171,7 @@ export const FileSelector = (props) => {
                 handleSelectedFile={handleSelectedFile} toggle={toggleFBModal} />
             <FileViewerDialog type={props.viewFileType} isOpen={view_file} toggle={e => setView_file(!view_file)} title={file_path} src={file_content} />
             <InputGroup>
-                <Input style={((props.isOptional && !file) || (props.validFile? props.validFile(file): file)) ? inputStyle : inputStyleWarning} type="text" onChange={(e) => handleUserInputFile(e.target.value)}
+                <Input style={((props.isOptional && !file) || props.validFile) ? inputStyle : inputStyleWarning} type="text" onChange={(e) => handleUserInputFile(e.target.value)}
                     placeholder={props.placeholder ? props.placeholder : "Select a file"} value={file || ""}
                     disabled={disable_input} />
                 <InputGroupAddon addonType="append">
@@ -188,7 +183,7 @@ export const FileSelector = (props) => {
                             <VisibilityIcon onClick={viewFile} />
                         </Fab>
                     }
-                    {(props.cleanupInput && file) &&
+                    {(cleanup_input && file) &&
                         <Fab size='small' style={{ marginLeft: 10, color: colors.primary, backgroundColor: 'white', }}>
                             <DeleteForeverIcon onClick={deleteFile} />
                         </Fab>

@@ -2,7 +2,7 @@ import "viral-plasmid_tasks.wdl" as tasks
 
 workflow viral {
         String database
-        String genomad_db = database + '/genomad_db-v1.3'
+        String genomad_db = database + '/genomad_db-v1.6'
         String checkv_db = database + '/checkv-db-v1.4'
         File fasta
         Map[String, Boolean] option
@@ -18,7 +18,7 @@ workflow viral {
         Float? fdr
         Int cpu
         String outdir
-        String docker = "mbabinski17/genomad:1.5.2"
+        String docker = "mbabinski17/genomad:1.7.1"
         String checkV_docker = "mbabinski17/checkv:1.0.1"
 
     call tasks.geNomad_full as gn {

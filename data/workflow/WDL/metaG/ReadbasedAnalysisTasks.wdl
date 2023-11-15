@@ -14,7 +14,7 @@ task profilerGottcha2 {
                     -t ${CPU} \
                     -o . \
                     -p ${PREFIX} \
-                    --database /databases/RefSeq-r90.cg.BacteriaArchaeaViruses.species.fna 
+                    --database ${DB}
         
         grep "^species" ${PREFIX}.tsv | ktImportTaxonomy -t 3 -m 9 -o ${PREFIX}.krona.html - || true
     >>>
@@ -49,7 +49,7 @@ task profilerCentrifuge {
         set -euo pipefail
         eval "$(/opt/conda/bin/conda shell.bash hook)"
         conda activate centrifuge
-        centrifuge -x /databases/hpv \
+        centrifuge -x ${DB} \
                    -p ${CPU} \
                    -U ${sep=',' READS} \
                    -S ${PREFIX}.classification.tsv \
@@ -92,7 +92,7 @@ task profilerKraken2 {
         conda activate kraken
         kraken2 ${true="--paired" false='' PAIRED} \
                 --threads ${CPU} \
-                --db /databases \
+                --db ${DB} \
                 --output ${PREFIX}.classification.tsv \
                 --report ${PREFIX}.report.tsv \
                 ${sep=' ' READS}

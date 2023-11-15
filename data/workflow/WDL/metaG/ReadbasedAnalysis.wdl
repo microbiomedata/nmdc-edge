@@ -2,7 +2,9 @@ import "ReadbasedAnalysisTasks.wdl" as tasks
 
 workflow ReadbasedAnalysis {
     Map[String, Boolean] enabled_tools
-    Map[String, String] db
+    String db_gottcha2 = "/refdata/GOTTCHA2/RefSeq-r90.cg.BacteriaArchaeaViruses.species.fna"
+    String db_kraken2 = "/refdata/Kraken2/"
+    String db_centrifuge = "/refdata/Centrifuge/hpv"
     Array[File] reads
     Int cpu
     String prefix
@@ -13,7 +15,7 @@ workflow ReadbasedAnalysis {
     if (enabled_tools["gottcha2"] == true) {
         call tasks.profilerGottcha2 {
             input: READS = reads,
-                   DB = db["gottcha2"],
+                   DB = db_gottcha2,
                    PREFIX = prefix,
                    CPU = cpu,
                    DOCKER = docker
@@ -24,7 +26,7 @@ workflow ReadbasedAnalysis {
         call tasks.profilerKraken2 {
             input: READS = reads,
                    PAIRED = paired,
-                   DB = db["kraken2"],
+                   DB = db_kraken2,
                    PREFIX = prefix,
                    CPU = cpu,
                    DOCKER = docker
@@ -34,7 +36,7 @@ workflow ReadbasedAnalysis {
     if (enabled_tools["centrifuge"] == true) {
         call tasks.profilerCentrifuge {
             input: READS = reads,
-                   DB = db["centrifuge"],
+                   DB = db_centrifuge,
                    PREFIX = prefix,
                    CPU = cpu,
                    DOCKER = docker

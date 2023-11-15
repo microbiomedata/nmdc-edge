@@ -28,7 +28,7 @@ function TutorialBar(props) {
                 backgroundColor: props.bgcolor, height: '60px'
             }}>
                 <Col xs="3" md="3" lg="3">{props.title}</Col>
-                <Col xs="3" md="3" lg="3">
+                <Col xs="2" md="2" lg="2">
                     {props.video &&
                         <center>
                             <IconButton style={{ color: 'white' }} aria-label="video tutorial" onClick={() => { setOpenVideo(true) }}>
@@ -37,10 +37,19 @@ function TutorialBar(props) {
                         </center>
                     }
                 </Col>
-                <Col xs="3" md="3" lg="3">
+                <Col xs="2" md="2" lg="2">
                     {props.pdf &&
                         <center>
                             <IconButton style={{ color: 'white' }} aria-label="pdf" href={process.env.REACT_APP_API_URL + props.pdf} target="_blank">
+                                <FaFilePdf />
+                            </IconButton>
+                        </center>
+                    }
+                </Col>
+                <Col xs="2" md="2" lg="2">
+                    {props.pdfSpanish &&
+                        <center>
+                            <IconButton style={{ color: 'white' }} aria-label="pdf" href={process.env.REACT_APP_API_URL + props.pdfSpanish} target="_blank">
                                 <FaFilePdf />
                             </IconButton>
                         </center>

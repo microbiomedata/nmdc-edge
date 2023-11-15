@@ -24,6 +24,7 @@ export const initialFastqInput = {
     errMessage: '',
     fastqPaired: [],
     fastqSingle: [],
+    fastqSingle_validInput: [],
     interleaved: true,
     fastqPairedDisplay: [],
     fastqSingleDisplay: []
@@ -33,5 +34,6 @@ export const initialFileInputArray = {
     validForm: false,
     errMessage: '',
     inputFiles: [],
+    inputFiles_validInput: [],
     inputFilesDisplay: []
 }

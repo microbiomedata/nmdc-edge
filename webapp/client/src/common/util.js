@@ -128,9 +128,16 @@ export const popupWindow = (url, windowName, win, w, h) => {
     return win.open(url, windowName, `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${y}, left=${x}`);
 }
 
-export const validFile = (filename) => {
-    const regexp = new RegExp(/^publicdata\/|^uploads\/|^projects\/|^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)\/[a-zA-Z0-9()]{1}/, 'i');
-    return regexp.test(filename);
+export const validFile = (filename, path) => {
+    const regexp = new RegExp(/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)\/[a-zA-Z0-9()]{1}/, 'i');
+    
+    if(filename === path) {
+        //text input must be a http(s) url
+        return regexp.test(filename)
+    } else {
+        //input from file selector
+        return true;
+    }
 }
 
 
