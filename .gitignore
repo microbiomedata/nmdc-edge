@@ -10,3 +10,6 @@ test
 testing_docs
 imports.zip
 cromwell_mysql_backup.sql
+
+# JetBrains IDE files.
+/.idea
