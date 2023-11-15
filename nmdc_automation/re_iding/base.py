@@ -27,7 +27,7 @@ from nmdc_automation.re_iding.file_utils import (find_data_object_type,
                                                 assembly_file_operations)
 
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
-BASE_DIR = "/global/cfs/cdirs/m3408/results"
+# BASE_DIR = "/global/cfs/cdirs/m3408/results"
 
 logging.basicConfig(
     level=logging.INFO,
@@ -150,7 +150,8 @@ class ReIdTool:
             new_activity_id = self.api_client.minter(activity_type)
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
             
-            new_readsqc_base_dir = os.path.join(BASE_DIR, omics_processing_id, new_activity_id)
+            new_readsqc_base_dir = os.path.join(self.data_dir, omics_processing_id,
+                                                new_activity_id)
             os.makedirs(new_readsqc_base_dir, exist_ok=True)
 
             updated_has_output = []
@@ -160,7 +161,7 @@ class ReIdTool:
                 old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
                 data_object_type = find_data_object_type(old_do_rec)
                 new_file_path = compute_new_paths(
-                old_do_rec["url"], new_readsqc_base_dir, new_activity_id
+                old_do_rec["url"], new_readsqc_base_dir, new_activity_id, self.data_dir
                 )
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
                 new_do = self._make_new_data_object(
@@ -207,7 +208,8 @@ class ReIdTool:
             new_activity_id = self.api_client.minter(activity_type)
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
             
-            new_assembly_base_dir = os.path.join(BASE_DIR, omics_processing_id, new_activity_id)
+            new_assembly_base_dir = os.path.join(self.data_dir, omics_processing_id,
+                                                 new_activity_id)
             os.makedirs(new_assembly_base_dir, exist_ok=True)
             
             for old_do_id in assembly_rec["has_output"]:
@@ -218,7 +220,8 @@ class ReIdTool:
                     continue
                 new_file_path = get_new_paths(old_do_rec["url"],new_assembly_base_dir, new_activity_id)
                 updated_md5, updated_file_size = assembly_file_operations(
-                old_do_rec, data_object_type, new_file_path, new_activity_id)
+                old_do_rec, data_object_type, new_file_path, new_activity_id,
+                    self.data_dir)
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
                 #update md5 and file byte size in place to use _make_new_data_object function without functions
                 old_do_rec["file_size_bytes"] = updated_file_size
@@ -268,7 +271,8 @@ class ReIdTool:
             new_activity_id = self.api_client.minter(activity_type)
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
             
-            new_readbased_base_dir = os.path.join(BASE_DIR, omics_processing_id, new_activity_id)
+            new_readbased_base_dir = os.path.join(self.data_dir, omics_processing_id,
+                                                  new_activity_id)
             os.makedirs(new_readbased_base_dir, exist_ok=True)
             
             updated_has_output = []
@@ -279,7 +283,7 @@ class ReIdTool:
                 if not data_object_type:
                     continue
                 new_file_path = compute_new_paths(
-                old_do_rec["url"], new_readbased_base_dir, new_activity_id
+                old_do_rec["url"], new_readbased_base_dir, new_activity_id, self.data_dir
                 )
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
                 new_do = self._make_new_data_object(
@@ -360,7 +364,8 @@ class ReIdTool:
         logger.info(f"new_description: {new_description}")
         new_filename = self._make_new_filename(new_activity_id, data_object_rec)
         logger.info(f"new_filename: {new_filename}")
-        new_url = f"{BASE_DIR}/{omics_processing_id}/{new_activity_id}/{new_filename}"
+        new_url = (f"{self.data_dir}/{omics_processing_id}/{new_activity_id}"
+                   f"/{new_filename}")
 
         data_object = NmdcDataObject(
             id=new_data_object_id,

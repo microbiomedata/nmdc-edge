@@ -11,7 +11,7 @@ from subprocess import check_output
 from typing import Dict, Optional
 
 
-base_dir = "/global/cfs/cdirs/m3408/results"
+# BASE_DIR = "/global/cfs/cdirs/m3408/results"
 bam_script = os.path.abspath("rewrite_bam.sh")
 base = "https://data.microbiomedata.org/data"
 
@@ -156,17 +156,18 @@ def rewrite_sam(input_sam, output_sam, old_id, new_id):
             f_out.write(line.replace(old_id, new_id))
 
 
-def get_old_file_path(data_object_record):
+def get_old_file_path(data_object_record, old_base_dir):
     old_url = data_object_record["url"]
     suffix = old_url.split("https://data.microbiomedata.org/data/")[1]
-    old_file_path = base_dir + "/" + suffix
+    old_file_path = old_base_dir + "/" + suffix
 
     return old_file_path
 
 
-def assembly_file_operations(data_object_record, data_object_type, destination, act_id):
+def assembly_file_operations(data_object_record, data_object_type,
+                             destination, act_id, old_base_dir):
     # get old file path upfront
-    old_file_path = get_old_file_path(data_object_record)
+    old_file_path = get_old_file_path(data_object_record, old_base_dir)
 
     if data_object_type == "Assembly Coverage Stats":
         md5, size = assembly_coverage_stats(old_file_path, destination, act_id)
@@ -196,13 +197,13 @@ def get_new_paths(old_url, new_base_dir, act_id):
     return destination
 
 
-def compute_new_paths(old_url, new_base_dir, act_id):
+def compute_new_paths(old_url, new_base_dir, act_id, old_base_dir):
     """
     Use the url to compute the new file name path and url
     """
     file_name = old_url.split("/")[-1]
     suffix = old_url.split("https://data.microbiomedata.org/data/")[1]
-    old_file_path = base_dir + "/" + suffix
+    old_file_path = old_base_dir + "/" + suffix
     file_extenstion = file_name.lstrip("nmdc_").split("_", maxsplit=1)[-1]
     new_file_name = f"{act_id}_{file_extenstion}"
     modified_new_file_name = new_file_name.replace(":", "_")
