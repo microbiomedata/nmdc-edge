@@ -1,0 +1,20 @@
+version: "3"
+
+# These are the services that constitute this Docker Compose "stack".
+services:
+
+  # The NMDC EDGE web app (both client and server).
+  webapp:
+    build:
+      context: .
+      dockerfile: webapp.Dockerfile
+      args: { WEB_SERVER_PORT_ON_DOCKER_HOST: 8000 }
+    ports: [ "8000:80" ]
+    volumes: [ ".:/app" ]
+    depends_on: [ mongo ]
+
+  # A MongoDB server (see: https://hub.docker.com/_/mongo).
+  mongo:
+    image: mongo
+    restart: unless-stopped
+    ports: [ "27017:27017" ]
