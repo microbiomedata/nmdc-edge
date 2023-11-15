@@ -201,8 +201,8 @@ class ReIdTool:
         for assembly_rec in db_record[METAGENOME_ASSEMBLY_SET]:
             activity_type = "nmdc:MetagenomeAssembly"
             omics_processing_id = new_omics_processing.id
-            new_read_qc = new_db.read_qc_analysis_activity_set[0]
-            has_input = new_read_qc.has_output
+            has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
+            
             updated_has_output = []
             
             new_activity_id = self.api_client.minter(activity_type)
@@ -265,8 +265,7 @@ class ReIdTool:
             "read_based_taxonomy_analysis_activity_set"]:
             activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
             omics_processing_id = new_omics_processing.id
-            new_read_qc = new_db.read_qc_analysis_activity_set[0]
-            has_input = new_read_qc.has_output
+            has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
             
             new_activity_id = self.api_client.minter(activity_type)
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
@@ -311,6 +310,14 @@ class ReIdTool:
             new_db.read_based_taxonomy_analysis_activity_set.append(new_read_based)
 
         return new_db
+    
+    def _get_input_do_id(self, new_db, data_object_type: str):
+        """Returns the string representation of a data object id given data object type"""
+        
+        for rec in new_db.data_object_set:
+            print(type(rec.data_object_type))
+            if str(rec.data_object_type) == data_object_type:
+                return str(rec.id)        
 
     def _make_new_activity_set_object(self, omics_processing_id: str, new_activity_id: str,
             activity_set_rec: Dict, has_input: List,
