@@ -21,19 +21,64 @@ export function MetaMAGs(props) {
     }
 
     const handleFileSelection = (filename, fieldname, index, key) => {
+        // reset autofills when the sam_file changed
+        if (fieldname === 'sam_file') {
+            Object.keys(form.metaAssemblyOutputFiles).forEach(file => {
+                form[file] = '';
+                form[file + '_validInput'] = false;
+                form[file + '_autoFill'] = true;
+                form[file + '_display'] = '';
+            })
+        }
+        // reset autofills when the proteins_file changed
+        if (fieldname === 'proteins_file') {
+            Object.keys(form.metaAnnotationOutputFiles).forEach(file => {
+                form[file] = '';
+                form[file + '_validInput'] = false;
+                form[file + '_autoFill'] = true;
+                form[file + '_display'] = '';
+            })
+        }
         if (!validFile(key, filename)) {
             setState({
                 ...form,
-                ['input_' + fieldname + '_validInput']: false
+                [fieldname]: filename,
+                [fieldname + '_validInput']: false,
+                [fieldname + '_autoFill']: false,
+                [fieldname + '_display']: key
             });
             form.validForm = false;
             props.setParams(form, props.full_name);
             return;
         }
-        setState({
-            ...form,
-            ['input_' + fieldname]: filename, ['input_' + fieldname + '_validInput']: true, ['input_' + fieldname + '_display']: key
-        });
+        form[fieldname] = filename;
+        form[fieldname + '_validInput'] = true;
+        form[fieldname + '_autoFill'] = false;
+        form[fieldname + '_display'] = key;
+
+        const samEnd = '_sorted.bam';
+        if (key.startsWith('projects/') && key.endsWith(samEnd)) {
+            // auto fill inputs
+            Object.keys(form.metaAssemblyOutputFiles).forEach(file => {
+                form[file] = filename.replace(new RegExp('/\\w+' + samEnd + '$'), '/' + form.metaAssemblyOutputFiles[file]);
+                form[file + '_validInput'] = true;
+                form[file + '_autoFill'] = true;
+                form[file + '_display'] = key.replace(new RegExp('/\\w+' + samEnd + '$'), '/' + form.metaAssemblyOutputFiles[file]);
+            })
+
+        }
+
+        const proteinsEnd = '_proteins.faa';
+        if (key.startsWith('projects/') && key.endsWith(proteinsEnd)) {
+            // auto fill inputs
+            Object.keys(form.metaAnnotationOutputFiles).forEach(file => {
+                form[file] = filename.replace(new RegExp(proteinsEnd + '$'), form.metaAnnotationOutputFiles[file]);
+                form[file + '_validInput'] = true;
+                form[file + '_autoFill'] = true;
+                form[file + '_display'] = key.replace(new RegExp(proteinsEnd + '$'), form.metaAnnotationOutputFiles[file]);
+            })
+
+        }
         setDoValidation(doValidation + 1);
     }
 
@@ -41,7 +86,7 @@ export function MetaMAGs(props) {
         if (key && !validFile(key, filename)) {
             setState({
                 ...form,
-                ['input_' + fieldname + '_validInput']: false
+                [fieldname + '_validInput']: false
             });
             form.validForm = false;
             props.setParams(form, props.full_name);
@@ -49,7 +94,7 @@ export function MetaMAGs(props) {
         }
         setState({
             ...form,
-            ['input_' + fieldname]: filename, ['input_' + fieldname + '_validInput']: true, ['input_' + fieldname + '_display']: key
+            [fieldname]: filename, [fieldname + '_validInput']: true, [fieldname + '_display']: key
         });
         setDoValidation(doValidation + 1);
     }
@@ -58,17 +103,56 @@ export function MetaMAGs(props) {
     useEffect(() => {
         let errMessage = '';
 
-        if (!form.input_contig_validInput) {
+        if (!form.contig_file_validInput) {
             errMessage += "Invalid contig input<br />";
         }
-        if (!form.input_sam_validInput) {
-            errMessage += "Invalid sam/bam input<br />";
+        if (!form.sam_file_validInput) {
+            errMessage += "Invalid sam input<br />";
         }
-        if (!form.input_gff_validInput) {
+        if (!form.gff_file_validInput) {
             errMessage += "Invalid gff input<br />";
         }
-        if (!form.input_map_validInput) {
+        if (!form.proteins_file_validInput) {
+            errMessage += "Invalid proteins input<br />";
+        }
+        if (!form.cog_file_validInput) {
+            errMessage += "Invalid cog input<br />";
+        }
+        if (!form.ec_file_validInput) {
+            errMessage += "Invalid ec input<br />";
+        }
+        if (!form.ko_file_validInput) {
+            errMessage += "Invalid ko input<br />";
+        }
+        if (!form.pfam_file_validInput) {
+            errMessage += "Invalid pfam input<br />";
+        }
+        if (!form.tigrfam_file_validInput) {
+            errMessage += "Invalid tigrfam input<br />";
+        }
+        if (!form.cath_funfam_file_validInput) {
+            errMessage += "Invalid cath_funfam input<br />";
+        }
+        if (!form.smart_file_validInput) {
+            errMessage += "Invalid smart input<br />";
+        }
+        if (!form.supfam_file_validInput) {
+            errMessage += "Invalid supfam input<br />";
+        }
+        if (!form.product_names_file_validInput) {
+            errMessage += "Invalid product_names input<br />";
+        }
+        if (!form.gene_phylogeny_file_validInput) {
+            errMessage += "Invalid gene_phylogeny input<br />";
+        }
+        if (!form.lineage_file_validInput) {
+            errMessage += "Invalid lineage input<br />";
+        }
+        if (!form.map_file_validInput) {
             errMessage += "Invalid map input<br />";
+        }
+        if (!form.domain_file_validInput) {
+            errMessage += "Invalid domain input<br />";
         }
 
         if (errMessage !== '') {
@@ -89,66 +173,290 @@ export function MetaMAGs(props) {
                 <CardBody>
                     <Row>
                         <Col md="3">
-                            <MyTooltip id='MetaMAGs-contig' text="Input Contig File" tooltip={workflowInputTips['MetaMAGs']['contig_tip']} showTooltip={true} place="right" />
+                            <MyTooltip id='MetaMAGs-sam_file' text="sam/bam file" tooltip={workflowInputTips['MetaMAGs']['sam_file']} showTooltip={false} place="right" />
                         </Col>
                         <Col xs="12" md="9">
                             <FileSelector onChange={handleFileSelection}
                                 enableInput={true}
                                 placeholder={'Select a file or enter a file http(s) url'}
-                                validFile={form.input_contig_validInput}
+                                validFile={form.sam_file_validInput}
                                 dataSources={['project', 'upload', 'public', 'globus']}
-                                projectTypes={['Metagenome Annotation']}
+                                projectTypes={['Metagenome Assembly']}
+                                fileTypes={['sam', 'bam']} fieldname={'sam_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-contig_file' text="contig file" tooltip={workflowInputTips['MetaMAGs']['contig_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['contig_file'], key: form['contig_file_display'], autoFill: form['contig_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.contig_file_validInput}
+                                dataSources={['project', 'upload', 'public', 'globus']}
+                                projectTypes={['Metagenome Assembly']}
                                 fileTypes={['fasta', 'fa', 'faa', 'fasta.gz', 'fa.gz', 'fna', 'fna.gz']}
-                                fieldname={'contig'} viewFile={false} />
+                                fieldname={'contig_file'} viewFile={false} />
                         </Col>
                     </Row>
                     <br></br>
 
                     <Row>
                         <Col md="3">
-                            <MyTooltip id='MetaMAGs-sam' text="Input Sam/Bam File" tooltip={workflowInputTips['MetaMAGs']['sam_tip']} showTooltip={true} place="right" />
+                            <MyTooltip id='MetaMAGs-proteins_file' text="proteins file" tooltip={workflowInputTips['MetaMAGs']['proteins_file']} showTooltip={false} place="right" />
                         </Col>
                         <Col xs="12" md="9">
                             <FileSelector onChange={handleFileSelection}
                                 enableInput={true}
                                 placeholder={'Select a file or enter a file http(s) url'}
-                                validFile={form.input_sam_validInput}
-                                dataSources={['upload', 'public']}
-                                fileTypes={['sam', 'bam']} fieldname={'sam'} viewFile={false} />
-                        </Col>
-                    </Row>
-                    <br></br>
-
-                    <Row>
-                        <Col md="3">
-                            <MyTooltip id='MetaMAGs-gff' text="Input GFF File" tooltip={workflowInputTips['MetaMAGs']['gff_tip']} showTooltip={true} place="right" />
-                        </Col>
-                        <Col xs="12" md="9">
-                            <FileSelector onChange={handleFileSelection}
-                                enableInput={true}
-                                placeholder={'Select a file or enter a file http(s) url'}
-                                validFile={form.input_gff_validInput}
+                                validFile={form.proteins_file_validInput}
                                 dataSources={['project', 'upload', 'public']}
                                 projectTypes={['Metagenome Annotation']}
-                                fileTypes={['gff']} fieldname={'gff'} viewFile={false} />
+                                fileTypes={['faa']} fieldname={'proteins_file'} viewFile={false} />
                         </Col>
                     </Row>
                     <br></br>
 
                     <Row>
                         <Col md="3">
-                            <MyTooltip id='MetaMAGs-map' text="Input Map File" tooltip={workflowInputTips['MetaMAGs']['map_tip']} showTooltip={true} place="right" />
+                            <MyTooltip id='MetaMAGs-gff_file' text="gff file" tooltip={workflowInputTips['MetaMAGs']['gff_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['gff_file'], key: form['gff_file_display'], autoFill: form['gff_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.gff_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['gff']} fieldname={'gff_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-cog_file' text="cog file" tooltip={workflowInputTips['MetaMAGs']['cog_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['cog_file'], key: form['cog_file_display'], autoFill: form['cog_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.cog_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['gff']} fieldname={'cog_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-ec_file' text="ec file" tooltip={workflowInputTips['MetaMAGs']['ec_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['ec_file'], key: form['ec_file_display'], autoFill: form['ec_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.ec_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['tsv']} fieldname={'ec_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-ko_file' text="ko file" tooltip={workflowInputTips['MetaMAGs']['ko_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['ko_file'], key: form['ko_file_display'], autoFill: form['ko_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.ko_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['tsv']} fieldname={'ko_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-pfam_file' text="pfam file" tooltip={workflowInputTips['MetaMAGs']['pfam_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['pfam_file'], key: form['pfam_file_display'], autoFill: form['pfam_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.pfam_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['gff']} fieldname={'pfam_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-tigrfam_file' text="tigrfam file" tooltip={workflowInputTips['MetaMAGs']['tigrfam_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['tigrfam_file'], key: form['tigrfam_file_display'], autoFill: form['tigrfam_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.tigrfam_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['gff']} fieldname={'tigrfam_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-cath_funfam_file' text="cath_funfam file" tooltip={workflowInputTips['MetaMAGs']['cath_funfam_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['cath_funfam_file'], key: form['cath_funfam_file_display'], autoFill: form['cath_funfam_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.cath_funfam_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['gff']} fieldname={'cath_funfam_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-smart_file' text="smart file" tooltip={workflowInputTips['MetaMAGs']['smart_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['smart_file'], key: form['smart_file_display'], autoFill: form['smart_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.smart_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['gff']} fieldname={'smart_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-supfam_file' text="supfam file" tooltip={workflowInputTips['MetaMAGs']['supfam_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['supfam_file'], key: form['supfam_file_display'], autoFill: form['supfam_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.supfam_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['gff']} fieldname={'supfam_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-product_names_file' text="product_names file" tooltip={workflowInputTips['MetaMAGs']['product_names_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['product_names_file'], key: form['product_names_file_display'], autoFill: form['product_names_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.product_names_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['tsv']} fieldname={'product_names_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-gene_phylogeny_file' text="gene_phylogeny file" tooltip={workflowInputTips['MetaMAGs']['gene_phylogeny_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['gene_phylogeny_file'], key: form['gene_phylogeny_file_display'], autoFill: form['gene_phylogeny_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.gene_phylogeny_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['tsv']} fieldname={'gene_phylogeny_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-lineage_file' text="lineage file" tooltip={workflowInputTips['MetaMAGs']['lineage_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['lineage_file'], key: form['lineage_file_display'], autoFill: form['lineage_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.lineage_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['tsv']} fieldname={'lineage_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-map_file' text="map file" tooltip={workflowInputTips['MetaMAGs']['map_file']} showTooltip={false} place="right" />
                         </Col>
                         <Col xs="12" md="9">
                             <FileSelector onChange={handleOptionalFileSelection}
                                 enableInput={true}
                                 placeholder={'(Optional) Select a file or enter a file http(s) url'}
-                                validFile={form.input_map_validInput}
+                                validFile={form.map_file_validInput}
                                 dataSources={['upload', 'public']}
-                                fileTypes={['txt']} fieldname={'map'} viewFile={false}
+                                fileTypes={['txt', 'tsv']} fieldname={'map_file'} viewFile={false}
                                 isOptional={true} cleanupInput={true} />
                         </Col>
                     </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-domain_file' text="domain file" tooltip={workflowInputTips['MetaMAGs']['domain_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleOptionalFileSelection}
+                                enableInput={true}
+                                placeholder={'(Optional) Select a file or enter a file http(s) url'}
+                                validFile={form.domain_file_validInput}
+                                dataSources={['upload', 'public']}
+                                fileTypes={['txt', 'tsv']} fieldname={'domain_file'} viewFile={false}
+                                isOptional={true} cleanupInput={true} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
                 </CardBody>
             </Collapse>
         </Card>
