@@ -41,9 +41,10 @@ logger = logging.getLogger(__name__)
 
 class ReIdTool:
     def __init__(self, api_client: NmdcRuntimeApi, data_dir: str,
-                 template_file: str = None):
+                 template_file: str = None, iteration: str = "1"):
         self.api_client = api_client
         self.data_dir = data_dir
+        self.workflow_iteration = iteration
         if template_file is None:
             template_file = NAPA_TEMPLATE
         with open(template_file, "r") as f:
@@ -148,7 +149,7 @@ class ReIdTool:
             omics_processing_id = new_omics_processing.id
             has_input = new_omics_processing.has_output
             
-            new_activity_id = self.api_client.minter(activity_type)
+            new_activity_id = self.api_client.minter(activity_type) + "." + self.workflow_iteration
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
             
             new_readsqc_base_dir = os.path.join(self.data_dir, omics_processing_id,
@@ -206,7 +207,7 @@ class ReIdTool:
             
             updated_has_output = []
             
-            new_activity_id = self.api_client.minter(activity_type)
+            new_activity_id = self.api_client.minter(activity_type) + "." + self.workflow_iteration
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
             
             new_assembly_base_dir = os.path.join(self.data_dir, omics_processing_id,
@@ -268,7 +269,7 @@ class ReIdTool:
             omics_processing_id = new_omics_processing.id
             has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
             
-            new_activity_id = self.api_client.minter(activity_type)
+            new_activity_id = self.api_client.minter(activity_type) + "." + self.workflow_iteration
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
             
             new_readbased_base_dir = os.path.join(self.data_dir, omics_processing_id,
@@ -316,7 +317,6 @@ class ReIdTool:
         """Returns the string representation of a data object id given data object type"""
         
         for rec in new_db.data_object_set:
-            print(type(rec.data_object_type))
             if str(rec.data_object_type) == data_object_type:
                 return str(rec.id)        
 
