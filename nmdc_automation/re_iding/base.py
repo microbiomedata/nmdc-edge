@@ -117,6 +117,7 @@ class ReIdTool:
         # make new data objects with updated IDs
         for old_do_id in omics_record["has_output"]:
             old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
+            old_do_rec["data_object_type"] = "Metagenome Raw Reads"
             old_do_id = old_do_rec.get("id")
             params = copy.deepcopy(old_do_rec)
             params.pop("id", None)
@@ -287,6 +288,7 @@ class ReIdTool:
                 old_do_rec["url"], new_readbased_base_dir, new_activity_id, self.data_dir
                 )
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
+                
                 new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
                 )
@@ -343,7 +345,7 @@ class ReIdTool:
             name=template["Activity"]["name"].replace("{id}", omics_processing_id),
             git_url=template["Git_repo"], version=template["Version"],
             part_of=[omics_processing_id],
-            execution_resource="NERSC - Perlmutter",
+            execution_resource="NERSC-Cori",
             started_at_time=activity_set_rec["started_at_time"],
             has_input=has_input,
             has_output=has_output,
@@ -377,9 +379,9 @@ class ReIdTool:
 
         data_object = NmdcDataObject(
             id=new_data_object_id,
-            name=template["name"].replace("{id}", omics_processing_id),
+            name=new_filename,
             description=new_description,
-            type="nmdc:Data_Object",
+            type="nmdc:DataObject",
             file_size_bytes=data_object_record["file_size_bytes"],
             md5_checksum=data_object_record["md5_checksum"],
             url=new_url,
