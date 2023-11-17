@@ -221,7 +221,29 @@ def process_records(ctx, dryrun, study_id, data_dir):
                                              inject_type=False))
     with open(db_outfile, "w") as f:
         f.write(json.dumps(json_data, indent=4))
+        
 
+@cli.command()
+@click.argument('reid_records_file', type=click.Path(exists=True))
+@click.pass_context
+def ingest_records(ctx, reid_records_file):
+    """
+    Read in json dump of re_id'd records and submit them to the /v1/workflows/activities endpoint
+    """
+    start_time = time.time()
+    logging.info(f"Submitting re id'd records from : {reid_records_file}")
+
+    config = Config(ctx.obj['site_config'])
+    api_client = NmdcRuntimeUserApi(username=config.napa_username, password=config.napa_password,
+        base_url=config.napa_base_url)
+    
+    with open(reid_records_file, "r") as f:
+        db_records = json.load(f)
+        
+    for record in db_records:
+        resp = api_client.post_objects(record)
+    
+        logger.info(f"{record} posted, got response: {resp}")
 
 def _get_data_dir(data_dir, dryrun):
     """
