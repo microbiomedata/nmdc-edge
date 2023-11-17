@@ -25,7 +25,7 @@ NAPA_CONFIG = Path("../../../configs/napa_config.toml")
 
 
 BASE_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
-DRYRUN_DATAFILE_DIR = "./data/dryrun_data/results"
+DRYRUN_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
 
 DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
 
