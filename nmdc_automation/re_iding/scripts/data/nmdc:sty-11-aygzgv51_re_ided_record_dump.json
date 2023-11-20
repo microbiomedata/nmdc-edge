@@ -193,7 +193,7 @@
                 "part_of": [
                     "nmdc:omprc-11-bn8jcq58"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 6.577,
                 "scaffolds": 169645,
                 "scaf_logsum": 215363,
@@ -271,7 +271,7 @@
                 "part_of": [
                     "nmdc:omprc-11-bn8jcq58"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 32238374,
                 "output_read_count": 30774080,
                 "input_read_bases": 4867994474,
@@ -503,7 +503,7 @@
                 "part_of": [
                     "nmdc:omprc-11-zp2ar437"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 5.224,
                 "scaffolds": 116565,
                 "scaf_logsum": 182081,
@@ -578,7 +578,7 @@
                 "part_of": [
                     "nmdc:omprc-11-zp2ar437"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 22183982,
                 "output_read_count": 20195754,
                 "input_read_bases": 3349781282,
@@ -810,7 +810,7 @@
                 "part_of": [
                     "nmdc:omprc-11-wepaa271"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 4.087,
                 "scaffolds": 322890,
                 "scaf_logsum": 491574,
@@ -888,7 +888,7 @@
                 "part_of": [
                     "nmdc:omprc-11-wepaa271"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 35064492,
                 "output_read_count": 33873238,
                 "input_read_bases": 5294738292,
@@ -1120,7 +1120,7 @@
                 "part_of": [
                     "nmdc:omprc-11-hymrq852"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 12.582,
                 "scaffolds": 525116,
                 "scaf_logsum": 725191,
@@ -1198,7 +1198,7 @@
                 "part_of": [
                     "nmdc:omprc-11-hymrq852"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 67696542,
                 "output_read_count": 67147510,
                 "input_read_bases": 10222177842,
@@ -1430,7 +1430,7 @@
                 "part_of": [
                     "nmdc:omprc-11-yt8css91"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 17.061,
                 "scaffolds": 116033,
                 "scaf_logsum": 196103,
@@ -1508,7 +1508,7 @@
                 "part_of": [
                     "nmdc:omprc-11-yt8css91"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 19416222,
                 "output_read_count": 18855352,
                 "input_read_bases": 2931849522,
@@ -1740,7 +1740,7 @@
                 "part_of": [
                     "nmdc:omprc-11-hgehsc37"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 4.21,
                 "scaffolds": 78311,
                 "scaf_logsum": 60806,
@@ -1815,7 +1815,7 @@
                 "part_of": [
                     "nmdc:omprc-11-hgehsc37"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 19058974,
                 "output_read_count": 17338778,
                 "input_read_bases": 2877905074,
@@ -2047,7 +2047,7 @@
                 "part_of": [
                     "nmdc:omprc-11-7vsv7h78"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 7.785,
                 "scaffolds": 383447,
                 "scaf_logsum": 496628,
@@ -2125,7 +2125,7 @@
                 "part_of": [
                     "nmdc:omprc-11-7vsv7h78"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 51286688,
                 "output_read_count": 48276864,
                 "input_read_bases": 7744289888,
@@ -2357,7 +2357,7 @@
                 "part_of": [
                     "nmdc:omprc-11-5r54nt37"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.626,
                 "scaffolds": 118391,
                 "scaf_logsum": 70885,
@@ -2432,7 +2432,7 @@
                 "part_of": [
                     "nmdc:omprc-11-5r54nt37"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 23705118,
                 "output_read_count": 22801896,
                 "input_read_bases": 3579472818,
@@ -2664,7 +2664,7 @@
                 "part_of": [
                     "nmdc:omprc-11-76ebsj44"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.923,
                 "scaffolds": 299890,
                 "scaf_logsum": 453436,
@@ -2739,7 +2739,7 @@
                 "part_of": [
                     "nmdc:omprc-11-76ebsj44"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 26227312,
                 "output_read_count": 25182244,
                 "input_read_bases": 3960324112,
@@ -2971,7 +2971,7 @@
                 "part_of": [
                     "nmdc:omprc-11-s6wqag22"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 7.629,
                 "scaffolds": 105366,
                 "scaf_logsum": 63657,
@@ -3046,7 +3046,7 @@
                 "part_of": [
                     "nmdc:omprc-11-s6wqag22"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 24223170,
                 "output_read_count": 22768968,
                 "input_read_bases": 3657698670,
@@ -3278,7 +3278,7 @@
                 "part_of": [
                     "nmdc:omprc-11-x0es2p18"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 5.95,
                 "scaffolds": 190940,
                 "scaf_logsum": 174680,
@@ -3353,7 +3353,7 @@
                 "part_of": [
                     "nmdc:omprc-11-x0es2p18"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 25674112,
                 "output_read_count": 22503352,
                 "input_read_bases": 3876790912,
@@ -3585,7 +3585,7 @@
                 "part_of": [
                     "nmdc:omprc-11-1nvcer55"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.305,
                 "scaffolds": 208427,
                 "scaf_logsum": 212917,
@@ -3660,7 +3660,7 @@
                 "part_of": [
                     "nmdc:omprc-11-1nvcer55"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 23886420,
                 "output_read_count": 22738452,
                 "input_read_bases": 3606849420,
@@ -3892,7 +3892,7 @@
                 "part_of": [
                     "nmdc:omprc-11-b051xn44"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 4.319,
                 "scaffolds": 157774,
                 "scaf_logsum": 111226,
@@ -3967,7 +3967,7 @@
                 "part_of": [
                     "nmdc:omprc-11-b051xn44"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 31715882,
                 "output_read_count": 30212248,
                 "input_read_bases": 4789098182,
@@ -4199,7 +4199,7 @@
                 "part_of": [
                     "nmdc:omprc-11-k8kt2j31"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.117,
                 "scaffolds": 237183,
                 "scaf_logsum": 307525,
@@ -4274,7 +4274,7 @@
                 "part_of": [
                     "nmdc:omprc-11-k8kt2j31"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 26419652,
                 "output_read_count": 25434840,
                 "input_read_bases": 3989367452,
@@ -4506,7 +4506,7 @@
                 "part_of": [
                     "nmdc:omprc-11-9pbab972"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 6.312,
                 "scaffolds": 127272,
                 "scaf_logsum": 77428,
@@ -4581,7 +4581,7 @@
                 "part_of": [
                     "nmdc:omprc-11-9pbab972"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 28569382,
                 "output_read_count": 26868700,
                 "input_read_bases": 4313976682,
@@ -4813,7 +4813,7 @@
                 "part_of": [
                     "nmdc:omprc-11-0g415160"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 4.48,
                 "scaffolds": 272628,
                 "scaf_logsum": 380592,
@@ -4888,7 +4888,7 @@
                 "part_of": [
                     "nmdc:omprc-11-0g415160"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 23291434,
                 "output_read_count": 22556158,
                 "input_read_bases": 3517006534,
@@ -5120,7 +5120,7 @@
                 "part_of": [
                     "nmdc:omprc-11-z5qv0f24"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 4.807,
                 "scaffolds": 51180,
                 "scaf_logsum": 6368.36,
@@ -5195,7 +5195,7 @@
                 "part_of": [
                     "nmdc:omprc-11-z5qv0f24"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 20505370,
                 "output_read_count": 19995028,
                 "input_read_bases": 3096310870,
@@ -5427,7 +5427,7 @@
                 "part_of": [
                     "nmdc:omprc-11-8qms8262"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 5.986,
                 "scaffolds": 132455,
                 "scaf_logsum": 81839,
@@ -5502,7 +5502,7 @@
                 "part_of": [
                     "nmdc:omprc-11-8qms8262"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 27906294,
                 "output_read_count": 26116440,
                 "input_read_bases": 4213850394,
@@ -5734,7 +5734,7 @@
                 "part_of": [
                     "nmdc:omprc-11-k675bw84"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.618,
                 "scaffolds": 95584,
                 "scaf_logsum": 36615,
@@ -5809,7 +5809,7 @@
                 "part_of": [
                     "nmdc:omprc-11-k675bw84"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 31642056,
                 "output_read_count": 29115818,
                 "input_read_bases": 4777950456,
@@ -6041,7 +6041,7 @@
                 "part_of": [
                     "nmdc:omprc-11-mbv2jc69"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 5.751,
                 "scaffolds": 175734,
                 "scaf_logsum": 142614,
@@ -6116,7 +6116,7 @@
                 "part_of": [
                     "nmdc:omprc-11-mbv2jc69"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 29872658,
                 "output_read_count": 27896694,
                 "input_read_bases": 4510771358,
@@ -6348,7 +6348,7 @@
                 "part_of": [
                     "nmdc:omprc-11-kc23zq65"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.934,
                 "scaffolds": 206599,
                 "scaf_logsum": 270403,
@@ -6423,7 +6423,7 @@
                 "part_of": [
                     "nmdc:omprc-11-kc23zq65"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 25320866,
                 "output_read_count": 24600396,
                 "input_read_bases": 3823450766,
@@ -6655,7 +6655,7 @@
                 "part_of": [
                     "nmdc:omprc-11-c8dzx197"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 5.062,
                 "scaffolds": 214737,
                 "scaf_logsum": 272416,
@@ -6730,7 +6730,7 @@
                 "part_of": [
                     "nmdc:omprc-11-c8dzx197"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 24239336,
                 "output_read_count": 19917090,
                 "input_read_bases": 3660139736,
@@ -6962,7 +6962,7 @@
                 "part_of": [
                     "nmdc:omprc-11-tgxmb243"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 6.89,
                 "scaffolds": 169622,
                 "scaf_logsum": 141966,
@@ -7037,7 +7037,7 @@
                 "part_of": [
                     "nmdc:omprc-11-tgxmb243"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 21721428,
                 "output_read_count": 19723416,
                 "input_read_bases": 3279935628,
@@ -7269,7 +7269,7 @@
                 "part_of": [
                     "nmdc:omprc-11-t0xjjc50"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 12.57,
                 "scaffolds": 152330,
                 "scaf_logsum": 274450,
@@ -7347,7 +7347,7 @@
                 "part_of": [
                     "nmdc:omprc-11-t0xjjc50"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 36554212,
                 "output_read_count": 33663942,
                 "input_read_bases": 5519686012,
@@ -7579,7 +7579,7 @@
                 "part_of": [
                     "nmdc:omprc-11-1avd3d16"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 18.19,
                 "scaffolds": 139236,
                 "scaf_logsum": 272657,
@@ -7657,7 +7657,7 @@
                 "part_of": [
                     "nmdc:omprc-11-1avd3d16"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 26546332,
                 "output_read_count": 25776010,
                 "input_read_bases": 4008496132,
@@ -7889,7 +7889,7 @@
                 "part_of": [
                     "nmdc:omprc-11-hk1bje46"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 6.419,
                 "scaffolds": 89660,
                 "scaf_logsum": 161291,
@@ -7964,7 +7964,7 @@
                 "part_of": [
                     "nmdc:omprc-11-hk1bje46"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 17796788,
                 "output_read_count": 16817496,
                 "input_read_bases": 2687314988,
@@ -8196,7 +8196,7 @@
                 "part_of": [
                     "nmdc:omprc-11-qtje8r57"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.588,
                 "scaffolds": 120242,
                 "scaf_logsum": 112140,
@@ -8271,7 +8271,7 @@
                 "part_of": [
                     "nmdc:omprc-11-qtje8r57"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 22298982,
                 "output_read_count": 20445042,
                 "input_read_bases": 3367146282,
@@ -8503,7 +8503,7 @@
                 "part_of": [
                     "nmdc:omprc-11-7ey2jr63"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 10.939,
                 "scaffolds": 186895,
                 "scaf_logsum": 337025,
@@ -8581,7 +8581,7 @@
                 "part_of": [
                     "nmdc:omprc-11-7ey2jr63"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 39069214,
                 "output_read_count": 37037822,
                 "input_read_bases": 5899451314,
@@ -8813,7 +8813,7 @@
                 "part_of": [
                     "nmdc:omprc-11-qngh7497"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 13.853,
                 "scaffolds": 543003,
                 "scaf_logsum": 442802,
@@ -8891,7 +8891,7 @@
                 "part_of": [
                     "nmdc:omprc-11-qngh7497"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 65434428,
                 "output_read_count": 64887080,
                 "input_read_bases": 9880598628,
@@ -9123,7 +9123,7 @@
                 "part_of": [
                     "nmdc:omprc-11-jk7zjz92"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 4.718,
                 "scaffolds": 80703,
                 "scaf_logsum": 116377,
@@ -9198,7 +9198,7 @@
                 "part_of": [
                     "nmdc:omprc-11-jk7zjz92"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 18827380,
                 "output_read_count": 16749572,
                 "input_read_bases": 2842934380,
@@ -9430,7 +9430,7 @@
                 "part_of": [
                     "nmdc:omprc-11-2jt0jk84"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 5.768,
                 "scaffolds": 351728,
                 "scaf_logsum": 429769,
@@ -9505,7 +9505,7 @@
                 "part_of": [
                     "nmdc:omprc-11-2jt0jk84"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 50719572,
                 "output_read_count": 47896142,
                 "input_read_bases": 7658655372,
@@ -9737,7 +9737,7 @@
                 "part_of": [
                     "nmdc:omprc-11-hqmmwn16"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 4.733,
                 "scaffolds": 114011,
                 "scaf_logsum": 152336,
@@ -9812,7 +9812,7 @@
                 "part_of": [
                     "nmdc:omprc-11-hqmmwn16"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 20957834,
                 "output_read_count": 20454422,
                 "input_read_bases": 3164632934,
@@ -10044,7 +10044,7 @@
                 "part_of": [
                     "nmdc:omprc-11-qsxwf517"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 13.127,
                 "scaffolds": 220853,
                 "scaf_logsum": 448446,
@@ -10122,7 +10122,7 @@
                 "part_of": [
                     "nmdc:omprc-11-qsxwf517"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 34522052,
                 "output_read_count": 33454554,
                 "input_read_bases": 5212829852,
@@ -10354,7 +10354,7 @@
                 "part_of": [
                     "nmdc:omprc-11-932jcd76"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 5.471,
                 "scaffolds": 106645,
                 "scaf_logsum": 42987,
@@ -10429,7 +10429,7 @@
                 "part_of": [
                     "nmdc:omprc-11-932jcd76"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 28754670,
                 "output_read_count": 27981268,
                 "input_read_bases": 4341955170,
@@ -10661,7 +10661,7 @@
                 "part_of": [
                     "nmdc:omprc-11-p0jdew93"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.367,
                 "scaffolds": 191777,
                 "scaf_logsum": 225846,
@@ -10736,7 +10736,7 @@
                 "part_of": [
                     "nmdc:omprc-11-p0jdew93"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 24261468,
                 "output_read_count": 22362924,
                 "input_read_bases": 3663481668,
@@ -10968,7 +10968,7 @@
                 "part_of": [
                     "nmdc:omprc-11-dtsr6z90"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.329,
                 "scaffolds": 208793,
                 "scaf_logsum": 260132,
@@ -11043,7 +11043,7 @@
                 "part_of": [
                     "nmdc:omprc-11-dtsr6z90"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 25305566,
                 "output_read_count": 23508042,
                 "input_read_bases": 3821140466,
@@ -11276,7 +11276,7 @@
                 "part_of": [
                     "nmdc:omprc-11-hwadfm25"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.712,
                 "scaffolds": 46121,
                 "scaf_logsum": 38062,
@@ -11351,7 +11351,7 @@
                 "part_of": [
                     "nmdc:omprc-11-hwadfm25"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 11431762,
                 "output_read_count": 8322164,
                 "input_read_bases": 1726196062,
@@ -11583,7 +11583,7 @@
                 "part_of": [
                     "nmdc:omprc-11-vnnn4722"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.397,
                 "scaffolds": 212379,
                 "scaf_logsum": 318786,
@@ -11658,7 +11658,7 @@
                 "part_of": [
                     "nmdc:omprc-11-vnnn4722"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 23535784,
                 "output_read_count": 20011156,
                 "input_read_bases": 3553903384,
@@ -11890,7 +11890,7 @@
                 "part_of": [
                     "nmdc:omprc-11-p21wp875"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 7.947,
                 "scaffolds": 103181,
                 "scaf_logsum": 50816,
@@ -11965,7 +11965,7 @@
                 "part_of": [
                     "nmdc:omprc-11-p21wp875"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 28024960,
                 "output_read_count": 27378404,
                 "input_read_bases": 4231768960,
@@ -12197,7 +12197,7 @@
                 "part_of": [
                     "nmdc:omprc-11-vs67yj43"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 17.863,
                 "scaffolds": 81627,
                 "scaf_logsum": 20954,
@@ -12275,7 +12275,7 @@
                 "part_of": [
                     "nmdc:omprc-11-vs67yj43"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 27835800,
                 "output_read_count": 25862834,
                 "input_read_bases": 4203205800,
@@ -12507,7 +12507,7 @@
                 "part_of": [
                     "nmdc:omprc-11-nhf5m035"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 4.996,
                 "scaffolds": 147272,
                 "scaf_logsum": 91521,
@@ -12582,7 +12582,7 @@
                 "part_of": [
                     "nmdc:omprc-11-nhf5m035"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 28064750,
                 "output_read_count": 26438892,
                 "input_read_bases": 4237777250,
@@ -12814,7 +12814,7 @@
                 "part_of": [
                     "nmdc:omprc-11-w3v30q48"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 14.664,
                 "scaffolds": 97316,
                 "scaf_logsum": 37899,
@@ -12892,7 +12892,7 @@
                 "part_of": [
                     "nmdc:omprc-11-w3v30q48"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 24906858,
                 "output_read_count": 24128544,
                 "input_read_bases": 3760935558,
@@ -13124,7 +13124,7 @@
                 "part_of": [
                     "nmdc:omprc-11-vykcbs96"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 2.823,
                 "scaffolds": 106821,
                 "scaf_logsum": 65979,
@@ -13199,7 +13199,7 @@
                 "part_of": [
                     "nmdc:omprc-11-vykcbs96"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 24139032,
                 "output_read_count": 23262948,
                 "input_read_bases": 3644993832,
@@ -13431,7 +13431,7 @@
                 "part_of": [
                     "nmdc:omprc-11-dw7shd52"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.279,
                 "scaffolds": 189880,
                 "scaf_logsum": 158661,
@@ -13506,7 +13506,7 @@
                 "part_of": [
                     "nmdc:omprc-11-dw7shd52"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 24889788,
                 "output_read_count": 23803802,
                 "input_read_bases": 3758357988,
@@ -13738,7 +13738,7 @@
                 "part_of": [
                     "nmdc:omprc-11-j43hz774"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.266,
                 "scaffolds": 216046,
                 "scaf_logsum": 294510,
@@ -13813,7 +13813,7 @@
                 "part_of": [
                     "nmdc:omprc-11-j43hz774"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 26604768,
                 "output_read_count": 24717950,
                 "input_read_bases": 4017319968,
@@ -14045,7 +14045,7 @@
                 "part_of": [
                     "nmdc:omprc-11-kgxpef29"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 4.409,
                 "scaffolds": 197600,
                 "scaf_logsum": 130537,
@@ -14123,7 +14123,7 @@
                 "part_of": [
                     "nmdc:omprc-11-kgxpef29"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 30951192,
                 "output_read_count": 30289044,
                 "input_read_bases": 4673629992,
@@ -14355,7 +14355,7 @@
                 "part_of": [
                     "nmdc:omprc-11-qrsway30"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 2.914,
                 "scaffolds": 169419,
                 "scaf_logsum": 99077,
@@ -14430,7 +14430,7 @@
                 "part_of": [
                     "nmdc:omprc-11-qrsway30"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 27317020,
                 "output_read_count": 26481746,
                 "input_read_bases": 4124870020,
@@ -14662,7 +14662,7 @@
                 "part_of": [
                     "nmdc:omprc-11-nry91b19"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 4.164,
                 "scaffolds": 180310,
                 "scaf_logsum": 193641,
@@ -14737,7 +14737,7 @@
                 "part_of": [
                     "nmdc:omprc-11-nry91b19"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 23728904,
                 "output_read_count": 22416634,
                 "input_read_bases": 3583064504,
@@ -14969,7 +14969,7 @@
                 "part_of": [
                     "nmdc:omprc-11-0n8y1d07"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 3.393,
                 "scaffolds": 182865,
                 "scaf_logsum": 171254,
@@ -15044,7 +15044,7 @@
                 "part_of": [
                     "nmdc:omprc-11-0n8y1d07"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 23985924,
                 "output_read_count": 22751496,
                 "input_read_bases": 3621874524,
@@ -15276,7 +15276,7 @@
                 "part_of": [
                     "nmdc:omprc-11-p1735e67"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "asm_score": 13.921,
                 "scaffolds": 48925,
                 "scaf_logsum": 9156.336,
@@ -15354,7 +15354,7 @@
                 "part_of": [
                     "nmdc:omprc-11-p1735e67"
                 ],
-                "version": "v1.0.2",
+                "version": "1.0.2",
                 "input_read_count": 20780788,
                 "output_read_count": 19516330,
                 "input_read_bases": 3137898988,
