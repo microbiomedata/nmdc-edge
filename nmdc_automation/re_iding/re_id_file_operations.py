@@ -1,4 +1,4 @@
-import subprocess
+import shutil
 import gzip
 import os
 import json
@@ -41,7 +41,19 @@ def read_json_file(filename):
         data = json.load(json_file)
     return data
 
+def delete_directory(path):
+    """Deletes the directory at the specified path along with all its contents.
 
+    Args:
+    path (str): Full path of the directory to be deleted.
+    """
+    if os.path.exists(path) and os.path.isdir(path):
+        shutil.rmtree(path)
+        print(f"Directory '{path}' has been deleted.")
+    else:
+        print(f"Directory '{path}' does not exist or is not a directory.")
+        
+        
 def rewrite_id(src, dst, old_id, new_id, prefix=None):
     """
     Rewrite lines in a file, replacing occurrences of an old ID with a new ID.
