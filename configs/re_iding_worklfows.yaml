@@ -3,7 +3,7 @@ Workflows:
     Type: nmdc:ReadQcAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: v1.0.8
+    Version: v1.0.2
     WDL: rqcfilter.wdl
     Collection: read_qc_analysis_activity_set
     ActivityRange: ReadQcAnalysisActivity
@@ -44,7 +44,7 @@ Workflows:
     Type: nmdc:MetagenomeAssembly
     Enabled: True
     Git_repo: https://github.com/microbiomedata/metaAssembly
-    Version: v1.0.3
+    Version: v1.0.2
     WDL: jgi_assembly.wdl
     Collection: metagenome_assembly_set
     ActivityRange: MetagenomeAssembly
@@ -120,7 +120,7 @@ Workflows:
     Type: nmdc:ReadBasedTaxonomyAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadbasedAnalysis
-    Version: v1.0.5
+    Version: v1.0.2
     WDL: ReadbasedAnalysis.wdl
     Collection: read_based_taxonomy_analysis_activity_set
     ActivityRange: ReadBasedTaxonomyAnalysisActivity
