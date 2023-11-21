@@ -180,7 +180,6 @@ def process_records(ctx, dryrun, study_id, data_dir):
     config = ctx.obj['site_config']
     api_client = NmdcRuntimeApi(config)
 
-
     # Get Database dump file paths and the data directory
     db_infile, db_outfile = _get_database_paths(study_id, dryrun)
     data_dir = _get_data_dir(data_dir, dryrun)
@@ -233,14 +232,17 @@ def ingest_records(ctx, reid_records_file):
     start_time = time.time()
     logging.info(f"Submitting re id'd records from : {reid_records_file}")
 
-    config = Config(ctx.obj['site_config'])
-    api_client = NmdcRuntimeUserApi(username=config.napa_username, password=config.napa_password,
-        base_url=config.napa_base_url)
+    # Get API client
+    config = ctx.obj['site_config']
+    api_client = NmdcRuntimeApi(config)
     
     with open(reid_records_file, "r") as f:
         db_records = json.load(f)
         
     for record in db_records:
+        time.sleep(3)
+        if 'omics_processing_set' in record:
+            del record['omics_processing_set']
         resp = api_client.post_objects(record)
     
         logger.info(f"{record} posted, got response: {resp}")
