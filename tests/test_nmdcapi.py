@@ -58,7 +58,7 @@ def test_list_funcs(mock_api, requests_mock):
 
     # TODO: ccheck the full url
     requests_mock.get("http://localhost/jobs", json=mock_resp)
-    resp = n.list_jobs(filt="a=b", max=10)
+    resp = n.list_jobs(filt="a=b", max_page_size=10)
     assert resp is not None
 
     requests_mock.get("http://localhost/operations", json=[])

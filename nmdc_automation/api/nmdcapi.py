@@ -12,7 +12,6 @@ import logging
 from functools import wraps
 
 
-
 def _get_sha256(fn):
     """
     Compute the sha256 hash of a file and cache it.
@@ -176,7 +175,8 @@ class NmdcRuntimeApi:
         Post output objects from a workflow execution.
         """
         url = self._base_url + "v1/workflows/activities"
-        resp = requests.post(url, headers=self.header, data=json.dumps(obj_data))
+        resp = requests.post(url, headers=self.header,
+                             data=json.dumps(obj_data))
         return resp.json()
 
     @refresh_token
@@ -300,7 +300,8 @@ class NmdcRuntimeApi:
         orig_url = url
         results = []
         while True:
-            resp = requests.get(url, data=json.dumps(d), headers=self.header).json()
+            resp = requests.get(url, data=json.dumps(d),
+                                headers=self.header).json()
             if "resources" not in resp:
                 logging.warning(str(resp))
                 break
