@@ -320,10 +320,13 @@ class NmdcRuntimeUserApi:
     """
     Basic Runtime API Client with user/password authentication.
     """
-    def __init__(self, username: str, password: str, base_url: str):
-        self.username = username
-        self.password = password
-        self.base_url = base_url
+    def __init__(self, site_configuration):
+        self.config = Config(site_configuration)
+
+        # TODO: remove hard-coded values here
+        self.username = self.config.napa_username
+        self.password = self.config.napa_password
+        self.base_url = self.config.napa_base_url
         self.headers = {}
         self.token_response = None
         self.refresh_token_after = None

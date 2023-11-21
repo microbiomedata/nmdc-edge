@@ -16,6 +16,7 @@ from nmdc_automation.api import NmdcRuntimeApi, NmdcRuntimeUserApi
 from nmdc_automation.config import Config
 import nmdc_schema.nmdc as nmdc
 from nmdc_automation.re_iding.base import ReIdTool
+from nmdc_automation.re_iding.changesheets import Changesheet, ChangesheetLineItem
 from nmdc_automation.re_iding.db_utils import get_omics_processing_id
 
 # Defaults
@@ -69,9 +70,8 @@ def extract_records(ctx, study_id):
     logging.info(f"Extracting workflow records for study_id: {study_id}")
     logging.info(f"study_id: {study_id}")
 
-    config = Config(ctx.obj['site_config'])
-    api_client = NmdcRuntimeUserApi(username=config.napa_username, password=config.napa_password,
-        base_url=config.napa_base_url)
+    config = ctx.obj['site_config']
+    api_client = NmdcRuntimeUserApi(config)
 
     # 1. Retrieve all OmicsProcessing records for the updated NMDC study ID
     omics_processing_records = api_client.get_omics_processing_records_for_nmdc_study(
@@ -224,28 +224,76 @@ def process_records(ctx, dryrun, study_id, data_dir):
 
 @cli.command()
 @click.argument('reid_records_file', type=click.Path(exists=True))
+@click.option('--changesheet_only', is_flag=True, default=False,)
 @click.pass_context
-def ingest_records(ctx, reid_records_file):
+def ingest_records(ctx, reid_records_file, changesheet_only):
     """
-    Read in json dump of re_id'd records and submit them to the /v1/workflows/activities endpoint
+    Read in json dump of re_id'd records and:
+    submit them to the
+    /v1/workflows/activities endpoint
     """
     start_time = time.time()
     logging.info(f"Submitting re id'd records from : {reid_records_file}")
+    reid_records_filename = Path(reid_records_file).name
+    reid_base_name = reid_records_filename.split("_")[0]
 
-    # Get API client
+    # Get API client(s)
     config = ctx.obj['site_config']
     api_client = NmdcRuntimeApi(config)
+    api_user_client = NmdcRuntimeUserApi(config)
     
     with open(reid_records_file, "r") as f:
         db_records = json.load(f)
-        
+
+    changesheet = Changesheet(name=f"{reid_base_name}_changesheet")
     for record in db_records:
         time.sleep(3)
-        if 'omics_processing_set' in record:
-            del record['omics_processing_set']
-        resp = api_client.post_objects(record)
-    
-        logger.info(f"{record} posted, got response: {resp}")
+        # remove the omics_processing_set and use it to generate
+        # changes to omics_processing has_output
+        omics_processing_set = record.pop("omics_processing_set")
+        for omics_processing_record in omics_processing_set:
+            omics_processing_id = omics_processing_record["id"]
+            logging.info(f"omics_processing_id: {omics_processing_id}")
+            # find legacy has_output and create change to remove it
+            # need to strip the nmdc: prefix for the objects endpoint
+            trimmed_omics_processing_id = omics_processing_id.split(":")[1]
+            resp = api_user_client.request(
+                "GET", f"objects/{trimmed_omics_processing_id}"
+            )
+            legacy_omics_processing_record = resp.json()
+            # delete legacy has_output
+            change = ChangesheetLineItem(
+                id=omics_processing_id, action="remove item",
+                attribute="has_output",
+                value="|".join(legacy_omics_processing_record["has_output"]) + "|", )
+            changesheet.line_items.append(change)
+            logging.info(f"changes: {change}")
+
+
+
+            # insert new has_output
+            change = ChangesheetLineItem(
+                id=omics_processing_id, action="insert",
+                attribute="has_output",
+                value="|".join(omics_processing_record["has_output"]) + "|", )
+            changesheet.line_items.append(change)
+            logging.info(f"changes: {change}")
+
+        # submit the record to the workflows endpoint
+        if not changesheet_only:
+            resp = api_client.post_objects(record)
+            logger.info(f"{record} posted, got response: {resp}")
+        else:
+            logger.info(f"changesheet_only is True, skipping ingest")
+
+    changesheet.write_changesheet()
+    logging.info(f"changesheet written to {changesheet.output_filepath}")
+    if changesheet.validate_changesheet(api_client.config.napa_base_url):
+        logging.info(f"changesheet validated")
+    else:
+        logging.info(f"changesheet validation failed")
+
+
 
 def _get_data_dir(data_dir, dryrun):
     """
