@@ -7,7 +7,7 @@
       "nmdc:mga0vx38"
     ],
     "git_url": "https://github.com/microbiomedata/ReadsQC",
-    "version": "b1.0.7",
+    "version": "v1.0.7",
     "has_output": [
       "nmdc:f107af0a000ec0b90e157fc09473c337",
       "nmdc:71528f677698dd6657ea7ddcc3105184"
