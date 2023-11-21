@@ -102,20 +102,6 @@ class NmdcRuntimeApi:
         return id
 
     @refresh_token
-    def mint(self, ns, typ, ct):
-        """
-        Mint a new ID.
-        Inputs: token (obtained using get_token)
-                namespace (e.g. nmdc)
-                type/shoulder (e.g. mga0, mta0)
-                count/number of IDs to generate
-        """
-        url = self._base_url + "ids/mint"
-        d = {"populator": "", "naa": ns, "shoulder": typ, "number": ct}
-        resp = requests.post(url, headers=self.header, data=json.dumps(d))
-        return resp.json()
-
-    @refresh_token
     def get_object(self, obj, decode=False):
         """
         Helper function to get object info
@@ -303,11 +289,3 @@ class NmdcRuntimeApi:
             d["metadata"]["extra"] = meta
         resp = requests.patch(url, headers=self.header, data=json.dumps(d))
         return resp.json()
-
-
-def jprint(obj):
-    print(json.dumps(obj, indent=2))
-
-
-def usage():
-    print("usage: ....")

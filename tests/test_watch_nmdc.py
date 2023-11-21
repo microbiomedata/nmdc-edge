@@ -1,4 +1,4 @@
-from nmdc_automation.workflow_automation.watch_nmdc_dev import Watcher
+from nmdc_automation.workflow_automation.watch_nmdc import Watcher
 import os
 import json
 import shutil
@@ -10,8 +10,8 @@ from common import mock_api     # noqa: F401
 @fixture
 def site_conf():
     tdir = os.path.dirname(__file__)
-    return os.path.join(tdir, "..", "configs",
-                        "site_configuration.toml")
+    return os.path.join(tdir, "..", "tests",
+                        "site_configuration_test.toml")
 
 
 @fixture(autouse=True)
