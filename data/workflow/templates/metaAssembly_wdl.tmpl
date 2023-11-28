@@ -7,9 +7,17 @@
     String <WORKFLOW>_memory="100g"
     String <WORKFLOW>_threads="4"
 
+    call <WORKFLOW>_preprocess.preprocess as preprocess {
+        input:
+            input_files=<WORKFLOW>_input_files,
+		    outdir=<WORKFLOW>_outdir,
+            input_interleaved=<WORKFLOW>_input_interleaved,
+            input_fq1=<WORKFLOW>_input_fq1,
+            input_fq2=<WORKFLOW>_input_fq2
+    }
     call <WORKFLOW>.jgi_metaASM as <ALIAS> {
         input: 
-		input_file=<WORKFLOW>_input_file, 
+		input_file=preprocess.input_files_gz,
 		outdir=<WORKFLOW>_outdir, 
 		rename_contig_prefix=<WORKFLOW>_rename_contig_prefix, 
 		uniquekmer=<WORKFLOW>_uniquekmer, 
