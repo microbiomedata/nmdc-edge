@@ -25,8 +25,9 @@ class MyTestCase(unittest.TestCase):
         mdb.samples.drop()
         mdb.globus.drop()
 
-    @patch("file_restoration.update_file_statuses")
-    @patch("jgi_file_metadata.requests.post")
+    @patch("nmdc_automation.jgi_file_staging.file_restoration"
+           ".update_file_statuses")
+    @patch("nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.post")
     @mongomock.patch(servers=(("localhost", 27017),))
     def test_restore_files(self, mock_post, mock_update):
         mock_post.return_value.status_code = 200

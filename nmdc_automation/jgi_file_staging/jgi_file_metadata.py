@@ -8,12 +8,11 @@ import os
 import logging
 import time
 import argparse
-from itertools import chain
-
-from mongo import get_mongo_db
-from models import Sample
 from typing import List
 from pydantic import ValidationError
+
+from nmdc_automation.jgi_file_staging.mongo import get_mongo_db
+from nmdc_automation.jgi_file_staging.models import Sample
 
 logging.basicConfig(
     filename="file_staging.log",
