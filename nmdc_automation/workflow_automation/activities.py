@@ -1,8 +1,9 @@
 import logging
+from typing import List
 from .workflows import Workflow
 
 
-def _load_data_objects(db, workflows: list[Workflow]):
+def _load_data_objects(db, workflows: List[Workflow]):
     """
     Read all of the data objects and generate
     a map by ID
@@ -22,16 +23,34 @@ def _load_data_objects(db, workflows: list[Workflow]):
     return data_objs_by_id
 
 
-def _read_acitivites(db, workflows: list[Workflow], filter: dict):
+def _check(match_types, data_object_ids, data_objs):
+    if not match_types or len(match_types) == 0:
+        return True
+    match_set = set(match_types)
+    do_types = set()
+    for doid in data_object_ids:
+        do_types.add(data_objs[doid].data_object_type)
+    return match_set.issubset(do_types)
+
+
+def _filter_skip(wf, rec, data_objs):
+    match_in = _check(wf.filter_input_objects, rec["has_input"], data_objs)
+    match_out = _check(wf.filter_output_objects, rec["has_output"], data_objs)
+    return not (match_in and match_out)
+
+
+def _read_acitivites(db, workflows: List[Workflow], data_objects: dict, filter: dict):
     """
     Read in all the activities for the defined workflows.
     """
     activities = []
     for wf in workflows:
         q = filter
-        q['git_url'] = wf.git_repo
-        q['version'] = wf.version
+        q["git_url"] = wf.git_repo
+        q["version"] = wf.version
         for rec in db[wf.collection].find(q):
+            if _filter_skip(wf, rec, data_objects):
+                continue
             act = Activity(rec, wf)
             activities.append(act)
     return activities
@@ -47,8 +66,10 @@ def _resolve_relationships(activities, data_obj_act):
     # Let's use this to find the parent activity
     # for each child activity
     for act in activities:
+        logging.debug(f"Processing {act.id} {act.name} {act.workflow.name}")
         act_pred_wfs = act.workflow.parents
         if not act_pred_wfs:
+            logging.debug("- No Predecessors")
             continue
         # Go through its inputs
         for do_id in act.has_input:
@@ -65,8 +86,10 @@ def _resolve_relationships(activities, data_obj_act):
             # Let's make sure these came from the same source
             # This is just a safeguard
             if act.was_informed_by != parent_act.was_informed_by:
-                logging.warning("Mismatched informed by found for"
-                                f"{do_id} in {act.id} ({act.name})")
+                logging.warning(
+                    "Mismatched informed by found for"
+                    f"{do_id} in {act.id} ({act.name})"
+                )
                 continue
             # We only want to use it as a parent if it is the right
             # parent workflow. Some inputs may come from ancestors
@@ -75,10 +98,13 @@ def _resolve_relationships(activities, data_obj_act):
                 # This is the one
                 act.parent = parent_act
                 parent_act.children.append(act)
+                logging.debug(f"Found parent: {parent_act.id} {parent_act.name}")
                 break
         if len(act.workflow.parents) > 0 and not act.parent:
-            logging.warning("Didn't find a parent for "
-                            f"{act.id} ({act.name}) {act.workflow.name}")
+            logging.warning(
+                "Didn't find a parent for "
+                f"{act.id} ({act.name}) - {act.workflow.name}"
+            )
     # Now all the activities have their parent
     return activities
 
@@ -127,9 +153,8 @@ def load_activities(db, workflows: list[Workflow], filter: dict = {}):
 
     # Build up a set of relevant activities and a map from
     # the output objects to the activity that generated them.
-    activities = _read_acitivites(db, workflows, filter)
-    data_obj_act = _find_data_object_activities(activities,
-                                                data_objs_by_id)
+    activities = _read_acitivites(db, workflows, data_objs_by_id, filter)
+    data_obj_act = _find_data_object_activities(activities, data_objs_by_id)
 
     # Now populate the parent and children values for the
     # activities
@@ -141,6 +166,7 @@ class DataObject(object):
     """
     Data Object Class
     """
+
     _FIELDS = [
         "id",
         "name",
@@ -148,7 +174,7 @@ class DataObject(object):
         "url",
         "md5_checksum",
         "file_size_bytes",
-        "data_object_type"
+        "data_object_type",
     ]
 
     def __init__(self, rec: dict):
@@ -160,6 +186,7 @@ class Activity(object):
     """
     Activity Object Class
     """
+
     _FIELDS = [
         "id",
         "name",
@@ -168,6 +195,7 @@ class Activity(object):
         "has_input",
         "has_output",
         "was_informed_by",
+        "type",
     ]
 
     def __init__(self, activity_rec: dict, wf: Workflow):
@@ -176,7 +204,9 @@ class Activity(object):
         self.data_objects_by_type = dict()
         self.workflow = wf
         for f in self._FIELDS:
-            setattr(self, f, activity_rec[f])
+            setattr(self, f, activity_rec.get(f))
+        if self.type == "nmdc:OmicsProcessing":
+            self.was_informed_by = self.id
 
     def add_data_object(self, do: DataObject):
         self.data_objects_by_type[do.data_object_type] = do

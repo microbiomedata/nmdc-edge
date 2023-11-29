@@ -5,3 +5,4 @@ test_data/afile.sha256
 htmlcov/
 .coverage
 attic
+.idea/

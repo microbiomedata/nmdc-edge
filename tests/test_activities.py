@@ -1,9 +1,9 @@
 from pymongo import MongoClient
 import json
 import os
-from src.activities import load_activities
+from nmdc_automation.workflow_automation.activities import load_activities
 from pytest import fixture
-from src.workflows import load_workflows
+from nmdc_automation.workflow_automation.workflows import load_workflows
 
 
 test_dir = os.path.dirname(__file__)
@@ -20,7 +20,8 @@ cols = [
 
 @fixture
 def db():
-    return MongoClient("mongodb://admin:root@127.0.0.1:27018").test
+    conn_str = os.environ.get("MONGO_URL","mongodb://localhost:27017")
+    return MongoClient(conn_str).test
 
 
 def read_json(fn):
@@ -28,7 +29,7 @@ def read_json(fn):
     if os.path.exists(fp):
         return json.load(open(fp))
     else:
-        print(f"Missing {fn}")
+        print(f"\nWarning: Missing {fn}")
         return None
 
 
@@ -40,7 +41,6 @@ def load(db, fn, col=None, reset=False):
     data = read_json(fn)
     if not data:
         return
-    print("Loading %d recs into %s" % (len(data), col))
     if len(data) > 0:
         db[col].insert_many(data)
 
@@ -52,7 +52,7 @@ def reset_db(db):
             db[c].delete_many({})
 
 
-def mock_progress(db, wf):
+def fix_versions(db, wf):
     s = wf.collection
     resp = read_json("%s.json" % (s))
     if not resp:
@@ -71,14 +71,14 @@ def test_activies(db):
     """
     # init_test(db)
     reset_db(db)
-    wfs = load_workflows("workflows.yaml")
+    wfs = load_workflows("./tests/workflows_test.yaml")
     load(db, "data_object_set.json", reset=True)
     for wf in wfs:
-        mock_progress(db, wf)
+        if wf.name in ["Sequencing", "ReadsQC Interleave"]:
+            continue
+        fix_versions(db, wf)
     acts = load_activities(db, wfs)
     assert acts is not None
     assert len(acts) == 5
-    acts_by_wf = dict()
-    for act in acts:
-        acts_by_wf[act.workflow] = act
-        print(act.__dict__)
+    assert len(acts[0].children) == 1
+    assert acts[0].children[0] == acts[1]

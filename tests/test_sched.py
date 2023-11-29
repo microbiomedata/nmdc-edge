@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import json
 import os
-from src.sched import Scheduler
+from nmdc_automation.workflow_automation.sched import Scheduler
 from pytest import fixture
 from time import time
 
@@ -13,7 +13,7 @@ trigger_id = 'nmdc:55a79b5dd58771e28686665e3c3faa0c'
 trigger_doid = 'nmdc:1d87115c442a1f83190ae47c7fe4011f'
 cols = [
     'data_object_set',
-    'metagenome_sequencing_activity_set',
+    "omics_processing_set",
     'mags_activity_set',
     'metagenome_assembly_set',
     'jobs',
@@ -24,7 +24,8 @@ cols = [
 
 @fixture
 def db():
-    return MongoClient("mongodb://admin:root@127.0.0.1:27018").test
+    conn_str = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
+    return MongoClient(conn_str).test
 
 
 @fixture
@@ -87,9 +88,10 @@ def test_submit(db, mock_api):
     init_test(db)
     reset_db(db)
     load(db, "data_object_set.json")
-    load(db, "metagenome_sequencing_activity_set.json")
+    load(db, "omics_processing_set.json")
 
-    jm = Scheduler(db)
+    jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
+                   site_conf="./tests/site_configuration_test.toml")
 
     # This should result in one RQC job
     resp = jm.cycle()
@@ -106,8 +108,9 @@ def test_progress(db, mock_api):
     reset_db(db)
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
-    load(db, "metagenome_sequencing_activity_set.json")
-    jm = Scheduler(db)
+    load(db, "omics_processing_set.json")
+    jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
+                   site_conf="./tests/site_configuration_test.toml")
     workflow_by_name = dict()
     for wf in jm.workflows:
         workflow_by_name[wf.name] = wf
@@ -150,8 +153,9 @@ def test_multiple_versions(db, mock_api):
     reset_db(db)
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
-    load(db, "metagenome_sequencing_activity_set.json")
-    jm = Scheduler(db, wfn="workflows2.yaml")
+    load(db, "omics_processing_set.json")
+    jm = Scheduler(db, wfn="./tests/workflows_test2.yaml",
+                   site_conf="./tests/site_configuration_test.toml")
     workflow_by_name = dict()
     for wf in jm.workflows:
         workflow_by_name[wf.name] = wf

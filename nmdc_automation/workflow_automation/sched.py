@@ -4,12 +4,12 @@ from datetime import datetime
 import uuid
 import os
 from time import sleep as _sleep
-from .nmdcapi import nmdcapi
-from .workflows import load_workflows, Workflow
+from nmdc_automation.api.nmdcapi import NmdcRuntimeApi
+from nmdc_automation.workflow_automation.workflows import load_workflows, Workflow
 from functools import lru_cache
 from pymongo import MongoClient
 from pymongo.database import Database as MongoDatabase
-from .activities import load_activities, Activity
+from nmdc_automation.workflow_automation.activities import load_activities, Activity
 from semver.version import Version
 
 
@@ -35,6 +35,7 @@ def within_range(wf1: Workflow, wf2: Workflow) -> bool:
     Determine if two workflows are within a major and minor
     version of each other.
     """
+
     def get_version(wf):
         v_string = wf1.version.lstrip("b").lstrip("v")
         return Version.parse(v_string)
@@ -55,34 +56,36 @@ is to migrate this fucntion into Dagster.
 """
 
 
-class Job():
+class Job:
     """
     Class to hold information for new jobs
     """
 
-    def __init__(self, workflow: Workflow,
-                 trigger_act: str):
+    def __init__(self, workflow: Workflow, trigger_act: str):
         self.workflow = workflow
         self.trigger_act = trigger_act
         self.informed_by = trigger_act.was_informed_by
         self.trigger_id = trigger_act.id
 
 
-class Scheduler():
+class Scheduler:
     # TODO: Get this from the config
-    _sets = ['metagenome_annotation_activity_set',
-             'metagenome_assembly_set',
-             'read_qc_analysis_activity_set',
-             'mags_activity_set',
-             'read_based_analysis_activity_set']
+    _sets = [
+        "metagenome_annotation_activity_set",
+        "metagenome_assembly_set",
+        "read_qc_analysis_activity_set",
+        "mags_activity_set",
+        "read_based_analysis_activity_set",
+    ]
 
-    def __init__(self, db, wfn="workflows.yaml"):
+    def __init__(self, db, wfn="workflows.yaml",
+                 site_conf="site_configuration.toml"):
         logging.info("Initializing Scheduler")
         # Init
         wf_file = os.environ.get(_WF_YAML_ENV, wfn)
         self.workflows = load_workflows(wf_file)
         self.db = db
-        self.api = nmdcapi()
+        self.api = NmdcRuntimeApi(site_conf)
 
     async def run(self):
         logging.info("Starting Scheduler")
@@ -111,7 +114,7 @@ class Scheduler():
         inp_objects = []
         inp = dict()
         for k, v in job.workflow.inputs.items():
-            if v.startswith('do:'):
+            if v.startswith("do:"):
                 do_type = v[3:]
                 dobj = do_by_type.get(do_type)
                 if not dobj:
@@ -128,37 +131,34 @@ class Scheduler():
 
         # Build the respoonse
         job_config = {
-                "git_repo": wf.git_repo,
-                "release": wf.version,
-                "wdl": wf.wdl,
-                "activity_id": activity_id,
-                "activity_set": wf.collection,
-                "was_informed_by": job.informed_by,
-                "trigger_activity": job.trigger_id,
-                "iteration": iteration,
-                "input_prefix": wf.input_prefix,
-                "inputs": inp,
-                "input_data_objects": inp_objects
-                }
+            "git_repo": wf.git_repo,
+            "release": wf.version,
+            "wdl": wf.wdl,
+            "activity_id": activity_id,
+            "activity_set": wf.collection,
+            "was_informed_by": job.informed_by,
+            "trigger_activity": job.trigger_id,
+            "iteration": iteration,
+            "input_prefix": wf.input_prefix,
+            "inputs": inp,
+            "input_data_objects": inp_objects,
+        }
         if wf.activity:
             job_config["activity"] = wf.activity
         if wf.outputs:
             outputs = []
             for output in wf.outputs:
                 # Mint an ID
-                output["id"] = self.api.minter("nmdc:DataObject",
-                                               job.informed_by)
+                output["id"] = self.api.minter("nmdc:DataObject", job.informed_by)
                 outputs.append(output)
             job_config["outputs"] = outputs
 
         jr = {
-            "workflow": {
-                "id": f"{wf.name}: {wf.version}"
-            },
+            "workflow": {"id": f"{wf.name}: {wf.version}"},
             "id": self.generate_job_id(),
             "created_at": datetime.today().replace(microsecond=0),
             "config": job_config,
-            "claims": []
+            "claims": [],
         }
         self.db.jobs.insert_one(jr, bypass_document_validation=True)
         logging.info(f'JOB RECORD: {jr["id"]}')
@@ -185,7 +185,7 @@ class Scheduler():
             "nmdc:MetagenomeAssembly": "mgasm",
             "nmdc:MetagenomeAnnotationActivity": "mgann",
             "nmdc:MAGsAnalysisActivity": "mgmag",
-            "nmdc:ReadBasedTaxonomyAnalysisActivity": "mgrbt"
+            "nmdc:ReadBasedTaxonomyAnalysisActivity": "mgrbt",
         }
         return f"nmdc:wf{mapping[id_type]}-11-xxxxxx"
 
@@ -200,7 +200,7 @@ class Scheduler():
         q = {"was_informed_by": informed_by}
         for doc in self.db[wf.collection].find(q):
             ct += 1
-            last_id = doc['id']
+            last_id = doc["id"]
 
         if ct == 0:
             # Get an ID
@@ -210,18 +210,17 @@ class Scheduler():
                 root_id = self.api.minter(wf.type, informed_by)
             return root_id, 1
         else:
-            root_id = '.'.join(last_id.split('.')[0:-1])
-            return root_id, ct+1
+            root_id = ".".join(last_id.split(".")[0:-1])
+            return root_id, ct + 1
 
     @lru_cache(maxsize=128)
     def get_existing_jobs(self, wf: Workflow):
         existing_jobs = set()
         # Filter by git_repo and version
         # Find all existing jobs for this workflow
-        q = {'config.git_repo': wf.git_repo,
-             'config.release': wf.version}
+        q = {"config.git_repo": wf.git_repo, "config.release": wf.version}
         for j in self.db.jobs.find(q):
-            act = j['config']['trigger_activity']
+            act = j["config"]["trigger_activity"]
             existing_jobs.add(act)
         return existing_jobs
 
@@ -278,7 +277,8 @@ def main():
     """
     Main function
     """
-    sched = Scheduler(get_mongo_db())
+    site_conf = os.environ("NMDC_SITE_CONF", "site_configuration.toml")
+    sched = Scheduler(get_mongo_db(), site_conf=site_conf)
     while True:
         sched.cycle()
         _sleep(_POLL_INTERVAL)

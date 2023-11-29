@@ -1,4 +1,4 @@
-from src.nmdcapi import nmdcapi, jprint
+from nmdc_automation.api.nmdcapi import NmdcRuntimeApi as nmdcapi
 import pytest
 import json
 import os
@@ -17,11 +17,7 @@ def mock_api(monkeypatch, requests_mock):
 
 
 def test_basics(mock_api, requests_mock):
-    n = nmdcapi()
-
-    requests_mock.post("http://localhost/ids/mint", json={})
-    resp = n.mint("nmdc", "mga0", 1)
-    assert resp is not None
+    n = nmdcapi("./tests/site_configuration_test.toml")
 
     # Add decode description
     resp = {'description': '{"a": "b"}'}
@@ -32,7 +28,7 @@ def test_basics(mock_api, requests_mock):
 
 
 def test_objects(mock_api, requests_mock):
-    n = nmdcapi()
+    n = nmdcapi("./tests/site_configuration_test.toml")
 
     requests_mock.post("http://localhost/objects", json={})
     fn = "./test_data/afile.sha256"
@@ -57,12 +53,12 @@ def test_objects(mock_api, requests_mock):
 
 
 def test_list_funcs(mock_api, requests_mock):
-    n = nmdcapi()
+    n = nmdcapi("./tests/site_configuration_test.toml")
     mock_resp = json.load(open("./test_data/mock_jobs.json"))
 
     # TODO: ccheck the full url
     requests_mock.get("http://localhost/jobs", json=mock_resp)
-    resp = n.list_jobs(filt="a=b", max=10)
+    resp = n.list_jobs(filt="a=b", max_page_size=10)
     assert resp is not None
 
     requests_mock.get("http://localhost/operations", json=[])
@@ -75,7 +71,7 @@ def test_list_funcs(mock_api, requests_mock):
 
 
 def test_update_op(mock_api, requests_mock):
-    n = nmdcapi()
+    n = nmdcapi("./tests/site_configuration_test.toml")
 
     mock_resp = {'metadata': {"b": "c"}}
 
@@ -89,7 +85,7 @@ def test_update_op(mock_api, requests_mock):
 
 
 def test_jobs(mock_api, requests_mock):
-    n = nmdcapi()
+    n = nmdcapi("./tests/site_configuration_test.toml")
 
     requests_mock.get("http://localhost/jobs/abc", json="jobs/")
     resp = n.get_job("abc")
@@ -105,7 +101,3 @@ def test_jobs(mock_api, requests_mock):
     requests_mock.post(url, json={}, status_code=409)
     resp = n.claim_job("abc")
     assert resp["claimed"] is True
-
-
-def test_jprint():
-    jprint({"a": "b"})

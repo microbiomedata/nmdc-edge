@@ -1,25 +1,34 @@
 Workflows:
+  - Name: Sequencing Noninterleaved
+    Collection: omics_processing_set
+    Filter Output Objects:
+    - Metagenome Raw Read 1
+    - Metagenome Raw Read 2
+
+  - Name: Sequencing Interleaved
+    Collection: omics_processing_set
+    Filter Output Objects:
+    - Metagenome Raw Reads
+
   - Name: Sequencing
     Type: nmdc:MetagenomeSequencing
     Enabled: False
     Git_repo: https://github.com/microbiomedata/RawSequencingData
     Version: v1.0.0
     Collection: metagenome_sequencing_activity_set
-    Predecessor: null
-    Input_prefix: null
-    Inputs: {}
-    WDL: null
-    Activity: null
-    Outputs: []
 
   - Name: Reads QC
     Type: nmdc:ReadQcAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: b1.0.7
+    Version: v1.0.7
     WDL: rqcfilter.wdl
     Collection: read_qc_analysis_activity_set
-    Predecessor: Sequencing
+    Filter Input Objects:
+    - Metagenome Raw Reads
+    Predecessors:
+    - Sequencing
+    - Sequencing Interleaved
     Input_prefix: nmdc_rqcfilter
     Inputs:
       input_files: do:Metagenome Raw Reads
@@ -43,14 +52,93 @@ Workflows:
         data_object_type: QC Statistics
         description: "Reads QC summary for {id}"
 
+  - Name: Reads QC
+    Type: nmdc:ReadQcAnalysisActivity
+    Enabled: True
+    Git_repo: https://github.com/microbiomedata/ReadsQC
+    Version: v1.1.8
+    WDL: rqcfilter.wdl
+    Collection: read_qc_analysis_activity_set
+    Filter Input Objects:
+    - Metagenome Raw Reads
+    Predecessors:
+    - Sequencing
+    - Sequencing Interleaved
+    Input_prefix: nmdc_rqcfilter
+    Inputs:
+      input_files: do:Metagenome Raw Reads
+      proj: "{activity_id}"
+    Activity:
+      name: "Read QC Activity for {id}"
+      input_read_bases: "{outputs.stats.input_read_bases}"
+      input_read_count: "{outputs.stats.input_read_count}"
+      output_read_bases: "{outputs.stats.output_read_bases}"
+      output_read_count: "{outputs.stats.output_read_count}"
+      type: nmdc:ReadQcAnalysisActivity
+    Outputs:
+      - output: filtered_final
+        name: Reads QC result fastq (clean data)
+        suffix: "_filtered.fastq.gz"
+        data_object_type: Filtered Sequencing Reads
+        description: "Reads QC for {id}"
+      - output: filtered_stats_final
+        name: Reads QC summary statistics
+        suffix: "_filterStats.txt"
+        data_object_type: QC Statistics
+        description: "Reads QC summary for {id}"
+
+  - Name: ReadsQC Interleave
+    Type: nmdc:ReadQcAnalysisActivity
+    Enabled: True
+    Git_repo: https://github.com/microbiomedata/ReadsQC
+    Version: v1.0.7
+    Collection: read_qc_analysis_activity_set
+    WDL: make_interleave_reads.wdl
+    Input_prefix: make_interleaved_reads
+    Inputs:
+      proj: "{activity_id}"
+      input_file_1: do:Metagenome Raw Read 1
+      input_file_2: do:Metagenome Raw Read 2
+    Filter Input Objects:
+    - Metagenome Raw Read 1
+    - Metagenome Raw Read 2
+    Predecessors:
+    - Sequencing Noninterleaved
+    Input_prefix: nmdc_rqcfilter
+    Activity:
+      name: "Read QC Activity for {id}"
+      input_read_bases: "{outputs.stats.input_read_bases}"
+      input_read_count: "{outputs.stats.input_read_count}"
+      output_read_bases: "{outputs.stats.output_read_bases}"
+      output_read_count: "{outputs.stats.output_read_count}"
+      type: nmdc:ReadQcAnalysisActivity
+    Outputs:
+      - output: filtered_final
+        name: Reads QC result fastq (clean data)
+        suffix: "_filtered.fastq.gz"
+        data_object_type: Filtered Sequencing Reads
+        description: "Reads QC for {id}"
+      - output: filtered_stats_final
+        name: Reads QC summary statistics
+        suffix: "_filterStats.txt"
+        data_object_type: QC Statistics
+        description: "Reads QC summary for {id}"
+      - output: rqc_info
+        name: File containing read filtering information
+        suffix: "_readsQC.info"
+        data_object_type: Read Filtering Info File
+        description: "Read filtering info for {id}"
+
   - Name: Metagenome Assembly
     Type: nmdc:MetagenomeAssembly
     Enabled: True
     Git_repo: https://github.com/microbiomedata/metaAssembly
-    Version: v1.0.4-beta
+    Version: v1.0.3
     WDL: jgi_assembly.wdl
     Collection: metagenome_assembly_set
-    Predecessor: Reads QC
+    Predecessors:
+    - Reads QC
+    - Reads QC Interleave
     Input_prefix: jgi_metaASM
     Inputs:
       input_file: do:Filtered Sequencing Reads
@@ -115,10 +203,11 @@ Workflows:
     Type: nmdc:MetagenomeAnnotationActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
-    Version: v1.0.2-beta
+    Version: v1.0.4
     WDL: annotation_full.wdl
     Collection: metagenome_annotation_activity_set
-    Predecessor: Metagenome Assembly
+    Predecessors:
+    - Metagenome Assembly
     Input_prefix: annotation
     Inputs:
       input_file: do:Assembly Contigs
@@ -239,10 +328,11 @@ Workflows:
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Git_repo: https://github.com/microbiomedata/metaMAGs
-    Version: v1.0.5-beta
+    Version: v1.0.6
     WDL: mbin_nmdc.wdl
     Collection: mags_activity_set
-    Predecessor: Metagenome Annotation
+    Predecessors:
+    - Metagenome Annotation
     Input_prefix: nmdc_mags
     Inputs:
       contig_file: do:Assembly Contigs
@@ -290,10 +380,11 @@ Workflows:
     Type: nmdc:ReadBasedTaxonomyAnalysisActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadbasedAnalysis
-    Version: v1.0.5-beta
+    Version: v1.0.5
     WDL: ReadbasedAnalysis.wdl
     Collection: read_based_taxonomy_analysis_activity_set
-    Predecessor: Reads QC
+    Predecessors:
+    - Reads QC
     Input_prefix: ReadbasedAnalysis
     Inputs:
       input_file: do:Filtered Sequencing Reads
