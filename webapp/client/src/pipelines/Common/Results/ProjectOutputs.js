@@ -105,7 +105,7 @@ function ProjectOutputs(props) {
 
     return (
         <Card className='workflow-result-card'>
-            <Header toggle={true} toggleParms={toggleOutputs} title={'Browser/Download Outputs'} collapseParms={collapseCard} />
+            <Header toggle={true} toggleParms={toggleOutputs} title={'Download Outputs'} collapseParms={collapseCard} />
             <Collapse isOpen={!collapseCard} >
                 <CardBody>
                     <LoaderDialog loading={loading === true} text="Zipping files..." />
