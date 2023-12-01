@@ -9,14 +9,15 @@ import pandas as pd
 import configparser
 import sys
 from datetime import datetime
-from jgi_file_metadata import (
+
+import nmdc_automation.jgi_file_staging.mongo
+from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     get_access_token,
     check_access_token,
     get_analysis_projects_from_proposal_id,
     get_sample_files,
     get_sequence_id,
     insert_samples_into_mongodb,
-    get_mongo_db,
     get_files_and_agg_ids,
     combine_sample_ids_with_agg_ids,
     remove_unneeded_files,
@@ -25,55 +26,62 @@ from jgi_file_metadata import (
     remove_large_files,
     get_seq_unit_names,
 )
-from file_restoration import update_sample_in_mongodb
+from nmdc_automation.jgi_file_staging.mongo import get_mongo_db
+
+from nmdc_automation.jgi_file_staging.file_restoration import update_sample_in_mongodb
 
 
 class JgiFileTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.fixtures = os.path.join(os.path.dirname(__file__), "fixtures")
-        self.config_file = os.path.join(self.fixtures, "config.ini")
+        self.config_file = os.path.join(self.fixtures, "test_config.ini")
         config = configparser.ConfigParser(allow_no_value=True)
         config.read(self.config_file)
         self.config = config
 
     def tearDown(self) -> None:
-        mdb = get_mongo_db()
-        mdb.samples.drop()
-        mdb.globus.drop()
+        pass
+        # mdb = get_mongo_db()
+        # mdb.samples.drop()
+        # mdb.globus.drop()
 
-    @patch("jgi_file_metadata.requests.get")
-    def test_get_access_token(self, mock_get):
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.text = "ed42ef1556708305eaf8"
-        ACCESS_TOKEN = get_access_token()
-        self.assertEqual(ACCESS_TOKEN, "ed42ef1556708305eaf8")
+    # TODO: delete this test - moved to
+    #  tests/test_jgi_file_staging/test_file_metadata.py
+    # @patch("nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get")
+    # def test_get_access_token(self, mock_get):
+    #     mock_get.return_value.status_code = 200
+    #     mock_get.return_value.text = "ed42ef1556708305eaf8"
+    #     ACCESS_TOKEN = get_access_token()
+    #     self.assertEqual(ACCESS_TOKEN, "ed42ef1556708305eaf8")
 
-    @patch("jgi_file_metadata.requests.get")
-    def test_check_access_token(self, mock_get):
-        mock_get.return_value.status_code = 200
-        ACCESS_TOKEN = "ed42ef1556708305eaf8"
-        ACCESS_TOKEN = check_access_token(
-            ACCESS_TOKEN, eval(self.config["JDP"]["delay"])
-        )
-        self.assertEqual(ACCESS_TOKEN, "ed42ef1556708305eaf8")
+    # TODO: delete this test - moved to
+    #  tests/test_jgi_file_staging/test_file_metadata.py
+    # @patch("nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get")
+    # def test_check_access_token(self, mock_get):
+    #     mock_get.return_value.status_code = 200
+    #     ACCESS_TOKEN = "ed42ef1556708305eaf8"
+    #     ACCESS_TOKEN = check_access_token(
+    #         ACCESS_TOKEN, eval(self.config["JDP"]["delay"])
+    #     )
+    #     self.assertEqual(ACCESS_TOKEN, "ed42ef1556708305eaf8")
 
-    @patch("jgi_file_metadata.requests.get")
-    def test_check_access_token_invalid(self, mock_get):
-        response_mock1 = Mock()
-        response_mock1.status_code = 400
-        response_mock1.text = "ed42ef1556"
-        response_mock2 = Mock()
-        response_mock2.status_code = 200
-        response_mock2.text = "ed42ef155670"
-        mock_get.side_effect = [response_mock1, response_mock2]
+    # @patch("nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get")
+    # def test_check_access_token_invalid(self, mock_get):
+    #     response_mock1 = Mock()
+    #     response_mock1.status_code = 400
+    #     response_mock1.text = "ed42ef1556"
+    #     response_mock2 = Mock()
+    #     response_mock2.status_code = 200
+    #     response_mock2.text = "ed42ef155670"
+    #     mock_get.side_effect = [response_mock1, response_mock2]
+    #
+    #     ACCESS_TOKEN = "ed42ef1556708305eaf8"
+    #     ACCESS_TOKEN = check_access_token(
+    #         ACCESS_TOKEN, eval(self.config["JDP"]["delay"])
+    #     )
+    #     self.assertEqual(ACCESS_TOKEN, "ed42ef155670")
 
-        ACCESS_TOKEN = "ed42ef1556708305eaf8"
-        ACCESS_TOKEN = check_access_token(
-            ACCESS_TOKEN, eval(self.config["JDP"]["delay"])
-        )
-        self.assertEqual(ACCESS_TOKEN, "ed42ef155670")
-
-    @patch("jgi_file_metadata.requests.get")
+    @patch("nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get")
     def test_get_sequence_id(self, mock_get):
         mock_get.return_value.status_code = 200
         mock_get.return_value.json.return_value = [{"itsSpid": 1323348}]
@@ -88,7 +96,7 @@ class JgiFileTestCase(unittest.TestCase):
         )
         self.assertEqual(sequence_id, None)
 
-    @patch("jgi_file_metadata.requests.get")
+    @patch("nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get")
     def test_get_analysis_projects_from_proposal_id(self, mock_get):
         mock_get.return_value.json.return_value = pd.read_csv(
             os.path.join(self.fixtures, "grow_gold_analysis_projects.csv")
@@ -117,7 +125,7 @@ class JgiFileTestCase(unittest.TestCase):
             },
         )
 
-    @mongomock.patch(servers=(("localhost", 27017),))
+    @mongomock.patch(servers=(("localhost", 27017),), on_new="mock_new")
     def test_insert_samples_into_mongodb(self):
         grow_analysis_df = pd.read_csv(
             os.path.join(self.fixtures, "grow_analysis_projects.csv")
