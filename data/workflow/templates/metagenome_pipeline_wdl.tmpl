@@ -170,7 +170,7 @@ workflow main_workflow {
 	File? metaMAGs_domain_file
 	Int metaMAGs_cpu=16
 	Int metaMAGs_pplacer_cpu=1
-	String metaMAGs_database="/expanse/projects/nmdc/refdata/GTDBTK_DB"
+	String metaMAGs_database="/refdata/GTDBTK_DB"
 	String metaMAGs_container = "microbiomedata/nmdc_mbin:0.1.6"
 	
 	if (DoMetaMAGs && DoAnnotation){
