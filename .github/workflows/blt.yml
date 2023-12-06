@@ -36,7 +36,7 @@ jobs:
         image: mongo
         ports:
           - 27017:27017
-        options: --health-cmd "mongo --version" --health-interval 10s --health-timeout 5s --health-retries 5
+        options: --health-cmd "mongo --version" --health-interval 10s --health-timeout 5s --health-retries 12
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.9
