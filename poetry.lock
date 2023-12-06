@@ -1399,6 +1399,20 @@ test = ["pytest (>=7)"]
 zstd = ["zstandard"]
 
 [[package]]
+name = "pymongo-inmemory"
+version = "0.4.0"
+description = "A mongo mocking library with an ephemeral MongoDB running in memory."
+optional = false
+python-versions = ">=3.9,<4.0"
+files = [
+    {file = "pymongo_inmemory-0.4.0-py3-none-any.whl", hash = "sha256:cf248c7ebcc9d36ae149cbe1111c87a6b8b72e6be5f89dcb27a3bab2bb7f26a2"},
+    {file = "pymongo_inmemory-0.4.0.tar.gz", hash = "sha256:f5828ead0b59850f5464d635811d4819700799d62dcf6e089877eab1df5f1a3e"},
+]
+
+[package.dependencies]
+pymongo = "*"
+
+[[package]]
 name = "pyparsing"
 version = "3.1.1"
 description = "pyparsing module - Classes and methods to define and execute parsing grammars"
@@ -2251,13 +2265,13 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "virtualenv"
-version = "20.24.7"
+version = "20.25.0"
 description = "Virtual Python Environment builder"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "virtualenv-20.24.7-py3-none-any.whl", hash = "sha256:a18b3fd0314ca59a2e9f4b556819ed07183b3e9a3702ecfe213f593d44f7b3fd"},
-    {file = "virtualenv-20.24.7.tar.gz", hash = "sha256:69050ffb42419c91f6c1284a7b24e0475d793447e35929b488bf6a0aade39353"},
+    {file = "virtualenv-20.25.0-py3-none-any.whl", hash = "sha256:4238949c5ffe6876362d9c0180fc6c3a824a7b12b80604eeb8085f2ed7460de3"},
+    {file = "virtualenv-20.25.0.tar.gz", hash = "sha256:bf51c0d9c7dd63ea8e44086fa1e4fb1093a31e963b86959257378aef020e1f1b"},
 ]
 
 [package.dependencies]
@@ -2405,4 +2419,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "0097edd54cf9a1aed0a4699936d65780a891ee12b4b2800a21fa47bad0cb2626"
+content-hash = "c2f04cf62e05c547f1b0372cc88ec6b1c5544c4f14370aaa0a8b6cafe9ca6bde"

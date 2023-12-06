@@ -41,92 +41,14 @@ class JgiFileTestCase(unittest.TestCase):
 
     def tearDown(self) -> None:
         pass
-        # mdb = get_mongo_db()
-        # mdb.samples.drop()
-        # mdb.globus.drop()
+        mdb = get_mongo_db()
+        mdb.samples.drop()
+        mdb.globus.drop()
 
-    # TODO: delete this test - moved to
-    #  tests/test_jgi_file_staging/test_file_metadata.py
-    # @patch("nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get")
-    # def test_get_access_token(self, mock_get):
-    #     mock_get.return_value.status_code = 200
-    #     mock_get.return_value.text = "ed42ef1556708305eaf8"
-    #     ACCESS_TOKEN = get_access_token()
-    #     self.assertEqual(ACCESS_TOKEN, "ed42ef1556708305eaf8")
 
-    # TODO: delete this test - moved to
-    #  tests/test_jgi_file_staging/test_file_metadata.py
-    # @patch("nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get")
-    # def test_check_access_token(self, mock_get):
-    #     mock_get.return_value.status_code = 200
-    #     ACCESS_TOKEN = "ed42ef1556708305eaf8"
-    #     ACCESS_TOKEN = check_access_token(
-    #         ACCESS_TOKEN, eval(self.config["JDP"]["delay"])
-    #     )
-    #     self.assertEqual(ACCESS_TOKEN, "ed42ef1556708305eaf8")
-
-    # @patch("nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get")
-    # def test_check_access_token_invalid(self, mock_get):
-    #     response_mock1 = Mock()
-    #     response_mock1.status_code = 400
-    #     response_mock1.text = "ed42ef1556"
-    #     response_mock2 = Mock()
-    #     response_mock2.status_code = 200
-    #     response_mock2.text = "ed42ef155670"
-    #     mock_get.side_effect = [response_mock1, response_mock2]
-    #
-    #     ACCESS_TOKEN = "ed42ef1556708305eaf8"
-    #     ACCESS_TOKEN = check_access_token(
-    #         ACCESS_TOKEN, eval(self.config["JDP"]["delay"])
-    #     )
-    #     self.assertEqual(ACCESS_TOKEN, "ed42ef155670")
-
-    @patch("nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get")
-    def test_get_sequence_id(self, mock_get):
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.json.return_value = [{"itsSpid": 1323348}]
-        sequence_id = get_sequence_id(
-            "Ga0499978", "ed42ef155670", eval(self.config["JDP"]["delay"])
-        )
-        self.assertEqual(sequence_id, 1323348)
-
-        mock_get.return_value.status_code = 403
-        sequence_id = get_sequence_id(
-            "Ga0499978", "ed42ef155670", eval(self.config["JDP"]["delay"])
-        )
-        self.assertEqual(sequence_id, None)
-
-    @patch("nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get")
-    def test_get_analysis_projects_from_proposal_id(self, mock_get):
-        mock_get.return_value.json.return_value = pd.read_csv(
-            os.path.join(self.fixtures, "grow_gold_analysis_projects.csv")
-        ).to_dict("records")
-        gold_analysis_data = get_analysis_projects_from_proposal_id(
-            "11111", "ed42ef155670"
-        )
-        self.assertEqual(
-            gold_analysis_data[0],
-            {
-                "apGoldId": "Ga0499978",
-                "apType": "Metagenome Analysis",
-                "studyId": "Gs0149396",
-                "itsApId": 1323348,
-                "projects": "['Gp0587070']",
-            },
-        )
-        self.assertEqual(
-            gold_analysis_data[5],
-            {
-                "apGoldId": "Ga0451723",
-                "apType": "Metagenome Analysis",
-                "studyId": "Gs0149396",
-                "itsApId": 1279803,
-                "projects": "['Gp0503551']",
-            },
-        )
-
-    @mongomock.patch(servers=(("localhost", 27017),), on_new="mock_new")
-    def test_insert_samples_into_mongodb(self):
+    @mongomock.patch(servers=(("localhost", 27017),), on_new='create')
+    def test_insert_samples_into_mongodb(self, monkeypatch):
+        monkeypatch.setenv("MONGO_DBNAME", "test_db")
         grow_analysis_df = pd.read_csv(
             os.path.join(self.fixtures, "grow_analysis_projects.csv")
         )

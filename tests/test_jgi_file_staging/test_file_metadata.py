@@ -1,36 +1,44 @@
-import configparser
+import mongomock
+import pandas as pd
+from pathlib import Path
 import pytest
+
+from pymongo_inmemory import MongoClient
 
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     get_access_token,
     check_access_token,
+    get_sequence_id,
+    get_analysis_projects_from_proposal_id,
+    insert_samples_into_mongodb,
 )
+from nmdc_automation.jgi_file_staging.mongo import get_mongo_db
+
+FIXTURE_DIR = Path(__file__).parent / "fixtures"
 
 
-def test_get_access_token(mocker):
-    mock_get = mocker.patch(
+@pytest.fixture
+def mock_get(mocker):
+    return mocker.patch(
         "nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get"
     )
+
+
+def test_get_access_token(mock_get):
     mock_get.return_value.status_code = 200
     mock_get.return_value.text = "ed42ef1556708305eaf8"
-    ACCESS_TOKEN = get_access_token()
-    assert ACCESS_TOKEN == "ed42ef1556708305eaf8"
+    access_token = get_access_token()
+    assert access_token == "ed42ef1556708305eaf8"
 
 
-def test_check_access_token(mocker, config):
-    mock_get = mocker.patch(
-        "nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get"
-    )
+def test_check_access_token(mock_get, config):
     mock_get.return_value.status_code = 200
-    ACCESS_TOKEN = "ed42ef1556708305eaf8"
-    ACCESS_TOKEN = check_access_token(ACCESS_TOKEN, eval(config["JDP"]["delay"]))
-    assert ACCESS_TOKEN == "ed42ef1556708305eaf8"
+    access_token = "ed42ef1556708305eaf8"
+    access_token = check_access_token(access_token, eval(config["JDP"]["delay"]))
+    assert access_token == "ed42ef1556708305eaf8"
 
 
-def test_check_access_token_invalid(mocker, config):
-    mock_get = mocker.patch(
-        "nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get"
-    )
+def test_check_access_token_invalid(mocker, mock_get, config):
     response_mock1 = mocker.Mock()
     response_mock1.status_code = 400
     response_mock1.text = "ed42ef1556"
@@ -39,6 +47,55 @@ def test_check_access_token_invalid(mocker, config):
     response_mock2.text = "ed42ef155670"
     mock_get.side_effect = [response_mock1, response_mock2]
 
-    ACCESS_TOKEN = "ed42ef1556708305eaf8"
-    ACCESS_TOKEN = check_access_token(ACCESS_TOKEN, eval(config["JDP"]["delay"]))
-    assert ACCESS_TOKEN == "ed42ef155670"
+    access_token = "ed42ef1556708305eaf8"
+    access_token = check_access_token(access_token, eval(config["JDP"]["delay"]))
+    assert access_token == "ed42ef155670"
+
+
+def test_get_sequence_id(mock_get, config):
+    mock_get.return_value.status_code = 200
+    mock_get.return_value.json.return_value = [{"itsSpid": 1323348}]
+    sequence_id = get_sequence_id(
+        "Ga0499978", "ed42ef155670", eval(config["JDP"]["delay"])
+    )
+    assert sequence_id == 1323348
+
+    mock_get.return_value.status_code = 403
+    sequence_id = get_sequence_id(
+        "Ga0499978", "ed42ef155670", eval(config["JDP"]["delay"])
+    )
+    assert sequence_id == None
+
+
+def test_get_analysis_projects_from_proposal_id(mock_get):
+    mock_get.return_value.json.return_value = pd.read_csv(
+        Path.joinpath(FIXTURE_DIR, "grow_gold_analysis_projects.csv")
+    ).to_dict("records")
+    gold_analysis_data = get_analysis_projects_from_proposal_id("11111", "ed42ef155670")
+    assert gold_analysis_data[0] == {
+        "apGoldId": "Ga0499978",
+        "apType": "Metagenome Analysis",
+        "studyId": "Gs0149396",
+        "itsApId": 1323348,
+        "projects": "['Gp0587070']",
+    }
+
+    assert gold_analysis_data[5] == {
+        "apGoldId": "Ga0451723",
+        "apType": "Metagenome Analysis",
+        "studyId": "Gs0149396",
+        "itsApId": 1279803,
+        "projects": "['Gp0503551']",
+    }
+
+# TODO: fix this test
+# @mongomock.patch(servers=(("localhost", 27017),), on_new="create")
+# def test_insert_samples_into_mongodb(monkeypatch, grow_analysis_df):
+#     monkeypatch.setenv("MONGO_DBNAME", "test_db")
+#     client = MongoClient()
+#     mdb = client["test_db"]
+#
+#     insert_samples_into_mongodb(grow_analysis_df.to_dict("records"), mdb)
+#     # mdb = get_mongo_db()
+#     sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
+#     assert sample["studyId"] == "Gs0149396"

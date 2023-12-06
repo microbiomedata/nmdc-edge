@@ -289,9 +289,9 @@ def get_seq_unit_names(analysis_files_df, gold_id):
     return seq_unit_names_list
 
 
-def insert_samples_into_mongodb(sample_list: list) -> None:
+def insert_samples_into_mongodb(sample_list: list, mdb) -> None:
     """create workflows from list of samples to process"""
-    mdb = get_mongo_db()
+    # mdb = get_mongo_db()
     try:
         db_records_list = []
         for d in sample_list:
