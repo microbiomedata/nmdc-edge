@@ -38,16 +38,16 @@ jobs:
           - 27017:27017
         options: --health-cmd "mongo --version" --health-interval 10s --health-timeout 5s --health-retries 12
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.9"
-    - name: Install Poetry
-      uses: snok/install-poetry@v1
-    - name: Install dependencies
-      run: |
-        poetry install
+#    - uses: actions/checkout@v3
+#    - name: Set up Python 3.9
+#      uses: actions/setup-python@v3
+#      with:
+#        python-version: "3.9"
+#    - name: Install Poetry
+#      uses: snok/install-poetry@v1
+#    - name: Install dependencies
+#      run: |
+#        poetry install
     - name: Test with pytest
       run: |
         poetry run pytest
