@@ -29,11 +29,17 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: setup_mongodb
-      run: |
-        sudo docker run --rm --detach --name mongodb --publish 27017:27017 \
-        --env MONGO_INITDB_ROOT_USERNAME=root --env MONGO_INITDB_ROOT_PASSWORD=password \
-        --env MONGO_INITDB_DATABASE=test \
-        mongo:latest --auth
+      uses: supercharge/mongodb-github-action@v1.1.1
+      with:
+        mongodb-uri: mongodb://localhost:27017
+        mongodb-database: nmdc
+        mongodb-username: root
+        mongodb-password: password
+#      run: |
+#        sudo docker run --rm --detach --name mongodb --publish 27017:27017 \
+#        --env MONGO_INITDB_ROOT_USERNAME=root --env MONGO_INITDB_ROOT_PASSWORD=password \
+#        --env MONGO_INITDB_DATABASE=test \
+#        mongo:latest --auth
 
 #      uses: DigiPie/mongo-action@v2.0.1
 #      with:
