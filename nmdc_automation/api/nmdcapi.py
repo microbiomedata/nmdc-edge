@@ -433,6 +433,23 @@ class NmdcRuntimeUserApi:
                 )
         data_object_record = response.json()
         return data_object_record
+    
+    def run_query(self, query: dict):
+        """
+        Function to run a query using the Microbiome Data API.
+        
+        Parameters:
+        query (dict): The query to be run in JSON format.
+        
+        Returns:
+        dict: The response from the API.
+        """
+        
+        self.ensure_token()
+        url = "https://api.microbiomedata.org/queries/run"
+        
+        response = requests.post(url, json=query, headers=self.headers)
+        return response.json()
 
 def jprint(obj):
     print(json.dumps(obj, indent=2))
