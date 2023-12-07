@@ -35,6 +35,9 @@ jobs:
         mongodb-database: nmdc
         mongodb-username: root
         mongodb-password: password
+    - name: Mongo Healthcheck
+      run: |
+        mongo --eval 'db.runCommand({ connectionStatus: 1 })'
 #      run: |
 #        sudo docker run --rm --detach --name mongodb --publish 27017:27017 \
 #        --env MONGO_INITDB_ROOT_USERNAME=root --env MONGO_INITDB_ROOT_PASSWORD=password \
