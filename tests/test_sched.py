@@ -86,7 +86,7 @@ def test_submit(db, mock_api):
     Test basic job creation
     """
     init_test(db)
-    reset_db(db)
+    # reset_db(db)
     load(db, "data_object_set.json")
     load(db, "omics_processing_set.json")
 
@@ -105,7 +105,7 @@ def test_submit(db, mock_api):
 
 def test_progress(db, mock_api):
     init_test(db)
-    reset_db(db)
+    # reset_db(db)
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
     load(db, "omics_processing_set.json")
@@ -150,7 +150,7 @@ def test_progress(db, mock_api):
 
 def test_multiple_versions(db, mock_api):
     init_test(db)
-    reset_db(db)
+    # reset_db(db)
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
     load(db, "omics_processing_set.json")
