@@ -294,6 +294,68 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
         logging.info(f"changesheet validation failed")
 
 
+@cli.command()
+@click.argument('old_records_file', type=click.Path(exists=True))
+@click.pass_context
+def delete_old_records(ctx, old_records_file):
+    """
+    Read in json dump of old records and:
+    delete them using
+    /queries/run endpoint
+    """
+    
+    logging.info(f"Deleting old objects found in : {old_records_file}")
+    old_records_filename = Path(old_records_file).name
+    old_base_name = old_records_filename.split("_")[0]
+
+    # Get API client(s)
+    config = ctx.obj['site_config']
+    api_user_client = NmdcRuntimeUserApi(config)
+    
+    #get old db records
+    with open(old_records_file, "r") as f:
+        old_db_records = json.load(f)
+    
+    #set list to capture annotation genes for agg set    
+    gene_id_list = []
+    
+    for record in old_db_records:
+        for set_name, object_record in record.items():
+            if set_name == "omics_processing_set":
+                continue
+            if isinstance(object_record, list):
+                for item in object_record:
+                    if "id" in item:
+                        if set_name == "metagenome_annotation_activity_set":
+                            gene_id_list.append(item["id"])
+                        delete_query = {
+                            "delete": set_name,
+                            "deletes": [{"q": {"id": item['id']}, "limit": 1}]
+                            }
+                        logging.info(f"Running query: {delete_query}, deleting {set_name} with id: {item['id']}")
+                        
+                        run_query_response = api_user_client.delete_query(delete_query)
+                        
+                        logging.info(f"Deleting query posted with response: {run_query_response}")
+                        
+    for annotation_id in gene_id_list:
+        logging.info(f"Deleting functional aggregate record with id: {annotation_id}")
+        delete_query_agg = {
+            "delete": "functional_annotation_agg",
+            "deletes": [{"q": {"id": annotation_id}}]
+            } 
+        
+        run_query_agg_response = api_user_client.delete_query(delete_query_agg)
+        
+        logging.info(f"Response for deleting function annotation agg record returned: {run_query_agg_response}")
+                        
+                        
+                        
+    
+    
+
+        
+        
 
 def _get_data_dir(data_dir, dryrun):
     """
