@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 import json
 import click
-
+import requests
 from linkml_runtime.dumpers import json_dumper
 
 from nmdc_automation.api import NmdcRuntimeApi, NmdcRuntimeUserApi
@@ -345,28 +345,42 @@ def delete_old_records(ctx, old_records_file):
                             "delete": set_name,
                             "deletes": [{"q": {"id": item["id"]}, "limit": 1}],
                         }
-                        logging.info(
-                            f"Running query: {delete_query}, deleting {set_name} with id: {item['id']}"
-                        )
+                        try:
+                            logging.info(
+                                f"Running query: {delete_query}, deleting {set_name} with id: {item['id']}"
+                            )
 
-                        run_query_response = api_user_client.delete_query(delete_query)
+                            run_query_response = api_user_client.delete_query(
+                                delete_query
+                            )
 
-                        logging.info(
-                            f"Deleting query posted with response: {run_query_response}"
-                        )
+                            logging.info(
+                                f"Deleting query posted with response: {run_query_response}"
+                            )
+                        except:
+                            logging.info(
+                                f"An error occured while running: {delete_query}, response retutrned: {e}"
+                            )
 
     for annotation_id in gene_id_list:
-        logging.info(f"Deleting functional aggregate record with id: {annotation_id}")
-        delete_query_agg = {
-            "delete": "functional_annotation_agg",
-            "deletes": [{"q": {"metagenome_annotation_id": annotation_id}}],
-        }
+        try:
+            logging.info(
+                f"Deleting functional aggregate record with id: {annotation_id}"
+            )
+            delete_query_agg = {
+                "delete": "functional_annotation_agg",
+                "deletes": [{"q": {"metagenome_annotation_id": annotation_id}}],
+            }
 
-        run_query_agg_response = api_user_client.delete_query(delete_query_agg)
+            run_query_agg_response = api_user_client.delete_query(delete_query_agg)
 
-        logging.info(
-            f"Response for deleting function annotation agg record returned: {run_query_agg_response}"
-        )
+            logging.info(
+                f"Response for deleting functional annotation agg record returned: {run_query_agg_response}"
+            )
+        except requests.exceptions.RequestException as e:
+            logging.error(
+                f"An error occurred while deleting annotation id {annotation_id}: {e}"
+            )
 
 
 def _get_data_dir(data_dir, dryrun):
