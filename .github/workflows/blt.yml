@@ -16,16 +16,16 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    services:
-      mongodb:
-        image: mongo:latest
-        env:
-          MONGO_INITDB_ROOT_USERNAME: root
-          MONGO_INITDB_ROOT_PASSWORD: password
-          MONGO_INITDB_DATABASE: nmdc
-          MONGO_HOST: localhost
-        ports:
-          - 27017:27017
+#    services:
+#      mongodb:
+#        image: mongo:latest
+#        env:
+#          MONGO_INITDB_ROOT_USERNAME: root
+#          MONGO_INITDB_ROOT_PASSWORD: password
+#          MONGO_INITDB_DATABASE: nmdc
+#          MONGO_HOST: localhost
+#        ports:
+#          - 27017:27017
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.9
@@ -40,8 +40,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: build
-
-
     steps:
 #    - uses: actions/checkout@v3
 #    - name: Set up Python 3.9
