@@ -28,6 +28,13 @@ jobs:
 #          - 27017:27017
     steps:
     - uses: actions/checkout@v3
+    - name: setup_mongodb
+      uses: DigiPie/mongo-action@2.0.1
+      with:
+        mongodb-uri: mongodb://localhost:27017
+        mongodb-database: nmdc
+        mongodb-username: root
+        mongodb-password: password
     - name: Set up Python 3.9
       uses: actions/setup-python@v3
       with:
