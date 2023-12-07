@@ -30,9 +30,10 @@ jobs:
     - uses: actions/checkout@v3
     - name: setup_mongodb
       run: |
-        sudo docker run --rm --detach --name mongodb --publish 27017:27017 mongo:latest --auth
-#        --env MONGO_INITDB_ROOT_USERNAME=root --env MONGO_INITDB_ROOT_PASSWORD=password \
-#        --env MONGO_INITDB_DATABASE=nmdc \
+        sudo docker run --rm --detach --name mongodb --publish 27017:27017 \
+        --env MONGO_INITDB_ROOT_USERNAME=root --env MONGO_INITDB_ROOT_PASSWORD=password \
+        --env MONGO_INITDB_DATABASE=nmdc \
+        mongo:latest
 
 #      uses: DigiPie/mongo-action@v2.0.1
 #      with:
