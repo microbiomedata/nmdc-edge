@@ -32,31 +32,34 @@ DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
 
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler()
-    ]
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.StreamHandler()],
 )
 
 logger = logging.getLogger(__name__)
 
 
-
 @click.group()
-@click.option("--site-config", type=click.Path(exists=True),
-              default=NAPA_CONFIG,)
+@click.option(
+    "--site-config",
+    type=click.Path(exists=True),
+    default=NAPA_CONFIG,
+)
 @click.pass_context
 def cli(ctx, site_config):
     """
     NMDC re-ID tool
     """
     ctx.ensure_object(dict)
-    ctx.obj['site_config'] = site_config
+    ctx.obj["site_config"] = site_config
 
 
 @cli.command()
-@click.option('--study_id', default=STUDY_ID,
-              help=f'Optional updated study ID. Default: {STUDY_ID}')
+@click.option(
+    "--study_id",
+    default=STUDY_ID,
+    help=f"Optional updated study ID. Default: {STUDY_ID}",
+)
 @click.pass_context
 def extract_records(ctx, study_id):
     """
@@ -70,7 +73,7 @@ def extract_records(ctx, study_id):
     logging.info(f"Extracting workflow records for study_id: {study_id}")
     logging.info(f"study_id: {study_id}")
 
-    config = ctx.obj['site_config']
+    config = ctx.obj["site_config"]
     api_client = NmdcRuntimeUserApi(config)
 
     # 1. Retrieve all OmicsProcessing records for the updated NMDC study ID
@@ -85,30 +88,29 @@ def extract_records(ctx, study_id):
     # 2. For each OmicsProcessing record, find the legacy identifier:
     for omics_processing_record in omics_processing_records:
         db = nmdc.Database()
-        logging.info(
-            f"omics_processing_record: "
-            f"{omics_processing_record['id']}"
-            )
+        logging.info(f"omics_processing_record: " f"{omics_processing_record['id']}")
         legacy_id = _get_legacy_id(omics_processing_record)
         logging.info(f"legacy_id: {legacy_id}")
 
-        if (omics_processing_record["omics_type"]["has_raw_value"] !=
-                "Metagenome"):
+        if omics_processing_record["omics_type"]["has_raw_value"] != "Metagenome":
             logging.info(
                 f"omics_processing_record {omics_processing_record['id']} "
                 f"is not a Metagenome"
-                )
+            )
             continue
         db.omics_processing_set.append(omics_processing_record)
         for data_object_id in omics_processing_record["has_output"]:
-            data_object_record = api_client.get_data_object_by_id(
-                data_object_id
-            )
+            data_object_record = api_client.get_data_object_by_id(data_object_id)
             db.data_object_set.append(data_object_record)
 
         # downstream workflow activity sets
-        (read_qc_records, readbased_records, metagenome_assembly_records,
-         metagenome_annotation_records, mags_records) = [], [], [], [], []
+        (
+            read_qc_records,
+            readbased_records,
+            metagenome_assembly_records,
+            metagenome_annotation_records,
+            mags_records,
+        ) = ([], [], [], [], [])
 
         downstream_workflow_activity_sets = {
             "read_qc_analysis_activity_set": read_qc_records,
@@ -118,9 +120,7 @@ def extract_records(ctx, study_id):
             "mags_activity_set": mags_records,
         }
         for set_name, records in downstream_workflow_activity_sets.items():
-            records = api_client.get_workflow_activity_informed_by(
-                set_name, legacy_id
-            )
+            records = api_client.get_workflow_activity_informed_by(set_name, legacy_id)
             db.__setattr__(set_name, records)
             # Add the data objects referenced by the `has_output` property
             for record in records:
@@ -132,13 +132,11 @@ def extract_records(ctx, study_id):
                     logging.info(
                         f"data_object_record: "
                         f"{data_object_record['id']}, {data_object_record['description']}"
-                        )
+                    )
                     db.data_object_set.append(data_object_record)
 
         # Search for orphaned data objects with the legacy ID in the description
-        orphaned_data_objects = api_client.get_data_objects_by_description(
-            legacy_id
-        )
+        orphaned_data_objects = api_client.get_data_objects_by_description(legacy_id)
         # check that we don't already have the data object in the set
         for data_object in orphaned_data_objects:
             if data_object["id"] not in [d["id"] for d in db.data_object_set]:
@@ -146,7 +144,7 @@ def extract_records(ctx, study_id):
                 logging.info(
                     f"Added orphaned data object: "
                     f"{data_object['id']}, {data_object['description']}"
-                    )
+                )
 
         retrieved_databases.append(db)
 
@@ -157,12 +155,22 @@ def extract_records(ctx, study_id):
 
 
 @cli.command()
-@click.option('--dryrun / --no-dryrun', is_flag=True, default=True,
-              help='Dryrun mode: use local data dir and do not save results')
-@click.option('--study_id', default=STUDY_ID,
-              help=f'Optional updated study ID. Default: {STUDY_ID}')
-@click.option('--data_dir', default=BASE_DATAFILE_DIR,
-              help=f'Optional base datafile directory. Default: {BASE_DATAFILE_DIR}')
+@click.option(
+    "--dryrun / --no-dryrun",
+    is_flag=True,
+    default=True,
+    help="Dryrun mode: use local data dir and do not save results",
+)
+@click.option(
+    "--study_id",
+    default=STUDY_ID,
+    help=f"Optional updated study ID. Default: {STUDY_ID}",
+)
+@click.option(
+    "--data_dir",
+    default=BASE_DATAFILE_DIR,
+    help=f"Optional base datafile directory. Default: {BASE_DATAFILE_DIR}",
+)
 @click.pass_context
 def process_records(ctx, dryrun, study_id, data_dir):
     """
@@ -177,7 +185,7 @@ def process_records(ctx, dryrun, study_id, data_dir):
         logging.info("Running in dryrun mode")
 
     # Get API client
-    config = ctx.obj['site_config']
+    config = ctx.obj["site_config"]
     api_client = NmdcRuntimeApi(config)
 
     # Get Database dump file paths and the data directory
@@ -187,7 +195,6 @@ def process_records(ctx, dryrun, study_id, data_dir):
 
     # Initialize re-ID tool
     reid_tool = ReIdTool(api_client, data_dir)
-
 
     # Read extracted DB records
     logging.info(f"Using db_infile: {db_infile}")
@@ -211,20 +218,24 @@ def process_records(ctx, dryrun, study_id, data_dir):
         # update Metagenome Assembly
         new_db = reid_tool.update_metagenome_assembly_set(db_record, new_db)
         # update Read Based Taxonomy Analysis
-        new_db = reid_tool.update_read_based_taxonomy_analysis_activity_set(db_record, new_db)
+        new_db = reid_tool.update_read_based_taxonomy_analysis_activity_set(
+            db_record, new_db
+        )
 
         re_ided_db_records.append(new_db)
 
-
-    json_data = json.loads(json_dumper.dumps(re_ided_db_records,
-                                             inject_type=False))
+    json_data = json.loads(json_dumper.dumps(re_ided_db_records, inject_type=False))
     with open(db_outfile, "w") as f:
         f.write(json.dumps(json_data, indent=4))
-        
+
 
 @cli.command()
-@click.argument('reid_records_file', type=click.Path(exists=True))
-@click.option('--changesheet_only', is_flag=True, default=False,)
+@click.argument("reid_records_file", type=click.Path(exists=True))
+@click.option(
+    "--changesheet_only",
+    is_flag=True,
+    default=False,
+)
 @click.pass_context
 def ingest_records(ctx, reid_records_file, changesheet_only):
     """
@@ -238,10 +249,10 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
     reid_base_name = reid_records_filename.split("_")[0]
 
     # Get API client(s)
-    config = ctx.obj['site_config']
+    config = ctx.obj["site_config"]
     api_client = NmdcRuntimeApi(config)
     api_user_client = NmdcRuntimeUserApi(config)
-    
+
     with open(reid_records_file, "r") as f:
         db_records = json.load(f)
 
@@ -263,19 +274,21 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
             legacy_omics_processing_record = resp.json()
             # delete legacy has_output
             change = ChangesheetLineItem(
-                id=omics_processing_id, action="remove item",
+                id=omics_processing_id,
+                action="remove item",
                 attribute="has_output",
-                value="|".join(legacy_omics_processing_record["has_output"]) + "|", )
+                value="|".join(legacy_omics_processing_record["has_output"]) + "|",
+            )
             changesheet.line_items.append(change)
             logging.info(f"changes: {change}")
 
-
-
             # insert new has_output
             change = ChangesheetLineItem(
-                id=omics_processing_id, action="insert",
+                id=omics_processing_id,
+                action="insert",
                 attribute="has_output",
-                value="|".join(omics_processing_record["has_output"]) + "|", )
+                value="|".join(omics_processing_record["has_output"]) + "|",
+            )
             changesheet.line_items.append(change)
             logging.info(f"changes: {change}")
 
@@ -295,7 +308,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
 
 
 @cli.command()
-@click.argument('old_records_file', type=click.Path(exists=True))
+@click.argument("old_records_file", type=click.Path(exists=True))
 @click.pass_context
 def delete_old_records(ctx, old_records_file):
     """
@@ -303,22 +316,22 @@ def delete_old_records(ctx, old_records_file):
     delete them using
     /queries/run endpoint
     """
-    
+
     logging.info(f"Deleting old objects found in : {old_records_file}")
     old_records_filename = Path(old_records_file).name
     old_base_name = old_records_filename.split("_")[0]
 
     # Get API client(s)
-    config = ctx.obj['site_config']
+    config = ctx.obj["site_config"]
     api_user_client = NmdcRuntimeUserApi(config)
-    
-    #get old db records
+
+    # get old db records
     with open(old_records_file, "r") as f:
         old_db_records = json.load(f)
-    
-    #set list to capture annotation genes for agg set    
+
+    # set list to capture annotation genes for agg set
     gene_id_list = []
-    
+
     for record in old_db_records:
         for set_name, object_record in record.items():
             if set_name == "omics_processing_set":
@@ -330,32 +343,31 @@ def delete_old_records(ctx, old_records_file):
                             gene_id_list.append(item["id"])
                         delete_query = {
                             "delete": set_name,
-                            "deletes": [{"q": {"id": item['id']}, "limit": 1}]
-                            }
-                        logging.info(f"Running query: {delete_query}, deleting {set_name} with id: {item['id']}")
-                        
+                            "deletes": [{"q": {"id": item["id"]}, "limit": 1}],
+                        }
+                        logging.info(
+                            f"Running query: {delete_query}, deleting {set_name} with id: {item['id']}"
+                        )
+
                         run_query_response = api_user_client.delete_query(delete_query)
-                        
-                        logging.info(f"Deleting query posted with response: {run_query_response}")
-                        
+
+                        logging.info(
+                            f"Deleting query posted with response: {run_query_response}"
+                        )
+
     for annotation_id in gene_id_list:
         logging.info(f"Deleting functional aggregate record with id: {annotation_id}")
         delete_query_agg = {
             "delete": "functional_annotation_agg",
-            "deletes": [{"q": {"id": annotation_id}}]
-            } 
-        
-        run_query_agg_response = api_user_client.delete_query(delete_query_agg)
-        
-        logging.info(f"Response for deleting function annotation agg record returned: {run_query_agg_response}")
-                        
-                        
-                        
-    
-    
+            "deletes": [{"q": {"metagenome_annotation_id": annotation_id}}],
+        }
 
-        
-        
+        run_query_agg_response = api_user_client.delete_query(delete_query_agg)
+
+        logging.info(
+            f"Response for deleting function annotation agg record returned: {run_query_agg_response}"
+        )
+
 
 def _get_data_dir(data_dir, dryrun):
     """
@@ -368,6 +380,7 @@ def _get_data_dir(data_dir, dryrun):
         data_dir = BASE_DATAFILE_DIR
     logging.info(f"Using datafile_dir: {data_dir}")
     return data_dir
+
 
 def _get_database_paths(study_id, dryrun):
     """
@@ -382,6 +395,7 @@ def _get_database_paths(study_id, dryrun):
         db_infile = DATA_DIR.joinpath(f"{study_id}{db_infile_suffix}")
         db_outfile = DATA_DIR.joinpath(f"{study_id}{db_outfile_suffix}")
     return db_infile, db_outfile
+
 
 def _get_legacy_id(omics_processing_record: dict) -> str:
     """
@@ -407,5 +421,6 @@ def _get_legacy_id(omics_processing_record: dict) -> str:
         legacy_id = legacy_ids[0]
     return legacy_id
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cli(obj={})
