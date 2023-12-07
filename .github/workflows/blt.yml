@@ -31,8 +31,8 @@ jobs:
     - name: setup_mongodb
       run: |
         sudo docker run --rm --detach --name mongodb --publish 27017:27017 \
-        --env MONGO_INITDB_ROOT_USERNAME=root --env MONGO_INITDB_ROOT_PASSWORD=password \
-        --env MONGO_INITDB_DATABASE=nmdc \
+#        --env MONGO_INITDB_ROOT_USERNAME=root --env MONGO_INITDB_ROOT_PASSWORD=password \
+#        --env MONGO_INITDB_DATABASE=nmdc \
         mongo:latest --auth
 #      uses: DigiPie/mongo-action@v2.0.1
 #      with:
