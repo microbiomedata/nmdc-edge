@@ -34,6 +34,11 @@ jobs:
     services:
       mongodb:
         image: mongo
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: password
+          MONGO_INITDB_DATABASE: nmdc
+          MONGO_HOST: localhost
         ports:
           - 27017:27017
         options: --health-cmd "mongo --version" --health-interval 10s --health-timeout 5s --health-retries 12
