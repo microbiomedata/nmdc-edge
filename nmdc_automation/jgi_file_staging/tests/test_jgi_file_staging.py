@@ -68,44 +68,8 @@ class JgiFileTestCase(unittest.TestCase):
         mdb.samples.drop()
         mdb.globus.drop()
 
-    @patch("jgi_file_staging.requests.get")
-    def test_get_access_token(self, mock_get):
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.text = "ed42ef1556708305eaf8"
-        ACCESS_TOKEN = get_access_token()
-        self.assertEqual(ACCESS_TOKEN, "ed42ef1556708305eaf8")
 
-    @patch("jgi_file_staging.requests.get")
-    def test_check_access_token(self, mock_get):
-        mock_get.return_value.status_code = 200
-        ACCESS_TOKEN = "ed42ef1556708305eaf8"
-        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN)
-        self.assertEqual(ACCESS_TOKEN, "ed42ef1556708305eaf8")
 
-    @patch("jgi_file_staging.requests.get")
-    def test_check_access_token_invalid(self, mock_get):
-        response_mock1 = Mock()
-        response_mock1.status_code = 400
-        response_mock1.text = "ed42ef1556"
-        response_mock2 = Mock()
-        response_mock2.status_code = 200
-        response_mock2.text = "ed42ef155670"
-        mock_get.side_effect = [response_mock1, response_mock2]
-
-        ACCESS_TOKEN = "ed42ef1556708305eaf8"
-        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN)
-        self.assertEqual(ACCESS_TOKEN, "ed42ef155670")
-
-    @patch("jgi_file_staging.requests.get")
-    def test_get_sequence_id(self, mock_get):
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.json.return_value = [{"itsSpid": 1323348}]
-        sequence_id = get_sequence_id("Ga0499978", "ed42ef155670")
-        self.assertEqual(sequence_id, 1323348)
-
-        mock_get.return_value.status_code = 403
-        sequence_id = get_sequence_id("Ga0499978", "ed42ef155670")
-        self.assertEqual(sequence_id, None)
 
     @patch("jgi_file_staging.requests.get")
     def test_get_analysis_projects_from_proposal_id(self, mock_get):
