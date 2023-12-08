@@ -1,4 +1,7 @@
 [![CI](https://github.com/microbiomedata/nmdc_automation/actions/workflows/blt.yml/badge.svg)](https://github.com/microbiomedata/nmdc_automation/actions/workflows/blt.yml)
+![Tests](./badges/tests.svg)
+![Coverage](./badges/coverage.svg)
+
 
 <!-- Pytest Coverage Comment:Begin -->
 <!-- Pytest Coverage Comment:End -->
