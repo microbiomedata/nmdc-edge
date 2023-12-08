@@ -14,35 +14,11 @@ permissions:
 
 jobs:
   build_lint_test:
-
     runs-on: ubuntu-latest
-#    services:
-#      mongodb:
-#        image: mongo:latest
-#        env:
-#          MONGO_INITDB_ROOT_USERNAME: root
-#          MONGO_INITDB_ROOT_PASSWORD: password
-#          MONGO_INITDB_DATABASE: nmdc
-#          MONGO_HOST: localhost
-#        ports:
-#          - 27017:27017
     steps:
     - uses: actions/checkout@v3
     - name: setup_mongodb
       uses: supercharge/mongodb-github-action@v1.10.0
-#      with:
-#        mongodb-uri: mongodb://localhost:27017
-#        mongodb-database: nmdc
-#        mongodb-username: root
-#        mongodb-password: password
-#        mongodb-health-check: true
-#        mongodb-health-check-timeout: 30
-#      run: |
-#        sudo docker run --rm --detach --name mongodb --publish 27017:27017 \
-#        --env MONGO_INITDB_ROOT_USERNAME=root --env MONGO_INITDB_ROOT_PASSWORD=password \
-#        --env MONGO_INITDB_DATABASE=test \
-#        mongo:latest --auth
-
     - name: Set up Python 3.9
       uses: actions/setup-python@v3
       with:
@@ -54,5 +30,6 @@ jobs:
         poetry install
     - name: Test with pytest
       run: |
-        poetry run pytest ./tests
+        poetry run pytest ./tests --cov-report=term --cov-report=html \
+        --cov-report=xml --cov=nmdc_automation
 
