@@ -35,10 +35,7 @@ jobs:
       run: |
         poetry run pytest ./tests --junit-xml=pytest.xml --cov-report=term  \
         --cov-report=xml --cov=nmdc_automation
-    - name: Generate badges
-      run: |
-        pip install genbadge[all]
-        poetry run genbadge tests -i pytest.xml -l -v
+
 
 #    - name: Pytest coverage comment
 #      uses: MishaKav/pytest-coverage-comment@main
