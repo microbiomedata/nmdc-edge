@@ -1,3 +1,6 @@
+<!-- Pytest Coverage Comment:Begin -->
+<!-- Pytest Coverage Comment:End -->
+
 # nmdc_automation
 
 ## Goal
