@@ -37,6 +37,7 @@ jobs:
         --cov-report=xml --cov=nmdc_automation
     - name: Generate badges
       run: |
+        pip install genbadge[all]
         poetry run genbadge tests -i pytest.xml -l -v
 
 #    - name: Pytest coverage comment
