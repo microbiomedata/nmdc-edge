@@ -1576,6 +1576,23 @@ pytest = ">=4.6"
 testing = ["fields", "hunter", "process-tests", "pytest-xdist", "six", "virtualenv"]
 
 [[package]]
+name = "pytest-local-badge"
+version = "1.0.3"
+description = "Generate local badges (shields) reporting your test suite status."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pytest-local-badge-1.0.3.tar.gz", hash = "sha256:e13274cc9cadf91a1e3fa290d0bbbd371a365f9d719411e475596f722c2725a5"},
+    {file = "pytest_local_badge-1.0.3-py3-none-any.whl", hash = "sha256:e14dc79922598e5b27ef4398a3537535ad115df2229ebba0259f6c6d92c6047b"},
+]
+
+[package.dependencies]
+pytest = ">=6.1.0"
+
+[package.extras]
+develop = ["black (>=22.12.0)", "build", "flake8-bugbear", "flake8-comprehensions", "flake8-import-order", "flake8-print", "pep8-naming", "pytest (>=7.1.0,<8)", "pytest-cov", "pytest-mock"]
+
+[[package]]
 name = "pytest-logging"
 version = "2015.11.4"
 description = "Configures logging and allows tweaking the log level with a py.test flag"
@@ -2484,4 +2501,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "618a52f79fd4086de98898dcec72b7c2ae7d9d88e10f20074a6f7108bc9997dc"
+content-hash = "211c7b05291828dc0859f1df7e90d97cb941e420bae65330b930a582627565c1"
