@@ -30,8 +30,7 @@ jobs:
         poetry install
     - name: Lint with flake8
       run: |
-        poetry run flake8 nmdc_automation --exit-zero --format=html --htmldir ./reports/flake8 --statistics \
-        --tee --output-file flake8stats.txt
+        poetry run flake8 nmdc_automation --exit-zero --statistics --tee --output-file flake8stats.txt
     - name: Test with pytest
       run: |
         poetry run pytest ./tests --junit-xml=pytest.xml --cov-report=term  \
