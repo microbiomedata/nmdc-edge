@@ -1,0 +1,9 @@
+# From the Docker docs:
+# > "You can use a .dockerignore file to exclude files or directories from the build context."
+# Reference: https://docs.docker.com/build/building/context/#dockerignore-files
+
+/.dockerignore
+/webapp.Dockerfile
+/docker-compose.yml
+/webapp/client/node_modules
+/webapp/server/node_modules

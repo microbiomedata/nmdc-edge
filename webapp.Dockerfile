@@ -1,17 +1,37 @@
-# This is a Dockerfile you can use to build a Docker image that runs the NMDC EDGE web app within a Docker container.
+# This is a Dockerfile you can use to build a container image that runs the NMDC EDGE Web App.
 # Its design was influenced by the installation script at `installation/install.sh`.
 #
 # Usage:
-# 1. Build with:     $ docker build -t nmdc-edge-web-app:latest -f webapp.Dockerfile .
-# 2. Then, run with: $ docker run --rm -p 8000:80 nmdc-edge-web-app
+# 1. Build a container image:
+#    - Built an image that will be run on the same architecture as your computer:
+#      $ docker build -t nmdc-edge-web-app:latest -f webapp.Dockerfile .
+#    - Build an image that will be run on amd64 architecture:
+#      $ docker buildx build --platform linux/amd64 -t nmdc-edge-web-app:latest -f webapp.Dockerfile .
+# 2. Then, create and run a container based upon that container image:
+#      $ docker run --rm -p 8000:80 nmdc-edge-web-app
+#
+# ---
+# Tag image and publish to GitHub Container Registry (GHCR):
+# 1. $ docker images  # (shows the ID of the built container image; e.g. "a1b2c3")
+# 2. $ docker tag a1b2c3 ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag
+# 3. $ docker push ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag
+#
+# References:
+# - Building a container image and pushing it to GitHub Container Registry (GHCR):
+#   https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
 # -----------------------------------------------------------------------------
 
 FROM node:18-alpine
 
+# Add metadata to the Docker image.
+# Reference: https://docs.docker.com/engine/reference/builder/#label
+LABEL org.opencontainers.image.description="NMDC EDGE Web App"
+
 # Declare arguments (and specify their default values) for use within this Dockerfile.
 # Note: Their values can be overriden via `$ docker build --build-arg <varname>=<value>`.
 # Reference: https://docs.docker.com/engine/reference/builder/#arg
-ARG WEB_SERVER_PORT_ON_DOCKER_HOST=8000
+ARG API_HOST=edge-dev.microbiomedata.org
+ARG API_PORT=80
 
 # Install programs upon which the web app or its build process(es) depend.
 #
@@ -41,6 +61,12 @@ COPY ./installation  /app/installation
 COPY ./webapp        /app/webapp
 COPY ./nmdc-edge.jpg /app/nmdc-edge.jpg
 #
+# Generate secrets (each one is a 20-character hexadecimal string).
+#
+RUN node -e 'console.log(require("crypto").randomBytes(20).toString("hex"))' > /app/jwt.secret.txt
+RUN node -e 'console.log(require("crypto").randomBytes(20).toString("hex"))' > /app/oauth.secret.txt
+RUN node -e 'console.log(require("crypto").randomBytes(20).toString("hex"))' > /app/sendmail.secret.txt
+#
 # Generate configuration files (like `installation/install.sh` does).
 # Note: We use the `client-env-dev` file so the client uses HTTP (not HTTPS) to access the server.
 #
@@ -48,13 +74,16 @@ WORKDIR /app
 RUN cp installation/client-env-dev  webapp/client/.env
 RUN cp installation/server-env-prod webapp/server/.env
 RUN cp installation/server_pm2.tmpl server_pm2.json
-RUN echo -e "web_server_domain=localhost\nweb_server_port=80"         > host.env
-RUN sed -i -e 's/<WEB_SERVER_DOMAIN>/localhost/g'                       webapp/client/.env && \
-    sed -i -e 's/<WEB_SERVER_PORT>/${WEB_SERVER_PORT_ON_DOCKER_HOST}/g' webapp/client/.env && \
-    sed -i -e 's/<WEB_SERVER_DOMAIN>/localhost/g'                       webapp/server/.env && \
-    sed -i -e 's/<WEB_SERVER_PORT>/80/g'                                webapp/server/.env && \
+RUN echo -e "web_server_domain=${API_HOST}\nweb_server_port=${API_PORT}" > host.env
+RUN sed -i -e "s/<WEB_SERVER_DOMAIN>/${API_HOST}/g"                     webapp/client/.env && \
+    sed -i -e "s/<WEB_SERVER_PORT>/${API_PORT}/g"                       webapp/client/.env && \
+    sed -i -e "s/<WEB_SERVER_DOMAIN>/${API_HOST}/g"                     webapp/server/.env && \
+    sed -i -e "s/<WEB_SERVER_PORT>/${API_PORT}/g"                       webapp/server/.env && \
     sed -i -e 's/<APP_HOME>/\/app/g'                                    webapp/server/.env && \
     sed -i -e 's/<IO_HOME>/\/app\/io/g'                                 webapp/server/.env && \
+    sed -i -e "s/<JWT_KEY>/`cat /app/jwt.secret.txt`/g"                 webapp/server/.env && \
+    sed -i -e "s/<OAUTH_SECRET>/`cat /app/oauth.secret.txt`/g"          webapp/server/.env && \
+    sed -i -e "s/<SENDMAIL_KEY>/`cat /app/sendmail.secret.txt`/g"       webapp/server/.env && \
     sed -i -e 's/<APP_HOME>/\/app/g'                                    server_pm2.json
 #
 # Generate empty folders (like `installation/install.sh` does).
@@ -94,4 +123,4 @@ RUN cd webapp/server && npm ci
 #       Docs: https://pm2.keymetrics.io/docs/usage/docker-pm2-nodejs/
 #
 EXPOSE 80
-CMD ["pm2-runtime", "start server_pm2.json"]
+CMD ["pm2-runtime", "start", "server_pm2.json"]
