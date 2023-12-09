@@ -122,5 +122,5 @@ RUN cd webapp/server && npm ci
 #       documentation about using PM2 inside containers.
 #       Docs: https://pm2.keymetrics.io/docs/usage/docker-pm2-nodejs/
 #
-EXPOSE 80
+EXPOSE ${API_PORT}
 CMD ["pm2-runtime", "start", "server_pm2.json"]
