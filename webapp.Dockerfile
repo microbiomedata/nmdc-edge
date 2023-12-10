@@ -1,25 +1,64 @@
 # This is a Dockerfile you can use to build a container image that runs the NMDC EDGE Web App.
 # Its design was influenced by the installation script at `installation/install.sh`.
 #
-# Usage:
-# 1. Build a container image:
-#    - Built an image that will be run on the same architecture as your computer:
-#      $ docker build -t nmdc-edge-web-app:latest -f webapp.Dockerfile .
-#    - Build an image that will be run on amd64 architecture:
-#      $ docker buildx build --platform linux/amd64 -t nmdc-edge-web-app:latest -f webapp.Dockerfile .
-# 2. Then, create and run a container based upon that container image:
-#      $ docker run --rm -p 8000:80 nmdc-edge-web-app
+# =====
+# USAGE
+# -----
 #
-# ---
-# Tag image and publish to GitHub Container Registry (GHCR):
-# 1. $ docker images  # (shows the ID of the built container image; e.g. "a1b2c3")
-# 2. $ docker tag a1b2c3 ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag
-# 3. $ docker push ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag
+# Here's how you can build a container image based upon this Dockerfile; and publish it to GitHub Container Registry.
 #
-# References:
+# =============
+# Prerequisites
+# -------------
+#
+# - Determine the ORCiD Client ID you want the resulting container image to use. You can get it by logging into
+#   the ORCiD website and visiting the "Developer tools" page there. You will use it in the procedure below.
+#
+# =========
+# Procedure
+# ---------
+#
+# 1. Build a container image (do one of the following, depending upon architectures):
+#    - Build an image that will be run on the same architecture as your computer (e.g. arm64 -> arm64):
+#      ```
+#      $ docker build \
+#        -f webapp.Dockerfile --build-arg ORCID_CLIENT_ID='__REPLACE_ME__' -t nmdc-edge-web-app:some-tag .
+#      ```
+#    - Build an image on an arm64 computer (e.g. Mac M1) that will be run on an amd64 computer (e.g. GCP VM):
+#      ```
+#      $ docker buildx build --platform linux/amd64 \
+#        -f webapp.Dockerfile --build-arg ORCID_CLIENT_ID='__REPLACE_ME__' -t nmdc-edge-web-app:some-tag .
+#      ```
+# 2. (Optional) Run a container based upon that container image:
+#      ```
+#      $ docker run --rm -p 8000:80 nmdc-edge-web-app:some-tag
+#      ```
+# 3. Tag the container image for publishing to the GitHub Container Registry.
+#    a. Get the ID of the container image.
+#       ```
+#       $ docker images
+#       ```
+#       - That will display the IDs of all container images. Identify the ID of the image you want to publish.
+#    b. Tag the container image with the GHCR prefix.
+#       ```
+#       $ docker tag __IMAGE_ID__ ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag
+#       ```
+#       - Replace `__IMAGE_ID__` above with the image ID.
+# 4. Publish the tagged container image to GitHub Container Registry (where it will be publicly accessible).
+#    ```
+#    $ docker push ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag
+#    ```
+#    - That will upload the image (layer by layer) to GitHub Container Registry. It will then be listed at
+#      https://github.com/orgs/microbiomedata/packages/container/package/nmdc-edge-web-app
+#
+# ==========
+# References
+# ----------
+#
 # - Building a container image and pushing it to GitHub Container Registry (GHCR):
 #   https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
-# -----------------------------------------------------------------------------
+#
+# ----------------------------------------------------------------------------------------------------------------------
 
 FROM node:18-alpine
 
