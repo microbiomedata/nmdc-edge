@@ -4,7 +4,7 @@ REACT_APP_NAME=NMDC EDGE
 
 #on/off
 REACT_APP_ORCID_AUTH=on
-ORCID_CLIENT_ID=<yout orcid client id>
+ORCID_CLIENT_ID=<your orcid client id>
 ORCID_AUTH_URL=https://orcid.org/oauth/authorize
 ORCID_RETURN_PAGE=https://<WEB_SERVER_DOMAIN>/oauth
 REACT_APP_ORCID_AUTH_URL=$ORCID_AUTH_URL?response_type=token&redirect_uri=$ORCID_RETURN_PAGE&client_id=$ORCID_CLIENT_ID&scope=openid&nonce=whatever
