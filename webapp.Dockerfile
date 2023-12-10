@@ -32,6 +32,7 @@ LABEL org.opencontainers.image.description="NMDC EDGE Web App"
 # Reference: https://docs.docker.com/engine/reference/builder/#arg
 ARG API_HOST=edge-dev.microbiomedata.org
 ARG API_PORT=80
+ARG ORCID_CLIENT_ID
 
 # Install programs upon which the web app or its build process(es) depend.
 #
@@ -84,7 +85,12 @@ RUN sed -i -e "s/<WEB_SERVER_DOMAIN>/${API_HOST}/g"                     webapp/c
     sed -i -e "s/<JWT_KEY>/`cat /app/jwt.secret.txt`/g"                 webapp/server/.env && \
     sed -i -e "s/<OAUTH_SECRET>/`cat /app/oauth.secret.txt`/g"          webapp/server/.env && \
     sed -i -e "s/<SENDMAIL_KEY>/`cat /app/sendmail.secret.txt`/g"       webapp/server/.env && \
-    sed -i -e 's/<APP_HOME>/\/app/g'                                    server_pm2.json
+    sed -i -e 's/<APP_HOME>/\/app/g'                                    server_pm2.json \
+#
+# Further edit configuration file (beyond what `installation/install.sh` does).
+# Note: I substitute `ORCID_CLIENT_ID` here so developers don't have to edit `installation/client-env-dev`.
+#
+RUN sed -i -e "s/<your orcid client id>/${ORCID_CLIENT_ID}/g"           webapp/client/.env
 #
 # Generate empty folders (like `installation/install.sh` does).
 # Note: `mkdir -p` automatically creates any necessary intermediate folders.
