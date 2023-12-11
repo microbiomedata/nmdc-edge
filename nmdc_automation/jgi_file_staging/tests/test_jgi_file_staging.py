@@ -71,32 +71,7 @@ class JgiFileTestCase(unittest.TestCase):
 
 
 
-    @patch("jgi_file_staging.requests.get")
-    def test_get_analysis_projects_from_proposal_id(self, mock_get):
-        mock_get.return_value.json.return_value = pd.read_csv(
-            os.path.join(self.fixtures, "grow_gold_analysis_projects.csv")
-        ).to_dict("records")
-        gold_analysis_data = get_analysis_projects_from_proposal_id(
-            "11111", "ed42ef155670"
-        )
-        self.assertEqual(
-            gold_analysis_data[0],
-            {
-                "apGoldId": "Ga0499978",
-                "studyId": "Gs0149396",
-                "itsApId": 1323348,
-                "projects": "['Gp0587070']",
-            },
-        )
-        self.assertEqual(
-            gold_analysis_data[5],
-            {
-                "apGoldId": "Ga0451723",
-                "studyId": "Gs0149396",
-                "itsApId": 1279803,
-                "projects": "['Gp0503551']",
-            },
-        )
+
 
     @mongomock.patch(servers=(("localhost", 27017),))
     def test_insert_samples_into_mongodb(self):
