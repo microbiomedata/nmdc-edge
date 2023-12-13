@@ -3,9 +3,6 @@ import os
 import json
 import shutil
 from pytest import fixture
-# This is an autose fixture that will be applied to all tests
-from common import mock_api     # noqa: F401
-
 
 @fixture
 def site_conf():
