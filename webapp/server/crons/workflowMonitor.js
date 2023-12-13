@@ -134,6 +134,9 @@ function generateWDL(proj_home, workflow) {
     if (workflowname === 'MetaAnnotation') {
         imports += 'import "annotation_output.wdl" as MetaAnnotationOutput' + "\n";
     }
+    if (workflowname === 'MetaMAGs') {
+        imports += 'import "mbin_nmdc_output.wdl" as MetaMAGsOutput' + "\n";
+    }
     const tmpl = process.env.WORKFLOW_TEMPLATE_HOME + "/" + workflowSettings['wdl_tmpl'];
     let templWDL = String(fs.readFileSync(tmpl));
     templWDL = templWDL.replace(/<WORKFLOW>/g, workflowname);
