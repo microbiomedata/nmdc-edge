@@ -18,20 +18,26 @@
 # Procedure
 # ---------
 #
-# 1. Build a container image (do one of the following, depending upon architectures):
-#    - Build an image that will be run on the same architecture as your computer (e.g. arm64 -> arm64):
+# 1. Build a container image (do one of the following, depending upon situation):
+#    - Build an image on your Mac for local development:
 #      ```
-#      $ docker build \
-#        -f webapp.Dockerfile --build-arg ORCID_CLIENT_ID='__REPLACE_ME__' -t nmdc-edge-web-app:some-tag .
+#      $ docker build -f webapp.Dockerfile \
+#          --build-arg ORCID_CLIENT_ID='__REPLACE_ME__' \
+#          --build-arg API_HOST='localhost' \
+#          --build-arg API_PORT='8000' \
+#          -t nmdc-edge-web-app:dev .
 #      ```
-#    - Build an image on an arm64 computer (e.g. Mac M1) that will be run on an amd64 computer (e.g. GCP VM):
+#    - Build an image that will run on a GCP VM (amd64 architecture):
 #      ```
-#      $ docker buildx build --platform linux/amd64 \
-#        -f webapp.Dockerfile --build-arg ORCID_CLIENT_ID='__REPLACE_ME__' -t nmdc-edge-web-app:some-tag .
+#      $ docker buildx build --platform linux/amd64 -f webapp.Dockerfile \
+#          --build-arg ORCID_CLIENT_ID='__REPLACE_ME__' \
+#          --build-arg API_HOST='edge-dev.microbiomedata.org' \
+#          --build-arg API_PORT='80' \
+#          -t nmdc-edge-web-app:some-tag .
 #      ```
 # 2. (Optional) Run a container based upon that container image:
 #      ```
-#      $ docker run --rm -p 8000:80 nmdc-edge-web-app:some-tag
+#      $ docker run --rm -p 8000:8000 nmdc-edge-web-app:dev
 #      ```
 # 3. Tag the container image for publishing to the GitHub Container Registry.
 #    a. Get the ID of the container image.
