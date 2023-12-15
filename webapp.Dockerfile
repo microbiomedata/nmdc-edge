@@ -124,7 +124,7 @@ RUN sed -i -e "s/<WEB_SERVER_DOMAIN>/${API_HOST}/g"                     webapp/c
     sed -i -e "s/<JWT_KEY>/`cat /app/jwt.secret.txt`/g"                 webapp/server/.env && \
     sed -i -e "s/<OAUTH_SECRET>/`cat /app/oauth.secret.txt`/g"          webapp/server/.env && \
     sed -i -e "s/<SENDMAIL_KEY>/`cat /app/sendmail.secret.txt`/g"       webapp/server/.env && \
-    sed -i -e 's/<APP_HOME>/\/app/g'                                    server_pm2.json \
+    sed -i -e 's/<APP_HOME>/\/app/g'                                    server_pm2.json
 #
 # Further edit configuration files (beyond what `installation/install.sh` does).
 # Note: I substitute `ORCID_CLIENT_ID` here so developers don't have to edit `installation/client-env-dev`.
