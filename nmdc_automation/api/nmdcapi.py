@@ -446,8 +446,8 @@ class NmdcRuntimeUserApi:
         """
         
         self.ensure_token()
-        url = "https://api.microbiomedata.org/queries/run"
-        
+        url = "https://api.microbiomedata.org/queries:run"
+      
         response = requests.post(url, json=query, headers=self.headers)
         return response.json()
 
