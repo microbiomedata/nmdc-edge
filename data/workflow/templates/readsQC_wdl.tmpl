@@ -30,6 +30,8 @@ if (input_interleaved) {
                 input_fq1=readsqc_preprocess.input_fq1_gz,
                 input_fq2=readsqc_preprocess.input_fq2_gz
         }
+    }
+}
 call <WORKFLOW>_output.readsqc_output as readsqc_output {
     input:
         input_files = nmdc_rqcfilter.filtered_final,
