@@ -42,16 +42,15 @@ task gzip_input_int{
  	Array[File]? input_files
 	String container
 	String outdir
-    String out_file = basename(input_files,".gz")
 
  	command<<<
         mkdir -p ${outdir}
-        if file --mime -b ${input_files} | grep gzip > /dev/null ; then
-            mv ${input_files} ${outdir}/
+        if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then
+            mv ${sep=" " input_files} ${outdir}/
 
         else
-            gzip -f ${input_files}
-            mv "${input_files}.gz" ${outdir}/
+            gzip -f ${sep=" " input_files}
+            mv "*.gz" ${outdir}/
         fi
  	>>>
 	runtime {
@@ -60,7 +59,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        Array[File]? input_files_gz = glob("${outdir}/${out_file}*.gz")
+        Array[File]? input_files_gz = glob("${outdir}/*.gz")
 	}
 }
 
