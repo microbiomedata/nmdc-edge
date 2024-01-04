@@ -16,7 +16,7 @@ call <WORKFLOW>_preprocess.readsqc_preprocess as readsqc_preprocess {
 }
 
 scatter(file in readsqc_preprocess.input_files_gz) {
-    call <WORKFLOW>.nmdc_rqcfilter_int  as <ALIAS> {
+    call <WORKFLOW>.nmdc_rqcfilter  as <ALIAS> {
         input:
             input_files=file,
             proj=<WORKFLOW>_proj,
