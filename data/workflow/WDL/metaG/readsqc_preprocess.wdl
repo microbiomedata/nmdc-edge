@@ -26,7 +26,7 @@ workflow readsqc_preprocess {
         }
         call gzip_input_int as gzip_pe {
         input:
-            input_files=input_files,
+            input_files=interleave_reads.out_fastq,
             container=container,
             outdir=outdir
         }
