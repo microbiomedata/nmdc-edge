@@ -2,33 +2,38 @@ workflow readsqc_preprocess {
     Array[File]? input_files
     File? input_fq1
     File? input_fq2
+    String  container="bfoster1/img-omics:0.1.9"
     String? outdir
-    String bbtools_container="microbiomedata/bbtools:38.96"
     Boolean input_interleaved
 
     if (input_interleaved) {
         call gzip_input_int as gzip_int {
         input:
             input_files=input_files,
-            container=bbtools_container,
+            container=container,
             outdir=outdir
         }
     }
 
     if (!input_interleaved) {
-        call gzip_input_pe as gzip_pe {
+        scatter(file in zip(input_fq1,input_fq2)){
+             call interleave_reads {
+                 input:
+                     input_files = [file.left,file.right],
+                     output_file = basename(file.left) + "_" + basename(file.right),
+	                 container = container
+             }
+        call gzip_input_int as gzip_pe {
         input:
-            input_fq1=input_fq1,
-            input_fq2=input_fq2,
-            container=bbtools_container,
+            input_files=input_files,
+            container=container,
             outdir=outdir
         }
     }
 
     output {
-       File? input_fq1_gz = gzip_pe.input_fastq1_gz
-       File? input_fq2_gz = gzip_pe.input_fastq2_gz
-       Array[File]? input_files_gz = gzip_int.input_files_gz
+
+       Array[File] input_files_gz = gzip_int.input_files_gz if (input_interleaved) else gzip_pe.input_files_gz
     }
 }
 
