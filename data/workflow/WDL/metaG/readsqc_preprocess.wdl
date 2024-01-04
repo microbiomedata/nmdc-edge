@@ -54,7 +54,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        Array[File] input_files_gz = glob("${outdir}/${out_file}.gz")
+        Array[File] input_files_gz = glob("${outdir}/${out_file}*.gz")
 	}
 }
 
