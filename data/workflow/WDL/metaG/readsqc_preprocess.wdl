@@ -1,5 +1,5 @@
 workflow readsqc_preprocess {
-    Array[File]? input_files
+    Array[File] input_files
     Array[File] input_fq1
     Array[File] input_fq2
     String  container="bfoster1/img-omics:0.1.9"
@@ -39,7 +39,7 @@ workflow readsqc_preprocess {
 }
 
 task gzip_input_int{
- 	Array[File]? input_files
+ 	Array[File] input_files
 	String container
 	String outdir
 
