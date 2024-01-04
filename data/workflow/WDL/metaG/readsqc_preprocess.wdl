@@ -34,7 +34,7 @@ workflow readsqc_preprocess {
     }
     output {
 
-       Array[File] input_files_gz = if (input_interleaved) then gzip_int.input_files_gz else gzip_pe.input_files_gz
+       Array[File] input_files_gz = if (input_interleaved) then select_first(gzip_int.input_files_gz) else select_first(gzip_pe.input_files_gz)
     }
 }
 
