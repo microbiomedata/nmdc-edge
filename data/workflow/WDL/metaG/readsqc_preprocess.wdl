@@ -1,5 +1,5 @@
 workflow readsqc_preprocess {
-    Array[File] input_files
+    Array[File]? input_files
     Array[File] input_fq1
     Array[File] input_fq2
     String  container="bfoster1/img-omics:0.1.9"
@@ -34,12 +34,12 @@ workflow readsqc_preprocess {
     }
     output {
 
-       Array[File] input_files_gz = if (input_interleaved) then select_first(gzip_int.input_files_gz) else select_first(gzip_pe.input_files_gz)
+       Array[File] input_files_gz = if (input_interleaved) then gzip_int.input_files_gz else gzip_pe.input_files_gz
     }
 }
 
 task gzip_input_int{
- 	Array[File] input_files
+ 	Array[File]? input_files
 	String container
 	String outdir
     String out_file = basename(input_files,".gz")
