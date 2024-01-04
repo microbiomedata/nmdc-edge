@@ -46,11 +46,11 @@ task gzip_input_int{
  	command<<<
         mkdir -p ${outdir}
         if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then
-            mv ${sep=" " input_files} ${outdir}/
+            cp ${sep=" " input_files} ${outdir}/
 
         else
             gzip -f ${sep=" " input_files}
-            mv "*.gz" ${outdir}/
+            cp "*.gz" ${outdir}/
         fi
  	>>>
 	runtime {
