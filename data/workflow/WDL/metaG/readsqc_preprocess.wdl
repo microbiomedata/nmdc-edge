@@ -23,14 +23,15 @@ workflow readsqc_preprocess {
                      output_file = basename(file.left) + "_" + basename(file.right),
 	                 container = container
              }
+        }
         call gzip_input_int as gzip_pe {
         input:
             input_files=input_files,
             container=container,
             outdir=outdir
         }
-    }
 
+    }
     output {
 
        Array[File] input_files_gz = if (input_interleaved) then gzip_int.input_files_gz else gzip_pe.input_files_gz
