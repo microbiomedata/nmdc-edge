@@ -26,8 +26,8 @@ workflow readsqc_preprocess {
     }
 
     output {
-       File? input_fastq1_gz = gzip_pe.input_fastq1_gz
-       File? input_fastq2_gz = gzip_pe.input_fastq2_gz
+       File? input_fq1_gz = gzip_pe.input_fastq1_gz
+       File? input_fq2_gz = gzip_pe.input_fastq2_gz
        Array[File]? input_files_gz = gzip_int.input_files_gz
     }
 }
