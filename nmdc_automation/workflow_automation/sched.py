@@ -78,13 +78,14 @@ class Scheduler:
         "read_based_analysis_activity_set",
     ]
 
-    def __init__(self, db, wfn="workflows.yaml"):
+    def __init__(self, db, wfn="workflows.yaml",
+                 site_conf="site_configuration.toml"):
         logging.info("Initializing Scheduler")
         # Init
         wf_file = os.environ.get(_WF_YAML_ENV, wfn)
         self.workflows = load_workflows(wf_file)
         self.db = db
-        self.api = NmdcRuntimeApi()
+        self.api = NmdcRuntimeApi(site_conf)
 
     async def run(self):
         logging.info("Starting Scheduler")
@@ -276,7 +277,8 @@ def main():
     """
     Main function
     """
-    sched = Scheduler(get_mongo_db())
+    site_conf = os.environ("NMDC_SITE_CONF", "site_configuration.toml")
+    sched = Scheduler(get_mongo_db(), site_conf=site_conf)
     while True:
         sched.cycle()
         _sleep(_POLL_INTERVAL)

@@ -6,4 +6,4 @@ htmlcov/
 .coverage
 attic
 .idea/
-*.lock
+
