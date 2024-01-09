@@ -58,15 +58,15 @@ def test_list_funcs(mock_api, requests_mock):
 
     # TODO: ccheck the full url
     requests_mock.get("http://localhost/jobs", json=mock_resp)
-    resp = n.list_jobs(filt="a=b", max_page_size=10)
+    resp = n.list_jobs(filt="a=b")
     assert resp is not None
 
     requests_mock.get("http://localhost/operations", json=[])
-    resp = n.list_ops(filt="a=b", max_page_size=10)
+    resp = n.list_ops(filt="a=b")
     assert resp is not None
 
     requests_mock.get("http://localhost/objects", json=[])
-    resp = n.list_objs(filt="a=b", max_page_size=10)
+    resp = n.list_objs(filt="a=b")
     assert resp is not None
 
 
