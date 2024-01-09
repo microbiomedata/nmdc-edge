@@ -14,7 +14,7 @@ site = "Processing Site"
 
 [nmdc]
 url_root = "https://data.microbiomedata.org/data/"
-api_url = "https://api.microbimedata.org"
+api_url = "http://localhost"
 
 [state]
 watch_state = "State File"
@@ -25,5 +25,5 @@ activity_id_state = "/Path/to/activity_id_state"
 workflows_config = "./configs/workflows.yaml"
 
 [credentials]
-client_id = "xxxxxx"
-client_secret = "xxxxxxxx"
+client_id = "sys0wm66"
+client_secret = "O8Q!64t,^xy:"

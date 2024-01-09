@@ -1,7 +1,2 @@
 [run]
 branch = True
-omit =
-    nmdc_automation/workflow_automation/extract.py
-    nmdc_automation/workflow_automation/nmdcapi.py
-    nmdc_automation/workflow_automation/watch_nmdc.py
-    nmdc_automation/workflow_automation/generate_functional_agg.py	

@@ -5,14 +5,14 @@ import mongomock
 import pandas as pd
 import configparser
 
-from file_restoration import (
+from nmdc_automation.jgi_file_staging.file_restoration import (
     restore_files,
     update_file_statuses,
     update_sample_in_mongodb,
     check_restore_status,
 )
-from mongo import get_mongo_db
-from jgi_file_metadata import insert_samples_into_mongodb
+from nmdc_automation.workflow_automation.sched import get_mongo_db
+from nmdc_automation.jgi_file_staging.jgi_file_metadata import insert_samples_into_mongodb
 
 
 class MyTestCase(unittest.TestCase):
@@ -25,8 +25,9 @@ class MyTestCase(unittest.TestCase):
         mdb.samples.drop()
         mdb.globus.drop()
 
-    @patch("file_restoration.update_file_statuses")
-    @patch("jgi_file_metadata.requests.post")
+    @patch("nmdc_automation.jgi_file_staging.file_restoration"
+           ".update_file_statuses")
+    @patch("nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.post")
     @mongomock.patch(servers=(("localhost", 27017),))
     def test_restore_files(self, mock_post, mock_update):
         mock_post.return_value.status_code = 200

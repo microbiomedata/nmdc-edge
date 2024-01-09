@@ -5,10 +5,11 @@ import requests
 import os
 import logging
 from datetime import datetime
-from mongo import get_mongo_db
-from models import Sample
 from pydantic import ValidationError
 import argparse
+
+from nmdc_automation.jgi_file_staging.mongo import get_mongo_db
+from nmdc_automation.jgi_file_staging.models import Sample
 
 logging.basicConfig(
     filename="file_staging.log",

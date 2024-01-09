@@ -82,13 +82,15 @@ class Scheduler:
         "read_based_analysis_activity_set",
     ]
 
-    def __init__(self, db, wfn="workflows.yaml"):
+    def __init__(self, db, wfn="workflows.yaml",
+                 site_conf="site_configuration.toml"):
         logging.info("Initializing Scheduler")
         # Init
         wf_file = os.environ.get(_WF_YAML_ENV, wfn)
         self.workflows = load_workflows(wf_file)
         self.db = db
-        self.api = NmdcRuntimeApi()
+        self.api = NmdcRuntimeApi(site_conf)
+        # TODO: Make force a optional parameter
         self.force = False
         if os.environ.get("FORCE") == "1":
             logging.info("Setting force on")
@@ -294,7 +296,8 @@ def main():  # pragma: no cover
     """
     Main function
     """
-    sched = Scheduler(get_mongo_db())
+    site_conf = os.environ.get("NMDC_SITE_CONF", "site_configuration.toml")
+    sched = Scheduler(get_mongo_db(), site_conf=site_conf)
     dryrun = False
     if os.environ.get("DRYRUN") == "1":
         dryrun = True

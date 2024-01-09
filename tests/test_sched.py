@@ -3,11 +3,12 @@ import json
 import os
 from nmdc_automation.workflow_automation.sched import Scheduler
 from pytest import fixture
+from pathlib import Path
 from time import time
 
 
-test_dir = os.path.dirname(__file__)
-test_data = os.path.join(test_dir, "..", "test_data")
+TEST_DIR = os.path.dirname(__file__)
+TEST_DATA = os.path.join(TEST_DIR, "..", "test_data")
 trigger_set = 'metagenome_annotation_activity_set'
 trigger_id = 'nmdc:55a79b5dd58771e28686665e3c3faa0c'
 trigger_doid = 'nmdc:1d87115c442a1f83190ae47c7fe4011f'
@@ -21,10 +22,12 @@ cols = [
     'read_qc_analysis_activity_set'
     ]
 
+FIXTURE_DIR = Path(__file__).parent / "fixtures"
 
 @fixture
 def db():
-    return MongoClient("mongodb://admin:root@127.0.0.1:27018").test
+    conn_str = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
+    return MongoClient(conn_str).test
 
 
 @fixture
@@ -43,7 +46,7 @@ def mock_api(monkeypatch, requests_mock):
 
 
 def read_json(fn):
-    fp = os.path.join(test_data, fn)
+    fp = os.path.join(FIXTURE_DIR, fn)
     data = json.load(open(fp))
     return data
 
@@ -89,7 +92,8 @@ def test_submit(db, mock_api):
     load(db, "data_object_set.json")
     load(db, "omics_processing_set.json")
 
-    jm = Scheduler(db, wfn="./configs/workflows.yaml")
+    jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
+                   site_conf="./tests/site_configuration_test.toml")
 
     # This should result in one RQC job
     resp = jm.cycle()
@@ -107,7 +111,8 @@ def test_progress(db, mock_api):
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
     load(db, "omics_processing_set.json")
-    jm = Scheduler(db, wfn="./configs/workflows.yaml")
+    jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
+                   site_conf="./tests/site_configuration_test.toml")
     workflow_by_name = dict()
     for wf in jm.workflows:
         workflow_by_name[wf.name] = wf
@@ -151,7 +156,8 @@ def test_multiple_versions(db, mock_api):
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
     load(db, "omics_processing_set.json")
-    jm = Scheduler(db, wfn="./configs/workflows2.yaml")
+    jm = Scheduler(db, wfn="./tests/workflows_test2.yaml",
+                   site_conf="./tests/site_configuration_test.toml")
     workflow_by_name = dict()
     for wf in jm.workflows:
         workflow_by_name[wf.name] = wf

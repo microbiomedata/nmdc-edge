@@ -1,6 +1,5 @@
 import os
 import shutil
-from unittest.mock import patch, Mock
 from nmdc_automation.import_automation.activity_mapper import GoldMapper
 from pytest import fixture
 from time import time
@@ -19,17 +18,18 @@ def nmdc_api(requests_mock):
 
 @fixture
 def gold_mapper(nmdc_api):
-    yaml_file = os.path.abspath("./configs/import.yaml")
+    yaml_file = os.path.abspath("./tests/import_test.yaml")
     test_files = [os.path.abspath("./test_data/test_pfam.gff"),
                   os.path.abspath("./test_data/test_cog.gff"),
                   os.path.abspath("./test_data/test_2.tar.gz"),
                   os.path.abspath("./test_data/test_72.tar.gz")]
     proj_dir = os.path.abspath("./test_data")
+    site_conf = os.path.abspath("./tests/site_configuration_test.toml")
     omics_id = "nmdc:omprc-11-importT"
     root_dir = f"/tmp/{omics_id}"
     if os.path.exists(root_dir):
         shutil.rmtree(root_dir)
-    gm = GoldMapper(test_files, omics_id, yaml_file, proj_dir)
+    gm = GoldMapper("1", test_files, omics_id, yaml_file, proj_dir, site_conf)
     gm.root_dir = root_dir
     return gm
 

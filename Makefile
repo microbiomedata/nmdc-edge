@@ -1,3 +1,3 @@
 
 test:
-	PYTHONPATH=$(shell pwd) pytest --cov-report term --cov-report html --cov=nmdc_automation ./tests
+	PYTHONPATH=$(shell pwd) pytest --cov-report term --cov=nmdc_automation ./tests

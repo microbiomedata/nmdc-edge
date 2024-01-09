@@ -1,0 +1,436 @@
+Workflows:
+  - Name: Sequencing Noninterleaved
+    Collection: omics_processing_set
+    Filter Output Objects:
+    - Metagenome Raw Read 1
+    - Metagenome Raw Read 2
+
+  - Name: Sequencing Interleaved
+    Collection: omics_processing_set
+    Filter Output Objects:
+    - Metagenome Raw Reads
+
+  - Name: Sequencing
+    Type: nmdc:MetagenomeSequencingActivity
+    Enabled: False
+    Git_repo: https://github.com/microbiomedata/RawSequencingData
+    Version: v1.0.0
+    Collection: metagenome_sequencing_activity_set
+    Outputs: []
+
+  - Name: Reads QC
+    Type: nmdc:ReadQcAnalysisActivity
+    Enabled: True
+    Git_repo: https://github.com/microbiomedata/ReadsQC
+    Version: v1.0.7
+    WDL: rqcfilter.wdl
+    Collection: read_qc_analysis_activity_set
+    Filter Input Objects:
+    - Metagenome Raw Reads
+    Predecessors:
+    - Sequencing
+    - Sequencing Interleaved
+    Input_prefix: nmdc_rqcfilter
+    Inputs:
+      input_files: do:Metagenome Raw Reads
+      proj: "{activity_id}"
+    Activity:
+      name: "Read QC Activity for {id}"
+      input_read_bases: "{outputs.stats.input_read_bases}"
+      input_read_count: "{outputs.stats.input_read_count}"
+      output_read_bases: "{outputs.stats.output_read_bases}"
+      output_read_count: "{outputs.stats.output_read_count}"
+      type: nmdc:ReadQcAnalysisActivity
+    Outputs:
+      - output: filtered_final
+        name: Reads QC result fastq (clean data)
+        suffix: "_filtered.fastq.gz"
+        data_object_type: Filtered Sequencing Reads
+        description: "Reads QC for {id}"
+      - output: filtered_stats_final
+        name: Reads QC summary statistics
+        suffix: "_filterStats.txt"
+        data_object_type: QC Statistics
+        description: "Reads QC summary for {id}"
+      - output: rqc_info
+        name: File containing read filtering information
+        suffix: "_readsQC.info"
+        data_object_type: Read Filtering Info File
+        description: "Read filtering info for {id}"
+
+  - Name: Reads QC Interleave
+    Type: nmdc:ReadQcAnalysisActivity
+    Enabled: True
+    Git_repo: https://github.com/microbiomedata/ReadsQC
+    Version: v1.0.7
+    Collection: read_qc_analysis_activity_set
+    WDL: interleave_rqcfilter.wdl
+    Input_prefix: nmdc_rqcfilter
+    Inputs:
+      proj: "{activity_id}"
+      input_fastq1: do:Metagenome Raw Read 1
+      input_fastq2: do:Metagenome Raw Read 2
+    Filter Input Objects:
+    - Metagenome Raw Read 1
+    - Metagenome Raw Read 2
+    Predecessors:
+    - Sequencing Noninterleaved
+    Activity:
+      name: "Read QC Activity for {id}"
+      input_read_bases: "{outputs.stats.input_read_bases}"
+      input_read_count: "{outputs.stats.input_read_count}"
+      output_read_bases: "{outputs.stats.output_read_bases}"
+      output_read_count: "{outputs.stats.output_read_count}"
+      type: nmdc:ReadQcAnalysisActivity
+    Outputs:
+      - output: filtered_final
+        name: Reads QC result fastq (clean data)
+        suffix: "_filtered.fastq.gz"
+        data_object_type: Filtered Sequencing Reads
+        description: "Reads QC for {id}"
+      - output: filtered_stats_final
+        name: Reads QC summary statistics
+        suffix: "_filterStats.txt"
+        data_object_type: QC Statistics
+        description: "Reads QC summary for {id}"
+      - output: rqc_info
+        name: File containing read filtering information
+        suffix: "_readsQC.info"
+        data_object_type: Read Filtering Info File
+        description: "Read filtering info for {id}"
+
+  - Name: Metagenome Assembly
+    Type: nmdc:MetagenomeAssembly
+    Enabled: True
+    Git_repo: https://github.com/microbiomedata/metaAssembly
+    Version: v1.0.3
+    WDL: jgi_assembly.wdl
+    Collection: metagenome_assembly_set
+    Predecessors:
+    - Reads QC
+    - Reads QC Interleave
+    Input_prefix: jgi_metaASM
+    Inputs:
+      input_file: do:Filtered Sequencing Reads
+      rename_contig_prefix: "{activity_id}"
+      proj: "{activity_id}"
+    Activity:
+      name: "Metagenome Assembly Activity for {id}"
+      type: nmdc:MetagenomeAssembly
+      asm_score: "{outputs.stats.asm_score}"
+      contig_bp: "{outputs.stats.contig_bp}"
+      contigs: "{outputs.stats.contigs}"
+      ctg_l50: "{outputs.stats.ctg_l50}"
+      ctg_l90: "{outputs.stats.ctg_l90}"
+      ctg_logsum: "{outputs.stats.ctg_logsum}"
+      ctg_max: "{outputs.stats.ctg_max}"
+      ctg_n50: "{outputs.stats.ctg_n50}"
+      ctg_n90: "{outputs.stats.ctg_n90}"
+      ctg_powsum: "{outputs.stats.ctg_powsum}"
+      gap_pct: "{outputs.stats.gap_pct}"
+      gc_avg: "{outputs.stats.gc_avg}"
+      gc_std: "{outputs.stats.gc_std}"
+      scaf_bp: "{outputs.stats.scaf_bp}"
+      scaf_l50: "{outputs.stats.scaf_l50}"
+      scaf_l90: "{outputs.stats.scaf_l90}"
+      scaf_l_gt50k: "{outputs.stats.scaf_l_gt50k}"
+      scaf_logsum: "{outputs.stats.scaf_logsum}"
+      scaf_max: "{outputs.stats.scaf_max}"
+      scaf_n50: "{outputs.stats.scaf_n50}"
+      scaf_n90: "{outputs.stats.scaf_n90}"
+      scaf_n_gt50k: "{outputs.stats.scaf_n_gt50k}"
+      scaf_pct_gt50k: "{outputs.stats.scaf_pct_gt50k}"
+      scaf_powsum: "{outputs.stats.scaf_powsum}"
+      scaffolds: "{outputs.stats.scaffolds}"
+    Outputs:
+      - output: contig
+        name: Final assembly contigs fasta
+        suffix: "_contigs.fna"
+        data_object_type: Assembly Contigs
+        description: "Assembly contigs for {id}"
+      - output: scaffold
+        name: Final assembly scaffolds fasta
+        suffix: "_scaffolds.fna"
+        data_object_type: Assembly Scaffolds
+        description: "Assembly scaffolds for {id}"
+      - output: covstats
+        name: Assembled contigs coverage information
+        suffix: "_covstats.txt"
+        data_object_type: Assembly Coverage Stats
+        description: "Coverage Stats for {id}"
+      - output: agp
+        name: An AGP format file that describes the assembly
+        suffix: "_assembly.agp"
+        data_object_type: Assembly AGP
+        description: "AGP for {id}"
+      - output: bam
+        name: Sorted bam file of reads mapping back to the final assembly
+        suffix: "_pairedMapped_sorted.bam"
+        data_object_type: Assembly Coverage BAM
+        description: "Sorted Bam for {id}"
+      - output: asminfo
+        name: File containing assembly info
+        suffix: "_metaAsm.info"
+        data_object_type: Assembly Info File
+        description: "Assembly info for {id}"
+
+  - Name: Metagenome Annotation
+    Type: nmdc:MetagenomeAnnotationActivity
+    Enabled: True
+    Git_repo: https://github.com/microbiomedata/mg_annotation
+    Version: v1.0.4
+    WDL: annotation_full.wdl
+    Collection: metagenome_annotation_activity_set
+    Predecessors:
+    - Metagenome Assembly
+    Input_prefix: annotation
+    Inputs:
+      input_file: do:Assembly Contigs
+      imgap_project_id: "scaffold"
+      proj: "{activity_id}"
+    Activity:
+      name: "Metagenome Annotation Analysis Activity for {id}"
+      type: nmdc:MetagenomeAnnotationActivity
+    Outputs:
+      - output: proteins_faa
+        data_object_type: Annotation Amino Acid FASTA
+        description: FASTA Amino Acid File for {id}
+        name: FASTA amino acid file for annotated proteins
+        suffix: _proteins.faa
+      - output: structural_gff
+        data_object_type: Structural Annotation GFF
+        description: Structural Annotation for {id}
+        name: GFF3 format file with structural annotations
+        suffix: _structural_annotation.gff
+      - output: functional_gff
+        data_object_type: Functional Annotation GFF
+        description: Functional Annotation for {id}
+        name: GFF3 format file with functional annotations
+        suffix: _functional_annotation.gff
+      - output: ko_tsv
+        data_object_type: Annotation KEGG Orthology
+        description: KEGG Orthology for {id}
+        name: Tab delimited file for KO annotation
+        suffix: _ko.tsv
+      - output: ec_tsv
+        data_object_type: Annotation Enzyme Commission
+        description: EC Annotations for {id}
+        name: Tab delimited file for EC annotation
+        suffix: _ec.tsv
+      - output: cog_gff
+        data_object_type: Clusters of Orthologous Groups (COG) Annotation GFF
+        description: COGs for {id}
+        name: GFF3 format file with COGs
+        suffix: _cog.gff
+      - output: pfam_gff
+        data_object_type: Pfam Annotation GFF
+        description: Pfam Annotation for {id}
+        name: GFF3 format file with Pfam
+        suffix: _pfam.gff
+      - output: tigrfam_gff
+        data_object_type: TIGRFam Annotation GFF
+        description: TIGRFam for {id}
+        name: GFF3 format file with TIGRfam
+        suffix: _tigrfam.gff
+      - output: smart_gff
+        data_object_type: SMART Annotation GFF
+        description: SMART Annotations for {id}
+        name: GFF3 format file with SMART
+        suffix: _smart.gff
+      - output: supfam_gff
+        data_object_type: SUPERFam Annotation GFF
+        description: SUPERFam Annotations for {id}
+        name: GFF3 format file with SUPERFam
+        suffix: _supfam.gff
+      - output: cath_funfam_gff
+        data_object_type: CATH FunFams (Functional Families) Annotation GFF
+        description: CATH FunFams for {id}
+        name: GFF3 format file with CATH FunFams
+        suffix: _cath_funfam.gff
+      - output: crt_gff
+        data_object_type: CRT Annotation GFF
+        description: CRT Annotations for {id}
+        name: GFF3 format file with CRT
+        suffix: _crt.gff
+      - output: genemark_gff
+        data_object_type: Genemark Annotation GFF
+        description: Genemark Annotations for {id}
+        name: GFF3 format file with Genemark
+        suffix: _genemark.gff
+      - output: prodigal_gff
+        data_object_type: Prodigal Annotation GFF
+        description: Prodigal Annotations {id}
+        name: GFF3 format file with Prodigal
+        suffix: _prodigal.gff
+      - output: trna_gff
+        data_object_type: TRNA Annotation GFF
+        description: TRNA Annotations {id}
+        name: GFF3 format file with TRNA
+        suffix: _trna.gff
+      - output: final_rfam_gff
+        data_object_type: RFAM Annotation GFF
+        description: RFAM Annotations for {id}
+        name: GFF3 format file with RFAM
+        suffix: _rfam.gff
+      - output: ko_ec_gff
+        data_object_type: KO_EC Annotation GFF
+        description: KO_EC Annotations for {id}
+        name: GFF3 format file with KO_EC
+        suffix: _ko_ec.gff
+      - output: product_names_tsv
+        data_object_type: Product Names
+        description: Product names for {id}
+        name: Product names file
+        suffix: _product_names.tsv
+      - output: gene_phylogeny_tsv
+        data_object_type: Gene Phylogeny tsv
+        description: Gene Phylogeny for {id}
+        name: Gene Phylogeny file
+        suffix: _gene_phylogeny.tsv
+      - output: crt_crisprs
+        data_object_type: Crispr Terms
+        description: Crispr Terms for {id}
+        name: Crispr Terms
+        suffix: _crt.crisprs
+      - output: stats_tsv
+        data_object_type: Annotation Statistics
+        description: Annotation Stats for {id}
+        name: Annotation statistics report
+        suffix: _stats.tsv
+      # - output: contig_mapping
+      #   data_object_type: Contig Mapping File
+      #   description: Contig mappings file for {id}
+      #   name: Contig mappings between contigs and scaffolds
+      #   suffix: _contig_names_mapping.tsv
+      - output: imgap_version
+        data_object_type: Annotation Info File
+        description: Annotation info for {id}
+        name: File containing annotation info
+        suffix: _imgap.info
+
+  - Name: MAGs
+    Type: nmdc:MagsAnalysisActivity
+    Enabled: True
+    Git_repo: https://github.com/microbiomedata/mg_annotation
+    Git_repo: https://github.com/microbiomedata/metaMAGs
+    Version: v1.0.6
+    WDL: mbin_nmdc.wdl
+    Collection: mags_activity_set
+    Predecessors:
+    - Metagenome Annotation
+    Input_prefix: nmdc_mags
+    Inputs:
+      contig_file: do:Assembly Contigs
+      gff_file: do:Functional Annotation GFF
+      cath_funfam_file: do:CATH FunFams (Functional Families) Annotation GFF
+      supfam_file: do:SUPERFam Annotation GFF
+      cog_file: do:Clusters of Orthologous Groups (COG) Annotation GFF
+      proj_name: "{activity_id}"
+      pfam_file: do:Pfam Annotation GFF
+      product_names_file: do:Product Names
+      tigrfam_file: do:TIGRFam Annotation GFF
+      ec_file: do:Annotation Enzyme Commission
+      ko_file: do:Annotation KEGG Orthology
+      sam_file: do:Assembly Coverage BAM
+      smart_file: do:SMART Annotation GFF
+      proteins_file: do:Annotation Amino Acid FASTA
+      gene_phylogeny_file: do:Gene Phylogeny tsv
+      proj: "{activity_id}"
+    Activity:
+      name: "Metagenome Assembled Genomes Analysis Activity for {id}"
+      type: nmdc:MagsAnalysisActivity
+    Outputs:
+    - output: final_checkm
+      data_object_type: CheckM Statistics
+      description: CheckM for {id}
+      name: CheckM statistics report
+      suffix: _checkm_qa.out
+    - output: final_hqmq_bins_zip
+      data_object_type: Metagenome Bins
+      description: Metagenome Bins for {id}
+      name: Metagenome bin tarfiles archive
+      suffix: _hqmq_bin.zip
+    - output: final_gtdbtk_bac_summary
+      data_object_type: GTDBTK Bacterial Summary
+      description: Bacterial Summary for {id}
+      name: GTDBTK bacterial summary
+      suffix: _gtdbtk.bac122.summary.tsv
+    - output: final_gtdbtk_ar_summary
+      data_object_type: GTDBTK Archaeal Summary
+      description: Archaeal Summary for {id}
+      name: GTDBTK archaeal summary
+      suffix: _gtdbtk.ar122.summary.tsv
+    - output: mags_version
+      data_object_type: Metagenome Bins Info File
+      description: Metagenome Bins Info File for {id}
+      name: Metagenome Bins Info File
+      suffix: _bin.info
+
+  - Name: Readbased Analysis
+    Type: nmdc:ReadBasedTaxonomyAnalysisActivity
+    Enabled: True
+    Git_repo: https://github.com/microbiomedata/ReadbasedAnalysis
+    Version: v1.0.5
+    WDL: ReadbasedAnalysis.wdl
+    Collection: read_based_taxonomy_analysis_activity_set
+    Predecessors:
+    - Reads QC
+    - Reads QC Interleave
+    Input_prefix: ReadbasedAnalysis
+    Inputs:
+      input_file: do:Filtered Sequencing Reads
+      proj: "{activity_id}"
+    Activity:
+      name: "Readbased Taxonomy Analysis Activity for {id}"
+      type: nmdc:ReadBasedTaxonomyAnalysisActivity
+    Outputs:
+    - output: final_gottcha2_report_tsv
+      data_object_type: GOTTCHA2 Classification Report
+      description: GOTTCHA2 Classification for {id}
+      name: GOTTCHA2 classification report file
+      suffix: _gottcha2_report.tsv
+    - output: final_gottcha2_full_tsv
+      data_object_type: GOTTCHA2 Report Full
+      description: GOTTCHA2 Full Report for {id}
+      name: GOTTCHA2 report file
+      suffix: _gottcha2_full_tsv
+    - output: final_gottcha2_krona_html
+      data_object_type: GOTTCHA2 Krona Plot
+      description: GOTTCHA2 Krona for {id}
+      name: GOTTCHA2 krona plot HTML file
+      suffix: _gottcha2_krona.html
+    - output: final_centrifuge_classification_tsv
+      data_object_type: Centrifuge Taxonomic Classification
+      description: Centrifuge Classification for {id}
+      name: Centrifuge output read classification file
+      suffix: _centrifuge_classification.tsv
+    - output: final_centrifuge_report_tsv
+      data_object_type: Centrifuge output report file
+      description: Centrifuge Report for {id}
+      name: Centrifuge Classification Report
+      suffix: _centrifuge_report.tsv
+    - output: final_centrifuge_krona_html
+      data_object_type: Centrifuge Krona Plot
+      description: Centrifuge Krona for {id}
+      name: Centrifug krona plot HTML file
+      suffix: _centrifuge_krona.html
+    - output: final_kraken2_classification_tsv
+      data_object_type: Kraken2 Taxonomic Classification
+      description: Kraken2 Classification for {id}
+      name: Kraken2 output read classification file
+      suffix: _kraken2_classification.tsv
+    - output: final_kraken2_report_tsv
+      data_object_type: Kraken2 Classification Report
+      description: Kraken2 Report for {id}
+      name: Kraken2 output report file
+      suffix: _kraken2_report.tsv
+    - output: final_kraken2_krona_html
+      data_object_type: Kraken2 Krona Plot
+      description: Kraken2 Krona for {id}
+      name: Kraken2 Krona plot HTML file
+      suffix: _kraken2_krona.html
+    - output: info_file
+      data_object_type: Read Based Analysis Info File
+      description: Read based analysis info for {id}
+      name: File containing reads based analysis information
+      suffix: profiler.info

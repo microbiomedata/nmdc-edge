@@ -1,0 +1,40 @@
+[
+  {
+    "has_input": [
+      "nmdc:37573bca240f88091720ae61ae5c9452"
+    ],
+    "part_of": [
+      "nmdc:mga0vx38"
+    ],
+    "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+    "has_output": [
+      "nmdc:7336ecf1f0b47e6161b52aec01d56ab8",
+      "nmdc:62b6efaf7d8a21c60dd6604b04ab4c14",
+      "nmdc:4d41794368ed796500bb6d2c82a6787a",
+      "nmdc:a8e41f5700ab72a4f61f3d1dd45285c8",
+      "nmdc:551a7f35ff12bcd874c84b38c2adbceb",
+      "nmdc:45743fa49c9e798771285daafa4282a8",
+      "nmdc:7059a9060fa1c387109bd687f5185789",
+      "nmdc:ca06b1f1d9661a8bc574be6d9e88ea61",
+      "nmdc:6aa2609c12ebfd17d481772725a4ea10",
+      "nmdc:794ad11fd53f99ab3801227614b4ec3b",
+      "nmdc:de7b26c212d063e5e0d2b47378252d4b",
+      "nmdc:a225e5bf4d6a504b9823636ac9e38224",
+      "nmdc:c2826e164cceee905d5d2878c4c87dfb",
+      "nmdc:225c2a620cc15cfd371f9aa6e0c5208c",
+      "nmdc:36c458d8648ece4e8c3af9b13319b9b8",
+      "nmdc:af9892ee8372ba97bff93424079221d8",
+      "nmdc:02f081900336db5b9553328c93c40d21",
+      "nmdc:5b7a1c3890012eab0fb111979dd6ca3f",
+      "nmdc:205d1c4d44756cdadc7f2263375cd5cc",
+      "nmdc:3c18be56eef0b4cdbc514764cb724f06"
+    ],
+    "was_informed_by": "nmdc:omprc-11-nhy4pz43",
+    "id": "nmdc:fdefb3fa15098906cf788f5cadf17bb3",
+    "execution_resource": "NERSC-Cori",
+    "name": "Annotation Activity for nmdc:mga0vx38",
+    "started_at_time": "2021-08-05T14:48:51+00:00",
+    "type": "nmdc:MetagenomeAnnotationActivity",
+    "ended_at_time": "2021-09-15T10:13:20+00:00"
+  }
+]
