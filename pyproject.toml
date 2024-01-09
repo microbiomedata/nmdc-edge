@@ -26,6 +26,7 @@ pytest-coverage = "^0.0"
 semver = "^3.0.2"
 mongomock = "^4.1.2"
 requests-mock = "^1.11.0"
+pytest-local-badge = "^1.0.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.1"
