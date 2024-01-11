@@ -3,6 +3,7 @@ workflow nmdc_rqcfilter {
     String  proj
     String  input_files
     String  database="/refdata/"
+    String?  outdir
 
     call stage {
         input: container=container,
@@ -28,7 +29,8 @@ workflow nmdc_rqcfilter {
            read = stage.read,
            filtered = qc.filtered,
            filtered_stats = qc.stat,
-           filtered_stats2 = qc.stat2
+           filtered_stats2 = qc.stat2,
+           outdir = outdir
     }
     output {
         File filtered_final = finish_rqc.filtered_final
@@ -157,6 +159,7 @@ task finish_rqc {
     String proj
     String prefix=sub(proj, ":", "_")
     String start
+    String? outdir
  
     command<<<
 
@@ -183,5 +186,6 @@ task finish_rqc {
         docker: container
         memory: "1 GiB"
         cpu:  1
+        final_workflow_outputs_dir: outdir
     }
 }
