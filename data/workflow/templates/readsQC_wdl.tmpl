@@ -1,31 +1,31 @@
-Array[File] <WORKFLOW>_input_files
-String? <WORKFLOW>_outdir
-String <WORKFLOW>_database="/refdata"
-String <WORKFLOW>_proj="test"
-Boolean <WORKFLOW>_input_interleaved=true
-Array[File] <WORKFLOW>_input_fq1
-Array[File] <WORKFLOW>_input_fq2
+Aworkflow main_workflow {
+Array[File] ReadsQC_input_files
+String? ReadsQC_outdir
+String ReadsQC_database="/refdata"
+Boolean ReadsQC_input_interleaved=true
+Array[File] ReadsQC_input_fq1
+Array[File] ReadsQC_input_fq2
 
-call <WORKFLOW>_preprocess.readsqc_preprocess as readsqc_preprocess {
+call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
     input:
-        input_files=<WORKFLOW>_input_files,
-        outdir=<WORKFLOW>_outdir,
-        input_interleaved=<WORKFLOW>_input_interleaved,
-        input_fq1=<WORKFLOW>_input_fq1,
-        input_fq2=<WORKFLOW>_input_fq2
+        input_files=ReadsQC_input_files,
+        outdir=ReadsQC_outdir,
+        input_interleaved=ReadsQC_input_interleaved,
+        input_fq1=ReadsQC_input_fq1,
+        input_fq2=ReadsQC_input_fq2
 }
-Array[File] scatter_files = readsqc_preprocess.input_files_gz
-scatter(file in scatter_files) {
-    call <WORKFLOW>.nmdc_rqcfilter  as <ALIAS> {
-        input:
-            input_files=file,
-            proj=<WORKFLOW>_proj,
-            database=<WORKFLOW>_database
+scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
+
+        call ReadsQC.nmdc_rqcfilter  as nmdc_rqcfilter {
+            input:
+                input_files=file,
+                database=ReadsQC_database,
+                proj="test",
+	   }
+        call ReadsQC_output.readsqc_output as readsqc_output {
+            input:
+                input_files=nmdc_rqcfilter.filtered_final,
+                outdir=ReadsQC_outdir
+	    }
     }
-}
-
-call <WORKFLOW>_output.readsqc_output as readsqc_output {
-    input:
-        input_files = nmdc_rqcfilter.filtered_final,
-        outdir = <WORKFLOW>_outdir
 }
