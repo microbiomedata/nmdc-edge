@@ -24,31 +24,43 @@ def _load_data_objects(db, workflows: List[Workflow]):
 
 
 def _check(match_types, data_object_ids, data_objs):
+    if not data_object_ids:
+        return False
     if not match_types or len(match_types) == 0:
         return True
     match_set = set(match_types)
     do_types = set()
     for doid in data_object_ids:
-        do_types.add(data_objs[doid].data_object_type)
+        if doid in data_objs:
+            do_types.add(data_objs[doid].data_object_type)
     return match_set.issubset(do_types)
 
 
 def _filter_skip(wf, rec, data_objs):
-    match_in = _check(wf.filter_input_objects, rec["has_input"], data_objs)
-    match_out = _check(wf.filter_output_objects, rec["has_output"], data_objs)
+    match_in = _check(wf.filter_input_objects,
+                      rec.get("has_input"),
+                      data_objs)
+    match_out = _check(wf.filter_output_objects,
+                       rec.get("has_output"),
+                       data_objs)
     return not (match_in and match_out)
 
 
-def _read_acitivites(db, workflows: List[Workflow], data_objects: dict, filter: dict):
+def _read_acitivites(db, workflows: List[Workflow],
+                     data_objects: dict, filter: dict):
     """
     Read in all the activities for the defined workflows.
     """
     activities = []
     for wf in workflows:
+        logging.debug(f"Checking {wf.name}:{wf.version}")
         q = filter
         q["git_url"] = wf.git_repo
         q["version"] = wf.version
         for rec in db[wf.collection].find(q):
+            if wf.collection == "omics_processing_set" and \
+               rec["id"].startswith("gold"):
+                continue
             if _filter_skip(wf, rec, data_objects):
                 continue
             act = Activity(rec, wf)
@@ -86,10 +98,8 @@ def _resolve_relationships(activities, data_obj_act):
             # Let's make sure these came from the same source
             # This is just a safeguard
             if act.was_informed_by != parent_act.was_informed_by:
-                logging.warning(
-                    "Mismatched informed by found for"
-                    f"{do_id} in {act.id} ({act.name})"
-                )
+                logging.warning("Mismatched informed by for "
+                                f"{do_id} in {act.id}")
                 continue
             # We only want to use it as a parent if it is the right
             # parent workflow. Some inputs may come from ancestors
@@ -98,13 +108,11 @@ def _resolve_relationships(activities, data_obj_act):
                 # This is the one
                 act.parent = parent_act
                 parent_act.children.append(act)
-                logging.debug(f"Found parent: {parent_act.id} {parent_act.name}")
+                logging.debug(f"Found parent: {parent_act.id}"
+                              f" {parent_act.name}")
                 break
         if len(act.workflow.parents) > 0 and not act.parent:
-            logging.warning(
-                "Didn't find a parent for "
-                f"{act.id} ({act.name}) - {act.workflow.name}"
-            )
+            logging.warning(f"Didn't find a parent for {act.id}")
     # Now all the activities have their parent
     return activities
 
