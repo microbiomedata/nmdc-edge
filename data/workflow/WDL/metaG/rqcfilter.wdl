@@ -186,6 +186,5 @@ task finish_rqc {
         docker: container
         memory: "1 GiB"
         cpu:  1
-        final_workflow_outputs_dir: outdir
     }
 }
