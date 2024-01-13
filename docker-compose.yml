@@ -1,3 +1,5 @@
+# docker compose up --build
+
 version: "3"
 
 # These are the services that constitute this Docker Compose "stack".
@@ -8,9 +10,13 @@ services:
     build:
       context: .
       dockerfile: webapp.Dockerfile
-      args: { WEB_SERVER_PORT_ON_DOCKER_HOST: 8000 }
-    ports: [ "8000:80" ]
-    volumes: [ ".:/app" ]
+      args:
+        API_HOST: localhost
+        API_PORT: 8000
+        ORCID_CLIENT_ID: APP-DWXK0DS6NQLLAA2D
+    environment:
+      MONGO_URI: mongodb://mongo:27017/nmdcedge
+    ports: [ "8000:8000" ]
     depends_on: [ mongo ]
 
   # A MongoDB server (see: https://hub.docker.com/_/mongo).
