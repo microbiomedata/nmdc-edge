@@ -17,14 +17,14 @@ including how the NMDC EDGE web application fits into it.
 graph LR
     %% Nodes:
     user["Web Browser"]
-    cromwell["Workflow Management API<br>(Cromwell)"]
+    cromwell["Workflow Management System<br>(Cromwell)"]
     workers[["Workers"]]
     
     subgraph "NMDC EDGE Web Application"
       %% Nodes:
       client["Web Client<br>(React.js)"]
-      server["API Server<br>(Express.js)"]
-      db[("MongoDB")]
+      server["Web Server<br>(Express.js)"]
+      db[("Database<br>(MongoDB)")]
     end
     
     %% Relationships:
