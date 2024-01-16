@@ -110,7 +110,8 @@ def extract_records(ctx, study_id):
             metagenome_assembly_records,
             metagenome_annotation_records,
             mags_records,
-        ) = ([], [], [], [], [])
+            metatranscriptome_activity_records,
+        ) = ([], [], [], [], [], [])
 
         downstream_workflow_activity_sets = {
             "read_qc_analysis_activity_set": read_qc_records,
@@ -118,9 +119,12 @@ def extract_records(ctx, study_id):
             "metagenome_assembly_set": metagenome_assembly_records,
             "metagenome_annotation_activity_set": metagenome_annotation_records,
             "mags_activity_set": mags_records,
+            "metatranscriptome_activity_set": metatranscriptome_activity_records,
         }
         for set_name, records in downstream_workflow_activity_sets.items():
+            logging.info(f"set_name: {set_name}")
             records = api_client.get_workflow_activity_informed_by(set_name, legacy_id)
+            logging.info(f"found {len(records)} records")
             db.__setattr__(set_name, records)
             # Add the data objects referenced by the `has_output` property
             for record in records:
