@@ -130,7 +130,7 @@ def extract_records(ctx, study_id):
                         data_object_id
                     )
                     logging.info(
-                        f"data_object_record: "
+                        f"has_output: "
                         f"{data_object_record['id']}, {data_object_record['description']}"
                     )
                     db.data_object_set.append(data_object_record)
@@ -422,9 +422,9 @@ def _get_legacy_id(omics_processing_record: dict) -> str:
     legacy_ids.extend(alternative_ids)
     if len(legacy_ids) == 0:
         logging.warning(
-            f"No legacy IDs found for omics_processing_record: {omics_processing_record['id']}"
+            f"No legacy IDs found for: {omics_processing_record['id']} using ID instead"
         )
-        return None
+        return omics_processing_record["id"]
     elif len(legacy_ids) > 1:
         logging.warning(
             f"Multiple legacy IDs found for omics_processing_record: {omics_processing_record['id']}"
