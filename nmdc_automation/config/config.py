@@ -48,6 +48,17 @@ class Config:
         return self.config_data["nmdc"]["api_url"]
 
     @property
+    def napa_base_url(self):
+        return self.config_data["napa"]["base_url"]
+    @property
+    def napa_username(self):
+        return self.config_data["napa"]["username"]
+
+    @property
+    def napa_password(self):
+        return self.config_data["napa"]["password"]
+
+    @property
     def watch_state(self):
         return self.config_data["state"]["watch_state"]
 

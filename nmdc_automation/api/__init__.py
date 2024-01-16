@@ -1,1 +1,1 @@
-from .nmdcapi import NmdcRuntimeApi
+from .nmdcapi import NmdcRuntimeApi, NmdcRuntimeUserApi

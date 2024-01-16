@@ -1,21 +1,20 @@
 #!/usr/bin/env python
 
 import json
+import sys
 import os
+from os.path import join, dirname
+from pydantic import BaseModel
 import requests
 import hashlib
 import mimetypes
 from time import time
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from nmdc_automation.config import Config
 import logging
-from functools import wraps
 
 
 def _get_sha256(fn):
-    """
-    Compute the sha256 hash of a file and cache it.
-    """
     hashfn = fn + ".sha256"
     if os.path.exists(hashfn):
         with open(hashfn) as f:
@@ -33,8 +32,17 @@ def _get_sha256(fn):
             f.write("\n")
     return sha
 
+def expiry_dt_from_now(days=0, hours=0, minutes=0, seconds=0):
+    return datetime.now(timezone.utc) + timedelta(days=days, hours=hours,
+                                          minutes=minutes,
+                              seconds=seconds)
 
 class NmdcRuntimeApi:
+    token = None
+    expires = 0
+    _base_url = None
+    client_id = None
+    client_secret = None
 
     def __init__(self, site_configuration):
         self.config = Config(site_configuration)
@@ -43,18 +51,11 @@ class NmdcRuntimeApi:
         self.client_secret = self.config.client_secret
         if self._base_url[-1] != "/":
             self._base_url += "/"
-        self.token = None
-        self.expires = 0
 
     def refresh_token(func):
-        """
-        Decorator to refresh the token if it will expire in
-        the next minute.
-        """
-        @wraps(func)
         def _get_token(self, *args, **kwargs):
             # If it expires in 60 seconds, refresh
-            if not self.token or self.expires < time() + 60:
+            if not self.token or self.expires + 60 > time():
                 self.get_token()
             return func(self, *args, **kwargs)
 
@@ -86,29 +87,38 @@ class NmdcRuntimeApi:
         }
         return resp
 
+    def get_header(self):
+        return self.header
+
     @refresh_token
     def minter(self, id_type, informed_by=None):
-        """
-        Mint an NMDC compliant ID
-
-        id_type: the type of ID to mint
-        informed_by: the ID of the object that informed this one (optional)
-        """
         url = f"{self._base_url}pids/mint"
         data = {"schema_class": {"id": id_type}, "how_many": 1}
         resp = requests.post(url, data=json.dumps(data), headers=self.header)
         if not resp.ok:
-            raise ValueError("Failed to mint ID")
+            raise ValueError(f"Failed to mint ID of type {id_type}")
         id = resp.json()[0]
         if informed_by:
             url = f"{self._base_url}pids/bind"
-            data = {"id_name": id,
-                    "metadata_record": {"informed_by": informed_by}}
-            resp = requests.post(url, data=json.dumps(data),
-                                 headers=self.header)
+            data = {"id_name": id, "metadata_record": {"informed_by": informed_by}}
+            resp = requests.post(url, data=json.dumps(data), headers=self.header)
             if not resp.ok:
                 raise ValueError("Failed to bind metadata to pid")
         return id
+
+    @refresh_token
+    def mint(self, ns, typ, ct):
+        """
+        Mint a new ID.
+        Inputs: token (obtained using get_token)
+                namespace (e.g. nmdc)
+                type/shoulder (e.g. mga0, mta0)
+                count/number of IDs to generate
+        """
+        url = self._base_url + "ids/mint"
+        d = {"populator": "", "naa": ns, "shoulder": typ, "number": ct}
+        resp = requests.post(url, headers=self.header, data=json.dumps(d))
+        return resp.json()
 
     @refresh_token
     def get_object(self, obj, decode=False):
@@ -171,19 +181,16 @@ class NmdcRuntimeApi:
 
     @refresh_token
     def post_objects(self, obj_data, json_obj=None):
-        """
-        Post output objects from a workflow execution.
-        """
         url = self._base_url + "v1/workflows/activities"
-        resp = requests.post(url, headers=self.header,
-                             data=json.dumps(obj_data))
+
+        # objects_file = open(json_obj)
+        # obj_data = json.load(objects_file)
+
+        resp = requests.post(url, headers=self.header, data=json.dumps(obj_data))
         return resp.json()
 
     @refresh_token
     def set_type(self, obj, typ):
-        """
-        Set the type of an object.
-        """
         url = "%sobjects/%s/types" % (self._base_url, obj)
         d = [typ]
         resp = requests.put(url, headers=self.header, data=json.dumps(d))
@@ -191,9 +198,6 @@ class NmdcRuntimeApi:
 
     @refresh_token
     def bump_time(self, obj):
-        """
-        Update the create time of an object.
-        """
         url = "%sobjects/%s" % (self._base_url, obj)
         now = datetime.today().isoformat()
 
@@ -202,22 +206,15 @@ class NmdcRuntimeApi:
         return resp.json()
 
     @refresh_token
-    def list_jobs(self, filt=None, max_page_size=20):
-        """
-        List jobs
-        Options:
-        filt: filter to apply to the listing
-        max_page_size: set the maximum number of results to return per page
-        """
-        url = "%sjobs?max_page_size=%s" % (self._base_url, max_page_size)
+    def list_jobs(self, filt=None, max=20):
+        url = "%sjobs?max_page_size=%s" % (self._base_url, max)
         d = {}
         if filt:
             url += "&filter=%s" % (json.dumps(filt))
         orig_url = url
         results = []
         while True:
-            resp = requests.get(url, data=json.dumps(d),
-                                headers=self.header).json()
+            resp = requests.get(url, data=json.dumps(d), headers=self.header).json()
             if "resources" not in resp:
                 logging.warning(str(resp))
                 break
@@ -229,20 +226,12 @@ class NmdcRuntimeApi:
 
     @refresh_token
     def get_job(self, job):
-        """
-        Get a job by id
-        job: id of the job
-        """
         url = "%sjobs/%s" % (self._base_url, job)
         resp = requests.get(url, headers=self.header)
         return resp.json()
 
     @refresh_token
     def claim_job(self, job):
-        """
-        Claim a job by id
-        job: id of the job
-        """
         url = "%sjobs/%s:claim" % (self._base_url, job)
         resp = requests.post(url, headers=self.header)
         if resp.status_code == 409:
@@ -254,16 +243,12 @@ class NmdcRuntimeApi:
         return data
 
     def _page_query(self, url):
-        """
-        Helper routine to do paginated queries.
-        url: the url for the query
-        """
         orig_url = url
         results = []
         while True:
             resp = requests.get(url, headers=self.header).json()
             if "resources" not in resp:
-                logging.warning("page_query: " + str(resp))
+                logging.warning(str(resp))
                 break
             results.extend(resp["resources"])
             if "next_page_token" not in resp or not resp["next_page_token"]:
@@ -273,12 +258,6 @@ class NmdcRuntimeApi:
 
     @refresh_token
     def list_objs(self, filt=None, max_page_size=40):
-        """
-        list objects
-        Options:
-        filt: filter to apply to the listing
-        max_page_size: maximum number of results to return per page
-        """
         url = "%sobjects?max_page_size=%d" % (self._base_url, max_page_size)
         if filt:
             url += "&filter=%s" % (json.dumps(filt))
@@ -287,12 +266,6 @@ class NmdcRuntimeApi:
 
     @refresh_token
     def list_ops(self, filt=None, max_page_size=40):
-        """
-        list operations
-        Options:
-        filt: filter to apply to the listing
-        max_page_size: maximum number of results to return per page
-        """
         url = "%soperations?max_page_size=%d" % (self._base_url, max_page_size)
         d = {}
         if filt:
@@ -300,8 +273,7 @@ class NmdcRuntimeApi:
         orig_url = url
         results = []
         while True:
-            resp = requests.get(url, data=json.dumps(d),
-                                headers=self.header).json()
+            resp = requests.get(url, data=json.dumps(d), headers=self.header).json()
             if "resources" not in resp:
                 logging.warning(str(resp))
                 break
@@ -313,23 +285,12 @@ class NmdcRuntimeApi:
 
     @refresh_token
     def get_op(self, opid):
-        """
-        Get an operation by id
-        opid: id of the operation
-        """
         url = "%soperations/%s" % (self._base_url, opid)
         resp = requests.get(url, headers=self.header)
         return resp.json()
 
     @refresh_token
     def update_op(self, opid, done=None, results=None, meta=None):
-        """
-        Update an operation
-        opid: id of the operation
-        done: set the done flag
-        results: set the results field (dict) optional
-        meta: set the metadata field (dict) optional
-        """
         url = "%soperations/%s" % (self._base_url, opid)
         d = dict()
         if done is not None:
@@ -347,3 +308,152 @@ class NmdcRuntimeApi:
             d["metadata"]["extra"] = meta
         resp = requests.patch(url, headers=self.header, data=json.dumps(d))
         return resp.json()
+
+    @refresh_token
+    def run_query(self, query):
+        url = "%squeries:run" % self._base_url
+        resp = requests.post(url, headers=self.header, data=json.dumps(query))
+        return resp.json()
+
+
+class NmdcRuntimeUserApi:
+    """
+    Basic Runtime API Client with user/password authentication.
+    """
+    def __init__(self, site_configuration):
+        self.config = Config(site_configuration)
+
+        # TODO: remove hard-coded values here
+        self.username = self.config.napa_username
+        self.password = self.config.napa_password
+        self.base_url = self.config.napa_base_url
+        self.headers = {}
+        self.token_response = None
+        self.refresh_token_after = None
+
+    def ensure_token(self):
+        if (self.refresh_token_after is None or datetime.now(timezone.utc) >
+                self.refresh_token_after):
+            self.get_token()
+    def get_token(self):
+        token_request_body = {
+            "grant_type": "password",
+            "username": self.username,
+            "password": self.password,
+            "scope": '',
+            "client_id": "",
+            "client_secret": "",
+        }
+        headers = {
+            'accept': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+        }
+        rv = requests.post(
+            self.base_url + "token", data=token_request_body
+            )
+        self.token_response = rv.json()
+        if "access_token" not in self.token_response:
+            raise Exception(f"Getting token failed: {self.token_response}")
+
+        self.headers[
+            "Authorization"] = f'Bearer {self.token_response["access_token"]}'
+        self.refresh_token_after = expiry_dt_from_now(
+            **self.token_response["expires"]
+        ) - timedelta(seconds=5)
+
+    def request(self, method, url_path, params_or_json_data=None):
+        self.ensure_token()
+        kwargs = {"url": self.base_url + url_path, "headers": self.headers}
+        if isinstance(params_or_json_data, BaseModel):
+            params_or_json_data = params_or_json_data.dict(exclude_unset=True)
+        if method.upper() == "GET":
+            kwargs["params"] = params_or_json_data
+        else:
+            kwargs["json"] = params_or_json_data
+        rv = requests.request(method, **kwargs)
+        rv.raise_for_status()
+        return rv
+
+    def get_omics_processing_records_for_nmdc_study(self, nmdc_study_id: str):
+        """
+        Retrieve all OmicsProcessing records for the given NMDC study ID.
+        """
+        url = "queries:run"
+        params = {"find": "omics_processing_set",
+                  "filter": {"part_of": {"$elemMatch": {"$eq": nmdc_study_id}}}}
+        response = self.request("POST", url, params_or_json_data=params)
+        if response.status_code != 200:
+            raise Exception(
+                f"Error retrieving OmicsProcessing records for study {nmdc_study_id}"
+                )
+        omics_processing_records = response.json()["cursor"]["firstBatch"]
+        return omics_processing_records
+
+    def get_workflow_activity_informed_by(self, workflow_activity_set: str,
+                                          informed_by_id: str):
+        """
+        Retrieve a workflow activity record for the given workflow activity set
+        and informed by a given OmicsProcessing ID.
+        """
+        url = "queries:run"
+        params = {"find": workflow_activity_set,
+                  "filter": {"was_informed_by": informed_by_id}}
+        response = self.request("POST", url, params_or_json_data=params)
+        if response.status_code != 200:
+            raise Exception(
+                f"Error retrieving {workflow_activity_set} record informed by {informed_by_id}"
+                )
+        workflow_activity_record = response.json()["cursor"]["firstBatch"]
+        return workflow_activity_record
+
+    def get_data_objects_by_description(self, description: str):
+        """
+        Retrieve data objects the given description in its description.
+        """
+        response = self.request(
+            "POST",
+            "queries:run",
+            params_or_json_data={
+                "find": "data_object_set",
+                "filter": {"description": {"$regex": description, "$options": "i"}},
+            },
+        )
+        response.raise_for_status()
+        return response.json()["cursor"]["firstBatch"]
+
+    def get_data_object_by_id(self, data_object_id: str):
+        """
+        Retrieve a data object record for the given data object ID.
+        """
+        url = f"data_objects/{data_object_id}"
+        response = self.request("GET", url)
+        if response.status_code != 200:
+            raise Exception(
+                f"Error retrieving data object record for {data_object_id}"
+                )
+        data_object_record = response.json()
+        return data_object_record
+    
+    def run_query(self, query: dict):
+        """
+        Function to run a query using the Microbiome Data API.
+        
+        Parameters:
+        query (dict): The query to be run in JSON format.
+        
+        Returns:
+        dict: The response from the API.
+        """
+        
+        self.ensure_token()
+        url = "https://api.microbiomedata.org/queries:run"
+      
+        response = requests.post(url, json=query, headers=self.headers)
+        return response.json()
+
+def jprint(obj):
+    print(json.dumps(obj, indent=2))
+
+
+def usage():
+    print("usage: ....")
