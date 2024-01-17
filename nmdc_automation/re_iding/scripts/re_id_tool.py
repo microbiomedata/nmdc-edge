@@ -30,14 +30,17 @@ BASE_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
 DRYRUN_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
 
 DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
+LOG_PATH = DATA_DIR.joinpath("re_id_tool.log")
 
 logging.basicConfig(
+    filename="re_id.log",
+    filemode="w",
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[logging.StreamHandler()],
 )
 
 logger = logging.getLogger(__name__)
+logger.addHandler(logging.StreamHandler())
 
 
 @click.group()
@@ -73,8 +76,8 @@ def extract_records(ctx, study_id, api_base_url):
     Write the results, as a list of nmdc-schema Database instances to a JSON file.
     """
     start_time = time.time()
-    logging.info(f"Extracting workflow records for study_id: {study_id}")
-    logging.info(f"study_id: {study_id}")
+    logger.info(f"Extracting workflow records for study_id: {study_id}")
+    logger.info(f"study_id: {study_id}")
 
     config = ctx.obj["site_config"]
     # api_client = NmdcRuntimeUserApi(config)
@@ -85,7 +88,7 @@ def extract_records(ctx, study_id, api_base_url):
         api_client.get_omics_processing_records_part_of_study(
         study_id
     ))
-    logging.info(
+    logger.info(
         f"Retrieved {len(omics_processing_records)} OmicsProcessing records for study {study_id}"
     )
 
@@ -93,16 +96,16 @@ def extract_records(ctx, study_id, api_base_url):
     # 2. For each OmicsProcessing record, find the legacy identifier:
     for omics_processing_record in omics_processing_records:
         db = nmdc.Database()
-        logging.info(f"omics_processing_record: " f"{omics_processing_record['id']}")
+        logger.info(f"omics_processing_record: " f"{omics_processing_record['id']}")
         legacy_id = _get_legacy_id(omics_processing_record)
-        logging.info(f"legacy_id: {legacy_id}")
+        logger.info(f"legacy_id: {legacy_id}")
 
-        if omics_processing_record["omics_type"]["has_raw_value"] != "Metagenome":
-            logging.info(
-                f"omics_processing_record {omics_processing_record['id']} "
-                f"is not a Metagenome"
-            )
-            continue
+        # if omics_processing_record["omics_type"]["has_raw_value"] != "Metagenome":
+        #     logger.info(
+        #         f"omics_processing_record {omics_processing_record['id']} "
+        #         f"is not a Metagenome"
+        #     )
+        #     continue
         db.omics_processing_set.append(omics_processing_record)
         for data_object_id in omics_processing_record["has_output"]:
             data_object_record = api_client.get_data_object(data_object_id)
@@ -127,19 +130,22 @@ def extract_records(ctx, study_id, api_base_url):
             "metatranscriptome_activity_set": metatranscriptome_activity_records,
         }
         for set_name, records in downstream_workflow_activity_sets.items():
-            logging.info(f"set_name: {set_name}")
+            logger.info(f"set_name: {set_name} for {legacy_id}")
             records = api_client.get_workflow_activities_informed_by(set_name,
                                                                    legacy_id)
-            logging.info(f"found {len(records)} records")
+            logger.info(f"found {len(records)} records")
             db.__setattr__(set_name, records)
             # Add the data objects referenced by the `has_output` property
             for record in records:
-                logging.info(f"record: {record['id']}, {record['name']}")
+                logger.info(f"record: {record['id']}, {record['name']}")
                 for data_object_id in record["has_output"]:
                     data_object_record = api_client.get_data_object(
                         data_object_id
                     )
-                    logging.info(
+                    if not data_object_record:
+                        logger.warning(f"no data object found for {data_object_id}")
+                        continue
+                    logger.info(
                         f"has_output: "
                         f"{data_object_record['id']}, {data_object_record['description']}"
                     )
@@ -151,7 +157,7 @@ def extract_records(ctx, study_id, api_base_url):
         for data_object in orphaned_data_objects:
             if data_object["id"] not in [d["id"] for d in db.data_object_set]:
                 db.data_object_set.append(data_object)
-                logging.info(
+                logger.info(
                     f"Added orphaned data object: "
                     f"{data_object['id']}, {data_object['description']}"
                 )
