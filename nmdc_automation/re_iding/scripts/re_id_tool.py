@@ -13,7 +13,7 @@ import requests
 from linkml_runtime.dumpers import json_dumper
 
 from nmdc_automation.api import NmdcRuntimeApi, NmdcRuntimeUserApi
-from nmdc_automation.config import Config
+from nmdc_automation.nmdc_common.client import NmdcApi
 import nmdc_schema.nmdc as nmdc
 from nmdc_automation.re_iding.base import ReIdTool
 from nmdc_automation.re_iding.changesheets import Changesheet, ChangesheetLineItem
@@ -23,6 +23,7 @@ from nmdc_automation.re_iding.db_utils import get_omics_processing_id
 GOLD_STUDY_ID = "gold:Gs0114663"
 STUDY_ID = "nmdc:sty-11-aygzgv51"
 NAPA_CONFIG = Path("../../../configs/napa_config.toml")
+NAPA_BASE_URL = "https://api-napa.microbiomedata.org/"
 
 
 BASE_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
@@ -56,12 +57,14 @@ def cli(ctx, site_config):
 
 @cli.command()
 @click.option(
-    "--study_id",
+    "--study-id",
     default=STUDY_ID,
     help=f"Optional updated study ID. Default: {STUDY_ID}",
 )
+@click.option("--api-base-url", default=NAPA_BASE_URL,
+              help=f"Optional base URL for the NMDC API. Default: {NAPA_BASE_URL}")
 @click.pass_context
-def extract_records(ctx, study_id):
+def extract_records(ctx, study_id, api_base_url):
     """
     Extract metagenome workflow activities and their data object records
     that are informed_by the legacy ID (GOLD Study ID) for a re-ID-ed Study/
@@ -74,12 +77,14 @@ def extract_records(ctx, study_id):
     logging.info(f"study_id: {study_id}")
 
     config = ctx.obj["site_config"]
-    api_client = NmdcRuntimeUserApi(config)
+    # api_client = NmdcRuntimeUserApi(config)
+    api_client = NmdcApi(api_base_url)
 
     # 1. Retrieve all OmicsProcessing records for the updated NMDC study ID
-    omics_processing_records = api_client.get_omics_processing_records_for_nmdc_study(
+    omics_processing_records = (
+        api_client.get_omics_processing_records_part_of_study(
         study_id
-    )
+    ))
     logging.info(
         f"Retrieved {len(omics_processing_records)} OmicsProcessing records for study {study_id}"
     )
@@ -100,7 +105,7 @@ def extract_records(ctx, study_id):
             continue
         db.omics_processing_set.append(omics_processing_record)
         for data_object_id in omics_processing_record["has_output"]:
-            data_object_record = api_client.get_data_object_by_id(data_object_id)
+            data_object_record = api_client.get_data_object(data_object_id)
             db.data_object_set.append(data_object_record)
 
         # downstream workflow activity sets
@@ -123,14 +128,15 @@ def extract_records(ctx, study_id):
         }
         for set_name, records in downstream_workflow_activity_sets.items():
             logging.info(f"set_name: {set_name}")
-            records = api_client.get_workflow_activity_informed_by(set_name, legacy_id)
+            records = api_client.get_workflow_activities_informed_by(set_name,
+                                                                   legacy_id)
             logging.info(f"found {len(records)} records")
             db.__setattr__(set_name, records)
             # Add the data objects referenced by the `has_output` property
             for record in records:
                 logging.info(f"record: {record['id']}, {record['name']}")
                 for data_object_id in record["has_output"]:
-                    data_object_record = api_client.get_data_object_by_id(
+                    data_object_record = api_client.get_data_object(
                         data_object_id
                     )
                     logging.info(
