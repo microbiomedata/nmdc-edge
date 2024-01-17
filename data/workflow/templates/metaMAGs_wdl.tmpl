@@ -7,7 +7,7 @@
     File? <WORKFLOW>_domain_file
     Int <WORKFLOW>_cpu=16
     Int <WORKFLOW>_pplacer_cpu=1
-    String <WORKFLOW>_database="/expanse/projects/nmdc/refdata/GTDBTK_DB"
+    String <WORKFLOW>_database="/refdata/GTDBTK_DB"
 
     call <WORKFLOW>.nmdc_mags  as <ALIAS> {
         input: outdir=<WORKFLOW>_outdir, proj_name=<WORKFLOW>_proj_name, contig_file=<WORKFLOW>_contig_file, sam_file=<WORKFLOW>_sam_file, gff_file=<WORKFLOW>_gff_file, 

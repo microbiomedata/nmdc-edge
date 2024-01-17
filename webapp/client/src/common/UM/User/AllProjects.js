@@ -76,7 +76,7 @@ function AllProjects(props) {
                             title="All Projects Available to Me"
                             icons={tableIcons}
                             options={{
-                                grouping: true,
+                                grouping: false,
                                 selection: true,
                                 pageSize: 10,
                                 pageSizeOptions: [10, 20, 50, 100],
