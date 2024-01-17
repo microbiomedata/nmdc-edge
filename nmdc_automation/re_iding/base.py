@@ -314,7 +314,28 @@ class ReIdTool:
             new_db.read_based_taxonomy_analysis_activity_set.append(new_read_based)
 
         return new_db
-    
+
+    def update_metatranscriptome_activity_set(self, db_record: Dict,
+                                              new_db: NmdcDatabase) -> (NmdcDatabase):
+        """
+        Return a new Database instance with the metatranscriptome_activity_set
+        and its data objects updated to new IDs.
+        """
+        logger.info(f"Updating metatranscriptome_activity_set for "
+                    f"{db_record[OMICS_PROCESSING_SET][0]['id']}")
+        new_omics_processing = new_db.omics_processing_set[0]
+
+        for metatranscriptome_rec in db_record["metatranscriptome_activity_set"]:
+            activity_type = "nmdc:MetaT"
+            omics_processing_id = new_omics_processing.id
+            has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
+
+            new_activity_id = self.api_client.minter(activity_type) + "." + self.workflow_iteration
+            logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
+
+
+
+
     def _get_input_do_id(self, new_db, data_object_type: str):
         """Returns the string representation of a data object id given data object type"""
         
