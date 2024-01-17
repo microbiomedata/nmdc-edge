@@ -161,7 +161,11 @@ RUN cd /app/data/workflow/WDL/sra           && zip -r imports.zip *.wdl
 #
 # Install the npm packages upon which the web app client depends.
 #
-RUN cd webapp/client && npm ci
+# Note: The `--legacy-peer-deps` option is here because some of the npm packages upon which the web app depends,
+#       have conflicting dependencies with one another. The `--legacy-peer-deps` option causes npm to be more
+#       lenient about stuff like that. Reference: https://stackoverflow.com/a/66620869
+#
+RUN cd webapp/client && npm ci --legacy-peer-deps
 #
 # Build the web app client (i.e. React app).
 #
