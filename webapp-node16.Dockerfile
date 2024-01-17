@@ -11,23 +11,31 @@
 # Prerequisites
 # -------------
 #
-# - Determine the ORCiD Client ID you want the resulting container image to use. You can get it by logging into
-#   the ORCiD website and visiting the "Developer tools" page there. You will use it in the procedure below.
+# - Determine the ORCiD Client ID you want the resulting container image to use. You can get it by either:
+#   (a) logging into the ORCiD website and visiting the "Developer tools" page there; or
+#   (b) using the same value as is used on the production NMDC EDGE instance, which you can get by visiting
+#       https://nmdc-edge.org/login, clicking the "Login with ORCiD" button, and copying the `client_id`
+#       value from the URL of the pop-up window (i.e. ORCiD login form) that appears.
 #
 # =========
 # Procedure
 # ---------
 #
-# 1. Build a container image (do one of the following, depending upon situation):
-#    - Build an image on your Mac for local development:
+# 1. Build a container image (do one of the following, depending upon your situation):
+#    - If the computer you're using to build the image, and the computer on which containers based upon the image will
+#      run, have the same CPU architecture, then you can use this command to build the image (replace the placeholder
+#      with the ORCiD `client_id` you obtained earlier):
 #      ```
 #      $ docker build -f webapp.Dockerfile \
 #          --build-arg ORCID_CLIENT_ID='__REPLACE_ME__' \
 #          --build-arg API_HOST='localhost' \
 #          --build-arg API_PORT='8000' \
-#          -t nmdc-edge-web-app:dev .
+#          -t nmdc-edge-web-app:some-tag .
 #      ```
-#    - Build an image that will run on a GCP VM (amd64 architecture):
+#    - If the computer you're using to build the image has the arm64 CPU architecture (e.g. a MacBook Pro M1),
+#      and the computer on which containers based upon the image will run have the AMD64 CPU architecture
+#      (e.g. Intel-based systems), you can use this command to build the image (replace the placeholder
+#      with the ORCiD `client_id` you obtained earlier):
 #      ```
 #      $ docker buildx build --platform linux/amd64 -f webapp.Dockerfile \
 #          --build-arg ORCID_CLIENT_ID='__REPLACE_ME__' \
@@ -35,9 +43,9 @@
 #          --build-arg API_PORT='80' \
 #          -t nmdc-edge-web-app:some-tag .
 #      ```
-# 2. (Optional) Run a container based upon that container image:
+# 2. (Optional) Instantiate/run a container based upon the resulting container image:
 #      ```
-#      $ docker run --rm -p 8000:8000 nmdc-edge-web-app:dev
+#      $ docker run --rm -p 8000:8000 nmdc-edge-web-app:some-tag
 #      ```
 # 3. Tag the container image for publishing to the GitHub Container Registry.
 #    a. Get the ID of the container image.
@@ -45,11 +53,10 @@
 #       $ docker images
 #       ```
 #       - That will display the IDs of all container images. Identify the ID of the image you want to publish.
-#    b. Tag the container image with the GHCR prefix.
+#    b. Tag the container image with the GHCR prefix (replace the placeholder with the image ID).
 #       ```
 #       $ docker tag __IMAGE_ID__ ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag
 #       ```
-#       - Replace `__IMAGE_ID__` above with the image ID.
 # 4. Publish the tagged container image to GitHub Container Registry (where it will be publicly accessible).
 #    ```
 #    $ docker push ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag

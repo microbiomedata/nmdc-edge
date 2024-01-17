@@ -13,7 +13,7 @@ services:
       args:
         API_HOST: localhost
         API_PORT: 8000
-        ORCID_CLIENT_ID: APP-DWXK0DS6NQLLAA2D
+        ORCID_CLIENT_ID: APP-CTM81LRCLW9QLGB9  # copied from production instance of NMDC EDGE
     environment:
       MONGO_URI: mongodb://mongo:27017/nmdcedge
     ports: [ "8000:8000" ]
