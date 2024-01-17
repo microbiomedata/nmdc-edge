@@ -39,7 +39,7 @@ function TutorialBarDropdown(props) {
                 display: "flex", justifyContent: "center", alignItems: "center", color: 'white', fontWeight: 'bold', fontSize: '20px',
                 backgroundColor: props.bgcolor, height: '60px'
             }}>
-                <Col xs="3" md="3" lg="3">{props.title}</Col>
+                <Col xs="2" md="2" lg="2">{props.title}</Col>
                 <Col xs="2" md="2" lg="2">
                     {props.video &&
                         <center>
@@ -94,7 +94,25 @@ function TutorialBarDropdown(props) {
                         </center>
                     }
                 </Col>
-                <Col xs="3" md="3" lg="3">
+                <Col xs="2" md="2" lg="2">
+                    {props.pdfFrench &&
+                        <center>
+                            <CDropdown direction="down" >
+                                <CDropdownToggle style={{ color: 'white' }} caret={true} className="no-outline">
+                                    <FaFilePdf fontSize="large" />
+                                </CDropdownToggle>
+                                <CDropdownMenu className="pt-0" placement="bottom">
+                                    <div style={{
+                                        display: "flex", justifyContent: "center", alignItems: "center", color: 'white',
+                                        backgroundColor: 'black', fontWeight: 'bold', height: '30px'
+                                    }}>Workflows</div>
+                                    <TutorialBarDropdownItem items={props.pdfFrench} url={process.env.REACT_APP_API_URL} />
+                                </CDropdownMenu>
+                            </CDropdown>
+                        </center>
+                    }
+                </Col>
+                <Col xs="2" md="2" lg="2">
                     {props.docs &&
                         <center>
                             <CDropdown direction="down" >
