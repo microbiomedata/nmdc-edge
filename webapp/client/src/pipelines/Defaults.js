@@ -59,12 +59,12 @@ export const pipelinelist = {
         pdf: {
             'Metatranscriptomics': '/docs/help/NMDC_EDGE_metaT.pdf',
         },
-        pdfSpanish: {
-            'Metatranscriptomics': '/docs/help/NMDC_EDGE_metaT_español_INCOMPLETE.pdf',
-        },
-        pdfFrench: {
-            'Metatranscriptomics': '/docs/help/NMDC_EDGE_metaT-French.pdf',
-        },
+        // pdfSpanish: {
+        //     'Metatranscriptomics': '/docs/help/NMDC_EDGE_metaT_español_INCOMPLETE.pdf',
+        // },
+        // pdfFrench: {
+        //     'Metatranscriptomics': '/docs/help/NMDC_EDGE_metaT-French.pdf',
+        // },
         doclink: {
             'Metatranscriptomics': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/6_MetaT_index.html',
         },
@@ -107,12 +107,9 @@ export const pipelinelist = {
     MetaP: {
         title: 'Metaproteomics',
         name: 'Metaproteomics',
-        pdf: {
-            'Metaproteomics': '/docs/help/NMDC_EDGE_metaP.pdf',
-        },
-        pdfFrench: {
-            'Metaproteomics': '/docs/help/NMDC_EDGE_metaP-French.pdf',
-        },
+        // pdf: {
+        //     'Metaproteomics': '/docs/help/NMDC_EDGE_metaP.pdf',
+        // },
         bgcolor: '#4F3C80'
     },
 }

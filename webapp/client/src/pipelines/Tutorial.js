@@ -19,7 +19,7 @@ function Tutorial() {
                         <Col xs="2" md="2" lg="2"><center>Tutorial Videos</center></Col>
                         <Col xs="2" md="2" lg="2"><center>User Guides</center></Col>
                         <Col xs="2" md="2" lg="2"><center>Guías de Usuario <img alt="" style={{ width: 15, height: 15 }} src={spainFlag} /></center></Col>
-                        <Col xs="2" md="2" lg="2"><center>Guides de l'utilisateur <img alt="" style={{ width: 15, height: 15 }} src={franceFlag} /></center></Col>
+                        <Col xs="2" md="2" lg="2"><center>Guides d'Utilisation <img alt="" style={{ width: 15, height: 15 }} src={franceFlag} /></center></Col>
                         <Col xs="3" md="3" lg="2"><center>Command Line & Additional Documentation</center></Col>
                     </Row>
                     <br></br>
