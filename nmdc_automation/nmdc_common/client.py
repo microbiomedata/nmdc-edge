@@ -96,9 +96,6 @@ class NmdcApi:
                 return None
             else:
                 raise
-        response = requests.get(url, headers=self.headers)
-        response.raise_for_status()
-        data_object_record = response.json()
         return data_object_record
 
     def get_data_objects_by_description(self, description: str):
