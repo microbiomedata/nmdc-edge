@@ -100,15 +100,28 @@ def extract_records(ctx, study_id, api_base_url):
         legacy_id = _get_legacy_id(omics_processing_record)
         logger.info(f"legacy_id: {legacy_id}")
 
-        # if omics_processing_record["omics_type"]["has_raw_value"] != "Metagenome":
-        #     logger.info(
-        #         f"omics_processing_record {omics_processing_record['id']} "
-        #         f"is not a Metagenome"
-        #     )
-        #     continue
+        omics_type = omics_processing_record["omics_type"]["has_raw_value"]
+        omics_id = omics_processing_record["id"]
+        if omics_type not in ["Metagenome", "Metatranscriptome"]:
+            logger.info(
+                f"omics_processing_record {omics_id}: {omics_type}] "
+                f"is not a Metagenome or Metatranscriptome, skipping"
+            )
+            continue
         db.omics_processing_set.append(omics_processing_record)
         for data_object_id in omics_processing_record["has_output"]:
             data_object_record = api_client.get_data_object(data_object_id)
+            if not data_object_record:
+                logger.warning(f"no data object found for {data_object_id}")
+                continue
+            data_object_type = data_object_record.get("data_object_type")
+            data_object_description = data_object_record.get("description")
+            logger.info(
+                f"has_output: "
+                f"{data_object_record['id']}, "
+                f"Type: {data_object_type}, "
+                f" Description: {data_object_description}"
+            )
             db.data_object_set.append(data_object_record)
 
         # downstream workflow activity sets
@@ -129,33 +142,43 @@ def extract_records(ctx, study_id, api_base_url):
             "mags_activity_set": mags_records,
             "metatranscriptome_activity_set": metatranscriptome_activity_records,
         }
-        for set_name, records in downstream_workflow_activity_sets.items():
+        for set_name, workflow_records in downstream_workflow_activity_sets.items():
             logger.info(f"set_name: {set_name} for {legacy_id}")
-            records = api_client.get_workflow_activities_informed_by(set_name,
+            workflow_records = api_client.get_workflow_activities_informed_by(set_name,
                                                                    legacy_id)
-            logger.info(f"found {len(records)} records")
-            db.__setattr__(set_name, records)
-            # Add the data objects referenced by the `has_output` property
-            for record in records:
-                logger.info(f"record: {record['id']}, {record['name']}")
-                for data_object_id in record["has_output"]:
+            logger.info(f"found {len(workflow_records)} records")
+            db.__setattr__(set_name, workflow_records)
+            for workflow_record in workflow_records:
+                logger.info(f"record: {workflow_record['id']}, {workflow_record['name']}")
+                input_output_data_object_ids = []
+                if "has_input" in workflow_record:
+                    input_output_data_object_ids.extend(workflow_record["has_input"])
+                if "has_output" in workflow_record:
+                    input_output_data_object_ids.extend(workflow_record["has_output"])
+
+                for data_object_id in input_output_data_object_ids:
                     data_object_record = api_client.get_data_object(
                         data_object_id
                     )
                     if not data_object_record:
                         logger.warning(f"no data object found for {data_object_id}")
                         continue
+                    data_object_type = data_object_record.get("data_object_type")
+                    data_object_description = data_object_record.get("description")
                     logger.info(
                         f"has_output: "
-                        f"{data_object_record['id']}, {data_object_record['description']}"
+                        f"{data_object_record['id']}, "
+                        f"Type: {data_object_type}, "
+                        f" Description: {data_object_description}"
                     )
-                    db.data_object_set.append(data_object_record)
+                    if data_object_record not in db.data_object_set:
+                        db.data_object_set.append(data_object_record)
 
         # Search for orphaned data objects with the legacy ID in the description
         orphaned_data_objects = api_client.get_data_objects_by_description(legacy_id)
         # check that we don't already have the data object in the set
         for data_object in orphaned_data_objects:
-            if data_object["id"] not in [d["id"] for d in db.data_object_set]:
+            if data_object not in db.data_object_set:
                 db.data_object_set.append(data_object)
                 logger.info(
                     f"Added orphaned data object: "
@@ -166,6 +189,8 @@ def extract_records(ctx, study_id, api_base_url):
 
     json_data = json.loads(json_dumper.dumps(retrieved_databases, inject_type=False))
     db_outfile = DATA_DIR.joinpath(f"{study_id}_associated_record_dump.json")
+    logger.info(f"Writing {len(retrieved_databases)} records to {db_outfile}")
+    logger.info(f"Elapsed time: {time.time() - start_time}")
     with open(db_outfile, "w") as f:
         f.write(json.dumps(json_data, indent=4))
 
