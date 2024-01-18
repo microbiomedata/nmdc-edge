@@ -305,6 +305,36 @@
                 "md5_checksum": "27c07072f175571200b5931550adb8aa",
                 "id": "nmdc:27c07072f175571200b5931550adb8aa",
                 "file_size_bytes": 1114314
+            },
+            {
+                "file_size_bytes": 37615194,
+                "id": "nmdc:d00ab33c0bdcf34789be58df977551f3",
+                "type": "nmdc:DataObject",
+                "data_object_type": "Read Count and RPKM",
+                "md5_checksum": "d00ab33c0bdcf34789be58df977551f3",
+                "url": "https://data.microbiomedata.org/data/503568_190752/metat_out_json/output.json",
+                "name": "output.json",
+                "description": "JSON records of features and the associated read counts and RPKMs for gold:Gp0324008"
+            },
+            {
+                "file_size_bytes": 2396106683,
+                "id": "nmdc:2b48a6ce9afc35f4698af47bb57c11cb",
+                "type": "nmdc:DataObject",
+                "data_object_type": "QC non-rRNA R1",
+                "md5_checksum": "2b48a6ce9afc35f4698af47bb57c11cb",
+                "url": "https://data.microbiomedata.org/data/503568_190752/non_ribo_reads/filtered_R1.fastq",
+                "name": "filtered_R1.fastq",
+                "description": "R1 reads without the ribosomal sequences for gold:Gp0324008"
+            },
+            {
+                "file_size_bytes": 2395867661,
+                "id": "nmdc:6b171f897e3e447d2e728b9d2573cdcd",
+                "type": "nmdc:DataObject",
+                "data_object_type": "QC non-rRNA R2",
+                "md5_checksum": "6b171f897e3e447d2e728b9d2573cdcd",
+                "url": "https://data.microbiomedata.org/data/503568_190752/non_ribo_reads/filtered_R2.fastq",
+                "name": "filtered_R2.fastq",
+                "description": "R2 reads without the ribosomal sequences for gold:Gp0324008"
             }
         ],
         "dissolving_activity_set": [],
@@ -535,7 +565,27 @@
         ],
         "metagenome_sequencing_activity_set": [],
         "metaproteomics_analysis_activity_set": [],
-        "metatranscriptome_activity_set": [],
+        "metatranscriptome_activity_set": [
+            {
+                "git_url": "https://github.com/microbiomedata/metaT/releases/tag/v0.0.2",
+                "ended_at_time": "2021-01-21T00:00:00Z",
+                "execution_resource": "NERSC - Cori",
+                "id": "nmdc:f30c9099e7dfaa6e90f5e3a7cf5112de",
+                "name": "metaT activity for Gp0115663",
+                "type": "nmdc:metaT",
+                "has_output": [
+                    "nmdc:8ef63c54cbfef72c19733e48ad0d1961",
+                    "nmdc:d00ab33c0bdcf34789be58df977551f3",
+                    "nmdc:2b48a6ce9afc35f4698af47bb57c11cb",
+                    "nmdc:6b171f897e3e447d2e728b9d2573cdcd"
+                ],
+                "was_informed_by": "gold:Gp0115663",
+                "has_input": [
+                    "nmdc:7bf778baef033d36f118f8591256d6ef"
+                ],
+                "started_at_time": "2021-01-21T00:00:00Z"
+            }
+        ],
         "nom_analysis_activity_set": [],
         "omics_processing_set": [
             {
