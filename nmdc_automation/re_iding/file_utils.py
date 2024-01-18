@@ -159,7 +159,7 @@ def rewrite_sam(input_sam, output_sam, old_id, new_id):
 def get_old_file_path(data_object_record, old_base_dir):
     old_url = data_object_record["url"]
     suffix = old_url.split("https://data.microbiomedata.org/data/")[1]
-    old_file_path = old_base_dir + "/" + suffix
+    old_file_path = os.path.join(old_base_dir, suffix)
 
     return old_file_path
 
@@ -203,7 +203,7 @@ def compute_new_paths(old_url, new_base_dir, act_id, old_base_dir):
     """
     file_name = old_url.split("/")[-1]
     suffix = old_url.split("https://data.microbiomedata.org/data/")[1]
-    old_file_path = old_base_dir + "/" + suffix
+    old_file_path = os.path.join(old_base_dir, suffix)
     file_extenstion = file_name.lstrip("nmdc_").split("_", maxsplit=1)[-1]
     new_file_name = f"{act_id}_{file_extenstion}"
     modified_new_file_name = new_file_name.replace(":", "_")
