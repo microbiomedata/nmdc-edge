@@ -27,9 +27,9 @@ NAPA_BASE_URL = "https://api-napa.microbiomedata.org/"
 
 
 BASE_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
-DRYRUN_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
 
 DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
+DRYRUN_DATAFILE_DIR = DATA_DIR.joinpath("dryrun_data/results")
 LOG_PATH = DATA_DIR.joinpath("re_id_tool.log")
 
 logging.basicConfig(
@@ -262,6 +262,8 @@ def process_records(ctx, dryrun, study_id, data_dir):
         new_db = reid_tool.update_read_based_taxonomy_analysis_activity_set(
             db_record, new_db
         )
+        # update Metatraanscriptome Activity
+        new_db = reid_tool.update_metatranscriptome_activity_set(db_record, new_db)
 
         re_ided_db_records.append(new_db)
 
