@@ -7,3 +7,4 @@ htmlcov/
 attic
 .idea/
 
+configs/.local_napa_config.toml

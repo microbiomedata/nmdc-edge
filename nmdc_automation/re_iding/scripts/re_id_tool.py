@@ -22,7 +22,7 @@ from nmdc_automation.re_iding.db_utils import get_omics_processing_id
 # Defaults
 GOLD_STUDY_ID = "gold:Gs0114663"
 STUDY_ID = "nmdc:sty-11-aygzgv51"
-NAPA_CONFIG = Path("../../../configs/napa_config.toml")
+NAPA_CONFIG = Path("../../../configs/.local_napa_config.toml")
 NAPA_BASE_URL = "https://api-napa.microbiomedata.org/"
 
 
