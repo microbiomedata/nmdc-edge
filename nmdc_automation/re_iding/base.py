@@ -24,7 +24,6 @@ from nmdc_automation.re_iding.db_utils import (OMICS_PROCESSING_SET,
                                                get_omics_processing_id)
 from nmdc_automation.re_iding.file_utils import (find_data_object_type,
                                                 compute_new_paths,
-                                                get_new_paths,
                                                 assembly_file_operations)
 
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
@@ -224,7 +223,7 @@ class ReIdTool:
                 data_object_type = find_data_object_type(old_do_rec)
                 if not data_object_type:
                     continue
-                new_file_path = get_new_paths(old_do_rec["url"],new_assembly_base_dir, new_activity_id)
+                new_file_path = compute_new_paths(old_do_rec["url"],new_assembly_base_dir, new_activity_id)
                 updated_md5, updated_file_size = assembly_file_operations(
                 old_do_rec, data_object_type, new_file_path, new_activity_id,
                     self.data_dir)
@@ -362,7 +361,7 @@ class ReIdTool:
                     logger.warning(f"Data object type not found for {old_do_id}")
                     # continue
 
-                new_file_path = get_new_paths(old_do_rec["url"],new_metatranscriptome_base_dir, new_activity_id)
+                new_file_path = compute_new_paths(old_do_rec["url"],new_metatranscriptome_base_dir, new_activity_id)
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
 
                 # TODO: determine file operations if any, similar to assembly_file_operations
