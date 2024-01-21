@@ -26,7 +26,7 @@
 #      run, have the same CPU architecture, then you can use this command to build the image (replace the placeholder
 #      with the ORCiD `client_id` you obtained earlier):
 #      ```
-#      $ docker build -f webapp.Dockerfile \
+#      $ docker build -f webapp-node16.Dockerfile \
 #          --build-arg ORCID_CLIENT_ID='__REPLACE_ME__' \
 #          --build-arg API_HOST='localhost' \
 #          --build-arg API_PORT='8000' \
@@ -37,7 +37,7 @@
 #      (e.g. Intel-based systems), you can use this command to build the image (replace the placeholder
 #      with the ORCiD `client_id` you obtained earlier):
 #      ```
-#      $ docker buildx build --platform linux/amd64 -f webapp.Dockerfile \
+#      $ docker buildx build --platform linux/amd64 -f webapp-node16.Dockerfile \
 #          --build-arg ORCID_CLIENT_ID='__REPLACE_ME__' \
 #          --build-arg API_HOST='edge-dev.microbiomedata.org' \
 #          --build-arg API_PORT='80' \
@@ -94,8 +94,8 @@ ARG ORCID_CLIENT_ID
 RUN apk update && apk add \
   zip
 
-# Install PM2 globally (https://github.com/Unitech/pm2).
-RUN npm install -g pm2
+# Install the latest version of PM2 globally (https://github.com/Unitech/pm2).
+RUN npm install -g pm2@latest
 
 # Set up both the web app client and the web app server.
 #
@@ -158,7 +158,11 @@ RUN cd /app/data/workflow/WDL/sra           && zip -r imports.zip *.wdl
 #
 # Install the npm packages upon which the web app client depends.
 #
-RUN cd webapp/client && npm ci
+# Note: The `--legacy-peer-deps` option is here because some of the npm packages upon which the web app depends,
+#       have conflicting dependencies with one another. The `--legacy-peer-deps` option causes npm to be more
+#       lenient about stuff like that. Reference: https://stackoverflow.com/a/66620869
+#
+RUN cd webapp/client && npm ci --legacy-peer-deps
 #
 # Build the web app client (i.e. React app).
 #
