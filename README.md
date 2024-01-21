@@ -57,19 +57,38 @@ development stack to reflect the latest local file tree.
 
 #### Setup
 
-If you have [Docker](https://www.docker.com/products/docker-desktop/) installed on your computer, you can spin up
-the development stack by running the following command in the root directory of the repository:
+##### Prerequisites
+
+- [Docker](https://www.docker.com/products/docker-desktop/) is installed on your computer.
+    - For example, version 24:
+      ```shell
+      $ docker --version
+      Docker version 24.0.6, build ed223bc
+      ```
+- In the `docker-compose.yml` file, the `ORCID_CLIENT_ID` variable under `services.webapp.build.args` contains
+  your ORCiD `client_id` value.
+    - ```diff
+      - ORCID_CLIENT_ID: __REPLACE_ME__
+      + ORCID_CLIENT_ID: APP-CTM90LRCDW4UNCD6
+      ```
+      > You can get that value from the [developer tools page](https://orcid.org/developer-tools) on the ORCiD website,
+        while signed in to your ORCiD account.
+    - Note: This step is only required if you will be using the ORCiD Login part of the web app.
+
+##### Procedure
+
+You can spin up the development stack by running the following command in the root directory of the repository:
 
 ```shell
 docker compose up
 ```
 
-Alternatively, if you've made any changes to the `Dockerfile` since the last time you ran that command,
-run it with the `--build` option so those changes take effect.
-
-```shell
-docker compose up --build
-```
+> Alternatively, if you've made any changes to the `Dockerfile` since the last time you ran that command,
+> run it with the `--build` option so those changes take effect.
+> 
+> ```shell
+> docker compose up --build
+> ```
 
 #### Usage
 
