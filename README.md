@@ -37,9 +37,9 @@ graph LR
 
 Here's a list of the main technologies upon which the NMDC EDGE web application is built:
 
-- React.js (web client)
-- Node.js + Express.js (web server)
-- MongoDB (database)
+- [React.js](https://react.dev/) (web client)
+- [Node.js](https://nodejs.org/en) + [Express.js](https://expressjs.com/) (web server)
+- [MongoDB](https://www.mongodb.com/) (database)
 
 ## Development
 
