@@ -191,7 +191,7 @@ def assembly_file_operations(data_object_record, data_object_type,
     return md5, size
 
 
-def compute_new_paths(
+def compute_new_paths_and_link(
         old_url: str,
         new_base_dir: Union[str, os.PathLike],
         act_id: str,
