@@ -267,6 +267,8 @@ def process_records(ctx, dryrun, study_id, data_dir):
 
         re_ided_db_records.append(new_db)
 
+    logger.info(f"Writing {len(re_ided_db_records)} records to {db_outfile}")
+    logger.info(f"Elapsed time: {time.time() - start_time}")
     json_data = json.loads(json_dumper.dumps(re_ided_db_records, inject_type=False))
     with open(db_outfile, "w") as f:
         f.write(json.dumps(json_data, indent=4))
