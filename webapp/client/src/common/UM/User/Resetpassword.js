@@ -157,7 +157,7 @@ function Resetpassword(props) {
                     {errors.email && <p className="edge-form-input-error">{errors.email.message}</p>}
                     <Row>
                       <Col>
-                        <Button color="primary" type="submit" className="px-4" block>Get Resetpassword Link</Button>
+                        <Button color="primary" type="submit" className="px-4" block>Get Password Reset Link</Button>
                       </Col>
                     </Row>
                   </div>

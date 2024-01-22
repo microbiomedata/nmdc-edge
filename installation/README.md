@@ -9,6 +9,14 @@ https://nodejs.org/dist/latest-v16.x/
 ### Install MongoDB Community Edition
 https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials
 
+### Populate Configuration Files
+
+1. Populate the "client build" configuration file (i.e. `webapp/client/.env`).
+   - You can initialize it based upon the corresponding example file:
+     ```shell
+     cp webapp/client/.env.example webapp/client/.env
+     ```
+
 ## INSTALLING webapp
 
 ### Procedure

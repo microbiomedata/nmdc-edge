@@ -13,8 +13,6 @@ services:
       args:
         API_HOST: localhost
         API_PORT: 8000
-        # Replace the placeholder value with your ORCiD `client_id` value.
-        ORCID_CLIENT_ID: __REPLACE_ME__
     environment:
       MONGO_URI: mongodb://mongo:27017/nmdcedge
     ports: [ "8000:8000" ]

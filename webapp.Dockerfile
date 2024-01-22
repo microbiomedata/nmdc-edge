@@ -7,41 +7,21 @@
 #
 # Here's how you can build a container image based upon this Dockerfile; and publish it to GitHub Container Registry.
 #
-# =============
-# Prerequisites
-# -------------
-#
-# - Determine the ORCiD Client ID you want the resulting container image to use. You can get it by either:
-#   (a) logging into the ORCiD website and visiting the "Developer tools" page there; or
-#   (b) using the same value as is used on the production NMDC EDGE instance, which you can get by visiting
-#       https://nmdc-edge.org/login, clicking the "Login with ORCiD" button, and copying the `client_id`
-#       value from the URL of the pop-up window (i.e. ORCiD login form) that appears.
-#
 # =========
 # Procedure
 # ---------
 #
 # 1. Build a container image (do one of the following, depending upon your situation):
 #    - If the computer you're using to build the image, and the computer on which containers based upon the image will
-#      run, have the same CPU architecture, then you can use this command to build the image (replace the placeholder
-#      with the ORCiD `client_id` you obtained earlier):
+#      run, have the same CPU architecture, then you can use this command to build the image:
 #      ```
-#      $ docker build -f webapp.Dockerfile \
-#          --build-arg ORCID_CLIENT_ID='__REPLACE_ME__' \
-#          --build-arg API_HOST='localhost' \
-#          --build-arg API_PORT='8000' \
-#          -t nmdc-edge-web-app:some-tag .
+#      $ docker build -f webapp.Dockerfile -t nmdc-edge-web-app:some-tag .
 #      ```
 #    - If the computer you're using to build the image has the arm64 CPU architecture (e.g. a MacBook Pro M1),
 #      and the computer on which containers based upon the image will run have the AMD64 CPU architecture
-#      (e.g. Intel-based systems), you can use this command to build the image (replace the placeholder
-#      with the ORCiD `client_id` you obtained earlier):
+#      (e.g. Intel-based systems), you can use this command to build the image:
 #      ```
-#      $ docker buildx build --platform linux/amd64 -f webapp.Dockerfile \
-#          --build-arg ORCID_CLIENT_ID='__REPLACE_ME__' \
-#          --build-arg API_HOST='edge-dev.microbiomedata.org' \
-#          --build-arg API_PORT='80' \
-#          -t nmdc-edge-web-app:some-tag .
+#      $ docker buildx build --platform linux/amd64 -f webapp.Dockerfile -t nmdc-edge-web-app:some-tag .
 #      ```
 # 2. (Optional) Instantiate/run a container based upon the resulting container image:
 #      ```
@@ -84,7 +64,6 @@ LABEL org.opencontainers.image.description="NMDC EDGE Web App (Node v18)"
 # Reference: https://docs.docker.com/engine/reference/builder/#arg
 ARG API_HOST=edge-dev.microbiomedata.org
 ARG API_PORT=80
-ARG ORCID_CLIENT_ID
 
 # Install programs upon which the web app or its build process(es) depend.
 #
@@ -121,16 +100,12 @@ RUN node -e 'console.log(require("crypto").randomBytes(20).toString("hex"))' > /
 RUN node -e 'console.log(require("crypto").randomBytes(20).toString("hex"))' > /app/sendmail.secret.txt
 #
 # Generate configuration files (like `installation/install.sh` does).
-# Note: We use the `client-env-dev` file so the client uses HTTP (not HTTPS) to access the server.
 #
 WORKDIR /app
-RUN cp installation/client-env-dev  webapp/client/.env
 RUN cp installation/server-env-prod webapp/server/.env
 RUN cp installation/server_pm2.tmpl server_pm2.json
 RUN echo -e "web_server_domain=${API_HOST}\nweb_server_port=${API_PORT}" > host.env
-RUN sed -i -e "s/<WEB_SERVER_DOMAIN>/${API_HOST}/g"                     webapp/client/.env && \
-    sed -i -e "s/<WEB_SERVER_PORT>/${API_PORT}/g"                       webapp/client/.env && \
-    sed -i -e "s/<WEB_SERVER_DOMAIN>/${API_HOST}/g"                     webapp/server/.env && \
+RUN sed -i -e "s/<WEB_SERVER_DOMAIN>/${API_HOST}/g"                     webapp/server/.env && \
     sed -i -e "s/<WEB_SERVER_PORT>/${API_PORT}/g"                       webapp/server/.env && \
     sed -i -e 's/<APP_HOME>/\/app/g'                                    webapp/server/.env && \
     sed -i -e 's/<IO_HOME>/\/app\/io/g'                                 webapp/server/.env && \
@@ -138,11 +113,6 @@ RUN sed -i -e "s/<WEB_SERVER_DOMAIN>/${API_HOST}/g"                     webapp/c
     sed -i -e "s/<OAUTH_SECRET>/`cat /app/oauth.secret.txt`/g"          webapp/server/.env && \
     sed -i -e "s/<SENDMAIL_KEY>/`cat /app/sendmail.secret.txt`/g"       webapp/server/.env && \
     sed -i -e 's/<APP_HOME>/\/app/g'                                    server_pm2.json
-#
-# Further edit configuration files (beyond what `installation/install.sh` does).
-# Note: I substitute `ORCID_CLIENT_ID` here so developers don't have to edit `installation/client-env-dev`.
-#
-RUN sed -i -e "s/<your orcid client id>/${ORCID_CLIENT_ID}/g"           webapp/client/.env
 #
 # Generate empty folders (like `installation/install.sh` does).
 # Note: `mkdir -p` automatically creates any necessary intermediate folders.

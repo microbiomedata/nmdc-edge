@@ -10,6 +10,7 @@ import CIcon from '@coreui/icons-react';
 import { MyTooltip } from '../../MyTooltip';
 import { UM_messages } from '../Common/Defaults';
 import { ORCIDLogin } from '../Common/ORCIDLogin';
+import config from "../../../config";
 
 function Login(props) {
   const dispatch = useDispatch();
@@ -133,7 +134,7 @@ function Login(props) {
                     </Row>
                   </Form>
                   <Row className="justify-content-center">
-                    {process.env.REACT_APP_EMAIL_NOTIFICATION && process.env.REACT_APP_EMAIL_NOTIFICATION.toLowerCase() === 'true' &&
+                    {config.EMAIL.IS_ENABLED &&
                       <>
                         <Col xs="12">
                           <Link to="/activate">
@@ -152,7 +153,7 @@ function Login(props) {
                         <Button color="link" className="px-0">No account? Create one</Button>
                       </Link>
                     </Col>
-                    {process.env.REACT_APP_ORCID_AUTH === 'on' &&
+                    {config.ORCID.IS_ENABLED === true &&
                       <>
                         <Col xs="12">
                           <hr></hr>

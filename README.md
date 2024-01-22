@@ -65,15 +65,20 @@ development stack to reflect the latest local file tree.
       $ docker --version
       Docker version 24.0.6, build ed223bc
       ```
-- In the `docker-compose.yml` file, the `ORCID_CLIENT_ID` variable under `services.webapp.build.args` contains
-  your ORCiD `client_id` value.
-    - ```diff
-      - ORCID_CLIENT_ID: __REPLACE_ME__
-      + ORCID_CLIENT_ID: APP-CTM90LRCDW4UNCD6
-      ```
-      > You can get that value from the [developer tools page](https://orcid.org/developer-tools) on the ORCiD website,
-        while signed in to your ORCiD account.
-    - Note: This step is only required if you will be using the ORCiD Login part of the web app.
+- The "client build" configuration file (i.e. `webapp/client/.env`) is populated.
+  - You can initialize it based upon the corresponding example file:
+    ```shell
+    cp webapp/client/.env.example webapp/client/.env
+    ```
+- The server configuration file (i.e. `webapp/server/.env`) is populated.
+  - You can initialize it based upon the corresponding example file:
+    ```shell
+    cp webapp/server/.env.example webapp/server/.env
+    ```
+    > Note: Many of the environment variables in the example server configuration file are not yet documented.
+      Please file an [issue](https://github.com/microbiomedata/nmdc-edge/issues) when you encounter
+      an environment variable you find confusing. That will help the maintainers prioritize
+      documentation-related tasks.
 
 ##### Procedure
 

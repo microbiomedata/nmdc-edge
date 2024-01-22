@@ -13,6 +13,7 @@ import {
 import { VideoDialog } from '../../common/Dialogs';
 import TutorialBarDropdownItem from './TutorialBarDropdownItem';
 import TutorialBarDropdownVideoItem from './TutorialBarDropdownVideoItem';
+import config from "../../config";
 
 function TutorialBarDropdown(props) {
     const [video, setVideo] = useState();
@@ -26,7 +27,7 @@ function TutorialBarDropdown(props) {
 
     const setItem = (name, video) => {
         setName(name);
-        setVideo(process.env.REACT_APP_API_URL + video);
+        setVideo(config.API.BASE_URI + video);
         setOpenVideo(true);
     }
 
@@ -70,7 +71,7 @@ function TutorialBarDropdown(props) {
                                         display: "flex", justifyContent: "center", alignItems: "center", color: 'white',
                                         backgroundColor: 'black', fontWeight: 'bold', height: '30px'
                                     }}>Workflows</div>
-                                    <TutorialBarDropdownItem items={props.pdf} url={process.env.REACT_APP_API_URL} />
+                                    <TutorialBarDropdownItem items={props.pdf} url={config.API.BASE_URI} />
                                 </CDropdownMenu>
                             </CDropdown>
                         </center>
@@ -88,7 +89,7 @@ function TutorialBarDropdown(props) {
                                         display: "flex", justifyContent: "center", alignItems: "center", color: 'white',
                                         backgroundColor: 'black', fontWeight: 'bold', height: '30px'
                                     }}>Workflows</div>
-                                    <TutorialBarDropdownItem items={props.pdfSpanish} url={process.env.REACT_APP_API_URL} />
+                                    <TutorialBarDropdownItem items={props.pdfSpanish} url={config.API.BASE_URI} />
                                 </CDropdownMenu>
                             </CDropdown>
                         </center>

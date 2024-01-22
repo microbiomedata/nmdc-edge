@@ -5,18 +5,12 @@ echo "Install NMDC EDGE webapp..."
 read -p 'Is production installation? [y/n]'
 if [[ $REPLY =~ ^[Yy] ]]; then
   env="production"
-  clientenv="client-env-prod"
 else
   env="development"
-  clientenv="client-env-dev"
 fi
 
-#check client-env-prod and server-env-prod
+#check server-env-prod
 quit=0
-if [ ! -f ./$clientenv ]; then
-  echo "ERROR: $clientenv not found in current directiory"
-  quit=1
-fi
 if [ ! -f ./server-env-prod ]; then
   echo "ERROR: server-env-prod not found in current directiory"
   quit=1
@@ -127,7 +121,6 @@ oauth_secret=`cat /dev/urandom|tr -dc '[:alpha:]'|fold -w ${1:-20}|head -n 1`
 sendmail_key=`cat /dev/urandom|tr -dc '[:alpha:]'|fold -w ${1:-20}|head -n 1`
 jwt_key=`cat /dev/urandom|tr -dc '[:alpha:]'|fold -w ${1:-20}|head -n 1`
 
-cp $pwd/$clientenv $app_home/webapp/client/.env
 cp $pwd/server-env-prod $app_home/webapp/server/.env
 cp $pwd/server_pm2.tmpl $pwd/server_pm2.json
 if [[ $opt == 'Mac' ]]; then
