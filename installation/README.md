@@ -31,11 +31,11 @@ https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installa
 
 ### Procedure
 
-1. Start MongoDB if it's not started yet
-
-2. Inside nmdc-edge/installation folder, run the pm2 start command 
-
-    `pm2 start server_pm2.json`
+1. Start the MongoDB server.
+2. Start the web app server via PM2:
+   ```shell
+   pm2 start pm2.config.js
+   ```
     
 ## STOP webapp
 `pm2 stop all`

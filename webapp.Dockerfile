@@ -88,10 +88,12 @@ RUN npm install -g pm2@latest
 #       we may be missing out on some Docker image layer caching opportunities.
 #
 RUN mkdir /app
+WORKDIR /app
 COPY ./data          /app/data
 COPY ./installation  /app/installation
 COPY ./webapp        /app/webapp
 COPY ./nmdc-edge.jpg /app/nmdc-edge.jpg
+COPY ./pm2.config.js /app/pm2.config.js
 #
 # Generate secrets (each one is a 20-character hexadecimal string).
 #
@@ -101,9 +103,7 @@ RUN node -e 'console.log(require("crypto").randomBytes(20).toString("hex"))' > /
 #
 # Generate configuration files (like `installation/install.sh` does).
 #
-WORKDIR /app
 RUN cp installation/server-env-prod webapp/server/.env
-RUN cp installation/server_pm2.tmpl server_pm2.json
 RUN echo -e "web_server_domain=${API_HOST}\nweb_server_port=${API_PORT}" > host.env
 RUN sed -i -e "s/<WEB_SERVER_DOMAIN>/${API_HOST}/g"                     webapp/server/.env && \
     sed -i -e "s/<WEB_SERVER_PORT>/${API_PORT}/g"                       webapp/server/.env && \
@@ -111,8 +111,7 @@ RUN sed -i -e "s/<WEB_SERVER_DOMAIN>/${API_HOST}/g"                     webapp/s
     sed -i -e 's/<IO_HOME>/\/app\/io/g'                                 webapp/server/.env && \
     sed -i -e "s/<JWT_KEY>/`cat /app/jwt.secret.txt`/g"                 webapp/server/.env && \
     sed -i -e "s/<OAUTH_SECRET>/`cat /app/oauth.secret.txt`/g"          webapp/server/.env && \
-    sed -i -e "s/<SENDMAIL_KEY>/`cat /app/sendmail.secret.txt`/g"       webapp/server/.env && \
-    sed -i -e 's/<APP_HOME>/\/app/g'                                    server_pm2.json
+    sed -i -e "s/<SENDMAIL_KEY>/`cat /app/sendmail.secret.txt`/g"       webapp/server/.env
 #
 # Generate empty folders (like `installation/install.sh` does).
 # Note: `mkdir -p` automatically creates any necessary intermediate folders.
@@ -155,4 +154,4 @@ RUN cd webapp/server && npm ci
 #       Docs: https://pm2.keymetrics.io/docs/usage/docker-pm2-nodejs/
 #
 EXPOSE ${API_PORT}
-CMD ["pm2-runtime", "start", "server_pm2.json"]
+CMD ["pm2-runtime", "start", "pm2.config.js"]
