@@ -3,17 +3,18 @@
 file_utils.py: Provides utility functions for working with files.
 """
 import logging
+from pathlib import Path
 import os
 import hashlib
 import json
 import gzip
 from subprocess import check_output
-from typing import Dict, Optional
+from typing import Dict, Optional, Union, Tuple
 
 
 # BASE_DIR = "/global/cfs/cdirs/m3408/results"
-bam_script = os.path.abspath("rewrite_bam.sh")
-base = "https://data.microbiomedata.org/data"
+BAM_SCRIPT = Path("rewrite_bam.sh").resolve()
+API_BASE_URL = "https://data.microbiomedata.org/data/"
 
 logging.basicConfig(
     level=logging.INFO,
@@ -47,7 +48,7 @@ def find_data_object_type(data_object_rec: Dict)-> Optional[str]:
         logger.error(f"Missing type: {url}")
         return None
     
-def md5_sum(fn):
+def md5_sum(fn: str) -> str:
     """
     Calculate the MD5 hash of a file.
 
@@ -64,7 +65,7 @@ def md5_sum(fn):
     return file_hash.hexdigest()
 
 
-def read_json_file(filename):
+def read_json_file(filename: str)-> Dict[str, str]:
     """
     Read a JSON file and return its content as a dictionary.
 
@@ -79,7 +80,8 @@ def read_json_file(filename):
     return data
 
 
-def rewrite_id(src, dst, old_id, new_id, prefix=None):
+def rewrite_id(src: str, dst: str, old_id: str, new_id: str, prefix: str =
+None) -> Tuple[str, int]:
     """
     Rewrite lines in a file, replacing occurrences of an old ID with a new ID.
     An optional prefix can be specified to limit which lines are modified.
@@ -114,7 +116,7 @@ def find_assembly_id(src):
 
 
 def assembly_contigs(src, dst, act_id):
-    scaf = src.replace("_contigs", "_scaffolds")
+    scaf = str(src).replace("_contigs", "_scaffolds")
     old_id = find_assembly_id(scaf)
     return rewrite_id(src, dst, old_id, act_id, prefix=">")
 
@@ -125,13 +127,13 @@ def assembly_scaffolds(src, dst, act_id):
 
 
 def assembly_coverage_stats(src, dst, act_id):
-    scaf = src.replace("_covstats.txt", "_scaffolds.fna")
+    scaf = str(src).replace("_covstats.txt", "_scaffolds.fna")
     old_id = find_assembly_id(scaf)
     return rewrite_id(src, dst, old_id, act_id)
 
 
 def assembly_agp(src, dst, act_id):
-    scaf = src.replace("_assembly.agp", "_scaffolds.fna")
+    scaf = str(src).replace("_assembly.agp", "_scaffolds.fna")
     old_id = find_assembly_id(scaf)
     return rewrite_id(src, dst, old_id, act_id)
 
@@ -145,7 +147,7 @@ def convert_script(script, src, dst, old_id, act_id):
 
 
 def assembly_coverage_bam(script, src, dst, act_id):
-    scaf = src.replace("_pairedMapped_sorted.bam", "_scaffolds.fna")
+    scaf = str(src).replace("_pairedMapped_sorted.bam", "_scaffolds.fna")
     old_id = find_assembly_id(scaf)
     return convert_script(script, src, dst, old_id, act_id)
 
@@ -156,18 +158,22 @@ def rewrite_sam(input_sam, output_sam, old_id, new_id):
             f_out.write(line.replace(old_id, new_id))
 
 
-def get_old_file_path(data_object_record, old_base_dir):
+def get_old_file_path(data_object_record: dict, old_base_dir: Union[str, os.PathLike]) -> Path:
     old_url = data_object_record["url"]
     suffix = old_url.split("https://data.microbiomedata.org/data/")[1]
-    old_file_path = old_base_dir + "/" + suffix
+    old_file_path = Path(old_base_dir, suffix)
 
     return old_file_path
 
 
 def assembly_file_operations(data_object_record, data_object_type,
                              destination, act_id, old_base_dir):
+    logging.info(f"Processing {data_object_type} for {act_id}")
+    logging.info(f"Destination: {destination}")
+    logging.info(f"Old base dir: {old_base_dir}")
     # get old file path upfront
     old_file_path = get_old_file_path(data_object_record, old_base_dir)
+    logging.info(f"Old file path: {old_file_path}")
 
     if data_object_type == "Assembly Coverage Stats":
         md5, size = assembly_coverage_stats(old_file_path, destination, act_id)
@@ -179,36 +185,33 @@ def assembly_file_operations(data_object_record, data_object_type,
         md5, size = assembly_agp(old_file_path, destination, act_id)
     elif data_object_type == "Assembly Coverage BAM":
         md5, size = assembly_coverage_bam(
-            bam_script, old_file_path, destination, act_id
+            BAM_SCRIPT, old_file_path, destination, act_id
         )
 
     return md5, size
 
-def get_new_paths(old_url, new_base_dir, act_id):
+
+def compute_new_paths_and_link(
+        old_url: str,
+        new_base_dir: Union[str, os.PathLike],
+        act_id: str,
+        old_base_dir: Optional[Union[str, os.PathLike]] = None,
+) -> Path:
     """
-    Use the url to return the string value of name path and url
+    Compute the new path for the file based on the old url and the new base directory.
+    If the old base directory is provided, create a link between the old file and the new file.
     """
     file_name = old_url.split("/")[-1]
     file_extenstion = file_name.lstrip("nmdc_").split("_", maxsplit=1)[-1]
     new_file_name = f"{act_id}_{file_extenstion}"
     modified_new_file_name = new_file_name.replace(":", "_")
-    destination = os.path.join(new_base_dir, modified_new_file_name)
+    destination = Path(new_base_dir, modified_new_file_name)
 
-    return destination
-
-
-def compute_new_paths(old_url, new_base_dir, act_id, old_base_dir):
-    """
-    Use the url to compute the new file name path and url
-    """
-    file_name = old_url.split("/")[-1]
+    if old_base_dir is None:
+        return destination
+    # create a link between the old file and the new file if old_base_dir is provided
     suffix = old_url.split("https://data.microbiomedata.org/data/")[1]
-    old_file_path = old_base_dir + "/" + suffix
-    file_extenstion = file_name.lstrip("nmdc_").split("_", maxsplit=1)[-1]
-    new_file_name = f"{act_id}_{file_extenstion}"
-    modified_new_file_name = new_file_name.replace(":", "_")
-    destination = os.path.join(new_base_dir, modified_new_file_name)
-
+    old_file_path = Path(old_base_dir, suffix)
     try:
         os.link(old_file_path, destination)
         logging.info(f"Successfully created link between {old_file_path} and {destination}")
@@ -217,5 +220,4 @@ def compute_new_paths(old_url, new_base_dir, act_id, old_base_dir):
     except Exception as e:
         logging.error(f"Unexpected error: {e}")
 
-    
     return destination

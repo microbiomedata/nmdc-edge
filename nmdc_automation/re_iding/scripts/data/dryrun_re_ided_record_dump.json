@@ -2,7 +2,7 @@
     {
         "data_object_set": [
             {
-                "id": "nmdc:dobj-11-k7vny888",
+                "id": "nmdc:dobj-11-77e9jm46",
                 "name": "9422.8.132674.GTTTCG.fastq.gz",
                 "description": "Raw sequencer read data",
                 "file_size_bytes": 2861414297,
@@ -10,169 +10,199 @@
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-019yes10",
-                "name": "nmdc_wfrqc-11-zma0ys31.1_filtered.fastq.gz",
+                "id": "nmdc:dobj-11-xwqq5x15",
+                "name": "nmdc_wfrqc-11-9dahz742.1_filtered.fastq.gz",
                 "description": "Filtered Reads for nmdc:omprc-11-bn8jcq58",
                 "file_size_bytes": 2571324879,
                 "md5_checksum": "7bf778baef033d36f118f8591256d6ef",
                 "data_object_type": "Filtered Sequencing Reads",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrqc-11-zma0ys31.1/nmdc_wfrqc-11-zma0ys31.1_filtered.fastq.gz",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrqc-11-9dahz742.1/nmdc_wfrqc-11-9dahz742.1_filtered.fastq.gz",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-hty12n62",
-                "name": "nmdc_wfrqc-11-zma0ys31.1_filterStats.txt",
+                "id": "nmdc:dobj-11-23h4kn88",
+                "name": "nmdc_wfrqc-11-9dahz742.1_filterStats.txt",
                 "description": "Filtered Stats for nmdc:omprc-11-bn8jcq58",
                 "file_size_bytes": 290,
                 "md5_checksum": "b99ce8adc125c95f0bfdadf36a3f6848",
                 "data_object_type": "QC Statistics",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrqc-11-zma0ys31.1/nmdc_wfrqc-11-zma0ys31.1_filterStats.txt",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrqc-11-9dahz742.1/nmdc_wfrqc-11-9dahz742.1_filterStats.txt",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-gast3j11",
-                "name": "nmdc_wfmgas-11-3jvymb63.1_contigs.fna",
+                "id": "nmdc:dobj-11-gqy02f96",
+                "name": "nmdc_wfmgas-11-7fe0dg09.1_contigs.fna",
                 "description": "Assembled contigs fasta for nmdc:omprc-11-bn8jcq58",
-                "file_size_bytes": 91134523,
-                "md5_checksum": "b96c8e7796616a8eefe473bff2c62e52",
+                "file_size_bytes": 364,
+                "md5_checksum": "2a0786d07c686d2065575cde034ac10a",
                 "data_object_type": "Assembly Contigs",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-3jvymb63.1/nmdc_wfmgas-11-3jvymb63.1_contigs.fna",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-7fe0dg09.1/nmdc_wfmgas-11-7fe0dg09.1_contigs.fna",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-bkza5366",
-                "name": "nmdc_wfmgas-11-3jvymb63.1_scaffolds.fna",
+                "id": "nmdc:dobj-11-e3jbsp53",
+                "name": "nmdc_wfmgas-11-7fe0dg09.1_scaffolds.fna",
                 "description": "Assembled scaffold fasta for nmdc:omprc-11-bn8jcq58",
-                "file_size_bytes": 90622585,
-                "md5_checksum": "6ca496a8b9b298278ad2b4010a7c8cb2",
+                "file_size_bytes": 758,
+                "md5_checksum": "5f616779d9e3db4c2afd6001c1e95a1a",
                 "data_object_type": "Assembly Scaffolds",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-3jvymb63.1/nmdc_wfmgas-11-3jvymb63.1_scaffolds.fna",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-7fe0dg09.1/nmdc_wfmgas-11-7fe0dg09.1_scaffolds.fna",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-v9xfxp70",
-                "name": "nmdc_wfmgas-11-3jvymb63.1_covstats.txt",
+                "id": "nmdc:dobj-11-mennt828",
+                "name": "nmdc_wfmgas-11-7fe0dg09.1_covstats.txt",
                 "description": "Metagenome Contig Coverage Stats for nmdc:omprc-11-bn8jcq58",
-                "file_size_bytes": 14431055,
-                "md5_checksum": "19782102f68575b03b7c12dd3d48e840",
+                "file_size_bytes": 0,
+                "md5_checksum": "d41d8cd98f00b204e9800998ecf8427e",
                 "data_object_type": "Assembly Coverage Stats",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-3jvymb63.1/nmdc_wfmgas-11-3jvymb63.1_covstats.txt",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-7fe0dg09.1/nmdc_wfmgas-11-7fe0dg09.1_covstats.txt",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-dz2mw103",
-                "name": "nmdc_wfmgas-11-3jvymb63.1_assembly.agp",
+                "id": "nmdc:dobj-11-bvgw0f35",
+                "name": "nmdc_wfmgas-11-7fe0dg09.1_assembly.agp",
                 "description": "Assembled AGP file for nmdc:omprc-11-bn8jcq58",
-                "file_size_bytes": 14581247,
-                "md5_checksum": "419b294106e3fca4a06d18fd3c8e9181",
+                "file_size_bytes": 0,
+                "md5_checksum": "d41d8cd98f00b204e9800998ecf8427e",
                 "data_object_type": "Assembly AGP",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-3jvymb63.1/nmdc_wfmgas-11-3jvymb63.1_assembly.agp",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-7fe0dg09.1/nmdc_wfmgas-11-7fe0dg09.1_assembly.agp",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-75skzn36",
-                "name": "nmdc_wfmgas-11-3jvymb63.1_pairedMapped_sorted.bam",
+                "id": "nmdc:dobj-11-5wnxfs74",
+                "name": "nmdc_wfmgas-11-7fe0dg09.1_pairedMapped_sorted.bam",
                 "description": "Metagenome Alignment BAM file for nmdc:omprc-11-bn8jcq58",
                 "file_size_bytes": 0,
                 "md5_checksum": "d41d8cd98f00b204e9800998ecf8427e",
                 "data_object_type": "Assembly Coverage BAM",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-3jvymb63.1/nmdc_wfmgas-11-3jvymb63.1_pairedMapped_sorted.bam",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfmgas-11-7fe0dg09.1/nmdc_wfmgas-11-7fe0dg09.1_pairedMapped_sorted.bam",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-ppa5pg23",
-                "name": "nmdc_wfrbt-11-e79d5x03.1_gottcha2_report.tsv",
+                "id": "nmdc:dobj-11-3xr4an92",
+                "name": "nmdc_wfrbt-11-1xhefc54.1_gottcha2_report.tsv",
                 "description": "Gottcha2 TSV report for nmdc:omprc-11-bn8jcq58",
                 "file_size_bytes": 13174,
                 "md5_checksum": "bc7c1bda004aab357c8f6cf5a42242f9",
                 "data_object_type": "GOTTCHA2 Classification Report",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-e79d5x03.1/nmdc_wfrbt-11-e79d5x03.1_gottcha2_report.tsv",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-1xhefc54.1/nmdc_wfrbt-11-1xhefc54.1_gottcha2_report.tsv",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-0yn4b055",
-                "name": "nmdc_wfrbt-11-e79d5x03.1_gottcha2_report_full.tsv",
+                "id": "nmdc:dobj-11-jcqgy707",
+                "name": "nmdc_wfrbt-11-1xhefc54.1_gottcha2_report_full.tsv",
                 "description": "Gottcha2 full TSV report for nmdc:omprc-11-bn8jcq58",
                 "file_size_bytes": 1035818,
                 "md5_checksum": "9481434cadd0d6c154e2ec4c11ef0e04",
                 "data_object_type": "GOTTCHA2 Report Full",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-e79d5x03.1/nmdc_wfrbt-11-e79d5x03.1_gottcha2_report_full.tsv",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-1xhefc54.1/nmdc_wfrbt-11-1xhefc54.1_gottcha2_report_full.tsv",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-ty0z3p61",
-                "name": "nmdc_wfrbt-11-e79d5x03.1_gottcha2_krona.html",
+                "id": "nmdc:dobj-11-cc16z813",
+                "name": "nmdc_wfrbt-11-1xhefc54.1_gottcha2_krona.html",
                 "description": "Gottcha2 Krona HTML report for nmdc:omprc-11-bn8jcq58",
                 "file_size_bytes": 262669,
                 "md5_checksum": "6b5bc6ce7f11c1336a5f85a98fc18541",
                 "data_object_type": "GOTTCHA2 Krona Plot",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-e79d5x03.1/nmdc_wfrbt-11-e79d5x03.1_gottcha2_krona.html",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-1xhefc54.1/nmdc_wfrbt-11-1xhefc54.1_gottcha2_krona.html",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-e6h68y35",
-                "name": "nmdc_wfrbt-11-e79d5x03.1_centrifuge_classification.tsv",
+                "id": "nmdc:dobj-11-d0srbc38",
+                "name": "nmdc_wfrbt-11-1xhefc54.1_centrifuge_classification.tsv",
                 "description": "Centrifuge classification TSV report for nmdc:omprc-11-bn8jcq58",
                 "file_size_bytes": 2189843623,
                 "md5_checksum": "933c71bbc2f4a2e84d50f0d3864cf940",
                 "data_object_type": "Centrifuge Taxonomic Classification",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-e79d5x03.1/nmdc_wfrbt-11-e79d5x03.1_centrifuge_classification.tsv",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-1xhefc54.1/nmdc_wfrbt-11-1xhefc54.1_centrifuge_classification.tsv",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-chgp8k25",
-                "name": "nmdc_wfrbt-11-e79d5x03.1_centrifuge_report.tsv",
+                "id": "nmdc:dobj-11-359kgj15",
+                "name": "nmdc_wfrbt-11-1xhefc54.1_centrifuge_report.tsv",
                 "description": "Centrifuge TSV report for nmdc:omprc-11-bn8jcq58",
                 "file_size_bytes": 260134,
                 "md5_checksum": "1a208e2519770ef50740ac39f1b9ba9a",
                 "data_object_type": "Centrifuge Classification Report",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-e79d5x03.1/nmdc_wfrbt-11-e79d5x03.1_centrifuge_report.tsv",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-1xhefc54.1/nmdc_wfrbt-11-1xhefc54.1_centrifuge_report.tsv",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-0wbjqw24",
-                "name": "nmdc_wfrbt-11-e79d5x03.1_centrifuge_krona.html",
+                "id": "nmdc:dobj-11-d74t5230",
+                "name": "nmdc_wfrbt-11-1xhefc54.1_centrifuge_krona.html",
                 "description": "Centrifuge Krona HTML report for nmdc:omprc-11-bn8jcq58",
                 "file_size_bytes": 2343980,
                 "md5_checksum": "f112a3840464ae7a9cf4a3bf295edd5c",
                 "data_object_type": "Centrifuge Krona Plot",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-e79d5x03.1/nmdc_wfrbt-11-e79d5x03.1_centrifuge_krona.html",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-1xhefc54.1/nmdc_wfrbt-11-1xhefc54.1_centrifuge_krona.html",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-xteq6n75",
-                "name": "nmdc_wfrbt-11-e79d5x03.1_kraken2_classification.tsv",
+                "id": "nmdc:dobj-11-k27fbb42",
+                "name": "nmdc_wfrbt-11-1xhefc54.1_kraken2_classification.tsv",
                 "description": "Kraken classification TSV report for nmdc:omprc-11-bn8jcq58",
                 "file_size_bytes": 1785563917,
                 "md5_checksum": "7ca01ea379f0baed96f87d1435925f95",
                 "data_object_type": "Kraken2 Taxonomic Classification",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-e79d5x03.1/nmdc_wfrbt-11-e79d5x03.1_kraken2_classification.tsv",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-1xhefc54.1/nmdc_wfrbt-11-1xhefc54.1_kraken2_classification.tsv",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-1n5y1278",
-                "name": "nmdc_wfrbt-11-e79d5x03.1_kraken2_report.tsv",
+                "id": "nmdc:dobj-11-pqbahb35",
+                "name": "nmdc_wfrbt-11-1xhefc54.1_kraken2_report.tsv",
                 "description": "Kraken2 TSV report for nmdc:omprc-11-bn8jcq58",
                 "file_size_bytes": 699896,
                 "md5_checksum": "c85f2f2b4a518c4adb23970448a5cb45",
                 "data_object_type": "Kraken2 Classification Report",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-e79d5x03.1/nmdc_wfrbt-11-e79d5x03.1_kraken2_report.tsv",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-1xhefc54.1/nmdc_wfrbt-11-1xhefc54.1_kraken2_report.tsv",
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:dobj-11-rtjb8n73",
-                "name": "nmdc_wfrbt-11-e79d5x03.1_kraken2_krona.html",
+                "id": "nmdc:dobj-11-dpdc3287",
+                "name": "nmdc_wfrbt-11-1xhefc54.1_kraken2_krona.html",
                 "description": "Kraken2 Krona HTML report for nmdc:omprc-11-bn8jcq58",
                 "file_size_bytes": 4221977,
                 "md5_checksum": "94ee1bc2dc74830a21d5c3471d6cf223",
                 "data_object_type": "Kraken2 Krona Plot",
-                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-e79d5x03.1/nmdc_wfrbt-11-e79d5x03.1_kraken2_krona.html",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfrbt-11-1xhefc54.1/nmdc_wfrbt-11-1xhefc54.1_kraken2_krona.html",
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:dobj-11-08050793",
+                "name": "nmdc_wfmt-11-y9cf0x90.1_output.json",
+                "description": "JSON records of features and the associated read counts and RPKMs for nmdc:omprc-11-bn8jcq58",
+                "file_size_bytes": 37615194,
+                "md5_checksum": "d00ab33c0bdcf34789be58df977551f3",
+                "data_object_type": "Read Count and RPKM",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfmt-11-y9cf0x90.1/nmdc_wfmt-11-y9cf0x90.1_output.json",
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:dobj-11-r8avrg23",
+                "name": "nmdc_wfmt-11-y9cf0x90.1_R1.fastq",
+                "description": "R1 reads without the ribosomal sequences for nmdc:omprc-11-bn8jcq58",
+                "file_size_bytes": 2396106683,
+                "md5_checksum": "2b48a6ce9afc35f4698af47bb57c11cb",
+                "data_object_type": "QC non-rRNA R1",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfmt-11-y9cf0x90.1/nmdc_wfmt-11-y9cf0x90.1_R1.fastq",
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:dobj-11-92xdtw03",
+                "name": "nmdc_wfmt-11-y9cf0x90.1_R2.fastq",
+                "description": "R2 reads without the ribosomal sequences for nmdc:omprc-11-bn8jcq58",
+                "file_size_bytes": 2395867661,
+                "md5_checksum": "6b171f897e3e447d2e728b9d2573cdcd",
+                "data_object_type": "QC non-rRNA R2",
+                "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-bn8jcq58/nmdc:wfmt-11-y9cf0x90.1/nmdc_wfmt-11-y9cf0x90.1_R2.fastq",
                 "type": "nmdc:DataObject"
             }
         ],
         "metagenome_assembly_set": [
             {
-                "id": "nmdc:wfmgas-11-3jvymb63.1",
+                "id": "nmdc:wfmgas-11-7fe0dg09.1",
                 "name": "Metagenome Assembly Activity for nmdc:omprc-11-bn8jcq58",
                 "started_at_time": "2021-10-11T02:28:26Z",
                 "ended_at_time": "2021-10-11T04:56:04+00:00",
@@ -180,20 +210,20 @@
                 "execution_resource": "NERSC-Cori",
                 "git_url": "https://github.com/microbiomedata/metaAssembly",
                 "has_input": [
-                    "nmdc:dobj-11-019yes10"
+                    "nmdc:dobj-11-xwqq5x15"
                 ],
                 "has_output": [
-                    "nmdc:dobj-11-gast3j11",
-                    "nmdc:dobj-11-bkza5366",
-                    "nmdc:dobj-11-v9xfxp70",
-                    "nmdc:dobj-11-dz2mw103",
-                    "nmdc:dobj-11-75skzn36"
+                    "nmdc:dobj-11-gqy02f96",
+                    "nmdc:dobj-11-e3jbsp53",
+                    "nmdc:dobj-11-mennt828",
+                    "nmdc:dobj-11-bvgw0f35",
+                    "nmdc:dobj-11-5wnxfs74"
                 ],
                 "type": "nmdc:MetagenomeAssembly",
                 "part_of": [
                     "nmdc:omprc-11-bn8jcq58"
                 ],
-                "version": "v1.0.3",
+                "version": "1.0.2",
                 "asm_score": 6.577,
                 "scaffolds": 169645,
                 "scaf_logsum": 215363,
@@ -221,6 +251,30 @@
                 "gc_avg": 0.46001
             }
         ],
+        "metatranscriptome_activity_set": [
+            {
+                "id": "nmdc:wfmt-11-y9cf0x90.1",
+                "name": "Metatranscriptome Activity for nmdc:omprc-11-bn8jcq58",
+                "started_at_time": "2021-01-21T00:00:00Z",
+                "ended_at_time": "2021-01-21T00:00:00Z",
+                "was_informed_by": "nmdc:omprc-11-bn8jcq58",
+                "execution_resource": "NERSC-Cori",
+                "git_url": "https://github.com/microbiomedata/MetatranscriptomeActivity",
+                "has_input": [
+                    "nmdc:dobj-11-xwqq5x15"
+                ],
+                "has_output": [
+                    "nmdc:dobj-11-08050793",
+                    "nmdc:dobj-11-r8avrg23",
+                    "nmdc:dobj-11-92xdtw03"
+                ],
+                "type": "nmdc:MetatranscriptomeActivity",
+                "part_of": [
+                    "nmdc:omprc-11-bn8jcq58"
+                ],
+                "version": "0.0.0"
+            }
+        ],
         "omics_processing_set": [
             {
                 "id": "nmdc:omprc-11-bn8jcq58",
@@ -234,7 +288,7 @@
                     "gold:Gp0115663"
                 ],
                 "has_output": [
-                    "nmdc:dobj-11-k7vny888"
+                    "nmdc:dobj-11-77e9jm46"
                 ],
                 "mod_date": "2021-06-15",
                 "ncbi_project_name": "Sand microcosm microbial communities from a hyporheic zone in Columbia River, Washington, USA - GW-RW T2_23-Sept-14",
@@ -253,7 +307,7 @@
         ],
         "read_qc_analysis_activity_set": [
             {
-                "id": "nmdc:wfrqc-11-zma0ys31.1",
+                "id": "nmdc:wfrqc-11-9dahz742.1",
                 "name": "Read QC Activity for nmdc:omprc-11-bn8jcq58",
                 "started_at_time": "2021-10-11T02:28:26Z",
                 "ended_at_time": "2021-10-11T04:56:04+00:00",
@@ -261,17 +315,17 @@
                 "execution_resource": "NERSC-Cori",
                 "git_url": "https://github.com/microbiomedata/ReadsQC",
                 "has_input": [
-                    "nmdc:dobj-11-k7vny888"
+                    "nmdc:dobj-11-77e9jm46"
                 ],
                 "has_output": [
-                    "nmdc:dobj-11-019yes10",
-                    "nmdc:dobj-11-hty12n62"
+                    "nmdc:dobj-11-xwqq5x15",
+                    "nmdc:dobj-11-23h4kn88"
                 ],
                 "type": "nmdc:ReadQcAnalysisActivity",
                 "part_of": [
                     "nmdc:omprc-11-bn8jcq58"
                 ],
-                "version": "v1.0.8",
+                "version": "1.0.2",
                 "input_read_count": 32238374,
                 "output_read_count": 30774080,
                 "input_read_bases": 4867994474,
@@ -280,7 +334,7 @@
         ],
         "read_based_taxonomy_analysis_activity_set": [
             {
-                "id": "nmdc:wfrbt-11-e79d5x03.1",
+                "id": "nmdc:wfrbt-11-1xhefc54.1",
                 "name": "Readbased Taxonomy Analysis Activity for nmdc:omprc-11-bn8jcq58",
                 "started_at_time": "2021-10-11T02:28:26Z",
                 "ended_at_time": "2021-10-11T04:56:04+00:00",
@@ -288,24 +342,24 @@
                 "execution_resource": "NERSC-Cori",
                 "git_url": "https://github.com/microbiomedata/ReadbasedAnalysis",
                 "has_input": [
-                    "nmdc:dobj-11-019yes10"
+                    "nmdc:dobj-11-xwqq5x15"
                 ],
                 "has_output": [
-                    "nmdc:dobj-11-ppa5pg23",
-                    "nmdc:dobj-11-0yn4b055",
-                    "nmdc:dobj-11-ty0z3p61",
-                    "nmdc:dobj-11-e6h68y35",
-                    "nmdc:dobj-11-chgp8k25",
-                    "nmdc:dobj-11-0wbjqw24",
-                    "nmdc:dobj-11-xteq6n75",
-                    "nmdc:dobj-11-1n5y1278",
-                    "nmdc:dobj-11-rtjb8n73"
+                    "nmdc:dobj-11-3xr4an92",
+                    "nmdc:dobj-11-jcqgy707",
+                    "nmdc:dobj-11-cc16z813",
+                    "nmdc:dobj-11-d0srbc38",
+                    "nmdc:dobj-11-359kgj15",
+                    "nmdc:dobj-11-d74t5230",
+                    "nmdc:dobj-11-k27fbb42",
+                    "nmdc:dobj-11-pqbahb35",
+                    "nmdc:dobj-11-dpdc3287"
                 ],
                 "type": "nmdc:ReadBasedTaxonomyAnalysisActivity",
                 "part_of": [
                     "nmdc:omprc-11-bn8jcq58"
                 ],
-                "version": "v1.0.5"
+                "version": "v1.0.2"
             }
         ]
     }

@@ -13,7 +13,7 @@ import requests
 from linkml_runtime.dumpers import json_dumper
 
 from nmdc_automation.api import NmdcRuntimeApi, NmdcRuntimeUserApi
-from nmdc_automation.config import Config
+from nmdc_automation.nmdc_common.client import NmdcApi
 import nmdc_schema.nmdc as nmdc
 from nmdc_automation.re_iding.base import ReIdTool
 from nmdc_automation.re_iding.changesheets import Changesheet, ChangesheetLineItem
@@ -22,21 +22,25 @@ from nmdc_automation.re_iding.db_utils import get_omics_processing_id
 # Defaults
 GOLD_STUDY_ID = "gold:Gs0114663"
 STUDY_ID = "nmdc:sty-11-aygzgv51"
-NAPA_CONFIG = Path("../../../configs/napa_config.toml")
+NAPA_CONFIG = Path("../../../configs/.local_napa_config.toml")
+NAPA_BASE_URL = "https://api-napa.microbiomedata.org/"
 
 
 BASE_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
-DRYRUN_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
 
 DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
+DRYRUN_DATAFILE_DIR = DATA_DIR.joinpath("dryrun_data/results")
+LOG_PATH = DATA_DIR.joinpath("re_id_tool.log")
 
 logging.basicConfig(
+    filename="re_id.log",
+    filemode="w",
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[logging.StreamHandler()],
 )
 
 logger = logging.getLogger(__name__)
+logger.addHandler(logging.StreamHandler())
 
 
 @click.group()
@@ -56,12 +60,14 @@ def cli(ctx, site_config):
 
 @cli.command()
 @click.option(
-    "--study_id",
+    "--study-id",
     default=STUDY_ID,
     help=f"Optional updated study ID. Default: {STUDY_ID}",
 )
+@click.option("--api-base-url", default=NAPA_BASE_URL,
+              help=f"Optional base URL for the NMDC API. Default: {NAPA_BASE_URL}")
 @click.pass_context
-def extract_records(ctx, study_id):
+def extract_records(ctx, study_id, api_base_url):
     """
     Extract metagenome workflow activities and their data object records
     that are informed_by the legacy ID (GOLD Study ID) for a re-ID-ed Study/
@@ -70,17 +76,19 @@ def extract_records(ctx, study_id):
     Write the results, as a list of nmdc-schema Database instances to a JSON file.
     """
     start_time = time.time()
-    logging.info(f"Extracting workflow records for study_id: {study_id}")
-    logging.info(f"study_id: {study_id}")
+    logger.info(f"Extracting workflow records for study_id: {study_id}")
+    logger.info(f"study_id: {study_id}")
 
     config = ctx.obj["site_config"]
-    api_client = NmdcRuntimeUserApi(config)
+    # api_client = NmdcRuntimeUserApi(config)
+    api_client = NmdcApi(api_base_url)
 
     # 1. Retrieve all OmicsProcessing records for the updated NMDC study ID
-    omics_processing_records = api_client.get_omics_processing_records_for_nmdc_study(
+    omics_processing_records = (
+        api_client.get_omics_processing_records_part_of_study(
         study_id
-    )
-    logging.info(
+    ))
+    logger.info(
         f"Retrieved {len(omics_processing_records)} OmicsProcessing records for study {study_id}"
     )
 
@@ -88,19 +96,32 @@ def extract_records(ctx, study_id):
     # 2. For each OmicsProcessing record, find the legacy identifier:
     for omics_processing_record in omics_processing_records:
         db = nmdc.Database()
-        logging.info(f"omics_processing_record: " f"{omics_processing_record['id']}")
+        logger.info(f"omics_processing_record: " f"{omics_processing_record['id']}")
         legacy_id = _get_legacy_id(omics_processing_record)
-        logging.info(f"legacy_id: {legacy_id}")
+        logger.info(f"legacy_id: {legacy_id}")
 
-        if omics_processing_record["omics_type"]["has_raw_value"] != "Metagenome":
-            logging.info(
-                f"omics_processing_record {omics_processing_record['id']} "
-                f"is not a Metagenome"
+        omics_type = omics_processing_record["omics_type"]["has_raw_value"]
+        omics_id = omics_processing_record["id"]
+        if omics_type not in ["Metagenome", "Metatranscriptome"]:
+            logger.info(
+                f"omics_processing_record {omics_id}: {omics_type}] "
+                f"is not a Metagenome or Metatranscriptome, skipping"
             )
             continue
         db.omics_processing_set.append(omics_processing_record)
         for data_object_id in omics_processing_record["has_output"]:
-            data_object_record = api_client.get_data_object_by_id(data_object_id)
+            data_object_record = api_client.get_data_object(data_object_id)
+            if not data_object_record:
+                logger.warning(f"no data object found for {data_object_id}")
+                continue
+            data_object_type = data_object_record.get("data_object_type")
+            data_object_description = data_object_record.get("description")
+            logger.info(
+                f"has_output: "
+                f"{data_object_record['id']}, "
+                f"Type: {data_object_type}, "
+                f" Description: {data_object_description}"
+            )
             db.data_object_set.append(data_object_record)
 
         # downstream workflow activity sets
@@ -110,7 +131,8 @@ def extract_records(ctx, study_id):
             metagenome_assembly_records,
             metagenome_annotation_records,
             mags_records,
-        ) = ([], [], [], [], [])
+            metatranscriptome_activity_records,
+        ) = ([], [], [], [], [], [])
 
         downstream_workflow_activity_sets = {
             "read_qc_analysis_activity_set": read_qc_records,
@@ -118,30 +140,47 @@ def extract_records(ctx, study_id):
             "metagenome_assembly_set": metagenome_assembly_records,
             "metagenome_annotation_activity_set": metagenome_annotation_records,
             "mags_activity_set": mags_records,
+            "metatranscriptome_activity_set": metatranscriptome_activity_records,
         }
-        for set_name, records in downstream_workflow_activity_sets.items():
-            records = api_client.get_workflow_activity_informed_by(set_name, legacy_id)
-            db.__setattr__(set_name, records)
-            # Add the data objects referenced by the `has_output` property
-            for record in records:
-                logging.info(f"record: {record['id']}, {record['name']}")
-                for data_object_id in record["has_output"]:
-                    data_object_record = api_client.get_data_object_by_id(
+        for set_name, workflow_records in downstream_workflow_activity_sets.items():
+            logger.info(f"set_name: {set_name} for {legacy_id}")
+            workflow_records = api_client.get_workflow_activities_informed_by(set_name,
+                                                                   legacy_id)
+            logger.info(f"found {len(workflow_records)} records")
+            db.__setattr__(set_name, workflow_records)
+            for workflow_record in workflow_records:
+                logger.info(f"record: {workflow_record['id']}, {workflow_record['name']}")
+                input_output_data_object_ids = []
+                if "has_input" in workflow_record:
+                    input_output_data_object_ids.extend(workflow_record["has_input"])
+                if "has_output" in workflow_record:
+                    input_output_data_object_ids.extend(workflow_record["has_output"])
+
+                for data_object_id in input_output_data_object_ids:
+                    data_object_record = api_client.get_data_object(
                         data_object_id
                     )
-                    logging.info(
-                        f"data_object_record: "
-                        f"{data_object_record['id']}, {data_object_record['description']}"
+                    if not data_object_record:
+                        logger.warning(f"no data object found for {data_object_id}")
+                        continue
+                    data_object_type = data_object_record.get("data_object_type")
+                    data_object_description = data_object_record.get("description")
+                    logger.info(
+                        f"has_output: "
+                        f"{data_object_record['id']}, "
+                        f"Type: {data_object_type}, "
+                        f" Description: {data_object_description}"
                     )
-                    db.data_object_set.append(data_object_record)
+                    if data_object_record not in db.data_object_set:
+                        db.data_object_set.append(data_object_record)
 
         # Search for orphaned data objects with the legacy ID in the description
         orphaned_data_objects = api_client.get_data_objects_by_description(legacy_id)
         # check that we don't already have the data object in the set
         for data_object in orphaned_data_objects:
-            if data_object["id"] not in [d["id"] for d in db.data_object_set]:
+            if data_object not in db.data_object_set:
                 db.data_object_set.append(data_object)
-                logging.info(
+                logger.info(
                     f"Added orphaned data object: "
                     f"{data_object['id']}, {data_object['description']}"
                 )
@@ -150,6 +189,8 @@ def extract_records(ctx, study_id):
 
     json_data = json.loads(json_dumper.dumps(retrieved_databases, inject_type=False))
     db_outfile = DATA_DIR.joinpath(f"{study_id}_associated_record_dump.json")
+    logger.info(f"Writing {len(retrieved_databases)} records to {db_outfile}")
+    logger.info(f"Elapsed time: {time.time() - start_time}")
     with open(db_outfile, "w") as f:
         f.write(json.dumps(json_data, indent=4))
 
@@ -221,9 +262,13 @@ def process_records(ctx, dryrun, study_id, data_dir):
         new_db = reid_tool.update_read_based_taxonomy_analysis_activity_set(
             db_record, new_db
         )
+        # update Metatraanscriptome Activity
+        new_db = reid_tool.update_metatranscriptome_activity_set(db_record, new_db)
 
         re_ided_db_records.append(new_db)
 
+    logger.info(f"Writing {len(re_ided_db_records)} records to {db_outfile}")
+    logger.info(f"Elapsed time: {time.time() - start_time}")
     json_data = json.loads(json_dumper.dumps(re_ided_db_records, inject_type=False))
     with open(db_outfile, "w") as f:
         f.write(json.dumps(json_data, indent=4))
@@ -422,9 +467,9 @@ def _get_legacy_id(omics_processing_record: dict) -> str:
     legacy_ids.extend(alternative_ids)
     if len(legacy_ids) == 0:
         logging.warning(
-            f"No legacy IDs found for omics_processing_record: {omics_processing_record['id']}"
+            f"No legacy IDs found for: {omics_processing_record['id']} using ID instead"
         )
-        return None
+        return omics_processing_record["id"]
     elif len(legacy_ids) > 1:
         logging.warning(
             f"Multiple legacy IDs found for omics_processing_record: {omics_processing_record['id']}"

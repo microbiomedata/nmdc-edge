@@ -185,3 +185,36 @@ Workflows:
       description: Read based analysis info for {id}
       name: File containing reads based analysis information
       suffix: profiler.info
+
+  - Name: Metatranscriptome Activity
+    Type: nmdc:MetatranscriptomeActivity
+    Enabled: False
+    Git_repo: https://github.com/microbiomedata/MetatranscriptomeActivity
+    Version: 0.0.0
+    Collection: metatranscriptome_activity_set
+    ActivityRange: MetatranscriptomeActivity
+    Predecessors:
+    - Reads QC
+    - Reads QC Interleave
+    Inputs:
+      input_file: do:Filtered Sequencing Reads
+      proj: "{activity_id}"
+    Activity:
+        name: "Metatranscriptome Activity for {id}"
+        type: nmdc:MetatranscriptomeActivity
+    Outputs:
+      - output: read_count_and_rpkm
+        name: Read count and RPKM
+        suffix: ".json"
+        data_object_type: Read Count and RPKM
+        description: "Read count and RPKM for {id}"
+      - output: qc_non_rRNA_R1
+        name: Non-rRNA reads R1
+        suffix: "filtered_R1.fastq"
+        data_object_type: QC non-rRNA R1
+        description: "R1 reads without the ribosomal sequences for {id}"
+      - output: qc_non_rRNA_R2
+        name: Non-rRNA reads R2
+        suffix: "filtered_R2.fastq"
+        data_object_type: QC non-rRNA R2
+        description: "R2 reads without the ribosomal sequences for {id}"

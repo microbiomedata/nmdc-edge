@@ -3,8 +3,9 @@
 db_utils.py: Provides utility functions for working with NMDC Database
 records and data objects as dicts.
 """
+import logging
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Dict, Optional
 from nmdc_schema.nmdc import Database, DataObject
 
 # Some constants for set names we care about
@@ -12,6 +13,7 @@ OMICS_PROCESSING_SET = "omics_processing_set"
 DATA_OBJECT_SET = "data_object_set"
 READS_QC_SET = "read_qc_analysis_activity_set"
 METAGENOME_ASSEMBLY_SET = "metagenome_assembly_set"
+METATRANSCRIPTOME_ACTIVITY_SET = "metatranscriptome_activity_set"
 
 
 
@@ -38,13 +40,14 @@ def check_for_single_omics_processing_record(db_record: Dict) -> bool:
         raise ValueError("Multiple omics_processing_set found in db_record")
     return True
 
-def get_data_object_record_by_id(db_record: Dict, id: str)-> Dict:
+def get_data_object_record_by_id(db_record: Dict, id: str)-> Optional[Dict]:
     """
     Return the data object record with the given ID.
     """
     data_objects = [d for d in db_record[DATA_OBJECT_SET] if d["id"] == id]
     if len(data_objects) == 0:
-        raise ValueError(f"No data object found with id: {id}")
+        logging.warning(f"No data object found with id: {id}")
+        return None
     elif len(data_objects) > 1:
         raise ValueError(f"Multiple data objects found with id: {id}")
     return data_objects[0]

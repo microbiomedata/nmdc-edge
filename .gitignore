@@ -7,3 +7,5 @@ htmlcov/
 attic
 .idea/
 
+configs/.local_napa_config.toml
+nmdc_automation/re_iding/scripts/data/dryrun_data/

@@ -374,66 +374,6 @@ class NmdcRuntimeUserApi:
         rv.raise_for_status()
         return rv
 
-    def get_omics_processing_records_for_nmdc_study(self, nmdc_study_id: str):
-        """
-        Retrieve all OmicsProcessing records for the given NMDC study ID.
-        """
-        url = "queries:run"
-        params = {"find": "omics_processing_set",
-                  "filter": {"part_of": {"$elemMatch": {"$eq": nmdc_study_id}}}}
-        response = self.request("POST", url, params_or_json_data=params)
-        if response.status_code != 200:
-            raise Exception(
-                f"Error retrieving OmicsProcessing records for study {nmdc_study_id}"
-                )
-        omics_processing_records = response.json()["cursor"]["firstBatch"]
-        return omics_processing_records
-
-    def get_workflow_activity_informed_by(self, workflow_activity_set: str,
-                                          informed_by_id: str):
-        """
-        Retrieve a workflow activity record for the given workflow activity set
-        and informed by a given OmicsProcessing ID.
-        """
-        url = "queries:run"
-        params = {"find": workflow_activity_set,
-                  "filter": {"was_informed_by": informed_by_id}}
-        response = self.request("POST", url, params_or_json_data=params)
-        if response.status_code != 200:
-            raise Exception(
-                f"Error retrieving {workflow_activity_set} record informed by {informed_by_id}"
-                )
-        workflow_activity_record = response.json()["cursor"]["firstBatch"]
-        return workflow_activity_record
-
-    def get_data_objects_by_description(self, description: str):
-        """
-        Retrieve data objects the given description in its description.
-        """
-        response = self.request(
-            "POST",
-            "queries:run",
-            params_or_json_data={
-                "find": "data_object_set",
-                "filter": {"description": {"$regex": description, "$options": "i"}},
-            },
-        )
-        response.raise_for_status()
-        return response.json()["cursor"]["firstBatch"]
-
-    def get_data_object_by_id(self, data_object_id: str):
-        """
-        Retrieve a data object record for the given data object ID.
-        """
-        url = f"data_objects/{data_object_id}"
-        response = self.request("GET", url)
-        if response.status_code != 200:
-            raise Exception(
-                f"Error retrieving data object record for {data_object_id}"
-                )
-        data_object_record = response.json()
-        return data_object_record
-    
     def run_query(self, query: dict):
         """
         Function to run a query using the Microbiome Data API.

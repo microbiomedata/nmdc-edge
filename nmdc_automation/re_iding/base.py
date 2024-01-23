@@ -18,13 +18,13 @@ from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.re_iding.db_utils import (OMICS_PROCESSING_SET,
                                                READS_QC_SET,
                                                METAGENOME_ASSEMBLY_SET,
+                                                METATRANSCRIPTOME_ACTIVITY_SET,
                                                check_for_single_omics_processing_record,
                                                get_data_object_record_by_id,
                                                get_omics_processing_id)
 from nmdc_automation.re_iding.file_utils import (find_data_object_type,
-                                                compute_new_paths,
-                                                get_new_paths,
-                                                assembly_file_operations)
+                                                 compute_new_paths_and_link,
+                                                 assembly_file_operations)
 
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
 DATA_BASE_URL = "https://data.microbiomedata.org/data"
@@ -60,6 +60,8 @@ class ReIdTool:
         workflow_type = workflow_type.replace("QC", "Qc")
         if workflow_type == "nmdc:ReadbasedAnalysis":
             workflow_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
+        if workflow_type == "nmdc:MetaT":
+            workflow_type = "nmdc:MetatranscriptomeActivity"
 
         for t in self.workflow_template:
             type = t["Type"]
@@ -163,7 +165,7 @@ class ReIdTool:
                 logger.info(f"old_do_id: {old_do_id}")
                 old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
                 data_object_type = find_data_object_type(old_do_rec)
-                new_file_path = compute_new_paths(
+                new_file_path = compute_new_paths_and_link(
                 old_do_rec["url"], new_readsqc_base_dir, new_activity_id, self.data_dir
                 )
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
@@ -221,7 +223,7 @@ class ReIdTool:
                 data_object_type = find_data_object_type(old_do_rec)
                 if not data_object_type:
                     continue
-                new_file_path = get_new_paths(old_do_rec["url"],new_assembly_base_dir, new_activity_id)
+                new_file_path = compute_new_paths_and_link(old_do_rec["url"], new_assembly_base_dir, new_activity_id)
                 updated_md5, updated_file_size = assembly_file_operations(
                 old_do_rec, data_object_type, new_file_path, new_activity_id,
                     self.data_dir)
@@ -284,7 +286,7 @@ class ReIdTool:
                 data_object_type = find_data_object_type(old_do_rec)
                 if not data_object_type:
                     continue
-                new_file_path = compute_new_paths(
+                new_file_path = compute_new_paths_and_link(
                 old_do_rec["url"], new_readbased_base_dir, new_activity_id, self.data_dir
                 )
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
@@ -314,7 +316,81 @@ class ReIdTool:
             new_db.read_based_taxonomy_analysis_activity_set.append(new_read_based)
 
         return new_db
-    
+
+    def update_metatranscriptome_activity_set(self, db_record: Dict,
+                                              new_db: NmdcDatabase) -> (NmdcDatabase):
+        """
+        Return a new Database instance with the metatranscriptome_activity_set
+        and its data objects updated to new IDs.
+        """
+        logger.info(f"Updating metatranscriptome_activity_set for "
+                    f"{db_record[OMICS_PROCESSING_SET][0]['id']}")
+        new_omics_processing = new_db.omics_processing_set[0]
+
+        for metatranscriptome_rec in db_record[METATRANSCRIPTOME_ACTIVITY_SET]:
+            # old records have non-conforming type e.g. nmdc:MetaT,
+            # nmdc:metaT etc. - fix it
+            activity_type = "nmdc:MetatranscriptomeActivity"
+            metatranscriptome_rec["type"] = activity_type
+            omics_processing_id = new_omics_processing.id
+            has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
+
+
+
+            new_activity_id = self.api_client.minter(activity_type) + "." + self.workflow_iteration
+            logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
+            new_metatranscriptome_base_dir = os.path.join(self.data_dir, omics_processing_id,
+                                                          new_activity_id)
+            logging.info(f"New metatranscriptome base dir: {new_metatranscriptome_base_dir}")
+            os.makedirs(new_metatranscriptome_base_dir, exist_ok=True)
+
+            updated_has_output = []
+            # Get Metatranscriptome data objects and update IDs
+            for old_do_id in metatranscriptome_rec["has_output"]:
+                logger.info(f"old_do_id: {old_do_id}")
+                old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
+                # there are some data objects that are not in the database
+                if not old_do_rec:
+                    logger.warning(f"Data object record not found for {old_do_id}")
+                    continue
+
+                data_object_type = find_data_object_type(old_do_rec)
+                logging.info(f"data_object_type: {data_object_type}")
+                # TODO: how do we handle data objects w/o type?
+                if not data_object_type:
+                    logger.warning(f"Data object type not found for {old_do_id}")
+                    # continue
+                # link data object to new location
+                new_file_path = compute_new_paths_and_link(
+                    old_do_rec["url"], new_metatranscriptome_base_dir, new_activity_id, self.data_dir)
+                logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
+
+                new_do = self.make_new_data_object(
+                    omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
+                )
+                # add new data object to new database and update has_output
+                new_db.data_object_set.append(new_do)
+                updated_has_output.append(new_do.id)
+
+            # Get new Metatranscriptome activity set
+            new_metatranscriptome = self._make_new_activity_set_object(
+                omics_processing_id, new_activity_id, metatranscriptome_rec, has_input,
+                updated_has_output
+            )
+            # update activity-specific properties
+            # get new_metatranscriptome properties with no set value
+            unset_properties = [
+                p for p in new_metatranscriptome.__dict__ if not new_metatranscriptome.__dict__[p]
+            ]
+            # check for that value in old record
+            for p in unset_properties:
+                if p in metatranscriptome_rec:
+                    setattr(new_metatranscriptome, p, metatranscriptome_rec[p])
+
+            new_db.metatranscriptome_activity_set.append(new_metatranscriptome)
+        return new_db
+
+
     def _get_input_do_id(self, new_db, data_object_type: str):
         """Returns the string representation of a data object id given data object type"""
         
@@ -334,6 +410,8 @@ class ReIdTool:
         activity_type = activity_set_rec["type"].replace("QC", "Qc")
         if activity_type == "nmdc:ReadbasedAnalysis":
             activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
+        if activity_type == "nmdc:MetaT":
+            activity_type = "nmdc:MetatranscriptomeActivity"
         template = self._workflow_template_for_type(activity_type)
         activity_class = getattr(nmdc, template["ActivityRange"])
         
