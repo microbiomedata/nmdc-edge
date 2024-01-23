@@ -69,18 +69,6 @@ const makeOrcidAuthUri = (redirectUri, orcidClientId, nonceVal = "whatever", orc
     return `${orcidAuthBaseUri}?response_type=token&redirect_uri=${sanitizedRedirectUri}&client_id=${sanitizedOrcidClientId}&scope=openid&nonce=${sanitizedNonceVal}`;
 }
 
-/**
- * Extracts and returns the specified query parameter value from the specified URI.
- *
- * References:
- * - https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/URLSearchParams
- * - https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/get
- *
- * @param uri {string} The URI containing the query string containing the specified parameter
- * @param paramName {string} Name of the parameter whose value you want to extract
- * @return {string} The extracted parameter value
- */
-
 const config = {
     APP: {
         NAME: `NMDC EDGE`,
