@@ -2,6 +2,7 @@ workflow readsqc_output {
     Array[File] input_files
     String? outdir
     String bbtools_container="microbiomedata/bbtools:38.96"
+    String proj
 
     call make_output {
         input: outdir=outdir,
@@ -15,15 +16,16 @@ task make_output{
 	Array[File] filtered
 	String dollar ="$"
 	String container
+	String proj
 
  	command<<<
 			mkdir -p ${outdir}
 
-            mkdir -p ${outdir}/$prefix
+            mkdir -p ${outdir}/$proj
             cp -f glob("*fastq.gz") ${outdir}
-            cp -f ${prefix}_filterStats.txt ${outdir}/$prefix
-            cp -f ${prefix}_filterStats2.txt ${outdir}/$prefix
-            cp -f ${prefix}_filterStats.json ${outdir}/$prefix
+            cp -f ${proj}_filterStats.txt ${outdir}/$proj
+            cp -f ${proj}_filterStats2.txt ${outdir}/$proj
+            cp -f ${proj}_filterStats.json ${outdir}/$proj
 
 
  			chmod 764 -R ${outdir}
