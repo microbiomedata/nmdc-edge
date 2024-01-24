@@ -63,35 +63,6 @@ task gzip_input_int{
 	}
 }
 
-task gzip_input_pe {
-    File input_fq1
-    File input_fq2
-	String container
-	String outdir
-    String out_file1 = basename(input_fq1,".gz")
-    String out_file2 = basename(input_fq2,".gz")
-
- 	command<<<
-        if file --mime -b ${input_fq1} | grep gzip > /dev/null ; then
-            mv ${input_fq1} ${outdir}/
-            mv ${input_fq2} ${outdir}/
-        else
-            gzip -f ${input_fq1}
-            gzip -f ${input_fq2}
-            mv "${input_fq1}.gz" ${outdir}/
-            mv "${input_fq2}.gz" ${outdir}/
-        fi
- 	>>>
-	runtime {
-            docker: container
-            memory: "1 GiB"
-            cpu:  1
-        }
-	output{
-        File input_fastq1_gz = "${outdir}/${out_file1}.gz"
-        File input_fastq2_gz = "${outdir}/${out_file2}.gz"
-	}
-}
 
 task interleave_reads{
 
