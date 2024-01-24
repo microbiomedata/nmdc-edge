@@ -1,5 +1,5 @@
 workflow readsqc_output {
-    File input_files
+    Array[File] input_files
     String? outdir
     String bbtools_container="microbiomedata/bbtools:38.96"
 
@@ -12,7 +12,7 @@ workflow readsqc_output {
 
 task make_output{
  	String outdir
-	String filtered
+	Array[File] filtered
 	String dollar ="$"
 	String container
 
