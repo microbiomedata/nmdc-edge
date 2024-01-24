@@ -34,7 +34,7 @@ workflow readsqc_preprocess {
     }
     output {
 
-       Array[File] input_files_gz = if (input_interleaved) then gzip_int.input_files_gz else gzip_pe.input_files_gz
+       Array[File]? input_files_gz = if (input_interleaved) then gzip_int.input_files_gz else gzip_pe.input_files_gz
     }
 }
 
@@ -59,7 +59,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        Array[File] input_files_gz = glob("${outdir}/*.gz")
+        Array[File]? input_files_gz = glob("${outdir}/*.gz")
 	}
 }
 
