@@ -19,6 +19,7 @@ from nmdc_automation.re_iding.db_utils import (OMICS_PROCESSING_SET,
                                                READS_QC_SET,
                                                METAGENOME_ASSEMBLY_SET,
                                                 METATRANSCRIPTOME_ACTIVITY_SET,
+READ_BASED_TAXONOMY_ACTIVITY_SET,
                                                check_for_single_omics_processing_record,
                                                get_data_object_record_by_id,
                                                get_omics_processing_id)
@@ -146,7 +147,7 @@ class ReIdTool:
             f"{db_record[OMICS_PROCESSING_SET][0]['id']}"
             )
         new_omics_processing = new_db.omics_processing_set[0]
-        for reads_qc_rec in db_record[READS_QC_SET]:
+        for reads_qc_rec in db_record.get(READS_QC_SET, []):
             # old records have non-conforming type
             activity_type = "nmdc:ReadQcAnalysisActivity"
             omics_processing_id = new_omics_processing.id
@@ -203,7 +204,7 @@ class ReIdTool:
                     f"{db_record[OMICS_PROCESSING_SET][0]['id']}")
         new_omics_processing = new_db.omics_processing_set[0]
 
-        for assembly_rec in db_record[METAGENOME_ASSEMBLY_SET]:
+        for assembly_rec in db_record.get(METAGENOME_ASSEMBLY_SET, []):
             activity_type = "nmdc:MetagenomeAssembly"
             omics_processing_id = new_omics_processing.id
             has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
@@ -222,6 +223,7 @@ class ReIdTool:
                 old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
                 data_object_type = find_data_object_type(old_do_rec)
                 if not data_object_type:
+                    logger.warning(f"Data object type not found for {old_do_id} - {old_do_rec['description']}")
                     continue
                 new_file_path = compute_new_paths_and_link(old_do_rec["url"], new_assembly_base_dir, new_activity_id)
                 updated_md5, updated_file_size = assembly_file_operations(
@@ -237,6 +239,11 @@ class ReIdTool:
                 # add new data object to new database and update has_output
                 new_db.data_object_set.append(new_do)
                 updated_has_output.append(new_do.id)
+
+            # Skip creating a new assembly if no typed data objects were found
+            if not updated_has_output:
+                logger.warning(f"No typed data objects found for {activity_type}")
+                return new_db
 
             # Get new Metagenome Assembly activity set
             new_assembly = self._make_new_activity_set_object(
@@ -266,8 +273,7 @@ class ReIdTool:
                     f"{db_record[OMICS_PROCESSING_SET][0]['id']}")
         new_omics_processing = new_db.omics_processing_set[0]
 
-        for read_based_rec in db_record[
-            "read_based_taxonomy_analysis_activity_set"]:
+        for read_based_rec in db_record.get(READ_BASED_TAXONOMY_ACTIVITY_SET, []):
             activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
             omics_processing_id = new_omics_processing.id
             has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
@@ -285,6 +291,7 @@ class ReIdTool:
                 old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
                 data_object_type = find_data_object_type(old_do_rec)
                 if not data_object_type:
+                    logger.warning(f"Data object type not found for {old_do_id} - {old_do_rec['description']}")
                     continue
                 new_file_path = compute_new_paths_and_link(
                 old_do_rec["url"], new_readbased_base_dir, new_activity_id, self.data_dir
@@ -297,6 +304,11 @@ class ReIdTool:
                 # add new data object to new database and update has_output
                 new_db.data_object_set.append(new_do)
                 updated_has_output.append(new_do.id)
+
+            # Skip creating a new assembly if no typed data objects were found
+            if not updated_has_output:
+                logger.warning(f"No typed data objects found for {activity_type}")
+                return new_db
 
             # Get new ReadBasedTaxonomyAnalysisActivity activity set
             new_read_based = self._make_new_activity_set_object(
@@ -327,7 +339,7 @@ class ReIdTool:
                     f"{db_record[OMICS_PROCESSING_SET][0]['id']}")
         new_omics_processing = new_db.omics_processing_set[0]
 
-        for metatranscriptome_rec in db_record[METATRANSCRIPTOME_ACTIVITY_SET]:
+        for metatranscriptome_rec in db_record.get(METATRANSCRIPTOME_ACTIVITY_SET, []):
             # old records have non-conforming type e.g. nmdc:MetaT,
             # nmdc:metaT etc. - fix it
             activity_type = "nmdc:MetatranscriptomeActivity"
@@ -358,13 +370,12 @@ class ReIdTool:
                 logging.info(f"data_object_type: {data_object_type}")
                 # TODO: how do we handle data objects w/o type?
                 if not data_object_type:
-                    logger.warning(f"Data object type not found for {old_do_id}")
-                    # continue
+                    logger.warning(f"Data object type not found for {old_do_id} - {old_do_rec['description']}")
+                    continue
                 # link data object to new location
                 new_file_path = compute_new_paths_and_link(
                     old_do_rec["url"], new_metatranscriptome_base_dir, new_activity_id, self.data_dir)
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
-
                 new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
                 )
@@ -372,6 +383,11 @@ class ReIdTool:
                 new_db.data_object_set.append(new_do)
                 updated_has_output.append(new_do.id)
 
+
+            # Skip creating a new assembly if no typed data objects were found
+            if not updated_has_output:
+                logger.warning(f"No typed data objects found for {activity_type}")
+                return new_db
             # Get new Metatranscriptome activity set
             new_metatranscriptome = self._make_new_activity_set_object(
                 omics_processing_id, new_activity_id, metatranscriptome_rec, has_input,
