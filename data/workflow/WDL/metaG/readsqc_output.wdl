@@ -7,7 +7,8 @@ workflow readsqc_output {
     call make_output {
         input: outdir=outdir,
         filtered= input_files,
-        container=bbtools_container
+        container=bbtools_container,
+        proj=proj
     }
 }
 
