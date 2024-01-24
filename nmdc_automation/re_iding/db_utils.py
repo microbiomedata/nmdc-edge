@@ -14,6 +14,7 @@ DATA_OBJECT_SET = "data_object_set"
 READS_QC_SET = "read_qc_analysis_activity_set"
 METAGENOME_ASSEMBLY_SET = "metagenome_assembly_set"
 METATRANSCRIPTOME_ACTIVITY_SET = "metatranscriptome_activity_set"
+READ_BASED_TAXONOMY_ACTIVITY_SET = "read_based_taxonomy_activity_set"
 
 
 
