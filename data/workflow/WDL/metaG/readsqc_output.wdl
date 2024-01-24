@@ -19,15 +19,12 @@ task make_output{
  	command<<<
 			mkdir -p ${outdir}
 
-            f=${dollar}(basename $filtered)
-            dir=${dollar}(dirname $filtered)
-            prefix=${dollar}{f%.anqdpht*}
             mkdir -p ${outdir}/$prefix
-            cp -f $dir/../filtered/filterStats.txt ${outdir}/$prefix
-            cp -f $dir/../filtered/filterStats2.txt ${outdir}/$prefix
-            cp -f $dir/../filtered/filterStats.json ${outdir}/$prefix
-            cp -f $i ${outdir}/$prefix
-            echo ${outdir}/$prefix/$f
+            cp -f glob("*fastq.gz") ${outdir}
+            cp -f ${prefix}_filterStats.txt ${outdir}/$prefix
+            cp -f ${prefix}_filterStats2.txt ${outdir}/$prefix
+            cp -f ${prefix}_filterStats.json ${outdir}/$prefix
+
 
  			chmod 764 -R ${outdir}
  	>>>
