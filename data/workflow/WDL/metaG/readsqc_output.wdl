@@ -23,7 +23,7 @@ task make_output{
 			mkdir -p ${outdir}
 
             mkdir -p ${outdir}/$proj
-            cp -f glob("*fastq.gz") ${outdir}
+            cp -f "*fastq.gz" ${outdir}
             cp -f ${proj}_filterStats.txt ${outdir}/$proj
             cp -f ${proj}_filterStats2.txt ${outdir}/$proj
             cp -f ${proj}_filterStats.json ${outdir}/$proj
