@@ -28,6 +28,9 @@ task make_output{
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
                 cp -f $i ${outdir}/
+                cp -f $dir/${proj}_filterStats.txt ${outdir}/{$proj}
+				cp -f $dir/${proj}_filterStats2.txt ${outdir}/{$proj}
+				cp -f $dir/${proj}_filterStats.json ${outdir}/{$proj}
             done
 
 
