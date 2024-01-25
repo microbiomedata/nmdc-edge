@@ -23,10 +23,12 @@ task make_output{
 			mkdir -p ${outdir}
 
             mkdir -p ${outdir}/$proj
-            cp -f "*fastq.gz" ${outdir}
-            cp -f ${proj}_filterStats.txt ${outdir}/$proj
-            cp -f ${proj}_filterStats2.txt ${outdir}/$proj
-            cp -f ${proj}_filterStats.json ${outdir}/$proj
+            cp -f ${filtered} ${outdir}
+            dir = basename(${filtered})
+            echo ${dir}
+            cp -f ${dir}/${proj}_filterStats.txt ${outdir}/$proj
+            cp -f ${dir}${proj}_filterStats2.txt ${outdir}/$proj
+            cp -f ${dir}${proj}_filterStats.json ${outdir}/$proj
 
 
  			chmod 764 -R ${outdir}
