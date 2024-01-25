@@ -23,7 +23,12 @@ task make_output{
 			mkdir -p ${outdir}
 
             mkdir -p ${outdir}/$proj
-            cp -f ${filtered} ${outdir}
+            for i in ${sep=' ' filtered}
+			do
+				f=${dollar}(basename $i)
+				dir=${dollar}(dirname $i)
+                cp -f $i ${outdir}/
+            done
 
 
 
