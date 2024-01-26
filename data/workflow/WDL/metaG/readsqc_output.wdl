@@ -15,7 +15,6 @@ workflow readsqc_output {
 task make_output{
  	String outdir
 	Array[File] filtered
-	File stat = filename_stat
 	String dollar ="$"
 	String container
 	String proj
