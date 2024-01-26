@@ -11,7 +11,8 @@ workflow readsqc_output {
         filtered= input_files,
         container=bbtools_container,
         proj=proj,
-        stat=stat
+        stat=stat,
+        stat2=stat2
     }
 }
 
