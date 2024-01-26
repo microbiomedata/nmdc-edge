@@ -15,6 +15,7 @@ workflow readsqc_output {
 task make_output{
  	String outdir
 	Array[File] filtered
+	File stat = filename_stat
 	String dollar ="$"
 	String container
 	String proj
@@ -22,15 +23,14 @@ task make_output{
  	command<<<
 			mkdir -p ${outdir}
 
-            mkdir -p ${outdir}/$proj
             for i in ${sep=' ' filtered}
 			do
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
-                cp -f $i ${outdir}/
-                cp -f $dir/${proj}_filterStats.txt ${outdir}/{$proj}
-				cp -f $dir/${proj}_filterStats2.txt ${outdir}/{$proj}
-				cp -f $dir/${proj}_filterStats.json ${outdir}/{$proj}
+				prefix=${dollar}{f%.anqdpht*}
+				mkdir -p ${outdir}/$prefix
+                cp -f $i ${outdir}/$prefix
+
             done
 
 
