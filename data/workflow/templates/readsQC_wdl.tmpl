@@ -5,6 +5,7 @@ String ReadsQC_database="/refdata"
 Boolean ReadsQC_input_interleaved=true
 Array[File] ReadsQC_input_fq1
 Array[File] ReadsQC_input_fq2
+String? proj
 
 call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
     input:
@@ -20,12 +21,13 @@ scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
             input:
                 input_files=file,
                 database=ReadsQC_database,
-                proj="test",
+                proj=proj,
 	   }
-        call ReadsQC_output.readsqc_output as readsqc_output {
+
+}
+call ReadsQC_output.readsqc_output as readsqc_output {
             input:
-                input_files=select_first([nmdc_rqcfilter.filtered_final, [""]]),
+                input_files=nmdc_rqcfilter.filtered_final),
                 outdir=ReadsQC_outdir
 	    }
     }
-}
