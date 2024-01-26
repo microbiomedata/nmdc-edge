@@ -47,14 +47,14 @@ task make_output{
                 python <<CODE
                     import json
                     from collections import OrderedDict
-                    f = open("${i}",'r')
+                    f = open("$i",'r')
                     d = OrderedDict()
                     for line in f:
                         if not line.rstrip():continue
                         key,value=line.rstrip().split('=')
                         d[key]=float(value) if 'Ratio' in key else int(value)
 
-                    with open("${i}.json", 'w') as outfile:
+                    with open("$i".json, 'w') as outfile:
                         json.dump(d, outfile)
                     CODE
 
