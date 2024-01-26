@@ -1,6 +1,7 @@
 workflow readsqc_output {
     Array[File] input_files
     Array[File] stat
+    Array[File] stat2
     String? outdir
     String bbtools_container="microbiomedata/bbtools:38.96"
     String proj
@@ -18,6 +19,7 @@ task make_output{
  	String outdir
 	Array[File] filtered
 	Array[File] stat
+	Array[File] stat2
 	String dollar ="$"
 	String container
 	String proj
@@ -35,6 +37,14 @@ task make_output{
 
             done
             for i in ${sep=' ' stat}
+			do
+				f=${dollar}(basename $i)
+				dir=${dollar}(dirname $i)
+				prefix=${dollar}{f%.anqdpht*}
+                cp -f $i ${outdir}/$prefix
+
+            done
+            for i in ${sep=' ' stat2}
 			do
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
