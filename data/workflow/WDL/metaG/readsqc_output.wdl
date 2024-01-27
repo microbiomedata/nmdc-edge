@@ -54,7 +54,7 @@ task make_output{
                         key,value=line.rstrip().split('=')
                         d[key]=float(value) if 'Ratio' in key else int(value)
 
-                    with open("$i".json, 'w') as outfile:
+                    with open(f"{$i}.json", 'w') as outfile:
                         json.dump(d, outfile)
                     CODE
 
