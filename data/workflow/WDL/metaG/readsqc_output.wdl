@@ -33,18 +33,18 @@ task make_json_file {
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%.anqdpht*}
 				python <<CODE
-                    import json
-                    from collections import OrderedDict
-                    f = open("$i",'r')
-                    d = OrderedDict()
-                    for line in f:
-                        if not line.rstrip():continue
-                        key,value=line.rstrip().split('=')
-                        d[key]=float(value) if 'Ratio' in key else int(value)
+                import json
+                from collections import OrderedDict
+                f = open("$i",'r')
+                d = OrderedDict()
+                for line in f:
+                    if not line.rstrip():continue
+                    key,value=line.rstrip().split('=')
+                    d[key]=float(value) if 'Ratio' in key else int(value)
 
-                    with open(f"{$i}.json", 'w') as outfile:
-                        json.dump(d, outfile)
-                    CODE
+                with open(f"{$i}.json", 'w') as outfile:
+                    json.dump(d, outfile)
+                CODE
 	>>>
 	runtime {
         docker: container
