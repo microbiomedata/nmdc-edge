@@ -32,12 +32,7 @@ task make_json_file {
             f=${dollar}(basename $i)
             dir=${dollar}(dirname $i)
             prefix=${dollar}{f%.anqdpht*}
-            python <<CODE
-            import json
-            import os
-            from collections import OrderedDict
-            print("test")
-            CODE
+            echo "$i"
         done
 	>>>
 	runtime {
