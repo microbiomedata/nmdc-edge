@@ -27,16 +27,12 @@ task make_json_file {
     String container
 	String dollar ="$"
     command<<<
-        for i in ${sep=' ' stat}
-		do
-            f=${dollar}(basename $i)
-            dir=${dollar}(dirname $i)
-            prefix=${dollar}{f%.anqdpht*}
-            echo "$i"
-            python <<CODE
-                print("hello world")
-            CODE
-        done
+
+
+        python <<CODE
+            print("hello world")
+        CODE
+
 	>>>
 	runtime {
         docker: container
