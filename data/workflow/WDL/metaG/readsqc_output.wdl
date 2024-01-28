@@ -25,6 +25,7 @@ task make_json_file {
     String outdir
     Array[File] stat
     String container
+	String dollar ="$"
     command<<<
         for i in ${sep=' ' stat}
 			do
