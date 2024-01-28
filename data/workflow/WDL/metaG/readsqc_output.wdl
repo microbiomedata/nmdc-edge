@@ -14,8 +14,45 @@ workflow readsqc_output {
         stat=stat,
         stat2=stat2
     }
+    call make_json_file {
+        input: outdir=outdir,
+        stat=stat
+    }
 }
 
+task make_json_file {
+    String outdir
+    Array[File] stat
+    command<<<
+        for i in ${sep=' ' stat}
+			do
+				f=${dollar}(basename $i)
+				dir=${dollar}(dirname $i)
+				prefix=${dollar}{f%.anqdpht*}
+				python <<CODE
+                    import json
+                    from collections import OrderedDict
+                    f = open("$i",'r')
+                    d = OrderedDict()
+                    for line in f:
+                        if not line.rstrip():continue
+                        key,value=line.rstrip().split('=')
+                        d[key]=float(value) if 'Ratio' in key else int(value)
+
+                    with open(f"{$i}.json", 'w') as outfile:
+                        json.dump(d, outfile)
+                    CODE
+	>>>
+	runtime {
+        docker: container
+        memory: "1 GiB"
+        cpu:  1
+    }
+	output{
+		Array[String] fastq_files = read_lines(stdout())
+	}
+
+}
 task make_output{
  	String outdir
 	Array[File] filtered
@@ -43,20 +80,6 @@ task make_output{
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%.anqdpht*}
                 cp -f $i ${outdir}/$prefix
-
-                python <<CODE
-                    import json
-                    from collections import OrderedDict
-                    f = open("$i",'r')
-                    d = OrderedDict()
-                    for line in f:
-                        if not line.rstrip():continue
-                        key,value=line.rstrip().split('=')
-                        d[key]=float(value) if 'Ratio' in key else int(value)
-
-                    with open(f"{$i}.json", 'w') as outfile:
-                        json.dump(d, outfile)
-                    CODE
 
             done
             for i in ${sep=' ' stat2}
