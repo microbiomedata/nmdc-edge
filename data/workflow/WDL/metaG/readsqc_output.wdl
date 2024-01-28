@@ -36,7 +36,7 @@ task make_json_file {
                 import json
                 import os
                 from collections import OrderedDict
-                print(os.path.exists("{$i}"))
+                print("test")
 
                 CODE
 
