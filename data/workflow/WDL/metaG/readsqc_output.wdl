@@ -30,7 +30,7 @@ task make_json_file {
 
 
         python <<CODE
-            print("hello world")
+        print("hello world")
         CODE
 
 	>>>
