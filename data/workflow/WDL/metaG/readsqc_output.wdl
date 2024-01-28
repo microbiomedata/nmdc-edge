@@ -2,6 +2,7 @@ workflow readsqc_output {
     Array[File] input_files
     Array[File] stat
     Array[File] stat2
+    Array[File] stat_json
     String? outdir
     String bbtools_container="microbiomedata/bbtools:38.96"
     String proj
@@ -12,13 +13,10 @@ workflow readsqc_output {
         container=bbtools_container,
         proj=proj,
         stat=stat,
-        stat2=stat2
+        stat2=stat2,
+        stat_json=stat_json
     }
-    call make_json_file {
-        input: outdir=outdir,
-        container=bbtools_container,
-        stat=stat
-    }
+
 }
 
 task make_json_file {
@@ -49,6 +47,7 @@ task make_output{
 	Array[File] filtered
 	Array[File] stat
 	Array[File] stat2
+	Array[File] stat_json
 	String dollar ="$"
 	String container
 	String proj
@@ -79,6 +78,14 @@ task make_output{
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%.anqdpht*}
                 cp -f $i ${outdir}/$prefix
+
+            done
+            for i in ${sep=' ' stat_json}
+			do
+				f=${dollar}(basename $i)
+				dir=${dollar}(dirname $i)
+				prefix=${dollar}{f%.anqdpht*}
+                cp -f $i ${outdir}/${prefix}
 
             done
 
