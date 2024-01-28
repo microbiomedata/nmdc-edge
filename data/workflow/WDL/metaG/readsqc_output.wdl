@@ -33,6 +33,9 @@ task make_json_file {
             dir=${dollar}(dirname $i)
             prefix=${dollar}{f%.anqdpht*}
             echo "$i"
+            python <<CODE
+                print("hello world")
+            CODE
         done
 	>>>
 	runtime {
