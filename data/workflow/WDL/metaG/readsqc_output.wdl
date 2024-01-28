@@ -27,7 +27,7 @@ task make_json_file {
     String container
 	String dollar ="$"
     command<<<
-        for i in ${sep=' ' filtered}
+        for i in ${sep=' ' stat}
 	    do
             python <<CODE
             print("hello world")
