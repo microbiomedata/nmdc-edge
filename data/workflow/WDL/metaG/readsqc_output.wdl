@@ -16,6 +16,7 @@ workflow readsqc_output {
     }
     call make_json_file {
         input: outdir=outdir,
+        container=bbtools_container,
         stat=stat
     }
 }
