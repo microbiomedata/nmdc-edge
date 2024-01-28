@@ -28,18 +28,17 @@ task make_json_file {
 	String dollar ="$"
     command<<<
         for i in ${sep=' ' stat}
-			do
-				f=${dollar}(basename $i)
-				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.anqdpht*}
-				python <<CODE
-                import json
-                import os
-                from collections import OrderedDict
-                print("test")
-
-                CODE
-
+		do
+            f=${dollar}(basename $i)
+            dir=${dollar}(dirname $i)
+            prefix=${dollar}{f%.anqdpht*}
+            python <<CODE
+            import json
+            import os
+            from collections import OrderedDict
+            print("test")
+            CODE
+        done
 	>>>
 	runtime {
         docker: container
