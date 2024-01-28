@@ -27,12 +27,12 @@ task make_json_file {
     String container
 	String dollar ="$"
     command<<<
-
-
-        python <<CODE
-        print("hello world")
-        CODE
-
+        for i in ${sep=' ' filtered}
+	    do
+            python <<CODE
+            print("hello world")
+            CODE
+        done
 	>>>
 	runtime {
         docker: container
