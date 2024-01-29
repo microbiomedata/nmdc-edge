@@ -49,8 +49,8 @@ task gzip_input_int{
             cp ${sep=" " input_files} ${outdir}/
 
         else
-            gzip -f ${sep=" " input_files}
-            cp "*.gz" ${outdir}/
+            cp ${sep=" " input_files} ${outdir}/
+            gzip -f ${outdir}/*.fastq
         fi
  	>>>
 	runtime {
