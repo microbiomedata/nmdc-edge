@@ -95,7 +95,7 @@ task rqcfilter {
             memory: "70 GB"
             cpu:  16
             database: database
-            runtime_minutes: ceil(size(input_files, "GB")*360)
+            runtime_minutes: ceil(size(input_files, "GB")*120)
      }
 
      command<<<
