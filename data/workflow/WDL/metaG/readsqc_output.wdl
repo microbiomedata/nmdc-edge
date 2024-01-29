@@ -85,7 +85,7 @@ task make_output{
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%.anqdpht*}
-                cp -f $i ${outdir}/${prefix}
+                cp -f $i ${outdir}/$prefix
 
             done
 
