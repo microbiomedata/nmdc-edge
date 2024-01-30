@@ -5,6 +5,7 @@ const randomize = require('randomatic');
 const sendMail = require('../../util/sendMail');
 const logger = require('../../util/logger');
 const dbsanitize = require('mongo-sanitize');
+const config = require("../../config");
 
 // Load input validation
 const validateRegisterInput = require("../../validation/user/register");
@@ -33,7 +34,7 @@ router.post("/sendmail", (req, res) => {
         return res.status(400).json("Invalid sendmail request.");
     }
 
-    if (req.body.token !== process.env.SENDMAIL_KEY) {
+    if (req.body.token !== config.EMAIL.SHARED_SECRET) {
         logger.debug("sendmail: Permission denied");
         return res.status(400).json("Permission denied.");
     }
@@ -45,7 +46,7 @@ router.post("/sendmail", (req, res) => {
         }
 
         //call sendmail
-        sendMail(process.env.SENDMAIL_FROM, req.body.to, req.body.message).then(status => {
+        sendMail(config.EMAIL.FROM_ADDRESS, req.body.to, req.body.message).then(status => {
             return res.json({ sendmail: "success" });
         }).catch(err => {
             logger.error("sendmail: " + err);
@@ -86,7 +87,7 @@ router.post("/register", async (req, res) => {
             common.encodePassword(newUser.password).then(hash => {
                 newUser.password = hash;
                 newUser.save().then(user => {
-                    return res.json({ user: user, mail_token: process.env.SENDMAIL_KEY })
+                    return res.json({ user: user, mail_token: config.EMAIL.SHARED_SECRET })
                 }).catch(err => {
                     logger.error("register: " + err);
                     return res.status(500).json(sysError);
@@ -184,7 +185,7 @@ router.post("/getActivationLink", (req, res) => {
             return res.status(400).json({ activate: "Your account has already been activated." });
         }
 
-        return res.json({ user: { email: user.email, password: user.password }, mail_token: process.env.SENDMAIL_KEY });
+        return res.json({ user: { email: user.email, password: user.password }, mail_token: config.EMAIL.SHARED_SECRET });
     }).catch(err => { logger.error("getActivationLink: " + err); return res.status(500).json(sysError); });
 });
 
@@ -271,7 +272,7 @@ router.post("/getResetpasswordLink", (req, res) => {
             return res.status(400).json({ resetpasswordLink: "Your account is not active." });
         }
 
-        return res.json({ user: { email: user.email, password: user.password }, mail_token: process.env.SENDMAIL_KEY });
+        return res.json({ user: { email: user.email, password: user.password }, mail_token: config.EMAIL.SHARED_SECRET });
     }).catch(err => {
         logger.error("resetpasswordLink: " + err);; return res.status(500).json(sysError);
     });
@@ -349,7 +350,7 @@ router.post("/sociallogin", (req, res) => {
     }
     logger.debug("/api/user/sociallogin: " + JSON.stringify(req.body.email));
     const email = dbsanitize(req.body.email);
-    const password = req.body.password + process.env.OAUTH_SECRET;
+    const password = req.body.password + config.AUTH.OAUTH_SECRET;
     const socialType = req.body.socialtype;
 
     common.encodePassword(password).then(hash => {
@@ -380,7 +381,7 @@ router.post("/sociallogin", (req, res) => {
                 newUser.save().then(user => {
                     logger.debug("New user: " + user.email);
                     if (user.status === 'inactive') {
-                        return res.json({ user: user, mail_token: process.env.SENDMAIL_KEY });
+                        return res.json({ user: user, mail_token: config.EMAIL.SHARED_SECRET });
                     } else {
                         // Create JWT Payload
                         const payload = {
@@ -443,7 +444,7 @@ router.post("/sociallogin", (req, res) => {
                         logger.debug("Update user: " + user.email);
 
                         if (user.status === 'inactive') {
-                            return res.json({ user: user, mail_token: process.env.SENDMAIL_KEY });
+                            return res.json({ user: user, mail_token: config.EMAIL.SHARED_SECRET });
                         } else {
                             common.signToken(payload).then(token => {
                                 return res.json({
@@ -469,7 +470,7 @@ router.post("/sociallogin", (req, res) => {
                         if (isMatch) {
                             // User matched
                             if (user.status === 'inactive') {
-                                return res.json({ user: user, mail_token: process.env.SENDMAIL_KEY });
+                                return res.json({ user: user, mail_token: config.EMAIL.SHARED_SECRET });
                             } else {
                                 common.signToken(payload).then(token => {
                                     return res.json({

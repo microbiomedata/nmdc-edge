@@ -59,12 +59,6 @@ FROM node:18-alpine
 # Reference: https://docs.docker.com/engine/reference/builder/#label
 LABEL org.opencontainers.image.description="NMDC EDGE Web App (Node v18)"
 
-# Declare arguments (and specify their default values) for use within this Dockerfile.
-# Note: Their values can be overriden via `$ docker build --build-arg <varname>=<value>`.
-# Reference: https://docs.docker.com/engine/reference/builder/#arg
-ARG API_HOST=edge-dev.microbiomedata.org
-ARG API_PORT=80
-
 # Install programs upon which the web app or its build process(es) depend.
 #
 # Note: `apk` (Alpine Package Keeper) is the Alpine Linux equivalent of `apt`.
@@ -94,24 +88,6 @@ COPY ./installation  /app/installation
 COPY ./webapp        /app/webapp
 COPY ./nmdc-edge.jpg /app/nmdc-edge.jpg
 COPY ./pm2.config.js /app/pm2.config.js
-#
-# Generate secrets (each one is a 20-character hexadecimal string).
-#
-RUN node -e 'console.log(require("crypto").randomBytes(20).toString("hex"))' > /app/jwt.secret.txt
-RUN node -e 'console.log(require("crypto").randomBytes(20).toString("hex"))' > /app/oauth.secret.txt
-RUN node -e 'console.log(require("crypto").randomBytes(20).toString("hex"))' > /app/sendmail.secret.txt
-#
-# Generate configuration files (like `installation/install.sh` does).
-#
-RUN cp installation/server-env-prod webapp/server/.env
-RUN echo -e "web_server_domain=${API_HOST}\nweb_server_port=${API_PORT}" > host.env
-RUN sed -i -e "s/<WEB_SERVER_DOMAIN>/${API_HOST}/g"                     webapp/server/.env && \
-    sed -i -e "s/<WEB_SERVER_PORT>/${API_PORT}/g"                       webapp/server/.env && \
-    sed -i -e 's/<APP_HOME>/\/app/g'                                    webapp/server/.env && \
-    sed -i -e 's/<IO_HOME>/\/app\/io/g'                                 webapp/server/.env && \
-    sed -i -e "s/<JWT_KEY>/`cat /app/jwt.secret.txt`/g"                 webapp/server/.env && \
-    sed -i -e "s/<OAUTH_SECRET>/`cat /app/oauth.secret.txt`/g"          webapp/server/.env && \
-    sed -i -e "s/<SENDMAIL_KEY>/`cat /app/sendmail.secret.txt`/g"       webapp/server/.env
 #
 # Generate empty folders (like `installation/install.sh` does).
 # Note: `mkdir -p` automatically creates any necessary intermediate folders.
@@ -153,5 +129,4 @@ RUN cd webapp/server && npm ci
 #       documentation about using PM2 inside containers.
 #       Docs: https://pm2.keymetrics.io/docs/usage/docker-pm2-nodejs/
 #
-EXPOSE ${API_PORT}
 CMD ["pm2-runtime", "start", "pm2.config.js"]

@@ -7,12 +7,13 @@ const { workflowlist, pipelinelist } = require("../config/workflow");
 const common = require("../util/common");
 const logger = require('../util/logger');
 const { submitWorkflow, findInputsize } = require("../util/workflow");
+const config = require("../config");
 
 module.exports = function pipelineMonitor() {
     logger.debug("pipeline monitor");
     //only process one job at each time based on job updated time
     CromwellJob.find({ 'status': { $in: ['Submitted', 'Running'] } }).sort({ updated: 1 }).then(jobs => {
-        if (jobs.length >= process.env.MAX_CROMWELL_JOBS) {
+        if (jobs.length >= config.CROMWELL.NUM_JOBS_MAX) {
             return;
         }
         //get current running/submitted projects' input size
@@ -29,23 +30,23 @@ module.exports = function pipelineMonitor() {
                 return;
             }
             //parse conf.json 
-            const proj_home = process.env.PROJECT_HOME + "/" + proj.code;
+            const proj_home = path.join(config.PROJECTS.BASE_DIR, proj.code);
             const conf_file = proj_home + "/conf.json";
             let rawdata = fs.readFileSync(conf_file);
             let conf = JSON.parse(rawdata);
 
             //check input size
             let inputsize = await findInputsize(conf);
-            if (inputsize > process.env.MAX_CROMWELL_JOBS_INPUTSIZE) {
+            if (inputsize > config.CROMWELL.JOBS_INPUT_MAX_SIZE_BYTES) {
                 logger.debug("Project " + proj.code + " input fastq size exceeded the limit.");
                 //fail project
                 proj.status = 'failed';
                 proj.updated = Date.now();
                 proj.save();
-                common.write2log(process.env.PROJECT_HOME + "/" + proj.code + "/log.txt", "input fastq size exceeded the limit.");
+                common.write2log(path.join(config.PROJECTS.BASE_DIR, proj.code, "log.txt"), "input fastq size exceeded the limit.");
                 return;
             }
-            if ((jobInputsize + inputsize) > process.env.MAX_CROMWELL_JOBS_INPUTSIZE) {
+            if ((jobInputsize + inputsize) > config.CROMWELL.JOBS_INPUT_MAX_SIZE_BYTES) {
                 logger.debug("Cromwell is busy.");
                 return;
             }
@@ -56,7 +57,7 @@ module.exports = function pipelineMonitor() {
             proj.status = "processing";
             proj.updated = Date.now();
             proj.save().then(proj => {
-                common.write2log(process.env.PROJECT_HOME + "/" + proj.code + "/log.txt", "Generate WDL and inputs json");
+                common.write2log(path.join(config.PROJECTS.BASE_DIR, proj.code, "log.txt"), "Generate WDL and inputs json");
                 logger.info("Generate WDL and inputs json");
                 //process request 
                 const pipeline = conf.pipeline;
@@ -89,7 +90,7 @@ module.exports = function pipelineMonitor() {
 
                 Promise.all([promise1, promise2]).then(function (projs) {
                     //submit workflow to cromwell
-                    common.write2log(process.env.PROJECT_HOME + "/" + proj.code + "/log.txt", "submit workflow to cromwell");
+                    common.write2log(path.join(config.PROJECTS.BASE_DIR, proj.code, "log.txt"), "submit workflow to cromwell");
                     logger.info("submit workflow to cromwell");
                     submitWorkflow(proj, pipeline, inputsize);
                 }).catch(function (err) {
@@ -99,7 +100,7 @@ module.exports = function pipelineMonitor() {
                 proj.status = 'failed';
                 proj.updated = Date.now();
                 proj.save();
-                common.write2log(process.env.PROJECT_HOME + "/" + proj.code + "/log.txt", err);
+                common.write2log(path.join(config.PROJECTS.BASE_DIR, proj.code, "log.txt"), err);
                 logger.error(err);
             });
         });
@@ -110,7 +111,7 @@ module.exports = function pipelineMonitor() {
 function generateWDL(proj_home, pipeline) {
     //build wdl
     const pipelineSettings = pipelinelist[pipeline];
-    const tmpl = process.env.WORKFLOW_TEMPLATE_HOME + "/" + pipelineSettings['wdl_tmpl'];
+    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelineSettings['wdl_tmpl']);
     let templWDL = String(fs.readFileSync(tmpl));
     //write to pipeline.wdl
     fs.writeFileSync(proj_home + '/pipeline.wdl', templWDL);
@@ -122,7 +123,7 @@ async function generateInputs(proj_home, conf, proj) {
     let pipelineInputs = "{\n";
 
     const pipelineSettings = pipelinelist[conf.pipeline];
-    const tmpl = process.env.WORKFLOW_TEMPLATE_HOME + "/" + pipelineSettings['inputs_tmpl'];
+    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelineSettings['inputs_tmpl']);
     let templInputs = String(fs.readFileSync(tmpl));
 
     templInputs = templInputs.replace(/<PREFIX>/g, '"' + proj.name + '"');
@@ -135,7 +136,7 @@ async function generateInputs(proj_home, conf, proj) {
         //check upload file
         for (let i = 0; i < input_fastq.length; i++) {
             let fq = input_fastq[i];
-            if (fq.startsWith(process.env.FILEUPLOAD_FILE_DIR)) {
+            if (fq.startsWith(config.IO.UPLOADED_FILES_DIR)) {
                 //create input dir and link uploaded file with realname
                 const inputDir = proj_home + "/input";
                 if (!fs.existsSync(inputDir)) {
@@ -163,7 +164,7 @@ async function generateInputs(proj_home, conf, proj) {
         //check upload file
         for (let i = 0; i < input_fastq.length; i++) {
             let fq1 = input_fastq[i].fq1;
-            if (fq1.startsWith(process.env.FILEUPLOAD_FILE_DIR)) {
+            if (fq1.startsWith(config.IO.UPLOADED_FILES_DIR)) {
                 //create input dir and link uploaded file with realname
                 const inputDir = proj_home + "/input";
                 if (!fs.existsSync(inputDir)) {
@@ -178,7 +179,7 @@ async function generateInputs(proj_home, conf, proj) {
                 inputs_fq1.push(fq1);
             }
             let fq2 = input_fastq[i].fq2;
-            if (fq2.startsWith(process.env.FILEUPLOAD_FILE_DIR)) {
+            if (fq2.startsWith(config.IO.UPLOADED_FILES_DIR)) {
                 //create input dir and link uploaded file with realname
                 const inputDir = proj_home + "/input";
                 if (!fs.existsSync(inputDir)) {

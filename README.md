@@ -45,15 +45,17 @@ Here's a list of the main technologies upon which the NMDC EDGE web application 
 
 ### Development stack
 
-This repository includes a **limited** container-based development stack consisting of two container:
-- `webapp` - runs the web app
+This repository includes a **limited** container-based development stack consisting of three containers:
+- `webapp` - runs the web server (which serves both the web client and the HTTP API)
 - `mongo` - runs a MongoDB server
+- `cromwell` - runs a Cromwell server
 
-You can use the development stack to run the NMDC EDGE web application locally. The main **limitation** is that
-the `webapp` container currently **does not** have access to the local file tree at runtime 
-(i.e. the `docker-compose.yml` file does not specify a volume mount for the local file tree).
-To work around this limitation, you can **rebuild the container image** whenever you want the
-development stack to reflect the latest local file tree.
+You can use the development stack to run the NMDC EDGE web application locally. The main **limitation** is that changes
+made to the web app client's file tree are not automatically reflected by the web app. That's because the web app serves
+the client from the `webapp/client/build` directory, and updating the contents of that directory involves manually
+running `$ npm run build` in the `webapp/client` directory. One workaround is to access the shell of the `webapp`
+container and manually run that command after you make changes to the client's file tree. Other workarounds exist,
+but they are not documented here.
 
 #### Setup
 
@@ -94,6 +96,9 @@ docker compose up
 > ```shell
 > docker compose up --build
 > ```
+> 
+> Note: Building a new container image can take several minutes; whereas starting up an existing container image
+> usually takes only a few seconds.
 
 #### Usage
 
@@ -108,17 +113,23 @@ graph BT
     
     %% Links:
     host -- "$ curl http://localhost:8000" --> server
-    host -- "$ docker compose exec app bash" --> bash
+    host -- "$ curl http://localhost:8001" --> cromwell_server
+    host -- "$ docker compose exec webapp sh" --> webapp_shell
+    webapp_shell -- "# mongo --host mongo:27017" --> db
     host -- "$ mongo --host localhost:27017" --> db
-    bash -- "# mongo --host mongo:27017" --> db
+    webapp_shell -- "# wget -q -O- http://cromwell:8000" --> cromwell_server
     
     subgraph WebAppContainer["webapp container"]
         server["Web server"]
-        bash["bash shell"]
+        webapp_shell["Bourne shell (sh)"]
     end
     
     subgraph MongoContainer["mongo container"]
         db["MongoDB server"]
+    end
+    
+    subgraph CromwellContainer["cromwell container"]
+        cromwell_server["Cromwell server"]
     end    
 ```
 

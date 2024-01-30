@@ -16,6 +16,11 @@ https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installa
      ```shell
      cp webapp/client/.env.example webapp/client/.env
      ```
+2. Populate the "server" configuration file (i.e. `webapp/server/.env`).
+   - You can initialize it based upon the corresponding example file:
+     ```shell
+     cp webapp/server/.env.example webapp/server/.env
+     ```
 
 ## INSTALLING webapp
 

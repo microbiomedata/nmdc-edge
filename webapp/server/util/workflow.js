@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require("path");
 const ufs = require("url-file-size");
 const moment = require('moment');
 const FormData = require('form-data');
@@ -7,10 +8,11 @@ const CromwellJob = require("../models/CromwellJob");
 const { workflowlist, pipelinelist } = require("../config/workflow");
 const common = require("./common");
 const logger = require('./logger');
+const config = require("../config");
 
 //submit workflow to cromwell through api
 function submitWorkflow(proj, workflow, inputsize) {
-    const proj_home = process.env.PROJECT_HOME + "/" + proj.code;
+    const proj_home = path.join(config.PROJECTS.BASE_DIR, proj.code);
     let formData = new FormData();
     formData.append("workflowSource", fs.createReadStream(proj_home + '/pipeline.wdl'));
     logger.debug("workflowSource: " + proj_home + '/pipeline.wdl');
@@ -18,18 +20,18 @@ function submitWorkflow(proj, workflow, inputsize) {
     logger.debug("workflowInputs" + proj_home + '/pipeline_inputs.json');
 
     //imports.wdl
-    let imports = process.env.WORKFLOW_WDL_HOME + "/imports.zip";
-    let wdlVersion = process.env.CROMWELL_WORKFLOW_TYPE_VERSION;
+    let imports = path.join(config.WORKFLOWS.WDL_DIR, "imports.zip");
+    let wdlVersion = config.CROMWELL.WORKFLOW_TYPE_VERSION;
     //options_json
     if (workflow) {
         let options_json = null;
         if (workflow.name) {
-            options_json = process.env.WORKFLOW_TEMPLATE_HOME + "/" + workflowlist[workflow.name]['options_json'];
-            imports = process.env.WORKFLOW_WDL_HOME + "/" + workflowlist[workflow.name]['wdl_imports'];
+            options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowlist[workflow.name]['options_json']);
+            imports = path.join(config.WORKFLOWS.WDL_DIR, workflowlist[workflow.name]['wdl_imports']);
             wdlVersion = workflowlist[workflow.name]['wdl_version'];
         } else {
-            options_json = process.env.WORKFLOW_TEMPLATE_HOME + "/" + pipelinelist[workflow]['options_json'];
-            imports = process.env.WORKFLOW_WDL_HOME + "/" + pipelinelist[workflow]['wdl_imports'];
+            options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelinelist[workflow]['options_json']);
+            imports = path.join(config.WORKFLOWS.WDL_DIR, pipelinelist[workflow]['wdl_imports']);
             wdlVersion = pipelinelist[workflow]['wdl_version'];
         }
         if (fs.existsSync(options_json)) {
@@ -38,7 +40,7 @@ function submitWorkflow(proj, workflow, inputsize) {
         }
     }
 
-    formData.append("workflowType", process.env.CROMWELL_WORKFLOW_TYPE);
+    formData.append("workflowType", config.CROMWELL.WORKFLOW_TYPE);
     if (wdlVersion) {
         logger.debug("wdlVersion:" + wdlVersion)
         formData.append("workflowTypeVersion", wdlVersion);
@@ -49,7 +51,8 @@ function submitWorkflow(proj, workflow, inputsize) {
     const formHeaders = formData.getHeaders();
     const formBoundary = formData.getBoundary();
 
-    common.postData(process.env.CROMWELL_API_URL, formData, {
+    const url = `${config.CROMWELL.API_BASE_URL}/api/workflows/v1`;
+    common.postData(url, formData, {
         headers: {
             ...formHeaders, formBoundary
         },
@@ -74,13 +77,13 @@ function submitWorkflow(proj, workflow, inputsize) {
         if (error.data) {
             message = error.data.message;
         }
-        common.write2log(process.env.PROJECT_HOME + "/" + proj.code + "/log.txt", message);
+        common.write2log(path.join(config.PROJECTS.BASE_DIR, proj.code, "log.txt"), message);
         logger.error("Failed to submit workflow to Cromwell: " + message);
     });
 }
 
 const generateWorkflowResult = function (proj) {
-    const proj_home = process.env.PROJECT_HOME + "/" + proj.code;
+    const proj_home = path.join(config.PROJECTS.BASE_DIR, proj.code);
     const result_json = proj_home + "/result.json";
 
     if (!fs.existsSync(result_json)) {
@@ -220,7 +223,7 @@ const generateWorkflowResult = function (proj) {
             });
         } else if (workflowConf.workflow.name === 'sra2fastq') {
             //use relative path 
-            //const sraDataDir = process.env.SRA_DATA_HOME;
+            //const sraDataDir = config.IO.SRA_DATA_BASE_DIR;
             const accessions = workflowConf.workflow.accessions.toUpperCase().split(/\s*(?:,|$)\s*/);;
             accessions.forEach((accession) => {
                 // link sra downloads to project output
@@ -234,7 +237,7 @@ const generateWorkflowResult = function (proj) {
 }
 
 const generatePipelineResult = function (proj) {
-    const proj_home = process.env.PROJECT_HOME + "/" + proj.code;
+    const proj_home = path.join(config.PROJECTS.BASE_DIR, proj.code);
     const result_json = proj_home + "/result.json";
 
     if (!fs.existsSync(result_json)) {
@@ -330,8 +333,8 @@ const generatePipelineResult = function (proj) {
 
 
 function generateRunStats(project) {
-    let conf_file = process.env.PROJECT_HOME + "/" + project.code + '/conf.json';
-    let job_metadata_file = process.env.PROJECT_HOME + "/" + project.code + '/cromwell_job_metadata.json';
+    let conf_file = path.join(config.PROJECTS.BASE_DIR, project.code, '/conf.json');
+    let job_metadata_file = path.join(config.PROJECTS.BASE_DIR, project.code, 'cromwell_job_metadata.json');
 
     let rawdata = fs.readFileSync(conf_file);
     let conf = JSON.parse(rawdata);
@@ -363,7 +366,7 @@ function generateRunStats(project) {
         }
     }
 
-    fs.writeFileSync(process.env.PROJECT_HOME + "/" + project.code + '/run_stats.json', JSON.stringify({ 'stats': stats }));
+    fs.writeFileSync(path.join(config.PROJECTS.BASE_DIR, project.code, 'run_stats.json'), JSON.stringify({ 'stats': stats }));
 }
 
 function getWorkflowStats(jobStats, cromwellCalls, workflow, workflowStats, stats) {

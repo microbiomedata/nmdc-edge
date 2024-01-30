@@ -6,6 +6,7 @@ const Project = require("../../models/Project");
 
 const common = require("../common");
 const logger = require("../../util/logger");
+const config = require("../../config");
 
 const sysError = "API server error";
 
@@ -96,7 +97,7 @@ router.post("/outputs", (req, res) => {
     if (!req.body.code) {
         return res.status(400).json("Project code is required.");
     }
-    const proj_dir = process.env.PROJECT_HOME;
+    const proj_dir = config.PROJECTS.BASE_DIR;
     let query = { 'code': req.body.code, 'status': { $ne: 'delete' }, 'public': true };
 
     Project.find(query).sort([['name', -1]]).then(function (projects) {

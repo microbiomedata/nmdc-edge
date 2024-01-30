@@ -1,22 +1,6 @@
 #!/bin/bash
 echo "Install NMDC EDGE webapp..."
 
-#production installation will be with https and nginx proxy
-read -p 'Is production installation? [y/n]'
-if [[ $REPLY =~ ^[Yy] ]]; then
-  env="production"
-else
-  env="development"
-fi
-
-#check server-env-prod
-quit=0
-if [ ! -f ./server-env-prod ]; then
-  echo "ERROR: server-env-prod not found in current directiory"
-  quit=1
-fi
-[[ $quit == 1 ]] && exit 1
-
 pwd=$PWD
 app_home="$(dirname "$pwd")"
 
@@ -25,34 +9,10 @@ read -p 'Web server domain name (default localhost)? ' web_server_domain
 read -p 'Webapp port (default 5000)? ' web_server_port
 [[ ! $web_server_port ]] && web_server_port=5000
 
-echo "Install $env NMDC EDGE webapp to $app_home"
-if [[ $env == "production" ]]; then
-  echo "URL: https://$web_server_domain"
-else
-  echo "URL: http://$web_server_domain:$web_server_port"
-fi
-
 read -p 'Continue to install NMDC EDGE webapp? [y/n]'
 [[ ! $REPLY =~ ^[Yy]$ ]] && exit 1
 
-# Prompt user for installation system
-echo 'What OS are you using? ' 
-options=("Mac" "Linux" "Quit")
-select opt in "${options[@]}"
-do
-    case $opt in
-        "Mac")
-            break;
-            ;;
-        "Linux")
-            break;
-            ;;
-        "Quit")
-            exit 1;
-            ;;
-        *) echo "invalid option $REPLY";;
-    esac
-done
+# TODO: Consolidate the recurrences of the `mkdir` and `zip` (etc.) commands into a loop.
 
 #create upload/log/projects/public directories, skip this step for reinstallation
 io_home=$app_home/io
@@ -109,40 +69,10 @@ fi
 
 echo "setup NMDC EDGE webapp ..."
 
+# TODO: Where, if anywhere, is the `host.env` file used?
 echo "Generate host.env"
 echo "web_server_domain=$web_server_domain" > $app_home/host.env
 echo "web_server_port=$web_server_port" >> $app_home/host.env
-
-#setup .env
-#Add this export for MacOS, otherwise will get 'tr: Illegal byte sequence' error
-export LC_CTYPE=C
-#Generate random 20 character string (upper and lowercase)
-oauth_secret=`cat /dev/urandom|tr -dc '[:alpha:]'|fold -w ${1:-20}|head -n 1`
-sendmail_key=`cat /dev/urandom|tr -dc '[:alpha:]'|fold -w ${1:-20}|head -n 1`
-jwt_key=`cat /dev/urandom|tr -dc '[:alpha:]'|fold -w ${1:-20}|head -n 1`
-
-cp $pwd/server-env-prod $app_home/webapp/server/.env
-if [[ $opt == 'Mac' ]]; then
-  sed -i "" "s/\<WEB_SERVER_DOMAIN\>/${web_server_domain}/g" $app_home/webapp/client/.env
-  sed -i "" "s/\<WEB_SERVER_PORT\>/${web_server_port}/g" $app_home/webapp/client/.env
-  sed -i "" "s/\<WEB_SERVER_DOMAIN\>/${web_server_domain}/g" $app_home/webapp/server/.env
-  sed -i "" "s/\<WEB_SERVER_PORT\>/${web_server_port}/g" $app_home/webapp/server/.env
-  sed -i "" "s/\<APP_HOME\>/${app_home//\//\\/}/g" $app_home/webapp/server/.env
-  sed -i "" "s/\<IO_HOME\>/${io_home//\//\\/}/g" $app_home/webapp/server/.env
-  sed -i "" "s/\<JWT_KEY\>/${jwt_key}/g" $app_home/webapp/server/.env
-  sed -i "" "s/\<OAUTH_SECRET\>/${oauth_secret}/g" $app_home/webapp/server/.env
-  sed -i "" "s/\<SENDMAIL_KEY\>/${sendmail_key}/g" $app_home/webapp/server/.env
-else
-  sed -i "s/<WEB_SERVER_DOMAIN>/${web_server_domain}/g" $app_home/webapp/client/.env
-  sed -i "s/<WEB_SERVER_PORT>/${web_server_port}/g" $app_home/webapp/client/.env
-  sed -i "s/<WEB_SERVER_DOMAIN>/${web_server_domain}/g" $app_home/webapp/server/.env
-  sed -i "s/<WEB_SERVER_PORT>/${web_server_port}/g" $app_home/webapp/server/.env
-  sed -i "s/<APP_HOME>/${app_home//\//\\/}/g" $app_home/webapp/server/.env
-  sed -i "s/<IO_HOME>/${io_home//\//\\/}/g" $app_home/webapp/server/.env
-  sed -i "s/<JWT_KEY>/${jwt_key}/g" $app_home/webapp/server/.env
-  sed -i "s/<OAUTH_SECRET>/${oauth_secret}/g" $app_home/webapp/server/.env
-  sed -i "s/<SENDMAIL_KEY>/${sendmail_key}/g" $app_home/webapp/server/.env
-fi
 
 #build client
 echo "build client..."
