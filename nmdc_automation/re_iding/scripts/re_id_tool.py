@@ -34,7 +34,7 @@ LOG_PATH = DATA_DIR.joinpath("re_id_tool.log")
 
 logging.basicConfig(
     filename="re_id.log",
-    filemode="w",
+    filemode="a",
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
@@ -221,9 +221,9 @@ def process_records(ctx, dryrun, study_id, data_dir):
     Write the results to a new JSON file of nmdc Database instances.
     """
     start_time = time.time()
-    logging.info(f"Processing workflow records for study_id: {study_id}")
+    logger.info(f"Processing workflow records for study_id: {study_id}")
     if dryrun:
-        logging.info("Running in dryrun mode")
+        logger.info("Running in dryrun mode")
 
     # Get API client
     config = ctx.obj["site_config"]
@@ -232,21 +232,21 @@ def process_records(ctx, dryrun, study_id, data_dir):
     # Get Database dump file paths and the data directory
     db_infile, db_outfile = _get_database_paths(study_id, dryrun)
     data_dir = _get_data_dir(data_dir, dryrun)
-    logging.info(f"Using data_dir: {data_dir}")
+    logger.info(f"Using data_dir: {data_dir}")
 
     # Initialize re-ID tool
     reid_tool = ReIdTool(api_client, data_dir)
 
     # Read extracted DB records
-    logging.info(f"Using db_infile: {db_infile}")
+    logger.info(f"Using db_infile: {db_infile}")
     with open(db_infile, "r") as f:
         db_records = json.load(f)
-    logging.info(f"Read {len(db_records)} records from db_infile")
+    logger.info(f"Read {len(db_records)} records from db_infile")
 
     re_ided_db_records = []
     for db_record in db_records:
         omics_processing_id = get_omics_processing_id(db_record)
-        logging.info(f"omics_processing_id: {omics_processing_id}")
+        logger.info(f"omics_processing_id: {omics_processing_id}")
 
         new_db = nmdc.Database()
         # update OmicsProcessing has_output and related DataObject records
@@ -289,7 +289,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
     /v1/workflows/activities endpoint
     """
     start_time = time.time()
-    logging.info(f"Submitting re id'd records from : {reid_records_file}")
+    logger.info(f"Submitting re id'd records from : {reid_records_file}")
     reid_records_filename = Path(reid_records_file).name
     reid_base_name = reid_records_filename.split("_")[0]
 
@@ -309,7 +309,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
         omics_processing_set = record.pop("omics_processing_set")
         for omics_processing_record in omics_processing_set:
             omics_processing_id = omics_processing_record["id"]
-            logging.info(f"omics_processing_id: {omics_processing_id}")
+            logger.info(f"omics_processing_id: {omics_processing_id}")
             # find legacy has_output and create change to remove it
             # need to strip the nmdc: prefix for the objects endpoint
             trimmed_omics_processing_id = omics_processing_id.split(":")[1]
@@ -325,7 +325,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
                 value="|".join(legacy_omics_processing_record["has_output"]) + "|",
             )
             changesheet.line_items.append(change)
-            logging.info(f"changes: {change}")
+            logger.info(f"changes: {change}")
 
             # insert new has_output
             change = ChangesheetLineItem(
@@ -335,7 +335,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
                 value="|".join(omics_processing_record["has_output"]) + "|",
             )
             changesheet.line_items.append(change)
-            logging.info(f"changes: {change}")
+            logger.info(f"changes: {change}")
 
         # submit the record to the workflows endpoint
         if not changesheet_only:
@@ -345,11 +345,11 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
             logger.info(f"changesheet_only is True, skipping ingest")
 
     changesheet.write_changesheet()
-    logging.info(f"changesheet written to {changesheet.output_filepath}")
+    logger.info(f"changesheet written to {changesheet.output_filepath}")
     if changesheet.validate_changesheet(api_client.config.napa_base_url):
-        logging.info(f"changesheet validated")
+        logger.info(f"changesheet validated")
     else:
-        logging.info(f"changesheet validation failed")
+        logger.info(f"changesheet validation failed")
 
 
 @cli.command()
@@ -361,14 +361,15 @@ def delete_old_records(ctx, old_records_file):
     delete them using
     /queries/run endpoint
     """
-
-    logging.info(f"Deleting old objects found in : {old_records_file}")
+    start_time = time.time()
+    logger.info(f"Deleting old objects found in : {old_records_file}")
     old_records_filename = Path(old_records_file).name
     old_base_name = old_records_filename.split("_")[0]
 
     # Get API client(s)
     config = ctx.obj["site_config"]
     api_user_client = NmdcRuntimeUserApi(config)
+    logger.info(f"Using: {api_user_client.base_url}")
 
     # get old db records
     with open(old_records_file, "r") as f:
@@ -390,25 +391,22 @@ def delete_old_records(ctx, old_records_file):
                             "deletes": [{"q": {"id": item["id"]}, "limit": 1}],
                         }
                         try:
-                            logging.info(
-                                f"Running query: {delete_query}, deleting {set_name} with id: {item['id']}"
-                            )
-
+                            logger.info(f"Deleting {item.get('type')} record: {item['id']}")
                             run_query_response = api_user_client.run_query(
                                 delete_query
                             )
 
-                            logging.info(
+                            logger.info(
                                 f"Deleting query posted with response: {run_query_response}"
                             )
                         except requests.exceptions.RequestException as e:
-                            logging.info(
+                            logger.info(
                                 f"An error occured while running: {delete_query}, response retutrned: {e}"
                             )
 
     for annotation_id in gene_id_list:
         try:
-            logging.info(
+            logger.info(
                 f"Deleting functional aggregate record with id: {annotation_id}"
             )
             delete_query_agg = {
@@ -418,13 +416,14 @@ def delete_old_records(ctx, old_records_file):
 
             run_query_agg_response = api_user_client.run_query(delete_query_agg)
 
-            logging.info(
+            logger.info(
                 f"Response for deleting functional annotation agg record returned: {run_query_agg_response}"
             )
         except requests.exceptions.RequestException as e:
-            logging.error(
+            logger.error(
                 f"An error occurred while deleting annotation id {annotation_id}: {e}"
             )
+    logger.info(f"Elapsed time: {time.time() - start_time}")
 
 
 def _get_data_dir(data_dir, dryrun):
@@ -432,11 +431,11 @@ def _get_data_dir(data_dir, dryrun):
     Return the path to the data object files
     """
     if dryrun:
-        logging.info("Running in dryrun mode")
+        logger.info("Running in dryrun mode")
         return DRYRUN_DATAFILE_DIR
     elif not data_dir:
         data_dir = BASE_DATAFILE_DIR
-    logging.info(f"Using datafile_dir: {data_dir}")
+    logger.info(f"Using datafile_dir: {data_dir}")
     return data_dir
 
 
@@ -466,12 +465,12 @@ def _get_legacy_id(omics_processing_record: dict) -> str:
     alternative_ids = omics_processing_record.get("alternative_identifiers", [])
     legacy_ids.extend(alternative_ids)
     if len(legacy_ids) == 0:
-        logging.warning(
+        logger.warning(
             f"No legacy IDs found for: {omics_processing_record['id']} using ID instead"
         )
         return omics_processing_record["id"]
     elif len(legacy_ids) > 1:
-        logging.warning(
+        logger.warning(
             f"Multiple legacy IDs found for omics_processing_record: {omics_processing_record['id']}"
         )
         return None
