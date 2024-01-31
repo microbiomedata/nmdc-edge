@@ -109,10 +109,16 @@ def extract_records(ctx, study_id, api_base_url):
             )
             continue
         db.omics_processing_set.append(omics_processing_record)
-        for data_object_id in omics_processing_record["has_output"]:
+
+        omics_processing_has_outputs = omics_processing_record.get("has_output", [])
+        if not omics_processing_has_outputs:
+            logger.warning(f"OmicsProcessing: no has_output for: {omics_id}")
+            logger.warning(f"omics_processing_record: {omics_processing_record}")
+        for data_object_id in omics_processing_has_outputs:
             data_object_record = api_client.get_data_object(data_object_id)
             if not data_object_record:
-                logger.warning(f"no data object found for {data_object_id}")
+                logger.warning(f"DataObjectNotFound: {data_object_id}")
+                logger.warning(f"omics_processing_record: {omics_processing_record}")
                 continue
             data_object_type = data_object_record.get("data_object_type")
             data_object_description = data_object_record.get("description")
@@ -161,7 +167,11 @@ def extract_records(ctx, study_id, api_base_url):
                         data_object_id
                     )
                     if not data_object_record:
-                        logger.warning(f"no data object found for {data_object_id}")
+                        logger.warning(f"DataObjectNotFound {data_object_id}")
+                        logger.warning(f"workflow_record: {workflow_record['id']}, {workflow_record['type']}, {workflow_record['name']}")
+                        logger.warning(f"has_input: {workflow_record.get('has_input')}")
+                        logger.warning(f"has_output: {workflow_record.get('has_output')}")
+                        logger.warning(f"omics_processing_record: {omics_processing_record['id']}, {omics_processing_record['omics_type']['has_raw_value']}")
                         continue
                     data_object_type = data_object_record.get("data_object_type")
                     data_object_description = data_object_record.get("description")
