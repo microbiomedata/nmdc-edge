@@ -1,0 +1,840 @@
+WARNING:__main__:DataObjectNotFound nmdc:e4d7f3039f948c71c0281bac1e734fea
+WARNING:__main__:workflow_record: nmdc:34dbd761ee939aa0babda34c056cbd4b, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0t30k86
+WARNING:__main__:has_input: ['nmdc:e4d7f3039f948c71c0281bac1e734fea']
+WARNING:__main__:has_output: ['nmdc:3c8c16878df4682bb74802288ca0353f', 'nmdc:c0e9d3889c9fdbb46f0e281deec24b8e']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-2b4p5w74, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:34dbd761ee939aa0babda34c056cbd4b, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0t30k86
+WARNING:__main__:has_input: ['nmdc:8f703cd22df1fffbd8f510b466566e39', 'nmdc:8e890d681fa5d2f864b2df8a0e0ddaef', 'nmdc:d35f346846ecafdbb2ed53cea320011f']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:212caffa73a5b1663ac75f235d1dcfb4', 'nmdc:f8f77ffd24e01ee042132023d7c4149a', 'nmdc:1ee0c561ab644999620dd7f7b9033bd1', 'nmdc:a1c78adb4692bf0e59a7211fdd2771d0', 'nmdc:e3486e2c9772c766ff6e76c08cae4fc8']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-2b4p5w74, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:257ae3d58c544161801ddc071267ecd1
+WARNING:__main__:workflow_record: nmdc:9daae34cdca40402b0a61bc4c3158982, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0m2km37
+WARNING:__main__:has_input: ['nmdc:257ae3d58c544161801ddc071267ecd1']
+WARNING:__main__:has_output: ['nmdc:9afe88946f7a98b3208dc999018bd76b', 'nmdc:1ef957abf7e6d5984d206eb20d082373']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-c8aj0c39, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:9daae34cdca40402b0a61bc4c3158982, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0m2km37
+WARNING:__main__:has_input: ['nmdc:77d207905487d03440ffae08bbba118b', 'nmdc:04a984792fc11e2720a9d8d7f9f73cb5', 'nmdc:61635ae336ec03f596a2914226e35933']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:7ea73b6088594317588fc409e34ed2e3', 'nmdc:956c5648ab7f52d6a7a399a95bc03e7b', 'nmdc:a47011256b626c6b9b06e99ce6e2c0e1', 'nmdc:91722ceaf76d518dd4dd080fbb069eb4', 'nmdc:4d37ea962d5efae513eda5df68dc4874']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-c8aj0c39, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:7ec8b2aa726f6f701df4591e78217bba
+WARNING:__main__:workflow_record: nmdc:aed6288d24e0efe01fe77e883beefcdd, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0483864
+WARNING:__main__:has_input: ['nmdc:7ec8b2aa726f6f701df4591e78217bba']
+WARNING:__main__:has_output: ['nmdc:543423363b364683505767feae904b74', 'nmdc:9911ea72aca9fcffee651edf7e34d322']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-73zj8f68, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:aed6288d24e0efe01fe77e883beefcdd, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0483864
+WARNING:__main__:has_input: ['nmdc:eaec89a4452c1d3142d064e8fd699e8a', 'nmdc:a31e19f57fbff29473ca4a7f6a498ff3', 'nmdc:539a9cdfb7cd854f21346d604c1f5435']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:1a992fa35a7236c801d886c91466ccc3', 'nmdc:41c2e3ed9a874583cbca4cb6def90a63', 'nmdc:81ff85cfda4b027f4f8772eb713979da', 'nmdc:977a723a19f847e88e446a3cb049b664', 'nmdc:694e44885683fa95c0997e10139cafa8']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-73zj8f68, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:085b2b3825510598e163b2a270d604e4
+WARNING:__main__:workflow_record: nmdc:5ddc7a733aaa7e5a03d70ba2b3368345, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga020qn69
+WARNING:__main__:has_input: ['nmdc:085b2b3825510598e163b2a270d604e4']
+WARNING:__main__:has_output: ['nmdc:a72992147fab2ab7581f6c8e38191e21', 'nmdc:ef5667c6f2fd489fa4bd80eae4164153']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-d09vf280, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:5ddc7a733aaa7e5a03d70ba2b3368345, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga020qn69
+WARNING:__main__:has_input: ['nmdc:c1f87cf8a6e87dc933bdd6822f52b43a', 'nmdc:bbb99df5de5d6ebdc071fcd3f8a0585e', 'nmdc:e8195c24a9ac036dbed4d7649bd98e70']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:ea7ef1b26cdf56a0556a38d6c8e4115d', 'nmdc:200cdac52f098e36c36c5ebd91ab5ccb', 'nmdc:1944e9bc23eeace030949363c2e3e9ad', 'nmdc:062865a0bf08f7900b962b2e92c78d04', 'nmdc:d0f4484800deb7b5664f7283fb5c7041']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-d09vf280, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:f4972025bd455991093516ecaaa6dc6d
+WARNING:__main__:workflow_record: nmdc:42bde508cfceec40d3320554543edce6, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0wn3d15
+WARNING:__main__:has_input: ['nmdc:f4972025bd455991093516ecaaa6dc6d']
+WARNING:__main__:has_output: ['nmdc:c42175a3db24c5a38025acb50689c9d4', 'nmdc:13ba8c328d405dcd6e7606d0bf5c5f5c']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-1wva5e80, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:42bde508cfceec40d3320554543edce6, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0wn3d15
+WARNING:__main__:has_input: ['nmdc:7160e3471a2270f14ccc067c6318b4c0', 'nmdc:3fc70cf9ceecefc8680577020c3dbbd9', 'nmdc:e1283022c7535c7755f46d56c6a20989']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:910b13998102d5af2faad5b7e58317aa', 'nmdc:535633a3b3cb9ad0f78d10989b03ec6b', 'nmdc:497c358939fa3ee5ad72037a92fdcb61', 'nmdc:a06e875e98faea86ceb610545ed29771', 'nmdc:5faee0e9566383aa6329460ea1cc78db']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-1wva5e80, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:037c24f51eb682dcf0971581b2807fd6
+WARNING:__main__:workflow_record: nmdc:4bcfd096cb916513d2d4ace59d03e049, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0qj3a46
+WARNING:__main__:has_input: ['nmdc:037c24f51eb682dcf0971581b2807fd6']
+WARNING:__main__:has_output: ['nmdc:edeaf6791ecfdac886292c5ccb20fd1a', 'nmdc:9b064384a2445dd070ddb0081fd17e3c']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-8gwr1y12, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:4bcfd096cb916513d2d4ace59d03e049, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0qj3a46
+WARNING:__main__:has_input: ['nmdc:21752d36424fe652fb8762857253e0fb', 'nmdc:4c8d3f1814db0a0d8d826a5a8038811a', 'nmdc:17f3d99cf4345b7d62275568b0269830']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:6be537ad1a49f68ac260f9b9bc780e86', 'nmdc:1b443655baa026eefd4e338b0c2a07a2', 'nmdc:001ddebab5afd882816906553c7b97c6', 'nmdc:9f9bed29212b84f765ae486b00467de3', 'nmdc:0c418399fe6c920aa1634120e7b13952']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-8gwr1y12, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:c9d7670269af493876dc616caee721a4
+WARNING:__main__:workflow_record: nmdc:bd873c28ea7329369b5bc77bd4b89884, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0dnw142
+WARNING:__main__:has_input: ['nmdc:c9d7670269af493876dc616caee721a4']
+WARNING:__main__:has_output: ['nmdc:1a41cb69314f0d9e7cc4fe07ec87329d', 'nmdc:4b2f584fdc3e07e7a1c1f3007250f57a']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-zf0v3n42, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:bd873c28ea7329369b5bc77bd4b89884, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0dnw142
+WARNING:__main__:has_input: ['nmdc:9f94ea7496992dd2aa298b106020b745', 'nmdc:9fc434b56fa935a9246d64ae191aa559', 'nmdc:28509c217dbef8daa157ed898244db16']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:b281df1c4b35758d0763c83986fffef9', 'nmdc:51428bb540b95cc5798736db1167065e', 'nmdc:9362777698c44a321e65ab9279f47cc7', 'nmdc:cf2c7414dc5890e8c87032c46ea72442', 'nmdc:315da343245f253a3fbf4e6d9fcf921f']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-zf0v3n42, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:2c7e67f01b11f8287db663774467d1f3
+WARNING:__main__:workflow_record: nmdc:a9b856016e98a9adf43cd8947b78c430, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0194153
+WARNING:__main__:has_input: ['nmdc:2c7e67f01b11f8287db663774467d1f3']
+WARNING:__main__:has_output: ['nmdc:18eeefd0c066fef1581944c0a1ab660b', 'nmdc:8887676e1c9622171f0f96702b9d9006']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-8n61h723, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:a9b856016e98a9adf43cd8947b78c430, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0194153
+WARNING:__main__:has_input: ['nmdc:a0600b646a25c1e4dbed0664ddcc877e', 'nmdc:9f819691d8cc271c9a20a764982176a8', 'nmdc:94d731345225ad04555cd133ee3f9038']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:5d7850a4c83cbb9ec88e8133e7763332', 'nmdc:23a01b39253f2325cd4139ca8841eae3', 'nmdc:338184375276775995b1093cdf2b1e0d', 'nmdc:6b413c3f99b3d23e73a4626d619a50bd', 'nmdc:8a3a7ffab8106469a609e59f3d58c49f']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-8n61h723, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:e607593b8a939a876ab448a4bfb63830
+WARNING:__main__:workflow_record: nmdc:51dc1a161ec54d3efa11858102890dfa, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga017te69
+WARNING:__main__:has_input: ['nmdc:e607593b8a939a876ab448a4bfb63830']
+WARNING:__main__:has_output: ['nmdc:de18fcca30ee3db3035a3510a8db41d9', 'nmdc:a15775d4847c0b939e0e01f5af56610f']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-x7kvdr37, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:51dc1a161ec54d3efa11858102890dfa, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga017te69
+WARNING:__main__:has_input: ['nmdc:7cfdb4086178edf1937be82825bdbb28', 'nmdc:80e8e5c705305669c0e1156dbc246eb1', 'nmdc:d2b65f46ce0325212a324aca09b12015']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:7b3e0501495739464bae7f9aa63567f2', 'nmdc:8ef5816de3eb45c2a83857bd7c30475f', 'nmdc:db961ce9101cb90ea85d1518d306fff1', 'nmdc:25ed242f8eae10e9a793ce93f08e49b1', 'nmdc:b8bf8dfde57d9177dfa20a9ff24f55df']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-x7kvdr37, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:18f0d621f2ff09ab8c90b9dc4fd685a5
+WARNING:__main__:workflow_record: nmdc:0fe003b11eef4ba0c616b561ab0d684c, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga09q8m07
+WARNING:__main__:has_input: ['nmdc:18f0d621f2ff09ab8c90b9dc4fd685a5']
+WARNING:__main__:has_output: ['nmdc:de6e5f32fe9e57c5bd37cbeeb93f1d0f', 'nmdc:5611928999d2d6f3cd14e2654a4e8a7f']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-p57kmg31, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:0fe003b11eef4ba0c616b561ab0d684c, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga09q8m07
+WARNING:__main__:has_input: ['nmdc:44f455919fa4828ab0d3e1dd3a18afd1', 'nmdc:70f44195d91cde68beacf06955160b71', 'nmdc:e0dea6b0f21fa56efdce395507161adc']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:ee27630f9850a889966d58a5bec0a515', 'nmdc:9aa3ee843777a2cec1815a06931b68c2', 'nmdc:77bb221a38b1dc44efd44d72b5b7a870', 'nmdc:beb46d6a07cffd930630060175d43814', 'nmdc:9b1c46350c2917659b2606312932088f']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-p57kmg31, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:5357fd51ae827125454f9e5f550543d5
+WARNING:__main__:workflow_record: nmdc:534d3ee21e05a7fe6b324082568cd114, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0fe9z11
+WARNING:__main__:has_input: ['nmdc:5357fd51ae827125454f9e5f550543d5']
+WARNING:__main__:has_output: ['nmdc:8025a36fb88013662528bf2a838976a3', 'nmdc:c8360ef341ebe4483c83e8ea5b4956bc']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-dy188w64, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:534d3ee21e05a7fe6b324082568cd114, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0fe9z11
+WARNING:__main__:has_input: ['nmdc:96c1f47da538ad25b7d8bc51c406540d', 'nmdc:34ffdca6c1d56087bd538f84afc95e6c', 'nmdc:d4fd3d798907eb77631e217eb5df80c3']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:e38e72f5e7d13ff6828dc7523953d299', 'nmdc:9d6341b354dd9c6a3ccda5d05f402d52', 'nmdc:b65c1a51fbe14105800e0e1dccfd59c6', 'nmdc:9c50817fc6e958c7beb0020948e32744', 'nmdc:d2442a77e1ce168a45e8e4d95b55e6e6']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-dy188w64, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:08043e457a8164af61f31f22ca64fa5c
+WARNING:__main__:workflow_record: nmdc:5d7d96366bfdc04c13d0d459ec44d9d6, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0wkf778
+WARNING:__main__:has_input: ['nmdc:08043e457a8164af61f31f22ca64fa5c']
+WARNING:__main__:has_output: ['nmdc:acd7731f8f5bb1162d7115243c00713c', 'nmdc:dfa7518337746ce80f46b466ef167f6b']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-r2t38w78, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:5d7d96366bfdc04c13d0d459ec44d9d6, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0wkf778
+WARNING:__main__:has_input: ['nmdc:8f1367c23dc814bf5900506c90643cf5', 'nmdc:fba72d3d3ea977ece45929e616bcc83c', 'nmdc:301612cc77aa7c5bc6cb8c3c1f3e8dce']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:d8a9820d612b662f0b74996cb57641e8', 'nmdc:eac8838210d2e7d85956d5b06003c3d5', 'nmdc:b87ce069960dbf382beb05ef27081b7e', 'nmdc:1a8d73463df64f71a3253bc719543354', 'nmdc:e2c027dd97b777c073ed0588adf27012']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-r2t38w78, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:52c934d2028a93a7bf60c53b9b940e17
+WARNING:__main__:workflow_record: nmdc:a8a526ad1e5caef313473e3d595ab9f1, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga01enr64
+WARNING:__main__:has_input: ['nmdc:52c934d2028a93a7bf60c53b9b940e17']
+WARNING:__main__:has_output: ['nmdc:7dd465cd8c96447a3686d90599d56f85', 'nmdc:246989e0258e3bdddd6c91f155cec622']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-86c56h25, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:a8a526ad1e5caef313473e3d595ab9f1, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga01enr64
+WARNING:__main__:has_input: ['nmdc:faeb0dcac0283d46ecf40fe51081b84c', 'nmdc:bec4388105bf4399fd26c8a2d0a7c741', 'nmdc:3f72e4b0909d8f02cee16d15a13a26f6']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:c65ece41fc5213787336288f3ac967dc', 'nmdc:7c4ac08a51c2f990dbcfaf8c245c8b82', 'nmdc:78fb6e5993b46cff8da066ae50c533c1', 'nmdc:5905bbab587dfa7d30b17bf81a301225', 'nmdc:338532067440b6407f95ff8313a95645']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-86c56h25, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:656a8066497c3a3421576e53a7f24a1b
+WARNING:__main__:workflow_record: nmdc:6a7e44e1e34a96cf1efa7c29ac3bb02d, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0qt4z46
+WARNING:__main__:has_input: ['nmdc:656a8066497c3a3421576e53a7f24a1b']
+WARNING:__main__:has_output: ['nmdc:de054a731a09863cefc28342d7c39c13', 'nmdc:1490a548f47b564bfd24d7b17b844787']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-cytf1e18, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:6a7e44e1e34a96cf1efa7c29ac3bb02d, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0qt4z46
+WARNING:__main__:has_input: ['nmdc:52f17dff1da3f6323128aa05ef3e7c24', 'nmdc:1b23aba5b089bf6862dbaee1029b20e5', 'nmdc:768fb53dbd0dd2c76297196594bd1e15']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:2f2f207eb7dcd065b9f3de8681034a5b', 'nmdc:fcb2008bf3f7c5ff2d9bcf0ab0068eb4', 'nmdc:53c45f99a11932252f2acf2407e45274', 'nmdc:716f5a7193a9c231ef69f5d1488d062d', 'nmdc:4042e89edfd364d4a25f7faf8c0474c3']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-cytf1e18, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:dbaac2caaba03f8552747834330f48b9
+WARNING:__main__:workflow_record: nmdc:60eb5be289ff86d24e3fc88054f62e47, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga02kzm09
+WARNING:__main__:has_input: ['nmdc:dbaac2caaba03f8552747834330f48b9']
+WARNING:__main__:has_output: ['nmdc:61a27d21f40e4c66db176be315aac38e', 'nmdc:2d5eedf143c8143a52dc7e56894c9925']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-m0fem526, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:60eb5be289ff86d24e3fc88054f62e47, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga02kzm09
+WARNING:__main__:has_input: ['nmdc:2b1b8f77377612facefa23e68c78cb89', 'nmdc:92ef36906affdfac2b6245ccb8c650da', 'nmdc:037331e664c4cd01dd09b84353007702']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:6e975264e8ea1c419c49ddc9ea18c984', 'nmdc:2a7661010f2340216933dc88531aa7c5', 'nmdc:4151928e6faaa5e3da36d5eb53f805ac', 'nmdc:c06039dc43953a44ab0ed94968e7c3a6', 'nmdc:b1eae7de9053e12a4cf7cabaa82e84f8']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-m0fem526, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:b9821c3b83e94509f5be46b7ac3c9647
+WARNING:__main__:workflow_record: nmdc:a4390cc0018042fc45d5bc312bd09d3d, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0x3mj77
+WARNING:__main__:has_input: ['nmdc:b9821c3b83e94509f5be46b7ac3c9647']
+WARNING:__main__:has_output: ['nmdc:8e97d689e715b4fa8a84b521b18a868c', 'nmdc:161cd3ebf36d45dc9ae2bfffd1ab157e']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-4kznfd65, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:a4390cc0018042fc45d5bc312bd09d3d, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0x3mj77
+WARNING:__main__:has_input: ['nmdc:5598121509ca0507ca3f292ca69e103a', 'nmdc:3121416548698ac3a8b8aebb20762b24', 'nmdc:b46d48318bcf24a163fb0f82414cced1']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:de8328a0c04d2c3093514a8ee54e02f6', 'nmdc:5723e997a25d5154e9f57243a54be64b', 'nmdc:870885de3ed9586c86c9a8b0e60ea909', 'nmdc:b49238fb0c7f1c41bc3a3b67f840d1f4', 'nmdc:7b0cf7c9631007cf3097995eef1fd9f0']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-4kznfd65, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:aefb53fed3f9ac9f982ea60433673eef
+WARNING:__main__:workflow_record: nmdc:cf8fa9baf49f77cfa34b94cdcdb04c71, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0xz8h91
+WARNING:__main__:has_input: ['nmdc:aefb53fed3f9ac9f982ea60433673eef']
+WARNING:__main__:has_output: ['nmdc:4280f5bd913db920fc740bce8a44e740', 'nmdc:4102d90bf1f0d9de388de0c7c3e3e80c']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-rbz91067, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:cf8fa9baf49f77cfa34b94cdcdb04c71, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0xz8h91
+WARNING:__main__:has_input: ['nmdc:62b9c7c60a9012ffd7e766d16723ed06', 'nmdc:a3aae829393993f0c8bf9164ba752954', 'nmdc:d1d66bb7c745f507ae2cbb76b390b695']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:0e7471a27bc0128573a23e9af444c157', 'nmdc:f19ec52280200441d8a7567fc0027402', 'nmdc:aa585e7ca35fe19d4efabf8766f13467', 'nmdc:b4d170d315f6f70669a6aac6f3d6db98', 'nmdc:276b238bd54bb6fa8c481f4f95b3ac67']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-rbz91067, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:b5a47c2097da72cb5eff54c9d5285dd6
+WARNING:__main__:workflow_record: nmdc:1b1e727ee5bf8e6f8750f3a606b3acfc, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0vcq217
+WARNING:__main__:has_input: ['nmdc:b5a47c2097da72cb5eff54c9d5285dd6']
+WARNING:__main__:has_output: ['nmdc:b2a11516f5565a53769c1fb0c1230c51', 'nmdc:4a84c78fcde8d88905e9e360145c09fb']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-8wq76j90, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:1b1e727ee5bf8e6f8750f3a606b3acfc, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0vcq217
+WARNING:__main__:has_input: ['nmdc:d14a0674ff611157803be76882ae83bd', 'nmdc:3bde469728dcd1b1522cd1dbf8a46527', 'nmdc:9f73290c551b347962a2cb884f2056d8']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:251e7f978d6542bdbba72b1c2b37f7b7', 'nmdc:42a8252ecbd8efd491c0dc2a49a13365', 'nmdc:f5b1041e939a586f31aa10b03ab240db', 'nmdc:e9b4f09699ca23d482eada4e0294ce2f', 'nmdc:d8b9ecdb7a5b0d60abb7b39c288aa31c']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-8wq76j90, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:4e082de9501a53b04534051778448e33
+WARNING:__main__:workflow_record: nmdc:72379f13da6e6f7f7da7dd5a40bfcb79, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0xpmn94
+WARNING:__main__:has_input: ['nmdc:4e082de9501a53b04534051778448e33']
+WARNING:__main__:has_output: ['nmdc:f4be1bcf8d834bef32cd34f31855c332', 'nmdc:9ab8ab017fcd4992b4a8efe8c8f1a318']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-vkp93136, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:72379f13da6e6f7f7da7dd5a40bfcb79, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0xpmn94
+WARNING:__main__:has_input: ['nmdc:659da7b0ed38a6fd97c0f9904e0f3404', 'nmdc:d28ce8b98ecdfec49ab83b0a8cac526b', 'nmdc:d373c5a7d27aab238a5b8ce78febabf0']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:c451113d71a9484d145586649a31f99b', 'nmdc:7745be8dcf11d07d304690699b1cfb5b', 'nmdc:72a54f6e9e7b0789beaaa49ead8d177d', 'nmdc:be8820dbca136c0cff9d102471191a06', 'nmdc:609bc21840712b5cb54ab7bd6ddb16e4']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-vkp93136, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:e1c9487af7b829ea410537b5be5784aa
+WARNING:__main__:workflow_record: nmdc:691437b2b7c3ac72441d48c7acb23ea6, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga01ak297
+WARNING:__main__:has_input: ['nmdc:e1c9487af7b829ea410537b5be5784aa']
+WARNING:__main__:has_output: ['nmdc:7753efcc799660d8636d8e352a9f12df', 'nmdc:33149b76e2ab3e474926c424d92efd59']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-gjr6tz30, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:691437b2b7c3ac72441d48c7acb23ea6, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga01ak297
+WARNING:__main__:has_input: ['nmdc:be4c223bc796289bcf10779bb2c12484', 'nmdc:2a77564a82ae69d4e23fc3e1c3fb7e31', 'nmdc:5637e1c38a5aeb4ba68904319c6833fb']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:136f455d9520973bb16feb197f1106da', 'nmdc:74435a764ce42700c9c650a4e1ea4747', 'nmdc:1970aab75d12c8d3a166468d8187b66d', 'nmdc:8ba225b06ef2ba58bae9e5182264d61b', 'nmdc:0c8b876f7bf7f53fdbaedb4ee22081f5']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-gjr6tz30, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:0eef7bc65a901bee186c500fc95158f3
+WARNING:__main__:workflow_record: nmdc:c4f3f8a15d9081e8586ab6fe9c070239, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0kdca67
+WARNING:__main__:has_input: ['nmdc:0eef7bc65a901bee186c500fc95158f3']
+WARNING:__main__:has_output: ['nmdc:1c5c42f6c406e47cc950eb18a4abc22c', 'nmdc:35905683a93f9cba9d2be0914e497ff9']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-9c749r88, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:c4f3f8a15d9081e8586ab6fe9c070239, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0kdca67
+WARNING:__main__:has_input: ['nmdc:e3bd6567c015e8b03be8af4803052cd3', 'nmdc:3f16f543aca0a782039cdeacfdc2fd1b', 'nmdc:1db5c14355d25bd8db6fcba34dae9f84']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:3d0c8c3097b470f89ceceb600ec3d51e', 'nmdc:1549ebff32494a594d7ed1155141ce6f', 'nmdc:c77a4c98616bb4aa69b699a16ab20e9f', 'nmdc:b75439b5abd0d4c7ff4ec4e9dee563e4', 'nmdc:5a12597af96c1f44d48a2af4796e5e0b']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-9c749r88, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:9e64d4994ed26006819a3b8c5361bda7
+WARNING:__main__:workflow_record: nmdc:a798064b8c51fd4cd87663ee4276646c, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0fght98
+WARNING:__main__:has_input: ['nmdc:9e64d4994ed26006819a3b8c5361bda7']
+WARNING:__main__:has_output: ['nmdc:360431e74ee8818091569bc1fa5fb787', 'nmdc:641fcb775ea37f548401537f8e0720ba']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-zsbm5782, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:a798064b8c51fd4cd87663ee4276646c, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0fght98
+WARNING:__main__:has_input: ['nmdc:5575b0771cbef6fc218016691949332a', 'nmdc:db294ab78c8be6c96555ba785cc795fa', 'nmdc:1903faa3602efad45436baa899ac76fb']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:4c078b7237e5648cd4e896da7762ada7', 'nmdc:dd76d1e33f42daa27f2518418cf12baa', 'nmdc:42a23efd86fd08b1262db97dcc7f1846', 'nmdc:bb5a1a36660fedb11b2d5b036d56a3d9', 'nmdc:b55b3f8b715c6c1060a5d64b357419cb']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-zsbm5782, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:cf2cd12512076c0ed4f7b55136e63d9e
+WARNING:__main__:workflow_record: nmdc:0280232355359cb9fd10451f5c3327f2, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0dtmv19
+WARNING:__main__:has_input: ['nmdc:cf2cd12512076c0ed4f7b55136e63d9e']
+WARNING:__main__:has_output: ['nmdc:9db5cb8590315638516eab33c2aebd57', 'nmdc:a5e996652e6f3e6d91a8dfcfcb77f02f']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-mzk6by23, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:0280232355359cb9fd10451f5c3327f2, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0dtmv19
+WARNING:__main__:has_input: ['nmdc:dc30889ba26996291b91e872b72d1faa', 'nmdc:71a1d49f97ceb8977b9d8aebb9303153', 'nmdc:e76cf80331faca836b7637f168bbea25']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:1952465aa17d46ba76d054ccff319a35', 'nmdc:b5ec84d8b62af772f633c8b331db5a11', 'nmdc:ee5105db807bf3e6044a360e2f4b0200', 'nmdc:f3993cfc1aeeb4beefe9e611a35e837e', 'nmdc:df21e42c589414ddef7aa3eca1235ce5']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-mzk6by23, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:221e560a0efcfe099fb7757adcfed18e
+WARNING:__main__:workflow_record: nmdc:bff1ad6f01056c624761521883e250a2, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0ghbe20
+WARNING:__main__:has_input: ['nmdc:221e560a0efcfe099fb7757adcfed18e']
+WARNING:__main__:has_output: ['nmdc:ac07bea7e5b31c365266d2244969fb1d', 'nmdc:27c47bd6f9abd55c89427d552310e983']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-khgaac94, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:bff1ad6f01056c624761521883e250a2, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0ghbe20
+WARNING:__main__:has_input: ['nmdc:46fce2e759e2fb050a325f2aed995d12', 'nmdc:de9ef5a344ffc1cdc49cfe34eedea78c', 'nmdc:35fc2c5dc087779ac08b99e14a2148f4']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:93758d6a09148b37f35ae27a047cd276', 'nmdc:1d1f444ce977d1deaaee785e7ff33b43', 'nmdc:5d2ef68f028384489e12bcb14780699c', 'nmdc:ba1fc42e095bbe4ec0b15f927986f9e5', 'nmdc:353d46732e41b8d72d14d735ef188087']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-khgaac94, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:6e2e6ba0f13035a4dcb06159639f50e4
+WARNING:__main__:workflow_record: nmdc:9e7b128c73ad788f62ec52aea24febf2, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0d0xp84
+WARNING:__main__:has_input: ['nmdc:6e2e6ba0f13035a4dcb06159639f50e4']
+WARNING:__main__:has_output: ['nmdc:8ac3d430b9b1edd97bf3f3d30d9bb72b', 'nmdc:61ef361a293f0ad45044144cf29f5fd5']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-m00yak64, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:9e7b128c73ad788f62ec52aea24febf2, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0d0xp84
+WARNING:__main__:has_input: ['nmdc:32d7ff803371f29acc09586aecd10522', 'nmdc:2803cb6079919601bdca9f5ecf2c6b7d', 'nmdc:54a33755efe7728b16ced481a4196835']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:aefd1d4a2ef126c8102e2710823a16cb', 'nmdc:bb3724b7831695761f813a1a61481f83', 'nmdc:fa29f6affa109be304d902af0dca3bf5', 'nmdc:ca9ac2e078586ac2473ff3d2fb649de1', 'nmdc:b16f27f683aea04e7e9b524b61f931dd']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-m00yak64, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:594f3d875d146b969bc0d74e9a4dd10b
+WARNING:__main__:workflow_record: nmdc:29afabd73ba8023e17d73923392f2e96, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0kxk034
+WARNING:__main__:has_input: ['nmdc:594f3d875d146b969bc0d74e9a4dd10b']
+WARNING:__main__:has_output: ['nmdc:a9457902a473d1f5c218846222ea0d10', 'nmdc:b779954aebf7bb9fad29ee05905944f1']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-v4rgxw98, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:29afabd73ba8023e17d73923392f2e96, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0kxk034
+WARNING:__main__:has_input: ['nmdc:6638949f95bea541fc2988f3d2cb90f5', 'nmdc:99e63c7c499c0b0330d1b52ede9905f6', 'nmdc:981bc256f22c3e593a749adb546970a1']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:99a82788cf686f00914a57761e58b547', 'nmdc:e43166c664f75b0d85d8c562aab2be9a', 'nmdc:529409878191b018390f935d7fd6074e', 'nmdc:044461422788396c3f7df43019524343', 'nmdc:a69f429a634edfbf3187ee557fbfbeff']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-v4rgxw98, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:95ef613e111129d8ebfc1d2fe7ba5633
+WARNING:__main__:workflow_record: nmdc:fcfbf8a3c6be76506f5e46683e0a6435, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga07tz563
+WARNING:__main__:has_input: ['nmdc:95ef613e111129d8ebfc1d2fe7ba5633']
+WARNING:__main__:has_output: ['nmdc:a782f673c7927e4b1ed6ff0f8de79f0d', 'nmdc:6d2837f047c5b3f9f07e75f16d1c519e']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-p9tfam59, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:fcfbf8a3c6be76506f5e46683e0a6435, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga07tz563
+WARNING:__main__:has_input: ['nmdc:7feeaa2ffba08f39b922dc154dc286bc', 'nmdc:545085d85d5171d44c6dd0b64796b135', 'nmdc:cb701aaabc38343a5cb0588126714f9d']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:7d816def7476773383237e76be2d5b9b', 'nmdc:b13751bedce9c558f1badaf1c6a4d1ac', 'nmdc:143d80592496bc7e3857d6f5c6540e37', 'nmdc:c690843d2c5402bcfcb1e3957b311dfa', 'nmdc:f73dbe22e49192f90415477c8ea57b3e']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-p9tfam59, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:0f1254d73ec34f5b2fb74176c44ad37f
+WARNING:__main__:workflow_record: nmdc:4a9d1ae5eef8c33bdc6843e9e423a474, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga01dmr31
+WARNING:__main__:has_input: ['nmdc:0f1254d73ec34f5b2fb74176c44ad37f']
+WARNING:__main__:has_output: ['nmdc:c8a90e801a983697a4d3388d6fe816b7', 'nmdc:6bbb095dbcf74b0b18e5e550abcc9389']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-zvtmqd80, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:4a9d1ae5eef8c33bdc6843e9e423a474, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga01dmr31
+WARNING:__main__:has_input: ['nmdc:c4c8c0eeb4f25cde76403ad20fda51fd', 'nmdc:f0f47a1627bb4da05888e56df9ef8b6f', 'nmdc:3df04dea00385dd849d23ec23739a82a']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:22e11642c7594860da6154d8212bd501', 'nmdc:7dee8eec23a5819727c42de270a1860e', 'nmdc:8ed0e520f83f1487eb9aa3c54b77a0ee', 'nmdc:a2476ea4e6b0effff5a672092bee8065', 'nmdc:867968ccf7b3b5bab6d671ef559eb484']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-zvtmqd80, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:2888bc78b8d1286a3b1c63688eb8ec9d
+WARNING:__main__:workflow_record: nmdc:5be8577a376c7dec956ad257a385125b, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0bm6d38
+WARNING:__main__:has_input: ['nmdc:2888bc78b8d1286a3b1c63688eb8ec9d']
+WARNING:__main__:has_output: ['nmdc:2167c6c6d6c4317117bf75b486be88ef', 'nmdc:de10b63f9e7b663c06ca4a78aebd1cb2']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-7keedq73, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:5be8577a376c7dec956ad257a385125b, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0bm6d38
+WARNING:__main__:has_input: ['nmdc:e59a7ad0b531c4791450019a8aadbc42', 'nmdc:3b708f327946ad1957a111c2aa1d3011', 'nmdc:2fd7fe1070428f633cd4d7507f493d40']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:5a5d484010d73048dd328422a4aab52e', 'nmdc:b1c3957b53bd96b2a2c00161eb283cf7', 'nmdc:e33fdf474baf5e5d8b338b3d97194675', 'nmdc:a67c6f04b428965037d270e192cd3a3f', 'nmdc:20505d819238207ac4872847017f99a0']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-7keedq73, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:f300cef45ce554024cf890e9323e79bc
+WARNING:__main__:workflow_record: nmdc:6156ca2868babc1b9596546b81e4351f, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0h21f66
+WARNING:__main__:has_input: ['nmdc:f300cef45ce554024cf890e9323e79bc']
+WARNING:__main__:has_output: ['nmdc:3080f7421a1ae1f2277cbaa9e3c2f4b2', 'nmdc:9deab80a76ea5d0e6b42b42145c3dc9f']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-03ayck44, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:6156ca2868babc1b9596546b81e4351f, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0h21f66
+WARNING:__main__:has_input: ['nmdc:1229b6920742c35834f1975304cce8a7', 'nmdc:afeb9654bd0dcb0cc7bcd090fea321a9', 'nmdc:34ab33fc15c65ee5d7a3a1d85214a02b']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:c532bcf0e8cc2c299cafe66841a02636', 'nmdc:746ea66686c80c69c8a7da41312d2f34', 'nmdc:6c0c897129cfe4f635cbe5c76c231d95', 'nmdc:a2e773a41d0d412959911f3099b521ad', 'nmdc:36fc5a3813d47e077e63297eaba19bc1']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-03ayck44, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:bfe662c58be41cbb19de89e881a2272f
+WARNING:__main__:workflow_record: nmdc:4116632707c28903a4d804f68a7b0365, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0ae8d85
+WARNING:__main__:has_input: ['nmdc:bfe662c58be41cbb19de89e881a2272f']
+WARNING:__main__:has_output: ['nmdc:3cd40e2572881e4c6a228b23db3ca41a', 'nmdc:688237405acd3cf4f0319b562a512700']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-g9npvr79, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:4116632707c28903a4d804f68a7b0365, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0ae8d85
+WARNING:__main__:has_input: ['nmdc:1f8a03c81b395526f3ac95ce1437e9ef', 'nmdc:7fa558a5645205fa09786d53b7b453c8', 'nmdc:d04c2a1da3737688c37f0a04db171942']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:489c7ee3593da7a53e659e9314fc291d', 'nmdc:b2134a8c5c67b3a81e145c41bdf0e3dd', 'nmdc:d348f7d2bbce2f7059603a8617dfe7cc', 'nmdc:0e997f39fa79e177f3dd293ded6c6507', 'nmdc:2390235c022a80379b8f07dbd1e5e299']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-g9npvr79, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:b2595efffe4468e1a1af1e29929f6b7a
+WARNING:__main__:workflow_record: nmdc:21d523e4045c130c1c62404601ff11f5, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0fdw091
+WARNING:__main__:has_input: ['nmdc:b2595efffe4468e1a1af1e29929f6b7a']
+WARNING:__main__:has_output: ['nmdc:816d883eaffef39ff399fe2da81be117', 'nmdc:73b3cd55d0d8f097cad130e00f1584cd']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-abj20g75, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:21d523e4045c130c1c62404601ff11f5, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0fdw091
+WARNING:__main__:has_input: ['nmdc:a5b181dfed4e930d6c68f65a17d53e5b', 'nmdc:b15c97c71149d41c880e46c842ec6af6', 'nmdc:0dc50a4957fae9d6b1fa83089010d591']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:5a753379f90a286939f06a083fb0d9e2', 'nmdc:91e65503b694b6e9ddab94c9f8ed9737', 'nmdc:bb5d82e11357c320ce90e525ac8c0727', 'nmdc:271627554ffefee4d004fad3960ee192', 'nmdc:b76e68c36dc844648b1c7b0a0ff98cfb']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-abj20g75, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:f2baab8dc49eda63f47ecfe2def449d2
+WARNING:__main__:workflow_record: nmdc:882054466780d767f32534923f0e598b, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga00yx311
+WARNING:__main__:has_input: ['nmdc:f2baab8dc49eda63f47ecfe2def449d2']
+WARNING:__main__:has_output: ['nmdc:2c0ce563a7935379532cfdcfa63a187b', 'nmdc:04d70de64490246e214d764ffb380353']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-6z3pwp16, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:882054466780d767f32534923f0e598b, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga00yx311
+WARNING:__main__:has_input: ['nmdc:e4db6f9e965e844511d808747a434184', 'nmdc:1d2fee55d925e1021234ae6e14cc4d9b', 'nmdc:f0407dcd970895ac878cd50059c9a0a0']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:9937fdd842285d1f582ec695164f9784', 'nmdc:6e05d94f5b66b62c8807713b6c401d80', 'nmdc:f5a6c5795d552941489d2ddcd2e27be8', 'nmdc:c77008c86aa5dbeec0ad0127696d488c', 'nmdc:f8ce476a647f439c830ac0ffb39b8e1e']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-6z3pwp16, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:ca60d567c63e80daf9cc61c98486215b
+WARNING:__main__:workflow_record: nmdc:2e0118504a4a8a5f3b1ffcf90010acd3, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0sjqj53
+WARNING:__main__:has_input: ['nmdc:ca60d567c63e80daf9cc61c98486215b']
+WARNING:__main__:has_output: ['nmdc:2765385b3e36cb006a570c43230ef424', 'nmdc:aa5de59dac5e4d4ae34b404d684c6061']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-keenj824, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:2e0118504a4a8a5f3b1ffcf90010acd3, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0sjqj53
+WARNING:__main__:has_input: ['nmdc:f84210a0a991576d3f6590a7958fc0b5', 'nmdc:e42099e3110b4348ca3ffc7fe5d779d6', 'nmdc:13bc9df21458b0cc9594d3079b9229b1']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:063772176d863c135ff40e609a8c5492', 'nmdc:ab1176618101c972726136430dfaac2b', 'nmdc:3c42f0e15806328d4399f2072abc2d47', 'nmdc:de88de9a4d8ce7242493c3c0229c50d9', 'nmdc:48a3c432a55a85fedfa2c025f5fe1434']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-keenj824, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:9bdbd2bd3d65afb274c97e95293bf752
+WARNING:__main__:workflow_record: nmdc:7d0ce07a66c5014b082272573e2f3916, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0r8rs47
+WARNING:__main__:has_input: ['nmdc:9bdbd2bd3d65afb274c97e95293bf752']
+WARNING:__main__:has_output: ['nmdc:9c7a946f604fe887ec7905c9b36b9913', 'nmdc:315c0ab22dd71c0f78f87770d71eb965']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-0t04n652, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:7d0ce07a66c5014b082272573e2f3916, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0r8rs47
+WARNING:__main__:has_input: ['nmdc:ef48498d273398a1030698f0ebd3d442', 'nmdc:13147cf4d9fadd24c1eb10fcb10afdbc', 'nmdc:591ad46a5d04eb022ed8d636669c4222']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:b6f16fd546beb87e95ded5b9693aa282', 'nmdc:e22998c78681393f858a6b925f0ae5c1', 'nmdc:898d7bed3ab9aff059bc276cb6c07831', 'nmdc:848ed6bcf273b2296f6f232cbe7117bb', 'nmdc:4aca5e328cc6edb08d3d03cc1f0b2093']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-0t04n652, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:141b9c03ef5d682992d2ff8398305cfe
+WARNING:__main__:workflow_record: nmdc:bfccdfaf9ea4406c2ca88c34de7d9d17, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0zqhd61
+WARNING:__main__:has_input: ['nmdc:141b9c03ef5d682992d2ff8398305cfe']
+WARNING:__main__:has_output: ['nmdc:4f72967f0d073120f33f1a2d1be20480', 'nmdc:0e9979fd80ba797f2d8b2a5285954531']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-9bvyt264, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:bfccdfaf9ea4406c2ca88c34de7d9d17, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0zqhd61
+WARNING:__main__:has_input: ['nmdc:367a31413e9248dae917568b44c05224', 'nmdc:f1b1be4fddfb9205d1769d25ec8691ec', 'nmdc:cc2b5c74db3653849a7b27e11abb571c']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:bdac77f5778ebf7ca9fa4c0e3a1fd6d4', 'nmdc:4a002cf190775aaaf95dd079d5d33210', 'nmdc:d0ff40db26477624892c57a9045d6b59', 'nmdc:0c84da0b91ee5d90343e6c1b012b2783', 'nmdc:e4c0213a08ad3655417f41231fdff363']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-9bvyt264, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:0685d30063f5c66fef8c1d9ea2dc1453
+WARNING:__main__:workflow_record: nmdc:a10b9b9e42d2a8510eb23f1a813b3411, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0zfd907
+WARNING:__main__:has_input: ['nmdc:0685d30063f5c66fef8c1d9ea2dc1453']
+WARNING:__main__:has_output: ['nmdc:cd5fb82f4c628f27c60dfb3f72547eb5', 'nmdc:bde363304a610489ba1b3c4cadcd2b8a']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-q17x6w88, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:a10b9b9e42d2a8510eb23f1a813b3411, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0zfd907
+WARNING:__main__:has_input: ['nmdc:e0f6bd3ef0fd5aabcd272dc68a14cbb5', 'nmdc:897e36a4d60af112502840e058e41abe', 'nmdc:c7c9b254780bb054a1f80f0077f49d2d']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:ebe0e8f02c5b55d80359c750f98f4775', 'nmdc:cffcc9abadf279d58e66a0187a70a3a3', 'nmdc:24fc8d8ed9c33f94717802247d694f83', 'nmdc:81e52ea39b2381ea8b24b1fd0323f629', 'nmdc:6e1c215b00689271342662b05c6ae896']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-q17x6w88, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:f204237e222495935a71b1732d782fe4
+WARNING:__main__:workflow_record: nmdc:fab16be0d832a30e82eec1d822330507, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga08kx682
+WARNING:__main__:has_input: ['nmdc:f204237e222495935a71b1732d782fe4']
+WARNING:__main__:has_output: ['nmdc:f8d6bc052b33a65aacea0586c73bc8d3', 'nmdc:d7721bcedefdc31b34a23aa450ce6fbd']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-09vha881, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:e29806decb9083df4c730e80000b6201
+WARNING:__main__:workflow_record: nmdc:52befc9a6ede621ad9134d09e2c51be5, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0rjtf11
+WARNING:__main__:has_input: ['nmdc:e29806decb9083df4c730e80000b6201']
+WARNING:__main__:has_output: ['nmdc:00980ec0a65c67b1958a0f375b1d1e21', 'nmdc:560218b92247b7f705aa20e6d99546ef']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-yp178c35, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:52befc9a6ede621ad9134d09e2c51be5, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0rjtf11
+WARNING:__main__:has_input: ['nmdc:0e1ccb18f7cbb3bd66e750ac3c12a4bc', 'nmdc:324184891203953d1b761e5e86a04439', 'nmdc:4d9f6d404eee7be6beac46874ce1c3c0']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:0b2e835d47f250d5c739634d99741f69', 'nmdc:8358522b00afe400ac1241530fda0f03', 'nmdc:acbb71507785d6162b6a32d278497f4d', 'nmdc:9426f499d605e1c39bcdca9167fcecb6', 'nmdc:74884e6a3078a5089cb644ed2ce2a1f8']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-yp178c35, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:e3902e2cd135f1c013098395894a8945
+WARNING:__main__:workflow_record: nmdc:d42cfd254896d482d2e3f38ded28fbbf, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga076j492
+WARNING:__main__:has_input: ['nmdc:e3902e2cd135f1c013098395894a8945']
+WARNING:__main__:has_output: ['nmdc:bcb807a9994c453654f505dbc583e580', 'nmdc:bcb7757bc3799bc678c4783981fa786a']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-9jw2cy65, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:f165e5c6cfdb31df3fd5902583afa989
+WARNING:__main__:workflow_record: nmdc:0413a8d75657c3b560e9366414b0c4ff, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0v5kb53
+WARNING:__main__:has_input: ['nmdc:f165e5c6cfdb31df3fd5902583afa989']
+WARNING:__main__:has_output: ['nmdc:634714bba73881fd251c9d7748bc6276', 'nmdc:5b50eb12ade75e8808034365f176a897']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-zaxsm356, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:7481a06f336da3f83224a7a0cce884d1
+WARNING:__main__:workflow_record: nmdc:8751b0c2d69286b3c0999de98659702b, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0r3w742
+WARNING:__main__:has_input: ['nmdc:7481a06f336da3f83224a7a0cce884d1']
+WARNING:__main__:has_output: ['nmdc:294d235e6ea64fe8e1488cbb258f1750', 'nmdc:c08fe81476b67614924c7fd170b257d8']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-ht6zfn30, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:38bae15a3c466cd8073085e54998f6f8
+WARNING:__main__:workflow_record: nmdc:397d09d100dd3e38fe0a720510d8eb8b, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga021f738
+WARNING:__main__:has_input: ['nmdc:38bae15a3c466cd8073085e54998f6f8']
+WARNING:__main__:has_output: ['nmdc:d0e91ab3f95dc52be37c14bf2f73b282', 'nmdc:4ebf10c034e4970965f53673be1ef13a']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-szqrn945, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:f408ebf60b5e42b9b0d600b95f6a489d
+WARNING:__main__:workflow_record: nmdc:68c39762175f1aff3269fcb52d09fd8d, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga06gxg42
+WARNING:__main__:has_input: ['nmdc:f408ebf60b5e42b9b0d600b95f6a489d']
+WARNING:__main__:has_output: ['nmdc:2f44939cfa6bf4a2854e023c50984d8b', 'nmdc:82388575727f7ce124ecbb6e94633234']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-tzzm8x88, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:369be15c709557b137c6ad6994ced3e4
+WARNING:__main__:workflow_record: nmdc:6dfdf838817c96138022176ec33de297, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324007
+WARNING:__main__:has_input: ['nmdc:369be15c709557b137c6ad6994ced3e4']
+WARNING:__main__:has_output: ['nmdc:371b3dfa9aeed37635869f677946db76', 'nmdc:8b3f45d3fe45663d015b00b497623413', 'nmdc:79dd5d2ff557659324f7babca6171348', 'nmdc:9c87b1c29d828bdc93faf34c327bde5f', 'nmdc:38b88242b0c5067f1aa1af66656874cc']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-j3p6wr33, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:369be15c709557b137c6ad6994ced3e4
+WARNING:__main__:workflow_record: nmdc:4da086e85617558336ba4914f6c8ab4b, nmdc:metaT, metaT activity for gold:Gp0324007
+WARNING:__main__:has_input: ['nmdc:eee43f1602f7eb54d87c3729f213e637']
+WARNING:__main__:has_output: ['nmdc:369be15c709557b137c6ad6994ced3e4', 'nmdc:2adb1c1d08fdedb4aa4faa205b837ad3', 'nmdc:95210ee65649c6a569e2e54656af6232', 'nmdc:cad013e08e75f180fbc180e80387ed35']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-j3p6wr33, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:06daac7609d98f3ad36f001865dd7dbb
+WARNING:__main__:workflow_record: nmdc:b2f6b2cf59b449e1fa438b0334f14d28, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0dkaf15
+WARNING:__main__:has_input: ['nmdc:06daac7609d98f3ad36f001865dd7dbb']
+WARNING:__main__:has_output: ['nmdc:72449959751e18d5ff5a51a7ce28479e', 'nmdc:37909f83dc6fe3cf2bb254578c9f7598']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-nq045s62, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:b2f6b2cf59b449e1fa438b0334f14d28, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0dkaf15
+WARNING:__main__:has_input: ['nmdc:6388f1738ce99ea3eae3cbb237e93493', 'nmdc:2758960c061b30e0a2afb300cfbe9b03', 'nmdc:524203c279382b90f6b1fa91a241c900']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:bcdb64166995417e582c805a95347724', 'nmdc:5ec38380a55350e8c6baca4f278099eb', 'nmdc:06e867a019989dee54d8904171a7bdcf', 'nmdc:a74cda09a271cff32dc746043a4cd76c', 'nmdc:82319414509cb49fb3a1dcd8bf5bc228']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-nq045s62, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:32e85d50051c85bafb4506931133c9cc
+WARNING:__main__:workflow_record: nmdc:09507c5a9789ec3e8d233ca37acd0af3, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga09wys77
+WARNING:__main__:has_input: ['nmdc:32e85d50051c85bafb4506931133c9cc']
+WARNING:__main__:has_output: ['nmdc:339fa50c761894f9778d7808583c8eb8', 'nmdc:a616de3bc4e69358d872e54bc9e78815']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-555y6a80, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:e6d51bf3b0535eae79c83a08dc5f2aac
+WARNING:__main__:workflow_record: nmdc:42ac9411b1f6faf436df37bec6a4b4b5, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0nzm789
+WARNING:__main__:has_input: ['nmdc:e6d51bf3b0535eae79c83a08dc5f2aac']
+WARNING:__main__:has_output: ['nmdc:ef44a36ed6e729df6d001439d81a465d', 'nmdc:01a4054d1d18bd416b54ac00d9c9bffa']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-j73sfq18, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:35280ee871ca08e52849a30f18c497b0
+WARNING:__main__:workflow_record: nmdc:a2eaeceb2f0a6b07083bdffd24e5f713, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324010
+WARNING:__main__:has_input: ['nmdc:35280ee871ca08e52849a30f18c497b0']
+WARNING:__main__:has_output: ['nmdc:c11102fb2ee153ad5470abf7b419e12b', 'nmdc:2294751444e1f9a8e00ac11dbe3274ca', 'nmdc:8c7af7e2c448b446e93a982193206e51', 'nmdc:5c96a18b1fbf6a0174689e8f1f82b504', 'nmdc:9675c0b5235b3d814b9e9a6fa644cd60']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-rykwdc49, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:35280ee871ca08e52849a30f18c497b0
+WARNING:__main__:workflow_record: nmdc:18c16f90bbe0d16dc1eceb9f548674b8, nmdc:metaT, metaT activity for gold:Gp0324010
+WARNING:__main__:has_input: ['nmdc:80d9193ba61481a1101f4372beadbf24']
+WARNING:__main__:has_output: ['nmdc:35280ee871ca08e52849a30f18c497b0', 'nmdc:4730bd9ce56df101cac1ab26951dce20', 'nmdc:9b9a71df665fef1acdfbb0a3360dbab0', 'nmdc:10f05b665c93ff07548a0b46ea28b4ff']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-rykwdc49, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:8ec141e339b4bedc49fbef7236422bec
+WARNING:__main__:workflow_record: nmdc:1993a481f92d491d0550ae7c97233164, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324009
+WARNING:__main__:has_input: ['nmdc:8ec141e339b4bedc49fbef7236422bec']
+WARNING:__main__:has_output: ['nmdc:e0adf4c8e73c87faaff185a4338aa323', 'nmdc:62f6e9a15c81a4e3fad8e21c2220ee8b', 'nmdc:a290f058d7de111bbb71d2ae6991346e', 'nmdc:d6bcf05eae370d2ccdde245766543bc6', 'nmdc:b5fafe493981cff782b183f43d8ec934']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-d70pma65, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:8ec141e339b4bedc49fbef7236422bec
+WARNING:__main__:workflow_record: nmdc:551df525ca7e42247496a78f06bf3d2a, nmdc:metaT, metaT activity for gold:Gp0324009
+WARNING:__main__:has_input: ['nmdc:b05f47e615262874a65ada3245461db0']
+WARNING:__main__:has_output: ['nmdc:8ec141e339b4bedc49fbef7236422bec', 'nmdc:8a4970f4f79d35b29f2c44efbb3264b9', 'nmdc:30bb1a36fa7c20f4133ae54e3ff0fb6d', 'nmdc:fe62845b55f6eaca8c6c723cec179fe8']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-d70pma65, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:3d2cc3c5ba651c5f92302ee5c1c0d36b
+WARNING:__main__:workflow_record: nmdc:c7e6625c228fb16c512a0ceefd10fdcf, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324006
+WARNING:__main__:has_input: ['nmdc:3d2cc3c5ba651c5f92302ee5c1c0d36b']
+WARNING:__main__:has_output: ['nmdc:8c7488ec77a53cfe84dac3d0a4a251d5', 'nmdc:19ba48345e1e1c99913a42d7b7984084', 'nmdc:d6a8495af128bfce1e1dd5a3a8f51102', 'nmdc:a360c42d1403084110719be0d6d8d47a', 'nmdc:b47043e6401a909c5c162523012c5df4']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-jfmda763, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:3d2cc3c5ba651c5f92302ee5c1c0d36b
+WARNING:__main__:workflow_record: nmdc:36fc337d854ea6b3b72a34efc7d082ce, nmdc:metaT, metaT activity for gold:Gp0324006
+WARNING:__main__:has_input: ['nmdc:3572c83a31e0e5b8aa3c17b06a6e82cc']
+WARNING:__main__:has_output: ['nmdc:3d2cc3c5ba651c5f92302ee5c1c0d36b', 'nmdc:769a37fa30f0242c0487398499f5dd77', 'nmdc:97e5ab988242d8ee43bea06b3699ffaf', 'nmdc:3180cab32153be7581a10ad54bf6696e']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-jfmda763, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:c4d4bc7ac1fbd3e332406515304491f9
+WARNING:__main__:workflow_record: nmdc:5f54bdb753d1a7ad34dc79e61b3ed0fa, nmdc:ReadQCAnalysisActivity, Read QC Activity for nmdc:mga0pqkj47
+WARNING:__main__:has_input: ['nmdc:c4d4bc7ac1fbd3e332406515304491f9']
+WARNING:__main__:has_output: ['nmdc:980df32344846eb981502e71af93c85f', 'nmdc:3a1a4fe78b3dd03f097792fcd1e30305']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-syptzp44, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e
+WARNING:__main__:workflow_record: nmdc:5f54bdb753d1a7ad34dc79e61b3ed0fa, nmdc:MAGsAnalysisActivity, MAGs Analysis Activity for nmdc:mga0pqkj47
+WARNING:__main__:has_input: ['nmdc:c257d821b1452edef4e3fe35cf0af6da', 'nmdc:8cbadcf596614f4d78317091c7784ea9', 'nmdc:042073590939b59053afc5b32750a3c6']
+WARNING:__main__:has_output: ['nmdc:d41d8cd98f00b204e9800998ecf8427e', 'nmdc:75bf5ad3fb0dc99ba93baa2b88841a92', 'nmdc:e0e1a522ae56c12fecfa052bb07c99b2', 'nmdc:f2831bc4ad1709b98ca2602acdf927e6', 'nmdc:2a43b73694d9a716e042b8d958a203b7', 'nmdc:715afbc6d044f0f27fd1217fad306842']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-syptzp44, Metagenome
+WARNING:__main__:DataObjectNotFound nmdc:957a5665e44143eea0c3a99b5665a51d
+WARNING:__main__:workflow_record: nmdc:a96c1578090a15845e5920f52dc01a44, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324035
+WARNING:__main__:has_input: ['nmdc:957a5665e44143eea0c3a99b5665a51d']
+WARNING:__main__:has_output: ['nmdc:ce42394e8258158bfed53a8eb36abf9e', 'nmdc:5c31921b8cc256af347c96f0f3bae5fb', 'nmdc:15f811903f4818f3ebcc659fad4f314b', 'nmdc:e75c21f16fd4945cacc7b67ef5fcee48', 'nmdc:f199533bfc94d39e60c95c13efadf95a']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-4rcmsj76, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:957a5665e44143eea0c3a99b5665a51d
+WARNING:__main__:workflow_record: nmdc:aa1d34caac3be3d5e73569a3f475ef9f, nmdc:metaT, metaT activity for gold:Gp0324035
+WARNING:__main__:has_input: ['nmdc:0ef28c74fb7d7fcc7c1c1a0ef0d87326']
+WARNING:__main__:has_output: ['nmdc:957a5665e44143eea0c3a99b5665a51d', 'nmdc:13aa8beee76cfe626fd0387011647103', 'nmdc:890326c9819489d16b8c220beb1acbfd', 'nmdc:70190d8cb7fda43907d4d76d78ae32bd']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-4rcmsj76, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:fcc5bd82615fab43bb54006632862521
+WARNING:__main__:workflow_record: nmdc:34472e64c7f249a6e1f2b0f9445b89d6, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324036
+WARNING:__main__:has_input: ['nmdc:fcc5bd82615fab43bb54006632862521']
+WARNING:__main__:has_output: ['nmdc:da4820355c96d6e07432d6e3c73cf0e3', 'nmdc:6a681d736f05ceda84dd6794b91e492e', 'nmdc:cdd92fcbc8f886b03e916a4cc3ce5d5d', 'nmdc:52f62ff6a8bf9f2fa990c7833bf917f8', 'nmdc:bf80f6977cb32659cc227c17a1bb1002']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-5011mw53, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:fcc5bd82615fab43bb54006632862521
+WARNING:__main__:workflow_record: nmdc:ce28f6d5264c2669a19ed786d8e76ba6, nmdc:metaT, metaT activity for gold:Gp0324036
+WARNING:__main__:has_input: ['nmdc:b42bcd31c0f3314c936cb306dcdb1c89']
+WARNING:__main__:has_output: ['nmdc:fcc5bd82615fab43bb54006632862521', 'nmdc:868bcc87e358228330a2a151b75ca209', 'nmdc:7bd1bba9c97db33619c0eac988f55598', 'nmdc:030808cbe8122404987a9a39540b8803']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-5011mw53, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:8f6ed75bd49fa03502adbd7ec7c55a09
+WARNING:__main__:workflow_record: nmdc:07ee3c5a879a27d082ee3e6f3518ca1b, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324033
+WARNING:__main__:has_input: ['nmdc:8f6ed75bd49fa03502adbd7ec7c55a09']
+WARNING:__main__:has_output: ['nmdc:3ea20a0e1065c3fb220304961c16220d', 'nmdc:dc174a64d99735754a490cb0a7477a7c', 'nmdc:de880213ecda64a020b441ed39fec8fe', 'nmdc:1701d11eff72da4ff4391c0eec9754d5', 'nmdc:ccc57fd349c767e650109bfcb422f9c1']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-ba6mgx04, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:8f6ed75bd49fa03502adbd7ec7c55a09
+WARNING:__main__:workflow_record: nmdc:835a086fbd66902932f9747bb0a4aaa7, nmdc:metaT, metaT activity for gold:Gp0324033
+WARNING:__main__:has_input: ['nmdc:8f853b4332de68f3e45a2986980b279b']
+WARNING:__main__:has_output: ['nmdc:8f6ed75bd49fa03502adbd7ec7c55a09', 'nmdc:1bf3ecbb7e900055c54119a8eeeca5fb', 'nmdc:d98c2ddd584dad01799d7604664ae71e', 'nmdc:48504eafd6d1bcfebb8abe4c69cdff14']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-ba6mgx04, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:af403f9e2180b4ee5f0d536f6130a50d
+WARNING:__main__:workflow_record: nmdc:8c59b25253e4a63f0731b74909855e43, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324034
+WARNING:__main__:has_input: ['nmdc:af403f9e2180b4ee5f0d536f6130a50d']
+WARNING:__main__:has_output: ['nmdc:df89915c9af3f9bf4cf3eaa7fcc4e781', 'nmdc:4ba580d35ebbacdd61dcf38f0efaa5d2', 'nmdc:fba9cf71c7e014e379cfd9eccc235ef7', 'nmdc:22bfbb1f580d09ec2533f9da5ab1ad7b', 'nmdc:f63d0492f1b94f962870177812291a4d']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-y4ee1829, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:af403f9e2180b4ee5f0d536f6130a50d
+WARNING:__main__:workflow_record: nmdc:d656258f90d36cab30b3e7467b945342, nmdc:metaT, metaT activity for gold:Gp0324034
+WARNING:__main__:has_input: ['nmdc:f5cab2a9245ae8c3b2a96eeaa9c48bfc']
+WARNING:__main__:has_output: ['nmdc:af403f9e2180b4ee5f0d536f6130a50d', 'nmdc:4c75fee914dccf1d4f0c980b268dd246', 'nmdc:eb854743ead9f8e2b91528877551bc17', 'nmdc:12d494f22c676524537ba98733679f94']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-y4ee1829, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:fddf8cd12a559ba5c1dc7749ea6ffadb
+WARNING:__main__:workflow_record: nmdc:567e35cfffbc1e0ebc1e2c781ce726e3, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324038
+WARNING:__main__:has_input: ['nmdc:fddf8cd12a559ba5c1dc7749ea6ffadb']
+WARNING:__main__:has_output: ['nmdc:103e68b77fdade3bed75ed960fa0600b', 'nmdc:f87a7fb9b56919637a310e10d0de9158', 'nmdc:7abb0722f447e0bd10a167427baaba52', 'nmdc:e4baa40c20b579766e7e635186ee13e1', 'nmdc:94234da5f78c857e82a597f6c8696ad2']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-7ar08g52, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:c8d6693287398701b91c4d194856d0f3
+WARNING:__main__:workflow_record: nmdc:ff1fe327ab9d07ae8affd29e3dbef16c, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324037
+WARNING:__main__:has_input: ['nmdc:c8d6693287398701b91c4d194856d0f3']
+WARNING:__main__:has_output: ['nmdc:3535f0006246ef9de6625ca968721003', 'nmdc:29be10bfedd1dae7f7f03658f19dd8b2', 'nmdc:d55d7ef47aaabbd1c7235b489a38cdd5', 'nmdc:1e4d2119e95c8bb161aa5bccb2bdfd95', 'nmdc:a42cc9a144fc675cdcb0c11cfb723887']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-w0h23x97, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:c8d6693287398701b91c4d194856d0f3
+WARNING:__main__:workflow_record: nmdc:c2c77ec3a7535421c0589422f7155af8, nmdc:metaT, metaT activity for gold:Gp0324037
+WARNING:__main__:has_input: ['nmdc:bb780f2bd825acd8e232d78f570f9bfc']
+WARNING:__main__:has_output: ['nmdc:c8d6693287398701b91c4d194856d0f3', 'nmdc:81b95edbf7bc629a883e5485e896c98c', 'nmdc:5968b0198d30a6b7caff8bb8b988da5d', 'nmdc:7d93ba005e4216c1b53c37345762731c']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-w0h23x97, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:7455b386b754925ce055f8f585f6242c
+WARNING:__main__:workflow_record: nmdc:e1952aad2afebadbac8eb462b6a84d2b, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324039
+WARNING:__main__:has_input: ['nmdc:7455b386b754925ce055f8f585f6242c']
+WARNING:__main__:has_output: ['nmdc:3adb2b20d695914416a87966887600c4', 'nmdc:3e6da90d34455517870460bcf382eaf5', 'nmdc:b4c8c0d3f27b033097b6b194123ce055', 'nmdc:d377688ba7146e25d5efeacb7e402d31', 'nmdc:8da5c19e0e7f9c3d718c281353a3bff4']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-z1s54m71, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:7455b386b754925ce055f8f585f6242c
+WARNING:__main__:workflow_record: nmdc:59b9b65a44178f6e84574a7d2188dbfb, nmdc:metaT, metaT activity for gold:Gp0324039
+WARNING:__main__:has_input: ['nmdc:2170eef5b4469483a8bed26bb773f5b7']
+WARNING:__main__:has_output: ['nmdc:7455b386b754925ce055f8f585f6242c', 'nmdc:879c00c000a1fbfbf94afd998d4169ed', 'nmdc:dbc2829a4cbcd4236776e161a3970bb9', 'nmdc:cf45418e3e01b80f426f9167be70e123']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-z1s54m71, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:7e0bb15dc62ea4a5ae94f51af347129f
+WARNING:__main__:workflow_record: nmdc:647b163bdcb9528b8dcc8ab9b506c957, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324040
+WARNING:__main__:has_input: ['nmdc:7e0bb15dc62ea4a5ae94f51af347129f']
+WARNING:__main__:has_output: ['nmdc:7796820582563a8b3867de9554b1a8ac', 'nmdc:1fd680ec996ea2043fd34468e5c3464a', 'nmdc:dca7ca0cc779868ceac63aa3af6a3070', 'nmdc:c177fd732e25dda4d2afa10159e8d0b4', 'nmdc:b09c3cd4ad025e106e51f3234bf3850f']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-mxb1jp80, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:5e220105f8713dbb00a38eb3013b0f93
+WARNING:__main__:workflow_record: nmdc:fe98163e86002958865b1a9d24abc6c7, nmdc:metaT, metaT activity for gold:Gp0324040
+WARNING:__main__:has_input: ['nmdc:5e220105f8713dbb00a38eb3013b0f93\n']
+WARNING:__main__:has_output: ['nmdc:5e81b6549123027d1b7b9f439bbd1cd0', 'nmdc:683952b4d96ca39493dcd52097f34818', 'nmdc:a3a595db2fefdc1cc6e79cc2e7ef6656', 'nmdc:cff7208edcdc96d1ea22c745319ce084']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-mxb1jp80, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:5e81b6549123027d1b7b9f439bbd1cd0
+WARNING:__main__:workflow_record: nmdc:fe98163e86002958865b1a9d24abc6c7, nmdc:metaT, metaT activity for gold:Gp0324040
+WARNING:__main__:has_input: ['nmdc:5e220105f8713dbb00a38eb3013b0f93\n']
+WARNING:__main__:has_output: ['nmdc:5e81b6549123027d1b7b9f439bbd1cd0', 'nmdc:683952b4d96ca39493dcd52097f34818', 'nmdc:a3a595db2fefdc1cc6e79cc2e7ef6656', 'nmdc:cff7208edcdc96d1ea22c745319ce084']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-mxb1jp80, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:61f06a2309788ded26b1fdec53ca3791
+WARNING:__main__:workflow_record: nmdc:dbce99ec57e05f3ff39af0223e3dbfee, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324043
+WARNING:__main__:has_input: ['nmdc:61f06a2309788ded26b1fdec53ca3791']
+WARNING:__main__:has_output: ['nmdc:97cbc414ea5cf62c13026356f14b3db1', 'nmdc:1a83ec15121ab3db6b225fcb22c9f1f6', 'nmdc:69a5be2f025ea1e56a16b6ce3e5c25a2', 'nmdc:c557e07059a8da7a6aa8d57ae96f02ea', 'nmdc:b033e7fbd2045df551160b6942586a27']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-qb8k6k57, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:61f06a2309788ded26b1fdec53ca3791
+WARNING:__main__:workflow_record: nmdc:49604d2dc699750601a836e3a1ba7dea, nmdc:metaT, metaT activity for gold:Gp0324043
+WARNING:__main__:has_input: ['nmdc:26a90b45998a3ac9ba4e93997f7dc6f0']
+WARNING:__main__:has_output: ['nmdc:61f06a2309788ded26b1fdec53ca3791', 'nmdc:5efbf445fa5911b90c439c6762608c62', 'nmdc:f9d892caa520b5e95fbb380005132b38', 'nmdc:b534e57b07bd7cb373902e137f53ecbf']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-qb8k6k57, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:6a455b07be6e9c6b3f0631858a8ade17
+WARNING:__main__:workflow_record: nmdc:0e9fb1e720caf88f61ab8bc4d866af7e, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324044
+WARNING:__main__:has_input: ['nmdc:6a455b07be6e9c6b3f0631858a8ade17']
+WARNING:__main__:has_output: ['nmdc:2ac6dc3b3e885520db0e4604c641cde3', 'nmdc:a17065ca9209cb2774e2364c6d4a4e09', 'nmdc:6d6bc7279ced7706d60024621e3bd32f', 'nmdc:50f2fe8d10b7f498c092ad58d84566e9', 'nmdc:1aa4f17a80bf5f1783b044261bd0122e']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-54pp5g62, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:6a455b07be6e9c6b3f0631858a8ade17
+WARNING:__main__:workflow_record: nmdc:907923dbfcf87f9b05df0162bd1e3152, nmdc:metaT, metaT activity for gold:Gp0324044
+WARNING:__main__:has_input: ['nmdc:2b41779af6652f18feafe5141d17e9cf']
+WARNING:__main__:has_output: ['nmdc:6a455b07be6e9c6b3f0631858a8ade17', 'nmdc:b607e4866c60542397ea2b637a9f031b', 'nmdc:3b196dcf0807861e7346e3a26f7fa4ee', 'nmdc:3b956715f694921287c5533cf4802e8c']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-54pp5g62, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:88c54f9cd321218cfecdd844c999f402
+WARNING:__main__:workflow_record: nmdc:7a119c050961e0618c731187dba892a5, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324042
+WARNING:__main__:has_input: ['nmdc:88c54f9cd321218cfecdd844c999f402']
+WARNING:__main__:has_output: ['nmdc:b605373b106a2e3536c62e37813d7547', 'nmdc:dd8a222d4fa547d717ec4e9f6582271e', 'nmdc:cf03768bfe35b748b30dd92ab266a64c', 'nmdc:2dd870d4df455dc1fc4b7681504dfa6c', 'nmdc:3a18fc8c9a7e618481aaadd42d48b13d']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-q1m33136, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:88c54f9cd321218cfecdd844c999f402
+WARNING:__main__:workflow_record: nmdc:c3ef1ce6d3da9d6161bf4a50a4d6ce38, nmdc:metaT, metaT activity for gold:Gp0324042
+WARNING:__main__:has_input: ['nmdc:a65add357395ca8433c08fecad9297f6']
+WARNING:__main__:has_output: ['nmdc:88c54f9cd321218cfecdd844c999f402', 'nmdc:8d9889a5848d9af49f1aceb3db9c6790', 'nmdc:32ba8f83e4f963be68b1aa49131884a8', 'nmdc:137797610e93dae8787f5a95bbb76571']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-q1m33136, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:957600e89955173435e9b35666e3f1d5
+WARNING:__main__:workflow_record: nmdc:f19f53cba21dcecfd7c8fc0feac2277c, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324047
+WARNING:__main__:has_input: ['nmdc:957600e89955173435e9b35666e3f1d5']
+WARNING:__main__:has_output: ['nmdc:419c3b17f2b6512b8d1d576c783d75c3', 'nmdc:ef5eac2c523132919b615b870f6b3f9f', 'nmdc:fdaededc1d74fb2e9504f774ee86d6f8', 'nmdc:5361078cf9266919c57cfc2e88b1618c', 'nmdc:14e3487aac29a000ebb6d33360670be1']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-3c97ej85, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:957600e89955173435e9b35666e3f1d5
+WARNING:__main__:workflow_record: nmdc:22aa0822c84f3d434517336c90a9454a, nmdc:metaT, metaT activity for gold:Gp0324047
+WARNING:__main__:has_input: ['nmdc:f5b40a411a6ed0665d024e3fddce1cb2']
+WARNING:__main__:has_output: ['nmdc:957600e89955173435e9b35666e3f1d5', 'nmdc:4dfa358dcf098e2086367df3c5c2f3b1', 'nmdc:06a6e7ced5a389c11ce9b4ce097aa80a', 'nmdc:539709d14dd219803ac41ddeb40b4108']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-3c97ej85, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:8c96c0ddd734b2d7c3355a85fb478727
+WARNING:__main__:workflow_record: nmdc:ce0717d5f24e153fe33a42fec43b026b, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324048
+WARNING:__main__:has_input: ['nmdc:8c96c0ddd734b2d7c3355a85fb478727']
+WARNING:__main__:has_output: ['nmdc:9872adb5860c3e9e69beeed52fd7bbc0', 'nmdc:633629db03eb4342d40f504000c9d597', 'nmdc:997e948b917dc597f65c7cbfc32c5487', 'nmdc:3ba647f2acf00211fda1b2d34f7ca8a2', 'nmdc:beae090f131c8b2065413fad4ea3f17b']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-9ym4dz61, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:8c96c0ddd734b2d7c3355a85fb478727
+WARNING:__main__:workflow_record: nmdc:cced94486ace30049db6f901c1371c36, nmdc:metaT, metaT activity for gold:Gp0324048
+WARNING:__main__:has_input: ['nmdc:183ad11a97192d880c301228b52c219c']
+WARNING:__main__:has_output: ['nmdc:8c96c0ddd734b2d7c3355a85fb478727', 'nmdc:2cc64ff1380e4d096ba4eab74faeff06', 'nmdc:e050b599021abf0172aed3a5012abf81', 'nmdc:37fb25a011219a3f453842671cbc58d6']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-9ym4dz61, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:18b8afd638a9bb80a633f138150b7edd
+WARNING:__main__:workflow_record: nmdc:5c7d758a1ae4be3debf95de04fc0e50b, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324041
+WARNING:__main__:has_input: ['nmdc:18b8afd638a9bb80a633f138150b7edd']
+WARNING:__main__:has_output: ['nmdc:9c5feab6778f85ae38098882b8dd54ee', 'nmdc:a64c8082e9c340b8ad61fb8f6dbc727f', 'nmdc:952a0d6ab1a7a835c670af6b3a463b83', 'nmdc:50249816c1fc21744e57741221f409a9', 'nmdc:be9f2577bd71dc3c61c3def3d337795c']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-rmc37633, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:18b8afd638a9bb80a633f138150b7edd
+WARNING:__main__:workflow_record: nmdc:6458a1f7a0068045170d96c3a1822f28, nmdc:metaT, metaT activity for gold:Gp0324041
+WARNING:__main__:has_input: ['nmdc:7ef4dc1aaa3f4824d1b476cb117cb0ec']
+WARNING:__main__:has_output: ['nmdc:18b8afd638a9bb80a633f138150b7edd', 'nmdc:d3ae400f0200e0e6ed234c1c2c2d3ff2', 'nmdc:0e6a65f468ae640a5df0cafc49c5ad02', 'nmdc:a8f4b128eb3b3838c8f8ab4148f7365f']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-rmc37633, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:ee594da0ca22271208e72ed9480b9878
+WARNING:__main__:workflow_record: nmdc:6aa6cb8058330eddc3c4ffe2418f96e2, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324050
+WARNING:__main__:has_input: ['nmdc:ee594da0ca22271208e72ed9480b9878']
+WARNING:__main__:has_output: ['nmdc:a0b710db31ab33a55dbbbd640c0efe5f', 'nmdc:aab01affc56803f5a36175e43f4b43d8', 'nmdc:8e42161d996537a9c77c7ed0729efd6e', 'nmdc:7f98b506aa7e320f0a88101050198b79', 'nmdc:e2ad7b09ecce86bc9c3733af7c87cff2']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-cqfz4c71, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:ee594da0ca22271208e72ed9480b9878
+WARNING:__main__:workflow_record: nmdc:0b68b5981874783436ecd3461d3672a6, nmdc:metaT, metaT activity for gold:Gp0324050
+WARNING:__main__:has_input: ['nmdc:4060add18e978ab0b6664c97439e16ea']
+WARNING:__main__:has_output: ['nmdc:ee594da0ca22271208e72ed9480b9878', 'nmdc:1ef396dd78ef4b9fd9cb50723b10fb2c', 'nmdc:4d18c6e01982ffea0306606ce840f9fb', 'nmdc:d3650b9a7a8a01ad6023bf7a2b222aa2']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-cqfz4c71, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:fd4e4871caef5352801a0d58b2fc5727
+WARNING:__main__:workflow_record: nmdc:63bb43ea7f71db994f4c21b5d2ca7c3e, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324049
+WARNING:__main__:has_input: ['nmdc:fd4e4871caef5352801a0d58b2fc5727']
+WARNING:__main__:has_output: ['nmdc:b686e26f402ac333931315d3f3a89d8f', 'nmdc:d01a37a1b3bdf16d02d84ab67a9f052d', 'nmdc:01b2faabe8d1b375c457f15b9011ca79', 'nmdc:f0b6c9972d6ef9cb56915bbff272f711', 'nmdc:ce9d4d856d7f6498587ef9a046d63cd6']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-4gg8sk49, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:fd4e4871caef5352801a0d58b2fc5727
+WARNING:__main__:workflow_record: nmdc:62a2fedbe461262eca0af847b1556b5d, nmdc:metaT, metaT activity for gold:Gp0324049
+WARNING:__main__:has_input: ['nmdc:d5e596a5b7fa5c313a2955a7844d9d91']
+WARNING:__main__:has_output: ['nmdc:fd4e4871caef5352801a0d58b2fc5727', 'nmdc:71f86d611030ffbc071a6ce8bcb7a8a9', 'nmdc:37f43cc5c09636f2795507a5bc76ecbd', 'nmdc:7fbd8d476fc8ec0b67c3ca3b8842cf3a']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-4gg8sk49, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:753162645bb37b64f3ef9c0b2ca8a935
+WARNING:__main__:workflow_record: nmdc:cf6b096e809a5e4c4718da5553686651, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324053
+WARNING:__main__:has_input: ['nmdc:753162645bb37b64f3ef9c0b2ca8a935']
+WARNING:__main__:has_output: ['nmdc:e146ddbd123fc8cba5a781d0af1097ec', 'nmdc:43683c7286654719cbb1c49fe8fa711d', 'nmdc:5695b4f28947879af29316a50f55e3fb', 'nmdc:65fc306b77a0d8ba9d7c7d657ee59ada', 'nmdc:371f0191548ed9b7eb797d3b0c14e7a5']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-rycc3349, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:753162645bb37b64f3ef9c0b2ca8a935
+WARNING:__main__:workflow_record: nmdc:2d7c075332d5f2295437b76f00f5f7d1, nmdc:metaT, metaT activity for gold:Gp0324053
+WARNING:__main__:has_input: ['nmdc:eef5fb567bef95195bcbd2a19cbb112e']
+WARNING:__main__:has_output: ['nmdc:753162645bb37b64f3ef9c0b2ca8a935', 'nmdc:164b60e63f42c254a63ab4fdcc99655f', 'nmdc:1e9af9e1ba511b86afd37c1675d4ba55', 'nmdc:9ead1d11cc61d29abc7c45bb1b05824d']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-rycc3349, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:b8f11f271313ebce716edfe8a9650118
+WARNING:__main__:workflow_record: nmdc:a1447564a93994425b47569f4110dce3, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324046
+WARNING:__main__:has_input: ['nmdc:b8f11f271313ebce716edfe8a9650118']
+WARNING:__main__:has_output: ['nmdc:caa2bd7468ff18859cd3cdcf49f90c3c', 'nmdc:49968eed1d5559cc564de756381442a6', 'nmdc:dfab56b4779d1cb8f54656c849f4f2d0', 'nmdc:0b939e0987350f56d9365135df0a2757', 'nmdc:4533d67411b40c56cc39da255c8b3fc9']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-38taxr04, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:b8f11f271313ebce716edfe8a9650118
+WARNING:__main__:workflow_record: nmdc:ed88ffb0233fb3e49d716bb9112ed1d8, nmdc:metaT, metaT activity for gold:Gp0324046
+WARNING:__main__:has_input: ['nmdc:7a02186d6f24d4dfa94c7ca9820e9dfb']
+WARNING:__main__:has_output: ['nmdc:b8f11f271313ebce716edfe8a9650118', 'nmdc:d7bee0c012323e13610c9ede8025e5f5', 'nmdc:d124eb879d069373638ba78a03bc0ebe', 'nmdc:9ff8854c13f3b7a079492549943b6df2']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-38taxr04, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:03c49b063726126a4526bc96c3f03078
+WARNING:__main__:workflow_record: nmdc:530593ca6433c5a14a82f66f99837e84, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324052
+WARNING:__main__:has_input: ['nmdc:03c49b063726126a4526bc96c3f03078']
+WARNING:__main__:has_output: ['nmdc:12f06d2df9975569fe59847e7bf9756c', 'nmdc:183f22446c85d3f0a2b232ef56224b03', 'nmdc:9c5ae627743f16fd3d07eb7f03f33587', 'nmdc:1774e46fe93cd929a5ae5cf214c58dad', 'nmdc:0b215114120e6e19bf5e0dce8fd0dc3d']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-vxewmh98, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:03c49b063726126a4526bc96c3f03078
+WARNING:__main__:workflow_record: nmdc:369043425a2ce67674644d6044224451, nmdc:metaT, metaT activity for gold:Gp0324052
+WARNING:__main__:has_input: ['nmdc:ccfd1fdd8f0d4d0779f27c51d3c9b594']
+WARNING:__main__:has_output: ['nmdc:03c49b063726126a4526bc96c3f03078', 'nmdc:f7373922ee4981e36eb86e3acd77ff68', 'nmdc:8d37e1afe8f5adcdca4359d8ec9ada44', 'nmdc:dec3a65cd3d543a85c5a87f544215ed2']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-vxewmh98, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:6f83c763978b8cfccd1dbc3c1fff4976
+WARNING:__main__:workflow_record: nmdc:51880e32d7564747a46f00854e071d32, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324051
+WARNING:__main__:has_input: ['nmdc:6f83c763978b8cfccd1dbc3c1fff4976']
+WARNING:__main__:has_output: ['nmdc:cee211856400b7116369a4e97a7ca4d6', 'nmdc:54971a8537769c42292f244f87104fe1', 'nmdc:bbc9d4625db044c14edcfee2f44e2192', 'nmdc:872059b4891bd553927fe13283b43506', 'nmdc:a902d37dbd3acad785ee6847d3b0f772']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-m49gbh37, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:157f619acb8d1af497dbd311bb0129e0
+WARNING:__main__:workflow_record: nmdc:f863d392fcda8b1873b80168a1d672ba, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324055
+WARNING:__main__:has_input: ['nmdc:157f619acb8d1af497dbd311bb0129e0']
+WARNING:__main__:has_output: ['nmdc:8ddf389ecdaffafdf83eb22204d72f38', 'nmdc:8daeb8ef362ab311549165a8bd41a96f', 'nmdc:db2e8de7613a9fc24b59d55b65b76a7b', 'nmdc:eb8565f79544e81203e294799ae709d6', 'nmdc:fe8e8f652452823d466e6198f6e5ac66']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-3g2hs408, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:157f619acb8d1af497dbd311bb0129e0
+WARNING:__main__:workflow_record: nmdc:754f813286cac3165f48ebe691dabc3e, nmdc:metaT, metaT activity for gold:Gp0324055
+WARNING:__main__:has_input: ['nmdc:9452a4e78c3e6eedc2bc8b6b05587e9d']
+WARNING:__main__:has_output: ['nmdc:157f619acb8d1af497dbd311bb0129e0', 'nmdc:9eadb698377605a1b0d99a54fc970019', 'nmdc:9ea222fd87108806d2047631faeae912', 'nmdc:cc13850e8afff115fc6d3056449e594e']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-3g2hs408, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:44c38f11b62931b22a3e38e44e12a99b
+WARNING:__main__:workflow_record: nmdc:4113345e630c2a4c9a3d535982a3480b, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324056
+WARNING:__main__:has_input: ['nmdc:44c38f11b62931b22a3e38e44e12a99b']
+WARNING:__main__:has_output: ['nmdc:611653391b749b6c05e59c6cd3795e17', 'nmdc:bbadddd97ebb8f87cc13f21bcc09a370', 'nmdc:91ab0390e293e8cea5fb2264f5ebac6f', 'nmdc:c2f611ba596a34915c458df3290984bb', 'nmdc:1370f93f1cf8c5982c5c12a5977096ee']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-bk19ns13, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:44c38f11b62931b22a3e38e44e12a99b
+WARNING:__main__:workflow_record: nmdc:47f893a6cc06ce197ef0822061012f97, nmdc:metaT, metaT activity for gold:Gp0324056
+WARNING:__main__:has_input: ['nmdc:2119bed382f4c9c304c4bf20810b4279']
+WARNING:__main__:has_output: ['nmdc:44c38f11b62931b22a3e38e44e12a99b', 'nmdc:68edf1160874fbfb685cf9c76f11fe5d', 'nmdc:e97dec3a31cb394a99c30b1da954f626', 'nmdc:e694e67f1b18f928c0b07cc9b36f91be']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-bk19ns13, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:1f02bef68a0a71ecbb325dfdbff6ae85
+WARNING:__main__:workflow_record: nmdc:adef6b4b4874adb135620a21f27a53b6, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324054
+WARNING:__main__:has_input: ['nmdc:1f02bef68a0a71ecbb325dfdbff6ae85']
+WARNING:__main__:has_output: ['nmdc:4aa24f9ddca440ca76d7f98760e220f3', 'nmdc:fefcf82d506ef330e0ec767e725d7638', 'nmdc:8f1d7914beb2975a975267e443e43912', 'nmdc:cc7859b3ee994f3cbc5c7e9ab6876324', 'nmdc:8e3eddd4ab30ae055ff20fa5eb71c9f8']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-1gn83433, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:1f02bef68a0a71ecbb325dfdbff6ae85
+WARNING:__main__:workflow_record: nmdc:76440cfb52c9d3791940661e863c5fa6, nmdc:metaT, metaT activity for gold:Gp0324054
+WARNING:__main__:has_input: ['nmdc:d8573ab5a0a68c16543102c43b47ca94']
+WARNING:__main__:has_output: ['nmdc:1f02bef68a0a71ecbb325dfdbff6ae85', 'nmdc:a6f9b634e52b67769b6c3c8a5bc51d71', 'nmdc:b38bd06bcee8747b8f52c5985eac3924', 'nmdc:6e165708348ccf28ca469f662c29b2b0']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-1gn83433, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:0114daea61986c6cf6290657d1fa8ee0
+WARNING:__main__:workflow_record: nmdc:7ef7c51072a8fa8151571ab602d54277, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324059
+WARNING:__main__:has_input: ['nmdc:0114daea61986c6cf6290657d1fa8ee0']
+WARNING:__main__:has_output: ['nmdc:2e547b0f61597dac0e51f62699d5cfba', 'nmdc:7f1f6684c41c6b0bed9943371f7777b9', 'nmdc:d0d420fa8701b9f061c3701c0d89e4af', 'nmdc:c86c1198ba66b4f574a7d6ca08116a3a', 'nmdc:78196ff5b8b03ac2deab6e8d75519c8b']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-wtzqsw15, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:0114daea61986c6cf6290657d1fa8ee0
+WARNING:__main__:workflow_record: nmdc:88082b5b0ed9f0b43de674babd0f10d6, nmdc:metaT, metaT activity for gold:Gp0324059
+WARNING:__main__:has_input: ['nmdc:99b2c42a6649805c49683822932b76e1']
+WARNING:__main__:has_output: ['nmdc:0114daea61986c6cf6290657d1fa8ee0', 'nmdc:1bed2bac22376f844f85c589df6330f6', 'nmdc:4cd6f9a54b05dd7a4cb70d0536557aee', 'nmdc:604fe881370c675322fec1dd45016d17']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-wtzqsw15, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:376cc399590f368eaf5a486087750077
+WARNING:__main__:workflow_record: nmdc:200022c0672deff53cda040fee54b9e6, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324060
+WARNING:__main__:has_input: ['nmdc:376cc399590f368eaf5a486087750077']
+WARNING:__main__:has_output: ['nmdc:a69b8eb3359923800442f56798098d2b', 'nmdc:ba157a1192b357ce12cde03add87da1a', 'nmdc:0acdb269f2e35fc19dc6623988088dc1', 'nmdc:ffe2cecca5ef75ef1e203136d3ff4e22', 'nmdc:e1f5e368f8cfe9409a50d2da9a862b76']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-jy9db676, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:376cc399590f368eaf5a486087750077
+WARNING:__main__:workflow_record: nmdc:bd9a4ddd68d17d1f0ed9342c525bbba6, nmdc:metaT, metaT activity for gold:Gp0324060
+WARNING:__main__:has_input: ['nmdc:02a5e8107640a6e542ee6f68f390ef6e']
+WARNING:__main__:has_output: ['nmdc:376cc399590f368eaf5a486087750077', 'nmdc:c6b2c8c679508df3a43f2ab829c206c0', 'nmdc:cb1a5c7b585d25c721b79bd21acba9a9', 'nmdc:d6715b7b4258e8b77abbec69efe8c8d4']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-jy9db676, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:565eb354afc5db4ed502bb6dece91d03
+WARNING:__main__:workflow_record: nmdc:c53e4c651cfd13ad8183925a92d7023a, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324061
+WARNING:__main__:has_input: ['nmdc:565eb354afc5db4ed502bb6dece91d03']
+WARNING:__main__:has_output: ['nmdc:d80eb6ef8e06ec5c10bcfb1ce8e6efff', 'nmdc:1904545ceccf591c4b726313109faa23', 'nmdc:8097135b92d595309add1c512676ebbe', 'nmdc:a6125f92c019869f91db3fb3b391111b', 'nmdc:26c6058cecc6c33e5e3f016d4475af9c']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-b8tcxf46, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:565eb354afc5db4ed502bb6dece91d03
+WARNING:__main__:workflow_record: nmdc:cb247b6ae27ec683e88f2e569f6817fc, nmdc:metaT, metaT activity for gold:Gp0324061
+WARNING:__main__:has_input: ['nmdc:81cb2f5d9af61933dcc6afba454e57b1']
+WARNING:__main__:has_output: ['nmdc:565eb354afc5db4ed502bb6dece91d03', 'nmdc:4360bc446b7babf20a2258fc61dcab21', 'nmdc:94b2d9e60b8db3564018bc28cb3dd344', 'nmdc:38f5ce7db8f640f6b70fa4f66bb7361f']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-b8tcxf46, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:eb216db5f15b5982f60cb2c5f0f82b97
+WARNING:__main__:workflow_record: nmdc:c64ec801a3898b29fa68eb83a23f18c9, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324057
+WARNING:__main__:has_input: ['nmdc:eb216db5f15b5982f60cb2c5f0f82b97']
+WARNING:__main__:has_output: ['nmdc:fcadcdaf782a75fcab43e367d0e87e52', 'nmdc:1dcef65db35d03fb181620869be2f216', 'nmdc:7d9d9abd88a1122b0da95b7ca3028c60', 'nmdc:9b555749f7b31e926bbd12952d0addac', 'nmdc:74f9b140ddff9e1e4e7279985f5f7796']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-c5b9k496, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:eb216db5f15b5982f60cb2c5f0f82b97
+WARNING:__main__:workflow_record: nmdc:f93506086a0b0a78f3ae49e46addde0e, nmdc:metaT, metaT activity for gold:Gp0324057
+WARNING:__main__:has_input: ['nmdc:d57e80a629cce6887e2a77e06198b5d3']
+WARNING:__main__:has_output: ['nmdc:eb216db5f15b5982f60cb2c5f0f82b97', 'nmdc:2877482ed87193ad261ba6b035249fcd', 'nmdc:5c2df8f1562c0ff396d85583dd7d8396', 'nmdc:de2cc4b245ef86b8dcf11dd5de4132b7']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-c5b9k496, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:4b9b0f82bf50950ecf8b77d24a141565
+WARNING:__main__:workflow_record: nmdc:da77b0888e64217118bddd9ca88a5797, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324062
+WARNING:__main__:has_input: ['nmdc:4b9b0f82bf50950ecf8b77d24a141565']
+WARNING:__main__:has_output: ['nmdc:7c6c5007f8b440743ca999b8cf59960f', 'nmdc:6156c4995f09a7f658d03305f76fcdfa', 'nmdc:f1b09534f1c06adbf95de45ab9e57663', 'nmdc:02e29f6925ee26b75db424ea4bc2b74f', 'nmdc:037ad44647bb0a6950a7305ca2431582']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-88r8wq58, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:4b9b0f82bf50950ecf8b77d24a141565
+WARNING:__main__:workflow_record: nmdc:81413537b3e6379a1f6ea3561cfe737c, nmdc:metaT, metaT activity for gold:Gp0324062
+WARNING:__main__:has_input: ['nmdc:a77cd57e6c65b2745e559c60929bb657']
+WARNING:__main__:has_output: ['nmdc:4b9b0f82bf50950ecf8b77d24a141565', 'nmdc:b09e6b8e603d3b77bbb4eef2589fbbc4', 'nmdc:19bedaad721679cbbfda8993be30563a', 'nmdc:d2a7ca47fd9b5e9338ebee9419950f37']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-88r8wq58, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:e4cf91ffe121a58186e6f123f117e0c2
+WARNING:__main__:workflow_record: nmdc:994588e22bb440eefab12f51e8db6544, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0396393
+WARNING:__main__:has_input: ['nmdc:e4cf91ffe121a58186e6f123f117e0c2']
+WARNING:__main__:has_output: ['nmdc:174e1bac949acb539cbdd22a53027891', 'nmdc:f3a57d37063c31bca9948096c0e0041a', 'nmdc:12b2cbeafed5242d0c9066dc790c268a', 'nmdc:61d05b3f0370fc9ba0b2636e99e9978e', 'nmdc:a20fbe74de49b89f3c67dd7ce072fa36']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-ns758c90, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:e4cf91ffe121a58186e6f123f117e0c2
+WARNING:__main__:workflow_record: nmdc:5ca43c35d0d6221e62c411c498becbd8, nmdc:metaT, metaT activity for gold:Gp0396393
+WARNING:__main__:has_input: ['nmdc:0be49300463a21ffccf7558ede858646']
+WARNING:__main__:has_output: ['nmdc:e4cf91ffe121a58186e6f123f117e0c2', 'nmdc:77b7958eeed5deef399d6b394231e5a7', 'nmdc:504665aaf1effea043f1cb68afc29f97', 'nmdc:397ba4d4363a26d0f69da5938241cc95']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-ns758c90, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:18589f426c24e06ff58610dcd48f3bd9
+WARNING:__main__:workflow_record: nmdc:18261bfa0823d43b13f74b931c13a1df, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0396394
+WARNING:__main__:has_input: ['nmdc:18589f426c24e06ff58610dcd48f3bd9']
+WARNING:__main__:has_output: ['nmdc:2b359990d1282b4bcd3ca017b05f056c', 'nmdc:d54dcb2877dd5dc36ab940c28558fc06', 'nmdc:0ca71a508e5885a7a7406648c7e69e19', 'nmdc:7ba31293fa884e1569f80170e747c5b7', 'nmdc:b117a12316d17d1bfabd811f5fde9877']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-9tn03g94, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:18589f426c24e06ff58610dcd48f3bd9
+WARNING:__main__:workflow_record: nmdc:c518af94e127cb4ee6ee8377abed8a6c, nmdc:metaT, metaT activity for gold:Gp0396394
+WARNING:__main__:has_input: ['nmdc:97829e4e15373e2e5617a2f6be5684da']
+WARNING:__main__:has_output: ['nmdc:18589f426c24e06ff58610dcd48f3bd9', 'nmdc:8cb083d46c7118ae27e5781a095ab2c5', 'nmdc:611701f7a484ca98878b6311e11c13bb', 'nmdc:704b0770f0df0b7bcc9e0551829e4782']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-9tn03g94, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:690271181735467ff2f978d804ce4fee
+WARNING:__main__:workflow_record: nmdc:b8f5351b114af34d5357646dbef04478, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0324058
+WARNING:__main__:has_input: ['nmdc:690271181735467ff2f978d804ce4fee']
+WARNING:__main__:has_output: ['nmdc:81633312200566fdbdc9bd02f5ca2845', 'nmdc:111ba8fca906ac409564d9941481b9e7', 'nmdc:9610b8cd9da3a94b4d6f3448a9aab58f', 'nmdc:8255ab49a4b3be1fa994336914bdbece', 'nmdc:94889f074665270885f500ba0d0341df']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-h9xdkp33, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:690271181735467ff2f978d804ce4fee
+WARNING:__main__:workflow_record: nmdc:67d1b2d871ee8ffa107c8367ef68205c, nmdc:metaT, metaT activity for gold:Gp0324058
+WARNING:__main__:has_input: ['nmdc:a21d5a90f0fc4057a6723bee1b8fc392']
+WARNING:__main__:has_output: ['nmdc:690271181735467ff2f978d804ce4fee', 'nmdc:4db8bc953f71459c8e65093ce5817949', 'nmdc:52049656f7ce97dcf4a62b4bdb96e2f5', 'nmdc:8d5d3971b3a06f503d290b1be740a3d8']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-h9xdkp33, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:e7e7582466f2c7d419e1d03f0b529879
+WARNING:__main__:workflow_record: nmdc:5b0dba88801b500203d5b763984251b7, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0396397
+WARNING:__main__:has_input: ['nmdc:e7e7582466f2c7d419e1d03f0b529879']
+WARNING:__main__:has_output: ['nmdc:787851a990b6e3e74e21f186838c8946', 'nmdc:8dca5ff459e41e2935b9c08c5004f56d', 'nmdc:d696730dd7aec91871726d2a8bf7946c', 'nmdc:8cc9622dd84e17be034238fa66ccc0e4', 'nmdc:22e4a0d6cde32ef36658116389c8617e']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-4z72k510, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:e7e7582466f2c7d419e1d03f0b529879
+WARNING:__main__:workflow_record: nmdc:81d54c41937fe61ddb8b1c40ab0b85a6, nmdc:metaT, metaT activity for gold:Gp0396397
+WARNING:__main__:has_input: ['nmdc:e364755daab790defa402b5bc18decee']
+WARNING:__main__:has_output: ['nmdc:e7e7582466f2c7d419e1d03f0b529879', 'nmdc:d01fbc2f3b716eaf35b7ba3017bb35a9', 'nmdc:503e153b8be903bec4d3cdeca215dd1c', 'nmdc:1bfb9a3bb18b8382d3dcd773077b9deb']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-4z72k510, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:bb14b03eb4a4e30fcea4b9faa98c08e0
+WARNING:__main__:workflow_record: nmdc:3937b209cad2769633a309e8bd646a09, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0396398
+WARNING:__main__:has_input: ['nmdc:bb14b03eb4a4e30fcea4b9faa98c08e0']
+WARNING:__main__:has_output: ['nmdc:626f689028669264a2f19b7d8a6a895b', 'nmdc:bfe96e1b94f4239f8492faec66a5e932', 'nmdc:438665061a545c30b5d719c94c4eb49c', 'nmdc:4da3c3e3a0d879b1ee858dc9b3970a52', 'nmdc:e84330ae8298676bccdae94e910ae7fb']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-cdtew846, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:bb14b03eb4a4e30fcea4b9faa98c08e0
+WARNING:__main__:workflow_record: nmdc:7d5d57e00c94e8bb4eafb2645d65a445, nmdc:metaT, metaT activity for gold:Gp0396398
+WARNING:__main__:has_input: ['nmdc:c1a0f907858d89c7a29995019de95595']
+WARNING:__main__:has_output: ['nmdc:bb14b03eb4a4e30fcea4b9faa98c08e0', 'nmdc:6b4f34cc3405f25640fa383f8cf2c6ed', 'nmdc:6813a65fa09cdddbc99013aded08ea67', 'nmdc:7e8e5b8036c5a21631b1c631b16ff32f']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-cdtew846, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:d16c1df1b6eca2a3997c93250673c58d
+WARNING:__main__:workflow_record: nmdc:65ff4bf5e258bcbf8d9e0d956a32988a, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0396400
+WARNING:__main__:has_input: ['nmdc:d16c1df1b6eca2a3997c93250673c58d']
+WARNING:__main__:has_output: ['nmdc:3056ebd3a419dceba0d44ad2bb10039f', 'nmdc:63e6f9d3e16a46b6c89eb7572187f737', 'nmdc:4aaa1f4d2aade7cc056246276bbc536b', 'nmdc:70c54e4e675c76279c8988a10377a4d6', 'nmdc:28771f968875be8225181c697a765de0']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-x6542q10, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:d16c1df1b6eca2a3997c93250673c58d
+WARNING:__main__:workflow_record: nmdc:4b78fd45bcfe9c402e2ed9d6df347067, nmdc:metaT, metaT activity for gold:Gp0396400
+WARNING:__main__:has_input: ['nmdc:bfd72d48a3a938640ce5f329a969c02d']
+WARNING:__main__:has_output: ['nmdc:d16c1df1b6eca2a3997c93250673c58d', 'nmdc:6cd7e4019eed25a346b59f67aac22c14', 'nmdc:ca92744bcb82e095f898c0b040e09bc7', 'nmdc:33b14acd70334547ab629e4db9bc17d3']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-x6542q10, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:59e944a5bd686bb1d85d9ad06356854a
+WARNING:__main__:workflow_record: nmdc:6ace961767fd864cda21d485bf5711a8, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0396399
+WARNING:__main__:has_input: ['nmdc:59e944a5bd686bb1d85d9ad06356854a']
+WARNING:__main__:has_output: ['nmdc:5b2051a19652a50ec4244ee1a8e36166', 'nmdc:2aab16bb2dce228dbfcc807891526216', 'nmdc:9f5f8ee47cca6e8dabd246e736088a28', 'nmdc:fdc9af225c8cf08ee3941ecc8065d9c6', 'nmdc:e3397a980aa170d237220387f4f09c93']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-9m3rgy66, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:59e944a5bd686bb1d85d9ad06356854a
+WARNING:__main__:workflow_record: nmdc:14a60196afaedbaea12d59cb50fe7e92, nmdc:metaT, metaT activity for gold:Gp0396399
+WARNING:__main__:has_input: ['nmdc:7d6c7dd7f6a424ab38585603840abf6b']
+WARNING:__main__:has_output: ['nmdc:59e944a5bd686bb1d85d9ad06356854a', 'nmdc:64a864477cd77f962e7e53f421c182b0', 'nmdc:4e9f2b78a15caddd4ff5591c3d1347a1', 'nmdc:538fe856c9ef3dca4d0d3421f4720251']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-9m3rgy66, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:80e2cf75fff69f6111ea7a738fe68eac
+WARNING:__main__:workflow_record: nmdc:50e40947cb4664d4b4163ab37f3d4103, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0396401
+WARNING:__main__:has_input: ['nmdc:80e2cf75fff69f6111ea7a738fe68eac']
+WARNING:__main__:has_output: ['nmdc:4a0ed516b43f43664e4eaea16d5f6b7c', 'nmdc:9567226c9b9c1cc7e28e8fc86c91f85c', 'nmdc:466c6609c7e4795646ef7b3e6e4f60b3', 'nmdc:d85e3254f8b5fa769fa582e41c2c53b1', 'nmdc:15744b0834476cc06ff45ae56d02d2f8']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-2s3hnv15, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:80e2cf75fff69f6111ea7a738fe68eac
+WARNING:__main__:workflow_record: nmdc:ed53f220db627936f9e5ca5fd3d6f9e9, nmdc:metaT, metaT activity for gold:Gp0396401
+WARNING:__main__:has_input: ['nmdc:3097e572fb843cedf641378d14d8b8fc']
+WARNING:__main__:has_output: ['nmdc:80e2cf75fff69f6111ea7a738fe68eac', 'nmdc:174aeb2879098061db914c1349b58638', 'nmdc:1b5cad2c716371653e63bda1c5d0795b', 'nmdc:25e24bb8e4bd0d118491837652e618ad']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-2s3hnv15, Metatranscriptome
+WARNING:__main__:DataObjectNotFound nmdc:f0bcb32cfb78fa6abb5be2ac7bd48284
+WARNING:__main__:workflow_record: nmdc:8cd14e5ca612bfe923e2d8f54da25fec, nmdc:MetagenomeAnnotation, MetagenomeAnnotation activity for gold:Gp0396396
+WARNING:__main__:has_input: ['nmdc:f0bcb32cfb78fa6abb5be2ac7bd48284']
+WARNING:__main__:has_output: ['nmdc:d7b108356d6c96e85bf94fe11c131c25', 'nmdc:848e6bba27624a3b9bf6bac418892a00', 'nmdc:7bf865a8729e04f8c73cf669812b2a46', 'nmdc:35a36a0bbe05e5dbf49a1df763c4efd8', 'nmdc:cada5d8d68d734f281a7f043b1c24775']
+WARNING:__main__:omics_processing_record: nmdc:omprc-11-r3rf7j74, Metatranscriptome
