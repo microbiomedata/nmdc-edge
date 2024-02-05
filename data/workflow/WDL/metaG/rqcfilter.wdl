@@ -4,6 +4,7 @@ workflow nmdc_rqcfilter {
     String  input_files
     String  database="/refdata/"
     String?  outdir
+    String?  scale_factor=60
 
     call stage {
         input: container=container,
@@ -14,7 +15,8 @@ workflow nmdc_rqcfilter {
         input: input_files=stage.read,
             threads=16,
             database=database,
-            memory="60G"
+            memory="60G",
+            scale_factor=scale_factor
     }
     call make_info_file {
         input: info_file = qc.info_file,
@@ -89,13 +91,14 @@ task rqcfilter {
      String system_cpu="$(grep \"model name\" /proc/cpuinfo | wc -l)"
      String jvm_threads=select_first([threads,system_cpu])
      String chastityfilter= if (chastityfilter_flag) then "cf=t" else "cf=f"
+     String? scale_factor
 
      runtime {
             docker: container
             memory: "70 GB"
             cpu:  16
             database: database
-            runtime_minutes: ceil(size(input_files, "GB")*90)
+            runtime_minutes: ceil(size(input_files, "GB")*scale_factor)
      }
 
      command<<<
