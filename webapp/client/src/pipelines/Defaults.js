@@ -1,8 +1,9 @@
 export const intro = {
     title: 'Introduction',
     name: 'NMDC EDGE Introduction/Quick Start',
-    pdf: '/docs/help/quickStart.pdf',
-    pdfSpanish: '/docs/help/quickStartSpanish.pdf',
+    pdf: '/docs/help/NMDC_EDGE_quickStart.pdf',
+    pdfSpanish: '/docs/help/NMDC_EDGE_quickStart_español.pdf',
+    pdfFrench: '/docs/help/NMDC_EDGE_quickStart-French.pdf',
     video: '/docs/videos/nmdc-edge.mp4',
         bgcolor: '#4F3C80'
 }
@@ -20,18 +21,25 @@ export const pipelinelist = {
             "Multiple Workflows(pipeline)": '/docs/videos/pipeline.mp4',
         },
         pdf: {
-            'ReadsQC': '/docs/help/ReadsQC.pdf',
-            'Read-based Taxonomy Classification': '/docs/help/ReadBasedAnalysis.pdf',
-            'Metagenome Assembly': '/docs/help/MetagenomeAssembly.pdf',
-            'Metagenome Annotation': '/docs/help/MetagenomeAnnotation.pdf',
-            'Metagenome MAGs': '/docs/help/MetagenomeMAGs.pdf',
+            'ReadsQC': '/docs/help/NMDC_EDGE_ReadsQC.pdf',
+            'Read-based Taxonomy Classification': '/docs/help/NMDC_EDGE_Read-based.pdf',
+            'Metagenome Assembly': '/docs/help/NMDC_EDGE_Metag_Assembly.pdf',
+            'Metagenome Annotation': '/docs/help/NMDC_EDGE_Metag_Annotation.pdf',
+            'Metagenome MAGs': '/docs/help/NMDC_EDGE_MAGs.pdf',
         },
         pdfSpanish: {
-            'ReadsQC': '/docs/help/ReadsQCSpanish.pdf',
-            'Read-based Taxonomy Classification': '/docs/help/ReadBasedAnalysisSpanish.pdf',
-            'Metagenome Assembly': '/docs/help/MetagenomeAssemblySpanish.pdf',
-            'Metagenome Annotation': '/docs/help/MetagenomeAnnotationSpanish.pdf',
-            'Metagenome MAGs': '/docs/help/MetagenomeMAGsSpanish.pdf',
+            'ReadsQC': '/docs/help/NMDC_EDGE_ReadsQC_español.pdf',
+            'Read-based Taxonomy Classification': '/docs/help/NMDC_EDGE_Read-based_español.pdf',
+            'Metagenome Assembly': '/docs/help/NMDC_EDGE_Metag_Assembly_español.pdf',
+            'Metagenome Annotation': '/docs/help/NMDC_EDGE_Metag_Annotation_español.pdf',
+            'Metagenome MAGs': '/docs/help/NMDC_EDGE_MAGs_español.pdf',
+        },
+        pdfFrench: {
+            'ReadsQC': '/docs/help/NMDC_EDGE_ReadsQC-French.pdf',
+            'Read-based Taxonomy Classification': '/docs/help/NMDC_EDGE_Read-based-French.pdf',
+            'Metagenome Assembly': '/docs/help/NMDC_EDGE_Metag_Assembly-French.pdf',
+            'Metagenome Annotation': '/docs/help/NMDC_EDGE_Metag_Annotation-French.pdf',
+            'Metagenome MAGs': '/docs/help/NMDC_EDGE_MAGs-French.pdf',
         },
         doclink: {
             'ReadsQC': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/1_RQC_index.html',
@@ -46,16 +54,19 @@ export const pipelinelist = {
         title: 'Metatranscriptomics',
         name: 'Metatranscriptomics',
         video: {
-            'Metatranscriptome': '/docs/videos/MetaT.mp4',
+            'Metatranscriptomics': '/docs/videos/MetaT.mp4',
         },
         pdf: {
-            'Metatranscriptome': '/docs/help/MetaT.pdf',
+            'Metatranscriptomics': '/docs/help/NMDC_EDGE_metaT.pdf',
         },
-        pdfSpanish: {
-            'Metatranscriptome': '/docs/help/MetaTSpanish.pdf',
-        },
+        // pdfSpanish: {
+        //     'Metatranscriptomics': '/docs/help/NMDC_EDGE_metaT_español_INCOMPLETE.pdf',
+        // },
+        // pdfFrench: {
+        //     'Metatranscriptomics': '/docs/help/NMDC_EDGE_metaT-French.pdf',
+        // },
         doclink: {
-            'Metatranscriptome': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/6_MetaT_index.html',
+            'Metatranscriptomics': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/6_MetaT_index.html',
         },
         bgcolor: '#4F3C80'
     },
@@ -63,13 +74,16 @@ export const pipelinelist = {
         title: 'Organic Matter',
         name: 'Organic Matter',
         pdf: {
-            'EnviroMS': '/docs/help/EnviroMS.pdf',
+            'Natural Organic Matter': '/docs/help/NMDC_EDGE_NOM.pdf',
         },
         pdfSpanish: {
-            'EnviroMS': '/docs/help/EnviroMSSpanish.pdf',
+            'Natural Organic Matter': '/docs/help/NMDC_EDGE_NOM_español.pdf',
+        },
+        pdfFrench: {
+            'Natural Organic Matter': '/docs/help/NMDC_EDGE_NOM-French.pdf',
         },
         doclink: {
-            'EnviroMS': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/9_NOM_index.html#',
+            'Natural Organic Matter': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/9_NOM_index.html#',
         },
         bgcolor: '#4F3C80'
     },
@@ -80,16 +94,22 @@ export const pipelinelist = {
             'Viruses and Plasmids': '/docs/videos/Viruses_plasmids_tutorial_v1.mp4',
         },
         pdf: {
-            'Viruses and Plasmids': '/docs/help/geNomad.pdf',
+            'Viruses and Plasmids': '/docs/help/NMDC_EDGE_geNomad.pdf',
         },
         pdfSpanish: {
-            'Viruses and Plasmids': '/docs/help/geNomadSpanish.pdf',
+            'Viruses and Plasmids': '/docs/help/NMDC_EDGE_geNomad_español.pdf',
+        },
+        pdfFrench: {
+            'Viruses and Plasmids': '/docs/help/NMDC_EDGE_geNomad-French.pdf',
         },
         bgcolor: '#4F3C80'
     },
     MetaP: {
         title: 'Metaproteomics',
         name: 'Metaproteomics',
+        // pdf: {
+        //     'Metaproteomics': '/docs/help/NMDC_EDGE_metaP.pdf',
+        // },
         bgcolor: '#4F3C80'
     },
 }
