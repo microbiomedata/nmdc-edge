@@ -94,10 +94,12 @@ const makeOrcidAuthUri = (redirectUri, orcidClientId, nonceVal = "whatever", orc
 
 const config = {
     APP: {
+        // The user-facing name of the application.
         NAME: `NMDC EDGE`,
     }, API: {
+        // Base URI at which visitors can access the application.
         // Note: This is written under the assumption that the client and API server share a domain.
-        BASE_URI: makeLocalUri(),
+        BASE_URI: makeLocalUri("/"),
     }, ORCID: {
         // Boolean flag indicating whether the client will offer ORCiD-based authentication.
         IS_ENABLED: makeBoolean(process.env.REACT_APP_IS_ORCID_AUTH_ENABLED) || false,
@@ -107,12 +109,14 @@ const config = {
     }, EMAIL: {
         // Boolean flag indicating whether the client will request that the server send emails to the user.
         IS_ENABLED: makeBoolean(process.env.REACT_APP_IS_EMAIL_NOTIFICATION_ENABLED) || false,
-        // TODO: Define these messages on the server side, not the client side.
+        // Strings that are incorporated into the user registration email.
+        // TODO: Define these strings on the server side, not the client side.
         REGISTRATION: {
             SUBJECT: `Your NMDC EDGE account`,
-            MESSAGE: `Thanks for using NMDC EDGE! Please activate your account at: makeLocalUri("/activate")`,
+            MESSAGE: `Thanks for using NMDC EDGE! Please activate your account at: ${makeLocalUri("/activate")}`,
         },
-        // TODO: Define these messages on the server side, not the client side.
+        // Strings that are incorporated into the password reset email.
+        // TODO: Define these strings on the server side, not the client side.
         PASSWORD_RESET: {
             SUBJECT: `Reset your NMDC EDGE password`,
             MESSAGE: `Someone requested a password reset for your NMDC EDGE account. If this was not you, you can disregard this email. Otherwise, you can reset your password by visiting: ${makeLocalUri("/resetpassword")}`,
