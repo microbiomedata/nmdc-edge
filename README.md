@@ -226,6 +226,14 @@ Here's how you can publish the newly-built container image to
 
      ```console
      $ docker push ghcr.io/microbiomedata/nmdc-edge-web-app:v1.2.3
+     The push refers to repository [ghcr.io/microbiomedata/nmdc-edge-web-app]
+     1990b48a8037: Pushing [====================>          ]  35.07MB/64.54MB
+     c60069b08109: Pushing [====>                          ]   37.4MB/271.3MB
+     986a439534f8: Pushing [===>                           ]  47.53MB/440.2MB
+     7f3870580da8: Pushed
+     ff224f440bfc: Pushed
+     ...
+     d4fc045c9e3a: Waiting   
      ```
    </details>
 4. Verify the container image is listed on 
