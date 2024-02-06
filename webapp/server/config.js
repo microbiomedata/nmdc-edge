@@ -115,13 +115,13 @@ const config = {
             DATABASE_BACKUP_PRUNER: process.env.CRON_DATABASE_BACKUP_PRUNER_SCHEDULE || "0 2 * * *",
         },
     },
-    DB: {
+    DATABASE: {
         // Host at which web server can access MongoDB server.
-        HOST: process.env.DATABASE_HOST || "localhost",
+        SERVER_HOST: process.env.DATABASE_HOST || "localhost",
         // Port at which web server can access MongoDB server (on the specified host).
-        PORT: makeIntIfDefined(process.env.DATABASE_PORT) || 27017,
+        SERVER_PORT: makeIntIfDefined(process.env.DATABASE_PORT) || 27017,
         // Name of MongoDB database.
-        DATABASE_NAME: process.env.DB_NAME || "nmdcedge",
+        NAME: process.env.DB_NAME || "nmdcedge",
         // Path to directory in which the system will store the database backups it creates.
         BACKUP_DIR: process.env.DATABASE_BACKUP_DIR || path.join(IO_BASE_DIR, "db"),
         // Duration for which database backups will be preserved after their creation (note: 604800 seconds is 1 week).

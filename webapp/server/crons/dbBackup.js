@@ -8,7 +8,7 @@ module.exports = function dbBackup() {
   logger.debug("DB backup");
   // mongodump
   const dateStringWithTime = moment(new Date()).format('YYYY-MM-DD:HH:mm');
-  const cmd = `mongodump --db ${config.DB.DATABASE_NAME} --out ${config.DB.BACKUP_DIR}/db-backup_${dateStringWithTime}`;
+  const cmd = `mongodump --db ${config.DATABASE.NAME} --out ${config.DATABASE.BACKUP_DIR}/db-backup_${dateStringWithTime}`;
 
   logger.info(cmd);
   //run local

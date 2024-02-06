@@ -56,7 +56,7 @@ app.use(
 app.use(bodyParser.json());
 
 // DB Config
-const db = `mongodb://${config.DB.HOST}:${config.DB.PORT}/${config.DB.DATABASE_NAME}`;
+const db = `mongodb://${config.DATABASE.SERVER_HOST}:${config.DATABASE.SERVER_PORT}/${config.DATABASE.NAME}`;
 // Connect to MongoDB 
 mongoose
   .connect(
