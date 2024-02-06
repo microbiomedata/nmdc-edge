@@ -1,7 +1,33 @@
 /**
- * This module exposes values from `process.env` in a way that facilitates IDE code completion
- * in consuming modules.
+ * Configure the app based upon environment variables.
+ *
+ * This module acts as an interface between the process environment variables (i.e. `process.env.*`)
+ * and the modules that consume their values. This (a) facilitates validation of their values and
+ * the assignment of default/fallback values; and (b) reduces the number of occurrences of `process.env.*`
+ * variables throughout the codebase, which can be sources of errors as some IDEs do not validate their
+ * existence during development, since, at that time, they do not exist as JavaScript symbols.
+ *
+ * References:
+ * - https://nodejs.org/en/learn/command-line/how-to-read-environment-variables-from-nodejs
+ * - https://developer.mozilla.org/en-US/docs/Glossary/Falsy
  */
+
+/**
+ * Returns the value resolved to an integer; or `undefined` if the original value is `undefined`.
+ *
+ * References: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
+ *
+ * Examples:
+ * f("123")     => 123
+ * f("xyz")     => NaN (which is a Falsy value)
+ * f(undefined) => undefined
+ *
+ * @param val {string|undefined} The value you want to resolve to an integer
+ * @return {number|undefined} The integer, or `undefined`
+ */
+const makeIntIfDefined = (val) => {
+    return typeof val === "string" ? parseInt(val, 10) : undefined;
+};
 
 /**
  * Returns an Array of the file extension strings specified via the delimited string.
@@ -72,17 +98,18 @@ const makeOrcidAuthUri = (redirectUri, orcidClientId, nonceVal = "whatever", orc
 const config = {
     APP: {
         NAME: `NMDC EDGE`,
-    },
-    API: {
+    }, API: {
         // Note: This is written under the assumption that the client and API server share a domain.
         BASE_URI: makeLocalUri(),
-    },
-    ORCID: {
-        IS_ENABLED: makeBoolean(process.env.REACT_APP_IS_ORCID_AUTH_ENABLED),
+    }, ORCID: {
+        // Boolean flag indicating whether the client will offer ORCiD-based authentication.
+        IS_ENABLED: makeBoolean(process.env.REACT_APP_IS_ORCID_AUTH_ENABLED) || false,
+        // ORCiD Auth URI, which contains the ORCiD Client ID.
+        // Note: You can get the ORCiD Client ID value from: https://orcid.org/developer-tools
         AUTH_URI: makeOrcidAuthUri(makeLocalUri("/oauth"), process.env.REACT_APP_ORCID_CLIENT_ID),
-    },
-    EMAIL: {
-        IS_ENABLED: makeBoolean(process.env.REACT_APP_IS_EMAIL_NOTIFICATION_ENABLED),
+    }, EMAIL: {
+        // Boolean flag indicating whether the client will request that the server send emails to the user.
+        IS_ENABLED: makeBoolean(process.env.REACT_APP_IS_EMAIL_NOTIFICATION_ENABLED) || false,
         // TODO: Define these messages on the server side, not the client side.
         REGISTRATION: {
             SUBJECT: `Your NMDC EDGE account`,
@@ -93,12 +120,18 @@ const config = {
             SUBJECT: `Reset your NMDC EDGE password`,
             MESSAGE: `Someone requested a password reset for your NMDC EDGE account. If this was not you, you can disregard this email. Otherwise, you can reset your password by visiting: ${makeLocalUri("/resetpassword")}`,
         },
-    },
-    UPLOAD: {
-        ALLOWED_FILE_EXTENSIONS: makeFileExtensionArray(process.env.REACT_APP_ALLOWED_FILE_EXTENSIONS_FOR_UPLOAD),
-    },
-    DOWNLOAD: {
-        MAX_FOLDER_SIZE_BYTES: parseInt(process.env.REACT_APP_FOLDER_DOWNLOAD_MAX_SIZE, 10),
+    }, UPLOAD: {
+        // List of file extensions of the files the client will allow users to upload.
+        // Note: The environment variable, if defined, will contain a pipe-delimited string (e.g. "fastq|fq|faa"),
+        //       whereas the resulting config variable will contain an array of strings (e.g. ["fastq", "fq", "faa"]).
+        ALLOWED_FILE_EXTENSIONS: typeof process.env.REACT_APP_ALLOWED_FILE_EXTENSIONS_FOR_UPLOAD === "string" ?
+            makeFileExtensionArray(process.env.REACT_APP_ALLOWED_FILE_EXTENSIONS_FOR_UPLOAD) :
+            ["fastq", "fq", "faa", "fa", "fasta", "fna", "contigs", "fastq.gz", "fq.gz", "fa.gz", "fasta.gz", "fna.gz", "contigs.gz", "fa.bz2", "fasta.bz2", "contigs.bz2", "fna.bz2", "fa.xz", "fasta.xz", "contigs.xz", "fna.xz", "gbk", "gff", "genbank", "gb", "xlsx", "txt", "bed", "config", "tsv", "csv", "raw", "d", "bam", "sam"],
+    }, DOWNLOAD: {
+        // Maximum size of folder (in Bytes) the client will allow visitors to download.
+        // Note: 1610612740 Bytes is 1.5 Gibibytes (1.6 Gigabytes).
+        // Reference: https://www.xconvert.com/unit-converter/bytes-to-gigabytes
+        MAX_FOLDER_SIZE_BYTES: makeIntIfDefined(process.env.REACT_APP_FOLDER_DOWNLOAD_MAX_SIZE) || 1610612740,
     }
 };
 
