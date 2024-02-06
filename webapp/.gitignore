@@ -1,6 +1,4 @@
 node_modules
 build
 .DS_Store
-
-# Ignore the `.env` file in the current directory.
-/.env
+.env
