@@ -8,6 +8,22 @@ process omics data using standardized bioinformatics workflows.
 
 You can learn more about the NMDC EDGE platform by reading the [NMDC EDGE tutorials](https://nmdc-edge.org/tutorial).
 
+## Table of contents
+
+* [Architecture](#architecture)
+* [Development](#development)
+  * [Development stack](#development-stack)
+    * [Setup](#setup)
+      * [Prerequisites](#prerequisites)
+      * [Procedure](#procedure)
+    * [Usage](#usage)
+* [Deployment](#deployment)
+  * [Building and publishing the container image](#building-and-publishing-the-container-image)
+    * [Building](#building)
+    * [Publishing](#publishing)
+      * [References](#references)
+  * [Instantiating the container image](#instantiating-the-container-image)
+
 ## Architecture
 
 Here's a diagram depicting the architecture of the NMDC EDGE platform,
