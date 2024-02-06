@@ -17,7 +17,7 @@ function Uploadfiles(props) {
     const [maxFileSizeBytes, setMaxFileSizeBytes] = useState(0);
     const [daysKept, setDaysKept] = useState(0);
 
-    const allowedExtensions = config.UPLOAD.ALLOWED_FILE_EXTENSIONS;
+    const allowedExtensions = config.UPLOADS.ALLOWED_FILE_EXTENSIONS;
 
     useEffect(() => {
         //get upload info

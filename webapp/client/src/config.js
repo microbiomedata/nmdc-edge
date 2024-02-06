@@ -121,14 +121,14 @@ const config = {
             SUBJECT: `Reset your NMDC EDGE password`,
             MESSAGE: `Someone requested a password reset for your NMDC EDGE account. If this was not you, you can disregard this email. Otherwise, you can reset your password by visiting: ${makeLocalUri("/resetpassword")}`,
         },
-    }, UPLOAD: {
+    }, UPLOADS: {
         // List of file extensions of the files the client will allow users to upload.
         // Note: The environment variable, if defined, will contain a pipe-delimited string (e.g. "fastq|fq|faa"),
         //       whereas the resulting config variable will contain an array of strings (e.g. ["fastq", "fq", "faa"]).
         ALLOWED_FILE_EXTENSIONS: typeof process.env.REACT_APP_ALLOWED_FILE_EXTENSIONS_FOR_UPLOAD === "string" ?
             makeFileExtensionArray(process.env.REACT_APP_ALLOWED_FILE_EXTENSIONS_FOR_UPLOAD) :
             ["fastq", "fq", "faa", "fa", "fasta", "fna", "contigs", "fastq.gz", "fq.gz", "fa.gz", "fasta.gz", "fna.gz", "contigs.gz", "fa.bz2", "fasta.bz2", "contigs.bz2", "fna.bz2", "fa.xz", "fasta.xz", "contigs.xz", "fna.xz", "gbk", "gff", "genbank", "gb", "xlsx", "txt", "bed", "config", "tsv", "csv", "raw", "d", "bam", "sam"],
-    }, DOWNLOAD: {
+    }, DOWNLOADS: {
         // Maximum size of folder (in Bytes) the client will allow visitors to download.
         // Note: 1610612740 Bytes is 1.5 Gibibytes (1.6 Gigabytes).
         // Reference: https://www.xconvert.com/unit-converter/bytes-to-gigabytes

@@ -47,7 +47,7 @@ function ProjectOutputs(props) {
         let doDownload = true;
         files.forEach(function (file) {
             size += file.size;
-            if (size > config.DOWNLOAD.MAX_FOLDER_SIZE_BYTES) {
+            if (size > config.DOWNLOADS.MAX_FOLDER_SIZE_BYTES) {
                 doDownload = false;
             }
         });
