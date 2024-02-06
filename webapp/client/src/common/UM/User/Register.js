@@ -5,6 +5,7 @@ import { register, cleanupMessages } from "../../../redux/actions/userActions";
 import { Card, CardBody, Col, Container, Row } from 'reactstrap';
 import { LoaderDialog, MessageDialog } from "../../Dialogs";
 import RegisterForm from "./forms/RegisterForm";
+import config from "../../../config";
 
 function Register(props) {
 
@@ -30,7 +31,7 @@ function Register(props) {
     dispatch(cleanupMessages());
 
     var status = "active";
-    if (process.env.REACT_APP_EMAIL_NOTIFICATION === 'true') {
+    if (config.EMAIL.IS_ENABLED) {
       status = "inactive";
     }
     const newUser = {

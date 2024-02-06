@@ -7,6 +7,7 @@ import { popupWindow } from '../../util';
 
 import { socialLogin, cleanupMessages } from "../../../redux/actions/userActions";
 import { LoaderDialog, ConfirmDialogNoHeader, MessageDialog } from '../../Dialogs';
+import config from "../../../config";
 
 export function ORCIDLogin(props) {
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export function ORCIDLogin(props) {
         dispatch(cleanupMessages());
         //social login
         var status = "active";
-        if (process.env.REACT_APP_EMAIL_NOTIFICATION === 'true') {
+        if (config.EMAIL.IS_ENABLED) {
             status = "inactive";
         }
         if (userData.socialtype === 'orcid') {
@@ -43,8 +44,7 @@ export function ORCIDLogin(props) {
     }
 
     const getORCID = () => {
-        //ORICD config
-        const url = process.env.REACT_APP_ORCID_AUTH_URL;
+        const url = config.ORCID.AUTH_URI;
         //console.log(url)
         //open ORCiD login page
         popupWindow(url, 'ORCiD', window, 600, 700);
@@ -78,8 +78,8 @@ export function ORCIDLogin(props) {
     return (
         <>
             <LoaderDialog loading={page.submitting_form} text="Verifying email..." />
-            <ConfirmDialogNoHeader html={true} isOpen={openConfirm} action={"Continue to " + process.env.REACT_APP_NAME + "?"}
-                message={"Hi " + userData.firstname + ",<br/><br/> Welcome to " + process.env.REACT_APP_NAME + "!<br/>"}
+            <ConfirmDialogNoHeader html={true} isOpen={openConfirm} action={"Continue to " + config.APP.NAME + "?"}
+                message={"Hi " + userData.firstname + ",<br/><br/> Welcome to " + config.APP.NAME + "!<br/>"}
                 handleClickClose={closeConfirm} handleClickYes={handleYes} />
             <MessageDialog isOpen={messages.sociallogin ? true : false} message={messages.sociallogin} handleClickClose={closeMsgModal} />
             <MessageDialog isOpen={errors.sociallogin ? true : false} message={errors.sociallogin} handleClickClose={closeMsgModal} className='modal-danger' />

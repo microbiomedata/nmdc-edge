@@ -1,9 +1,11 @@
 const fs = require('fs');
+const path = require("path");
 const Project = require("../models/Project");
 const CromwellJob = require("../models/CromwellJob");
 const common = require("../util/common");
 const { generateWorkflowResult, generatePipelineResult } = require("../util/workflow");
 const logger = require('../util/logger');
+const config = require("../config");
 
 module.exports = function cromwellMonitor() {
     logger.debug("cromwell monitor");
@@ -40,8 +42,9 @@ module.exports = function cromwellMonitor() {
 
 function updateJobStatus(job, proj) {
     //get job status through api
-    logger.debug("GET: " + process.env.CROMWELL_API_URL + "/" + job.id + "/status");
-    common.getData(process.env.CROMWELL_API_URL + "/" + job.id + "/status").then(response => {
+    const url = `${config.CROMWELL.API_BASE_URL}/api/workflows/v1/${job.id}/status`
+    logger.debug("GET: " + url);
+    common.getData(url).then(response => {
         logger.debug(JSON.stringify(response));
         //update project status
         if (job.status !== response.status) {
@@ -76,7 +79,7 @@ function updateJobStatus(job, proj) {
             proj.status = status;
             proj.updated = Date.now();
             proj.save();
-            common.write2log(process.env.PROJECT_HOME + "/" + job.project + "/log.txt", "Cromwell job status: " + response.status);
+            common.write2log(path.join(config.PROJECTS.BASE_DIR, job.project, "log.txt"), "Cromwell job status: " + response.status);
         }
         //update job even its status unchanged. We need set new updated time for this job.
         if (response.status === 'Aborted') {
@@ -97,44 +100,46 @@ function updateJobStatus(job, proj) {
         if (error.message) {
             message = error.message;
         }
-        common.write2log(process.env.PROJECT_HOME + "/" + job.project + "/log.txt", message);
+        common.write2log(path.join(config.PROJECTS.BASE_DIR, job.project, "log.txt"), message);
         logger.error(message);
     });
 }
 
 function abortJob(job) {
     //abort job through api
-    logger.debug("POST: " + process.env.CROMWELL_API_URL + "/" + job.id + "/abort");
-    common.postData(process.env.CROMWELL_API_URL + "/" + job.id + "/abort").then(response => {
+    const url = `${config.CROMWELL.API_BASE_URL}/api/workflows/v1/${job.id}/abort`;
+    logger.debug("POST: " + url);
+    common.postData(url).then(response => {
         //update job status
         job.status = "Aborted";
         job.updated = Date.now();
         job.save();
-        common.write2log(process.env.PROJECT_HOME + "/" + job.project + "/log.txt", "Cromwell job aborted.");
+        common.write2log(path.join(config.PROJECTS.BASE_DIR, job.project, "log.txt"), "Cromwell job aborted.");
     }).catch(error => {
         let message = error;
         if (error.message) {
             message = error.message;
         }
-        common.write2log(process.env.PROJECT_HOME + "/" + job.project + "/log.txt", message);
+        common.write2log(path.join(config.PROJECTS.BASE_DIR, job.project, "log.txt"), message);
         logger.error(message);
         //not cromwell api server error, job may already complete/fail
         if (error.status !== 500) {
             job.status = "Aborted";
             job.updated = Date.now();
             job.save();
-            common.write2log(process.env.PROJECT_HOME + "/" + job.project + "/log.txt", "Cromwell job aborted.");
+            common.write2log(path.join(config.PROJECTS.BASE_DIR, job.project, "log.txt"), "Cromwell job aborted.");
         }
     });
 }
 
 function getJobMetadata(job) {
     //get job metadata through api
-    logger.debug("GET: " + process.env.CROMWELL_API_URL + "/" + job.id + "/metadata");
-    common.getData(process.env.CROMWELL_API_URL + "/" + job.id + "/metadata").then(metadata => {
+    const url = `${config.CROMWELL.API_BASE_URL}/api/workflows/v1/${job.id}/metadata`;
+    logger.debug("GET: " + url);
+    common.getData(url).then(metadata => {
         //logger.debug(JSON.stringify(metadata));
-        logger.debug(process.env.PROJECT_HOME + "/" + job.project + '/cromwell_job_metadata.json');
-        fs.writeFileSync(process.env.PROJECT_HOME + "/" + job.project + '/cromwell_job_metadata.json', JSON.stringify(metadata));
+        logger.debug(path.join(config.PROJECTS.BASE_DIR, job.project, 'cromwell_job_metadata.json'));
+        fs.writeFileSync(path.join(config.PROJECTS.BASE_DIR, job.project, 'cromwell_job_metadata.json'), JSON.stringify(metadata));
 
         //dump error logs
         Object.keys(metadata['calls']).map((callkey, keyindex) => {
@@ -143,10 +148,11 @@ function getJobMetadata(job) {
 
             //get cromwell logs
             if (subStatus === 'Failed' && subId) {
-                logger.debug("GET: " + process.env.CROMWELL_API_URL + "/" + subId + "/logs");
-                common.getData(process.env.CROMWELL_API_URL + "/" + subId + "/logs").then(logs => {
+                const url = `${config.CROMWELL.API_BASE_URL}/api/workflows/v1/${subId}/logs`;
+                logger.debug("GET: " + url);
+                common.getData(url).then(logs => {
                     logger.debug(JSON.stringify(logs));
-                    fs.writeFileSync(process.env.PROJECT_HOME + "/" + job.project + '/' + callkey + '.cromwell_job_logs.json', JSON.stringify(logs));
+                    fs.writeFileSync(path.join(config.PROJECTS.BASE_DIR, job.project, `${callkey}.cromwell_job_logs.json`), JSON.stringify(logs));
                     //dump stderr to log.txt
                     Object.keys(logs['calls']).map((call, index) => {
                         logger.debug(call);
@@ -155,8 +161,8 @@ function getJobMetadata(job) {
                             logger.debug(stderr);
                             if (fs.existsSync(stderr)) {
                                 const errs = fs.readFileSync(stderr);
-                                common.write2log(process.env.PROJECT_HOME + "/" + job.project + "/log.txt", call);
-                                common.write2log(process.env.PROJECT_HOME + "/" + job.project + "/log.txt", errs);
+                                common.write2log(path.join(config.PROJECTS.BASE_DIR, job.project, "log.txt"), call);
+                                common.write2log(path.join(config.PROJECTS.BASE_DIR, job.project, "log.txt"), errs);
                             }
                         });
                     });

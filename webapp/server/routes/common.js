@@ -37,7 +37,7 @@ const signToken = function (payload) {
         // Sign token
         jwt.sign(
             payload,
-            process.env.JWT_KEY,
+            config.AUTH.JWT_SECRET,
             {
                 expiresIn: 31556926 // 1 year in seconds
             },

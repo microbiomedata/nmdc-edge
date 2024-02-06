@@ -13,6 +13,7 @@ const projectMonitor = require("./crons/projectMonitor");
 const projectStatusMonitor = require("./crons/projectStatusMonitor");
 const dbBackup = require("./crons/dbBackup");
 const dbBackupClean = require("./crons/dbBackupClean");
+const config = require("./config");
 
 const app = express();
 app.use(express.json());
@@ -21,7 +22,7 @@ app.use(express.json());
 app.use(cors());
 
 // DB Config
-const db = process.env.MONGO_URI;
+const db = `mongodb://${config.DATABASE.SERVER_HOST}:${config.DATABASE.SERVER_PORT}/${config.DATABASE.NAME}`;
 // Connect to MongoDB 
 mongoose
   .connect(
@@ -33,44 +34,44 @@ mongoose
 
 //cron jobs
 // monitor pipeline requests on every 1 minute
-cron.schedule(process.env.CRON_PIPELINE_MONITOR, function () {
+cron.schedule(config.CRON.SCHEDULES.PIPELINE_MONITOR, function () {
   pipelineMonitor();
 });
 // monitor workflow requests on every 3 minutes 
-cron.schedule(process.env.CRON_WORKFLOW_MONITOR, function () {
+cron.schedule(config.CRON.SCHEDULES.WORKFLOW_MONITOR, function () {
   workflowMonitor();
 });
 // monitor workflow requests on every 3 minutes 
-cron.schedule(process.env.CRON_WORKFLOW_BIG_MEM_MONITOR, function () {
+cron.schedule(config.CRON.SCHEDULES.WORKFLOW_BIG_MEM_MONITOR, function () {
   workflowBigMemMonitor();
 });
 // monitor cromwell jobs on every 3 minutes 
-cron.schedule(process.env.CRON_CROMWELL_MONITOR, function () {
+cron.schedule(config.CRON.SCHEDULES.CROMWELL_MONITOR, function () {
   cromwellMonitor();
 });
 
 //monitor uploads every day at midnight
-cron.schedule(process.env.CRON_FILEUPLOAD_MONITOR, function () {
+cron.schedule(config.CRON.SCHEDULES.FILE_UPLOAD_MONITOR, function () {
   fileUploadMonitor();
 });
 
 // monitor project status on every 1 minute
-cron.schedule(process.env.CRON_PROJECT_STATUS_MONITOR, function () {
+cron.schedule(config.CRON.SCHEDULES.PROJECT_STATUS_MONITOR, function () {
   projectStatusMonitor();
 });
 //monitor project deletion every day at 10pm
-cron.schedule(process.env.CRON_PROJECT_MONITOR, function () {
+cron.schedule(config.CRON.SCHEDULES.PROJECT_DELETION_MONITOR, function () {
   projectMonitor();
 });
 //backup nmdcedge DB every day at 10pm
-cron.schedule(process.env.CRON_DB_BACKUP, function () {
+cron.schedule(config.CRON.SCHEDULES.DATABASE_BACKUP_CREATOR, function () {
   dbBackup();
 });
 //delete older DB backups every day at 12am
-cron.schedule(process.env.CRON_DB_BACKUP_CLEAN, function () {
+cron.schedule(config.CRON.SCHEDULES.DATABASE_BACKUP_PRUNER, function () {
   dbBackupClean();
 });
 
-const port = process.env.CRON_PORT;
+const port = config.CRON.SERVER_PORT;
 app.listen(port, () => logger.info(`HTTP CRON server up and running on port ${port} !`));
 

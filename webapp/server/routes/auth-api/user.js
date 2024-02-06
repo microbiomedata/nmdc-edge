@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const randomize = require('randomatic');
@@ -7,6 +8,7 @@ const Validator = require("validator");
 const dbsanitize = require('mongo-sanitize');
 const moment = require('moment');
 const jsonQuery = require('json-query');
+const config = require("../../config");
 
 // Load input validation
 const validateUpdateInput = require("../../validation/user/update");
@@ -185,10 +187,10 @@ router.post("/project/add", (req, res) => {
     }
 
     let code = randomize('Aa0', 16);
-    let proj_home = process.env.PROJECT_HOME + "/" + code;
+    let proj_home = path.join(config.PROJECTS.BASE_DIR, code);
     while (fs.existsSync(proj_home)) {
         code = randomize('Aa0', 16);
-        proj_home = process.env.PROJECT_HOME + "/" + code;
+        proj_home = path.join(config.PROJECTS.BASE_DIR, code);
     }
 
     //sanitize input
@@ -393,9 +395,9 @@ router.get("/upload/info", (req, res) => {
         } else {
             return res.json({
                 uploadedSize: size,
-                maxStorageSizeBytes: process.env.FILEUPLOAD_MAX_STORAGE_SIZE_BYTES,
-                daysKept: process.env.FILEUPLOAD_DAYS_KEPT,
-                maxFileSizeBytes: process.env.FILEUPLOAD_MAX_SIZE_BYTES
+                maxStorageSizeBytes: config.FILE_UPLOADS.MAX_STORAGE_SIZE_BYTES,
+                daysKept: config.FILE_UPLOADS.FILE_LIFETIME_DAYS,
+                maxFileSizeBytes: config.FILE_UPLOADS.MAX_FILE_SIZE_BYTES
             })
         }
     });
@@ -445,16 +447,16 @@ router.post("/upload/add", (req, res) => {
             return res.status(500).json(sysError);
         } else {
             let newSize = Number(size) + Number(req.body.size);
-            if (newSize > process.env.FILEUPLOAD_MAX_STORAGE_SIZE_BYTES) {
+            if (newSize > config.FILE_UPLOADS.MAX_STORAGE_SIZE_BYTES) {
                 return res.status(400).json("Storage limit exceeded.");
             }
 
             //upload file
             let code = randomize('Aa0', 16) + "." + req.body.type;
-            let upload_home = process.env.FILEUPLOAD_FILE_DIR + "/" + code;
+            let upload_home = path.join(config.IO.UPLOADED_FILES_DIR, code);
             while (fs.existsSync(upload_home)) {
                 code = randomize('Aa0', 16);
-                upload_home = process.env.FILEUPLOAD_FILE_DIR + "/" + code;
+                upload_home = path.join(config.IO.UPLOADED_FILES_DIR, code);
             }
 
             const newData = new Upload({
@@ -572,7 +574,7 @@ router.post("/upload/update", (req, res) => {
 // @access Private
 router.post("/project/files", (req, res) => {
     logger.debug("/auth-api/user/project/files: " + JSON.stringify(req.body));
-    const proj_dir = process.env.PROJECT_HOME;
+    const proj_dir = config.PROJECTS.BASE_DIR;
     let projStatuses = ['complete'];
     if (req.body.projectStatuses) {
         projStatuses = req.body.projectStatuses;
@@ -610,7 +612,7 @@ router.post("/project/files", (req, res) => {
 // @access Private
 router.post("/project/outputs", (req, res) => {
     logger.debug("/auth-api/user/project/outputs: " + JSON.stringify(req.body));
-    const proj_dir = process.env.PROJECT_HOME;
+    const proj_dir = config.PROJECTS.BASE_DIR;
     let query = { 'code': req.body.code, 'status': { $ne: 'delete' }, $or: [{ 'owner': dbsanitize(req.user.email) }, { 'sharedto': dbsanitize(req.user.email) }, { 'public': true }] };
 
     Project.find(query).sort([['name', -1]]).then(function (projects) {
@@ -629,7 +631,7 @@ router.post("/project/outputs", (req, res) => {
 router.post("/upload/files", (req, res) => {
     logger.debug("/auth-api/user/upload/files: " + JSON.stringify(req.body));
     //find all files owned by user and shared to user or public
-    const upload_dir = process.env.FILEUPLOAD_FILE_DIR;
+    const upload_dir = config.IO.UPLOADED_FILES_DIR;
     //find all uploaded files available to user
     let query = { 'status': { $ne: 'delete' }, $or: [{ 'owner': dbsanitize(req.user.email) }, { 'sharedto': dbsanitize(req.user.email) }, { 'public': true }] };
     if (req.body.fileTypes) {
@@ -677,7 +679,7 @@ router.post("/upload/files", (req, res) => {
 //all public files user can access to
 router.post("/data/files", (req, res) => {
     logger.debug("/auth-api/user/data/files: " + JSON.stringify(req.body));
-    const data_dir = process.env.PUBLIC_DATA_HOME;
+    const data_dir = config.IO.PUBLIC_BASE_DIR;
     const files = common.getAllFiles(data_dir, [], req.body.fileTypes, "publicdata", "publicdata", data_dir, req.body.endsWith);
 
     return res.send({ fileData: files });
@@ -688,7 +690,7 @@ router.post("/data/files", (req, res) => {
 //all globus files user can access to
 router.post("/globus/files", (req, res) => {
     logger.debug("/auth-api/user/globus/files: " + JSON.stringify(req.body));
-    const data_dir = process.env.GLOBUS_DATA_HOME + "/" + req.user.email;
+    const data_dir = config.GLOBUS.DATA_HOME_DIR + "/" + req.user.email;
     let files = [];
     if (fs.existsSync(data_dir)) {
         files = common.getAllFiles(data_dir, [], req.body.fileTypes, "globus", "globus", data_dir, req.body.endsWith);
@@ -704,7 +706,7 @@ router.post("/globus/files", (req, res) => {
 // @access Private
 router.get("/data/specieslist", (req, res) => {
     logger.debug("/auth-api/user/data/specieslist");
-    let rawdata = fs.readFileSync(process.env.SPECIES_JSON);
+    let rawdata = fs.readFileSync(config.SPECIES.JSON_FILE_PATH);
     let ref = JSON.parse(rawdata);
     let species = ref.species;
     species.sort(compare);
@@ -736,7 +738,7 @@ router.post("/data/speciestree", (req, res) => {
         //empty
         return res.json({ speciesData: [] });
     }
-    let rawdata = fs.readFileSync(process.env.SPECIES_TREE_JSON);
+    let rawdata = fs.readFileSync(config.SPECIES.TREE_JSON_FILE_PATH);
     let ref = JSON.parse(rawdata);
     var query = '';
     list.forEach(genus => {

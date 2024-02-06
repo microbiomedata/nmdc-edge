@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Col, Row, Card, CardBody, Collapse } from 'reactstrap';
 import { Header } from '../../../Common/Results/CardHeader';
 import Top_features from './Top_features';
+import config from "../../../../config";
 
 function Metatranscriptome(props) {
     const [collapseCard, setCollapseCard] = useState(true);
-    const url = process.env.REACT_APP_API_URL + "/projects/" + props.project.code + "/";
+    const url = config.API.BASE_URI + "/projects/" + props.project.code + "/";
 
     const toggleCard = () => {
         setCollapseCard(!collapseCard);

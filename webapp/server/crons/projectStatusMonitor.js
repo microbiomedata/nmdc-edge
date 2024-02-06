@@ -3,7 +3,8 @@ const Project = require("../models/Project");
 const User = require("../models/User");
 const logger = require('../util/logger');
 const sendMail = require('../util/sendMail');
-const tmpl = process.env.PROJECT_STATUS_TEMPLATE;
+const config = require("../config");
+const tmpl = config.EMAIL.PROJECT_STATUS_EMAIL_TEMPLATE_PATH;
 
 module.exports = function projectMonitor() {
     logger.debug("project status monitor");
@@ -11,14 +12,14 @@ module.exports = function projectMonitor() {
     //notify complete/failed projects
     Project.find({ 'notified': false }).then(projs => {
         projs.forEach(proj => {
-            if (process.env.SENDMAIL_PROJECT === 'on') {
+            if (config.EMAIL.SEND_PROJECT_STATUS_EMAILS === true) {
                 if (proj.status === 'complete' || proj.status === 'failed') {
                     User.findOne({ email: proj.owner }).then(user => {
                         if (!user) {
                             logger.debug("User not found: " + proj.owner);
                         } else {
                             if (user.notification === 'on') {
-                                let projectLink = "<a href='" + process.env.PROJECT_URL + proj.code + "'>View Project</a>";
+                                let projectLink = "<a href='" + config.APP.EXTERNAL_BASE_URL + '/user/project?code=' + proj.code + "'>View Project</a>";
 
                                 let projectTmpl = String(fs.readFileSync(tmpl));
                                 projectTmpl = projectTmpl.replace(/PROJECTNAME/g, proj.name);
@@ -29,7 +30,7 @@ module.exports = function projectMonitor() {
 
                                 let message = { subject: "NMDC EDGE Project Status", html: projectTmpl };
                                 //call sendmail
-                                sendMail(process.env.SENDMAIL_FROM, user.mailto, message).then(status => {
+                                sendMail(config.EMAIL.FROM_ADDRESS, user.mailto, message).then(status => {
                                     logger.debug("project status notification sent out.");
                                 }).catch(err => {
                                     logger.error("sendmail: " + err);
