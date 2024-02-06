@@ -62,18 +62,15 @@ const makeBoolean = (val = "") => {
  *
  * References:
  * - https://developer.mozilla.org/en-US/docs/Web/API/Location/protocol
- * - https://developer.mozilla.org/en-US/docs/Web/API/Location/hostname
- * - https://developer.mozilla.org/en-US/docs/Web/API/Location/port
+ * - https://developer.mozilla.org/en-US/docs/Web/API/Location/host
  *
- * @param path {string} The path portion of the URI, including the leading forward slash
+ * @param pathWithLeadingSlash {string} The path portion of the URI, including the leading forward slash
  * @return {string} The resulting local URI
  */
-const makeLocalUri = (path = "") => {
+const makeLocalUri = (pathWithLeadingSlash = "/") => {
     const protocol = window.location.protocol; // e.g. "http:" or "https:"
-    const domain = window.location.hostname; // e.g. "www.example.com"
-    const port = window.location.port; // e.g. "8000" or "80" or ""
-    const portIfAny = port === "" ? "" : `:${port}`;
-    return `${protocol}//${domain}${portIfAny}${path}`;
+    const host = window.location.host; // e.g. "www.example.com" or "www.example.com:1234"
+    return `${protocol}//${host}${pathWithLeadingSlash}`;
 };
 
 /**
