@@ -1,57 +1,8 @@
-# This is a Dockerfile you can use to build a container image that runs the NMDC EDGE Web App.
-# Its design was influenced by the installation script at `installation/install.sh`.
-#
-# =====
-# USAGE
-# -----
-#
-# Here's how you can build a container image based upon this Dockerfile; and publish it to GitHub Container Registry.
-#
-# =========
-# Procedure
-# ---------
-#
-# 1. Build a container image (do one of the following, depending upon your situation):
-#    - If the computer you're using to build the image, and the computer on which containers based upon the image will
-#      run, have the same CPU architecture, then you can use this command to build the image:
-#      ```
-#      $ docker build -f webapp-node18.Dockerfile -t nmdc-edge-web-app:some-tag .
-#      ```
-#    - If the computer you're using to build the image has the arm64 CPU architecture (e.g. a MacBook Pro M1),
-#      and the computer on which containers based upon the image will run have the AMD64 CPU architecture
-#      (e.g. Intel-based systems), you can use this command to build the image:
-#      ```
-#      $ docker buildx build --platform linux/amd64 -f webapp-node18.Dockerfile -t nmdc-edge-web-app:some-tag .
-#      ```
-# 2. (Optional) Instantiate/run a container based upon the resulting container image:
-#      ```
-#      $ docker run --rm -p 8000:8000 nmdc-edge-web-app:some-tag
-#      ```
-# 3. Tag the container image for publishing to the GitHub Container Registry.
-#    a. Get the ID of the container image.
-#       ```
-#       $ docker images
-#       ```
-#       - That will display the IDs of all container images. Identify the ID of the image you want to publish.
-#    b. Tag the container image with the GHCR prefix (replace the placeholder with the image ID).
-#       ```
-#       $ docker tag __IMAGE_ID__ ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag
-#       ```
-# 4. Publish the tagged container image to GitHub Container Registry (where it will be publicly accessible).
-#    ```
-#    $ docker push ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag
-#    ```
-#    - That will upload the image (layer by layer) to GitHub Container Registry. It will then be listed at
-#      https://github.com/orgs/microbiomedata/packages/container/package/nmdc-edge-web-app
-#
-# ==========
-# References
-# ----------
-#
-# - Building a container image and pushing it to GitHub Container Registry (GHCR):
-#   https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
-#
-# ----------------------------------------------------------------------------------------------------------------------
+###############################################################################
+# This is a Dockerfile you can use to build a container image that runs the   #
+# NMDC EDGE Web App. Its design was influenced by the installation script     #
+# at `installation/install.sh`.                                               #
+###############################################################################
 
 FROM node:18-alpine
 

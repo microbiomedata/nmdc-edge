@@ -130,4 +130,79 @@ graph BT
 
 ## Deployment
 
-Coming soon...
+### Building and publishing the container image
+
+Here's how you can build and deploy new versions of the `webapp` container image.
+
+#### Building
+
+You can build a new version of the `webapp` container image by issuing one of the following commands:
+
+- If the architecture of the computer you're using to build the image, and the architecture of the computer on which 
+  containers based upon the image will run, are the **same** (e.g. both are arm64, or both are AMD64); then you can use
+  this command to build the image (replace `{some_tag}` with a unique identifier for this version, such as `v1.2.3`):
+  ```shell
+  docker build -f webapp-node18.Dockerfile \
+               -t nmdc-edge-web-app:{some_tag} .
+  ```
+  For example:
+  ```console
+  $ docker build -f webapp-node18.Dockerfile -t nmdc-edge-web-app:v1.2.3 .
+  ```
+- If the architecture of the computer you're using to build the image is **arm64** (e.g. an M1 Mac), and the
+  architecture of the computer on which containers based upon the image will run is **AMD64**; then you can use _this_
+  command to build the image (replace `{some_tag}` with a unique identifier for this version, such as `v1.2.3`):
+  ```shell
+  docker buildx build --platform linux/amd64 \
+                      -f webapp-node18.Dockerfile \
+                      -t nmdc-edge-web-app:some-tag .
+  ```
+  For example:
+  ```console
+  $ docker buildx build --platform linux/amd64 -f webapp-node18.Dockerfile -t nmdc-edge-web-app:v1.2.3 .
+  ```  
+
+#### Publishing
+
+Here's how you can publish the newly-built container image to 
+[GitHub Container Registry (GHCR)](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
+
+1. Get the ID of the newly-built container image.
+   ```shell
+   docker images
+   ```
+   For example:
+   ```console
+   $ docker images
+   REPOSITORY         TAG     IMAGE ID      CREATED       SIZE
+   ...
+   nmdc-edge-web-app  v1.2.3  365743f24303  1 minute ago  1.35GB
+   ...
+   ```
+2. Give the container image a tag that begins with `ghcr.io/microbiomedata/nmdc-edge-web-app` (replace `{image_id}` with the ID of the container image).
+   ```shell
+   docker tag {image_id} ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag
+   ```
+   For example:
+   ```console
+   $ docker tag 365743f24303 ghcr.io/microbiomedata/nmdc-edge-web-app:v1.2.3
+   ```
+3. Upload the container image to GitHub Container Registry (GHCR):
+   ```shell
+   docker push ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag
+   ```
+   For example:
+   ```console
+   $ docker push ghcr.io/microbiomedata/nmdc-edge-web-app:v1.2.3
+   ```
+4. Verify the container image is listed on 
+   [GHCR](https://github.com/orgs/microbiomedata/packages/container/package/nmdc-edge-web-app).
+
+##### References
+
+- https://github.com/orgs/microbiomedata/packages/container/package/nmdc-edge-web-app
+- https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
+
+### Instantiating the container image
+
+_Coming soon..._
