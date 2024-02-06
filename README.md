@@ -159,10 +159,14 @@ You can build a new version of the `webapp` container image by issuing one of th
   docker build -f webapp-node18.Dockerfile \
                -t nmdc-edge-web-app:{some_tag} .
   ```
-  For example:
-  ```console
-  $ docker build -f webapp-node18.Dockerfile -t nmdc-edge-web-app:v1.2.3 .
-  ```
+  <details>
+    <summary>Example</summary>
+
+    ```console
+    $ docker build -f webapp-node18.Dockerfile -t nmdc-edge-web-app:v1.2.3 .
+    ```
+  </details>
+
 - If the architecture of the computer you're using to build the image is **arm64** (e.g. an M1 Mac), and the
   architecture of the computer on which containers based upon the image will run is **AMD64**; then you can use _this_
   command to build the image (replace `{some_tag}` with a unique identifier for this version, such as `v1.2.3`):
@@ -171,10 +175,13 @@ You can build a new version of the `webapp` container image by issuing one of th
                       -f webapp-node18.Dockerfile \
                       -t nmdc-edge-web-app:some-tag .
   ```
-  For example:
-  ```console
-  $ docker buildx build --platform linux/amd64 -f webapp-node18.Dockerfile -t nmdc-edge-web-app:v1.2.3 .
-  ```  
+  <details>
+    <summary>Example</summary>
+
+    ```console
+    $ docker buildx build --platform linux/amd64 -f webapp-node18.Dockerfile -t nmdc-edge-web-app:v1.2.3 .
+    ```
+  </details>
 
 #### Publishing
 
@@ -185,33 +192,42 @@ Here's how you can publish the newly-built container image to
    ```shell
    docker images
    ```
-   For example:
-   ```console
-   $ docker images
-   REPOSITORY         TAG     IMAGE ID      CREATED       SIZE
-   ...
-   nmdc-edge-web-app  v1.2.3  365743f24303  1 minute ago  1.35GB
-   ...
-   ```
+   <details>
+     <summary>Example</summary>
+
+     ```console
+     $ docker images
+     REPOSITORY         TAG     IMAGE ID      CREATED       SIZE
+     ...
+     nmdc-edge-web-app  v1.2.3  365743f24303  1 minute ago  1.35GB
+     ...
+     ```
+   </details>
 2. Give the container image a tag that begins with `ghcr.io/microbiomedata/nmdc-edge-web-app` 
    (replace `{image_id}` with the ID of the container image, and replace `{some_tag}` with the tag
    you want the container image to have when published).
    ```shell
    docker tag {image_id} ghcr.io/microbiomedata/nmdc-edge-web-app:{some_tag}
    ```
-   For example:
-   ```console
-   $ docker tag 365743f24303 ghcr.io/microbiomedata/nmdc-edge-web-app:v1.2.3
-   ```
+   <details>
+     <summary>Example</summary>
+
+     ```console
+     $ docker tag 365743f24303 ghcr.io/microbiomedata/nmdc-edge-web-app:v1.2.3
+     ```
+   </details>
 3. Upload the container image to GitHub Container Registry (GHCR) (replace `{some_tag}` with the same tag
    you used in the previous step):
    ```shell
    docker push ghcr.io/microbiomedata/nmdc-edge-web-app:{some_tag}
    ```
-   For example:
-   ```console
-   $ docker push ghcr.io/microbiomedata/nmdc-edge-web-app:v1.2.3
-   ```
+   <details>
+     <summary>Example</summary>
+
+     ```console
+     $ docker push ghcr.io/microbiomedata/nmdc-edge-web-app:v1.2.3
+     ```
+   </details>
 4. Verify the container image is listed on 
    [GHCR](https://github.com/orgs/microbiomedata/packages/container/package/nmdc-edge-web-app).
 
