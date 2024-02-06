@@ -45,17 +45,12 @@ Here's a list of the main technologies upon which the NMDC EDGE web application 
 
 ### Development stack
 
-This repository includes a **limited** container-based development stack consisting of three containers:
-- `webapp` - runs the web server (which serves both the web client and the HTTP API)
+This repository includes a container-based development stack consisting of three containers:
+- `webapp` - runs the NMDC EDGE web application
 - `mongo` - runs a MongoDB server
 - `cromwell` - runs a Cromwell server
 
-You can use the development stack to run the NMDC EDGE web application locally. The main **limitation** is that changes
-made to the web app client's file tree are not automatically reflected by the web app. That's because the web app serves
-the client from the `webapp/client/build` directory, and updating the contents of that directory involves manually
-running `$ npm run build` in the `webapp/client` directory. One workaround is to access the shell of the `webapp`
-container and manually run that command after you make changes to the client's file tree. Other workarounds exist,
-but they are not documented here.
+You can use the development stack to run the NMDC EDGE web application locally.
 
 #### Setup
 
@@ -70,17 +65,17 @@ but they are not documented here.
 - The "client build" configuration file (i.e. `webapp/client/.env`) is populated.
   - You can initialize it based upon the corresponding example file:
     ```shell
-    cp webapp/client/.env.example webapp/client/.env
+    cp webapp/client/.env.example \
+       webapp/client/.env
     ```
+    > The environment variables are used within `webapp/client/src/config.js`.
 - The server configuration file (i.e. `webapp/server/.env`) is populated.
   - You can initialize it based upon the corresponding example file:
     ```shell
-    cp webapp/server/.env.example webapp/server/.env
+    cp webapp/server/.env.example \
+       webapp/server/.env
     ```
-    > Note: Many of the environment variables in the example server configuration file are not yet documented.
-      Please file an [issue](https://github.com/microbiomedata/nmdc-edge/issues) when you encounter
-      an environment variable you find confusing. That will help the maintainers prioritize
-      documentation-related tasks.
+    > The environment variables are used within `webapp/server/config.js`.
 
 ##### Procedure
 
