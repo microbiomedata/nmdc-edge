@@ -193,17 +193,20 @@ Here's how you can publish the newly-built container image to
    nmdc-edge-web-app  v1.2.3  365743f24303  1 minute ago  1.35GB
    ...
    ```
-2. Give the container image a tag that begins with `ghcr.io/microbiomedata/nmdc-edge-web-app` (replace `{image_id}` with the ID of the container image).
+2. Give the container image a tag that begins with `ghcr.io/microbiomedata/nmdc-edge-web-app` 
+   (replace `{image_id}` with the ID of the container image, and replace `{some_tag}` with the tag
+   you want the container image to have when published).
    ```shell
-   docker tag {image_id} ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag
+   docker tag {image_id} ghcr.io/microbiomedata/nmdc-edge-web-app:{some_tag}
    ```
    For example:
    ```console
    $ docker tag 365743f24303 ghcr.io/microbiomedata/nmdc-edge-web-app:v1.2.3
    ```
-3. Upload the container image to GitHub Container Registry (GHCR):
+3. Upload the container image to GitHub Container Registry (GHCR) (replace `{some_tag}` with the same tag
+   you used in the previous step):
    ```shell
-   docker push ghcr.io/microbiomedata/nmdc-edge-web-app:some-tag
+   docker push ghcr.io/microbiomedata/nmdc-edge-web-app:{some_tag}
    ```
    For example:
    ```console
