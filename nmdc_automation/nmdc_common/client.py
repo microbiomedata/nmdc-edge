@@ -77,7 +77,7 @@ class NmdcApi:
             }
             url = self.base_url + "nmdcschema/" + workflow_activity_set
             response = requests.get(url, params=params, headers=self.headers)
-            logger.info(response.url)
+            logger.debug(response.url)
             response.raise_for_status()
             workflow_activity_record = response.json()["resources"]
             return workflow_activity_record

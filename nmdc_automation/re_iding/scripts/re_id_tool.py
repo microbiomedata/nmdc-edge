@@ -17,7 +17,7 @@ from nmdc_automation.nmdc_common.client import NmdcApi
 import nmdc_schema.nmdc as nmdc
 from nmdc_automation.re_iding.base import ReIdTool
 from nmdc_automation.re_iding.changesheets import Changesheet, ChangesheetLineItem
-from nmdc_automation.re_iding.db_utils import get_omics_processing_id
+from nmdc_automation.re_iding.db_utils import get_omics_processing_id, ANALYSIS_ACTIVITIES
 
 # Defaults
 GOLD_STUDY_ID = "gold:Gs0114663"
@@ -36,7 +36,6 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
-
 
 
 @click.group()
@@ -94,6 +93,7 @@ def extract_records(ctx, study_id, api_base_url):
         db_no_type = nmdc.Database()
         is_failed_data = False
         is_no_type_data = False
+
         logging.info(f"omics_processing_record: " f"{omics_processing_record['id']}")
         legacy_id = _get_legacy_id(omics_processing_record)
         logging.info(f"legacy_id: {legacy_id}")
@@ -106,13 +106,12 @@ def extract_records(ctx, study_id, api_base_url):
 
         omics_processing_has_outputs = omics_processing_record.get("has_output", [])
         if not omics_processing_has_outputs:
-            logging.warning(f"OmicsProcessing: no has_output for: {omics_id}")
-            logging.warning(f"omics_processing_record: {omics_processing_record}")
+            logging.error(f"No has_output for {omics_id}")
+
         for data_object_id in omics_processing_has_outputs:
             data_object_record = api_client.get_data_object(data_object_id)
             if not data_object_record:
-                logging.warning(f"DataObjectNotFound: {data_object_id}")
-                logging.warning(f"omics_processing_record: {omics_processing_record}")
+                logging.error(f"Missing Data Object: {data_object_id} for {omics_id}")
                 continue
             db.data_object_set.append(data_object_record)
 
@@ -140,10 +139,11 @@ def extract_records(ctx, study_id, api_base_url):
             workflow_records = api_client.get_workflow_activities_informed_by(set_name,
                                                                    legacy_id)
             logging.info(f"found {len(workflow_records)} records")
-            # db.__setattr__(set_name, workflow_records)
             passing_records = []
             failing_records = []
             no_type_records = []
+
+            # Get workflow record(s) for each activity set - generally only one but could be more
             for workflow_record in workflow_records:
                 logging.info(f"record: {workflow_record['id']}, {workflow_record['name']}")
                 input_output_data_object_ids = set()
@@ -161,29 +161,26 @@ def extract_records(ctx, study_id, api_base_url):
                     data_object_record = api_client.get_data_object(
                         data_object_id
                     )
-                    # If ReadQC was failed for missing Data Objects, every data object is failed
-                    if is_reads_qc_missing_data_objects:
-                        if data_object_record not in failing_data_objects:
-                            failing_data_objects.add(data_object_record)
-                        continue
-
-                    # If we found a missing data object for  this workflow record, we fail all its data objects
-                    if is_missing_data_objects:
-                        if data_object_record not in failing_data_objects:
-                            failing_data_objects.add(data_object_record)
-
 
                     # Check for orphaned data objects
                     if not data_object_record:
-                        logging.warning(f"DataObjectNotFound {data_object_id}")
+                        logging.error(f"DataObjectNotFound {data_object_id} for {workflow_record['type']}"
+                                      f"/{workflow_record['id']}")
                         is_missing_data_objects = True
                         is_failed_data = True
                         if set_name == "read_qc_analysis_activity_set":
                             is_reads_qc_missing_data_objects = True
+                            logging.error(f"ReadsQCMissingDataObjects: {workflow_record['id']}, {workflow_record['type']}, {workflow_record['name']}")
                         continue
-                    # If ReadQC had missing data objects, add the record to the failed set and data objects to the
-                    # failed db
+
+                    # If ReadQC was failed for missing Data Objects, every data object is failed
                     if is_reads_qc_missing_data_objects:
+                        if data_object_record not in failing_data_objects:
+                            logging.error(f"ReadsQCFailingDataObjects: {data_object_id}")
+                            failing_data_objects.add(data_object_record)
+
+                    # If we found a missing data object for  this workflow record, we fail all its data objects
+                    if is_missing_data_objects:
                         if data_object_record not in failing_data_objects:
                             failing_data_objects.add(data_object_record)
 
@@ -196,8 +193,7 @@ def extract_records(ctx, study_id, api_base_url):
                         logging.warning(f"DataObjectNoType: {data_object_id}")
                         no_type_records.append(data_object_record)
 
-                    elif data_object_record not in db.data_object_set:
-                        db.data_object_set.append(data_object_record)
+
 
 
                 if failing_data_objects:
@@ -498,6 +494,91 @@ def delete_old_records(ctx, old_records_file):
     logging.info(f"Elapsed time: {time.time() - start_time}")
 
 
+@cli.command()
+@click.option("--study-id", default=STUDY_ID, help="NMDC study ID")
+@click.option("--api-base-url", default=NAPA_BASE_URL,
+              help=f"Optional base URL for the NMDC API. Default: {NAPA_BASE_URL}")
+@click.pass_context
+def orphan_data_objects(ctx, study_id, api_base_url):
+    """
+    Scan project data directories, read in the data object records from 'data_objects.json'
+    and find data objects that:
+    - are associated with one or more workflow activities has_input or has_output
+    - are not present in the data_objects collection in the NMDC database
+
+    Write the results to a JSON file of nmdc DataObject instances.
+    """
+    start_time = time.time()
+    logging.info(f"Scanning for orphaned data objects for {study_id}")
+
+
+    api_client = NmdcApi(api_base_url)
+    with open("unique_data_objects.json", "r") as f:
+        data_objects = json.load(f)
+    # index the data objects by ID
+    data_objects_by_id = {data_object["id"]: data_object for data_object in data_objects}
+
+
+    # 1. Retrieve all OmicsProcessing records for the updated NMDC study ID
+    omics_processing_records = (
+        api_client.get_omics_processing_records_part_of_study(
+            study_id
+        ))
+    orphan_data_object_ids = set()
+    # 2. For each OmicsProcessing record, find the legacy identifier:
+    for omics_processing_record in omics_processing_records:
+        informed_by_id = _get_legacy_id(omics_processing_record)
+        for activity_set_name in ANALYSIS_ACTIVITIES:
+            workflow_records = api_client.get_workflow_activities_informed_by(activity_set_name, informed_by_id)
+            for workflow_record in workflow_records:
+                data_object_ids = set()
+                data_object_ids.update(workflow_record["has_input"])
+                data_object_ids.update(workflow_record["has_output"])
+
+                # Search the data object IDs
+                for data_object_id in data_object_ids:
+                    data_object_record = api_client.get_data_object(data_object_id)
+                    if not data_object_record:
+                        logging.warning(f"{informed_by_id} : {workflow_record['id']} "
+                                       f"{workflow_record['name']} missing: {data_object_id}")
+                        orphan_data_object_ids.add(data_object_id)
+                        continue
+    logging.info(f"Elapsed time: {time.time() - start_time}")
+    logging.info(f"Found {len(orphan_data_object_ids)} orphaned data objects")
+    # get orphaned data objects from the data_objects_by_id if present
+    orphaned_data_objects = []
+    for data_object_id in orphan_data_object_ids:
+        if data_object_id in data_objects_by_id:
+            orphaned_data_objects.append(data_objects_by_id[data_object_id])
+        else:
+            logging.warning(f"orphaned data object {data_object_id} not found in data_objects.json")
+    logging.info(f"Writing {len(orphaned_data_objects)} orphaned data objects to orphaned_data_objects.json")
+    if orphaned_data_objects:
+        with open(f"{study_id}_orphaned_data_objects.json", "w") as f:
+            f.write(json.dumps(orphaned_data_objects, indent=4))
+
+
+@cli.command()
+@click.argument("data-objects-file", type=click.Path(exists=True))
+def get_unique_data_objects(data_objects_file):
+    """
+    Read in a raw json dump of data objects and return a list of unique data objects
+    as a json dump.
+    """
+    with open(data_objects_file, "r") as f:
+        data_objects = json.load(f)
+
+    unique_data_objects = []
+    unique_data_object_ids = set()
+    for data_object in data_objects:
+        if data_object["id"] not in unique_data_object_ids:
+            unique_data_objects.append(data_object)
+            unique_data_object_ids.add(data_object["id"])
+    with open("unique_data_objects.json", "w") as f:
+        f.write(json.dumps(unique_data_objects, indent=4))
+
+
+
 def _get_data_dir(data_dir, dryrun):
     """
     Return the path to the data object files
@@ -537,7 +618,7 @@ def _get_legacy_id(omics_processing_record: dict) -> str:
     alternative_ids = omics_processing_record.get("alternative_identifiers", [])
     legacy_ids.extend(alternative_ids)
     if len(legacy_ids) == 0:
-        logging.warning(
+        logging.debug(
             f"No legacy IDs found for: {omics_processing_record['id']} using ID instead"
         )
         return omics_processing_record["id"]
