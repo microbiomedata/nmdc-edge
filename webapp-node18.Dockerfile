@@ -15,13 +15,13 @@
 #    - If the computer you're using to build the image, and the computer on which containers based upon the image will
 #      run, have the same CPU architecture, then you can use this command to build the image:
 #      ```
-#      $ docker build -f webapp.Dockerfile -t nmdc-edge-web-app:some-tag .
+#      $ docker build -f webapp-node18.Dockerfile -t nmdc-edge-web-app:some-tag .
 #      ```
 #    - If the computer you're using to build the image has the arm64 CPU architecture (e.g. a MacBook Pro M1),
 #      and the computer on which containers based upon the image will run have the AMD64 CPU architecture
 #      (e.g. Intel-based systems), you can use this command to build the image:
 #      ```
-#      $ docker buildx build --platform linux/amd64 -f webapp.Dockerfile -t nmdc-edge-web-app:some-tag .
+#      $ docker buildx build --platform linux/amd64 -f webapp-node18.Dockerfile -t nmdc-edge-web-app:some-tag .
 #      ```
 # 2. (Optional) Instantiate/run a container based upon the resulting container image:
 #      ```

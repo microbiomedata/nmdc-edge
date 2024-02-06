@@ -3,7 +3,8 @@
 # Reference: https://docs.docker.com/build/building/context/#dockerignore-files
 
 /.dockerignore
-/webapp.Dockerfile
+/webapp-node16.Dockerfile
+/webapp-node18.Dockerfile
 /docker-compose.yml
 /webapp/client/node_modules
 /webapp/server/node_modules
