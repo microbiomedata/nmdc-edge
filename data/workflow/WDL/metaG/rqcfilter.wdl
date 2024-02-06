@@ -92,6 +92,7 @@ task rqcfilter {
      String jvm_threads=select_first([threads,system_cpu])
      String chastityfilter= if (chastityfilter_flag) then "cf=t" else "cf=f"
      Float? scale_factor
+     String dollar ="$"
 
      runtime {
             docker: container
@@ -106,8 +107,8 @@ task rqcfilter {
         export TIME="time result\ncmd:%C\nreal %es\nuser %Us \nsys  %Ss \nmemory:%MKB \ncpu %P"
         set -eo pipefail
         echo ${scale_factor}
-        echo size(${input_files})
-        echo ceil(size(${input_files}, "GB")*${scale_factor})
+        echo ${dollar}(size(${input_files}))
+        echo ${dollar}(ceil(size(${input_files}, "GB")*${scale_factor}))
         rqcfilter2.sh -Xmx${default="60G" memory} -da threads=${jvm_threads} ${chastityfilter} jni=t in=${input_files} path=filtered rna=f trimfragadapter=t qtrim=r trimq=0 maxns=3 maq=3 minlen=51 mlf=0.33 phix=t removehuman=t removedog=t removecat=t removemouse=t khist=t removemicrobes=t sketch kapa=t clumpify=t tmpdir= barcodefilter=f trimpolyg=5 usejni=f rqcfilterdata=${database}/RQCFilterData  > >(tee -a ${filename_outlog}) 2> >(tee -a ${filename_errlog} >&2)
 
         python <<CODE
