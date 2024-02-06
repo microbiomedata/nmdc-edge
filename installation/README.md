@@ -9,18 +9,33 @@ https://nodejs.org/dist/latest-v16.x/
 ### Install MongoDB Community Edition
 https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials
 
-### Populate Configuration Files
+### Create environment variables
 
-1. Populate the "client build" configuration file (i.e. `webapp/client/.env`).
-   - You can initialize it based upon the corresponding example file:
-     ```shell
-     cp webapp/client/.env.example webapp/client/.env
-     ```
-2. Populate the "server" configuration file (i.e. `webapp/server/.env`).
-   - You can initialize it based upon the corresponding example file:
-     ```shell
-     cp webapp/server/.env.example webapp/server/.env
-     ```
+The web client and web server each rely on environment variables for their configuration.
+You can define those environment variables directly in your system environment, 
+define them in `.env` files, or define them in both places.
+
+Here's how you can define them in `.env` files:
+
+- Populate the "client build" environment configuration file (i.e. `webapp/client/.env`).
+  - You can initialize it based upon the corresponding example file:
+    ```shell
+    cp webapp/client/.env.example \
+       webapp/client/.env
+    ```
+    > Those environment variables are used within `webapp/client/src/config.js`.
+- Populate the server environment configuration file (i.e. `webapp/server/.env`).
+  - You can initialize it based upon the corresponding example file:
+    ```shell
+    cp webapp/server/.env.example \
+       webapp/server/.env
+    ```
+    > Those environment variables are used within `webapp/server/config.js`.
+
+> If the same environment variable is defined in both your system environment and in an `.env` file, 
+> the definition in your system environment will be used and the one in the `.env` file will be 
+> [ignored](https://github.com/motdotla/dotenv/blob/master/README.md#what-happens-to-environment-variables-that-were-already-set).
+
 
 ## INSTALLING webapp
 

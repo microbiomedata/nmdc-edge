@@ -68,14 +68,14 @@ You can use the development stack to run the NMDC EDGE web application locally.
     cp webapp/client/.env.example \
        webapp/client/.env
     ```
-    > The environment variables are used within `webapp/client/src/config.js`.
+    > Those environment variables are used within `webapp/client/src/config.js`.
 - The server configuration file (i.e. `webapp/server/.env`) is populated.
   - You can initialize it based upon the corresponding example file:
     ```shell
     cp webapp/server/.env.example \
        webapp/server/.env
     ```
-    > The environment variables are used within `webapp/server/config.js`.
+    > Those environment variables are used within `webapp/server/config.js`.
 
 ##### Procedure
 
