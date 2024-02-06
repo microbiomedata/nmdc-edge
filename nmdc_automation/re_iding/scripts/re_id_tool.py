@@ -33,14 +33,10 @@ DRYRUN_DATAFILE_DIR = DATA_DIR.joinpath("dryrun_data/results")
 LOG_PATH = DATA_DIR.joinpath("re_id_tool.log")
 
 logging.basicConfig(
-    filename="re_id.log",
-    filemode="a",
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
 
-logger = logging.getLogger(__name__)
-logger.addHandler(logging.StreamHandler())
 
 
 @click.group()
@@ -59,11 +55,7 @@ def cli(ctx, site_config):
 
 
 @cli.command()
-@click.option(
-    "--study-id",
-    default=STUDY_ID,
-    help=f"Optional updated study ID. Default: {STUDY_ID}",
-)
+@click.argument("study_id", type=str)
 @click.option("--api-base-url", default=NAPA_BASE_URL,
               help=f"Optional base URL for the NMDC API. Default: {NAPA_BASE_URL}")
 @click.pass_context
@@ -76,8 +68,8 @@ def extract_records(ctx, study_id, api_base_url):
     Write the results, as a list of nmdc-schema Database instances to a JSON file.
     """
     start_time = time.time()
-    logger.info(f"Extracting workflow records for study_id: {study_id}")
-    logger.info(f"study_id: {study_id}")
+    logging.info(f"Extracting workflow records for study_id: {study_id}")
+    logging.info(f"study_id: {study_id}")
 
     config = ctx.obj["site_config"]
     # api_client = NmdcRuntimeUserApi(config)
@@ -88,46 +80,40 @@ def extract_records(ctx, study_id, api_base_url):
         api_client.get_omics_processing_records_part_of_study(
         study_id
     ))
-    logger.info(
+    logging.info(
         f"Retrieved {len(omics_processing_records)} OmicsProcessing records for study {study_id}"
     )
 
     retrieved_databases = []
+    retrieved_missing_data_objects = []
+    retrieved_no_type_data_objects = []
     # 2. For each OmicsProcessing record, find the legacy identifier:
     for omics_processing_record in omics_processing_records:
         db = nmdc.Database()
-        logger.info(f"omics_processing_record: " f"{omics_processing_record['id']}")
+        db_failed = nmdc.Database()
+        db_no_type = nmdc.Database()
+        is_failed_data = False
+        is_no_type_data = False
+        logging.info(f"omics_processing_record: " f"{omics_processing_record['id']}")
         legacy_id = _get_legacy_id(omics_processing_record)
-        logger.info(f"legacy_id: {legacy_id}")
+        logging.info(f"legacy_id: {legacy_id}")
 
         omics_type = omics_processing_record["omics_type"]["has_raw_value"]
         omics_id = omics_processing_record["id"]
         if omics_type not in ["Metagenome", "Metatranscriptome"]:
-            logger.info(
-                f"omics_processing_record {omics_id}: {omics_type}] "
-                f"is not a Metagenome or Metatranscriptome, skipping"
-            )
             continue
         db.omics_processing_set.append(omics_processing_record)
 
         omics_processing_has_outputs = omics_processing_record.get("has_output", [])
         if not omics_processing_has_outputs:
-            logger.warning(f"OmicsProcessing: no has_output for: {omics_id}")
-            logger.warning(f"omics_processing_record: {omics_processing_record}")
+            logging.warning(f"OmicsProcessing: no has_output for: {omics_id}")
+            logging.warning(f"omics_processing_record: {omics_processing_record}")
         for data_object_id in omics_processing_has_outputs:
             data_object_record = api_client.get_data_object(data_object_id)
             if not data_object_record:
-                logger.warning(f"DataObjectNotFound: {data_object_id}")
-                logger.warning(f"omics_processing_record: {omics_processing_record}")
+                logging.warning(f"DataObjectNotFound: {data_object_id}")
+                logging.warning(f"omics_processing_record: {omics_processing_record}")
                 continue
-            data_object_type = data_object_record.get("data_object_type")
-            data_object_description = data_object_record.get("description")
-            logger.info(
-                f"has_output: "
-                f"{data_object_record['id']}, "
-                f"Type: {data_object_type}, "
-                f" Description: {data_object_description}"
-            )
             db.data_object_set.append(data_object_record)
 
         # downstream workflow activity sets
@@ -148,41 +134,97 @@ def extract_records(ctx, study_id, api_base_url):
             "mags_activity_set": mags_records,
             "metatranscriptome_activity_set": metatranscriptome_activity_records,
         }
+        is_reads_qc_missing_data_objects = False
         for set_name, workflow_records in downstream_workflow_activity_sets.items():
-            logger.info(f"set_name: {set_name} for {legacy_id}")
+            logging.info(f"set_name: {set_name} for {legacy_id}")
             workflow_records = api_client.get_workflow_activities_informed_by(set_name,
                                                                    legacy_id)
-            logger.info(f"found {len(workflow_records)} records")
-            db.__setattr__(set_name, workflow_records)
+            logging.info(f"found {len(workflow_records)} records")
+            # db.__setattr__(set_name, workflow_records)
+            passing_records = []
+            failing_records = []
+            no_type_records = []
             for workflow_record in workflow_records:
-                logger.info(f"record: {workflow_record['id']}, {workflow_record['name']}")
-                input_output_data_object_ids = []
-                if "has_input" in workflow_record:
-                    input_output_data_object_ids.extend(workflow_record["has_input"])
+                logging.info(f"record: {workflow_record['id']}, {workflow_record['name']}")
+                input_output_data_object_ids = set()
+                # if "has_input" in workflow_record:
+                #     input_output_data_object_ids.update(workflow_record["has_input"])
                 if "has_output" in workflow_record:
-                    input_output_data_object_ids.extend(workflow_record["has_output"])
+                    input_output_data_object_ids.update(workflow_record["has_output"])
 
+                is_missing_data_objects = False
+                is_no_type_data_objects = False
+                passing_data_objects = set()
+                failing_data_objects = set()
+                no_type_data_objects = set()
                 for data_object_id in input_output_data_object_ids:
                     data_object_record = api_client.get_data_object(
                         data_object_id
                     )
-                    if not data_object_record:
-                        logger.warning(f"DataObjectNotFound {data_object_id}")
-                        logger.warning(f"workflow_record: {workflow_record['id']}, {workflow_record['type']}, {workflow_record['name']}")
-                        logger.warning(f"has_input: {workflow_record.get('has_input')}")
-                        logger.warning(f"has_output: {workflow_record.get('has_output')}")
-                        logger.warning(f"omics_processing_record: {omics_processing_record['id']}, {omics_processing_record['omics_type']['has_raw_value']}")
+                    # If ReadQC was failed for missing Data Objects, every data object is failed
+                    if is_reads_qc_missing_data_objects:
+                        if data_object_record not in failing_data_objects:
+                            failing_data_objects.add(data_object_record)
                         continue
+
+                    # If we found a missing data object for  this workflow record, we fail all its data objects
+                    if is_missing_data_objects:
+                        if data_object_record not in failing_data_objects:
+                            failing_data_objects.add(data_object_record)
+
+
+                    # Check for orphaned data objects
+                    if not data_object_record:
+                        logging.warning(f"DataObjectNotFound {data_object_id}")
+                        is_missing_data_objects = True
+                        is_failed_data = True
+                        if set_name == "read_qc_analysis_activity_set":
+                            is_reads_qc_missing_data_objects = True
+                        continue
+                    # If ReadQC had missing data objects, add the record to the failed set and data objects to the
+                    # failed db
+                    if is_reads_qc_missing_data_objects:
+                        if data_object_record not in failing_data_objects:
+                            failing_data_objects.add(data_object_record)
+
+                    # Some legacy Data Objects cannot be typed
                     data_object_type = data_object_record.get("data_object_type")
-                    data_object_description = data_object_record.get("description")
-                    logger.info(
-                        f"has_output: "
-                        f"{data_object_record['id']}, "
-                        f"Type: {data_object_type}, "
-                        f" Description: {data_object_description}"
-                    )
-                    if data_object_record not in db.data_object_set:
+                    data_object_url = data_object_record.get("url")
+                    if not data_object_type and not data_object_url:
+                        is_no_type_data_objects = True
+                        is_no_type_data = True
+                        logging.warning(f"DataObjectNoType: {data_object_id}")
+                        no_type_records.append(data_object_record)
+
+                    elif data_object_record not in db.data_object_set:
                         db.data_object_set.append(data_object_record)
+
+
+                if failing_data_objects:
+                    db_failed.data_object_set.extend(failing_data_objects)
+                if no_type_data_objects:
+                    db_no_type.data_object_set.extend(no_type_data_objects)
+
+                # add the workflow record if not missing data objects or data object type is missing
+                if is_reads_qc_missing_data_objects:
+                    logging.warning(f"ReadsQCMissingDataObjects: {workflow_record['id']}, {workflow_record['type']}, {workflow_record['name']}")
+                    failing_records.append(workflow_record)
+                elif is_missing_data_objects:
+                    logging.warning(f"MissingDataObjects: {workflow_record['id']}, {workflow_record['type']}, {workflow_record['name']}")
+                    failing_records.append(workflow_record)
+
+                elif is_no_type_data_objects:
+                    logging.warning(f"NoTypeDataObjects: {workflow_record['id']}, {workflow_record['type']}, {workflow_record['name']}")
+                    no_type_records.append(workflow_record)
+                else:
+                    passing_records.append(workflow_record)
+            if failing_records:
+                db_failed.__setattr__(set_name, failing_records)
+            if no_type_records:
+                db_no_type.__setattr__(set_name, no_type_records)
+            db.__setattr__(set_name, passing_records)
+
+
 
         # Search for orphaned data objects with the legacy ID in the description
         orphaned_data_objects = api_client.get_data_objects_by_description(legacy_id)
@@ -190,19 +232,39 @@ def extract_records(ctx, study_id, api_base_url):
         for data_object in orphaned_data_objects:
             if data_object not in db.data_object_set:
                 db.data_object_set.append(data_object)
-                logger.info(
+                logging.info(
                     f"Added orphaned data object: "
                     f"{data_object['id']}, {data_object['description']}"
                 )
 
         retrieved_databases.append(db)
+        if is_failed_data:
+            retrieved_missing_data_objects.append(db_failed)
+        if is_no_type_data:
+            retrieved_no_type_data_objects.append(db_no_type)
 
     json_data = json.loads(json_dumper.dumps(retrieved_databases, inject_type=False))
     db_outfile = DATA_DIR.joinpath(f"{study_id}_associated_record_dump.json")
-    logger.info(f"Writing {len(retrieved_databases)} records to {db_outfile}")
-    logger.info(f"Elapsed time: {time.time() - start_time}")
+    logging.info(f"Writing {len(retrieved_databases)} records to {db_outfile}")
+    logging.info(f"Elapsed time: {time.time() - start_time}")
     with open(db_outfile, "w") as f:
         f.write(json.dumps(json_data, indent=4))
+
+    # write failed records to a separate file if they exist
+    if retrieved_missing_data_objects:
+        db_failed_outfile = DATA_DIR.joinpath(f"{study_id}_failed_record_dump.json")
+        logging.info(f"Writing {len(retrieved_missing_data_objects)} failed records to {db_failed_outfile}")
+        with open(db_failed_outfile, "w") as f:
+            json_data = json.loads(json_dumper.dumps(retrieved_missing_data_objects, inject_type=False))
+            f.write(json.dumps(json_data, indent=4))
+
+    # write no type records to a separate file if they exist
+    if retrieved_no_type_data_objects:
+        db_no_type_outfile = DATA_DIR.joinpath(f"{study_id}_no_type_record_dump.json")
+        logging.info(f"Writing {len(retrieved_no_type_data_objects)} no type records to {db_no_type_outfile}")
+        with open(db_no_type_outfile, "w") as f:
+            json_data = json.loads(json_dumper.dumps(retrieved_no_type_data_objects, inject_type=False))
+            f.write(json.dumps(json_data, indent=4))
 
 
 @cli.command()
@@ -231,9 +293,9 @@ def process_records(ctx, dryrun, study_id, data_dir):
     Write the results to a new JSON file of nmdc Database instances.
     """
     start_time = time.time()
-    logger.info(f"Processing workflow records for study_id: {study_id}")
+    logging.info(f"Processing workflow records for study_id: {study_id}")
     if dryrun:
-        logger.info("Running in dryrun mode")
+        logging.info("Running in dryrun mode")
 
     # Get API client
     config = ctx.obj["site_config"]
@@ -242,21 +304,21 @@ def process_records(ctx, dryrun, study_id, data_dir):
     # Get Database dump file paths and the data directory
     db_infile, db_outfile = _get_database_paths(study_id, dryrun)
     data_dir = _get_data_dir(data_dir, dryrun)
-    logger.info(f"Using data_dir: {data_dir}")
+    logging.info(f"Using data_dir: {data_dir}")
 
     # Initialize re-ID tool
     reid_tool = ReIdTool(api_client, data_dir)
 
     # Read extracted DB records
-    logger.info(f"Using db_infile: {db_infile}")
+    logging.info(f"Using db_infile: {db_infile}")
     with open(db_infile, "r") as f:
         db_records = json.load(f)
-    logger.info(f"Read {len(db_records)} records from db_infile")
+    logging.info(f"Read {len(db_records)} records from db_infile")
 
     re_ided_db_records = []
     for db_record in db_records:
         omics_processing_id = get_omics_processing_id(db_record)
-        logger.info(f"omics_processing_id: {omics_processing_id}")
+        logging.info(f"omics_processing_id: {omics_processing_id}")
 
         new_db = nmdc.Database()
         # update OmicsProcessing has_output and related DataObject records
@@ -277,8 +339,8 @@ def process_records(ctx, dryrun, study_id, data_dir):
 
         re_ided_db_records.append(new_db)
 
-    logger.info(f"Writing {len(re_ided_db_records)} records to {db_outfile}")
-    logger.info(f"Elapsed time: {time.time() - start_time}")
+    logging.info(f"Writing {len(re_ided_db_records)} records to {db_outfile}")
+    logging.info(f"Elapsed time: {time.time() - start_time}")
     json_data = json.loads(json_dumper.dumps(re_ided_db_records, inject_type=False))
     with open(db_outfile, "w") as f:
         f.write(json.dumps(json_data, indent=4))
@@ -299,7 +361,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
     /v1/workflows/activities endpoint
     """
     start_time = time.time()
-    logger.info(f"Submitting re id'd records from : {reid_records_file}")
+    logging.info(f"Submitting re id'd records from : {reid_records_file}")
     reid_records_filename = Path(reid_records_file).name
     reid_base_name = reid_records_filename.split("_")[0]
 
@@ -319,7 +381,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
         omics_processing_set = record.pop("omics_processing_set")
         for omics_processing_record in omics_processing_set:
             omics_processing_id = omics_processing_record["id"]
-            logger.info(f"omics_processing_id: {omics_processing_id}")
+            logging.info(f"omics_processing_id: {omics_processing_id}")
             # find legacy has_output and create change to remove it
             # need to strip the nmdc: prefix for the objects endpoint
             trimmed_omics_processing_id = omics_processing_id.split(":")[1]
@@ -335,7 +397,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
                 value="|".join(legacy_omics_processing_record["has_output"]) + "|",
             )
             changesheet.line_items.append(change)
-            logger.info(f"changes: {change}")
+            logging.info(f"changes: {change}")
 
             # insert new has_output
             change = ChangesheetLineItem(
@@ -345,21 +407,21 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
                 value="|".join(omics_processing_record["has_output"]) + "|",
             )
             changesheet.line_items.append(change)
-            logger.info(f"changes: {change}")
+            logging.info(f"changes: {change}")
 
         # submit the record to the workflows endpoint
         if not changesheet_only:
             resp = api_client.post_objects(record)
-            logger.info(f"{record} posted, got response: {resp}")
+            logging.info(f"{record} posted, got response: {resp}")
         else:
-            logger.info(f"changesheet_only is True, skipping ingest")
+            logging.info(f"changesheet_only is True, skipping ingest")
 
     changesheet.write_changesheet()
-    logger.info(f"changesheet written to {changesheet.output_filepath}")
+    logging.info(f"changesheet written to {changesheet.output_filepath}")
     if changesheet.validate_changesheet(api_client.config.napa_base_url):
-        logger.info(f"changesheet validated")
+        logging.info(f"changesheet validated")
     else:
-        logger.info(f"changesheet validation failed")
+        logging.info(f"changesheet validation failed")
 
 
 @cli.command()
@@ -372,14 +434,14 @@ def delete_old_records(ctx, old_records_file):
     /queries/run endpoint
     """
     start_time = time.time()
-    logger.info(f"Deleting old objects found in : {old_records_file}")
+    logging.info(f"Deleting old objects found in : {old_records_file}")
     old_records_filename = Path(old_records_file).name
     old_base_name = old_records_filename.split("_")[0]
 
     # Get API client(s)
     config = ctx.obj["site_config"]
     api_user_client = NmdcRuntimeUserApi(config)
-    logger.info(f"Using: {api_user_client.base_url}")
+    logging.info(f"Using: {api_user_client.base_url}")
 
     # get old db records
     with open(old_records_file, "r") as f:
@@ -401,22 +463,22 @@ def delete_old_records(ctx, old_records_file):
                             "deletes": [{"q": {"id": item["id"]}, "limit": 1}],
                         }
                         try:
-                            logger.info(f"Deleting {item.get('type')} record: {item['id']}")
+                            logging.info(f"Deleting {item.get('type')} record: {item['id']}")
                             run_query_response = api_user_client.run_query(
                                 delete_query
                             )
 
-                            logger.info(
+                            logging.info(
                                 f"Deleting query posted with response: {run_query_response}"
                             )
                         except requests.exceptions.RequestException as e:
-                            logger.info(
+                            logging.info(
                                 f"An error occured while running: {delete_query}, response retutrned: {e}"
                             )
 
     for annotation_id in gene_id_list:
         try:
-            logger.info(
+            logging.info(
                 f"Deleting functional aggregate record with id: {annotation_id}"
             )
             delete_query_agg = {
@@ -426,14 +488,14 @@ def delete_old_records(ctx, old_records_file):
 
             run_query_agg_response = api_user_client.run_query(delete_query_agg)
 
-            logger.info(
+            logging.info(
                 f"Response for deleting functional annotation agg record returned: {run_query_agg_response}"
             )
         except requests.exceptions.RequestException as e:
-            logger.error(
+            logging.error(
                 f"An error occurred while deleting annotation id {annotation_id}: {e}"
             )
-    logger.info(f"Elapsed time: {time.time() - start_time}")
+    logging.info(f"Elapsed time: {time.time() - start_time}")
 
 
 def _get_data_dir(data_dir, dryrun):
@@ -441,11 +503,11 @@ def _get_data_dir(data_dir, dryrun):
     Return the path to the data object files
     """
     if dryrun:
-        logger.info("Running in dryrun mode")
+        logging.info("Running in dryrun mode")
         return DRYRUN_DATAFILE_DIR
     elif not data_dir:
         data_dir = BASE_DATAFILE_DIR
-    logger.info(f"Using datafile_dir: {data_dir}")
+    logging.info(f"Using datafile_dir: {data_dir}")
     return data_dir
 
 
@@ -475,12 +537,12 @@ def _get_legacy_id(omics_processing_record: dict) -> str:
     alternative_ids = omics_processing_record.get("alternative_identifiers", [])
     legacy_ids.extend(alternative_ids)
     if len(legacy_ids) == 0:
-        logger.warning(
+        logging.warning(
             f"No legacy IDs found for: {omics_processing_record['id']} using ID instead"
         )
         return omics_processing_record["id"]
     elif len(legacy_ids) > 1:
-        logger.warning(
+        logging.warning(
             f"Multiple legacy IDs found for omics_processing_record: {omics_processing_record['id']}"
         )
         return None
