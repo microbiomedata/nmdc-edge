@@ -59,17 +59,17 @@ workflow main_workflow {
         call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
             input:
                 input_files=interleaved_input_fastqs,
-                outdir=ReadsQC_outdir,
+                outdir=readsQC_outdir,
                 input_interleaved=true,
-                input_fq1=ReadsQC_input_fq1,
-                input_fq2=ReadsQC_input_fq2
+                input_fq1=readsQC_input_fq1,
+                input_fq2=readsQC_input_fq2
         }
         scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
 
                 call readsQC.nmdc_rqcfilter  as nmdc_rqcfilter_call {
                     input:
                         input_files=file,
-                        database=ReadsQC_database,
+                        database=readsQC_database,
                         proj=proj,
                }
 
