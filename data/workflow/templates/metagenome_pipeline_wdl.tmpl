@@ -66,7 +66,7 @@ workflow main_workflow {
         }
         scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
 
-                call readsQC.nmdc_rqcfilter  as nmdc_rqcfilter {
+                call readsQC.nmdc_rqcfilter  as nmdc_rqcfilter_call {
                     input:
                         input_files=file,
                         database=ReadsQC_database,
@@ -89,7 +89,7 @@ workflow main_workflow {
 		"centrifuge": "/expanse/projects/nmdc/refdata/Centrifuge"
 	}
 	String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.3p1"
-	Array[File]? readbasedAnalysis_reads = if (DoReadsQC) then nmdc_rqcfilter.filtered_final else interleaved_input_fastqs
+	Array[File]? readbasedAnalysis_reads = if (DoReadsQC) then nmdc_rqcfilter_call.filtered_final else interleaved_input_fastqs
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
 	String readbasedAnalysis_outdir
@@ -116,7 +116,7 @@ workflow main_workflow {
 	}
 
 	## Assembly workflow
-	Array[File]? metaAssembly_input_file = if (DoReadsQC) then nmdc_rqcfilter.filtered_final else interleaved_input_fastqs
+	Array[File]? metaAssembly_input_file = if (DoReadsQC) then nmdc_rqcfilter_call.filtered_final else interleaved_input_fastqs
 	String? metaAssembly_outdir
 	String metaAssembly_rename_contig_prefix="scaffold"
 	Float metaAssembly_uniquekmer=1000
@@ -213,8 +213,8 @@ workflow main_workflow {
 			DoAnnotation = DoAnnotation,
 			DoMetaMAGs = DoMetaMAGs,
 			read = if (input_interleaved) then input_files else flatten([input_fq1,input_fq2]),
-			filtered = if (DoReadsQC) then jgi_rqcfilter_call.filtered else [start.start_file],
-			filtered_stats = if (DoReadsQC) then jgi_rqcfilter_call.stats else [start.start_file],
+			filtered = if (DoReadsQC) then nmdc_rqcfilter_call.filtered_final else [start.start_file],
+			filtered_stats = if (DoReadsQC) then nmdc_rqcfilter_call.stats else [start.start_file],
 			fasta=metaAssembly_call.contig,
 			scaffold=metaAssembly_call.scaffold,
 			agp=metaAssembly_call.agp,
