@@ -56,17 +56,25 @@ workflow main_workflow {
 	Array[File] readsQC_input_fq2=[]
 
 	if (DoReadsQC){
-		call readsQC.jgi_rqcfilter as jgi_rqcfilter_call {
-			input: 
-				input_files=interleaved_input_fastqs,
-				input_fq1=readsQC_input_fq1,
-				input_fq2=readsQC_input_fq2,
-				outdir=readsQC_outdir, 
-				bbtools_container=readsQC_bbtools_container, 
-				database=readsQC_database, 
-				memory=readsQC_memory, 
-				threads=readsQC_threads
-		}
+        call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
+            input:
+                input_files=ReadsQC_input_files,
+                outdir=ReadsQC_outdir,
+                input_interleaved=ReadsQC_input_interleaved,
+                input_fq1=ReadsQC_input_fq1,
+                input_fq2=ReadsQC_input_fq2
+        }
+        scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
+
+                call ReadsQC.nmdc_rqcfilter  as nmdc_rqcfilter {
+                    input:
+                        input_files=file,
+                        database=ReadsQC_database,
+                        proj=proj,
+               }
+
+        }
+
 	}
 
 	## ReadbasedAnalysis workflow
@@ -81,7 +89,7 @@ workflow main_workflow {
 		"centrifuge": "/expanse/projects/nmdc/refdata/Centrifuge"
 	}
 	String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.3p1"
-	Array[File]? readbasedAnalysis_reads = if (DoReadsQC) then jgi_rqcfilter_call.clean_fastq_files else interleaved_input_fastqs 
+	Array[File]? readbasedAnalysis_reads = if (DoReadsQC) then nmdc_rqcfilter.filtered_final else interleaved_input_fastqs
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
 	String readbasedAnalysis_outdir
@@ -108,7 +116,7 @@ workflow main_workflow {
 	}
 
 	## Assembly workflow
-	Array[File]? metaAssembly_input_file = if (DoReadsQC) then jgi_rqcfilter_call.clean_fastq_files else interleaved_input_fastqs 
+	Array[File]? metaAssembly_input_file = if (DoReadsQC) then nmdc_rqcfilter.filtered_final else interleaved_input_fastqs
 	String? metaAssembly_outdir
 	String metaAssembly_rename_contig_prefix="scaffold"
 	Float metaAssembly_uniquekmer=1000
