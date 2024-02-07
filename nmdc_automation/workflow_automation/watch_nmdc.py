@@ -117,7 +117,10 @@ class Watcher:
         """
         Return a filtered list of nmdc jobs.
         """
-        filt = {"workflow.id": {"$in": self._ALLOWED}}
+        filt = {
+            "workflow.id": {"$in": self._ALLOWED},
+            "claims": {"$size": 0}
+        }
         logging.debug("Looking for jobs")
         jobs = self.runtime_api.list_jobs(filt=filt)
         logging.debug(f"Found {len(jobs)} jobs")
