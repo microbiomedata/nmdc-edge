@@ -96,7 +96,7 @@ const config = {
         // TODO: Document this.
         WORKFLOW_TYPE: process.env.CROMWELL_WORKFLOW_TYPE || "WDL",
         // TODO: Document this.
-        WORKFLOW_TYPE_VERSION: process.env.CROMWELL_WORKFLOW_VERSION || "draft-2",
+        WORKFLOW_TYPE_VERSION: process.env.CROMWELL_WORKFLOW_TYPE_VERSION || "draft-2",
     },
     CRON: {
         // Port number on which the cron web server will listen for HTTP requests.
