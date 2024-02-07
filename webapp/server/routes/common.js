@@ -24,6 +24,7 @@ const encodePassword = function (password) {
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(password, salt, (err, hash) => {
                 if (err) {
+                    // FIXME: Where is `logger` defined?
                     logger.error("Failed to encode password: " + err);
                     return reject(err);
                 }
@@ -40,10 +41,12 @@ const signToken = function (payload) {
             payload,
             config.AUTH.JWT_SECRET,
             {
+                // TODO: Consider defining this in `config.js`.
                 expiresIn: 31556926 // 1 year in seconds
             },
             (err, token) => {
                 if (err) {
+                    // FIXME: Where is `logger` defined?
                     logger.error("Failed to generate a jwt token: " + err);
                     return reject(err);
                 }
