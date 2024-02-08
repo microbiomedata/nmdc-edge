@@ -255,25 +255,15 @@ def extract_records(ctx, study_id, api_base_url):
 
 
 @cli.command()
+@click.argument("study_id", type=str)
 @click.option(
-    "--dryrun / --no-dryrun",
-    is_flag=True,
-    default=True,
-    help="Dryrun mode: use local data dir and do not save results",
-)
-@click.option(
-    "--study_id",
-    default=STUDY_ID,
-    help=f"Optional updated study ID. Default: {STUDY_ID}",
-)
-@click.option(
-    "--data_dir",
+    "--data-dir",
     default=BASE_DATAFILE_DIR,
     help=f"Optional base datafile directory. Default: {BASE_DATAFILE_DIR}",
 )
 @click.option("--update-links", is_flag=True, default=False)
 @click.pass_context
-def process_records(ctx, dryrun, study_id, data_dir, update_links=False):
+def process_records(ctx, study_id, data_dir, update_links=False):
     """
     Read the JSON file of extracted workflow records and their data objects and
     re-ID the records with newly-minted NMDC IDs, update data file headers.
@@ -282,16 +272,13 @@ def process_records(ctx, dryrun, study_id, data_dir, update_links=False):
     """
     start_time = time.time()
     logging.info(f"Processing workflow records for study_id: {study_id}")
-    if dryrun:
-        logging.info("Running in dryrun mode")
 
     # Get API client
     config = ctx.obj["site_config"]
     api_client = NmdcRuntimeApi(config)
 
     # Get Database dump file paths and the data directory
-    db_infile, db_outfile = _get_database_paths(study_id, dryrun)
-    data_dir = _get_data_dir(data_dir, dryrun)
+    db_infile, db_outfile = _get_database_paths(study_id)
     logging.info(f"Using data_dir: {data_dir}")
 
     # Initialize re-ID tool
@@ -587,32 +574,14 @@ def get_unique_data_objects(data_objects_file):
         f.write(json.dumps(unique_data_objects, indent=4))
 
 
-
-def _get_data_dir(data_dir, dryrun):
-    """
-    Return the path to the data object files
-    """
-    if dryrun:
-        logging.info("Running in dryrun mode")
-        return DRYRUN_DATAFILE_DIR
-    elif not data_dir:
-        data_dir = BASE_DATAFILE_DIR
-    logging.info(f"Using datafile_dir: {data_dir}")
-    return data_dir
-
-
-def _get_database_paths(study_id, dryrun):
+def _get_database_paths(study_id):
     """
     Return the paths to the input and output data files
     """
     db_infile_suffix = "_associated_record_dump.json"
     db_outfile_suffix = "_re_ided_record_dump.json"
-    if dryrun:
-        db_infile = DATA_DIR.joinpath(f"dryrun{db_infile_suffix}")
-        db_outfile = DATA_DIR.joinpath(f"dryrun{db_outfile_suffix}")
-    else:
-        db_infile = DATA_DIR.joinpath(f"{study_id}{db_infile_suffix}")
-        db_outfile = DATA_DIR.joinpath(f"{study_id}{db_outfile_suffix}")
+    db_infile = DATA_DIR.joinpath(f"{study_id}{db_infile_suffix}")
+    db_outfile = DATA_DIR.joinpath(f"{study_id}{db_outfile_suffix}")
     return db_infile, db_outfile
 
 

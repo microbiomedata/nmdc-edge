@@ -159,7 +159,12 @@ class ReIdTool:
             
             new_readsqc_base_dir = os.path.join(self.data_dir, omics_processing_id,
                                                 new_activity_id)
-            os.makedirs(new_readsqc_base_dir, exist_ok=True)
+
+            if update_links:
+                logging.info(f"Making directory {new_readsqc_base_dir}")
+                os.makedirs(new_readsqc_base_dir, exist_ok=True)
+            else:
+                logging.info(f"Skipping directory creation for {new_readsqc_base_dir}")
 
             updated_has_output = []
             # Get ReadQC data objects and update IDs
@@ -223,7 +228,13 @@ class ReIdTool:
             
             new_assembly_base_dir = os.path.join(self.data_dir, omics_processing_id,
                                                  new_activity_id)
-            os.makedirs(new_assembly_base_dir, exist_ok=True)
+
+            # make new directory is update_links is True
+            if update_links:
+                os.makedirs(new_assembly_base_dir, exist_ok=True)
+                logging.info(f"Making directory {new_assembly_base_dir}")
+            else:
+                logging.info(f"Skipping directory creation for {new_assembly_base_dir}")
             
             for old_do_id in assembly_rec["has_output"]:
                 logger.info(f"old_do_id: {old_do_id}")
@@ -303,7 +314,13 @@ class ReIdTool:
             
             new_readbased_base_dir = os.path.join(self.data_dir, omics_processing_id,
                                                   new_activity_id)
-            os.makedirs(new_readbased_base_dir, exist_ok=True)
+
+            # make new directory is update_links is True
+            if update_links:
+                os.makedirs(new_readbased_base_dir, exist_ok=True)
+                logging.info(f"Making directory {new_readbased_base_dir}")
+            else:
+                logging.info(f"Skipping directory creation for {new_readbased_base_dir}")
             
             updated_has_output = []
             for old_do_id in read_based_rec["has_output"]:
@@ -377,8 +394,13 @@ class ReIdTool:
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
             new_metatranscriptome_base_dir = os.path.join(self.data_dir, omics_processing_id,
                                                           new_activity_id)
-            logging.info(f"New metatranscriptome base dir: {new_metatranscriptome_base_dir}")
-            os.makedirs(new_metatranscriptome_base_dir, exist_ok=True)
+
+            # make new directory is update_links is True
+            if update_links:
+                os.makedirs(new_metatranscriptome_base_dir, exist_ok=True)
+                logging.info(f"Making directory {new_metatranscriptome_base_dir}")
+            else:
+                logging.info(f"Skipping directory creation for {new_metatranscriptome_base_dir}")
 
             updated_has_output = []
             # Get Metatranscriptome data objects and update IDs
