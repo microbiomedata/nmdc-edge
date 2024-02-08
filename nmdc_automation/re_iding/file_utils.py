@@ -234,11 +234,10 @@ def assembly_file_operations(data_object_record, data_object_type,
     return md5, size
 
 
-def compute_new_paths_and_link(
+def compute_new_data_file_path(
         old_url: str,
         new_base_dir: Union[str, os.PathLike],
         act_id: str,
-        old_base_dir: Optional[Union[str, os.PathLike]] = None,
 ) -> Path:
     """
     Compute the new path for the file based on the old url and the new base directory.
@@ -248,19 +247,19 @@ def compute_new_paths_and_link(
     file_extenstion = file_name.lstrip("nmdc_").split("_", maxsplit=1)[-1]
     new_file_name = f"{act_id}_{file_extenstion}"
     modified_new_file_name = new_file_name.replace(":", "_")
-    destination = Path(new_base_dir, modified_new_file_name)
+    new_data_file_path = Path(new_base_dir, modified_new_file_name)
 
-    if old_base_dir is None:
-        return destination
-    # create a link between the old file and the new file if old_base_dir is provided
+    return new_data_file_path
+
+
+def link_data_file_paths(old_url: str, old_base_dir: Union[str, os.PathLike], new_path: Union[str, os.PathLike])-> \
+        None:
     suffix = old_url.split("https://data.microbiomedata.org/data/")[1]
     old_file_path = Path(old_base_dir, suffix)
     try:
-        os.link(old_file_path, destination)
-        logging.info(f"Successfully created link between {old_file_path} and {destination}")
+        os.link(old_file_path, new_path)
+        logging.info(f"Successfully created link between {old_file_path} and {new_path}")
     except OSError as e:
         logging.error(f"An error occurred while linking the file: {e}")
     except Exception as e:
         logging.error(f"Unexpected error: {e}")
-
-    return destination

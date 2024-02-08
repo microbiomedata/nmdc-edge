@@ -19,12 +19,13 @@ from nmdc_automation.re_iding.db_utils import (OMICS_PROCESSING_SET,
                                                READS_QC_SET,
                                                METAGENOME_ASSEMBLY_SET,
                                                 METATRANSCRIPTOME_ACTIVITY_SET,
-READ_BASED_TAXONOMY_ACTIVITY_SET,
+                                                READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
                                                check_for_single_omics_processing_record,
                                                get_data_object_record_by_id,
                                                get_omics_processing_id)
 from nmdc_automation.re_iding.file_utils import (find_data_object_type,
-                                                 compute_new_paths_and_link,
+                                                 compute_new_data_file_path,
+                                                    link_data_file_paths,
                                                  assembly_file_operations)
 
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
@@ -137,7 +138,7 @@ class ReIdTool:
         return new_db
 
     def update_reads_qc_analysis_activity_set(self, db_record: Dict,
-            new_db: NmdcDatabase) -> (NmdcDatabase):
+            new_db: NmdcDatabase, update_links: bool = False) -> NmdcDatabase:
         """
         Return a new Database instance with the reads_qc_analysis_activity_set
         and its data objects updated to new IDs.
@@ -166,10 +167,16 @@ class ReIdTool:
                 logger.info(f"old_do_id: {old_do_id}")
                 old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
                 data_object_type = find_data_object_type(old_do_rec)
-                new_file_path = compute_new_paths_and_link(
-                old_do_rec["url"], new_readsqc_base_dir, new_activity_id, self.data_dir
-                )
+
+                # Compute new file path and optionally update links
+                new_file_path = compute_new_data_file_path(
+                old_do_rec["url"], new_readsqc_base_dir, new_activity_id)
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
+                if update_links:
+                    logging.info(f"Updating links for {old_do_rec['url']} to {new_file_path}")
+                    link_data_file_paths(old_do_rec["url"], self.data_dir, new_file_path)
+
+
                 new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec,
                     data_object_type,
@@ -195,7 +202,7 @@ class ReIdTool:
         return new_db
 
     def update_metagenome_assembly_set(self, db_record: Dict,
-            new_db: NmdcDatabase) -> (NmdcDatabase):
+                                       new_db: NmdcDatabase, update_links: bool = False) -> (NmdcDatabase):
         """
         Return a new Database instance with the metagenome_assembly_set
         and its data objects updated to new IDs.
@@ -230,11 +237,19 @@ class ReIdTool:
                     logger.warning(f"Data object url not found for {old_do_id} - {old_do_rec['description']}")
                     old_url = f"{DATA_BASE_URL}/{omics_processing_id}/assembly/{old_do_rec['name']}"
                     logger.warning(f"Using inferred url: {old_url}")
-                new_file_path = compute_new_paths_and_link(old_do_rec["url"], new_assembly_base_dir, new_activity_id)
-                updated_md5, updated_file_size = assembly_file_operations(
-                old_do_rec, data_object_type, new_file_path, new_activity_id,
-                    self.data_dir)
+                new_file_path = compute_new_data_file_path(old_do_rec["url"], new_assembly_base_dir, new_activity_id)
+
+                if update_links:
+                    updated_md5, updated_file_size = assembly_file_operations(
+                    old_do_rec, data_object_type, new_file_path, new_activity_id,
+                        self.data_dir)
+                    logging.info(f"Updated md5: {updated_md5}, updated file size: {updated_file_size}")
+                else:
+                    updated_md5 = old_do_rec["md5_checksum"]
+                    updated_file_size = old_do_rec["file_size_bytes"]
+
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
+
                 #update md5 and file byte size in place to use _make_new_data_object function without functions
                 old_do_rec["file_size_bytes"] = updated_file_size
                 old_do_rec["md5_checksum"] = updated_md5
@@ -269,7 +284,7 @@ class ReIdTool:
         return new_db
 
     def update_read_based_taxonomy_analysis_activity_set(self, db_record: Dict,
-            new_db: NmdcDatabase) -> (NmdcDatabase):
+            new_db: NmdcDatabase, update_links: bool=False) -> (NmdcDatabase):
         """
         Return a new Database instance with the read_based_taxonomy_analysis_activity_set
         and its data objects updated to new IDs.
@@ -278,7 +293,7 @@ class ReIdTool:
                     f"{db_record[OMICS_PROCESSING_SET][0]['id']}")
         new_omics_processing = new_db.omics_processing_set[0]
 
-        for read_based_rec in db_record.get(READ_BASED_TAXONOMY_ACTIVITY_SET, []):
+        for read_based_rec in db_record.get(READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET, []):
             activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
             omics_processing_id = new_omics_processing.id
             has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
@@ -298,10 +313,14 @@ class ReIdTool:
                 if not data_object_type:
                     logger.warning(f"Data object type not found for {old_do_id} - {old_do_rec['description']}")
                     continue
-                new_file_path = compute_new_paths_and_link(
-                old_do_rec["url"], new_readbased_base_dir, new_activity_id, self.data_dir
-                )
+
+                # Compute new file path and optionally update links
+                new_file_path = compute_new_data_file_path(
+                old_do_rec["url"], new_readbased_base_dir, new_activity_id)
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
+                if update_links:
+                    logging.info(f"Updating links for {old_do_rec['url']} to {new_file_path}")
+                    link_data_file_paths(old_do_rec["url"], self.data_dir, new_file_path)
                 
                 new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
@@ -335,7 +354,7 @@ class ReIdTool:
         return new_db
 
     def update_metatranscriptome_activity_set(self, db_record: Dict,
-                                              new_db: NmdcDatabase) -> (NmdcDatabase):
+                                              new_db: NmdcDatabase, update_links: bool = False) -> (NmdcDatabase):
         """
         Return a new Database instance with the metatranscriptome_activity_set
         and its data objects updated to new IDs.
@@ -378,9 +397,14 @@ class ReIdTool:
                     logger.warning(f"Data object type not found for {old_do_id} - {old_do_rec['description']}")
                     continue
                 # link data object to new location
-                new_file_path = compute_new_paths_and_link(
-                    old_do_rec["url"], new_metatranscriptome_base_dir, new_activity_id, self.data_dir)
+                new_file_path = compute_new_data_file_path(
+                    old_do_rec["url"], new_metatranscriptome_base_dir, new_activity_id)
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
+                if update_links:
+                    logging.info(f"Updating links for {old_do_rec['url']} to {new_file_path}")
+                    link_data_file_paths(old_do_rec["url"], self.data_dir, new_file_path)
+
+
                 new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
                 )
