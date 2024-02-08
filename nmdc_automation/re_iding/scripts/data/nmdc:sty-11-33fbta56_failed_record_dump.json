@@ -1,0 +1,1548 @@
+[
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:e798be205cffa0dc38d93310fdaed9ca",
+                "file_size_bytes": 251141,
+                "md5_checksum": "e798be205cffa0dc38d93310fdaed9ca",
+                "name": "gold:Gp0138728_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0k311/ReadbasedAnalysis/nmdc_mga0k311_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0138728",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "id": "nmdc:c8ed546d4bb69c4b6f122d933dcb79af",
+                "file_size_bytes": 1008841987,
+                "md5_checksum": "c8ed546d4bb69c4b6f122d933dcb79af",
+                "name": "gold:Gp0138728_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0k311/ReadbasedAnalysis/nmdc_mga0k311_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0138728",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:b2ebb165844db26924a6697e7047988b",
+                "file_size_bytes": 3298694,
+                "md5_checksum": "b2ebb165844db26924a6697e7047988b",
+                "name": "gold:Gp0138728_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0k311/ReadbasedAnalysis/nmdc_mga0k311_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0138728",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "id": "nmdc:b36e981c6d9031d6495c2691fe3523b1",
+                "file_size_bytes": 1955940778,
+                "md5_checksum": "b36e981c6d9031d6495c2691fe3523b1",
+                "name": "gold:Gp0138728_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0k311/ReadbasedAnalysis/nmdc_mga0k311_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0138728",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:f61889342f732f8e12b5f818cfe02e7f",
+                "file_size_bytes": 510835,
+                "md5_checksum": "f61889342f732f8e12b5f818cfe02e7f",
+                "name": "gold:Gp0138728_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0k311/ReadbasedAnalysis/nmdc_mga0k311_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0138728",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:65ebc0e915b82640592a89c406f0465f",
+                "file_size_bytes": 2322249,
+                "md5_checksum": "65ebc0e915b82640592a89c406f0465f",
+                "name": "gold:Gp0138728_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0k311/ReadbasedAnalysis/nmdc_mga0k311_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0138728",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:5f407fa0ab30bf4c41ed96f288084147",
+                "file_size_bytes": 404219,
+                "md5_checksum": "5f407fa0ab30bf4c41ed96f288084147",
+                "name": "gold:Gp0138728_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0k311/ReadbasedAnalysis/nmdc_mga0k311_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0138728"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:a5fba8fca3b75c9e0b564a8e311adf46",
+                "ended_at_time": "2021-11-24T05:08:50+00:00",
+                "has_input": [
+                    "nmdc:39dfcb6a3f2afed8306b3666ec98c75b"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:34:25+00:00",
+                "was_informed_by": "gold:Gp0138728",
+                "name": "ReadBased Analysis Activity for nmdc:mga0k311",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:5f407fa0ab30bf4c41ed96f288084147",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:b36e981c6d9031d6495c2691fe3523b1",
+                    "nmdc:e798be205cffa0dc38d93310fdaed9ca",
+                    "nmdc:65ebc0e915b82640592a89c406f0465f",
+                    "nmdc:c8ed546d4bb69c4b6f122d933dcb79af",
+                    "nmdc:f61889342f732f8e12b5f818cfe02e7f",
+                    "nmdc:b2ebb165844db26924a6697e7047988b"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:822c7442bc7abceae5907c25950df957",
+                "file_size_bytes": 1285872567,
+                "md5_checksum": "822c7442bc7abceae5907c25950df957",
+                "name": "gold:Gp0138730_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga04g54/ReadbasedAnalysis/nmdc_mga04g54_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0138730",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:159bcc899b358d4240c5f5e43dbee9b5",
+                "file_size_bytes": 3269630,
+                "md5_checksum": "159bcc899b358d4240c5f5e43dbee9b5",
+                "name": "gold:Gp0138730_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga04g54/ReadbasedAnalysis/nmdc_mga04g54_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0138730",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "id": "nmdc:401b5cf24d453cd157a486bbf3b99736",
+                "file_size_bytes": 252177,
+                "md5_checksum": "401b5cf24d453cd157a486bbf3b99736",
+                "name": "gold:Gp0138730_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga04g54/ReadbasedAnalysis/nmdc_mga04g54_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0138730",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "id": "nmdc:1427b40ba7b82073434004c4ac58ce67",
+                "file_size_bytes": 505217,
+                "md5_checksum": "1427b40ba7b82073434004c4ac58ce67",
+                "name": "gold:Gp0138730_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga04g54/ReadbasedAnalysis/nmdc_mga04g54_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0138730",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:e6c87c6ae4e81e8620ed9b1db2089544",
+                "file_size_bytes": 2325359,
+                "md5_checksum": "e6c87c6ae4e81e8620ed9b1db2089544",
+                "name": "gold:Gp0138730_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga04g54/ReadbasedAnalysis/nmdc_mga04g54_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0138730",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:5023f7fe5f6d3ee8d904bed0099a7b20",
+                "file_size_bytes": 297332,
+                "md5_checksum": "5023f7fe5f6d3ee8d904bed0099a7b20",
+                "name": "gold:Gp0138730_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga04g54/ReadbasedAnalysis/nmdc_mga04g54_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0138730"
+            },
+            {
+                "id": "nmdc:71f500ec517ea2cf44da02241e03c24b",
+                "file_size_bytes": 2530556798,
+                "md5_checksum": "71f500ec517ea2cf44da02241e03c24b",
+                "name": "gold:Gp0138730_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga04g54/ReadbasedAnalysis/nmdc_mga04g54_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0138730",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:ddf9068cb9d0e93f72e3ae1f6beeeba2",
+                "ended_at_time": "2021-11-24T03:51:15+00:00",
+                "has_input": [
+                    "nmdc:ad6ccb8e44538b418e5a90a47a3a95b8"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:34:28+00:00",
+                "was_informed_by": "gold:Gp0138730",
+                "name": "ReadBased Analysis Activity for nmdc:mga04g54",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:5023f7fe5f6d3ee8d904bed0099a7b20",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:71f500ec517ea2cf44da02241e03c24b",
+                    "nmdc:401b5cf24d453cd157a486bbf3b99736",
+                    "nmdc:e6c87c6ae4e81e8620ed9b1db2089544",
+                    "nmdc:822c7442bc7abceae5907c25950df957",
+                    "nmdc:1427b40ba7b82073434004c4ac58ce67",
+                    "nmdc:159bcc899b358d4240c5f5e43dbee9b5"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:0b6fc695e680e2b28cffedf497701786",
+                "file_size_bytes": 333517,
+                "md5_checksum": "0b6fc695e680e2b28cffedf497701786",
+                "name": "gold:Gp0138737_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ss48/ReadbasedAnalysis/nmdc_mga0ss48_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0138737"
+            },
+            {
+                "id": "nmdc:6213c5e468e7fe9212b47a00f5583dd6",
+                "file_size_bytes": 1506843481,
+                "md5_checksum": "6213c5e468e7fe9212b47a00f5583dd6",
+                "name": "gold:Gp0138737_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ss48/ReadbasedAnalysis/nmdc_mga0ss48_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0138737",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:850ba40eb4e0d048a4dedd97f738a76d",
+                "file_size_bytes": 253634,
+                "md5_checksum": "850ba40eb4e0d048a4dedd97f738a76d",
+                "name": "gold:Gp0138737_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ss48/ReadbasedAnalysis/nmdc_mga0ss48_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0138737",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "id": "nmdc:e98f2738bfbcfb7022f19be0e5166329",
+                "file_size_bytes": 510274,
+                "md5_checksum": "e98f2738bfbcfb7022f19be0e5166329",
+                "name": "gold:Gp0138737_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ss48/ReadbasedAnalysis/nmdc_mga0ss48_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0138737",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:a0b323f90d0b4cf4466a3225d4467616",
+                "file_size_bytes": 2328875,
+                "md5_checksum": "a0b323f90d0b4cf4466a3225d4467616",
+                "name": "gold:Gp0138737_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ss48/ReadbasedAnalysis/nmdc_mga0ss48_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0138737",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:bd95e847cee60ace057d8d2836e42ef3",
+                "file_size_bytes": 2945988300,
+                "md5_checksum": "bd95e847cee60ace057d8d2836e42ef3",
+                "name": "gold:Gp0138737_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ss48/ReadbasedAnalysis/nmdc_mga0ss48_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0138737",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:226fbcb31623f7107db51f81ef175254",
+                "file_size_bytes": 3299026,
+                "md5_checksum": "226fbcb31623f7107db51f81ef175254",
+                "name": "gold:Gp0138737_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ss48/ReadbasedAnalysis/nmdc_mga0ss48_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0138737",
+                "data_object_type": "Kraken2 Krona Plot"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:761f287faac154a3b66a0c89c82738d4",
+                "ended_at_time": "2021-11-24T05:10:21+00:00",
+                "has_input": [
+                    "nmdc:1be9f83589f61265354476e3f6ccae9c"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:34:31+00:00",
+                "was_informed_by": "gold:Gp0138737",
+                "name": "ReadBased Analysis Activity for nmdc:mga0ss48",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:0b6fc695e680e2b28cffedf497701786",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:bd95e847cee60ace057d8d2836e42ef3",
+                    "nmdc:850ba40eb4e0d048a4dedd97f738a76d",
+                    "nmdc:a0b323f90d0b4cf4466a3225d4467616",
+                    "nmdc:6213c5e468e7fe9212b47a00f5583dd6",
+                    "nmdc:e98f2738bfbcfb7022f19be0e5166329",
+                    "nmdc:226fbcb31623f7107db51f81ef175254"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:f5351ea13159feff2d0198a0da29c8a5",
+                "file_size_bytes": 250341,
+                "md5_checksum": "f5351ea13159feff2d0198a0da29c8a5",
+                "name": "gold:Gp0138740_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0wa96/ReadbasedAnalysis/nmdc_mga0wa96_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0138740",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "id": "nmdc:0772b0a1db633615098d8805d70bc46f",
+                "file_size_bytes": 3329627,
+                "md5_checksum": "0772b0a1db633615098d8805d70bc46f",
+                "name": "gold:Gp0138740_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0wa96/ReadbasedAnalysis/nmdc_mga0wa96_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0138740",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "id": "nmdc:4beca79435164e92624ade0095a6f28f",
+                "file_size_bytes": 367133,
+                "md5_checksum": "4beca79435164e92624ade0095a6f28f",
+                "name": "gold:Gp0138740_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0wa96/ReadbasedAnalysis/nmdc_mga0wa96_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0138740"
+            },
+            {
+                "id": "nmdc:99b68ca9274dd5c8c15a727d8a4be5c1",
+                "file_size_bytes": 868684613,
+                "md5_checksum": "99b68ca9274dd5c8c15a727d8a4be5c1",
+                "name": "gold:Gp0138740_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0wa96/ReadbasedAnalysis/nmdc_mga0wa96_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0138740",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:339c0d5d2e73387fb9ef43b6a9b20da4",
+                "file_size_bytes": 514832,
+                "md5_checksum": "339c0d5d2e73387fb9ef43b6a9b20da4",
+                "name": "gold:Gp0138740_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0wa96/ReadbasedAnalysis/nmdc_mga0wa96_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0138740",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:a051f2d528db2c3d027e40f580724536",
+                "file_size_bytes": 1689266747,
+                "md5_checksum": "a051f2d528db2c3d027e40f580724536",
+                "name": "gold:Gp0138740_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0wa96/ReadbasedAnalysis/nmdc_mga0wa96_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0138740",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:e320964bdde1bf5d0ed42c874431a09f",
+                "file_size_bytes": 2319608,
+                "md5_checksum": "e320964bdde1bf5d0ed42c874431a09f",
+                "name": "gold:Gp0138740_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0wa96/ReadbasedAnalysis/nmdc_mga0wa96_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0138740",
+                "data_object_type": "Centrifuge Krona Plot"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:8253bcdcd0387177ff895c38a047c719",
+                "ended_at_time": "2021-11-23T04:33:02+00:00",
+                "has_input": [
+                    "nmdc:5ca80874470cd418dce76a684ca9e7d8"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:34:22+00:00",
+                "was_informed_by": "gold:Gp0138740",
+                "name": "ReadBased Analysis Activity for nmdc:mga0wa96",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:4beca79435164e92624ade0095a6f28f",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:a051f2d528db2c3d027e40f580724536",
+                    "nmdc:f5351ea13159feff2d0198a0da29c8a5",
+                    "nmdc:e320964bdde1bf5d0ed42c874431a09f",
+                    "nmdc:99b68ca9274dd5c8c15a727d8a4be5c1",
+                    "nmdc:339c0d5d2e73387fb9ef43b6a9b20da4",
+                    "nmdc:0772b0a1db633615098d8805d70bc46f"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:f7454a9a53391dd69116eaa495972281",
+                "file_size_bytes": 1094557813,
+                "md5_checksum": "f7454a9a53391dd69116eaa495972281",
+                "name": "gold:Gp0138741_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0tq55/ReadbasedAnalysis/nmdc_mga0tq55_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0138741",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:1ffe29c4f789e512f13b81b684fcf61e",
+                "file_size_bytes": 533377,
+                "md5_checksum": "1ffe29c4f789e512f13b81b684fcf61e",
+                "name": "gold:Gp0138741_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0tq55/ReadbasedAnalysis/nmdc_mga0tq55_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0138741",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:d915cd752473ca2dee362b6f5d6463f9",
+                "file_size_bytes": 3437678,
+                "md5_checksum": "d915cd752473ca2dee362b6f5d6463f9",
+                "name": "gold:Gp0138741_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0tq55/ReadbasedAnalysis/nmdc_mga0tq55_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0138741",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "id": "nmdc:bf95f667ae01fcec06e7965d922f63c3",
+                "file_size_bytes": 254576,
+                "md5_checksum": "bf95f667ae01fcec06e7965d922f63c3",
+                "name": "gold:Gp0138741_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0tq55/ReadbasedAnalysis/nmdc_mga0tq55_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0138741",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "id": "nmdc:3bc683ffe2c367faf6e6ae90087e0410",
+                "file_size_bytes": 2335494,
+                "md5_checksum": "3bc683ffe2c367faf6e6ae90087e0410",
+                "name": "gold:Gp0138741_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0tq55/ReadbasedAnalysis/nmdc_mga0tq55_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0138741",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:e333f1a4984287f28b1ec6bc2f5e220f",
+                "file_size_bytes": 2135979185,
+                "md5_checksum": "e333f1a4984287f28b1ec6bc2f5e220f",
+                "name": "gold:Gp0138741_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0tq55/ReadbasedAnalysis/nmdc_mga0tq55_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0138741",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:4e6cf38af0b5b8f16d8fc1f7779c5a29",
+                "file_size_bytes": 475472,
+                "md5_checksum": "4e6cf38af0b5b8f16d8fc1f7779c5a29",
+                "name": "gold:Gp0138741_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0tq55/ReadbasedAnalysis/nmdc_mga0tq55_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0138741"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:7a197d54a06a37090bb50eaf37c93115",
+                "ended_at_time": "2021-11-24T05:28:03+00:00",
+                "has_input": [
+                    "nmdc:9333de207aace2cea9ea955e88bdec9b"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:34:25+00:00",
+                "was_informed_by": "gold:Gp0138741",
+                "name": "ReadBased Analysis Activity for nmdc:mga0tq55",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:4e6cf38af0b5b8f16d8fc1f7779c5a29",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:e333f1a4984287f28b1ec6bc2f5e220f",
+                    "nmdc:bf95f667ae01fcec06e7965d922f63c3",
+                    "nmdc:3bc683ffe2c367faf6e6ae90087e0410",
+                    "nmdc:f7454a9a53391dd69116eaa495972281",
+                    "nmdc:1ffe29c4f789e512f13b81b684fcf61e",
+                    "nmdc:d915cd752473ca2dee362b6f5d6463f9"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:50958da5af250342f2089bec02364e12",
+                "file_size_bytes": 504488,
+                "md5_checksum": "50958da5af250342f2089bec02364e12",
+                "name": "gold:Gp0138738_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga09t29/ReadbasedAnalysis/nmdc_mga09t29_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0138738"
+            },
+            {
+                "id": "nmdc:268db5579721a196c95872bf480e4329",
+                "file_size_bytes": 3177790471,
+                "md5_checksum": "268db5579721a196c95872bf480e4329",
+                "name": "gold:Gp0138738_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga09t29/ReadbasedAnalysis/nmdc_mga09t29_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0138738",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:fa5dfe9d5ceb255bd4568badb0cc811b",
+                "file_size_bytes": 2336038,
+                "md5_checksum": "fa5dfe9d5ceb255bd4568badb0cc811b",
+                "name": "gold:Gp0138738_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga09t29/ReadbasedAnalysis/nmdc_mga09t29_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0138738",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:b15dfe140998e9c1364ef5299b4b86d2",
+                "file_size_bytes": 3435810,
+                "md5_checksum": "b15dfe140998e9c1364ef5299b4b86d2",
+                "name": "gold:Gp0138738_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga09t29/ReadbasedAnalysis/nmdc_mga09t29_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0138738",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "id": "nmdc:001e0726d6f7e54706f445f568de1fd9",
+                "file_size_bytes": 255400,
+                "md5_checksum": "001e0726d6f7e54706f445f568de1fd9",
+                "name": "gold:Gp0138738_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga09t29/ReadbasedAnalysis/nmdc_mga09t29_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0138738",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "id": "nmdc:97d9170806e02d05bfdf2b1fecdda547",
+                "file_size_bytes": 535775,
+                "md5_checksum": "97d9170806e02d05bfdf2b1fecdda547",
+                "name": "gold:Gp0138738_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga09t29/ReadbasedAnalysis/nmdc_mga09t29_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0138738",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:ece64e0755d738464f01e5af77732ee1",
+                "file_size_bytes": 1622972033,
+                "md5_checksum": "ece64e0755d738464f01e5af77732ee1",
+                "name": "gold:Gp0138738_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga09t29/ReadbasedAnalysis/nmdc_mga09t29_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0138738",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:5ab2faba70b7dc9853cecf68af4576c8",
+                "ended_at_time": "2021-11-24T05:12:26+00:00",
+                "has_input": [
+                    "nmdc:9f69990b0ca36244479b8e2cf5059a2b"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:34:33+00:00",
+                "was_informed_by": "gold:Gp0138738",
+                "name": "ReadBased Analysis Activity for nmdc:mga09t29",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:50958da5af250342f2089bec02364e12",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:268db5579721a196c95872bf480e4329",
+                    "nmdc:001e0726d6f7e54706f445f568de1fd9",
+                    "nmdc:fa5dfe9d5ceb255bd4568badb0cc811b",
+                    "nmdc:ece64e0755d738464f01e5af77732ee1",
+                    "nmdc:97d9170806e02d05bfdf2b1fecdda547",
+                    "nmdc:b15dfe140998e9c1364ef5299b4b86d2"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:08c2b9a09f897ecbe302b8e3f416dd6e",
+                "file_size_bytes": 2330895,
+                "md5_checksum": "08c2b9a09f897ecbe302b8e3f416dd6e",
+                "name": "gold:Gp0138744_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0aj54/ReadbasedAnalysis/nmdc_mga0aj54_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0138744",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:524bc22a021d7a40aeb134a64416cc8b",
+                "file_size_bytes": 1480615266,
+                "md5_checksum": "524bc22a021d7a40aeb134a64416cc8b",
+                "name": "gold:Gp0138744_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0aj54/ReadbasedAnalysis/nmdc_mga0aj54_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0138744",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:f3f5c721edf09670ee391fe8dd3d8af5",
+                "file_size_bytes": 519914,
+                "md5_checksum": "f3f5c721edf09670ee391fe8dd3d8af5",
+                "name": "gold:Gp0138744_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0aj54/ReadbasedAnalysis/nmdc_mga0aj54_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0138744",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:273b8d4164abe7092da949a37a8c328d",
+                "file_size_bytes": 3348892,
+                "md5_checksum": "273b8d4164abe7092da949a37a8c328d",
+                "name": "gold:Gp0138744_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0aj54/ReadbasedAnalysis/nmdc_mga0aj54_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0138744",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "id": "nmdc:416b6fb7651eb157d2bb3865425bb6de",
+                "file_size_bytes": 2876150805,
+                "md5_checksum": "416b6fb7651eb157d2bb3865425bb6de",
+                "name": "gold:Gp0138744_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0aj54/ReadbasedAnalysis/nmdc_mga0aj54_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0138744",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:c6ab280a9a71332ea8437846fc5fa70e",
+                "file_size_bytes": 391188,
+                "md5_checksum": "c6ab280a9a71332ea8437846fc5fa70e",
+                "name": "gold:Gp0138744_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0aj54/ReadbasedAnalysis/nmdc_mga0aj54_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0138744"
+            },
+            {
+                "id": "nmdc:5ae72a513af1a9b6c1019bf8f17fdde1",
+                "file_size_bytes": 254005,
+                "md5_checksum": "5ae72a513af1a9b6c1019bf8f17fdde1",
+                "name": "gold:Gp0138744_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0aj54/ReadbasedAnalysis/nmdc_mga0aj54_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0138744",
+                "data_object_type": "Centrifuge Classification Report"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:3bbc2e110acd6e6b200fd43814337b94",
+                "ended_at_time": "2021-11-24T05:10:31+00:00",
+                "has_input": [
+                    "nmdc:42505d3bc1abb992c5839e8994cc6c86"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:34:30+00:00",
+                "was_informed_by": "gold:Gp0138744",
+                "name": "ReadBased Analysis Activity for nmdc:mga0aj54",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:c6ab280a9a71332ea8437846fc5fa70e",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:416b6fb7651eb157d2bb3865425bb6de",
+                    "nmdc:5ae72a513af1a9b6c1019bf8f17fdde1",
+                    "nmdc:08c2b9a09f897ecbe302b8e3f416dd6e",
+                    "nmdc:524bc22a021d7a40aeb134a64416cc8b",
+                    "nmdc:f3f5c721edf09670ee391fe8dd3d8af5",
+                    "nmdc:273b8d4164abe7092da949a37a8c328d"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:4ebba69aaf20856dffe47ac5ac672cad",
+                "file_size_bytes": 581433,
+                "md5_checksum": "4ebba69aaf20856dffe47ac5ac672cad",
+                "name": "gold:Gp0138746_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0zt51/ReadbasedAnalysis/nmdc_mga0zt51_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0138746"
+            },
+            {
+                "id": "nmdc:134b632cd3e5bec9cea4c456165d6097",
+                "file_size_bytes": 3200733613,
+                "md5_checksum": "134b632cd3e5bec9cea4c456165d6097",
+                "name": "gold:Gp0138746_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0zt51/ReadbasedAnalysis/nmdc_mga0zt51_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0138746",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:d1bdd8d4605e561039cb3850827b98bd",
+                "file_size_bytes": 3500839,
+                "md5_checksum": "d1bdd8d4605e561039cb3850827b98bd",
+                "name": "gold:Gp0138746_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0zt51/ReadbasedAnalysis/nmdc_mga0zt51_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0138746",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "id": "nmdc:c108b67654466dd0a54b8bb3fdafa57e",
+                "file_size_bytes": 547498,
+                "md5_checksum": "c108b67654466dd0a54b8bb3fdafa57e",
+                "name": "gold:Gp0138746_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0zt51/ReadbasedAnalysis/nmdc_mga0zt51_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0138746",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:4739561177541ad557f80275397e7675",
+                "file_size_bytes": 2340853,
+                "md5_checksum": "4739561177541ad557f80275397e7675",
+                "name": "gold:Gp0138746_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0zt51/ReadbasedAnalysis/nmdc_mga0zt51_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0138746",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:15ac88a0ee25984da7e44867aa9c07d2",
+                "file_size_bytes": 1641060580,
+                "md5_checksum": "15ac88a0ee25984da7e44867aa9c07d2",
+                "name": "gold:Gp0138746_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0zt51/ReadbasedAnalysis/nmdc_mga0zt51_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0138746",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:cd65e6db9367f66976bd2eebd4b83acb",
+                "file_size_bytes": 256933,
+                "md5_checksum": "cd65e6db9367f66976bd2eebd4b83acb",
+                "name": "gold:Gp0138746_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0zt51/ReadbasedAnalysis/nmdc_mga0zt51_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0138746",
+                "data_object_type": "Centrifuge Classification Report"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:3c401e2ee440df4d96027e3594618104",
+                "ended_at_time": "2021-11-24T05:11:45+00:00",
+                "has_input": [
+                    "nmdc:d545791b4aabe329934d489074e8355a"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:34:34+00:00",
+                "was_informed_by": "gold:Gp0138746",
+                "name": "ReadBased Analysis Activity for nmdc:mga0zt51",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:4ebba69aaf20856dffe47ac5ac672cad",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:134b632cd3e5bec9cea4c456165d6097",
+                    "nmdc:cd65e6db9367f66976bd2eebd4b83acb",
+                    "nmdc:4739561177541ad557f80275397e7675",
+                    "nmdc:15ac88a0ee25984da7e44867aa9c07d2",
+                    "nmdc:c108b67654466dd0a54b8bb3fdafa57e",
+                    "nmdc:d1bdd8d4605e561039cb3850827b98bd"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:fd224efc944064e05cf8e2abde80082a",
+                "file_size_bytes": 3380641,
+                "md5_checksum": "fd224efc944064e05cf8e2abde80082a",
+                "name": "gold:Gp0138748_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga00098/ReadbasedAnalysis/nmdc_mga00098_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0138748",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "id": "nmdc:f9dd91546ac803303ebd1b86173e3ef5",
+                "file_size_bytes": 1589265442,
+                "md5_checksum": "f9dd91546ac803303ebd1b86173e3ef5",
+                "name": "gold:Gp0138748_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga00098/ReadbasedAnalysis/nmdc_mga00098_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0138748",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:a3ae4c639da7381b7120bbd255ffa4b2",
+                "file_size_bytes": 2334582,
+                "md5_checksum": "a3ae4c639da7381b7120bbd255ffa4b2",
+                "name": "gold:Gp0138748_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga00098/ReadbasedAnalysis/nmdc_mga00098_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0138748",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:4b9b8a064ac562bb209a28b9203715e4",
+                "file_size_bytes": 527041,
+                "md5_checksum": "4b9b8a064ac562bb209a28b9203715e4",
+                "name": "gold:Gp0138748_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga00098/ReadbasedAnalysis/nmdc_mga00098_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0138748",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:a0dc69e2ec75448a58992a32eac14426",
+                "file_size_bytes": 453431,
+                "md5_checksum": "a0dc69e2ec75448a58992a32eac14426",
+                "name": "gold:Gp0138748_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga00098/ReadbasedAnalysis/nmdc_mga00098_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0138748"
+            },
+            {
+                "id": "nmdc:de27878d63c710856c16a202fc2723b0",
+                "file_size_bytes": 255248,
+                "md5_checksum": "de27878d63c710856c16a202fc2723b0",
+                "name": "gold:Gp0138748_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga00098/ReadbasedAnalysis/nmdc_mga00098_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0138748",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "id": "nmdc:365db4e689e671081b33051b63444b89",
+                "file_size_bytes": 3097775671,
+                "md5_checksum": "365db4e689e671081b33051b63444b89",
+                "name": "gold:Gp0138748_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga00098/ReadbasedAnalysis/nmdc_mga00098_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0138748",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:4cbc930855e87f6cc3f2255b875ccade",
+                "ended_at_time": "2021-11-24T05:12:06+00:00",
+                "has_input": [
+                    "nmdc:92146e7696d17b02f330767b56bc0b1b"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:34:36+00:00",
+                "was_informed_by": "gold:Gp0138748",
+                "name": "ReadBased Analysis Activity for nmdc:mga00098",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:a0dc69e2ec75448a58992a32eac14426",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:365db4e689e671081b33051b63444b89",
+                    "nmdc:de27878d63c710856c16a202fc2723b0",
+                    "nmdc:a3ae4c639da7381b7120bbd255ffa4b2",
+                    "nmdc:f9dd91546ac803303ebd1b86173e3ef5",
+                    "nmdc:4b9b8a064ac562bb209a28b9203715e4",
+                    "nmdc:fd224efc944064e05cf8e2abde80082a"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:4a4b1f88a4f6036b5df25f66eb530daa",
+                "file_size_bytes": 3421133,
+                "md5_checksum": "4a4b1f88a4f6036b5df25f66eb530daa",
+                "name": "gold:Gp0138752_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06298/ReadbasedAnalysis/nmdc_mga06298_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0138752",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "id": "nmdc:8677affb1a3ae76bb8a9461603fc9e70",
+                "file_size_bytes": 477285,
+                "md5_checksum": "8677affb1a3ae76bb8a9461603fc9e70",
+                "name": "gold:Gp0138752_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06298/ReadbasedAnalysis/nmdc_mga06298_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0138752"
+            },
+            {
+                "id": "nmdc:edf5c75c8744c683a6c3507972e60cf5",
+                "file_size_bytes": 1674596933,
+                "md5_checksum": "edf5c75c8744c683a6c3507972e60cf5",
+                "name": "gold:Gp0138752_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06298/ReadbasedAnalysis/nmdc_mga06298_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0138752",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:441aef0e4396e5adfa1e6cc4db45aebe",
+                "file_size_bytes": 2334399,
+                "md5_checksum": "441aef0e4396e5adfa1e6cc4db45aebe",
+                "name": "gold:Gp0138752_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06298/ReadbasedAnalysis/nmdc_mga06298_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0138752",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:6c422a61df4e276560c743e42e8777ac",
+                "file_size_bytes": 532749,
+                "md5_checksum": "6c422a61df4e276560c743e42e8777ac",
+                "name": "gold:Gp0138752_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06298/ReadbasedAnalysis/nmdc_mga06298_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0138752",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:b5be335d73e9f43434f1f319dbe74602",
+                "file_size_bytes": 3257146398,
+                "md5_checksum": "b5be335d73e9f43434f1f319dbe74602",
+                "name": "gold:Gp0138752_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06298/ReadbasedAnalysis/nmdc_mga06298_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0138752",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:2002afa4bc29e198da0a63382b69a6f8",
+                "file_size_bytes": 255133,
+                "md5_checksum": "2002afa4bc29e198da0a63382b69a6f8",
+                "name": "gold:Gp0138752_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06298/ReadbasedAnalysis/nmdc_mga06298_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0138752",
+                "data_object_type": "Centrifuge Classification Report"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:0f21da30e01f45f336e29ebd9f9ebf90",
+                "ended_at_time": "2021-11-24T05:10:21+00:00",
+                "has_input": [
+                    "nmdc:9846d490bcd85140cae6c67a671345ae"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:34:41+00:00",
+                "was_informed_by": "gold:Gp0138752",
+                "name": "ReadBased Analysis Activity for nmdc:mga06298",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:8677affb1a3ae76bb8a9461603fc9e70",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:b5be335d73e9f43434f1f319dbe74602",
+                    "nmdc:2002afa4bc29e198da0a63382b69a6f8",
+                    "nmdc:441aef0e4396e5adfa1e6cc4db45aebe",
+                    "nmdc:edf5c75c8744c683a6c3507972e60cf5",
+                    "nmdc:6c422a61df4e276560c743e42e8777ac",
+                    "nmdc:4a4b1f88a4f6036b5df25f66eb530daa"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:4f4b5b5e33eb7820a6dbbf93ea8c8fbd",
+                "file_size_bytes": 420217,
+                "md5_checksum": "4f4b5b5e33eb7820a6dbbf93ea8c8fbd",
+                "name": "gold:Gp0138757_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga01v18/ReadbasedAnalysis/nmdc_mga01v18_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0138757"
+            },
+            {
+                "id": "nmdc:d00d119e08edcb163485792a7ce8d5fa",
+                "file_size_bytes": 254444,
+                "md5_checksum": "d00d119e08edcb163485792a7ce8d5fa",
+                "name": "gold:Gp0138757_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga01v18/ReadbasedAnalysis/nmdc_mga01v18_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0138757",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "id": "nmdc:2773b3a2eb23e390faad4e7d32f1bc31",
+                "file_size_bytes": 2332623,
+                "md5_checksum": "2773b3a2eb23e390faad4e7d32f1bc31",
+                "name": "gold:Gp0138757_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga01v18/ReadbasedAnalysis/nmdc_mga01v18_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0138757",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:77430d607016d4c31d260ca6dda18297",
+                "file_size_bytes": 3401323,
+                "md5_checksum": "77430d607016d4c31d260ca6dda18297",
+                "name": "gold:Gp0138757_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga01v18/ReadbasedAnalysis/nmdc_mga01v18_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0138757",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "id": "nmdc:592714700d2296bcdf6aa4558bdfc0aa",
+                "file_size_bytes": 2585864089,
+                "md5_checksum": "592714700d2296bcdf6aa4558bdfc0aa",
+                "name": "gold:Gp0138757_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga01v18/ReadbasedAnalysis/nmdc_mga01v18_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0138757",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:f2b52b572c0373c72f8f26d9618b9cb0",
+                "file_size_bytes": 528260,
+                "md5_checksum": "f2b52b572c0373c72f8f26d9618b9cb0",
+                "name": "gold:Gp0138757_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga01v18/ReadbasedAnalysis/nmdc_mga01v18_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0138757",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:dae0faa18cf1eabe702e127c8aa4125c",
+                "file_size_bytes": 1320377693,
+                "md5_checksum": "dae0faa18cf1eabe702e127c8aa4125c",
+                "name": "gold:Gp0138757_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga01v18/ReadbasedAnalysis/nmdc_mga01v18_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0138757",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:613c66031f3a5c73716b02ade1cef55a",
+                "ended_at_time": "2021-11-24T05:29:48+00:00",
+                "has_input": [
+                    "nmdc:3615e5d3379aae0d85bd244bb25b42a7"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:34:28+00:00",
+                "was_informed_by": "gold:Gp0138757",
+                "name": "ReadBased Analysis Activity for nmdc:mga01v18",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:4f4b5b5e33eb7820a6dbbf93ea8c8fbd",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:592714700d2296bcdf6aa4558bdfc0aa",
+                    "nmdc:d00d119e08edcb163485792a7ce8d5fa",
+                    "nmdc:2773b3a2eb23e390faad4e7d32f1bc31",
+                    "nmdc:dae0faa18cf1eabe702e127c8aa4125c",
+                    "nmdc:f2b52b572c0373c72f8f26d9618b9cb0",
+                    "nmdc:77430d607016d4c31d260ca6dda18297"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:520c60f3291ad53775b51cc0fca25d7b",
+                "file_size_bytes": 433666,
+                "md5_checksum": "520c60f3291ad53775b51cc0fca25d7b",
+                "name": "gold:Gp0138762_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mp52/ReadbasedAnalysis/nmdc_mga0mp52_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0138762"
+            },
+            {
+                "id": "nmdc:c6543df54529af9301d47353fb48477d",
+                "file_size_bytes": 2331173,
+                "md5_checksum": "c6543df54529af9301d47353fb48477d",
+                "name": "gold:Gp0138762_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mp52/ReadbasedAnalysis/nmdc_mga0mp52_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0138762",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:6c9e3d9698730b3baab9a001d82d7a52",
+                "file_size_bytes": 254509,
+                "md5_checksum": "6c9e3d9698730b3baab9a001d82d7a52",
+                "name": "gold:Gp0138762_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mp52/ReadbasedAnalysis/nmdc_mga0mp52_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0138762",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "id": "nmdc:c8c0c6d46571baea281342f5ff91de37",
+                "file_size_bytes": 1581718643,
+                "md5_checksum": "c8c0c6d46571baea281342f5ff91de37",
+                "name": "gold:Gp0138762_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mp52/ReadbasedAnalysis/nmdc_mga0mp52_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0138762",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:641dbcb1c7df646a0aecac1e0f8fa53d",
+                "file_size_bytes": 3304268,
+                "md5_checksum": "641dbcb1c7df646a0aecac1e0f8fa53d",
+                "name": "gold:Gp0138762_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mp52/ReadbasedAnalysis/nmdc_mga0mp52_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0138762",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "id": "nmdc:2e086c5762834ed4289f11e2df06bc3e",
+                "file_size_bytes": 512025,
+                "md5_checksum": "2e086c5762834ed4289f11e2df06bc3e",
+                "name": "gold:Gp0138762_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mp52/ReadbasedAnalysis/nmdc_mga0mp52_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0138762",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:a63d0beada28634e20ccfa00eb9743af",
+                "file_size_bytes": 3089941582,
+                "md5_checksum": "a63d0beada28634e20ccfa00eb9743af",
+                "name": "gold:Gp0138762_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mp52/ReadbasedAnalysis/nmdc_mga0mp52_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0138762",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:bf1fcc9ebcb26e9386fe5f063f9aa96f",
+                "ended_at_time": "2021-11-24T04:41:05+00:00",
+                "has_input": [
+                    "nmdc:035767058c43f56c7df73c2420e8fcd1"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:34:32+00:00",
+                "was_informed_by": "gold:Gp0138762",
+                "name": "ReadBased Analysis Activity for nmdc:mga0mp52",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:520c60f3291ad53775b51cc0fca25d7b",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:a63d0beada28634e20ccfa00eb9743af",
+                    "nmdc:6c9e3d9698730b3baab9a001d82d7a52",
+                    "nmdc:c6543df54529af9301d47353fb48477d",
+                    "nmdc:c8c0c6d46571baea281342f5ff91de37",
+                    "nmdc:2e086c5762834ed4289f11e2df06bc3e",
+                    "nmdc:641dbcb1c7df646a0aecac1e0f8fa53d"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:8d8b90d287099ef930cb6dfeba99d139",
+                "file_size_bytes": 2349558,
+                "md5_checksum": "8d8b90d287099ef930cb6dfeba99d139",
+                "name": "gold:Gp0213344_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0af63/ReadbasedAnalysis/nmdc_mga0af63_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0213344",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:1468a245ca107e50d13a8d0e4c27873b",
+                "file_size_bytes": 6277047522,
+                "md5_checksum": "1468a245ca107e50d13a8d0e4c27873b",
+                "name": "gold:Gp0213344_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0af63/ReadbasedAnalysis/nmdc_mga0af63_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0213344",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:c05680de421aa177499f29588804100f",
+                "file_size_bytes": 3548464,
+                "md5_checksum": "c05680de421aa177499f29588804100f",
+                "name": "gold:Gp0213344_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0af63/ReadbasedAnalysis/nmdc_mga0af63_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0213344",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "id": "nmdc:3d500fe8a69a9c8f0ff0146fa7cb3eb3",
+                "file_size_bytes": 557727,
+                "md5_checksum": "3d500fe8a69a9c8f0ff0146fa7cb3eb3",
+                "name": "gold:Gp0213344_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0af63/ReadbasedAnalysis/nmdc_mga0af63_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0213344",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:c800a33e5b7cd800bced9c60bcaecf60",
+                "file_size_bytes": 3224454333,
+                "md5_checksum": "c800a33e5b7cd800bced9c60bcaecf60",
+                "name": "gold:Gp0213344_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0af63/ReadbasedAnalysis/nmdc_mga0af63_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0213344",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:5a7c3677e5b3c64144a89bf1e2ed6a21",
+                "file_size_bytes": 260046,
+                "md5_checksum": "5a7c3677e5b3c64144a89bf1e2ed6a21",
+                "name": "gold:Gp0213344_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0af63/ReadbasedAnalysis/nmdc_mga0af63_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0213344",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "id": "nmdc:9ebb73c3378e1e19f3aaa4c6ad67bd6a",
+                "file_size_bytes": 534014,
+                "md5_checksum": "9ebb73c3378e1e19f3aaa4c6ad67bd6a",
+                "name": "gold:Gp0213344_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0af63/ReadbasedAnalysis/nmdc_mga0af63_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0213344"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:171a5e03ee71c13bda4a4c2a7ba51cd2",
+                "ended_at_time": "2021-11-24T05:34:33+00:00",
+                "has_input": [
+                    "nmdc:aecbb2d36dffa69932bc7cee73b736dd"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:35:41+00:00",
+                "was_informed_by": "gold:Gp0213344",
+                "name": "ReadBased Analysis Activity for nmdc:mga0af63",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:9ebb73c3378e1e19f3aaa4c6ad67bd6a",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:1468a245ca107e50d13a8d0e4c27873b",
+                    "nmdc:5a7c3677e5b3c64144a89bf1e2ed6a21",
+                    "nmdc:8d8b90d287099ef930cb6dfeba99d139",
+                    "nmdc:c800a33e5b7cd800bced9c60bcaecf60",
+                    "nmdc:3d500fe8a69a9c8f0ff0146fa7cb3eb3",
+                    "nmdc:c05680de421aa177499f29588804100f"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:98c72b11c04b1c9c5b65c03a7e827136",
+                "file_size_bytes": 3587057,
+                "md5_checksum": "98c72b11c04b1c9c5b65c03a7e827136",
+                "name": "gold:Gp0213350_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06d65/ReadbasedAnalysis/nmdc_mga06d65_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0213350",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "id": "nmdc:ccfe5635bfcc535acbbc7b9677963ebb",
+                "file_size_bytes": 2356829,
+                "md5_checksum": "ccfe5635bfcc535acbbc7b9677963ebb",
+                "name": "gold:Gp0213350_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06d65/ReadbasedAnalysis/nmdc_mga06d65_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0213350",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:4793f08b0984e59d9654b0e84b7c4964",
+                "file_size_bytes": 3674285238,
+                "md5_checksum": "4793f08b0984e59d9654b0e84b7c4964",
+                "name": "gold:Gp0213350_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06d65/ReadbasedAnalysis/nmdc_mga06d65_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0213350",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:fbfc3556f0b6b81127dccdd0fbb319aa",
+                "file_size_bytes": 531203,
+                "md5_checksum": "fbfc3556f0b6b81127dccdd0fbb319aa",
+                "name": "gold:Gp0213350_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06d65/ReadbasedAnalysis/nmdc_mga06d65_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0213350"
+            },
+            {
+                "id": "nmdc:810f3a23fe6861a24397cec5a7635f65",
+                "file_size_bytes": 564359,
+                "md5_checksum": "810f3a23fe6861a24397cec5a7635f65",
+                "name": "gold:Gp0213350_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06d65/ReadbasedAnalysis/nmdc_mga06d65_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0213350",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:57510c34441755cac37e45ceef026e26",
+                "file_size_bytes": 262274,
+                "md5_checksum": "57510c34441755cac37e45ceef026e26",
+                "name": "gold:Gp0213350_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06d65/ReadbasedAnalysis/nmdc_mga06d65_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0213350",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "id": "nmdc:4b1fffbdc4130dfc262cbab3b7ef94e3",
+                "file_size_bytes": 7217619193,
+                "md5_checksum": "4b1fffbdc4130dfc262cbab3b7ef94e3",
+                "name": "gold:Gp0213350_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga06d65/ReadbasedAnalysis/nmdc_mga06d65_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0213350",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:4a43bf91c943db8e9829ea992c576c8e",
+                "ended_at_time": "2021-11-24T05:36:52+00:00",
+                "has_input": [
+                    "nmdc:ea20f99ba35d3ce686e5e199b34704e5"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:35:54+00:00",
+                "was_informed_by": "gold:Gp0213350",
+                "name": "ReadBased Analysis Activity for nmdc:mga06d65",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:fbfc3556f0b6b81127dccdd0fbb319aa",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:4b1fffbdc4130dfc262cbab3b7ef94e3",
+                    "nmdc:57510c34441755cac37e45ceef026e26",
+                    "nmdc:ccfe5635bfcc535acbbc7b9677963ebb",
+                    "nmdc:4793f08b0984e59d9654b0e84b7c4964",
+                    "nmdc:810f3a23fe6861a24397cec5a7635f65",
+                    "nmdc:98c72b11c04b1c9c5b65c03a7e827136"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:c967d1954540c289dc3e177461e16d7c",
+                "file_size_bytes": 262234,
+                "md5_checksum": "c967d1954540c289dc3e177461e16d7c",
+                "name": "gold:Gp0213354_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0c789/ReadbasedAnalysis/nmdc_mga0c789_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0213354",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "id": "nmdc:de2eae2b7d272b6fe0d83d6c008355d2",
+                "file_size_bytes": 603171,
+                "md5_checksum": "de2eae2b7d272b6fe0d83d6c008355d2",
+                "name": "gold:Gp0213354_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0c789/ReadbasedAnalysis/nmdc_mga0c789_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0213354"
+            },
+            {
+                "id": "nmdc:b49943cbfb6fc32a28b309b59389b68f",
+                "file_size_bytes": 3659560052,
+                "md5_checksum": "b49943cbfb6fc32a28b309b59389b68f",
+                "name": "gold:Gp0213354_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0c789/ReadbasedAnalysis/nmdc_mga0c789_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0213354",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:4362fd4f9f606f1dc4d00776e94ddbeb",
+                "file_size_bytes": 7190743008,
+                "md5_checksum": "4362fd4f9f606f1dc4d00776e94ddbeb",
+                "name": "gold:Gp0213354_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0c789/ReadbasedAnalysis/nmdc_mga0c789_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0213354",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:2886b27c40c1d9df999dee610e6af2b1",
+                "file_size_bytes": 561727,
+                "md5_checksum": "2886b27c40c1d9df999dee610e6af2b1",
+                "name": "gold:Gp0213354_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0c789/ReadbasedAnalysis/nmdc_mga0c789_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0213354",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:f788210bfd7e852cb4927184fd4dc8d0",
+                "file_size_bytes": 2356089,
+                "md5_checksum": "f788210bfd7e852cb4927184fd4dc8d0",
+                "name": "gold:Gp0213354_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0c789/ReadbasedAnalysis/nmdc_mga0c789_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0213354",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:581395fa84e118778aab43f9566aa6a3",
+                "file_size_bytes": 3564967,
+                "md5_checksum": "581395fa84e118778aab43f9566aa6a3",
+                "name": "gold:Gp0213354_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0c789/ReadbasedAnalysis/nmdc_mga0c789_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0213354",
+                "data_object_type": "Kraken2 Krona Plot"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:ce4f08538d6f705abc1505ed9cc8493b",
+                "ended_at_time": "2021-11-24T08:10:49+00:00",
+                "has_input": [
+                    "nmdc:8489d99afe00144c49dff91e65525ed8"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:35:40+00:00",
+                "was_informed_by": "gold:Gp0213354",
+                "name": "ReadBased Analysis Activity for nmdc:mga0c789",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:de2eae2b7d272b6fe0d83d6c008355d2",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:4362fd4f9f606f1dc4d00776e94ddbeb",
+                    "nmdc:c967d1954540c289dc3e177461e16d7c",
+                    "nmdc:f788210bfd7e852cb4927184fd4dc8d0",
+                    "nmdc:b49943cbfb6fc32a28b309b59389b68f",
+                    "nmdc:2886b27c40c1d9df999dee610e6af2b1",
+                    "nmdc:581395fa84e118778aab43f9566aa6a3"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:f5100b64e33408b5cc4392519c64659b",
+                "file_size_bytes": 3394743391,
+                "md5_checksum": "f5100b64e33408b5cc4392519c64659b",
+                "name": "gold:Gp0213360_Kraken classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mc82/ReadbasedAnalysis/nmdc_mga0mc82_kraken2_classification.tsv",
+                "description": "Kraken classification TSV report for gold:Gp0213360",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:d7b6407a6cf90e8632a041613ba7af7a",
+                "file_size_bytes": 2340266,
+                "md5_checksum": "d7b6407a6cf90e8632a041613ba7af7a",
+                "name": "gold:Gp0213360_Centrifuge Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mc82/ReadbasedAnalysis/nmdc_mga0mc82_centrifuge_krona.html",
+                "description": "Centrifuge Krona HTML report for gold:Gp0213360",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "id": "nmdc:7cbf5868b5d3d30f8dd8bab089523082",
+                "file_size_bytes": 531590,
+                "md5_checksum": "7cbf5868b5d3d30f8dd8bab089523082",
+                "name": "gold:Gp0213360_Kraken2 TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mc82/ReadbasedAnalysis/nmdc_mga0mc82_kraken2_report.tsv",
+                "description": "Kraken2 TSV report for gold:Gp0213360",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "id": "nmdc:824aec1509237ed08980524f83195790",
+                "file_size_bytes": 257942,
+                "md5_checksum": "824aec1509237ed08980524f83195790",
+                "name": "gold:Gp0213360_Centrifuge TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mc82/ReadbasedAnalysis/nmdc_mga0mc82_centrifuge_report.tsv",
+                "description": "Centrifuge TSV report for gold:Gp0213360",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "id": "nmdc:6f9ae6d9e35c2712e42be1c5e1a220c0",
+                "file_size_bytes": 6645052544,
+                "md5_checksum": "6f9ae6d9e35c2712e42be1c5e1a220c0",
+                "name": "gold:Gp0213360_Centrifuge classification TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mc82/ReadbasedAnalysis/nmdc_mga0mc82_centrifuge_classification.tsv",
+                "description": "Centrifuge classification TSV report for gold:Gp0213360",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "id": "nmdc:5fecd27babb34be50e875bdac6ee440e",
+                "file_size_bytes": 394799,
+                "md5_checksum": "5fecd27babb34be50e875bdac6ee440e",
+                "name": "gold:Gp0213360_Gottcha2 full TSV report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mc82/ReadbasedAnalysis/nmdc_mga0mc82_gottcha2_report_full.tsv",
+                "description": "Gottcha2 full TSV report for gold:Gp0213360"
+            },
+            {
+                "id": "nmdc:355ed122ebfedeb97b9039f53071fb32",
+                "file_size_bytes": 3396465,
+                "md5_checksum": "355ed122ebfedeb97b9039f53071fb32",
+                "name": "gold:Gp0213360_Kraken2 Krona HTML report",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0mc82/ReadbasedAnalysis/nmdc_mga0mc82_kraken2_krona.html",
+                "description": "Kraken2 Krona HTML report for gold:Gp0213360",
+                "data_object_type": "Kraken2 Krona Plot"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "id": "nmdc:2e384ea11627508ae28658217bdfe3b3",
+                "ended_at_time": "2021-11-22T23:55:26+00:00",
+                "has_input": [
+                    "nmdc:3516d985a9c9d91a8990c3ee286a30c7"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:ReadbasedAnalysis",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-11T00:36:58+00:00",
+                "was_informed_by": "gold:Gp0213360",
+                "name": "ReadBased Analysis Activity for nmdc:mga0mc82",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:5fecd27babb34be50e875bdac6ee440e",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:6f9ae6d9e35c2712e42be1c5e1a220c0",
+                    "nmdc:824aec1509237ed08980524f83195790",
+                    "nmdc:d7b6407a6cf90e8632a041613ba7af7a",
+                    "nmdc:f5100b64e33408b5cc4392519c64659b",
+                    "nmdc:7cbf5868b5d3d30f8dd8bab089523082",
+                    "nmdc:355ed122ebfedeb97b9039f53071fb32"
+                ]
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:77b1712067645b362aee53aad59000e2",
+                "file_size_bytes": 41050703,
+                "md5_checksum": "77b1712067645b362aee53aad59000e2",
+                "name": "gold:Gp0213371_metabat2 bins",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/MAGs/nmdc_mga0vx38_metabat_bin.zip",
+                "description": "metabat2 bins for gold:Gp0213371"
+            },
+            {
+                "id": "nmdc:52309bf9398a5b0c401e1e23f5e414df",
+                "file_size_bytes": 11787638,
+                "md5_checksum": "52309bf9398a5b0c401e1e23f5e414df",
+                "name": "gold:Gp0213371_high-quality and medium-quality bins",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/MAGs/nmdc_mga0vx38_hqmq_bin.zip",
+                "description": "high-quality and medium-quality bins for gold:Gp0213371",
+                "data_object_type": "Metagenome Bins"
+            },
+            {
+                "id": "nmdc:38f5521b558377503f6e9a635998dd37",
+                "file_size_bytes": 721178096,
+                "md5_checksum": "38f5521b558377503f6e9a635998dd37",
+                "name": "gold:Gp0213371_tooShort (< 3kb) filtered contigs fasta file by metaBat2",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/MAGs/nmdc_mga0vx38_bins.tooShort.fa",
+                "description": "tooShort (< 3kb) filtered contigs fasta file by metaBat2 for gold:Gp0213371"
+            },
+            {
+                "id": "nmdc:cf96331e23aa34224990105374272877",
+                "file_size_bytes": 337593077,
+                "md5_checksum": "cf96331e23aa34224990105374272877",
+                "name": "gold:Gp0213371_unbinned fasta file from metabat2",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/MAGs/nmdc_mga0vx38_bins.unbinned.fa",
+                "description": "unbinned fasta file from metabat2 for gold:Gp0213371"
+            },
+            {
+                "id": "nmdc:4d12e1cab7ee7e72ea48151dfc0354c6",
+                "file_size_bytes": 8526,
+                "md5_checksum": "4d12e1cab7ee7e72ea48151dfc0354c6",
+                "name": "gold:Gp0213371_metabat2 bin checkm quality assessment result",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/MAGs/nmdc_mga0vx38_checkm_qa.out",
+                "description": "metabat2 bin checkm quality assessment result for gold:Gp0213371",
+                "data_object_type": "CheckM Statistics"
+            }
+        ],
+        "mags_activity_set": [
+            {
+                "id": "nmdc:fdefb3fa15098906cf788f5cadf17bb3",
+                "ended_at_time": "2021-09-15T10:13:20+00:00",
+                "part_of": [
+                    "nmdc:mga0vx38"
+                ],
+                "has_input": [
+                    "nmdc:37573bca240f88091720ae61ae5c9452",
+                    "nmdc:da186671c5a581af0a7d195bd857c871",
+                    "nmdc:4d41794368ed796500bb6d2c82a6787a"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "type": "nmdc:MAGsAnalysisActivity",
+                "execution_resource": "NERSC-Cori",
+                "started_at_time": "2021-08-05T14:48:51+00:00",
+                "was_informed_by": "gold:Gp0213371",
+                "name": "MAGs Analysis Activity for nmdc:mga0vx38",
+                "has_output": [
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:38f5521b558377503f6e9a635998dd37",
+                    "nmdc:cf96331e23aa34224990105374272877",
+                    "nmdc:4d12e1cab7ee7e72ea48151dfc0354c6",
+                    "nmdc:52309bf9398a5b0c401e1e23f5e414df",
+                    "nmdc:77b1712067645b362aee53aad59000e2"
+                ]
+            }
+        ]
+    }
+]
