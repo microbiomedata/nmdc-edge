@@ -9,6 +9,7 @@
     Boolean <WORKFLOW>_input_interleaved=true
     Array[File] <WORKFLOW>_input_fq1
     Array[File] <WORKFLOW>_input_fq2
+    String <WORKFLOW>_prefix
 
     call <WORKFLOW>_preprocess.preprocess as preprocess {
         input:
@@ -21,6 +22,7 @@
     call <WORKFLOW>.jgi_metaASM as <ALIAS> {
         input: 
 		input_file=preprocess.input_files_gz,
+		proj=<WORKFLOW>_prefix,
 		outdir=<WORKFLOW>_outdir, 
 		rename_contig_prefix=<WORKFLOW>_rename_contig_prefix, 
 		uniquekmer=<WORKFLOW>_uniquekmer, 
