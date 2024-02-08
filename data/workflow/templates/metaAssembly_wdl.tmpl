@@ -6,6 +6,9 @@
     String <WORKFLOW>_spades_container="microbiomedata/spades:3.15.0"
     String <WORKFLOW>_memory="100g"
     String <WORKFLOW>_threads="4"
+    Boolean <WORKFLOW>_input_interleaved=true
+    Array[File] <WORKFLOW>_input_fq1
+    Array[File] <WORKFLOW>_input_fq2
 
     call <WORKFLOW>_preprocess.preprocess as preprocess {
         input:
