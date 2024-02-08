@@ -119,7 +119,12 @@ class ReIdTool:
         new_omics = OmicsProcessing(**params)
 
         # make new data objects with updated IDs
-        for old_do_id in omics_record["has_output"]:
+        old_do_ids = omics_record.get("has_output", [])
+        if not old_do_ids:
+            logger.warning(f"No data objects found for {omics_record['id']}")
+            new_db.omics_processing_set.append(new_omics)
+            return new_db
+        for old_do_id in old_do_ids:
             old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
             old_do_rec["data_object_type"] = "Metagenome Raw Reads"
             old_do_id = old_do_rec.get("id")
