@@ -35,60 +35,66 @@ def find_data_object_type(data_object_rec: Dict)-> Optional[str]:
     Returns:
     - str: The determined data type or None if the type could not be determined.
     """
+    url = data_object_rec.get("url")
+    name = data_object_rec.get("name")
     if "data_object_type" in data_object_rec:
         return data_object_rec["data_object_type"]
-    url = data_object_rec.get("url")
-    if url:
-        return _infer_data_object_type_from_url(url)
-    name = data_object_rec.get("name")
-    if name:
-        return _infer_data_object_type_from_name(name)
-    return None
+    elif url:
+        return _infer_data_object_type_from_url(data_object_rec)
+    elif name:
+        return _infer_data_object_type_from_name(data_object_rec)
+    else:
+        logger.error(f"Could not determine data object type for: {data_object_rec}")
+        return None
 
 
 
-def _infer_data_object_type_from_url(url: str) -> Optional[str]:
+def _infer_data_object_type_from_url(data_object_rec: Dict) -> Optional[str]:
     """
     Determine the data_object_type for a DO record based on its URL extension.
 
     Args:
-    - url (str): The URL of the data object.
+    - data_object_record (dict): Dictionary containing the 'url' key which
+    will be inspected to determine the data type.
 
     Returns:
     - str: The determined data type or None if the type could not be determined.
     """
-    if url.endswith("_covstats.txt"):
+    if data_object_rec['url'].endswith("_covstats.txt"):
         return "Assembly Coverage Stats"
-    elif url.endswith("_gottcha2_report.tsv"):
+    elif data_object_rec['url'].endswith("_gottcha2_report.tsv"):
         return "GOTTCHA2 Classification Report"
-    elif url.endswith("_gottcha2_report_full.tsv"):
+    elif data_object_rec['url'].endswith("_gottcha2_report_full.tsv"):
         return "GOTTCHA2 Report Full"
+    elif data_object_rec['url'].endswith(".fastq.gz") and "Filtered Reads" in data_object_rec['description']:
+        return "Filtered Sequencing Reads"
     else:
-        logger.error(f"Missing type: {url}")
+        logger.error(f"Cannot infer type from url for: {data_object_rec}")
         return None
 
-def _infer_data_object_type_from_name(name: str) -> Optional[str]:
+def _infer_data_object_type_from_name(data_object_rec: Dict) -> Optional[str]:
     """
     Determine the data_object_type for a DO record based on its name.
 
     Args:
-    - name (str): The name of the data object.
+    - data_object_record (dict): Dictionary containing the 'name' key which
+    will be inspected to determine the data type.
 
     Returns:
     - str: The determined data type or None if the type could not be determined.
     """
-    if name == "mapping_stats.txt":
+    if data_object_rec['name'] == "mapping_stats.txt":
         return "Assembly Coverage Stats"
-    elif name == "assembly_contigs.fna":
+    elif data_object_rec['name'] == "assembly_contigs.fna":
         return "Assembly Contigs"
-    elif name == "assembly_scaffolds.fna":
+    elif data_object_rec['name'] == "assembly_scaffolds.fna":
         return "Assembly Scaffolds"
-    elif name == "assembly.agp":
+    elif data_object_rec['name'] == "assembly.agp":
         return "Assembly AGP"
-    elif name == "pairedMapped_sorted.bam":
+    elif data_object_rec['name'] == "pairedMapped_sorted.bam":
         return "Assembly Coverage BAM"
     else:
-        logger.error(f"Missing type: {name}")
+        logger.error(f"Cannot infer type from name for: {data_object_rec}")
         return None
     
 def md5_sum(fn: str) -> str:
