@@ -1,7 +1,7 @@
 workflow preprocess {
-    Array[File] input_files
-    Array[File] input_fq1
-    Array[File] input_fq2
+    File input_file
+    File input_fq1
+    File input_fq2
     String  container="bfoster1/img-omics:0.1.9"
     String outdir
     Boolean input_interleaved
@@ -9,7 +9,7 @@ workflow preprocess {
     if (input_interleaved) {
         call gzip_input_int as gzip_int {
         input:
-            input_files=input_files,
+            input_file=input_file,
             container=container,
             outdir=outdir
         }
@@ -17,7 +17,7 @@ workflow preprocess {
 
     if (!input_interleaved) {
         call interleave_reads {
-		input: input_files = input_files
+		input: input_files = [input_fq1, input_fq2]
 	}
         call gzip_input_int as gzip_pe {
         input:
