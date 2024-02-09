@@ -150,7 +150,7 @@ workflow main_workflow {
 	String  virusPlasmid_database_location="/refdata"
 
 	if (DoVirusPlasmid){
-		call virusPlasmid.viral as viralPlasmid_call {
+		call viralPlasmid.viral as viralPlasmid_call {
 			input: 
 				fasta=virusPlasmid_input, 
 				outdir=virusPlasmid_outdir, 
