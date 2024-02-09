@@ -21,7 +21,7 @@ workflow preprocess {
 	}
         call gzip_input_int as gzip_pe {
         input:
-            input_files=interleave_reads.out_fastq,
+            input_file=interleave_reads.out_fastq,
             container=container,
             outdir=outdir
         }
@@ -54,7 +54,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        File input_file_gz = ${outdir}/${filename}.gz
+        File input_file_gz = "${outdir}/${filename}.gz"
 	}
 }
 
