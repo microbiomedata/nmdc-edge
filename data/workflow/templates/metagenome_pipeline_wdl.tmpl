@@ -149,7 +149,7 @@ workflow main_workflow {
 	Int     virusPlasmid_cpu=8
 	String  virusPlasmid_database_location="/refdata"
 
-	if (DoVirusPlasmid){
+	if (DoViralPlasmid){
 		call viralPlasmid.viral as viralPlasmid_call {
 			input: 
 				fasta=virusPlasmid_input, 
