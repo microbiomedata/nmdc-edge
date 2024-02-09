@@ -17,7 +17,8 @@ workflow preprocess {
 
     if (!input_interleaved) {
         call interleave_reads {
-		input: input_files = [input_fq1, input_fq2]
+		input: input_files = [input_fq1, input_fq2],
+		container=container
 	}
         call gzip_input_int as gzip_pe {
         input:
