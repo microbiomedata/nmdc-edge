@@ -381,11 +381,15 @@ class ReIdTool:
         Return a new Database instance with the metatranscriptome_activity_set
         and its data objects updated to new IDs.
         """
+        metatranscriptome_records = db_record.get(METATRANSCRIPTOME_ACTIVITY_SET, [])
+        if not metatranscriptome_records:
+            logger.info(f"No metatranscriptome_activity_set found for {db_record[OMICS_PROCESSING_SET][0]['id']}")
+            return new_db
         logger.info(f"Updating metatranscriptome_activity_set for "
                     f"{db_record[OMICS_PROCESSING_SET][0]['id']}")
         new_omics_processing = new_db.omics_processing_set[0]
 
-        for metatranscriptome_rec in db_record.get(METATRANSCRIPTOME_ACTIVITY_SET, []):
+        for metatranscriptome_rec in metatranscriptome_records:
             # old records have non-conforming type e.g. nmdc:MetaT,
             # nmdc:metaT etc. - fix it
             activity_type = "nmdc:MetatranscriptomeActivity"

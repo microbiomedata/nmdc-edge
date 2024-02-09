@@ -260,9 +260,12 @@ def extract_records(ctx, study_id, api_base_url):
             if passing_records:
                 db.__setattr__(set_name, passing_records)
 
-        retrieved_databases.append(db)
+
+
         if is_failed_data:
             retrieved_failed_databases.append(db_failed)
+        else:
+            retrieved_databases.append(db)
 
     json_data = json.loads(json_dumper.dumps(retrieved_databases, inject_type=False))
     db_outfile = DATA_DIR.joinpath(f"{study_id}_associated_record_dump.json")
