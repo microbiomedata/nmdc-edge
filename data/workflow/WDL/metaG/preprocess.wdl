@@ -16,14 +16,9 @@ workflow preprocess {
     }
 
     if (!input_interleaved) {
-        scatter(file in zip(input_fq1,input_fq2)){
-             call interleave_reads {
-                 input:
-                     input_files = [file.left,file.right],
-                     output_file = basename(file.left) + "_" + basename(file.right),
-	                 container = container
-             }
-        }
+        call interleave_reads {
+		input: input_files = input_files
+	}
         call gzip_input_int as gzip_pe {
         input:
             input_files=interleave_reads.out_fastq,
@@ -34,23 +29,23 @@ workflow preprocess {
     }
     output {
 
-       Array[File]? input_files_gz = if (input_interleaved) then gzip_int.input_files_gz else gzip_pe.input_files_gz
+       File input_file_gz = if (input_interleaved) then gzip_int.input_file_gz else gzip_pe.input_file_gz
     }
 }
 
 task gzip_input_int{
- 	Array[File] input_files
+ 	File input_file
 	String container
 	String outdir
+	String filename = basename(input_file)
 
  	command<<<
         mkdir -p ${outdir}
-        if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then
-            cp ${sep=" " input_files} ${outdir}/
+        if file --mime -b ${input_file} | grep gzip > /dev/null ; then
+            cp ${input_file} ${outdir}/
 
         else
-            cp ${sep=" " input_files} ${outdir}/
-            gzip -f ${outdir}/*.fastq
+            gzip -f ${input_file} > ${outdir}
         fi
  	>>>
 	runtime {
@@ -59,7 +54,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        Array[File]? input_files_gz = glob("${outdir}/*.gz")
+        File input_file_gz = ${outdir}/${filename}.gz
 	}
 }
 

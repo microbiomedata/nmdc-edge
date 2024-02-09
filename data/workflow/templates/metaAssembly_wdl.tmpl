@@ -21,7 +21,7 @@
     }
     call <WORKFLOW>.jgi_metaASM as <ALIAS> {
         input: 
-		input_file=select_first([preprocess.input_files_gz, [""]]),
+		input_file=preprocess.input_file_gz,
 		proj=<WORKFLOW>_prefix,
 		outdir=<WORKFLOW>_outdir, 
 		rename_contig_prefix=<WORKFLOW>_rename_contig_prefix, 
