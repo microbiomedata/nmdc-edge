@@ -38,15 +38,16 @@ task gzip_input_int{
  	File input_file
 	String container
 	String outdir
-	String filename = basename(input_file)
+	String filename = "output_fastq.gz"
 
  	command<<<
         mkdir -p ${outdir}
         if file --mime -b ${input_file} | grep gzip > /dev/null ; then
-            cp ${input_file} ${outdir}/
+            basename ${input_file} .gz
+            cp  ${input_file} ${outdir}/${filename}
 
         else
-            gzip -f ${input_file} > ${outdir}
+            gzip -f ${input_file} > "${outdir}/{$filename}"
         fi
  	>>>
 	runtime {
@@ -55,7 +56,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        File input_file_gz = "${outdir}/${filename}.gz"
+        File input_file_gz = "${outdir}/${filename}"
 	}
 }
 
