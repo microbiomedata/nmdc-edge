@@ -29,7 +29,7 @@ workflow preprocess {
     }
     output {
 
-       File input_file_gz = if (input_interleaved) then gzip_int.input_file_gz else gzip_pe.input_file_gz
+       File? input_file_gz = if (input_interleaved) then gzip_int.input_file_gz else gzip_pe.input_file_gz
     }
 }
 
