@@ -92,12 +92,15 @@ def extract_records(ctx, study_id, api_base_url):
     )
 
     retrieved_databases = []
-    retrieved_missing_data_objects = []
+    retrieved_failed_databases = []
+    omics_level_failure_count = 0
+    read_qc_level_failure_count = 0
     # 2. For each OmicsProcessing record, find the legacy identifier:
     for omics_processing_record in omics_processing_records:
         db = nmdc.Database()
         db_failed = nmdc.Database()
         is_failed_data = False
+        is_omics_missing_has_output = False
 
         logging.info(f"omics_processing_record: " f"{omics_processing_record['id']}")
         legacy_id = _get_legacy_id(omics_processing_record)
@@ -107,11 +110,18 @@ def extract_records(ctx, study_id, api_base_url):
         omics_id = omics_processing_record["id"]
         if omics_type not in ["Metagenome", "Metatranscriptome"]:
             continue
-        db.omics_processing_set.append(omics_processing_record)
+
 
         omics_processing_has_outputs = omics_processing_record.get("has_output", [])
+        # if no has_output, fail the record and its workflow activities and data objects
         if not omics_processing_has_outputs:
             logging.error(f"No has_output for {omics_id}")
+            is_failed_data = True
+            is_omics_missing_has_output = True
+            omics_level_failure_count += 1
+            db_failed.omics_processing_set.append(omics_processing_record)
+        else:
+            db.omics_processing_set.append(omics_processing_record)
 
         for data_object_id in omics_processing_has_outputs:
             data_object_record = api_client.get_data_object(data_object_id)
@@ -149,6 +159,7 @@ def extract_records(ctx, study_id, api_base_url):
 
             # Get workflow record(s) for each activity set - generally only one but could be more
             for workflow_record in workflow_records:
+
                 logging.info(f"record: {workflow_record['id']}, {workflow_record['name']}")
                 input_output_data_object_ids = set()
                 # if "has_input" in workflow_record:
@@ -156,7 +167,12 @@ def extract_records(ctx, study_id, api_base_url):
                 if "has_output" in workflow_record:
                     input_output_data_object_ids.update(workflow_record["has_output"])
 
-                is_missing_data_objects = False
+                if is_omics_missing_has_output:
+                    logging.error(f"OmicsMissingHasOutput: {workflow_record['id']}, {workflow_record['name']} failing")
+                    failing_records.append(workflow_record)
+
+
+                is_workflow_missing_data_objects = False
                 passing_data_objects = []
                 failing_data_objects = []
                 for data_object_id in input_output_data_object_ids:
@@ -167,10 +183,11 @@ def extract_records(ctx, study_id, api_base_url):
                     if not data_object_record:
                         logging.error(f"DataObjectNotFound {data_object_id} for {workflow_record['type']}"
                                       f"/{workflow_record['id']}")
-                        is_missing_data_objects = True
+                        is_workflow_missing_data_objects = True
                         is_failed_data = True
                         if set_name == "read_qc_analysis_activity_set":
                             is_reads_qc_missing_data_objects = True
+                            read_qc_level_failure_count += 1
                             logging.error(f"ReadsQCMissingDataObjects: {workflow_record['id']}, "
                                           f"{workflow_record['name']} failing all data objects")
                         # All other data objects fail if one is missing
@@ -178,16 +195,21 @@ def extract_records(ctx, study_id, api_base_url):
                         passing_data_objects.clear()
 
                         continue
-                    # If ReadQC was failed for missing Data Objects, every data object is failed
-                    if is_reads_qc_missing_data_objects:
-                        logging.error(f"FailedDataObject: ReadsQCFailed: {data_object_id},")
+                    # If OmicsProcessing failed for empty has_output or ReadQC was failed for missing Data Objects,
+                    # every data object is failed
+                    if is_reads_qc_missing_data_objects or is_omics_missing_has_output:
+                        if is_reads_qc_missing_data_objects:
+                            error_msg = f"ReadsQCMissingDataObjects: {data_object_id},"
+                        else:
+                            error_msg = f"OmicsMissingHasOutput: {data_object_id},"
+                        logging.error(f"FailedDataObject: {error_msg},")
                         if data_object_record not in failing_data_objects:
                             failing_data_objects.append(data_object_record)
                         failing_data_objects.extend(passing_data_objects)
                         passing_data_objects.clear()
                         continue
                     # If we found a missing data object for  this workflow record, we fail all its data objects
-                    if is_missing_data_objects:
+                    if is_workflow_missing_data_objects:
                         logging.error(f"FailedDataObject: {data_object_id},")
                         if data_object_record not in failing_data_objects:
                             failing_data_objects.append(data_object_record)
@@ -216,12 +238,16 @@ def extract_records(ctx, study_id, api_base_url):
                     logging.error(f"failing_data_objects: {len(failing_data_objects)}")
                     db_failed.data_object_set.extend(failing_data_objects)
 
-                # if ReadsQC was failed for missing Data Objects, every other workflow record is failed as well
-                if is_reads_qc_missing_data_objects:
-                    logging.error(f"ReadsQCMissingDataObjects: {workflow_record['id']},  {workflow_record['name']}")
+                # if ReadsQC was failed for missing Data Objects or OmicsProcessing failed has_output, every other
+                # workflow record is failed as well
+                if is_reads_qc_missing_data_objects or is_omics_missing_has_output:
+                    if is_omics_missing_has_output:
+                        logging.error(f"OmicsMissingHasOutput: {workflow_record['id']}, {workflow_record['name']}")
+                    else:
+                        logging.error(f"ReadsQCMissingDataObjects: {workflow_record['id']},  {workflow_record['name']}")
                     failing_records.append(workflow_record)
                 # if this workflow had missing data objects, fail it
-                elif is_missing_data_objects:
+                elif is_workflow_missing_data_objects:
                     logging.error(f"WorkflowActivityMissingDataObjects: {workflow_record['id']},"
                                     f" {workflow_record['name']}")
                     failing_records.append(workflow_record)
@@ -236,7 +262,7 @@ def extract_records(ctx, study_id, api_base_url):
 
         retrieved_databases.append(db)
         if is_failed_data:
-            retrieved_missing_data_objects.append(db_failed)
+            retrieved_failed_databases.append(db_failed)
 
     json_data = json.loads(json_dumper.dumps(retrieved_databases, inject_type=False))
     db_outfile = DATA_DIR.joinpath(f"{study_id}_associated_record_dump.json")
@@ -246,11 +272,13 @@ def extract_records(ctx, study_id, api_base_url):
         f.write(json.dumps(json_data, indent=4))
 
     # write failed records to a separate file if they exist
-    if retrieved_missing_data_objects:
+    if retrieved_failed_databases:
         db_failed_outfile = DATA_DIR.joinpath(f"{study_id}_failed_record_dump.json")
-        logging.info(f"Writing {len(retrieved_missing_data_objects)} failed records to {db_failed_outfile}")
+        logging.info(f"Writing {len(retrieved_failed_databases)} failed records to {db_failed_outfile}")
+        logging.info(f"Found {omics_level_failure_count} omics processing records with missing has_output")
+        logging.info(f"Found {read_qc_level_failure_count} read qc records with missing data objects")
         with open(db_failed_outfile, "w") as f:
-            json_data = json.loads(json_dumper.dumps(retrieved_missing_data_objects, inject_type=False))
+            json_data = json.loads(json_dumper.dumps(retrieved_failed_databases, inject_type=False))
             f.write(json.dumps(json_data, indent=4))
 
 
