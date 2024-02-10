@@ -206,7 +206,7 @@ class NmdcRuntimeApi:
         return resp.json()
 
     @refresh_token
-    def list_jobs(self, filt=None, max=20):
+    def list_jobs(self, filt=None, max=100):
         url = "%sjobs?max_page_size=%s" % (self._base_url, max)
         d = {}
         if filt:
