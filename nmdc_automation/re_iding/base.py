@@ -486,6 +486,8 @@ class ReIdTool:
         activity_type = activity_set_rec["type"].replace("QC", "Qc")
         if activity_type == "nmdc:ReadbasedAnalysis":
             activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
+        if activity_type == "nmdc:ReadBasedAnalysisActivity":
+            activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
         if activity_type == "nmdc:MetaT":
             activity_type = "nmdc:MetatranscriptomeActivity"
         template = self._workflow_template_for_type(activity_type)
