@@ -19,11 +19,13 @@ from nmdc_automation.re_iding.db_utils import (OMICS_PROCESSING_SET,
                                                READS_QC_SET,
                                                METAGENOME_ASSEMBLY_SET,
                                                 METATRANSCRIPTOME_ACTIVITY_SET,
+                                                READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
                                                check_for_single_omics_processing_record,
                                                get_data_object_record_by_id,
                                                get_omics_processing_id)
 from nmdc_automation.re_iding.file_utils import (find_data_object_type,
-                                                 compute_new_paths_and_link,
+                                                 compute_new_data_file_path,
+                                                    link_data_file_paths,
                                                  assembly_file_operations)
 
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
@@ -117,7 +119,12 @@ class ReIdTool:
         new_omics = OmicsProcessing(**params)
 
         # make new data objects with updated IDs
-        for old_do_id in omics_record["has_output"]:
+        old_do_ids = omics_record.get("has_output", [])
+        if not old_do_ids:
+            logger.warning(f"No data objects found for {omics_record['id']}")
+            new_db.omics_processing_set.append(new_omics)
+            return new_db
+        for old_do_id in old_do_ids:
             old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
             old_do_rec["data_object_type"] = "Metagenome Raw Reads"
             old_do_id = old_do_rec.get("id")
@@ -136,7 +143,7 @@ class ReIdTool:
         return new_db
 
     def update_reads_qc_analysis_activity_set(self, db_record: Dict,
-            new_db: NmdcDatabase) -> (NmdcDatabase):
+            new_db: NmdcDatabase, update_links: bool = False) -> NmdcDatabase:
         """
         Return a new Database instance with the reads_qc_analysis_activity_set
         and its data objects updated to new IDs.
@@ -146,7 +153,7 @@ class ReIdTool:
             f"{db_record[OMICS_PROCESSING_SET][0]['id']}"
             )
         new_omics_processing = new_db.omics_processing_set[0]
-        for reads_qc_rec in db_record[READS_QC_SET]:
+        for reads_qc_rec in db_record.get(READS_QC_SET, []):
             # old records have non-conforming type
             activity_type = "nmdc:ReadQcAnalysisActivity"
             omics_processing_id = new_omics_processing.id
@@ -157,7 +164,12 @@ class ReIdTool:
             
             new_readsqc_base_dir = os.path.join(self.data_dir, omics_processing_id,
                                                 new_activity_id)
-            os.makedirs(new_readsqc_base_dir, exist_ok=True)
+
+            if update_links:
+                logging.info(f"Making directory {new_readsqc_base_dir}")
+                os.makedirs(new_readsqc_base_dir, exist_ok=True)
+            else:
+                logging.info(f"Skipping directory creation for {new_readsqc_base_dir}")
 
             updated_has_output = []
             # Get ReadQC data objects and update IDs
@@ -165,10 +177,16 @@ class ReIdTool:
                 logger.info(f"old_do_id: {old_do_id}")
                 old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
                 data_object_type = find_data_object_type(old_do_rec)
-                new_file_path = compute_new_paths_and_link(
-                old_do_rec["url"], new_readsqc_base_dir, new_activity_id, self.data_dir
-                )
+
+                # Compute new file path and optionally update links
+                new_file_path = compute_new_data_file_path(
+                old_do_rec["url"], new_readsqc_base_dir, new_activity_id)
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
+                if update_links:
+                    logging.info(f"Updating links for {old_do_rec['url']} to {new_file_path}")
+                    link_data_file_paths(old_do_rec["url"], self.data_dir, new_file_path)
+
+
                 new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec,
                     data_object_type,
@@ -194,7 +212,7 @@ class ReIdTool:
         return new_db
 
     def update_metagenome_assembly_set(self, db_record: Dict,
-            new_db: NmdcDatabase) -> (NmdcDatabase):
+                                       new_db: NmdcDatabase, update_links: bool = False) -> (NmdcDatabase):
         """
         Return a new Database instance with the metagenome_assembly_set
         and its data objects updated to new IDs.
@@ -203,7 +221,7 @@ class ReIdTool:
                     f"{db_record[OMICS_PROCESSING_SET][0]['id']}")
         new_omics_processing = new_db.omics_processing_set[0]
 
-        for assembly_rec in db_record[METAGENOME_ASSEMBLY_SET]:
+        for assembly_rec in db_record.get(METAGENOME_ASSEMBLY_SET, []):
             activity_type = "nmdc:MetagenomeAssembly"
             omics_processing_id = new_omics_processing.id
             has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
@@ -215,19 +233,39 @@ class ReIdTool:
             
             new_assembly_base_dir = os.path.join(self.data_dir, omics_processing_id,
                                                  new_activity_id)
-            os.makedirs(new_assembly_base_dir, exist_ok=True)
+
+            # make new directory is update_links is True
+            if update_links:
+                os.makedirs(new_assembly_base_dir, exist_ok=True)
+                logging.info(f"Making directory {new_assembly_base_dir}")
+            else:
+                logging.info(f"Skipping directory creation for {new_assembly_base_dir}")
             
             for old_do_id in assembly_rec["has_output"]:
                 logger.info(f"old_do_id: {old_do_id}")
                 old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
                 data_object_type = find_data_object_type(old_do_rec)
                 if not data_object_type:
+                    logger.warning(f"Data object type not found for {old_do_id} - {old_do_rec['description']}")
                     continue
-                new_file_path = compute_new_paths_and_link(old_do_rec["url"], new_assembly_base_dir, new_activity_id)
-                updated_md5, updated_file_size = assembly_file_operations(
-                old_do_rec, data_object_type, new_file_path, new_activity_id,
-                    self.data_dir)
+                old_url = old_do_rec.get("url")
+                if not old_url:
+                    logger.warning(f"Data object url not found for {old_do_id} - {old_do_rec['description']}")
+                    old_url = f"{DATA_BASE_URL}/{omics_processing_id}/assembly/{old_do_rec['name']}"
+                    logger.warning(f"Using inferred url: {old_url}")
+                new_file_path = compute_new_data_file_path(old_do_rec["url"], new_assembly_base_dir, new_activity_id)
+
+                if update_links:
+                    updated_md5, updated_file_size = assembly_file_operations(
+                    old_do_rec, data_object_type, new_file_path, new_activity_id,
+                        self.data_dir)
+                    logging.info(f"Updated md5: {updated_md5}, updated file size: {updated_file_size}")
+                else:
+                    updated_md5 = old_do_rec["md5_checksum"]
+                    updated_file_size = old_do_rec["file_size_bytes"]
+
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
+
                 #update md5 and file byte size in place to use _make_new_data_object function without functions
                 old_do_rec["file_size_bytes"] = updated_file_size
                 old_do_rec["md5_checksum"] = updated_md5
@@ -237,6 +275,11 @@ class ReIdTool:
                 # add new data object to new database and update has_output
                 new_db.data_object_set.append(new_do)
                 updated_has_output.append(new_do.id)
+
+            # Skip creating a new assembly if no typed data objects were found
+            if not updated_has_output:
+                logger.warning(f"No typed data objects found for {activity_type}")
+                return new_db
 
             # Get new Metagenome Assembly activity set
             new_assembly = self._make_new_activity_set_object(
@@ -257,7 +300,7 @@ class ReIdTool:
         return new_db
 
     def update_read_based_taxonomy_analysis_activity_set(self, db_record: Dict,
-            new_db: NmdcDatabase) -> (NmdcDatabase):
+            new_db: NmdcDatabase, update_links: bool=False) -> (NmdcDatabase):
         """
         Return a new Database instance with the read_based_taxonomy_analysis_activity_set
         and its data objects updated to new IDs.
@@ -266,8 +309,7 @@ class ReIdTool:
                     f"{db_record[OMICS_PROCESSING_SET][0]['id']}")
         new_omics_processing = new_db.omics_processing_set[0]
 
-        for read_based_rec in db_record[
-            "read_based_taxonomy_analysis_activity_set"]:
+        for read_based_rec in db_record.get(READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET, []):
             activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
             omics_processing_id = new_omics_processing.id
             has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
@@ -277,7 +319,13 @@ class ReIdTool:
             
             new_readbased_base_dir = os.path.join(self.data_dir, omics_processing_id,
                                                   new_activity_id)
-            os.makedirs(new_readbased_base_dir, exist_ok=True)
+
+            # make new directory is update_links is True
+            if update_links:
+                os.makedirs(new_readbased_base_dir, exist_ok=True)
+                logging.info(f"Making directory {new_readbased_base_dir}")
+            else:
+                logging.info(f"Skipping directory creation for {new_readbased_base_dir}")
             
             updated_has_output = []
             for old_do_id in read_based_rec["has_output"]:
@@ -285,11 +333,16 @@ class ReIdTool:
                 old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
                 data_object_type = find_data_object_type(old_do_rec)
                 if not data_object_type:
+                    logger.warning(f"Data object type not found for {old_do_id} - {old_do_rec['description']}")
                     continue
-                new_file_path = compute_new_paths_and_link(
-                old_do_rec["url"], new_readbased_base_dir, new_activity_id, self.data_dir
-                )
+
+                # Compute new file path and optionally update links
+                new_file_path = compute_new_data_file_path(
+                old_do_rec["url"], new_readbased_base_dir, new_activity_id)
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
+                if update_links:
+                    logging.info(f"Updating links for {old_do_rec['url']} to {new_file_path}")
+                    link_data_file_paths(old_do_rec["url"], self.data_dir, new_file_path)
                 
                 new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
@@ -297,6 +350,11 @@ class ReIdTool:
                 # add new data object to new database and update has_output
                 new_db.data_object_set.append(new_do)
                 updated_has_output.append(new_do.id)
+
+            # Skip creating a new assembly if no typed data objects were found
+            if not updated_has_output:
+                logger.warning(f"No typed data objects found for {activity_type}")
+                return new_db
 
             # Get new ReadBasedTaxonomyAnalysisActivity activity set
             new_read_based = self._make_new_activity_set_object(
@@ -318,16 +376,20 @@ class ReIdTool:
         return new_db
 
     def update_metatranscriptome_activity_set(self, db_record: Dict,
-                                              new_db: NmdcDatabase) -> (NmdcDatabase):
+                                              new_db: NmdcDatabase, update_links: bool = False) -> (NmdcDatabase):
         """
         Return a new Database instance with the metatranscriptome_activity_set
         and its data objects updated to new IDs.
         """
+        metatranscriptome_records = db_record.get(METATRANSCRIPTOME_ACTIVITY_SET, [])
+        if not metatranscriptome_records:
+            logger.info(f"No metatranscriptome_activity_set found for {db_record[OMICS_PROCESSING_SET][0]['id']}")
+            return new_db
         logger.info(f"Updating metatranscriptome_activity_set for "
                     f"{db_record[OMICS_PROCESSING_SET][0]['id']}")
         new_omics_processing = new_db.omics_processing_set[0]
 
-        for metatranscriptome_rec in db_record[METATRANSCRIPTOME_ACTIVITY_SET]:
+        for metatranscriptome_rec in metatranscriptome_records:
             # old records have non-conforming type e.g. nmdc:MetaT,
             # nmdc:metaT etc. - fix it
             activity_type = "nmdc:MetatranscriptomeActivity"
@@ -341,8 +403,13 @@ class ReIdTool:
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
             new_metatranscriptome_base_dir = os.path.join(self.data_dir, omics_processing_id,
                                                           new_activity_id)
-            logging.info(f"New metatranscriptome base dir: {new_metatranscriptome_base_dir}")
-            os.makedirs(new_metatranscriptome_base_dir, exist_ok=True)
+
+            # make new directory is update_links is True
+            if update_links:
+                os.makedirs(new_metatranscriptome_base_dir, exist_ok=True)
+                logging.info(f"Making directory {new_metatranscriptome_base_dir}")
+            else:
+                logging.info(f"Skipping directory creation for {new_metatranscriptome_base_dir}")
 
             updated_has_output = []
             # Get Metatranscriptome data objects and update IDs
@@ -358,12 +425,16 @@ class ReIdTool:
                 logging.info(f"data_object_type: {data_object_type}")
                 # TODO: how do we handle data objects w/o type?
                 if not data_object_type:
-                    logger.warning(f"Data object type not found for {old_do_id}")
-                    # continue
+                    logger.warning(f"Data object type not found for {old_do_id} - {old_do_rec['description']}")
+                    continue
                 # link data object to new location
-                new_file_path = compute_new_paths_and_link(
-                    old_do_rec["url"], new_metatranscriptome_base_dir, new_activity_id, self.data_dir)
+                new_file_path = compute_new_data_file_path(
+                    old_do_rec["url"], new_metatranscriptome_base_dir, new_activity_id)
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
+                if update_links:
+                    logging.info(f"Updating links for {old_do_rec['url']} to {new_file_path}")
+                    link_data_file_paths(old_do_rec["url"], self.data_dir, new_file_path)
+
 
                 new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
@@ -372,6 +443,11 @@ class ReIdTool:
                 new_db.data_object_set.append(new_do)
                 updated_has_output.append(new_do.id)
 
+
+            # Skip creating a new assembly if no typed data objects were found
+            if not updated_has_output:
+                logger.warning(f"No typed data objects found for {activity_type}")
+                return new_db
             # Get new Metatranscriptome activity set
             new_metatranscriptome = self._make_new_activity_set_object(
                 omics_processing_id, new_activity_id, metatranscriptome_rec, has_input,
@@ -409,6 +485,8 @@ class ReIdTool:
         """
         activity_type = activity_set_rec["type"].replace("QC", "Qc")
         if activity_type == "nmdc:ReadbasedAnalysis":
+            activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
+        if activity_type == "nmdc:ReadBasedAnalysisActivity":
             activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
         if activity_type == "nmdc:MetaT":
             activity_type = "nmdc:MetatranscriptomeActivity"
@@ -461,7 +539,7 @@ class ReIdTool:
             description=new_description,
             type="nmdc:DataObject",
             file_size_bytes=data_object_record["file_size_bytes"],
-            md5_checksum=data_object_record["md5_checksum"],
+            md5_checksum=data_object_record.get("md5_checksum"),
             url=new_url,
             data_object_type=data_object_type,
             )

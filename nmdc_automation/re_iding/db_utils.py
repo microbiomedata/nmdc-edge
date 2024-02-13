@@ -12,7 +12,7 @@ from nmdc_schema.nmdc import Database, DataObject
 OMICS_PROCESSING_SET = "omics_processing_set"
 DATA_OBJECT_SET = "data_object_set"
 READS_QC_SET = "read_qc_analysis_activity_set"
-READS_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET = "read_based_taxonomy_analysis_activity_set"
+READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET = "read_based_taxonomy_analysis_activity_set"
 METAGENOME_ASSEMBLY_SET = "metagenome_assembly_set"
 METAGENOME_ANNOTATION_ACTIVITY_SET = "metagenome_annotation_activity_set"
 METAGENOME_SEQUENCING_ACTIVITY_SET = "metagenome_sequencing_activity_set"
@@ -24,7 +24,7 @@ NOM_ANALYSIS_ACTIVITY_SET= "nom_analysis_activity_set"
 
 ANALYSIS_ACTIVITIES = [
     READS_QC_SET,
-    READS_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
+    READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
     METAGENOME_ANNOTATION_ACTIVITY_SET,
     METAGENOME_SEQUENCING_ACTIVITY_SET,
     METAGENOME_ASSEMBLY_SET,
@@ -34,7 +34,6 @@ ANALYSIS_ACTIVITIES = [
     METABOLOMICS_ANALYSIS_ACTIVITY_SET,
     NOM_ANALYSIS_ACTIVITY_SET
 ]
-
 
 
 
@@ -71,12 +70,3 @@ def get_data_object_record_by_id(db_record: Dict, id: str)-> Optional[Dict]:
     elif len(data_objects) > 1:
         raise ValueError(f"Multiple data objects found with id: {id}")
     return data_objects[0]
-
-
-
-
-
-
-
-
-

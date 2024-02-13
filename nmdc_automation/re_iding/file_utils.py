@@ -35,17 +35,66 @@ def find_data_object_type(data_object_rec: Dict)-> Optional[str]:
     Returns:
     - str: The determined data type or None if the type could not be determined.
     """
+    url = data_object_rec.get("url")
+    name = data_object_rec.get("name")
     if "data_object_type" in data_object_rec:
         return data_object_rec["data_object_type"]
-    url = data_object_rec["url"]
-    if url.endswith("_covstats.txt"):
-        return "Assembly Coverage Stats"
-    elif url.endswith("_gottcha2_report.tsv"):
-        return "GOTTCHA2 Classification Report"
-    elif url.endswith("_gottcha2_report_full.tsv"):
-        return "GOTTCHA2 Report Full"
+    elif url:
+        return _infer_data_object_type_from_url(data_object_rec)
+    elif name:
+        return _infer_data_object_type_from_name(data_object_rec)
     else:
-        logger.error(f"Missing type: {url}")
+        logger.error(f"Could not determine data object type for: {data_object_rec}")
+        return None
+
+
+
+def _infer_data_object_type_from_url(data_object_rec: Dict) -> Optional[str]:
+    """
+    Determine the data_object_type for a DO record based on its URL extension.
+
+    Args:
+    - data_object_record (dict): Dictionary containing the 'url' key which
+    will be inspected to determine the data type.
+
+    Returns:
+    - str: The determined data type or None if the type could not be determined.
+    """
+    if data_object_rec['url'].endswith("_covstats.txt"):
+        return "Assembly Coverage Stats"
+    elif data_object_rec['url'].endswith("_gottcha2_report.tsv"):
+        return "GOTTCHA2 Classification Report"
+    elif data_object_rec['url'].endswith("_gottcha2_report_full.tsv"):
+        return "GOTTCHA2 Report Full"
+    elif data_object_rec['url'].endswith(".fastq.gz") and "Filtered Reads" in data_object_rec['description']:
+        return "Filtered Sequencing Reads"
+    else:
+        logger.error(f"Cannot infer type from url for: {data_object_rec}")
+        return None
+
+def _infer_data_object_type_from_name(data_object_rec: Dict) -> Optional[str]:
+    """
+    Determine the data_object_type for a DO record based on its name.
+
+    Args:
+    - data_object_record (dict): Dictionary containing the 'name' key which
+    will be inspected to determine the data type.
+
+    Returns:
+    - str: The determined data type or None if the type could not be determined.
+    """
+    if data_object_rec['name'] == "mapping_stats.txt":
+        return "Assembly Coverage Stats"
+    elif data_object_rec['name'] == "assembly_contigs.fna":
+        return "Assembly Contigs"
+    elif data_object_rec['name'] == "assembly_scaffolds.fna":
+        return "Assembly Scaffolds"
+    elif data_object_rec['name'] == "assembly.agp":
+        return "Assembly AGP"
+    elif data_object_rec['name'] == "pairedMapped_sorted.bam":
+        return "Assembly Coverage BAM"
+    else:
+        logger.error(f"Cannot infer type from name for: {data_object_rec}")
         return None
     
 def md5_sum(fn: str) -> str:
@@ -191,11 +240,10 @@ def assembly_file_operations(data_object_record, data_object_type,
     return md5, size
 
 
-def compute_new_paths_and_link(
+def compute_new_data_file_path(
         old_url: str,
         new_base_dir: Union[str, os.PathLike],
         act_id: str,
-        old_base_dir: Optional[Union[str, os.PathLike]] = None,
 ) -> Path:
     """
     Compute the new path for the file based on the old url and the new base directory.
@@ -205,19 +253,19 @@ def compute_new_paths_and_link(
     file_extenstion = file_name.lstrip("nmdc_").split("_", maxsplit=1)[-1]
     new_file_name = f"{act_id}_{file_extenstion}"
     modified_new_file_name = new_file_name.replace(":", "_")
-    destination = Path(new_base_dir, modified_new_file_name)
+    new_data_file_path = Path(new_base_dir, modified_new_file_name)
 
-    if old_base_dir is None:
-        return destination
-    # create a link between the old file and the new file if old_base_dir is provided
+    return new_data_file_path
+
+
+def link_data_file_paths(old_url: str, old_base_dir: Union[str, os.PathLike], new_path: Union[str, os.PathLike])-> \
+        None:
     suffix = old_url.split("https://data.microbiomedata.org/data/")[1]
     old_file_path = Path(old_base_dir, suffix)
     try:
-        os.link(old_file_path, destination)
-        logging.info(f"Successfully created link between {old_file_path} and {destination}")
+        os.link(old_file_path, new_path)
+        logging.info(f"Successfully created link between {old_file_path} and {new_path}")
     except OSError as e:
         logging.error(f"An error occurred while linking the file: {e}")
     except Exception as e:
         logging.error(f"Unexpected error: {e}")
-
-    return destination
