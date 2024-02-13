@@ -394,7 +394,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
 
     # Get API client(s)
     config = ctx.obj["site_config"]
-    api_client = NmdcRuntimeApi(config)
+    # api_client = NmdcRuntimeApi(config)
     api_user_client = NmdcRuntimeUserApi(config)
 
     with open(reid_records_file, "r") as f:
@@ -438,14 +438,22 @@ def ingest_records(ctx, reid_records_file, changesheet_only):
 
         # submit the record to the workflows endpoint
         if not changesheet_only:
-            resp = api_client.post_objects(record)
-            logging.info(f"{record} posted, got response: {resp}")
+            # validate the record
+            if api_user_client.validate_record(record):
+                logging.info("Workflow Record validated")
+                # submit the record
+                resp = api_user_client.submit_record(record)
+                # No response is returned if the record already exists
+                if resp:
+                    logging.info(f"Record submitted with response: {resp}")
+                else:
+                    logging.info(f"Record already exists")
         else:
             logging.info(f"changesheet_only is True, skipping ingest")
 
     changesheet.write_changesheet()
     logging.info(f"changesheet written to {changesheet.output_filepath}")
-    if changesheet.validate_changesheet(api_client.config.napa_base_url):
+    if changesheet.validate_changesheet(api_user_client.base_url):
         logging.info(f"changesheet validated")
     else:
         logging.info(f"changesheet validation failed")
