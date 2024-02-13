@@ -391,6 +391,50 @@ class NmdcRuntimeUserApi:
         response = requests.post(url, json=query, headers=self.headers)
         return response.json()
 
+    def validate_record(self, record: dict):
+        """
+        Function to validate a record using the Microbiome Data API.
+
+        Parameters:
+        record (dict): The record to be validated.
+
+        Returns:
+        dict: The response from the API.
+        """
+
+        self.ensure_token()
+        url = f"{self.base_url}metadata/json:validate"
+
+        response = requests.post(url, json=record, headers=self.headers)
+        # check for validation failure
+        if response.status_code == 422:
+            logging.error(f"Validation failed for record: {record}")
+            logging.error(response.json())
+        response.raise_for_status()
+        return response.json()
+
+    def submit_record(self, record: dict):
+        """
+        Function to submit a record using the Microbiome Data API.
+
+        Parameters:
+        record (dict): The record to be submitted.
+
+        Returns:
+        dict: The response from the API.
+        """
+
+        self.ensure_token()
+        url = f"{self.base_url}metadata/json:submit"
+
+        response = requests.post(url, json=record, headers=self.headers)
+        # check if we already have it:
+        if response.status_code == 409:
+            logging.debug(f"Record already exists: {response.json()}")
+            return
+        response.raise_for_status()
+        return response.json()
+
 def jprint(obj):
     print(json.dumps(obj, indent=2))
 
