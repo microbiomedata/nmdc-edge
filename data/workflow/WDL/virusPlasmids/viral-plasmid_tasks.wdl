@@ -17,7 +17,7 @@ task geNomad_full {
     Boolean? calibration = false
     Float? fdr = 0.1
     String filename=basename(ASM_FASTA)
-    String prefix=sub(sub(sub(filename, ".fna", ""), ".fasta", ""), ".fa", "")
+    String prefix=prefix
 
     command <<<
 
