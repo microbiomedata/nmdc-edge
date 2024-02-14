@@ -20,6 +20,7 @@ workflow viral {
         String outdir
         String docker = "mbabinski17/genomad:1.7.1"
         String checkV_docker = "mbabinski17/checkv:1.0.1"
+        String? prefix
 
     call tasks.geNomad_full as gn {
         input: ASM_FASTA = fasta,
@@ -37,7 +38,8 @@ workflow viral {
                 fdr=fdr,
 		OUTDIR = outdir,
                 CPU = cpu,
-                DOCKER = docker
+                DOCKER = docker,
+                prefix = prefix
         }
 
     call tasks.checkV {
