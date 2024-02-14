@@ -13,6 +13,7 @@ Int? <WORKFLOW>_max_uscg
 Boolean? <WORKFLOW>_score_calibration
 Float? <WORKFLOW>_fdr
 String <WORKFLOW>_outdir
+String? <WORKFLOW>_prefix
  
 call <WORKFLOW>.viral as <ALIAS> {
         input: 
@@ -30,5 +31,6 @@ call <WORKFLOW>.viral as <ALIAS> {
         max_uscg=<WORKFLOW>_max_uscg,
         score_calibration=<WORKFLOW>_score_calibration,
         fdr=<WORKFLOW>_fdr,
-        outdir=<WORKFLOW>_outdir
+        outdir=<WORKFLOW>_outdir,
+        prefix=<WORKFLOW>_prefix
     }
