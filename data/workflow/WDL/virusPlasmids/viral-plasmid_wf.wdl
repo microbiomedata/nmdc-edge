@@ -36,6 +36,7 @@ workflow viral {
                 max_uscg = max_uscg,
                 calibration = score_calibration,
                 fdr=fdr,
+                prefix=prefix
 		OUTDIR = outdir,
                 CPU = cpu,
                 DOCKER = docker,
