@@ -108,7 +108,7 @@ workflow main_workflow {
 	}
 
 	## Assembly workflow
-	Array[File]? metaAssembly_input_file = if (DoReadsQC) then jgi_rqcfilter_call.clean_fastq_files else interleaved_input_fastqs 
+	Array[File]? metaAssembly_input_file = jgi_rqcfilter_call.clean_fastq_files
 	String? metaAssembly_outdir
 	String metaAssembly_rename_contig_prefix="scaffold"
 	Float metaAssembly_uniquekmer=1000
@@ -119,7 +119,7 @@ workflow main_workflow {
 	Array[File] metaAssembly_input_fq1=[]
 	Array[File] metaAssembly_input_fq2=[]
 
-	if (DoMetaAssembly){
+
 		call metaAssembly.jgi_metaASM as metaAssembly_call {
 			input: 
 				input_file=metaAssembly_input_file, 
@@ -133,7 +133,7 @@ workflow main_workflow {
 				memory=metaAssembly_memory, 
 				threads=metaAssembly_threads
 		}
-	}
+
 	
 	## Annotation workflow
 	File?  metaAnnotation_imgap_input_fasta = metaAssembly_call.final_contig
