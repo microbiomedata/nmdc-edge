@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require("path");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require("../config");
+const config= require("../config");
 
 const { getResult, getRunStats, getConf } = require("../util/pipeline");
 
