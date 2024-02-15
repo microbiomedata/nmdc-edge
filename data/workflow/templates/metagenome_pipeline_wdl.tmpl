@@ -54,7 +54,7 @@ workflow main_workflow {
 
     call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input:
-            input_files=ReadsQC_input_files,
+            input_files=interleaved_input_fastqs,
             outdir=ReadsQC_outdir,
             input_interleaved=ReadsQC_input_interleaved,
             input_fq1=ReadsQC_input_fq1,
