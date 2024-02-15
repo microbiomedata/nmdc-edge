@@ -192,17 +192,12 @@ workflow main_workflow {
 	
 	call finish {
 		input: container="microbiomedata/workflowmeta:1.0.5.1",
-			proj= if (DoMetaAssembly) then metaAssembly_rename_contig_prefix else proj,
+			proj= metaAssembly_rename_contig_prefix,
 			start=start.start,
 			resource=resource,
 			url_base=url_base,
 			git_url=git_url,
 			informed_by=informed_by,
-			DoReadsQC = DoReadsQC,
-			DoReadbasedAnalysis = DoReadbasedAnalysis,
-			DoMetaAssembly = DoMetaAssembly,
-			DoAnnotation = DoAnnotation,
-			DoMetaMAGs = DoMetaMAGs,
 			read = if (input_interleaved) then input_files else flatten([input_fq1,input_fq2]),
 			filtered = nmdc_rqcfilter_call.filtered_final,
 			filtered_stats = nmdc_rqcfilter_call.filtered_stats_final,
@@ -344,11 +339,6 @@ task finish {
 	String resource
 	String url_base
 	String git_url
-	Boolean DoReadsQC
-	Boolean DoReadbasedAnalysis 
-	Boolean DoMetaAssembly
-	Boolean DoAnnotation 
-	Boolean DoMetaMAGs
 	Array[File] read
 	Array[File?] filtered
 	Array[File?] filtered_stats
@@ -400,8 +390,8 @@ task finish {
 	File? mags_stats_tsv
 	Array[File?] hqmq_bin_fasta_files
 	Array[File?] bin_fasta_files
-	Int n_hqmq = if DoMetaMAGs then length(hqmq_bin_fasta_files) else 0
-	Int n_bin = if DoMetaMAGs then length(bin_fasta_files) else 0
+	Int n_hqmq = length(hqmq_bin_fasta_files)
+	Int n_bin = length(bin_fasta_files)
 	File? gottcha2_report_tsv
 	File? gottcha2_full_tsv
 	File? gottcha2_krona_html
@@ -424,7 +414,7 @@ task finish {
 		mkdir -p ${annodir}
 		end=`date --iso-8601=seconds`
 	
-		if ${DoReadsQC}; then
+
 		# Generate QA objects
 			/scripts/rqcstats.py ${select_first(filtered_stats)} > stats.json
 			/scripts/generate_objects.py --type "qa" --id ${informed_by} \
@@ -437,9 +427,9 @@ task finish {
 				${select_first(filtered)} 'Filtered Reads' \
 				${select_first(filtered_stats)} 'Filtered Stats'
 			cp activity.json data_objects.json ${qadir}/
-		fi
+
 		
-		if ${DoMetaAssembly}; then
+
 			# Generate assembly objects
 			/scripts/generate_objects.py --type "assembly" --id ${informed_by} \
 				--name "Assembly Activity for ${proj}" --part ${proj} \
@@ -453,9 +443,9 @@ task finish {
 				${agp} 'Assembled AGP file' \
 				${bam} 'Metagenome Alignment BAM file'
 			cp activity.json data_objects.json ${assemdir}/
-		fi
 
-		if ${DoAnnotation}; then
+
+
 			# Generate annotation objects
 			nmdc gff2json ${functional_gff} -of features.json -oa annotations.json -ai ${informed_by}
 
@@ -491,12 +481,10 @@ task finish {
 			#	${stats_tsv} ${stats_json} \
 			#	${annodir}/
 			cp features.json annotations.json activity.json data_objects.json ${annodir}/
-		fi
 		
-		if ${DoMetaMAGs} ; then
+
 			if [ ${n_hqmq} -gt 0 ] ; then
 			    mkdir -p hqmq
-				if ${DoAnnotation}; then
 				(cd hqmq && cp ${sep=" " hqmq_bin_fasta_files} .)
 				(cd hqmq && for binFA in *.fa; do
 					name=${dollar}{binFA/bins./}
@@ -520,7 +508,6 @@ task finish {
 				)
 				(cd hqmq && zip ${magsdir}/${prefix}_hqmq_bins.zip *.zip)
 				fi
-			fi
 
 			#IFS=""
 			/scripts/generate_objects.py --type "MAGs" --id ${informed_by} \
@@ -538,9 +525,8 @@ task finish {
 				${" " + ar_summary + " \"gtdbtk archaea assignment result summary table\""}  \
 				${" " + metabat_bins +  " \"initial metabat bining result fasta output\""} 
 			cp activity.json data_objects.json ${magsdir}/
-		fi
+
 		
-		if ${DoReadbasedAnalysis} ; then
 			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \
 				--name "ReadBased Analysis Activity for ${proj}" --part ${proj} \
 				--start ${start} --end $end \
@@ -557,7 +543,7 @@ task finish {
 				${kraken2_report_tsv} "Kraken2 TSV report" \
 				${kraken2_krona_html} "Kraken2 Krona HTML report"
 			cp activity.json data_objects.json ${rbadir}/
-		fi
+
 	>>>
 
 	runtime {
