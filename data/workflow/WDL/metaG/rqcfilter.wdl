@@ -28,16 +28,13 @@ workflow nmdc_rqcfilter {
            read = stage.read,
            filtered = qc.filtered,
            filtered_stats = qc.stat,
-           filtered_stats2 = qc.stat2,
-           filtered_stats_json = qc.json_out
+           filtered_stats2 = qc.stat2
     }
     output {
         File filtered_final = finish_rqc.filtered_final
         File filtered_stats_final = finish_rqc.filtered_stats_final
         File filtered_stats2_final = finish_rqc.filtered_stats2_final
-        File filtered_stats_json_final = finish_rqc.filtered_stats_json_final
         File rqc_info = make_info_file.rqc_info
-
     }
 }
 
@@ -156,7 +153,6 @@ task finish_rqc {
     File filtered_stats
     File filtered_stats2
     File filtered
-    File filtered_stats_json
     String container
     String proj
     String prefix=sub(proj, ":", "_")
@@ -170,7 +166,6 @@ task finish_rqc {
         ln ${filtered} ${prefix}_filtered.fastq.gz
         ln ${filtered_stats} ${prefix}_filterStats.txt
         ln ${filtered_stats2} ${prefix}_filterStats2.txt
-        ln ${filtered_stats_json} ${prefix}_filterStats.json
 
        # Generate stats but rename some fields untilt the script is
        # fixed.
@@ -182,7 +177,6 @@ task finish_rqc {
         File filtered_final = "${prefix}_filtered.fastq.gz"
         File filtered_stats_final = "${prefix}_filterStats.txt"
         File filtered_stats2_final = "${prefix}_filterStats2.txt"
-        File filtered_stats_json_final = "${prefix}_filterStats.json"
     }
 
     runtime {
