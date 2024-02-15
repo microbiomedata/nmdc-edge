@@ -1,96 +1,88 @@
-workflow jgi_rqcfilter {
-    Array[File] input_files
-    String? outdir
-    String bbtools_container="microbiomedata/bbtools:38.96"
-    String database="/refdata"
-    Boolean chastityfilter=false
-    String? memory
-    String? threads
-    Boolean input_interleaved = true
-    Array[File] input_fq1
-    Array[File] input_fq2
-    
-    if (!input_interleaved) {
-        ## the zip() function generates an array of pairs, use .left and .right to access
-        scatter(file in zip(input_fq1,input_fq2)){
-             call interleave_reads {
-                 input:
-                     input_files = [file.left,file.right],
-                     output_file = basename(file.left) + "_" + basename(file.right),
-	             container = bbtools_container
-             }
-             call rqcfilter as rqcPE {
-                 input:  input_file=interleave_reads.out_fastq,
-                     container=bbtools_container,
-                     database=database,
-                     chastityfilter_flag=chastityfilter,
-                     memory=memory,
-                     threads=threads
-	
-            }
-        }
+workflow nmdc_rqcfilter {
+    String  container="bfoster1/img-omics:0.1.9"
+    String  proj
+    String  input_files
+    String  database="/refdata/"
+
+    call stage {
+        input: container=container,
+            input_file=input_files
+    }
+    # Estimate RQC runtime at an hour per compress GB
+    call rqcfilter as qc {
+        input: input_files=stage.read,
+            threads=16,
+            database=database,
+            memory="60G"
+    }
+    call make_info_file {
+        input: info_file = qc.info_file,
+            container=container,
+            proj=proj
     }
 
-    if (input_interleaved) {
-        scatter(file in input_files) {
-            call rqcfilter as rqcInt {
-                 input:  input_file=file,
-                     container=bbtools_container,
-                     database=database,
-		     chastityfilter_flag=chastityfilter,
-                     memory=memory,
-                     threads=threads
-            }
-        }
+    call finish_rqc {
+        input: container="microbiomedata/workflowmeta:1.1.1",
+           proj=proj,
+           start=stage.start,
+           read = stage.read,
+           filtered = qc.filtered,
+           filtered_stats = qc.stat,
+           filtered_stats2 = qc.stat2
     }
-
-    # rqcfilter.stat implicit as Array because of scatter
-    # Optional staging to an output directory
-    if (defined(outdir)){
-
-        call make_output {
-           	input: outdir=outdir,
-                       filtered= if (input_interleaved) then rqcInt.filtered else rqcPE.filtered,
-                       container=bbtools_container
-        }
-    }
-
-    output{
-        Array[File]? filtered = if (input_interleaved) then rqcInt.filtered else rqcPE.filtered
-        Array[File]? stats = if (input_interleaved) then rqcInt.stat else rqcPE.stat
-        Array[File]? stats2 = if (input_interleaved) then rqcInt.stat2 else rqcPE.stat2
-        Array[File]? statsjson = if (input_interleaved) then rqcInt.json_out else rqcPE.json_out
-        Array[File]? clean_fastq_files = make_output.fastq_files
-    }
-    
-    parameter_meta {
-        input_files: "illumina paired-end interleaved fastq files"
-	outdir: "The final output directory path"
-        database : "database path to RQCFilterData directory"
-        clean_fastq_files: "after QC fastq files"
-        memory: "optional for jvm memory for bbtools, ex: 32G"
-        threads: "optional for jvm threads for bbtools ex: 16"
-    }
-    meta {
-        author: "Chienchi Lo, B10, LANL"
-        email: "chienchi@lanl.gov"
-        version: "1.0.2"
+    output {
+        File filtered_final = finish_rqc.filtered_final
+        File filtered_stats_final = finish_rqc.filtered_stats_final
+        File filtered_stats2_final = finish_rqc.filtered_stats2_final
+        File rqc_info = make_info_file.rqc_info
     }
 }
 
+
+
+task stage {
+   String container
+   String target="raw.fastq.gz"
+   String input_file
+
+   command <<<
+       set -e
+       if [ $( echo ${input_file}|egrep -c "https*:") -gt 0 ] ; then
+           wget ${input_file} -O ${target}
+       else
+           ln ${input_file} ${target} || cp ${input_file} ${target}
+       fi
+       # Capture the start time
+       date --iso-8601=seconds > start.txt
+
+   >>>
+
+   output{
+      File read = "${target}"
+      String start = read_string("start.txt")
+   }
+   runtime {
+     memory: "1 GiB"
+     cpu:  2
+     maxRetries: 1
+     docker: container
+   }
+}
+
+
 task rqcfilter {
-     File input_file
-     String container
+     File input_files
+     String container="microbiomedata/bbtools:38.96"
      String database
      Boolean chastityfilter_flag=true
      String? memory
      String? threads
-     String prefix=sub(basename(input_file), ".fa?s?t?q.?g?z?$", "")
      String filename_outlog="stdout.log"
      String filename_errlog="stderr.log"
      String filename_stat="filtered/filterStats.txt"
      String filename_stat2="filtered/filterStats2.txt"
      String filename_stat_json="filtered/filterStats.json"
+     String filename_reproduce="filtered/reproduce.sh"
      String system_cpu="$(grep \"model name\" /proc/cpuinfo | wc -l)"
      String jvm_threads=select_first([threads,system_cpu])
      String chastityfilter= if (chastityfilter_flag) then "cf=t" else "cf=f"
@@ -98,21 +90,21 @@ task rqcfilter {
      runtime {
             docker: container
             memory: "70 GB"
+            cpu:  16
             database: database
+            runtime_minutes: ceil(size(input_files, "GB")*60)
      }
 
      command<<<
         #sleep 30
         export TIME="time result\ncmd:%C\nreal %es\nuser %Us \nsys  %Ss \nmemory:%MKB \ncpu %P"
         set -eo pipefail
-
-        rqcfilter2.sh -Xmx${default="60G" memory} threads=${jvm_threads} ${chastityfilter} jni=t in=${input_file} path=filtered rna=f trimfragadapter=t qtrim=r trimq=0 maxns=3 maq=3 minlen=51 mlf=0.33 phix=t removehuman=t removedog=t removecat=t removemouse=t khist=t removemicrobes=t sketch kapa=t clumpify=t tmpdir= barcodefilter=f trimpolyg=5 usejni=f rqcfilterdata=${database}/RQCFilterData  > >(tee -a ${filename_outlog}) 2> >(tee -a ${filename_errlog} >&2)
+        rqcfilter2.sh -Xmx${default="60G" memory} -da threads=${jvm_threads} ${chastityfilter} jni=t in=${input_files} path=filtered rna=f trimfragadapter=t qtrim=r trimq=0 maxns=3 maq=3 minlen=51 mlf=0.33 phix=t removehuman=t removedog=t removecat=t removemouse=t khist=t removemicrobes=t sketch kapa=t clumpify=t tmpdir= barcodefilter=f trimpolyg=5 usejni=f rqcfilterdata=${database}/RQCFilterData  > >(tee -a ${filename_outlog}) 2> >(tee -a ${filename_errlog} >&2)
 
         python <<CODE
         import json
-        from collections import OrderedDict
         f = open("${filename_stat}",'r')
-        d = OrderedDict()
+        d = dict()
         for line in f:
             if not line.rstrip():continue
             key,value=line.rstrip().split('=')
@@ -127,71 +119,69 @@ task rqcfilter {
             File stderr = filename_errlog
             File stat = filename_stat
             File stat2 = filename_stat2
-            File filtered = glob("filtered/*anqdpht*")[0]
+            File info_file = filename_reproduce
+            File filtered = glob("filtered/*fastq.gz")[0]
             File json_out = filename_stat_json
+            #String start = read_string("start.txt")
      }
 }
 
-task make_output{
- 	String outdir
-	Array[String] filtered
-	String dollar ="$"
-	String container
- 
- 	command<<<
-			mkdir -p ${outdir}
-			for i in ${sep=' ' filtered}
-			do
-				f=${dollar}(basename $i)
-				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.anqdpht*}
-				mkdir -p ${outdir}/$prefix
-				cp -f $dir/../filtered/filterStats.txt ${outdir}/$prefix
-				cp -f $dir/../filtered/filterStats2.txt ${outdir}/$prefix
-				cp -f $dir/../filtered/filterStats.json ${outdir}/$prefix
-				cp -f $i ${outdir}/$prefix
-				echo ${outdir}/$prefix/$f
-			done
- 			chmod 764 -R ${outdir}
- 	>>>
-	runtime {
-            docker: container
-            memory: "1 GiB"
-            cpu:  1
-        }
-	output{
-		Array[String] fastq_files = read_lines(stdout())
-	}
+task make_info_file {
+    File info_file
+    String proj
+    String prefix=sub(proj, ":", "_")
+    String container
+    
+    command<<<
+        sed -n 2,5p ${info_file} 2>&1 |  perl -ne 's:in=/.*/(.*) :in=$1:; s/#//; s/BBTools/BBTools(1)/; print;' > ${prefix}_readsQC.info
+        echo -e "\n(1) B. Bushnell: BBTools software package, http://bbtools.jgi.doe.gov/" >> ${prefix}_readsQC.info
+    >>>
+
+    output {
+        File rqc_info = "${prefix}_readsQC.info"
+    }
+    runtime {
+        memory: "1 GiB"
+        cpu:  1
+        maxRetries: 1
+        docker: container
+    }
 }
 
-task interleave_reads{
+task finish_rqc {
+    File read
+    File filtered_stats
+    File filtered_stats2
+    File filtered
+    String container
+    String proj
+    String prefix=sub(proj, ":", "_")
+    String start
+ 
+    command<<<
 
-        Array[File] input_files
-        String output_file = "interleaved.fastq.gz"
-	String container
-        
-        command <<<
-            if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then 
-                paste <(gunzip -c ${input_files[0]} | paste - - - -) <(gunzip -c ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}
-		echo ${output_file}
-            else
-                if [[ "${output_file}" == *.gz ]]; then
-                    paste <(cat ${input_files[0]} | paste - - - -) <(cat ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}
-		    echo ${output_file}
-                else
-                    paste <(cat ${input_files[0]} | paste - - - -) <(cat ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}.gz
-                    echo ${output_file}.gz
-                fi
-            fi
-        >>>
-        
-        runtime {
-            docker: container
-            memory: "1 GiB"
-            cpu:  1
-        }
-        
-        output {
-                File out_fastq = read_string(stdout())
-        }
+        set -e
+        end=`date --iso-8601=seconds`
+        # Generate QA objects
+        ln ${filtered} ${prefix}_filtered.fastq.gz
+        ln ${filtered_stats} ${prefix}_filterStats.txt
+        ln ${filtered_stats2} ${prefix}_filterStats2.txt
+
+       # Generate stats but rename some fields untilt the script is
+       # fixed.
+       /scripts/rqcstats.py ${filtered_stats} > stats.json
+       cp stats.json ${prefix}_qa_stats.json
+
+    >>>
+    output {
+        File filtered_final = "${prefix}_filtered.fastq.gz"
+        File filtered_stats_final = "${prefix}_filterStats.txt"
+        File filtered_stats2_final = "${prefix}_filterStats2.txt"
+    }
+
+    runtime {
+        docker: container
+        memory: "1 GiB"
+        cpu:  1
+    }
 }

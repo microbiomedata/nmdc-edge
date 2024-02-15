@@ -51,20 +51,26 @@ workflow main_workflow {
 	Array[File] readsQC_input_fq1=[]
 	Array[File] readsQC_input_fq2=[]
 
-
-    call readsQC.jgi_rqcfilter as jgi_rqcfilter_call {
+    call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input:
-            input_files=interleaved_input_fastqs,
-            input_fq1=readsQC_input_fq1,
-            input_fq2=readsQC_input_fq2,
-            outdir=readsQC_outdir,
-            bbtools_container=readsQC_bbtools_container,
-            database=readsQC_database,
-            memory=readsQC_memory,
-            threads=readsQC_threads
+            input_files=ReadsQC_input_files,
+            outdir=ReadsQC_outdir,
+            input_interleaved=ReadsQC_input_interleaved,
+            input_fq1=ReadsQC_input_fq1,
+            input_fq2=ReadsQC_input_fq2
+        }
+    scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
+
+        call readsQC.nmdc_rqcfilter  as nmdc_rqcfilter_call {
+            input:
+                input_files=file,
+                database=ReadsQC_database,
+                proj=proj,
+       }
+
     }
 
-
+    Array[File]? readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final
 	## ReadbasedAnalysis workflow
 	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
 		"gottcha2": true,
@@ -77,7 +83,6 @@ workflow main_workflow {
 		"centrifuge": "/expanse/projects/nmdc/refdata/Centrifuge"
 	}
 	String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.3p1"
-	Array[File]? readbasedAnalysis_reads = if (DoReadsQC) then jgi_rqcfilter_call.clean_fastq_files else interleaved_input_fastqs 
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
 	String readbasedAnalysis_outdir
@@ -104,7 +109,7 @@ workflow main_workflow {
 
 
 	## Assembly workflow
-	Array[File]? metaAssembly_input_file = jgi_rqcfilter_call.clean_fastq_files
+	File metaAssembly_input_file = nmdc_rqcfilter_call.filtered_final[0]
 	String? metaAssembly_outdir
 	String metaAssembly_rename_contig_prefix="scaffold"
 	Float metaAssembly_uniquekmer=1000
@@ -119,8 +124,6 @@ workflow main_workflow {
     call metaAssembly.jgi_metaASM as metaAssembly_call {
         input:
             input_file=metaAssembly_input_file,
-            input_fq1=metaAssembly_input_fq1,
-            input_fq2=metaAssembly_input_fq2,
             outdir=metaAssembly_outdir,
             rename_contig_prefix=metaAssembly_rename_contig_prefix,
             uniquekmer=metaAssembly_uniquekmer,
@@ -129,7 +132,6 @@ workflow main_workflow {
             memory=metaAssembly_memory,
             threads=metaAssembly_threads
     }
-
 	
 	## Annotation workflow
 	File?  metaAnnotation_imgap_input_fasta = metaAssembly_call.final_contig
