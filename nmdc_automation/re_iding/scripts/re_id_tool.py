@@ -25,6 +25,7 @@ GOLD_STUDY_ID = "gold:Gs0114663"
 STUDY_ID = "nmdc:sty-11-aygzgv51"
 NAPA_CONFIG = Path("../../../configs/.local_napa_config.toml")
 NAPA_BASE_URL = "https://api-napa.microbiomedata.org/"
+NAPA_MONGODB = "mongo-loadbalancer.nmdc-napa.production.svc.spin.nersc.org:27017"
 
 STUDIES = {
     "Stegen": ("nmdc:sty-11-aygzgv51", "gold:Gs0114663"),
@@ -420,6 +421,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri=None,
 
     # TODO - need to get mongo_uri credentials for the Napa DB instance in the config file. Meanwhile, we can test
     #  with a local MongoDB instance
+
     logging.info(f"Using MongoDB URI: {mongo_uri}")
 
     # Connect to the MongoDB server and check the database name
@@ -472,7 +474,11 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri=None,
         if not changesheet_only:
             # validate the record
             if api_user_client.validate_record(record):
-                logging.info("DB Record validated")
+                logging.info("DB Record validated - submitting to API")
+                # json:submit endpoint does not work on the Napa API
+                # submission_response = api_user_client.submit_record(record)
+                # logging.info(f"Record submission response: {submission_response}")
+
                 # submit the record documents directly via the MongoDB client
                 for collection_name, collection in record.items():
                     # collection shouldn't be empty but check just in case
@@ -480,6 +486,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri=None,
                         logging.warning(f"Empty collection: {collection_name}")
                         continue
                     logging.info(f"Inserting {len(collection)} records into {collection_name}")
+
                     insertion_result = db_client[collection_name].insert_many(collection)
                     logging.info(f"Inserted {len(insertion_result.inserted_ids)} records into {collection_name}")
             else:
