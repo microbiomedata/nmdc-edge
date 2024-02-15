@@ -31,7 +31,7 @@ def mock_nmdc_api(requests_mock):
     rqc = json.load(open(rqcf))
     resp = {"resources": [rqc]}
     requests_mock.get("http://localhost/jobs", json=resp)
-    requests_mock.post("http://localhost/v1/workflows/activities", json={})
+    requests_mock.post("http://localhost/workflows/activities", json={})
     requests_mock.patch("http://localhost/operations/nmdc:1234", json={})
     requests_mock.get("http://localhost/operations/nmdc:1234",
                       json={'metadata': {}})
