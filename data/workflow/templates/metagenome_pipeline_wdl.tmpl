@@ -55,10 +55,10 @@ workflow main_workflow {
     call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input:
             input_files=interleaved_input_fastqs,
-            outdir=ReadsQC_outdir,
-            input_interleaved=ReadsQC_input_interleaved,
-            input_fq1=ReadsQC_input_fq1,
-            input_fq2=ReadsQC_input_fq2
+            outdir=readsQC_outdir,
+            input_interleaved=input_interleaved,
+            input_fq1=readsQC_input_fq1,
+            input_fq2=readsQC_input_fq2
         }
     scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
 
