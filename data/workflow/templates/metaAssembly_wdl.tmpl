@@ -31,17 +31,3 @@
 		memory=<WORKFLOW>_memory, 
 		threads=<WORKFLOW>_threads
     }
-
-    call <WORKFLOW>.jgi_assembly_output as jgi_assembly_output {
-        input:
-        outdir=<WORKFLOW>_outdir,
-        container=<WORKFLOW>_bbtools_container,
-        contigs=jgi_metaASM.contigs,
-        scaffolds=jgi_metaASM.scaffolds,
-        agp=jgi_metaASM.agp,
-        bam=jgi_metaASM.bam,
-        samgz=jgi_metaASM.samgz,
-        covstats=jgi_metaASM.covstats,
-        asmstats=jgi_metaASM.asmstats
-
-    }
