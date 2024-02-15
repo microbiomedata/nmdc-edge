@@ -39,8 +39,7 @@ workflow viral {
                 prefix=prefix,
 		        OUTDIR = outdir,
                 CPU = cpu,
-                DOCKER = docker,
-                prefix = prefix
+                DOCKER = docker
         }
 
     call tasks.checkV {
