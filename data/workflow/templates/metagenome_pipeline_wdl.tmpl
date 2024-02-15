@@ -135,7 +135,7 @@ workflow main_workflow {
     }
 	
 	## Annotation workflow
-	File?  metaAnnotation_imgap_input_fasta = metaAssembly_call.final_contig
+	File?  metaAnnotation_imgap_input_fasta = metaAssembly_call.contig
 	String  metaAnnotation_imgap_project_id
 	String  metaAnnotation_outdir
 	Int     metaAnnotation_additional_threads=8
@@ -162,8 +162,8 @@ workflow main_workflow {
 	## MAGs workflow
 	String? metaMAGs_outdir
 	String  metaMAGs_proj_name
-	File? metaMAGs_contig_file = metaAssembly_call.final_contig
-	File? metaMAGs_sam_file = metaAssembly_call.final_bam
+	File? metaMAGs_contig_file = metaAssembly_call.contig
+	File? metaMAGs_sam_file = metaAssembly_call.bam
 	File? metaMAGs_gff_file = metaAnnotation_call.functional_gff
 	File? metaMAGs_map_file
 	File? metaMAGs_domain_file
