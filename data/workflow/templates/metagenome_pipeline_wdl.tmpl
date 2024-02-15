@@ -124,6 +124,7 @@ workflow main_workflow {
 
     call metaAssembly.jgi_metaASM as metaAssembly_call {
         input:
+            proj=proj,
             input_file=metaAssembly_input_file,
             outdir=metaAssembly_outdir,
             rename_contig_prefix=metaAssembly_rename_contig_prefix,
