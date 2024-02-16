@@ -28,7 +28,7 @@ function submitWorkflow(proj, workflow, inputsize) {
             imports = process.env.WORKFLOW_WDL_HOME + "/" + workflowlist[workflow.name]['wdl_imports'];
             wdlVersion = workflowlist[workflow.name]['wdl_version'];
         } else {
-            options_json = process.env.WORKFLOW_TEMPLATE_HOME + "/" + pipelinelist[workflow]['options_json'];
+            options_json = proj_home + '/options.json';
             imports = process.env.WORKFLOW_WDL_HOME + "/" + pipelinelist[workflow]['wdl_imports'];
             wdlVersion = pipelinelist[workflow]['wdl_version'];
         }
