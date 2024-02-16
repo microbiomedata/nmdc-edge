@@ -10,7 +10,7 @@
     Array[File] <WORKFLOW>_input_fq1
     Array[File] <WORKFLOW>_input_fq2
 
-    call <WORKFLOW>.jgi_metaASM as <ALIAS> {
+    call <WORKFLOW>.nmdc_edge_assembly as <ALIAS> {
         input: 
 		input_file=<WORKFLOW>_input_file, 
 		outdir=<WORKFLOW>_outdir, 
@@ -23,4 +23,23 @@
 		input_interleaved=<WORKFLOW>_input_interleaved, 
 		input_fq1=<WORKFLOW>_input_fq1, 
 		input_fq2=<WORKFLOW>_input_fq2
+    }
+
+    output {
+        File contig = <ALIAS>.contig
+        File scaffold = <ALIAS>.scaffold
+        File agp=<ALIAS>.agp
+        File bam=<ALIAS>.bam
+        File samgz=<ALIAS>.samgz
+        File covstats=<ALIAS>.covstats
+        File asmstats=<ALIAS>.asmstats
+        File asmreportHtml = <ALIAS>.report_html
+        File asmreportTxt = <ALIAS>.report_txt
+        File? final_contig = <ALIAS>.final_contig
+        File? final_scaffold = <ALIAS>.final_scaffold
+        File? final_agp = <ALIAS>.final_agp
+        File? final_covstat = <ALIAS>.final_covstat
+        File? final_samgz = <ALIAS>.final_samgz
+        File? final_bam = <ALIAS>.final_bam
+        File? final_asmstat = <ALIAS>.final_asmstat
     }
