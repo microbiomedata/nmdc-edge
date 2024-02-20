@@ -480,6 +480,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri=None,
                 # logging.info(f"Record submission response: {submission_response}")
 
                 # submit the record documents directly via the MongoDB client
+                # this isa workaround for the json:submit endpoint not working
                 for collection_name, collection in record.items():
                     # collection shouldn't be empty but check just in case
                     if not collection:
