@@ -180,11 +180,8 @@ class NmdcRuntimeApi:
         return resp.json()
 
     @refresh_token
-    def post_objects(self, obj_data, json_obj=None):
-        url = self._base_url + "v1/workflows/activities"
-
-        # objects_file = open(json_obj)
-        # obj_data = json.load(objects_file)
+    def post_objects(self, obj_data):
+        url = self._base_url + "workflows/activities"
 
         resp = requests.post(url, headers=self.header, data=json.dumps(obj_data))
         return resp.json()
