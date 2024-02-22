@@ -13,7 +13,7 @@ def nmdc_api(requests_mock):
             }
     requests_mock.post("http://localhost/token", json=data)
     requests_mock.post("http://localhost/pids/mint", json=["nmdc:abcd"])
-    requests_mock.post("http://localhost/v1/workflows/activities", json=["nmdc:abcd"])
+    requests_mock.post("http://localhost/workflows/activities", json=["nmdc:abcd"])
 
 
 @fixture
