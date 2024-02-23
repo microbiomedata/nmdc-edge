@@ -519,53 +519,40 @@ def delete_old_records(ctx, old_records_file):
         old_db_records = json.load(f)
 
     # set list to capture annotation genes for agg set
-    gene_id_list = []
+    annotation_ids = []
     for record in old_db_records:
         for set_name, object_record in record.items():
             if set_name == "omics_processing_set":
                 continue
+            delete_ids = []
             if isinstance(object_record, list):
                 for item in object_record:
-                    if "id" in item:
-                        if set_name == "metagenome_annotation_activity_set":
-                            gene_id_list.append(item["id"])
-                        delete_query = {
-                            "delete": set_name,
-                            "deletes": [{"q": {"id": item["id"]}, "limit": 1}],
-                        }
-                        try:
-                            logging.info(f"Deleting {item.get('type')} record: {item['id']}")
-                            run_query_response = api_user_client.run_query(
-                                delete_query
-                            )
+                    delete_ids.append(item["id"])
+                    if set_name == "metagenome_annotation_activity_set":
+                        annotation_ids.append(item["id"])
+                delete_query = {
+                    "delete": set_name,
+                    "deletes": [{"q": {"id": {"$in": delete_ids}}, "limit": len(delete_ids)}],
+                }
+                try:
+                    logging.info(f"Deleting {set_name} records: {delete_ids}")
+                    run_query_response = api_user_client.run_query(delete_query)
+                    logging.info(f"Deleting query posted with response: {run_query_response}")
+                except requests.exceptions.RequestException as e:
+                    logging.error(f"An error occured while running: {delete_query}, response retutrned: {e}")
 
-                            logging.info(
-                                f"Deleting query posted with response: {run_query_response}"
-                            )
-                        except requests.exceptions.RequestException as e:
-                            logging.info(
-                                f"An error occured while running: {delete_query}, response retutrned: {e}"
-                            )
+    # delete functional annotation agg records
+    delete_annotation_query = {
+        "delete": "functional_annotation_agg",
+        "deletes": [{"q": {"metagenome_annotation_id": {"$in": annotation_ids}}, "limit": len(annotation_ids)}],
+    }
+    try:
+        logging.info(f"Deleting functional annotation agg records: {annotation_ids}")
+        run_query_response = api_user_client.run_query(delete_annotation_query)
+        logging.info(f"Deleting query posted with response: {run_query_response}")
+    except requests.exceptions.RequestException as e:
+        logging.error(f"An error occured while running: {delete_annotation_query}, response retutrned: {e}")
 
-    for annotation_id in gene_id_list:
-        try:
-            logging.info(
-                f"Deleting functional aggregate record with id: {annotation_id}"
-            )
-            delete_query_agg = {
-                "delete": "functional_annotation_agg",
-                "deletes": [{"q": {"metagenome_annotation_id": annotation_id}, "limit": 1}],
-            }
-
-            run_query_agg_response = api_user_client.run_query(delete_query_agg)
-
-            logging.info(
-                f"Response for deleting functional annotation agg record returned: {run_query_agg_response}"
-            )
-        except requests.exceptions.RequestException as e:
-            logging.error(
-                f"An error occurred while deleting annotation id {annotation_id}: {e}"
-            )
     logging.info(f"Elapsed time: {time.time() - start_time}")
 
 
