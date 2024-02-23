@@ -8,6 +8,8 @@ task profilerGottcha2 {
 
     command <<<
         set -euo pipefail
+        . /opt/conda/etc/profile.d/conda.sh
+        conda activate gottcha2
 
         gottcha2.py -r ${RELABD_COL} \
                     -i ${sep=' ' READS} \
@@ -17,15 +19,17 @@ task profilerGottcha2 {
                     --database ${DB}
         
         grep "^species" ${PREFIX}.tsv | ktImportTaxonomy -t 3 -m 9 -o ${PREFIX}.krona.html - || true
+
+        gottcha2.py --version > ${PREFIX}.info
     >>>
     output {
         File report_tsv = "${PREFIX}.tsv"
         File full_tsv = "${PREFIX}.full.tsv"
         File krona_html = "${PREFIX}.krona.html"
+        File info = "${PREFIX}.info"
     }
     runtime {
         docker: DOCKER
-	database: DB
         cpu: CPU
         node: 1
         nwpn: 1
@@ -47,25 +51,27 @@ task profilerCentrifuge {
 
     command <<<
         set -euo pipefail
-        eval "$(/opt/conda/bin/conda shell.bash hook)"
+        . /opt/conda/etc/profile.d/conda.sh
         conda activate centrifuge
+
         centrifuge -x ${DB} \
                    -p ${CPU} \
                    -U ${sep=',' READS} \
                    -S ${PREFIX}.classification.tsv \
                    --report-file ${PREFIX}.report.tsv
-        conda deactivate
-
+        
         ktImportTaxonomy -m 5 -t 2 -o ${PREFIX}.krona.html ${PREFIX}.report.tsv
+
+        centrifuge --version | head -1 | cut -d ' ' -f3 > ${PREFIX}.info
     >>>
     output {
       File classification_tsv="${PREFIX}.classification.tsv"
       File report_tsv="${PREFIX}.report.tsv"
       File krona_html="${PREFIX}.krona.html"
+      File info = "${PREFIX}.info"
     }
     runtime {
         docker: DOCKER
-	database: DB
         cpu: CPU
         node: 1
         nwpn: 1
@@ -88,27 +94,29 @@ task profilerKraken2 {
 
     command <<<
         set -euo pipefail
-        eval "$(/opt/conda/bin/conda shell.bash hook)"
-        conda activate kraken
+        . /opt/conda/etc/profile.d/conda.sh
+        conda activate kraken2
+        
         kraken2 ${true="--paired" false='' PAIRED} \
                 --threads ${CPU} \
                 --db ${DB} \
                 --output ${PREFIX}.classification.tsv \
                 --report ${PREFIX}.report.tsv \
                 ${sep=' ' READS}
+        kraken2 --version | head -1 | cut -d ' ' -f3 > ${PREFIX}.info
         conda deactivate
 
         ktImportTaxonomy -m 3 -t 5 -o ${PREFIX}.krona.html ${PREFIX}.report.tsv
+
     >>>
     output {
-
       File classification_tsv = "${PREFIX}.classification.tsv"
       File report_tsv = "${PREFIX}.report.tsv"
       File krona_html = "${PREFIX}.krona.html"
+      File info = "${PREFIX}.info"
     }
     runtime {
         docker: DOCKER
-	database: DB
         cpu: CPU
         node: 1
         nwpn: 1
@@ -122,43 +130,15 @@ task profilerKraken2 {
 }
 
 task generateSummaryJson {
-    File? gottcha2_report_tsv
-    File? gottcha2_full_tsv
-    File? gottcha2_krona_html
-    File? centrifuge_classification_tsv
-    File? centrifuge_report_tsv
-    File? centrifuge_krona_html
-    File? kraken2_classification_tsv
-    File? kraken2_report_tsv
-    File? kraken2_krona_html
-    Map[String, String] gottcha_results = {
-            "tool": "gottcha2",
-            "orig_out_tsv": "${gottcha2_full_tsv}",
-            "orig_rep_tsv": "${gottcha2_report_tsv}",
-            "krona_html": "${gottcha2_krona_html}"
-    }
-    Map[String, String] centrifuge_results = {
-            "tool": "centrifuge",
-            "orig_out_tsv": "${centrifuge_classification_tsv}",
-            "orig_rep_tsv": "${centrifuge_report_tsv}",
-            "krona_html": "${centrifuge_krona_html}"
-    }
-    Map[String, String] kraken2_results = {
-            "tool": "kraken2",
-            "orig_out_tsv": "${kraken2_classification_tsv}",
-            "orig_rep_tsv": "${kraken2_report_tsv}",
-            "krona_html": "${kraken2_krona_html}"
-    }
-    Array[Map[String, String]?] TSV_META_JSON = [gottcha_results,centrifuge_results,kraken2_results]
+    Array[Map[String, String]?] TSV_META_JSON
     String PREFIX
-    String OUT = PREFIX + ".json"
     String DOCKER
 
     command {
-        outputTsv2json.py --meta ${write_json(TSV_META_JSON)} > ${OUT}
+        outputTsv2json.py --meta ${write_json(TSV_META_JSON)} > ${PREFIX}.json
     }
     output {
-        File summary_json = "${OUT}"
+        File summary_json = "${PREFIX}.json"
     }
     runtime {
         docker: DOCKER
@@ -171,4 +151,33 @@ task generateSummaryJson {
         author: "Po-E Li, B10, LANL"
         email: "po-e@lanl.gov"
     }
+}
+
+task stage {
+   String container
+   String target="raw.fastq.gz"
+   String input_file
+
+   command <<<
+       set -e
+       if [ $( echo ${input_file}|egrep -c "https*:") -gt 0 ] ; then
+           wget ${input_file} -O ${target}
+       else
+           ln ${input_file} ${target} || cp ${input_file} ${target}
+       fi
+       # Capture the start time
+       date --iso-8601=seconds > start.txt
+
+   >>>
+
+   output{
+      File read = "${target}"
+      String start = read_string("start.txt")
+   }
+   runtime {
+     memory: "1 GiB"
+     cpu:  2
+     maxRetries: 1
+     docker: container
+   }
 }
