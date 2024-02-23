@@ -4,7 +4,7 @@
     Boolean? <WORKFLOW>_paired = false
     call preprocess.preprocess as preprocess {
         input:
-            input_files=<WORKFLOW>_input_file,
+            input_file=<WORKFLOW>_input_file,
 		    outdir=<WORKFLOW>_outdir,
             input_interleaved=<WORKFLOW>_input_interleaved,
             input_fq1=<WORKFLOW>_input_fq1,
