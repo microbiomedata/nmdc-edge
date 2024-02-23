@@ -238,13 +238,16 @@ def extract_records(ctx, study_id, api_base_url):
                         passing_data_objects.clear()
                         continue
 
-                    # Some legacy Data Objects cannot be readily typed - warn but add to passing data objects
+                    # Some legacy Data Objects cannot be be typed. fail the workflow and its data objects
                     data_object_type = data_object_record.get("data_object_type")
                     data_object_url = data_object_record.get("url")
                     if not data_object_type and not data_object_url:
-                        logging.warning(f"DataObjectNoType: {data_object_id}")
-                        if data_object_record not in passing_data_objects:
-                            passing_data_objects.append(data_object_record)
+                        logging.error(f"DataObjectNoType: {data_object_id}")
+                        if data_object_record not in failing_data_objects:
+                            failing_data_objects.append(data_object_record)
+                        failing_data_objects.extend(passing_data_objects)
+                        passing_data_objects.clear()
+                        is_workflow_missing_data_objects = True
                         continue
                     else:
                         logging.info(f"PassingDataObject: {data_object_id}")
@@ -378,11 +381,11 @@ def process_records(ctx, study_id, data_dir, update_links=False):
 @cli.command()
 @click.argument("reid_records_file", type=click.Path(exists=True))
 @click.option(
-    "--changesheet_only",
+    "--changesheet-only",
     is_flag=True,
     default=False,
 )
-@click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
+@click.option("--mongo-uri",required=False, default="mongodb://mbthornton-napa:wildlife-nutrient-radiator@localhost:37020",)
 @click.option(
     "--is-direct-connection",
     type=bool,
@@ -401,7 +404,7 @@ def process_records(ctx, study_id, data_dir, update_links=False):
     help=f"MongoDB database name",
 )
 @click.pass_context
-def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri=None,
+def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri,
                    is_direct_connection=True, database_name="nmdc"):
     """
     Read in json dump of re_id'd records and:
@@ -443,32 +446,11 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri=None,
         for omics_processing_record in omics_processing_set:
             omics_processing_id = omics_processing_record["id"]
             logging.info(f"omics_processing_id: {omics_processing_id}")
-            # find legacy has_output and create change to remove it
-            # need to strip the nmdc: prefix for the objects endpoint
-            trimmed_omics_processing_id = omics_processing_id.split(":")[1]
-            resp = api_user_client.request(
-                "GET", f"objects/{trimmed_omics_processing_id}"
-            )
-            legacy_omics_processing_record = resp.json()
-            # delete legacy has_output
-            change = ChangesheetLineItem(
-                id=omics_processing_id,
-                action="remove item",
-                attribute="has_output",
-                value="|".join(legacy_omics_processing_record["has_output"]) + "|",
-            )
-            changesheet.line_items.append(change)
-            logging.info(f"changes: {change}")
-
-            # insert new has_output
-            change = ChangesheetLineItem(
-                id=omics_processing_id,
-                action="insert",
-                attribute="has_output",
-                value="|".join(omics_processing_record["has_output"]) + "|",
-            )
-            changesheet.line_items.append(change)
-            logging.info(f"changes: {change}")
+            # Update the omics_processing_record with the new has_output via PyMongo
+            filter_criteria = {"id": omics_processing_id}
+            update_criteria = {"$set": {"has_output": omics_processing_record["has_output"]}}
+            result = db_client["omics_processing_set"].update_one(filter_criteria, update_criteria)
+            logging.info(f"Updated {result.modified_count} omics_processing_set records")
 
         # submit the record to the workflows endpoint
         if not changesheet_only:
@@ -493,14 +475,9 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri=None,
             else:
                 logging.error("Workflow Record validation failed")
         else:
-            logging.info(f"changesheet_only is True, skipping Workflow and Data Object ingest")
+            logging.info(f"changesheet-only is True, skipping Workflow and Data Object ingest")
 
-    changesheet.write_changesheet()
-    logging.info(f"changesheet written to {changesheet.output_filepath}")
-    if changesheet.validate_changesheet(api_user_client.base_url):
-        logging.info(f"changesheet validated")
-    else:
-        logging.info(f"changesheet validation failed")
+    logging.info(f"Elapsed time: {time.time() - start_time}")
 
 
 @cli.command()
