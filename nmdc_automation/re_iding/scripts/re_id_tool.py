@@ -385,7 +385,7 @@ def process_records(ctx, study_id, data_dir, update_links=False):
     is_flag=True,
     default=False,
 )
-@click.option("--mongo-uri",required=False, default="mongodb://mbthornton-napa:wildlife-nutrient-radiator@localhost:37020",)
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
 @click.option(
     "--is-direct-connection",
     type=bool,
