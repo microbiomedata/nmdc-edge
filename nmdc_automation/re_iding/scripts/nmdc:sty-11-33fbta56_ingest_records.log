@@ -1,0 +1,1263 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:34: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Submitting re id'd records from : ./data/nmdc:sty-11-33fbta56_re_ided_record_dump.json
+INFO:root:Using MongoDB URI: mongodb://root:safeguard-wipe-scanner-78@localhost:37020
+INFO:root:Connected to MongoDB server at mongodb://root:safeguard-wipe-scanner-78@localhost:37020
+INFO:root:omics_processing_id: nmdc:omprc-11-av2pt607
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-av2pt607', action='remove item', attribute='has_output', value='nmdc:8d16af5ca7671f7dc42de14deb8b0dd5|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-av2pt607', action='insert', attribute='has_output', value='nmdc:dobj-11-mk8g0z48|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-8nny2x31
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-8nny2x31', action='remove item', attribute='has_output', value='nmdc:2a3baceee6e3dd4c4fc13567c2fd5df3|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-8nny2x31', action='insert', attribute='has_output', value='nmdc:dobj-11-wnhyfb02|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-kehaxy70
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-kehaxy70', action='remove item', attribute='has_output', value='nmdc:91ab0ce1ea61b477a64e57a872624cb4|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-kehaxy70', action='insert', attribute='has_output', value='nmdc:dobj-11-dedec213|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-vy356n82
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-vy356n82', action='remove item', attribute='has_output', value='nmdc:8f80860812e425dd92344f1f056d3d7e|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-vy356n82', action='insert', attribute='has_output', value='nmdc:dobj-11-jhrr6g79|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-prb0cv32
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-prb0cv32', action='remove item', attribute='has_output', value='nmdc:52c9e32cf184310313c50a4b0f98f87f|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-prb0cv32', action='insert', attribute='has_output', value='nmdc:dobj-11-nvasx719|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-wg551q49
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-wg551q49', action='remove item', attribute='has_output', value='nmdc:754dde7a211a1cd9ecfb990d799c86fc|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-wg551q49', action='insert', attribute='has_output', value='nmdc:dobj-11-hvszxd09|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-wxmc9q81
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-wxmc9q81', action='remove item', attribute='has_output', value='nmdc:74621bf24161e2e072c651c0c489b521|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-wxmc9q81', action='insert', attribute='has_output', value='nmdc:dobj-11-gd68pr05|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-tr1vzf47
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-tr1vzf47', action='remove item', attribute='has_output', value='nmdc:c139345a1c2ba3d6883a53a85463e8e4|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-tr1vzf47', action='insert', attribute='has_output', value='nmdc:dobj-11-ggqt5821|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-g4095b91
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-g4095b91', action='remove item', attribute='has_output', value='nmdc:dd43946edb26961e1913c8830f54e5cf|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-g4095b91', action='insert', attribute='has_output', value='nmdc:dobj-11-j8wywd98|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-5yy9k739
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-5yy9k739', action='remove item', attribute='has_output', value='nmdc:57bd602fa807024237878435a358d136|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-5yy9k739', action='insert', attribute='has_output', value='nmdc:dobj-11-z39fma22|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-2d16h818
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-2d16h818', action='remove item', attribute='has_output', value='nmdc:72779f8c6bba0a95693c89a92f4f6be3|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-2d16h818', action='insert', attribute='has_output', value='nmdc:dobj-11-8h6jrf40|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-85jsxt33
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-85jsxt33', action='remove item', attribute='has_output', value='nmdc:0f65059f9df59fe318f2780fc2e0605d|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-85jsxt33', action='insert', attribute='has_output', value='nmdc:dobj-11-rg4yw285|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-d6c4q479
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-d6c4q479', action='remove item', attribute='has_output', value='nmdc:65b806917315e7518fdd36887bca0190|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-d6c4q479', action='insert', attribute='has_output', value='nmdc:dobj-11-1xpq3c18|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-keywj942
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-keywj942', action='remove item', attribute='has_output', value='nmdc:a198c6e6ba43f210857ca41f25e0ed10|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-keywj942', action='insert', attribute='has_output', value='nmdc:dobj-11-3920nm23|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-bzxddj92
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-bzxddj92', action='remove item', attribute='has_output', value='nmdc:38116da337f1e868ba6fec5a184ba2fc|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-bzxddj92', action='insert', attribute='has_output', value='nmdc:dobj-11-sgxfd370|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-4ptjh074
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-4ptjh074', action='remove item', attribute='has_output', value='nmdc:f098da7fe12707ec59757cd2dfb94d26|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-4ptjh074', action='insert', attribute='has_output', value='nmdc:dobj-11-vyej1762|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-b2wgvw58
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-b2wgvw58', action='remove item', attribute='has_output', value='nmdc:19edfbb924938737398f443c7342d913|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-b2wgvw58', action='insert', attribute='has_output', value='nmdc:dobj-11-crxsq090|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-0yxa3962
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-0yxa3962', action='remove item', attribute='has_output', value='nmdc:2ab91c737308518038e6e4c0925bd12f|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-0yxa3962', action='insert', attribute='has_output', value='nmdc:dobj-11-rk7j1j25|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-a0bq3b03
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-a0bq3b03', action='remove item', attribute='has_output', value='nmdc:300109666a890c83f10c431a6245561a|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-a0bq3b03', action='insert', attribute='has_output', value='nmdc:dobj-11-kyfhgx82|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-a7b00s66
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-a7b00s66', action='remove item', attribute='has_output', value='nmdc:796233a318facd24d5c14f44f479dc43|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-a7b00s66', action='insert', attribute='has_output', value='nmdc:dobj-11-akwb1p63|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-sqz66z61
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-sqz66z61', action='remove item', attribute='has_output', value='nmdc:f31a2a473fa6cc081ff6c136d79c454a|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-sqz66z61', action='insert', attribute='has_output', value='nmdc:dobj-11-7sgxta23|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-prjs5x33
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-prjs5x33', action='remove item', attribute='has_output', value='nmdc:86cb807a667b81fabb252a75eb79022c|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-prjs5x33', action='insert', attribute='has_output', value='nmdc:dobj-11-8szfxz40|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-y08fp921
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-y08fp921', action='remove item', attribute='has_output', value='nmdc:20f714c290eeba8f76fe33ea21bf2291|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-y08fp921', action='insert', attribute='has_output', value='nmdc:dobj-11-6fmsmn52|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-ysp4vq35
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ysp4vq35', action='remove item', attribute='has_output', value='nmdc:b6d907e2b41d013afcb2b6aa81c1be87|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ysp4vq35', action='insert', attribute='has_output', value='nmdc:dobj-11-q3qx6k70|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-rxv6kd89
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-rxv6kd89', action='remove item', attribute='has_output', value='nmdc:c52cdaa42622674591c66ceeb0c33758|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-rxv6kd89', action='insert', attribute='has_output', value='nmdc:dobj-11-jt6b6323|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-0jzfnf61
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-0jzfnf61', action='remove item', attribute='has_output', value='nmdc:6f503435c01cf49ed7805ce4c2d26d46|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-0jzfnf61', action='insert', attribute='has_output', value='nmdc:dobj-11-w2xv3a14|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-qm563f05
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-qm563f05', action='remove item', attribute='has_output', value='nmdc:2112eaa62884c29f33a47669bf01bb53|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-qm563f05', action='insert', attribute='has_output', value='nmdc:dobj-11-4jtrb138|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-zvpsbf06
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-zvpsbf06', action='remove item', attribute='has_output', value='nmdc:0afe727fea9effca194d4b1f607984ff|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-zvpsbf06', action='insert', attribute='has_output', value='nmdc:dobj-11-ntnxdw98|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-sdbbqs35
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-sdbbqs35', action='remove item', attribute='has_output', value='nmdc:b0638ba985a67df56f072b7544e46317|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-sdbbqs35', action='insert', attribute='has_output', value='nmdc:dobj-11-sd5qcz66|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-wjagc521
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-wjagc521', action='remove item', attribute='has_output', value='nmdc:087821706edc18d844ab743ec8865569|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-wjagc521', action='insert', attribute='has_output', value='nmdc:dobj-11-njs26t78|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-mpwyy287
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-mpwyy287', action='remove item', attribute='has_output', value='nmdc:9a18a44f56928a2d4cb4e1541e182799|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-mpwyy287', action='insert', attribute='has_output', value='nmdc:dobj-11-1qqq7705|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-07688c39
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-07688c39', action='remove item', attribute='has_output', value='nmdc:60ee79e73d43651cee0e89de0c346a20|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-07688c39', action='insert', attribute='has_output', value='nmdc:dobj-11-f2hy9e57|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-6q7gzb26
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-6q7gzb26', action='remove item', attribute='has_output', value='nmdc:f5b5e247913c5cdb5511dff98d349ce2|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-6q7gzb26', action='insert', attribute='has_output', value='nmdc:dobj-11-2khqx384|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-pbwhv175
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-pbwhv175', action='remove item', attribute='has_output', value='nmdc:5333beedf0b1a6aeac85fd52e0c954a6|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-pbwhv175', action='insert', attribute='has_output', value='nmdc:dobj-11-bdw71g67|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-gb5k8p40
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gb5k8p40', action='remove item', attribute='has_output', value='nmdc:9676ebc038756ae55077770846391495|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gb5k8p40', action='insert', attribute='has_output', value='nmdc:dobj-11-zy5kwg20|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-xhnf2e85
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-xhnf2e85', action='remove item', attribute='has_output', value='nmdc:0df5ac2c9052a2b45cfd9578aaa562f7|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-xhnf2e85', action='insert', attribute='has_output', value='nmdc:dobj-11-6mpr3c48|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-t4hk7066
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-t4hk7066', action='remove item', attribute='has_output', value='nmdc:492b743dc4a3ab1c730dd0e12912d8d1|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-t4hk7066', action='insert', attribute='has_output', value='nmdc:dobj-11-25p7pv15|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-f0qnth40
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-f0qnth40', action='remove item', attribute='has_output', value='nmdc:259a1435146041ed02aa079a007fb06c|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-f0qnth40', action='insert', attribute='has_output', value='nmdc:dobj-11-5cvbd183|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-36m85r16
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-36m85r16', action='remove item', attribute='has_output', value='nmdc:a1852a6601023d802e67f41aef7dfcde|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-36m85r16', action='insert', attribute='has_output', value='nmdc:dobj-11-ggwby248|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-f1akyc51
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-f1akyc51', action='remove item', attribute='has_output', value='nmdc:94f5b389c2d9f7f5bc92e9fddedfc775|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-f1akyc51', action='insert', attribute='has_output', value='nmdc:dobj-11-xy1x1e91|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-5nka4130
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-5nka4130', action='remove item', attribute='has_output', value='nmdc:dac54b23fce5a5c56c11311c77b74294|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-5nka4130', action='insert', attribute='has_output', value='nmdc:dobj-11-jq7xsq84|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-62am2h65
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-62am2h65', action='remove item', attribute='has_output', value='nmdc:ef11b09bff6940ee45f3c05842b16931|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-62am2h65', action='insert', attribute='has_output', value='nmdc:dobj-11-d00c8y90|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-8fpzs917
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-8fpzs917', action='remove item', attribute='has_output', value='nmdc:426202d9528d4af01aa6aeeb6ebb5aac|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-8fpzs917', action='insert', attribute='has_output', value='nmdc:dobj-11-fd932829|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-gvyfjg32
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gvyfjg32', action='remove item', attribute='has_output', value='nmdc:d18ad58ac8a0a7e9748c518081f9059d|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gvyfjg32', action='insert', attribute='has_output', value='nmdc:dobj-11-67jb7k21|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-abadtt88
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-abadtt88', action='remove item', attribute='has_output', value='nmdc:104c9da6da3a685e5b1b8a3b2652bdd7|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-abadtt88', action='insert', attribute='has_output', value='nmdc:dobj-11-7zzxhw80|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-kj0jpg50
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-kj0jpg50', action='remove item', attribute='has_output', value='nmdc:fee26dc0a11fb4a39c28d7130c2358f6|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-kj0jpg50', action='insert', attribute='has_output', value='nmdc:dobj-11-78et1906|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-2rmac411
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-2rmac411', action='remove item', attribute='has_output', value='nmdc:8656757191fe5a86d3a4d524d5f513e2|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-2rmac411', action='insert', attribute='has_output', value='nmdc:dobj-11-57vf9q37|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-sq1snj73
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-sq1snj73', action='remove item', attribute='has_output', value='nmdc:bef74063c8db88eca336299184d80942|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-sq1snj73', action='insert', attribute='has_output', value='nmdc:dobj-11-pt2prc77|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-vwvc8h03
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-vwvc8h03', action='remove item', attribute='has_output', value='nmdc:65b3ee1c8092cfe1b7fef18cbca970d9|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-vwvc8h03', action='insert', attribute='has_output', value='nmdc:dobj-11-2pdqgn38|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-vn1ar862
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-vn1ar862', action='remove item', attribute='has_output', value='nmdc:d38a56c9121372e8eb41f4f8f139481c|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-vn1ar862', action='insert', attribute='has_output', value='nmdc:dobj-11-8a2q8x52|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-f1fe9370
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-f1fe9370', action='remove item', attribute='has_output', value='nmdc:62915d08fc404130f4abe2c947a4e13e|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-f1fe9370', action='insert', attribute='has_output', value='nmdc:dobj-11-76a49m67|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-fvhfvp91
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-fvhfvp91', action='remove item', attribute='has_output', value='nmdc:acee10e153052c8b7bc98c2fe462fdd9|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-fvhfvp91', action='insert', attribute='has_output', value='nmdc:dobj-11-bynqm156|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-m990x183
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-m990x183', action='remove item', attribute='has_output', value='nmdc:091325e3152cae4d694e2bbf5b7093db|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-m990x183', action='insert', attribute='has_output', value='nmdc:dobj-11-je2ra937|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-dh7zcy95
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-dh7zcy95', action='remove item', attribute='has_output', value='nmdc:00a2071567e1e8e58bef5263fbdf7905|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-dh7zcy95', action='insert', attribute='has_output', value='nmdc:dobj-11-gcffy910|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-v7vx4v18
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-v7vx4v18', action='remove item', attribute='has_output', value='nmdc:fe61b5e7c3aff7b27e5be1f97f55efda|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-v7vx4v18', action='insert', attribute='has_output', value='nmdc:dobj-11-mpk4ce73|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-m6q4nw59
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-m6q4nw59', action='remove item', attribute='has_output', value='nmdc:3896cc46b145ba465c67a164e7446400|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-m6q4nw59', action='insert', attribute='has_output', value='nmdc:dobj-11-abmzqm55|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-jn4z8y81
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-jn4z8y81', action='remove item', attribute='has_output', value='nmdc:e444ada18237f6db32de92516773b0d5|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-jn4z8y81', action='insert', attribute='has_output', value='nmdc:dobj-11-hb8rds73|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-3d7ev832
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-3d7ev832', action='remove item', attribute='has_output', value='nmdc:1d2ea6cc3c176479f6355a6716bf0279|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-3d7ev832', action='insert', attribute='has_output', value='nmdc:dobj-11-gjgrgy70|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-176k6334
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-176k6334', action='remove item', attribute='has_output', value='nmdc:7b093e525bf7741654105516790060a0|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-176k6334', action='insert', attribute='has_output', value='nmdc:dobj-11-c7fgke82|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-ppm1kc56
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ppm1kc56', action='remove item', attribute='has_output', value='nmdc:59532226ec5755915a032e602dc04a03|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ppm1kc56', action='insert', attribute='has_output', value='nmdc:dobj-11-fk5etn42|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-gsx01g02
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gsx01g02', action='remove item', attribute='has_output', value='nmdc:d08893db578667fdc61428fde84f8279|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gsx01g02', action='insert', attribute='has_output', value='nmdc:dobj-11-v56keg98|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-b9j4pk97
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-b9j4pk97', action='remove item', attribute='has_output', value='nmdc:4779dacd0e7071f528be8c03fac547e7|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-b9j4pk97', action='insert', attribute='has_output', value='nmdc:dobj-11-vrk26t70|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-38h78d16
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-38h78d16', action='remove item', attribute='has_output', value='nmdc:908fe1703358c811ae7bf408886a6e87|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-38h78d16', action='insert', attribute='has_output', value='nmdc:dobj-11-e7d85146|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-ytakgm41
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ytakgm41', action='remove item', attribute='has_output', value='nmdc:fb1897fb6c87bcf5b25c76e0ac149b67|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ytakgm41', action='insert', attribute='has_output', value='nmdc:dobj-11-ywy40m07|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-gbv7zh09
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gbv7zh09', action='remove item', attribute='has_output', value='nmdc:da44ab401932bc11c5c7e2ec4f50d945|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gbv7zh09', action='insert', attribute='has_output', value='nmdc:dobj-11-472kka22|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-4rwmp312
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-4rwmp312', action='remove item', attribute='has_output', value='nmdc:625075a39014d701fda177605f8f8858|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-4rwmp312', action='insert', attribute='has_output', value='nmdc:dobj-11-ed1x8d26|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-t6acv418
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-t6acv418', action='remove item', attribute='has_output', value='nmdc:12b43da62aae4332869c589de5853062|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-t6acv418', action='insert', attribute='has_output', value='nmdc:dobj-11-rtebt035|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-pwwc3q04
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-pwwc3q04', action='remove item', attribute='has_output', value='nmdc:722f2dbb28d08d2f65cacea4c5435da2|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-pwwc3q04', action='insert', attribute='has_output', value='nmdc:dobj-11-6phmjb20|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-g9t2xf29
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-g9t2xf29', action='remove item', attribute='has_output', value='nmdc:8d9b361423c5819782294a8789859b9b|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-g9t2xf29', action='insert', attribute='has_output', value='nmdc:dobj-11-k98bhn12|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-b8rmfw44
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-b8rmfw44', action='remove item', attribute='has_output', value='nmdc:8a573eec92876f6621ae5305d9ed3bd2|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-b8rmfw44', action='insert', attribute='has_output', value='nmdc:dobj-11-4xwaja62|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-9b5r3122
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9b5r3122', action='remove item', attribute='has_output', value='nmdc:4fa30e2045705f394631c65180c5199a|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9b5r3122', action='insert', attribute='has_output', value='nmdc:dobj-11-6jf5k508|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-6evhzd33
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-6evhzd33', action='remove item', attribute='has_output', value='nmdc:61a97e80cb6d26e90f140f38b008abab|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-6evhzd33', action='insert', attribute='has_output', value='nmdc:dobj-11-g0xed960|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-1h7pv713
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-1h7pv713', action='remove item', attribute='has_output', value='nmdc:6e84b6d72daf43591617f4c278a8540f|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-1h7pv713', action='insert', attribute='has_output', value='nmdc:dobj-11-jcf1g654|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-1xy9v450
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-1xy9v450', action='remove item', attribute='has_output', value='nmdc:7f0c6c7be34ce22ab91df9a75f3e4379|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-1xy9v450', action='insert', attribute='has_output', value='nmdc:dobj-11-84t0gx49|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-hmqcq810
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-hmqcq810', action='remove item', attribute='has_output', value='nmdc:5e84dfde0d632897ed93abf84fd75dbd|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-hmqcq810', action='insert', attribute='has_output', value='nmdc:dobj-11-akrhnw41|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-1a2d4549
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-1a2d4549', action='remove item', attribute='has_output', value='nmdc:2f05dd5770ff3ebe3b56f008854bac78|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-1a2d4549', action='insert', attribute='has_output', value='nmdc:dobj-11-z7yehz16|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-5fgefy28
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-5fgefy28', action='remove item', attribute='has_output', value='nmdc:f9f1ddf2e1eca8e9c8a18b5096433c54|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-5fgefy28', action='insert', attribute='has_output', value='nmdc:dobj-11-79a34q64|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-13gdjn24
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-13gdjn24', action='remove item', attribute='has_output', value='nmdc:076ff634d28625c03f79842a9b3bb354|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-13gdjn24', action='insert', attribute='has_output', value='nmdc:dobj-11-z7ta2526|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-cw2se491
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-cw2se491', action='remove item', attribute='has_output', value='nmdc:4b5fb58671da52ebbff9fc85324638ac|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-cw2se491', action='insert', attribute='has_output', value='nmdc:dobj-11-5vsetf63|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-kxct1j50
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-kxct1j50', action='remove item', attribute='has_output', value='nmdc:fc02b18994a1ea74808d16d18735a04a|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-kxct1j50', action='insert', attribute='has_output', value='nmdc:dobj-11-4k60pk69|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-a85hx178
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-a85hx178', action='remove item', attribute='has_output', value='nmdc:f4ddf238d2d7dec9c86b93713d0ff075|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-a85hx178', action='insert', attribute='has_output', value='nmdc:dobj-11-q3fe1r11|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-0qq1wf68
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-0qq1wf68', action='remove item', attribute='has_output', value='nmdc:4acac4ba90588c9923ed2d02d3f516b7|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-0qq1wf68', action='insert', attribute='has_output', value='nmdc:dobj-11-2pw4de64|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-5v7dy272
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-5v7dy272', action='remove item', attribute='has_output', value='nmdc:a6596e0c6c077b864048f00a68ab6c78|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-5v7dy272', action='insert', attribute='has_output', value='nmdc:dobj-11-rz7pjz12|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-qg3vxj76
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-qg3vxj76', action='remove item', attribute='has_output', value='nmdc:3900b15ebaa5ecba247164c7165d2f38|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-qg3vxj76', action='insert', attribute='has_output', value='nmdc:dobj-11-m0n9dm41|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-2bmkj745
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-2bmkj745', action='remove item', attribute='has_output', value='nmdc:f2b267f00e22a74e94e6dd75fe0531f0|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-2bmkj745', action='insert', attribute='has_output', value='nmdc:dobj-11-my6j1967|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-s8v93g59
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-s8v93g59', action='remove item', attribute='has_output', value='nmdc:9a37ea20e51282596cf799605d6e912c|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-s8v93g59', action='insert', attribute='has_output', value='nmdc:dobj-11-hjqy4433|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-3q02ny85
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-3q02ny85', action='remove item', attribute='has_output', value='nmdc:a68418156612ccea5ffa4c2d9b6a6114|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-3q02ny85', action='insert', attribute='has_output', value='nmdc:dobj-11-11f4gx80|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-31w8s533
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-31w8s533', action='remove item', attribute='has_output', value='nmdc:dbfdeaccbb5b01e4b567e04c1ec60b95|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-31w8s533', action='insert', attribute='has_output', value='nmdc:dobj-11-2sx3k274|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-pjs63190
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-pjs63190', action='remove item', attribute='has_output', value='nmdc:2437e48c81f26729595351c727f94b0b|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-pjs63190', action='insert', attribute='has_output', value='nmdc:dobj-11-mfjqdg69|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-h63w0665
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-h63w0665', action='remove item', attribute='has_output', value='nmdc:989711381573525c3c32f77fb8b4bcf7|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-h63w0665', action='insert', attribute='has_output', value='nmdc:dobj-11-8pw13b03|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 8 records into data_object_set
+INFO:root:Inserted 8 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-9mhqsm53
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9mhqsm53', action='remove item', attribute='has_output', value='nmdc:8139981465fa40b6488805919efdbcd6|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9mhqsm53', action='insert', attribute='has_output', value='nmdc:dobj-11-sxzcmv74|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-gcs98d33
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gcs98d33', action='remove item', attribute='has_output', value='nmdc:cb53962aabcda827b19e270a805dc0e1|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gcs98d33', action='insert', attribute='has_output', value='nmdc:dobj-11-hhjfw404|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-yzrza466
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-yzrza466', action='remove item', attribute='has_output', value='nmdc:c4df425ae66b46dcf353097aa64c8935|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-yzrza466', action='insert', attribute='has_output', value='nmdc:dobj-11-vyw5e824|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-rf37rv10
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-rf37rv10', action='remove item', attribute='has_output', value='nmdc:f408775f43e5a6041ade55edecaaeb1a|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-rf37rv10', action='insert', attribute='has_output', value='nmdc:dobj-11-kbnny492|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-ne1fzr77
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ne1fzr77', action='remove item', attribute='has_output', value='nmdc:967517f83a03de07d4c0eb53f7c83f05|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ne1fzr77', action='insert', attribute='has_output', value='nmdc:dobj-11-ja3gps65|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-m8nz8d35
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-m8nz8d35', action='remove item', attribute='has_output', value='nmdc:8224d0f7d3ceb191111f6d49e415afc8|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-m8nz8d35', action='insert', attribute='has_output', value='nmdc:dobj-11-kqqksh70|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-3kdzgf81
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-3kdzgf81', action='remove item', attribute='has_output', value='nmdc:7f57dcee7abd6613a46bed9e6d3bc61b|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-3kdzgf81', action='insert', attribute='has_output', value='nmdc:dobj-11-77xdc844|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-k95tgy11
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-k95tgy11', action='remove item', attribute='has_output', value='nmdc:cf4c63cdb2f8d4b17dc591ac83c042e0|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-k95tgy11', action='insert', attribute='has_output', value='nmdc:dobj-11-yfqab126|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-f4eray08
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-f4eray08', action='remove item', attribute='has_output', value='nmdc:82254db0eab492d5074a5d36b96e491a|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-f4eray08', action='insert', attribute='has_output', value='nmdc:dobj-11-eww4z573|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-ynq39f38
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ynq39f38', action='remove item', attribute='has_output', value='nmdc:49b6ab7f5a43b171f4b6de616624fe02|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ynq39f38', action='insert', attribute='has_output', value='nmdc:dobj-11-bdab6b19|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-r2n4hp61
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-r2n4hp61', action='remove item', attribute='has_output', value='nmdc:452104acaf8a6d065f9a8fdbd64ee882|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-r2n4hp61', action='insert', attribute='has_output', value='nmdc:dobj-11-w9r6c731|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-zdmbqr75
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-zdmbqr75', action='remove item', attribute='has_output', value='nmdc:340ba2dc2e14b38bf653cbc8dcedaf9b|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-zdmbqr75', action='insert', attribute='has_output', value='nmdc:dobj-11-7dqp7a83|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-a9bm9657
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-a9bm9657', action='remove item', attribute='has_output', value='nmdc:e0e0b9582935ccbf60eab11942ee902b|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-a9bm9657', action='insert', attribute='has_output', value='nmdc:dobj-11-snk6rx55|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-xzrs8q03
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-xzrs8q03', action='remove item', attribute='has_output', value='nmdc:22afa3d49b73eaec2e9787a6b88fbdc3|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-xzrs8q03', action='insert', attribute='has_output', value='nmdc:dobj-11-57bdgq86|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-99yaxg68
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-99yaxg68', action='remove item', attribute='has_output', value='nmdc:44cd635395e777cfab314dcf1789b6d2|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-99yaxg68', action='insert', attribute='has_output', value='nmdc:dobj-11-6r4y9t33|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-6xbw1f88
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-6xbw1f88', action='remove item', attribute='has_output', value='nmdc:995c8b403d4ae43206bcd9cb0168d7a7|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-6xbw1f88', action='insert', attribute='has_output', value='nmdc:dobj-11-4zfdve96|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-hxcj5q62
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-hxcj5q62', action='remove item', attribute='has_output', value='nmdc:849a332324e4c8e23d5487d866ea8ac3|')
+INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-hxcj5q62', action='insert', attribute='has_output', value='nmdc:dobj-11-awdnct89|')
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Writing changesheet to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/changesheets_output/nmdc:sty-11-33fbta56_changesheet-20240220-132127.tsv
+INFO:root:changesheet written to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/changesheets_output/nmdc:sty-11-33fbta56_changesheet-20240220-132127.tsv
+INFO:root:Validating changesheet /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/changesheets_output/nmdc:sty-11-33fbta56_changesheet-20240220-132127.tsv
+INFO:root:Posting to https://api-napa.microbiomedata.org/metadata/changesheets:validate
+ERROR:root:Changesheet validation failed: {"detail":{"update_cmd":{"nmdc:omprc-11-07688c39":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-07688c39"},"u":{"$pull":{"has_output":{"$in":["nmdc:60ee79e73d43651cee0e89de0c346a20"]}}}},{"q":{"id":"nmdc:omprc-11-07688c39"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-f2hy9e57"]}}}}]},"nmdc:omprc-11-0jzfnf61":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-0jzfnf61"},"u":{"$pull":{"has_output":{"$in":["nmdc:6f503435c01cf49ed7805ce4c2d26d46"]}}}},{"q":{"id":"nmdc:omprc-11-0jzfnf61"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-w2xv3a14"]}}}}]},"nmdc:omprc-11-0qq1wf68":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-0qq1wf68"},"u":{"$pull":{"has_output":{"$in":["nmdc:4acac4ba90588c9923ed2d02d3f516b7"]}}}},{"q":{"id":"nmdc:omprc-11-0qq1wf68"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-2pw4de64"]}}}}]},"nmdc:omprc-11-0yxa3962":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-0yxa3962"},"u":{"$pull":{"has_output":{"$in":["nmdc:2ab91c737308518038e6e4c0925bd12f"]}}}},{"q":{"id":"nmdc:omprc-11-0yxa3962"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-rk7j1j25"]}}}}]},"nmdc:omprc-11-13gdjn24":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-13gdjn24"},"u":{"$pull":{"has_output":{"$in":["nmdc:076ff634d28625c03f79842a9b3bb354"]}}}},{"q":{"id":"nmdc:omprc-11-13gdjn24"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-z7ta2526"]}}}}]},"nmdc:omprc-11-176k6334":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-176k6334"},"u":{"$pull":{"has_output":{"$in":["nmdc:7b093e525bf7741654105516790060a0"]}}}},{"q":{"id":"nmdc:omprc-11-176k6334"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-c7fgke82"]}}}}]},"nmdc:omprc-11-1a2d4549":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-1a2d4549"},"u":{"$pull":{"has_output":{"$in":["nmdc:2f05dd5770ff3ebe3b56f008854bac78"]}}}},{"q":{"id":"nmdc:omprc-11-1a2d4549"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-z7yehz16"]}}}}]},"nmdc:omprc-11-1h7pv713":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-1h7pv713"},"u":{"$pull":{"has_output":{"$in":["nmdc:6e84b6d72daf43591617f4c278a8540f"]}}}},{"q":{"id":"nmdc:omprc-11-1h7pv713"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-jcf1g654"]}}}}]},"nmdc:omprc-11-1xy9v450":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-1xy9v450"},"u":{"$pull":{"has_output":{"$in":["nmdc:7f0c6c7be34ce22ab91df9a75f3e4379"]}}}},{"q":{"id":"nmdc:omprc-11-1xy9v450"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-84t0gx49"]}}}}]},"nmdc:omprc-11-2bmkj745":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-2bmkj745"},"u":{"$pull":{"has_output":{"$in":["nmdc:f2b267f00e22a74e94e6dd75fe0531f0"]}}}},{"q":{"id":"nmdc:omprc-11-2bmkj745"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-my6j1967"]}}}}]},"nmdc:omprc-11-2d16h818":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-2d16h818"},"u":{"$pull":{"has_output":{"$in":["nmdc:72779f8c6bba0a95693c89a92f4f6be3"]}}}},{"q":{"id":"nmdc:omprc-11-2d16h818"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-8h6jrf40"]}}}}]},"nmdc:omprc-11-2rmac411":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-2rmac411"},"u":{"$pull":{"has_output":{"$in":["nmdc:8656757191fe5a86d3a4d524d5f513e2"]}}}},{"q":{"id":"nmdc:omprc-11-2rmac411"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-57vf9q37"]}}}}]},"nmdc:omprc-11-31w8s533":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-31w8s533"},"u":{"$pull":{"has_output":{"$in":["nmdc:dbfdeaccbb5b01e4b567e04c1ec60b95"]}}}},{"q":{"id":"nmdc:omprc-11-31w8s533"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-2sx3k274"]}}}}]},"nmdc:omprc-11-36m85r16":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-36m85r16"},"u":{"$pull":{"has_output":{"$in":["nmdc:a1852a6601023d802e67f41aef7dfcde"]}}}},{"q":{"id":"nmdc:omprc-11-36m85r16"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-ggwby248"]}}}}]},"nmdc:omprc-11-38h78d16":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-38h78d16"},"u":{"$pull":{"has_output":{"$in":["nmdc:908fe1703358c811ae7bf408886a6e87"]}}}},{"q":{"id":"nmdc:omprc-11-38h78d16"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-e7d85146"]}}}}]},"nmdc:omprc-11-3d7ev832":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-3d7ev832"},"u":{"$pull":{"has_output":{"$in":["nmdc:1d2ea6cc3c176479f6355a6716bf0279"]}}}},{"q":{"id":"nmdc:omprc-11-3d7ev832"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-gjgrgy70"]}}}}]},"nmdc:omprc-11-3kdzgf81":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-3kdzgf81"},"u":{"$pull":{"has_output":{"$in":["nmdc:7f57dcee7abd6613a46bed9e6d3bc61b"]}}}},{"q":{"id":"nmdc:omprc-11-3kdzgf81"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-77xdc844"]}}}}]},"nmdc:omprc-11-3q02ny85":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-3q02ny85"},"u":{"$pull":{"has_output":{"$in":["nmdc:a68418156612ccea5ffa4c2d9b6a6114"]}}}},{"q":{"id":"nmdc:omprc-11-3q02ny85"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-11f4gx80"]}}}}]},"nmdc:omprc-11-4ptjh074":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-4ptjh074"},"u":{"$pull":{"has_output":{"$in":["nmdc:f098da7fe12707ec59757cd2dfb94d26"]}}}},{"q":{"id":"nmdc:omprc-11-4ptjh074"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-vyej1762"]}}}}]},"nmdc:omprc-11-4rwmp312":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-4rwmp312"},"u":{"$pull":{"has_output":{"$in":["nmdc:625075a39014d701fda177605f8f8858"]}}}},{"q":{"id":"nmdc:omprc-11-4rwmp312"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-ed1x8d26"]}}}}]},"nmdc:omprc-11-5fgefy28":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-5fgefy28"},"u":{"$pull":{"has_output":{"$in":["nmdc:f9f1ddf2e1eca8e9c8a18b5096433c54"]}}}},{"q":{"id":"nmdc:omprc-11-5fgefy28"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-79a34q64"]}}}}]},"nmdc:omprc-11-5nka4130":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-5nka4130"},"u":{"$pull":{"has_output":{"$in":["nmdc:dac54b23fce5a5c56c11311c77b74294"]}}}},{"q":{"id":"nmdc:omprc-11-5nka4130"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-jq7xsq84"]}}}}]},"nmdc:omprc-11-5v7dy272":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-5v7dy272"},"u":{"$pull":{"has_output":{"$in":["nmdc:a6596e0c6c077b864048f00a68ab6c78"]}}}},{"q":{"id":"nmdc:omprc-11-5v7dy272"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-rz7pjz12"]}}}}]},"nmdc:omprc-11-5yy9k739":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-5yy9k739"},"u":{"$pull":{"has_output":{"$in":["nmdc:57bd602fa807024237878435a358d136"]}}}},{"q":{"id":"nmdc:omprc-11-5yy9k739"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-z39fma22"]}}}}]},"nmdc:omprc-11-62am2h65":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-62am2h65"},"u":{"$pull":{"has_output":{"$in":["nmdc:ef11b09bff6940ee45f3c05842b16931"]}}}},{"q":{"id":"nmdc:omprc-11-62am2h65"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-d00c8y90"]}}}}]},"nmdc:omprc-11-6evhzd33":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-6evhzd33"},"u":{"$pull":{"has_output":{"$in":["nmdc:61a97e80cb6d26e90f140f38b008abab"]}}}},{"q":{"id":"nmdc:omprc-11-6evhzd33"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-g0xed960"]}}}}]},"nmdc:omprc-11-6q7gzb26":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-6q7gzb26"},"u":{"$pull":{"has_output":{"$in":["nmdc:f5b5e247913c5cdb5511dff98d349ce2"]}}}},{"q":{"id":"nmdc:omprc-11-6q7gzb26"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-2khqx384"]}}}}]},"nmdc:omprc-11-6xbw1f88":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-6xbw1f88"},"u":{"$pull":{"has_output":{"$in":["nmdc:995c8b403d4ae43206bcd9cb0168d7a7"]}}}},{"q":{"id":"nmdc:omprc-11-6xbw1f88"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-4zfdve96"]}}}}]},"nmdc:omprc-11-85jsxt33":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-85jsxt33"},"u":{"$pull":{"has_output":{"$in":["nmdc:0f65059f9df59fe318f2780fc2e0605d"]}}}},{"q":{"id":"nmdc:omprc-11-85jsxt33"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-rg4yw285"]}}}}]},"nmdc:omprc-11-8fpzs917":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-8fpzs917"},"u":{"$pull":{"has_output":{"$in":["nmdc:426202d9528d4af01aa6aeeb6ebb5aac"]}}}},{"q":{"id":"nmdc:omprc-11-8fpzs917"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-fd932829"]}}}}]},"nmdc:omprc-11-8nny2x31":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-8nny2x31"},"u":{"$pull":{"has_output":{"$in":["nmdc:2a3baceee6e3dd4c4fc13567c2fd5df3"]}}}},{"q":{"id":"nmdc:omprc-11-8nny2x31"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-wnhyfb02"]}}}}]},"nmdc:omprc-11-99yaxg68":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-99yaxg68"},"u":{"$pull":{"has_output":{"$in":["nmdc:44cd635395e777cfab314dcf1789b6d2"]}}}},{"q":{"id":"nmdc:omprc-11-99yaxg68"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-6r4y9t33"]}}}}]},"nmdc:omprc-11-9b5r3122":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-9b5r3122"},"u":{"$pull":{"has_output":{"$in":["nmdc:4fa30e2045705f394631c65180c5199a"]}}}},{"q":{"id":"nmdc:omprc-11-9b5r3122"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-6jf5k508"]}}}}]},"nmdc:omprc-11-9mhqsm53":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-9mhqsm53"},"u":{"$pull":{"has_output":{"$in":["nmdc:8139981465fa40b6488805919efdbcd6"]}}}},{"q":{"id":"nmdc:omprc-11-9mhqsm53"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-sxzcmv74"]}}}}]},"nmdc:omprc-11-a0bq3b03":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-a0bq3b03"},"u":{"$pull":{"has_output":{"$in":["nmdc:300109666a890c83f10c431a6245561a"]}}}},{"q":{"id":"nmdc:omprc-11-a0bq3b03"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-kyfhgx82"]}}}}]},"nmdc:omprc-11-a7b00s66":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-a7b00s66"},"u":{"$pull":{"has_output":{"$in":["nmdc:796233a318facd24d5c14f44f479dc43"]}}}},{"q":{"id":"nmdc:omprc-11-a7b00s66"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-akwb1p63"]}}}}]},"nmdc:omprc-11-a85hx178":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-a85hx178"},"u":{"$pull":{"has_output":{"$in":["nmdc:f4ddf238d2d7dec9c86b93713d0ff075"]}}}},{"q":{"id":"nmdc:omprc-11-a85hx178"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-q3fe1r11"]}}}}]},"nmdc:omprc-11-a9bm9657":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-a9bm9657"},"u":{"$pull":{"has_output":{"$in":["nmdc:e0e0b9582935ccbf60eab11942ee902b"]}}}},{"q":{"id":"nmdc:omprc-11-a9bm9657"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-snk6rx55"]}}}}]},"nmdc:omprc-11-abadtt88":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-abadtt88"},"u":{"$pull":{"has_output":{"$in":["nmdc:104c9da6da3a685e5b1b8a3b2652bdd7"]}}}},{"q":{"id":"nmdc:omprc-11-abadtt88"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-7zzxhw80"]}}}}]},"nmdc:omprc-11-av2pt607":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-av2pt607"},"u":{"$pull":{"has_output":{"$in":["nmdc:8d16af5ca7671f7dc42de14deb8b0dd5"]}}}},{"q":{"id":"nmdc:omprc-11-av2pt607"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-mk8g0z48"]}}}}]},"nmdc:omprc-11-b2wgvw58":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-b2wgvw58"},"u":{"$pull":{"has_output":{"$in":["nmdc:19edfbb924938737398f443c7342d913"]}}}},{"q":{"id":"nmdc:omprc-11-b2wgvw58"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-crxsq090"]}}}}]},"nmdc:omprc-11-b8rmfw44":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-b8rmfw44"},"u":{"$pull":{"has_output":{"$in":["nmdc:8a573eec92876f6621ae5305d9ed3bd2"]}}}},{"q":{"id":"nmdc:omprc-11-b8rmfw44"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-4xwaja62"]}}}}]},"nmdc:omprc-11-b9j4pk97":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-b9j4pk97"},"u":{"$pull":{"has_output":{"$in":["nmdc:4779dacd0e7071f528be8c03fac547e7"]}}}},{"q":{"id":"nmdc:omprc-11-b9j4pk97"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-vrk26t70"]}}}}]},"nmdc:omprc-11-bzxddj92":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-bzxddj92"},"u":{"$pull":{"has_output":{"$in":["nmdc:38116da337f1e868ba6fec5a184ba2fc"]}}}},{"q":{"id":"nmdc:omprc-11-bzxddj92"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-sgxfd370"]}}}}]},"nmdc:omprc-11-cw2se491":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-cw2se491"},"u":{"$pull":{"has_output":{"$in":["nmdc:4b5fb58671da52ebbff9fc85324638ac"]}}}},{"q":{"id":"nmdc:omprc-11-cw2se491"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-5vsetf63"]}}}}]},"nmdc:omprc-11-d6c4q479":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-d6c4q479"},"u":{"$pull":{"has_output":{"$in":["nmdc:65b806917315e7518fdd36887bca0190"]}}}},{"q":{"id":"nmdc:omprc-11-d6c4q479"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-1xpq3c18"]}}}}]},"nmdc:omprc-11-dh7zcy95":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-dh7zcy95"},"u":{"$pull":{"has_output":{"$in":["nmdc:00a2071567e1e8e58bef5263fbdf7905"]}}}},{"q":{"id":"nmdc:omprc-11-dh7zcy95"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-gcffy910"]}}}}]},"nmdc:omprc-11-f0qnth40":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-f0qnth40"},"u":{"$pull":{"has_output":{"$in":["nmdc:259a1435146041ed02aa079a007fb06c"]}}}},{"q":{"id":"nmdc:omprc-11-f0qnth40"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-5cvbd183"]}}}}]},"nmdc:omprc-11-f1akyc51":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-f1akyc51"},"u":{"$pull":{"has_output":{"$in":["nmdc:94f5b389c2d9f7f5bc92e9fddedfc775"]}}}},{"q":{"id":"nmdc:omprc-11-f1akyc51"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-xy1x1e91"]}}}}]},"nmdc:omprc-11-f1fe9370":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-f1fe9370"},"u":{"$pull":{"has_output":{"$in":["nmdc:62915d08fc404130f4abe2c947a4e13e"]}}}},{"q":{"id":"nmdc:omprc-11-f1fe9370"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-76a49m67"]}}}}]},"nmdc:omprc-11-f4eray08":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-f4eray08"},"u":{"$pull":{"has_output":{"$in":["nmdc:82254db0eab492d5074a5d36b96e491a"]}}}},{"q":{"id":"nmdc:omprc-11-f4eray08"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-eww4z573"]}}}}]},"nmdc:omprc-11-fvhfvp91":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-fvhfvp91"},"u":{"$pull":{"has_output":{"$in":["nmdc:acee10e153052c8b7bc98c2fe462fdd9"]}}}},{"q":{"id":"nmdc:omprc-11-fvhfvp91"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-bynqm156"]}}}}]},"nmdc:omprc-11-g4095b91":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-g4095b91"},"u":{"$pull":{"has_output":{"$in":["nmdc:dd43946edb26961e1913c8830f54e5cf"]}}}},{"q":{"id":"nmdc:omprc-11-g4095b91"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-j8wywd98"]}}}}]},"nmdc:omprc-11-g9t2xf29":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-g9t2xf29"},"u":{"$pull":{"has_output":{"$in":["nmdc:8d9b361423c5819782294a8789859b9b"]}}}},{"q":{"id":"nmdc:omprc-11-g9t2xf29"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-k98bhn12"]}}}}]},"nmdc:omprc-11-gb5k8p40":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-gb5k8p40"},"u":{"$pull":{"has_output":{"$in":["nmdc:9676ebc038756ae55077770846391495"]}}}},{"q":{"id":"nmdc:omprc-11-gb5k8p40"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-zy5kwg20"]}}}}]},"nmdc:omprc-11-gbv7zh09":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-gbv7zh09"},"u":{"$pull":{"has_output":{"$in":["nmdc:da44ab401932bc11c5c7e2ec4f50d945"]}}}},{"q":{"id":"nmdc:omprc-11-gbv7zh09"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-472kka22"]}}}}]},"nmdc:omprc-11-gcs98d33":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-gcs98d33"},"u":{"$pull":{"has_output":{"$in":["nmdc:cb53962aabcda827b19e270a805dc0e1"]}}}},{"q":{"id":"nmdc:omprc-11-gcs98d33"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-hhjfw404"]}}}}]},"nmdc:omprc-11-gsx01g02":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-gsx01g02"},"u":{"$pull":{"has_output":{"$in":["nmdc:d08893db578667fdc61428fde84f8279"]}}}},{"q":{"id":"nmdc:omprc-11-gsx01g02"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-v56keg98"]}}}}]},"nmdc:omprc-11-gvyfjg32":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-gvyfjg32"},"u":{"$pull":{"has_output":{"$in":["nmdc:d18ad58ac8a0a7e9748c518081f9059d"]}}}},{"q":{"id":"nmdc:omprc-11-gvyfjg32"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-67jb7k21"]}}}}]},"nmdc:omprc-11-h63w0665":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-h63w0665"},"u":{"$pull":{"has_output":{"$in":["nmdc:989711381573525c3c32f77fb8b4bcf7"]}}}},{"q":{"id":"nmdc:omprc-11-h63w0665"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-8pw13b03"]}}}}]},"nmdc:omprc-11-hmqcq810":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-hmqcq810"},"u":{"$pull":{"has_output":{"$in":["nmdc:5e84dfde0d632897ed93abf84fd75dbd"]}}}},{"q":{"id":"nmdc:omprc-11-hmqcq810"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-akrhnw41"]}}}}]},"nmdc:omprc-11-hxcj5q62":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-hxcj5q62"},"u":{"$pull":{"has_output":{"$in":["nmdc:849a332324e4c8e23d5487d866ea8ac3"]}}}},{"q":{"id":"nmdc:omprc-11-hxcj5q62"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-awdnct89"]}}}}]},"nmdc:omprc-11-jn4z8y81":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-jn4z8y81"},"u":{"$pull":{"has_output":{"$in":["nmdc:e444ada18237f6db32de92516773b0d5"]}}}},{"q":{"id":"nmdc:omprc-11-jn4z8y81"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-hb8rds73"]}}}}]},"nmdc:omprc-11-k95tgy11":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-k95tgy11"},"u":{"$pull":{"has_output":{"$in":["nmdc:cf4c63cdb2f8d4b17dc591ac83c042e0"]}}}},{"q":{"id":"nmdc:omprc-11-k95tgy11"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-yfqab126"]}}}}]},"nmdc:omprc-11-kehaxy70":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-kehaxy70"},"u":{"$pull":{"has_output":{"$in":["nmdc:91ab0ce1ea61b477a64e57a872624cb4"]}}}},{"q":{"id":"nmdc:omprc-11-kehaxy70"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-dedec213"]}}}}]},"nmdc:omprc-11-keywj942":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-keywj942"},"u":{"$pull":{"has_output":{"$in":["nmdc:a198c6e6ba43f210857ca41f25e0ed10"]}}}},{"q":{"id":"nmdc:omprc-11-keywj942"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-3920nm23"]}}}}]},"nmdc:omprc-11-kj0jpg50":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-kj0jpg50"},"u":{"$pull":{"has_output":{"$in":["nmdc:fee26dc0a11fb4a39c28d7130c2358f6"]}}}},{"q":{"id":"nmdc:omprc-11-kj0jpg50"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-78et1906"]}}}}]},"nmdc:omprc-11-kxct1j50":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-kxct1j50"},"u":{"$pull":{"has_output":{"$in":["nmdc:fc02b18994a1ea74808d16d18735a04a"]}}}},{"q":{"id":"nmdc:omprc-11-kxct1j50"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-4k60pk69"]}}}}]},"nmdc:omprc-11-m6q4nw59":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-m6q4nw59"},"u":{"$pull":{"has_output":{"$in":["nmdc:3896cc46b145ba465c67a164e7446400"]}}}},{"q":{"id":"nmdc:omprc-11-m6q4nw59"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-abmzqm55"]}}}}]},"nmdc:omprc-11-m8nz8d35":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-m8nz8d35"},"u":{"$pull":{"has_output":{"$in":["nmdc:8224d0f7d3ceb191111f6d49e415afc8"]}}}},{"q":{"id":"nmdc:omprc-11-m8nz8d35"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-kqqksh70"]}}}}]},"nmdc:omprc-11-m990x183":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-m990x183"},"u":{"$pull":{"has_output":{"$in":["nmdc:091325e3152cae4d694e2bbf5b7093db"]}}}},{"q":{"id":"nmdc:omprc-11-m990x183"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-je2ra937"]}}}}]},"nmdc:omprc-11-mpwyy287":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-mpwyy287"},"u":{"$pull":{"has_output":{"$in":["nmdc:9a18a44f56928a2d4cb4e1541e182799"]}}}},{"q":{"id":"nmdc:omprc-11-mpwyy287"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-1qqq7705"]}}}}]},"nmdc:omprc-11-ne1fzr77":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-ne1fzr77"},"u":{"$pull":{"has_output":{"$in":["nmdc:967517f83a03de07d4c0eb53f7c83f05"]}}}},{"q":{"id":"nmdc:omprc-11-ne1fzr77"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-ja3gps65"]}}}}]},"nmdc:omprc-11-pbwhv175":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-pbwhv175"},"u":{"$pull":{"has_output":{"$in":["nmdc:5333beedf0b1a6aeac85fd52e0c954a6"]}}}},{"q":{"id":"nmdc:omprc-11-pbwhv175"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-bdw71g67"]}}}}]},"nmdc:omprc-11-pjs63190":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-pjs63190"},"u":{"$pull":{"has_output":{"$in":["nmdc:2437e48c81f26729595351c727f94b0b"]}}}},{"q":{"id":"nmdc:omprc-11-pjs63190"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-mfjqdg69"]}}}}]},"nmdc:omprc-11-ppm1kc56":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-ppm1kc56"},"u":{"$pull":{"has_output":{"$in":["nmdc:59532226ec5755915a032e602dc04a03"]}}}},{"q":{"id":"nmdc:omprc-11-ppm1kc56"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-fk5etn42"]}}}}]},"nmdc:omprc-11-prb0cv32":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-prb0cv32"},"u":{"$pull":{"has_output":{"$in":["nmdc:52c9e32cf184310313c50a4b0f98f87f"]}}}},{"q":{"id":"nmdc:omprc-11-prb0cv32"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-nvasx719"]}}}}]},"nmdc:omprc-11-prjs5x33":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-prjs5x33"},"u":{"$pull":{"has_output":{"$in":["nmdc:86cb807a667b81fabb252a75eb79022c"]}}}},{"q":{"id":"nmdc:omprc-11-prjs5x33"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-8szfxz40"]}}}}]},"nmdc:omprc-11-pwwc3q04":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-pwwc3q04"},"u":{"$pull":{"has_output":{"$in":["nmdc:722f2dbb28d08d2f65cacea4c5435da2"]}}}},{"q":{"id":"nmdc:omprc-11-pwwc3q04"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-6phmjb20"]}}}}]},"nmdc:omprc-11-qg3vxj76":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-qg3vxj76"},"u":{"$pull":{"has_output":{"$in":["nmdc:3900b15ebaa5ecba247164c7165d2f38"]}}}},{"q":{"id":"nmdc:omprc-11-qg3vxj76"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-m0n9dm41"]}}}}]},"nmdc:omprc-11-qm563f05":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-qm563f05"},"u":{"$pull":{"has_output":{"$in":["nmdc:2112eaa62884c29f33a47669bf01bb53"]}}}},{"q":{"id":"nmdc:omprc-11-qm563f05"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-4jtrb138"]}}}}]},"nmdc:omprc-11-r2n4hp61":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-r2n4hp61"},"u":{"$pull":{"has_output":{"$in":["nmdc:452104acaf8a6d065f9a8fdbd64ee882"]}}}},{"q":{"id":"nmdc:omprc-11-r2n4hp61"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-w9r6c731"]}}}}]},"nmdc:omprc-11-rf37rv10":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-rf37rv10"},"u":{"$pull":{"has_output":{"$in":["nmdc:f408775f43e5a6041ade55edecaaeb1a"]}}}},{"q":{"id":"nmdc:omprc-11-rf37rv10"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-kbnny492"]}}}}]},"nmdc:omprc-11-rxv6kd89":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-rxv6kd89"},"u":{"$pull":{"has_output":{"$in":["nmdc:c52cdaa42622674591c66ceeb0c33758"]}}}},{"q":{"id":"nmdc:omprc-11-rxv6kd89"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-jt6b6323"]}}}}]},"nmdc:omprc-11-s8v93g59":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-s8v93g59"},"u":{"$pull":{"has_output":{"$in":["nmdc:9a37ea20e51282596cf799605d6e912c"]}}}},{"q":{"id":"nmdc:omprc-11-s8v93g59"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-hjqy4433"]}}}}]},"nmdc:omprc-11-sdbbqs35":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-sdbbqs35"},"u":{"$pull":{"has_output":{"$in":["nmdc:b0638ba985a67df56f072b7544e46317"]}}}},{"q":{"id":"nmdc:omprc-11-sdbbqs35"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-sd5qcz66"]}}}}]},"nmdc:omprc-11-sq1snj73":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-sq1snj73"},"u":{"$pull":{"has_output":{"$in":["nmdc:bef74063c8db88eca336299184d80942"]}}}},{"q":{"id":"nmdc:omprc-11-sq1snj73"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-pt2prc77"]}}}}]},"nmdc:omprc-11-sqz66z61":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-sqz66z61"},"u":{"$pull":{"has_output":{"$in":["nmdc:f31a2a473fa6cc081ff6c136d79c454a"]}}}},{"q":{"id":"nmdc:omprc-11-sqz66z61"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-7sgxta23"]}}}}]},"nmdc:omprc-11-t4hk7066":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-t4hk7066"},"u":{"$pull":{"has_output":{"$in":["nmdc:492b743dc4a3ab1c730dd0e12912d8d1"]}}}},{"q":{"id":"nmdc:omprc-11-t4hk7066"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-25p7pv15"]}}}}]},"nmdc:omprc-11-t6acv418":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-t6acv418"},"u":{"$pull":{"has_output":{"$in":["nmdc:12b43da62aae4332869c589de5853062"]}}}},{"q":{"id":"nmdc:omprc-11-t6acv418"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-rtebt035"]}}}}]},"nmdc:omprc-11-tr1vzf47":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-tr1vzf47"},"u":{"$pull":{"has_output":{"$in":["nmdc:c139345a1c2ba3d6883a53a85463e8e4"]}}}},{"q":{"id":"nmdc:omprc-11-tr1vzf47"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-ggqt5821"]}}}}]},"nmdc:omprc-11-v7vx4v18":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-v7vx4v18"},"u":{"$pull":{"has_output":{"$in":["nmdc:fe61b5e7c3aff7b27e5be1f97f55efda"]}}}},{"q":{"id":"nmdc:omprc-11-v7vx4v18"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-mpk4ce73"]}}}}]},"nmdc:omprc-11-vn1ar862":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-vn1ar862"},"u":{"$pull":{"has_output":{"$in":["nmdc:d38a56c9121372e8eb41f4f8f139481c"]}}}},{"q":{"id":"nmdc:omprc-11-vn1ar862"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-8a2q8x52"]}}}}]},"nmdc:omprc-11-vwvc8h03":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-vwvc8h03"},"u":{"$pull":{"has_output":{"$in":["nmdc:65b3ee1c8092cfe1b7fef18cbca970d9"]}}}},{"q":{"id":"nmdc:omprc-11-vwvc8h03"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-2pdqgn38"]}}}}]},"nmdc:omprc-11-vy356n82":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-vy356n82"},"u":{"$pull":{"has_output":{"$in":["nmdc:8f80860812e425dd92344f1f056d3d7e"]}}}},{"q":{"id":"nmdc:omprc-11-vy356n82"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-jhrr6g79"]}}}}]},"nmdc:omprc-11-wg551q49":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-wg551q49"},"u":{"$pull":{"has_output":{"$in":["nmdc:754dde7a211a1cd9ecfb990d799c86fc"]}}}},{"q":{"id":"nmdc:omprc-11-wg551q49"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-hvszxd09"]}}}}]},"nmdc:omprc-11-wjagc521":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-wjagc521"},"u":{"$pull":{"has_output":{"$in":["nmdc:087821706edc18d844ab743ec8865569"]}}}},{"q":{"id":"nmdc:omprc-11-wjagc521"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-njs26t78"]}}}}]},"nmdc:omprc-11-wxmc9q81":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-wxmc9q81"},"u":{"$pull":{"has_output":{"$in":["nmdc:74621bf24161e2e072c651c0c489b521"]}}}},{"q":{"id":"nmdc:omprc-11-wxmc9q81"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-gd68pr05"]}}}}]},"nmdc:omprc-11-xhnf2e85":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-xhnf2e85"},"u":{"$pull":{"has_output":{"$in":["nmdc:0df5ac2c9052a2b45cfd9578aaa562f7"]}}}},{"q":{"id":"nmdc:omprc-11-xhnf2e85"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-6mpr3c48"]}}}}]},"nmdc:omprc-11-xzrs8q03":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-xzrs8q03"},"u":{"$pull":{"has_output":{"$in":["nmdc:22afa3d49b73eaec2e9787a6b88fbdc3"]}}}},{"q":{"id":"nmdc:omprc-11-xzrs8q03"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-57bdgq86"]}}}}]},"nmdc:omprc-11-y08fp921":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-y08fp921"},"u":{"$pull":{"has_output":{"$in":["nmdc:20f714c290eeba8f76fe33ea21bf2291"]}}}},{"q":{"id":"nmdc:omprc-11-y08fp921"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-6fmsmn52"]}}}}]},"nmdc:omprc-11-ynq39f38":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-ynq39f38"},"u":{"$pull":{"has_output":{"$in":["nmdc:49b6ab7f5a43b171f4b6de616624fe02"]}}}},{"q":{"id":"nmdc:omprc-11-ynq39f38"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-bdab6b19"]}}}}]},"nmdc:omprc-11-ysp4vq35":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-ysp4vq35"},"u":{"$pull":{"has_output":{"$in":["nmdc:b6d907e2b41d013afcb2b6aa81c1be87"]}}}},{"q":{"id":"nmdc:omprc-11-ysp4vq35"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-q3qx6k70"]}}}}]},"nmdc:omprc-11-ytakgm41":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-ytakgm41"},"u":{"$pull":{"has_output":{"$in":["nmdc:fb1897fb6c87bcf5b25c76e0ac149b67"]}}}},{"q":{"id":"nmdc:omprc-11-ytakgm41"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-ywy40m07"]}}}}]},"nmdc:omprc-11-yzrza466":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-yzrza466"},"u":{"$pull":{"has_output":{"$in":["nmdc:c4df425ae66b46dcf353097aa64c8935"]}}}},{"q":{"id":"nmdc:omprc-11-yzrza466"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-vyw5e824"]}}}}]},"nmdc:omprc-11-zdmbqr75":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-zdmbqr75"},"u":{"$pull":{"has_output":{"$in":["nmdc:340ba2dc2e14b38bf653cbc8dcedaf9b"]}}}},{"q":{"id":"nmdc:omprc-11-zdmbqr75"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-7dqp7a83"]}}}}]},"nmdc:omprc-11-zvpsbf06":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-zvpsbf06"},"u":{"$pull":{"has_output":{"$in":["nmdc:0afe727fea9effca194d4b1f607984ff"]}}}},{"q":{"id":"nmdc:omprc-11-zvpsbf06"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-ntnxdw98"]}}}}]}},"validation_errors":[["'gold:Gp0138758' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138747' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213351' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138748' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213348' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208382' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213344' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213338' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213346' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213354' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138737' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208368' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213359' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138761' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213334' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208378' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213370' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213355' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138744' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213336' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213347' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208361' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213352' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138733' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208363' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213341' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138759' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213372' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138740' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208362' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138728' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213366' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213340' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213361' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138745' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138739' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213349' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213364' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208365' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138727' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138746' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213342' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213331' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138738' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213345' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138741' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208372' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138764' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208360' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208374' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213365' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208371' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138736' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213337' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138762' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213332' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213357' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208381' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208364' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213360' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213343' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208380' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208377' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213363' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138731' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138742' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208366' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213350' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208373' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213362' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208375' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138760' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213367' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138757' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213369' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208379' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138729' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138754' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213339' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213353' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138752' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213375' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213358' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138753' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213356' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138750' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208367' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138743' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138763' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213335' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138735' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208376' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208370' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208369' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138730' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138734' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138755' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138732' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0208359' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213371' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138751' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213373' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138749' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213333' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213368' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0213374' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0138756' does not match '^GOLD:Gp[0-9]+$'"]]}}
+INFO:root:changesheet validation failed
