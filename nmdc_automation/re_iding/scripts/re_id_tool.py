@@ -25,6 +25,7 @@ GOLD_STUDY_ID = "gold:Gs0114663"
 STUDY_ID = "nmdc:sty-11-aygzgv51"
 NAPA_CONFIG = Path("../../../configs/.local_napa_config.toml")
 NAPA_BASE_URL = "https://api-napa.microbiomedata.org/"
+NAPA_MONGODB = "mongo-loadbalancer.nmdc-napa.production.svc.spin.nersc.org:27017"
 
 STUDIES = {
     "Stegen": ("nmdc:sty-11-aygzgv51", "gold:Gs0114663"),
@@ -237,13 +238,16 @@ def extract_records(ctx, study_id, api_base_url):
                         passing_data_objects.clear()
                         continue
 
-                    # Some legacy Data Objects cannot be readily typed - warn but add to passing data objects
+                    # Some legacy Data Objects cannot be be typed. fail the workflow and its data objects
                     data_object_type = data_object_record.get("data_object_type")
                     data_object_url = data_object_record.get("url")
                     if not data_object_type and not data_object_url:
-                        logging.warning(f"DataObjectNoType: {data_object_id}")
-                        if data_object_record not in passing_data_objects:
-                            passing_data_objects.append(data_object_record)
+                        logging.error(f"DataObjectNoType: {data_object_id}")
+                        if data_object_record not in failing_data_objects:
+                            failing_data_objects.append(data_object_record)
+                        failing_data_objects.extend(passing_data_objects)
+                        passing_data_objects.clear()
+                        is_workflow_missing_data_objects = True
                         continue
                     else:
                         logging.info(f"PassingDataObject: {data_object_id}")
@@ -377,11 +381,11 @@ def process_records(ctx, study_id, data_dir, update_links=False):
 @cli.command()
 @click.argument("reid_records_file", type=click.Path(exists=True))
 @click.option(
-    "--changesheet_only",
+    "--changesheet-only",
     is_flag=True,
     default=False,
 )
-@click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
 @click.option(
     "--is-direct-connection",
     type=bool,
@@ -400,7 +404,7 @@ def process_records(ctx, study_id, data_dir, update_links=False):
     help=f"MongoDB database name",
 )
 @click.pass_context
-def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri=None,
+def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri,
                    is_direct_connection=True, database_name="nmdc"):
     """
     Read in json dump of re_id'd records and:
@@ -420,6 +424,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri=None,
 
     # TODO - need to get mongo_uri credentials for the Napa DB instance in the config file. Meanwhile, we can test
     #  with a local MongoDB instance
+
     logging.info(f"Using MongoDB URI: {mongo_uri}")
 
     # Connect to the MongoDB server and check the database name
@@ -441,58 +446,38 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri=None,
         for omics_processing_record in omics_processing_set:
             omics_processing_id = omics_processing_record["id"]
             logging.info(f"omics_processing_id: {omics_processing_id}")
-            # find legacy has_output and create change to remove it
-            # need to strip the nmdc: prefix for the objects endpoint
-            trimmed_omics_processing_id = omics_processing_id.split(":")[1]
-            resp = api_user_client.request(
-                "GET", f"objects/{trimmed_omics_processing_id}"
-            )
-            legacy_omics_processing_record = resp.json()
-            # delete legacy has_output
-            change = ChangesheetLineItem(
-                id=omics_processing_id,
-                action="remove item",
-                attribute="has_output",
-                value="|".join(legacy_omics_processing_record["has_output"]) + "|",
-            )
-            changesheet.line_items.append(change)
-            logging.info(f"changes: {change}")
-
-            # insert new has_output
-            change = ChangesheetLineItem(
-                id=omics_processing_id,
-                action="insert",
-                attribute="has_output",
-                value="|".join(omics_processing_record["has_output"]) + "|",
-            )
-            changesheet.line_items.append(change)
-            logging.info(f"changes: {change}")
+            # Update the omics_processing_record with the new has_output via PyMongo
+            filter_criteria = {"id": omics_processing_id}
+            update_criteria = {"$set": {"has_output": omics_processing_record["has_output"]}}
+            result = db_client["omics_processing_set"].update_one(filter_criteria, update_criteria)
+            logging.info(f"Updated {result.modified_count} omics_processing_set records")
 
         # submit the record to the workflows endpoint
         if not changesheet_only:
             # validate the record
             if api_user_client.validate_record(record):
-                logging.info("DB Record validated")
+                logging.info("DB Record validated - submitting to API")
+                # json:submit endpoint does not work on the Napa API
+                # submission_response = api_user_client.submit_record(record)
+                # logging.info(f"Record submission response: {submission_response}")
+
                 # submit the record documents directly via the MongoDB client
+                # this isa workaround for the json:submit endpoint not working
                 for collection_name, collection in record.items():
                     # collection shouldn't be empty but check just in case
                     if not collection:
                         logging.warning(f"Empty collection: {collection_name}")
                         continue
                     logging.info(f"Inserting {len(collection)} records into {collection_name}")
+
                     insertion_result = db_client[collection_name].insert_many(collection)
                     logging.info(f"Inserted {len(insertion_result.inserted_ids)} records into {collection_name}")
             else:
                 logging.error("Workflow Record validation failed")
         else:
-            logging.info(f"changesheet_only is True, skipping Workflow and Data Object ingest")
+            logging.info(f"changesheet-only is True, skipping Workflow and Data Object ingest")
 
-    changesheet.write_changesheet()
-    logging.info(f"changesheet written to {changesheet.output_filepath}")
-    if changesheet.validate_changesheet(api_user_client.base_url):
-        logging.info(f"changesheet validated")
-    else:
-        logging.info(f"changesheet validation failed")
+    logging.info(f"Elapsed time: {time.time() - start_time}")
 
 
 @cli.command()
@@ -519,53 +504,40 @@ def delete_old_records(ctx, old_records_file):
         old_db_records = json.load(f)
 
     # set list to capture annotation genes for agg set
-    gene_id_list = []
+    annotation_ids = []
     for record in old_db_records:
         for set_name, object_record in record.items():
             if set_name == "omics_processing_set":
                 continue
+            delete_ids = []
             if isinstance(object_record, list):
                 for item in object_record:
-                    if "id" in item:
-                        if set_name == "metagenome_annotation_activity_set":
-                            gene_id_list.append(item["id"])
-                        delete_query = {
-                            "delete": set_name,
-                            "deletes": [{"q": {"id": item["id"]}, "limit": 1}],
-                        }
-                        try:
-                            logging.info(f"Deleting {item.get('type')} record: {item['id']}")
-                            run_query_response = api_user_client.run_query(
-                                delete_query
-                            )
+                    delete_ids.append(item["id"])
+                    if set_name == "metagenome_annotation_activity_set":
+                        annotation_ids.append(item["id"])
+                delete_query = {
+                    "delete": set_name,
+                    "deletes": [{"q": {"id": {"$in": delete_ids}}, "limit": len(delete_ids)}],
+                }
+                try:
+                    logging.info(f"Deleting {set_name} records: {delete_ids}")
+                    run_query_response = api_user_client.run_query(delete_query)
+                    logging.info(f"Deleting query posted with response: {run_query_response}")
+                except requests.exceptions.RequestException as e:
+                    logging.error(f"An error occured while running: {delete_query}, response retutrned: {e}")
 
-                            logging.info(
-                                f"Deleting query posted with response: {run_query_response}"
-                            )
-                        except requests.exceptions.RequestException as e:
-                            logging.info(
-                                f"An error occured while running: {delete_query}, response retutrned: {e}"
-                            )
+    # delete functional annotation agg records
+    delete_annotation_query = {
+        "delete": "functional_annotation_agg",
+        "deletes": [{"q": {"metagenome_annotation_id": {"$in": annotation_ids}}, "limit": len(annotation_ids)}],
+    }
+    try:
+        logging.info(f"Deleting functional annotation agg records: {annotation_ids}")
+        run_query_response = api_user_client.run_query(delete_annotation_query)
+        logging.info(f"Deleting query posted with response: {run_query_response}")
+    except requests.exceptions.RequestException as e:
+        logging.error(f"An error occured while running: {delete_annotation_query}, response retutrned: {e}")
 
-    for annotation_id in gene_id_list:
-        try:
-            logging.info(
-                f"Deleting functional aggregate record with id: {annotation_id}"
-            )
-            delete_query_agg = {
-                "delete": "functional_annotation_agg",
-                "deletes": [{"q": {"metagenome_annotation_id": annotation_id}, "limit": 1}],
-            }
-
-            run_query_agg_response = api_user_client.run_query(delete_query_agg)
-
-            logging.info(
-                f"Response for deleting functional annotation agg record returned: {run_query_agg_response}"
-            )
-        except requests.exceptions.RequestException as e:
-            logging.error(
-                f"An error occurred while deleting annotation id {annotation_id}: {e}"
-            )
     logging.info(f"Elapsed time: {time.time() - start_time}")
 
 

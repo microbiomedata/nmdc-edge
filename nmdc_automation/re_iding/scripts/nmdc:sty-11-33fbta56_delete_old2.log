@@ -1,0 +1,309 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:34: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Deleting old objects found in : ./data/nmdc:sty-11-33fbta56_associated_record_dump.json
+INFO:root:Using: https://api-napa.microbiomedata.org/
+INFO:root:Deleting nmdc:DataObject record: nmdc:8d16af5ca7671f7dc42de14deb8b0dd5
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:3bcffdf80842f9fcb2c9c62c35ad28c6
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:56ba958be56af80bb4fc27f4635edaa5
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:11bee827a9abef578eb6610dc515fe04
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:78f35ca49a6bedf472f7dd61ae7a49d3
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:a3d3f0f87d622ef5a110bb494b8c95f0
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:fa401a0a97e73130ebfffcb25efef945
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:920790e781e64cd3eed3a32c521ffda7
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:a1fd51f1e8db0648782ae6d29e583d5b
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:a5468325ed4b6b62bb116ff5142ff33d
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:9a9b94f65b6f0af2208735238ddeb02c
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:dce7c900d1ab453a1d95bd3979c7a017
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:3393ec1177ba82d1b16364a757a19173
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:623f8105bab94519da3d5a620b8bf6da
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:19023d87b3cdd9de7b40dbfc23e38c89
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:582604e1df5f4337462b29ce34f2c02e
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:8ea1e1eab9d34bfb48cf83dccb8e95de
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:f5d3de8796889a3d67fc83aeff5bd9f9
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:cb256fb69ba245f710adeeaad8f4a16a
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:3ac986bab3bb921e02aadcada39a64cd
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:60e047950ea225f6ac8f677dbae225ed
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:6d9f0228e3ff9158b6fbac9518ffaba6
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:2864325ac58cd499a110e262de3e892c
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:d998a307658a2c4f556721492358ad3d
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:38cf4f39b765c7165cf4d4b72313d28d
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:baad9903d8f79540001fdf080a5cd297
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:7fd3eb7eaae276c4822f5ce2de5a766c
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:b42299646345d5801fe7b5a579f434cc
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:a28899511c3daa0b6aced1e11a875548
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:94edd28d2b641ba4f0e885ef0bc72b00
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:2a483528125e727ebb6b1c95269fcc97
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:a947acf706f9fc7539d50169d72e015f
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:f6b443fde046b113b1bb33cf0b23ba3b
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:54ac7bde0d6b18bc7b1c0cafecd787d1
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:48f158b9bdcee0135669cd2c5a5ccc25
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:8c8bba0eee92f65c928071da947057c5
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:63a391dcd3889a7ad308b45d2a062a12
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:4f622e5538026e174a99c87d851a66dd
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:MAGsAnalysisActivity record: nmdc:b23607de481eac9d93776f1eb805e989
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:MetagenomeAnnotationActivity record: nmdc:b23607de481eac9d93776f1eb805e989
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:MetagenomeAssembly record: nmdc:b23607de481eac9d93776f1eb805e989
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:ReadQCAnalysisActivity record: nmdc:b23607de481eac9d93776f1eb805e989
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:ReadbasedAnalysis record: nmdc:b23607de481eac9d93776f1eb805e989
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:DataObject record: nmdc:2a3baceee6e3dd4c4fc13567c2fd5df3
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:88f1d63bc4bbca5e443d53b878eea85a
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:39dfcb6a3f2afed8306b3666ec98c75b
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:d8b0ebe8bb1ff644e9742e2cafa09c82
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:baacf8df3c4d301e397f4e2202cf68b1
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:9a574224aebfebcc159a8eca738f9959
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:cb0d9e427179d63f3b38a5fc2eb53c02
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:52cc3432b1f0ac4a02c8de718c9f4b4d
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:bf7ae846284f9eba2f0e313d80159222
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:9d3e249a48788b5d6d4fe62d9ccd7fb7
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:c8ccaac0f4893c7340e2fe81fd3ac06b
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:ec8e0a71e4458ace5d93de19227f5270
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:ff8e4ec55aee5652030e1692c961aec6
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:c265c0a18455d5ff859731448fad914d
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:f544427535b0d9a31fd99ef78531092f
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:83d0d400353ac4e8cb1b09e37f7fb259
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:d4d9a50170ed9791ddc9d4609d6e7eb5
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:dedd158aeae5fe6355593fa8c117dfbf
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:9ba7a4c8fc71992eb1500790f2e9ae7b
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:935f7b73ddcc7c443a303224a2996d1d
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:6949bbccc09f9d533e206199f928c7db
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:938023547f2caad03223922dfc17f638
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:6e10cc7a09702f641efe27df767c73bc
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:20b14d6ade215c909859ed1e3d2b55ff
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:1dbfe9b773cfaf29b1d2f95f98e184d2
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:30757259de100a7b53499c95bbb12f7c
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:e78c0eb8617e1a8f11e1fbee4350c943
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:e387ccd75c4bfdbc6847fc54942e8f33
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:0ae564e069e0eac70343b2892cf6063f
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:MAGsAnalysisActivity record: nmdc:a5fba8fca3b75c9e0b564a8e311adf46
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:MetagenomeAnnotationActivity record: nmdc:a5fba8fca3b75c9e0b564a8e311adf46
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:MetagenomeAssembly record: nmdc:a5fba8fca3b75c9e0b564a8e311adf46
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:ReadQCAnalysisActivity record: nmdc:a5fba8fca3b75c9e0b564a8e311adf46
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:DataObject record: nmdc:91ab0ce1ea61b477a64e57a872624cb4
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:86750c55b1a31ad521879421b0412a84
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:83dc80cba46c2e8979928b07d7cacc52
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:3b149c1f7ee97c58fc80e9d1e846370c
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:9493a2d1a5bc0fa675a045672c2a0e81
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:d6e2df5e68ee64e0b238c9933b63ab6f
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:f19bb4b52cad7f784386f91e155f999a
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:7ac7432d14596f5a627ec1335698f2a8
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:108ee81d2b63a8bfdcdffd57a2527449
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:f5f2240a59f252bd85b05dfea67935a0
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:457fd17d3206e438c0923d5a476e4da6
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:0c58aef8eb55d4340c74407874ddd5d7
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:c8aedb23e2b4fa5c601e57f6910396da
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:47d64c1d12dbeb9f477a3d5136bb86c1
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:2b4d0e748013c1bf96cc983cbf9c69e6
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:74d5bc61e3be4595a9ad0df3bbd3797f
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:53fd9f9a2c4c536c87a5019541a4fb0d
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:836146e1656dce189ac1f5128c647a0a
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:b46f4fd87e0e5a42f22b5649633408f7
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:66837869020e8e7b2c11fcfa9bab03c8
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:db35f8b1f1e3a99065fdb18be15c259e
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:e91fe62aaf7d798d8d99d34c2378ae12
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:201b1581ddd15df11983f81189bd117d
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:35ae528f9a59e9bfa4c7f5075caa7c55
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:7100fadd3a1f4f7e7fac0f4d5a2de839
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:9a5200fc3667f94a26f9daff3e7896dc
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:ec9f120e0da93e8a8bc81fee028fe058
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:c29a380d9a08d93143ff303542356a7e
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:15f2c98af9be32cf3d1a273a32ca0e6a
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:e27e6ee3918aef9fcd5bfd6b81cb9369
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:cb704188f63145a2381fe3ac15385cfc
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:f3ee42e9abc87232e9f56a06a4681bf8
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:e831bf789934d693028cb3f0231c6792
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:a59f9c807b367af8a8d00291a7f13ad0
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:f0e91d4dce7c6ded38b62ea25fc7a4f0
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:51ae744151fba7a6f5e048c6590f6cee
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:0631d78bd9a6068c4182575e06dee00f
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:f81701e3622073ac34c6cc479b629138
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:MAGsAnalysisActivity record: nmdc:892b1e4dcd8dc413236a1e008577156b
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:MetagenomeAnnotationActivity record: nmdc:892b1e4dcd8dc413236a1e008577156b
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:MetagenomeAssembly record: nmdc:892b1e4dcd8dc413236a1e008577156b
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:ReadQCAnalysisActivity record: nmdc:892b1e4dcd8dc413236a1e008577156b
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:ReadbasedAnalysis record: nmdc:892b1e4dcd8dc413236a1e008577156b
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:DataObject record: nmdc:8f80860812e425dd92344f1f056d3d7e
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:ad6ccb8e44538b418e5a90a47a3a95b8
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:6ff08bff105c41ebee127d980006ba79
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:4babbf701f66184084f500079d31a005
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:0c2acd3eec955d6680787392cd3793c5
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:4c5a5690d01093f5eb72862fb98e0988
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:7711cd75bbcab369e2b44f73b2c01fcb
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:48c2645a14aecfee5bcbcd5e650a49ad
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:894b7c5ca83389dad3f974216d70d6d7
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:1b2103ef2ab7424f55f251e422689008
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:04bb4f9347c8a8249ec0195efafc4c47
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:c4530d8ecb4eb32e16a730d24cc28204
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:e4c3461c1000a64d6a4634b4892164bb
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:c806670f529a8fdbef0cfd89123d7f00
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:3913258d4842472c903ed41681e4c493
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:88945c22930146a1465ad5dc13817a42
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:7a33690f2e3c02320075d1bf104d4a62
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:91c32c903e7c61125fc8f6b8d9db9897
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:b3a133a713e296c4b2fefa37428f267f
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:1283ef0472b27c2ad4cdbb848dbd4bca
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:c619101979ea02f3fed22234edde0e94
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:8bd1119c07b414675365d01abb38413b
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:d9564fe3331cd74e58ad2b669cfa0a73
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:0ecd7301a9a005cbc7b03d47b17b2ef3
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:06d49a3f34a35509e580740b9652b91d
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:401de8c1e234359d698b9921d7dc525b
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:6257eca7b1724d73b982fb1d84a22627
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:f417f9be65ec04e94e9e2de9d9df4898
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting None record: nmdc:82e2810da1372d4c6c69b99dfcbaf018
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:MAGsAnalysisActivity record: nmdc:ddf9068cb9d0e93f72e3ae1f6beeeba2
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:MetagenomeAnnotationActivity record: nmdc:ddf9068cb9d0e93f72e3ae1f6beeeba2
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:MetagenomeAssembly record: nmdc:ddf9068cb9d0e93f72e3ae1f6beeeba2
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting nmdc:ReadQCAnalysisActivity record: nmdc:ddf9068cb9d0e93f72e3ae1f6beeeba2
+
+Aborted!
