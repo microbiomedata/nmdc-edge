@@ -92,23 +92,22 @@ workflow main_workflow {
 	
 
 	
-		call split_interleaved_fastq {
-			input:
-				reads=readbasedAnalysis_reads,
-				container=readsQC_bbtools_container
-		}
+    call split_interleaved_fastq {
+        input:
+            reads=readbasedAnalysis_reads,
+            container=readsQC_bbtools_container
+    }
 
-		call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
-			input:
-				enabled_tools=readbasedAnalysis_enabled_tools,
-				reads=split_interleaved_fastq.outFastq,
-				cpu=readbasedAnalysis_cpu,
-				prefix=readbasedAnalysis_prefix,
-				outdir=readbasedAnalysis_outdir,
-				paired=readbasedAnalysis_paired,
-				docker=ReadbasedAnalysis_container
-		}
-	}
+    call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
+        input:
+            enabled_tools=readbasedAnalysis_enabled_tools,
+            reads=split_interleaved_fastq.outFastq,
+            cpu=readbasedAnalysis_cpu,
+            prefix=readbasedAnalysis_prefix,
+            outdir=readbasedAnalysis_outdir,
+            paired=readbasedAnalysis_paired,
+            docker=ReadbasedAnalysis_container
+    }
 
 	## Assembly workflow
 	File metaAssembly_input_file = nmdc_rqcfilter_call.filtered_final[0]
@@ -188,7 +187,7 @@ workflow main_workflow {
     String checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
     String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:bb1dd3bad177f7a49fa79713f16181d6143dab904b462c7429b3085bb84410f9"
 	
-
+	if (DoMetaMAGs && DoAnnotation){
 		call metaMAGs.nmdc_mags as metaMAGs_call {
 			input:
 				proj_name=metaMAGs_proj_name,
@@ -217,7 +216,6 @@ workflow main_workflow {
 				scratch_dir=metaMAGs_outdir,
 				container=metaMAGs_container
 		}
-
 
 	call finish {
 		input: container="microbiomedata/workflowmeta:1.0.5.1",
