@@ -253,7 +253,7 @@ class ReIdTool:
                     logger.warning(f"Data object url not found for {old_do_id} - {old_do_rec['description']}")
                     old_url = f"{DATA_BASE_URL}/{omics_processing_id}/assembly/{old_do_rec['name']}"
                     logger.warning(f"Using inferred url: {old_url}")
-                new_file_path = compute_new_data_file_path(old_do_rec["url"], new_assembly_base_dir, new_activity_id)
+                new_file_path = compute_new_data_file_path(old_url, new_assembly_base_dir, new_activity_id)
 
                 if update_links:
                     updated_md5, updated_file_size = assembly_file_operations(
@@ -261,8 +261,8 @@ class ReIdTool:
                         self.data_dir)
                     logging.info(f"Updated md5: {updated_md5}, updated file size: {updated_file_size}")
                 else:
-                    updated_md5 = old_do_rec["md5_checksum"]
-                    updated_file_size = old_do_rec["file_size_bytes"]
+                    updated_md5 = old_do_rec.get("md5_checksum")
+                    updated_file_size = old_do_rec.get("file_size_bytes")
 
                 logging.info(f"New file path computed for {data_object_type}: {new_file_path}")
 
