@@ -1,7 +1,10 @@
-    Array[File] <WORKFLOW>_reads
+    Array[File] <WORKFLOW>_input_file
     Int <WORKFLOW>_cpu = 4
     String <WORKFLOW>_prefix
     Boolean? <WORKFLOW>_paired = false
+    Array[File] <WORKFLOW>_input_fq1
+    Array[File] <WORKFLOW>_input_fq2
+
     call preprocess.preprocess as preprocess {
         input:
             input_file=<WORKFLOW>_input_file,
