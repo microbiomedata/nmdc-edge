@@ -1,5 +1,3 @@
-    Map[String, Boolean] <WORKFLOW>_enabled_tools
-
     Array[File] <WORKFLOW>_reads
     Int <WORKFLOW>_cpu = 4
     String <WORKFLOW>_prefix
@@ -14,6 +12,6 @@
             input_fq2=<WORKFLOW>_input_fq2
     }
     call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
-        input: enabled_tools=<WORKFLOW>_enabled_tools, reads=preprocess.input_file_gz, cpu=<WORKFLOW>_cpu, prefix=<WORKFLOW>_prefix,
+        input: reads=preprocess.input_file_gz, cpu=<WORKFLOW>_cpu, proj=<WORKFLOW>_prefix,
         outdir=<WORKFLOW>_outdir, paired=<WORKFLOW>_paired
     }
