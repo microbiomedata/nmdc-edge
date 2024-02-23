@@ -5,7 +5,7 @@
     String <WORKFLOW>_prefix
     String <WORKFLOW>_outdir
     Boolean? <WORKFLOW>_paired = false
-    call readbasedanalysis_preprocess.preprocess as preprocess {
+    call preprocess.preprocess as preprocess {
         input:
             input_files=<WORKFLOW>_input_file,
 		    outdir=<WORKFLOW>_outdir,
@@ -14,6 +14,6 @@
             input_fq2=<WORKFLOW>_input_fq2
     }
     call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
-        input: enabled_tools=<WORKFLOW>_enabled_tools, reads=<WORKFLOW>_reads, cpu=<WORKFLOW>_cpu, prefix=<WORKFLOW>_prefix,
+        input: enabled_tools=<WORKFLOW>_enabled_tools, reads=preprocess.input_file_gz, cpu=<WORKFLOW>_cpu, prefix=<WORKFLOW>_prefix,
         outdir=<WORKFLOW>_outdir, paired=<WORKFLOW>_paired
     }
