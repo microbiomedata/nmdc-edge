@@ -13,7 +13,7 @@
 
     call <WORKFLOW>_preprocess.preprocess as preprocess {
         input:
-            input_file=<WORKFLOW>_input_file,
+            input_file= if (<WORKFLOW>_input_interleaved) then <WORKFLOW>_input_file[0] else "",
 		    outdir=<WORKFLOW>_outdir,
             input_interleaved=<WORKFLOW>_input_interleaved,
             input_fq1=if (!<WORKFLOW>_input_interleaved) then <WORKFLOW>_input_fq1[0] else "",
