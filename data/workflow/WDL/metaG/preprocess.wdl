@@ -1,7 +1,7 @@
 workflow preprocess {
-    File? input_file
-    File? input_fq1
-    File? input_fq2
+    String? input_file
+    String? input_fq1
+    String? input_fq2
     String  container="bfoster1/img-omics:0.1.9"
     String outdir
     Boolean input_interleaved
