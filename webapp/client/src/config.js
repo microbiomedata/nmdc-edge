@@ -99,7 +99,7 @@ const config = {
     }, API: {
         // Base URI at which visitors can access the application.
         // Note: This is written under the assumption that the client and API server share a domain.
-        BASE_URI: makeLocalUri("/"),
+        BASE_URI: process.env.REACT_APP_API_URL || "makeLocalUri("/")",
     }, ORCID: {
         // Boolean flag indicating whether the client will offer ORCiD-based authentication.
         IS_ENABLED: makeBoolean(process.env.REACT_APP_IS_ORCID_AUTH_ENABLED) || false,
