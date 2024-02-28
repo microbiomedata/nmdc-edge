@@ -21,7 +21,6 @@ workflow preprocess {
             call interleave_reads {
                 input:
                     input_files = [file.left,file.right],
-                    out_fastq = basename(file.left) + "_" + basename(file.right),
                     container = container
            }
         }
