@@ -118,7 +118,7 @@ function generateWDL(proj_home, workflow) {
     const workflowalias = workflowSettings['name'];
 
     //without wdl template
-    const tmpl_pipeline = path.join(config.WORKFLOWS.WDL_DIR, workflowSettings['wdl_pipeline']);
+    const tmpl_pipeline = path.join(config.WORKFLOWS.WDL_DIR, workflowSettings['wdl_pipeline']? workflowSettings['wdl_pipeline'] : "notfound");
     if(fs.existsSync(tmpl_pipeline)) {
         //add pipeline.wdl link
         fs.symlinkSync(tmpl_pipeline, proj_home + '/pipeline.wdl', 'file');

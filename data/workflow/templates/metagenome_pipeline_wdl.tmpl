@@ -4,12 +4,14 @@ import "jgi_assembly.wdl" as metaAssembly
 import "annotation_full.wdl" as metaAnnotation
 import "annotation_output.wdl" as metaAnnotationOutput
 import "mbin_nmdc.wdl" as metaMAGs
+import "viral-plasmid_wf.wdl" as viralPlasmid
 
 workflow main_workflow {
 	# Workflow Booleans
 	Boolean DoReadsQC = true
 	Boolean DoReadbasedAnalysis = true
 	Boolean DoMetaAssembly = true
+	Boolean DoViralPlasmid = true
 	Boolean DoAnnotation = true
 	Boolean DoMetaMAGs = true
 	Boolean input_interleaved = true
@@ -132,6 +134,29 @@ workflow main_workflow {
 				spades_container=metaAssembly_spades_container, 
 				memory=metaAssembly_memory, 
 				threads=metaAssembly_threads
+		}
+	}
+
+	##Viral Plasmid Workflow
+	File?   virusPlasmid_input = metaAssembly_call.final_contig
+	Map[String, Boolean] virusPlasmid_options = {
+		"default": true,
+		"relaxed": false,
+		"conservative": false,
+		"custom": false
+	  }
+	String  virusPlasmid_outdir
+	Int     virusPlasmid_cpu=8
+	String  virusPlasmid_database_location="/refdata"
+
+	if (DoViralPlasmid){
+		call viralPlasmid.viral as viralPlasmid_call {
+			input: 
+				fasta=virusPlasmid_input, 
+				outdir=virusPlasmid_outdir, 
+				option=virusPlasmid_options,
+				cpu=virusPlasmid_cpu,
+				database=virusPlasmid_database_location
 		}
 	}
 	
