@@ -63,11 +63,7 @@ const config = {
         // Note: Some emails the server sends to visitors will contain URLs based upon this one.
         EXTERNAL_BASE_URL: process.env.APP_EXTERNAL_BASE_URL || "https://nmdc-edge.org",
         // Port number on which the web server will listen for HTTP requests.
-        SERVER_PORT: makeIntIfDefined(process.env.APP_SERVER_PORT) || 8000,
-        // Private key and certificate chain (both PEM-encoded) used by HTTPS server.
-        // Reference: https://nodejs.org/api/tls.html#tlscreatesecurecontextoptions
-        SERVER_SSL_PRIVATE_KEY_FILE_PATH: process.env.APP_SERVER_SSL_PRIVATE_KEY_FILE_PATH,
-        SERVER_SSL_CERT_CHAIN_FILE_PATH: process.env.APP_SERVER_SSL_CERT_CHAIN_FILE_PATH,
+        SERVER_PORT: makeIntIfDefined(process.env.APP_SERVER_PORT) || 5000,
         // Path to the "docs" directory on the filesystem.
         DOCS_BASE_DIR: process.env.DOCS_BASE_DIR || path.join(DATA_BASE_DIR, "docs"),
     },
@@ -86,17 +82,13 @@ const config = {
     CROMWELL: {
         // Base URL at which HTTP clients can access the Cromwell API.
         API_BASE_URL: process.env.CROMWELL_API_BASE_URL || "http://localhost:8000",
-        // TODO: Document this.
+        // Max allowed number of jobs in cromwell.
         NUM_JOBS_MAX: makeIntIfDefined(process.env.CROMWELL_NUM_JOBS_MAX) || 100000,
-        // TODO: Document this.
+        // Max allowd number of big mem (virus_plasmid) jobs in cromwell.
         NUM_BIG_MEM_JOBS_MAX: makeIntIfDefined(process.env.CROMWELL_NUM_BIG_MEM_JOBS_MAX) || 4,
-        // TODO: Document this. Is this per job or for all jobs in total?
+        // Total size of the input files allowed per job.
         // Note: 161061273600 Bytes is 150 Gibibytes (161 Gigabytes).
         JOBS_INPUT_MAX_SIZE_BYTES: makeIntIfDefined(process.env.CROMWELL_JOBS_INPUT_MAX_SIZE_BYTES) || 161061273600,
-        // TODO: Document this.
-        WORKFLOW_TYPE: process.env.CROMWELL_WORKFLOW_TYPE || "WDL",
-        // TODO: Document this.
-        WORKFLOW_TYPE_VERSION: process.env.CROMWELL_WORKFLOW_TYPE_VERSION || "draft-2",
     },
     CRON: {
         // Port number on which the cron web server will listen for HTTP requests.
@@ -153,17 +145,18 @@ const config = {
     GLOBUS: {
         // TODO: This is based upon the environment variable originally named `GLOBUS_DATA_HOME`,
         //       which was referenced in the code base, but was not defined or documented in
-        //       the former `server-end-prod` template.
+        //       the former `server-env-prod` template.
+        // The globus service is not ready.
         DATA_HOME_DIR: process.env.GLOBUS_DATA_HOME_DIR,
     },
     IO: {
-        // TODO: Document this.
+        // Directory to store sra workflow results.
         SRA_BASE_DIR: process.env.SRA_BASE_DIR || path.join(IO_BASE_DIR, "sra"),
-        // TODO: Document this.
+        // Directory to store public data.
         PUBLIC_BASE_DIR: process.env.PUBLIC_BASE_DIR || path.join(IO_BASE_DIR, "public"),
-        // TODO: Document this.
+        // Directory to store user uploaded files
         UPLOADED_FILES_DIR: process.env.UPLOADED_FILES_DIR || path.join(IO_BASE_DIR, "upload/files"),
-        // TODO: Document this.
+        // Directory used by file uploading function.
         UPLOADED_FILES_TEMP_DIR: process.env.UPLOADED_FILES_TEMP_DIR || path.join(IO_BASE_DIR, "upload/tmp"),
     },
     // Parameters that influence the behavior of `Winston.js`, a logging library.
@@ -177,25 +170,15 @@ const config = {
         LOG_FILE_MAX_QUANTITY: process.env.LOG_FILE_MAX_QUANTITY || "14d",
     },
     PROJECTS: {
-        // TODO: Document this.
+        // Directory to store workflow results.
         BASE_DIR: process.env.PROJECTS_BASE_DIR || path.join(IO_BASE_DIR, "projects"),
         // Number of days for which the system will preserve a project after a user opts to delete it.
         PROJECT_DELETION_GRACE_PERIOD_DAYS: makeIntIfDefined(process.env.PROJECT_DELETION_GRACE_PERIOD_DAYS) || 7,
     },
-    SPECIES: {
-        // TODO: This is based upon the environment variable originally named `SPECIES_JSON`,
-        //       which was referenced in the code base, but was not defined or documented in
-        //       the former `server-end-prod` template.
-        JSON_FILE_PATH: process.env.SPECIES_JSON_FILE_PATH,
-        // TODO: This is based upon the environment variable originally named `SPECIES_TREE_JSON`,
-        //       which was referenced in the code base, but was not defined or documented in
-        //       the former `server-end-prod` template.
-        TREE_JSON_FILE_PATH: process.env.SPECIES_TREE_JSON_FILE_PATH,
-    },
     WORKFLOWS: {
-        // TODO: Document this.
+        // Directory of the workflow WDL files.
         WDL_DIR: process.env.WORKFLOWS_WDL_DIR || path.join(DATA_BASE_DIR, "workflow/WDL"),
-        // TODO: Document this.
+        // Directory of the workflow templates. The Workflow templates are used for creating cromwell inputs.
         TEMPLATE_DIR: process.env.WORKFLOWS_TEMPLATE_DIR || path.join(DATA_BASE_DIR, "workflow/templates"),
     },
 };
