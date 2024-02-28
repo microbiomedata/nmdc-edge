@@ -9,7 +9,7 @@ workflow preprocess {
     if (input_interleaved) {
         call gzip_input_int as gzip_int {
         input:
-            input_file=input_file,
+            input_files=input_file,
             container=container,
             outdir=outdir
         }
