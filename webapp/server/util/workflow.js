@@ -26,11 +26,11 @@ function submitWorkflow(proj, workflow, inputsize) {
     if (workflow) {
         let options_json = null;
         if (workflow.name) {
-            options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowlist[workflow.name]['options_json']);
+            options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowlist[workflow.name]['options_json'] ? workflowlist[workflow.name]['options_json'] : 'notfound');
             imports = path.join(config.WORKFLOWS.WDL_DIR, workflowlist[workflow.name]['wdl_imports']);
             wdlVersion = workflowlist[workflow.name]['wdl_version'];
         } else {
-            options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelinelist[workflow]['options_json']);
+            options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelinelist[workflow]['options_json'] ? pipelinelist[workflow]['options_json'] : 'notfound');
             imports = path.join(config.WORKFLOWS.WDL_DIR, pipelinelist[workflow]['wdl_imports']);
             wdlVersion = pipelinelist[workflow]['wdl_version'];
         }
@@ -333,7 +333,7 @@ const generatePipelineResult = function (proj) {
 
 
 function generateRunStats(project) {
-    let conf_file = path.join(config.PROJECTS.BASE_DIR, project.code, '/conf.json');
+    let conf_file = path.join(config.PROJECTS.BASE_DIR, project.code, 'conf.json');
     let job_metadata_file = path.join(config.PROJECTS.BASE_DIR, project.code, 'cromwell_job_metadata.json');
 
     let rawdata = fs.readFileSync(conf_file);

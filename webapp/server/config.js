@@ -89,6 +89,10 @@ const config = {
         // Total size of the input files allowed per job.
         // Note: 161061273600 Bytes is 150 Gibibytes (161 Gigabytes).
         JOBS_INPUT_MAX_SIZE_BYTES: makeIntIfDefined(process.env.CROMWELL_JOBS_INPUT_MAX_SIZE_BYTES) || 161061273600,
+        // The type of workflow language and must be "WDL" currently.
+        WORKFLOW_TYPE: process.env.CROMWELL_WORKFLOW_TYPE || "WDL",
+        // The version of the workflow language. Valid versions: 'draft-2', '1.0'.
+        WORKFLOW_TYPE_VERSION: process.env.CROMWELL_WORKFLOW_TYPE_VERSION || "draft-2",
     },
     CRON: {
         // Port number on which the cron web server will listen for HTTP requests.
@@ -180,10 +184,6 @@ const config = {
         WDL_DIR: process.env.WORKFLOWS_WDL_DIR || path.join(DATA_BASE_DIR, "workflow/WDL"),
         // Directory of the workflow templates. The Workflow templates are used for creating cromwell inputs.
         TEMPLATE_DIR: process.env.WORKFLOWS_TEMPLATE_DIR || path.join(DATA_BASE_DIR, "workflow/templates"),
-        // The type of workflow language and must be "WDL" currently.
-        WORKFLOW_TYPE: process.env.CROMWELL_WORKFLOW_TYPE || "WDL",
-        // The version of the workflow language. Valid versions: 'draft-2', '1.0'.
-        WORKFLOW_TYPE_VERSION: process.env.CROMWELL_WORKFLOW_TYPE_VERSION || "draft-2",
     },
 };
 
