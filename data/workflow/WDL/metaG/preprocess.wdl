@@ -1,5 +1,5 @@
 workflow preprocess {
-    Array[File?] input_file
+    Array[File?] input_files
     Array[File?] input_fq1
     Array[File?] input_fq2
     String  container="bfoster1/img-omics:0.1.9"
@@ -9,7 +9,7 @@ workflow preprocess {
     if (input_interleaved) {
         call gzip_input_int as gzip_int {
         input:
-            input_files=input_file,
+            input_files=input_files,
             container=container,
             outdir=outdir
         }
@@ -47,7 +47,7 @@ task gzip_input_int{
 
  	command<<<
         mkdir -p ${outdir}
-        if file --mime -b ${input_file[0]} | grep gzip > /dev/null ; then
+        if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then
             cat ${sep=" " input_files} > output_fastq.gz
         else
             cat ${sep=" " input_files} > input_files.fastq
