@@ -127,15 +127,5 @@ if (config.NODE_ENV === 'production') {
 }
 
 const port = config.APP.SERVER_PORT;
-if (config.APP.SERVER_SSL_PRIVATE_KEY_FILE_PATH && config.APP.SERVER_SSL_CERT_CHAIN_FILE_PATH) {
-  https.createServer({
-    key: fs.readFileSync(config.APP.SERVER_SSL_PRIVATE_KEY_FILE_PATH),
-    cert: fs.readFileSync(config.APP.SERVER_SSL_CERT_CHAIN_FILE_PATH)
-  }, app).listen(port, function () {
-    logger.info(`HTTPS ${config.NODE_ENV} server up and running on port ${port} !`);
-  })
-}
-else {
-  app.listen(port, () => logger.info(`HTTP ${config.NODE_ENV} server up and running on port ${port} !`));
-}
+app.listen(port, () => logger.info(`HTTP ${config.NODE_ENV} server up and running on port ${port} !`));
 
