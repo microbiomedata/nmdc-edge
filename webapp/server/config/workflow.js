@@ -143,6 +143,10 @@ pipelinelist = {
                 full_name: 'Metagenome Assembly',
                 cromwell_calls: ['main_workflow.metaAssembly_call']
             },
+            virus_plasmid: {
+                full_name: 'Viral Plasmid',
+                cromwell_calls: ['main_workflow.viralPlasmid_call']
+            },
             MetaAnnotation: {
                 full_name: 'Metagenome Annotation',
                 cromwell_calls: ['main_workflow.metaAnnotation_call']
