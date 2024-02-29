@@ -1,13 +1,14 @@
     Array[File] <WORKFLOW>_reads
     Int <WORKFLOW>_cpu = 4
     String <WORKFLOW>_prefix
+    String <WORKFLOW>_outdir
     Boolean? <WORKFLOW>_paired = false
 
     call <WORKFLOW>_preprocess.preprocess as preprocess {
         input:
             input_files=<WORKFLOW>_reads,
 		    outdir=<WORKFLOW>_outdir,
-            input_interleaved=<WORKFLOW>_input_interleaved
+            input_interleaved=<WORKFLOW>_paired
     }
     call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
         input: input_file=preprocess.input_file_gz, cpu=<WORKFLOW>_cpu, proj=<WORKFLOW>_prefix,paired=<WORKFLOW>_paired
