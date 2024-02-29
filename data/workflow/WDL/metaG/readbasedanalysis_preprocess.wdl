@@ -2,6 +2,7 @@ workflow preprocess {
     Array[File] input_files
     String  container="bfoster1/img-omics:0.1.9"
     String outdir
+    Boolean input_interleaved
 
     if (!input_interleaved) {
         call interleave_reads {
