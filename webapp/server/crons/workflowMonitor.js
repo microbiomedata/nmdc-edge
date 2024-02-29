@@ -139,7 +139,7 @@ function generateWDL(proj_home, workflow) {
         imports += 'import "preprocess.wdl" as MetaAssembly_preprocess' + "\n";
     }
     if(workflowname === 'ReadbasedAnalysis') {
-        imports += 'import "preprocess.wdl" as ReadbasedAnalysis_preprocess' + "\n";
+        imports += 'import "readbasedanalysis_preprocess.wdl" as ReadbasedAnalysis_preprocess' + "\n";
     }
     const tmpl = process.env.WORKFLOW_TEMPLATE_HOME + "/" + workflowSettings['wdl_tmpl'];
     let templWDL = String(fs.readFileSync(tmpl));
