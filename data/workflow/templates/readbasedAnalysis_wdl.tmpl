@@ -8,7 +8,7 @@
         input:
             input_files=<WORKFLOW>_reads,
 		    outdir=<WORKFLOW>_outdir,
-            input_interleaved=<WORKFLOW>_paired
+            paired=<WORKFLOW>_paired
     }
     call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
         input: input_file=preprocess.input_file_gz, cpu=<WORKFLOW>_cpu, proj=<WORKFLOW>_prefix,paired=<WORKFLOW>_paired

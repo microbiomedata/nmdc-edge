@@ -2,9 +2,16 @@ workflow preprocess {
     Array[File] input_files
     String  container="bfoster1/img-omics:0.1.9"
     String outdir
-    Boolean input_interleaved
+    Boolean paired
 
-    if (!input_interleaved) {
+    if (!paired) {
+        call gzip_input_int as gzip_int {
+        input:
+            input_files=input_files,
+            container=container
+        }
+    }
+    if (paired) {
         call interleave_reads {
                 input:
                     input_files = input_files,
@@ -13,13 +20,6 @@ workflow preprocess {
         call gzip_input_pe as gzip_pe {
         input:
             input_file=interleave_reads.out_fastq,
-            container=container
-        }
-    }
-    if (input_interleaved) {
-        call gzip_input_int as gzip_int {
-        input:
-            input_files=input_files,
             container=container
         }
     }
