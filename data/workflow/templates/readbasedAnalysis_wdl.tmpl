@@ -5,7 +5,7 @@
     Array[File] <WORKFLOW>_input_fq1
     Array[File] <WORKFLOW>_input_fq2
 
-    call preprocess.preprocess as preprocess {
+    call <WORKFLOW>_preprocess.preprocess as preprocess {
         input:
             input_file=<WORKFLOW>_input_file,
 		    outdir=<WORKFLOW>_outdir,
