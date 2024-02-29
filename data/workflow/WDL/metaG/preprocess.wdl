@@ -1,7 +1,7 @@
 workflow preprocess {
-    File? input_file
-    File? input_fq1
-    File? input_fq2
+    Array[File?] input_files
+    Array[File?] input_fq1
+    Array[File?] input_fq2
     String  container="bfoster1/img-omics:0.1.9"
     String outdir
     Boolean input_interleaved
@@ -9,25 +9,30 @@ workflow preprocess {
     if (input_interleaved) {
         call gzip_input_int as gzip_int {
         input:
-            input_file=input_file,
+            input_files=input_files,
             container=container,
             outdir=outdir
         }
     }
 
     if (!input_interleaved) {
-        call interleave_reads {
-		input: input_files = [input_fq1, input_fq2],
-		container=container
-	}
+        ## the zip() function generates an array of pairs, use .left and .right to access
+        scatter(file in zip(input_fq1,input_fq2)){
+            call interleave_reads {
+                input:
+                    input_files = [file.left,file.right],
+                    container = container
+           }
+        }
+
         call gzip_input_int as gzip_pe {
         input:
-            input_file=interleave_reads.out_fastq,
+            input_files=interleave_reads.out_fastq,
             container=container,
             outdir=outdir
         }
-
     }
+
     output {
 
        File? input_file_gz = if (input_interleaved) then gzip_int.input_file_gz else gzip_pe.input_file_gz
@@ -35,19 +40,18 @@ workflow preprocess {
 }
 
 task gzip_input_int{
- 	File input_file
+ 	Array[File?] input_files
 	String container
 	String outdir
 	String filename = "output_fastq.gz"
 
  	command<<<
         mkdir -p ${outdir}
-        if file --mime -b ${input_file} | grep gzip > /dev/null ; then
-            basename ${input_file} .gz
-            cp  ${input_file} ${outdir}/${filename}
-
+        if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then
+            cat ${sep=" " input_files} > output_fastq.gz
         else
-            gzip -f ${input_file} > "${outdir}/{$filename}"
+            cat ${sep=" " input_files} > input_files.fastq
+            gzip -f input_files.fastq > output_fastq.gz
         fi
  	>>>
 	runtime {
@@ -56,7 +60,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        File input_file_gz = "${outdir}/${filename}"
+        File input_file_gz = "output_fastq.gz"
 	}
 }
 
@@ -69,6 +73,7 @@ task interleave_reads{
 
     command <<<
         if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then
+        cat ${sep=" " input_files} > infile.fastq
             paste <(gunzip -c ${input_files[0]} | paste - - - -) <(gunzip -c ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}
     echo ${output_file}
         else
