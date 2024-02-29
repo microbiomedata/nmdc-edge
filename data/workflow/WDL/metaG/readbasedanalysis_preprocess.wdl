@@ -1,18 +1,27 @@
 workflow preprocess {
-    File? input_file
-    File? input_fq1
-    File? input_fq2
+    Array[File] input_files
     String  container="bfoster1/img-omics:0.1.9"
     String outdir
 
-
-    call gzip_input_int as gzip_int {
-    input:
-        input_file=input_file,
-        container=container,
-        outdir=outdir
+    if (!input_interleaved) {
+        call interleave_reads {
+                input:
+                    input_files = input_files,
+                    container = container
+           }
+        call gzip_input_pe as gzip_pe {
+        input:
+            input_file=interleave_reads.out_fastq,
+            container=container
+        }
     }
-
+    if (input_interleaved) {
+        call gzip_input_int as gzip_int {
+        input:
+            input_files=input_files,
+            container=container
+        }
+    }
     output {
 
        File? input_file_gz = if (input_interleaved) then gzip_int.input_file_gz else gzip_pe.input_file_gz
@@ -20,19 +29,17 @@ workflow preprocess {
 }
 
 task gzip_input_int{
- 	File input_file
+    # input files are an array of interleaved fastqs
+ 	Array[File] input_files
 	String container
-	String outdir
 	String filename = "output_fastq.gz"
 
  	command<<<
-        mkdir -p ${outdir}
-        if file --mime -b ${input_file} | grep gzip > /dev/null ; then
-            basename ${input_file} .gz
-            cp  ${input_file} ${outdir}/${filename}
-
+        if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then
+            cat ${sep=" " input_files} > output_fastq.gz
         else
-            gzip -f ${input_file} > "${outdir}/{$filename}"
+            cat ${sep=" " input_files} > input_files.fastq
+            gzip -f input_files.fastq > output_fastq.gz
         fi
  	>>>
 	runtime {
@@ -41,10 +48,32 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        File input_file_gz = "${outdir}/${filename}"
+        File input_file_gz = "output_fastq.gz"
 	}
 }
 
+task gzip_input_pe{
+# input files are a single pair of paired end reads that has been interleaved
+ 	File input_file
+	String container
+	String filename = "output_fastq.gz"
+
+ 	command<<<
+        if file --mime -b ${input_file} | grep gzip > /dev/null ; then
+            cp ${input_file} output_fastq.gz
+        else
+            gzip -f ${input_file} > output_fastq.gz
+        fi
+ 	>>>
+	runtime {
+            docker: container
+            memory: "1 GiB"
+            cpu:  1
+        }
+	output{
+        File input_file_gz = "output_fastq.gz"
+	}
+}
 
 task interleave_reads{
 
