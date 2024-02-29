@@ -4,6 +4,10 @@
     String <WORKFLOW>_outdir
     Boolean? <WORKFLOW>_paired = false
 
+    String <WORKFLOW>_db_gottcha2 = "/refdata/GOTTCHA2/RefSeq-r90.cg.BacteriaArchaeaViruses.species.fna"
+    String <WORKFLOW>_db_kraken2 = "/refdata/Kraken2"
+    String <WORKFLOW>_db_centrifuge = "/refdata/Centrifuge/p_compressed"
+
     call <WORKFLOW>_preprocess.preprocess as preprocess {
         input:
             input_files=<WORKFLOW>_reads,
@@ -11,5 +15,6 @@
             paired=<WORKFLOW>_paired
     }
     call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
-        input: input_file=preprocess.input_file_gz, cpu=<WORKFLOW>_cpu, proj=<WORKFLOW>_prefix,paired=<WORKFLOW>_paired
+        input: input_file=preprocess.input_file_gz, cpu=<WORKFLOW>_cpu, proj=<WORKFLOW>_prefix,paired=<WORKFLOW>_paired,
+        db_gottcha2=<WORKFLOW>_db_gottcha2, db_kraken2=<WORKFLOW>_db_kraken2, db_centrifuge=<WORKFLOW>_db_centrifuge
     }
