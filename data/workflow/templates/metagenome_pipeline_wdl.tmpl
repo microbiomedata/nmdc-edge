@@ -72,18 +72,14 @@ workflow main_workflow {
 
     }
 
-    Array[File]? readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final
+    Array[File]? readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final[0]
 	## ReadbasedAnalysis workflow
 	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
 		"gottcha2": true,
 		"kraken2": true,
 		"centrifuge": true
 	}
-	Map[String, String] readbasedAnalysis_db = {
-		"gottcha2": "/expanse/projects/nmdc/refdata/GOTTCHA2",
-		"kraken2": "/expanse/projects/nmdc/refdata/Kraken2",
-		"centrifuge": "/expanse/projects/nmdc/refdata/Centrifuge"
-	}
+
 	String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.3p1"
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
