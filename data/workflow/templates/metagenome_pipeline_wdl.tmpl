@@ -1,6 +1,7 @@
 import "rqcfilter.wdl" as readsQC
 import "readsqc_preprocess.wdl" as readsqc_preprocess
 import "ReadbasedAnalysis.wdl" as readbasedAnalysis
+import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "jgi_assembly.wdl" as metaAssembly
 import "annotation_full.wdl" as metaAnnotation
 import "annotation_output.wdl" as metaAnnotationOutput
@@ -89,24 +90,25 @@ workflow main_workflow {
 	String readbasedAnalysis_prefix
 	String readbasedAnalysis_outdir
 	Boolean? readbasedAnalysis_paired = true
-	
+	String db_gottcha2 = "/refdata/GOTTCHA2/RefSeq-r90.cg.BacteriaArchaeaViruses.species.fna"
+	String db_kraken2 = "/refdata/Kraken2"
+	String db_centrifuge = "/refdata/Centrifuge/hpv"
 
-	
-    call split_interleaved_fastq {
+    call readbasedanalysis_preprocess.preprocess as readbasedanalysis_preprocess {
         input:
-            reads=readbasedAnalysis_reads,
-            container=readsQC_bbtools_container
+            input_files=readbasedAnalysis_reads,
+		    outdir=<readbasedAnalysis_outdir,
+            paired=readbasedAnalysis_paired
     }
-
     call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
         input:
-            enabled_tools=readbasedAnalysis_enabled_tools,
-            reads=split_interleaved_fastq.outFastq,
+            input_file=readbasedanalysis_preprocess.input_file_gz,
             cpu=readbasedAnalysis_cpu,
-            prefix=readbasedAnalysis_prefix,
-            outdir=readbasedAnalysis_outdir,
+            proj=readbasedAnalysis_prefix,
             paired=readbasedAnalysis_paired,
-            docker=ReadbasedAnalysis_container
+            docker=ReadbasedAnalysis_container,
+            bbtools_container=readsQC_bbtools_container,
+            db_gottcha2=db_gottcha2, db_kraken2=db_kraken2, db_centrifuge=db_centrifuge
     }
 
 	## Assembly workflow
