@@ -72,7 +72,7 @@ workflow main_workflow {
 
     }
 
-    Array[File]? readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final[0]
+    File readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final[0]
 	## ReadbasedAnalysis workflow
 	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
 		"gottcha2": true,
