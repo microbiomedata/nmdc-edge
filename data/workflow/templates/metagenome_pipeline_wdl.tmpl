@@ -96,7 +96,6 @@ workflow main_workflow {
     call readbasedanalysis_preprocess.preprocess as readbasedanalysis_preprocess {
         input:
             input_files=readbasedAnalysis_reads,
-		    outdir=<readbasedAnalysis_outdir,
             paired=readbasedAnalysis_paired
     }
     call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {

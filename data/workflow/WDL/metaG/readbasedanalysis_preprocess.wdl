@@ -1,7 +1,6 @@
 workflow preprocess {
     Array[File] input_files
     String  container="bfoster1/img-omics:0.1.9"
-    String outdir
     Boolean paired
 
     if (!paired) {

@@ -11,7 +11,6 @@
     call <WORKFLOW>_preprocess.preprocess as preprocess {
         input:
             input_files=<WORKFLOW>_reads,
-		    outdir=<WORKFLOW>_outdir,
             paired=<WORKFLOW>_paired
     }
     call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
