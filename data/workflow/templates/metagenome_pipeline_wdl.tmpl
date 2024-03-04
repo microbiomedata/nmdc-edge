@@ -6,7 +6,6 @@ import "jgi_assembly.wdl" as metaAssembly
 import "annotation_full.wdl" as metaAnnotation
 import "annotation_output.wdl" as metaAnnotationOutput
 import "mbin_nmdc.wdl" as metaMAGs
-import "viral-plasmid_wf.wdl" as viralPlasmid
 
 workflow main_workflow {
 	# Workflow Booleans
@@ -73,19 +72,15 @@ workflow main_workflow {
 
     }
 
-    Array[File]? readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final
+    File readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final[0]
 	## ReadbasedAnalysis workflow
 	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
 		"gottcha2": true,
 		"kraken2": true,
 		"centrifuge": true
 	}
-	Map[String, String] readbasedAnalysis_db = {
-		"gottcha2": "/expanse/projects/nmdc/refdata/GOTTCHA2",
-		"kraken2": "/expanse/projects/nmdc/refdata/Kraken2",
-		"centrifuge": "/expanse/projects/nmdc/refdata/Centrifuge"
-	}
-	String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.3p1"
+
+	String ReadbasedAnalysis_container = "poeli/nmdc_taxa_profilers:1.0.5"
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
 	String readbasedAnalysis_outdir
@@ -94,15 +89,10 @@ workflow main_workflow {
 	String db_kraken2 = "/refdata/Kraken2"
 	String db_centrifuge = "/refdata/Centrifuge/hpv"
 
-    call readbasedanalysis_preprocess.preprocess as readbasedanalysis_preprocess {
-        input:
-            input_files=readbasedAnalysis_reads,
-		    outdir=<readbasedAnalysis_outdir,
-            paired=readbasedAnalysis_paired
-    }
+
     call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
         input:
-            input_file=readbasedanalysis_preprocess.input_file_gz,
+            input_file=readbasedAnalysis_reads,
             cpu=readbasedAnalysis_cpu,
             proj=readbasedAnalysis_prefix,
             paired=readbasedAnalysis_paired,
@@ -110,6 +100,7 @@ workflow main_workflow {
             bbtools_container=readsQC_bbtools_container,
             db_gottcha2=db_gottcha2, db_kraken2=db_kraken2, db_centrifuge=db_centrifuge
     }
+
 
 	## Assembly workflow
 	File metaAssembly_input_file = nmdc_rqcfilter_call.filtered_final[0]
@@ -138,7 +129,7 @@ workflow main_workflow {
     }
 	
 	## Annotation workflow
-	File?  metaAnnotation_imgap_input_fasta = metaAssembly_call.final_contig
+	File?  metaAnnotation_imgap_input_fasta = metaAssembly_call.contig
 	String  metaAnnotation_imgap_project_id
 	String  metaAnnotation_outdir
 	Int     metaAnnotation_additional_threads=8
@@ -165,60 +156,34 @@ workflow main_workflow {
 	## MAGs workflow
 	String? metaMAGs_outdir
 	String  metaMAGs_proj_name
-	File? metaMAGs_contig_file = metaAssembly_call.final_contig
-	File? metaMAGs_sam_file = metaAssembly_call.final_bam
+	File? metaMAGs_contig_file = metaAssembly_call.contig
+	File? metaMAGs_sam_file = metaAssembly_call.bam
 	File? metaMAGs_gff_file = metaAnnotation_call.functional_gff
-	File? metaMAGs_proteins_file = metaAnnotation_call.proteins_faa
-    File? metaMAGs_cog_file = metaAnnotation_call.cog_gff
-    File? metaMAGs_ec_file = metaAnnotation_call.ec_tsv
-    File? metaMAGs_ko_file = metaAnnotation_call.ko_tsv
-    File? metaMAGs_pfam_file = metaAnnotation_call.pfam_gff
-    File? metaMAGs_tigrfam_file = metaAnnotation_call.tigrfam_gff
-    File? metaMAGs_cath_funfam_file = metaAnnotation_call.cath_funfam_gff
-    File? metaMAGs_smart_file = metaAnnotation_call.smart_gff
-    File? metaMAGs_supfam_file = metaAnnotation_call.supfam_gff
-    File? metaMAGs_product_names_file = metaAnnotation_call.product_names_tsv
-    File? metaMAGs_gene_phylogeny_file = metaAnnotation_call.gene_phylogeny_tsv
-    File? metaMAGs_lineage_file = metaAnnotation_call.lineage_tsv
 	File? metaMAGs_map_file
 	File? metaMAGs_domain_file
 	Int metaMAGs_cpu=16
-	Int metaMAGs_threads=64
-	Int metaMAGs_pthreads=1
-	String metaMAGs_database="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
-    String checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
-    String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:bb1dd3bad177f7a49fa79713f16181d6143dab904b462c7429b3085bb84410f9"
+	Int metaMAGs_pplacer_cpu=1
+	String metaMAGs_database="/expanse/projects/nmdc/refdata/GTDBTK_DB"
+	String metaMAGs_container = "microbiomedata/nmdc_mbin:0.1.6"
 	
 
 		call metaMAGs.nmdc_mags as metaMAGs_call {
-			input:
+			input: 
+				outdir=metaMAGs_outdir,
 				proj_name=metaMAGs_proj_name,
 				contig_file=metaMAGs_contig_file,
 				sam_file=metaMAGs_sam_file,
-				gff_file=metaMAGs_gff_file,
-				proteins_file=metaMAGs_proteins_file,
-				cog_file=metaMAGs_cog_file,
-				ec_file=metaMAGs_ec_file,
-				ko_file=metaMAGs_ko_file,
-                pfam_file=metaMAGs_pfam_file,
-                tigrfam_file=metaMAGs_tigrfam_file,
-                cath_funfam_file=metaMAGs_cath_funfam_file,
-                smart_file=metaMAGs_smart_file,
-                supfam_file=metaMAGs_supfam_file,
-                product_names_file=metaMAGs_product_names_file,
-                gene_phylogeny_file=metaMAGs_gene_phylogeny_file,
-                lineage_file=metaMAGs_lineage_file,
+				gff_file=metaMAGs_gff_file, 
 				map_file=metaMAGs_map_file,
 				domain_file=metaMAGs_domain_file,
 				cpu=metaMAGs_cpu,
-				threads=metaMAGs_threads,
-				pthreads=metaMAGs_pthreads,
-				gtdbtk_db=metaMAGs_database,
-				checkm_db=checkm_db,
+				pplacer_cpu=metaMAGs_pplacer_cpu,
+				gtdbtk_database=metaMAGs_database,
 				scratch_dir=metaMAGs_outdir,
 				container=metaMAGs_container
 		}
 
+	
 	call finish {
 		input: container="microbiomedata/workflowmeta:1.0.5.1",
 			proj= metaAssembly_rename_contig_prefix,
@@ -265,13 +230,14 @@ workflow main_workflow {
 			kraken2_classification_tsv = ReadbasedAnalysis_call.final_kraken2_classification_tsv,
 			kraken2_report_tsv = ReadbasedAnalysis_call.final_kraken2_report_tsv,
 			kraken2_krona_html = ReadbasedAnalysis_call.final_kraken2_krona_html,
-			short=metaMAGs_call.short,
-			lowdepth=metaMAGs_call.low,
+			short=metaMAGs_call.final_tooShort_fa,
+			lowdepth=metaMAGs_call.final_lowDepth_fa,
 			unbinned=metaMAGs_call.final_unbinned_fa,
 			checkm=metaMAGs_call.final_checkm,
 			bac_summary = metaMAGs_call.final_gtdbtk_bac_summary,
 			ar_summary = metaMAGs_call.final_gtdbtk_ar_summary,
-			final_hqmq_bins = metaMAGs_call.final_hqmq_bins_zip,
+			final_hqmq_bins = metaMAGs_call.final_hqmq_bins,
+			metabat_bins = metaMAGs_call.metabat_bins,
 			mags_stats_json=metaMAGs_call.final_stats,
 			mags_stats_tsv=metaMAGs_call.final_stats_tsv,
 			hqmq_bin_fasta_files=metaMAGs_call.hqmq_bin_fasta_files,
@@ -390,6 +356,7 @@ task finish {
 	File? genemark_gff
 	File? prodigal_gff
 	File? trna_gff
+	File? misc_bind_misc_feature_regulatory_gff
 	File? rrna_gff
 	File? ncrna_tmrna_gff
 	File? ko_ec_gff
@@ -554,7 +521,7 @@ task finish {
 				${" " + metabat_bins +  " \"initial metabat bining result fasta output\""} 
 			cp activity.json data_objects.json ${magsdir}/
 
-
+		    mkdir -p ${rbadir}
 			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \
 				--name "ReadBased Analysis Activity for ${proj}" --part ${proj} \
 				--start ${start} --end $end \
@@ -570,6 +537,7 @@ task finish {
 				${kraken2_classification_tsv} "Kraken classification TSV report" \
 				${kraken2_report_tsv} "Kraken2 TSV report" \
 				${kraken2_krona_html} "Kraken2 Krona HTML report"
+
 			cp activity.json data_objects.json ${rbadir}/
 
 	>>>
