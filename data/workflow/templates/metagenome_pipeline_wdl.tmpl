@@ -356,12 +356,12 @@ task finish {
 	File genemark_gff
 	File prodigal_gff
 	File trna_gff
-	File misc_bind_misc_feature_regulatory_gff
-	File rrna_gff
-	File ncrna_tmrna_gff
+	File? misc_bind_misc_feature_regulatory_gff
+	File? rrna_gff
+	File? ncrna_tmrna_gff
 	File ko_ec_gff
 	File stats_tsv
-	File stats_json
+	File? stats_json
 	# Future
 	File gene_phylogeny_tsv
 	#    File proteins_cog_domtblout
