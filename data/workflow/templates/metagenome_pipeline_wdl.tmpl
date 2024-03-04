@@ -333,55 +333,55 @@ task finish {
 	String resource
 	String url_base
 	String git_url
-	Array[File] read
-	Array[File] filtered
-	Array[File] filtered_stats
-	File fasta
-	File scaffold
-	File agp
-	File bam
-	File covstats
-	File proteins_faa
-	File structural_gff
-	File functional_gff
-	File ko_tsv
-	File ec_tsv
-	File cog_gff
-	File pfam_gff
-	File tigrfam_gff
-	File smart_gff
-	File supfam_gff
-	File cath_funfam_gff
-	File crt_gff
-	File genemark_gff
-	File prodigal_gff
-	File trna_gff
+	Array[File?] read
+	Array[File?] filtered
+	Array[File?] filtered_stats
+	File? fasta
+	File? scaffold
+	File? agp
+	File? bam
+	File? covstats
+	File? proteins_faa
+	File? structural_gff
+	File? functional_gff
+	File? ko_tsv
+	File? ec_tsv
+	File? cog_gff
+	File? pfam_gff
+	File? tigrfam_gff
+	File? smart_gff
+	File? supfam_gff
+	File? cath_funfam_gff
+	File? crt_gff
+	File? genemark_gff
+	File? prodigal_gff
+	File? trna_gff
 	File? misc_bind_misc_feature_regulatory_gff
 	File? rrna_gff
 	File? ncrna_tmrna_gff
-	File ko_ec_gff
-	File stats_tsv
+	File? ko_ec_gff
+	File? stats_tsv
 	File? stats_json
 	# Future
-	File gene_phylogeny_tsv
+	File? gene_phylogeny_tsv
 	#    File proteins_cog_domtblout
 	#    File proteins_pfam_domtblout
 	#    File proteins_tigrfam_domtblout
 	#    File proteins_smart_domtblout
 	#    File proteins_supfam_domtblout
 	#    File proteins_cath_funfam_domtblout
-	File product_names_tsv
-	File crt_crisprs
-	File short
-	File lowdepth
-	File unbinned
-	File checkm
-	File bac_summary
-	File ar_summary
-	File final_hqmq_bins
+	File? product_names_tsv
+	File? crt_crisprs
+	File? short
+	File? lowdepth
+	File? unbinned
+	File? checkm
+	File? bac_summary
+	File? ar_summary
+	File? final_hqmq_bins
 	File metabat_bins
-	File mags_stats_json
-	File mags_stats_tsv
+	File? mags_stats_json
+	File? mags_stats_tsv
 	Array[File?] hqmq_bin_fasta_files
 	Array[File?] bin_fasta_files
 	Int n_hqmq = length(hqmq_bin_fasta_files)
