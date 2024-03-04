@@ -521,7 +521,7 @@ task finish {
 				${" " + metabat_bins +  " \"initial metabat bining result fasta output\""} 
 			cp activity.json data_objects.json ${magsdir}/
 
-		
+		    mkdir -p ${rbadir}
 			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \
 				--name "ReadBased Analysis Activity for ${proj}" --part ${proj} \
 				--start ${start} --end $end \
@@ -537,7 +537,7 @@ task finish {
 				${kraken2_classification_tsv} "Kraken classification TSV report" \
 				${kraken2_report_tsv} "Kraken2 TSV report" \
 				${kraken2_krona_html} "Kraken2 Krona HTML report"
-			mkdir -p ${rbadir}
+
 			cp activity.json data_objects.json ${rbadir}/
 
 	>>>
