@@ -518,8 +518,13 @@ task finish {
 				${magsdir}/${prefix}_checkm_qa.out "metabat2 bin checkm quality assessment result" \
 				${" " + bac_summary + " \"gtdbtk bacterial assignment result summary table\""} \
 				${" " + ar_summary + " \"gtdbtk archaea assignment result summary table\""}  \
-				${" " + metabat_bins +  " \"initial metabat bining result fasta output\""} 
-			cp activity.json data_objects.json ${magsdir}/
+				${" " + metabat_bins +  " \"initial metabat bining result fasta output\""}
+        cp ${lowdepth}  ${magsdir}/${proj}_bins.lowDepth.fa
+        cp ${short} ${magsdir}/${proj}_bins.tooShort.fa
+        cp ${unbinned} ${magsdir}/${proj}_bins.unbinned.fa
+        cp ${checkm} ${magsdir}/${proj}_checkm_qa.out
+			cp activity.json data_objects.json ${lowdepth} ${unbinned} ${mags_stats_json} ${mags_stats_tsv} ${ar_summary} ${final_hqmq_bins} \
+			${hqmq_bin_fasta_files} ${bin_fasta_files} ${metabat_bins} {magsdir}/
 
 		    mkdir -p ${rbadir}
 			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \
