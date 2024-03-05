@@ -12,7 +12,7 @@ import { getData } from '../../util';
 const columns = [
     { title: 'Project', field: 'name', filterPlaceholder: 'Project filter', tooltip: 'Project name', grouping: false },
     { title: 'Description', field: 'desc', hidden: true, grouping: false },
-    { title: 'Owner', field: 'owner', editable: 'never', tooltip: 'Project owner' },
+    //{ title: 'Owner', field: 'owner', editable: 'never', tooltip: 'Project owner' },
     { title: 'Type', field: 'type', editable: 'never' },
     {
         title: 'Status', field: 'status', grouping: false,
@@ -75,7 +75,7 @@ function ProjectList(props) {
                                 title={"Public Projects"}
                                 icons={tableIcons}
                                 options={{
-                                    grouping: true,
+                                    grouping: false,
                                     pageSize: 10,
                                     pageSizeOptions: [10, 20, 50, 100],
                                     addRowPosition: 'first',

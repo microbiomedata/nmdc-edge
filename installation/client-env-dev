@@ -17,7 +17,7 @@ REACT_APP_RESETPASSWD_SUBJECT=Reset your EDGE login password
 REACT_APP_RESETPASSWD_MSG=Someone requested a password reset for your account. If this was not you, please disregard this email. If you'd like to continue, click the link $URL/resetpassword
   
 #file upload
-REACT_APP_FILEUPLOAD_ALLOWED_EXTENSIONS=fastq|fq|fa|fasta|fna|contigs|fastq.gz|fq.gz|fa.gz|fasta.gz|contigs.gz|gbk|gff|genbank|gb|xlsx|txt|bed|config|tsv|csv|raw
+REACT_APP_FILEUPLOAD_ALLOWED_EXTENSIONS=fastq|fq|faa|fa|fasta|fna|contigs|fastq.gz|fq.gz|fa.gz|fasta.gz|fna.gz|contigs.gz|fa.bz2|fasta.bz2|contigs.bz2|fna.bz2|fa.xz|fasta.xz|contigs.xz|fna.xz|gbk|gff|genbank|gb|xlsx|txt|bed|config|tsv|csv|raw|d|bam|sam
 
 #project output file/folder download
 REACT_APP_API_URL=http://<WEB_SERVER_DOMAIN>:<WEB_SERVER_PORT>

@@ -156,7 +156,7 @@ task mbin_nmdc {
         # set TMPDIR to avoid AF_UNIX path too long error 
         export TMPDIR=/tmp
         #export TMPDIR=$HOME 
-        export GTDBTK_DATA_PATH=/refdata
+        export GTDBTK_DATA_PATH=${database}
         mbin_nmdc.py ${"--map " + map} ${"--domain " + domain} ${"--scratch_dir " + scratch_dir} --pplacer_cpu ${pplacer_cpu} --cpu ${cpu} ${name} ${fasta} ${sam} ${gff}
         mbin_stats.py $PWD
         touch MAGs_stats.tsv
