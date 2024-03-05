@@ -85,7 +85,6 @@ workflow main_workflow {
 		"centrifuge": "/expanse/projects/nmdc/refdata/Centrifuge"
 	}
 	String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.3p1"
-	Array[File]? readbasedAnalysis_reads = if (DoReadsQC) then jgi_rqcfilter_call.clean_fastq_files else interleaved_input_fastqs 
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
 	String readbasedAnalysis_outdir
@@ -219,7 +218,7 @@ workflow main_workflow {
 				container=metaMAGs_container
 		}
 
-	
+
 	call finish {
 		input: container="microbiomedata/workflowmeta:1.0.5.1",
 			proj= metaAssembly_rename_contig_prefix,
