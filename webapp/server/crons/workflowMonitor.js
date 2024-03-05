@@ -134,6 +134,9 @@ function generateWDL(proj_home, workflow) {
     if(workflowname === 'MetaAnnotation') {
         imports += 'import "annotation_output.wdl" as MetaAnnotationOutput' + "\n";
     }
+    if(workflowname === 'ReadbasedAnalysis') {
+        imports += 'import "readbasedanalysis_preprocess.wdl" as ReadbasedAnalysis_preprocess' + "\n";
+    }
     if(workflowname === 'MetaAssembly') {
         imports += 'import "preprocess.wdl" as MetaAssembly_preprocess' + "\n";
     }
