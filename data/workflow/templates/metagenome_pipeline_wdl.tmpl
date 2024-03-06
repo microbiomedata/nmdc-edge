@@ -6,6 +6,7 @@ import "jgi_assembly.wdl" as metaAssembly
 import "annotation_full.wdl" as metaAnnotation
 import "annotation_output.wdl" as metaAnnotationOutput
 import "mbin_nmdc.wdl" as metaMAGs
+import "mbin_nmdc_output.wdl" as metaMAGsOutput
 
 workflow main_workflow {
 	# Workflow Booleans
@@ -159,31 +160,78 @@ workflow main_workflow {
 	File? metaMAGs_contig_file = metaAssembly_call.contig
 	File? metaMAGs_sam_file = metaAssembly_call.bam
 	File? metaMAGs_gff_file = metaAnnotation_call.functional_gff
+	File? metaMAGs_proteins_file = metaAnnotation_call.proteins_faa
+    File? metaMAGs_cog_file = metaAnnotation_call.cog_gff
+    File? metaMAGs_ec_file = metaAnnotation_call.ec_tsv
+    File? metaMAGs_ko_file = metaAnnotation_call.ko_tsv
+    File? metaMAGs_pfam_file = metaAnnotation_call.pfam_gff
+    File? metaMAGs_tigrfam_file = metaAnnotation_call.tigrfam_gff
+    File? metaMAGs_cath_funfam_file = metaAnnotation_call.cath_funfam_gff
+    File? metaMAGs_smart_file = metaAnnotation_call.smart_gff
+    File? metaMAGs_supfam_file = metaAnnotation_call.supfam_gff
+    File? metaMAGs_product_names_file = metaAnnotation_call.product_names_tsv
+    File? metaMAGs_gene_phylogeny_file = metaAnnotation_call.gene_phylogeny_tsv
+    File? metaMAGs_lineage_file = metaAnnotation_call.lineage_tsv
 	File? metaMAGs_map_file
 	File? metaMAGs_domain_file
 	Int metaMAGs_cpu=16
-	Int metaMAGs_pplacer_cpu=1
-	String metaMAGs_database="/expanse/projects/nmdc/refdata/GTDBTK_DB"
-	String metaMAGs_container = "microbiomedata/nmdc_mbin:0.1.6"
+	Int metaMAGs_threads=64
+	Int metaMAGs_pthreads=1
+	String metaMAGs_database="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
+    String checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
+    String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:bb1dd3bad177f7a49fa79713f16181d6143dab904b462c7429b3085bb84410f9"
 	
 
 		call metaMAGs.nmdc_mags as metaMAGs_call {
-			input: 
-				outdir=metaMAGs_outdir,
+			input:
 				proj_name=metaMAGs_proj_name,
 				contig_file=metaMAGs_contig_file,
 				sam_file=metaMAGs_sam_file,
-				gff_file=metaMAGs_gff_file, 
+				gff_file=metaMAGs_gff_file,
+				proteins_file=metaMAGs_proteins_file,
+				cog_file=metaMAGs_cog_file,
+				ec_file=metaMAGs_ec_file,
+				ko_file=metaMAGs_ko_file,
+                pfam_file=metaMAGs_pfam_file,
+                tigrfam_file=metaMAGs_tigrfam_file,
+                cath_funfam_file=metaMAGs_cath_funfam_file,
+                smart_file=metaMAGs_smart_file,
+                supfam_file=metaMAGs_supfam_file,
+                product_names_file=metaMAGs_product_names_file,
+                gene_phylogeny_file=metaMAGs_gene_phylogeny_file,
+                lineage_file=metaMAGs_lineage_file,
 				map_file=metaMAGs_map_file,
 				domain_file=metaMAGs_domain_file,
 				cpu=metaMAGs_cpu,
-				pplacer_cpu=metaMAGs_pplacer_cpu,
-				gtdbtk_database=metaMAGs_database,
+				threads=metaMAGs_threads,
+				pthreads=metaMAGs_pthreads,
+				gtdbtk_db=metaMAGs_database,
+				checkm_db=checkm_db,
 				scratch_dir=metaMAGs_outdir,
 				container=metaMAGs_container
 		}
 
-	
+		call metaMAGsOutput.mbin_nmdc_output as mbin_nmdc_output {
+          input:
+            proj_name=metaMAGs_proj_name,
+            start=metaMAGs_call.start,
+            contig_file=metaMAGs_contig_file,
+            sam_file=metaMAGs_sam_file,
+            gff_file=metaMAGs_gff_file,
+            low=metaMAGs_call.low,
+            unbinned=metaMAGs_call.final_unbinned_fa,
+            short=metaMAGs_call.short,
+            checkm=metaMAGs_call.final_checkm,
+            json_stats=metaMAGs_call.stats_json,
+            tsv_stats=metaMAGs_call.tsv_stats,
+            bacsum=metaMAGs_call.bacsum,
+            arcsum=metaMAGs_call.arcsum,
+            bin_fasta_files=metaMAGs_call.bin_fasta_files,
+            hqmq_bin_fasta_files=metaMAGs_call.hqmq_bin_fasta_files,
+            outdir=metaMAGs_outdir
+        }
+
+
 	call finish {
 		input: container="microbiomedata/workflowmeta:1.0.5.1",
 			proj= metaAssembly_rename_contig_prefix,
@@ -356,7 +404,6 @@ task finish {
 	File? genemark_gff
 	File? prodigal_gff
 	File? trna_gff
-	File? misc_bind_misc_feature_regulatory_gff
 	File? rrna_gff
 	File? ncrna_tmrna_gff
 	File? ko_ec_gff
