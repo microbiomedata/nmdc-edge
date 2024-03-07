@@ -2,7 +2,7 @@ import "ReadbasedAnalysisTasks.wdl" as tasks
 
 workflow ReadbasedAnalysis {
     Map[String, Boolean] enabled_tools
-    String db_gottcha2 = "/refdata/GOTTCHA2/RefSeq-r90.cg.BacteriaArchaeaViruses.species.fna"
+    String db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
     String db_kraken2 = "/refdata/Kraken2/"
     String db_centrifuge = "/refdata/Centrifuge/hpv"
     Array[File] reads
