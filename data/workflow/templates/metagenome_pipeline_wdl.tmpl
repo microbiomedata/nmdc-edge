@@ -36,8 +36,8 @@ workflow main_workflow {
 	String readsQC_database="/refdata"
 	String readsQC_memory="60g"
 	String readsQC_threads="4"
-	Array[File] readsQC_input_fq1=[]
-	Array[File] readsQC_input_fq2=[]
+	Array[File] input_fq1=[]
+	Array[File] input_fq2=[]
 
     call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input:
