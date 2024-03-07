@@ -28,23 +28,8 @@ workflow main_workflow {
 	call start {
 		input: container="microbiomedata/workflowmeta:1.0.5.1"
 	}
-	
-	if (!input_interleaved) {
-		Array[File] input_fq1
-		Array[File] input_fq2
-		## the zip() function generates an array of pairs, use .left and .right to access
-		scatter(file in zip(input_fq1,input_fq2)){
-			call interleave_reads {
-				input:
-					input_files = [file.left,file.right],
-					output_file = basename(file.left) + "_" + basename(file.right),
-					container = "microbiomedata/bbtools:38.96"
-			}
-		}
-	} 
-	
-	Array[File]? interleaved_input_fastqs = if (input_interleaved) then input_files else interleave_reads.out_fastq
-	
+
+
 	## QC workflow
 	String? readsQC_outdir
 	String readsQC_bbtools_container="microbiomedata/bbtools:38.96"
@@ -56,11 +41,11 @@ workflow main_workflow {
 
     call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input:
-            input_files=interleaved_input_fastqs,
+            input_files=input_files,
             outdir=readsQC_outdir,
             input_interleaved=input_interleaved,
-            input_fq1=readsQC_input_fq1,
-            input_fq2=readsQC_input_fq2
+            input_fq1=input_fq1,
+            input_fq2=input_fq2
         }
     scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
 
