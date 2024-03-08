@@ -27,13 +27,22 @@ NAPA_CONFIG = Path("../../../configs/.local_napa_config.toml")
 NAPA_BASE_URL = "https://api-napa.microbiomedata.org/"
 NAPA_MONGODB = "mongo-loadbalancer.nmdc-napa.production.svc.spin.nersc.org:27017"
 
-STUDIES = {
+RE_ID = {
     "Stegen": ("nmdc:sty-11-aygzgv51", "gold:Gs0114663"),
     "SPRUCE": ("nmdc:sty-11-33fbta56", "gold:Gs0110138"),
     "EMP": ("nmdc:sty-11-547rwq94", "gold:Gs0154244"),
     "Luquillo": ("nmdc:sty-11-076c9980", "gold:Gs0128850"),
     "CrestedButte": ("nmdc:sty-11-dcqce727", "gold:Gs0135149"),
 }
+CONSORTIA = (
+    "nmdc:sty-11-33fbta56",
+    "nmdc:sty-11-547rwq94"
+)
+STUDIES = (
+    "nmdc:sty-11-aygzgv51",
+    "nmdc:sty-11-076c9980",
+    "nmdc:sty-11-dcqce727",
+)
 
 
 BASE_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
@@ -61,6 +70,56 @@ def cli(ctx, site_config):
     """
     ctx.ensure_object(dict)
     ctx.obj["site_config"] = site_config
+
+@cli.command()
+@click.argument("legacy_study_id", type=str, required=True)
+@click.argument("nmdc_study_id", type=str, required=True)
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
+@click.option(
+    "--is-direct-connection",
+    type=bool,
+    required=False,
+    default=True,
+    show_default=True,
+    help=f"Whether you want the script to set the `directConnection` flag when connecting to the MongoDB server. "
+         f"That is required by some MongoDB servers that belong to a replica set. ",
+)
+@click.option("--database-name",
+              type=str,
+              required=False,
+              default="nmdc",
+              show_default=True,
+              help=f"MongoDB database name",
+              )
+@click.option("--no-update", is_flag=True, default=False, help="Do not update the database")
+@click.pass_context
+def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_connection=True, database_name="nmdc", no_update=False):
+    """
+    Update the NMDC study with the given legacy ID by re-IDing the study, biosample, and omics processing records
+    and updating the MongoDB database with the new records.
+    """
+    start_time = time.time()
+    logging.info(f"Updating NMDC study with legacy ID: {legacy_study_id}")
+    logging.info(f"Updating NMDC study with ID: {nmdc_study_id}")
+    # Make sure we are using a valid nmdc_study_id
+    valid_study_ids = CONSORTIA + STUDIES
+    assert nmdc_study_id in valid_study_ids, f"Invalid nmdc_study_id: {nmdc_study_id}"
+
+    # Connect to the MongoDB server and check the database name
+    client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
+    with pymongo.timeout(5):
+        assert (database_name in client.list_database_names()), f"Database {database_name} not found"
+    logging.info(f"Connected to MongoDB server at {mongo_uri}")
+    db_client = client[database_name]
+
+    # Retrieve the Study with the given legacy ID
+    study_record = db_client["study_set"].find_one({"id": legacy_study_id})
+    if not study_record:
+        logging.exception(f"Study not found for legacy ID: {legacy_study_id} !")
+
+    # Update the study record
+    study_record = _update_study_record(study_record, nmdc_study_id, no_update)
+
 
 
 @cli.command()
@@ -688,6 +747,23 @@ def _get_has_input_from_read_qc(api_client, legacy_id):
     for record in read_qc_records:
         has_input_data_objects.update(record.get("has_input", []))
     return list(has_input_data_objects)
+
+
+def _update_study_record(study_record: dict, new_study_id: str, db_client: pymongo.MongoClient, no_update: bool) -> dict:
+    """
+    Update the study record with the new ID
+    """
+    legacy_study_id = study_record["id"]
+    study_record["id"] = new_study_id
+    logging.info(f"Updating {legacy_study_id} /  {study_record['id']}: {study_record['name']}")
+
+    if no_update:
+        logging.info(f"Skipping database update")
+    else:
+        logging.info(f"Updating database with new study record")
+        result = db_client["study_set"].replace_one({"id": legacy_study_id}, study_record)
+        logging.info(f"Updated {result.modified_count} study_set records")
+    return study_record
 
 
 if __name__ == "__main__":
