@@ -8,10 +8,13 @@ import logging
 import time
 from pathlib import Path
 import json
+from typing import Any, Mapping, Union
+
 import click
 import requests
 from linkml_runtime.dumpers import json_dumper
 import pymongo
+from pymongo.database import Database
 
 from nmdc_automation.api import NmdcRuntimeApi, NmdcRuntimeUserApi
 from nmdc_automation.nmdc_common.client import NmdcApi
@@ -112,13 +115,39 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
     logging.info(f"Connected to MongoDB server at {mongo_uri}")
     db_client = client[database_name]
 
+    # API client for minting new IDs
+    config = ctx.obj["site_config"]
+    api_client = NmdcRuntimeApi(config)
+
     # Retrieve the Study with the given legacy ID
     study_record = db_client["study_set"].find_one({"id": legacy_study_id})
     if not study_record:
         logging.exception(f"Study not found for legacy ID: {legacy_study_id} !")
 
     # Update the study record
-    study_record = _update_study_record(study_record, nmdc_study_id, no_update)
+    study_record = _update_study_record(study_record, nmdc_study_id, db_client, no_update)
+
+    # Update the biosample records
+    biosample_records = db_client["biosample_set"].find({"part_of": legacy_study_id})
+    biosamples_returned = len(list(biosample_records.clone()))
+    logging.info(f"Updating {biosamples_returned} Biosample records")
+    for biosample_record in biosample_records:
+        legacy_biosample_id = biosample_record["id"]
+        biosample_record = _update_biosample_record(biosample_record, nmdc_study_id, db_client, api_client, no_update)
+
+        # Get the OmicsProcessing records part_of the legacy study ID and has_input the legacy biosample ID
+        omics_processing_records = db_client["omics_processing_set"].find(
+            {"part_of": legacy_study_id, "has_input": legacy_biosample_id}
+        )
+
+        omics_processing_returned = len(list(omics_processing_records.clone()))
+        logging.info(f"Updating {omics_processing_returned} OmicsProcessing records for biosample: {legacy_biosample_id}")
+        for omics_processing_record in omics_processing_records:
+            omics_processing_record = _update_omics_processing_record(omics_processing_record, nmdc_study_id, db_client, api_client, no_update)
+
+    logging.info(f"Elapsed time: {time.time() - start_time}")
+
+
 
 
 
@@ -749,7 +778,7 @@ def _get_has_input_from_read_qc(api_client, legacy_id):
     return list(has_input_data_objects)
 
 
-def _update_study_record(study_record: dict, new_study_id: str, db_client: pymongo.MongoClient, no_update: bool) -> dict:
+def _update_study_record(study_record: dict, new_study_id: str, db_client: Database[Union[Mapping[str, Any], Any]], no_update: bool) -> dict:
     """
     Update the study record with the new ID
     """
@@ -765,6 +794,45 @@ def _update_study_record(study_record: dict, new_study_id: str, db_client: pymon
         logging.info(f"Updated {result.modified_count} study_set records")
     return study_record
 
+def _update_biosample_record(biosample_record: dict, new_study_id: str, db_client: Database[Union[Mapping[str, Any], Any]],
+                             api_client: NmdcRuntimeApi,  no_update: bool) -> dict:
+    """
+    Update the biosample record with the new ID
+    """
+    legacy_biosample_id = biosample_record["id"]
+    biosample_record["part_of"] = new_study_id
+
+    # Mint a new biosample ID if needed
+    if not biosample_record["id"].startswith("nmdc:bsm-"):
+        new_biosample_id = api_client.minter("nmdc:Biosample")
+        biosample_record["id"] = new_biosample_id
+        logging.info(f"Minted new biosample ID: {new_biosample_id}")
+    if no_update:
+        logging.info(f"Skip Update:  {legacy_biosample_id} /  {biosample_record['id']} : {biosample_record['name']}")
+    else:
+        result = db_client["biosample_set"].replace_one({"id": legacy_biosample_id}, biosample_record)
+        logging.info(f"Updated {result.modified_count} biosample_set records {legacy_biosample_id} /  {biosample_record['id']} : {biosample_record['name']}")
+    return biosample_record
+
+def _update_omics_processing_record(omics_processing_record: dict, new_biosample_id: str, db_client: Database[Union[Mapping[str, Any], Any]],
+                                    api_client: NmdcRuntimeApi, no_update: bool) -> dict:
+    """
+    Update the omics processing record with the new ID
+    """
+    legacy_omics_processing_id = omics_processing_record["id"]
+    omics_processing_record["was_informed_by"] = new_biosample_id
+
+    # Mint a new omics processing ID if needed
+    if not omics_processing_record["id"].startswith("nmdc:omprc-"):
+        new_omics_processing_id = api_client.minter("nmdc:OmicsProcessing")
+        omics_processing_record["id"] = new_omics_processing_id
+        logging.info(f"Minted new omics processing ID: {new_omics_processing_id}")
+    if no_update:
+        logging.info(f"Skip Update {legacy_omics_processing_id} /  {omics_processing_record['id']}: {omics_processing_record['name']}")
+    else:
+        result = db_client["omics_processing_set"].replace_one({"id": legacy_omics_processing_id}, omics_processing_record)
+        logging.info(f"Updated {result.modified_count} omics_processing_set record {legacy_omics_processing_id} /  {omics_processing_record['id']}: {omics_processing_record['name']}")
+    return omics_processing_record
 
 if __name__ == "__main__":
     cli(obj={})
