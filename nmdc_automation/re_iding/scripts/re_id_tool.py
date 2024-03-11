@@ -542,6 +542,67 @@ def delete_old_records(ctx, old_records_file):
 
 
 @cli.command()
+@click.argument("mongo_uri", type=str)
+@click.argument("database_name", type=str, default="nmdc")
+@click.option("--direct-connection", is_flag=True, default=True)
+@click.option("--no-delete", is_flag=True, default=False)
+@click.pass_context
+def delete_old_binning_data(ctx, mongo_uri, database_name, direct_connection, no_delete=False):
+    """
+    Delete old binning data from the MongoDB database
+    Binning data object types: 'Metagenome Bins', 'CheckM Statistics' or null.
+    Null type data objects can be distinguished by looking for 'metabat2' in the description
+    """
+    start_time = time.time()
+    logging.info(f"Deleting old binning data from {database_name} database at {mongo_uri}")
+
+    # Connect to the MongoDB server and check the database name
+    client = pymongo.MongoClient(mongo_uri, directConnection=direct_connection)
+    with pymongo.timeout(5):
+        assert (database_name in client.list_database_names()), f"Database {database_name} not found"
+    logging.info(f"Connected to MongoDB server at {mongo_uri}")
+    db_client = client[database_name]
+
+    # Find and delete old binning data with a known data object type
+    binning_data_query = {
+        "data_object_type": {"$in": ["Metagenome Bins", "CheckM Statistics"]},
+    }
+    binning_data = db_client["data_object_set"].find(binning_data_query)
+    logging.info(f"Found {len(list(binning_data.clone()))} old binning data records")
+    if not no_delete:
+        for record in binning_data:
+            logging.info(f"Deleting binning data record: {record['id']} {record['data_object_type']} {record['description']}")
+        logging.info(f"Deleting old binning data records")
+        delete_result = db_client["data_object_set"].delete_many(binning_data_query)
+        logging.info(f"Deleted {delete_result.deleted_count} old binning data records")
+    else:
+        logging.info("No-delete flag is set, skipping delete")
+        for record in binning_data:
+            logging.info(f"Skipping delete for record: {record['id']} {record['data_object_type']} {record['description']}")
+
+    # Find and delete old binning data with a null data object type and 'metabat2' in the description
+    null_binning_data_query = {
+        "data_object_type": None,
+        "description": {"$regex": "metabat2"},
+    }
+    null_binning_data = db_client["data_object_set"].find(null_binning_data_query)
+    logging.info(f"Found {len(list(null_binning_data.clone()))} old null binning data records")
+    if not no_delete:
+        for record in null_binning_data:
+            logging.info(f"Deleting null binning data record: {record['id']} {record['description']}")
+        logging.info(f"Deleting old null binning data records")
+        delete_result = db_client["data_object_set"].delete_many(null_binning_data_query)
+        logging.info(f"Deleted {delete_result.deleted_count} old null binning data records")
+    else:
+        logging.info("No-delete flag is set, skipping delete")
+        for record in null_binning_data:
+            logging.info(f"Skipping delete for record: {record['id']} /{record['description']}")
+
+
+    logging.info(f"Elapsed time: {time.time() - start_time}")
+
+
+@cli.command()
 @click.argument("study_id", type=str)
 @click.option("--api-base-url", default=NAPA_BASE_URL,
               help=f"Optional base URL for the NMDC API. Default: {NAPA_BASE_URL}")
