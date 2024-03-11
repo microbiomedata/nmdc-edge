@@ -549,9 +549,15 @@ def delete_old_records(ctx, old_records_file):
 @click.pass_context
 def delete_old_binning_data(ctx, mongo_uri, database_name, direct_connection, no_delete=False):
     """
-    Delete old binning data from the MongoDB database
-    Binning data object types: 'Metagenome Bins', 'CheckM Statistics' or null.
-    Null type data objects can be distinguished by looking for 'metabat2' in the description
+    Delete old binning data from the MongoDB database.
+
+    Some binning data objects can be found by their data_object_type: 'Metagenome Bins' or 'CheckM Statistics'
+    Un-typed data objects can be found by looking for 'metabat2' in the description
+
+    Also deletes proteomics data objects with an ID pattern of 'emsl:output_'
+
+    If the --no-delete flag is set, the script will not delete any records, but will log the records that would be
+    deleted.
     """
     start_time = time.time()
     logging.info(f"Deleting old binning data from {database_name} database at {mongo_uri}")
@@ -596,6 +602,23 @@ def delete_old_binning_data(ctx, mongo_uri, database_name, direct_connection, no
     else:
         logging.info("No-delete flag is set, skipping delete")
         for record in null_binning_data:
+            logging.info(f"Skipping delete for record: {record['id']} /{record['description']}")
+
+    # Find and delete old proteomics data objects
+    proteomics_data_query = {
+        "id": {"$regex": "emsl:output_"},
+    }
+    proteomics_data = db_client["data_object_set"].find(proteomics_data_query)
+    logging.info(f"Found {len(list(proteomics_data.clone()))} old proteomics data records")
+    if not no_delete:
+        for record in proteomics_data:
+            logging.info(f"Deleting proteomics data record: {record['id']} {record['description']}")
+        logging.info(f"Deleting old proteomics data records")
+        delete_result = db_client["data_object_set"].delete_many(proteomics_data_query)
+        logging.info(f"Deleted {delete_result.deleted_count} old proteomics data records")
+    else:
+        logging.info("No-delete flag is set, skipping delete")
+        for record in proteomics_data:
             logging.info(f"Skipping delete for record: {record['id']} /{record['description']}")
 
 
