@@ -225,9 +225,9 @@ def extract_records(ctx, study_id, api_base_url):
 
         for data_object_id in omics_processing_has_outputs:
             data_object_record = api_client.get_data_object(data_object_id)
-            # If the data object is an orphan, fail the omics processing record and its data objects
+            # If the data object is Missing, fail the omics processing record and its data objects
             if not data_object_record:
-                logging.error(f"OmicsProcessingOrphanDataObject: {data_object_id} for {omics_id}")
+                logging.error(f"OmicsProcessingMissingDataObject: {data_object_id} for {omics_id}")
                 is_failed_data = True
                 is_omics_missing_has_output = True
                 omics_level_failure_count += 1
@@ -630,6 +630,112 @@ def delete_old_records(ctx, old_records_file):
 
 
 @cli.command()
+@click.argument("mongo_uri", type=str)
+@click.argument("database_name", type=str, default="nmdc")
+@click.option("--direct-connection", is_flag=True, default=True)
+@click.option("--no-delete", is_flag=True, default=False)
+@click.pass_context
+def delete_old_binning_data(ctx, mongo_uri, database_name, direct_connection, no_delete=False):
+    """
+    Delete old binning data with non-comforming IDs from the MongoDB database.
+
+    Some binning data objects can be found by their data_object_type: 'Metagenome Bins' or 'CheckM Statistics'
+    Un-typed data objects can be found by looking for 'metabat2' in the description
+
+    Also deletes proteomics data objects with an ID pattern of 'emsl:output_'
+
+    If the --no-delete flag is set, the script will not delete any records, but will log the records that would be
+    deleted.
+    """
+    start_time = time.time()
+    logging.info(f"Deleting old binning data from {database_name} database at {mongo_uri}")
+
+    # Connect to the MongoDB server and check the database name
+    client = pymongo.MongoClient(mongo_uri, directConnection=direct_connection)
+    with pymongo.timeout(5):
+        assert (database_name in client.list_database_names()), f"Database {database_name} not found"
+    logging.info(f"Connected to MongoDB server at {mongo_uri}")
+    db_client = client[database_name]
+
+    logging.info("Searching for old binning data records with a known data object type and non-comforming IDs")
+    # Find and delete old binning data with a known data object type and non-comforming IDs
+    binning_data_query = {
+          # Exclude data objects with conforming IDs nmdc:dobj-*
+        "id": {"$not": {"$regex": "^nmdc:dobj-"}},
+        "data_object_type": {"$in": ["Metagenome Bins", "CheckM Statistics"]},
+    }
+    binning_data = db_client["data_object_set"].find(binning_data_query)
+    logging.info(f"Found {len(list(binning_data.clone()))} old binning data records")
+    if not no_delete:
+        for record in binning_data:
+            logging.info(f"Deleting binning data record: {record['id']} {record['data_object_type']} {record['description']}")
+        logging.info(f"Deleting old binning data records")
+        delete_result = db_client["data_object_set"].delete_many(binning_data_query)
+        logging.info(f"Deleted {delete_result.deleted_count} old binning data records")
+    else:
+        logging.info("No-delete flag is set, skipping delete")
+        for record in binning_data:
+            logging.info(f"Skipping delete for record: {record['id']} {record['data_object_type']} {record['description']}")
+
+    # Find and delete old binning data with a null data object type and 'metabat2' in the description and
+    # non-comforming IDs
+    logging.info("Searching for old binning data records with a null data object type and 'metabat2' in the description")
+    null_binning_data_query = {
+        # Exclude data objects with conforming IDs nmdc:dobj-*
+        "id": {"$not": {"$regex": "^nmdc:dobj-"}},
+        "data_object_type": None,
+        "description": {"$regex": "metabat2"},
+    }
+    null_binning_data = db_client["data_object_set"].find(null_binning_data_query)
+    logging.info(f"Found {len(list(null_binning_data.clone()))} old null binning data records")
+    if not no_delete:
+        for record in null_binning_data:
+            logging.info(f"Deleting null binning data record: {record['id']} {record['description']}")
+        logging.info(f"Deleting old null binning data records")
+        delete_result = db_client["data_object_set"].delete_many(null_binning_data_query)
+        logging.info(f"Deleted {delete_result.deleted_count} old null binning data records")
+    else:
+        logging.info("No-delete flag is set, skipping delete")
+        for record in null_binning_data:
+            logging.info(f"Skipping delete for record: {record['id']} /{record['description']}")
+
+    # Find Lipidomics OmicsProcessing and their associated DataObjects and delete them
+    logging.info("Searching for Lipidomics OmicsProcessing records and their associated DataObjects")
+    lipidomics_omics_processing_query = {
+        "omics_type.has_raw_value": "Lipidomics",
+    }
+    lipidomics_omics_processing = db_client["omics_processing_set"].find(lipidomics_omics_processing_query)
+    logging.info(f"Found {len(list(lipidomics_omics_processing.clone()))} lipidomics omics processing records")
+
+    # Go through the lipidomics omics processing records and get the data object IDs to be deleted
+    lipidomics_data_object_ids = set()
+    for record in lipidomics_omics_processing:
+        logging.info(f"Found lipidomics omics processing record: {record['id']}")
+        for data_object_id in record["has_output"]:
+            lipidomics_data_object_ids.add(data_object_id)
+    logging.info(f"Found {len(lipidomics_data_object_ids)} lipidomics data object records")
+
+    if not no_delete:
+        for data_object_id in lipidomics_data_object_ids:
+            logging.info(f"Deleting lipidomics data object record: {data_object_id}")
+        logging.info(f"Deleting lipidomics data object records")
+        delete_result = db_client["data_object_set"].delete_many({"id": {"$in": list(lipidomics_data_object_ids)}})
+        logging.info(f"Deleted {delete_result.deleted_count} lipidomics data object records")
+        # delete the lipidomics omics processing records
+        delete_result = db_client["omics_processing_set"].delete_many(lipidomics_omics_processing_query)
+        logging.info(f"Deleted {delete_result.deleted_count} lipidomics omics processing records")
+    else:
+        logging.info("No-delete flag is set, skipping delete")
+        for data_object_id in lipidomics_data_object_ids:
+            logging.info(f"Skipping delete for lipidomics data object record: {data_object_id}")
+        for record in lipidomics_omics_processing:
+            logging.info(f"Skipping delete for lipidomics omics processing record: {record['id']}")
+
+
+    logging.info(f"Elapsed time: {time.time() - start_time}")
+
+
+@cli.command()
 @click.argument("study_id", type=str)
 @click.option("--api-base-url", default=NAPA_BASE_URL,
               help=f"Optional base URL for the NMDC API. Default: {NAPA_BASE_URL}")
@@ -645,7 +751,7 @@ def orphan_data_objects(ctx, study_id, api_base_url, untyped_data_objects=False)
     Write the results to a JSON file of nmdc DataObject instances.
     """
     start_time = time.time()
-    logging.info(f"Scanning for orphaned data objects for {study_id}")
+    logging.info(f"Scanning for missing data objects for {study_id}")
 
 
     api_client = NmdcApi(api_base_url)
@@ -696,7 +802,7 @@ def orphan_data_objects(ctx, study_id, api_base_url, untyped_data_objects=False)
         with open(f"{study_id}_untyped_data_objects.json", "w") as f:
             f.write(json.dumps(untyped_data_objects, indent=4))
     else:
-        logging.info(f"Found {len(orphan_data_object_ids)} orphaned data objects")
+        logging.info(f"Found {len(orphan_data_object_ids)} missing data objects")
         # get orphaned data objects from the data_objects_by_id if present
         orphaned_data_objects = []
         for data_object_id in orphan_data_object_ids:
