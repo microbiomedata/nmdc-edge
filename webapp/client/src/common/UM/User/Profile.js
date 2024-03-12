@@ -8,6 +8,7 @@ import CIcon from '@coreui/icons-react';
 import { ToastContainer } from 'react-toastify';
 import { notify } from "../../util";
 import 'react-toastify/dist/ReactToastify.css';
+import config from "../../../config";
 
 function Profile(props) {
     const [changePw, setChangePw] = useState(0);
@@ -137,7 +138,7 @@ function Profile(props) {
                         </InputGroup>
                         {errors.lastname && <p className="edge-form-input-error">{errors.lastname.message}</p>}
                         <br></br>
-                        {process.env.REACT_APP_EMAIL_NOTIFICATION && process.env.REACT_APP_EMAIL_NOTIFICATION.toLowerCase() === 'true' &&
+                        {config.EMAIL.IS_ENABLED &&
                             <>
                                 <b >Project Status Notification</b>
                                 <br></br>

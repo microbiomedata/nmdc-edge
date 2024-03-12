@@ -7,6 +7,7 @@ import { FaFilePdf } from 'react-icons/fa';
 import { FiVideo } from 'react-icons/fi';
 
 import { VideoDialog } from '../../common/Dialogs';
+import config from "../../config";
 
 function TutorialBar(props) {
     const [video, setVideo] = useState();
@@ -27,7 +28,7 @@ function TutorialBar(props) {
                 display: "flex", justifyContent: "center", alignItems: "center", color: 'white', fontWeight: 'bold', fontSize: '20px',
                 backgroundColor: props.bgcolor, height: '60px'
             }}>
-                <Col xs="3" md="3" lg="3">{props.title}</Col>
+                <Col xs="2" md="2" lg="2">{props.title}</Col>
                 <Col xs="2" md="2" lg="2">
                     {props.video &&
                         <center>
@@ -40,7 +41,7 @@ function TutorialBar(props) {
                 <Col xs="2" md="2" lg="2">
                     {props.pdf &&
                         <center>
-                            <IconButton style={{ color: 'white' }} aria-label="pdf" href={process.env.REACT_APP_API_URL + props.pdf} target="_blank">
+                            <IconButton style={{ color: 'white' }} aria-label="pdf" href={config.API.BASE_URI + props.pdf} target="_blank">
                                 <FaFilePdf />
                             </IconButton>
                         </center>
@@ -49,16 +50,25 @@ function TutorialBar(props) {
                 <Col xs="2" md="2" lg="2">
                     {props.pdfSpanish &&
                         <center>
-                            <IconButton style={{ color: 'white' }} aria-label="pdf" href={process.env.REACT_APP_API_URL + props.pdfSpanish} target="_blank">
+                            <IconButton style={{ color: 'white' }} aria-label="pdf" href={config.API.BASE_URI + props.pdfSpanish} target="_blank">
                                 <FaFilePdf />
                             </IconButton>
                         </center>
                     }
                 </Col>
-                <Col xs="3" md="3" lg="3">
+                <Col xs="2" md="2" lg="2">
+                    {props.pdfFrench &&
+                        <center>
+                            <IconButton style={{ color: 'white' }} aria-label="pdf" href={process.env.REACT_APP_API_URL + props.pdfFrench} target="_blank">
+                                <FaFilePdf />
+                            </IconButton>
+                        </center>
+                    }
+                </Col>
+                <Col xs="2" md="2" lg="2">
                     {props.docs &&
                         <center>
-                            <IconButton aria-label="docs" href={process.env.REACT_APP_API_URL + props.docs} target="_blank">
+                            <IconButton aria-label="docs" href={config.API.BASE_URI + props.docs} target="_blank">
                                 <SiReadthedocs style={{ backgroundColor: 'white' }} />
                             </IconButton>
                         </center>

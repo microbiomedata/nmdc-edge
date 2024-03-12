@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require("path");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const config = require("../config");
 
 const { getResult, getRunStats, getConf } = require("../util/pipeline");
 
@@ -23,6 +24,7 @@ const encodePassword = function (password) {
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(password, salt, (err, hash) => {
                 if (err) {
+                    // FIXME: Where is `logger` defined?
                     logger.error("Failed to encode password: " + err);
                     return reject(err);
                 }
@@ -37,12 +39,14 @@ const signToken = function (payload) {
         // Sign token
         jwt.sign(
             payload,
-            process.env.JWT_KEY,
+            config.AUTH.JWT_SECRET,
             {
+                // TODO: Consider defining this in `config.js`.
                 expiresIn: 31556926 // 1 year in seconds
             },
             (err, token) => {
                 if (err) {
+                    // FIXME: Where is `logger` defined?
                     logger.error("Failed to generate a jwt token: " + err);
                     return reject(err);
                 }

@@ -11,6 +11,7 @@ import {
     SUBMIT_FORM,
     SIDEBAR_SET
 } from "./types";
+import config from "../../config";
 
 // Register User
 export const register = (userData) => dispatch => {
@@ -26,11 +27,14 @@ export const register = (userData) => dispatch => {
                 dispatch(setNewUser(user));
             }
             let msg = "Congratulations! Your account has been created successfully.";
-            if (process.env.REACT_APP_EMAIL_NOTIFICATION && process.env.REACT_APP_EMAIL_NOTIFICATION.toLowerCase() === 'true') {
+            if (config.EMAIL.IS_ENABLED) {
+                // TODO: Consolidate this recurring code with its other occurrences (e.g. into a helper function).
                 //sendmail
                 const message = {
-                    subject: process.env.REACT_APP_REGISTER_SUBJECT,
-                    text: process.env.REACT_APP_REGISTER_MSG + "?email=" + user.email + "&token=" + encodeURI(user.password).replace(/\./g, '%2E')
+                    subject: config.EMAIL.REGISTRATION.SUBJECT,
+                    // TODO: Appending a query string to the value of an environment variable that does not have
+                    //       `..._WITHOUT_QUERY_STRING` in its name (or is documented accordingly) seems brittle to me.
+                    text: config.EMAIL.REGISTRATION.MESSAGE + "?email=" + user.email + "&token=" + encodeURI(user.password).replace(/\./g, '%2E')
                 }
                 sendMail(user.email, message, mail_token).then(data => {
                     msg = "Congratulations! Your account has been created successfully. Please check your email to activate your account.";
@@ -108,11 +112,14 @@ export const getActivationLink = (userData) => dispatch => {
             // Set new user
             dispatch(setNewUser(user));
 
-            if (process.env.REACT_APP_EMAIL_NOTIFICATION && process.env.REACT_APP_EMAIL_NOTIFICATION.toLowerCase() === 'true') {
+            if (config.EMAIL.IS_ENABLED) {
+                // TODO: Consolidate this recurring code with its other occurrences (e.g. into a helper function).
                 //sendmail
                 const message = {
-                    subject: process.env.REACT_APP_REGISTER_SUBJECT,
-                    text: process.env.REACT_APP_REGISTER_MSG + "?email=" + user.email + "&token=" + encodeURI(user.password).replace(/\./g, '%2E')
+                    subject: config.EMAIL.REGISTRATION.SUBJECT,
+                    // TODO: Appending a query string to the value of an environment variable that does not have
+                    //       `..._WITHOUT_QUERY_STRING` in its name (or is documented accordingly) seems brittle to me.
+                    text: config.EMAIL.REGISTRATION.MESSAGE + "?email=" + user.email + "&token=" + encodeURI(user.password).replace(/\./g, '%2E')
                 }
                 sendMail(user.email, message, mail_token).then(data => {
                     dispatch({
@@ -176,11 +183,13 @@ export const getResetpasswordLink = (userData) => dispatch => {
             // Set new user
             dispatch(setNewUser(user));
 
-            if (process.env.REACT_APP_EMAIL_NOTIFICATION && process.env.REACT_APP_EMAIL_NOTIFICATION.toLowerCase() === 'true') {
+            if (config.EMAIL.IS_ENABLED) {
                 //sendmail
                 const message = {
-                    subject: process.env.REACT_APP_RESETPASSWD_SUBJECT,
-                    text: process.env.REACT_APP_RESETPASSWD_MSG + "?email=" + user.email + "&token=" + encodeURI(user.password).replace(/\./g, '%2E')
+                    subject: config.EMAIL.PASSWORD_RESET.SUBJECT,
+                // TODO: Appending a query string to the value of an environment variable that does not have
+                //       `..._WITHOUT_QUERY_STRING` in its name (or is documented accordingly) seems brittle to me.
+                    text: config.EMAIL.PASSWORD_RESET.MESSAGE + "?email=" + user.email + "&token=" + encodeURI(user.password).replace(/\./g, '%2E')
                 }
 
                 sendMail(user.email, message, mail_token).then(data => {
@@ -302,10 +311,13 @@ export const socialLogin = (userData) => dispatch => {
                 const { user, mail_token } = data;
                 // Set new user
                 dispatch(setNewUser(user));
+                // TODO: Consolidate this recurring code with its other occurrences (e.g. into a helper function).
                 //sendmail
                 const message = {
-                    subject: process.env.REACT_APP_REGISTER_SUBJECT,
-                    text: process.env.REACT_APP_REGISTER_MSG + "?email=" + user.email + "&token=" + encodeURI(user.password).replace(/\./g, '%2E')
+                    subject: config.EMAIL.REGISTRATION.SUBJECT,
+                    // TODO: Appending a query string to the value of an environment variable that does not have
+                    //       `..._WITHOUT_QUERY_STRING` in its name (or is documented accordingly) seems brittle to me.
+                    text: config.EMAIL.REGISTRATION.MESSAGE + "?email=" + user.email + "&token=" + encodeURI(user.password).replace(/\./g, '%2E')
                 }
                 sendMail(user.email, message, mail_token).then(data => {
                     let msg = "Please check your email (" + user.email + ") to activate your account.";

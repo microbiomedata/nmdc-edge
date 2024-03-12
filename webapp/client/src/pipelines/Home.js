@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Row } from 'reactstrap';
+import config from "../config";
 
 function Home() {
   return (
@@ -18,7 +19,7 @@ function Home() {
             </p>
             <br></br>
             <p className="edge-text-font edge-text-size-large float-left">
-            A <a href={process.env.REACT_APP_API_URL + "/docs/help/quickStart.pdf"} target="_blank" rel="noreferrer">Quick Start Guide</a> along with 
+            A <a href={config.API.BASE_URI + "/docs/help/quickStart.pdf"} target="_blank" rel="noreferrer">Quick Start Guide</a> along with
             other <a href={"/tutorial"} target="_blank" rel="noreferrer">Tutorials and User Guides</a> are available for running workflows in NMDC EDGE. 
             The full <a href='https://nmdc-documentation.readthedocs.io/en/latest/index.html' target='_blank' rel="noreferrer">NMDC documentation site</a> provides more specific 
             information about the NMDC workflows and their associated tools and parameters. NMDC EDGE can either be installed locally 

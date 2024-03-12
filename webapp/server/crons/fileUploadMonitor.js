@@ -1,26 +1,28 @@
 const fs = require('fs');
+const path = require("path");
 const moment = require('moment');
 const Upload = require("../models/Upload");
 const logger = require('../util/logger');
+const config = require("../config");
 
 module.exports = function fileUploadMonitor() {
     logger.debug("file upload monitor");
 
     //delete file after deleteGracePeriod 
-    const deleteGracePeriod = moment().subtract(process.env.FILEUPLOAD_DELETE_GRACE_PERIOD, 'days');
+    const deleteGracePeriod = moment().subtract(config.FILE_UPLOADS.DELETION_GRACE_PERIOD_DAYS, 'days');
     Upload.find({ 'status': 'delete', 'updated': { '$lte': deleteGracePeriod } }).then(uploads => {
         var i;
         for (i = 0; i < uploads.length; i++) {
             const code = uploads[i].code;
             //delete file
-            const path = process.env.FILEUPLOAD_FILE_DIR + "/" + code;
-            fs.unlink(path, (err) => {
+            const filePath = path.join(config.IO.UPLOADED_FILES_DIR, code);
+            fs.unlink(filePath, (err) => {
                 if (err) {
-                    logger.error("Failed to delete " + path + ":" + err);
+                    logger.error("Failed to delete " + filePath + ":" + err);
                     return;
                 }
 
-                logger.info("deleted " + path);
+                logger.info("deleted " + filePath);
             });
             //delete from database
             Upload.deleteOne({ code: code }, function (err) {
@@ -32,7 +34,7 @@ module.exports = function fileUploadMonitor() {
     });
 
     //change status to 'delete' if upload is older than daysKept
-    const daysKept = moment().subtract(process.env.FILEUPLOAD_DAYS_KEPT, 'days');
+    const daysKept = moment().subtract(config.FILE_UPLOADS.FILE_LIFETIME_DAYS, 'days');
     Upload.find({ status: 'live', 'created': { '$lte': daysKept } }).then(uploads => {
         var i;
         for (i = 0; i < uploads.length; i++) {

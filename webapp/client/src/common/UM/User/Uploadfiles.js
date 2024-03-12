@@ -7,6 +7,7 @@ import { notify, formatFileSize, getData, postData, getFileExtension } from "../
 import 'react-toastify/dist/ReactToastify.css';
 
 import { LoaderDialog } from "../../Dialogs";
+import config from "../../../config";
 
 function Uploadfiles(props) {
     const [submitting, setSubmitting] = useState(false);
@@ -16,7 +17,7 @@ function Uploadfiles(props) {
     const [maxFileSizeBytes, setMaxFileSizeBytes] = useState(0);
     const [daysKept, setDaysKept] = useState(0);
 
-    const allowedExtensions = process.env.REACT_APP_FILEUPLOAD_ALLOWED_EXTENSIONS.split('|');
+    const allowedExtensions = config.UPLOADS.ALLOWED_FILE_EXTENSIONS;
 
     useEffect(() => {
         //get upload info

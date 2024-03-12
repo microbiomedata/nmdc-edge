@@ -4,12 +4,13 @@ import { Col, Row, Card, CardBody, Collapse } from 'reactstrap';
 import ReactJson from 'react-json-view';
 import { Header } from '../../../Common/Results/CardHeader';
 import Top_molecules from './Top_molecules';
+import config from "../../../../config";
 
 function EnviroMS(props) {
     const [collapseCard, setCollapseCard] = useState(true);
     const [input, setInput] = useState();
     const [inputOptions, setInputOptions] = useState();
-    const url = process.env.REACT_APP_API_URL + "/projects/" + props.project.code + "/";
+    const url = config.API.BASE_URI + "/projects/" + props.project.code + "/";
 
     useEffect(() => {
         let options = Object.keys(props.result.stats).map(item => {

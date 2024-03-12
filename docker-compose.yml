@@ -1,0 +1,59 @@
+version: "3"
+
+# These are the services that constitute this Docker Compose "stack".
+services:
+
+  # The NMDC EDGE web app (both client and server).
+  webapp:
+    build: { context: ".", dockerfile: "webapp-node18.Dockerfile" }
+    # Override the container image's default command (i.e. the `CMD` defined in the Dockerfile), so that
+    # PM2 runs in "watch" mode (i.e. so that PM2 restarts the application whenever a file changes).
+    # Reference: https://pm2.keymetrics.io/docs/usage/restart-strategies/
+    command: ["pm2-runtime", "start", "pm2.config.js", "--watch"]
+    volumes:
+      # Mount the host's "webapp" directory within the container, so that the container can "see" changes that
+      # are made on the host, and vice versa.
+      #
+      - "./webapp:/app/webapp"
+      #
+      # ...but, don't mount the following subdirectories. For these subdirectories, we want the container to be
+      # initialized with the subdirectories as they exist in the container image, instead of as they exist on the host.
+      # That way (a) the installed npm packages are consistent with the container's architecture (i.e. amd64 vs. arm64);
+      # and (b) the built client already exists and is ready to be served. See https://stackoverflow.com/a/62799209
+      # for an explanation of this "anonymous volume" technique.
+      #
+      - "/app/webapp/client/build"
+      - "/app/webapp/client/node_modules"
+      - "/app/webapp/server/node_modules"
+    environment:
+      DATABASE_HOST: mongo
+      DATABASE_PORT: 27017
+      APP_EXTERNAL_BASE_URL: http://localhost:8000
+      CROMWELL_API_BASE_URL: http://cromwell:8000
+      JWT_SECRET: "jwt-secret"
+      OAUTH_SECRET: "oauth-secret"
+      EMAIL_SHARED_SECRET: "email-shared-secret"
+    # Map localhost port 8000 to container port 8000.
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+      - cromwell
+
+  # A MongoDB server (see: https://hub.docker.com/_/mongo).
+  mongo:
+    image: mongo
+    restart: unless-stopped
+    # Map localhost port 27017 to container port 27017 (MongoDB server listens on port 27017 by default).
+    ports:
+      - "27017:27017"
+
+  # A Cromwell server (see: https://hub.docker.com/r/broadinstitute/cromwell).
+  cromwell:
+    image: broadinstitute/cromwell:87-b6d1f50
+    restart: unless-stopped
+    environment:
+      CROMWELL_ARGS: "server"
+    # Map localhost port 8001 to container port 8000 (Cromwell listens on port 8000 by default).
+    ports:
+      - "8001:8000"

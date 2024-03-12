@@ -13,6 +13,7 @@ const isEmpty = require("is-empty");
 
 const common = require("../common");
 const logger = require('../../util/logger');
+const config = require("../../config");
 
 const sysError = "API server error";
 
@@ -303,7 +304,7 @@ router.post("/project/outputs", (req, res) => {
         return res.status(400).json("Project code is required.");
     }
     logger.debug("/auth-api/admin/project/outputs: " + JSON.stringify(req.body.code));
-    const proj_dir = process.env.PROJECT_HOME;
+    const proj_dir = config.PROJECTS.BASE_DIR;
     let query = { 'code': req.body.code, 'status': { $ne: 'delete' } };
 
     Project.find(query).sort([['name', -1]]).then(function (projects) {

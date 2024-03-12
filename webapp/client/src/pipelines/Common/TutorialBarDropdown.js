@@ -13,6 +13,7 @@ import {
 import { VideoDialog } from '../../common/Dialogs';
 import TutorialBarDropdownItem from './TutorialBarDropdownItem';
 import TutorialBarDropdownVideoItem from './TutorialBarDropdownVideoItem';
+import config from "../../config";
 
 function TutorialBarDropdown(props) {
     const [video, setVideo] = useState();
@@ -26,7 +27,7 @@ function TutorialBarDropdown(props) {
 
     const setItem = (name, video) => {
         setName(name);
-        setVideo(process.env.REACT_APP_API_URL + video);
+        setVideo(config.API.BASE_URI + video);
         setOpenVideo(true);
     }
 
@@ -39,7 +40,7 @@ function TutorialBarDropdown(props) {
                 display: "flex", justifyContent: "center", alignItems: "center", color: 'white', fontWeight: 'bold', fontSize: '20px',
                 backgroundColor: props.bgcolor, height: '60px'
             }}>
-                <Col xs="3" md="3" lg="3">{props.title}</Col>
+                <Col xs="2" md="2" lg="2">{props.title}</Col>
                 <Col xs="2" md="2" lg="2">
                     {props.video &&
                         <center>
@@ -70,7 +71,7 @@ function TutorialBarDropdown(props) {
                                         display: "flex", justifyContent: "center", alignItems: "center", color: 'white',
                                         backgroundColor: 'black', fontWeight: 'bold', height: '30px'
                                     }}>Workflows</div>
-                                    <TutorialBarDropdownItem items={props.pdf} url={process.env.REACT_APP_API_URL} />
+                                    <TutorialBarDropdownItem items={props.pdf} url={config.API.BASE_URI} />
                                 </CDropdownMenu>
                             </CDropdown>
                         </center>
@@ -88,13 +89,31 @@ function TutorialBarDropdown(props) {
                                         display: "flex", justifyContent: "center", alignItems: "center", color: 'white',
                                         backgroundColor: 'black', fontWeight: 'bold', height: '30px'
                                     }}>Workflows</div>
-                                    <TutorialBarDropdownItem items={props.pdfSpanish} url={process.env.REACT_APP_API_URL} />
+                                    <TutorialBarDropdownItem items={props.pdfSpanish} url={config.API.BASE_URI} />
                                 </CDropdownMenu>
                             </CDropdown>
                         </center>
                     }
                 </Col>
-                <Col xs="3" md="3" lg="3">
+                <Col xs="2" md="2" lg="2">
+                    {props.pdfFrench &&
+                        <center>
+                            <CDropdown direction="down" >
+                                <CDropdownToggle style={{ color: 'white' }} caret={true} className="no-outline">
+                                    <FaFilePdf fontSize="large" />
+                                </CDropdownToggle>
+                                <CDropdownMenu className="pt-0" placement="bottom">
+                                    <div style={{
+                                        display: "flex", justifyContent: "center", alignItems: "center", color: 'white',
+                                        backgroundColor: 'black', fontWeight: 'bold', height: '30px'
+                                    }}>Workflows</div>
+                                    <TutorialBarDropdownItem items={props.pdfFrench} url={process.env.REACT_APP_API_URL} />
+                                </CDropdownMenu>
+                            </CDropdown>
+                        </center>
+                    }
+                </Col>
+                <Col xs="2" md="2" lg="2">
                     {props.docs &&
                         <center>
                             <CDropdown direction="down" >

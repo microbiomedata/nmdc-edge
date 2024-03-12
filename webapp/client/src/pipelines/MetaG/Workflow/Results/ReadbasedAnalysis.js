@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardBody, Collapse, TabContent, TabPane, Nav, NavItem, NavLink, Button, ButtonGroup } from 'reactstrap';
 import { JsonTable, ArrayTable } from '../../../../common/Tables';
 import { Header } from '../../../Common/Results/CardHeader';
+import config from "../../../../config";
 
 function ReadbasedAnalysis(props) {
     const [collapseCard, setCollapseCard] = useState(true);
@@ -18,7 +19,7 @@ function ReadbasedAnalysis(props) {
     const [detailLevel, setDetailLevel] = useState("species");
     const detailHeaders = ["Level", "Taxonomy", "Reads", "Abundance"];
 
-    const url = process.env.REACT_APP_API_URL + "/projects/" + props.project.code + "/";
+    const url = config.API.BASE_URI + "/projects/" + props.project.code + "/";
 
     useEffect(() => {
         let summary = props.result.summary;

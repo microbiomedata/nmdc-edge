@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const mg = require('nodemailer-mailgun-transport');
+const config = require("../config");
 
 module.exports = function sendMail(from, recipient, message) {
     return new Promise((resolve, reject) => {
@@ -15,24 +16,24 @@ module.exports = function sendMail(from, recipient, message) {
             data.html = message.html;
         }
 
-        const service = process.env.SENDMAIL_SERVICE;
-        let config = {};
+        const service = config.EMAIL.SERVICE_IDENTIFIER;
+        let transporterConfig = {};
         let transporter = null;
-        if (process.env.SENDMAIL_PROXY) {
-            config.proxy = process.env.SENDMAIL_PROXY;
+        if (typeof config.EMAIL.SERVICE_PROXY_URL === "string" && config.EMAIL.SERVICE_PROXY_URL.length > 0) {
+            transporterConfig.proxy = config.EMAIL.SERVICE_PROXY_URL;
         }
         if (service === 'mailgun') {
-            config.auth = {
-                api_key: process.env.SENDMAIL_USER,
-                domain: process.env.SENDMAIL_PASS,
+            transporterConfig.auth = {
+                api_key: config.EMAIL.SERVICE_USERNAME, // TODO: Did you mean `.SERVICE_TOKEN`?
+                domain: config.EMAIL.SERVICE_PASSWORD, // TODO: Did you mean... something else?
             }
-            transporter = nodemailer.createTransport(mg(config));
+            transporter = nodemailer.createTransport(mg(transporterConfig));
         } else {
-            config.auth = {
-                user: process.env.SENDMAIL_USER,
-                pass: process.env.SENDMAIL_PASS,
+            transporterConfig.auth = {
+                user: config.EMAIL.SERVICE_USERNAME,
+                pass: config.EMAIL.SERVICE_PASSWORD,
             }
-            transporter = nodemailer.createTransport(config);
+            transporter = nodemailer.createTransport(transporterConfig);
         }
 
         transporter.sendMail(data, function (error, info) {

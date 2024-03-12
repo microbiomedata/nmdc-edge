@@ -6,6 +6,7 @@ import "jgi_assembly.wdl" as metaAssembly
 import "annotation_full.wdl" as metaAnnotation
 import "annotation_output.wdl" as metaAnnotationOutput
 import "mbin_nmdc.wdl" as metaMAGs
+import "viral-plasmid_wf.wdl" as viralPlasmid
 import "mbin_nmdc_output.wdl" as metaMAGsOutput
 
 workflow main_workflow {
@@ -58,7 +59,6 @@ workflow main_workflow {
 
     }
 
-    File readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final[0]
 	## ReadbasedAnalysis workflow
 	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
 		"gottcha2": true,
@@ -534,6 +534,7 @@ task finish {
 				)
 				(cd hqmq && zip ${magsdir}/${prefix}_hqmq_bins.zip *.zip)
 				fi
+			fi
 
 			#IFS=""
 			/scripts/generate_objects.py --type "MAGs" --id ${informed_by} \
