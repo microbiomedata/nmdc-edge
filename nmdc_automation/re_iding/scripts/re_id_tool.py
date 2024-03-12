@@ -741,7 +741,7 @@ def delete_old_binning_data(ctx, mongo_uri, database_name, direct_connection, no
               help=f"Optional base URL for the NMDC API. Default: {NAPA_BASE_URL}")
 @click.option("--untyped-data-objects", is_flag=True, default=False)
 @click.pass_context
-def orphan_data_objects(ctx, study_id, api_base_url, untyped_data_objects=False):
+def find_missing_data_objects(ctx, study_id, api_base_url, untyped_data_objects=False):
     """
     Scan project data directories, read in the data object records from 'data_objects.json'
     and find data objects that:
@@ -766,7 +766,7 @@ def orphan_data_objects(ctx, study_id, api_base_url, untyped_data_objects=False)
         api_client.get_omics_processing_records_part_of_study(
             study_id
         ))
-    orphan_data_object_ids = set()
+    missing_data_object_ids = set()
     untyped_data_objects = []
     # 2. For each OmicsProcessing record, find the legacy identifier:
     for omics_processing_record in omics_processing_records:
@@ -793,7 +793,7 @@ def orphan_data_objects(ctx, study_id, api_base_url, untyped_data_objects=False)
                     if not data_object_record:
                         logging.warning(f"{informed_by_id} : {workflow_record['id']} "
                                        f"{workflow_record['name']} missing: {data_object_id}")
-                        orphan_data_object_ids.add(data_object_id)
+                        missing_data_object_ids.add(data_object_id)
                         continue
 
     logging.info(f"Elapsed time: {time.time() - start_time}")
@@ -802,18 +802,18 @@ def orphan_data_objects(ctx, study_id, api_base_url, untyped_data_objects=False)
         with open(f"{study_id}_untyped_data_objects.json", "w") as f:
             f.write(json.dumps(untyped_data_objects, indent=4))
     else:
-        logging.info(f"Found {len(orphan_data_object_ids)} missing data objects")
-        # get orphaned data objects from the data_objects_by_id if present
-        orphaned_data_objects = []
-        for data_object_id in orphan_data_object_ids:
+        logging.info(f"Found {len(missing_data_object_ids)} missing data objects")
+        # get missing data objects from the data_objects_by_id if present
+        missing_data_objects = []
+        for data_object_id in missing_data_object_ids:
             if data_object_id in data_objects_by_id:
-                orphaned_data_objects.append(data_objects_by_id[data_object_id])
+                missing_data_objects.append(data_objects_by_id[data_object_id])
             else:
-                logging.warning(f"orphaned data object {data_object_id} not found in data_objects.json")
-        logging.info(f"Writing {len(orphaned_data_objects)} orphaned data objects to orphaned_data_objects.json")
-        if orphaned_data_objects:
-            with open(f"{study_id}_orphaned_data_objects.json", "w") as f:
-                f.write(json.dumps(orphaned_data_objects, indent=4))
+                logging.warning(f"Missing data object {data_object_id} not found in data_objects.json")
+        logging.info(f"Writing {len(missing_data_objects)} missing data objects to missing_data_objects.json")
+        if missing_data_objects:
+            with open(f"{study_id}_missing_data_objects.json", "w") as f:
+                f.write(json.dumps(missing_data_objects, indent=4))
 
 
 @cli.command()
