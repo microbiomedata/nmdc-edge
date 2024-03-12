@@ -1,0 +1,1508 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:34: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Extracting workflow records for study_id: nmdc:sty-11-8fb6t785
+INFO:root:study_id: nmdc:sty-11-8fb6t785
+INFO:root:Retrieved 23 OmicsProcessing records for study nmdc:sty-11-8fb6t785
+INFO:root:omics_processing_record: nmdc:omprc-11-ahcjx717
+INFO:root:legacy_id: gold:Gp0119849
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-ahcjx717
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df5b90d878540fd6fe202
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119849
+INFO:root:found 1 records
+INFO:root:record: nmdc:22e21ef026913d9514e67ad8e0eec604, Read QC Activity for nmdc:mga0jfwq54
+INFO:root:PassingDataObject: nmdc:a87566efafce97a9e99a3bb94e42b56c
+INFO:root:PassingDataObject: nmdc:f57b6f3aeda36484319fb9c345cfe600
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119849
+INFO:root:found 1 records
+INFO:root:record: nmdc:22e21ef026913d9514e67ad8e0eec604, ReadBased Analysis Activity for nmdc:mga0jfwq54
+INFO:root:PassingDataObject: nmdc:29445394b66469bbfd6972fae3b7be2a
+INFO:root:PassingDataObject: nmdc:240a6e819568135189afedbc52a9f9f3
+INFO:root:PassingDataObject: nmdc:383e7886c9b93ecbf98bdd815ebe9f79
+INFO:root:PassingDataObject: nmdc:d33b8adac7c87df1a1706daae4aac29b
+INFO:root:PassingDataObject: nmdc:c543c400f77bd8e08636116c3a4681d6
+INFO:root:PassingDataObject: nmdc:690ccd842d80dbd79294fd8efd7df668
+INFO:root:PassingDataObject: nmdc:b2b6fa1385acdad8f0827b029540a6c9
+INFO:root:PassingDataObject: nmdc:d585fce17e6c7badda857c559faf9723
+INFO:root:PassingDataObject: nmdc:3dd3d00f873c18b2e59b839ead67c778
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119849
+INFO:root:found 1 records
+INFO:root:record: nmdc:22e21ef026913d9514e67ad8e0eec604, Assembly Activity for nmdc:mga0jfwq54
+INFO:root:PassingDataObject: nmdc:dcad1c15a762628715a1316e84badbbc
+INFO:root:PassingDataObject: nmdc:d712cc8ba2e860e2c7d6ed01305d875c
+INFO:root:PassingDataObject: nmdc:e2a3484c735353d5e6d5b13c333bbeac
+INFO:root:PassingDataObject: nmdc:44b3fa54ba0cb93a37ed626b21354508
+INFO:root:PassingDataObject: nmdc:59faa6c9e3228b3d7c7d1b80dc2ec9e3
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119849
+INFO:root:found 1 records
+INFO:root:record: nmdc:22e21ef026913d9514e67ad8e0eec604, Annotation Activity for nmdc:mga0jfwq54
+INFO:root:PassingDataObject: nmdc:1ea616c9664276341a688252337ae0bf
+INFO:root:PassingDataObject: nmdc:07cb4835969e2165d1b929e0350616a0
+INFO:root:PassingDataObject: nmdc:4084daf80dc14c7a5d14fe387631ee68
+INFO:root:PassingDataObject: nmdc:e6ff10df7baae3b25249c3ed25ce1092
+INFO:root:PassingDataObject: nmdc:cd5e26eb9e375b127394ae9c1a404b72
+INFO:root:PassingDataObject: nmdc:1d975322e1053cf6dc28c68557834f75
+INFO:root:PassingDataObject: nmdc:7314a7d70ba0f72dfafa856ef51ff77d
+INFO:root:PassingDataObject: nmdc:919275eab1b2eff697b1f126a403d7a8
+INFO:root:PassingDataObject: nmdc:dcd69fb1d06c2e0e81aa6c3e8a47a4d6
+INFO:root:PassingDataObject: nmdc:6421ef4cc738c134eadfd5011c14563f
+INFO:root:PassingDataObject: nmdc:8f196b9c700a17b1625eed8ce66ca523
+INFO:root:PassingDataObject: nmdc:c11e98db2d8c33154510378a029fca04
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119849
+INFO:root:found 1 records
+INFO:root:record: nmdc:22e21ef026913d9514e67ad8e0eec604, MAGs Analysis Activity for nmdc:mga0jfwq54
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:22e21ef026913d9514e67ad8e0eec604
+ERROR:root:DataObjectNotFound nmdc:fde7c45ed03675e4dd7b7fba9aa8a5a2 for nmdc:MAGsAnalysisActivity/nmdc:22e21ef026913d9514e67ad8e0eec604
+ERROR:root:DataObjectNotFound nmdc:55b285e508b8a79e96355079a24d3b2f for nmdc:MAGsAnalysisActivity/nmdc:22e21ef026913d9514e67ad8e0eec604
+ERROR:root:DataObjectNotFound nmdc:7b2437d0d787888db28c6891ca5ad04a for nmdc:MAGsAnalysisActivity/nmdc:22e21ef026913d9514e67ad8e0eec604
+ERROR:root:FailedDataObject: nmdc:38c2006dc930f7cb8db52f4e2eda3bf1,
+ERROR:root:DataObjectNotFound nmdc:52d0bc80f4af44b60382600f8d1df96a for nmdc:MAGsAnalysisActivity/nmdc:22e21ef026913d9514e67ad8e0eec604
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:22e21ef026913d9514e67ad8e0eec604, MAGs Analysis Activity for nmdc:mga0jfwq54
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119849
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-q457kv14
+INFO:root:legacy_id: gold:Gp0119851
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-q457kv14
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df5b50d878540fd6fe1fc
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119851
+INFO:root:found 1 records
+INFO:root:record: nmdc:d33d65c1672bc3083d12f9ccece6e430, Read QC Activity for nmdc:mga0s38291
+INFO:root:PassingDataObject: nmdc:33ed4578f6fe6b4ffdaadc5213be5d76
+INFO:root:PassingDataObject: nmdc:9845f07f87c57efad76502c4bf165c9c
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119851
+INFO:root:found 1 records
+INFO:root:record: nmdc:d33d65c1672bc3083d12f9ccece6e430, ReadBased Analysis Activity for nmdc:mga0s38291
+INFO:root:PassingDataObject: nmdc:ddf2a8463e05dfe298ea46e0be272e1f
+INFO:root:PassingDataObject: nmdc:97d87706efaf575734ac73fe4b563569
+INFO:root:PassingDataObject: nmdc:b9086162f9df32ddef118a1cf5d6883c
+INFO:root:PassingDataObject: nmdc:044bcba2b7f3bf02b53b08cc9b6c684f
+INFO:root:PassingDataObject: nmdc:a2d40e3f2a20fdce858064c970f20ebd
+INFO:root:PassingDataObject: nmdc:4d591416c2bd450570efa96fabdddd67
+INFO:root:PassingDataObject: nmdc:04d10593cb25f887adbdc322f2036c00
+INFO:root:PassingDataObject: nmdc:e5e83df27ee142c750a1e3348c66077e
+INFO:root:PassingDataObject: nmdc:5b768d473c386ed08dc31442ebe59551
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119851
+INFO:root:found 1 records
+INFO:root:record: nmdc:d33d65c1672bc3083d12f9ccece6e430, Assembly Activity for nmdc:mga0s38291
+INFO:root:PassingDataObject: nmdc:e5e5c9c66b6cf8596b1308675bd2e9d0
+INFO:root:PassingDataObject: nmdc:ee1b52a95388196053f6dbd52f0e8726
+INFO:root:PassingDataObject: nmdc:65eb750011587b5461a055fa33490858
+INFO:root:PassingDataObject: nmdc:1d431a3abae31dca611f406f5e300a7b
+INFO:root:PassingDataObject: nmdc:284a9b71a458c9ebd7f0fd4446478466
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119851
+INFO:root:found 1 records
+INFO:root:record: nmdc:d33d65c1672bc3083d12f9ccece6e430, Annotation Activity for nmdc:mga0s38291
+INFO:root:PassingDataObject: nmdc:aa734a26e5c54f3a4c1e33fc97e5b6db
+INFO:root:PassingDataObject: nmdc:770e26d256122dab3f5d5fe026ea157b
+INFO:root:PassingDataObject: nmdc:79ebad70d4aba8d32490b43f622698d7
+INFO:root:PassingDataObject: nmdc:5206211e5e526fb65a01536cad3f74d6
+INFO:root:PassingDataObject: nmdc:7646387d97df969001b70881f9086e1a
+INFO:root:PassingDataObject: nmdc:526f19b02cda3069b7ea018a54a8f992
+INFO:root:PassingDataObject: nmdc:958672e820d896e0b825b28f34248c27
+INFO:root:PassingDataObject: nmdc:f0f70fb67d2cf53bfc6f6a9f87bab4e6
+INFO:root:PassingDataObject: nmdc:78d20a23c762f1b11d2ed13537df9275
+INFO:root:PassingDataObject: nmdc:8a7a98e071ec7aa44c5866f1716f006b
+INFO:root:PassingDataObject: nmdc:6f4d643d913608acdf3c529f20499d01
+INFO:root:PassingDataObject: nmdc:8f96aa904627a4a3ce0d4be2bf046e3f
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119851
+INFO:root:found 1 records
+INFO:root:record: nmdc:d33d65c1672bc3083d12f9ccece6e430, MAGs Analysis Activity for nmdc:mga0s38291
+ERROR:root:DataObjectNotFound nmdc:163e27acedcdcc757a3e022b2b724c3f for nmdc:MAGsAnalysisActivity/nmdc:d33d65c1672bc3083d12f9ccece6e430
+ERROR:root:DataObjectNotFound nmdc:ef7c283447da07d6e0cfa6adfeb76ddf for nmdc:MAGsAnalysisActivity/nmdc:d33d65c1672bc3083d12f9ccece6e430
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:d33d65c1672bc3083d12f9ccece6e430
+ERROR:root:FailedDataObject: nmdc:7f30870d63b49d6a9fea574776bf2b65,
+ERROR:root:DataObjectNotFound nmdc:2a5bcee97e2df31c7fd723c7dc0c5d4f for nmdc:MAGsAnalysisActivity/nmdc:d33d65c1672bc3083d12f9ccece6e430
+ERROR:root:DataObjectNotFound nmdc:e2921cb90af8461763559ec2f093f2d5 for nmdc:MAGsAnalysisActivity/nmdc:d33d65c1672bc3083d12f9ccece6e430
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:d33d65c1672bc3083d12f9ccece6e430, MAGs Analysis Activity for nmdc:mga0s38291
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119851
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-mspwf315
+INFO:root:legacy_id: gold:Gp0119853
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-mspwf315
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df36f0d878540fd6fe1c7
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119853
+INFO:root:found 1 records
+INFO:root:record: nmdc:71bbad1a58cd51e6190b66f925cfb8f5, Read QC Activity for nmdc:mga0tyn058
+INFO:root:PassingDataObject: nmdc:b481648f8154d2ca532a8a64fdb8a7ee
+INFO:root:PassingDataObject: nmdc:096ddb456d9d09f68a93586823c30c9d
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119853
+INFO:root:found 1 records
+INFO:root:record: nmdc:71bbad1a58cd51e6190b66f925cfb8f5, ReadBased Analysis Activity for nmdc:mga0tyn058
+INFO:root:PassingDataObject: nmdc:af1cdac68dc47d6c89dcc43ef25c3484
+INFO:root:PassingDataObject: nmdc:99cb03af468bcf68164dd73a24966433
+INFO:root:PassingDataObject: nmdc:45b93374f5d8323f24e19881e19e7bb4
+INFO:root:PassingDataObject: nmdc:b9dedb38da1959178648f2470c558074
+INFO:root:PassingDataObject: nmdc:4fbba103ba85fa9cbe211eef2b6ca1d9
+INFO:root:PassingDataObject: nmdc:ea048abb879cc24521477f96c635fe55
+INFO:root:PassingDataObject: nmdc:235fc3f88e203a17409c9d5fe809a3ff
+INFO:root:PassingDataObject: nmdc:cfa6be80cfa9eac012c009e0e0846a16
+INFO:root:PassingDataObject: nmdc:579cfdd0130e89aa2b5bc49f5590c608
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119853
+INFO:root:found 1 records
+INFO:root:record: nmdc:71bbad1a58cd51e6190b66f925cfb8f5, Assembly Activity for nmdc:mga0tyn058
+INFO:root:PassingDataObject: nmdc:f65d9327e9d5bfe68dee46be951f10d4
+INFO:root:PassingDataObject: nmdc:7255fa2608b4b3eaf439419ecbf533da
+INFO:root:PassingDataObject: nmdc:9bc69e7441ad0c4c1cffd74ccb1e6bac
+INFO:root:PassingDataObject: nmdc:e478fb39f3773cc9c6710f26134065c6
+INFO:root:PassingDataObject: nmdc:05630cf0e878439dd116072fc3c86d36
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119853
+INFO:root:found 1 records
+INFO:root:record: nmdc:71bbad1a58cd51e6190b66f925cfb8f5, Annotation Activity for nmdc:mga0tyn058
+INFO:root:PassingDataObject: nmdc:29335cf722c4b2d9ddc8d655b758764a
+INFO:root:PassingDataObject: nmdc:2c9fa8ba31dd1b3eb81a7a922eedad42
+INFO:root:PassingDataObject: nmdc:47b5268d8202d3818c6ea0578c64b948
+INFO:root:PassingDataObject: nmdc:0c31a19ae762380bb18635e545703f7c
+INFO:root:PassingDataObject: nmdc:2e9580758c3e6f90323ba29d7789881f
+INFO:root:PassingDataObject: nmdc:07108b90dca7403f0cda3c682a39b80c
+INFO:root:PassingDataObject: nmdc:9df7842de9bd10b7bfffdf122a81d20f
+INFO:root:PassingDataObject: nmdc:6b2539c4784f5a71c8bf64c65c396f46
+INFO:root:PassingDataObject: nmdc:ec0380382be5ea506ebc6c98865d2ee2
+INFO:root:PassingDataObject: nmdc:5c1c9494c0265edc0063312177f8103e
+INFO:root:PassingDataObject: nmdc:a3cfb0010f431f00e1d36c7d1ba301e0
+INFO:root:PassingDataObject: nmdc:18e42b56c81bee7cce4539bf4a81e6cc
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119853
+INFO:root:found 1 records
+INFO:root:record: nmdc:71bbad1a58cd51e6190b66f925cfb8f5, MAGs Analysis Activity for nmdc:mga0tyn058
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:71bbad1a58cd51e6190b66f925cfb8f5
+ERROR:root:FailedDataObject: nmdc:2654935e5a91bc06434a4a647975d054,
+ERROR:root:DataObjectNotFound nmdc:bc04046ca73e9c419e2d6300b1889beb for nmdc:MAGsAnalysisActivity/nmdc:71bbad1a58cd51e6190b66f925cfb8f5
+ERROR:root:DataObjectNotFound nmdc:33ec8d70bf62eb2bbe7b32f5e15b2035 for nmdc:MAGsAnalysisActivity/nmdc:71bbad1a58cd51e6190b66f925cfb8f5
+ERROR:root:DataObjectNotFound nmdc:8fcdb872f1a00c526d21c90eefe2fe69 for nmdc:MAGsAnalysisActivity/nmdc:71bbad1a58cd51e6190b66f925cfb8f5
+ERROR:root:DataObjectNotFound nmdc:47b20ddea56b55709e6f8d9e5fa99f4d for nmdc:MAGsAnalysisActivity/nmdc:71bbad1a58cd51e6190b66f925cfb8f5
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:71bbad1a58cd51e6190b66f925cfb8f5, MAGs Analysis Activity for nmdc:mga0tyn058
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119853
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-r3821s28
+INFO:root:legacy_id: gold:Gp0119858
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-r3821s28
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df5ba0d878540fd6fe203
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119858
+INFO:root:found 1 records
+INFO:root:record: nmdc:d7ee6ea807bff67b75f4ab80609e213f, Read QC Activity for nmdc:mga0t1k874
+INFO:root:PassingDataObject: nmdc:4aa539150c9237638d437aca0039919e
+INFO:root:PassingDataObject: nmdc:ca8cef098d6e23f2882bde625674bfa1
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119858
+INFO:root:found 1 records
+INFO:root:record: nmdc:d7ee6ea807bff67b75f4ab80609e213f, ReadBased Analysis Activity for nmdc:mga0t1k874
+INFO:root:PassingDataObject: nmdc:b6cb3aadb265b0bb6efd8e56de1f0f4d
+INFO:root:PassingDataObject: nmdc:9dd14e6b80bc74a94d11855f9b40a494
+INFO:root:PassingDataObject: nmdc:2e6e862447b6813ae9085fd7cd0cc15e
+INFO:root:PassingDataObject: nmdc:1fc591039fa9014c83f98613402d3dfd
+INFO:root:PassingDataObject: nmdc:32634814ea35dc9d9cd2b13af86d8dc3
+INFO:root:PassingDataObject: nmdc:f03e13e646e4ff20272bbf9fef27e3e6
+INFO:root:PassingDataObject: nmdc:77738e9cb7e7edc91a71d77e77f6ad78
+INFO:root:PassingDataObject: nmdc:87178f480db11c48151e82776d63e0ca
+INFO:root:PassingDataObject: nmdc:cf76e68caa214f514a199d9cdf47bee9
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119858
+INFO:root:found 1 records
+INFO:root:record: nmdc:d7ee6ea807bff67b75f4ab80609e213f, Assembly Activity for nmdc:mga0t1k874
+INFO:root:PassingDataObject: nmdc:2cb85bcf96b582fe1fe4213d7ed6226e
+INFO:root:PassingDataObject: nmdc:ce00d58196ab832fb3306231639c7eae
+INFO:root:PassingDataObject: nmdc:f79dcfd8e7a3906019954975e1df34a2
+INFO:root:PassingDataObject: nmdc:ddfc52144c47fea5c94e690576c0fed9
+INFO:root:PassingDataObject: nmdc:0eb5598d0f7c9c4780804b57b3f43957
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119858
+INFO:root:found 1 records
+INFO:root:record: nmdc:d7ee6ea807bff67b75f4ab80609e213f, Annotation Activity for nmdc:mga0t1k874
+INFO:root:PassingDataObject: nmdc:11b981c284ca7a58b8c996442e17e894
+INFO:root:PassingDataObject: nmdc:c080f8fe5dd7e3153b69cbebdc6eb732
+INFO:root:PassingDataObject: nmdc:d42a7f4f7a91533fa91b3167d0363baa
+INFO:root:PassingDataObject: nmdc:1fa103f252b881c9a0034991405a37ed
+INFO:root:PassingDataObject: nmdc:106043abf68dc4999936530d75db61c3
+INFO:root:PassingDataObject: nmdc:4456bb3f27f48ded81c9f8ef97ccbc1d
+INFO:root:PassingDataObject: nmdc:7c19af05f3893ea5aba35e2870c05098
+INFO:root:PassingDataObject: nmdc:f2a2de9ba03ec039dc221fb04b79b807
+INFO:root:PassingDataObject: nmdc:06ead20673214901eb135ed769cb0730
+INFO:root:PassingDataObject: nmdc:5c8f14cc8b95522a8d4039feecf11e36
+INFO:root:PassingDataObject: nmdc:2537d013dc559ae41c95a3da8da05643
+INFO:root:PassingDataObject: nmdc:da6c58680a8b6164ec9d85a3edfea49f
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119858
+INFO:root:found 1 records
+INFO:root:record: nmdc:d7ee6ea807bff67b75f4ab80609e213f, MAGs Analysis Activity for nmdc:mga0t1k874
+ERROR:root:DataObjectNotFound nmdc:4be9fbc49d724f5d7e4f755f3424b14d for nmdc:MAGsAnalysisActivity/nmdc:d7ee6ea807bff67b75f4ab80609e213f
+ERROR:root:FailedDataObject: nmdc:d7fd2b2506ab787723b3d2a57469d1fa,
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:d7ee6ea807bff67b75f4ab80609e213f
+ERROR:root:DataObjectNotFound nmdc:b9351b819a40741049ac1eb89cdf1231 for nmdc:MAGsAnalysisActivity/nmdc:d7ee6ea807bff67b75f4ab80609e213f
+ERROR:root:DataObjectNotFound nmdc:53c369a0a22245d50789021f80405578 for nmdc:MAGsAnalysisActivity/nmdc:d7ee6ea807bff67b75f4ab80609e213f
+ERROR:root:DataObjectNotFound nmdc:7e329552b9d48f3d4d29757beea4b888 for nmdc:MAGsAnalysisActivity/nmdc:d7ee6ea807bff67b75f4ab80609e213f
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:d7ee6ea807bff67b75f4ab80609e213f, MAGs Analysis Activity for nmdc:mga0t1k874
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119858
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-m7p5j003
+INFO:root:legacy_id: gold:Gp0119850
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-m7p5j003
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df3730d878540fd6fe1cd
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119850
+INFO:root:found 1 records
+INFO:root:record: nmdc:f8697f5eabfbe268fe8c46d629d74a3d, Read QC Activity for nmdc:mga0wjj555
+INFO:root:PassingDataObject: nmdc:e2a4d00eadac0c31535144af71d802b4
+INFO:root:PassingDataObject: nmdc:927f7cd7cfb5e77d745a13c380ad8554
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119850
+INFO:root:found 1 records
+INFO:root:record: nmdc:f8697f5eabfbe268fe8c46d629d74a3d, ReadBased Analysis Activity for nmdc:mga0wjj555
+INFO:root:PassingDataObject: nmdc:3ed5f5501460699e35c05a40a6f8fd43
+INFO:root:PassingDataObject: nmdc:a6fb4c15e5684dc8fa75f3c7aaafcf47
+INFO:root:PassingDataObject: nmdc:293c1b40f998968f921242bd4a0359e4
+INFO:root:PassingDataObject: nmdc:51bedf2b27be026f81ba0c57d6ffa064
+INFO:root:PassingDataObject: nmdc:d1b39fc2d889ec3821be0b5929ac8cf1
+INFO:root:PassingDataObject: nmdc:89b1975173c1b889b27bbfef18ecd4ed
+INFO:root:PassingDataObject: nmdc:ccf06daa05d1a692815fff27c69bc119
+INFO:root:PassingDataObject: nmdc:70f650b8d6d021fb6dd71588b0959c23
+INFO:root:PassingDataObject: nmdc:c8c0673586e67c6005170d38f47dc9b4
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119850
+INFO:root:found 1 records
+INFO:root:record: nmdc:f8697f5eabfbe268fe8c46d629d74a3d, Assembly Activity for nmdc:mga0wjj555
+INFO:root:PassingDataObject: nmdc:ed5aaaab658157602b542ea5558fecc6
+INFO:root:PassingDataObject: nmdc:276bab3d85b7efe0dee9978e94aba7dd
+INFO:root:PassingDataObject: nmdc:53857e6c98fda98819f57c2bfb926b4e
+INFO:root:PassingDataObject: nmdc:97dacc54aaa7258b55ecc55aa29bf686
+INFO:root:PassingDataObject: nmdc:cdb5d42847ef59ef565fea89a4ee7de6
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119850
+INFO:root:found 1 records
+INFO:root:record: nmdc:f8697f5eabfbe268fe8c46d629d74a3d, Annotation Activity for nmdc:mga0wjj555
+INFO:root:PassingDataObject: nmdc:2e15cb998f4582ab1d12906db18adab2
+INFO:root:PassingDataObject: nmdc:fd34f0a50116264cbebd9f95feecd6a7
+INFO:root:PassingDataObject: nmdc:eb1bcf94c4824f8a311d542708a2fea5
+INFO:root:PassingDataObject: nmdc:658d49561441147d1b22a9d6e1007d47
+INFO:root:PassingDataObject: nmdc:136b8f13132fd6ee08c56497b9a149bb
+INFO:root:PassingDataObject: nmdc:7f7c8c6bcc4e56d3fe80bd798f912e39
+INFO:root:PassingDataObject: nmdc:2d41e48366af1cc1b0f31abb85c7b620
+INFO:root:PassingDataObject: nmdc:3054d5060fb91a8d8c282be2582ca78e
+INFO:root:PassingDataObject: nmdc:0cfdd3ec305d7775a5e67ca8780ee941
+INFO:root:PassingDataObject: nmdc:6c638dd4c5368f164844667000943e44
+INFO:root:PassingDataObject: nmdc:477db31098cdc2fa0064a92f8d4749bc
+INFO:root:PassingDataObject: nmdc:331ad6a440c199dc322733a38a9a75e1
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119850
+INFO:root:found 1 records
+INFO:root:record: nmdc:f8697f5eabfbe268fe8c46d629d74a3d, MAGs Analysis Activity for nmdc:mga0wjj555
+ERROR:root:DataObjectNotFound nmdc:9c71f0c0d9bd14711440e42aa36b2a13 for nmdc:MAGsAnalysisActivity/nmdc:f8697f5eabfbe268fe8c46d629d74a3d
+ERROR:root:DataObjectNotFound nmdc:439a3405b2afc5c635c8493b256cac07 for nmdc:MAGsAnalysisActivity/nmdc:f8697f5eabfbe268fe8c46d629d74a3d
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:f8697f5eabfbe268fe8c46d629d74a3d
+ERROR:root:FailedDataObject: nmdc:4bc01c7e8cba367adb7f0d1ea6d795ff,
+ERROR:root:DataObjectNotFound nmdc:77cda87ff58e9ba219eb885240e5098f for nmdc:MAGsAnalysisActivity/nmdc:f8697f5eabfbe268fe8c46d629d74a3d
+ERROR:root:DataObjectNotFound nmdc:ad282c70035b72c35a5b795b5e8c2f12 for nmdc:MAGsAnalysisActivity/nmdc:f8697f5eabfbe268fe8c46d629d74a3d
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:f8697f5eabfbe268fe8c46d629d74a3d, MAGs Analysis Activity for nmdc:mga0wjj555
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119850
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-pmgah004
+INFO:root:legacy_id: gold:Gp0119855
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-pmgah004
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df5ac0d878540fd6fe1eb
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119855
+INFO:root:found 1 records
+INFO:root:record: nmdc:3242b01ba1155fcbdf2f140ce4439b41, Read QC Activity for nmdc:mga0rhwf78
+INFO:root:PassingDataObject: nmdc:edda4c2c71997011ec13230a36955fb7
+INFO:root:PassingDataObject: nmdc:c4c25a3b4cb43f6829a9e91ebf38d46d
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119855
+INFO:root:found 1 records
+INFO:root:record: nmdc:3242b01ba1155fcbdf2f140ce4439b41, ReadBased Analysis Activity for nmdc:mga0rhwf78
+INFO:root:PassingDataObject: nmdc:7048fd73e300305a69e150993b2b2199
+INFO:root:PassingDataObject: nmdc:a3e2201278b2290c0bf5a3124c60b2f5
+INFO:root:PassingDataObject: nmdc:bebb860b29a80c50e8b8d77d09267d3e
+INFO:root:PassingDataObject: nmdc:24055da71c4fa3cccbd40334b18ad3f8
+INFO:root:PassingDataObject: nmdc:0b0a32234f0f24150414912dde84d517
+INFO:root:PassingDataObject: nmdc:7640dd6bc8fd2ab4ac8db0f223c811db
+INFO:root:PassingDataObject: nmdc:150bcf191dc41f8e53ebf05299d1889f
+INFO:root:PassingDataObject: nmdc:3ddc464c63e36738e0aa69b472a06d85
+INFO:root:PassingDataObject: nmdc:56ebbe81ee6e491f2e97aa4793494038
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119855
+INFO:root:found 1 records
+INFO:root:record: nmdc:3242b01ba1155fcbdf2f140ce4439b41, Assembly Activity for nmdc:mga0rhwf78
+INFO:root:PassingDataObject: nmdc:1170daa2f3051db4fe87f70770b57ebc
+INFO:root:PassingDataObject: nmdc:fef50041169407aebd79ac3db3a23247
+INFO:root:PassingDataObject: nmdc:86896d7fad67fa01144d51eb1c5f4194
+INFO:root:PassingDataObject: nmdc:120c0ab8dd7f764030bf7a6a3b8f2f2a
+INFO:root:PassingDataObject: nmdc:72d9b2da970226ddc4b29af3a80369f2
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119855
+INFO:root:found 1 records
+INFO:root:record: nmdc:3242b01ba1155fcbdf2f140ce4439b41, Annotation Activity for nmdc:mga0rhwf78
+INFO:root:PassingDataObject: nmdc:f08e6505606ddadb256232c3509372d3
+INFO:root:PassingDataObject: nmdc:35243540dd1e2d89352f8cfd5ab68382
+INFO:root:PassingDataObject: nmdc:c966f9f11d9212288d708bde36577f73
+INFO:root:PassingDataObject: nmdc:cf0bd3a64372722f017a2670ad7f4d64
+INFO:root:PassingDataObject: nmdc:26b2f10cb1bb7991f3324291884d1fbf
+INFO:root:PassingDataObject: nmdc:5da5924c6a1dceea9174f1699f3234d9
+INFO:root:PassingDataObject: nmdc:069d272754b0f51539f2e730293bd051
+INFO:root:PassingDataObject: nmdc:181267dd543332fa2105b68296b3aadb
+INFO:root:PassingDataObject: nmdc:7dd5a8ee8352b2992bdd4d82f4a6644a
+INFO:root:PassingDataObject: nmdc:fc16c105e79bbd7456ccb7ba6a86c6b8
+INFO:root:PassingDataObject: nmdc:eeccb048d24ed73e29c98a7f17435db2
+INFO:root:PassingDataObject: nmdc:291e5bba1424916559850e836ac53750
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119855
+INFO:root:found 1 records
+INFO:root:record: nmdc:3242b01ba1155fcbdf2f140ce4439b41, MAGs Analysis Activity for nmdc:mga0rhwf78
+ERROR:root:DataObjectNotFound nmdc:384c87eed849db5e3dfd46f7336d5f9b for nmdc:MAGsAnalysisActivity/nmdc:3242b01ba1155fcbdf2f140ce4439b41
+ERROR:root:DataObjectNotFound nmdc:1751bbe019e4710a6f42fe2e000ed576 for nmdc:MAGsAnalysisActivity/nmdc:3242b01ba1155fcbdf2f140ce4439b41
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:3242b01ba1155fcbdf2f140ce4439b41
+ERROR:root:FailedDataObject: nmdc:f8833ab43df655c1973b44c8dea6b4f2,
+ERROR:root:DataObjectNotFound nmdc:1a97539a761e951c70491d9e67d74a24 for nmdc:MAGsAnalysisActivity/nmdc:3242b01ba1155fcbdf2f140ce4439b41
+ERROR:root:DataObjectNotFound nmdc:4126a0912ea6d0094209753e3a01bf4c for nmdc:MAGsAnalysisActivity/nmdc:3242b01ba1155fcbdf2f140ce4439b41
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:3242b01ba1155fcbdf2f140ce4439b41, MAGs Analysis Activity for nmdc:mga0rhwf78
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119855
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-d8hs4q36
+INFO:root:legacy_id: gold:Gp0119857
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-d8hs4q36
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df5af0d878540fd6fe1f0
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119857
+INFO:root:found 1 records
+INFO:root:record: nmdc:1d176422b1bc213621a6f1d5460c249c, Read QC Activity for nmdc:mga08dbn21
+INFO:root:PassingDataObject: nmdc:6af614f4bf666a67a271811f292a4fd0
+INFO:root:PassingDataObject: nmdc:52d7e275243ea438d59dfdeb927c2b69
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119857
+INFO:root:found 1 records
+INFO:root:record: nmdc:1d176422b1bc213621a6f1d5460c249c, ReadBased Analysis Activity for nmdc:mga08dbn21
+INFO:root:PassingDataObject: nmdc:7738f32c03f01f0a929ec1c572574aac
+INFO:root:PassingDataObject: nmdc:51995b5bbe53c70d7d7ad1a75a815a04
+INFO:root:PassingDataObject: nmdc:83a5b54e9f7315cebba2a9a69460f300
+INFO:root:PassingDataObject: nmdc:3036f6c68b5d7b8cf7629baf471eda96
+INFO:root:PassingDataObject: nmdc:ec26120e4cf82af3ec7e9bb65f254553
+INFO:root:PassingDataObject: nmdc:6d5107e3c88e4beafe7d54b927f95013
+INFO:root:PassingDataObject: nmdc:7505a7554466ccb7f62a11720635b363
+INFO:root:PassingDataObject: nmdc:21a4a81d59984113dfa7bf4d4194252d
+INFO:root:PassingDataObject: nmdc:342a8c1e5ca14ad5608c5cb61e7b6b15
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119857
+INFO:root:found 1 records
+INFO:root:record: nmdc:1d176422b1bc213621a6f1d5460c249c, Assembly Activity for nmdc:mga08dbn21
+INFO:root:PassingDataObject: nmdc:948a460cfcd924239888545687a33431
+INFO:root:PassingDataObject: nmdc:1ff83a710f6d59d631e0aeaaf541ab34
+INFO:root:PassingDataObject: nmdc:5a04c4c3a150eeb88cd188db2acf750b
+INFO:root:PassingDataObject: nmdc:7bf168977c3b03b331530c3832e2a76a
+INFO:root:PassingDataObject: nmdc:17956479897475b8468a09021eb20377
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119857
+INFO:root:found 1 records
+INFO:root:record: nmdc:1d176422b1bc213621a6f1d5460c249c, Annotation Activity for nmdc:mga08dbn21
+INFO:root:PassingDataObject: nmdc:23bd6b3f3e14a45aae85bce359297e50
+INFO:root:PassingDataObject: nmdc:74da64b1bae62c587ef86a649a832d1d
+INFO:root:PassingDataObject: nmdc:cbcf9c31fa4ceebc741a2198c3fa5ada
+INFO:root:PassingDataObject: nmdc:8d98ad473b0b1967a8059fba18f6ed95
+INFO:root:PassingDataObject: nmdc:72a572abd1d907ddf7022015dfe970f0
+INFO:root:PassingDataObject: nmdc:98a36932a6eeaca28f47753e4109501a
+INFO:root:PassingDataObject: nmdc:438fa90c7bb640f5058690fbd6c1266b
+INFO:root:PassingDataObject: nmdc:86c3e08f61c9a644cc6c301bfb6065f8
+INFO:root:PassingDataObject: nmdc:a8c1c6fd2759b92797a42ff496bb42b2
+INFO:root:PassingDataObject: nmdc:0f1f5ef39d4ed088890cc3ebf0948a4e
+INFO:root:PassingDataObject: nmdc:8ddfaa10876d27e0db762e5a9952a9f4
+INFO:root:PassingDataObject: nmdc:9823209d53b34bd65e98c2d16d1c592f
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119857
+INFO:root:found 1 records
+INFO:root:record: nmdc:1d176422b1bc213621a6f1d5460c249c, MAGs Analysis Activity for nmdc:mga08dbn21
+ERROR:root:DataObjectNotFound nmdc:e5f0d48d62132e811d5d5d97caa9adcd for nmdc:MAGsAnalysisActivity/nmdc:1d176422b1bc213621a6f1d5460c249c
+ERROR:root:DataObjectNotFound nmdc:bd035be5ec4e2706f5326a2cdc3947ad for nmdc:MAGsAnalysisActivity/nmdc:1d176422b1bc213621a6f1d5460c249c
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:1d176422b1bc213621a6f1d5460c249c
+ERROR:root:DataObjectNotFound nmdc:1e3396219406b7571a744cf3da65cb9b for nmdc:MAGsAnalysisActivity/nmdc:1d176422b1bc213621a6f1d5460c249c
+ERROR:root:FailedDataObject: nmdc:f08a62aee3702f494f905234c8653bb6,
+ERROR:root:DataObjectNotFound nmdc:ba37cbbba32e9696c976744ea91ae152 for nmdc:MAGsAnalysisActivity/nmdc:1d176422b1bc213621a6f1d5460c249c
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:1d176422b1bc213621a6f1d5460c249c, MAGs Analysis Activity for nmdc:mga08dbn21
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119857
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-bpf8k271
+INFO:root:legacy_id: gold:Gp0119860
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-bpf8k271
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df5b10d878540fd6fe1f4
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119860
+INFO:root:found 1 records
+INFO:root:record: nmdc:3e61df1bd053b23abbda1322dd07af71, Read QC Activity for nmdc:mga072kj20
+INFO:root:PassingDataObject: nmdc:72bca8012b3b44cabec9cd3cf8a8b1aa
+INFO:root:PassingDataObject: nmdc:4259cedf8236bb79bd22c9981bd178d3
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119860
+INFO:root:found 1 records
+INFO:root:record: nmdc:3e61df1bd053b23abbda1322dd07af71, ReadBased Analysis Activity for nmdc:mga072kj20
+INFO:root:PassingDataObject: nmdc:7272381b06bd0cdf751e8f59e6a2c4f3
+INFO:root:PassingDataObject: nmdc:f68887321b67024a212d42248d458500
+INFO:root:PassingDataObject: nmdc:30d55843684f4668e0b0a25b7766e07d
+INFO:root:PassingDataObject: nmdc:a7148eb3e520bf6b53e2750d721368a8
+INFO:root:PassingDataObject: nmdc:be495745508eb65e3176301a7685e4e0
+INFO:root:PassingDataObject: nmdc:12bf780ce6ac1a4b7719a22ce13fd94d
+INFO:root:PassingDataObject: nmdc:e49a05db8b7c3371fb1031361fc2582b
+INFO:root:PassingDataObject: nmdc:c47a32bfb71522ab04146c82957963fc
+INFO:root:PassingDataObject: nmdc:541588f6e257f8857c3be04bf30c4764
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119860
+INFO:root:found 1 records
+INFO:root:record: nmdc:3e61df1bd053b23abbda1322dd07af71, Assembly Activity for nmdc:mga072kj20
+INFO:root:PassingDataObject: nmdc:5368525b5a4829523cd3656804eb4df6
+INFO:root:PassingDataObject: nmdc:5c3431c6d6b7c1dbd796d7de934927f8
+INFO:root:PassingDataObject: nmdc:4a7606943c840d2932d95785e1ac98b6
+INFO:root:PassingDataObject: nmdc:f8e831027ac09d74844afdbea2d16616
+INFO:root:PassingDataObject: nmdc:625b5b8c24e30e6712ff45bf3caed868
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119860
+INFO:root:found 1 records
+INFO:root:record: nmdc:3e61df1bd053b23abbda1322dd07af71, Annotation Activity for nmdc:mga072kj20
+INFO:root:PassingDataObject: nmdc:9c9518338544e4733e6c0797a83a4987
+INFO:root:PassingDataObject: nmdc:16adb9f2174f148d3fd05185d4dea71e
+INFO:root:PassingDataObject: nmdc:f1014b4332d7049c61b1b1b93f39771f
+INFO:root:PassingDataObject: nmdc:cc618677e541b73b195c304718ce4669
+INFO:root:PassingDataObject: nmdc:d5c065c0d417c6e16b613f9d6a5df1f7
+INFO:root:PassingDataObject: nmdc:2fe815eaf3a2d03ceaa7e37bf6fd3c54
+INFO:root:PassingDataObject: nmdc:8f01685588833485696ff22cf9ffb172
+INFO:root:PassingDataObject: nmdc:fea164c4df1c3d9b6b825ab25be80e9c
+INFO:root:PassingDataObject: nmdc:ac539889f559ad8392c48a420ca305bb
+INFO:root:PassingDataObject: nmdc:0e55c05f3c402081071cbbc8af5c62e3
+INFO:root:PassingDataObject: nmdc:16d787b8a1f72d093f93f68eeced5209
+INFO:root:PassingDataObject: nmdc:04ef3b2fb029fed22149b1bbe630ec12
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119860
+INFO:root:found 1 records
+INFO:root:record: nmdc:3e61df1bd053b23abbda1322dd07af71, MAGs Analysis Activity for nmdc:mga072kj20
+INFO:root:PassingDataObject: nmdc:5836dbcde1807ef21aa88be550c32671
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:3e61df1bd053b23abbda1322dd07af71
+ERROR:root:DataObjectNotFound nmdc:76745fd157e3c127b281d36da839685c for nmdc:MAGsAnalysisActivity/nmdc:3e61df1bd053b23abbda1322dd07af71
+ERROR:root:DataObjectNotFound nmdc:2a4751b981eecc7cf15dd923bc920a15 for nmdc:MAGsAnalysisActivity/nmdc:3e61df1bd053b23abbda1322dd07af71
+ERROR:root:DataObjectNotFound nmdc:c4cd3018e7a5626fdbac8c51620f1cbf for nmdc:MAGsAnalysisActivity/nmdc:3e61df1bd053b23abbda1322dd07af71
+ERROR:root:DataObjectNotFound nmdc:045a9e8261603605c684b0f17831fb5e for nmdc:MAGsAnalysisActivity/nmdc:3e61df1bd053b23abbda1322dd07af71
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:3e61df1bd053b23abbda1322dd07af71, MAGs Analysis Activity for nmdc:mga072kj20
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119860
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-qs59yk26
+INFO:root:legacy_id: gold:Gp0119852
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-qs59yk26
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df3740d878540fd6fe1d0
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119852
+INFO:root:found 1 records
+INFO:root:record: nmdc:8eb796d18151cac86f952cadf6db39e3, Read QC Activity for nmdc:mga081c477
+INFO:root:PassingDataObject: nmdc:94385668ec580d98db6f78f591ef9141
+INFO:root:PassingDataObject: nmdc:ae51b88d02bdf8eacd5961858c411176
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119852
+INFO:root:found 1 records
+INFO:root:record: nmdc:8eb796d18151cac86f952cadf6db39e3, ReadBased Analysis Activity for nmdc:mga081c477
+INFO:root:PassingDataObject: nmdc:dc0fb7a4abc36d6a569551aabed37c34
+INFO:root:PassingDataObject: nmdc:e80871c194c85d0210c94481a3f874fd
+INFO:root:PassingDataObject: nmdc:e9d8ed8061a83f545b6ebff8e7ab1fad
+INFO:root:PassingDataObject: nmdc:dc8364af5aa36e2fc309a208346cd5cd
+INFO:root:PassingDataObject: nmdc:b40cccb0bc80e6e119b0e89d1c7cf4fb
+INFO:root:PassingDataObject: nmdc:ba91c04e83f013145e15d8c3f01dccad
+INFO:root:PassingDataObject: nmdc:20a38327a96fff90ddb96f32f53658b3
+INFO:root:PassingDataObject: nmdc:0be4ba0cb2326b14fd2308bc467d1596
+INFO:root:PassingDataObject: nmdc:8fe98fea4f226e43945f4995d763a5d5
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119852
+INFO:root:found 1 records
+INFO:root:record: nmdc:8eb796d18151cac86f952cadf6db39e3, Assembly Activity for nmdc:mga081c477
+INFO:root:PassingDataObject: nmdc:b919fff43d3280141610fb99fd5d577c
+INFO:root:PassingDataObject: nmdc:5cf78b3447accc51b7cb41e767e46365
+INFO:root:PassingDataObject: nmdc:0780e51675a17d7df84c4177e99cd6d1
+INFO:root:PassingDataObject: nmdc:e4874e4aee515d116494c29489901a5a
+INFO:root:PassingDataObject: nmdc:4149e119c8484f6b020224cf2aa51d4e
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119852
+INFO:root:found 1 records
+INFO:root:record: nmdc:8eb796d18151cac86f952cadf6db39e3, Annotation Activity for nmdc:mga081c477
+INFO:root:PassingDataObject: nmdc:c249aba87cb3839ab92032b304804ff5
+INFO:root:PassingDataObject: nmdc:2b6040d7c5bfe9a94279f278e83509f2
+INFO:root:PassingDataObject: nmdc:8c120dd12278da775a16cb0af24567f4
+INFO:root:PassingDataObject: nmdc:ebc73853151574540513397b6938c065
+INFO:root:PassingDataObject: nmdc:88b98920c96b264610ab29d79f38b211
+INFO:root:PassingDataObject: nmdc:37fcc1a29fc9a708f69d3a7723ef58cd
+INFO:root:PassingDataObject: nmdc:e7e8bc388bf6dbafd8db3baa2aa5d13a
+INFO:root:PassingDataObject: nmdc:498953d33517eb0e27fd781175012af3
+INFO:root:PassingDataObject: nmdc:aa429e7a30c60327756ecf7cd1c80156
+INFO:root:PassingDataObject: nmdc:b5717b7a28bc536d85cfd7028a6cc545
+INFO:root:PassingDataObject: nmdc:d6b7a5ba51d1e7d4306772d36d7ffc3b
+INFO:root:PassingDataObject: nmdc:c0d1600b0a63066027d425c5f539959b
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119852
+INFO:root:found 1 records
+INFO:root:record: nmdc:8eb796d18151cac86f952cadf6db39e3, MAGs Analysis Activity for nmdc:mga081c477
+ERROR:root:DataObjectNotFound nmdc:ef2f9ec82c267f811bb9560742ae73ba for nmdc:MAGsAnalysisActivity/nmdc:8eb796d18151cac86f952cadf6db39e3
+ERROR:root:DataObjectNotFound nmdc:fa4fa4c09c1f4f9171f74f708ddb120e for nmdc:MAGsAnalysisActivity/nmdc:8eb796d18151cac86f952cadf6db39e3
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:8eb796d18151cac86f952cadf6db39e3, MAGs Analysis Activity for nmdc:mga081c477
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119852
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-8r4tbs19
+INFO:root:legacy_id: gold:Gp0119854
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-8r4tbs19
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:563bf9500d8785441a9214bc
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119854
+INFO:root:found 1 records
+INFO:root:record: nmdc:34f751af8eade7eecf7a0ba611991cb0, Read QC Activity for nmdc:mga0bk7j89
+INFO:root:PassingDataObject: nmdc:1dfc67d4f45c493b036283e8f52e5fb5
+INFO:root:PassingDataObject: nmdc:5ee58d9ea16f71276d8b5af71d0833ab
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119854
+INFO:root:found 1 records
+INFO:root:record: nmdc:34f751af8eade7eecf7a0ba611991cb0, ReadBased Analysis Activity for nmdc:mga0bk7j89
+INFO:root:PassingDataObject: nmdc:78af48b43e374313d7776f0deaf55c86
+INFO:root:PassingDataObject: nmdc:e094739ab309ea1a127dce97939b6d68
+INFO:root:PassingDataObject: nmdc:9f8bbc4f92da1d2fe2f4c950e19c59dc
+INFO:root:PassingDataObject: nmdc:d0610bc3a80bd193d2a248e871a39b03
+INFO:root:PassingDataObject: nmdc:6b9b41e06b8ff71610843a49abb73ffd
+INFO:root:PassingDataObject: nmdc:9adf095611968698fc1e98d985538101
+INFO:root:PassingDataObject: nmdc:4ff2b914c0cfb5703f19034ded2c568d
+INFO:root:PassingDataObject: nmdc:c49e3e30010264b4d4755ab2344c7c71
+INFO:root:PassingDataObject: nmdc:951c2814cbb3324be8c91980da47b83a
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119854
+INFO:root:found 1 records
+INFO:root:record: nmdc:34f751af8eade7eecf7a0ba611991cb0, Assembly Activity for nmdc:mga0bk7j89
+INFO:root:PassingDataObject: nmdc:b9da00b620edc38e80a5010b1957fa18
+INFO:root:PassingDataObject: nmdc:cd032090443757cf4b4d295a2fafe394
+INFO:root:PassingDataObject: nmdc:9ce3d663d53cc47f54df5e83459e0f3e
+INFO:root:PassingDataObject: nmdc:537fbc3db2e752c5ee4e33243cb152a4
+INFO:root:PassingDataObject: nmdc:d3756f1d709b33a29509560c0a68327a
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119854
+INFO:root:found 1 records
+INFO:root:record: nmdc:34f751af8eade7eecf7a0ba611991cb0, Annotation Activity for nmdc:mga0bk7j89
+INFO:root:PassingDataObject: nmdc:a28b8d266586f100793dfd72c527c160
+INFO:root:PassingDataObject: nmdc:e68bfdf0862734c6cfe10d3be8f64d31
+INFO:root:PassingDataObject: nmdc:b3f1c6388b68010c5ce30d5e12b810b3
+INFO:root:PassingDataObject: nmdc:d3eaf63075eaadeda97a0e68d2ea1bad
+INFO:root:PassingDataObject: nmdc:e880dc9557c1e1c84efe3ee74f3ce93e
+INFO:root:PassingDataObject: nmdc:b3d17567e523f9b8ba6a6fe4b67416ac
+INFO:root:PassingDataObject: nmdc:bd900a8b9c2bb973be13a1cb2434d5b2
+INFO:root:PassingDataObject: nmdc:db512876b78ff3b32ce5db6e6998b772
+INFO:root:PassingDataObject: nmdc:ac4b50ec40b0db1f7f4b4bcdc3be0cab
+INFO:root:PassingDataObject: nmdc:20e8f2ad489accd55bfd12f9eccbd1fa
+INFO:root:PassingDataObject: nmdc:e2790e24b26ca09baf7b4b4c84223e25
+INFO:root:PassingDataObject: nmdc:08b898a741f2b15a87fc9d2df2e3b082
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119854
+INFO:root:found 1 records
+INFO:root:record: nmdc:34f751af8eade7eecf7a0ba611991cb0, MAGs Analysis Activity for nmdc:mga0bk7j89
+INFO:root:PassingDataObject: nmdc:e6301f8e5167067b3608a7fab2aca541
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:34f751af8eade7eecf7a0ba611991cb0
+ERROR:root:DataObjectNotFound nmdc:35e7e5fbe485f1ca6a9635a7dc86d54f for nmdc:MAGsAnalysisActivity/nmdc:34f751af8eade7eecf7a0ba611991cb0
+ERROR:root:DataObjectNotFound nmdc:d93a8c2aa058b6d251a5691c2e7eb503 for nmdc:MAGsAnalysisActivity/nmdc:34f751af8eade7eecf7a0ba611991cb0
+ERROR:root:DataObjectNotFound nmdc:1d47a5ebbf8f1140cdbb9c7f2fbcca00 for nmdc:MAGsAnalysisActivity/nmdc:34f751af8eade7eecf7a0ba611991cb0
+ERROR:root:DataObjectNotFound nmdc:34db417986f230f457ee567f339f5a78 for nmdc:MAGsAnalysisActivity/nmdc:34f751af8eade7eecf7a0ba611991cb0
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:34f751af8eade7eecf7a0ba611991cb0, MAGs Analysis Activity for nmdc:mga0bk7j89
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119854
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-3d14m472
+INFO:root:legacy_id: gold:Gp0119861
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-3d14m472
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df5bb0d878540fd6fe205
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119861
+INFO:root:found 1 records
+INFO:root:record: nmdc:3d0802ceb5124c47cedf0ea035aa607f, Read QC Activity for nmdc:mga0nscm44
+INFO:root:PassingDataObject: nmdc:a2a8a2d19043b4aa30236bd76b486c49
+INFO:root:PassingDataObject: nmdc:7e59b95935fdb62f119e1348143c6f92
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119861
+INFO:root:found 1 records
+INFO:root:record: nmdc:3d0802ceb5124c47cedf0ea035aa607f, ReadBased Analysis Activity for nmdc:mga0nscm44
+INFO:root:PassingDataObject: nmdc:3a252d87f16049bba0df957b1de9ee57
+INFO:root:PassingDataObject: nmdc:27412b97953a7a840e88efdc2658c0c8
+INFO:root:PassingDataObject: nmdc:59dc1a81b9d778a58e84574d4b7ceb8f
+INFO:root:PassingDataObject: nmdc:540464c5e83abbcc4b5ecf50ab32a919
+INFO:root:PassingDataObject: nmdc:208e9969cb3fc7874adae2c6bf47fed7
+INFO:root:PassingDataObject: nmdc:daa6d34fdba15cb80f86a6597a0f4f08
+INFO:root:PassingDataObject: nmdc:1d6bcddd2f9684f437df096820551756
+INFO:root:PassingDataObject: nmdc:019ea732fb19fa1d45d9d99d7d5c36f1
+INFO:root:PassingDataObject: nmdc:262cd993624acccaeceeee458b9eee29
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119861
+INFO:root:found 1 records
+INFO:root:record: nmdc:3d0802ceb5124c47cedf0ea035aa607f, Assembly Activity for nmdc:mga0nscm44
+INFO:root:PassingDataObject: nmdc:c4798a2ceec5160b7a795d5227087e7f
+INFO:root:PassingDataObject: nmdc:ad8c2effa027607544596689eb720965
+INFO:root:PassingDataObject: nmdc:3e06c46cdf6e0b40c502f2777d37b00c
+INFO:root:PassingDataObject: nmdc:4273c32b1de2a07c20b7b397af61ee7d
+INFO:root:PassingDataObject: nmdc:c6f3589cf1ecdb6912648b63106b048c
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119861
+INFO:root:found 1 records
+INFO:root:record: nmdc:3d0802ceb5124c47cedf0ea035aa607f, Annotation Activity for nmdc:mga0nscm44
+INFO:root:PassingDataObject: nmdc:85656937e2eb9f2c9dfe84357de9b4c0
+INFO:root:PassingDataObject: nmdc:c7630dde1984ce171d1e6dac5ae755ba
+INFO:root:PassingDataObject: nmdc:079c2e1610dfce2e44b5784a55ca060b
+INFO:root:PassingDataObject: nmdc:da890918c632ae8216b9b7436545d6cd
+INFO:root:PassingDataObject: nmdc:20cd71f09358206b66ec97a42c590d44
+INFO:root:PassingDataObject: nmdc:5dc240e912e1a4aa4051260d936cc545
+INFO:root:PassingDataObject: nmdc:85ce86c775ce55cc9b627eb0e27c09db
+INFO:root:PassingDataObject: nmdc:53e4f9174f3eee3f3bd5920c7ef4b71e
+INFO:root:PassingDataObject: nmdc:3a8e13526a9dc7c7c36c192d23157b4d
+INFO:root:PassingDataObject: nmdc:29ced99cfa5bce640bab89d02bee55ed
+INFO:root:PassingDataObject: nmdc:3a9dd7f47cd984636359b57a91072537
+INFO:root:PassingDataObject: nmdc:739dd7ce71cddb2e6a014fa21403d9fe
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119861
+INFO:root:found 1 records
+INFO:root:record: nmdc:3d0802ceb5124c47cedf0ea035aa607f, MAGs Analysis Activity for nmdc:mga0nscm44
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:3d0802ceb5124c47cedf0ea035aa607f
+ERROR:root:FailedDataObject: nmdc:022c8bd54edbf30714f42158d138a677,
+ERROR:root:DataObjectNotFound nmdc:ed22f96bb9f7e5216cf5f592134f6f40 for nmdc:MAGsAnalysisActivity/nmdc:3d0802ceb5124c47cedf0ea035aa607f
+ERROR:root:DataObjectNotFound nmdc:c7cdc49f69c1ed44f7d167b5fbe08b99 for nmdc:MAGsAnalysisActivity/nmdc:3d0802ceb5124c47cedf0ea035aa607f
+ERROR:root:DataObjectNotFound nmdc:ab976437d069e9aad1875ce3f4a8b383 for nmdc:MAGsAnalysisActivity/nmdc:3d0802ceb5124c47cedf0ea035aa607f
+ERROR:root:DataObjectNotFound nmdc:503ccea5f4608f7e99f1f03d38be912b for nmdc:MAGsAnalysisActivity/nmdc:3d0802ceb5124c47cedf0ea035aa607f
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:3d0802ceb5124c47cedf0ea035aa607f, MAGs Analysis Activity for nmdc:mga0nscm44
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119861
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-3a2hb308
+INFO:root:legacy_id: gold:Gp0119864
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-3a2hb308
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:563bf9520d8785441a9214be
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119864
+INFO:root:found 1 records
+INFO:root:record: nmdc:08a00210b9b5961713a99c0def8819d1, Read QC Activity for nmdc:mga045k105
+INFO:root:PassingDataObject: nmdc:952359154aeab2474f9a72322ef4ab99
+INFO:root:PassingDataObject: nmdc:960fde6ef41e5b25a798296e5b48507c
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119864
+INFO:root:found 1 records
+INFO:root:record: nmdc:08a00210b9b5961713a99c0def8819d1, ReadBased Analysis Activity for nmdc:mga045k105
+INFO:root:PassingDataObject: nmdc:249bcf7ae2ffa92648e4e956e70a89ed
+INFO:root:PassingDataObject: nmdc:f799b0fec237fc5dd25fd62c43543d99
+INFO:root:PassingDataObject: nmdc:2aad48ba88c824179107071fdebb0eb9
+INFO:root:PassingDataObject: nmdc:66ad85cbe9197882b289d19034de278f
+INFO:root:PassingDataObject: nmdc:70a6917dae126999097bd53514b5d460
+INFO:root:PassingDataObject: nmdc:3d68fa10c0b996395b526ab5348763e9
+INFO:root:PassingDataObject: nmdc:7fd0db850f52295131fa1ecb4dc2e12a
+INFO:root:PassingDataObject: nmdc:6a4bb5650a5d3d4b2c882d957a012248
+INFO:root:PassingDataObject: nmdc:ddb1cdfc19d494e370800b7f8e01d191
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119864
+INFO:root:found 1 records
+INFO:root:record: nmdc:08a00210b9b5961713a99c0def8819d1, Assembly Activity for nmdc:mga045k105
+INFO:root:PassingDataObject: nmdc:07a578646d15845e29ab846c59fec0e2
+INFO:root:PassingDataObject: nmdc:68a5964bd650f4cf9bd920cea3110b70
+INFO:root:PassingDataObject: nmdc:7278b4030d71eb56591ce4e01b5b311d
+INFO:root:PassingDataObject: nmdc:8f395301a0f7016da6d0f60443d73d15
+INFO:root:PassingDataObject: nmdc:c64a1b9d4a72b419ced6d353bbb93624
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119864
+INFO:root:found 1 records
+INFO:root:record: nmdc:08a00210b9b5961713a99c0def8819d1, Annotation Activity for nmdc:mga045k105
+INFO:root:PassingDataObject: nmdc:be12e92bf79259175e7316bb9e782a4a
+INFO:root:PassingDataObject: nmdc:cb1fe0c8eeccc07b716ebbced6ddf17f
+INFO:root:PassingDataObject: nmdc:82005b2329289060337a1bbd4e7c604d
+INFO:root:PassingDataObject: nmdc:4e2531215d6457090d6e01ec02950201
+INFO:root:PassingDataObject: nmdc:a270b973ad045f77c2187f5f7a93b7a9
+INFO:root:PassingDataObject: nmdc:ab1933e40211a8a8692b028fe300b917
+INFO:root:PassingDataObject: nmdc:f3fdaffbce39c3f5f9515d3fdc0c8443
+INFO:root:PassingDataObject: nmdc:0e1caa62c9532e82bf092e6b1e8373df
+INFO:root:PassingDataObject: nmdc:9eda71e2f99b84d46f2ae9635e7ceb47
+INFO:root:PassingDataObject: nmdc:ee6edad04e0e3133d60fd3aabcb30192
+INFO:root:PassingDataObject: nmdc:d734cb3fdf937b4236763e5cfbf38056
+INFO:root:PassingDataObject: nmdc:d94cdb3894ede5117e78e58d9e7c5caf
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119864
+INFO:root:found 1 records
+INFO:root:record: nmdc:08a00210b9b5961713a99c0def8819d1, MAGs Analysis Activity for nmdc:mga045k105
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:08a00210b9b5961713a99c0def8819d1
+ERROR:root:DataObjectNotFound nmdc:11d21ea68cbca8166e8c676c353c2d99 for nmdc:MAGsAnalysisActivity/nmdc:08a00210b9b5961713a99c0def8819d1
+ERROR:root:DataObjectNotFound nmdc:1bfd2ab9754f7ebf6e2d0424758ed45a for nmdc:MAGsAnalysisActivity/nmdc:08a00210b9b5961713a99c0def8819d1
+ERROR:root:FailedDataObject: nmdc:bc66168e02a9285e9102da93c6c6a33f,
+ERROR:root:DataObjectNotFound nmdc:1cbc9fb8168bf1fcafc98ecd9f043e03 for nmdc:MAGsAnalysisActivity/nmdc:08a00210b9b5961713a99c0def8819d1
+ERROR:root:DataObjectNotFound nmdc:45bbef4aa22e41bc6a328852e191d0ad for nmdc:MAGsAnalysisActivity/nmdc:08a00210b9b5961713a99c0def8819d1
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:08a00210b9b5961713a99c0def8819d1, MAGs Analysis Activity for nmdc:mga045k105
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119864
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-c2269540
+INFO:root:legacy_id: gold:Gp0119862
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-c2269540
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df5b60d878540fd6fe1fd
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119862
+INFO:root:found 1 records
+INFO:root:record: nmdc:9d49b6ad9e235a52bc80dcf8c48ccd64, Read QC Activity for nmdc:mga0p8hk47
+INFO:root:PassingDataObject: nmdc:481a07ca42f6bd89498ea652c37ac5da
+INFO:root:PassingDataObject: nmdc:249d5db946764bcfd9046cf8b3af6c45
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119862
+INFO:root:found 1 records
+INFO:root:record: nmdc:9d49b6ad9e235a52bc80dcf8c48ccd64, ReadBased Analysis Activity for nmdc:mga0p8hk47
+INFO:root:PassingDataObject: nmdc:304e57dc8ffddd75aa697203722d92f0
+INFO:root:PassingDataObject: nmdc:ae65120bdbbe75ad4038efa88a5d5f95
+INFO:root:PassingDataObject: nmdc:1f42ab9767d8d9fc3d1f0992f1239fb3
+INFO:root:PassingDataObject: nmdc:a8d6b9af9a28b30a62609b1227d03fc0
+INFO:root:PassingDataObject: nmdc:b0bac742555f05f570817557d73f1888
+INFO:root:PassingDataObject: nmdc:fbfc71706e2f297b98f59618462dece9
+INFO:root:PassingDataObject: nmdc:b46f62c891f3599df6f4b3500a0ea6bc
+INFO:root:PassingDataObject: nmdc:d5290266a55ae7443f37a324ad39bd1c
+INFO:root:PassingDataObject: nmdc:2ff1d363f571e640a124aaefd9bd5016
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119862
+INFO:root:found 1 records
+INFO:root:record: nmdc:9d49b6ad9e235a52bc80dcf8c48ccd64, Assembly Activity for nmdc:mga0p8hk47
+INFO:root:PassingDataObject: nmdc:e3b7e1357b7f94ce3262118eba6b6236
+INFO:root:PassingDataObject: nmdc:3e669c295c05549732f1a62e6c53d143
+INFO:root:PassingDataObject: nmdc:a8b15986d2a43b68de0ce7003b2a85e4
+INFO:root:PassingDataObject: nmdc:555fcecf248888317ba16524e0345034
+INFO:root:PassingDataObject: nmdc:ce8d4dbf59c7ee15ea3b85b517161b32
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119862
+INFO:root:found 1 records
+INFO:root:record: nmdc:9d49b6ad9e235a52bc80dcf8c48ccd64, Annotation Activity for nmdc:mga0p8hk47
+INFO:root:PassingDataObject: nmdc:237be703d5b8555935e255ed34231927
+INFO:root:PassingDataObject: nmdc:d40e267ba84e2658d38a6f1bfa7dedd0
+INFO:root:PassingDataObject: nmdc:f809c89425e7317f99d1933be4a9035f
+INFO:root:PassingDataObject: nmdc:1b4a86a2369f8908af57d91ae83ec8bb
+INFO:root:PassingDataObject: nmdc:b4ebca55e0658c361a55fedd1b1c980b
+INFO:root:PassingDataObject: nmdc:0c71c00e4bc71cf37823be31cdd707c3
+INFO:root:PassingDataObject: nmdc:1e1bc8867ff9d014974acb0ec26228bf
+INFO:root:PassingDataObject: nmdc:0577d8fc3be7dde2c9cbaff26d419ddf
+INFO:root:PassingDataObject: nmdc:01a56a32c3c2677e936abbe362739a31
+INFO:root:PassingDataObject: nmdc:985b14f04ec6a07e1031326e6688e86c
+INFO:root:PassingDataObject: nmdc:510ead1adfa241229c3d5cb25b37b986
+INFO:root:PassingDataObject: nmdc:53a66879b7343d2ee080589ab28ad97a
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119862
+INFO:root:found 1 records
+INFO:root:record: nmdc:9d49b6ad9e235a52bc80dcf8c48ccd64, MAGs Analysis Activity for nmdc:mga0p8hk47
+ERROR:root:DataObjectNotFound nmdc:97f97be994210c09e883589d1cb74470 for nmdc:MAGsAnalysisActivity/nmdc:9d49b6ad9e235a52bc80dcf8c48ccd64
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:9d49b6ad9e235a52bc80dcf8c48ccd64
+ERROR:root:DataObjectNotFound nmdc:5b9884f04ee0780327d6b40e2f76a529 for nmdc:MAGsAnalysisActivity/nmdc:9d49b6ad9e235a52bc80dcf8c48ccd64
+ERROR:root:DataObjectNotFound nmdc:a6825d18edddb8cc5344c982ebe0795d for nmdc:MAGsAnalysisActivity/nmdc:9d49b6ad9e235a52bc80dcf8c48ccd64
+ERROR:root:DataObjectNotFound nmdc:b9830ec5d1b94c6140f06929e97f1279 for nmdc:MAGsAnalysisActivity/nmdc:9d49b6ad9e235a52bc80dcf8c48ccd64
+ERROR:root:FailedDataObject: nmdc:fd404511f6ad57425d354ce2b5b61e9f,
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:9d49b6ad9e235a52bc80dcf8c48ccd64, MAGs Analysis Activity for nmdc:mga0p8hk47
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119862
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-52xgyt85
+INFO:root:legacy_id: gold:Gp0119856
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-52xgyt85
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df5ad0d878540fd6fe1ed
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119856
+INFO:root:found 1 records
+INFO:root:record: nmdc:01f8c294a098bd6902ee3c3476bae40c, Read QC Activity for nmdc:mga03ps698
+INFO:root:PassingDataObject: nmdc:e985ccfb7ad711809e81832bfb35ba15
+INFO:root:PassingDataObject: nmdc:b929eef65de7815dea35f015046c580d
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119856
+INFO:root:found 1 records
+INFO:root:record: nmdc:01f8c294a098bd6902ee3c3476bae40c, ReadBased Analysis Activity for nmdc:mga03ps698
+INFO:root:PassingDataObject: nmdc:da1a46379e44457942130c21038ded8a
+INFO:root:PassingDataObject: nmdc:fbda66832ef6e779f6f3c138f5433317
+INFO:root:PassingDataObject: nmdc:961e680c8d9cc4b454f987890c12384b
+INFO:root:PassingDataObject: nmdc:0e45e4ee21e1b51b116bbd94a4476718
+INFO:root:PassingDataObject: nmdc:2ed6765cefd8223324f0f96e980a3247
+INFO:root:PassingDataObject: nmdc:f7adc2159a0bbc6344542d41632ea3b2
+INFO:root:PassingDataObject: nmdc:4d067967e956efc580f838a72b93751d
+INFO:root:PassingDataObject: nmdc:96078df96cab0402cb61d340dcefa622
+INFO:root:PassingDataObject: nmdc:9b0719633d97e05c945c98ef12343fb0
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119856
+INFO:root:found 1 records
+INFO:root:record: nmdc:01f8c294a098bd6902ee3c3476bae40c, Assembly Activity for nmdc:mga03ps698
+INFO:root:PassingDataObject: nmdc:10a5dbedea8e37bc7e72e9a39555ab82
+INFO:root:PassingDataObject: nmdc:0b6f8c1befc1be6a6ac46288756abee5
+INFO:root:PassingDataObject: nmdc:5e1d739c320b8679354fb44983d377f7
+INFO:root:PassingDataObject: nmdc:176c6d024d0f9ff34a9e5a0d8b94a0af
+INFO:root:PassingDataObject: nmdc:a3ab9cc161429504fed67fb8cce116ec
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119856
+INFO:root:found 1 records
+INFO:root:record: nmdc:01f8c294a098bd6902ee3c3476bae40c, Annotation Activity for nmdc:mga03ps698
+INFO:root:PassingDataObject: nmdc:e58fc865d06b02c7982a680beb6d321f
+INFO:root:PassingDataObject: nmdc:f36ee37f47256c89578a3e4a1231672a
+INFO:root:PassingDataObject: nmdc:beb8c2b58d2a96de62b2a429404deb91
+INFO:root:PassingDataObject: nmdc:ac3db9c6705623843ae6ef1456d0fdc0
+INFO:root:PassingDataObject: nmdc:a17ce1fd6ffd590bf3dbfc0efdae126c
+INFO:root:PassingDataObject: nmdc:28f48ddfad55e71f4c5e5b54306e2425
+INFO:root:PassingDataObject: nmdc:afa06cef0742ab1b012cb4d8fb58ff90
+INFO:root:PassingDataObject: nmdc:f7ff0230f761d924ed76dc665ea67adb
+INFO:root:PassingDataObject: nmdc:359ace71019714576182a050ca7526c8
+INFO:root:PassingDataObject: nmdc:c65d4074f13e42af10ed393cbdf74011
+INFO:root:PassingDataObject: nmdc:2d24478e3ed2312e2244df7510214235
+INFO:root:PassingDataObject: nmdc:3cf2fb1d0e65a8792d423b1d68390928
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119856
+INFO:root:found 1 records
+INFO:root:record: nmdc:01f8c294a098bd6902ee3c3476bae40c, MAGs Analysis Activity for nmdc:mga03ps698
+ERROR:root:DataObjectNotFound nmdc:fc6ac370d7165bd692b28402078c46cc for nmdc:MAGsAnalysisActivity/nmdc:01f8c294a098bd6902ee3c3476bae40c
+ERROR:root:DataObjectNotFound nmdc:bdc87a797fc694cc54c4c9c47f8aae7b for nmdc:MAGsAnalysisActivity/nmdc:01f8c294a098bd6902ee3c3476bae40c
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:01f8c294a098bd6902ee3c3476bae40c, MAGs Analysis Activity for nmdc:mga03ps698
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119856
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-11rjpd98
+INFO:root:legacy_id: gold:Gp0119859
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-11rjpd98
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df5b00d878540fd6fe1f1
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119859
+INFO:root:found 1 records
+INFO:root:record: nmdc:afcdd58d609459c62f95d7987781515e, Read QC Activity for nmdc:mga02ft906
+INFO:root:PassingDataObject: nmdc:55301513fa1cf4c3beb9a81f6e506295
+INFO:root:PassingDataObject: nmdc:70ccd6640e1b5690e2c1033793c27c8c
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119859
+INFO:root:found 1 records
+INFO:root:record: nmdc:afcdd58d609459c62f95d7987781515e, ReadBased Analysis Activity for nmdc:mga02ft906
+INFO:root:PassingDataObject: nmdc:f820e44088dd97b465a5ca40422cc906
+INFO:root:PassingDataObject: nmdc:8703b36fa8d6e2c6a96c50ad02282970
+INFO:root:PassingDataObject: nmdc:eceb995fbde7adc664fae108bd715006
+INFO:root:PassingDataObject: nmdc:2ef9dda0235c23fc6fe4c40e8d8d83b6
+INFO:root:PassingDataObject: nmdc:5dada7666e44fe7fe683311c19779393
+INFO:root:PassingDataObject: nmdc:45e6c74aef6398cf5b33478ff53d2ae8
+INFO:root:PassingDataObject: nmdc:05b48152583979ce9fb85348f8cbc62c
+INFO:root:PassingDataObject: nmdc:bd077ec8550f6e4f46d2bd9149a4a35d
+INFO:root:PassingDataObject: nmdc:31ab4b19e0bff7e3b91fd70caa5e6eb5
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119859
+INFO:root:found 1 records
+INFO:root:record: nmdc:afcdd58d609459c62f95d7987781515e, Assembly Activity for nmdc:mga02ft906
+INFO:root:PassingDataObject: nmdc:e4ef64953cba2887dc4274ff3b6030d7
+INFO:root:PassingDataObject: nmdc:8e8fa21850844a9a4f432961c8a291f0
+INFO:root:PassingDataObject: nmdc:8a5e0e081df6642a15c35fe35061035b
+INFO:root:PassingDataObject: nmdc:c94be208f5c58a2d6261f6713390b5ab
+INFO:root:PassingDataObject: nmdc:22fe2044be672c6269ce0626e2bb3180
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119859
+INFO:root:found 1 records
+INFO:root:record: nmdc:afcdd58d609459c62f95d7987781515e, Annotation Activity for nmdc:mga02ft906
+INFO:root:PassingDataObject: nmdc:84e0b4e0a5d9aa137a28cb45d4578d8a
+INFO:root:PassingDataObject: nmdc:ef42481ebb4520759e56170c2d6f48b9
+INFO:root:PassingDataObject: nmdc:6d587d4acb37f3cd2f1ca6666f66f026
+INFO:root:PassingDataObject: nmdc:1ea625fe7e5a6d94825c07d58aa184ea
+INFO:root:PassingDataObject: nmdc:49b4b5f2ef568d9dcfa34929d4c29f77
+INFO:root:PassingDataObject: nmdc:d9581041bb886b0491548a06e9a3079f
+INFO:root:PassingDataObject: nmdc:6dae7bc00ee8ab493bab36c2fd6eaceb
+INFO:root:PassingDataObject: nmdc:612ca1aba943797556bcea7a5155fdaa
+INFO:root:PassingDataObject: nmdc:a9b8d31bee697075aa24c6fddcd0abb6
+INFO:root:PassingDataObject: nmdc:7f9d2c3366f6932310f36ad14da9b2b3
+INFO:root:PassingDataObject: nmdc:0ce402a4e456d36283b5baec876dc047
+INFO:root:PassingDataObject: nmdc:04209b50ca91fe78339fa1b5828705f9
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119859
+INFO:root:found 1 records
+INFO:root:record: nmdc:afcdd58d609459c62f95d7987781515e, MAGs Analysis Activity for nmdc:mga02ft906
+ERROR:root:DataObjectNotFound nmdc:4ba7180367f554b42b01980aeb356e84 for nmdc:MAGsAnalysisActivity/nmdc:afcdd58d609459c62f95d7987781515e
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:afcdd58d609459c62f95d7987781515e
+ERROR:root:DataObjectNotFound nmdc:87748578fd75df6d933c621acf36f753 for nmdc:MAGsAnalysisActivity/nmdc:afcdd58d609459c62f95d7987781515e
+ERROR:root:FailedDataObject: nmdc:18416fae07b292d815e9f051aa657c8c,
+ERROR:root:DataObjectNotFound nmdc:306afd5c7ae5cf5854d164a6ccd4481c for nmdc:MAGsAnalysisActivity/nmdc:afcdd58d609459c62f95d7987781515e
+ERROR:root:DataObjectNotFound nmdc:38a3d661a97167cbd21f6f845dcc885f for nmdc:MAGsAnalysisActivity/nmdc:afcdd58d609459c62f95d7987781515e
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:afcdd58d609459c62f95d7987781515e, MAGs Analysis Activity for nmdc:mga02ft906
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119859
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-g6htbk44
+INFO:root:legacy_id: gold:Gp0119869
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-g6htbk44
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df3680d878540fd6fe1bc
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119869
+INFO:root:found 1 records
+INFO:root:record: nmdc:60eb75a015d54a3255879924684c5cb3, Read QC Activity for nmdc:mga0r4w677
+INFO:root:PassingDataObject: nmdc:b2d2811e4dffdcf84f6a07748dbef4f3
+INFO:root:PassingDataObject: nmdc:a4bc908d98cae11fa812b2da84e5ac11
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119869
+INFO:root:found 1 records
+INFO:root:record: nmdc:60eb75a015d54a3255879924684c5cb3, ReadBased Analysis Activity for nmdc:mga0r4w677
+INFO:root:PassingDataObject: nmdc:90681cd5726365d2ea33a81222ce14ca
+INFO:root:PassingDataObject: nmdc:66311cee98fb89e51479022afbaefa1a
+INFO:root:PassingDataObject: nmdc:9d61f7de31aa3b757620c59c1bab2f33
+INFO:root:PassingDataObject: nmdc:92ece69a1e806e56a3e0fdd7d711a44a
+INFO:root:PassingDataObject: nmdc:35dc6c6bf36dde4c8c2d2048dbd9655f
+INFO:root:PassingDataObject: nmdc:869277bdc451ef159ec275dd3ea3704a
+INFO:root:PassingDataObject: nmdc:b95b47fc8cdaf67fb747db90e3e8ff6b
+INFO:root:PassingDataObject: nmdc:f3f1581ff3ea40e77fdf66d485f95b5e
+INFO:root:PassingDataObject: nmdc:2508a61e0b33dc330740eda4e778c5b3
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119869
+INFO:root:found 1 records
+INFO:root:record: nmdc:60eb75a015d54a3255879924684c5cb3, Assembly Activity for nmdc:mga0r4w677
+INFO:root:PassingDataObject: nmdc:8ad0628cb3d77894d8a48176f919ba4b
+INFO:root:PassingDataObject: nmdc:9210a57acf3ca42c9fcd08e1bc87d96c
+INFO:root:PassingDataObject: nmdc:e9fcbc77a1f1473ab071e18162ca2938
+INFO:root:PassingDataObject: nmdc:7d670a486f32042950a4f139241d09c8
+INFO:root:PassingDataObject: nmdc:cc022c1da96eca121826d4628f9c8a81
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119869
+INFO:root:found 1 records
+INFO:root:record: nmdc:60eb75a015d54a3255879924684c5cb3, Annotation Activity for nmdc:mga0r4w677
+INFO:root:PassingDataObject: nmdc:ea0155ba1d7f1b869d1cd1406647fc71
+INFO:root:PassingDataObject: nmdc:34da377ced224fbf8a007afe80091da1
+INFO:root:PassingDataObject: nmdc:694c0424ef4ce5e710c948c709d1e097
+INFO:root:PassingDataObject: nmdc:c5a24d519a53502ed090dae5359323ac
+INFO:root:PassingDataObject: nmdc:0586821370ff5ff714280ffa539e01a7
+INFO:root:PassingDataObject: nmdc:130f6d77ac92a2299cb9ef27a737e354
+INFO:root:PassingDataObject: nmdc:bc963a84a0d6f4d89979e72a5e8c9422
+INFO:root:PassingDataObject: nmdc:12088833d1b1b6ee6fb9cfd008d008c8
+INFO:root:PassingDataObject: nmdc:d3bc3bfe7dac319421d916b45d2873fe
+INFO:root:PassingDataObject: nmdc:b50fa54ec7223f261c5ebf24e2061d00
+INFO:root:PassingDataObject: nmdc:b4250044f1067162fc38f14879c2a863
+INFO:root:PassingDataObject: nmdc:9bb6d24c77ae7710b0b579a1379a8896
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119869
+INFO:root:found 1 records
+INFO:root:record: nmdc:60eb75a015d54a3255879924684c5cb3, MAGs Analysis Activity for nmdc:mga0r4w677
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:60eb75a015d54a3255879924684c5cb3
+ERROR:root:DataObjectNotFound nmdc:646517160998bb30b46bf3c4c13875ab for nmdc:MAGsAnalysisActivity/nmdc:60eb75a015d54a3255879924684c5cb3
+ERROR:root:DataObjectNotFound nmdc:53595e24304cc9c29346d8b9b0e0a0ca for nmdc:MAGsAnalysisActivity/nmdc:60eb75a015d54a3255879924684c5cb3
+ERROR:root:DataObjectNotFound nmdc:59edad9019c0305934b5ab7ef4298af3 for nmdc:MAGsAnalysisActivity/nmdc:60eb75a015d54a3255879924684c5cb3
+ERROR:root:FailedDataObject: nmdc:90fa2566b26c28900202d62af77d733c,
+ERROR:root:DataObjectNotFound nmdc:c34d6089fcb70dc9a3e731292bf6ecc3 for nmdc:MAGsAnalysisActivity/nmdc:60eb75a015d54a3255879924684c5cb3
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:60eb75a015d54a3255879924684c5cb3, MAGs Analysis Activity for nmdc:mga0r4w677
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119869
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-nwkq6w46
+INFO:root:legacy_id: gold:Gp0119871
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-nwkq6w46
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:56a6899d0d878559e286ce67
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119871
+INFO:root:found 1 records
+INFO:root:record: nmdc:489dd3d27ecf95d802d4ab3490f6e39b, Read QC Activity for nmdc:mga06akz86
+INFO:root:PassingDataObject: nmdc:4cac70dbe447572e04bfa9e362e1aafc
+INFO:root:PassingDataObject: nmdc:f2cbc77fed4639eb21d7532dd62c2a25
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119871
+INFO:root:found 1 records
+INFO:root:record: nmdc:489dd3d27ecf95d802d4ab3490f6e39b, ReadBased Analysis Activity for nmdc:mga06akz86
+INFO:root:PassingDataObject: nmdc:9c6c5ba4a06ca36ec6b983c94de9635f
+INFO:root:PassingDataObject: nmdc:08578df055323144d8daecd706a3e4df
+INFO:root:PassingDataObject: nmdc:fc33db3ee4bb68c5cc71297346123d00
+INFO:root:PassingDataObject: nmdc:bc090921f030024644cde2fd69d5b12e
+INFO:root:PassingDataObject: nmdc:30bc8aeebcd6101139d76549dec969b9
+INFO:root:PassingDataObject: nmdc:ac553a799f0d1ad34a68d669c58ff896
+INFO:root:PassingDataObject: nmdc:acb3bf94a6cba7733f65ff8417d49c56
+INFO:root:PassingDataObject: nmdc:79d40f492c3c532861bbb2ca4e7d2b62
+INFO:root:PassingDataObject: nmdc:e052993cd2c7362e656961567594c509
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119871
+INFO:root:found 1 records
+INFO:root:record: nmdc:489dd3d27ecf95d802d4ab3490f6e39b, Assembly Activity for nmdc:mga06akz86
+INFO:root:PassingDataObject: nmdc:0e9490e2f0fdf7ad952058f7a74cf532
+INFO:root:PassingDataObject: nmdc:d33b2f9915c7de9f4d38675b299f57b5
+INFO:root:PassingDataObject: nmdc:e8cd5d9afc47b0df91aa06d13f5b5e94
+INFO:root:PassingDataObject: nmdc:7b09172d1801c8b722b203fcd3414ced
+INFO:root:PassingDataObject: nmdc:5f1f751638ef6b988e338c43388ef155
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119871
+INFO:root:found 1 records
+INFO:root:record: nmdc:489dd3d27ecf95d802d4ab3490f6e39b, Annotation Activity for nmdc:mga06akz86
+INFO:root:PassingDataObject: nmdc:7d1f1662c10394d7890010ecd658fb8d
+INFO:root:PassingDataObject: nmdc:43580863f0544bc993d135eb45336133
+INFO:root:PassingDataObject: nmdc:96494f25686c97972f89365f97e0789e
+INFO:root:PassingDataObject: nmdc:9006b9acf9eab67dd33e9cdcb86a5140
+INFO:root:PassingDataObject: nmdc:5b7a6250e2f0ac56c3ffe2388759231d
+INFO:root:PassingDataObject: nmdc:7c006a93f93ea27a51807507d6892ad2
+INFO:root:PassingDataObject: nmdc:f79ec9083c0c9ae63a3e0753645e3189
+INFO:root:PassingDataObject: nmdc:f50096a301c544b750982bd4624a22c2
+INFO:root:PassingDataObject: nmdc:f39ebbf448dec2cf26a30206f420c328
+INFO:root:PassingDataObject: nmdc:7551c18b7ffe271f9c6304e6c6693876
+INFO:root:PassingDataObject: nmdc:40a3d52848d223f0dc702c8bc170ac08
+INFO:root:PassingDataObject: nmdc:fe75d12ff308b517d79e93efd3957715
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119871
+INFO:root:found 1 records
+INFO:root:record: nmdc:489dd3d27ecf95d802d4ab3490f6e39b, MAGs Analysis Activity for nmdc:mga06akz86
+ERROR:root:DataObjectNotFound nmdc:96655b86195384992cc636c5c2e024b6 for nmdc:MAGsAnalysisActivity/nmdc:489dd3d27ecf95d802d4ab3490f6e39b
+ERROR:root:DataObjectNotFound nmdc:a5e5088a7709dbfbbaf78b4a269e8cd2 for nmdc:MAGsAnalysisActivity/nmdc:489dd3d27ecf95d802d4ab3490f6e39b
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:489dd3d27ecf95d802d4ab3490f6e39b
+ERROR:root:DataObjectNotFound nmdc:58c90ee508e2c58a08675bae9b1613cf for nmdc:MAGsAnalysisActivity/nmdc:489dd3d27ecf95d802d4ab3490f6e39b
+ERROR:root:FailedDataObject: nmdc:8d6cf34db674d451277709fe676d979a,
+ERROR:root:DataObjectNotFound nmdc:afdb1f847a73fa075b6e5220467efd66 for nmdc:MAGsAnalysisActivity/nmdc:489dd3d27ecf95d802d4ab3490f6e39b
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:489dd3d27ecf95d802d4ab3490f6e39b, MAGs Analysis Activity for nmdc:mga06akz86
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119871
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-87xcf918
+INFO:root:legacy_id: gold:Gp0119863
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-87xcf918
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df3700d878540fd6fe1c9
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119863
+INFO:root:found 1 records
+INFO:root:record: nmdc:e97afa642973e545c1c6a5bfb98dff78, Read QC Activity for nmdc:mga06mqp49
+INFO:root:PassingDataObject: nmdc:10f926a2604c4c807ff297a697b072aa
+INFO:root:PassingDataObject: nmdc:661b4638f9d026b74763805523e596a1
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119863
+INFO:root:found 1 records
+INFO:root:record: nmdc:e97afa642973e545c1c6a5bfb98dff78, ReadBased Analysis Activity for nmdc:mga06mqp49
+INFO:root:PassingDataObject: nmdc:c4f085e9c4ec8f14aebbdc61091d3b2e
+INFO:root:PassingDataObject: nmdc:60fa56d06006ee5b8d292f79c04a453e
+INFO:root:PassingDataObject: nmdc:3ff6bdc3c50e72dc9736f8a3bafa7dfc
+INFO:root:PassingDataObject: nmdc:92ee5dbe5627b52f2da06f5154f3ef9e
+INFO:root:PassingDataObject: nmdc:913fd34a744dba7f2d8e25ab646250a5
+INFO:root:PassingDataObject: nmdc:c6c82d1240f902c0b5b06d9ae902de78
+INFO:root:PassingDataObject: nmdc:c672b747d8d95f5f94240c01f192a8cb
+INFO:root:PassingDataObject: nmdc:992a2d95b42a38d1e6420de4a5a0e67b
+INFO:root:PassingDataObject: nmdc:ce754df464750917b2dd7a66cad45ff5
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119863
+INFO:root:found 1 records
+INFO:root:record: nmdc:e97afa642973e545c1c6a5bfb98dff78, Assembly Activity for nmdc:mga06mqp49
+INFO:root:PassingDataObject: nmdc:b96ac952849316d4d00ebba64927b710
+INFO:root:PassingDataObject: nmdc:dca9e5b9a5043d60877f5e61c8081ba5
+INFO:root:PassingDataObject: nmdc:b01bd02c68c06c38e5f5d5d8ecaefd2e
+INFO:root:PassingDataObject: nmdc:12a18a8e9f401890808c6a009ee32b23
+INFO:root:PassingDataObject: nmdc:e80be7a0f37f668d57e6d32d891c48de
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119863
+INFO:root:found 1 records
+INFO:root:record: nmdc:e97afa642973e545c1c6a5bfb98dff78, Annotation Activity for nmdc:mga06mqp49
+INFO:root:PassingDataObject: nmdc:8cda311b730ba9832ac6150cb6a96573
+INFO:root:PassingDataObject: nmdc:cc439741bb2b49672efe8e4611bafdc3
+INFO:root:PassingDataObject: nmdc:02a20d5a8ed38c0898c116049764a07f
+INFO:root:PassingDataObject: nmdc:930e8a942b44b72f98148d7bf32e9b9c
+INFO:root:PassingDataObject: nmdc:5a5dab66b1fc530fd1a2d18f29bfc9a5
+INFO:root:PassingDataObject: nmdc:6c09233592f03b658e024baecbcb3e90
+INFO:root:PassingDataObject: nmdc:323b5d4d47c5d0199fe30399c72c49ec
+INFO:root:PassingDataObject: nmdc:42122e3d78742a892b1279ad526f03f4
+INFO:root:PassingDataObject: nmdc:9c6632d4efe86fb4666c55d7974adae4
+INFO:root:PassingDataObject: nmdc:31d685c60fc28422b46f1531993b02b0
+INFO:root:PassingDataObject: nmdc:8a969c2ccdece0f1eefbf881666bd66c
+INFO:root:PassingDataObject: nmdc:065b0358e14f3bf1e789c01a6e1c3a0f
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119863
+INFO:root:found 1 records
+INFO:root:record: nmdc:e97afa642973e545c1c6a5bfb98dff78, MAGs Analysis Activity for nmdc:mga06mqp49
+ERROR:root:DataObjectNotFound nmdc:e46f63dff0e8d71ef63f7582e8213399 for nmdc:MAGsAnalysisActivity/nmdc:e97afa642973e545c1c6a5bfb98dff78
+ERROR:root:DataObjectNotFound nmdc:8f04581f652d19124ab08e39d3317d10 for nmdc:MAGsAnalysisActivity/nmdc:e97afa642973e545c1c6a5bfb98dff78
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:e97afa642973e545c1c6a5bfb98dff78, MAGs Analysis Activity for nmdc:mga06mqp49
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119863
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-0sx8df80
+INFO:root:legacy_id: gold:Gp0119866
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-0sx8df80
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df3720d878540fd6fe1cc
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119866
+INFO:root:found 1 records
+INFO:root:record: nmdc:7c72f6c62f76f92f4d0b22fdabd10281, Read QC Activity for nmdc:mga09f1f50
+INFO:root:PassingDataObject: nmdc:448625936760095c0efc271e1003510d
+INFO:root:PassingDataObject: nmdc:28929f0addf71bbaafb2806253f7108e
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119866
+INFO:root:found 1 records
+INFO:root:record: nmdc:7c72f6c62f76f92f4d0b22fdabd10281, ReadBased Analysis Activity for nmdc:mga09f1f50
+INFO:root:PassingDataObject: nmdc:20ce26b373108b6f80dbff7e96b5864b
+INFO:root:PassingDataObject: nmdc:e3331958d361d72116018bbdb1a74d5d
+INFO:root:PassingDataObject: nmdc:fd2a7a459a59296a18b2a464e2868214
+INFO:root:PassingDataObject: nmdc:0449bf5f5699dd5c63c945682ac06f4e
+INFO:root:PassingDataObject: nmdc:57e8059128df37fe5763162f7c1b992e
+INFO:root:PassingDataObject: nmdc:57f89e0f77210981a40cfb0e38014221
+INFO:root:PassingDataObject: nmdc:53c74feb3725c590a1db3486edc2efc3
+INFO:root:PassingDataObject: nmdc:0f1a5387576931ff49370f8e786c92d5
+INFO:root:PassingDataObject: nmdc:af57c9f1974fe0d450382d57482b6c78
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119866
+INFO:root:found 1 records
+INFO:root:record: nmdc:7c72f6c62f76f92f4d0b22fdabd10281, Assembly Activity for nmdc:mga09f1f50
+INFO:root:PassingDataObject: nmdc:00ec3306f3e74333c27b7e82e38a1c66
+INFO:root:PassingDataObject: nmdc:9c04a2492162eb6b6aef8c389f3e182f
+INFO:root:PassingDataObject: nmdc:07a6287efeb2fe2278ce06243619cd5f
+INFO:root:PassingDataObject: nmdc:fba64d9fa6867f4ae1df6023309f0673
+INFO:root:PassingDataObject: nmdc:837fafb2ce56bc381abe7c6916b9bcab
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119866
+INFO:root:found 1 records
+INFO:root:record: nmdc:7c72f6c62f76f92f4d0b22fdabd10281, Annotation Activity for nmdc:mga09f1f50
+INFO:root:PassingDataObject: nmdc:b3caf3a48d011a563b4ff53f76bd31a3
+INFO:root:PassingDataObject: nmdc:3e6b6157c4e5edf6ba07b1a771bb8a80
+INFO:root:PassingDataObject: nmdc:22cca73dcdda0402e2702dc732f4d524
+INFO:root:PassingDataObject: nmdc:493f1e741f4322f9af1baa0cfc166834
+INFO:root:PassingDataObject: nmdc:ebe3dddf7e5a6af42d0cb5bc45b80655
+INFO:root:PassingDataObject: nmdc:972d8a94081dab52d0ea43f31a420807
+INFO:root:PassingDataObject: nmdc:77abc57adce2014a9dc77fd82c51caa2
+INFO:root:PassingDataObject: nmdc:321c7bdfeb7bcc3b9398e468390c47ce
+INFO:root:PassingDataObject: nmdc:e2295c31130dd9c63d0a1328fbfaa3ac
+INFO:root:PassingDataObject: nmdc:7595ad06b43e74c1e4a1e3f707df911b
+INFO:root:PassingDataObject: nmdc:7240223762a9eca1a3c373f2a08116ae
+INFO:root:PassingDataObject: nmdc:2cce9cf7c0cce1bc86c3f16200f45e24
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119866
+INFO:root:found 1 records
+INFO:root:record: nmdc:7c72f6c62f76f92f4d0b22fdabd10281, MAGs Analysis Activity for nmdc:mga09f1f50
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:7c72f6c62f76f92f4d0b22fdabd10281
+ERROR:root:DataObjectNotFound nmdc:4473d2437f80006f43d623ccc918d9f0 for nmdc:MAGsAnalysisActivity/nmdc:7c72f6c62f76f92f4d0b22fdabd10281
+ERROR:root:DataObjectNotFound nmdc:d219f9f9abbab37e40d6151ee9280cda for nmdc:MAGsAnalysisActivity/nmdc:7c72f6c62f76f92f4d0b22fdabd10281
+ERROR:root:DataObjectNotFound nmdc:421a2892a62d614c29593153dd4862aa for nmdc:MAGsAnalysisActivity/nmdc:7c72f6c62f76f92f4d0b22fdabd10281
+ERROR:root:FailedDataObject: nmdc:4e55be27fe6db3985ce888576f36ad4d,
+ERROR:root:DataObjectNotFound nmdc:4015203d1ba510e71cf1ef81d598a907 for nmdc:MAGsAnalysisActivity/nmdc:7c72f6c62f76f92f4d0b22fdabd10281
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:7c72f6c62f76f92f4d0b22fdabd10281, MAGs Analysis Activity for nmdc:mga09f1f50
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119866
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-fgdnjq59
+INFO:root:legacy_id: gold:Gp0153825
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-fgdnjq59
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:57be41397ded5e0c87137bca
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0153825
+INFO:root:found 1 records
+INFO:root:record: nmdc:2b6aa51bbeabec960c878b011e09836b, Read QC Activity for nmdc:mga0t64728
+INFO:root:PassingDataObject: nmdc:02f0bfce391292bffdc3fb0ede465fe9
+INFO:root:PassingDataObject: nmdc:611e94aab854d6b45180b9b673412931
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0153825
+INFO:root:found 1 records
+INFO:root:record: nmdc:2b6aa51bbeabec960c878b011e09836b, ReadBased Analysis Activity for nmdc:mga0t64728
+INFO:root:PassingDataObject: nmdc:e99695e0b4b6a09ab54c16d1529f0a63
+INFO:root:PassingDataObject: nmdc:fe4c1a2df3f76da9634250d52b18dc9a
+INFO:root:PassingDataObject: nmdc:e11972119e273e1e29803b7261511c37
+INFO:root:PassingDataObject: nmdc:96dddb7a2c71faf71b18d84e8bc85746
+INFO:root:PassingDataObject: nmdc:e9ebfe8a61aa67e14c9018ed39f75e06
+INFO:root:PassingDataObject: nmdc:0be6b57ed1f51413d251c49090442fdd
+INFO:root:PassingDataObject: nmdc:79fac15db82a5de044af7ab4f1b31a0e
+INFO:root:PassingDataObject: nmdc:3efa21710c728332bd1d139190321703
+INFO:root:PassingDataObject: nmdc:6d17eebb0556fee2fbeb3e44efc1c917
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0153825
+INFO:root:found 1 records
+INFO:root:record: nmdc:2b6aa51bbeabec960c878b011e09836b, Assembly Activity for nmdc:mga0t64728
+INFO:root:PassingDataObject: nmdc:20ae7270d9f89e5eda4f5c346d7cd247
+INFO:root:PassingDataObject: nmdc:8a6320f759b630b7e17c1d80ae30583f
+INFO:root:PassingDataObject: nmdc:39dd1dd711567e66cc7aaaa755d7a248
+INFO:root:PassingDataObject: nmdc:8da8a1735e49708827f4b10a40bde0c2
+INFO:root:PassingDataObject: nmdc:b1a02f313d0deacb3698f8d72680e91c
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0153825
+INFO:root:found 1 records
+INFO:root:record: nmdc:2b6aa51bbeabec960c878b011e09836b, Annotation Activity for nmdc:mga0t64728
+INFO:root:PassingDataObject: nmdc:a882f6c6fe3b1e5526465311b574ce63
+INFO:root:PassingDataObject: nmdc:bd668c202635dda1fe70d9807f3e3c32
+INFO:root:PassingDataObject: nmdc:8509d9f39a145cec3b881caa3a0490f9
+INFO:root:PassingDataObject: nmdc:931ce7602c4d2e405893584ec8cd2729
+INFO:root:PassingDataObject: nmdc:1f8e76e5a46aafa7e17a34758e1c1715
+INFO:root:PassingDataObject: nmdc:eb71218dd2153978f0873f5e3f911c0c
+INFO:root:PassingDataObject: nmdc:c6c9c61be127a0c0d4ca78f5eb56e93f
+INFO:root:PassingDataObject: nmdc:514f657faad64828b05a510474427cc2
+INFO:root:PassingDataObject: nmdc:a2f9d370c2395f31cc0bb99a5ec57eaa
+INFO:root:PassingDataObject: nmdc:962718857055cbd134b22274d4ea224f
+INFO:root:PassingDataObject: nmdc:eb77752d55321979f5d9522fa3a313dd
+INFO:root:PassingDataObject: nmdc:eb70ce45557a854bc46edd1eb0b36300
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0153825
+INFO:root:found 1 records
+INFO:root:record: nmdc:2b6aa51bbeabec960c878b011e09836b, MAGs Analysis Activity for nmdc:mga0t64728
+ERROR:root:DataObjectNotFound nmdc:8906ae85f1184d4e212440d01080089b for nmdc:MAGsAnalysisActivity/nmdc:2b6aa51bbeabec960c878b011e09836b
+ERROR:root:DataObjectNotFound nmdc:eaee4528131cebe229ddf8da1eb2e50e for nmdc:MAGsAnalysisActivity/nmdc:2b6aa51bbeabec960c878b011e09836b
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:2b6aa51bbeabec960c878b011e09836b, MAGs Analysis Activity for nmdc:mga0t64728
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0153825
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-mskcbv41
+INFO:root:legacy_id: gold:Gp0119867
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-mskcbv41
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df5b70d878540fd6fe1ff
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119867
+INFO:root:found 1 records
+INFO:root:record: nmdc:2ccfca5db7d4b7a9791b679a8bebf109, Read QC Activity for nmdc:mga0pdcf20
+INFO:root:PassingDataObject: nmdc:1ca7ab14098e5484e7edced918100c15
+INFO:root:PassingDataObject: nmdc:9f76849dfee6201591d9e4f97b1e5601
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119867
+INFO:root:found 1 records
+INFO:root:record: nmdc:2ccfca5db7d4b7a9791b679a8bebf109, ReadBased Analysis Activity for nmdc:mga0pdcf20
+INFO:root:PassingDataObject: nmdc:925f6bba420531e83285198bffd06edf
+INFO:root:PassingDataObject: nmdc:ccabc2c1f15f4cf457557695c16b62c9
+INFO:root:PassingDataObject: nmdc:efed1192940d7d794c348b2fb5254b5f
+INFO:root:PassingDataObject: nmdc:f1a4bca4e16853feb276de24db77ecd4
+INFO:root:PassingDataObject: nmdc:a6d5c4d0616134d6066eae0d90b93a50
+INFO:root:PassingDataObject: nmdc:6667e15f9ef824b772f3f428b9f19388
+INFO:root:PassingDataObject: nmdc:cbea85cd59798a6d231fb8fffffa60fc
+INFO:root:PassingDataObject: nmdc:75101ddd772a807aeca554363347b81b
+INFO:root:PassingDataObject: nmdc:479e9174f330c6016382ab18e9c9d644
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119867
+INFO:root:found 1 records
+INFO:root:record: nmdc:2ccfca5db7d4b7a9791b679a8bebf109, Assembly Activity for nmdc:mga0pdcf20
+INFO:root:PassingDataObject: nmdc:2cb0c4b36cf19611d4eaef5f36318fe7
+INFO:root:PassingDataObject: nmdc:bd0e70488d70efefed25ae7603b513b5
+INFO:root:PassingDataObject: nmdc:3af4f79ba558f9e4740dca5ac82bfb73
+INFO:root:PassingDataObject: nmdc:f8dc145afa51127bb13cc568855875b9
+INFO:root:PassingDataObject: nmdc:87f32d5751e7418852eaa0bdce88b520
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119867
+INFO:root:found 1 records
+INFO:root:record: nmdc:2ccfca5db7d4b7a9791b679a8bebf109, Annotation Activity for nmdc:mga0pdcf20
+INFO:root:PassingDataObject: nmdc:602bc048f491ce8bc3b5ee2fd571df68
+INFO:root:PassingDataObject: nmdc:bb7a287b3075de92b96504518596e537
+INFO:root:PassingDataObject: nmdc:18db119a96eacbb8f877be4e41c44768
+INFO:root:PassingDataObject: nmdc:291c2e5e3e4129c1d29a051e884b515b
+INFO:root:PassingDataObject: nmdc:b1a21a32d5c814bbb7281b4fb9c0012c
+INFO:root:PassingDataObject: nmdc:e77fcea6fad6513fa189cb8bfe513745
+INFO:root:PassingDataObject: nmdc:231a70ea7ab9fcb6d53db92f3da63ccd
+INFO:root:PassingDataObject: nmdc:79dcba2c535e44dc34b36e3f1e39a750
+INFO:root:PassingDataObject: nmdc:fa2e612c33c6eeb41bb8d2ce1cddbdd7
+INFO:root:PassingDataObject: nmdc:d7cf03f03618b16bb353d2c7a00ac154
+INFO:root:PassingDataObject: nmdc:23b1167d33f4bc7d20f06b3f52f6d110
+INFO:root:PassingDataObject: nmdc:abb912ad792ec018d9af5576e36da8e9
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119867
+INFO:root:found 1 records
+INFO:root:record: nmdc:2ccfca5db7d4b7a9791b679a8bebf109, MAGs Analysis Activity for nmdc:mga0pdcf20
+ERROR:root:DataObjectNotFound nmdc:4e9a010790fcf050219ad3382479d683 for nmdc:MAGsAnalysisActivity/nmdc:2ccfca5db7d4b7a9791b679a8bebf109
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:2ccfca5db7d4b7a9791b679a8bebf109
+ERROR:root:DataObjectNotFound nmdc:b3a8fbbaaf4fc08627144ce88cd98d0d for nmdc:MAGsAnalysisActivity/nmdc:2ccfca5db7d4b7a9791b679a8bebf109
+ERROR:root:DataObjectNotFound nmdc:d6c5e04125ba6a6b9c78cd16d71aafdb for nmdc:MAGsAnalysisActivity/nmdc:2ccfca5db7d4b7a9791b679a8bebf109
+ERROR:root:DataObjectNotFound nmdc:08f765d3d2726deea2b9d42cbf1b7f7d for nmdc:MAGsAnalysisActivity/nmdc:2ccfca5db7d4b7a9791b679a8bebf109
+ERROR:root:FailedDataObject: nmdc:5c39b38fc9a0898c8223142edcf534c3,
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:2ccfca5db7d4b7a9791b679a8bebf109, MAGs Analysis Activity for nmdc:mga0pdcf20
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119867
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-5sf7gh95
+INFO:root:legacy_id: gold:Gp0119865
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-5sf7gh95
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df3750d878540fd6fe1d1
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119865
+INFO:root:found 1 records
+INFO:root:record: nmdc:fb034382963da665da210554890d65a6, Read QC Activity for nmdc:mga0dqhf53
+INFO:root:PassingDataObject: nmdc:c3c7612d03968cf94263bc4247e349c8
+INFO:root:PassingDataObject: nmdc:bef640a10fcdf22c758158c572557903
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119865
+INFO:root:found 1 records
+INFO:root:record: nmdc:fb034382963da665da210554890d65a6, ReadBased Analysis Activity for nmdc:mga0dqhf53
+INFO:root:PassingDataObject: nmdc:c584ed2932bd4a7a2f9dd3ec6e276666
+INFO:root:PassingDataObject: nmdc:26ea3d0f6789a8b4c069d95b4683223a
+INFO:root:PassingDataObject: nmdc:ec0dc7ee83062fcc43b212662be9b802
+INFO:root:PassingDataObject: nmdc:a1cb4436b54b8103c2023fff44c71605
+INFO:root:PassingDataObject: nmdc:8aa4029ecd774b56ff0a609b88f58491
+INFO:root:PassingDataObject: nmdc:7b62dd0dab192394469b049096d614c5
+INFO:root:PassingDataObject: nmdc:3dc48571d8b3899fb7482dba34e66127
+INFO:root:PassingDataObject: nmdc:20e6e923e0648ef56c5d48e0c3f407d5
+INFO:root:PassingDataObject: nmdc:e67bddc790aa53a4c80a19aa40b5ceee
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119865
+INFO:root:found 1 records
+INFO:root:record: nmdc:fb034382963da665da210554890d65a6, Assembly Activity for nmdc:mga0dqhf53
+INFO:root:PassingDataObject: nmdc:6d699d3aa5732307706f2e55779e8b9a
+INFO:root:PassingDataObject: nmdc:e3b7f40adfb21ec645f62d482f591f4c
+INFO:root:PassingDataObject: nmdc:f4f66aba79bd6d06b56f1f7ca60c7a9a
+INFO:root:PassingDataObject: nmdc:55b3394e2c5819bcece9ee95ea7ed820
+INFO:root:PassingDataObject: nmdc:fb4363a7625400ef200cf4596c782682
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119865
+INFO:root:found 1 records
+INFO:root:record: nmdc:fb034382963da665da210554890d65a6, Annotation Activity for nmdc:mga0dqhf53
+INFO:root:PassingDataObject: nmdc:77ba77ffe195895a69ae422d97a8c630
+INFO:root:PassingDataObject: nmdc:d87802e97e09c9ec0670bf0ae93d6b55
+INFO:root:PassingDataObject: nmdc:ad0427ce52177c7c2ea4fe05baa9b280
+INFO:root:PassingDataObject: nmdc:b1a70cb1e731b5245f008e703f4f32f4
+INFO:root:PassingDataObject: nmdc:7fac51eabb726e277d2c81155117551b
+INFO:root:PassingDataObject: nmdc:cbf87e8c596a5af525de057ff1762d0f
+INFO:root:PassingDataObject: nmdc:86866d379e9193d501e1f6b1f72d2f21
+INFO:root:PassingDataObject: nmdc:1cf22adcc77e40fa24bf1880ea4864a4
+INFO:root:PassingDataObject: nmdc:0c0d49ca5d4c004cbfe8f1b1617153f6
+INFO:root:PassingDataObject: nmdc:500246e7472eb2b51065a4d5e041d0b3
+INFO:root:PassingDataObject: nmdc:e6262f38ee3407f7fd6e19b6c4a95454
+INFO:root:PassingDataObject: nmdc:fc8bef54f2e80752641a2f316fea248c
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119865
+INFO:root:found 1 records
+INFO:root:record: nmdc:fb034382963da665da210554890d65a6, MAGs Analysis Activity for nmdc:mga0dqhf53
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:fb034382963da665da210554890d65a6
+ERROR:root:FailedDataObject: nmdc:415c63515c68663b5c4ee5f69433d18d,
+ERROR:root:DataObjectNotFound nmdc:46f77d71bd6fa8591feac662b2e2e777 for nmdc:MAGsAnalysisActivity/nmdc:fb034382963da665da210554890d65a6
+ERROR:root:DataObjectNotFound nmdc:811090ea1b1405947745eb47c2a30c1f for nmdc:MAGsAnalysisActivity/nmdc:fb034382963da665da210554890d65a6
+ERROR:root:DataObjectNotFound nmdc:6980ea491d86f3c78b19339e95a8a9ec for nmdc:MAGsAnalysisActivity/nmdc:fb034382963da665da210554890d65a6
+ERROR:root:DataObjectNotFound nmdc:53ca5abe0b0fd48f88e1f4e98d291cee for nmdc:MAGsAnalysisActivity/nmdc:fb034382963da665da210554890d65a6
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:fb034382963da665da210554890d65a6, MAGs Analysis Activity for nmdc:mga0dqhf53
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119865
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-fy71mq09
+INFO:root:legacy_id: gold:Gp0119868
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-fy71mq09
+INFO:root:Adding OmicsProcessing None has_output DataObject:jgi:560df3660d878540fd6fe1b9
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0119868
+INFO:root:found 1 records
+INFO:root:record: nmdc:9238b3016b2ebfeb268f6e32a396fead, Read QC Activity for nmdc:mga0tc4144
+INFO:root:PassingDataObject: nmdc:8aec820c1193dad3bb21ba4084d43a20
+INFO:root:PassingDataObject: nmdc:f593f3aee7fc5760af7c039bdf62ba57
+INFO:root:passing_data_objects: 2
+INFO:root:PassingRecords: read_qc_analysis_activity_set, 1
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0119868
+INFO:root:found 1 records
+INFO:root:record: nmdc:9238b3016b2ebfeb268f6e32a396fead, ReadBased Analysis Activity for nmdc:mga0tc4144
+INFO:root:PassingDataObject: nmdc:0c7920c75acfbd3d3b2d654e3b2cd9ec
+INFO:root:PassingDataObject: nmdc:73e3da946aae23b311d50688663ef847
+INFO:root:PassingDataObject: nmdc:089f1a254b33552d2c8465e7e8de1186
+INFO:root:PassingDataObject: nmdc:fe347ec8d4621fca2e07d8fe6cfcea55
+INFO:root:PassingDataObject: nmdc:606adc1b169bba287f1d231635fe756f
+INFO:root:PassingDataObject: nmdc:abf78291d78d1c78eafe96d6cfb062aa
+INFO:root:PassingDataObject: nmdc:d42c6a1ade379bfacea8a2abc762b45a
+INFO:root:PassingDataObject: nmdc:c01688a45c35e13a9ebeea38e04fb8ef
+INFO:root:PassingDataObject: nmdc:9efccbd1e5bbb4d10ce94c2e8d2b33aa
+INFO:root:passing_data_objects: 9
+INFO:root:PassingRecords: read_based_taxonomy_analysis_activity_set, 1
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0119868
+INFO:root:found 1 records
+INFO:root:record: nmdc:9238b3016b2ebfeb268f6e32a396fead, Assembly Activity for nmdc:mga0tc4144
+INFO:root:PassingDataObject: nmdc:9a56bc21f20b6e1bc5edce3a88c469c9
+INFO:root:PassingDataObject: nmdc:bda4bbf191832c401a301364ceaa99b9
+INFO:root:PassingDataObject: nmdc:76f1b90c58a3672147718346c40e81c9
+INFO:root:PassingDataObject: nmdc:0fe116e4fc9c24bf39029cafe4d2256d
+INFO:root:PassingDataObject: nmdc:9b82712bfcf3013e35482c9e68b9095b
+INFO:root:passing_data_objects: 5
+INFO:root:PassingRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0119868
+INFO:root:found 1 records
+INFO:root:record: nmdc:9238b3016b2ebfeb268f6e32a396fead, Annotation Activity for nmdc:mga0tc4144
+INFO:root:PassingDataObject: nmdc:e30b169c1a0529b20903cf960b162d84
+INFO:root:PassingDataObject: nmdc:cb48f118d9c407c955482ec145d1d705
+INFO:root:PassingDataObject: nmdc:69e4ba430ae17ea5e82d2ec1a8595ffd
+INFO:root:PassingDataObject: nmdc:0dd92986c02650f665649b79cd95c3ad
+INFO:root:PassingDataObject: nmdc:74b62c9e6ab9bd7d843b64b436361743
+INFO:root:PassingDataObject: nmdc:16ffd084e72cab2403866158e5e6a6cb
+INFO:root:PassingDataObject: nmdc:b6e6beea1a1e2bc5fd3defefb4329096
+INFO:root:PassingDataObject: nmdc:8c880ce9cade09ededdca6d52db621d1
+INFO:root:PassingDataObject: nmdc:3d67230b15a3119104d0a96c47e3a51e
+INFO:root:PassingDataObject: nmdc:dbc18fc26ae72645371911c8519549fa
+INFO:root:PassingDataObject: nmdc:cc9ac778259f4a97efb179d199561126
+INFO:root:PassingDataObject: nmdc:7b83b2503caf6ef8448c50fc0a6c7199
+INFO:root:passing_data_objects: 12
+INFO:root:PassingRecords: metagenome_annotation_activity_set, 1
+INFO:root:set_name: mags_activity_set for gold:Gp0119868
+INFO:root:found 1 records
+INFO:root:record: nmdc:9238b3016b2ebfeb268f6e32a396fead, MAGs Analysis Activity for nmdc:mga0tc4144
+ERROR:root:DataObjectNotFound nmdc:d41d8cd98f00b204e9800998ecf8427e for nmdc:MAGsAnalysisActivity/nmdc:9238b3016b2ebfeb268f6e32a396fead
+ERROR:root:DataObjectNotFound nmdc:7d43fe4cf26508913cf3787719268e19 for nmdc:MAGsAnalysisActivity/nmdc:9238b3016b2ebfeb268f6e32a396fead
+ERROR:root:DataObjectNotFound nmdc:b81a8b6ba415f515a85a7ea04f797c4f for nmdc:MAGsAnalysisActivity/nmdc:9238b3016b2ebfeb268f6e32a396fead
+ERROR:root:DataObjectNotFound nmdc:de95068612befe1bdf0e2dc4dee6f08c for nmdc:MAGsAnalysisActivity/nmdc:9238b3016b2ebfeb268f6e32a396fead
+ERROR:root:FailedDataObject: nmdc:498ce8a4b78ff4c3df69922bf1be3bad,
+ERROR:root:DataObjectNotFound nmdc:f3094463068795ea860272240e7d16fa for nmdc:MAGsAnalysisActivity/nmdc:9238b3016b2ebfeb268f6e32a396fead
+ERROR:root:failing_data_objects: 1
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:9238b3016b2ebfeb268f6e32a396fead, MAGs Analysis Activity for nmdc:mga0tc4144
+ERROR:root:FailedRecords: mags_activity_set, 1
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0119868
+INFO:root:found 0 records
+INFO:root:Writing 23 records to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-8fb6t785_associated_record_dump.json
+INFO:root:Elapsed time: 97.54455614089966
+INFO:root:Writing 23 failed records to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-8fb6t785_failed_record_dump.json
+INFO:root:Found 0 omics processing records with missing has_output
+INFO:root:Found 0 read qc records with missing data objects

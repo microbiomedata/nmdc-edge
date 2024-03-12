@@ -1,0 +1,91 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:34: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Deleting old objects found in : ./data/nmdc:sty-11-8fb6t785_failed_record_dump.json
+INFO:root:Using: https://api-napa.microbiomedata.org/
+INFO:root:Deleting data_object_set records: ['nmdc:38c2006dc930f7cb8db52f4e2eda3bf1']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:22e21ef026913d9514e67ad8e0eec604']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:7f30870d63b49d6a9fea574776bf2b65']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:d33d65c1672bc3083d12f9ccece6e430']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:2654935e5a91bc06434a4a647975d054']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:71bbad1a58cd51e6190b66f925cfb8f5']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:d7fd2b2506ab787723b3d2a57469d1fa']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:d7ee6ea807bff67b75f4ab80609e213f']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:4bc01c7e8cba367adb7f0d1ea6d795ff']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:f8697f5eabfbe268fe8c46d629d74a3d']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:f8833ab43df655c1973b44c8dea6b4f2']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:3242b01ba1155fcbdf2f140ce4439b41']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:f08a62aee3702f494f905234c8653bb6']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:1d176422b1bc213621a6f1d5460c249c']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:5836dbcde1807ef21aa88be550c32671']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:3e61df1bd053b23abbda1322dd07af71']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:8eb796d18151cac86f952cadf6db39e3']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:e6301f8e5167067b3608a7fab2aca541']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:34f751af8eade7eecf7a0ba611991cb0']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:022c8bd54edbf30714f42158d138a677']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:3d0802ceb5124c47cedf0ea035aa607f']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:bc66168e02a9285e9102da93c6c6a33f']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:08a00210b9b5961713a99c0def8819d1']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:fd404511f6ad57425d354ce2b5b61e9f']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:9d49b6ad9e235a52bc80dcf8c48ccd64']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:01f8c294a098bd6902ee3c3476bae40c']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:18416fae07b292d815e9f051aa657c8c']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:afcdd58d609459c62f95d7987781515e']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:90fa2566b26c28900202d62af77d733c']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:60eb75a015d54a3255879924684c5cb3']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:8d6cf34db674d451277709fe676d979a']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:489dd3d27ecf95d802d4ab3490f6e39b']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:e97afa642973e545c1c6a5bfb98dff78']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:4e55be27fe6db3985ce888576f36ad4d']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:7c72f6c62f76f92f4d0b22fdabd10281']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:2b6aa51bbeabec960c878b011e09836b']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:5c39b38fc9a0898c8223142edcf534c3']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:2ccfca5db7d4b7a9791b679a8bebf109']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:415c63515c68663b5c4ee5f69433d18d']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:fb034382963da665da210554890d65a6']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting data_object_set records: ['nmdc:498ce8a4b78ff4c3df69922bf1be3bad']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting mags_activity_set records: ['nmdc:9238b3016b2ebfeb268f6e32a396fead']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 1}
+INFO:root:Deleting functional annotation agg records: []
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Elapsed time: 151.0864109992981

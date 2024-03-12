@@ -1,0 +1,259 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:34: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Submitting re id'd records from : ./data/nmdc:sty-11-8fb6t785_re_ided_record_dump.json
+INFO:root:Using MongoDB URI: mongodb://mbthornton-napa:wildlife-nutrient-radiator@localhost:37020
+INFO:root:Connected to MongoDB server at mongodb://mbthornton-napa:wildlife-nutrient-radiator@localhost:37020
+INFO:root:omics_processing_id: nmdc:omprc-11-ahcjx717
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-q457kv14
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-mspwf315
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-r3821s28
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-m7p5j003
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-pmgah004
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-d8hs4q36
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-bpf8k271
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-qs59yk26
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-8r4tbs19
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-3d14m472
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-3a2hb308
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-c2269540
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-52xgyt85
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-11rjpd98
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-g6htbk44
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-nwkq6w46
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-87xcf918
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-0sx8df80
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-fgdnjq59
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-mskcbv41
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-5sf7gh95
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-fy71mq09
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Elapsed time: 62.34901285171509
