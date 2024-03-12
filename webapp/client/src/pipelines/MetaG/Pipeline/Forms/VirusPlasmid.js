@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Card, 
+    Card,
 } from 'reactstrap';
 
-import { initialReadbasedAnalysis } from '../Defaults';
 import { Header } from '../../../Common/Forms/CardHeader';
+import { initialVirusPlasmid } from '../Defaults';
 
-export function ReadbasedAnalysis(props) {
+export function VirusPlasmid(props) {
 
-    const [form, setState] = useState({ ...initialReadbasedAnalysis });
-    const [collapseParms, setCollapseParms] = useState(false);
+    const [form, setState] = useState({ ...initialVirusPlasmid });
+    const [collapseParms, setCollapseParms] = useState(true);
 
     const setNewState2 = (name, value) => {
         setState({
@@ -19,12 +19,20 @@ export function ReadbasedAnalysis(props) {
     }
 
     const setOnoff = (stats) => {
-        setNewState2("paramsOn", stats);
+        if (props.onoff) {
+            setNewState2("paramsOn", stats);
+        }
     }
 
     useEffect(() => {
         props.setParams(form, props.name);
     }, [form.paramsOn]);// eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        if (!props.onoff) {
+            setNewState2("paramsOn", false);
+        }
+    }, [props.onoff]);// eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Card className='workflow-card'>

@@ -11,30 +11,32 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Project } from '../../Common/Forms/Project';
 import { ReadbasedAnalysis } from './Forms/ReadbasedAnalysis';
 import { MetaAnnotation } from './Forms/MetaAnnotation';
+import { VirusPlasmid } from './Forms/VirusPlasmid';
 import { MetaAssembly } from './Forms/MetaAssembly';
 import { MetaMAGs } from './Forms/MetaMAGs';
 import { ReadsQC } from './Forms/ReadsQC';
 import { Input } from './Input';
 import { initialFastqInput } from '../../Common/Forms/Defaults';
-import { workflowlist, initialReadsQC, initialReadbasedAnalysis, initialMetaAssembly, initialMetaAnnotation, initialMetaMAGs } from './Defaults';
+import { workflowlist, initialReadsQC, initialReadbasedAnalysis, initialMetaAssembly, initialVirusPlasmid, initialMetaAnnotation, initialMetaMAGs } from './Defaults';
 
 function Main(props) {
     const [openDialog, setOpenDialog] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [requestSubmit, setRequestSubmit] = useState(false);
     const [projectParams, setProjectParams] = useState();
-    const [inputsParams, setInputsParams] = useState({...initialFastqInput});
+    const [inputsParams, setInputsParams] = useState({ ...initialFastqInput });
 
     const [workflows, setWorkflows] = useState({
-        "ReadsQC": {...initialReadsQC},
-        "ReadbasedAnalysis": {...initialReadbasedAnalysis},
-        "MetaAssembly": {...initialMetaAssembly},
-        "MetaAnnotation": {...initialMetaAnnotation},
-        "MetaMAGs": {...initialMetaMAGs}
+        "ReadsQC": { ...initialReadsQC },
+        "ReadbasedAnalysis": { ...initialReadbasedAnalysis },
+        "MetaAssembly": { ...initialMetaAssembly },
+        "virus_plasmid": { ...initialVirusPlasmid },
+        "MetaAnnotation": { ...initialMetaAnnotation },
+        "MetaMAGs": { ...initialMetaMAGs }
     });
     const [doValidation, setDoValidation] = useState(0);
-    const [metaAnnotation_onoff, setMetaAnnotation_onoff] = useState({...initialMetaAnnotation.paramsOn});
-    const [metaMAGs_onoff, setMetaMAGs_onoff] = useState({...initialMetaMAGs.paramsOn});
+    const [metaAssembly_onoff, setmetaAssembly_onoff] = useState({ ...initialMetaAssembly.paramsOn });
+    const [metaMAGs_onoff, setMetaMAGs_onoff] = useState({ ...initialMetaMAGs.paramsOn });
 
     //callback function for child component
     const setProject = (params) => {
@@ -50,13 +52,14 @@ function Main(props) {
     }
     const setWorkflowParams = (params, workflowName) => {
         //console.log("setworkflow", workflowName, params)
-        setWorkflows({ ...workflows, [workflowName]: params });
+        //setWorkflows({ ...workflows, [workflowName]: params });
+        workflows[workflowName] = params;
         //set downstream paramsOn values
         if (workflowName === "MetaAssembly") {
             if (params.paramsOn) {
-                setMetaAnnotation_onoff(true);
+                setmetaAssembly_onoff(true);
             } else {
-                setMetaAnnotation_onoff(false);
+                setmetaAssembly_onoff(false);
             }
         } else if (workflowName === "MetaAnnotation") {
             if (params.paramsOn) {
@@ -109,24 +112,13 @@ function Main(props) {
                 inputDisplay.input[workflowlist[item].name]['On/Off'] = 'Off';
             }
 
-            if (item === 'ReadsQC') {
+            if (['ReadsQC', 'MetaAssembly', 'virus_plasmid', 'MetaAnnotation'].includes(item)) {
                 myWorkflow.paramsOn = workflows[item].paramsOn;
                 workflowParams.push(myWorkflow);
 
             } else if (item === 'ReadbasedAnalysis') {
                 myWorkflow.paramsOn = workflows[item].paramsOn;
                 myWorkflow.enabled_tools = workflows[item].enabled_tools;
-                workflowParams.push(myWorkflow);
-                if (workflows[item].paramsOn) {
-                    inputDisplay.input[workflowlist[item].name]['Analysis Tools'] = workflows[item].enabled_tools;
-                }
-
-            } else if (item === 'MetaAssembly') {
-                myWorkflow.paramsOn = workflows[item].paramsOn;
-                workflowParams.push(myWorkflow);
-
-            } else if (item === 'MetaAnnotation') {
-                myWorkflow.paramsOn = workflows[item].paramsOn;
                 workflowParams.push(myWorkflow);
 
             } else if (item === 'MetaMAGs') {
@@ -145,7 +137,6 @@ function Main(props) {
         formData.append('inputDisplay', JSON.stringify(inputDisplay));
 
         //console.log("formdata", JSON.stringify(workflowParams))
-
         postData("/auth-api/user/project/add", formData)
             .then(data => {
                 notify("success", "Your workflow request was submitted successfully!", 2000);
@@ -215,7 +206,8 @@ function Main(props) {
                             <ReadsQC full_name={workflowlist["ReadsQC"].name} name={"ReadsQC"} setParams={setWorkflowParams} />
                             <ReadbasedAnalysis full_name={workflowlist["ReadbasedAnalysis"].name} name={"ReadbasedAnalysis"} setParams={setWorkflowParams} />
                             <MetaAssembly full_name={workflowlist["MetaAssembly"].name} name={"MetaAssembly"} setParams={setWorkflowParams} />
-                            <MetaAnnotation full_name={workflowlist["MetaAnnotation"].name} name={"MetaAnnotation"} setParams={setWorkflowParams} onoff={metaAnnotation_onoff} />
+                            <VirusPlasmid full_name={workflowlist["virus_plasmid"].name} name={"virus_plasmid"} setParams={setWorkflowParams} onoff={metaAssembly_onoff} />
+                            <MetaAnnotation full_name={workflowlist["MetaAnnotation"].name} name={"MetaAnnotation"} setParams={setWorkflowParams} onoff={metaAssembly_onoff} />
                             <MetaMAGs full_name={workflowlist["MetaMAGs"].name} name={"MetaMAGs"} setParams={setWorkflowParams} onoff={metaMAGs_onoff} />
 
                             <br></br>
