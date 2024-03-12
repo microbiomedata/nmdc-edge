@@ -605,7 +605,7 @@ def delete_old_records(ctx, old_records_file):
                         annotation_ids.append(item["id"])
                 delete_query = {
                     "delete": set_name,
-                    "deletes": [{"q": {"id": {"$in": delete_ids}}, "limit": len(delete_ids)}],
+                    "deletes": [{"q": {"id": {"$in": delete_ids}}, "limit": 0}],
                 }
                 try:
                     logging.info(f"Deleting {set_name} records: {delete_ids}")
@@ -617,14 +617,14 @@ def delete_old_records(ctx, old_records_file):
     # delete functional annotation agg records
     delete_annotation_query = {
         "delete": "functional_annotation_agg",
-        "deletes": [{"q": {"metagenome_annotation_id": {"$in": annotation_ids}}, "limit": len(annotation_ids)}],
+        "deletes": [{"q": {"metagenome_annotation_id": {"$in": annotation_ids}}, "limit": 0}],
     }
     try:
         logging.info(f"Deleting functional annotation agg records: {annotation_ids}")
         run_query_response = api_user_client.run_query(delete_annotation_query)
         logging.info(f"Deleting query posted with response: {run_query_response}")
     except requests.exceptions.RequestException as e:
-        logging.error(f"An error occured while running: {delete_annotation_query}, response retutrned: {e}")
+        logging.error(f"An error occurred while running: {delete_annotation_query}, response returned: {e}")
 
     logging.info(f"Elapsed time: {time.time() - start_time}")
 
