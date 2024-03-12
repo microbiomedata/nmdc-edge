@@ -11,6 +11,10 @@ export const workflowlist = {
         title: 'Metagenome Assembly',
         name: 'Metagenome Assembly Workflow'
     },
+    virus_plasmid: {
+        title: 'Virus Plasmid',
+        name: 'Virus Plasmid Workflow'
+    },
     MetaAnnotation: {
         title: 'Metagenome Annotation',
         name: 'Metagenome Annotation Workflow'
@@ -40,20 +44,21 @@ export const initialReadsQC = {
 export const initialReadbasedAnalysis = {
     validForm: true,
     errMessage: '',
+    paramsOn: true,
     enabled_tools: {
         "gottcha2": true,
         "kraken2": true,
         "centrifuge": true
     },
-    tool_options: [
-        { value: 'gottcha2', label: 'GOTTCHA2' },
-        { value: 'kraken2', label: 'Kraken2' },
-        { value: 'centrifuge', label: 'Centrifuge' },
-    ],
-    paramsOn: true,
 }
 
 export const initialMetaAnnotation = {
+    validForm: true,
+    errMessage: '',
+    paramsOn: true,
+}
+
+export const initialVirusPlasmid = {
     validForm: true,
     errMessage: '',
     paramsOn: true,

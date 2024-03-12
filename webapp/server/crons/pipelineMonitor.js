@@ -212,6 +212,9 @@ async function generateInputs(proj_home, conf, proj) {
         } else if (workflow.name === 'MetaAssembly') {
             templInputs = templInputs.replace(/<DOMETAASSEMBLY>/, workflow.paramsOn);
             templInputs = templInputs.replace(/<METAASSEMBLY_OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
+        } else if (workflow.name === 'virus_plasmid') {
+            templInputs = templInputs.replace(/<DOVIRUSPLASMID>/, workflow.paramsOn);
+            templInputs = templInputs.replace(/<VIRUSPLASMID_OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
         } else if (workflow.name === 'MetaAnnotation') {
             templInputs = templInputs.replace(/<DOANNOTATION>/, workflow.paramsOn);
             templInputs = templInputs.replace(/<METAANNOTATION_OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
