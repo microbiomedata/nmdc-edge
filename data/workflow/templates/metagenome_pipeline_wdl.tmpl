@@ -556,7 +556,7 @@ task finish {
         cp ${unbinned} ${magsdir}/${proj}_bins.unbinned.fa
         cp ${checkm} ${magsdir}/${proj}_checkm_qa.out
 			cp activity.json data_objects.json ${lowdepth} ${unbinned} ${mags_stats_json} ${mags_stats_tsv} ${ar_summary} ${final_hqmq_bins} \
-			${hqmq_bin_fasta_files} ${bin_fasta_files} ${metabat_bins} {magsdir}/
+			${sep=" " hqmq_bin_fasta_files} ${sep=" " bin_fasta_files} ${metabat_bins} ${magsdir}/
 
 		    mkdir -p ${rbadir}
 			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \
