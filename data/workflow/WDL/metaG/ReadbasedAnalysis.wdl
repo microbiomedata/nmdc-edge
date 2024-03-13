@@ -2,7 +2,7 @@ import "ReadbasedAnalysisTasks.wdl" as tasks
 
 workflow ReadbasedAnalysis {
     Map[String, Boolean] enabled_tools
-    String db_gottcha2 = "/refdata/GOTTCHA2/RefSeq-r90.cg.BacteriaArchaeaViruses.species.fna"
+    String db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
     String db_kraken2 = "/refdata/Kraken2/"
     String db_centrifuge = "/refdata/Centrifuge/hpv"
     Array[File] reads
@@ -10,7 +10,7 @@ workflow ReadbasedAnalysis {
     String prefix
     String outdir
     Boolean? paired = false
-    String? docker = "microbiomedata/nmdc_taxa_profilers:1.0.3p1"
+    String? docker = "poeli/nmdc_taxa_profilers:1.0.3p2"
 
     if (enabled_tools["gottcha2"] == true) {
         call tasks.profilerGottcha2 {
