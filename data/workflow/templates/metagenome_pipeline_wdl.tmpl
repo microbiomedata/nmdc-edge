@@ -49,7 +49,7 @@ workflow main_workflow {
         }
     call readsQC.nmdc_rqcfilter as nmdc_rqcfilter_call {
             input:
-                input_files=file,
+                input_files=readsqc_preprocess.input_file_gz,
                 database=readsQC_database,
                 proj=proj
         }
