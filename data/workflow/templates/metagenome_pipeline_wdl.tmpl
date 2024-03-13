@@ -63,7 +63,7 @@ workflow main_workflow {
 		"kraken2": true,
 		"centrifuge": true
 	}
-    File readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final[0]
+    File readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final
 	String ReadbasedAnalysis_container = "poeli/nmdc_taxa_profilers:1.0.5"
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
@@ -87,7 +87,7 @@ workflow main_workflow {
 
 
 	## Assembly workflow
-	File metaAssembly_input_file = nmdc_rqcfilter_call.filtered_final[0]
+	File metaAssembly_input_file = nmdc_rqcfilter_call.filtered_final
 	String? metaAssembly_outdir
 	String metaAssembly_rename_contig_prefix="scaffold"
 	Float metaAssembly_uniquekmer=1000
