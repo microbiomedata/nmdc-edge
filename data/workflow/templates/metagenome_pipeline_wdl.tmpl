@@ -39,7 +39,6 @@ workflow main_workflow {
 	String readsQC_threads="4"
 	Array[File] input_fq1=[]
 	Array[File] input_fq2=[]
-
     call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input:
             input_files=input_files,
@@ -48,16 +47,15 @@ workflow main_workflow {
             input_fq1=input_fq1,
             input_fq2=input_fq2
         }
-    scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
-
-        call readsQC.nmdc_rqcfilter  as nmdc_rqcfilter_call {
+    call readsQC.nmdc_rqcfilter as nmdc_rqcfilter_call {
             input:
                 input_files=file,
                 database=readsQC_database,
-                proj=proj,
-       }
-
+                proj=proj
+        }
     }
+
+
 
 	## ReadbasedAnalysis workflow
 	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
