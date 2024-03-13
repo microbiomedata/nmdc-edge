@@ -32,6 +32,13 @@ const _nav = [
   },
   {
     _tag: 'CSidebarNavItem',
+    name: 'NMDC Home',
+    target: '_blank',
+    href: 'https://microbiomedata.org/',
+    icon: <CIcon name="cilExternalLink" customClasses="c-sidebar-nav-icon" />
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'Sample Submission Portal',
     target: '_blank',
     href: 'https://data.microbiomedata.org/submission/home',
@@ -42,6 +49,13 @@ const _nav = [
     name: 'Data Portal',
     target: '_blank',
     href: 'https://data.microbiomedata.org/',
+    icon: <CIcon name="cilExternalLink" customClasses="c-sidebar-nav-icon" />
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Documentation',
+    target: '_blank',
+    href: 'https://nmdc-documentation.readthedocs.io/en/latest/index.html',
     icon: <CIcon name="cilExternalLink" customClasses="c-sidebar-nav-icon" />
   },
   {
