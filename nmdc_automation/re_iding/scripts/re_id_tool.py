@@ -558,7 +558,7 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri,
                         continue
                     logging.info(f"Inserting {len(collection)} records into {collection_name}")
 
-                    insertion_result = db_client[collection_name].insert_many(collection)
+                    insertion_result = db_client[collection_name].insert_many(collection, ordered=False)
                     logging.info(f"Inserted {len(insertion_result.inserted_ids)} records into {collection_name}")
             else:
                 logging.error("Workflow Record validation failed")
