@@ -82,7 +82,7 @@ workflow main_workflow {
 		"kraken2": "/expanse/projects/nmdc/refdata/Kraken2",
 		"centrifuge": "/expanse/projects/nmdc/refdata/Centrifuge"
 	}
-	String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.3p1"
+	String ReadbasedAnalysis_container = "poeli/nmdc_taxa_profilers:1.0.3p2"
 	Array[File]? readbasedAnalysis_reads = if (DoReadsQC) then jgi_rqcfilter_call.clean_fastq_files else interleaved_input_fastqs 
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
