@@ -1,11 +1,10 @@
 /Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:34: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
   warnings.warn(
 INFO:root:Submitting re id'd records from : ./data/nmdc:sty-11-dcqce727_re_ided_record_dump.json
-INFO:root:Using MongoDB URI: mongodb://localhost:27017
-INFO:root:Connected to MongoDB server at mongodb://localhost:27017
+INFO:root:Using MongoDB URI: mongodb://mbthornton-napa:wildlife-nutrient-radiator@localhost:37020
+INFO:root:Connected to MongoDB server at mongodb://mbthornton-napa:wildlife-nutrient-radiator@localhost:37020
 INFO:root:omics_processing_id: nmdc:omprc-11-2b4p5w74
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-2b4p5w74', action='remove item', attribute='has_output', value='jgi:5b3b869964d0b3516a5f4f4c|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-2b4p5w74', action='insert', attribute='has_output', value='nmdc:dobj-11-sqfxx922|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -16,8 +15,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-c8aj0c39
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-c8aj0c39', action='remove item', attribute='has_output', value='jgi:5b3b86b364d0b3516a5f4f53|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-c8aj0c39', action='insert', attribute='has_output', value='nmdc:dobj-11-rmj4fa94|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -28,8 +26,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-73zj8f68
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-73zj8f68', action='remove item', attribute='has_output', value='jgi:5b3b86c064d0b3516a5f4f57|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-73zj8f68', action='insert', attribute='has_output', value='nmdc:dobj-11-vpkp2626|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -40,8 +37,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-d09vf280
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-d09vf280', action='remove item', attribute='has_output', value='jgi:5b3b86ad64d0b3516a5f4f52|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-d09vf280', action='insert', attribute='has_output', value='nmdc:dobj-11-30wza787|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -52,8 +48,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-1wva5e80
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-1wva5e80', action='remove item', attribute='has_output', value='jgi:5b3b86a064d0b3516a5f4f4e|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-1wva5e80', action='insert', attribute='has_output', value='nmdc:dobj-11-h17caa51|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -64,8 +59,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-8gwr1y12
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-8gwr1y12', action='remove item', attribute='has_output', value='jgi:5b3b86f164d0b3516a5f4f66|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-8gwr1y12', action='insert', attribute='has_output', value='nmdc:dobj-11-9nzje874|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -76,8 +70,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-zf0v3n42
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-zf0v3n42', action='remove item', attribute='has_output', value='jgi:5b3b870164d0b3516a5f4f6b|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-zf0v3n42', action='insert', attribute='has_output', value='nmdc:dobj-11-ac81jm73|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -88,8 +81,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-8n61h723
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-8n61h723', action='remove item', attribute='has_output', value='jgi:5b3b86bb64d0b3516a5f4f56|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-8n61h723', action='insert', attribute='has_output', value='nmdc:dobj-11-mra8ca79|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -100,8 +92,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-x7kvdr37
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-x7kvdr37', action='remove item', attribute='has_output', value='jgi:5b3b86fc64d0b3516a5f4f69|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-x7kvdr37', action='insert', attribute='has_output', value='nmdc:dobj-11-nqcmgm84|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -112,8 +103,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-p57kmg31
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-p57kmg31', action='remove item', attribute='has_output', value='jgi:5b3b86cd64d0b3516a5f4f5b|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-p57kmg31', action='insert', attribute='has_output', value='nmdc:dobj-11-4b008g78|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -124,8 +114,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-dy188w64
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-dy188w64', action='remove item', attribute='has_output', value='jgi:5b3b871464d0b3516a5f4f71|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-dy188w64', action='insert', attribute='has_output', value='nmdc:dobj-11-wxx39348|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -136,8 +125,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-r2t38w78
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-r2t38w78', action='remove item', attribute='has_output', value='jgi:5b3b870f64d0b3516a5f4f70|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-r2t38w78', action='insert', attribute='has_output', value='nmdc:dobj-11-26hp5853|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -148,8 +136,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-86c56h25
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-86c56h25', action='remove item', attribute='has_output', value='jgi:5b3b86f764d0b3516a5f4f68|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-86c56h25', action='insert', attribute='has_output', value='nmdc:dobj-11-tb9hjy44|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -160,8 +147,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-cytf1e18
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-cytf1e18', action='remove item', attribute='has_output', value='jgi:5b3b870864d0b3516a5f4f6d|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-cytf1e18', action='insert', attribute='has_output', value='nmdc:dobj-11-gqyemm62|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -172,8 +158,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-m0fem526
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-m0fem526', action='remove item', attribute='has_output', value='jgi:5b3b871d64d0b3516a5f4f74|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-m0fem526', action='insert', attribute='has_output', value='nmdc:dobj-11-ev913896|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -184,8 +169,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-4kznfd65
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-4kznfd65', action='remove item', attribute='has_output', value='jgi:5b3b872264d0b3516a5f4f75|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-4kznfd65', action='insert', attribute='has_output', value='nmdc:dobj-11-508r4459|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -196,8 +180,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-rbz91067
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-rbz91067', action='remove item', attribute='has_output', value='jgi:5b3b872764d0b3516a5f4f77|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-rbz91067', action='insert', attribute='has_output', value='nmdc:dobj-11-mfvr9m86|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -208,8 +191,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-8wq76j90
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-8wq76j90', action='remove item', attribute='has_output', value='jgi:5b3b879064d0b3516a5f4f9c|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-8wq76j90', action='insert', attribute='has_output', value='nmdc:dobj-11-k17n1v97|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -220,8 +202,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-vkp93136
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-vkp93136', action='remove item', attribute='has_output', value='jgi:5b3b86c764d0b3516a5f4f59|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-vkp93136', action='insert', attribute='has_output', value='nmdc:dobj-11-8t1x1273|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -232,8 +213,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-gjr6tz30
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gjr6tz30', action='remove item', attribute='has_output', value='jgi:5b3b872d64d0b3516a5f4f79|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gjr6tz30', action='insert', attribute='has_output', value='nmdc:dobj-11-xy42xk81|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -244,8 +224,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-9c749r88
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9c749r88', action='remove item', attribute='has_output', value='jgi:5b3b879764d0b3516a5f4f9e|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9c749r88', action='insert', attribute='has_output', value='nmdc:dobj-11-2xq4n785|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -256,8 +235,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-zsbm5782
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-zsbm5782', action='remove item', attribute='has_output', value='jgi:5b3b87a264d0b3516a5f4fa1|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-zsbm5782', action='insert', attribute='has_output', value='nmdc:dobj-11-qgxds112|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -268,8 +246,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-mzk6by23
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-mzk6by23', action='remove item', attribute='has_output', value='jgi:5b3b879d64d0b3516a5f4fa0|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-mzk6by23', action='insert', attribute='has_output', value='nmdc:dobj-11-m2qdpm56|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -280,8 +257,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-khgaac94
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-khgaac94', action='remove item', attribute='has_output', value='jgi:5b3b87aa64d0b3516a5f4fa4|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-khgaac94', action='insert', attribute='has_output', value='nmdc:dobj-11-tx6epv57|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -292,8 +268,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-m00yak64
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-m00yak64', action='remove item', attribute='has_output', value='jgi:5b3b87af64d0b3516a5f4fa5|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-m00yak64', action='insert', attribute='has_output', value='nmdc:dobj-11-dt7ydm29|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -304,8 +279,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-v4rgxw98
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-v4rgxw98', action='remove item', attribute='has_output', value='jgi:5b3b86e564d0b3516a5f4f62|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-v4rgxw98', action='insert', attribute='has_output', value='nmdc:dobj-11-smprj892|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -316,8 +290,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-p9tfam59
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-p9tfam59', action='remove item', attribute='has_output', value='jgi:5b3b87b764d0b3516a5f4fa8|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-p9tfam59', action='insert', attribute='has_output', value='nmdc:dobj-11-dgtenx25|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -328,8 +301,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-zvtmqd80
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-zvtmqd80', action='remove item', attribute='has_output', value='jgi:5b3b87bd64d0b3516a5f4faa|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-zvtmqd80', action='insert', attribute='has_output', value='nmdc:dobj-11-6jq5n360|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -340,8 +312,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-7keedq73
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-7keedq73', action='remove item', attribute='has_output', value='jgi:5b3b86a564d0b3516a5f4f4f|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-7keedq73', action='insert', attribute='has_output', value='nmdc:dobj-11-yr1cdp37|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -352,8 +323,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-03ayck44
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-03ayck44', action='remove item', attribute='has_output', value='jgi:5b3b87c164d0b3516a5f4fab|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-03ayck44', action='insert', attribute='has_output', value='nmdc:dobj-11-ss3yvr02|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -364,8 +334,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-g9npvr79
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-g9npvr79', action='remove item', attribute='has_output', value='jgi:5b3b86dc64d0b3516a5f4f5f|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-g9npvr79', action='insert', attribute='has_output', value='nmdc:dobj-11-dk3z9318|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -376,8 +345,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-abj20g75
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-abj20g75', action='remove item', attribute='has_output', value='jgi:5b3b87e264d0b3516a5f4fb6|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-abj20g75', action='insert', attribute='has_output', value='nmdc:dobj-11-gfy9jy14|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -388,8 +356,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-6z3pwp16
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-6z3pwp16', action='remove item', attribute='has_output', value='jgi:5b3b86d664d0b3516a5f4f5e|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-6z3pwp16', action='insert', attribute='has_output', value='nmdc:dobj-11-1r5fps78|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -400,8 +367,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-keenj824
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-keenj824', action='remove item', attribute='has_output', value='jgi:5b3b87ce64d0b3516a5f4fb0|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-keenj824', action='insert', attribute='has_output', value='nmdc:dobj-11-3sn2sj59|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -412,8 +378,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-0t04n652
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-0t04n652', action='remove item', attribute='has_output', value='jgi:5b3b87e964d0b3516a5f4fb8|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-0t04n652', action='insert', attribute='has_output', value='nmdc:dobj-11-2wxx2453|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -424,8 +389,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-9bvyt264
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9bvyt264', action='remove item', attribute='has_output', value='jgi:5b3b87c864d0b3516a5f4fae|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9bvyt264', action='insert', attribute='has_output', value='nmdc:dobj-11-j53swe94|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -436,8 +400,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-q17x6w88
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-q17x6w88', action='remove item', attribute='has_output', value='jgi:5b3b87d564d0b3516a5f4fb2|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-q17x6w88', action='insert', attribute='has_output', value='nmdc:dobj-11-vmyjrx93|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -448,8 +411,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-09vha881
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-09vha881', action='remove item', attribute='has_output', value='jgi:5b3b87f464d0b3516a5f4fbb|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-09vha881', action='insert', attribute='has_output', value='nmdc:dobj-11-xxx74p23|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -460,8 +422,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-yp178c35
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-yp178c35', action='remove item', attribute='has_output', value='jgi:5b3b87ef64d0b3516a5f4fba|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-yp178c35', action='insert', attribute='has_output', value='nmdc:dobj-11-nh60aa28|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -472,8 +433,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-9jw2cy65
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9jw2cy65', action='remove item', attribute='has_output', value='jgi:5b3b880264d0b3516a5f4fc0|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9jw2cy65', action='insert', attribute='has_output', value='nmdc:dobj-11-xya6rg52|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -484,8 +444,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-zaxsm356
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-zaxsm356', action='remove item', attribute='has_output', value='jgi:5b3b881064d0b3516a5f4fc8|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-zaxsm356', action='insert', attribute='has_output', value='nmdc:dobj-11-p6tmvy66|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -496,8 +455,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-ht6zfn30
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ht6zfn30', action='remove item', attribute='has_output', value='jgi:5b3b881c64d0b3516a5f4fcd|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ht6zfn30', action='insert', attribute='has_output', value='nmdc:dobj-11-n8xzkh84|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -508,8 +466,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-szqrn945
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-szqrn945', action='remove item', attribute='has_output', value='jgi:5b3b881464d0b3516a5f4fca|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-szqrn945', action='insert', attribute='has_output', value='nmdc:dobj-11-wdrsjk52|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -520,8 +477,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-tzzm8x88
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-tzzm8x88', action='remove item', attribute='has_output', value='jgi:5b3b882364d0b3516a5f4fcf|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-tzzm8x88', action='insert', attribute='has_output', value='nmdc:dobj-11-2qv98965|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -532,22 +488,19 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-7hs0fa05
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-7hs0fa05', action='remove item', attribute='has_output', value='jgi:5b6f8b6a64d0b3516a61a211|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-7hs0fa05', action='insert', attribute='has_output', value='nmdc:dobj-11-a3zccg89|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 1 records into data_object_set
 INFO:root:Inserted 1 records into data_object_set
 INFO:root:omics_processing_id: nmdc:omprc-11-j3p6wr33
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-j3p6wr33', action='remove item', attribute='has_output', value='jgi:5b6f8b6564d0b3516a61a20f|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-j3p6wr33', action='insert', attribute='has_output', value='nmdc:dobj-11-w15bgg62|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-nq045s62
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-nq045s62', action='remove item', attribute='has_output', value='jgi:5b3b87dc64d0b3516a5f4fb4|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-nq045s62', action='insert', attribute='has_output', value='nmdc:dobj-11-0skf0475|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -558,8 +511,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-555y6a80
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-555y6a80', action='remove item', attribute='has_output', value='jgi:5b3b87fb64d0b3516a5f4fbd|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-555y6a80', action='insert', attribute='has_output', value='nmdc:dobj-11-yw452734|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -570,8 +522,7 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-j73sfq18
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-j73sfq18', action='remove item', attribute='has_output', value='jgi:5b3b880964d0b3516a5f4fc2|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-j73sfq18', action='insert', attribute='has_output', value='nmdc:dobj-11-ke0e4n58|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -582,40 +533,35 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-rykwdc49
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-rykwdc49', action='remove item', attribute='has_output', value='jgi:5b6f8b7364d0b3516a61a215|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-rykwdc49', action='insert', attribute='has_output', value='nmdc:dobj-11-5esv7c24|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-d70pma65
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-d70pma65', action='remove item', attribute='has_output', value='jgi:5b6f8b6e64d0b3516a61a213|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-d70pma65', action='insert', attribute='has_output', value='nmdc:dobj-11-hgkbeh89|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-n7a6q756
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-n7a6q756', action='remove item', attribute='has_output', value='jgi:5b6f8b7964d0b3516a61a217|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-n7a6q756', action='insert', attribute='has_output', value='nmdc:dobj-11-gksrkb16|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-jfmda763
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-jfmda763', action='remove item', attribute='has_output', value='jgi:5b6f8b6164d0b3516a61a20d|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-jfmda763', action='insert', attribute='has_output', value='nmdc:dobj-11-9858rn10|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-syptzp44
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-syptzp44', action='remove item', attribute='has_output', value='jgi:5b3b86e964d0b3516a5f4f63|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-syptzp44', action='insert', attribute='has_output', value='nmdc:dobj-11-5pxvag87|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserted 17 records into data_object_set
@@ -626,318 +572,274 @@ INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-4rcmsj76
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-4rcmsj76', action='remove item', attribute='has_output', value='jgi:5b6f8b8664d0b3516a61a21c|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-4rcmsj76', action='insert', attribute='has_output', value='nmdc:dobj-11-c21jrr37|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-5011mw53
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-5011mw53', action='remove item', attribute='has_output', value='jgi:5b6f8b8e64d0b3516a61a21f|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-5011mw53', action='insert', attribute='has_output', value='nmdc:dobj-11-rn1dna34|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-ba6mgx04
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ba6mgx04', action='remove item', attribute='has_output', value='jgi:5b6f8b7e64d0b3516a61a219|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ba6mgx04', action='insert', attribute='has_output', value='nmdc:dobj-11-01g6q092|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-y4ee1829
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-y4ee1829', action='remove item', attribute='has_output', value='jgi:5b6f8b8264d0b3516a61a21b|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-y4ee1829', action='insert', attribute='has_output', value='nmdc:dobj-11-962zbt10|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-7ar08g52
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-7ar08g52', action='remove item', attribute='has_output', value='jgi:5b6f8b9664d0b3516a61a222|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-7ar08g52', action='insert', attribute='has_output', value='nmdc:dobj-11-wst60b21|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-w0h23x97
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-w0h23x97', action='remove item', attribute='has_output', value='jgi:5b6f8b9364d0b3516a61a221|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-w0h23x97', action='insert', attribute='has_output', value='nmdc:dobj-11-3raadj18|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-z1s54m71
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-z1s54m71', action='remove item', attribute='has_output', value='jgi:5b6f8b9b64d0b3516a61a224|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-z1s54m71', action='insert', attribute='has_output', value='nmdc:dobj-11-qyb02x11|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-mxb1jp80
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-mxb1jp80', action='remove item', attribute='has_output', value='jgi:5b6f8ba164d0b3516a61a227|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-mxb1jp80', action='insert', attribute='has_output', value='nmdc:dobj-11-zfz6s450|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-qb8k6k57
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-qb8k6k57', action='remove item', attribute='has_output', value='jgi:5b6f8bae64d0b3516a61a22c|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-qb8k6k57', action='insert', attribute='has_output', value='nmdc:dobj-11-73fve998|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-54pp5g62
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-54pp5g62', action='remove item', attribute='has_output', value='jgi:5b6f8bb464d0b3516a61a22f|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-54pp5g62', action='insert', attribute='has_output', value='nmdc:dobj-11-zw07vg80|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-q1m33136
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-q1m33136', action='remove item', attribute='has_output', value='jgi:5b6f8baa64d0b3516a61a22b|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-q1m33136', action='insert', attribute='has_output', value='nmdc:dobj-11-55jrnz57|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-gdddv135
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gdddv135', action='remove item', attribute='has_output', value='jgi:5b6f8bb964d0b3516a61a231|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-gdddv135', action='insert', attribute='has_output', value='nmdc:dobj-11-pc8s5960|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-3c97ej85
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-3c97ej85', action='remove item', attribute='has_output', value='jgi:5b6f8bc364d0b3516a61a235|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-3c97ej85', action='insert', attribute='has_output', value='nmdc:dobj-11-nvs9tx54|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-9ym4dz61
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9ym4dz61', action='remove item', attribute='has_output', value='jgi:5b6f8bc964d0b3516a61a237|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9ym4dz61', action='insert', attribute='has_output', value='nmdc:dobj-11-abhppv68|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-rmc37633
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-rmc37633', action='remove item', attribute='has_output', value='jgi:5b6f8ba564d0b3516a61a229|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-rmc37633', action='insert', attribute='has_output', value='nmdc:dobj-11-0gfw0546|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-cqfz4c71
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-cqfz4c71', action='remove item', attribute='has_output', value='jgi:5b6f8bd164d0b3516a61a23a|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-cqfz4c71', action='insert', attribute='has_output', value='nmdc:dobj-11-kvny9568|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-4gg8sk49
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-4gg8sk49', action='remove item', attribute='has_output', value='jgi:5b6f8bce64d0b3516a61a239|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-4gg8sk49', action='insert', attribute='has_output', value='nmdc:dobj-11-zm7psf16|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-rycc3349
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-rycc3349', action='remove item', attribute='has_output', value='jgi:5b6f8bdf64d0b3516a61a240|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-rycc3349', action='insert', attribute='has_output', value='nmdc:dobj-11-pqsnw993|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-38taxr04
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-38taxr04', action='remove item', attribute='has_output', value='jgi:5b6f8bbe64d0b3516a61a233|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-38taxr04', action='insert', attribute='has_output', value='nmdc:dobj-11-59a1a548|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-vxewmh98
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-vxewmh98', action='remove item', attribute='has_output', value='jgi:5b6f8bdc64d0b3516a61a23f|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-vxewmh98', action='insert', attribute='has_output', value='nmdc:dobj-11-3ebk2d59|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-m49gbh37
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-m49gbh37', action='remove item', attribute='has_output', value='jgi:5b6f8bd764d0b3516a61a23d|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-m49gbh37', action='insert', attribute='has_output', value='nmdc:dobj-11-1dfqk271|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-3g2hs408
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-3g2hs408', action='remove item', attribute='has_output', value='jgi:5b6f8be964d0b3516a61a244|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-3g2hs408', action='insert', attribute='has_output', value='nmdc:dobj-11-z23e3570|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-bk19ns13
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-bk19ns13', action='remove item', attribute='has_output', value='jgi:5b6f8bef64d0b3516a61a247|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-bk19ns13', action='insert', attribute='has_output', value='nmdc:dobj-11-jq5dy605|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-1gn83433
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-1gn83433', action='remove item', attribute='has_output', value='jgi:5b6f8be664d0b3516a61a243|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-1gn83433', action='insert', attribute='has_output', value='nmdc:dobj-11-vwrrwc66|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-wtzqsw15
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-wtzqsw15', action='remove item', attribute='has_output', value='jgi:5b6f8bfc64d0b3516a61a24c|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-wtzqsw15', action='insert', attribute='has_output', value='nmdc:dobj-11-r74x6p36|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-jy9db676
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-jy9db676', action='remove item', attribute='has_output', value='jgi:5b6f8c0064d0b3516a61a24e|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-jy9db676', action='insert', attribute='has_output', value='nmdc:dobj-11-cj663d35|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-b8tcxf46
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-b8tcxf46', action='remove item', attribute='has_output', value='jgi:5b6f8c0864d0b3516a61a251|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-b8tcxf46', action='insert', attribute='has_output', value='nmdc:dobj-11-2qc6t368|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-c5b9k496
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-c5b9k496', action='remove item', attribute='has_output', value='jgi:5b6f8bf464d0b3516a61a249|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-c5b9k496', action='insert', attribute='has_output', value='nmdc:dobj-11-ky1b3857|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-88r8wq58
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-88r8wq58', action='remove item', attribute='has_output', value='jgi:5b6f8c0d64d0b3516a61a253|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-88r8wq58', action='insert', attribute='has_output', value='nmdc:dobj-11-rw47xg62|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-ns758c90
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ns758c90', action='remove item', attribute='has_output', value='jgi:5cb4980146d1e6746824a924|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-ns758c90', action='insert', attribute='has_output', value='nmdc:dobj-11-zvx7xg17|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-9tn03g94
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9tn03g94', action='remove item', attribute='has_output', value='jgi:5cb49ac046d1e6746824a9f1|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9tn03g94', action='insert', attribute='has_output', value='nmdc:dobj-11-jke2da85|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-h9xdkp33
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-h9xdkp33', action='remove item', attribute='has_output', value='jgi:5b6f8bf864d0b3516a61a24b|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-h9xdkp33', action='insert', attribute='has_output', value='nmdc:dobj-11-y6rfkk65|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-dhq5dy31
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-dhq5dy31', action='remove item', attribute='has_output', value='jgi:5cb4980a46d1e6746824a927|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-dhq5dy31', action='insert', attribute='has_output', value='nmdc:dobj-11-aqdrc644|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 1 records into data_object_set
 INFO:root:Inserted 1 records into data_object_set
 INFO:root:omics_processing_id: nmdc:omprc-11-4z72k510
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-4z72k510', action='remove item', attribute='has_output', value='jgi:5cb49ac446d1e6746824a9f2|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-4z72k510', action='insert', attribute='has_output', value='nmdc:dobj-11-72kx8g78|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-cdtew846
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-cdtew846', action='remove item', attribute='has_output', value='jgi:5cb49acc46d1e6746824a9f5|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-cdtew846', action='insert', attribute='has_output', value='nmdc:dobj-11-5na6ag56|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-x6542q10
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-x6542q10', action='remove item', attribute='has_output', value='jgi:5c98f34a46d1e619fc0f472c|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-x6542q10', action='insert', attribute='has_output', value='nmdc:dobj-11-p2d2qg62|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-9m3rgy66
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9m3rgy66', action='remove item', attribute='has_output', value='jgi:5cb49ad346d1e6746824a9f7|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-9m3rgy66', action='insert', attribute='has_output', value='nmdc:dobj-11-3nz57d85|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-2s3hnv15
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-2s3hnv15', action='remove item', attribute='has_output', value='jgi:5cb49ada46d1e6746824a9f9|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-2s3hnv15', action='insert', attribute='has_output', value='nmdc:dobj-11-13chwk49|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
 INFO:root:omics_processing_id: nmdc:omprc-11-r3rf7j74
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-r3rf7j74', action='remove item', attribute='has_output', value='jgi:5c98f34546d1e619fc0f472b|')
-INFO:root:changes: ChangesheetLineItem(id='nmdc:omprc-11-r3rf7j74', action='insert', attribute='has_output', value='nmdc:dobj-11-pbc0ft35|')
+INFO:root:Updated 0 omics_processing_set records
 INFO:root:DB Record validated - submitting to API
 INFO:root:Inserting 3 records into data_object_set
 INFO:root:Inserted 3 records into data_object_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserted 1 records into read_qc_analysis_activity_set
-INFO:root:Writing changesheet to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/changesheets_output/nmdc:sty-11-dcqce727_changesheet-20240222-202959.tsv
-INFO:root:changesheet written to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/changesheets_output/nmdc:sty-11-dcqce727_changesheet-20240222-202959.tsv
-INFO:root:Validating changesheet /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/changesheets_output/nmdc:sty-11-dcqce727_changesheet-20240222-202959.tsv
-INFO:root:Posting to https://api-napa.microbiomedata.org/metadata/changesheets:validate
-ERROR:root:Changesheet validation failed: {"detail":{"update_cmd":{"nmdc:omprc-11-03ayck44":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-03ayck44"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87c164d0b3516a5f4fab"]}}}},{"q":{"id":"nmdc:omprc-11-03ayck44"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-ss3yvr02"]}}}}]},"nmdc:omprc-11-09vha881":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-09vha881"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87f464d0b3516a5f4fbb"]}}}},{"q":{"id":"nmdc:omprc-11-09vha881"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-xxx74p23"]}}}}]},"nmdc:omprc-11-0t04n652":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-0t04n652"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87e964d0b3516a5f4fb8"]}}}},{"q":{"id":"nmdc:omprc-11-0t04n652"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-2wxx2453"]}}}}]},"nmdc:omprc-11-1gn83433":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-1gn83433"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8be664d0b3516a61a243"]}}}},{"q":{"id":"nmdc:omprc-11-1gn83433"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-vwrrwc66"]}}}}]},"nmdc:omprc-11-1wva5e80":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-1wva5e80"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86a064d0b3516a5f4f4e"]}}}},{"q":{"id":"nmdc:omprc-11-1wva5e80"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-h17caa51"]}}}}]},"nmdc:omprc-11-2b4p5w74":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-2b4p5w74"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b869964d0b3516a5f4f4c"]}}}},{"q":{"id":"nmdc:omprc-11-2b4p5w74"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-sqfxx922"]}}}}]},"nmdc:omprc-11-2s3hnv15":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-2s3hnv15"},"u":{"$pull":{"has_output":{"$in":["jgi:5cb49ada46d1e6746824a9f9"]}}}},{"q":{"id":"nmdc:omprc-11-2s3hnv15"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-13chwk49"]}}}}]},"nmdc:omprc-11-38taxr04":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-38taxr04"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bbe64d0b3516a61a233"]}}}},{"q":{"id":"nmdc:omprc-11-38taxr04"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-59a1a548"]}}}}]},"nmdc:omprc-11-3c97ej85":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-3c97ej85"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bc364d0b3516a61a235"]}}}},{"q":{"id":"nmdc:omprc-11-3c97ej85"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-nvs9tx54"]}}}}]},"nmdc:omprc-11-3g2hs408":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-3g2hs408"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8be964d0b3516a61a244"]}}}},{"q":{"id":"nmdc:omprc-11-3g2hs408"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-z23e3570"]}}}}]},"nmdc:omprc-11-4gg8sk49":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-4gg8sk49"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bce64d0b3516a61a239"]}}}},{"q":{"id":"nmdc:omprc-11-4gg8sk49"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-zm7psf16"]}}}}]},"nmdc:omprc-11-4kznfd65":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-4kznfd65"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b872264d0b3516a5f4f75"]}}}},{"q":{"id":"nmdc:omprc-11-4kznfd65"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-508r4459"]}}}}]},"nmdc:omprc-11-4rcmsj76":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-4rcmsj76"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8b8664d0b3516a61a21c"]}}}},{"q":{"id":"nmdc:omprc-11-4rcmsj76"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-c21jrr37"]}}}}]},"nmdc:omprc-11-4z72k510":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-4z72k510"},"u":{"$pull":{"has_output":{"$in":["jgi:5cb49ac446d1e6746824a9f2"]}}}},{"q":{"id":"nmdc:omprc-11-4z72k510"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-72kx8g78"]}}}}]},"nmdc:omprc-11-5011mw53":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-5011mw53"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8b8e64d0b3516a61a21f"]}}}},{"q":{"id":"nmdc:omprc-11-5011mw53"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-rn1dna34"]}}}}]},"nmdc:omprc-11-54pp5g62":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-54pp5g62"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bb464d0b3516a61a22f"]}}}},{"q":{"id":"nmdc:omprc-11-54pp5g62"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-zw07vg80"]}}}}]},"nmdc:omprc-11-555y6a80":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-555y6a80"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87fb64d0b3516a5f4fbd"]}}}},{"q":{"id":"nmdc:omprc-11-555y6a80"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-yw452734"]}}}}]},"nmdc:omprc-11-6z3pwp16":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-6z3pwp16"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86d664d0b3516a5f4f5e"]}}}},{"q":{"id":"nmdc:omprc-11-6z3pwp16"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-1r5fps78"]}}}}]},"nmdc:omprc-11-73zj8f68":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-73zj8f68"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86c064d0b3516a5f4f57"]}}}},{"q":{"id":"nmdc:omprc-11-73zj8f68"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-vpkp2626"]}}}}]},"nmdc:omprc-11-7ar08g52":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-7ar08g52"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8b9664d0b3516a61a222"]}}}},{"q":{"id":"nmdc:omprc-11-7ar08g52"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-wst60b21"]}}}}]},"nmdc:omprc-11-7hs0fa05":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-7hs0fa05"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8b6a64d0b3516a61a211"]}}}},{"q":{"id":"nmdc:omprc-11-7hs0fa05"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-a3zccg89"]}}}}]},"nmdc:omprc-11-7keedq73":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-7keedq73"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86a564d0b3516a5f4f4f"]}}}},{"q":{"id":"nmdc:omprc-11-7keedq73"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-yr1cdp37"]}}}}]},"nmdc:omprc-11-86c56h25":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-86c56h25"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86f764d0b3516a5f4f68"]}}}},{"q":{"id":"nmdc:omprc-11-86c56h25"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-tb9hjy44"]}}}}]},"nmdc:omprc-11-88r8wq58":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-88r8wq58"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8c0d64d0b3516a61a253"]}}}},{"q":{"id":"nmdc:omprc-11-88r8wq58"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-rw47xg62"]}}}}]},"nmdc:omprc-11-8gwr1y12":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-8gwr1y12"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86f164d0b3516a5f4f66"]}}}},{"q":{"id":"nmdc:omprc-11-8gwr1y12"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-9nzje874"]}}}}]},"nmdc:omprc-11-8n61h723":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-8n61h723"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86bb64d0b3516a5f4f56"]}}}},{"q":{"id":"nmdc:omprc-11-8n61h723"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-mra8ca79"]}}}}]},"nmdc:omprc-11-8wq76j90":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-8wq76j90"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b879064d0b3516a5f4f9c"]}}}},{"q":{"id":"nmdc:omprc-11-8wq76j90"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-k17n1v97"]}}}}]},"nmdc:omprc-11-9bvyt264":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-9bvyt264"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87c864d0b3516a5f4fae"]}}}},{"q":{"id":"nmdc:omprc-11-9bvyt264"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-j53swe94"]}}}}]},"nmdc:omprc-11-9c749r88":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-9c749r88"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b879764d0b3516a5f4f9e"]}}}},{"q":{"id":"nmdc:omprc-11-9c749r88"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-2xq4n785"]}}}}]},"nmdc:omprc-11-9jw2cy65":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-9jw2cy65"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b880264d0b3516a5f4fc0"]}}}},{"q":{"id":"nmdc:omprc-11-9jw2cy65"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-xya6rg52"]}}}}]},"nmdc:omprc-11-9m3rgy66":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-9m3rgy66"},"u":{"$pull":{"has_output":{"$in":["jgi:5cb49ad346d1e6746824a9f7"]}}}},{"q":{"id":"nmdc:omprc-11-9m3rgy66"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-3nz57d85"]}}}}]},"nmdc:omprc-11-9tn03g94":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-9tn03g94"},"u":{"$pull":{"has_output":{"$in":["jgi:5cb49ac046d1e6746824a9f1"]}}}},{"q":{"id":"nmdc:omprc-11-9tn03g94"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-jke2da85"]}}}}]},"nmdc:omprc-11-9ym4dz61":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-9ym4dz61"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bc964d0b3516a61a237"]}}}},{"q":{"id":"nmdc:omprc-11-9ym4dz61"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-abhppv68"]}}}}]},"nmdc:omprc-11-abj20g75":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-abj20g75"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87e264d0b3516a5f4fb6"]}}}},{"q":{"id":"nmdc:omprc-11-abj20g75"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-gfy9jy14"]}}}}]},"nmdc:omprc-11-b8tcxf46":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-b8tcxf46"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8c0864d0b3516a61a251"]}}}},{"q":{"id":"nmdc:omprc-11-b8tcxf46"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-2qc6t368"]}}}}]},"nmdc:omprc-11-ba6mgx04":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-ba6mgx04"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8b7e64d0b3516a61a219"]}}}},{"q":{"id":"nmdc:omprc-11-ba6mgx04"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-01g6q092"]}}}}]},"nmdc:omprc-11-bk19ns13":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-bk19ns13"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bef64d0b3516a61a247"]}}}},{"q":{"id":"nmdc:omprc-11-bk19ns13"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-jq5dy605"]}}}}]},"nmdc:omprc-11-c5b9k496":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-c5b9k496"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bf464d0b3516a61a249"]}}}},{"q":{"id":"nmdc:omprc-11-c5b9k496"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-ky1b3857"]}}}}]},"nmdc:omprc-11-c8aj0c39":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-c8aj0c39"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86b364d0b3516a5f4f53"]}}}},{"q":{"id":"nmdc:omprc-11-c8aj0c39"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-rmj4fa94"]}}}}]},"nmdc:omprc-11-cdtew846":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-cdtew846"},"u":{"$pull":{"has_output":{"$in":["jgi:5cb49acc46d1e6746824a9f5"]}}}},{"q":{"id":"nmdc:omprc-11-cdtew846"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-5na6ag56"]}}}}]},"nmdc:omprc-11-cqfz4c71":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-cqfz4c71"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bd164d0b3516a61a23a"]}}}},{"q":{"id":"nmdc:omprc-11-cqfz4c71"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-kvny9568"]}}}}]},"nmdc:omprc-11-cytf1e18":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-cytf1e18"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b870864d0b3516a5f4f6d"]}}}},{"q":{"id":"nmdc:omprc-11-cytf1e18"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-gqyemm62"]}}}}]},"nmdc:omprc-11-d09vf280":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-d09vf280"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86ad64d0b3516a5f4f52"]}}}},{"q":{"id":"nmdc:omprc-11-d09vf280"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-30wza787"]}}}}]},"nmdc:omprc-11-d70pma65":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-d70pma65"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8b6e64d0b3516a61a213"]}}}},{"q":{"id":"nmdc:omprc-11-d70pma65"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-hgkbeh89"]}}}}]},"nmdc:omprc-11-dhq5dy31":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-dhq5dy31"},"u":{"$pull":{"has_output":{"$in":["jgi:5cb4980a46d1e6746824a927"]}}}},{"q":{"id":"nmdc:omprc-11-dhq5dy31"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-aqdrc644"]}}}}]},"nmdc:omprc-11-dy188w64":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-dy188w64"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b871464d0b3516a5f4f71"]}}}},{"q":{"id":"nmdc:omprc-11-dy188w64"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-wxx39348"]}}}}]},"nmdc:omprc-11-g9npvr79":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-g9npvr79"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86dc64d0b3516a5f4f5f"]}}}},{"q":{"id":"nmdc:omprc-11-g9npvr79"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-dk3z9318"]}}}}]},"nmdc:omprc-11-gdddv135":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-gdddv135"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bb964d0b3516a61a231"]}}}},{"q":{"id":"nmdc:omprc-11-gdddv135"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-pc8s5960"]}}}}]},"nmdc:omprc-11-gjr6tz30":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-gjr6tz30"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b872d64d0b3516a5f4f79"]}}}},{"q":{"id":"nmdc:omprc-11-gjr6tz30"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-xy42xk81"]}}}}]},"nmdc:omprc-11-h9xdkp33":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-h9xdkp33"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bf864d0b3516a61a24b"]}}}},{"q":{"id":"nmdc:omprc-11-h9xdkp33"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-y6rfkk65"]}}}}]},"nmdc:omprc-11-ht6zfn30":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-ht6zfn30"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b881c64d0b3516a5f4fcd"]}}}},{"q":{"id":"nmdc:omprc-11-ht6zfn30"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-n8xzkh84"]}}}}]},"nmdc:omprc-11-j3p6wr33":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-j3p6wr33"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8b6564d0b3516a61a20f"]}}}},{"q":{"id":"nmdc:omprc-11-j3p6wr33"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-w15bgg62"]}}}}]},"nmdc:omprc-11-j73sfq18":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-j73sfq18"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b880964d0b3516a5f4fc2"]}}}},{"q":{"id":"nmdc:omprc-11-j73sfq18"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-ke0e4n58"]}}}}]},"nmdc:omprc-11-jfmda763":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-jfmda763"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8b6164d0b3516a61a20d"]}}}},{"q":{"id":"nmdc:omprc-11-jfmda763"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-9858rn10"]}}}}]},"nmdc:omprc-11-jy9db676":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-jy9db676"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8c0064d0b3516a61a24e"]}}}},{"q":{"id":"nmdc:omprc-11-jy9db676"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-cj663d35"]}}}}]},"nmdc:omprc-11-keenj824":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-keenj824"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87ce64d0b3516a5f4fb0"]}}}},{"q":{"id":"nmdc:omprc-11-keenj824"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-3sn2sj59"]}}}}]},"nmdc:omprc-11-khgaac94":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-khgaac94"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87aa64d0b3516a5f4fa4"]}}}},{"q":{"id":"nmdc:omprc-11-khgaac94"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-tx6epv57"]}}}}]},"nmdc:omprc-11-m00yak64":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-m00yak64"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87af64d0b3516a5f4fa5"]}}}},{"q":{"id":"nmdc:omprc-11-m00yak64"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-dt7ydm29"]}}}}]},"nmdc:omprc-11-m0fem526":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-m0fem526"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b871d64d0b3516a5f4f74"]}}}},{"q":{"id":"nmdc:omprc-11-m0fem526"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-ev913896"]}}}}]},"nmdc:omprc-11-m49gbh37":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-m49gbh37"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bd764d0b3516a61a23d"]}}}},{"q":{"id":"nmdc:omprc-11-m49gbh37"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-1dfqk271"]}}}}]},"nmdc:omprc-11-mxb1jp80":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-mxb1jp80"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8ba164d0b3516a61a227"]}}}},{"q":{"id":"nmdc:omprc-11-mxb1jp80"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-zfz6s450"]}}}}]},"nmdc:omprc-11-mzk6by23":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-mzk6by23"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b879d64d0b3516a5f4fa0"]}}}},{"q":{"id":"nmdc:omprc-11-mzk6by23"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-m2qdpm56"]}}}}]},"nmdc:omprc-11-n7a6q756":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-n7a6q756"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8b7964d0b3516a61a217"]}}}},{"q":{"id":"nmdc:omprc-11-n7a6q756"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-gksrkb16"]}}}}]},"nmdc:omprc-11-nq045s62":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-nq045s62"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87dc64d0b3516a5f4fb4"]}}}},{"q":{"id":"nmdc:omprc-11-nq045s62"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-0skf0475"]}}}}]},"nmdc:omprc-11-ns758c90":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-ns758c90"},"u":{"$pull":{"has_output":{"$in":["jgi:5cb4980146d1e6746824a924"]}}}},{"q":{"id":"nmdc:omprc-11-ns758c90"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-zvx7xg17"]}}}}]},"nmdc:omprc-11-p57kmg31":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-p57kmg31"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86cd64d0b3516a5f4f5b"]}}}},{"q":{"id":"nmdc:omprc-11-p57kmg31"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-4b008g78"]}}}}]},"nmdc:omprc-11-p9tfam59":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-p9tfam59"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87b764d0b3516a5f4fa8"]}}}},{"q":{"id":"nmdc:omprc-11-p9tfam59"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-dgtenx25"]}}}}]},"nmdc:omprc-11-q17x6w88":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-q17x6w88"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87d564d0b3516a5f4fb2"]}}}},{"q":{"id":"nmdc:omprc-11-q17x6w88"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-vmyjrx93"]}}}}]},"nmdc:omprc-11-q1m33136":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-q1m33136"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8baa64d0b3516a61a22b"]}}}},{"q":{"id":"nmdc:omprc-11-q1m33136"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-55jrnz57"]}}}}]},"nmdc:omprc-11-qb8k6k57":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-qb8k6k57"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bae64d0b3516a61a22c"]}}}},{"q":{"id":"nmdc:omprc-11-qb8k6k57"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-73fve998"]}}}}]},"nmdc:omprc-11-r2t38w78":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-r2t38w78"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b870f64d0b3516a5f4f70"]}}}},{"q":{"id":"nmdc:omprc-11-r2t38w78"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-26hp5853"]}}}}]},"nmdc:omprc-11-r3rf7j74":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-r3rf7j74"},"u":{"$pull":{"has_output":{"$in":["jgi:5c98f34546d1e619fc0f472b"]}}}},{"q":{"id":"nmdc:omprc-11-r3rf7j74"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-pbc0ft35"]}}}}]},"nmdc:omprc-11-rbz91067":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-rbz91067"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b872764d0b3516a5f4f77"]}}}},{"q":{"id":"nmdc:omprc-11-rbz91067"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-mfvr9m86"]}}}}]},"nmdc:omprc-11-rmc37633":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-rmc37633"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8ba564d0b3516a61a229"]}}}},{"q":{"id":"nmdc:omprc-11-rmc37633"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-0gfw0546"]}}}}]},"nmdc:omprc-11-rycc3349":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-rycc3349"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bdf64d0b3516a61a240"]}}}},{"q":{"id":"nmdc:omprc-11-rycc3349"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-pqsnw993"]}}}}]},"nmdc:omprc-11-rykwdc49":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-rykwdc49"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8b7364d0b3516a61a215"]}}}},{"q":{"id":"nmdc:omprc-11-rykwdc49"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-5esv7c24"]}}}}]},"nmdc:omprc-11-syptzp44":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-syptzp44"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86e964d0b3516a5f4f63"]}}}},{"q":{"id":"nmdc:omprc-11-syptzp44"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-5pxvag87"]}}}}]},"nmdc:omprc-11-szqrn945":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-szqrn945"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b881464d0b3516a5f4fca"]}}}},{"q":{"id":"nmdc:omprc-11-szqrn945"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-wdrsjk52"]}}}}]},"nmdc:omprc-11-tzzm8x88":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-tzzm8x88"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b882364d0b3516a5f4fcf"]}}}},{"q":{"id":"nmdc:omprc-11-tzzm8x88"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-2qv98965"]}}}}]},"nmdc:omprc-11-v4rgxw98":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-v4rgxw98"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86e564d0b3516a5f4f62"]}}}},{"q":{"id":"nmdc:omprc-11-v4rgxw98"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-smprj892"]}}}}]},"nmdc:omprc-11-vkp93136":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-vkp93136"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86c764d0b3516a5f4f59"]}}}},{"q":{"id":"nmdc:omprc-11-vkp93136"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-8t1x1273"]}}}}]},"nmdc:omprc-11-vxewmh98":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-vxewmh98"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bdc64d0b3516a61a23f"]}}}},{"q":{"id":"nmdc:omprc-11-vxewmh98"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-3ebk2d59"]}}}}]},"nmdc:omprc-11-w0h23x97":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-w0h23x97"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8b9364d0b3516a61a221"]}}}},{"q":{"id":"nmdc:omprc-11-w0h23x97"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-3raadj18"]}}}}]},"nmdc:omprc-11-wtzqsw15":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-wtzqsw15"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8bfc64d0b3516a61a24c"]}}}},{"q":{"id":"nmdc:omprc-11-wtzqsw15"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-r74x6p36"]}}}}]},"nmdc:omprc-11-x6542q10":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-x6542q10"},"u":{"$pull":{"has_output":{"$in":["jgi:5c98f34a46d1e619fc0f472c"]}}}},{"q":{"id":"nmdc:omprc-11-x6542q10"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-p2d2qg62"]}}}}]},"nmdc:omprc-11-x7kvdr37":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-x7kvdr37"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b86fc64d0b3516a5f4f69"]}}}},{"q":{"id":"nmdc:omprc-11-x7kvdr37"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-nqcmgm84"]}}}}]},"nmdc:omprc-11-y4ee1829":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-y4ee1829"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8b8264d0b3516a61a21b"]}}}},{"q":{"id":"nmdc:omprc-11-y4ee1829"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-962zbt10"]}}}}]},"nmdc:omprc-11-yp178c35":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-yp178c35"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87ef64d0b3516a5f4fba"]}}}},{"q":{"id":"nmdc:omprc-11-yp178c35"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-nh60aa28"]}}}}]},"nmdc:omprc-11-z1s54m71":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-z1s54m71"},"u":{"$pull":{"has_output":{"$in":["jgi:5b6f8b9b64d0b3516a61a224"]}}}},{"q":{"id":"nmdc:omprc-11-z1s54m71"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-qyb02x11"]}}}}]},"nmdc:omprc-11-zaxsm356":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-zaxsm356"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b881064d0b3516a5f4fc8"]}}}},{"q":{"id":"nmdc:omprc-11-zaxsm356"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-p6tmvy66"]}}}}]},"nmdc:omprc-11-zf0v3n42":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-zf0v3n42"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b870164d0b3516a5f4f6b"]}}}},{"q":{"id":"nmdc:omprc-11-zf0v3n42"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-ac81jm73"]}}}}]},"nmdc:omprc-11-zsbm5782":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-zsbm5782"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87a264d0b3516a5f4fa1"]}}}},{"q":{"id":"nmdc:omprc-11-zsbm5782"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-qgxds112"]}}}}]},"nmdc:omprc-11-zvtmqd80":{"update":"omics_processing_set","updates":[{"q":{"id":"nmdc:omprc-11-zvtmqd80"},"u":{"$pull":{"has_output":{"$in":["jgi:5b3b87bd64d0b3516a5f4faa"]}}}},{"q":{"id":"nmdc:omprc-11-zvtmqd80"},"u":{"$addToSet":{"has_output":{"$each":["nmdc:dobj-11-6jq5n360"]}}}}]}},"validation_errors":[["'gold:Gp0321295' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321303' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321301' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324054' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321264' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321263' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0396401' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324046' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324047' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324055' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324049' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321284' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324035' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0396397' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324036' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324044' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321304' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321272' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321269' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324038' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324008' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321265' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321277' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324062' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321276' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321268' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321287' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321296' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321288' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321305' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0396399' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0396394' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324048' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321300' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324061' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324033' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324056' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324057' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321267' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0396398' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324050' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321280' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321266' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324009' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0396395' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321282' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321273' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324045' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321286' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324058' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321309' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324007' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321306' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324006' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324060' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321297' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321291' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321292' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321283' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324051' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324040' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321289' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324011' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321299' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0396393' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321271' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321293' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321298' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324042' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324043' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321281' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0396396' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321285' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324041' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324053' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324010' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321275' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321308' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321310' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321274' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321270' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324052' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324037' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324059' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0396400' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321278' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324034' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321302' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0324039' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321307' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321279' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321290' does not match '^GOLD:Gp[0-9]+$'"],["'gold:Gp0321294' does not match '^GOLD:Gp[0-9]+$'"]]}}
-INFO:root:changesheet validation failed
+INFO:root:Elapsed time: 181.70278096199036
