@@ -12,7 +12,6 @@ workflow mbin_nmdc_output {
     File json_stats
     File tsv_stats
     File bacsum
-    File arcsum
     Array[File] bin_fasta_files
     Array[File] hqmq_bin_fasta_files
     String container = "microbiomedata/nmdc_mbin:0.1.6"
@@ -39,7 +38,6 @@ workflow mbin_nmdc_output {
                 checkm = checkm,
                 json_stats = json_stats,
                 bac_summary = bacsum,
-                ar_summary = arcsum,
                 metabat_bin_fasta_files = bin_fasta_files,
                 hqmq_bin_fasta_files = hqmq_bin_fasta_files
     }
@@ -57,7 +55,6 @@ workflow mbin_nmdc_output {
                    bin_fasta_zip=generate_objects.metabat_bin_fasta_zip,
                    checkm=checkm,
                    gtdbtk_bac_summary=bacsum,
-                   gtdbtk_ar_summary=arcsum,
                    proj = proj_name,
                    outdir=outdir
 
@@ -81,7 +78,6 @@ task generate_objects{
     File json_stats
 
     File? bac_summary
-    File? ar_summary
     Array[File] metabat_bin_fasta_files
     Array[File] hqmq_bin_fasta_files
     String dollar="$"
@@ -108,8 +104,7 @@ task generate_objects{
              ${lowdepth} "lowDepth (mean cov <1 )  filtered contigs fasta file by metabat2" \
              ${unbinned} "unbinned fasta file from metabat2" \
              ${" " + checkm + " \"metabat2 bin checkm quality assessment result\""} \
-             ${" " + bac_summary + " \"gtdbtk bacterial assignment result summary table\""} \
-             ${" " + ar_summary + " \"gtdbtk archaea assignment result summary table\""}
+             ${" " + bac_summary + " \"gtdbtk bacterial assignment result summary table\""}
     >>>
     runtime {
         docker: container
@@ -137,7 +132,6 @@ task make_output{
     File json_stats
     File tsv_stats
     File? gtdbtk_bac_summary
-    File? gtdbtk_ar_summary
     String container
     File activity_json
     File object_json
@@ -154,7 +148,6 @@ task make_output{
         sed -e ${sed_bin} ${json_stats} > ${outdir}/MAGs_stats.json
         sed -e ${sed_bin} ${tsv_stats} > ${outdir}/mbin_datafile_${proj}.txt
         sed -e ${sed_bin} ${gtdbtk_bac_summary} > ${outdir}/gtdbtk.bac120.summary.tsv
-        sed -e ${sed_bin} ${gtdbtk_ar_summary} > ${outdir}/gtdbtk.ar122.summary.tsv
         # These may not exist
         ${  if defined(bin_fasta_zip) then
                  "cp " + bin_fasta_zip + " " + outdir + "/"  + proj + "_metabat_bins.zip"
@@ -173,7 +166,6 @@ task make_output{
         File? metabat_bin_fa_zip = "${outdir}/${proj}_metabat_bins.zip"
         File? checkm_output = "${outdir}/${proj}_checkm_qa.out"
         File? bac_summary = "${outdir}/gtdbtk.bac120.summary.tsv"
-        File? ar_summary = "${outdir}/gtdbtk.ar122.summary.tsv"
         File? unbinned_fa = "${outdir}/${proj}_bins.unbinned.fa"
         File? tooShort_fa = "${outdir}/${proj}_bins.tooShort.fa"
         File? lowDepth_fa = "${outdir}/${proj}_bins.lowDepth.fa"
