@@ -36,7 +36,7 @@ module.exports = function workflowMonitor() {
             let conf = JSON.parse(rawdata);
 
             //check input size
-            let inputsize = await findInputsize(conf);
+            let inputsize = 0; //await findInputsize(conf);
             if (inputsize > config.CROMWELL.JOBS_INPUT_MAX_SIZE_BYTES) {
                 logger.debug("Project " + proj.code + " input size exceeded the limit.");
                 //fail project
