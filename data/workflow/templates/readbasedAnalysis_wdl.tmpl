@@ -8,7 +8,7 @@
     String <WORKFLOW>_db_kraken2 = "/refdata/Kraken2"
     String <WORKFLOW>_db_centrifuge = "/refdata/Centrifuge/hpv"
 
-    call readbasedanalysis_preprocess as preprocess {
+    call readbasedanalysis_preprocess.preprocess as preprocess {
         input:
             input_files=<WORKFLOW>_reads,
             paired=<WORKFLOW>_paired
