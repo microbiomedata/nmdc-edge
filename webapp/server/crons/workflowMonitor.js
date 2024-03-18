@@ -143,6 +143,7 @@ function generateWDL(proj_home, workflow) {
     }
     const tmpl = process.env.WORKFLOW_TEMPLATE_HOME + "/" + workflowSettings['wdl_tmpl'];
     if(workflowname === 'ReadsQC') {
+        imports += 'import "readsqc_output.wdl" as ReadsQC_output' + "\n";
         imports += 'import "readsqc_preprocess.wdl" as readsqc_preprocess' + "\n";
     }
     if(workflowname === 'metaMAGs') {
