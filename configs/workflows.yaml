@@ -284,7 +284,7 @@ Workflows:
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Git_repo: https://github.com/microbiomedata/metaMAGs
-    Version: v1.0.8
+    Version: v1.0.9
     WDL: mbin_nmdc.wdl
     Collection: mags_activity_set
     Predecessors:
