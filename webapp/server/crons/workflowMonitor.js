@@ -136,6 +136,7 @@ function generateWDL(proj_home, workflow) {
         imports += 'import "annotation_output.wdl" as MetaAnnotationOutput' + "\n";
     }
     if(workflowname === 'ReadsQC') {
+        imports += 'import "readsqc_output.wdl" as ReadsQC_output' + "\n";
         imports += 'import "readsqc_preprocess.wdl" as readsqc_preprocess' + "\n";
     }
     if(workflowname === 'metaMAGs') {
