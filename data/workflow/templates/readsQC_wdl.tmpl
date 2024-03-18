@@ -26,6 +26,6 @@ scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
 }
 call ReadsQC_output.readsqc_output as readsqc_output {
     input:
-        input_files=nmdc_rqcfilter.filtered_final),
+        input_files=nmdc_rqcfilter.filtered_final,
         outdir=ReadsQC_outdir
     }
