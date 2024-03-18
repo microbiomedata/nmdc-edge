@@ -132,7 +132,7 @@ function generateWDL(proj_home, workflow) {
     }
 
     imports += 'import "' + workflowSettings['wdl'] + '" as ' + workflowname + "\n";
-    if (workflowname === 'MetaAnnotation') {
+    if(workflowname === 'MetaAnnotation') {
         imports += 'import "annotation_output.wdl" as MetaAnnotationOutput' + "\n";
     }
     if(workflowname === 'MetaAssembly') {
@@ -142,6 +142,17 @@ function generateWDL(proj_home, workflow) {
         imports += 'import "readbasedanalysis_preprocess.wdl" as ReadbasedAnalysis_preprocess' + "\n";
     }
     const tmpl = process.env.WORKFLOW_TEMPLATE_HOME + "/" + workflowSettings['wdl_tmpl'];
+    if(workflowname === 'ReadsQC') {
+        imports += 'import "readsqc_preprocess.wdl" as readsqc_preprocess' + "\n";
+    }
+    if(workflowname === 'metaMAGs') {
+        imports += 'import "mbin_nmdc_preprocess.wdl" as mbin_nmdc_preprocess' + "\n";
+        imports += 'import "mbin_nmdc_output.wdl" as mbin_nmdc_output' + "\n";
+    }
+    if(workflowname === 'ReadbasedAnalysis') {
+        imports += 'import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess' + "\n";
+    }
+    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowSettings['wdl_tmpl']);
     let templWDL = String(fs.readFileSync(tmpl));
     templWDL = templWDL.replace(/<WORKFLOW>/g, workflowname);
     templWDL = templWDL.replace(/<ALIAS>/g, workflowalias);
