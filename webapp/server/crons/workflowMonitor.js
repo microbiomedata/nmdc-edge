@@ -139,13 +139,17 @@ function generateWDL(proj_home, workflow) {
         imports += 'import "readsqc_output.wdl" as ReadsQC_output' + "\n";
         imports += 'import "readsqc_preprocess.wdl" as readsqc_preprocess' + "\n";
     }
-    if(workflowname === 'metaMAGs') {
+    if(workflowname === 'MetaMAGs') {
         imports += 'import "mbin_nmdc_preprocess.wdl" as mbin_nmdc_preprocess' + "\n";
         imports += 'import "mbin_nmdc_output.wdl" as mbin_nmdc_output' + "\n";
     }
     if(workflowname === 'ReadbasedAnalysis') {
         imports += 'import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess' + "\n";
     }
+    if(workflowname === 'MetaAssembly') {
+        imports += 'import "preprocess.wdl" as preprocess' + "\n";
+    }
+
     const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowSettings['wdl_tmpl']);
     let templWDL = String(fs.readFileSync(tmpl));
     templWDL = templWDL.replace(/<WORKFLOW>/g, workflowname);
