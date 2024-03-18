@@ -16,17 +16,16 @@ call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
 }
 scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
 
-        call ReadsQC.nmdc_rqcfilter  as nmdc_rqcfilter {
-            input:
-                input_files=file,
-                database=ReadsQC_database,
-                proj=proj,
-	   }
+    call ReadsQC.nmdc_rqcfilter  as nmdc_rqcfilter {
+        input:
+            input_files=file,
+            database=ReadsQC_database,
+            proj=proj,
+   }
 
 }
 call ReadsQC_output.readsqc_output as readsqc_output {
-            input:
-                input_files=nmdc_rqcfilter.filtered_final),
-                outdir=ReadsQC_outdir
-	    }
+    input:
+        input_files=nmdc_rqcfilter.filtered_final),
+        outdir=ReadsQC_outdir
     }
