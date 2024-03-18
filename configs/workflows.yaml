@@ -296,7 +296,6 @@ Workflows:
       cath_funfam_file: do:CATH FunFams (Functional Families) Annotation GFF
       supfam_file: do:SUPERFam Annotation GFF
       cog_file: do:Clusters of Orthologous Groups (COG) Annotation GFF
-      proj_name: "{activity_id}"
       pfam_file: do:Pfam Annotation GFF
       product_names_file: do:Product Names
       tigrfam_file: do:TIGRFam Annotation GFF
