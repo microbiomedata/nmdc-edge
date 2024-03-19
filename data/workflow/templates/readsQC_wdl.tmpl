@@ -4,7 +4,7 @@ String ReadsQC_database="/refdata"
 Boolean ReadsQC_input_interleaved=true
 Array[File] ReadsQC_input_fq1
 Array[File] ReadsQC_input_fq2
-String? proj
+String? prefix
 
 call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
     input:
@@ -16,21 +16,20 @@ call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
 }
 scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
 
-    call ReadsQC.nmdc_rqcfilter  as nmdc_rqcfilter {
-        input:
-            input_files=file,
-            database=ReadsQC_database,
-            proj=proj,
-   }
+        call ReadsQC.nmdc_rqcfilter  as nmdc_rqcfilter {
+            input:
+                input_files=file,
+                database=ReadsQC_database,
+                proj=prefix,
+	   }
 
 }
 call ReadsQC_output.readsqc_output as readsqc_output {
-    input:
-        proj=proj,
-        input_files=nmdc_rqcfilter.filtered_final,
-        outdir=ReadsQC_outdir,
-        stat=nmdc_rqcfilter.filtered_stats_final,
-        stat2=nmdc_rqcfilter.filtered_stats2_final,
-        stat_json=nmdc_rqcfilter.filtered_stats_json,
-
-    }
+            input:
+                input_files=nmdc_rqcfilter.filtered_final,
+                outdir=ReadsQC_outdir,
+                stat=nmdc_rqcfilter.filtered_stats_final,
+                stat_json=nmdc_rqcfilter.filtered_stats_json,
+                proj=prefix,
+                stat2=nmdc_rqcfilter.filtered_stats2_final
+	    }
