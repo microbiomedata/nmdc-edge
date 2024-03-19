@@ -1,0 +1,71 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:34: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Deleting old objects found in : ./data/nmdc:sty-11-33fbta56_failed_record_dump.json
+INFO:root:Using: https://api-napa.microbiomedata.org/
+INFO:root:Deleting data_object_set records: ['nmdc:c8ed546d4bb69c4b6f122d933dcb79af', 'nmdc:65ebc0e915b82640592a89c406f0465f', 'nmdc:b36e981c6d9031d6495c2691fe3523b1', 'nmdc:e798be205cffa0dc38d93310fdaed9ca', 'nmdc:5f407fa0ab30bf4c41ed96f288084147', 'nmdc:b2ebb165844db26924a6697e7047988b', 'nmdc:f61889342f732f8e12b5f818cfe02e7f']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:a5fba8fca3b75c9e0b564a8e311adf46']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:822c7442bc7abceae5907c25950df957', 'nmdc:159bcc899b358d4240c5f5e43dbee9b5', 'nmdc:5023f7fe5f6d3ee8d904bed0099a7b20', 'nmdc:e6c87c6ae4e81e8620ed9b1db2089544', 'nmdc:401b5cf24d453cd157a486bbf3b99736', 'nmdc:1427b40ba7b82073434004c4ac58ce67', 'nmdc:71f500ec517ea2cf44da02241e03c24b']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:ddf9068cb9d0e93f72e3ae1f6beeeba2']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:e98f2738bfbcfb7022f19be0e5166329', 'nmdc:a0b323f90d0b4cf4466a3225d4467616', 'nmdc:226fbcb31623f7107db51f81ef175254', 'nmdc:850ba40eb4e0d048a4dedd97f738a76d', 'nmdc:6213c5e468e7fe9212b47a00f5583dd6', 'nmdc:0b6fc695e680e2b28cffedf497701786', 'nmdc:bd95e847cee60ace057d8d2836e42ef3']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:761f287faac154a3b66a0c89c82738d4']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:f5351ea13159feff2d0198a0da29c8a5', 'nmdc:a051f2d528db2c3d027e40f580724536', 'nmdc:0772b0a1db633615098d8805d70bc46f', 'nmdc:339c0d5d2e73387fb9ef43b6a9b20da4', 'nmdc:4beca79435164e92624ade0095a6f28f', 'nmdc:99b68ca9274dd5c8c15a727d8a4be5c1', 'nmdc:e320964bdde1bf5d0ed42c874431a09f']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:8253bcdcd0387177ff895c38a047c719']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:1ffe29c4f789e512f13b81b684fcf61e', 'nmdc:bf95f667ae01fcec06e7965d922f63c3', 'nmdc:3bc683ffe2c367faf6e6ae90087e0410', 'nmdc:f7454a9a53391dd69116eaa495972281', 'nmdc:d915cd752473ca2dee362b6f5d6463f9', 'nmdc:e333f1a4984287f28b1ec6bc2f5e220f', 'nmdc:4e6cf38af0b5b8f16d8fc1f7779c5a29']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:7a197d54a06a37090bb50eaf37c93115']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:001e0726d6f7e54706f445f568de1fd9', 'nmdc:fa5dfe9d5ceb255bd4568badb0cc811b', 'nmdc:b15dfe140998e9c1364ef5299b4b86d2', 'nmdc:97d9170806e02d05bfdf2b1fecdda547', 'nmdc:ece64e0755d738464f01e5af77732ee1', 'nmdc:268db5579721a196c95872bf480e4329', 'nmdc:50958da5af250342f2089bec02364e12']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:5ab2faba70b7dc9853cecf68af4576c8']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:c6ab280a9a71332ea8437846fc5fa70e', 'nmdc:416b6fb7651eb157d2bb3865425bb6de', 'nmdc:524bc22a021d7a40aeb134a64416cc8b', 'nmdc:5ae72a513af1a9b6c1019bf8f17fdde1', 'nmdc:273b8d4164abe7092da949a37a8c328d', 'nmdc:f3f5c721edf09670ee391fe8dd3d8af5', 'nmdc:08c2b9a09f897ecbe302b8e3f416dd6e']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:3bbc2e110acd6e6b200fd43814337b94']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:d1bdd8d4605e561039cb3850827b98bd', 'nmdc:134b632cd3e5bec9cea4c456165d6097', 'nmdc:4739561177541ad557f80275397e7675', 'nmdc:c108b67654466dd0a54b8bb3fdafa57e', 'nmdc:cd65e6db9367f66976bd2eebd4b83acb', 'nmdc:15ac88a0ee25984da7e44867aa9c07d2', 'nmdc:4ebba69aaf20856dffe47ac5ac672cad']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:3c401e2ee440df4d96027e3594618104']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:4b9b8a064ac562bb209a28b9203715e4', 'nmdc:365db4e689e671081b33051b63444b89', 'nmdc:a3ae4c639da7381b7120bbd255ffa4b2', 'nmdc:f9dd91546ac803303ebd1b86173e3ef5', 'nmdc:de27878d63c710856c16a202fc2723b0', 'nmdc:fd224efc944064e05cf8e2abde80082a', 'nmdc:a0dc69e2ec75448a58992a32eac14426']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:4cbc930855e87f6cc3f2255b875ccade']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:b5be335d73e9f43434f1f319dbe74602', 'nmdc:8677affb1a3ae76bb8a9461603fc9e70', 'nmdc:4a4b1f88a4f6036b5df25f66eb530daa', 'nmdc:441aef0e4396e5adfa1e6cc4db45aebe', 'nmdc:2002afa4bc29e198da0a63382b69a6f8', 'nmdc:edf5c75c8744c683a6c3507972e60cf5', 'nmdc:6c422a61df4e276560c743e42e8777ac']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:0f21da30e01f45f336e29ebd9f9ebf90']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:2773b3a2eb23e390faad4e7d32f1bc31', 'nmdc:4f4b5b5e33eb7820a6dbbf93ea8c8fbd', 'nmdc:dae0faa18cf1eabe702e127c8aa4125c', 'nmdc:d00d119e08edcb163485792a7ce8d5fa', 'nmdc:f2b52b572c0373c72f8f26d9618b9cb0', 'nmdc:592714700d2296bcdf6aa4558bdfc0aa', 'nmdc:77430d607016d4c31d260ca6dda18297']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:613c66031f3a5c73716b02ade1cef55a']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:c6543df54529af9301d47353fb48477d', 'nmdc:6c9e3d9698730b3baab9a001d82d7a52', 'nmdc:2e086c5762834ed4289f11e2df06bc3e', 'nmdc:641dbcb1c7df646a0aecac1e0f8fa53d', 'nmdc:520c60f3291ad53775b51cc0fca25d7b', 'nmdc:a63d0beada28634e20ccfa00eb9743af', 'nmdc:c8c0c6d46571baea281342f5ff91de37']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:bf1fcc9ebcb26e9386fe5f063f9aa96f']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:8d8b90d287099ef930cb6dfeba99d139', 'nmdc:3d500fe8a69a9c8f0ff0146fa7cb3eb3', 'nmdc:c800a33e5b7cd800bced9c60bcaecf60', 'nmdc:5a7c3677e5b3c64144a89bf1e2ed6a21', 'nmdc:c05680de421aa177499f29588804100f', 'nmdc:9ebb73c3378e1e19f3aaa4c6ad67bd6a', 'nmdc:1468a245ca107e50d13a8d0e4c27873b']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:171a5e03ee71c13bda4a4c2a7ba51cd2']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:ccfe5635bfcc535acbbc7b9677963ebb', 'nmdc:4b1fffbdc4130dfc262cbab3b7ef94e3', 'nmdc:810f3a23fe6861a24397cec5a7635f65', 'nmdc:fbfc3556f0b6b81127dccdd0fbb319aa', 'nmdc:4793f08b0984e59d9654b0e84b7c4964', 'nmdc:57510c34441755cac37e45ceef026e26', 'nmdc:98c72b11c04b1c9c5b65c03a7e827136']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:4a43bf91c943db8e9829ea992c576c8e']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:c967d1954540c289dc3e177461e16d7c', 'nmdc:581395fa84e118778aab43f9566aa6a3', 'nmdc:de2eae2b7d272b6fe0d83d6c008355d2', 'nmdc:4362fd4f9f606f1dc4d00776e94ddbeb', 'nmdc:2886b27c40c1d9df999dee610e6af2b1', 'nmdc:f788210bfd7e852cb4927184fd4dc8d0', 'nmdc:b49943cbfb6fc32a28b309b59389b68f']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:ce4f08538d6f705abc1505ed9cc8493b']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:824aec1509237ed08980524f83195790', 'nmdc:f5100b64e33408b5cc4392519c64659b', 'nmdc:6f9ae6d9e35c2712e42be1c5e1a220c0', 'nmdc:5fecd27babb34be50e875bdac6ee440e', 'nmdc:355ed122ebfedeb97b9039f53071fb32', 'nmdc:d7b6407a6cf90e8632a041613ba7af7a', 'nmdc:7cbf5868b5d3d30f8dd8bab089523082']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting read_based_taxonomy_analysis_activity_set records: ['nmdc:2e384ea11627508ae28658217bdfe3b3']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:77b1712067645b362aee53aad59000e2', 'nmdc:cf96331e23aa34224990105374272877', 'nmdc:38f5521b558377503f6e9a635998dd37', 'nmdc:4d12e1cab7ee7e72ea48151dfc0354c6', 'nmdc:52309bf9398a5b0c401e1e23f5e414df']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:fdefb3fa15098906cf788f5cadf17bb3']
