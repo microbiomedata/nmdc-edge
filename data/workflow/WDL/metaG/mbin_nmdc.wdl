@@ -123,6 +123,8 @@ workflow nmdc_mags {
         Array[File] hqmq_bin_fasta_files = finish_mags.hqmq_bin_fasta_files
         Array[File] bin_fasta_files = finish_mags.bin_fasta_files
         String start = stage.start
+        File stats_json = finish.stats_json
+        File stats_tsv = finish.stats_tsv
     }
 
 
