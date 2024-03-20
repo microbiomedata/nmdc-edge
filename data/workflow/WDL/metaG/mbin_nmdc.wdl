@@ -122,7 +122,7 @@ workflow nmdc_mags {
         File kronaplot = finish_mags.final_kronaplot
         Array[File] hqmq_bin_fasta_files = finish_mags.hqmq_bin_fasta_files
         Array[File] bin_fasta_files = finish_mags.bin_fasta_files
-        String start
+        String start = stage.start
     }
 
 
