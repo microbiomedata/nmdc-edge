@@ -120,8 +120,8 @@ workflow nmdc_mags {
         File barplot = finish_mags.final_barplot
         File heatmap = finish_mags.final_heatmap
         File kronaplot = finish_mags.final_kronaplot
-        Array[File] hqmq_bin_fasta_files = finish_mags.hqmq_bin_fasta_files
-        Array[File] bin_fasta_files = finish_mags.bin_fasta_files
+        Array[File] hqmq_bin_fasta_files = mbin_nmdc.hqmq_bin_fasta_files
+        Array[File] bin_fasta_files = mbin_nmdc.bin_fasta_files
         String start = stage.start
         File tsv_stats = mbin_nmdc.stats_tsv
     }
