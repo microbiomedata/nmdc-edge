@@ -141,7 +141,7 @@ function generateWDL(proj_home, workflow) {
     }
     if(workflowname === 'MetaMAGs') {
         imports += 'import "mbin_nmdc_preprocess.wdl" as mbin_nmdc_preprocess' + "\n";
-        imports += 'import "mbin_nmdc_output.wdl" as mbin_nmdc_output' + "\n";
+        imports += 'import "mbin_nmdc_output.wdl" as MetaMAGsOutput' + "\n";
     }
     if(workflowname === 'ReadbasedAnalysis') {
         imports += 'import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess' + "\n";
