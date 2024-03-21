@@ -381,6 +381,7 @@ async function generateInputs(proj_home, workflow, proj) {
         templInputs = templInputs.replace(/<PROJ_NAME>/, '"' + proj.name + '"');
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
 
+
     } else if (workflow.name === 'EnviroMS') {
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
         templInputs = templInputs.replace(/<FILE_PATHS>/, JSON.stringify(workflow['file_paths']));
