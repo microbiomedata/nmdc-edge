@@ -18,26 +18,28 @@ function submitWorkflow(proj, workflow, inputsize) {
     logger.debug("workflowSource: " + proj_home + '/pipeline.wdl');
     formData.append("workflowInputs", fs.createReadStream(proj_home + '/pipeline_inputs.json'));
     logger.debug("workflowInputs" + proj_home + '/pipeline_inputs.json');
+    formData.append("workflowOptions", fs.createReadStream(proj_home + '/options.json'));
+    logger.debug("workflowInputs" + proj_home + '/options.json');
 
     //imports.wdl
     let imports = path.join(config.WORKFLOWS.WDL_DIR, "imports.zip");
     let wdlVersion = config.CROMWELL.WORKFLOW_TYPE_VERSION;
     //options_json
     if (workflow) {
-        let options_json = null;
+        // let options_json = null;
         if (workflow.name) {
-            options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowlist[workflow.name]['options_json'] ? workflowlist[workflow.name]['options_json'] : 'notfound');
+            // options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowlist[workflow.name]['options_json'] ? workflowlist[workflow.name]['options_json'] : 'notfound');
             imports = path.join(config.WORKFLOWS.WDL_DIR, workflowlist[workflow.name]['wdl_imports']);
             wdlVersion = workflowlist[workflow.name]['wdl_version'];
         } else {
-            options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelinelist[workflow]['options_json'] ? pipelinelist[workflow]['options_json'] : 'notfound');
+            // options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelinelist[workflow]['options_json'] ? pipelinelist[workflow]['options_json'] : 'notfound');
             imports = path.join(config.WORKFLOWS.WDL_DIR, pipelinelist[workflow]['wdl_imports']);
             wdlVersion = pipelinelist[workflow]['wdl_version'];
         }
-        if (fs.existsSync(options_json)) {
-            formData.append("workflowOptions", fs.createReadStream(options_json));
-            logger.debug("workflowOptions:" + options_json);
-        }
+        // if (fs.existsSync(options_json)) {
+        //     formData.append("workflowOptions", fs.createReadStream(options_json));
+        //     logger.debug("workflowOptions:" + options_json);
+        // }
     }
 
     formData.append("workflowType", config.CROMWELL.WORKFLOW_TYPE);
