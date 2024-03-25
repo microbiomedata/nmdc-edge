@@ -149,9 +149,8 @@ workflow main_workflow {
 		}
 
 
-
 	## Annotation workflow
-	File?  metaAnnotation_imgap_input_fasta = metaAssembly_call.contig
+	File?  metaAnnotation_imgap_input_fasta = metaAssembly_call.final_contig
 	String  metaAnnotation_imgap_project_id
 	String  metaAnnotation_outdir
 	Int     metaAnnotation_additional_threads=8
