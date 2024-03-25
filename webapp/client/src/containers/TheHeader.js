@@ -60,10 +60,10 @@ const TheHeader = (props) => {
               <CHeaderNavLink className="edge-header-nav-link" to="/user/projectlist">My Projects</CHeaderNavLink>
             </CHeaderNavItem>
             <CHeaderNavItem className="px-3" >
-              <CHeaderNavLink className="edge-header-nav-link" to="/user/files">My uploads</CHeaderNavLink>
+              <CHeaderNavLink className="edge-header-nav-link" to="/user/files">My Uploads</CHeaderNavLink>
             </CHeaderNavItem>
             <CHeaderNavItem className="px-3" >
-              <CHeaderNavLink className="edge-header-nav-link" to="/sra/data">Download SRA Data</CHeaderNavLink>
+              <CHeaderNavLink className="edge-header-nav-link" to="/sra/data">My SRA Data</CHeaderNavLink>
             </CHeaderNavItem>
             <CHeaderNavItem className="px-3">
               <CHeaderNavLink className="edge-header-nav-link" to="/user/jobqueue">Job Queue</CHeaderNavLink>

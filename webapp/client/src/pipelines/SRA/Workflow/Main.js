@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { workflowlist, workflowOptions } from './Defaults';
-import { Project } from '../../Common/Forms/Project';
+import SraDataTable from '../../../common/UM/Common/SraDataTable';
 import { Sra2fastq } from './Forms/Sra2fastq';
 const HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
@@ -26,6 +26,7 @@ function Main(props) {
     const [doValidation, setDoValidation] = useState(0);
 
     const [workflow, setWorkflow] = useState(workflowOptions[0].value);
+    const [refreshTable, setRefreshTable] = useState(0)
 
     //callback function for child component
     const setProject = (params) => {
@@ -48,7 +49,7 @@ function Main(props) {
         let formData = new FormData();
 
         formData.append('pipeline', workflowlist[workflow].title);
-        formData.append('project', JSON.stringify({ name: projectParams.proj_name, desc: projectParams.proj_desc }));
+        formData.append('project', JSON.stringify({ name: selectedWorkflows[workflow].accessions, desc:  selectedWorkflows[workflow].accessions }));
 
         let inputDisplay = {};
         inputDisplay.workflow = workflowlist[workflow].title;
@@ -56,8 +57,8 @@ function Main(props) {
         let myWorkflow = {};
         myWorkflow.name = workflow;
         if (workflow === 'sra2fastq') {
-          myWorkflow['accessions'] = selectedWorkflows[workflow].accessions;
-          inputDisplay.input['SRA Accession(s)'] = selectedWorkflows[workflow].accessions;
+            myWorkflow['accessions'] = selectedWorkflows[workflow].accessions;
+            inputDisplay.input['SRA Accession(s)'] = selectedWorkflows[workflow].accessions;
         }
 
         formData.append('workflow', JSON.stringify(myWorkflow));
@@ -66,7 +67,7 @@ function Main(props) {
         postData("/auth-api/user/project/add", formData)
             .then(data => {
                 notify("success", "Your workflow request was submitted successfully!", 2000);
-                setTimeout(() => props.history.push("/user/projectlist"), 2000);
+                setRefreshTable(refreshTable + 1);
             }
             ).catch(error => {
                 setSubmitting(false);
@@ -94,39 +95,14 @@ function Main(props) {
 
 
     return (
-
         <div className="animated fadeIn">
-            <span className="pt-3 text-muted edge-text-size-small">SRA | Run Single Workflow </span>
             <Row className="justify-content-center">
                 <Col xs="12" md="10">
                     <ToastContainer />
                     <LoaderDialog loading={submitting === true} text="Submitting..." />
-                    <MessageDialog className='modal-lg modal-danger' title='Failed to submit the form' isOpen={openDialog} html={true}
-                        message={"<div><b>Please correct the error(s) and try again.</b></div>"}
-                        handleClickClose={closeMsgModal} />
                     <Form onSubmit={e => { e.preventDefault(); }}>
                         <div className="clearfix">
-                            <h4 className="pt-3">Run a Single Workflow</h4>
-                            <hr />
-                            <Project setParams={setProject} />
-
-                            <br></br>
-                            <b>Workflow</b>
-                            <MySelect
-                                //defaultValue={workflowOptions[0]}
-                                options={workflowOptions}
-                                value={workflowOptions[0]}
-                                onChange={e => {
-                                    if (e) {
-                                        setWorkflow(e.value);
-                                    } else {
-                                        setWorkflow();
-                                    }
-                                }}
-                                placeholder="Select a Workflow..."
-                                isClearable={true}
-                            />
-                            <br></br>
+                            <h4 className="pt-3">Download SRA Data</h4>
                             {workflow &&
                                 <>
                                     {htmlToReactParser.parse(workflowlist[workflow].info)} <a target="_blank" href={workflowlist[workflow].link} rel="noopener noreferrer">Learn more</a>
@@ -146,6 +122,13 @@ function Main(props) {
                         <br></br>
                         <br></br>
                     </Form>
+                </Col>
+            </Row>
+            <Row>
+                <Col xl={1}>
+                </Col>
+                <Col xl={10}>
+                    <SraDataTable tableType='user' title={"My SRA Data"} refresh={refreshTable} {...props} />
                 </Col>
             </Row>
         </div >
