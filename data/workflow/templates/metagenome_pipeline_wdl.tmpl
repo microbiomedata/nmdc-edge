@@ -163,7 +163,7 @@ workflow main_workflow {
 	String? metaMAGs_outdir
 	String  metaMAGs_proj_name
 	File? metaMAGs_contig_file =  metaAssembly_call.contig
-	File? metaMAGs_sam_file = metaAssembly_call.final_bam
+	File? metaMAGs_sam_file =metaAssembly_call.bam
 	File? metaMAGs_gff_file = metaAnnotation_call.functional_gff
 	File? metaMAGs_proteins_file = metaAnnotation_call.proteins_faa
     File? metaMAGs_cog_file = metaAnnotation_call.cog_gff
