@@ -111,7 +111,7 @@ function Main(props) {
                             }
                             <br></br>
                             {workflow === 'sra2fastq' &&
-                                <Sra2fastq name={workflow} full_name={workflow} setParams={setWorkflowParams} />
+                                <Sra2fastq reset={refreshTable} name={workflow} full_name={workflow} setParams={setWorkflowParams} />
                             }
                             <br></br>
                         </div>

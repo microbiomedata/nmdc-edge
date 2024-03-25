@@ -61,6 +61,7 @@ export function Sra2fastq(props) {
   useEffect(() => {
     setState({ ...initialSra2fastq });
     setValue('accessions', '', { shouldValidate: true });
+    setDoValidation(doValidation + 1);
   }, [props.reset]);// eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
