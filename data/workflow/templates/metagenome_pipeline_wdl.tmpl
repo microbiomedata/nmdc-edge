@@ -1,5 +1,4 @@
 import "rqcfilter.wdl" as readsQC
-import "readsqc_preprocess.wdl" as readsqc_preprocess
 import "ReadbasedAnalysis.wdl" as readbasedAnalysis
 import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "jgi_assembly.wdl" as metaAssembly
@@ -113,9 +112,21 @@ workflow main_workflow {
             memory=metaAssembly_memory,
             threads=metaAssembly_threads
     }
-	
+	##Viral Plasmid Workflow
+	File?   virusPlasmid_input = metaAssembly_call.final_contig
+	Map[String, Boolean] virusPlasmid_options = {
+		"default": true,
+		"relaxed": false,
+		"conservative": false,
+		"custom": false
+	  }
+	String  virusPlasmid_outdir
+	Int     virusPlasmid_cpu=8
+	String  virusPlasmid_database_location="/refdata"
+
+
 	## Annotation workflow
-	File?  metaAnnotation_imgap_input_fasta = metaAssembly_call.contig
+	File?  metaAnnotation_imgap_input_fasta = metaAssembly_call.final_contig
 	String  metaAnnotation_imgap_project_id
 	String  metaAnnotation_outdir
 	Int     metaAnnotation_additional_threads=8
@@ -142,8 +153,8 @@ workflow main_workflow {
 	## MAGs workflow
 	String? metaMAGs_outdir
 	String  metaMAGs_proj_name
-	File? metaMAGs_contig_file = metaAssembly_call.contig
-	File? metaMAGs_sam_file = metaAssembly_call.bam
+	File? metaMAGs_contig_file = metaAssembly_call.final_contig
+	File? metaMAGs_sam_file = metaAssembly_call.final_bam
 	File? metaMAGs_gff_file = metaAnnotation_call.functional_gff
 	File? metaMAGs_proteins_file = metaAnnotation_call.proteins_faa
     File? metaMAGs_cog_file = metaAnnotation_call.cog_gff

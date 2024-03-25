@@ -13,7 +13,7 @@ workflow ReadbasedAnalysis {
     String prefix=sub(proj, ":", "_")
     Boolean? paired = false
     String bbtools_container="microbiomedata/bbtools:38.96"
-    String? docker = "poeli/nmdc_taxa_profilers:1.0.5"
+    String? docker = "poeli/nmdc_taxa_profilers:1.0.3p2"
 
     call stage {
         input:
@@ -126,7 +126,7 @@ task stage {
            ln ${input_file} ${target} || cp ${input_file} ${target}
        fi
 
-        reformat.sh -Xmx${default="10G" memory} in=${target} out1=${output1} out2=${output2}    
+        reformat.sh -Xmx${default="10G" memory} in=${target} out1=${output1} out2=${output2}
        # Capture the start time
        date --iso-8601=seconds > start.txt
 
