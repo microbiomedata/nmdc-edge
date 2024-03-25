@@ -123,6 +123,14 @@ workflow main_workflow {
 	String  virusPlasmid_outdir
 	Int     virusPlasmid_cpu=8
 	String  virusPlasmid_database_location="/refdata"
+	call viralPlasmid.viral as viralPlasmid_call {
+			input:
+				fasta=virusPlasmid_input,
+				outdir=virusPlasmid_outdir,
+				option=virusPlasmid_options,
+				cpu=virusPlasmid_cpu,
+				database=virusPlasmid_database_location
+		}
 
 
 	## Annotation workflow
