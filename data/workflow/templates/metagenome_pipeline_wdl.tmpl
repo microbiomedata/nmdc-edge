@@ -1,4 +1,5 @@
 import "rqcfilter.wdl" as readsQC
+import "readsqc_preprocess.wdl" as readsqc_preprocess
 import "ReadbasedAnalysis.wdl" as readbasedAnalysis
 import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "jgi_assembly.wdl" as metaAssembly
@@ -226,7 +227,7 @@ workflow main_workflow {
             unbinned=metaMAGs_call.final_unbinned_fa,
             short=metaMAGs_call.short,
             checkm=metaMAGs_call.final_checkm,
-            json_stats=metaMAGs_call.stats_json,
+            json_stats=metaMAGs_call.final_stats_json,
             tsv_stats=metaMAGs_call.tsv_stats,
             bin_fasta_files=metaMAGs_call.bin_fasta_files,
             hqmq_bin_fasta_files=metaMAGs_call.hqmq_bin_fasta_files,
