@@ -16,7 +16,7 @@ export function Sra2fastq(props) {
 
   const toggleParms = () => {
     setCollapseParms(!collapseParms);
-}
+  }
   const isValidAccessions = (accessions) => {
     if (!accessions) {
       if (props.required) {
@@ -84,31 +84,28 @@ export function Sra2fastq(props) {
   return (
 
     <Card className="workflow-card">
-      <Header toggle={true} toggleParms={toggleParms} title={'Input'} collapseParms={collapseParms} />
-      <Collapse isOpen={!collapseParms} id={"collapseParameters-" + props.name} >
-        <CardBody>
-          <Row>
-            <Col md="3">
-                <MyTooltip id='accessionsTooltip' tooltip={workflowInputTips['sra2fastq']['accessions']}
-                  text='SRA Accession(s)' place={defaults.tooltipPlace} showTooltip={defaults.showTooltip} />
-               
-            </Col>
-            <Col xs="12" md="9">
+      <CardBody>
+        <Row>
+          <Col md="3">
+            <MyTooltip id='accessionsTooltip' tooltip={workflowInputTips['sra2fastq']['accessions']}
+              text='SRA Accession(s)' place={defaults.tooltipPlace} showTooltip={defaults.showTooltip} />
 
-              <Input type="text" name="accessions" id="accessions" defaultValue={form.accessions}
-                placeholder="ex: SRR1553609,SRX7852919"
-                style={(errors.accessions) ? defaults.inputStyleWarning : defaults.inputStyle}
-                onChange={(e) => {
-                  accessionReg.onChange(e); // method from hook form register
-                  setNewState(e); // your method
-                }}
-                innerRef={accessionReg.ref}
-              />
-              {errors && errors.accessions  && <p className="edge-form-input-error">{errors.accessions.message}</p>}
-            </Col>
-          </Row>
-        </CardBody>
-      </Collapse>
+          </Col>
+          <Col xs="12" md="9">
+
+            <Input type="text" name="accessions" id="accessions" defaultValue={form.accessions}
+              placeholder="ex: SRR1553609,SRX7852919"
+              style={(errors.accessions) ? defaults.inputStyleWarning : defaults.inputStyle}
+              onChange={(e) => {
+                accessionReg.onChange(e); // method from hook form register
+                setNewState(e); // your method
+              }}
+              innerRef={accessionReg.ref}
+            />
+            {errors && errors.accessions && <p className="edge-form-input-error">{errors.accessions.message}</p>}
+          </Col>
+        </Row>
+      </CardBody>
     </Card >
   );
 }
