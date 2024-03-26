@@ -135,6 +135,7 @@ function Main(props) {
                     <SraDataTable tableType='user' title={"My SRA Data"} refresh={refreshTable} {...props} />
                 </Col>
             </Row>
+            <br></br>
         </div >
     );
 }
