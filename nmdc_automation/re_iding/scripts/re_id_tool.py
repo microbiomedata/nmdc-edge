@@ -504,20 +504,21 @@ def delete_old_records(ctx, old_records_file):
         old_db_records = json.load(f)
 
     # set list to capture annotation genes for agg set
-    annotation_ids = []
+    annotation_ids = set()
     for record in old_db_records:
         for set_name, object_record in record.items():
+            # we don't want to delete the omics_processing_set
             if set_name == "omics_processing_set":
                 continue
             delete_ids = []
             if isinstance(object_record, list):
                 for item in object_record:
                     delete_ids.append(item["id"])
-                    if set_name == "metagenome_annotation_activity_set":
-                        annotation_ids.append(item["id"])
+                    if set_name in ["metagenome_annotation_activity_set", "metatranscriptome_activity_set"]:
+                        annotation_ids.add(item["id"])
                 delete_query = {
                     "delete": set_name,
-                    "deletes": [{"q": {"id": {"$in": delete_ids}}, "limit": len(delete_ids)}],
+                    "deletes": [{"q": {"id": {"$in": delete_ids}}, "limit": 0}],
                 }
                 try:
                     logging.info(f"Deleting {set_name} records: {delete_ids}")
@@ -529,7 +530,7 @@ def delete_old_records(ctx, old_records_file):
     # delete functional annotation agg records
     delete_annotation_query = {
         "delete": "functional_annotation_agg",
-        "deletes": [{"q": {"metagenome_annotation_id": {"$in": annotation_ids}}, "limit": len(annotation_ids)}],
+        "deletes": [{"q": {"metagenome_annotation_id": {"$in": list(annotation_ids)}}, "limit": 0}],
     }
     try:
         logging.info(f"Deleting functional annotation agg records: {annotation_ids}")
