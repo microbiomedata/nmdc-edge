@@ -27,7 +27,7 @@ import ExploreIcon from '@material-ui/icons/Explore';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const columns = [
-    { title: 'Description', field: 'desc', filterPlaceholder: 'Desc filter', tooltip: 'Description', grouping: false },
+    { title: 'Name', field: 'name', filterPlaceholder: 'Name filter', tooltip: 'name', grouping: false },
     {
         title: 'Status', field: 'status', editable: 'never', grouping: false,
         render: rowData => { return <Badge color={projectStatusColors[rowData.status]}>{projectStatusNames[rowData.status]}</Badge> },
