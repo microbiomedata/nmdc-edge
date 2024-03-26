@@ -20,18 +20,18 @@ const _nav = [
     to: '/public/projectlist',
     icon: <CIcon name="cilGrid" customClasses="c-sidebar-nav-icon" />
   },
-  // {
-  //   _tag: 'CSidebarNavItem',
-  //   name: 'Upload Files',
-  //   to: '/user/files',
-  //   icon: <CIcon name="cilCloudUpload" customClasses="c-sidebar-nav-icon" />
-  // },
-  // {
-  //   _tag: 'CSidebarNavItem',
-  //   name: 'SRA Data',
-  //   to: '/sra/data',
-  //   icon: <CIcon name="cilCloudUpload" customClasses="c-sidebar-nav-icon" />
-  // },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Upload Files',
+    to: '/user/files',
+    icon: <CIcon name="cilCloudUpload" customClasses="c-sidebar-nav-icon" />
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Retrieve SRA Data',
+    to: '/sra/data',
+    icon: <CIcon name="cilCloudUpload" customClasses="c-sidebar-nav-icon" />
+  },
   {
     _tag: 'CSidebarNavTitle',
     _children: ['NMDC'],

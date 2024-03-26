@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Button, Form, Row, Col
+    Button, Form, Row, Col, Card, CardBody
 } from 'reactstrap';
 
 import { postData, notify } from '../../../common/util';
@@ -49,7 +49,7 @@ function Main(props) {
         let formData = new FormData();
 
         formData.append('pipeline', workflowlist[workflow].title);
-        formData.append('project', JSON.stringify({ name: selectedWorkflows[workflow].accessions, desc:  selectedWorkflows[workflow].accessions }));
+        formData.append('project', JSON.stringify({ name: selectedWorkflows[workflow].accessions, desc: selectedWorkflows[workflow].accessions }));
 
         let inputDisplay = {};
         inputDisplay.workflow = workflowlist[workflow].title;
@@ -102,23 +102,27 @@ function Main(props) {
                     <LoaderDialog loading={submitting === true} text="Submitting..." />
                     <Form onSubmit={e => { e.preventDefault(); }}>
                         <div className="clearfix">
-                            <h4 className="pt-3">Download SRA Data</h4>
+                            <h4 className="pt-3">Retrieve SRA Data</h4>
                             {workflow &&
                                 <>
                                     {htmlToReactParser.parse(workflowlist[workflow].info)} <a target="_blank" href={workflowlist[workflow].link} rel="noopener noreferrer">Learn more</a>
                                     <br></br>
                                 </>
                             }
-                            <br></br>
-                            {workflow === 'sra2fastq' &&
-                                <Sra2fastq reset={refreshTable} name={workflow} full_name={workflow} setParams={setWorkflowParams} />
-                            }
-                            <br></br>
                         </div>
+                        <br></br>
+                        <Card className="workflow-card">
+                            <CardBody>
+                                {workflow === 'sra2fastq' &&
+                                    <Sra2fastq reset={refreshTable} name={workflow} full_name={workflow} setParams={setWorkflowParams} />
+                                }
+                                <br></br>
 
-                        <div className="edge-center">
-                            <Button color="primary" onClick={e => onSubmit()} disabled={!workflow || !requestSubmit}>Submit</Button>{' '}
-                        </div>
+                                <div className="edge-center">
+                                    <Button color="primary" onClick={e => onSubmit()} disabled={!workflow || !requestSubmit}>Submit</Button>{' '}
+                                </div>
+                            </CardBody>
+                        </Card >
                         <br></br>
                         <br></br>
                     </Form>
