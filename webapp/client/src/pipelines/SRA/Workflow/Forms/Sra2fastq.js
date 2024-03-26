@@ -83,30 +83,25 @@ export function Sra2fastq(props) {
   }, [doValidation]);// eslint-disable-line react-hooks/exhaustive-deps
 
   return (
+    <Row>
+      <Col md="3">
+        <MyTooltip id='accessionsTooltip' tooltip={workflowInputTips['sra2fastq']['accessions']}
+          text='SRA Accession(s)' place={defaults.tooltipPlace} showTooltip={defaults.showTooltip} />
 
-    <Card className="workflow-card">
-      <CardBody>
-        <Row>
-          <Col md="3">
-            <MyTooltip id='accessionsTooltip' tooltip={workflowInputTips['sra2fastq']['accessions']}
-              text='SRA Accession(s)' place={defaults.tooltipPlace} showTooltip={defaults.showTooltip} />
+      </Col>
+      <Col xs="12" md="9">
 
-          </Col>
-          <Col xs="12" md="9">
-
-            <Input type="text" name="accessions" id="accessions" defaultValue={form.accessions}
-              placeholder="ex: SRR1553609,SRX7852919"
-              style={(errors.accessions) ? defaults.inputStyleWarning : defaults.inputStyle}
-              onChange={(e) => {
-                accessionReg.onChange(e); // method from hook form register
-                setNewState(e); // your method
-              }}
-              innerRef={accessionReg.ref}
-            />
-            {errors && errors.accessions && <p className="edge-form-input-error">{errors.accessions.message}</p>}
-          </Col>
-        </Row>
-      </CardBody>
-    </Card >
+        <Input type="text" name="accessions" id="accessions" defaultValue={form.accessions}
+          placeholder="ex: SRR1553609,SRX7852919"
+          style={(errors.accessions) ? defaults.inputStyleWarning : defaults.inputStyle}
+          onChange={(e) => {
+            accessionReg.onChange(e); // method from hook form register
+            setNewState(e); // your method
+          }}
+          innerRef={accessionReg.ref}
+        />
+        {errors && errors.accessions && <p className="edge-form-input-error">{errors.accessions.message}</p>}
+      </Col>
+    </Row>
   );
 }
