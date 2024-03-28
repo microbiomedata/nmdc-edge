@@ -97,7 +97,7 @@ workflow nmdc_mags {
         stats_json = mbin_nmdc.stats_json,
         stats_tsv = mbin_nmdc.stats_tsv,
         hqmq_bin_fasta_files = mbin_nmdc.hqmq_bin_fasta_files,
-        bin_fasta_files = mbin_nmdc.bin_fasta_files,
+        bin_fasta_files = mbin_nmdc.lq_bin_fasta_files,
         hqmq_bin_tarfiles = package.hqmq_bin_tarfiles,
         lq_bin_tarfiles = package.lq_bin_tarfiles,
         barplot = package.barplot,
@@ -120,10 +120,6 @@ workflow nmdc_mags {
         File barplot = finish_mags.final_barplot
         File heatmap = finish_mags.final_heatmap
         File kronaplot = finish_mags.final_kronaplot
-        Array[File] hqmq_bin_fasta_files = mbin_nmdc.hqmq_bin_fasta_files
-        Array[File] bin_fasta_files = mbin_nmdc.bin_fasta_files
-        String start = stage.start
-        File tsv_stats = mbin_nmdc.stats_tsv
     }
 
 
@@ -200,7 +196,7 @@ task mbin_nmdc {
         File bacsum = "gtdbtk-output/gtdbtk.bac120.summary.tsv"
         File arcsum = "gtdbtk-output/gtdbtk.ar122.summary.tsv"
         Array[File] hqmq_bin_fasta_files = glob("hqmq-metabat-bins/*fa")
-        Array[File] bin_fasta_files = glob("metabat-bins/*fa")
+        Array[File] lq_bin_fasta_files = glob("filtered-metabat-bins/*fa")
     }
 }
 
@@ -336,7 +332,7 @@ task package{
         fi
      }
      output {
-         Array[File] hqmq_bin_tarfiles = glob("*_HQ.tar.gz") + glob("*_MQ.tar.gz")
+         Array[File] hqmq_bin_tarfiles = flatten([glob("*_HQ.tar.gz"), glob("*_MQ.tar.gz")])
          Array[File] lq_bin_tarfiles = glob("*_LQ.tar.gz")
          File barplot = prefix + "_barplot.pdf"
          File heatmap = prefix + "_heatmap.pdf"
