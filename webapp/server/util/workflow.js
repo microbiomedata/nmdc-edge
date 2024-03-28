@@ -157,10 +157,10 @@ const generateWorkflowResult = function (proj) {
                             }
                         }
                     });
+                    result['stats'] = stats;
                 }
             });
 
-            result['stats'] = stats;
         } else if (workflowConf.workflow.name === 'Metatranscriptome') {
             result['top_features'] = JSON.parse(fs.readFileSync(outdir + "/metat_output/top100_features.json"));
             const features_tsv = outdir + "/metat_output/rpkm_sorted_features.tsv";
