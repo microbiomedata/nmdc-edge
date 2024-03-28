@@ -144,8 +144,12 @@ const generateWorkflowResult = function (proj) {
 
         } else if (workflowConf.workflow.name === 'MetaMAGs') {
             //result['stats'] = JSON.parse(fs.readFileSync(outdir + "/MAGs_stats.json"));
-
-            let stats = JSON.parse(fs.readFileSync(outdir + "/MAGs_stats.json"));
+            const files = fs.readdirSync(outdir);
+            files.forEach(function (file) {
+                if (file.endsWith("_mags_stats.json")) {
+                    let stats = JSON.parse(fs.readFileSync(outdir + "/" + file));
+                }
+            });
             Object.keys(stats).forEach((item, index) => {
                 //mags_list
                 if (typeof stats[item] === 'object') {
