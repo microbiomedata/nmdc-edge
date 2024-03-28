@@ -61,7 +61,7 @@ workflow nmdc_mags {
     }
     call package {
          input:  proj = proj_name,
-                 bins=flatten([mbin_nmdc.hqmq_bin_fasta_files,mbin_nmdc.bin_fasta_files]),
+                 bins=flatten([mbin_nmdc.hqmq_bin_fasta_files,mbin_nmdc.lq_bin_fasta_files]),
                  json_stats=mbin_nmdc.stats_json,
                  gff_file=stage.gff,
                  proteins_file=stage.proteins,
