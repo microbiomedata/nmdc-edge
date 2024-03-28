@@ -35,10 +35,3 @@
         gtdbtk_db=<WORKFLOW>_gtdbtk_db, checkm_db=<WORKFLOW>_checkm_db, scratch_dir=<WORKFLOW>_outdir
     }
 
-    call <WORKFLOW>Output.mbin_nmdc_output as mbin_nmdc_output {
-        input: outdir=<WORKFLOW>_outdir,proj_name=<WORKFLOW>_proj_name,start=nmdc_mags.start,contig_file=<WORKFLOW>_contig_file,
-        sam_file=<WORKFLOW>_sam_file,gff_file=<WORKFLOW>_gff_file,low=nmdc_mags.low,unbinned=nmdc_mags.final_unbinned_fa,
-        short=nmdc_mags.short,checkm=nmdc_mags.final_checkm,json_stats=nmdc_mags.final_stats_json,tsv_stats=nmdc_mags.tsv_stats,
-        bin_fasta_files=nmdc_mags.bin_fasta_files,hqmq_bin_fasta_files=nmdc_mags.hqmq_bin_fasta_files
-
-    }
