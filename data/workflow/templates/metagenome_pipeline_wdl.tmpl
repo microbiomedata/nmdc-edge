@@ -29,39 +29,24 @@ workflow main_workflow {
 	call start {
 		input: container="microbiomedata/workflowmeta:1.0.5.1"
 	}
-	
-	if (!input_interleaved) {
-		Array[File] input_fq1
-		Array[File] input_fq2
-		## the zip() function generates an array of pairs, use .left and .right to access
-		scatter(file in zip(input_fq1,input_fq2)){
-			call interleave_reads {
-				input:
-					input_files = [file.left,file.right],
-					output_file = basename(file.left) + "_" + basename(file.right),
-					container = "microbiomedata/bbtools:38.96"
-			}
-		}
-	} 
-	
-	Array[File]? interleaved_input_fastqs = if (input_interleaved) then input_files else interleave_reads.out_fastq
-	
+
+
 	## QC workflow
 	String? readsQC_outdir
 	String readsQC_bbtools_container="microbiomedata/bbtools:38.96"
 	String readsQC_database="/refdata"
 	String readsQC_memory="60g"
 	String readsQC_threads="4"
-	Array[File] readsQC_input_fq1=[]
-	Array[File] readsQC_input_fq2=[]
+	Array[File] input_fq1=[]
+	Array[File] input_fq2=[]
 
     call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input:
-            input_files=interleaved_input_fastqs,
+            input_files=input_files,
             outdir=readsQC_outdir,
             input_interleaved=input_interleaved,
-            input_fq1=readsQC_input_fq1,
-            input_fq2=readsQC_input_fq2
+            input_fq1=input_fq1,
+            input_fq2=input_fq2
         }
     scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
 
@@ -80,7 +65,7 @@ workflow main_workflow {
 		"kraken2": true,
 		"centrifuge": true
 	}
-
+    File readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final[0]
 	String ReadbasedAnalysis_container = "poeli/nmdc_taxa_profilers:1.0.5"
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
@@ -129,7 +114,7 @@ workflow main_workflow {
             threads=metaAssembly_threads
     }
 	##Viral Plasmid Workflow
-	File?   virusPlasmid_input = metaAssembly_call.final_contig
+	File?   virusPlasmid_input =  metaAssembly_call.contig
 	Map[String, Boolean] virusPlasmid_options = {
 		"default": true,
 		"relaxed": false,
@@ -150,7 +135,7 @@ workflow main_workflow {
 
 
 	## Annotation workflow
-	File?  metaAnnotation_imgap_input_fasta = metaAssembly_call.final_contig
+	File?  metaAnnotation_imgap_input_fasta =  metaAssembly_call.contig
 	String  metaAnnotation_imgap_project_id
 	String  metaAnnotation_outdir
 	Int     metaAnnotation_additional_threads=8
@@ -177,8 +162,8 @@ workflow main_workflow {
 	## MAGs workflow
 	String? metaMAGs_outdir
 	String  metaMAGs_proj_name
-	File? metaMAGs_contig_file = metaAssembly_call.final_contig
-	File? metaMAGs_sam_file = metaAssembly_call.final_bam
+	File? metaMAGs_contig_file =  metaAssembly_call.contig
+	File? metaMAGs_sam_file =metaAssembly_call.bam
 	File? metaMAGs_gff_file = metaAnnotation_call.functional_gff
 	File? metaMAGs_proteins_file = metaAnnotation_call.proteins_faa
     File? metaMAGs_cog_file = metaAnnotation_call.cog_gff
@@ -199,58 +184,37 @@ workflow main_workflow {
 	Int metaMAGs_pthreads=1
 	String metaMAGs_database="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
     String checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
-    String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:bb1dd3bad177f7a49fa79713f16181d6143dab904b462c7429b3085bb84410f9"
+    String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:c8df293e80698627ce66df7cd07f6b10e9112184e3bf1379e615d10123f7bc64"
 	
 
-		call metaMAGs.nmdc_mags as metaMAGs_call {
-			input:
-				proj_name=metaMAGs_proj_name,
-				contig_file=metaMAGs_contig_file,
-				sam_file=metaMAGs_sam_file,
-				gff_file=metaMAGs_gff_file,
-				proteins_file=metaMAGs_proteins_file,
-				cog_file=metaMAGs_cog_file,
-				ec_file=metaMAGs_ec_file,
-				ko_file=metaMAGs_ko_file,
-                pfam_file=metaMAGs_pfam_file,
-                tigrfam_file=metaMAGs_tigrfam_file,
-                cath_funfam_file=metaMAGs_cath_funfam_file,
-                smart_file=metaMAGs_smart_file,
-                supfam_file=metaMAGs_supfam_file,
-                product_names_file=metaMAGs_product_names_file,
-                gene_phylogeny_file=metaMAGs_gene_phylogeny_file,
-                lineage_file=metaMAGs_lineage_file,
-				map_file=metaMAGs_map_file,
-				domain_file=metaMAGs_domain_file,
-				cpu=metaMAGs_cpu,
-				threads=metaMAGs_threads,
-				pthreads=metaMAGs_pthreads,
-				gtdbtk_db=metaMAGs_database,
-				checkm_db=checkm_db,
-				scratch_dir=metaMAGs_outdir,
-				container=metaMAGs_container
-		}
-
-		call metaMAGsOutput.mbin_nmdc_output as mbin_nmdc_output {
-          input:
+    call metaMAGs.nmdc_mags as metaMAGs_call {
+        input:
             proj_name=metaMAGs_proj_name,
-            start=metaMAGs_call.start,
             contig_file=metaMAGs_contig_file,
             sam_file=metaMAGs_sam_file,
             gff_file=metaMAGs_gff_file,
-            low=metaMAGs_call.low,
-            unbinned=metaMAGs_call.final_unbinned_fa,
-            short=metaMAGs_call.short,
-            checkm=metaMAGs_call.final_checkm,
-            json_stats=metaMAGs_call.final_stats_json,
-            tsv_stats=metaMAGs_call.tsv_stats,
-            bacsum=metaMAGs_call.bacsum,
-            arcsum=metaMAGs_call.arcsum,
-            bin_fasta_files=metaMAGs_call.bin_fasta_files,
-            hqmq_bin_fasta_files=metaMAGs_call.hqmq_bin_fasta_files,
-            outdir=metaMAGs_outdir
-        }
-
+            proteins_file=metaMAGs_proteins_file,
+            cog_file=metaMAGs_cog_file,
+            ec_file=metaMAGs_ec_file,
+            ko_file=metaMAGs_ko_file,
+            pfam_file=metaMAGs_pfam_file,
+            tigrfam_file=metaMAGs_tigrfam_file,
+            cath_funfam_file=metaMAGs_cath_funfam_file,
+            smart_file=metaMAGs_smart_file,
+            supfam_file=metaMAGs_supfam_file,
+            product_names_file=metaMAGs_product_names_file,
+            gene_phylogeny_file=metaMAGs_gene_phylogeny_file,
+            lineage_file=metaMAGs_lineage_file,
+            map_file=metaMAGs_map_file,
+            domain_file=metaMAGs_domain_file,
+            cpu=metaMAGs_cpu,
+            threads=metaMAGs_threads,
+            pthreads=metaMAGs_pthreads,
+            gtdbtk_db=metaMAGs_database,
+            checkm_db=checkm_db,
+            scratch_dir=metaMAGs_outdir,
+            container=metaMAGs_container
+    }
 
 	call finish {
 		input: container="microbiomedata/workflowmeta:1.0.5.1",
@@ -308,6 +272,8 @@ workflow main_workflow {
 			metabat_bins = metaMAGs_call.metabat_bins,
 			mags_stats_json=metaMAGs_call.final_stats,
 			mags_stats_tsv=metaMAGs_call.final_stats_tsv,
+			final_hqmq_bins = metaMAGs_call.final_hqmq_bins_zip,
+			mags_stats_json=metaMAGs_call.final_stats_json,
 			hqmq_bin_fasta_files=metaMAGs_call.final_hqmq_bins_zip,
 			bin_fasta_files=metaMAGs_call.final_lq_bins_zip,
 			qadir=readsQC_outdir,
@@ -401,7 +367,7 @@ task finish {
 	String resource
 	String url_base
 	String git_url
-	Array[File?] read
+	Array[File] read
 	Array[File?] filtered
 	Array[File?] filtered_stats
 	File? fasta
@@ -448,7 +414,6 @@ task finish {
 	File? final_hqmq_bins
 	File? metabat_bins
 	File? mags_stats_json
-	File? mags_stats_tsv
 	Array[File?] hqmq_bin_fasta_files
 	Array[File?] bin_fasta_files
 	File? gottcha2_report_tsv
@@ -591,8 +556,8 @@ task finish {
         cp ${short} ${magsdir}/${proj}_bins.tooShort.fa
         cp ${unbinned} ${magsdir}/${proj}_bins.unbinned.fa
         cp ${checkm} ${magsdir}/${proj}_checkm_qa.out
-			cp activity.json data_objects.json ${lowdepth} ${unbinned} ${mags_stats_json} ${mags_stats_tsv} ${ar_summary} ${final_hqmq_bins} \
-			${hqmq_bin_fasta_files} ${bin_fasta_files} ${metabat_bins} {magsdir}/
+			cp activity.json data_objects.json ${lowdepth} ${unbinned} ${mags_stats_json} ${ar_summary} ${final_hqmq_bins} \
+			${sep=" " hqmq_bin_fasta_files} ${sep=" " bin_fasta_files} ${metabat_bins} ${magsdir}/
 
 		    mkdir -p ${rbadir}
 			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \
