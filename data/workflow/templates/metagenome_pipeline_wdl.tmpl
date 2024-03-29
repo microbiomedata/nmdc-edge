@@ -410,8 +410,8 @@ task finish {
 	File? final_hqmq_bins
 	File? metabat_bins
 	File? mags_stats_json
-	Array[File?] hqmq_bin_fasta_files
-	Array[File?] bin_fasta_files
+	File? hqmq_bin_fasta_files
+	File? bin_fasta_files
 	File? gottcha2_report_tsv
 	File? gottcha2_full_tsv
 	File? gottcha2_krona_html
@@ -421,8 +421,6 @@ task finish {
 	File? kraken2_classification_tsv
 	File? kraken2_report_tsv
 	File? kraken2_krona_html
-	Int n_hqmq = length(hqmq_bin_fasta_files)
-	Int n_bin = length(bin_fasta_files)
 	String qadir="qa/"
 	String assemdir="assembly/"
 	String annodir="annotation/"
@@ -506,9 +504,9 @@ task finish {
 			cp features.json annotations.json activity.json data_objects.json ${annodir}/
 		
 
-			if [ ${n_hqmq} -gt 0 ] ; then
+
 			    mkdir -p hqmq
-				(cd hqmq && cp ${sep=" " hqmq_bin_fasta_files} .)
+				(cd hqmq && cp ${hqmq_bin_fasta_files} .)
 				(cd hqmq && for binFA in *.fa; do
 					name=${dollar}{binFA/bins./}
 					binID=${dollar}{name/.fa/}
@@ -531,7 +529,7 @@ task finish {
 				)
 				(cd hqmq && zip ${magsdir}/${prefix}_hqmq_bins.zip *.zip)
 
-			fi
+
 
 			#IFS=""
 			/scripts/generate_objects.py --type "MAGs" --id ${informed_by} \
@@ -553,7 +551,7 @@ task finish {
         cp ${unbinned} ${magsdir}/${proj}_bins.unbinned.fa
         cp ${checkm} ${magsdir}/${proj}_checkm_qa.out
 			cp activity.json data_objects.json ${lowdepth} ${unbinned} ${mags_stats_json} ${ar_summary} ${final_hqmq_bins} \
-			${sep=" " hqmq_bin_fasta_files} ${sep=" " bin_fasta_files} ${metabat_bins} ${magsdir}/
+			${hqmq_bin_fasta_files} ${bin_fasta_files} ${metabat_bins} ${magsdir}/
 
 		    mkdir -p ${rbadir}
 			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \
