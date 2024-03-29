@@ -187,53 +187,34 @@ workflow main_workflow {
     String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:c8df293e80698627ce66df7cd07f6b10e9112184e3bf1379e615d10123f7bc64"
 	
 
-		call metaMAGs.nmdc_mags as metaMAGs_call {
-			input:
-				proj_name=metaMAGs_proj_name,
-				contig_file=metaMAGs_contig_file,
-				sam_file=metaMAGs_sam_file,
-				gff_file=metaMAGs_gff_file,
-				proteins_file=metaMAGs_proteins_file,
-				cog_file=metaMAGs_cog_file,
-				ec_file=metaMAGs_ec_file,
-				ko_file=metaMAGs_ko_file,
-                pfam_file=metaMAGs_pfam_file,
-                tigrfam_file=metaMAGs_tigrfam_file,
-                cath_funfam_file=metaMAGs_cath_funfam_file,
-                smart_file=metaMAGs_smart_file,
-                supfam_file=metaMAGs_supfam_file,
-                product_names_file=metaMAGs_product_names_file,
-                gene_phylogeny_file=metaMAGs_gene_phylogeny_file,
-                lineage_file=metaMAGs_lineage_file,
-				map_file=metaMAGs_map_file,
-				domain_file=metaMAGs_domain_file,
-				cpu=metaMAGs_cpu,
-				threads=metaMAGs_threads,
-				pthreads=metaMAGs_pthreads,
-				gtdbtk_db=metaMAGs_database,
-				checkm_db=checkm_db,
-				scratch_dir=metaMAGs_outdir,
-				container=metaMAGs_container
-		}
-
-		call metaMAGsOutput.mbin_nmdc_output as mbin_nmdc_output {
-          input:
+    call metaMAGs.nmdc_mags as metaMAGs_call {
+        input:
             proj_name=metaMAGs_proj_name,
-            start=metaMAGs_call.start,
             contig_file=metaMAGs_contig_file,
             sam_file=metaMAGs_sam_file,
             gff_file=metaMAGs_gff_file,
-            low=metaMAGs_call.low,
-            unbinned=metaMAGs_call.final_unbinned_fa,
-            short=metaMAGs_call.short,
-            checkm=metaMAGs_call.final_checkm,
-            json_stats=metaMAGs_call.final_stats_json,
-            tsv_stats=metaMAGs_call.tsv_stats,
-            bin_fasta_files=metaMAGs_call.bin_fasta_files,
-            hqmq_bin_fasta_files=metaMAGs_call.hqmq_bin_fasta_files,
-            outdir=metaMAGs_outdir
-        }
-
+            proteins_file=metaMAGs_proteins_file,
+            cog_file=metaMAGs_cog_file,
+            ec_file=metaMAGs_ec_file,
+            ko_file=metaMAGs_ko_file,
+            pfam_file=metaMAGs_pfam_file,
+            tigrfam_file=metaMAGs_tigrfam_file,
+            cath_funfam_file=metaMAGs_cath_funfam_file,
+            smart_file=metaMAGs_smart_file,
+            supfam_file=metaMAGs_supfam_file,
+            product_names_file=metaMAGs_product_names_file,
+            gene_phylogeny_file=metaMAGs_gene_phylogeny_file,
+            lineage_file=metaMAGs_lineage_file,
+            map_file=metaMAGs_map_file,
+            domain_file=metaMAGs_domain_file,
+            cpu=metaMAGs_cpu,
+            threads=metaMAGs_threads,
+            pthreads=metaMAGs_pthreads,
+            gtdbtk_db=metaMAGs_database,
+            checkm_db=checkm_db,
+            scratch_dir=metaMAGs_outdir,
+            container=metaMAGs_container
+    }
 
 	call finish {
 		input: container="microbiomedata/workflowmeta:1.0.5.1",
