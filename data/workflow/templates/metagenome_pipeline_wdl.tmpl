@@ -270,7 +270,6 @@ workflow main_workflow {
 			ar_summary = metaMAGs_call.final_gtdbtk_ar_summary,
 			final_hqmq_bins = metaMAGs_call.final_hqmq_bins_zip,
 			mags_stats_json=metaMAGs_call.final_stats_json,
-			mags_stats_tsv=metaMAGs_call.tsv_stats,
 			hqmq_bin_fasta_files=metaMAGs_call.final_hqmq_bins_zip,
 			bin_fasta_files=metaMAGs_call.final_lq_bins_zip,
 			qadir=readsQC_outdir,
@@ -411,7 +410,6 @@ task finish {
 	File? final_hqmq_bins
 	File? metabat_bins
 	File? mags_stats_json
-	File? mags_stats_tsv
 	Array[File?] hqmq_bin_fasta_files
 	Array[File?] bin_fasta_files
 	File? gottcha2_report_tsv
@@ -554,7 +552,7 @@ task finish {
         cp ${short} ${magsdir}/${proj}_bins.tooShort.fa
         cp ${unbinned} ${magsdir}/${proj}_bins.unbinned.fa
         cp ${checkm} ${magsdir}/${proj}_checkm_qa.out
-			cp activity.json data_objects.json ${lowdepth} ${unbinned} ${mags_stats_json} ${mags_stats_tsv} ${ar_summary} ${final_hqmq_bins} \
+			cp activity.json data_objects.json ${lowdepth} ${unbinned} ${mags_stats_json} ${ar_summary} ${final_hqmq_bins} \
 			${sep=" " hqmq_bin_fasta_files} ${sep=" " bin_fasta_files} ${metabat_bins} ${magsdir}/
 
 		    mkdir -p ${rbadir}
