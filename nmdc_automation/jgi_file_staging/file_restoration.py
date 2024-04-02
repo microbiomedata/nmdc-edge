@@ -1,15 +1,18 @@
 import configparser
 
 import pandas as pd
+import numpy as np
+import yaml
 import requests
 import os
 import logging
 from datetime import datetime
 from pydantic import ValidationError
 import argparse
+import re
 
-from nmdc_automation.jgi_file_staging.mongo import get_mongo_db
-from nmdc_automation.jgi_file_staging.models import Sample
+from mongo import get_mongo_db
+from models import Sample
 
 logging.basicConfig(
     filename="file_staging.log",
@@ -49,17 +52,7 @@ def restore_files(project: str, config_file: str) -> str:
     config.read(config_file)
     update_file_statuses(project, config_file)
     mdb = get_mongo_db()
-    restore_df = pd.DataFrame(
-        [
-            sample
-            for sample in mdb.samples.find(
-                {
-                    "file_status": {"$in": ["PURGED", "BACKUP_COMPLETE"]},
-                    "project": project,
-                }
-            )
-        ]
-    )
+    restore_df = get_restore_files(mdb, project)
     JDP_TOKEN = os.environ.get("JDP_TOKEN")
     headers = {"Authorization": JDP_TOKEN, "accept": "application/json"}
     url = "https://files.jgi.doe.gov/download_files/"
@@ -109,6 +102,48 @@ def restore_files(project: str, config_file: str) -> str:
     return f"requested restoration of {count} files"
 
 
+def get_restore_files(mdb, project):
+    restore_df = pd.DataFrame(
+        [
+            sample
+            for sample in mdb.samples.find(
+            {
+                "file_status": {"$in": ["PURGED", "BACKUP_COMPLETE"]},
+                "project": project,
+            }
+        )
+        ]
+    )
+    restore_df = filter_restore_files(restore_df)
+    restore_df = restore_df[restore_df.keep == True]
+    return restore_df
+
+
+def filter_restore_files(restore_df):
+
+    keep_files_list = get_keep_files_list()
+    restore_df['keep'] = restore_df.apply(lambda x: check_file_type(x, keep_files_list), axis=1)
+    return restore_df
+
+
+def get_keep_files_list():
+    """
+       Get list of patterns for files that are in the schema
+    """
+    with open('../../configs/import.yaml', 'r') as file:
+        workflows = yaml.safe_load(file)
+        file_types = [w['import_suffix'] for w in workflows['Data Objects']['Unique']]
+        multiple_file_types = [w['import_suffix'] for w in workflows['Data Objects']['Multiples']]
+        return [*file_types, *multiple_file_types]
+
+
+def check_file_type(row, keep_files):
+    results = []
+    for f in keep_files:
+        results.append(True) if re.search(f, row.file_name) else results.append(False)
+    return np.any(results)
+
+
 def update_file_statuses(project, config_file):
     config = configparser.ConfigParser()
     config.read(config_file)
@@ -116,10 +151,7 @@ def update_file_statuses(project, config_file):
 
     restore_df = pd.DataFrame(
         [
-            sample
-            for sample in mdb.samples.find(
-                {"file_status": "pending", "project": project}
-            )
+            sample for sample in mdb.samples.find({"file_status": "pending", "project": project})
         ]
     )
     logging.debug(f"number of requests to restore: {len(restore_df)}")
