@@ -494,7 +494,7 @@ def delete_old_records(ctx, old_records_file):
     logging.info(f"Deleting old objects found in : {old_records_file}")
     old_records_filename = Path(old_records_file).name
     old_base_name = old_records_filename.split("_")[0]
-    deleted_records = []
+    deleted_record_identifiers = []
 
     # Get API client(s)
     config = ctx.obj["site_config"]
@@ -507,8 +507,8 @@ def delete_old_records(ctx, old_records_file):
 
     # set list to capture annotation genes for agg set
     annotation_ids = set()
-    for record in old_db_records:
-        for set_name, object_record in record.items():
+    for record_identifier in old_db_records:
+        for set_name, object_record in record_identifier.items():
             # we don't want to delete the omics_processing_set
             if set_name == "omics_processing_set":
                 continue
@@ -516,7 +516,7 @@ def delete_old_records(ctx, old_records_file):
             if isinstance(object_record, list):
                 for item in object_record:
                     delete_ids.append(item["id"])
-                    deleted_records.append((set_name, item.get("type", ""), item["id"]))
+                    deleted_record_identifiers.append((set_name, item.get("type", ""), item["id"]))
                     if set_name in ["metagenome_annotation_activity_set", "metatranscriptome_activity_set"]:
                         annotation_ids.add(item["id"])
                 delete_query = {
@@ -543,12 +543,12 @@ def delete_old_records(ctx, old_records_file):
         logging.error(f"An error occured while running: {delete_annotation_query}, response retutrned: {e}")
 
     # write the deleted records to a tsv file
-    deleted_records_file = DATA_DIR.joinpath(f"{old_base_name}_deleted_records.tsv")
-    logging.info(f"Writing {len(deleted_records)} deleted record identifiers to {deleted_records_file}")
-    with open(deleted_records_file, "w") as f:
+    deleted_record_identifiers_file = DATA_DIR.joinpath(f"{old_base_name}_deleted_record_identifiers.tsv")
+    logging.info(f"Writing {len(deleted_record_identifiers)} deleted record identifiers to {deleted_record_identifiers_file}")
+    with open(deleted_record_identifiers_file, "w") as f:
         f.write("collection_name\ttype\tid\n")
-        for record in deleted_records:
-            f.write("\t".join(record) + "\n")
+        for record_identifier in deleted_record_identifiers:
+            f.write("\t".join(record_identifier) + "\n")
 
     logging.info(f"Elapsed time: {time.time() - start_time}")
 
