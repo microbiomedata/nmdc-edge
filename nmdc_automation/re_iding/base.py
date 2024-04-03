@@ -4,6 +4,7 @@ base.py - Provides classes and functions for re-ID-ing NMDC metagenome workflow
 records and data objects.
 """
 import copy
+import csv
 import logging
 from typing import Dict, List
 import os
@@ -60,9 +61,11 @@ class ReIdTool:
         """
         filename = f"{study_id}_id_changes.tsv"
         with open(filename, "w") as f:
-            f.write("type\told_id\tnew_id\n")
+            writer = csv.writer(f, delimiter="\t")
+            writer.writerow(["type", "old_id", "new_id"])
             for change in self.id_changes:
-                f.write("\t".join(change) + "\n")
+                writer.writerow(change)
+
 
 
     def _workflow_template_for_type(self, workflow_type: str) -> Dict:
