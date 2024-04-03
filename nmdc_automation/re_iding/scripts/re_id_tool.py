@@ -544,7 +544,7 @@ def delete_old_records(ctx, old_records_file):
 
     # write the deleted records to a tsv file
     deleted_records_file = DATA_DIR.joinpath(f"{old_base_name}_deleted_records.tsv")
-    logging.info(f"Writing {len(deleted_records)} deleted records to {deleted_records_file}")
+    logging.info(f"Writing {len(deleted_records)} deleted record identifiers to {deleted_records_file}")
     with open(deleted_records_file, "w") as f:
         f.write("collection_name\ttype\tid\n")
         for record in deleted_records:
