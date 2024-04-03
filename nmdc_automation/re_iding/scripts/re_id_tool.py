@@ -516,7 +516,7 @@ def delete_old_records(ctx, old_records_file):
             if isinstance(object_record, list):
                 for item in object_record:
                     delete_ids.append(item["id"])
-                    deleted_records.append((set_name, item.get("type"), item["id"]))
+                    deleted_records.append((set_name, item.get("type", ""), item["id"]))
                     if set_name in ["metagenome_annotation_activity_set", "metatranscriptome_activity_set"]:
                         annotation_ids.add(item["id"])
                 delete_query = {
