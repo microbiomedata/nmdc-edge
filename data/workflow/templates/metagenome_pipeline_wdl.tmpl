@@ -433,6 +433,7 @@ task finish {
 		set -e
 		mkdir -p ${annodir}
 		mkdir -p ${assemdir}
+		mkdir -p ${magsdir}
 		end=`date --iso-8601=seconds`
 	
 
@@ -502,50 +503,7 @@ task finish {
 			#	${stats_tsv} ${stats_json} \
 			#	${annodir}/
 			cp features.json annotations.json activity.json data_objects.json ${annodir}/
-		
 
-
-			    mkdir -p hqmq
-				(cd hqmq && cp ${hqmq_bin_fasta_files} .)
-				(cd hqmq && for binFA in *.fa; do
-					name=${dollar}{binFA/bins./}
-					binID=${dollar}{name/.fa/}
-					mkdir -p ${prefix}_$binID
-					cp ${magsdir}/mbin_datafile_${prefix}.txt ${prefix}_$binID/.
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${proteins_faa} > ${prefix}_$binID/${prefix}_$binID.faa  || true 
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${structural_gff} > ${prefix}_$binID/${prefix}_$binID.functional_annotation.gff || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${functional_gff}> ${prefix}_$binID/${prefix}_$binID.structural_annotation.gff || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${cog_gff} > ${prefix}_$binID/${prefix}_$binID.cog.gff || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${pfam_gff} > ${prefix}_$binID/${prefix}_$binID.pfam.gff || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${tigrfam_gff} > ${prefix}_$binID/${prefix}_$binID.tigrfam.gff || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${gene_phylogeny_tsv} > ${prefix}_$binID/${prefix}_$binID.gene_phylogeny.tsv || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${ko_tsv} > ${prefix}_$binID/${prefix}_$binID.ko.tsv || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${ec_tsv} > ${prefix}_$binID/${prefix}_$binID.ec.tsv || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${product_names_tsv} > ${prefix}_$binID/${prefix}_$binID.product_names.tsv || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${crt_crisprs} > ${prefix}_$binID/${prefix}_$binID.crt.crisprs || true
-						mv $binFA ${prefix}_$binID/${prefix}_$binID.fna
-					zip ${prefix}_$binID.zip ${prefix}_$binID/*
-					done
-				)
-				(cd hqmq && zip ${magsdir}/${prefix}_hqmq_bins.zip *.zip)
-
-
-
-			#IFS=""
-			/scripts/generate_objects.py --type "MAGs" --id ${informed_by} \
-				--name "MAGs Analysis Activity for ${proj}" --part ${proj} \
-				--start ${start} --end $end \
-				--resource '${resource}' --url ${url_base} --giturl ${git_url} \
-				--inputs ${fasta} ${bam} ${functional_gff} \
-				--outputs \
-				${magsdir}/${prefix}_bins.tooShort.fa "tooShort (< 3kb) filtered contigs fasta file by metaBat2" \
-				${magsdir}/${prefix}_bins.lowDepth.fa "lowDepth (mean cov <1 )  filtered contigs fasta file by metabat2" \
-				${magsdir}/${prefix}_bins.unbinned.fa "unbinned fasta file from metabat2" \
-				${magsdir}/${prefix}_hqmq_bins.zip "high-quality and medium-quality bins" \
-				${magsdir}/${prefix}_checkm_qa.out "metabat2 bin checkm quality assessment result" \
-				${" " + bac_summary + " \"gtdbtk bacterial assignment result summary table\""} \
-				${" " + ar_summary + " \"gtdbtk archaea assignment result summary table\""}  \
-				${" " + metabat_bins +  " \"initial metabat bining result fasta output\""}
         cp ${lowdepth}  ${magsdir}/${proj}_bins.lowDepth.fa
         cp ${short} ${magsdir}/${proj}_bins.tooShort.fa
         cp ${unbinned} ${magsdir}/${proj}_bins.unbinned.fa
