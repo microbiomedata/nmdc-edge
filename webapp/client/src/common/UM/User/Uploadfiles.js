@@ -129,6 +129,7 @@ function Uploadfiles(props) {
                     }
                 });
                 setSubmitting(false);
+                props.reloadTableData();
             })
             .catch(error => {
                 alert(error);
@@ -146,7 +147,7 @@ function Uploadfiles(props) {
                         <h4 className="pt-3">Upload Files</h4>
                         <span className="edge-text-font">
                             Max single file size is {formatFileSize(maxFileSizeBytes)}. Max server storage space is {formatFileSize(maxStorageSizeBytes)}.
-                        Files will be kept for {daysKept} days.
+                            Files will be kept for {daysKept} days.
                         </span>
                         <br></br>
                         Allowed file extensions are: {allowedExtensions.join(", ")}

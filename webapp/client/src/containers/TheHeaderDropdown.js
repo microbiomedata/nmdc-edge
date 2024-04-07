@@ -41,15 +41,15 @@ const TheHeaderDropdown = (props) => {
           Job Queue
         </CDropdownItem>
         <CDropdownItem header tag="div" color="secondary" className="text-center" >
-          <strong>Files</strong>
+          <strong>Data</strong>
         </CDropdownItem>
-        <CDropdownItem to="/user/uploadfiles" >
+        <CDropdownItem to="/user/files" >
           <CIcon name="cil-cloud-upload" className="mfe-2" />
           Upload Files
         </CDropdownItem>
-        <CDropdownItem to="/user/files" >
+        <CDropdownItem to="/sra/data" >
           <CIcon name="cil-layers" className="mfe-2" />
-          Manage Uploads
+          SRA Data
         </CDropdownItem>
         {props.user.profile.type === 'admin' && <>
           <CDropdownItem header tag="div" color="secondary" className="text-center" >
