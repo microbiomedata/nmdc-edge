@@ -115,13 +115,6 @@ function generateWDL(proj_home, pipeline) {
     let templWDL = String(fs.readFileSync(tmpl));
     //write to pipeline.wdl
     fs.writeFileSync(proj_home + '/pipeline.wdl', templWDL);
-    //options json
-    const json = process.env.WORKFLOW_TEMPLATE_HOME + "/" + pipelineSettings['options_json'];
-    let templJSON = String(fs.readFileSync(json));
-    templJSON = templJSON.replace(/<OUTDIR>/, proj_home + "/" + pipelineSettings['outdir']);
-    //write to options.json
-    fs.writeFileSync(proj_home + '/options.json', templJSON);
-
     return true;
 }
 
