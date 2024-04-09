@@ -59,7 +59,7 @@ function TutorialBar(props) {
                 <Col xs="2" md="2" lg="2">
                     {props.pdfFrench &&
                         <center>
-                            <IconButton style={{ color: 'white' }} aria-label="pdf" href={process.env.REACT_APP_API_URL + props.pdfFrench} target="_blank">
+                            <IconButton style={{ color: 'white' }} aria-label="pdf" href={config.API.BASE_URI + props.pdfFrench} target="_blank">
                                 <FaFilePdf />
                             </IconButton>
                         </center>
