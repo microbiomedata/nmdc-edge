@@ -88,7 +88,7 @@ module.exports = function pipelineMonitor() {
                     });
                 });
                 let promise3 = new Promise(function (resolve, reject) {
-                    const options = generateOptions(proj_home, workflow);
+                    const options = generateOptions(proj_home);
                     if (options) {
                         resolve(proj);
                     } else {
@@ -117,12 +117,11 @@ module.exports = function pipelineMonitor() {
     });
 };
 
-function generateOptions(proj_home, workflow, proj) {
+function generateOptions(proj_home) {
 
-    const workflowSettings = workflowlist[workflow.name];
     const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, 'metaG_options.tmpl');
     let templInputs = String(fs.readFileSync(tmpl));
-    templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
+    templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home  + '"');
     fs.writeFileSync(proj_home + '/options.json', templInputs);
     return true;
 
