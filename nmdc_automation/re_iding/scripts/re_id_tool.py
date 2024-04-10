@@ -147,7 +147,9 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
         omics_processing_returned = len(list(omics_processing_records.clone()))
         logging.info(f"Updating {omics_processing_returned} OmicsProcessing records for biosample: {legacy_biosample_id}")
         for omics_processing_record in omics_processing_records:
-            omics_processing_record = _update_omics_processing_record(omics_processing_record, nmdc_study_id, db_client, api_client, no_update)
+            omics_processing_record = _update_omics_processing_record(omics_processing_record, nmdc_study_id,
+                                                                      biosample_record["id"],
+                                                                      db_client, api_client, no_update)
             updated_record_identifiers.append(("omics_processing_set", omics_processing_record["id"], omics_processing_record["id"]))
 
     # Write the updated record identifiers to a tsv file using csv writer
@@ -940,7 +942,14 @@ def _update_biosample_record(biosample_record: dict, new_study_id: str, db_clien
     Update the biosample record with the new ID
     """
     legacy_biosample_id = biosample_record["id"]
-    biosample_record["part_of"] = new_study_id
+    # Update the part_of array with the new study ID
+    part_of = biosample_record.get("part_of", [])
+    # Remove gold: IDs from part_of array
+    part_of = [id for id in part_of if not id.startswith("gold:")]
+    if new_study_id not in part_of:
+        part_of.append(new_study_id)
+        biosample_record["part_of"] = part_of
+        logging.info(f"Added new study ID to part_of: {new_study_id}")
 
     # Add the legacy ID to gold_biosample_identifiers if it is not already there
     if legacy_biosample_id.startswith("gold:"):
@@ -962,13 +971,35 @@ def _update_biosample_record(biosample_record: dict, new_study_id: str, db_clien
         logging.info(f"Updated {result.modified_count} biosample_set records {legacy_biosample_id} /  {biosample_record['id']} : {biosample_record['name']}")
     return biosample_record
 
-def _update_omics_processing_record(omics_processing_record: dict, new_biosample_id: str, db_client: Database[Union[Mapping[str, Any], Any]],
+def _update_omics_processing_record(omics_processing_record: dict,new_study_id: str, new_biosample_id: str, db_client: (
+    Database)[
+    Union[Mapping[str, Any], Any]],
                                     api_client: NmdcRuntimeApi, no_update: bool) -> dict:
     """
     Update the omics processing record with the new ID
     """
     legacy_omics_processing_id = omics_processing_record["id"]
-    omics_processing_record["was_informed_by"] = new_biosample_id
+
+    # Update the has_input array with the new biosample ID
+    has_input = omics_processing_record.get("has_input", [])
+    # Remove gold: IDs from has_input array
+    has_input = [id for id in has_input if not id.startswith("gold:")]
+    if new_biosample_id not in has_input:
+        has_input.append(new_biosample_id)
+        omics_processing_record["has_input"] = has_input
+        logging.info(f"Added new biosample ID to has_input: {new_biosample_id}")
+
+    # Update the part_of array with the new study ID
+    part_of = omics_processing_record.get("part_of", [])
+    # Remove gold: IDs from part_of array
+    part_of = [id for id in part_of if not id.startswith("gold:")]
+    if new_study_id not in part_of:
+        part_of.append(new_study_id)
+        omics_processing_record["part_of"] = part_of
+        logging.info(f"Added new study ID to part_of: {new_study_id}")
+
+
+
     # Add the legacy ID to gold_sequencing_project_identifiers if it is not already there
     if legacy_omics_processing_id.startswith("gold:"):
         gold_ids = omics_processing_record.get("gold_sequencing_project_identifiers", [])
