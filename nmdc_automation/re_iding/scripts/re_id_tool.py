@@ -443,11 +443,8 @@ def process_records(ctx, study_id, data_dir, update_links=False):
         new_db = nmdc.Database()
         # update OmicsProcessing has_output and related DataObject records
         new_db = reid_tool.update_omics_processing_has_output(db_record, new_db)
-        # update ReadsQC:
-        # db records
+        # update Read QC Analysis Activity
         new_db = reid_tool.update_reads_qc_analysis_activity_set(db_record, new_db, update_links)
-        # files
-        # TODO - update reads qc files
         # update Metagenome Assembly
         new_db = reid_tool.update_metagenome_assembly_set(db_record, new_db, update_links)
         # update Read Based Taxonomy Analysis
@@ -458,6 +455,8 @@ def process_records(ctx, study_id, data_dir, update_links=False):
         new_db = reid_tool.update_metatranscriptome_activity_set(db_record, new_db, update_links)
 
         re_ided_db_records.append(new_db)
+
+    reid_tool.write_id_changes(study_id)
 
     logging.info(f"Writing {len(re_ided_db_records)} records to {db_outfile}")
     logging.info(f"Elapsed time: {time.time() - start_time}")
@@ -576,11 +575,14 @@ def delete_old_records(ctx, old_records_file):
     Read in json dump of old records and:
     delete them using
     /queries/run endpoint
+
+    Outputs a tsv file with the (collection_name, optional(type), id) of the deleted records
     """
     start_time = time.time()
     logging.info(f"Deleting old objects found in : {old_records_file}")
     old_records_filename = Path(old_records_file).name
     old_base_name = old_records_filename.split("_")[0]
+    deleted_record_identifiers = []
 
     # Get API client(s)
     config = ctx.obj["site_config"]
@@ -592,17 +594,19 @@ def delete_old_records(ctx, old_records_file):
         old_db_records = json.load(f)
 
     # set list to capture annotation genes for agg set
-    annotation_ids = []
-    for record in old_db_records:
-        for set_name, object_record in record.items():
+    annotation_ids = set()
+    for record_identifier in old_db_records:
+        for set_name, object_record in record_identifier.items():
+            # we don't want to delete the omics_processing_set
             if set_name == "omics_processing_set":
                 continue
             delete_ids = []
             if isinstance(object_record, list):
                 for item in object_record:
                     delete_ids.append(item["id"])
-                    if set_name == "metagenome_annotation_activity_set":
-                        annotation_ids.append(item["id"])
+                    deleted_record_identifiers.append((set_name, item.get("type", ""), item["id"]))
+                    if set_name in ["metagenome_annotation_activity_set", "metatranscriptome_activity_set"]:
+                        annotation_ids.add(item["id"])
                 delete_query = {
                     "delete": set_name,
                     "deletes": [{"q": {"id": {"$in": delete_ids}}, "limit": 0}],
@@ -625,6 +629,14 @@ def delete_old_records(ctx, old_records_file):
         logging.info(f"Deleting query posted with response: {run_query_response}")
     except requests.exceptions.RequestException as e:
         logging.error(f"An error occurred while running: {delete_annotation_query}, response returned: {e}")
+
+    # write the deleted records to a tsv file
+    deleted_record_identifiers_file = DATA_DIR.joinpath(f"{old_base_name}_deleted_record_identifiers.tsv")
+    logging.info(f"Writing {len(deleted_record_identifiers)} deleted record identifiers to {deleted_record_identifiers_file}")
+    with open(deleted_record_identifiers_file, "w") as f:
+        f.write("collection_name\ttype\tid\n")
+        for record_identifier in deleted_record_identifiers:
+            f.write("\t".join(record_identifier) + "\n")
 
     logging.info(f"Elapsed time: {time.time() - start_time}")
 
