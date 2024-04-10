@@ -4,6 +4,7 @@
 re_id_tool.py: Provides command-line tools to extract and re-ID NMDC metagenome
 workflow records.
 """
+import csv
 import logging
 import time
 from pathlib import Path
@@ -119,6 +120,8 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
     config = ctx.obj["site_config"]
     api_client = NmdcRuntimeApi(config)
 
+    # Keep track of the updated record identifiers
+    updated_record_identifiers = []
     # Retrieve the Study with the given legacy ID
     study_record = db_client["study_set"].find_one({"id": legacy_study_id})
     if not study_record:
@@ -126,6 +129,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
 
     # Update the study record
     study_record = _update_study_record(study_record, nmdc_study_id, db_client, no_update)
+    updated_record_identifiers.append(("study_set", legacy_study_id, study_record["id"]))
 
     # Update the biosample records
     biosample_records = db_client["biosample_set"].find({"part_of": legacy_study_id})
@@ -134,7 +138,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
     for biosample_record in biosample_records:
         legacy_biosample_id = biosample_record["id"]
         biosample_record = _update_biosample_record(biosample_record, nmdc_study_id, db_client, api_client, no_update)
-
+        updated_record_identifiers.append(("biosample_set", legacy_biosample_id, biosample_record["id"]))
         # Get the OmicsProcessing records part_of the legacy study ID and has_input the legacy biosample ID
         omics_processing_records = db_client["omics_processing_set"].find(
             {"part_of": legacy_study_id, "has_input": legacy_biosample_id}
@@ -144,6 +148,16 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
         logging.info(f"Updating {omics_processing_returned} OmicsProcessing records for biosample: {legacy_biosample_id}")
         for omics_processing_record in omics_processing_records:
             omics_processing_record = _update_omics_processing_record(omics_processing_record, nmdc_study_id, db_client, api_client, no_update)
+            updated_record_identifiers.append(("omics_processing_set", omics_processing_record["id"], omics_processing_record["id"]))
+
+    # Write the updated record identifiers to a tsv file using csv writer
+    updated_record_identifiers_file = DATA_DIR.joinpath(f"{nmdc_study_id}_updated_record_identifiers.tsv")
+    logging.info(f"Writing {len(updated_record_identifiers)} updated record identifiers to {updated_record_identifiers_file}")
+    with open(updated_record_identifiers_file, "w") as f:
+        writer = csv.writer(f, delimiter="\t")
+        writer.writerow(["collection_name", "legacy_id", "new_id"])
+        for record_identifier in updated_record_identifiers:
+            writer.writerow(record_identifier)
 
     logging.info(f"Elapsed time: {time.time() - start_time}")
 
