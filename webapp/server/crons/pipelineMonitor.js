@@ -243,7 +243,24 @@ async function generateInputs(proj_home, conf, proj) {
 
     pipelineInputs += templInputs + "\n";
     pipelineInputs += "}\n";
-    //write to pipeline_inputs.json
-    fs.writeFileSync(proj_home + '/pipeline_inputs.json', pipelineInputs);
-    return true;
+ 
+
+    if (isJSON(inputs)) {
+        //write to pipeline_inputs.json
+        fs.writeFileSync(proj_home + '/pipeline_inputs.json', pipelineInputs);
+        return true;
+}
+    else {
+        console.log("Error: Input is not a valid JSON object.");
+        return false;
+}   
+}
+
+    function isJSON(pipelineInputs) {
+    try {
+       JSON.stringify(JSON.parse(pipelineInputs));
+       return true;
+    } catch (e) {
+        return false;
+    }   
 }
