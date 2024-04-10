@@ -918,6 +918,14 @@ def _update_study_record(study_record: dict, new_study_id: str, db_client: Datab
     study_record["id"] = new_study_id
     logging.info(f"Updating {legacy_study_id} /  {study_record['id']}: {study_record['name']}")
 
+    # Copy the legacy ID to gold_study_identifiers if it is not already there
+    if legacy_study_id.startswith("gold:"):
+        gold_ids = study_record.get("gold_sequencing_project_identifiers", [])
+        if legacy_study_id not in gold_ids:
+            gold_ids.append(legacy_study_id)
+            study_record["gold_sequencing_project_identifiers"] = gold_ids
+            logging.info(f"Added legacy study ID to gold_sequencing_project_identifiers: {legacy_study_id}")
+
     if no_update:
         logging.info(f"Skipping database update")
     else:
@@ -933,6 +941,14 @@ def _update_biosample_record(biosample_record: dict, new_study_id: str, db_clien
     """
     legacy_biosample_id = biosample_record["id"]
     biosample_record["part_of"] = new_study_id
+
+    # Add the legacy ID to gold_biosample_identifiers if it is not already there
+    if legacy_biosample_id.startswith("gold:"):
+        gold_ids = biosample_record.get("gold_biosample_identifiers", [])
+        if legacy_biosample_id not in gold_ids:
+            gold_ids.append(legacy_biosample_id)
+            biosample_record["gold_biosample_identifiers"] = gold_ids
+            logging.info(f"Added legacy biosample ID to gold_biosample_identifiers: {legacy_biosample_id}")
 
     # Mint a new biosample ID if needed
     if not biosample_record["id"].startswith("nmdc:bsm-"):
@@ -953,6 +969,14 @@ def _update_omics_processing_record(omics_processing_record: dict, new_biosample
     """
     legacy_omics_processing_id = omics_processing_record["id"]
     omics_processing_record["was_informed_by"] = new_biosample_id
+    # Add the legacy ID to gold_sequencing_project_identifiers if it is not already there
+    if legacy_omics_processing_id.startswith("gold:"):
+        gold_ids = omics_processing_record.get("gold_sequencing_project_identifiers", [])
+        if legacy_omics_processing_id not in gold_ids:
+            gold_ids.append(legacy_omics_processing_id)
+            omics_processing_record["gold_sequencing_project_identifiers"] = gold_ids
+            logging.info(f"Added legacy omics processing ID to gold_sequencing_project_identifiers: {legacy_omics_processing_id}")
+
 
     # Mint a new omics processing ID if needed
     if not omics_processing_record["id"].startswith("nmdc:omprc-"):
