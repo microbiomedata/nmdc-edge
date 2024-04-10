@@ -117,6 +117,7 @@ module.exports = function workflowMonitor() {
     });
 };
 
+
 function generateWDL(proj_home, workflow) {
     //build wdl
     let imports = '';
@@ -455,7 +456,24 @@ async function generateInputs(proj_home, workflow, proj) {
     }
     inputs += templInputs + "\n";
     inputs += "}\n";
-    //write to pipeline_inputs.json
-    fs.writeFileSync(proj_home + '/pipeline_inputs.json', inputs);
-    return true;
+
+    if (isJSON(inputs)) {
+        //write to pipeline_inputs.json
+        fs.writeFileSync(proj_home + '/pipeline_inputs.json', inputs);
+        return true;
+    }
+    else {
+        console.log("Error: Input is not a valid JSON object.");
+        return false;
+    }
+        
+}
+
+function isJSON(inputs) {
+	try {
+		JSON.stringify(JSON.parse(inputs));
+		return true;
+	} catch (e) {
+		return false;
+	}
 }
