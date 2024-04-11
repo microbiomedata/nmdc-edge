@@ -147,10 +147,11 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
         omics_processing_returned = len(list(omics_processing_records.clone()))
         logging.info(f"Updating {omics_processing_returned} OmicsProcessing records for biosample: {legacy_biosample_id}")
         for omics_processing_record in omics_processing_records:
+            legacy_omics_processing_id = omics_processing_record["id"]
             omics_processing_record = _update_omics_processing_record(omics_processing_record, nmdc_study_id,
                                                                       biosample_record["id"],
                                                                       db_client, api_client, no_update)
-            updated_record_identifiers.append(("omics_processing_set", omics_processing_record["id"], omics_processing_record["id"]))
+            updated_record_identifiers.append(("omics_processing_set", legacy_omics_processing_id, omics_processing_record["id"]))
 
     # Write the updated record identifiers to a tsv file using csv writer
     updated_record_identifiers_file = DATA_DIR.joinpath(f"{nmdc_study_id}_updated_record_identifiers.tsv")
