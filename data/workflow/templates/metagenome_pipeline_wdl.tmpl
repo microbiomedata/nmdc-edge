@@ -161,7 +161,7 @@ workflow main_workflow {
 	
 	## MAGs workflow
 	String? metaMAGs_outdir
-	String  metaMAGs_proj_name
+	String  metaMAGs_proj
 	File? metaMAGs_contig_file =  metaAssembly_call.contig
 	File? metaMAGs_sam_file =metaAssembly_call.bam
 	File? metaMAGs_gff_file = metaAnnotation_call.functional_gff
@@ -189,7 +189,7 @@ workflow main_workflow {
 
     call metaMAGs.nmdc_mags as metaMAGs_call {
         input:
-            proj_name=metaMAGs_proj_name,
+            proj=metaMAGs_proj,
             contig_file=metaMAGs_contig_file,
             sam_file=metaMAGs_sam_file,
             gff_file=metaMAGs_gff_file,
