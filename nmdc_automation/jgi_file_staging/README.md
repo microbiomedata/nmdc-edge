@@ -25,15 +25,15 @@ SOP
 6. Set environment variables for database (`source mongo_env`)
 7. Run `jgi_file_metadata.py` with config.ini, the CSV with biosample ID's, the proposal ID and the project name
 8. Get JDP_TOKEN 
-   a. login to https://data.jgi.doe.gov/
-   b. Click on profile icon in upper right corner and select 'Copy My Session Token'
+   1. login to https://data.jgi.doe.gov/
+   2. Click on profile icon in upper right corner and select 'Copy My Session Token'
 9. Run `file_restoration.py` with project name and config.ini to restore files from tape
-   a. 750 samples per request
-   b. maximum of 10TB can be requested every 24 hours
-   c. run every 24 hours until all files have been requested
+   1. 750 samples per request
+   2. maximum of 10TB can be requested every 24 hours
+   3. run every 24 hours until all files have been requested
 10. Run `globus_file_transfer.py` after files have been restored from tape with config.ini and project name
-    a. call with '--request_id' to get the Globus manifest file 
-    b. If running from local machine: 
-       i. copy Globus manifest file to local machine
-       ii. update nersc_manifests_directory to directory with manifest files
-    c. call without any optional arguments to create and submit Globus batch files to perform Globus transfers
+    1. call with '--request_id' to get the Globus manifest file 
+    2. If running from local machine: 
+       1. copy Globus manifest file to local machine
+       2. update nersc_manifests_directory to directory with manifest files
+    3. call without any optional arguments to create and submit Globus batch files to perform Globus transfers
