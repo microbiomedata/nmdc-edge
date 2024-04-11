@@ -3,8 +3,6 @@ workflow nmdc_rqcfilter {
     String  proj
     String  input_files
     String  database="/refdata/"
-    String?  outdir
-    Float?  scale_factor=60
 
     call stage {
         input: container=container,
@@ -15,8 +13,7 @@ workflow nmdc_rqcfilter {
         input: input_files=stage.read,
             threads=16,
             database=database,
-            memory="60G",
-            scale_factor=scale_factor
+            memory="60G"
     }
     call make_info_file {
         input: info_file = qc.info_file,
@@ -31,8 +28,7 @@ workflow nmdc_rqcfilter {
            read = stage.read,
            filtered = qc.filtered,
            filtered_stats = qc.stat,
-           filtered_stats2 = qc.stat2,
-           outdir = outdir
+           filtered_stats2 = qc.stat2
     }
     output {
         File filtered_final = finish_rqc.filtered_final
@@ -91,21 +87,19 @@ task rqcfilter {
      String system_cpu="$(grep \"model name\" /proc/cpuinfo | wc -l)"
      String jvm_threads=select_first([threads,system_cpu])
      String chastityfilter= if (chastityfilter_flag) then "cf=t" else "cf=f"
-     Float? scale_factor
 
      runtime {
             docker: container
             memory: "70 GB"
             cpu:  16
             database: database
-            runtime_minutes: ceil(size(input_files, "GB")*scale_factor)
+            runtime_minutes: ceil(size(input_files, "GB")*60)
      }
 
      command<<<
         #sleep 30
         export TIME="time result\ncmd:%C\nreal %es\nuser %Us \nsys  %Ss \nmemory:%MKB \ncpu %P"
         set -eo pipefail
-
         rqcfilter2.sh -Xmx${default="60G" memory} -da threads=${jvm_threads} ${chastityfilter} jni=t in=${input_files} path=filtered rna=f trimfragadapter=t qtrim=r trimq=0 maxns=3 maq=3 minlen=51 mlf=0.33 phix=t removehuman=t removedog=t removecat=t removemouse=t khist=t removemicrobes=t sketch kapa=t clumpify=t tmpdir= barcodefilter=f trimpolyg=5 usejni=f rqcfilterdata=${database}/RQCFilterData  > >(tee -a ${filename_outlog}) 2> >(tee -a ${filename_errlog} >&2)
 
         python <<CODE
@@ -164,7 +158,6 @@ task finish_rqc {
     String proj
     String prefix=sub(proj, ":", "_")
     String start
-    String? outdir
  
     command<<<
 
