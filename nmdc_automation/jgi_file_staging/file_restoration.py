@@ -106,16 +106,11 @@ def get_restore_files(mdb, project):
     restore_df = pd.DataFrame(
         [
             sample
-            for sample in mdb.samples.find(
-            {
-                "file_status": {"$in": ["PURGED", "BACKUP_COMPLETE"]},
-                "project": project,
-            }
-        )
+            for sample in mdb.samples.find({"file_status": {"$in": ["PURGED", "BACKUP_COMPLETE"]},
+                                            "project": project, })
         ]
     )
     restore_df = filter_restore_files(restore_df)
-    restore_df = restore_df[restore_df.keep == True]
     return restore_df
 
 
@@ -123,6 +118,7 @@ def filter_restore_files(restore_df):
 
     keep_files_list = get_keep_files_list()
     restore_df['keep'] = restore_df.apply(lambda x: check_file_type(x, keep_files_list), axis=1)
+    restore_df = restore_df[restore_df.keep == True]
     return restore_df
 
 
@@ -130,7 +126,8 @@ def get_keep_files_list():
     """
        Get list of patterns for files that are in the schema
     """
-    with open('../../configs/import.yaml', 'r') as file:
+    with open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+                           'configs', 'import.yaml'), 'r') as file:
         workflows = yaml.safe_load(file)
         file_types = [w['import_suffix'] for w in workflows['Data Objects']['Unique']]
         multiple_file_types = [w['import_suffix'] for w in workflows['Data Objects']['Multiples']]
@@ -171,7 +168,6 @@ def check_restore_status(restore_request_id, config):
     """
     Status of a restore request made to the JGI Data Portal restore API
     :param restore_request_id: ID of request returned by restore_files
-    :param JDP_TOKEN: Token from JDP website
     :return:
     """
     JDP_TOKEN = os.environ.get("JDP_TOKEN")
