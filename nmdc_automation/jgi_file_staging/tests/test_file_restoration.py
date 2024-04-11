@@ -9,7 +9,7 @@ from file_restoration import (
     restore_files,
     update_file_statuses,
     update_sample_in_mongodb,
-    check_restore_status,
+    check_restore_status, get_keep_files_list, filter_restore_files, check_file_type
 )
 from mongo import get_mongo_db
 from jgi_file_metadata import insert_samples_into_mongodb
@@ -81,13 +81,13 @@ class MyTestCase(unittest.TestCase):
         )
         self.assertEqual(num_restore_samples, 5)
         output = restore_files("test_project", self.config_file)
-        self.assertEqual(output, f"requested restoration of 5 files")
+        self.assertEqual(output, f"requested restoration of 3 files")
         num_restore_samples = len(
             [m for m in mdb.samples.find({"file_status": "PURGED"})]
         )
-        self.assertEqual(num_restore_samples, 0)
+        self.assertEqual(num_restore_samples, 2)
         samples = [s for s in mdb.samples.find({})]
-        self.assertEqual(samples[3]["request_id"], 220699)
+        self.assertEqual(samples[4]["request_id"], 220699)
         self.assertEqual(samples[0]["request_id"], None)
 
     @patch("file_restoration.update_file_statuses")
@@ -337,6 +337,130 @@ class MyTestCase(unittest.TestCase):
         mdb = get_mongo_db()
         samples = [s for s in mdb.samples.find({"file_status": "pending"})]
         self.assertEqual(len(samples), 0)
+
+    def test_keep_files_list(self):
+        test_files_list = ['.[A-Z]+-[A-Z]+.fastq.gz',
+                           '_checkm_qa.out',
+                           '_gtdbtk.bac122.summary.tsv',
+                           '_gtdbtk.ar122.summary.tsv',
+                           '_proteins.faa',
+                           '_contig_names_mapping.tsv',
+                           '_structural_annotation.gff',
+                           '_functional_annotation.gff',
+                           '_ko.tsv',
+                           '_ec.tsv',
+                           '_cog.gff',
+                           '_pfam.gff',
+                           '_tigrfam.gff',
+                           '_smart.gff',
+                           '_supfam.gff',
+                           '_cath_funfam.gff',
+                           '_crt.gff',
+                           '_genemark.gff',
+                           '_prodigal.gff',
+                           '_trna.gff',
+                           '_rfam.gff',
+                           '_ko_ec.gff',
+                           '_product_names.tsv',
+                           '_gene_phylogeny.tsv',
+                           '_crt.crisprs',
+                           '_stats.tsv',
+                           '_imgap.info',
+                           'filter-METAGENOME.fastq.gz',
+                           '.filtered-report.txt',
+                           '_readsQC.info',
+                           'assembly.contigs.fasta',
+                           '_scaffolds.fna',
+                           'README.txt',
+                           'pairedMapped_sorted.bam.cov',
+                           '_assembly.agp',
+                           'pairedMapped.sam.gz',
+                           '_gottcha2_full.tsv',
+                           '_gottcha2_classification.tsv',
+                           '_gottcha2_krona.html',
+                           '_centrifuge_classification.tsv',
+                           '_centrifuge_report.tsv',
+                           '_centrifuge_krona.html',
+                           '_kraken2_report.tsv',
+                           '_kraken2_classification.tsv',
+                           '_kraken2_krona.html',
+                           '_[0-9]+.tar.gz']
+        keep_files_list = get_keep_files_list()
+        self.assertEqual(test_files_list, keep_files_list)
+
+    def test_check_file_type(self):
+        grow_analysis_df = pd.read_csv(
+            os.path.join(self.fixtures, "grow_analysis_projects.csv")
+        )
+        grow_analysis_df.columns = [
+            "apGoldId",
+            "studyId",
+            "itsApId",
+            "projects",
+            "biosample_id",
+            "seq_id",
+            "file_name",
+            "file_status",
+            "file_size",
+            "jdp_file_id",
+            "md5sum",
+            "analysis_project_id",
+        ]
+        grow_analysis_df = grow_analysis_df[
+            [
+                "apGoldId",
+                "studyId",
+                "itsApId",
+                "biosample_id",
+                "seq_id",
+                "file_name",
+                "file_status",
+                "file_size",
+                "jdp_file_id",
+                "md5sum",
+                "analysis_project_id",
+            ]
+        ]
+        keep_files_list = get_keep_files_list()
+        self.assertTrue(check_file_type(grow_analysis_df.loc[0, :], keep_files_list))
+        self.assertFalse(check_file_type(grow_analysis_df.loc[9, :], keep_files_list))
+
+    def test_filter_restore_files(self):
+        grow_analysis_df = pd.read_csv(
+            os.path.join(self.fixtures, "grow_analysis_projects.csv")
+        )
+        grow_analysis_df.columns = [
+            "apGoldId",
+            "studyId",
+            "itsApId",
+            "projects",
+            "biosample_id",
+            "seq_id",
+            "file_name",
+            "file_status",
+            "file_size",
+            "jdp_file_id",
+            "md5sum",
+            "analysis_project_id",
+        ]
+        grow_analysis_df = grow_analysis_df[
+            [
+                "apGoldId",
+                "studyId",
+                "itsApId",
+                "biosample_id",
+                "seq_id",
+                "file_name",
+                "file_status",
+                "file_size",
+                "jdp_file_id",
+                "md5sum",
+                "analysis_project_id",
+            ]
+        ]
+        self.assertEqual(len(grow_analysis_df),10)
+        restore_df = filter_restore_files(grow_analysis_df)
+        self.assertEqual(len(restore_df), 5)
 
 
 if __name__ == "__main__":
