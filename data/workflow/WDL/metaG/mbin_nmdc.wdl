@@ -1,5 +1,5 @@
 workflow nmdc_mags {
-    String proj_name
+    String proj
     String contig_file
     String sam_file
     String gff_file
@@ -48,7 +48,7 @@ workflow nmdc_mags {
 
     call mbin_nmdc {
         input:
-                name=proj_name,
+                name=proj,
                 fna = stage.contig,
                 aln = stage.sam,
                 gff = stage.gff,
@@ -60,7 +60,7 @@ workflow nmdc_mags {
                 mbin_container = container
     }
     call package {
-         input:  proj = proj_name,
+         input:  proj = proj,
                  bins=flatten([mbin_nmdc.hqmq_bin_fasta_files,mbin_nmdc.lq_bin_fasta_files]),
                  json_stats=mbin_nmdc.stats_json,
                  gff_file=stage.gff,
@@ -83,7 +83,7 @@ workflow nmdc_mags {
         contigs=stage.contig,
         anno_gff=stage.gff,
         sorted_bam=stage.sam,
-        proj=proj_name,
+        proj=proj,
         start=stage.start,
         checkm = mbin_nmdc.checkm,
         bacsum= mbin_nmdc.bacsum,
@@ -179,7 +179,7 @@ task mbin_nmdc {
 
     runtime{
         docker : mbin_container
-        memory : "60 G"
+        memory : "120 G"
 	    time : "2:00:00"
         cpu : threads
     }
