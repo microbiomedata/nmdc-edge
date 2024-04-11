@@ -10,8 +10,7 @@ import configparser
 import sys
 from datetime import datetime
 
-import nmdc_automation.jgi_file_staging.mongo
-from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
+from jgi_file_metadata import (
     get_access_token,
     check_access_token,
     get_analysis_projects_from_proposal_id,
@@ -26,9 +25,9 @@ from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     remove_large_files,
     get_seq_unit_names,
 )
-from nmdc_automation.jgi_file_staging.mongo import get_mongo_db
+from mongo import get_mongo_db
 
-from nmdc_automation.jgi_file_staging.file_restoration import update_sample_in_mongodb
+from file_restoration import update_sample_in_mongodb
 
 
 class JgiFileTestCase(unittest.TestCase):
@@ -44,7 +43,6 @@ class JgiFileTestCase(unittest.TestCase):
         mdb = get_mongo_db()
         mdb.samples.drop()
         mdb.globus.drop()
-
 
     @mongomock.patch(servers=(("localhost", 27017),), on_new='create')
     def test_insert_samples_into_mongodb(self, monkeypatch):
@@ -232,10 +230,7 @@ class JgiFileTestCase(unittest.TestCase):
             "Table_8_-_3300049478.taxonomic_composition.txt",
         )
 
-    @patch("jgi_file_metadata.get_files_and_agg_ids")
-    @patch("jgi_file_metadata.requests.get")
-    @patch("jgi_file_metadata.get_access_token")
-    def test_remove_large_files(self, mock_token, mock_get, mock_get_files_list):
+    def test_remove_large_files(self):
         with open(os.path.join(self.fixtures, "seq_files_df.json"), "r") as f:
             files_data_list = json.load(f)
         seq_files_df = pd.DataFrame(files_data_list)
