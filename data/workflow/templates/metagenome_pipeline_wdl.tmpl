@@ -465,6 +465,7 @@ task finish {
 				${agp} 'Assembled AGP file' \
 				${bam} 'Metagenome Alignment BAM file'
 			cp activity.json data_objects.json ${assemdir}/
+			cp ${fasta} ${scaffold} ${agp} ${bam} ${covstats} ${assemdir}/
 
 
 
