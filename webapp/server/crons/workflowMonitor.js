@@ -93,8 +93,17 @@ module.exports = function workflowMonitor() {
                         reject("Failed to generate options.json for project " + proj.code);
                     }
                 });
+                let promise4 = new Promise(function (resolve, reject) {
+                    const options = generatePubInfo(proj_home, workflow);
+                    if (options) {
+                        resolve(proj);
+                    } else {
+                        logger.error("Failed to generate pub_info.txt for project " + proj.code);
+                        reject("Failed to generate pub_info.txt for project " + proj.code);
+                    }
+                });
 
-                Promise.all([promise1, promise2, promise3]).then(function (projs) {
+                Promise.all([promise1, promise2, promise3, promise4]).then(function (projs) {
                     //submit workflow to cromwell
                     common.write2log(path.join(config.PROJECTS.BASE_DIR, proj.code, "log.txt"), "submit workflow to cromwell");
                     logger.info("submit workflow to cromwell");
@@ -117,7 +126,15 @@ module.exports = function workflowMonitor() {
     });
 };
 
+function generatePubInfo(proj_home, workflow) {
+    let pubString = '';
+    const workflowSettings = workflowlist[workflow.name];
+    const pubFile = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowSettings['name']);
+    let pubInfo = String(fs.readFileSync(pubFile));
+    fs.writeFileSync(proj_home + '/pub_info.txt', pubInfo);
+    return true;
 
+}
 function generateWDL(proj_home, workflow) {
     //build wdl
     let imports = '';
