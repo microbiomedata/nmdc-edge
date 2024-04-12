@@ -23,7 +23,13 @@ const _nav = [
   {
     _tag: 'CSidebarNavItem',
     name: 'Upload Files',
-    to: '/user/uploadfiles',
+    to: '/user/files',
+    icon: <CIcon name="cilCloudUpload" customClasses="c-sidebar-nav-icon" />
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Retrieve SRA Data',
+    to: '/sra/data',
     icon: <CIcon name="cilCloudUpload" customClasses="c-sidebar-nav-icon" />
   },
   {

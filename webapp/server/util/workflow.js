@@ -144,18 +144,23 @@ const generateWorkflowResult = function (proj) {
 
         } else if (workflowConf.workflow.name === 'MetaMAGs') {
             //result['stats'] = JSON.parse(fs.readFileSync(outdir + "/MAGs_stats.json"));
-
-            let stats = JSON.parse(fs.readFileSync(outdir + "/MAGs_stats.json"));
-            Object.keys(stats).forEach((item, index) => {
-                //mags_list
-                if (typeof stats[item] === 'object') {
-                    //delete members_id
-                    for (var i = 0; i < stats[item].length; i++) {
-                        delete stats[item][i]['members_id'];
-                    }
+            const files = fs.readdirSync(outdir);
+            files.forEach(function (file) {
+                if (file.endsWith("_mags_stats.json")) {
+                    let stats = JSON.parse(fs.readFileSync(outdir + "/" + file));
+                    Object.keys(stats).forEach((item, index) => {
+                        //mags_list
+                        if (typeof stats[item] === 'object') {
+                            //delete members_id
+                            for (var i = 0; i < stats[item].length; i++) {
+                                delete stats[item][i]['members_id'];
+                            }
+                        }
+                    });
+                    result['stats'] = stats;
                 }
             });
-            result['stats'] = stats;
+
         } else if (workflowConf.workflow.name === 'Metatranscriptome') {
             result['top_features'] = JSON.parse(fs.readFileSync(outdir + "/metat_output/top100_features.json"));
             const features_tsv = outdir + "/metat_output/rpkm_sorted_features.tsv";

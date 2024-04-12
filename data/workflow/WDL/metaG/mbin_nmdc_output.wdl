@@ -11,7 +11,6 @@ workflow mbin_nmdc_output {
     File checkm
     File json_stats
     File tsv_stats
-    Array[File] bin_fasta_files
     Array[File] hqmq_bin_fasta_files
     String container = "microbiomedata/nmdc_mbin:0.1.6"
     String? proj = "MAGs"

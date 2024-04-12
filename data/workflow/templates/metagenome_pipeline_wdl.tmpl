@@ -161,7 +161,7 @@ workflow main_workflow {
 	
 	## MAGs workflow
 	String? metaMAGs_outdir
-	String  metaMAGs_proj_name
+	String  metaMAGs_proj
 	File? metaMAGs_contig_file =  metaAssembly_call.contig
 	File? metaMAGs_sam_file =metaAssembly_call.bam
 	File? metaMAGs_gff_file = metaAnnotation_call.functional_gff
@@ -184,56 +184,37 @@ workflow main_workflow {
 	Int metaMAGs_pthreads=1
 	String metaMAGs_database="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
     String checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
-    String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:bb1dd3bad177f7a49fa79713f16181d6143dab904b462c7429b3085bb84410f9"
+    String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:c8df293e80698627ce66df7cd07f6b10e9112184e3bf1379e615d10123f7bc64"
 	
 
-		call metaMAGs.nmdc_mags as metaMAGs_call {
-			input:
-				proj_name=metaMAGs_proj_name,
-				contig_file=metaMAGs_contig_file,
-				sam_file=metaMAGs_sam_file,
-				gff_file=metaMAGs_gff_file,
-				proteins_file=metaMAGs_proteins_file,
-				cog_file=metaMAGs_cog_file,
-				ec_file=metaMAGs_ec_file,
-				ko_file=metaMAGs_ko_file,
-                pfam_file=metaMAGs_pfam_file,
-                tigrfam_file=metaMAGs_tigrfam_file,
-                cath_funfam_file=metaMAGs_cath_funfam_file,
-                smart_file=metaMAGs_smart_file,
-                supfam_file=metaMAGs_supfam_file,
-                product_names_file=metaMAGs_product_names_file,
-                gene_phylogeny_file=metaMAGs_gene_phylogeny_file,
-                lineage_file=metaMAGs_lineage_file,
-				map_file=metaMAGs_map_file,
-				domain_file=metaMAGs_domain_file,
-				cpu=metaMAGs_cpu,
-				threads=metaMAGs_threads,
-				pthreads=metaMAGs_pthreads,
-				gtdbtk_db=metaMAGs_database,
-				checkm_db=checkm_db,
-				scratch_dir=metaMAGs_outdir,
-				container=metaMAGs_container
-		}
-
-		call metaMAGsOutput.mbin_nmdc_output as mbin_nmdc_output {
-          input:
-            proj_name=metaMAGs_proj_name,
-            start=metaMAGs_call.start,
+    call metaMAGs.nmdc_mags as metaMAGs_call {
+        input:
+            proj=metaMAGs_proj,
             contig_file=metaMAGs_contig_file,
             sam_file=metaMAGs_sam_file,
             gff_file=metaMAGs_gff_file,
-            low=metaMAGs_call.low,
-            unbinned=metaMAGs_call.final_unbinned_fa,
-            short=metaMAGs_call.short,
-            checkm=metaMAGs_call.final_checkm,
-            json_stats=metaMAGs_call.final_stats_json,
-            tsv_stats=metaMAGs_call.tsv_stats,
-            bin_fasta_files=metaMAGs_call.bin_fasta_files,
-            hqmq_bin_fasta_files=metaMAGs_call.hqmq_bin_fasta_files,
-            outdir=metaMAGs_outdir
-        }
-
+            proteins_file=metaMAGs_proteins_file,
+            cog_file=metaMAGs_cog_file,
+            ec_file=metaMAGs_ec_file,
+            ko_file=metaMAGs_ko_file,
+            pfam_file=metaMAGs_pfam_file,
+            tigrfam_file=metaMAGs_tigrfam_file,
+            cath_funfam_file=metaMAGs_cath_funfam_file,
+            smart_file=metaMAGs_smart_file,
+            supfam_file=metaMAGs_supfam_file,
+            product_names_file=metaMAGs_product_names_file,
+            gene_phylogeny_file=metaMAGs_gene_phylogeny_file,
+            lineage_file=metaMAGs_lineage_file,
+            map_file=metaMAGs_map_file,
+            domain_file=metaMAGs_domain_file,
+            cpu=metaMAGs_cpu,
+            threads=metaMAGs_threads,
+            pthreads=metaMAGs_pthreads,
+            gtdbtk_db=metaMAGs_database,
+            checkm_db=checkm_db,
+            scratch_dir=metaMAGs_outdir,
+            container=metaMAGs_container
+    }
 
 	call finish {
 		input: container="microbiomedata/workflowmeta:1.0.5.1",
@@ -289,9 +270,8 @@ workflow main_workflow {
 			ar_summary = metaMAGs_call.final_gtdbtk_ar_summary,
 			final_hqmq_bins = metaMAGs_call.final_hqmq_bins_zip,
 			mags_stats_json=metaMAGs_call.final_stats_json,
-			mags_stats_tsv=metaMAGs_call.tsv_stats,
-			hqmq_bin_fasta_files=metaMAGs_call.hqmq_bin_fasta_files,
-			bin_fasta_files=metaMAGs_call.bin_fasta_files,
+			hqmq_bin_fasta_files=metaMAGs_call.final_hqmq_bins_zip,
+			bin_fasta_files=metaMAGs_call.final_lq_bins_zip,
 			qadir=readsQC_outdir,
 			assemdir=metaAssembly_outdir,
 			annodir=metaAnnotation_outdir,
@@ -430,9 +410,8 @@ task finish {
 	File? final_hqmq_bins
 	File? metabat_bins
 	File? mags_stats_json
-	File? mags_stats_tsv
-	Array[File?] hqmq_bin_fasta_files
-	Array[File?] bin_fasta_files
+	File? hqmq_bin_fasta_files
+	File? bin_fasta_files
 	File? gottcha2_report_tsv
 	File? gottcha2_full_tsv
 	File? gottcha2_krona_html
@@ -442,8 +421,6 @@ task finish {
 	File? kraken2_classification_tsv
 	File? kraken2_report_tsv
 	File? kraken2_krona_html
-	Int n_hqmq = length(hqmq_bin_fasta_files)
-	Int n_bin = length(bin_fasta_files)
 	String qadir="qa/"
 	String assemdir="assembly/"
 	String annodir="annotation/"
@@ -456,6 +433,7 @@ task finish {
 		set -e
 		mkdir -p ${annodir}
 		mkdir -p ${assemdir}
+		mkdir -p ${magsdir}
 		end=`date --iso-8601=seconds`
 	
 
@@ -487,6 +465,7 @@ task finish {
 				${agp} 'Assembled AGP file' \
 				${bam} 'Metagenome Alignment BAM file'
 			cp activity.json data_objects.json ${assemdir}/
+			cp ${fasta} ${scaffold} ${agp} ${bam} ${covstats} ${assemdir}/
 
 
 
@@ -525,56 +504,13 @@ task finish {
 			#	${stats_tsv} ${stats_json} \
 			#	${annodir}/
 			cp features.json annotations.json activity.json data_objects.json ${annodir}/
-		
 
-			if [ ${n_hqmq} -gt 0 ] ; then
-			    mkdir -p hqmq
-				(cd hqmq && cp ${sep=" " hqmq_bin_fasta_files} .)
-				(cd hqmq && for binFA in *.fa; do
-					name=${dollar}{binFA/bins./}
-					binID=${dollar}{name/.fa/}
-					mkdir -p ${prefix}_$binID
-					cp ${magsdir}/mbin_datafile_${prefix}.txt ${prefix}_$binID/.
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${proteins_faa} > ${prefix}_$binID/${prefix}_$binID.faa  || true 
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${structural_gff} > ${prefix}_$binID/${prefix}_$binID.functional_annotation.gff || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${functional_gff}> ${prefix}_$binID/${prefix}_$binID.structural_annotation.gff || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${cog_gff} > ${prefix}_$binID/${prefix}_$binID.cog.gff || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${pfam_gff} > ${prefix}_$binID/${prefix}_$binID.pfam.gff || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${tigrfam_gff} > ${prefix}_$binID/${prefix}_$binID.tigrfam.gff || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${gene_phylogeny_tsv} > ${prefix}_$binID/${prefix}_$binID.gene_phylogeny.tsv || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${ko_tsv} > ${prefix}_$binID/${prefix}_$binID.ko.tsv || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${ec_tsv} > ${prefix}_$binID/${prefix}_$binID.ec.tsv || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${product_names_tsv} > ${prefix}_$binID/${prefix}_$binID.product_names.tsv || true
-						grep ">" $binFA | sed -e 's/>//' | grep -f - ${crt_crisprs} > ${prefix}_$binID/${prefix}_$binID.crt.crisprs || true
-						mv $binFA ${prefix}_$binID/${prefix}_$binID.fna
-					zip ${prefix}_$binID.zip ${prefix}_$binID/*
-					done
-				)
-				(cd hqmq && zip ${magsdir}/${prefix}_hqmq_bins.zip *.zip)
-
-			fi
-
-			#IFS=""
-			/scripts/generate_objects.py --type "MAGs" --id ${informed_by} \
-				--name "MAGs Analysis Activity for ${proj}" --part ${proj} \
-				--start ${start} --end $end \
-				--resource '${resource}' --url ${url_base} --giturl ${git_url} \
-				--inputs ${fasta} ${bam} ${functional_gff} \
-				--outputs \
-				${magsdir}/${prefix}_bins.tooShort.fa "tooShort (< 3kb) filtered contigs fasta file by metaBat2" \
-				${magsdir}/${prefix}_bins.lowDepth.fa "lowDepth (mean cov <1 )  filtered contigs fasta file by metabat2" \
-				${magsdir}/${prefix}_bins.unbinned.fa "unbinned fasta file from metabat2" \
-				${magsdir}/${prefix}_hqmq_bins.zip "high-quality and medium-quality bins" \
-				${magsdir}/${prefix}_checkm_qa.out "metabat2 bin checkm quality assessment result" \
-				${" " + bac_summary + " \"gtdbtk bacterial assignment result summary table\""} \
-				${" " + ar_summary + " \"gtdbtk archaea assignment result summary table\""}  \
-				${" " + metabat_bins +  " \"initial metabat bining result fasta output\""}
         cp ${lowdepth}  ${magsdir}/${proj}_bins.lowDepth.fa
         cp ${short} ${magsdir}/${proj}_bins.tooShort.fa
         cp ${unbinned} ${magsdir}/${proj}_bins.unbinned.fa
         cp ${checkm} ${magsdir}/${proj}_checkm_qa.out
-			cp activity.json data_objects.json ${lowdepth} ${unbinned} ${mags_stats_json} ${mags_stats_tsv} ${ar_summary} ${final_hqmq_bins} \
-			${sep=" " hqmq_bin_fasta_files} ${sep=" " bin_fasta_files} ${metabat_bins} ${magsdir}/
+			cp activity.json data_objects.json ${lowdepth} ${unbinned} ${mags_stats_json} ${ar_summary} ${final_hqmq_bins} \
+			${hqmq_bin_fasta_files} ${bin_fasta_files} ${metabat_bins} ${magsdir}/
 
 		    mkdir -p ${rbadir}
 			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \

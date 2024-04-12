@@ -1,5 +1,5 @@
 workflow nmdc_mags {
-    String proj_name
+    String proj
     String contig_file
     String sam_file
     String gff_file
@@ -48,7 +48,7 @@ workflow nmdc_mags {
 
     call mbin_nmdc {
         input:
-                name=proj_name,
+                name=proj,
                 fna = stage.contig,
                 aln = stage.sam,
                 gff = stage.gff,
@@ -60,8 +60,8 @@ workflow nmdc_mags {
                 mbin_container = container
     }
     call package {
-         input:  proj = proj_name,
-                 bins=flatten([mbin_nmdc.hqmq_bin_fasta_files,mbin_nmdc.bin_fasta_files]),
+         input:  proj = proj,
+                 bins=flatten([mbin_nmdc.hqmq_bin_fasta_files,mbin_nmdc.lq_bin_fasta_files]),
                  json_stats=mbin_nmdc.stats_json,
                  gff_file=stage.gff,
                  proteins_file=stage.proteins,
@@ -83,7 +83,7 @@ workflow nmdc_mags {
         contigs=stage.contig,
         anno_gff=stage.gff,
         sorted_bam=stage.sam,
-        proj=proj_name,
+        proj=proj,
         start=stage.start,
         checkm = mbin_nmdc.checkm,
         bacsum= mbin_nmdc.bacsum,
@@ -97,7 +97,7 @@ workflow nmdc_mags {
         stats_json = mbin_nmdc.stats_json,
         stats_tsv = mbin_nmdc.stats_tsv,
         hqmq_bin_fasta_files = mbin_nmdc.hqmq_bin_fasta_files,
-        bin_fasta_files = mbin_nmdc.bin_fasta_files,
+        bin_fasta_files = mbin_nmdc.lq_bin_fasta_files,
         hqmq_bin_tarfiles = package.hqmq_bin_tarfiles,
         lq_bin_tarfiles = package.lq_bin_tarfiles,
         barplot = package.barplot,
@@ -120,10 +120,6 @@ workflow nmdc_mags {
         File barplot = finish_mags.final_barplot
         File heatmap = finish_mags.final_heatmap
         File kronaplot = finish_mags.final_kronaplot
-        Array[File] hqmq_bin_fasta_files = mbin_nmdc.hqmq_bin_fasta_files
-        Array[File] bin_fasta_files = mbin_nmdc.bin_fasta_files
-        String start = stage.start
-        File tsv_stats = mbin_nmdc.stats_tsv
     }
 
 
@@ -183,7 +179,7 @@ task mbin_nmdc {
 
     runtime{
         docker : mbin_container
-        memory : "60 G"
+        memory : "120 G"
 	    time : "2:00:00"
         cpu : threads
     }
@@ -200,7 +196,7 @@ task mbin_nmdc {
         File bacsum = "gtdbtk-output/gtdbtk.bac120.summary.tsv"
         File arcsum = "gtdbtk-output/gtdbtk.ar122.summary.tsv"
         Array[File] hqmq_bin_fasta_files = glob("hqmq-metabat-bins/*fa")
-        Array[File] bin_fasta_files = glob("metabat-bins/*fa")
+        Array[File] lq_bin_fasta_files = glob("filtered-metabat-bins/*fa")
     }
 }
 
@@ -336,7 +332,7 @@ task package{
         fi
      }
      output {
-         Array[File] hqmq_bin_tarfiles = glob("*_HQ.tar.gz") + glob("*_MQ.tar.gz")
+         Array[File] hqmq_bin_tarfiles = flatten([glob("*_HQ.tar.gz"), glob("*_MQ.tar.gz")])
          Array[File] lq_bin_tarfiles = glob("*_LQ.tar.gz")
          File barplot = prefix + "_barplot.pdf"
          File heatmap = prefix + "_heatmap.pdf"
