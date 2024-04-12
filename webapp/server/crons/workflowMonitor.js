@@ -36,7 +36,7 @@ module.exports = function workflowMonitor() {
             let conf = JSON.parse(rawdata);
 
             //check input size
-            let inputsize = await findInputsize(conf);
+            let inputsize = 0; //await findInputsize(conf);
             if (inputsize > config.CROMWELL.JOBS_INPUT_MAX_SIZE_BYTES) {
                 logger.debug("Project " + proj.code + " input size exceeded the limit.");
                 //fail project
@@ -84,8 +84,17 @@ module.exports = function workflowMonitor() {
                         }
                     })
                 });
+                let promise3 = new Promise(function (resolve, reject) {
+                    const options = generateOptions(proj_home, workflow);
+                    if (options) {
+                        resolve(proj);
+                    } else {
+                        logger.error("Failed to generate options.json for project " + proj.code);
+                        reject("Failed to generate options.json for project " + proj.code);
+                    }
+                });
 
-                Promise.all([promise1, promise2]).then(function (projs) {
+                Promise.all([promise1, promise2, promise3]).then(function (projs) {
                     //submit workflow to cromwell
                     common.write2log(path.join(config.PROJECTS.BASE_DIR, proj.code, "log.txt"), "submit workflow to cromwell");
                     logger.info("submit workflow to cromwell");
@@ -107,6 +116,7 @@ module.exports = function workflowMonitor() {
         });
     });
 };
+
 
 function generateWDL(proj_home, workflow) {
     //build wdl
@@ -135,6 +145,21 @@ function generateWDL(proj_home, workflow) {
     if(workflowname === 'MetaAnnotation') {
         imports += 'import "annotation_output.wdl" as MetaAnnotationOutput' + "\n";
     }
+    if(workflowname === 'ReadsQC') {
+        imports += 'import "readsqc_output.wdl" as ReadsQC_output' + "\n";
+        imports += 'import "readsqc_preprocess.wdl" as readsqc_preprocess' + "\n";
+    }
+    if(workflowname === 'MetaMAGs') {
+        imports += 'import "mbin_nmdc_preprocess.wdl" as mbin_nmdc_preprocess' + "\n";
+        imports += 'import "mbin_nmdc_output.wdl" as MetaMAGsOutput' + "\n";
+    }
+    if(workflowname === 'ReadbasedAnalysis') {
+        imports += 'import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess' + "\n";
+    }
+    if(workflowname === 'MetaAssembly') {
+        imports += 'import "preprocess.wdl" as preprocess' + "\n";
+    }
+
     const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowSettings['wdl_tmpl']);
     let templWDL = String(fs.readFileSync(tmpl));
     templWDL = templWDL.replace(/<WORKFLOW>/g, workflowname);
@@ -148,7 +173,16 @@ function generateWDL(proj_home, workflow) {
     fs.writeFileSync(proj_home + '/pipeline.wdl', wdl);
     return true;
 }
+async function generateOptions(proj_home, workflow, proj) {
 
+    const workflowSettings = workflowlist[workflow.name];
+    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, 'metaG_options.tmpl');
+    let templInputs = String(fs.readFileSync(tmpl));
+    templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
+    fs.writeFileSync(proj_home + '/options.json', templInputs);
+    return true;
+
+}
 async function generateInputs(proj_home, workflow, proj) {
     //build pipeline_inputs.json
     let inputs = "{\n";
@@ -295,24 +329,74 @@ async function generateInputs(proj_home, workflow, proj) {
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
 
     } else if (workflow.name === 'MetaMAGs') {
-        let input_contig = workflow['input_contig'];
-        templInputs = templInputs.replace(/<CONTIG_FILE>/, '"' + input_contig + '"');
-
-        let input_sam = workflow['input_sam'];
-        templInputs = templInputs.replace(/<SAM_FILE>/, '"' + input_sam + '"');
-
-        let input_gff = workflow['input_gff'];
-        templInputs = templInputs.replace(/<GFF_FILE>/, '"' + input_gff + '"');
-
-        let input_map = workflow['input_map'];
-        if (input_map) {
-            templInputs = templInputs.replace(/<MAP_FILE>/, '"' + input_map + '"');
-        } else {
-            templInputs = templInputs.replace(/<MAP_FILE>/, 'null');
+        // check autofilled files
+        let fileErr = false;
+        if (!fs.existsSync(workflow['cog_file'])) {
+            common.write2log(proj_home + "/log.txt", 'Input cog file not found.');
+            fileErr = true;
         }
+        if (!fs.existsSync(workflow['ec_file'])) {
+            common.write2log(proj_home + "/log.txt", 'Input ec file not found.');
+            fileErr = true;
+        }
+        if (!fs.existsSync(workflow['ko_file'])) {
+            common.write2log(proj_home + "/log.txt", 'Input ko file not found.');
+            fileErr = true;
+        }
+        if (!fs.existsSync(workflow['pfam_file'])) {
+            common.write2log(proj_home + "/log.txt", 'Input pfam file not found.');
+            fileErr = true;
+        }
+        if (!fs.existsSync(workflow['tigrfam_file'])) {
+            common.write2log(proj_home + "/log.txt", 'Input tigrfam file not found.');
+            fileErr = true;
+        }
+        if (!fs.existsSync(workflow['cath_funfam_file'])) {
+            common.write2log(proj_home + "/log.txt", 'Input cath_funfam file not found.');
+            fileErr = true;
+        }
+        if (!fs.existsSync(workflow['smart_file'])) {
+            common.write2log(proj_home + "/log.txt", 'Input smart file not found.');
+            fileErr = true;
+        }
+        if (!fs.existsSync(workflow['supfam_file'])) {
+            common.write2log(proj_home + "/log.txt", 'Input supfam file not found.');
+            fileErr = true;
+        }
+        if (!fs.existsSync(workflow['product_names_file'])) {
+            common.write2log(proj_home + "/log.txt", 'Input product_names file not found.');
+            fileErr = true;
+        }
+        if (!fs.existsSync(workflow['gene_phylogeny_file'])) {
+            common.write2log(proj_home + "/log.txt", 'Input gene_phylogeny file not found.');
+            fileErr = true;
+        }
+        if (fileErr) {
+            return false;
+        }
+        templInputs = templInputs.replace(/<CONTIG_FILE>/, '"' + workflow['contig_file'] + '"');
+        templInputs = templInputs.replace(/<SAM_FILE>/, '"' + workflow['sam_file'] + '"');
+        templInputs = templInputs.replace(/<GFF_FILE>/, '"' + workflow['gff_file'] + '"');
+        templInputs = templInputs.replace(/<PROTEINS_FILE>/, '"' + workflow['proteins_file'] + '"');
+
+        templInputs = templInputs.replace(/<COG_FILE>/, '"' + workflow['cog_file'] + '"');
+        templInputs = templInputs.replace(/<EC_FILE>/, '"' + workflow['ec_file'] + '"');
+        templInputs = templInputs.replace(/<KO_FILE>/, '"' + workflow['ko_file'] + '"');
+        templInputs = templInputs.replace(/<PFAM_FILE>/, '"' + workflow['pfam_file'] + '"');
+        templInputs = templInputs.replace(/<TIGRFAM_FILE>/, '"' + workflow['tigrfam_file'] + '"');
+        templInputs = templInputs.replace(/<CATH_FUNFAM_FILE>/, '"' + workflow['cath_funfam_file'] + '"');
+        templInputs = templInputs.replace(/<SMART_FILE>/, '"' + workflow['smart_file'] + '"');
+        templInputs = templInputs.replace(/<SUPFAM_FILE>/, '"' + workflow['supfam_file'] + '"');
+        templInputs = templInputs.replace(/<PRODUCT_NAMES_FILE>/, '"' + workflow['product_names_file'] + '"');
+        templInputs = templInputs.replace(/<GENE_PHYLOGENY_FILE>/, '"' + workflow['gene_phylogeny_file'] + '"');
+        templInputs = templInputs.replace(/<LINEAGE_FILE>/, '"' + workflow['lineage_file'] + '"');
+
+        templInputs = templInputs.replace(/<MAP_FILE>/, '"' + workflow['map_file'] + '"');
+        templInputs = templInputs.replace(/<DOMAIN_FILE>/, '"' + workflow['domain_file'] + '"');
 
         templInputs = templInputs.replace(/<PROJ_NAME>/, '"' + proj.name + '"');
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
+
 
     } else if (workflow.name === 'EnviroMS') {
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
@@ -372,7 +456,24 @@ async function generateInputs(proj_home, workflow, proj) {
     }
     inputs += templInputs + "\n";
     inputs += "}\n";
-    //write to pipeline_inputs.json
-    fs.writeFileSync(proj_home + '/pipeline_inputs.json', inputs);
-    return true;
+
+    if (isJSON(inputs)) {
+        //write to pipeline_inputs.json
+        fs.writeFileSync(proj_home + '/pipeline_inputs.json', inputs);
+        return true;
+    }
+    else {
+        console.log("Error: Input is not a valid JSON object.");
+        return false;
+    }
+        
+}
+
+function isJSON(inputs) {
+	try {
+		JSON.stringify(JSON.parse(inputs));
+		return true;
+	} catch (e) {
+		return false;
+	}
 }

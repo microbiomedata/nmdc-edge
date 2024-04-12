@@ -164,6 +164,19 @@ export const FileSelector = (props) => {
         props.onChange("", props.fieldname, props.index, "");
     }
 
+    useEffect(() => {
+        if (props.file && props.file.autoFill) {
+            setDisable_input(true)
+            setCleanup_input(true)
+            setOpenFBModal(false);
+            setFile_path(props.file.path);
+            setFile(props.file.key);
+            if (props.viewFile === true) {
+                setDisable_view_file(false);
+            }
+        }
+    }, [props.file]);// eslint-disable-line react-hooks/exhaustive-deps
+
     return (
         <>
             <LoaderDialog loading={files_loading} text="loading..." />
