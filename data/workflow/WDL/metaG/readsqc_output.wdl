@@ -61,7 +61,7 @@ task make_output{
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%.fastq*}
 				mkdir -p ${outdir}/$prefix
-                cp -f $i ${outdir}/$prefix
+                cp -f $i ${outdir}/$prefix/
 
             done
             for i in ${sep=' ' stat}
@@ -69,7 +69,7 @@ task make_output{
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%.fastq*}
-                cp -f $i ${outdir}/$prefix
+                cp -f $i ${outdir}/$prefix/
 
             done
             for i in ${sep=' ' stat2}
@@ -77,7 +77,7 @@ task make_output{
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%.fastq*}
-                cp -f $i ${outdir}/$prefix
+                cp -f $i ${outdir}/$prefix/
 
             done
             for i in ${sep=' ' stat_json}
@@ -85,7 +85,7 @@ task make_output{
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%.fastq*}
-                cp -f $i ${outdir}/$prefix
+                cp -f $i ${outdir}/$prefix/
 
             done
 
