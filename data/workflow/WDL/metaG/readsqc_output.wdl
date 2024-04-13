@@ -61,33 +61,13 @@ task make_output{
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%.fastq*}
 				mkdir -p ${outdir}/$prefix
-                cp -f $i ${outdir}/$prefix/
+                cp -f $dir/../filtered/filterStats.txt ${outdir}/$prefix
+				cp -f $dir/../filtered/filterStats2.txt ${outdir}/$prefix
+				cp -f $dir/../filtered/filterStats.json ${outdir}/$prefix
+				cp -f $i ${outdir}/$prefix
 
             done
-            for i in ${sep=' ' stat}
-			do
-				f=${dollar}(basename $i)
-				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.fastq*}
-                cp -f $i ${outdir}/$prefix/
 
-            done
-            for i in ${sep=' ' stat2}
-			do
-				f=${dollar}(basename $i)
-				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.fastq*}
-                cp -f $i ${outdir}/$prefix/
-
-            done
-            for i in ${sep=' ' stat_json}
-			do
-				f=${dollar}(basename $i)
-				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.fastq*}
-                cp -f $i ${outdir}/$prefix/
-
-            done
 
 
 
