@@ -1,5 +1,6 @@
 import "rqcfilter.wdl" as readsQC
 import "readsqc_preprocess.wdl" as readsqc_preprocess
+import "readsqc_output.wdl" as readsqc_output
 import "ReadbasedAnalysis.wdl" as readbasedAnalysis
 import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "jgi_assembly.wdl" as metaAssembly
@@ -58,7 +59,15 @@ workflow main_workflow {
        }
 
     }
-
+    call readsqc_output.readsqc_output as readsqc_output {
+            input:
+                input_files=nmdc_rqcfilter_call.filtered_final,
+                outdir=readsQC_outdir,
+                stat=nmdc_rqcfilter_call.filtered_stats_final,
+                stat_json=nmdc_rqcfilter_call.filtered_stats_json,
+                proj=proj,
+                stat2=nmdc_rqcfilter_call.filtered_stats2_final
+	    }
 	## ReadbasedAnalysis workflow
 	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
 		"gottcha2": true,
