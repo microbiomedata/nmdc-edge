@@ -59,7 +59,7 @@ task make_output{
 			do
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.anqdpht*}
+				prefix=${dollar}{f%.fastq*}
 				mkdir -p ${outdir}/$prefix
                 cp -f $i ${outdir}/$prefix
 
@@ -68,7 +68,7 @@ task make_output{
 			do
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.anqdpht*}
+				prefix=${dollar}{f%.fastq*}
                 cp -f $i ${outdir}/$prefix
 
             done
@@ -76,7 +76,7 @@ task make_output{
 			do
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.anqdpht*}
+				prefix=${dollar}{f%.fastq*}
                 cp -f $i ${outdir}/$prefix
 
             done
@@ -84,7 +84,7 @@ task make_output{
 			do
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.anqdpht*}
+				prefix=${dollar}{f%.fastq*}
                 cp -f $i ${outdir}/$prefix
 
             done
