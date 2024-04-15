@@ -1,8 +1,8 @@
 workflow readsqc_output {
-    Array[File] input_files
-    Array[File] stat
-    Array[File] stat2
-    Array[File] stat_json
+    File input_file
+    File stat
+    File stat2
+    File stat_json
     String? outdir
     String bbtools_container="microbiomedata/bbtools:38.96"
     String proj
@@ -44,29 +44,24 @@ task make_json_file {
 }
 task make_output{
  	String outdir
-	Array[File] filtered
-	Array[File] stat
-	Array[File] stat2
-	Array[File] stat_json
+	File filtered
+	File stat
+	File stat2
+	File stat_json
 	String dollar ="$"
 	String container
 	String proj
 
  	command<<<
 			mkdir -p ${outdir}
+			f=${dollar}(basename $i)
+			dir=${dollar}(dirname $i)
+			prefix=${dollar}{f%.fastq*}
+            cp ${filtered} ${outdir}/$prefix
+            cp ${filterStats} ${outdir}/$prefix
+			cp ${filterStats2} ${outdir}/$prefix
+			cp ${filterStats} ${outdir}/$prefix
 
-            for i in ${sep=' ' filtered}
-			do
-				f=${dollar}(basename $i)
-				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.fastq*}
-				mkdir -p ${outdir}/$prefix
-                cp -f ${outdir}/filterStats.txt ${outdir}/$prefix
-				cp -f ${outdir}/filterStats2.txt ${outdir}/$prefix
-				cp -f ${outdir}/filterStats.json ${outdir}/$prefix
-				cp -f $i ${outdir}/$prefix
-                echo ${outdir}/$prefix/$f
-            done
 
 
 

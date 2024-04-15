@@ -22,14 +22,15 @@ scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
                 database=ReadsQC_database,
                 proj=ReadsQC_prefix,
 	   }
-
-}
-call ReadsQC_output.readsqc_output as readsqc_output {
+	   call ReadsQC_output.readsqc_output as readsqc_output {
             input:
-                input_files=nmdc_rqcfilter.filtered_final,
+                input_file=nmdc_rqcfilter.filtered_final,
                 outdir=ReadsQC_outdir,
                 stat=nmdc_rqcfilter.filtered_stats_final,
                 stat_json=nmdc_rqcfilter.filtered_stats_json,
                 proj=ReadsQC_prefix,
                 stat2=nmdc_rqcfilter.filtered_stats2_final
 	    }
+
+}
+
