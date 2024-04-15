@@ -952,13 +952,8 @@ def _update_biosample_record(biosample_record: dict, new_study_id: str, db_clien
         biosample_record["part_of"] = part_of
         logging.info(f"Added new study ID to part_of: {new_study_id}")
 
-    # Add the legacy ID to gold_biosample_identifiers if it is not already there
-    if legacy_biosample_id.startswith("gold:"):
-        gold_ids = biosample_record.get("gold_biosample_identifiers", [])
-        if legacy_biosample_id not in gold_ids:
-            gold_ids.append(legacy_biosample_id)
-            biosample_record["gold_biosample_identifiers"] = gold_ids
-            logging.info(f"Added legacy biosample ID to gold_biosample_identifiers: {legacy_biosample_id}")
+    # Add the legacy ID to the appropriate alt identifiers slot
+    biosample_record = _update_biosample_alternate_identifiers(biosample_record, legacy_biosample_id)
 
     # Mint a new biosample ID if needed
     if not biosample_record["id"].startswith("nmdc:bsm-"):
@@ -1021,6 +1016,36 @@ def _update_omics_processing_record(omics_processing_record: dict,new_study_id: 
         result = db_client["omics_processing_set"].replace_one({"id": legacy_omics_processing_id}, omics_processing_record)
         logging.info(f"Updated {result.modified_count} omics_processing_set record {legacy_omics_processing_id} /  {omics_processing_record['id']}: {omics_processing_record['name']}")
     return omics_processing_record
+
+def _update_biosample_alternate_identifiers(biosample_record: dict, legacy_biosample_id: str) -> dict:
+    """
+    Update the appropriate alt identifiers slot depending on the Biosample legacy ID:
+    - gold_biosample_identifiers for legacy IDs starting with 'gold:'
+    - igsn_biosample_identifiers for legacy IDs starting with 'igsn:'
+    - emsl_biosample_identifiers for legacy IDs starting with 'emsl:'
+    """
+    if legacy_biosample_id.startswith("gold:"):
+        alt_identifiers = biosample_record.get("gold_biosample_identifiers", [])
+        if legacy_biosample_id not in alt_identifiers:
+            alt_identifiers.append(legacy_biosample_id)
+            biosample_record["gold_biosample_identifiers"] = alt_identifiers
+            logging.info(f"Added legacy biosample ID to gold_biosample_identifiers: {legacy_biosample_id}")
+    elif legacy_biosample_id.startswith("igsn:"):
+        alt_identifiers = biosample_record.get("igsn_biosample_identifiers", [])
+        if legacy_biosample_id not in alt_identifiers:
+            alt_identifiers.append(legacy_biosample_id)
+            biosample_record["igsn_biosample_identifiers"] = alt_identifiers
+            logging.info(f"Added legacy biosample ID to igsn_biosample_identifiers: {legacy_biosample_id}")
+    elif legacy_biosample_id.startswith("emsl:"):
+        alt_identifiers = biosample_record.get("emsl_biosample_identifiers", [])
+        if legacy_biosample_id not in alt_identifiers:
+            alt_identifiers.append(legacy_biosample_id)
+            biosample_record["emsl_biosample_identifiers"] = alt_identifiers
+            logging.info(f"Added legacy biosample ID to emsl_biosample_identifiers: {legacy_biosample_id}")
+    else:
+        logging.warning(f"Unknown legacy ID format: {legacy_biosample_id}")
+    return biosample_record
+
 
 if __name__ == "__main__":
     cli(obj={})
