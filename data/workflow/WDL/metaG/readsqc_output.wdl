@@ -58,13 +58,9 @@ task make_output{
 			dir=${dollar}(dirname $i)
 			prefix=${dollar}{f%.fastq*}
             cp ${filtered} ${outdir}/$prefix
-            cp ${filterStats} ${outdir}/$prefix
-			cp ${filterStats2} ${outdir}/$prefix
-			cp ${filterStats} ${outdir}/$prefix
-
-
-
-
+            cp ${stat} ${outdir}/$prefix
+			cp ${stat2} ${outdir}/$prefix
+			cp ${stat_json} ${outdir}/$prefix
 
  			chmod 764 -R ${outdir}
  	>>>
