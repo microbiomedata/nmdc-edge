@@ -156,14 +156,14 @@ You can build a new version of the `webapp` container image by issuing one of th
   containers based upon the image will run, are the **same** (e.g. both are arm64, or both are AMD64); then you can use
   this command to build the image (replace `{some_tag}` with a unique identifier for this version, such as `v1.2.3`):
   ```shell
-  docker build -f webapp-node18.Dockerfile \
+  docker build -f webapp-node20.Dockerfile \
                -t nmdc-edge-web-app:{some_tag} .
   ```
   <details>
     <summary>Example</summary>
 
     ```console
-    $ docker build -f webapp-node18.Dockerfile -t nmdc-edge-web-app:v1.2.3 .
+    $ docker build -f webapp-node20.Dockerfile -t nmdc-edge-web-app:v1.2.3 .
     ```
   </details>
 
@@ -172,14 +172,14 @@ You can build a new version of the `webapp` container image by issuing one of th
   command to build the image (replace `{some_tag}` with a unique identifier for this version, such as `v1.2.3`):
   ```shell
   docker buildx build --platform linux/amd64 \
-                      -f webapp-node18.Dockerfile \
+                      -f webapp-node20.Dockerfile \
                       -t nmdc-edge-web-app:some-tag .
   ```
   <details>
     <summary>Example</summary>
 
     ```console
-    $ docker buildx build --platform linux/amd64 -f webapp-node18.Dockerfile -t nmdc-edge-web-app:v1.2.3 .
+    $ docker buildx build --platform linux/amd64 -f webapp-node20.Dockerfile -t nmdc-edge-web-app:v1.2.3 .
     ```
   </details>
 
