@@ -929,11 +929,11 @@ def _update_study_record(study_record: dict, new_study_id: str, db_client: Datab
 
     # Copy the legacy ID to gold_study_identifiers if it is not already there
     if legacy_study_id.startswith("gold:"):
-        gold_ids = study_record.get("gold_sequencing_project_identifiers", [])
+        gold_ids = study_record.get("gold_study_identifiers", [])
         if legacy_study_id not in gold_ids:
             gold_ids.append(legacy_study_id)
-            study_record["gold_sequencing_project_identifiers"] = gold_ids
-            logging.info(f"Added legacy study ID to gold_sequencing_project_identifiers: {legacy_study_id}")
+            study_record["gold_study_identifiers"] = gold_ids
+            logging.info(f"Added legacy study ID to gold_study_identifiers: {legacy_study_id}")
 
     if no_update:
         logging.info(f"Skipping database update")
