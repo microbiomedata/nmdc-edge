@@ -64,6 +64,7 @@ task make_output{
 				mkdir -p ${outdir}/$prefix
                 cp $dir/*_filterStats.txt ${outdir}/$prefix/
 				cp $dir/*_filterStats2.txt ${outdir}/$prefix/
+				cp $dir/*_filterStats.json ${outdir}/$prefix/
 				cp $i ${outdir}/$prefix/
 
                 echo ${outdir}/$prefix/$f
