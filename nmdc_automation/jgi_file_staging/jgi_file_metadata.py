@@ -11,8 +11,8 @@ import argparse
 from typing import List
 from pydantic import ValidationError
 
-from mongo import get_mongo_db
-from models import Sample
+from .mongo import get_mongo_db
+from .models import Sample
 
 logging.basicConfig(
     filename="file_staging.log",
