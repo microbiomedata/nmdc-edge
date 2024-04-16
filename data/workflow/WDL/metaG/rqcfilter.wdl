@@ -29,7 +29,7 @@ workflow nmdc_rqcfilter {
            filtered = qc.filtered,
            filtered_stats = qc.stat,
            filtered_stats2 = qc.stat2,
-           File filtered_stats_json = qc.json_out
+           filtered_stats_json = qc.json_out
     }
     output {
         File filtered_final = finish_rqc.filtered_final
