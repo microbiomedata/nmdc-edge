@@ -55,7 +55,7 @@ workflow main_workflow {
             input:
                 input_files=file,
                 database=readsQC_database,
-                proj=proj,
+                proj=readbasedAnalysis_prefix,
        }
 
     }
@@ -66,7 +66,7 @@ workflow main_workflow {
                 outdir=readsQC_outdir,
                 stat=nmdc_rqcfilter_call.filtered_stats_final,
                 stat_json=nmdc_rqcfilter_call.filtered_stats_json_final,
-                proj=proj,
+                proj=metaAssembly_rename_contig_prefix,
                 stat2=nmdc_rqcfilter_call.filtered_stats2_final
 	   }
 
@@ -114,7 +114,7 @@ workflow main_workflow {
 
     call metaAssembly.jgi_metaASM as metaAssembly_call {
         input:
-            proj=proj,
+            proj=metaAssembly_rename_contig_prefix,
             input_file=metaAssembly_input_file,
             outdir=metaAssembly_outdir,
             rename_contig_prefix=metaAssembly_rename_contig_prefix,
