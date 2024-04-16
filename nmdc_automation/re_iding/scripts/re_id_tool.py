@@ -119,7 +119,6 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
     client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
     with pymongo.timeout(5):
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
-    logging.info(f"Connected to MongoDB server at {mongo_uri}")
     db_client = client[database_name]
 
     # API client for minting new IDs
