@@ -35,7 +35,7 @@ workflow nmdc_rqcfilter {
         File filtered_final = finish_rqc.filtered_final
         File filtered_stats_final = finish_rqc.filtered_stats_final
         File filtered_stats2_final = finish_rqc.filtered_stats2_final
-        File filtered_stats_json = finish_rqc.filtered_stats_json
+        File filtered_stats_json_final = finish_rqc.filtered_stats_json_final
         File rqc_info = make_info_file.rqc_info
 
     }
@@ -182,7 +182,7 @@ task finish_rqc {
         File filtered_final = "${prefix}_filtered.fastq.gz"
         File filtered_stats_final = "${prefix}_filterStats.txt"
         File filtered_stats2_final = "${prefix}_filterStats2.txt"
-        File filtered_stats_json = "${prefix}_filterStats.json"
+        File filtered_stats_json_final = "${prefix}_filterStats.json"
     }
 
     runtime {
