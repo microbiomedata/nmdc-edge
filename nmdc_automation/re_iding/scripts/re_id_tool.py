@@ -996,14 +996,8 @@ def _update_omics_processing_record(omics_processing_record: dict,new_study_id: 
 
 
 
-    # Add the legacy ID to gold_sequencing_project_identifiers if it is not already there
-    if legacy_omics_processing_id.startswith("gold:"):
-        gold_ids = omics_processing_record.get("gold_sequencing_project_identifiers", [])
-        if legacy_omics_processing_id not in gold_ids:
-            gold_ids.append(legacy_omics_processing_id)
-            omics_processing_record["gold_sequencing_project_identifiers"] = gold_ids
-            logging.info(f"Added legacy omics processing ID to gold_sequencing_project_identifiers: {legacy_omics_processing_id}")
-
+    # Add the legacy ID to the appropriate alt identifiers slot
+    omics_processing_record = _update_omics_processing_record_alt_identifiers(omics_processing_record, legacy_omics_processing_id)
 
     # Mint a new omics processing ID if needed
     if not omics_processing_record["id"].startswith("nmdc:omprc-"):
@@ -1046,6 +1040,29 @@ def _update_biosample_alternate_identifiers(biosample_record: dict, legacy_biosa
         logging.warning(f"Unknown legacy ID format: {legacy_biosample_id}")
     return biosample_record
 
+def _update_omics_processing_record_alt_identifiers(omics_processing_record: dict, legacy_omics_processing_id: str) -> dict:
+    """
+    Update the appropriate alt identifiers slot depending on the OmicsProcessing legacy ID:
+    - gold_sequencing_project_identifiers for legacy IDs starting with 'gold:'
+    - alternative_identifiers for legacy IDs starting with 'emsl:'
+    """
+    if legacy_omics_processing_id.startswith("gold:"):
+        alt_identifiers = omics_processing_record.get("gold_sequencing_project_identifiers", [])
+        if legacy_omics_processing_id not in alt_identifiers:
+            alt_identifiers.append(legacy_omics_processing_id)
+            omics_processing_record["gold_sequencing_project_identifiers"] = alt_identifiers
+            logging.info(f"Added legacy omics processing ID to gold_sequencing_project_identifiers: {legacy_omics_processing_id}")
+    elif legacy_omics_processing_id.startswith("emsl:"):
+        alt_identifiers = omics_processing_record.get("alternative_identifiers", [])
+        if legacy_omics_processing_id not in alt_identifiers:
+            alt_identifiers.append(legacy_omics_processing_id)
+            omics_processing_record["alternative_identifiers"] = alt_identifiers
+            logging.info(f"Added legacy omics processing ID to alternative_identifiers: {legacy_omics_processing_id}")
+    else:
+        logging.warning(f"Unknown legacy ID format: {legacy_omics_processing_id}")
+    return omics_processing_record
+
 
 if __name__ == "__main__":
     cli(obj={})
+
