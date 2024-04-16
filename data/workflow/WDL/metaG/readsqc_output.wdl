@@ -62,7 +62,7 @@ task make_output{
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%.fastq*}
 				mkdir -p ${outdir}/$prefix
-                mv ${outdir}/filterStats.txt ${outdir}/$prefix/
+                mv $dir/filterStats.txt ${outdir}/$prefix/
 				cp $dir/filterStats2.txt ${outdir}/$prefix/
 				cp $dir/filterStats.json ${outdir}/$prefix/
 				cp $i ${outdir}/$prefix/
