@@ -1,18 +1,14 @@
-import mongomock
 import pandas as pd
 from pathlib import Path
 import pytest
-
-from nmdc_automation.jgi_file_staging.models import Sample
 
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     get_access_token,
     check_access_token,
     get_sequence_id,
     get_analysis_projects_from_proposal_id,
-    insert_samples_into_mongodb,
 )
-from nmdc_automation.jgi_file_staging.mongo import get_mongo_db
+
 
 FIXTURE_DIR = Path(__file__).parent / "fixtures"
 
