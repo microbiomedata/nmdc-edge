@@ -3,7 +3,7 @@ import {
     Button, Form, Row, Col, Card, CardBody
 } from 'reactstrap';
 
-import { postData, notify } from '../../../common/util';
+import { getData, postData, notify } from '../../../common/util';
 import { LoaderDialog, MessageDialog } from '../../../common/Dialogs';
 import MySelect from '../../../common/MySelect';
 import { ToastContainer } from 'react-toastify';
@@ -17,6 +17,8 @@ let htmlToReactParser = new HtmlToReactParser();
 
 function Main(props) {
     const [openDialog, setOpenDialog] = useState(false);
+    const [disabled, setDisabled] = useState(false);
+    const [sysMsg, setSysMsg] = useState();
     const [submitting, setSubmitting] = useState(false);
     const [requestSubmit, setRequestSubmit] = useState(false);
 
@@ -93,13 +95,36 @@ function Main(props) {
         setDoValidation(doValidation + 1);
     }, [workflow]);// eslint-disable-line react-hooks/exhaustive-deps
 
+    useEffect(() => {
+        let url = "/auth-api/user/info";
+        getData(url)
+            .then((data) => {
+                if (data.info.allowNewRuns) {
+                    setDisabled(false)
+                } else {
+                    setSysMsg(data.info.message)
+                    setDisabled(true)
+                    setOpenDialog(true)
+                }
+            })
+            .catch((err) => {
+                alert(err)
+            })
+    }, [props]);
 
     return (
         <div className="animated fadeIn">
-            <Row className="justify-content-center">
+            <Row className="justify-content-center" style={disabled ? { pointerEvents: 'none', opacity: '0.4' } : {}}>
                 <Col xs="12" md="10">
                     <ToastContainer />
                     <LoaderDialog loading={submitting === true} text="Submitting..." />
+                    <MessageDialog className='modal-lg modal-warning'
+                        title="System Message"
+                        isOpen={openDialog}
+                        html={true}
+                        message={'<div><b>' + sysMsg + '</b></div>'}
+                        handleClickClose={closeMsgModal}
+                    />
                     <Form onSubmit={e => { e.preventDefault(); }}>
                         <div className="clearfix">
                             <h4 className="pt-3">Retrieve SRA Data</h4>
