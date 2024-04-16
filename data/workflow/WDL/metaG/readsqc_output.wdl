@@ -70,19 +70,6 @@ task make_output{
                 echo ${outdir}/$prefix/$f
             done
 
-            for i in ${sep=' ' stat_json}
-			do
-				f=${dollar}(basename $i)
-				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.fastq*}
-				cp $dir/filterStats.json ${outdir}/$prefix/
-
-                echo $i
-            done
-
-
-
-
  			chmod 764 -R ${outdir}
  	>>>
 	runtime {
