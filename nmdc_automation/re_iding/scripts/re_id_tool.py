@@ -37,6 +37,9 @@ RE_ID = {
     "EMP": ("nmdc:sty-11-547rwq94", "gold:Gs0154244"),
     "Luquillo": ("nmdc:sty-11-076c9980", "gold:Gs0128850"),
     "CrestedButte": ("nmdc:sty-11-dcqce727", "gold:Gs0135149"),
+    "Populus": ("nmdc:sty-11-1t150432", "gold:Gs0103573"),
+    "Angelo": ("nmdc:sty-11-zs2syx06", "gold:Gs0110119"),
+    "Shale": ("nmdc:sty-11-8fb6t785", "gold:Gs0114675"),
 }
 CONSORTIA = (
     "nmdc:sty-11-33fbta56",
@@ -46,6 +49,9 @@ STUDIES = (
     "nmdc:sty-11-aygzgv51",
     "nmdc:sty-11-076c9980",
     "nmdc:sty-11-dcqce727",
+    "nmdc:sty-11-1t150432",
+    "nmdc:sty-11-zs2syx06",
+    "nmdc:sty-11-8fb6t785",
 )
 
 
