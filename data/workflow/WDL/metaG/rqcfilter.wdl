@@ -28,7 +28,7 @@ workflow nmdc_rqcfilter {
            read = stage.read,
            filtered = qc.filtered,
            filtered_stats = qc.stat,
-           filtered_stats2 = qc.stat2
+           filtered_stats2 = qc.stat2,
            File filtered_stats_json = qc.json_out
     }
     output {
