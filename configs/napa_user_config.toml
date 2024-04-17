@@ -1,0 +1,11 @@
+# Configuration for the NmdcRuntimeUserApi client and workflows
+# Update the username and password with your own credentials
+# and store this file in <project_root>/configs/.local_napa_config.toml
+[api]
+base_url = "https://api-napa.microbiomedata.org/"
+username = "xxxxx"
+password = "xxxxx"
+
+[workflows]
+workflows_config = "./configs/workflows.yaml"
+
