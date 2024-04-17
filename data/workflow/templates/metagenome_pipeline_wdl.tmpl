@@ -229,6 +229,8 @@ workflow main_workflow {
 			read = if (input_interleaved) then input_files else flatten([input_fq1,input_fq2]),
 			filtered = nmdc_rqcfilter_call.filtered_final,
 			filtered_stats = nmdc_rqcfilter_call.filtered_stats_final,
+			filtered_stats2 = nmdc_rqcfilter_call.filtered_stats2_final,
+			filtered_stats_json = nmdc_rqcfilter_call.filtered_stats_json_final,
 			fasta=metaAssembly_call.contig,
 			scaffold=metaAssembly_call.scaffold,
 			agp=metaAssembly_call.agp,
@@ -368,6 +370,8 @@ task finish {
 	Array[File] read
 	Array[File?] filtered
 	Array[File?] filtered_stats
+	Array[File?] filtered_stats2
+	Array[File?] filtered_stats_json
 	File? fasta
 	File? scaffold
 	File? agp
@@ -457,6 +461,8 @@ task finish {
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%.fastq*}
 				mkdir -p ${qadir}/$prefix
+				echo $prefix
+				echo $dir
                 cp $dir/$prefix_filterStats.txt ${qadir}/$prefix/filterStats.txt
 				cp $dir/$prefix_filterStats2.txt ${qadir}/$prefix/filterStats2.txt
 				cp $dir/$prefix_filterStats.json ${qadir}/$prefix/filterStats.json
