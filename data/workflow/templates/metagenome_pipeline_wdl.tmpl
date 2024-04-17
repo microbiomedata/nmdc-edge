@@ -459,13 +459,14 @@ task finish {
 			do
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.fastq*}
+				prefix=${dollar}{f%.fastq.gz}
 				mkdir -p ${qadir}/$prefix
 				echo $prefix
+				echo "concat: ${dollar}{prefix}_filterStats.txt"
 				echo $dir
-                cp $dir/$prefix_filterStats.txt ${qadir}/$prefix/filterStats.txt
-				cp $dir/$prefix_filterStats2.txt ${qadir}/$prefix/filterStats2.txt
-				cp $dir/$prefix_filterStats.json ${qadir}/$prefix/filterStats.json
+                cp $dir/${dollar}{prefix}_filterStats.txt ${qadir}/$prefix/filterStats.txt
+				cp $dir/${dollar}{prefix}_filterStats2.txt ${qadir}/$prefix/filterStats2.txt
+				cp $dir/${dollar}{prefix}_filterStats.json ${qadir}/$prefix/filterStats.json
 		    done
 
 			# Generate assembly objects
