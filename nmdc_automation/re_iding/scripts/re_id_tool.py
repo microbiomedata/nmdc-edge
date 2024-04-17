@@ -186,10 +186,8 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
 
 @cli.command()
 @click.argument("study_id", type=str)
-@click.option("--api-base-url", default=NAPA_BASE_URL,
-              help=f"Optional base URL for the NMDC API. Default: {NAPA_BASE_URL}")
 @click.pass_context
-def extract_records(ctx, study_id, api_base_url):
+def extract_records(ctx, study_id):
     """
     Extract metagenome workflow activities and their data object records
     that are informed_by the legacy ID (GOLD Study ID) for a re-ID-ed Study/
