@@ -20,16 +20,18 @@ from pymongo.database import Database
 from nmdc_automation.api import NmdcRuntimeApi, NmdcRuntimeUserApi
 from nmdc_automation.nmdc_common.client import NmdcApi
 import nmdc_schema.nmdc as nmdc
+from nmdc_automation.config import UserConfig
 from nmdc_automation.re_iding.base import ReIdTool
-from nmdc_automation.re_iding.changesheets import Changesheet, ChangesheetLineItem
+from nmdc_automation.re_iding.changesheets import Changesheet
 from nmdc_automation.re_iding.db_utils import get_omics_processing_id, ANALYSIS_ACTIVITIES
 
 # Defaults
-GOLD_STUDY_ID = "gold:Gs0114663"
-STUDY_ID = "nmdc:sty-11-aygzgv51"
 NAPA_CONFIG = Path("../../../configs/.local_napa_config.toml")
+PROD_CONFIG = Path("../../../configs/.local_prod_config.toml")
+
+
 NAPA_BASE_URL = "https://api-napa.microbiomedata.org/"
-NAPA_MONGODB = "mongo-loadbalancer.nmdc-napa.production.svc.spin.nersc.org:27017"
+
 
 RE_ID = {
     "Stegen": ("nmdc:sty-11-aygzgv51", "gold:Gs0114663"),
@@ -69,16 +71,25 @@ logging.basicConfig(
 
 @click.group()
 @click.option(
-    "--site-config",
-    type=click.Path(exists=True),
-    default=NAPA_CONFIG,
+    "--target",
+    type=click.Choice(["PROD", "NAPA"], case_sensitive=False),
+    required=True,
 )
 @click.pass_context
-def cli(ctx, site_config):
+def cli(ctx, target):
     """
     NMDC re-ID tool
     """
     ctx.ensure_object(dict)
+    if target == "PROD":
+        site_config = PROD_CONFIG
+        logging.info(f"Using PROD config: {site_config}")
+    elif target == "NAPA":
+        site_config = NAPA_CONFIG
+        logging.info(f"Using NAPA config: {site_config}")
+    else:
+        raise ValueError(f"Invalid target: {target}")
+
     ctx.obj["site_config"] = site_config
 
 @cli.command()
@@ -191,9 +202,8 @@ def extract_records(ctx, study_id, api_base_url):
     logging.info(f"Extracting workflow records for study_id: {study_id}")
     logging.info(f"study_id: {study_id}")
 
-    config = ctx.obj["site_config"]
-    # api_client = NmdcRuntimeUserApi(config)
-    api_client = NmdcApi(api_base_url)
+    config = UserConfig(ctx.obj["site_config"])
+    api_client = NmdcApi(config.base_url)
 
     # 1. Retrieve all OmicsProcessing records for the updated NMDC study ID
     omics_processing_records = (
@@ -529,12 +539,8 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri,
 
     # Get API client(s)
     config = ctx.obj["site_config"]
-    # api_client = NmdcRuntimeApi(config)
     api_user_client = NmdcRuntimeUserApi(config)
-
-    # TODO - need to get mongo_uri credentials for the Napa DB instance in the config file. Meanwhile, we can test
-    #  with a local MongoDB instance
-
+    logging.info(f"Using: {api_user_client.base_url}")
     logging.info(f"Using MongoDB URI: {mongo_uri}")
 
     # Connect to the MongoDB server and check the database name
