@@ -1,0 +1,252 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:34: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Updating NMDC study with legacy ID: gold:Gs0110119
+INFO:root:Updating NMDC study with ID: nmdc:sty-11-zs2syx06
+INFO:root:Connected to MongoDB server at mongodb://michael.thornton-napa:barman-reconfirm-leggings-883@localhost:27777
+INFO:root:Updating gold:Gs0110119 /  nmdc:sty-11-zs2syx06: Meadow Soil Metagenomes from the Angelo Coast Range Reserve
+INFO:root:Added legacy study ID to gold_sequencing_project_identifiers: gold:Gs0110119
+INFO:root:Updating database with new study record
+INFO:root:Updated 1 study_set records
+INFO:root:Updating 60 Biosample records
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-nw1kv312
+INFO:root:Updated 1 biosample_set records gold:Gb0110680 /  nmdc:bsm-11-nw1kv312 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_02_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110680
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-9jmsx185
+INFO:root:Updated 1 biosample_set records gold:Gb0110703 /  nmdc:bsm-11-9jmsx185 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0927_02_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110703
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-3zrd9503
+INFO:root:Updated 1 biosample_set records gold:Gb0110681 /  nmdc:bsm-11-3zrd9503 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_02_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110681
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-m9x30m09
+INFO:root:Updated 1 biosample_set records gold:Gb0110710 /  nmdc:bsm-11-m9x30m09 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0929_02_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110710
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-5rq8ss77
+INFO:root:Updated 1 biosample_set records gold:Gb0110682 /  nmdc:bsm-11-5rq8ss77 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_02_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110682
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-p5wfy028
+INFO:root:Updated 1 biosample_set records gold:Gb0110698 /  nmdc:bsm-11-p5wfy028 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0919_02_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110698
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-g3czag93
+INFO:root:Updated 1 biosample_set records gold:Gb0110702 /  nmdc:bsm-11-g3czag93 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0927_02_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110702
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-jj4ex381
+INFO:root:Updated 1 biosample_set records gold:Gb0110711 /  nmdc:bsm-11-jj4ex381 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0929_02_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110711
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-6d0fbs25
+INFO:root:Updated 1 biosample_set records gold:Gb0110722 /  nmdc:bsm-11-6d0fbs25 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_02_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110722
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-tgaceb95
+INFO:root:Updated 1 biosample_set records gold:Gb0110712 /  nmdc:bsm-11-tgaceb95 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0929_02_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110712
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-hgmdfw78
+INFO:root:Updated 1 biosample_set records gold:Gb0110683 /  nmdc:bsm-11-hgmdfw78 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_05_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110683
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-q9wgcx83
+INFO:root:Updated 1 biosample_set records gold:Gb0110685 /  nmdc:bsm-11-q9wgcx83 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_05_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110685
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-848pnr92
+INFO:root:Updated 1 biosample_set records gold:Gb0110723 /  nmdc:bsm-11-848pnr92 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_02_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110723
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-9e071d86
+INFO:root:Updated 1 biosample_set records gold:Gb0110724 /  nmdc:bsm-11-9e071d86 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_02_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110724
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-53vv0844
+INFO:root:Updated 1 biosample_set records gold:Gb0110684 /  nmdc:bsm-11-53vv0844 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_05_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110684
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-h8fvmy11
+INFO:root:Updated 1 biosample_set records gold:Gb0110699 /  nmdc:bsm-11-h8fvmy11 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0919_05_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110699
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-97ysfd94
+INFO:root:Updated 1 biosample_set records gold:Gb0110705 /  nmdc:bsm-11-97ysfd94 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0927_05_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110705
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-fvq25f95
+INFO:root:Updated 1 biosample_set records gold:Gb0110704 /  nmdc:bsm-11-fvq25f95 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0927_05_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110704
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-2fjtje68
+INFO:root:Updated 1 biosample_set records gold:Gb0110726 /  nmdc:bsm-11-2fjtje68 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_05_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110726
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-q9t77h09
+INFO:root:Updated 1 biosample_set records gold:Gb0110727 /  nmdc:bsm-11-q9t77h09 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_05_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110727
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-z89h2493
+INFO:root:Updated 1 biosample_set records gold:Gb0110686 /  nmdc:bsm-11-z89h2493 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_09_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110686
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-p352az39
+INFO:root:Updated 1 biosample_set records gold:Gb0110714 /  nmdc:bsm-11-p352az39 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0929_05_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110714
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-y139pj96
+INFO:root:Updated 1 biosample_set records gold:Gb0110687 /  nmdc:bsm-11-y139pj96 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_09_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110687
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-m7n5pw63
+INFO:root:Updated 1 biosample_set records gold:Gb0110730 /  nmdc:bsm-11-m7n5pw63 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_09_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110730
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-04qjyv47
+INFO:root:Updated 1 biosample_set records gold:Gb0110688 /  nmdc:bsm-11-04qjyv47 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_09_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110688
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-ewkt3569
+INFO:root:Updated 1 biosample_set records gold:Gb0110729 /  nmdc:bsm-11-ewkt3569 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_09_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110729
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-gty4z826
+INFO:root:Updated 1 biosample_set records gold:Gb0110691 /  nmdc:bsm-11-gty4z826 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_12_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110691
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-zdnd6345
+INFO:root:Updated 1 biosample_set records gold:Gb0110717 /  nmdc:bsm-11-zdnd6345 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0929_09_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110717
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-4x1n6x51
+INFO:root:Updated 1 biosample_set records gold:Gb0110707 /  nmdc:bsm-11-4x1n6x51 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0927_09_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110707
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-qyb8rk28
+INFO:root:Updated 1 biosample_set records gold:Gb0110700 /  nmdc:bsm-11-qyb8rk28 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0919_09_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110700
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-zh066e37
+INFO:root:Updated 1 biosample_set records gold:Gb0110728 /  nmdc:bsm-11-zh066e37 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_09_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110728
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-5xjkdn69
+INFO:root:Updated 1 biosample_set records gold:Gb0110709 /  nmdc:bsm-11-5xjkdn69 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0927_12_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110709
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-85xd8591
+INFO:root:Updated 1 biosample_set records gold:Gb0110718 /  nmdc:bsm-11-85xd8591 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0929_09_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110718
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-05082t91
+INFO:root:Updated 1 biosample_set records gold:Gb0110716 /  nmdc:bsm-11-05082t91 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0929_09_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110716
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-fhhhq785
+INFO:root:Updated 1 biosample_set records gold:Gb0110719 /  nmdc:bsm-11-fhhhq785 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0929_12_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110719
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-vgn31z43
+INFO:root:Updated 1 biosample_set records gold:Gb0110706 /  nmdc:bsm-11-vgn31z43 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0927_09_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110706
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-p63g8y35
+INFO:root:Updated 1 biosample_set records gold:Gb0110713 /  nmdc:bsm-11-p63g8y35 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0929_05_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110713
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-xamj1f55
+INFO:root:Updated 1 biosample_set records gold:Gb0110701 /  nmdc:bsm-11-xamj1f55 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0919_12_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110701
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-91fn7556
+INFO:root:Updated 1 biosample_set records gold:Gb0110715 /  nmdc:bsm-11-91fn7556 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0929_05_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110715
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-p74q7b60
+INFO:root:Updated 1 biosample_set records gold:Gb0110721 /  nmdc:bsm-11-p74q7b60 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0929_12_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110721
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-7np5cn89
+INFO:root:Updated 1 biosample_set records gold:Gb0110720 /  nmdc:bsm-11-7np5cn89 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0929_12_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110720
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-pfzbgz66
+INFO:root:Updated 1 biosample_set records gold:Gb0110689 /  nmdc:bsm-11-pfzbgz66 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_12_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110689
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-88v02977
+INFO:root:Updated 1 biosample_set records gold:Gb0110725 /  nmdc:bsm-11-88v02977 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_05_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110725
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-vh8dn920
+INFO:root:Updated 1 biosample_set records gold:Gb0110733 /  nmdc:bsm-11-vh8dn920 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_12_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110733
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-68bafb13
+INFO:root:Updated 1 biosample_set records gold:Gb0110731 /  nmdc:bsm-11-68bafb13 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_12_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110731
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-pwk88919
+INFO:root:Updated 1 biosample_set records gold:Gb0110693 /  nmdc:bsm-11-pwk88919 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_13_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110693
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-rw5syf17
+INFO:root:Updated 1 biosample_set records gold:Gb0110708 /  nmdc:bsm-11-rw5syf17 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0927_12_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110708
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-7fej8x56
+INFO:root:Updated 1 biosample_set records gold:Gb0110692 /  nmdc:bsm-11-7fej8x56 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_13_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110692
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-bse61y88
+INFO:root:Updated 1 biosample_set records gold:Gb0110690 /  nmdc:bsm-11-bse61y88 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_12_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110690
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-kn725j33
+INFO:root:Updated 1 biosample_set records gold:Gb0110732 /  nmdc:bsm-11-kn725j33 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_12_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110732
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-yy5h7074
+INFO:root:Updated 1 biosample_set records gold:Gb0110694 /  nmdc:bsm-11-yy5h7074 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_13_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110694
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-xj0gfa57
+INFO:root:Updated 1 biosample_set records gold:Gb0110735 /  nmdc:bsm-11-xj0gfa57 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_13_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110735
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-wzay4h94
+INFO:root:Updated 1 biosample_set records gold:Gb0110696 /  nmdc:bsm-11-wzay4h94 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_16_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110696
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-9f05tt87
+INFO:root:Updated 1 biosample_set records gold:Gb0110736 /  nmdc:bsm-11-9f05tt87 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_13_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110736
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-f3yqzn33
+INFO:root:Updated 1 biosample_set records gold:Gb0110737 /  nmdc:bsm-11-f3yqzn33 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_16_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110737
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-kks98r86
+INFO:root:Updated 1 biosample_set records gold:Gb0110734 /  nmdc:bsm-11-kks98r86 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_13_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110734
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-frwkqh05
+INFO:root:Updated 1 biosample_set records gold:Gb0110739 /  nmdc:bsm-11-frwkqh05 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_16_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110739
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-segc2858
+INFO:root:Updated 1 biosample_set records gold:Gb0110697 /  nmdc:bsm-11-segc2858 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_16_40cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110697
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-9c67ms41
+INFO:root:Updated 1 biosample_set records gold:Gb0110695 /  nmdc:bsm-11-9c67ms41 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_0903_16_20cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110695
+INFO:root:Added new study ID to part_of: nmdc:sty-11-zs2syx06
+INFO:root:Minted new biosample ID: nmdc:bsm-11-g5mb2s08
+INFO:root:Updated 1 biosample_set records gold:Gb0110738 /  nmdc:bsm-11-g5mb2s08 : Grasslands soil microbial communities from the Angelo Coastal Reserve, California, USA - 14_1009_16_30cm
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0110738
+INFO:root:Writing 61 updated record identifiers to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-zs2syx06_updated_record_identifiers.tsv
+INFO:root:Elapsed time: 37.62557005882263
