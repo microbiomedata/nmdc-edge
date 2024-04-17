@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const FormData = require('form-data');
+const ejs = require('ejs');
 const Project = require("../models/Project");
 const CromwellJob = require("../models/CromwellJob");
 const { workflowlist, pipelinelist } = require("../config/workflow");
@@ -33,10 +33,10 @@ module.exports = function pipelineMonitor() {
             const proj_home = path.join(config.PROJECTS.BASE_DIR, proj.code);
             const conf_file = proj_home + "/conf.json";
             let rawdata = fs.readFileSync(conf_file);
-            let conf = JSON.parse(rawdata);
+            let projConf = JSON.parse(rawdata);
 
             //check input size
-            let inputsize = await findInputsize(conf);
+            let inputsize = await findInputsize(projConf);
             if (inputsize > config.CROMWELL.JOBS_INPUT_MAX_SIZE_BYTES) {
                 logger.debug("Project " + proj.code + " input fastq size exceeded the limit.");
                 //fail project
@@ -60,7 +60,7 @@ module.exports = function pipelineMonitor() {
                 common.write2log(path.join(config.PROJECTS.BASE_DIR, proj.code, "log.txt"), "Generate WDL and inputs json");
                 logger.info("Generate WDL and inputs json");
                 //process request 
-                const pipeline = conf.pipeline;
+                const pipeline = projConf.pipeline;
                 //create output directory
                 fs.mkdirSync(proj_home + "/" + pipelinelist[pipeline]['outdir'], { recursive: true });
                 //in case cromwell needs permission to write to the output directory
@@ -76,7 +76,7 @@ module.exports = function pipelineMonitor() {
                     }
                 });
                 let promise2 = new Promise(function (resolve, reject) {
-                    generateInputs(proj_home, conf, proj).then(inputs => {
+                    generateInputs(proj_home, projConf, proj).then(inputs => {
                         if (inputs) {
                             resolve(proj);
                         } else {
@@ -111,28 +111,39 @@ module.exports = function pipelineMonitor() {
 function generateWDL(proj_home, pipeline) {
     //build wdl
     const pipelineSettings = pipelinelist[pipeline];
-    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelineSettings['wdl_tmpl']);
-    let templWDL = String(fs.readFileSync(tmpl));
-    //write to pipeline.wdl
-    fs.writeFileSync(proj_home + '/pipeline.wdl', templWDL);
-    return true;
+    const main_wdl = path.join(config.WORKFLOWS.WDL_DIR, pipelineSettings['main_wdl'] ? pipelineSettings['main_wdl'] : "notfound");
+    if (fs.existsSync(main_wdl)) {
+        // copy main wdl to <project>/pipeline.wdl
+        // fs.copyFileSync(main_wdl, proj_home + '/pipeline.wdl');
+        // add pipeline.wdl link
+        fs.symlinkSync(main_wdl, proj_home + '/pipeline.wdl', 'file');
+        return true;
+    }
+    logger.error("workflow pipeline template not found: " + main_wdl);
+    return false;
 }
 
-async function generateInputs(proj_home, conf, proj) {
-    //build pipeline_inputs.json
-    let pipelineInputs = "{\n";
+async function generateInputs(proj_home, projectConf, proj) {
+    // projectConf: <project>/conf.js
+    // pipelinelist: config/workflow.js
+    // commonConf: data/workflow/templates/common.json
+    const pipelineSettings = pipelinelist[projectConf.pipeline];
+    const commonConf = JSON.parse(fs.readFileSync(config.WORKFLOWS.COMMON));
+    const tmpl_inputs = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelineSettings['inputs_tmpl'] ? pipelineSettings['inputs_tmpl'] : "notfound");
+    if (!fs.existsSync(tmpl_inputs)) {
+        logger.error("Pipeline inputs template not found: " + tmpl_inputs);
+        return false;
+    }
+    const template = String(fs.readFileSync(tmpl_inputs));
+    const params = { ...commonConf, outdir: `${proj_home}/${pipelineSettings.outdir}` };
 
-    const pipelineSettings = pipelinelist[conf.pipeline];
-    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelineSettings['inputs_tmpl']);
-    let templInputs = String(fs.readFileSync(tmpl));
+    params.prefix = proj.name;
+    params.interleaved = projectConf.inputs.interleaved;
 
-    templInputs = templInputs.replace(/<PREFIX>/g, '"' + proj.name + '"');
-    templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + pipelineSettings['outdir'] + '"');
-    templInputs = templInputs.replace(/<INTERLEAVED>/, conf.inputs.interleaved);
-    if (conf.inputs.interleaved) {
+    if (projectConf.inputs.interleaved) {
         //inputs 
         let inputs = [];
-        let input_fastq = conf.inputs.fastqs;
+        let input_fastq = projectConf.inputs.fastqs;
         //check upload file
         for (let i = 0; i < input_fastq.length; i++) {
             let fq = input_fastq[i];
@@ -145,7 +156,7 @@ async function generateInputs(proj_home, conf, proj) {
                 const fileCode = path.basename(fq);
                 let name = await common.getRealName(fileCode);
                 const inputFq = inputDir + "/" + name;
-                if(!fs.existsSync(inputFq)) {
+                if (!fs.existsSync(inputFq)) {
                     fs.symlinkSync(fq, inputFq, 'file');
                 }
                 inputs.push(inputFq);
@@ -153,14 +164,14 @@ async function generateInputs(proj_home, conf, proj) {
                 inputs.push(fq);
             }
         }
-        templInputs = templInputs.replace(/<INPUT_FILES>/, JSON.stringify(inputs));
-        templInputs = templInputs.replace(/<INPUT_FQ1>/, '[]');
-        templInputs = templInputs.replace(/<INPUT_FQ2>/, '[]');
+        params.input_files = inputs;
+        params.input_fq1 = [];
+        params.input_fq2 = [];
     } else {
         //inputs 
         let inputs_fq1 = [];
         let inputs_fq2 = [];
-        let input_fastq = conf.inputs.fastqs;
+        let input_fastq = projectConf.inputs.fastqs;
         //check upload file
         for (let i = 0; i < input_fastq.length; i++) {
             let fq1 = input_fastq[i].fq1;
@@ -194,49 +205,46 @@ async function generateInputs(proj_home, conf, proj) {
                 inputs_fq2.push(fq2);
             }
         }
-        templInputs = templInputs.replace(/<INPUT_FQ1>/, JSON.stringify(inputs_fq1));
-        templInputs = templInputs.replace(/<INPUT_FQ2>/, JSON.stringify(inputs_fq2));
-        templInputs = templInputs.replace(/<INPUT_FILES>/, '[]');
+        params.input_files = [];
+        params.input_fq1 = inputs_fq1;
+        params.input_fq2 = inputs_fq2;
     }
 
     //workflow specific inputs
-    conf.workflows.forEach(workflow => {
+    projectConf.workflows.forEach(workflow => {
         const workflowSettings = workflowlist[workflow.name];
         if (workflow.name === 'ReadsQC') {
-            templInputs = templInputs.replace(/<DOREADSQC>/, workflow.paramsOn);
-            templInputs = templInputs.replace(/<READSQC_OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
+            params.DoReadsQC = workflow.paramsOn;
+            params.readsQC_outdir = proj_home + "/" + workflowSettings['outdir'];
         } else if (workflow.name === 'ReadbasedAnalysis') {
-            templInputs = templInputs.replace(/<DOREADBASEDANALYSIS>/, workflow.paramsOn);
-            templInputs = templInputs.replace(/<RBA_ENABLED_TOOLS>/, JSON.stringify(workflow['enabled_tools']));
-            templInputs = templInputs.replace(/<READBASEDANALYSIS_OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
+            params.DoReadbasedAnalysis = workflow.paramsOn;
+            params.readbasedAnalysis_outdir = proj_home + "/" + workflowSettings['outdir'];
         } else if (workflow.name === 'MetaAssembly') {
-            templInputs = templInputs.replace(/<DOMETAASSEMBLY>/, workflow.paramsOn);
-            templInputs = templInputs.replace(/<METAASSEMBLY_OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
+            params.DoMetaAssembly = workflow.paramsOn;
+            params.metaAssembly_outdir = proj_home + "/" + workflowSettings['outdir'];
         } else if (workflow.name === 'virus_plasmid') {
-            templInputs = templInputs.replace(/<DOVIRUSPLASMID>/, workflow.paramsOn);
-            templInputs = templInputs.replace(/<VIRUSPLASMID_OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
+            params.DoVirusPlasmid = workflow.paramsOn;
+            params.virusPlasmid_outdir = proj_home + "/" + workflowSettings['outdir'];
         } else if (workflow.name === 'MetaAnnotation') {
-            templInputs = templInputs.replace(/<DOANNOTATION>/, workflow.paramsOn);
-            templInputs = templInputs.replace(/<METAANNOTATION_OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
+            params.DoAnnotation = workflow.paramsOn;
+            params.metaAnnotation_outdir = proj_home + "/" + workflowSettings['outdir'];
         } else if (workflow.name === 'MetaMAGs') {
-            templInputs = templInputs.replace(/<DOMETAMAGS>/, workflow.paramsOn);
-            templInputs = templInputs.replace(/<METAMAGS_OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
-            if (workflow.input_map) {
-                templInputs = templInputs.replace(/<METAMAGS_MAP_FILE>/, workflow.input_map);
-            } else {
-                templInputs = templInputs.replace(/<METAMAGS_MAP_FILE>/, 'null');
-            }
-            if (workflow.input_domain) {
-                templInputs = templInputs.replace(/<METAMAGS_DOMAIN_FILE>/, workflow.input_domain);
-            } else {
-                templInputs = templInputs.replace(/<METAMAGS_DOMAIN_FILE>/, 'null');
-            }
+            params.DoMetaMAGs = workflow.paramsOn;
+            params.metaMAGs_outdir = proj_home + "/" + workflowSettings['outdir'];
+            params.input_map = workflow.input_map;
+            params.input_domain = workflow.input_domain;
         }
     });
 
-    pipelineInputs += templInputs + "\n";
-    pipelineInputs += "}\n";
-    //write to pipeline_inputs.json
-    fs.writeFileSync(proj_home + '/pipeline_inputs.json', pipelineInputs);
+    // render input template and write to pipeline_inputs.json
+    const inputs = ejs.render(template, params);
+    fs.writeFileSync(`${proj_home}/pipeline_inputs.json`, inputs);
+    // render options template and write to pipeline_options.json
+    const options_tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelineSettings['options_tmpl'] ? pipelineSettings['options_tmpl'] : 'notfound');
+    if (fs.existsSync(options_tmpl)) {
+        const optionsTemplate = String(fs.readFileSync(options_tmpl));
+        const options = ejs.render(optionsTemplate, params);
+        fs.writeFileSync(`${proj_home}/pipeline_options.json`, options);
+    }
     return true;
 }

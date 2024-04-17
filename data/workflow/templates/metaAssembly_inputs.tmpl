@@ -1,6 +1,13 @@
-    "main_workflow.<WORKFLOW>_input_file": <INPUT_FILE>,
-    "main_workflow.<WORKFLOW>_rename_contig_prefix": <PREFIX>,
-    "main_workflow.<WORKFLOW>_outdir": <OUTDIR>,
-    "main_workflow.<WORKFLOW>_input_fq1":<INPUT_FQ1>,
-    "main_workflow.<WORKFLOW>_input_fq2":<INPUT_FQ2>,
-    "main_workflow.<WORKFLOW>_input_interleaved":<INTERLEAVED>
+{
+  "jgi_metaASM.input_file": <%- JSON.stringify(input_files) %>,
+  "jgi_metaASM.outdir": "<%= outdir %>",
+  "jgi_metaASM.rename_contig_prefix": "<%= prefix %>",
+  "jgi_metaASM.uniquekmer": 1000, 
+  "jgi_metaASM.bbtools_container": "<%= bbtools_container %>",
+  "jgi_metaASM.spades_container": "<%= spades_container %>",
+  "jgi_metaASM.memory": "100g",
+  "jgi_metaASM.threads": "4",
+  "jgi_metaASM.input_interleaved": <%= interleaved %>, 
+  "jgi_metaASM.input_fq1": <%- JSON.stringify(input_fq1) %>,
+  "jgi_metaASM.input_fq2": <%- JSON.stringify(input_fq2) %>
+}

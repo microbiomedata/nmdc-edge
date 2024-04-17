@@ -1,6 +1,0 @@
-{
-    "default_runtime_attributes": {
-      "docker": "bfoster1/img-omics:0.1.9", 
-      "maxRetries": 3
-    }
-  }

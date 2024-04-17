@@ -1,7 +1,17 @@
 
-    "main_workflow.<WORKFLOW>_outdir":<OUTDIR>,
-    "main_workflow.<WORKFLOW>_proj_name":<PROJ_NAME>,
-    "main_workflow.<WORKFLOW>_contig_file":<CONTIG_FILE>,
-    "main_workflow.<WORKFLOW>_sam_file":<SAM_FILE>,
-    "main_workflow.<WORKFLOW>_gff_file":<GFF_FILE>,
-    "main_workflow.<WORKFLOW>_map_file":<MAP_FILE>
+{
+  "nmdc_mags.outdir": "<%= outdir %>",
+  "nmdc_mags.proj_name": "<%= project_name %>",
+  "nmdc_mags.contig_file": "<%= input_contig %>", 
+  "nmdc_mags.sam_file": "<%= input_sam %>",
+  "nmdc_mags.gff_file": "<%= input_gff %>",
+  "nmdc_mags.map_file": "<%= input_map %>",
+  "nmdc_mags.cpu": 16, 
+  "nmdc_mags.pplacer_cpu": 1, 
+  "nmdc_mags.gtdbtk_database": "<%= ref_data %>/GTDBTK_DB",
+  "nmdc_mags.scratch_dir": "<%= outdir %>",
+  "nmdc_mags.container": "microbiomedata/nmdc_mbin:0.1.6",
+  "nmdc_mags.resource": "SDSC - Expanse",
+  "nmdc_mags.url_root": "https://data.microbiomedata.org/data/",
+  "nmdc_mags.git_url": "https://github.com/microbiomedata/metaMAGs/releases/tag/1.0.2"
+}

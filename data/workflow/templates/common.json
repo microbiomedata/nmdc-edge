@@ -1,0 +1,5 @@
+{
+  "bbtools_container": "microbiomedata/bbtools:38.92",
+  "spades_container": "microbiomedata/spades:3.15.0",
+  "ref_data": "/expanse/projects/nmdc/refdata"
+}

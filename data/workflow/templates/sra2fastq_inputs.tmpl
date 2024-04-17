@@ -1,2 +1,5 @@
-"main_workflow.<WORKFLOW>_accessions": <ACCESSIONS>,
-"main_workflow.<WORKFLOW>_OUTDIR":<OUTDIR>
+{
+  "sra.accessions": <%- JSON.stringify(accessions) %>,
+  "sra.outdir": "<%= outdir %>",
+  "sra.clean": true
+}

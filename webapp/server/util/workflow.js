@@ -1,4 +1,5 @@
 const fs = require('fs');
+const ejs = require('ejs');
 const path = require("path");
 const ufs = require("url-file-size");
 const moment = require('moment');
@@ -10,6 +11,175 @@ const common = require("./common");
 const logger = require('./logger');
 const config = require("../config");
 
+function generateWDL(proj_home, workflow) {
+    const workflowSettings = workflowlist[workflow.name];
+    //without wdl template
+    const main_wdl = path.join(config.WORKFLOWS.WDL_DIR, workflowSettings['main_wdl'] ? workflowSettings['main_wdl'] : "notfound");
+    if (fs.existsSync(main_wdl)) {
+        // copy main wdl to <project>/pipeline.wdl
+        // fs.copyFileSync(main_wdl, proj_home + '/pipeline.wdl');
+        // add pipeline.wdl link
+        fs.symlinkSync(main_wdl, proj_home + '/pipeline.wdl', 'file');
+        return true;
+    }
+    logger.error("workflow pipeline template not found: " + main_wdl);
+    return false;
+}
+
+async function generateInputs(proj_home, projectConf, proj) {
+    // projectConf: <project>/conf.js
+    // workflowlist: config/workflow.js
+    // commonConf: data/workflow/templates/common.json
+    const workflowName = projectConf.workflow.name;
+    const workflowSettings = workflowlist[workflowName];
+    const commonConf = JSON.parse(fs.readFileSync(config.WORKFLOWS.COMMON));
+    const tmpl_inputs = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowSettings['inputs_tmpl'] ? workflowSettings['inputs_tmpl'] : "notfound");
+    if (!fs.existsSync(tmpl_inputs)) {
+        logger.error("workflow inputs template not found: " + tmpl_inputs);
+        return false;
+    }
+    const template = String(fs.readFileSync(tmpl_inputs));
+    const params = { ...commonConf, ...projectConf.workflow, outdir: `${proj_home}/${workflowSettings.outdir}` };
+
+    params.prefix = proj.name;
+    params.project_name = proj.name;
+    if (workflowName === 'sra2fastq') {
+        //use shared directory
+        params.outdir = config.IO.SRA_BASE_DIR;
+        //accessions string to arrray
+        const accessions = projectConf.workflow['accessions'].toUpperCase().split(/\s*(?:,|$)\s*/);
+        //filter out accessions already exist in sra data home
+        const accessions4workflow = accessions.filter(
+            accession => !fs.existsSync(config.IO.SRA_BASE_DIR + "/" + accession)
+        );
+        params.accessions = accessions4workflow;
+    } else if (workflowName === 'ReadsQC' || workflowName === 'MetaAssembly' || workflowName === 'Metatranscriptome') {
+        let interleaved = projectConf.workflow['input_fastq']['interleaved'];
+        let input_fastq = projectConf.workflow['input_fastq']['fastqs'];
+        params.interleaved = interleaved;
+        if (interleaved) {
+            //inputs 
+            let inputs_fq = [];
+            //check upload file
+            for (let i = 0; i < input_fastq.length; i++) {
+                let fq = input_fastq[i];
+                if (fq.startsWith(config.IO.UPLOADED_FILES_DIR)) {
+                    //create input dir and link uploaded file with realname
+                    const inputDir = proj_home + "/input";
+                    if (!fs.existsSync(inputDir)) {
+                        fs.mkdirSync(inputDir);
+                    }
+                    const fileCode = path.basename(fq);
+                    let name = await common.getRealName(fileCode);
+                    let linkFq = inputDir + "/" + name;
+                    let i = 1;
+                    while (fs.existsSync(linkFq)) {
+                        i++;
+                        if (name.includes(".")) {
+                            let newName = name.replace(".", i + ".");
+                            linkFq = inputDir + "/" + newName;
+                        } else {
+                            linkFq = inputDir + "/" + name + i;
+                        }
+                    }
+                    fs.symlinkSync(fq, linkFq, 'file');
+                    inputs_fq.push(linkFq);
+                } else {
+                    inputs_fq.push(fq);
+                }
+            }
+
+            if (workflowName === 'Metatranscriptome') {
+                params.input_file = inputs_fq[0];
+                params.input_fq1 = "";
+                params.input_fq2 = "";
+            } else {
+                params.input_files = inputs_fq;
+                params.input_fq1 = [];
+                params.input_fq2 = [];
+            }
+        } else {
+            //inputs 
+            let inputs_fq1 = [];
+            let inputs_fq2 = [];
+            //check upload file
+            for (let i = 0; i < input_fastq.length; i++) {
+                let fq1 = input_fastq[i].fq1;
+                if (fq1.startsWith(config.IO.UPLOADED_FILES_DIR)) {
+                    //create input dir and link uploaded file with realname
+                    const inputDir = proj_home + "/input";
+                    if (!fs.existsSync(inputDir)) {
+                        fs.mkdirSync(inputDir);
+                    }
+                    const fileCode = path.basename(fq1);
+                    let name = await common.getRealName(fileCode);
+                    let linkFq = inputDir + "/" + name;
+                    let i = 1;
+                    while (fs.existsSync(linkFq)) {
+                        i++;
+                        if (name.includes(".")) {
+                            let newName = name.replace(".", i + ".");
+                            linkFq = inputDir + "/" + newName;
+                        } else {
+                            linkFq = inputDir + "/" + name + i;
+                        }
+                    }
+                    fs.symlinkSync(fq1, linkFq, 'file');
+                    inputs_fq1.push(linkFq);
+                } else {
+                    inputs_fq1.push(fq1);
+                }
+                let fq2 = input_fastq[i].fq2;
+                if (fq2.startsWith(config.IO.UPLOADED_FILES_DIR)) {
+                    //create input dir and link uploaded file with realname
+                    const inputDir = proj_home + "/input";
+                    if (!fs.existsSync(inputDir)) {
+                        fs.mkdirSync(inputDir);
+                    }
+                    const fileCode = path.basename(fq2);
+                    let name = await common.getRealName(fileCode);
+                    let linkFq = inputDir + "/" + name;
+                    let i = 1;
+                    while (fs.existsSync(linkFq)) {
+                        i++;
+                        if (name.includes(".")) {
+                            let newName = name.replace(".", i + ".");
+                            linkFq = inputDir + "/" + newName;
+                        } else {
+                            linkFq = inputDir + "/" + name + i;
+                        }
+                    }
+                    fs.symlinkSync(fq2, linkFq, 'file');
+                    inputs_fq2.push(linkFq);
+                } else {
+                    inputs_fq2.push(fq2);
+                }
+            }
+            if (workflowName === 'Metatranscriptome') {
+                params.input_file = "";
+                params.input_fq1 = inputs_fq1[0];
+                params.input_fq2 = inputs_fq2[0];
+            } else {
+                params.input_files = [];
+                params.input_fq1 = inputs_fq1;
+                params.input_fq2 = inputs_fq2;
+            }
+        }
+    }
+
+    // render input template and write to pipeline_inputs.json
+    const inputs = ejs.render(template, params);
+    fs.writeFileSync(`${proj_home}/pipeline_inputs.json`, inputs);
+    // render options template and write to pipeline_options.json
+    const options_tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowlist[workflowName]['options_tmpl'] ? workflowlist[workflowName]['options_tmpl'] : 'notfound');
+    if (fs.existsSync(options_tmpl)) {
+        const optionsTemplate = String(fs.readFileSync(options_tmpl));
+        const options = ejs.render(optionsTemplate, params);
+        fs.writeFileSync(`${proj_home}/pipeline_options.json`, options);
+    }
+    return true;
+}
+
 //submit workflow to cromwell through api
 function submitWorkflow(proj, workflow, inputsize) {
     const proj_home = path.join(config.PROJECTS.BASE_DIR, proj.code);
@@ -17,32 +187,30 @@ function submitWorkflow(proj, workflow, inputsize) {
     formData.append("workflowSource", fs.createReadStream(proj_home + '/pipeline.wdl'));
     logger.debug("workflowSource: " + proj_home + '/pipeline.wdl');
     formData.append("workflowInputs", fs.createReadStream(proj_home + '/pipeline_inputs.json'));
-    logger.debug("workflowInputs" + proj_home + '/pipeline_inputs.json');
+    logger.debug("workflowInputs: " + proj_home + '/pipeline_inputs.json');
 
     //imports.wdl
     let imports = path.join(config.WORKFLOWS.WDL_DIR, "imports.zip");
     let wdlVersion = config.CROMWELL.WORKFLOW_TYPE_VERSION;
     //options_json
     if (workflow) {
-        let options_json = null;
+        let options_json = proj_home + '/pipeline_options.json';
         if (workflow.name) {
-            options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowlist[workflow.name]['options_json'] ? workflowlist[workflow.name]['options_json'] : 'notfound');
             imports = path.join(config.WORKFLOWS.WDL_DIR, workflowlist[workflow.name]['wdl_imports']);
             wdlVersion = workflowlist[workflow.name]['wdl_version'];
         } else {
-            options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelinelist[workflow]['options_json'] ? pipelinelist[workflow]['options_json'] : 'notfound');
             imports = path.join(config.WORKFLOWS.WDL_DIR, pipelinelist[workflow]['wdl_imports']);
             wdlVersion = pipelinelist[workflow]['wdl_version'];
         }
         if (fs.existsSync(options_json)) {
             formData.append("workflowOptions", fs.createReadStream(options_json));
-            logger.debug("workflowOptions:" + options_json);
+            logger.debug("workflowOptions: " + options_json);
         }
     }
 
     formData.append("workflowType", config.CROMWELL.WORKFLOW_TYPE);
     if (wdlVersion) {
-        logger.debug("wdlVersion:" + wdlVersion)
+        logger.debug("wdlVersion: " + wdlVersion)
         formData.append("workflowTypeVersion", wdlVersion);
     }
     formData.append("workflowDependencies", fs.createReadStream(imports), { contentType: 'application/zip' });
@@ -533,4 +701,4 @@ async function fileStats(file) {
     }
 }
 
-module.exports = { submitWorkflow, generateWorkflowResult, generatePipelineResult, generateRunStats, findInputsize };
+module.exports = { generateWDL, generateInputs, submitWorkflow, generateWorkflowResult, generatePipelineResult, generateRunStats, findInputsize };

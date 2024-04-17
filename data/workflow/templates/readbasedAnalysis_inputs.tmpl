@@ -1,5 +1,8 @@
-    "main_workflow.<WORKFLOW>_enabled_tools": <ENABLED_TOOLS>,
-    "main_workflow.<WORKFLOW>_reads": <READS>,
-    "main_workflow.<WORKFLOW>_paired": <PAIRED>,
-    "main_workflow.<WORKFLOW>_prefix": <PREFIX>,
-    "main_workflow.<WORKFLOW>_outdir": <OUTDIR>
+{
+  "ReadbasedAnalysis.enabled_tools": <%- JSON.stringify(enabled_tools) %>,
+  "ReadbasedAnalysis.reads": <%- JSON.stringify(reads) %>,
+  "ReadbasedAnalysis.cpu": 4, 
+  "ReadbasedAnalysis.prefix": "<%= prefix %>",
+  "ReadbasedAnalysis.outdir": "<%= outdir %>", 
+  "ReadbasedAnalysis.paired": <%= paired %>
+}

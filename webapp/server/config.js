@@ -184,6 +184,8 @@ const config = {
         WDL_DIR: process.env.WORKFLOWS_WDL_DIR || path.join(DATA_BASE_DIR, "workflow/WDL"),
         // Directory of the workflow templates. The Workflow templates are used for creating cromwell inputs.
         TEMPLATE_DIR: process.env.WORKFLOWS_TEMPLATE_DIR || path.join(DATA_BASE_DIR, "workflow/templates"),
+        // the workflow common dbs and dockers 
+        COMMON: process.env.WORKFLOWS_COMMON || path.join(DATA_BASE_DIR, "workflow/templates/common.json"),
     },
 };
 
