@@ -456,6 +456,7 @@ task finish {
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%.fastq*}
+				mkdir -p ${outdir}/$prefix
                 cp $dir/*_filterStats.txt ${qadir}/$prefix/filterStats.txt
 				cp $dir/*_filterStats2.txt ${qadir}/$prefix/filterStats2.txt
 				cp $dir/*_filterStats.json ${qadir}/$prefix/filterStats.json
