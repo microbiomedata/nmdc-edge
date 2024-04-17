@@ -1,7 +1,7 @@
 workflow annotation_output {
     String  imgap_project_type="metagenome"
     String  container="bfoster1/img-omics:0.1.9"
-    String  vis_container="microbiomedata/annotation_vis:0.1"
+    String  vis_container="microbiomedata/annotation_vis:0.1.0"
     String  opaver_web_path
     String? outdir
     File final_stats_tsv
@@ -38,7 +38,7 @@ task annotation_vis{
         opaver_anno.pl -g ${gff}  -o ${OUTPATH}/kegg_map
         ## make symlink to omics-pathway-viewer/data location
         projectID=`basename ${PROJPATH}`
-        ln -s ${OUTPATH}/kegg_map ${opaver_web_path} $projectID
+        ln -s ${OUTPATH}/kegg_map ${opaver_web_path}/$projectID
 
         plot_protein_len.py --input ${gff} --output ${OUTPATH}/${projectName}.protein_size_histogram.html
     >>>
