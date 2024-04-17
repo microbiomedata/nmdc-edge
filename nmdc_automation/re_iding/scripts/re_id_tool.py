@@ -592,8 +592,26 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri,
 
 @cli.command()
 @click.argument("old_records_file", type=click.Path(exists=True))
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
+@click.option(
+    "--is-direct-connection",
+    type=bool,
+    required=False,
+    default=True,
+    show_default=True,
+    help=f"Whether you want the script to set the `directConnection` flag when connecting to the MongoDB server. "
+         f"That is required by some MongoDB servers that belong to a replica set. ",
+)
+@click.option(
+    "--database-name",
+    type=str,
+    required=False,
+    default="nmdc",
+    show_default=True,
+    help=f"MongoDB database name",
+)
 @click.pass_context
-def delete_old_records(ctx, old_records_file):
+def delete_old_records(ctx, old_records_file, mongo_uri, is_direct_connection=True, database_name="nmdc"):
     """
     Read in json dump of old records and:
     delete them using
@@ -607,10 +625,11 @@ def delete_old_records(ctx, old_records_file):
     old_base_name = old_records_filename.split("_")[0]
     deleted_record_identifiers = []
 
-    # Get API client(s)
-    config = ctx.obj["site_config"]
-    api_user_client = NmdcRuntimeUserApi(config)
-    logging.info(f"Using: {api_user_client.base_url}")
+    # Get PyMongo client
+    client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
+    with pymongo.timeout(5):
+        assert (database_name in client.list_database_names()), f"Database {database_name} not found"
+    db = client[database_name]
 
     # get old db records
     with open(old_records_file, "r") as f:
@@ -630,28 +649,26 @@ def delete_old_records(ctx, old_records_file):
                     deleted_record_identifiers.append((set_name, item.get("type", ""), item["id"]))
                     if set_name in ["metagenome_annotation_activity_set", "metatranscriptome_activity_set"]:
                         annotation_ids.add(item["id"])
-                delete_query = {
-                    "delete": set_name,
-                    "deletes": [{"q": {"id": {"$in": delete_ids}}, "limit": 0}],
-                }
-                try:
-                    logging.info(f"Deleting {set_name} records: {delete_ids}")
-                    run_query_response = api_user_client.run_query(delete_query)
-                    logging.info(f"Deleting query posted with response: {run_query_response}")
-                except requests.exceptions.RequestException as e:
-                    logging.error(f"An error occured while running: {delete_query}, response retutrned: {e}")
+
+            # Construct filter query
+            filter_query = {"id": {"$in": delete_ids}}
+            logging.info(f"Deleting {len(delete_ids)} records from {set_name}")
+            # Delete the records
+            try:
+                delete_result = db[set_name].delete_many(filter_query)
+                logging.info(f"Deleted {delete_result.deleted_count} records from {set_name}")
+            except Exception as e:
+                logging.exception(f"An error occurred while deleting {set_name} records: {e}")
 
     # delete functional annotation agg records
-    delete_annotation_query = {
-        "delete": "functional_annotation_agg",
-        "deletes": [{"q": {"metagenome_annotation_id": {"$in": annotation_ids}}, "limit": 0}],
-    }
-    try:
-        logging.info(f"Deleting functional annotation agg records: {annotation_ids}")
-        run_query_response = api_user_client.run_query(delete_annotation_query)
-        logging.info(f"Deleting query posted with response: {run_query_response}")
-    except requests.exceptions.RequestException as e:
-        logging.error(f"An error occurred while running: {delete_annotation_query}, response returned: {e}")
+    if annotation_ids:
+        logging.info(f"Deleting {len(annotation_ids)} functional annotation records")
+        filter_query = {"id": {"$in": list(annotation_ids)}}
+        try:
+            delete_result = db["functional_annotation_activity_set"].delete_many(filter_query)
+            logging.info(f"Deleted {delete_result.deleted_count} functional annotation records")
+        except Exception as e:
+            logging.exception(f"An error occurred while deleting functional annotation records: {e}")
 
     # write the deleted records to a tsv file
     deleted_record_identifiers_file = DATA_DIR.joinpath(f"{old_base_name}_deleted_record_identifiers.tsv")
