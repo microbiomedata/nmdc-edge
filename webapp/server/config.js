@@ -135,6 +135,8 @@ const config = {
         SHARED_SECRET: process.env.EMAIL_SHARED_SECRET,
         SERVICE_USERNAME: process.env.EMAIL_SERVICE_USERNAME,
         SERVICE_PASSWORD: process.env.EMAIL_SERVICE_PASSWORD,
+        MAILGUN_DOMAIN: process.env.EMAIL_MAILGUN_DOMAIN,
+        MAILGUN_API_KEY: process.env.EMAIL_MAILGUN_API_KEY,
         PROJECT_STATUS_EMAIL_TEMPLATE_PATH: process.env.PROJECT_STATUS_EMAIL_TEMPLATE_PATH || path.join(DATA_BASE_DIR, "project/status.tmpl"),
     },
     FILE_UPLOADS: {
