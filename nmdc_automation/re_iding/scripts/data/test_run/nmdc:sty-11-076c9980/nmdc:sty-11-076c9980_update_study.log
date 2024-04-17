@@ -1,0 +1,1051 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:34: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Updating NMDC study with legacy ID: gold:Gs0128850
+INFO:root:Updating NMDC study with ID: nmdc:sty-11-076c9980
+INFO:root:Updating gold:Gs0128850 /  nmdc:sty-11-076c9980: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico
+INFO:root:Added legacy study ID to gold_sequencing_project_identifiers: gold:Gs0128850
+INFO:root:Updating database with new study record
+INFO:root:Updated 1 study_set records
+INFO:root:Updating 105 Biosample records
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0150422
+INFO:root:Minted new biosample ID: nmdc:bsm-11-fge7rf83
+INFO:root:Updated 1 biosample_set records gold:Gb0150422 /  nmdc:bsm-11-fge7rf83 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - timezero.00C.oxic.00.000.000
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0150422
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-fge7rf83
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208574
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-b31t7c94
+INFO:root:Updated 1 omics_processing_set record gold:Gp0208574 /  nmdc:omprc-11-b31t7c94: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - timezero.00C.oxic.00.000.000
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0150423
+INFO:root:Minted new biosample ID: nmdc:bsm-11-kqnye936
+INFO:root:Updated 1 biosample_set records gold:Gb0150423 /  nmdc:bsm-11-kqnye936 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - timezero.00C.oxic.00.000.00H
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0150423
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-kqnye936
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208575
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-ede9t921
+INFO:root:Updated 1 omics_processing_set record gold:Gp0208575 /  nmdc:omprc-11-ede9t921: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - timezero.00C.oxic.00.000.00H
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0150424
+INFO:root:Minted new biosample ID: nmdc:bsm-11-kgdkq966
+INFO:root:Updated 1 biosample_set records gold:Gb0150424 /  nmdc:bsm-11-kgdkq966 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - flux4day.12C.oxic.44.000.172
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0150424
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-kgdkq966
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208576
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-2ga07f33
+INFO:root:Updated 1 omics_processing_set record gold:Gp0208576 /  nmdc:omprc-11-2ga07f33: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - flux4day.12C.oxic.44.000.172
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0150428
+INFO:root:Minted new biosample ID: nmdc:bsm-11-ht2e1m35
+INFO:root:Updated 1 biosample_set records gold:Gb0150428 /  nmdc:bsm-11-ht2e1m35 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - statanox.12C.anox.44.000.108
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0150428
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-ht2e1m35
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208580
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-8k9y5w07
+INFO:root:Updated 1 omics_processing_set record gold:Gp0208580 /  nmdc:omprc-11-8k9y5w07: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - statanox.12C.anox.44.000.108
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0150427
+INFO:root:Minted new biosample ID: nmdc:bsm-11-nztyd297
+INFO:root:Updated 1 biosample_set records gold:Gb0150427 /  nmdc:bsm-11-nztyd297 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - statoxic.12C.oxic.44.000.082
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0150427
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-nztyd297
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208579
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-rfy1ny03
+INFO:root:Updated 1 omics_processing_set record gold:Gp0208579 /  nmdc:omprc-11-rfy1ny03: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - statoxic.12C.oxic.44.000.082
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0150429
+INFO:root:Minted new biosample ID: nmdc:bsm-11-gve6vk44
+INFO:root:Updated 1 biosample_set records gold:Gb0150429 /  nmdc:bsm-11-gve6vk44 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - statanox.12C.anox.44.000.111
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0150429
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-gve6vk44
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208581
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-ya38bk82
+INFO:root:Updated 1 omics_processing_set record gold:Gp0208581 /  nmdc:omprc-11-ya38bk82: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - statanox.12C.anox.44.000.111
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0150430
+INFO:root:Minted new biosample ID: nmdc:bsm-11-xyxxv604
+INFO:root:Updated 1 biosample_set records gold:Gb0150430 /  nmdc:bsm-11-xyxxv604 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - flux8day.12C.oxic.44.000.176
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0150430
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-xyxxv604
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208582
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-jctxdp38
+INFO:root:Updated 1 omics_processing_set record gold:Gp0208582 /  nmdc:omprc-11-jctxdp38: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - flux8day.12C.oxic.44.000.176
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0150426
+INFO:root:Minted new biosample ID: nmdc:bsm-11-1t1bkb28
+INFO:root:Updated 1 biosample_set records gold:Gb0150426 /  nmdc:bsm-11-1t1bkb28 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - statoxic.12C.oxic.44.000.080
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0150426
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-1t1bkb28
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208578
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-k3ep7h22
+INFO:root:Updated 1 omics_processing_set record gold:Gp0208578 /  nmdc:omprc-11-k3ep7h22: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - statoxic.12C.oxic.44.000.080
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0150425
+INFO:root:Minted new biosample ID: nmdc:bsm-11-2ft59637
+INFO:root:Updated 1 biosample_set records gold:Gb0150425 /  nmdc:bsm-11-2ft59637 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - flux4day.12C.oxic.44.000.170
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0150425
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0150431
+INFO:root:Minted new biosample ID: nmdc:bsm-11-9y41wv98
+INFO:root:Updated 1 biosample_set records gold:Gb0150431 /  nmdc:bsm-11-9y41wv98 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - flux8day.12C.oxic.44.000.178
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0150431
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-9y41wv98
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208583
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-0s1hb160
+INFO:root:Updated 1 omics_processing_set record gold:Gp0208583 /  nmdc:omprc-11-0s1hb160: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - flux8day.12C.oxic.44.000.178
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0192455
+INFO:root:Minted new biosample ID: nmdc:bsm-11-pqc2m354
+INFO:root:Updated 1 biosample_set records gold:Gb0192455 /  nmdc:bsm-11-pqc2m354 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.HF172
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0192455
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-pqc2m354
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0325955
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-nq8yvv81
+INFO:root:Updated 1 omics_processing_set record gold:Gp0325955 /  nmdc:omprc-11-nq8yvv81: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.HF172
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0192454
+INFO:root:Minted new biosample ID: nmdc:bsm-11-esz6ms88
+INFO:root:Updated 1 biosample_set records gold:Gb0192454 /  nmdc:bsm-11-esz6ms88 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.T000H
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0192454
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-esz6ms88
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0325954
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-qta8m390
+INFO:root:Updated 1 omics_processing_set record gold:Gp0325954 /  nmdc:omprc-11-qta8m390: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.T000H
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0192458
+INFO:root:Minted new biosample ID: nmdc:bsm-11-t8xrck71
+INFO:root:Updated 1 biosample_set records gold:Gb0192458 /  nmdc:bsm-11-t8xrck71 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.OX082
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0192458
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-t8xrck71
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0325958
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-qcszrj04
+INFO:root:Updated 1 omics_processing_set record gold:Gp0325958 /  nmdc:omprc-11-qcszrj04: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.OX082
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0192459
+INFO:root:Minted new biosample ID: nmdc:bsm-11-vk71rz65
+INFO:root:Updated 1 biosample_set records gold:Gb0192459 /  nmdc:bsm-11-vk71rz65 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.AN108
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0192459
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-vk71rz65
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0325959
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-53rvs707
+INFO:root:Updated 1 omics_processing_set record gold:Gp0325959 /  nmdc:omprc-11-53rvs707: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.AN108
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0192456
+INFO:root:Minted new biosample ID: nmdc:bsm-11-k7gsmn58
+INFO:root:Updated 1 biosample_set records gold:Gb0192456 /  nmdc:bsm-11-k7gsmn58 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.HF170
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0192456
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-k7gsmn58
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0325956
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-cj99dj94
+INFO:root:Updated 1 omics_processing_set record gold:Gp0325956 /  nmdc:omprc-11-cj99dj94: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.HF170
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0192460
+INFO:root:Minted new biosample ID: nmdc:bsm-11-0m7h7j31
+INFO:root:Updated 1 biosample_set records gold:Gb0192460 /  nmdc:bsm-11-0m7h7j31 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.AN111
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0192460
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-0m7h7j31
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0325960
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-pgq1cr89
+INFO:root:Updated 1 omics_processing_set record gold:Gp0325960 /  nmdc:omprc-11-pgq1cr89: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.AN111
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0192461
+INFO:root:Minted new biosample ID: nmdc:bsm-11-6h659806
+INFO:root:Updated 1 biosample_set records gold:Gb0192461 /  nmdc:bsm-11-6h659806 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.LF176
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0192461
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-6h659806
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0325961
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-340ggj33
+INFO:root:Updated 1 omics_processing_set record gold:Gp0325961 /  nmdc:omprc-11-340ggj33: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.LF176
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195838
+INFO:root:Minted new biosample ID: nmdc:bsm-11-hyasjy55
+INFO:root:Updated 1 biosample_set records gold:Gb0195838 /  nmdc:bsm-11-hyasjy55 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.108b1f24
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195838
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-hyasjy55
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344817
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-neafpa14
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344817 /  nmdc:omprc-11-neafpa14: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.108b1f24
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195836
+INFO:root:Minted new biosample ID: nmdc:bsm-11-1smfpb39
+INFO:root:Updated 1 biosample_set records gold:Gb0195836 /  nmdc:bsm-11-1smfpb39 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.108b1f22
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195836
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-1smfpb39
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344815
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-q67mcq22
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344815 /  nmdc:omprc-11-q67mcq22: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.108b1f22
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195839
+INFO:root:Minted new biosample ID: nmdc:bsm-11-930cmr42
+INFO:root:Updated 1 biosample_set records gold:Gb0195839 /  nmdc:bsm-11-930cmr42 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.108b1f25
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195839
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-930cmr42
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344818
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-ym565n31
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344818 /  nmdc:omprc-11-ym565n31: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.108b1f25
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195837
+INFO:root:Minted new biosample ID: nmdc:bsm-11-qnzma048
+INFO:root:Updated 1 biosample_set records gold:Gb0195837 /  nmdc:bsm-11-qnzma048 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.108b1f23
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195837
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-qnzma048
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344816
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-aybxp968
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344816 /  nmdc:omprc-11-aybxp968: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.108b1f23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195841
+INFO:root:Minted new biosample ID: nmdc:bsm-11-ega4v589
+INFO:root:Updated 1 biosample_set records gold:Gb0195841 /  nmdc:bsm-11-ega4v589 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.109b1f23
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195841
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-ega4v589
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344820
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-7b4dwa87
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344820 /  nmdc:omprc-11-7b4dwa87: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.109b1f23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195840
+INFO:root:Minted new biosample ID: nmdc:bsm-11-937x5y58
+INFO:root:Updated 1 biosample_set records gold:Gb0195840 /  nmdc:bsm-11-937x5y58 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.109b1f22
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195840
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-937x5y58
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344819
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-36thyp77
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344819 /  nmdc:omprc-11-36thyp77: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.109b1f22
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195842
+INFO:root:Minted new biosample ID: nmdc:bsm-11-zcxtx555
+INFO:root:Updated 1 biosample_set records gold:Gb0195842 /  nmdc:bsm-11-zcxtx555 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.109b1f24
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195842
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-zcxtx555
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344821
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-e5tx7d64
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344821 /  nmdc:omprc-11-e5tx7d64: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.109b1f24
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195843
+INFO:root:Minted new biosample ID: nmdc:bsm-11-gcybrw47
+INFO:root:Updated 1 biosample_set records gold:Gb0195843 /  nmdc:bsm-11-gcybrw47 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.109b1f25
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195843
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-gcybrw47
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344822
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-6sb2re33
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344822 /  nmdc:omprc-11-6sb2re33: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.109b1f25
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0192462
+INFO:root:Minted new biosample ID: nmdc:bsm-11-qfdxjf17
+INFO:root:Updated 1 biosample_set records gold:Gb0192462 /  nmdc:bsm-11-qfdxjf17 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.LF178
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0192462
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-qfdxjf17
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0325962
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-y0mkbs59
+INFO:root:Updated 1 omics_processing_set record gold:Gp0325962 /  nmdc:omprc-11-y0mkbs59: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.LF178
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195848
+INFO:root:Minted new biosample ID: nmdc:bsm-11-6t8tnn15
+INFO:root:Updated 1 biosample_set records gold:Gb0195848 /  nmdc:bsm-11-6t8tnn15 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.084b2f17
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195848
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-6t8tnn15
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344827
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-mwxr7w31
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344827 /  nmdc:omprc-11-mwxr7w31: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.084b2f17
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0192457
+INFO:root:Minted new biosample ID: nmdc:bsm-11-wtzh4856
+INFO:root:Updated 1 biosample_set records gold:Gb0192457 /  nmdc:bsm-11-wtzh4856 : Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.OX080
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0192457
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-wtzh4856
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0325957
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-8k834r70
+INFO:root:Updated 1 omics_processing_set record gold:Gp0325957 /  nmdc:omprc-11-8k834r70: Lab enrichment of tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.bulkMG.OX080
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195844
+INFO:root:Minted new biosample ID: nmdc:bsm-11-wgedj004
+INFO:root:Updated 1 biosample_set records gold:Gb0195844 /  nmdc:bsm-11-wgedj004 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.174b1f20
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195844
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-wgedj004
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344823
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-z3yva202
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344823 /  nmdc:omprc-11-z3yva202: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.174b1f20
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195850
+INFO:root:Minted new biosample ID: nmdc:bsm-11-c2xnzy82
+INFO:root:Updated 1 biosample_set records gold:Gb0195850 /  nmdc:bsm-11-c2xnzy82 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.084b2f19
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195850
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-c2xnzy82
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344829
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-3z6p8497
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344829 /  nmdc:omprc-11-3z6p8497: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.084b2f19
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195845
+INFO:root:Minted new biosample ID: nmdc:bsm-11-mx0cs396
+INFO:root:Updated 1 biosample_set records gold:Gb0195845 /  nmdc:bsm-11-mx0cs396 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.174b1f21
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195845
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-mx0cs396
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344824
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-2hffb232
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344824 /  nmdc:omprc-11-2hffb232: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.174b1f21
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195846
+INFO:root:Minted new biosample ID: nmdc:bsm-11-xfspcd89
+INFO:root:Updated 1 biosample_set records gold:Gb0195846 /  nmdc:bsm-11-xfspcd89 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.174b1f22
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195846
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-xfspcd89
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344825
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-v2swtx81
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344825 /  nmdc:omprc-11-v2swtx81: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.174b1f22
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195852
+INFO:root:Minted new biosample ID: nmdc:bsm-11-pkqamp46
+INFO:root:Updated 1 biosample_set records gold:Gb0195852 /  nmdc:bsm-11-pkqamp46 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.084b2f21
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195852
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-pkqamp46
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344831
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-19bq5307
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344831 /  nmdc:omprc-11-19bq5307: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.084b2f21
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195847
+INFO:root:Minted new biosample ID: nmdc:bsm-11-mrz1hd15
+INFO:root:Updated 1 biosample_set records gold:Gb0195847 /  nmdc:bsm-11-mrz1hd15 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.174b1f23
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195847
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-mrz1hd15
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344826
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-gk10eg66
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344826 /  nmdc:omprc-11-gk10eg66: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.174b1f23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195851
+INFO:root:Minted new biosample ID: nmdc:bsm-11-tygs1021
+INFO:root:Updated 1 biosample_set records gold:Gb0195851 /  nmdc:bsm-11-tygs1021 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.084b2f20
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195851
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-tygs1021
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344830
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-gpaq7g63
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344830 /  nmdc:omprc-11-gpaq7g63: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.084b2f20
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195854
+INFO:root:Minted new biosample ID: nmdc:bsm-11-8rwa4m35
+INFO:root:Updated 1 biosample_set records gold:Gb0195854 /  nmdc:bsm-11-8rwa4m35 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.171b2f17
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195854
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-8rwa4m35
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344833
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-699jrn25
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344833 /  nmdc:omprc-11-699jrn25: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.171b2f17
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195853
+INFO:root:Minted new biosample ID: nmdc:bsm-11-gwxa7419
+INFO:root:Updated 1 biosample_set records gold:Gb0195853 /  nmdc:bsm-11-gwxa7419 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.084b2f22
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195853
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-gwxa7419
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344832
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-h6kgeq23
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344832 /  nmdc:omprc-11-h6kgeq23: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.084b2f22
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195849
+INFO:root:Minted new biosample ID: nmdc:bsm-11-e6tpnr94
+INFO:root:Updated 1 biosample_set records gold:Gb0195849 /  nmdc:bsm-11-e6tpnr94 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.084b2f18
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195849
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-e6tpnr94
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344828
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-ag01ac70
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344828 /  nmdc:omprc-11-ag01ac70: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.084b2f18
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195855
+INFO:root:Minted new biosample ID: nmdc:bsm-11-v4xkfn83
+INFO:root:Updated 1 biosample_set records gold:Gb0195855 /  nmdc:bsm-11-v4xkfn83 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.171b2f18
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195855
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-v4xkfn83
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344834
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-1emejm77
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344834 /  nmdc:omprc-11-1emejm77: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.171b2f18
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195857
+INFO:root:Minted new biosample ID: nmdc:bsm-11-5e3edp45
+INFO:root:Updated 1 biosample_set records gold:Gb0195857 /  nmdc:bsm-11-5e3edp45 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.171b2f20
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195857
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-5e3edp45
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344836
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-t4grz487
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344836 /  nmdc:omprc-11-t4grz487: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.171b2f20
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195856
+INFO:root:Minted new biosample ID: nmdc:bsm-11-nddksx74
+INFO:root:Updated 1 biosample_set records gold:Gb0195856 /  nmdc:bsm-11-nddksx74 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.171b2f19
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195856
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-nddksx74
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344835
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-cz309947
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344835 /  nmdc:omprc-11-cz309947: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.171b2f19
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195858
+INFO:root:Minted new biosample ID: nmdc:bsm-11-trfd5180
+INFO:root:Updated 1 biosample_set records gold:Gb0195858 /  nmdc:bsm-11-trfd5180 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.176b2f18
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195858
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-trfd5180
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344837
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-w92d8e12
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344837 /  nmdc:omprc-11-w92d8e12: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.176b2f18
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195859
+INFO:root:Minted new biosample ID: nmdc:bsm-11-gp4g6y54
+INFO:root:Updated 1 biosample_set records gold:Gb0195859 /  nmdc:bsm-11-gp4g6y54 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.176b2f19
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195859
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-gp4g6y54
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344838
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-b7zrf555
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344838 /  nmdc:omprc-11-b7zrf555: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.176b2f19
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195863
+INFO:root:Minted new biosample ID: nmdc:bsm-11-ac5tez92
+INFO:root:Updated 1 biosample_set records gold:Gb0195863 /  nmdc:bsm-11-ac5tez92 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.178b2f15
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195863
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-ac5tez92
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344842
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-vhhbbn08
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344842 /  nmdc:omprc-11-vhhbbn08: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.178b2f15
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195864
+INFO:root:Minted new biosample ID: nmdc:bsm-11-qn9ydb23
+INFO:root:Updated 1 biosample_set records gold:Gb0195864 /  nmdc:bsm-11-qn9ydb23 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.178b2f16
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195864
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-qn9ydb23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344843
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-mm0feq89
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344843 /  nmdc:omprc-11-mm0feq89: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.178b2f16
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195860
+INFO:root:Minted new biosample ID: nmdc:bsm-11-4kpjk496
+INFO:root:Updated 1 biosample_set records gold:Gb0195860 /  nmdc:bsm-11-4kpjk496 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.176b2f20
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195860
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-4kpjk496
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344839
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-zx97y890
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344839 /  nmdc:omprc-11-zx97y890: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.176b2f20
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195861
+INFO:root:Minted new biosample ID: nmdc:bsm-11-fmaqsn96
+INFO:root:Updated 1 biosample_set records gold:Gb0195861 /  nmdc:bsm-11-fmaqsn96 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.176b2f21
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195861
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-fmaqsn96
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344840
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-m9h2vr23
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344840 /  nmdc:omprc-11-m9h2vr23: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.176b2f21
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195862
+INFO:root:Minted new biosample ID: nmdc:bsm-11-wsr3f641
+INFO:root:Updated 1 biosample_set records gold:Gb0195862 /  nmdc:bsm-11-wsr3f641 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.176b2f22
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195862
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-wsr3f641
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344841
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-j1y4pa85
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344841 /  nmdc:omprc-11-j1y4pa85: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.176b2f22
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195865
+INFO:root:Minted new biosample ID: nmdc:bsm-11-25pyy840
+INFO:root:Updated 1 biosample_set records gold:Gb0195865 /  nmdc:bsm-11-25pyy840 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.178b2f17
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195865
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-25pyy840
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344844
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-nb610091
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344844 /  nmdc:omprc-11-nb610091: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.178b2f17
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195866
+INFO:root:Minted new biosample ID: nmdc:bsm-11-c5g2h831
+INFO:root:Updated 1 biosample_set records gold:Gb0195866 /  nmdc:bsm-11-c5g2h831 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.178b2f18
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195866
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-c5g2h831
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344845
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-gfyk9g76
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344845 /  nmdc:omprc-11-gfyk9g76: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.178b2f18
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195867
+INFO:root:Minted new biosample ID: nmdc:bsm-11-yfvqce38
+INFO:root:Updated 1 biosample_set records gold:Gb0195867 /  nmdc:bsm-11-yfvqce38 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.178b2f19
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195867
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-yfvqce38
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344846
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-gsj4b952
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344846 /  nmdc:omprc-11-gsj4b952: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.178b2f19
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195869
+INFO:root:Minted new biosample ID: nmdc:bsm-11-ryetf432
+INFO:root:Updated 1 biosample_set records gold:Gb0195869 /  nmdc:bsm-11-ryetf432 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.052b4f23
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195869
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-ryetf432
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344848
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-qb9ga755
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344848 /  nmdc:omprc-11-qb9ga755: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.052b4f23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195870
+INFO:root:Minted new biosample ID: nmdc:bsm-11-8xad7m42
+INFO:root:Updated 1 biosample_set records gold:Gb0195870 /  nmdc:bsm-11-8xad7m42 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.052b4f24
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195870
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-8xad7m42
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344849
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-qnewx957
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344849 /  nmdc:omprc-11-qnewx957: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.052b4f24
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195868
+INFO:root:Minted new biosample ID: nmdc:bsm-11-ajsahn03
+INFO:root:Updated 1 biosample_set records gold:Gb0195868 /  nmdc:bsm-11-ajsahn03 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.052b4f22
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195868
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-ajsahn03
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344847
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-dxytyq30
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344847 /  nmdc:omprc-11-dxytyq30: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.052b4f22
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195871
+INFO:root:Minted new biosample ID: nmdc:bsm-11-z3g80d50
+INFO:root:Updated 1 biosample_set records gold:Gb0195871 /  nmdc:bsm-11-z3g80d50 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.052b4f25
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195871
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-z3g80d50
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344850
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-f703g853
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344850 /  nmdc:omprc-11-f703g853: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.052b4f25
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195875
+INFO:root:Minted new biosample ID: nmdc:bsm-11-vnahzs49
+INFO:root:Updated 1 biosample_set records gold:Gb0195875 /  nmdc:bsm-11-vnahzs49 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.053b4f25
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195875
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-vnahzs49
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344855
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-3gjs0e06
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344855 /  nmdc:omprc-11-3gjs0e06: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.053b4f25
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195873
+INFO:root:Minted new biosample ID: nmdc:bsm-11-6enfe249
+INFO:root:Updated 1 biosample_set records gold:Gb0195873 /  nmdc:bsm-11-6enfe249 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.053b4f23
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195873
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-6enfe249
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344853
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-5f3rx623
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344853 /  nmdc:omprc-11-5f3rx623: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.053b4f23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195872
+INFO:root:Minted new biosample ID: nmdc:bsm-11-wf3ym362
+INFO:root:Updated 1 biosample_set records gold:Gb0195872 /  nmdc:bsm-11-wf3ym362 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.052b4f26
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195872
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-wf3ym362
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344851
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-7e83mc12
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344851 /  nmdc:omprc-11-7e83mc12: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.052b4f26
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195876
+INFO:root:Minted new biosample ID: nmdc:bsm-11-w32jjj84
+INFO:root:Updated 1 biosample_set records gold:Gb0195876 /  nmdc:bsm-11-w32jjj84 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.053b4f26
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195876
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-w32jjj84
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344856
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-a004gs33
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344856 /  nmdc:omprc-11-a004gs33: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.053b4f26
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195874
+INFO:root:Minted new biosample ID: nmdc:bsm-11-r33r8c23
+INFO:root:Updated 1 biosample_set records gold:Gb0195874 /  nmdc:bsm-11-r33r8c23 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.053b4f24
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195874
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-r33r8c23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344854
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-vr2n5710
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344854 /  nmdc:omprc-11-vr2n5710: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.053b4f24
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195878
+INFO:root:Minted new biosample ID: nmdc:bsm-11-43qj1m81
+INFO:root:Updated 1 biosample_set records gold:Gb0195878 /  nmdc:bsm-11-43qj1m81 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.117b4f26
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195878
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-43qj1m81
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344858
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-znn65h22
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344858 /  nmdc:omprc-11-znn65h22: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.117b4f26
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195877
+INFO:root:Minted new biosample ID: nmdc:bsm-11-9jz61725
+INFO:root:Updated 1 biosample_set records gold:Gb0195877 /  nmdc:bsm-11-9jz61725 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.053b4f27
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195877
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-9jz61725
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344857
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-9af0dk59
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344857 /  nmdc:omprc-11-9af0dk59: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.053b4f27
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195881
+INFO:root:Minted new biosample ID: nmdc:bsm-11-3hc1kf76
+INFO:root:Updated 1 biosample_set records gold:Gb0195881 /  nmdc:bsm-11-3hc1kf76 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.117b4f29
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195881
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-3hc1kf76
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344861
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-jw699r57
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344861 /  nmdc:omprc-11-jw699r57: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.117b4f29
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195879
+INFO:root:Minted new biosample ID: nmdc:bsm-11-wfc20d87
+INFO:root:Updated 1 biosample_set records gold:Gb0195879 /  nmdc:bsm-11-wfc20d87 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.117b4f27
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195879
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-wfc20d87
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344859
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-se08s762
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344859 /  nmdc:omprc-11-se08s762: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.117b4f27
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195882
+INFO:root:Minted new biosample ID: nmdc:bsm-11-h3h1ya29
+INFO:root:Updated 1 biosample_set records gold:Gb0195882 /  nmdc:bsm-11-h3h1ya29 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.166b4f23
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195882
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-h3h1ya29
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344862
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-mtq2xv34
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344862 /  nmdc:omprc-11-mtq2xv34: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.166b4f23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195880
+INFO:root:Minted new biosample ID: nmdc:bsm-11-v9c11m40
+INFO:root:Updated 1 biosample_set records gold:Gb0195880 /  nmdc:bsm-11-v9c11m40 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.117b4f28
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195880
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-v9c11m40
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344860
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-csmvwv59
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344860 /  nmdc:omprc-11-csmvwv59: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.117b4f28
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195884
+INFO:root:Minted new biosample ID: nmdc:bsm-11-75jsjx07
+INFO:root:Updated 1 biosample_set records gold:Gb0195884 /  nmdc:bsm-11-75jsjx07 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.166b4f25
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195884
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-75jsjx07
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344864
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-zh8xrf56
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344864 /  nmdc:omprc-11-zh8xrf56: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.166b4f25
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195888
+INFO:root:Minted new biosample ID: nmdc:bsm-11-643mx214
+INFO:root:Updated 1 biosample_set records gold:Gb0195888 /  nmdc:bsm-11-643mx214 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.168b4f25
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195888
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-643mx214
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344868
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-2g8ysb42
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344868 /  nmdc:omprc-11-2g8ysb42: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.168b4f25
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195887
+INFO:root:Minted new biosample ID: nmdc:bsm-11-79rsyf22
+INFO:root:Updated 1 biosample_set records gold:Gb0195887 /  nmdc:bsm-11-79rsyf22 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.168b4f24
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195887
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-79rsyf22
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344867
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-av926228
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344867 /  nmdc:omprc-11-av926228: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.168b4f24
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195885
+INFO:root:Minted new biosample ID: nmdc:bsm-11-3ek7nb35
+INFO:root:Updated 1 biosample_set records gold:Gb0195885 /  nmdc:bsm-11-3ek7nb35 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.166b4f26
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195885
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-3ek7nb35
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344865
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-48njmw72
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344865 /  nmdc:omprc-11-48njmw72: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.166b4f26
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195890
+INFO:root:Minted new biosample ID: nmdc:bsm-11-mv38en04
+INFO:root:Updated 1 biosample_set records gold:Gb0195890 /  nmdc:bsm-11-mv38en04 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.169b2f19
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195890
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-mv38en04
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344870
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-2q5q8h77
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344870 /  nmdc:omprc-11-2q5q8h77: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.169b2f19
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195886
+INFO:root:Minted new biosample ID: nmdc:bsm-11-tpg3d928
+INFO:root:Updated 1 biosample_set records gold:Gb0195886 /  nmdc:bsm-11-tpg3d928 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.168b4f23
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195886
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-tpg3d928
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344866
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-6e2ysq33
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344866 /  nmdc:omprc-11-6e2ysq33: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.168b4f23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195891
+INFO:root:Minted new biosample ID: nmdc:bsm-11-ca6r6a88
+INFO:root:Updated 1 biosample_set records gold:Gb0195891 /  nmdc:bsm-11-ca6r6a88 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.169b2f20
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195891
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-ca6r6a88
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344871
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-rw59f505
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344871 /  nmdc:omprc-11-rw59f505: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.169b2f20
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195889
+INFO:root:Minted new biosample ID: nmdc:bsm-11-j7xhtk25
+INFO:root:Updated 1 biosample_set records gold:Gb0195889 /  nmdc:bsm-11-j7xhtk25 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.168b4f26
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195889
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-j7xhtk25
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344869
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-92szyy70
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344869 /  nmdc:omprc-11-92szyy70: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.168b4f26
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195892
+INFO:root:Minted new biosample ID: nmdc:bsm-11-hzq6m029
+INFO:root:Updated 1 biosample_set records gold:Gb0195892 /  nmdc:bsm-11-hzq6m029 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.169b2f21
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195892
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-hzq6m029
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344872
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-h6w6d742
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344872 /  nmdc:omprc-11-h6w6d742: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.169b2f21
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195902
+INFO:root:Minted new biosample ID: nmdc:bsm-11-q52m2411
+INFO:root:Updated 1 biosample_set records gold:Gb0195902 /  nmdc:bsm-11-q52m2411 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.065b5f20
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195902
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-q52m2411
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344882
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-xaxvb205
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344882 /  nmdc:omprc-11-xaxvb205: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.065b5f20
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195903
+INFO:root:Minted new biosample ID: nmdc:bsm-11-9ktepq63
+INFO:root:Updated 1 biosample_set records gold:Gb0195903 /  nmdc:bsm-11-9ktepq63 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.065b5f21
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195903
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-9ktepq63
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344883
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-b6xpwh72
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344883 /  nmdc:omprc-11-b6xpwh72: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.065b5f21
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195904
+INFO:root:Minted new biosample ID: nmdc:bsm-11-4m1mx194
+INFO:root:Updated 1 biosample_set records gold:Gb0195904 /  nmdc:bsm-11-4m1mx194 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.065b5f22
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195904
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-4m1mx194
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344884
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-9x2kad26
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344884 /  nmdc:omprc-11-9x2kad26: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.065b5f22
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195900
+INFO:root:Minted new biosample ID: nmdc:bsm-11-447e4298
+INFO:root:Updated 1 biosample_set records gold:Gb0195900 /  nmdc:bsm-11-447e4298 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.082b2f24
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195900
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-447e4298
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344880
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-5kn5m324
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344880 /  nmdc:omprc-11-5kn5m324: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.082b2f24
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195906
+INFO:root:Minted new biosample ID: nmdc:bsm-11-gpyxdg80
+INFO:root:Updated 1 biosample_set records gold:Gb0195906 /  nmdc:bsm-11-gpyxdg80 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.066b5f18
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195906
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-gpyxdg80
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344886
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-46n58t74
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344886 /  nmdc:omprc-11-46n58t74: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.066b5f18
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195901
+INFO:root:Minted new biosample ID: nmdc:bsm-11-demd6650
+INFO:root:Updated 1 biosample_set records gold:Gb0195901 /  nmdc:bsm-11-demd6650 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.065b5f19
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195901
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-demd6650
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344881
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-w299yj10
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344881 /  nmdc:omprc-11-w299yj10: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.065b5f19
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195905
+INFO:root:Minted new biosample ID: nmdc:bsm-11-xev1nd37
+INFO:root:Updated 1 biosample_set records gold:Gb0195905 /  nmdc:bsm-11-xev1nd37 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.065b5f23
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195905
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-xev1nd37
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344885
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-sqfsz311
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344885 /  nmdc:omprc-11-sqfsz311: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.065b5f23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195910
+INFO:root:Minted new biosample ID: nmdc:bsm-11-6ax4zv46
+INFO:root:Updated 1 biosample_set records gold:Gb0195910 /  nmdc:bsm-11-6ax4zv46 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.066b5f22
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195910
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-6ax4zv46
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344890
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-qrwza184
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344890 /  nmdc:omprc-11-qrwza184: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.066b5f22
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195909
+INFO:root:Minted new biosample ID: nmdc:bsm-11-pzanfs48
+INFO:root:Updated 1 biosample_set records gold:Gb0195909 /  nmdc:bsm-11-pzanfs48 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.066b5f21
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195909
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-pzanfs48
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344889
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-p6d50m51
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344889 /  nmdc:omprc-11-p6d50m51: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.066b5f21
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195908
+INFO:root:Minted new biosample ID: nmdc:bsm-11-hym0pr11
+INFO:root:Updated 1 biosample_set records gold:Gb0195908 /  nmdc:bsm-11-hym0pr11 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.066b5f20
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195908
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-hym0pr11
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344888
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-kg0fv722
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344888 /  nmdc:omprc-11-kg0fv722: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.066b5f20
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195912
+INFO:root:Minted new biosample ID: nmdc:bsm-11-df3qs829
+INFO:root:Updated 1 biosample_set records gold:Gb0195912 /  nmdc:bsm-11-df3qs829 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.088b5f21
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195912
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-df3qs829
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344892
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-pm6dmq76
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344892 /  nmdc:omprc-11-pm6dmq76: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.088b5f21
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195907
+INFO:root:Minted new biosample ID: nmdc:bsm-11-6m19z729
+INFO:root:Updated 1 biosample_set records gold:Gb0195907 /  nmdc:bsm-11-6m19z729 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.066b5f19
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195907
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-6m19z729
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344887
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-g6n99935
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344887 /  nmdc:omprc-11-g6n99935: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.066b5f19
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195911
+INFO:root:Minted new biosample ID: nmdc:bsm-11-z0g42405
+INFO:root:Updated 1 biosample_set records gold:Gb0195911 /  nmdc:bsm-11-z0g42405 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.088b5f20
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195911
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-z0g42405
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344891
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-02wa5j02
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344891 /  nmdc:omprc-11-02wa5j02: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.088b5f20
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195914
+INFO:root:Minted new biosample ID: nmdc:bsm-11-yqf97b63
+INFO:root:Updated 1 biosample_set records gold:Gb0195914 /  nmdc:bsm-11-yqf97b63 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.088b5f23
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195914
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-yqf97b63
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344894
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-8ptkt042
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344894 /  nmdc:omprc-11-8ptkt042: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.088b5f23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195916
+INFO:root:Minted new biosample ID: nmdc:bsm-11-7t804y18
+INFO:root:Updated 1 biosample_set records gold:Gb0195916 /  nmdc:bsm-11-7t804y18 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.089b5f20
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195916
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-7t804y18
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344896
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-e36n8w78
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344896 /  nmdc:omprc-11-e36n8w78: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.089b5f20
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195915
+INFO:root:Minted new biosample ID: nmdc:bsm-11-pc5hqm15
+INFO:root:Updated 1 biosample_set records gold:Gb0195915 /  nmdc:bsm-11-pc5hqm15 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.088b5f24
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195915
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-pc5hqm15
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344895
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-zty2nm06
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344895 /  nmdc:omprc-11-zty2nm06: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.088b5f24
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195919
+INFO:root:Minted new biosample ID: nmdc:bsm-11-dyh6ph38
+INFO:root:Updated 1 biosample_set records gold:Gb0195919 /  nmdc:bsm-11-dyh6ph38 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.089b5f23
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195919
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-dyh6ph38
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344899
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-hy31zn16
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344899 /  nmdc:omprc-11-hy31zn16: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.089b5f23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195913
+INFO:root:Minted new biosample ID: nmdc:bsm-11-hm8ykr15
+INFO:root:Updated 1 biosample_set records gold:Gb0195913 /  nmdc:bsm-11-hm8ykr15 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.088b5f22
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195913
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-hm8ykr15
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344893
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-jhf6rv69
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344893 /  nmdc:omprc-11-jhf6rv69: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.088b5f22
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195918
+INFO:root:Minted new biosample ID: nmdc:bsm-11-hq2peq58
+INFO:root:Updated 1 biosample_set records gold:Gb0195918 /  nmdc:bsm-11-hq2peq58 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.089b5f22
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195918
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-hq2peq58
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344898
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-k4497554
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344898 /  nmdc:omprc-11-k4497554: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.089b5f22
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195917
+INFO:root:Minted new biosample ID: nmdc:bsm-11-thgcrw69
+INFO:root:Updated 1 biosample_set records gold:Gb0195917 /  nmdc:bsm-11-thgcrw69 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.089b5f21
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195917
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-thgcrw69
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344897
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-56kzk505
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344897 /  nmdc:omprc-11-56kzk505: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.089b5f21
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195883
+INFO:root:Minted new biosample ID: nmdc:bsm-11-3vyvcf44
+INFO:root:Updated 1 biosample_set records gold:Gb0195883 /  nmdc:bsm-11-3vyvcf44 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.166b4f24
+INFO:root:Updating 0 OmicsProcessing records for biosample: gold:Gb0195883
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195920
+INFO:root:Minted new biosample ID: nmdc:bsm-11-ppx2kd86
+INFO:root:Updated 1 biosample_set records gold:Gb0195920 /  nmdc:bsm-11-ppx2kd86 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.089b5f24
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195920
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-ppx2kd86
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344900
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-jqavk245
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344900 /  nmdc:omprc-11-jqavk245: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.089b5f24
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195893
+INFO:root:Minted new biosample ID: nmdc:bsm-11-szaq1h43
+INFO:root:Updated 1 biosample_set records gold:Gb0195893 /  nmdc:bsm-11-szaq1h43 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.169b2f22
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195893
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-szaq1h43
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344873
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-b864sn46
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344873 /  nmdc:omprc-11-b864sn46: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.169b2f22
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195894
+INFO:root:Minted new biosample ID: nmdc:bsm-11-ffwzsj65
+INFO:root:Updated 1 biosample_set records gold:Gb0195894 /  nmdc:bsm-11-ffwzsj65 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.169b2f23
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195894
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-ffwzsj65
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344874
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-r8h8r811
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344874 /  nmdc:omprc-11-r8h8r811: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.169b2f23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195895
+INFO:root:Minted new biosample ID: nmdc:bsm-11-rjv0q526
+INFO:root:Updated 1 biosample_set records gold:Gb0195895 /  nmdc:bsm-11-rjv0q526 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.082b2f19
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195895
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-rjv0q526
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344875
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-w3m8f302
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344875 /  nmdc:omprc-11-w3m8f302: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.082b2f19
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195896
+INFO:root:Minted new biosample ID: nmdc:bsm-11-5j0k8g81
+INFO:root:Updated 1 biosample_set records gold:Gb0195896 /  nmdc:bsm-11-5j0k8g81 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.082b2f20
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195896
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-5j0k8g81
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344876
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-4dksdd39
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344876 /  nmdc:omprc-11-4dksdd39: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.082b2f20
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195897
+INFO:root:Minted new biosample ID: nmdc:bsm-11-qv9d9176
+INFO:root:Updated 1 biosample_set records gold:Gb0195897 /  nmdc:bsm-11-qv9d9176 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.082b2f21
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195897
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-qv9d9176
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344877
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-vy839h12
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344877 /  nmdc:omprc-11-vy839h12: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.082b2f21
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195898
+INFO:root:Minted new biosample ID: nmdc:bsm-11-7t9k4f46
+INFO:root:Updated 1 biosample_set records gold:Gb0195898 /  nmdc:bsm-11-7t9k4f46 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.082b2f22
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195898
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-7t9k4f46
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344878
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-8xka8978
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344878 /  nmdc:omprc-11-8xka8978: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.082b2f22
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195899
+INFO:root:Minted new biosample ID: nmdc:bsm-11-ks9bf518
+INFO:root:Updated 1 biosample_set records gold:Gb0195899 /  nmdc:bsm-11-ks9bf518 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.082b2f23
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195899
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-ks9bf518
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344879
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-d978r866
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344879 /  nmdc:omprc-11-d978r866: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.082b2f23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0195921
+INFO:root:Minted new biosample ID: nmdc:bsm-11-da3v8739
+INFO:root:Updated 1 biosample_set records gold:Gb0195921 /  nmdc:bsm-11-da3v8739 : Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.089b5f25
+INFO:root:Updating 1 OmicsProcessing records for biosample: gold:Gb0195921
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-da3v8739
+INFO:root:Added new study ID to part_of: nmdc:sty-11-076c9980
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0344901
+INFO:root:Minted new omics processing ID: nmdc:omprc-11-3g8we491
+INFO:root:Updated 1 omics_processing_set record gold:Gp0344901 /  nmdc:omprc-11-3g8we491: Tropical soil microbial communities from Luquillo Experimental Forest, Puerto Rico - GRE.SIPMG.089b5f25
+INFO:root:Writing 209 updated record identifiers to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-076c9980_updated_record_identifiers.tsv
+INFO:root:Elapsed time: 115.72112798690796
