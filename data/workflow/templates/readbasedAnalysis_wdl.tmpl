@@ -17,3 +17,12 @@
         input: input_file=preprocess.input_file_gz, cpu=<WORKFLOW>_cpu, proj=<WORKFLOW>_prefix,paired=<WORKFLOW>_paired,
         db_gottcha2=<WORKFLOW>_db_gottcha2, db_kraken2=<WORKFLOW>_db_kraken2, db_centrifuge=<WORKFLOW>_db_centrifuge
     }
+
+    call readbasedAnalysis_output aa readbasedAnalysis_output {
+        input: gottcha2_report_tsv=<ALIAS>.final_gottcha2_report_tsv, gottcha2_full_tsv=<ALIAS>.final_gottcha2_full_tsv,
+        gottcha2_krona_html=<ALIAS>.final_gottcha2_krona_html, kraken2_report_tsv=<ALIAS>.final_kraken2_report_tsv,
+        kraken2_full_tsv=<ALIAS>.final_kraken2_full_tsv, kraken2_krona_html=<ALIAS>.final_kraken2_krona_html,
+        centrifuge_report_tsv=<ALIAS>.final_centrifuge_report_tsv,
+        centrifuge_full_tsv=<ALIAS>.final_centrifuge_full_tsv, centrifuge_krona_html=<ALIAS>.final_centrifuge_krona_html
+
+    }

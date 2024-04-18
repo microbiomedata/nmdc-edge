@@ -155,6 +155,7 @@ function generateWDL(proj_home, workflow) {
     }
     if(workflowname === 'ReadbasedAnalysis') {
         imports += 'import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess' + "\n";
+        imports += 'import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output' + "\n";
     }
     if(workflowname === 'MetaAssembly') {
         imports += 'import "preprocess.wdl" as preprocess' + "\n";

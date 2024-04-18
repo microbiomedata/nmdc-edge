@@ -2,6 +2,7 @@ import "rqcfilter.wdl" as readsQC
 import "readsqc_preprocess.wdl" as readsqc_preprocess
 import "readsqc_output.wdl" as readsqc_output
 import "ReadbasedAnalysis.wdl" as readbasedAnalysis
+import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output
 import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "jgi_assembly.wdl" as metaAssembly
 import "annotation_full.wdl" as metaAnnotation
@@ -89,7 +90,18 @@ workflow main_workflow {
             db_gottcha2=db_gottcha2, db_kraken2=db_kraken2, db_centrifuge=db_centrifuge
     }
 
-
+    call readbasedAnalysis_output.readbasedAnalysis_output as ReadbasedAnalysis_output_call {
+        input:
+            gottcha2_report_tsv=ReadbasedAnalysis_call.final_gottcha2_report_tsv,
+            gottcha2_full_tsv=ReadbasedAnalysis_call.final_gottcha2_full_tsv,
+            gottcha2_krona_html=ReadbasedAnalysis_call.final_gottcha2_krona_html,
+            kraken2_report_tsv=ReadbasedAnalysis_call.final_kraken2_report_tsv,
+            kraken2_full_tsv=ReadbasedAnalysis_call.final_kraken2_full_tsv,
+            kraken2_krona_html=ReadbasedAnalysis_call.final_kraken2_krona_html,
+            centrifuge_report_tsv=ReadbasedAnalysis_call.final_centrifuge_report_tsv,
+            centrifuge_full_tsv=ReadbasedAnalysis_call.final_centrifuge_full_tsv,
+            centrifuge_krona_html=ReadbasedAnalysis_call.final_centrifuge_krona_html
+       }
 	## Assembly workflow
 	File metaAssembly_input_file = nmdc_rqcfilter_call.filtered_final[0]
 	String? metaAssembly_outdir
@@ -266,6 +278,7 @@ workflow main_workflow {
 			kraken2_classification_tsv = ReadbasedAnalysis_call.final_kraken2_classification_tsv,
 			kraken2_report_tsv = ReadbasedAnalysis_call.final_kraken2_report_tsv,
 			kraken2_krona_html = ReadbasedAnalysis_call.final_kraken2_krona_html,
+			readbasedAnalysis_summary_json = ReadbasedAnalysis_output_call.summary_json,
 			short=metaMAGs_call.short,
 			lowdepth=metaMAGs_call.low,
 			unbinned=metaMAGs_call.final_unbinned_fa,
@@ -427,6 +440,7 @@ task finish {
 	File? kraken2_classification_tsv
 	File? kraken2_report_tsv
 	File? kraken2_krona_html
+	File? readbasedAnalysis_summary_json
 	String qadir="qa/"
 	String assemdir="assembly/"
 	String annodir="annotation/"
@@ -531,7 +545,10 @@ task finish {
 			${hqmq_bin_fasta_files} ${bin_fasta_files} ${metabat_bins} ${magsdir}/
 		cp  ${mags_stats_json} ${magsdir}/MAGs_stats.json
 
-		    mkdir -p ${rbadir}
+		    mkdir -p ${rbadir}/gottcha2
+		    mkdir -p ${rbadir}/kraken2
+		    mkdir -p ${rbadir}/centrifuge
+
 			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \
 				--name "ReadBased Analysis Activity for ${proj}" --part ${proj} \
 				--start ${start} --end $end \
@@ -549,9 +566,10 @@ task finish {
 				${kraken2_krona_html} "Kraken2 Krona HTML report"
 
 			cp activity.json data_objects.json  ${rbadir}/
-			cp ${gottcha2_report_tsv} ${gottcha2_full_tsv} ${gottcha2_krona_html} ${rbadir}/
-			cp ${centrifuge_classification_tsv} ${centrifuge_report_tsv} ${centrifuge_krona_html} ${rbadir}/
-			cp ${kraken2_classification_tsv} ${kraken2_report_tsv} ${kraken2_krona_html} ${rbadir}/
+			cp ${gottcha2_report_tsv} ${gottcha2_full_tsv} ${gottcha2_krona_html} ${rbadir}/gottcha2/
+			cp ${centrifuge_classification_tsv} ${centrifuge_report_tsv} ${centrifuge_krona_html} ${rbadir}/centrifuge/
+			cp ${kraken2_classification_tsv} ${kraken2_report_tsv} ${kraken2_krona_html} ${rbadir}/kraken2/
+			cp ${readbasedAnalysis_summary_json} ${rbadir}/
 
 	>>>
 
