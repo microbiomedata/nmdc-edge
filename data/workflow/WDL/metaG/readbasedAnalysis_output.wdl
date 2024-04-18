@@ -9,7 +9,7 @@ workflow readbasedAnalysis_output {
     File kraken2_classification_tsv
     File kraken2_krona_html
     String? docker = "poeli/nmdc_taxa_profilers:1.0.3p2"
-    String PREFIX = prefix
+    String PREFIX
 
     call generateSummaryJson {
         input: gottcha2_report_tsv = gottcha2_report_tsv,
