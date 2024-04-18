@@ -459,7 +459,7 @@ task finish {
 			do
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.fastq.gz}
+				prefix=${dollar}{f%_filtered.fastq.gz}
 				mkdir -p ${qadir}/$prefix
 				echo $prefix
 				echo "concat: ${dollar}{prefix}_filterStats.txt"
