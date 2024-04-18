@@ -1,21 +1,22 @@
 workflow readbasedAnalysis_output {
-call tasks.generateSummaryJson {
-        input: gottcha2_report_tsv = profilerGottcha2.report_tsv,
-               gottcha2_full_tsv = profilerGottcha2.full_tsv,
-               gottcha2_krona_html = profilerGottcha2.krona_html,
-               centrifuge_classification_tsv = profilerCentrifuge.classification_tsv,
-               centrifuge_report_tsv = profilerCentrifuge.report_tsv,
-               centrifuge_krona_html = profilerCentrifuge.krona_html,
-               kraken2_classification_tsv = profilerKraken2.classification_tsv,
-               kraken2_report_tsv = profilerKraken2.report_tsv,
-               kraken2_krona_html = profilerKraken2.krona_html,
-               PREFIX = prefix,
-               DOCKER = docker
-output {
-
-        File? summary_json = generateSummaryJson.summary_json
+call generateSummaryJson {
+    input: gottcha2_report_tsv = profilerGottcha2.report_tsv,
+           gottcha2_full_tsv = profilerGottcha2.full_tsv,
+           gottcha2_krona_html = profilerGottcha2.krona_html,
+           centrifuge_classification_tsv = profilerCentrifuge.classification_tsv,
+           centrifuge_report_tsv = profilerCentrifuge.report_tsv,
+           centrifuge_krona_html = profilerCentrifuge.krona_html,
+           kraken2_classification_tsv = profilerKraken2.classification_tsv,
+           kraken2_report_tsv = profilerKraken2.report_tsv,
+           kraken2_krona_html = profilerKraken2.krona_html,
+           PREFIX = prefix,
+           DOCKER = docker
     }
-}
+    output {
+
+            File? summary_json = generateSummaryJson.summary_json
+        }
+
 }
 task generateSummaryJson {
     File? gottcha2_report_tsv
@@ -67,4 +68,4 @@ task generateSummaryJson {
         author: "Po-E Li, B10, LANL"
         email: "po-e@lanl.gov"
     }
-    }
+}
