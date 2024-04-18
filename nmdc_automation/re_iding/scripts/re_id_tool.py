@@ -511,11 +511,6 @@ def process_records(ctx, study_id, data_dir, update_links=False):
 
 @cli.command()
 @click.argument("reid_records_file", type=click.Path(exists=True))
-@click.option(
-    "--changesheet-only",
-    is_flag=True,
-    default=False,
-)
 @click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
 @click.option(
     "--is-direct-connection",
@@ -535,7 +530,7 @@ def process_records(ctx, study_id, data_dir, update_links=False):
     help=f"MongoDB database name",
 )
 @click.pass_context
-def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri,
+def ingest_records(ctx, reid_records_file, mongo_uri,
                    is_direct_connection=True, database_name="nmdc"):
     """
     Read in json dump of re_id'd records and:
@@ -578,10 +573,8 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri,
             result = db_client["omics_processing_set"].update_one(filter_criteria, update_criteria)
             logging.info(f"Updated {result.modified_count} omics_processing_set records")
 
-        # submit the record to the workflows endpoint
-        if not changesheet_only:
-            # validate the record
-            if api_user_client.validate_record(record):
+        # validate the record
+        if api_user_client.validate_record(record):
                 logging.info("DB Record validated - submitting to API")
                 # json:submit endpoint does not work on the Napa API
                 # submission_response = api_user_client.submit_record(record)
@@ -598,10 +591,9 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri,
 
                     insertion_result = db_client[collection_name].insert_many(collection, ordered=False)
                     logging.info(f"Inserted {len(insertion_result.inserted_ids)} records into {collection_name}")
-            else:
-                logging.error("Workflow Record validation failed")
         else:
-            logging.info(f"changesheet-only is True, skipping Workflow and Data Object ingest")
+            logging.error("Workflow Record validation failed")
+
 
     logging.info(f"Elapsed time: {time.time() - start_time}")
 
