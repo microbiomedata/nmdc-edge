@@ -555,11 +555,25 @@ def ingest_records(ctx, reid_records_file, mongo_uri,
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
     logging.info(f"Connected to MongoDB server at {mongo_uri}")
     db_client = client[database_name]
+    session = client.start_session()
 
 
     with open(reid_records_file, "r") as f:
         db_records = json.load(f)
+    with session.start_transaction():
+        try:
+            _ingest_records(db_records, db_client, api_user_client)
+            session.commit_transaction()
+        except Exception as e:
+            logging.error(f"An error occurred - aborting transaction")
+            session.abort_transaction()
+            logging.exception(f"An error occurred while ingesting records: {e}")
 
+
+    logging.info(f"Elapsed time: {time.time() - start_time}")
+
+
+def _ingest_records(db_records, db_client, api_user_client):
     for record in db_records:
         # remove the omics_processing_set and use it to generate
         # changes to omics_processing has_output
@@ -575,27 +589,24 @@ def ingest_records(ctx, reid_records_file, mongo_uri,
 
         # validate the record
         if api_user_client.validate_record(record):
-                logging.info("DB Record validated - submitting to API")
-                # json:submit endpoint does not work on the Napa API
-                # submission_response = api_user_client.submit_record(record)
-                # logging.info(f"Record submission response: {submission_response}")
+            logging.info("DB Record validated - submitting to API")
+            # json:submit endpoint does not work on the Napa API
+            # submission_response = api_user_client.submit_record(record)
+            # logging.info(f"Record submission response: {submission_response}")
 
-                # submit the record documents directly via the MongoDB client
-                # this isa workaround for the json:submit endpoint not working
-                for collection_name, collection in record.items():
-                    # collection shouldn't be empty but check just in case
-                    if not collection:
-                        logging.warning(f"Empty collection: {collection_name}")
-                        continue
-                    logging.info(f"Inserting {len(collection)} records into {collection_name}")
+            # submit the record documents directly via the MongoDB client
+            # this isa workaround for the json:submit endpoint not working
+            for collection_name, collection in record.items():
+                # collection shouldn't be empty but check just in case
+                if not collection:
+                    logging.warning(f"Empty collection: {collection_name}")
+                    continue
+                logging.info(f"Inserting {len(collection)} records into {collection_name}")
 
-                    insertion_result = db_client[collection_name].insert_many(collection, ordered=False)
-                    logging.info(f"Inserted {len(insertion_result.inserted_ids)} records into {collection_name}")
+                insertion_result = db_client[collection_name].insert_many(collection, ordered=False)
+                logging.info(f"Inserted {len(insertion_result.inserted_ids)} records into {collection_name}")
         else:
             logging.error("Workflow Record validation failed")
-
-
-    logging.info(f"Elapsed time: {time.time() - start_time}")
 
 
 @cli.command()
@@ -638,6 +649,7 @@ def delete_old_records(ctx, old_records_file, mongo_uri, is_direct_connection=Tr
     with pymongo.timeout(5):
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
     db = client[database_name]
+    session = client.start_session()
 
     # get old db records
     with open(old_records_file, "r") as f:
@@ -645,48 +657,61 @@ def delete_old_records(ctx, old_records_file, mongo_uri, is_direct_connection=Tr
 
     # set list to capture annotation genes for agg set
     annotation_ids = set()
-    for record_identifier in old_db_records:
-        for set_name, object_record in record_identifier.items():
-            # we don't want to delete the omics_processing_set
-            if set_name == "omics_processing_set":
-                continue
-            delete_ids = []
-            if isinstance(object_record, list):
-                for item in object_record:
-                    delete_ids.append(item["id"])
-                    deleted_record_identifiers.append((set_name, item.get("type", ""), item["id"]))
-                    if set_name in ["metagenome_annotation_activity_set", "metatranscriptome_activity_set"]:
-                        annotation_ids.add(item["id"])
-
-            # Construct filter query
-            filter_query = {"id": {"$in": delete_ids}}
-            logging.info(f"Deleting {len(delete_ids)} records from {set_name}")
-            # Delete the records
-            try:
-                delete_result = db[set_name].delete_many(filter_query)
-                logging.info(f"Deleted {delete_result.deleted_count} records from {set_name}")
-            except Exception as e:
-                logging.exception(f"An error occurred while deleting {set_name} records: {e}")
-
-    # delete functional annotation agg records
-    if annotation_ids:
-        logging.info(f"Deleting {len(annotation_ids)} functional annotation records")
-        filter_query = {"id": {"$in": list(annotation_ids)}}
+    with session.start_transaction():
         try:
-            delete_result = db["functional_annotation_activity_set"].delete_many(filter_query)
-            logging.info(f"Deleted {delete_result.deleted_count} functional annotation records")
-        except Exception as e:
-            logging.exception(f"An error occurred while deleting functional annotation records: {e}")
+            for record_identifier in old_db_records:
+                for set_name, object_record in record_identifier.items():
+                    # we don't want to delete the omics_processing_set
+                    if set_name == "omics_processing_set":
+                        continue
+                    delete_ids = []
+                    if isinstance(object_record, list):
+                        for item in object_record:
+                            delete_ids.append(item["id"])
+                            deleted_record_identifiers.append((set_name, item.get("type", ""), item["id"]))
+                            if set_name in ["metagenome_annotation_activity_set", "metatranscriptome_activity_set"]:
+                                annotation_ids.add(item["id"])
 
+                    # Construct filter query
+                    filter_query = {"id": {"$in": delete_ids}}
+                    logging.info(f"Deleting {len(delete_ids)} records from {set_name}")
+                    # Delete the records
+                    try:
+                        delete_result = db[set_name].delete_many(filter_query)
+                        logging.info(f"Deleted {delete_result.deleted_count} records from {set_name}")
+                    except Exception as e:
+                        logging.exception(f"An error occurred while deleting {set_name} records: {e}")
+
+            # delete functional annotation agg records
+            if annotation_ids:
+                logging.info(f"Deleting {len(annotation_ids)} functional annotation records")
+                filter_query = {"id": {"$in": list(annotation_ids)}}
+                try:
+                    delete_result = db["functional_annotation_activity_set"].delete_many(filter_query)
+                    logging.info(f"Deleted {delete_result.deleted_count} functional annotation records")
+                except Exception as e:
+                    logging.exception(f"An error occurred while deleting functional annotation records: {e}")
+        except Exception as e:
+            logging.error(f"An error occurred - dumping deleted record identifiers")
+            _write_deleted_record_identifiers(deleted_record_identifiers, old_base_name)
+            logging.exception(f"An error occurred while deleting records: {e}")
+            session.abort_transaction()
+
+    _write_deleted_record_identifiers(deleted_record_identifiers, old_base_name)
+
+    logging.info(f"Elapsed time: {time.time() - start_time}")
+
+
+def _write_deleted_record_identifiers(deleted_record_identifiers, old_base_name):
     # write the deleted records to a tsv file
     deleted_record_identifiers_file = DATA_DIR.joinpath(f"{old_base_name}_deleted_record_identifiers.tsv")
-    logging.info(f"Writing {len(deleted_record_identifiers)} deleted record identifiers to {deleted_record_identifiers_file}")
+    logging.info(
+        f"Writing {len(deleted_record_identifiers)} deleted record identifiers to {deleted_record_identifiers_file}"
+        )
     with open(deleted_record_identifiers_file, "w") as f:
         f.write("collection_name\ttype\tid\n")
         for record_identifier in deleted_record_identifiers:
             f.write("\t".join(record_identifier) + "\n")
-
-    logging.info(f"Elapsed time: {time.time() - start_time}")
 
 
 @cli.command()
