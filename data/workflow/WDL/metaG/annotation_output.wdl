@@ -43,6 +43,7 @@ task annotation_vis{
         ln -s ${OUTPATH}/kegg_map ${opaver_web_path}/$projectID
 
         plot_protein_len.py --input ${gff} --output ${OUTPATH}/${projectName}.protein_size_histogram.html
+	chmod -R 755 ${OUTPATH}
     >>>
 
     output {
