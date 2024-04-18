@@ -1,21 +1,31 @@
 workflow readbasedAnalysis_output {
-call generateSummaryJson {
-    input: gottcha2_report_tsv = profilerGottcha2.report_tsv,
-           gottcha2_full_tsv = profilerGottcha2.full_tsv,
-           gottcha2_krona_html = profilerGottcha2.krona_html,
-           centrifuge_classification_tsv = profilerCentrifuge.classification_tsv,
-           centrifuge_report_tsv = profilerCentrifuge.report_tsv,
-           centrifuge_krona_html = profilerCentrifuge.krona_html,
-           kraken2_classification_tsv = profilerKraken2.classification_tsv,
-           kraken2_report_tsv = profilerKraken2.report_tsv,
-           kraken2_krona_html = profilerKraken2.krona_html,
-           PREFIX = prefix,
-           DOCKER = docker
-    }
-    output {
+    File gottcha2_report_tsv
+    File gottcha2_full_tsv
+    File gottcha2_krona_html
+    File centrifuge_classification_tsv
+    File centrifuge_full_tsv
+    File centrifuge_krona_html
+    File kraken2_report_tsv
+    File kraken2_classification_tsv
+    File kraken2_krona_html
 
-            File? summary_json = generateSummaryJson.summary_json
+    call generateSummaryJson {
+        input: gottcha2_report_tsv = gottcha2_report_tsv,
+               gottcha2_full_tsv = gottcha2_full_tsv,
+               gottcha2_krona_html = gottcha2_krona_html,
+               centrifuge_classification_tsv = centrifuge_classification_tsv,
+               centrifuge_report_tsv = centrifuge_report_tsv,
+               centrifuge_krona_html = centrifuge_krona_html,
+               kraken2_classification_tsv = kraken2_classification_tsv,
+               kraken2_report_tsv = kraken2_report_tsv,
+               kraken2_krona_html = kraken2_krona_html,
+               PREFIX = prefix,
+               DOCKER = docker
         }
+        output {
+
+                File? summary_json = generateSummaryJson.summary_json
+            }
 
 }
 task generateSummaryJson {
