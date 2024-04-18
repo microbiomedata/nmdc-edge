@@ -131,6 +131,8 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
     with pymongo.timeout(5):
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
     db_client = client[database_name]
+    # start a session
+    session = client.start_session()
 
     # API client for minting new IDs
     config = ctx.obj["site_config"]
@@ -143,45 +145,55 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
     if not study_record:
         logging.exception(f"Study not found for legacy ID: {legacy_study_id} !")
 
-    # Update the study record
-    study_record = _update_study_record(study_record, nmdc_study_id, db_client, no_update)
-    updated_record_identifiers.append(("study_set", legacy_study_id, study_record["id"]))
+    with session.start_transaction():
+        try:
+            # Update the study record
+            study_record = _update_study_record(study_record, nmdc_study_id, db_client, no_update)
+            updated_record_identifiers.append(("study_set", legacy_study_id, study_record["id"]))
 
-    # Update the biosample records
-    biosample_records = db_client["biosample_set"].find({"part_of": legacy_study_id})
-    biosamples_returned = len(list(biosample_records.clone()))
-    logging.info(f"Updating {biosamples_returned} Biosample records")
-    for biosample_record in biosample_records:
-        legacy_biosample_id = biosample_record["id"]
-        biosample_record = _update_biosample_record(biosample_record, nmdc_study_id, db_client, api_client, no_update)
-        updated_record_identifiers.append(("biosample_set", legacy_biosample_id, biosample_record["id"]))
-        # Get the OmicsProcessing records part_of the legacy study ID and has_input the legacy biosample ID
-        omics_processing_records = db_client["omics_processing_set"].find(
-            {"part_of": legacy_study_id, "has_input": legacy_biosample_id}
-        )
+            # Update the biosample records
+            biosample_records = db_client["biosample_set"].find({"part_of": legacy_study_id})
+            biosamples_returned = len(list(biosample_records.clone()))
+            logging.info(f"Updating {biosamples_returned} Biosample records")
+            for biosample_record in biosample_records:
+                legacy_biosample_id = biosample_record["id"]
+                biosample_record = _update_biosample_record(biosample_record, nmdc_study_id, db_client, api_client, no_update)
+                updated_record_identifiers.append(("biosample_set", legacy_biosample_id, biosample_record["id"]))
+                # Get the OmicsProcessing records part_of the legacy study ID and has_input the legacy biosample ID
+                omics_processing_records = db_client["omics_processing_set"].find(
+                    {"part_of": legacy_study_id, "has_input": legacy_biosample_id}
+                )
 
-        omics_processing_returned = len(list(omics_processing_records.clone()))
-        logging.info(f"Updating {omics_processing_returned} OmicsProcessing records for biosample: {legacy_biosample_id}")
-        for omics_processing_record in omics_processing_records:
-            legacy_omics_processing_id = omics_processing_record["id"]
-            omics_processing_record = _update_omics_processing_record(omics_processing_record, nmdc_study_id,
-                                                                      biosample_record["id"],
-                                                                      db_client, api_client, no_update)
-            updated_record_identifiers.append(("omics_processing_set", legacy_omics_processing_id, omics_processing_record["id"]))
+                omics_processing_returned = len(list(omics_processing_records.clone()))
+                logging.info(f"Updating {omics_processing_returned} OmicsProcessing records for biosample: {legacy_biosample_id}")
+                for omics_processing_record in omics_processing_records:
+                    legacy_omics_processing_id = omics_processing_record["id"]
+                    omics_processing_record = _update_omics_processing_record(omics_processing_record, nmdc_study_id,
+                                                                              biosample_record["id"],
+                                                                              db_client, api_client, no_update)
+                    updated_record_identifiers.append(("omics_processing_set", legacy_omics_processing_id, omics_processing_record["id"]))
+            session.commit_transaction()
+        except Exception as e:
+            logging.error(f"An error has occurred - dumping updated record identifiers")
+            _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
+            logging.exception(f"An error occurred while updating records: {e} - aborting transaction")
+            session.abort_transaction()
 
+    _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
+    logging.info(f"Elapsed time: {time.time() - start_time}")
+
+
+def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id):
     # Write the updated record identifiers to a tsv file using csv writer
     updated_record_identifiers_file = DATA_DIR.joinpath(f"{nmdc_study_id}_updated_record_identifiers.tsv")
-    logging.info(f"Writing {len(updated_record_identifiers)} updated record identifiers to {updated_record_identifiers_file}")
+    logging.info(
+        f"Writing {len(updated_record_identifiers)} updated record identifiers to {updated_record_identifiers_file}"
+        )
     with open(updated_record_identifiers_file, "w") as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerow(["collection_name", "legacy_id", "new_id"])
         for record_identifier in updated_record_identifiers:
             writer.writerow(record_identifier)
-
-    logging.info(f"Elapsed time: {time.time() - start_time}")
-
-
-
 
 
 @cli.command()
@@ -553,7 +565,6 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri,
     with open(reid_records_file, "r") as f:
         db_records = json.load(f)
 
-    changesheet = Changesheet(name=f"{reid_base_name}_changesheet")
     for record in db_records:
         # remove the omics_processing_set and use it to generate
         # changes to omics_processing has_output
