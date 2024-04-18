@@ -21,7 +21,7 @@ workflow readbasedAnalysis_output {
                kraken2_classification_tsv = kraken2_classification_tsv,
                kraken2_report_tsv = kraken2_report_tsv,
                kraken2_krona_html = kraken2_krona_html,
-               PREFIX = prefix,
+               PREFIX = PREFIX,
                DOCKER = docker
         }
         output {
