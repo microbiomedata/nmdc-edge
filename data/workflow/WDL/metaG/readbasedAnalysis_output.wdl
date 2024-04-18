@@ -2,8 +2,8 @@ workflow readbasedAnalysis_output {
     File gottcha2_report_tsv
     File gottcha2_full_tsv
     File gottcha2_krona_html
+    File centrifuge_report_tsv
     File centrifuge_classification_tsv
-    File centrifuge_full_tsv
     File centrifuge_krona_html
     File kraken2_report_tsv
     File kraken2_classification_tsv
