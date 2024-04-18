@@ -26,8 +26,8 @@ from nmdc_automation.re_iding.changesheets import Changesheet
 from nmdc_automation.re_iding.db_utils import get_omics_processing_id, ANALYSIS_ACTIVITIES
 
 # Defaults
-NAPA_CONFIG = Path("../../../configs/.local_napa_config.toml")
-PROD_CONFIG = Path("../../../configs/.local_prod_config.toml")
+NAPA_CONFIG = Path("../../../configs/.local_napa_user_config.toml")
+PROD_CONFIG = Path("../../../configs/.local_prod_user_config.toml")
 
 
 NAPA_BASE_URL = "https://api-napa.microbiomedata.org/"
