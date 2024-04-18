@@ -691,6 +691,7 @@ def delete_old_records(ctx, old_records_file, mongo_uri, is_direct_connection=Tr
                     logging.info(f"Deleted {delete_result.deleted_count} functional annotation records")
                 except Exception as e:
                     logging.exception(f"An error occurred while deleting functional annotation records: {e}")
+            session.commit_transaction()
         except Exception as e:
             logging.error(f"An error occurred - dumping deleted record identifiers")
             _write_deleted_record_identifiers(deleted_record_identifiers, old_base_name)
