@@ -35,7 +35,9 @@ task annotation_vis{
     String container
 
     command <<<
-        opaver_anno.pl -g ${gff}  -o ${OUTPATH}/kegg_map
+	cp /opt/conda/envs/annotationVis/bin/opaver_anno.pl .
+	cp -r /opt/conda/envs/annotationVis/bin/ec_info ec_info
+        perl opaver_anno.pl -g ${gff}  -o ${OUTPATH}/kegg_map
         ## make symlink to omics-pathway-viewer/data location
         projectID=`basename ${PROJPATH}`
         ln -s ${OUTPATH}/kegg_map ${opaver_web_path}/$projectID
