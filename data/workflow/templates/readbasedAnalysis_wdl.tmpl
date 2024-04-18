@@ -18,7 +18,7 @@
         db_gottcha2=<WORKFLOW>_db_gottcha2, db_kraken2=<WORKFLOW>_db_kraken2, db_centrifuge=<WORKFLOW>_db_centrifuge
     }
 
-    call readbasedAnalysis_output aa readbasedAnalysis_output {
+    call readbasedAnalysis_output as readbasedAnalysis_output {
         input: gottcha2_report_tsv=<ALIAS>.final_gottcha2_report_tsv, gottcha2_full_tsv=<ALIAS>.final_gottcha2_full_tsv,
         gottcha2_krona_html=<ALIAS>.final_gottcha2_krona_html, kraken2_report_tsv=<ALIAS>.final_kraken2_report_tsv,
         kraken2_full_tsv=<ALIAS>.final_kraken2_full_tsv, kraken2_krona_html=<ALIAS>.final_kraken2_krona_html,
