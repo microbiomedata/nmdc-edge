@@ -33,6 +33,7 @@ task annotation_vis{
     File gff
     String projectName
     String container
+    String dollar='$'
 
     command <<<
 	cp /opt/conda/envs/annotationVis/bin/opaver_anno.pl .
@@ -43,11 +44,18 @@ task annotation_vis{
         ln -s ${OUTPATH}/kegg_map ${opaver_web_path}/$projectID
 
         plot_protein_len.py --input ${gff} --output ${OUTPATH}/${projectName}.protein_size_histogram.html
+
+	initmapfile=`ls ${OUTPATH}/kegg_map/*png | head -n 1`
+	initmapfilebase=`basename $initmapfile`
+	mapid=${dollar}{initmapfilebase/.png/}
+	echo "{ 'opaver_web_path':'opaver_web/pathway_anno.html?data=$projectID&mapid=$mapid' }" > ${OUTPATH}/opaver_web_path.json 
+
 	chmod -R 755 ${OUTPATH}
     >>>
 
     output {
         File protein_size_hist = "${OUTPATH}/${projectName}.protein_size_histogram.html"
+	File opaver_web_path_json = "${OUTPATH}/opaver_web_path.json"
     }
 
     runtime{
