@@ -26,8 +26,8 @@ from nmdc_automation.re_iding.changesheets import Changesheet
 from nmdc_automation.re_iding.db_utils import get_omics_processing_id, ANALYSIS_ACTIVITIES
 
 # Defaults
-NAPA_CONFIG = Path("../../../configs/.local_napa_config.toml")
-PROD_CONFIG = Path("../../../configs/.local_prod_config.toml")
+NAPA_CONFIG = Path("../../../configs/.local_napa_user_config.toml")
+PROD_CONFIG = Path("../../../configs/.local_prod_user_config.toml")
 
 
 NAPA_BASE_URL = "https://api-napa.microbiomedata.org/"
@@ -198,10 +198,8 @@ def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
 
 @cli.command()
 @click.argument("study_id", type=str)
-@click.option("--api-base-url", default=NAPA_BASE_URL,
-              help=f"Optional base URL for the NMDC API. Default: {NAPA_BASE_URL}")
 @click.pass_context
-def extract_records(ctx, study_id, api_base_url):
+def extract_records(ctx, study_id):
     """
     Extract metagenome workflow activities and their data object records
     that are informed_by the legacy ID (GOLD Study ID) for a re-ID-ed Study/

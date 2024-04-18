@@ -7,5 +7,5 @@ htmlcov/
 attic
 .idea/
 
-configs/.local_napa_config.toml
+configs/.local_*
 attic/data/dryrun_data/
