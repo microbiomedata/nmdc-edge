@@ -16,6 +16,7 @@ output {
         File? summary_json = generateSummaryJson.summary_json
     }
 }
+}
 task generateSummaryJson {
     File? gottcha2_report_tsv
     File? gottcha2_full_tsv
@@ -65,4 +66,5 @@ task generateSummaryJson {
     meta {
         author: "Po-E Li, B10, LANL"
         email: "po-e@lanl.gov"
+    }
     }
