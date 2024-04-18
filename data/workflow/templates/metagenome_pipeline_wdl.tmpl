@@ -100,7 +100,8 @@ workflow main_workflow {
             kraken2_krona_html=ReadbasedAnalysis_call.final_kraken2_krona_html,
             centrifuge_report_tsv=ReadbasedAnalysis_call.final_centrifuge_report_tsv,
             centrifuge_classification_tsv=ReadbasedAnalysis_call.final_centrifuge_classification_tsv,
-            centrifuge_krona_html=ReadbasedAnalysis_call.final_centrifuge_krona_html
+            centrifuge_krona_html=ReadbasedAnalysis_call.final_centrifuge_krona_html,
+            PREFIX=readbasedAnalysis_prefix
        }
 	## Assembly workflow
 	File metaAssembly_input_file = nmdc_rqcfilter_call.filtered_final[0]
