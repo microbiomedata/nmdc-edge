@@ -27,6 +27,29 @@ const logger = require('../../util/logger');
 
 const sysError = "API server error";
 
+// @route GET auth-api/user/info
+// @access Private
+router.get("/info", (req, res) => {
+    logger.debug("/auth-api/user/info: " + req.user.email);
+    if (process.env.SYSTEM_MESSAGE) {
+        return res.send({
+            info: {
+                allowNewRuns: false,
+                message: process.env.SYSTEM_MESSAGE,
+            },
+            message: 'Action successful',
+            success: true,
+        });
+    } else {
+        return res.send({
+            info: {
+                allowNewRuns: true,
+            },
+            message: 'Action successful',
+            success: true,
+        });
+    }
+});
 // @route POST api/user/update
 // @desc get user account 
 // @access Private

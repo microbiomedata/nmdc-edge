@@ -4,6 +4,7 @@ import MetaAssembly from '../../Workflow/Results/MetaAssembly';
 import MetaMAGs from '../../Workflow/Results/MetaMAGs';
 import ReadbasedAnalysis from '../../Workflow/Results/ReadbasedAnalysis';
 import ReadsQC from '../../Workflow/Results/ReadsQC';
+import VirusPlasmid from '../../../Virus/Workflow/Results/VirusPlasmid';
 import { workflowlist } from '../Defaults';
 
 function MetaGPipeline(props) {
@@ -27,7 +28,9 @@ function MetaGPipeline(props) {
                     return <ReadbasedAnalysis key={index} result={props.result[workflow.name]} project={props.project} title={workflowlist[workflow.name].title + ' Result'} userType={props.type} allExpand={props.allExpand} allClosed={props.allClosed} />
                 } else if (workflow.paramsOn && workflow.name === 'MetaAssembly' && runStats['Metagenome Assembly'] === 'Done') {
                     return <MetaAssembly key={index} result={props.result[workflow.name]} project={props.project} title={workflowlist[workflow.name].title + ' Result'} userType={props.type} allExpand={props.allExpand} allClosed={props.allClosed} />
-                } else if (workflow.paramsOn && workflow.name === 'MetaAnnotation' && runStats['Metagenome Annotation'] === 'Done') {
+                } else if (workflow.paramsOn && workflow.name === 'virus_plasmid' && runStats['Virus Plasmid'] === 'Done') {
+                    return <VirusPlasmid key={index} result={props.result[workflow.name]} project={props.project} title={workflowlist[workflow.name].title + ' Result'} userType={props.type} allExpand={props.allExpand} allClosed={props.allClosed} />
+                }else if (workflow.paramsOn && workflow.name === 'MetaAnnotation' && runStats['Metagenome Annotation'] === 'Done') {
                     return <MetaAnnotation key={index} result={props.result[workflow.name]} project={props.project} title={workflowlist[workflow.name].title + ' Result'} userType={props.type} allExpand={props.allExpand} allClosed={props.allClosed} />
                 } else if (workflow.paramsOn && workflow.name === 'MetaMAGs' && runStats['Metagenome MAGs'] === 'Done') {
                     return <MetaMAGs key={index} result={props.result[workflow.name]} project={props.project} title={workflowlist[workflow.name].title + ' Result'} userType={props.type} allExpand={props.allExpand} allClosed={props.allClosed} />

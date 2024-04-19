@@ -24,8 +24,8 @@ module.exports = function sendMail(from, recipient, message) {
         }
         if (service === 'mailgun') {
             transporterConfig.auth = {
-                api_key: config.EMAIL.SERVICE_USERNAME, // TODO: Did you mean `.SERVICE_TOKEN`?
-                domain: config.EMAIL.SERVICE_PASSWORD, // TODO: Did you mean... something else?
+                domain: config.EMAIL.MAILGUN_DOMAIN,
+                api_key: config.EMAIL.MAILGUN_API_KEY, 
             }
             transporter = nodemailer.createTransport(mg(transporterConfig));
         } else {
