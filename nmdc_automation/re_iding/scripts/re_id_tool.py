@@ -974,7 +974,7 @@ def _update_study_record(study_record: dict, new_study_id: str, db_client: Datab
     """
     legacy_study_id = study_record["id"]
     study_record["id"] = new_study_id
-    logging.info(f"Updating {legacy_study_id} /  {study_record['id']}: {study_record['name']}")
+    logging.info(f"Updating {legacy_study_id} /  {study_record['id']}: {study_record.get('name')}")
 
     # Copy the legacy ID to gold_study_identifiers if it is not already there
     if legacy_study_id.startswith("gold:"):
