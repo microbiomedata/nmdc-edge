@@ -1,7 +1,7 @@
 workflow preprocess {
-    Array[File?] input_files
-    Array[File?] input_fq1
-    Array[File?] input_fq2
+    Array[File] input_files
+    Array[File] input_fq1
+    Array[File] input_fq2
     String  container="bfoster1/img-omics:0.1.9"
     String outdir
     Boolean input_interleaved
