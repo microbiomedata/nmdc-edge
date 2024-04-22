@@ -3,7 +3,7 @@ import {
     Button, Form, Row, Col
 } from 'reactstrap';
 
-import { postData, notify } from '../../../common/util';
+import { getData, postData, notify } from '../../../common/util';
 import { LoaderDialog, MessageDialog } from '../../../common/Dialogs';
 import MySelect from '../../../common/MySelect';
 import { ToastContainer } from 'react-toastify';
@@ -17,6 +17,8 @@ let htmlToReactParser = new HtmlToReactParser();
 
 function Main(props) {
     const [openDialog, setOpenDialog] = useState(false);
+    const [disabled, setDisabled] = useState(false);
+    const [sysMsg, setSysMsg] = useState();
     const [submitting, setSubmitting] = useState(false);
     const [requestSubmit, setRequestSubmit] = useState(false);
 
@@ -103,18 +105,37 @@ function Main(props) {
         setDoValidation(doValidation + 1);
     }, [workflow]);// eslint-disable-line react-hooks/exhaustive-deps
 
+    useEffect(() => {
+        let url = "/auth-api/user/info";
+        getData(url)
+            .then((data) => {
+                if (data.info.allowNewRuns) {
+                    setDisabled(false)
+                } else {
+                    setSysMsg(data.info.message)
+                    setDisabled(true)
+                    setOpenDialog(true)
+                }
+            })
+            .catch((err) => {
+                alert(err)
+            })
+    }, [props]);
 
     return (
-
-        <div className="animated fadeIn">
+        <div className="animated fadeIn" style={disabled ? { pointerEvents: 'none', opacity: '0.4' } : {}}>
             <span className="pt-3 text-muted edge-text-size-small">Metaproteomics | Run Single Workflow </span>
             <Row className="justify-content-center">
                 <Col xs="12" md="10">
                     <ToastContainer />
                     <LoaderDialog loading={submitting === true} text="Submitting..." />
-                    <MessageDialog className='modal-lg modal-danger' title='Failed to submit the form' isOpen={openDialog} html={true}
-                        message={"<div><b>Please correct the error(s) and try again.</b></div>"}
-                        handleClickClose={closeMsgModal} />
+                    <MessageDialog className='modal-lg modal-warning'
+                        title="System Message"
+                        isOpen={openDialog}
+                        html={true}
+                        message={'<div><b>' + sysMsg + '</b></div>'}
+                        handleClickClose={closeMsgModal}
+                    />
                     <Form onSubmit={e => { e.preventDefault(); }}>
                         <div className="clearfix">
                             <h4 className="pt-3">Run a Single Workflow</h4>

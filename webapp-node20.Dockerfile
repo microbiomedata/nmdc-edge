@@ -4,11 +4,11 @@
 # at `installation/install.sh`.                                               #
 ###############################################################################
 
-FROM node:18-alpine
+FROM node:20-alpine
 
 # Add metadata to the Docker image.
 # Reference: https://docs.docker.com/engine/reference/builder/#label
-LABEL org.opencontainers.image.description="NMDC EDGE Web App (Node v18)"
+LABEL org.opencontainers.image.description="NMDC EDGE Web App (Node v20)"
 LABEL org.opencontainers.image.source="https://github.com/microbiomedata/nmdc-edge"
 
 # Install programs upon which the web app or its build process(es) depend.

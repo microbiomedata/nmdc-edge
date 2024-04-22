@@ -144,7 +144,7 @@ pipelinelist = {
                 cromwell_calls: ['main_workflow.metaAssembly_call']
             },
             virus_plasmid: {
-                full_name: 'Viral Plasmid',
+                full_name: 'Virus Plasmid',
                 cromwell_calls: ['main_workflow.viralPlasmid_call']
             },
             MetaAnnotation: {
