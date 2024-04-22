@@ -119,14 +119,35 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
     updated_record_identifiers = []
     with session.start_transaction():
         try:
-            # Update the metabolomics data objects
+            # Get metabolomics analysis activity records with has_input value(s) starting with 'emsl'
+            metabolomics_analysis_activities = db_client["metabolomics_analysis_activity_set"].find(
+                {"has_input": {"$regex": "^emsl"}}
+            )
+            len_metabolomics_analysis_activities = len(list(metabolomics_analysis_activities.clone()))
+            logging.info(f"Updating {len_metabolomics_analysis_activities} Metabolomics Analysis Activity records")
+
+            for metabolomics_analysis_activity in metabolomics_analysis_activities:
+                emsl_has_input_identifiers = [input for input in metabolomics_analysis_activity["has_input"] if input.startswith('emsl')]
+
+                if not emsl_has_input_identifiers:
+                    logging.error(f"Metabolomics Analysis Activity record {metabolomics_analysis_activity['id']} has no emsl has_input")
+                    continue
+                else:
+                    # retrieve from omics_processing_set here has_ouput is in emsl_has_input_identifiers
+                    omics_processing_records = db_client["omics_processing_set"].find(
+                        {"has_output": {"$in": emsl_has_input_identifiers}}
+                    )
+                    len_omics_processing_records = len(list(omics_processing_records.clone()))
+                    logging.info(f"Updating {len_omics_processing_records} Omics records for: {metabolomics_analysis_activity['id']}")
+
+
             if no_update:
                 logging.info("Dry run - not updating the database")
             else:
                 session.commit_transaction()
         except Exception as e:
             logging.error(f"An error has occurred - dumping updated record identifiers")
-            _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
+            # _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
             logging.exception(f"An error occurred while updating records: {e} - aborting transaction")
             session.abort_transaction()
 
