@@ -6,6 +6,7 @@ workflow records.
 """
 import csv
 import logging
+import sys
 import time
 from pathlib import Path
 import json
@@ -140,32 +141,59 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
 
     # Keep track of the updated record identifiers
     updated_record_identifiers = []
-    # Retrieve the Study with the given legacy ID
+
+    # Look up the study record, first by legacy ID then by NMDC ID
+    is_updated_study = False
     study_record = db_client["study_set"].find_one({"id": legacy_study_id})
     if not study_record:
-        logging.exception(f"Study not found for legacy ID: {legacy_study_id} !")
+        study_record = db_client["study_set"].find_one({"id": nmdc_study_id})
+        if study_record:
+            is_updated_study = True
+    assert study_record, f"Study record not found for legacy ID: {legacy_study_id} or NMDC ID: {nmdc_study_id}"
+
+
+
+
 
     with session.start_transaction():
         try:
             # Update the study record
-            study_record = _update_study_record(study_record, nmdc_study_id, db_client, no_update)
-            updated_record_identifiers.append(("study_set", legacy_study_id, study_record["id"]))
+            if not is_updated_study:
+                study_record = _update_study_record(study_record, nmdc_study_id, db_client, no_update)
+                updated_record_identifiers.append(("study_set", legacy_study_id, study_record["id"]))
+            else:
+                logging.info(f"Study record already updated: {nmdc_study_id}")
 
-            # Update the biosample records
+            # Find biosample records as part of first the legacy study ID then the NMDC study ID
+            is_updated_biosamples = False
             biosample_records = db_client["biosample_set"].find({"part_of": legacy_study_id})
-            biosamples_returned = len(list(biosample_records.clone()))
-            logging.info(f"Updating {biosamples_returned} Biosample records")
+            if not list(biosample_records.clone()):
+                biosample_records = db_client["biosample_set"].find({"part_of": nmdc_study_id})
+                if list(biosample_records.clone()):
+                    is_updated_biosamples = True
+            assert list(biosample_records.clone()), f"No biosample records found for legacy study ID: {legacy_study_id} or NMDC study ID: {nmdc_study_id}"
+
             for biosample_record in biosample_records:
-                legacy_biosample_id = biosample_record["id"]
-                biosample_record = _update_biosample_record(biosample_record, nmdc_study_id, db_client, api_client, no_update)
-                updated_record_identifiers.append(("biosample_set", legacy_biosample_id, biosample_record["id"]))
+                if not is_updated_biosamples:
+                    legacy_biosample_id = biosample_record["id"]
+                    biosample_record = _update_biosample_record(biosample_record, nmdc_study_id, db_client, api_client, no_update)
+                    updated_record_identifiers.append(("biosample_set", legacy_biosample_id, biosample_record["id"]))
+                else:
+                    logging.info(f"Biosample record already updated: {biosample_record['id']}")
+                    legacy_biosample_ids = biosample_record.get("gold_biosample_identifiers", [])
+                    if not legacy_biosample_ids:
+                        logging.warning(f"No legacy biosample IDs found for biosample: {biosample_record['id']}")
+                        continue
+                    legacy_biosample_id = legacy_biosample_ids[0]
+
                 # Get the OmicsProcessing records part_of the legacy study ID and has_input the legacy biosample ID
                 omics_processing_records = db_client["omics_processing_set"].find(
                     {"part_of": legacy_study_id, "has_input": legacy_biosample_id}
                 )
 
                 omics_processing_returned = len(list(omics_processing_records.clone()))
-                logging.info(f"Updating {omics_processing_returned} OmicsProcessing records for biosample: {legacy_biosample_id}")
+                logging.info(f"Updating {omics_processing_returned} OmicsProcessing records for part_of: {legacy_study_id}, has_input: {legacy_biosample_id}")
+
                 for omics_processing_record in omics_processing_records:
                     legacy_omics_processing_id = omics_processing_record["id"]
                     omics_processing_record = _update_omics_processing_record(omics_processing_record, nmdc_study_id,
@@ -181,6 +209,8 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
 
     _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
     logging.info(f"Elapsed time: {time.time() - start_time}")
+    sys.exit()
+
 
 
 def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id):
