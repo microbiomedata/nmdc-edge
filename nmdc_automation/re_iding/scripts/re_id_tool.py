@@ -126,6 +126,8 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
     )
     len_omics_processing_records = len(list(omics_processing_records.clone()))
     logging.info(f"Updating {len_omics_processing_records} Metabolomics OmicsProcessing records")
+    # non-orphan Metabolomics Activity records have a parent OmicsProcessing record
+    non_orphan_metabolomics_ids = []
     for omics_processing_record in omics_processing_records:
         omics_legacy_id = omics_processing_record.get("alternative_identifiers", [])[0]
         omics_new_id = omics_processing_record["id"]
@@ -137,6 +139,7 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
         )
         len_metabolomics_activity_records = len(list(metabolomics_activity_records.clone()))
         logging.info(f"Found {len_metabolomics_activity_records} Metabolomics Activity records for {omics_legacy_id}")
+
 
         for metabolomics_activity_record in metabolomics_activity_records:
             metabolomics_legacy_id = metabolomics_activity_record["id"]
@@ -165,6 +168,7 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
 
                         # update the has_output data objects and the Metabolomics Activity record
                         metabolomics_new_id = api_client.minter("nmdc:MetabolomicsAnalysisActivity")
+                        non_orphan_metabolomics_ids.append(metabolomics_new_id)
                         updated_record_identifiers.append(("metabolomics_analysis_activity_set", metabolomics_legacy_id, metabolomics_new_id))
                         new_output_data_object_ids = _update_metabolomics_output_data_objects(
                             output_data_objects, metabolomics_new_id, db_client, api_client, updated_record_identifiers
@@ -184,8 +188,51 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
                         session.abort_transaction()
                         logging.exception(f"An error occurred while updating records: {e} - aborting transaction")
 
+    # Find orphan Metabolomics Activity records and their data objects and delete them
+    orphan_metabolomics_activity_records = db_client["metabolomics_analysis_activity_set"].find(
+        {"id": {"$nin": non_orphan_metabolomics_ids}}
+    )
+    len_orphan_metabolomics_activity_records = len(list(orphan_metabolomics_activity_records.clone()))
+    logging.info(f"Found {len_orphan_metabolomics_activity_records} orphan Metabolomics Activity records")
+    if not no_update:
+        with session.start_transaction():
+            try:
+                _delete_metabolomics_orphans(updated_record_identifiers, orphan_metabolomics_activity_records, db_client)
+                session.commit_transaction()
+            except Exception as e:
+                logging.error(f"An error occurred - dumping updated record identifiers")
+                _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
+                session.abort_transaction()
+                logging.exception(f"An error occurred while deleting orphan records: {e} - aborting transaction")
+
+
     _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
     logging.info(f"Elapsed time: {time.time() - start_time}")
+
+
+def _delete_metabolomics_orphans(updated_record_identifiers, orphan_metabolomics_activity_records, db_client):
+    for orphan_metabolomics_activity_record in orphan_metabolomics_activity_records:
+        # get the data objects for has_input and has_output and delete them
+        has_input = orphan_metabolomics_activity_record.get("has_input", [])
+        for data_object_id in has_input:
+            updated_record_identifiers.append(("data_object_set", data_object_id, None))
+        result = db_client["data_object_set"].delete_many({"id": {"$in": has_input}})
+        logging.info(f"Deleted {result.deleted_count} data_object_set records")
+
+        has_output = orphan_metabolomics_activity_record.get("has_output", [])
+        for data_object_id in has_output:
+            updated_record_identifiers.append(("data_object_set", data_object_id, None))
+        result = db_client["data_object_set"].delete_many({"id": {"$in": has_output}})
+        logging.info(f"Deleted {result.deleted_count} data_object_set records")
+
+        logging.info(f"Deleting orphan Metabolomics Activity record: {orphan_metabolomics_activity_record['id']}")
+        updated_record_identifiers.append(
+            ("metabolomics_analysis_activity_set", orphan_metabolomics_activity_record["id"], None)
+            )
+        result = db_client["metabolomics_analysis_activity_set"].delete_one(
+            {"id": orphan_metabolomics_activity_record["id"]}
+            )
+        logging.info(f"Deleted {result.deleted_count} metabolomics_analysis_activity_set records")
 
 
 def _update_metabolomics_input_data_objects(input_data_objects, db_client, api_client, updated_record_identifiers):
