@@ -22,7 +22,6 @@ from nmdc_automation.nmdc_common.client import NmdcApi
 import nmdc_schema.nmdc as nmdc
 from nmdc_automation.config import UserConfig
 from nmdc_automation.re_iding.base import ReIdTool
-from nmdc_automation.re_iding.changesheets import Changesheet
 from nmdc_automation.re_iding.db_utils import get_omics_processing_id, ANALYSIS_ACTIVITIES
 
 # Defaults
@@ -99,7 +98,10 @@ def cli(ctx, target):
 @click.pass_context
 def update_metabolomics(ctx, mongo_uri, no_update=False):
     """
-    Update the NMDC metabolomics data objects with new IDs.
+    Update the NMDC Metabolomics Activity and related DataObject records:
+     - update the has_input and has_output data objects
+        - update the parent OmicsProcessing.has_output record with the new has_input data objects
+        - Re-ID the  Metabolomics Activity record and update with the new has_output data objects
     """
     start_time = time.time()
     logging.info(f"Updating NMDC metabolomics data objects")
@@ -117,44 +119,112 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
 
     # Keep track of the updated record identifiers
     updated_record_identifiers = []
-    with session.start_transaction():
-        try:
-            # Get metabolomics analysis activity records with has_input value(s) starting with 'emsl'
-            metabolomics_analysis_activities = db_client["metabolomics_analysis_activity_set"].find(
-                {"has_input": {"$regex": "^emsl"}}
-            )
-            len_metabolomics_analysis_activities = len(list(metabolomics_analysis_activities.clone()))
-            logging.info(f"Updating {len_metabolomics_analysis_activities} Metabolomics Analysis Activity records")
 
-            for metabolomics_analysis_activity in metabolomics_analysis_activities:
-                emsl_has_input_identifiers = [input for input in metabolomics_analysis_activity["has_input"] if input.startswith('emsl')]
+    # Get all Metabolomics OmicsProcessing records
+    omics_processing_records = db_client["omics_processing_set"].find(
+        {"omics_type.has_raw_value": "Metabolomics"}
+    )
+    len_omics_processing_records = len(list(omics_processing_records.clone()))
+    logging.info(f"Updating {len_omics_processing_records} Metabolomics OmicsProcessing records")
+    for omics_processing_record in omics_processing_records:
+        omics_legacy_id = omics_processing_record.get("alternative_identifiers", [])[0]
+        omics_new_id = omics_processing_record["id"]
+        logging.info(f"Updating Metabolomics Omics record: {omics_legacy_id} / {omics_new_id}")
 
-                if not emsl_has_input_identifiers:
-                    logging.error(f"Metabolomics Analysis Activity record {metabolomics_analysis_activity['id']} has no emsl has_input")
-                    continue
-                else:
-                    # retrieve from omics_processing_set here has_ouput is in emsl_has_input_identifiers
-                    omics_processing_records = db_client["omics_processing_set"].find(
-                        {"has_output": {"$in": emsl_has_input_identifiers}}
-                    )
-                    len_omics_processing_records = len(list(omics_processing_records.clone()))
-                    logging.info(f"Updating {len_omics_processing_records} Omics records for: {metabolomics_analysis_activity['id']}")
+        # Find Metabolomics Activity records that are informed_by the legacy OmicsProcessing ID
+        metabolomics_activity_records = db_client["metabolomics_analysis_activity_set"].find(
+            {"was_informed_by": omics_legacy_id}
+        )
+        len_metabolomics_activity_records = len(list(metabolomics_activity_records.clone()))
+        logging.info(f"Found {len_metabolomics_activity_records} Metabolomics Activity records for {omics_legacy_id}")
 
+        for metabolomics_activity_record in metabolomics_activity_records:
+            metabolomics_legacy_id = metabolomics_activity_record["id"]
+            logging.info(f"Updating Metabolomics Activity record: {metabolomics_legacy_id}")
+            # get the data objects for has_input and has_output
+            has_input = metabolomics_activity_record.get("has_input", [])
+            has_output = metabolomics_activity_record.get("has_output", [])
+            input_data_objects = db_client["data_object_set"].find({"id": {"$in": has_input}})
+            logging.info(f"Found {len(list(input_data_objects.clone()))} input data objects for {metabolomics_legacy_id}")
+            output_data_objects = db_client["data_object_set"].find({"id": {"$in": has_output}})
+            logging.info(f"Found {len(list(output_data_objects.clone()))} output data objects for {metabolomics_legacy_id}")
 
-            if no_update:
-                logging.info("Dry run - not updating the database")
-            else:
-                session.commit_transaction()
-        except Exception as e:
-            logging.error(f"An error has occurred - dumping updated record identifiers")
-            # _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
-            logging.exception(f"An error occurred while updating records: {e} - aborting transaction")
-            session.abort_transaction()
+            # Mint new IDs if we are updating the database
+            if not no_update:
+                with session.start_transaction():
+                    try:
+                        # update the has_input data objects and the parent OmicsProcessing record
+                        new_input_data_object_ids = _update_metabolomics_input_data_objects(
+                            input_data_objects, db_client, api_client, updated_record_identifiers
+                            )
+                        # update has_output in the parent OmicsProcessing record
+                        op_filter_criteria = {"id": omics_new_id}
+                        op_update_criteria = {"$set": {"has_output": new_input_data_object_ids}}
+                        result = db_client["omics_processing_set"].update_one(op_filter_criteria, op_update_criteria)
+                        logging.info(f"Updated {result.modified_count} omics_processing_set records")
 
-    # _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
+                        # update the has_output data objects and the Metabolomics Activity record
+                        metabolomics_new_id = api_client.minter("nmdc:MetabolomicsAnalysisActivity")
+                        updated_record_identifiers.append(("metabolomics_analysis_activity_set", metabolomics_legacy_id, metabolomics_new_id))
+                        new_output_data_object_ids = _update_metabolomics_output_data_objects(
+                            output_data_objects, metabolomics_new_id, db_client, api_client, updated_record_identifiers
+                            )
+                        # update the Metabolomics Activity record
+                        ma_filter_criteria = {"id": metabolomics_legacy_id}
+                        ma_update_criteria = {"$set": {"id": metabolomics_new_id, "was_informed_by": omics_new_id,
+                                                        "has_output": new_output_data_object_ids}}
+                        result = db_client["metabolomics_analysis_activity_set"].update_one(ma_filter_criteria, ma_update_criteria)
+                        logging.info(f"Updated {result.modified_count} metabolomics_analysis_activity_set records")
+
+                        session.commit_transaction()
+
+                    except Exception as e:
+                        logging.error(f"An error occurred - dumping updated record identifiers")
+                        _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
+                        session.abort_transaction()
+                        logging.exception(f"An error occurred while updating records: {e} - aborting transaction")
+
+    _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
     logging.info(f"Elapsed time: {time.time() - start_time}")
 
 
+def _update_metabolomics_input_data_objects(input_data_objects, db_client, api_client, updated_record_identifiers):
+    """
+    Update the input data objects for a Metabolomics OmicsProcessing record.
+    """
+    new_input_data_object_ids = []
+    for input_data_object in input_data_objects:
+        # mint new ID for the data object
+        legacy_id = input_data_object["id"]
+        new_id = api_client.minter("nmdc:DataObject")
+        new_input_data_object_ids.append(new_id)
+        updated_record_identifiers.append(("data_object_set", legacy_id, new_id))
+        # update the data object record
+        do_filter_criteria = {"id": legacy_id}
+        do_update_criteria = {"$set": {"id": new_id, "alternative_identifiers": [legacy_id]}}
+        result = db_client["data_object_set"].update_one(do_filter_criteria, do_update_criteria)
+        logging.info(f"Updated {result.modified_count} data_object_set records")
+    return new_input_data_object_ids
+
+
+def _update_metabolomics_output_data_objects(output_data_objects, metabolomics_new_id, db_client, api_client,
+                                             updated_record_identifiers):
+    """
+    Update the output data objects for a Metabolomics OmicsProcessing record.
+    """
+    new_output_data_object_ids = []
+    for output_data_object in output_data_objects:
+        # mint new ID for the data object
+        legacy_id = output_data_object["id"]
+        new_id = api_client.minter("nmdc:DataObject")
+        new_output_data_object_ids.append(new_id)
+        updated_record_identifiers.append(("data_object_set", legacy_id, new_id))
+        # update the data object record
+        do_filter_criteria = {"id": legacy_id}
+        do_update_criteria = {"$set": {"id": new_id, "alternative_identifiers": [legacy_id], "generated_by": metabolomics_new_id}}
+        result = db_client["data_object_set"].update_one(do_filter_criteria, do_update_criteria)
+        logging.info(f"Updated {result.modified_count} data_object_set records")
+    return new_output_data_object_ids
 
 @cli.command()
 @click.argument("legacy_study_id", type=str, required=True)
