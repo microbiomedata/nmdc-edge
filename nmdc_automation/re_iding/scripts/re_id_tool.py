@@ -187,6 +187,7 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
                             # update the Metabolomics Activity record
                             metabolomics_activity_record["id"] = metabolomics_new_id
                             metabolomics_activity_record["has_output"] = new_output_data_object_ids
+                            metabolomics_activity_record["has_input"] = new_input_data_object_ids
                             metabolomics_activity_record["was_informed_by"] = omics_new_id
                             result = db_client["metabolomics_analysis_activity_set"].update_one(
                                 {"_id": metabolomics_activity_record["_id"]},
