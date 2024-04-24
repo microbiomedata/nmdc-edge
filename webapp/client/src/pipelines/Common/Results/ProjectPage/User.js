@@ -69,7 +69,7 @@ function User(props) {
                 </Row>
                 :
                 <>
-                    <ProjectSummary project={project} />
+                    <ProjectSummary project={project} type={'user'}/>
                     <br></br>
                     <ProjectResult project={project} type={'user'} />
                 </>

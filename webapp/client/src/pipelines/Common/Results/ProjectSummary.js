@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row, Badge} from 'reactstrap';
+import { Col, Row, Badge } from 'reactstrap';
 import Moment from 'react-moment';
 
 import { projectStatusColors, projectStatusNames } from '../../../common/table';
@@ -28,7 +28,7 @@ function ProjectSummary(props) {
                             <b>Project Summary:</b>
                             <hr></hr>
                             <b>Description:</b> {props.project.desc}<br></br>
-                            <b>Owner:</b> {props.project.owner}<br></br>
+                            {props.type !== 'public' && <><b>Owner:</b> {props.project.owner}<br></br></>}
                             <b>Submission Time:</b> <Moment>{props.project.created}</Moment><br></br>
                             <b>Status:</b> <Badge color={projectStatusColors[props.project.status]}>{projectStatusNames[props.project.status]}</Badge><br></br>
                             <b>Type:</b> {props.project.type}<br></br>

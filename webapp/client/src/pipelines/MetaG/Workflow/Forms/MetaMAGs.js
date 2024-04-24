@@ -13,7 +13,7 @@ import { Header } from '../../../Common/Forms/CardHeader';
 export function MetaMAGs(props) {
 
     const [form, setState] = useState({ ...initialMetaMAGs });
-    const [collapseParms, setCollapseParms] = useState(true);
+    const [collapseParms, setCollapseParms] = useState(false);
     const [doValidation, setDoValidation] = useState(0);
 
     const toggleParms = () => {

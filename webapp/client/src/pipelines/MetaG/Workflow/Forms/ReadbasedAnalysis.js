@@ -16,7 +16,7 @@ export function ReadbasedAnalysis(props) {
     });
     //need initial array for workflow selected more than once, otherwise workflows will share same inputs
     const [form, setState] = useState({ ...initialReadbasedAnalysis, fastqPaired: [], fastqSingle: [] });
-    const [collapseParms, setCollapseParms] = useState(true);
+    const [collapseParms, setCollapseParms] = useState(false);
     const [doValidation, setDoValidation] = useState(0);
 
     const toggleParms = () => {

@@ -125,7 +125,7 @@ function Main(props) {
 
     return (
         <div className="animated fadeIn" style={disabled ? { pointerEvents: 'none', opacity: '0.4' } : {}}>
-            <span className="pt-3 text-muted edge-text-size-small">Organic Matter | Run Single Workflow </span>
+            <span className="pt-3 text-muted edge-text-size-small">Natural Organic Matter | Run Workflow </span>
             <Row className="justify-content-center">
                 <Col xs="12" md="10">
                     <ToastContainer />
@@ -139,12 +139,18 @@ function Main(props) {
                     />
                     <Form onSubmit={e => { e.preventDefault(); }}>
                         <div className="clearfix">
-                            <h4 className="pt-3">Run a Single Workflow</h4>
+                            <h4 className="pt-3">Run Workflow</h4>
+                            {workflow &&
+                                <>
+                                    {workflowlist[workflow].info} <a target="_blank" href={workflowlist[workflow].doclink} rel="noopener noreferrer">Learn more</a>
+                                    <br></br>
+                                </>
+                            }
                             <hr />
                             <Project setParams={setProject} />
 
                             <br></br>
-                            <b>Workflow</b>
+                            {/* <b>Workflow</b>
                             <MySelect
                                 value={workflowOptions[0]}
                                 options={workflowOptions}
@@ -158,13 +164,7 @@ function Main(props) {
                                 placeholder="Select a Workflow..."
                                 isClearable={true}
                             />
-                            <br></br>
-                            {workflow &&
-                                <>
-                                    {workflowlist[workflow].info} <a target="_blank" href={workflowlist[workflow].link} rel="noopener noreferrer">Learn more</a>
-                                    <br></br>
-                                </>
-                            }
+                            <br></br> */}
                             <br></br>
                             {workflow === 'EnviroMS' &&
                                 <EnviroMS name={workflow} full_name={workflow} setParams={setWorkflowParams} />

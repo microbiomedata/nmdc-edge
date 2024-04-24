@@ -87,52 +87,28 @@ const _nav = [
     ],
   },
   {
-    _tag: 'CSidebarNavDropdown',
-    name: 'Metatranscriptomics',
-    icon: 'cilLayers',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Run a Single Workflow',
-        to: '/metat/workflow',
-      },
-    ],
+    _tag: 'CSidebarNavItem',
+    name: 'Metatranscriptome',
+    icon: 'cilCursor',
+    to: '/metat/workflow',
   },
   {
-    _tag: 'CSidebarNavDropdown',
-    name: 'Organic Matter',
-    icon: 'cilLayers',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Run a Single Workflow',
-        to: '/organicm/workflow',
-      },
-    ],
-  },
-  {
-    _tag: 'CSidebarNavDropdown',
-    name: 'Viruses and Plasmids',
-    icon: 'cilLayers',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Run a Single Workflow',
-        to: '/virus_plasmid/workflow',
-      },
-    ],
-  },
-  {
-    _tag: 'CSidebarNavDropdown',
+    _tag: 'CSidebarNavItem',
     name: 'Metaproteomics',
-    icon: 'cilLayers',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Run a Single Workflow',
-        to: '/metap/workflow',
-      },
-    ],
+    icon: 'cilCursor',
+    to: '/metap/workflow',
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Natural Organic Matter',
+    icon: 'cilCursor',
+    to: '/organicm/workflow',
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Viruses and Plasmids',
+    icon: 'cilCursor',
+    to: '/virus_plasmid/workflow',
   },
 ]
 

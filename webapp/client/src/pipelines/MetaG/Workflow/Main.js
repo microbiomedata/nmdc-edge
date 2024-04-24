@@ -200,7 +200,7 @@ function Main(props) {
                             <br></br>
                             {workflow &&
                                 <>
-                                    {workflowlist[workflow].info} <a target="_blank" href={workflowlist[workflow].link} rel="noopener noreferrer">Learn more</a>
+                                    {workflowlist[workflow].info} <a target="_blank" href={workflowlist[workflow].doclink} rel="noopener noreferrer">Learn more</a>
                                     <br></br>
                                 </>
                             }
