@@ -173,13 +173,26 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
                         new_output_data_object_ids = _update_metabolomics_output_data_objects(
                             output_data_objects, metabolomics_new_id, db_client, api_client, updated_record_identifiers
                             )
-                        # update the Metabolomics Activity record
-                        ma_filter_criteria = {"id": metabolomics_legacy_id}
-                        ma_update_criteria = {"$set": {"id": metabolomics_new_id, "was_informed_by": omics_new_id,
-                                                        "has_output": new_output_data_object_ids}}
-                        result = db_client["metabolomics_analysis_activity_set"].update_one(ma_filter_criteria, ma_update_criteria)
-                        logging.info(f"Updated {result.modified_count} metabolomics_analysis_activity_set records")
+                        # metabolomics analysis activity records also need their has_calibration values updated.
+                        is_updated_calibration = False
+                        if "has_calibration" in metabolomics_activity_record:
+                            calibration_value = metabolomics_activity_record["has_calibration"]
+                            if calibration_value.lower() != "false":
+                                if calibration_value.startswith("emsl"):
+                                    calibration_data_object = db_client["data_object_set"].find_one({"id": calibration_value})
+                                    if calibration_data_object:
+                                        new_calibration_id = _update_calibration_data_object(calibration_data_object, db_client, api_client, updated_record_identifiers)
+                                        metabolomics_activity_record["has_calibration"] = new_calibration_id
 
+                            # update the Metabolomics Activity record
+                            metabolomics_activity_record["id"] = metabolomics_new_id
+                            metabolomics_activity_record["has_output"] = new_output_data_object_ids
+                            metabolomics_activity_record["was_informed_by"] = omics_new_id
+                            result = db_client["metabolomics_analysis_activity_set"].update_one(
+                                {"_id": metabolomics_activity_record["_id"]},
+                                {"$set": metabolomics_activity_record}
+                            )
+                            logging.info(f"Updated {result.modified_count} metabolomics_analysis_activity_set records")
                         session.commit_transaction()
 
                     except Exception as e:
@@ -273,6 +286,22 @@ def _update_metabolomics_output_data_objects(output_data_objects, metabolomics_n
         result = db_client["data_object_set"].update_one(do_filter_criteria, do_update_criteria)
         logging.info(f"Updated {result.modified_count} data_object_set records")
     return new_output_data_object_ids
+
+
+def _update_calibration_data_object(calibration_data_object, db_client, api_client, updated_record_identifiers):
+    """
+    Update the calibration data object for a Metabolomics Activity record.
+    """
+    # mint new ID for the data object
+    legacy_id = calibration_data_object["id"]
+    new_id = api_client.minter("nmdc:DataObject")
+    updated_record_identifiers.append(("data_object_set", legacy_id, new_id))
+    # update the data object record
+    do_filter_criteria = {"id": legacy_id}
+    do_update_criteria = {"$set": {"id": new_id, "alternative_identifiers": [legacy_id]}}
+    result = db_client["data_object_set"].update_one(do_filter_criteria, do_update_criteria)
+    logging.info(f"Updated {result.modified_count} data_object_set records")
+    return new_id
 
 @cli.command()
 @click.argument("legacy_study_id", type=str, required=True)
