@@ -151,10 +151,6 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
             is_updated_study = True
     assert study_record, f"Study record not found for legacy ID: {legacy_study_id} or NMDC ID: {nmdc_study_id}"
 
-
-
-
-
     with session.start_transaction():
         try:
             # Update the study record
@@ -173,6 +169,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
                     is_updated_biosamples = True
             assert list(biosample_records.clone()), f"No biosample records found for legacy study ID: {legacy_study_id} or NMDC study ID: {nmdc_study_id}"
 
+            # Update the biosample records
             for biosample_record in biosample_records:
                 if not is_updated_biosamples:
                     legacy_biosample_id = biosample_record["id"]
@@ -194,6 +191,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
                 omics_processing_returned = len(list(omics_processing_records.clone()))
                 logging.info(f"Updating {omics_processing_returned} OmicsProcessing records for part_of: {legacy_study_id}, has_input: {legacy_biosample_id}")
 
+                # Update the OmicsProcessing records
                 for omics_processing_record in omics_processing_records:
                     legacy_omics_processing_id = omics_processing_record["id"]
                     omics_processing_record = _update_omics_processing_record(omics_processing_record, nmdc_study_id,
@@ -201,6 +199,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
                                                                               db_client, api_client, no_update)
                     updated_record_identifiers.append(("omics_processing_set", legacy_omics_processing_id, omics_processing_record["id"]))
             session.commit_transaction()
+            logging.info(f"Updated {len(updated_record_identifiers)} records")
         except Exception as e:
             logging.error(f"An error has occurred - dumping updated record identifiers")
             _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
