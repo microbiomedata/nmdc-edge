@@ -179,7 +179,8 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
             for biosample_record in biosample_records:
                 if not is_updated_biosamples:
                     legacy_biosample_id = biosample_record["id"]
-                    biosample_record = _update_biosample_record(biosample_record, nmdc_study_id, db_client, api_client, no_update)
+                    biosample_record = _update_biosample_record(biosample_record, nmdc_study_id, db_client,
+                                                                api_client, no_update, identifiers_map)
                     updated_record_identifiers.append(("biosample_set", legacy_biosample_id, biosample_record["id"]))
                 else:
                     logging.info(f"Biosample record already updated: {biosample_record['id']}")
@@ -200,10 +201,14 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
                 # Update the OmicsProcessing records
                 for omics_processing_record in omics_processing_records:
                     legacy_omics_processing_id = omics_processing_record["id"]
-                    omics_processing_record = _update_omics_processing_record(omics_processing_record, nmdc_study_id,
-                                                                              biosample_record["id"],
-                                                                              db_client, api_client, no_update)
-                    updated_record_identifiers.append(("omics_processing_set", legacy_omics_processing_id, omics_processing_record["id"]))
+                    omics_processing_record = _update_omics_processing_record(
+                        omics_processing_record, nmdc_study_id,
+                        biosample_record["id"],
+                        db_client, api_client, no_update, identifiers_map
+                        )
+                    updated_record_identifiers.append(
+                        ("omics_processing_set", legacy_omics_processing_id, omics_processing_record["id"])
+                        )
             session.commit_transaction()
             logging.info(f"Updated {len(updated_record_identifiers)} records")
         except Exception as e:
