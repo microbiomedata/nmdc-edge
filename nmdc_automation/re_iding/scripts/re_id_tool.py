@@ -152,14 +152,16 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
             output_data_objects = db_client["data_object_set"].find({"id": {"$in": has_output}})
             logging.info(f"Found {len(list(output_data_objects.clone()))} output data objects for {metabolomics_legacy_id}")
 
+
             # Mint new IDs if we are updating the database
             if not no_update:
                 with session.start_transaction():
                     try:
                         # update the has_input data objects and the parent OmicsProcessing record
-                        new_input_data_object_ids = _update_metabolomics_input_data_objects(
-                            input_data_objects, db_client, api_client, updated_record_identifiers
-                            )
+                        if not _data_objects_have_valid_ids(input_data_objects):
+                            new_input_data_object_ids = _update_metabolomics_input_data_objects(
+                                input_data_objects, db_client, api_client, updated_record_identifiers
+                                )
                         # update has_output in the parent OmicsProcessing record
                         op_filter_criteria = {"id": omics_new_id}
                         op_update_criteria = {"$set": {"has_output": new_input_data_object_ids}}
@@ -223,6 +225,14 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
     _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
     logging.info(f"Elapsed time: {time.time() - start_time}")
 
+def _data_objects_have_valid_ids(data_objects):
+    """
+    Check that all data objects have valid NMDC IDs.
+    """
+    for data_object in data_objects:
+        if not data_object["id"].startswith("nmdc:dobj-"):
+            return False
+    return True
 
 def _delete_metabolomics_orphans(updated_record_identifiers, orphan_metabolomics_activity_records, db_client):
     for orphan_metabolomics_activity_record in orphan_metabolomics_activity_records:
@@ -282,8 +292,7 @@ def _update_metabolomics_output_data_objects(output_data_objects, metabolomics_n
         updated_record_identifiers.append(("data_object_set", legacy_id, new_id))
         # update the data object record
         do_filter_criteria = {"id": legacy_id}
-        do_update_criteria = {"$set": {"id": new_id, "alternative_identifiers": [legacy_id], "was_generated_by":
-            metabolomics_new_id}}
+        do_update_criteria = {"$set": {"id": new_id,  "was_generated_by": metabolomics_new_id}}
         result = db_client["data_object_set"].update_one(do_filter_criteria, do_update_criteria)
         logging.info(f"Updated {result.modified_count} data_object_set records")
     return new_output_data_object_ids
