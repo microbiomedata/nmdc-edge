@@ -528,26 +528,8 @@ def process_records(ctx, study_id, data_dir, update_links=False):
 @cli.command()
 @click.argument("reid_records_file", type=click.Path(exists=True))
 @click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
-@click.option(
-    "--is-direct-connection",
-    type=bool,
-    required=False,
-    default=True,
-    show_default=True,
-    help=f"Whether you want the script to set the `directConnection` flag when connecting to the MongoDB server. "
-         f"That is required by some MongoDB servers that belong to a replica set. ",
-)
-@click.option(
-    "--database-name",
-    type=str,
-    required=False,
-    default="nmdc",
-    show_default=True,
-    help=f"MongoDB database name",
-)
 @click.pass_context
-def ingest_records(ctx, reid_records_file, mongo_uri,
-                   is_direct_connection=True, database_name="nmdc"):
+def ingest_records(ctx, reid_records_file, mongo_uri):
     """
     Read in json dump of re_id'd records and:
     - validate the records against the /metadata/json:validate endpoint
@@ -566,6 +548,8 @@ def ingest_records(ctx, reid_records_file, mongo_uri,
     logging.info(f"Using MongoDB URI: {mongo_uri}")
 
     # Connect to the MongoDB server and check the database name
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    database_name = ctx.obj["database_name"]
     client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
     with pymongo.timeout(5):
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
@@ -628,25 +612,8 @@ def _ingest_records(db_records, db_client, api_user_client):
 @cli.command()
 @click.argument("old_records_file", type=click.Path(exists=True))
 @click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
-@click.option(
-    "--is-direct-connection",
-    type=bool,
-    required=False,
-    default=True,
-    show_default=True,
-    help=f"Whether you want the script to set the `directConnection` flag when connecting to the MongoDB server. "
-         f"That is required by some MongoDB servers that belong to a replica set. ",
-)
-@click.option(
-    "--database-name",
-    type=str,
-    required=False,
-    default="nmdc",
-    show_default=True,
-    help=f"MongoDB database name",
-)
 @click.pass_context
-def delete_old_records(ctx, old_records_file, mongo_uri, is_direct_connection=True, database_name="nmdc"):
+def delete_old_records(ctx, old_records_file, mongo_uri):
     """
     Read in json dump of old records and:
     delete them using
@@ -661,6 +628,8 @@ def delete_old_records(ctx, old_records_file, mongo_uri, is_direct_connection=Tr
     deleted_record_identifiers = []
 
     # Get PyMongo client
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    database_name = ctx.obj["database_name"]
     client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
     with pymongo.timeout(5):
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
@@ -733,11 +702,9 @@ def _write_deleted_record_identifiers(deleted_record_identifiers, old_base_name)
 
 @cli.command()
 @click.argument("mongo_uri", type=str)
-@click.argument("database_name", type=str, default="nmdc")
-@click.option("--direct-connection", is_flag=True, default=True)
 @click.option("--no-delete", is_flag=True, default=False)
 @click.pass_context
-def delete_old_binning_data(ctx, mongo_uri, database_name, direct_connection, no_delete=False):
+def delete_old_binning_data(ctx, mongo_uri, no_delete=False):
     """
     Delete old binning data with non-comforming IDs from the MongoDB database.
 
@@ -750,10 +717,12 @@ def delete_old_binning_data(ctx, mongo_uri, database_name, direct_connection, no
     deleted.
     """
     start_time = time.time()
+    database_name = ctx.obj["database_name"]
     logging.info(f"Deleting old binning data from {database_name} database at {mongo_uri}")
 
     # Connect to the MongoDB server and check the database name
-    client = pymongo.MongoClient(mongo_uri, directConnection=direct_connection)
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
     with pymongo.timeout(5):
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
     logging.info(f"Connected to MongoDB server at {mongo_uri}")
