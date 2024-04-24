@@ -92,30 +92,17 @@ def cli(ctx, target):
         raise ValueError(f"Invalid target: {target}")
 
     ctx.obj["site_config"] = site_config
+    ctx.obj["database_name"] = "nmdc"
+    ctx.obj["is_direct_connection"] = True
+
 
 @cli.command()
 @click.argument("legacy_study_id", type=str, required=True)
 @click.argument("nmdc_study_id", type=str, required=True)
 @click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
-@click.option(
-    "--is-direct-connection",
-    type=bool,
-    required=False,
-    default=True,
-    show_default=True,
-    help=f"Whether you want the script to set the `directConnection` flag when connecting to the MongoDB server. "
-         f"That is required by some MongoDB servers that belong to a replica set. ",
-)
-@click.option("--database-name",
-              type=str,
-              required=False,
-              default="nmdc",
-              show_default=True,
-              help=f"MongoDB database name",
-              )
 @click.option("--no-update", is_flag=True, default=False, help="Do not update the database")
 @click.pass_context
-def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_connection=True, database_name="nmdc", no_update=False):
+def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, no_update=False):
     """
     Update the NMDC study with the given legacy ID by re-IDing the study, biosample, and omics processing records
     and updating the MongoDB database with the new records.
@@ -128,6 +115,8 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
     assert nmdc_study_id in valid_study_ids, f"Invalid nmdc_study_id: {nmdc_study_id}"
 
     # Connect to the MongoDB server and check the database name
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    database_name = ctx.obj["database_name"]
     client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
     with pymongo.timeout(5):
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
