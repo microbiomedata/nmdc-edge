@@ -215,15 +215,19 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
                         session.abort_transaction()
                         logging.exception(f"An error occurred while updating records: {e} - aborting transaction")
 
-    # Find orphan Metabolomics Activity records and their data objects and delete them
+    # Find orphan Metabolomics Activity where the OmicsProcessing record referenced in was_informed_by is not found
+    distinct_was_informed_by = db_client["metabolomics_analysis_activity_set"].distinct("was_informed_by")
+    parent_omics_processing_records = db_client["omics_processing_set"].find({"id": {"$in": distinct_was_informed_by}})
+    parent_omics_processing_ids = [op["id"] for op in parent_omics_processing_records]
     orphan_metabolomics_activity_records = db_client["metabolomics_analysis_activity_set"].find(
-        {"id": {"$nin": non_orphan_metabolomics_ids}}
+        {"was_informed_by": {"$nin": parent_omics_processing_ids}}
     )
-    len_orphan_metabolomics_activity_records = len(list(orphan_metabolomics_activity_records.clone()))
-    logging.info(f"Found {len_orphan_metabolomics_activity_records} orphan Metabolomics Activity records")
+    orphan_metabolomics_activity_count = len(list(orphan_metabolomics_activity_records.clone()))
+    logging.info(f"Found {orphan_metabolomics_activity_count} orphan Metabolomics Activity records")
     if not no_update:
         with session.start_transaction():
             try:
+                # delete orphan Metabolomics Activity records and their data objects
                 _delete_metabolomics_orphans(updated_record_identifiers, orphan_metabolomics_activity_records, db_client)
                 session.commit_transaction()
             except Exception as e:
@@ -231,7 +235,6 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
                 _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
                 session.abort_transaction()
                 logging.exception(f"An error occurred while deleting orphan records: {e} - aborting transaction")
-
 
     _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
     logging.info(f"Elapsed time: {time.time() - start_time}")
@@ -272,7 +275,7 @@ def _delete_metabolomics_orphans(updated_record_identifiers, orphan_metabolomics
 
 def _update_metabolomics_input_data_objects(input_data_objects, db_client, api_client, updated_record_identifiers):
     """
-    Update the input data objects for a Metabolomics OmicsProcessing record.
+    Update the input data objects for a Metabolomics Workflow Activity record.
     """
     new_input_data_object_ids = []
     for input_data_object in input_data_objects:
@@ -311,7 +314,7 @@ def _update_metabolomics_output_data_objects(output_data_objects, metabolomics_n
 
 def _update_calibration_data_object(calibration_data_object, db_client, api_client, updated_record_identifiers):
     """
-    Update the calibration data object for a Metabolomics Activity record.
+    Update the calibration data object for a Metabolomics Workflow Activity record.
     """
     # mint new ID for the data object
     legacy_id = calibration_data_object["id"]
