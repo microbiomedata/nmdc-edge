@@ -22,7 +22,8 @@ export const workflowlist = {
         title: 'EnviroMS',
         name: 'EnviroMS Workflow',
         link: 'https://github.com/microbiomedata/enviroMS',
-        info: 'EnviroMS is a workflow for natural organic matter data processing and annotation'
+        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/9_NOM_index.html',
+        info: 'This workflow is for natural organic matter data processing and annotation'
     }
 }
 

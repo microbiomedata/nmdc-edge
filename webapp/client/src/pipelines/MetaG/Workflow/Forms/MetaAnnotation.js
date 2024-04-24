@@ -17,7 +17,7 @@ export function MetaAnnotation(props) {
     });
 
     const [form, setState] = useState({ ...initialMetaAnnotation });
-    const [collapseParms, setCollapseParms] = useState(true);
+    const [collapseParms, setCollapseParms] = useState(false);
     const [doValidation, setDoValidation] = useState(0);
 
     const toggleParms = () => {

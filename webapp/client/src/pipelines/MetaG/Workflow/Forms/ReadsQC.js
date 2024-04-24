@@ -9,7 +9,7 @@ import { Header } from '../../../Common/Forms/CardHeader';
 import { workflowInputTips } from '../Defaults';
 
 export function ReadsQC(props) {
-    const [collapseParms, setCollapseParms] = useState(true);
+    const [collapseParms, setCollapseParms] = useState(false);
 
     const toggleParms = () => {
         setCollapseParms(!collapseParms);

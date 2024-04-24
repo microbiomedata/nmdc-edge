@@ -9,7 +9,7 @@ import { MyTooltip } from '../../../../common/MyTooltip';
 import { workflowInputTips } from '../Defaults';
 
 export function MetaAssembly(props) {
-    const [collapseParms, setCollapseParms] = useState(true);
+    const [collapseParms, setCollapseParms] = useState(false);
 
     const toggleParms = () => {
         setCollapseParms(!collapseParms);

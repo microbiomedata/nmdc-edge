@@ -69,7 +69,7 @@ function Admin(props) {
                 </Row>
                 :
                 <>
-                    <ProjectSummary project={project} />
+                    <ProjectSummary project={project} type={'admin'} />
                     <br></br>
                     <ProjectResult project={project} type={'admin'} />
                 </>
