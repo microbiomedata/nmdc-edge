@@ -111,6 +111,7 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
         assert ("nmdc" in client.list_database_names()), f"Database nmdc not found"
     db_client = client["nmdc"]
     # start a session
+
     session = client.start_session()
 
     # API client for minting new IDs
@@ -224,17 +225,17 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
     )
     orphan_metabolomics_activity_count = len(list(orphan_metabolomics_activity_records.clone()))
     logging.info(f"Found {orphan_metabolomics_activity_count} orphan Metabolomics Activity records")
-    if not no_update:
-        with session.start_transaction():
-            try:
-                # delete orphan Metabolomics Activity records and their data objects
-                _delete_metabolomics_orphans(updated_record_identifiers, orphan_metabolomics_activity_records, db_client)
-                session.commit_transaction()
-            except Exception as e:
-                logging.error(f"An error occurred - dumping updated record identifiers")
-                _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
-                session.abort_transaction()
-                logging.exception(f"An error occurred while deleting orphan records: {e} - aborting transaction")
+    # if not no_update:
+    #     with session.start_transaction():
+    #         try:
+    #             # delete orphan Metabolomics Activity records and their data objects
+    #             _delete_metabolomics_orphans(updated_record_identifiers, orphan_metabolomics_activity_records, db_client)
+    #             session.commit_transaction()
+    #         except Exception as e:
+    #             logging.error(f"An error occurred - dumping updated record identifiers")
+    #             _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
+    #             session.abort_transaction()
+    #             logging.exception(f"An error occurred while deleting orphan records: {e} - aborting transaction")
 
     _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
     logging.info(f"Elapsed time: {time.time() - start_time}")
