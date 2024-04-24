@@ -1245,8 +1245,8 @@ def _update_omics_processing_record(omics_processing_record: dict,new_study_id: 
 
     # Update the has_input array with the new biosample ID
     has_input = omics_processing_record.get("has_input", [])
-    # Remove gold: IDs from has_input array
-    has_input = [id for id in has_input if not id.startswith("gold:")]
+    # Remove any IDs that are nmdc biosample IDs (nmdc:bsm-) or processed sample IDs (nmdc:procsm-)
+    has_input = [id for id in has_input if not id.startswith("nmdc:bsm-") and not id.startswith("nmdc:procsm-")]
     if new_biosample_id not in has_input:
         has_input.append(new_biosample_id)
         omics_processing_record["has_input"] = has_input
