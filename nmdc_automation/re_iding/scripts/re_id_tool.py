@@ -100,12 +100,17 @@ def cli(ctx, target):
 @click.argument("legacy_study_id", type=str, required=True)
 @click.argument("nmdc_study_id", type=str, required=True)
 @click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
+@click.option("--identifiers-file", type=click.Path(exists=True), required=False)
 @click.option("--no-update", is_flag=True, default=False, help="Do not update the database")
 @click.pass_context
-def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, no_update=False):
+def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_file=None, no_update=False):
     """
     Update the NMDC study with the given legacy ID by re-IDing the study, biosample, and omics processing records
     and updating the MongoDB database with the new records.
+
+    If an identifiers file is provided, the script will use the identifiers in the file rather than minting new IDs.
+
+    If the --no-update flag is set, the script will not update the database, but will log the records that would be updated.
     """
     start_time = time.time()
     logging.info(f"Updating NMDC study with legacy ID: {legacy_study_id}")
@@ -113,6 +118,18 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, no_update=Fals
     # Make sure we are using a valid nmdc_study_id
     valid_study_ids = CONSORTIA + STUDIES
     assert nmdc_study_id in valid_study_ids, f"Invalid nmdc_study_id: {nmdc_study_id}"
+
+    # Read the identifiers file if provided as a .tsv file with columns: collection_name, legacy_id, new_id
+    if identifiers_file:
+        with open(identifiers_file, "r") as f:
+            reader = csv.DictReader(f, delimiter="\t")
+            identifiers = list(reader)
+            logging.info(f"Using {len(identifiers)} identifiers from {identifiers_file}")
+        # convert the identifiers to a mapping of (collection_name, legacy_id) -> new_id
+        identifiers_map = {(record["collection_name"], record["legacy_id"]): record["new_id"] for record in identifiers}
+    else:
+        identifiers_map = None
+
 
     # Connect to the MongoDB server and check the database name
     is_direct_connection = ctx.obj["is_direct_connection"]
@@ -980,7 +997,7 @@ def _update_study_record(study_record: dict, new_study_id: str, db_client: Datab
     return study_record
 
 def _update_biosample_record(biosample_record: dict, new_study_id: str, db_client: Database[Union[Mapping[str, Any], Any]],
-                             api_client: NmdcRuntimeApi,  no_update: bool) -> dict:
+                             api_client: NmdcRuntimeApi,  no_update: bool, identifiers_map: dict=None) -> dict:
     """
     Update the biosample record with the new ID
     """
@@ -997,11 +1014,16 @@ def _update_biosample_record(biosample_record: dict, new_study_id: str, db_clien
     # Add the legacy ID to the appropriate alt identifiers slot
     biosample_record = _update_biosample_alternate_identifiers(biosample_record, legacy_biosample_id)
 
-    # Mint a new biosample ID if needed
+    # Get new Biosample ID from the identifiers_map if provided, or mint a new one if needed
     if not biosample_record["id"].startswith("nmdc:bsm-"):
-        new_biosample_id = api_client.minter("nmdc:Biosample")
+        if identifiers_map and ("biosample_set", legacy_biosample_id) in identifiers_map:
+            new_biosample_id = identifiers_map[("biosample_set", legacy_biosample_id)]
+            logging.info(f"Using new biosample ID from identifiers_map: {new_biosample_id}")
+        else:
+            new_biosample_id = api_client.minter("nmdc:Biosample")
+            logging.info(f"Minted new biosample ID: {new_biosample_id}")
         biosample_record["id"] = new_biosample_id
-        logging.info(f"Minted new biosample ID: {new_biosample_id}")
+
     if no_update:
         logging.info(f"Skip Update:  {legacy_biosample_id} /  {biosample_record['id']} : {biosample_record['name']}")
     else:
@@ -1012,7 +1034,7 @@ def _update_biosample_record(biosample_record: dict, new_study_id: str, db_clien
 def _update_omics_processing_record(omics_processing_record: dict,new_study_id: str, new_biosample_id: str, db_client: (
     Database)[
     Union[Mapping[str, Any], Any]],
-                                    api_client: NmdcRuntimeApi, no_update: bool) -> dict:
+                                    api_client: NmdcRuntimeApi, no_update: bool, identifiers_map: dict=None) -> dict:
     """
     Update the omics processing record with the new ID
     """
@@ -1041,11 +1063,16 @@ def _update_omics_processing_record(omics_processing_record: dict,new_study_id: 
     # Add the legacy ID to the appropriate alt identifiers slot
     omics_processing_record = _update_omics_processing_record_alt_identifiers(omics_processing_record, legacy_omics_processing_id)
 
-    # Mint a new omics processing ID if needed
+    # Get a new omics_processing ID from the identifiers map if provided or mint a new one if needed
     if not omics_processing_record["id"].startswith("nmdc:omprc-"):
-        new_omics_processing_id = api_client.minter("nmdc:OmicsProcessing")
+        if identifiers_map and ("omics_processing_set", legacy_omics_processing_id) in identifiers_map:
+            new_omics_processing_id = identifiers_map[("omics_processing_set", legacy_omics_processing_id)]
+            logging.info(f"Using new omics processing ID from identifiers_map: {new_omics_processing_id}")
+        else:
+            new_omics_processing_id = api_client.minter("nmdc:OmicsProcessing")
+            logging.info(f"Minted new omics processing ID: {new_omics_processing_id}")
         omics_processing_record["id"] = new_omics_processing_id
-        logging.info(f"Minted new omics processing ID: {new_omics_processing_id}")
+
     if no_update:
         logging.info(f"Skip Update {legacy_omics_processing_id} /  {omics_processing_record['id']}: {omics_processing_record['name']}")
     else:
