@@ -322,7 +322,7 @@ def _update_calibration_data_object(calibration_data_object, db_client, api_clie
     updated_record_identifiers.append(("data_object_set", legacy_id, new_id))
     # update the data object record
     do_filter_criteria = {"id": legacy_id}
-    do_update_criteria = {"$set": {"id": new_id, "alternative_identifiers": [legacy_id]}}
+    do_update_criteria = {"$set": {"id": new_id}}
     result = db_client["data_object_set"].update_one(do_filter_criteria, do_update_criteria)
     logging.info(f"Updated {result.modified_count} data_object_set records")
     return new_id
