@@ -89,25 +89,25 @@ const _nav = [
   {
     _tag: 'CSidebarNavItem',
     name: 'Metatranscriptome',
-    icon: 'cilChevronRight',
+    icon: 'cilCursor',
     to: '/metat/workflow',
   },
   {
     _tag: 'CSidebarNavItem',
     name: 'Metaproteomics',
-    icon: 'cilChevronRight',
+    icon: 'cilCursor',
     to: '/metap/workflow',
   },
   {
     _tag: 'CSidebarNavItem',
     name: 'Natural Organic Matter',
-    icon: 'cilChevronRight',
+    icon: 'cilCursor',
     to: '/organicm/workflow',
   },
   {
     _tag: 'CSidebarNavItem',
     name: 'Viruses and Plasmids',
-    icon: 'cilChevronRight',
+    icon: 'cilCursor',
     to: '/virus_plasmid/workflow',
   },
 ]
