@@ -133,12 +133,10 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
         omics_new_id = omics_processing_record["id"]
         logging.info(f"Updating Metabolomics Omics record: {omics_legacy_id} / {omics_new_id}")
 
-        # Find Metabolomics Activity records that are informed_by the legacy OmicsProcessing ID
+        # Find Metabolomics Activity records that are informed_by omics_processing legacy or new ID
         metabolomics_activity_records = db_client["metabolomics_analysis_activity_set"].find(
-            {"was_informed_by": omics_legacy_id}
+            {"was_informed_by": {"$in": [omics_legacy_id, omics_new_id]}}
         )
-        len_metabolomics_activity_records = len(list(metabolomics_activity_records.clone()))
-        logging.info(f"Found {len_metabolomics_activity_records} Metabolomics Activity records for {omics_legacy_id}")
 
 
         for metabolomics_activity_record in metabolomics_activity_records:
@@ -157,26 +155,37 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
             if not no_update:
                 with session.start_transaction():
                     try:
-                        # update the has_input data objects and the parent OmicsProcessing record
+                        update_required = False
+                        # update the has_input data objects and the parent OmicsProcessing record if needed
                         if not _data_objects_have_valid_ids(input_data_objects):
                             new_input_data_object_ids = _update_metabolomics_input_data_objects(
                                 input_data_objects, db_client, api_client, updated_record_identifiers
                                 )
-                        # update has_output in the parent OmicsProcessing record
-                        op_filter_criteria = {"id": omics_new_id}
-                        op_update_criteria = {"$set": {"has_output": new_input_data_object_ids}}
-                        result = db_client["omics_processing_set"].update_one(op_filter_criteria, op_update_criteria)
-                        logging.info(f"Updated {result.modified_count} omics_processing_set records")
+                            # update has_output in the parent OmicsProcessing record
+                            op_filter_criteria = {"id": omics_new_id}
+                            op_update_criteria = {"$set": {"has_output": new_input_data_object_ids}}
+                            result = db_client["omics_processing_set"].update_one(op_filter_criteria, op_update_criteria)
+                            logging.info(f"Updated {result.modified_count} omics_processing_set records")
+                            update_required = True
+                        else:
+                            logging.info("All input data objects have valid IDs")
+                            new_input_data_object_ids = has_input
 
-                        # update the has_output data objects and the Metabolomics Activity record
-                        metabolomics_new_id = api_client.minter("nmdc:MetabolomicsAnalysisActivity")
-                        non_orphan_metabolomics_ids.append(metabolomics_new_id)
-                        updated_record_identifiers.append(("metabolomics_analysis_activity_set", metabolomics_legacy_id, metabolomics_new_id))
+                        # update the Metabolomics Activity record
+                        if not metabolomics_activity_record["id"].startswith("nmdc:wfmb-"):
+                            metabolomics_new_id = api_client.minter("nmdc:MetabolomicsAnalysisActivity")
+                            non_orphan_metabolomics_ids.append(metabolomics_new_id)
+                            updated_record_identifiers.append(("metabolomics_analysis_activity_set", metabolomics_legacy_id, metabolomics_new_id))
+                        else:
+                            non_orphan_metabolomics_ids.append(metabolomics_activity_record["id"])
+                            logging.info("Metabolomics Activity record has valid ID")
+                            metabolomics_new_id = metabolomics_activity_record["id"]
+
+                        # Update the has_output data objects if needed
                         new_output_data_object_ids = _update_metabolomics_output_data_objects(
                             output_data_objects, metabolomics_new_id, db_client, api_client, updated_record_identifiers
                             )
-                        # metabolomics analysis activity records also need their has_calibration values updated.
-                        is_updated_calibration = False
+                        # Update the calibration data object if needed
                         if "has_calibration" in metabolomics_activity_record:
                             calibration_value = metabolomics_activity_record["has_calibration"]
                             if calibration_value.lower() != "false":
@@ -185,17 +194,19 @@ def update_metabolomics(ctx, mongo_uri, no_update=False):
                                     if calibration_data_object:
                                         new_calibration_id = _update_calibration_data_object(calibration_data_object, db_client, api_client, updated_record_identifiers)
                                         metabolomics_activity_record["has_calibration"] = new_calibration_id
+                                else:
+                                    logging.info(f"Calibration value: {calibration_value} is updated")
 
-                            # update the Metabolomics Activity record
-                            metabolomics_activity_record["id"] = metabolomics_new_id
-                            metabolomics_activity_record["has_output"] = new_output_data_object_ids
-                            metabolomics_activity_record["has_input"] = new_input_data_object_ids
-                            metabolomics_activity_record["was_informed_by"] = omics_new_id
-                            result = db_client["metabolomics_analysis_activity_set"].update_one(
-                                {"_id": metabolomics_activity_record["_id"]},
-                                {"$set": metabolomics_activity_record}
-                            )
-                            logging.info(f"Updated {result.modified_count} metabolomics_analysis_activity_set records")
+                        # update the Metabolomics Activity record
+                        metabolomics_activity_record["id"] = metabolomics_new_id
+                        metabolomics_activity_record["has_output"] = new_output_data_object_ids
+                        metabolomics_activity_record["has_input"] = new_input_data_object_ids
+                        metabolomics_activity_record["was_informed_by"] = omics_new_id
+                        result = db_client["metabolomics_analysis_activity_set"].update_one(
+                            {"_id": metabolomics_activity_record["_id"]},
+                            {"$set": metabolomics_activity_record}
+                        )
+                        logging.info(f"Updated {result.modified_count} metabolomics_analysis_activity_set records")
                         session.commit_transaction()
 
                     except Exception as e:
