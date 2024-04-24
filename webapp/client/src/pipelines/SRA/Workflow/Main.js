@@ -130,7 +130,8 @@ function Main(props) {
                             <h4 className="pt-3">Retrieve SRA Data</h4>
                             {workflow &&
                                 <>
-                                    {htmlToReactParser.parse(workflowlist[workflow].info)} <a target="_blank" href={workflowlist[workflow].link} rel="noopener noreferrer">Learn more</a>
+                                    {htmlToReactParser.parse(workflowlist[workflow].info)} 
+                                    {/* <a target="_blank" href={workflowlist[workflow].link} rel="noopener noreferrer">Learn more</a> */}
                                     <br></br>
                                 </>
                             }
