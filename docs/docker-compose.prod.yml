@@ -1,0 +1,80 @@
+version: "3"
+
+###############################################################################
+#
+# Usage:
+#
+# 1. Ensure the persistent volume for Mongo data exists:
+#    $ stat /media/volume/nmdc-edge-web-app-mongo-data
+#
+# 2. Set environment variables:
+#    $ export JWT_SECRET='...'
+#    $ export OAUTH_SECRET='...'
+#    $ export EMAIL_SHARED_SECRET='...'
+#
+# 3. Spin up the stack.
+#    $ docker compose up --detach
+#
+#    # (Optional) View container logs.
+#    $ docker logs -f webapp
+#    $ docker logs -f mongo
+#    $ docker logs -f caddy
+#
+###############################################################################
+
+services:
+  webapp:
+    # Reference: https://github.com/microbiomedata/nmdc-edge/pkgs/container/nmdc-edge-web-app
+    image: ghcr.io/microbiomedata/nmdc-edge-web-app:commit-a8664570-node20-amd64
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    # When the container host is Linux, this makes it so containers can access the host via `host.docker.internal`.
+    # Reference: https://github.com/docker/for-linux/issues/264#issuecomment-784985736
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      DATABASE_HOST: mongo
+      APP_EXTERNAL_BASE_URL: https://edge-dev.microbiomedata.org
+      # These lines tell Docker to populate these _container_ environment variables (on left)
+      # with the values of the corresponding _host_ environment variables (on right).
+      JWT_SECRET: ${JWT_SECRET}
+      OAUTH_SECRET: ${OAUTH_SECRET}
+      EMAIL_SHARED_SECRET: ${EMAIL_SHARED_SECRET}
+    depends_on:
+      - mongo
+      - caddy
+
+  mongo:
+    image: mongo:6.0.4
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    # Map a persistent volume to `/data/db` within the container.
+    volumes:
+      - /media/volume/nmdc-edge-web-app-mongo-data:/data/db
+
+  caddy:
+    image: caddy:2.7.6
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "80:80"
+      - "443:443"
+
+    # Run caddy as a reverse proxy.
+    #
+    # References:
+    # - https://caddyserver.com/docs/quick-starts/reverse-proxy
+    # - https://caddyserver.com/docs/command-line#caddy-reverse-proxy
+    #
+    # Note: The `>` character tells YAML to "fold" the newlines in the multiline string into spaces,
+    #       and the `-` after it tells YAML not to append a trailing newline to the resulting string.
+    #       Reference: https://yaml-multiline.info/
+    #
+    command: >-
+      caddy reverse-proxy
+        --access-log
+        --from 'edge-dev.microbiomedata.org:443'
+        --to 'webapp:8000'
