@@ -12,8 +12,8 @@ export const workflowlist = {
         name: 'Metagenome Assembly Workflow'
     },
     virus_plasmid: {
-        title: 'Virus Plasmid',
-        name: 'Virus Plasmid Workflow'
+        title: 'Viruses and Plasmids',
+        name: 'Viruses and Plasmids Workflow'
     },
     MetaAnnotation: {
         title: 'Metagenome Annotation',

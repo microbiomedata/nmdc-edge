@@ -74,7 +74,7 @@ workflowlist = {
         wdl: 'enviroMS.wdl',
         wdl_imports: 'organicMatter/imports.zip',
         name: 'enviroMS',
-        full_name: 'EnviroMS',
+        full_name: 'Natural Organic Matter',
         wdl_tmpl: 'enviroMS_wdl.tmpl',
         inputs_tmpl: 'enviroMS_inputs.tmpl',
         options_json: 'enviroMS_options.json',
@@ -86,7 +86,7 @@ workflowlist = {
         wdl: 'viral-plasmid_wf.wdl',
         wdl_imports: 'virusPlasmids/imports.zip',
         name: 'viral',
-        full_name: 'virus_plasmid',
+        full_name: 'Viruses and Plasmids',
         wdl_tmpl: 'virus_plasmid_wdl.tmpl',
         inputs_tmpl: 'virus_plasmid_inputs.tmpl',
         options_json: 'virus_plasmid_options.json',
@@ -110,7 +110,7 @@ workflowlist = {
         wdl: 'sra2fastq.wdl',
         wdl_imports: 'sra/imports.zip',
         name: 'sra',
-        full_name: 'sra2fastq',
+        full_name: 'Retrieve SRA Data',
         wdl_tmpl: 'sra2fastq_wdl.tmpl',
         inputs_tmpl: 'sra2fastq_inputs.tmpl',
         options_json: 'sra2fast_options.json',
@@ -144,7 +144,7 @@ pipelinelist = {
                 cromwell_calls: ['main_workflow.metaAssembly_call']
             },
             virus_plasmid: {
-                full_name: 'Virus Plasmid',
+                full_name: 'Viruses and Plasmids',
                 cromwell_calls: ['main_workflow.viralPlasmid_call']
             },
             MetaAnnotation: {

@@ -8,7 +8,7 @@ export const defaults = {
 }
 
 export const workflowOptions = [
-    { value: 'virus_plasmid', label: 'virus_plasmid' },
+    { value: 'virus_plasmid', label: 'Viruses and Plasmids' },
 ];
 
 export const workflowInputTips = {
@@ -29,8 +29,8 @@ export const workflowInputTips = {
 
 export const workflowlist = {
     'virus_plasmid': {
-        title: 'virus_plasmid',
-        name: 'virus_plasmid Workflow',
+        title: 'Viruses and Plasmids',
+        name: 'Viruses and Plasmids Workflow',
         // img: '/docs/images/virus_plasmid.png',
         // thumbnail: '/docs/images/virus_plasmid-thumbnail.png',
         link: 'https://portal.nersc.gov/genomad/',

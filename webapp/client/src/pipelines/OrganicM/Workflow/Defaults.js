@@ -8,7 +8,7 @@ export const defaults = {
 }
 
 export const workflowOptions = [
-    { value: 'EnviroMS', label: 'EnviroMS' },
+    { value: 'EnviroMS', label: 'Natural Organic Matter' },
 ];
 
 export const workflowInputTips = {
@@ -19,8 +19,8 @@ export const workflowInputTips = {
 
 export const workflowlist = {
     EnviroMS: {
-        title: 'EnviroMS',
-        name: 'EnviroMS Workflow',
+        title: 'Natural Organic Matter',
+        name: 'Natural Organic Matter Workflow',
         link: 'https://github.com/microbiomedata/enviroMS',
         doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/9_NOM_index.html',
         info: 'This workflow is for natural organic matter data processing and annotation'

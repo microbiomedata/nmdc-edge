@@ -23,7 +23,7 @@ module.exports = function workflowMonitor() {
             jobInputsize += job.inputsize;
         });
         //only process one request at each time
-        Project.find({ 'type': { $nin: ['virus_plasmid', 'Metagenome Pipeline'] }, 'status': 'in queue' }).sort({ updated: 1 }).then(async projs => {
+        Project.find({ 'type': { $nin: ['Viruses and Plasmids', 'Metagenome Pipeline'] }, 'status': 'in queue' }).sort({ updated: 1 }).then(async projs => {
             let proj = projs[0];
             if (!proj) {
                 logger.debug("No workflow request to process");
