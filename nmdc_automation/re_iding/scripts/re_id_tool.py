@@ -6,6 +6,7 @@ workflow records.
 """
 import csv
 import logging
+import sys
 import time
 from pathlib import Path
 import json
@@ -91,33 +92,25 @@ def cli(ctx, target):
         raise ValueError(f"Invalid target: {target}")
 
     ctx.obj["site_config"] = site_config
+    ctx.obj["database_name"] = "nmdc"
+    ctx.obj["is_direct_connection"] = True
+
 
 @cli.command()
 @click.argument("legacy_study_id", type=str, required=True)
 @click.argument("nmdc_study_id", type=str, required=True)
 @click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
-@click.option(
-    "--is-direct-connection",
-    type=bool,
-    required=False,
-    default=True,
-    show_default=True,
-    help=f"Whether you want the script to set the `directConnection` flag when connecting to the MongoDB server. "
-         f"That is required by some MongoDB servers that belong to a replica set. ",
-)
-@click.option("--database-name",
-              type=str,
-              required=False,
-              default="nmdc",
-              show_default=True,
-              help=f"MongoDB database name",
-              )
+@click.option("--identifiers-file", type=click.Path(exists=True), required=False)
 @click.option("--no-update", is_flag=True, default=False, help="Do not update the database")
 @click.pass_context
-def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_connection=True, database_name="nmdc", no_update=False):
+def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_file=None, no_update=False):
     """
     Update the NMDC study with the given legacy ID by re-IDing the study, biosample, and omics processing records
     and updating the MongoDB database with the new records.
+
+    If an identifiers file is provided, the script will use the identifiers in the file rather than minting new IDs.
+
+    If the --no-update flag is set, the script will not update the database, but will log the records that would be updated.
     """
     start_time = time.time()
     logging.info(f"Updating NMDC study with legacy ID: {legacy_study_id}")
@@ -126,7 +119,21 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
     valid_study_ids = CONSORTIA + STUDIES
     assert nmdc_study_id in valid_study_ids, f"Invalid nmdc_study_id: {nmdc_study_id}"
 
+    # Read the identifiers file if provided as a .tsv file with columns: collection_name, legacy_id, new_id
+    if identifiers_file:
+        with open(identifiers_file, "r") as f:
+            reader = csv.DictReader(f, delimiter="\t")
+            identifiers = list(reader)
+            logging.info(f"Using {len(identifiers)} identifiers from {identifiers_file}")
+        # convert the identifiers to a mapping of (collection_name, legacy_id) -> new_id
+        identifiers_map = {(record["collection_name"], record["legacy_id"]): record["new_id"] for record in identifiers}
+    else:
+        identifiers_map = None
+
+
     # Connect to the MongoDB server and check the database name
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    database_name = ctx.obj["database_name"]
     client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
     with pymongo.timeout(5):
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
@@ -140,39 +147,70 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
 
     # Keep track of the updated record identifiers
     updated_record_identifiers = []
-    # Retrieve the Study with the given legacy ID
+
+    # Look up the study record, first by legacy ID then by NMDC ID
+    is_updated_study = False
     study_record = db_client["study_set"].find_one({"id": legacy_study_id})
     if not study_record:
-        logging.exception(f"Study not found for legacy ID: {legacy_study_id} !")
+        study_record = db_client["study_set"].find_one({"id": nmdc_study_id})
+        if study_record:
+            is_updated_study = True
+    assert study_record, f"Study record not found for legacy ID: {legacy_study_id} or NMDC ID: {nmdc_study_id}"
 
     with session.start_transaction():
         try:
             # Update the study record
-            study_record = _update_study_record(study_record, nmdc_study_id, db_client, no_update)
-            updated_record_identifiers.append(("study_set", legacy_study_id, study_record["id"]))
+            if not is_updated_study:
+                study_record = _update_study_record(study_record, nmdc_study_id, db_client, no_update)
+                updated_record_identifiers.append(("study_set", legacy_study_id, study_record["id"]))
+            else:
+                logging.info(f"Study record already updated: {nmdc_study_id}")
+
+            # Find biosample records as part of first the legacy study ID then the NMDC study ID
+            is_updated_biosamples = False
+            biosample_records = db_client["biosample_set"].find({"part_of": legacy_study_id})
+            if not list(biosample_records.clone()):
+                biosample_records = db_client["biosample_set"].find({"part_of": nmdc_study_id})
+                if list(biosample_records.clone()):
+                    is_updated_biosamples = True
+            assert list(biosample_records.clone()), f"No biosample records found for legacy study ID: {legacy_study_id} or NMDC study ID: {nmdc_study_id}"
 
             # Update the biosample records
-            biosample_records = db_client["biosample_set"].find({"part_of": legacy_study_id})
-            biosamples_returned = len(list(biosample_records.clone()))
-            logging.info(f"Updating {biosamples_returned} Biosample records")
             for biosample_record in biosample_records:
-                legacy_biosample_id = biosample_record["id"]
-                biosample_record = _update_biosample_record(biosample_record, nmdc_study_id, db_client, api_client, no_update)
-                updated_record_identifiers.append(("biosample_set", legacy_biosample_id, biosample_record["id"]))
+                if not is_updated_biosamples:
+                    legacy_biosample_id = biosample_record["id"]
+                    biosample_record = _update_biosample_record(biosample_record, nmdc_study_id, db_client,
+                                                                api_client, no_update, identifiers_map)
+                    updated_record_identifiers.append(("biosample_set", legacy_biosample_id, biosample_record["id"]))
+                else:
+                    logging.info(f"Biosample record already updated: {biosample_record['id']}")
+                    legacy_biosample_ids = biosample_record.get("gold_biosample_identifiers", [])
+                    if not legacy_biosample_ids:
+                        logging.warning(f"No legacy biosample IDs found for biosample: {biosample_record['id']}")
+                        continue
+                    legacy_biosample_id = legacy_biosample_ids[0]
+
                 # Get the OmicsProcessing records part_of the legacy study ID and has_input the legacy biosample ID
                 omics_processing_records = db_client["omics_processing_set"].find(
                     {"part_of": legacy_study_id, "has_input": legacy_biosample_id}
                 )
 
                 omics_processing_returned = len(list(omics_processing_records.clone()))
-                logging.info(f"Updating {omics_processing_returned} OmicsProcessing records for biosample: {legacy_biosample_id}")
+                logging.info(f"Updating {omics_processing_returned} OmicsProcessing records for part_of: {legacy_study_id}, has_input: {legacy_biosample_id}")
+
+                # Update the OmicsProcessing records
                 for omics_processing_record in omics_processing_records:
                     legacy_omics_processing_id = omics_processing_record["id"]
-                    omics_processing_record = _update_omics_processing_record(omics_processing_record, nmdc_study_id,
-                                                                              biosample_record["id"],
-                                                                              db_client, api_client, no_update)
-                    updated_record_identifiers.append(("omics_processing_set", legacy_omics_processing_id, omics_processing_record["id"]))
+                    omics_processing_record = _update_omics_processing_record(
+                        omics_processing_record, nmdc_study_id,
+                        biosample_record["id"],
+                        db_client, api_client, no_update, identifiers_map
+                        )
+                    updated_record_identifiers.append(
+                        ("omics_processing_set", legacy_omics_processing_id, omics_processing_record["id"])
+                        )
             session.commit_transaction()
+            logging.info(f"Updated {len(updated_record_identifiers)} records")
         except Exception as e:
             logging.error(f"An error has occurred - dumping updated record identifiers")
             _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
@@ -181,6 +219,8 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, is_direct_conn
 
     _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
     logging.info(f"Elapsed time: {time.time() - start_time}")
+    sys.exit()
+
 
 
 def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id):
@@ -510,26 +550,8 @@ def process_records(ctx, study_id, data_dir, update_links=False):
 @cli.command()
 @click.argument("reid_records_file", type=click.Path(exists=True))
 @click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
-@click.option(
-    "--is-direct-connection",
-    type=bool,
-    required=False,
-    default=True,
-    show_default=True,
-    help=f"Whether you want the script to set the `directConnection` flag when connecting to the MongoDB server. "
-         f"That is required by some MongoDB servers that belong to a replica set. ",
-)
-@click.option(
-    "--database-name",
-    type=str,
-    required=False,
-    default="nmdc",
-    show_default=True,
-    help=f"MongoDB database name",
-)
 @click.pass_context
-def ingest_records(ctx, reid_records_file, mongo_uri,
-                   is_direct_connection=True, database_name="nmdc"):
+def ingest_records(ctx, reid_records_file, mongo_uri):
     """
     Read in json dump of re_id'd records and:
     - validate the records against the /metadata/json:validate endpoint
@@ -548,6 +570,8 @@ def ingest_records(ctx, reid_records_file, mongo_uri,
     logging.info(f"Using MongoDB URI: {mongo_uri}")
 
     # Connect to the MongoDB server and check the database name
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    database_name = ctx.obj["database_name"]
     client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
     with pymongo.timeout(5):
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
@@ -610,25 +634,8 @@ def _ingest_records(db_records, db_client, api_user_client):
 @cli.command()
 @click.argument("old_records_file", type=click.Path(exists=True))
 @click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
-@click.option(
-    "--is-direct-connection",
-    type=bool,
-    required=False,
-    default=True,
-    show_default=True,
-    help=f"Whether you want the script to set the `directConnection` flag when connecting to the MongoDB server. "
-         f"That is required by some MongoDB servers that belong to a replica set. ",
-)
-@click.option(
-    "--database-name",
-    type=str,
-    required=False,
-    default="nmdc",
-    show_default=True,
-    help=f"MongoDB database name",
-)
 @click.pass_context
-def delete_old_records(ctx, old_records_file, mongo_uri, is_direct_connection=True, database_name="nmdc"):
+def delete_old_records(ctx, old_records_file, mongo_uri):
     """
     Read in json dump of old records and:
     delete them using
@@ -643,6 +650,8 @@ def delete_old_records(ctx, old_records_file, mongo_uri, is_direct_connection=Tr
     deleted_record_identifiers = []
 
     # Get PyMongo client
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    database_name = ctx.obj["database_name"]
     client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
     with pymongo.timeout(5):
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
@@ -715,11 +724,9 @@ def _write_deleted_record_identifiers(deleted_record_identifiers, old_base_name)
 
 @cli.command()
 @click.argument("mongo_uri", type=str)
-@click.argument("database_name", type=str, default="nmdc")
-@click.option("--direct-connection", is_flag=True, default=True)
 @click.option("--no-delete", is_flag=True, default=False)
 @click.pass_context
-def delete_old_binning_data(ctx, mongo_uri, database_name, direct_connection, no_delete=False):
+def delete_old_binning_data(ctx, mongo_uri, no_delete=False):
     """
     Delete old binning data with non-comforming IDs from the MongoDB database.
 
@@ -732,10 +739,12 @@ def delete_old_binning_data(ctx, mongo_uri, database_name, direct_connection, no
     deleted.
     """
     start_time = time.time()
+    database_name = ctx.obj["database_name"]
     logging.info(f"Deleting old binning data from {database_name} database at {mongo_uri}")
 
     # Connect to the MongoDB server and check the database name
-    client = pymongo.MongoClient(mongo_uri, directConnection=direct_connection)
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
     with pymongo.timeout(5):
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
     logging.info(f"Connected to MongoDB server at {mongo_uri}")
@@ -993,7 +1002,7 @@ def _update_study_record(study_record: dict, new_study_id: str, db_client: Datab
     return study_record
 
 def _update_biosample_record(biosample_record: dict, new_study_id: str, db_client: Database[Union[Mapping[str, Any], Any]],
-                             api_client: NmdcRuntimeApi,  no_update: bool) -> dict:
+                             api_client: NmdcRuntimeApi,  no_update: bool, identifiers_map: dict=None) -> dict:
     """
     Update the biosample record with the new ID
     """
@@ -1010,11 +1019,16 @@ def _update_biosample_record(biosample_record: dict, new_study_id: str, db_clien
     # Add the legacy ID to the appropriate alt identifiers slot
     biosample_record = _update_biosample_alternate_identifiers(biosample_record, legacy_biosample_id)
 
-    # Mint a new biosample ID if needed
+    # Get new Biosample ID from the identifiers_map if provided, or mint a new one if needed
     if not biosample_record["id"].startswith("nmdc:bsm-"):
-        new_biosample_id = api_client.minter("nmdc:Biosample")
+        if identifiers_map and ("biosample_set", legacy_biosample_id) in identifiers_map:
+            new_biosample_id = identifiers_map[("biosample_set", legacy_biosample_id)]
+            logging.info(f"Using new biosample ID from identifiers_map: {new_biosample_id}")
+        else:
+            new_biosample_id = api_client.minter("nmdc:Biosample")
+            logging.info(f"Minted new biosample ID: {new_biosample_id}")
         biosample_record["id"] = new_biosample_id
-        logging.info(f"Minted new biosample ID: {new_biosample_id}")
+
     if no_update:
         logging.info(f"Skip Update:  {legacy_biosample_id} /  {biosample_record['id']} : {biosample_record['name']}")
     else:
@@ -1025,7 +1039,7 @@ def _update_biosample_record(biosample_record: dict, new_study_id: str, db_clien
 def _update_omics_processing_record(omics_processing_record: dict,new_study_id: str, new_biosample_id: str, db_client: (
     Database)[
     Union[Mapping[str, Any], Any]],
-                                    api_client: NmdcRuntimeApi, no_update: bool) -> dict:
+                                    api_client: NmdcRuntimeApi, no_update: bool, identifiers_map: dict=None) -> dict:
     """
     Update the omics processing record with the new ID
     """
@@ -1054,11 +1068,16 @@ def _update_omics_processing_record(omics_processing_record: dict,new_study_id: 
     # Add the legacy ID to the appropriate alt identifiers slot
     omics_processing_record = _update_omics_processing_record_alt_identifiers(omics_processing_record, legacy_omics_processing_id)
 
-    # Mint a new omics processing ID if needed
+    # Get a new omics_processing ID from the identifiers map if provided or mint a new one if needed
     if not omics_processing_record["id"].startswith("nmdc:omprc-"):
-        new_omics_processing_id = api_client.minter("nmdc:OmicsProcessing")
+        if identifiers_map and ("omics_processing_set", legacy_omics_processing_id) in identifiers_map:
+            new_omics_processing_id = identifiers_map[("omics_processing_set", legacy_omics_processing_id)]
+            logging.info(f"Using new omics processing ID from identifiers_map: {new_omics_processing_id}")
+        else:
+            new_omics_processing_id = api_client.minter("nmdc:OmicsProcessing")
+            logging.info(f"Minted new omics processing ID: {new_omics_processing_id}")
         omics_processing_record["id"] = new_omics_processing_id
-        logging.info(f"Minted new omics processing ID: {new_omics_processing_id}")
+
     if no_update:
         logging.info(f"Skip Update {legacy_omics_processing_id} /  {omics_processing_record['id']}: {omics_processing_record['name']}")
     else:
