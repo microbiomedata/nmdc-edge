@@ -68,8 +68,8 @@ function TutorialBar(props) {
                 <Col xs="2" md="2" lg="2">
                     {props.docs &&
                         <center>
-                            <IconButton aria-label="docs" href={config.API.BASE_URI + props.docs} target="_blank">
-                                <SiReadthedocs style={{ backgroundColor: 'white' }} />
+                            <IconButton aria-label="docs" href={props.docs} target="_blank">
+                                <SiReadthedocs style={{  backgroundColor: 'white' }} />
                             </IconButton>
                         </center>
                     }

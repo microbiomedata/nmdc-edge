@@ -22,7 +22,7 @@ export const workflowInputTips = {
 export const workflowlist = {
   'sra2fastq': {
     title: 'Retrieve SRA Data',
-    name: 'sra2fastq Workflow',
+    name: 'Retrieve SRA Data Workflow',
     // img: '/docs/images/sra2fastq.png',
     // thumbnail: '/docs/images/sra2fastq-thumbnail.png',
     link: 'https://github.com/LANL-Bioinformatics/EDGE_workflows/tree/main/sra2fastq',
