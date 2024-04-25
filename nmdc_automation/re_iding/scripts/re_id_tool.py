@@ -5,6 +5,7 @@ re_id_tool.py: Provides command-line tools to extract and re-ID NMDC metagenome
 workflow records.
 """
 import csv
+from dataclasses import asdict
 import logging
 import sys
 import time
@@ -148,79 +149,132 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
     # Keep track of the updated record identifiers
     updated_record_identifiers = []
 
-    # Look up the study record, first by legacy ID then by NMDC ID
-    is_updated_study = False
+    # # Look up the study record, first by legacy ID then by NMDC ID
     study_record = db_client["study_set"].find_one({"id": legacy_study_id})
     if not study_record:
         study_record = db_client["study_set"].find_one({"id": nmdc_study_id})
-        if study_record:
-            is_updated_study = True
     assert study_record, f"Study record not found for legacy ID: {legacy_study_id} or NMDC ID: {nmdc_study_id}"
 
-    with session.start_transaction():
-        try:
-            # Update the study record
-            if not is_updated_study:
-                study_record = _update_study_record(study_record, nmdc_study_id, db_client, no_update)
-                updated_record_identifiers.append(("study_set", legacy_study_id, study_record["id"]))
-            else:
-                logging.info(f"Study record already updated: {nmdc_study_id}")
+    # Keep track of what updates we are going to make as a dict of {collection_name: {_id: (model, update)}}
+    updates = {
+        "study_set": {},
+        "biosample_set": {},
+    }
 
-            # Find biosample records as part of first the legacy study ID then the NMDC study ID
-            is_updated_biosamples = False
-            biosample_records = db_client["biosample_set"].find({"part_of": legacy_study_id})
-            if not list(biosample_records.clone()):
-                biosample_records = db_client["biosample_set"].find({"part_of": nmdc_study_id})
-                if list(biosample_records.clone()):
-                    is_updated_biosamples = True
-            assert list(biosample_records.clone()), f"No biosample records found for legacy study ID: {legacy_study_id} or NMDC study ID: {nmdc_study_id}"
 
-            # Update the biosample records
-            for biosample_record in biosample_records:
-                if not is_updated_biosamples:
-                    legacy_biosample_id = biosample_record["id"]
-                    biosample_record = _update_biosample_record(biosample_record, nmdc_study_id, db_client,
-                                                                api_client, no_update, identifiers_map)
-                    updated_record_identifiers.append(("biosample_set", legacy_biosample_id, biosample_record["id"]))
-                else:
-                    logging.info(f"Biosample record already updated: {biosample_record['id']}")
-                    legacy_biosample_ids = biosample_record.get("gold_biosample_identifiers", [])
-                    if not legacy_biosample_ids:
-                        logging.warning(f"No legacy biosample IDs found for biosample: {biosample_record['id']}")
-                        continue
-                    legacy_biosample_id = legacy_biosample_ids[0]
+    study_id = study_record.pop("_id")
+    # TODO work out why we have to strip off part_of, study_category, and associated_dois
+    study_record.pop("part_of", None)
+    study_record.pop("study_category", None)
+    study_record.pop("associated_dois", None)
+    study = nmdc.Study(**study_record)
+    updated_study = _update_study(study, legacy_study_id, nmdc_study_id)
+    study_update = compare_models(study, updated_study)
+    updates["study_set"][study_id] = (study, study_update)
 
-                # Get the OmicsProcessing records part_of the legacy study ID and has_input the legacy biosample ID
-                omics_processing_records = db_client["omics_processing_set"].find(
-                    {"part_of": legacy_study_id, "has_input": legacy_biosample_id}
-                )
+    # Find all biosample records associated with the study by either study ID
+    biosample_query = {
+        "$or": [
+            {"part_of": legacy_study_id},
+            {"part_of": nmdc_study_id}
+        ]
+    }
+    # get a list of nmdc.Biosample instances
+    biosample_records = db_client["biosample_set"].find(biosample_query)
+    logging.info(f"Found {len(list(biosample_records.clone()))} biosample records for study: {nmdc_study_id}")
+    for biosample_record in biosample_records:
+        biosample_id = biosample_record.pop("_id")
+        biosample = nmdc.Biosample(**biosample_record)
+        updated_biosample = _update_biosample(biosample, nmdc_study_id, api_client, identifiers_map)
+        biosample_update = compare_models(biosample, updated_biosample)
+        updates["biosample_set"][biosample_id] = (biosample, biosample_update)
 
-                omics_processing_returned = len(list(omics_processing_records.clone()))
-                logging.info(f"Updating {omics_processing_returned} OmicsProcessing records for part_of: {legacy_study_id}, has_input: {legacy_biosample_id}")
 
-                # Update the OmicsProcessing records
-                for omics_processing_record in omics_processing_records:
-                    legacy_omics_processing_id = omics_processing_record["id"]
-                    omics_processing_record = _update_omics_processing_record(
-                        omics_processing_record, nmdc_study_id,
-                        biosample_record["id"],
-                        db_client, api_client, no_update, identifiers_map
-                        )
-                    updated_record_identifiers.append(
-                        ("omics_processing_set", legacy_omics_processing_id, omics_processing_record["id"])
-                        )
-            session.commit_transaction()
-            logging.info(f"Updated {len(updated_record_identifiers)} records")
-        except Exception as e:
-            logging.error(f"An error has occurred - dumping updated record identifiers")
-            _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
-            logging.exception(f"An error occurred while updating records: {e} - aborting transaction")
-            session.abort_transaction()
 
-    _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
+
+    if no_update:
+        # Log the updates that would be made
+        logging.info("No update flag set")
+        logging.info(f"Would update {len(updates)} collections")
+        _log_updates(updates)
+
+
+
+
+
+    # with session.start_transaction():
+    #     try:
+    #         # Update the study record
+    #         if not is_updated_study:
+    #             study_record = _update_study_record(study_record, nmdc_study_id, db_client, no_update)
+    #             updated_record_identifiers.append(("study_set", legacy_study_id, study_record["id"]))
+    #         else:
+    #             logging.info(f"Study record already updated: {nmdc_study_id}")
+    #
+    #         # Find biosample records as part of first the legacy study ID then the NMDC study ID
+    #         is_updated_biosamples = False
+    #         biosample_records = db_client["biosample_set"].find({"part_of": legacy_study_id})
+    #         if not list(biosample_records.clone()):
+    #             biosample_records = db_client["biosample_set"].find({"part_of": nmdc_study_id})
+    #             if list(biosample_records.clone()):
+    #                 is_updated_biosamples = True
+    #         assert list(biosample_records.clone()), f"No biosample records found for legacy study ID: {legacy_study_id} or NMDC study ID: {nmdc_study_id}"
+    #
+    #         # Update the biosample records
+    #         for biosample_record in biosample_records:
+    #             if not is_updated_biosamples:
+    #                 legacy_biosample_id = biosample_record["id"]
+    #                 biosample_record = _update_biosample_record(biosample_record, nmdc_study_id, db_client,
+    #                                                             api_client, no_update, identifiers_map)
+    #                 updated_record_identifiers.append(("biosample_set", legacy_biosample_id, biosample_record["id"]))
+    #             else:
+    #                 logging.info(f"Biosample record already updated: {biosample_record['id']}")
+    #                 legacy_biosample_ids = biosample_record.get("gold_biosample_identifiers", [])
+    #                 if not legacy_biosample_ids:
+    #                     logging.warning(f"No legacy biosample IDs found for biosample: {biosample_record['id']}")
+    #                     continue
+    #                 legacy_biosample_id = legacy_biosample_ids[0]
+    #
+    #             # Get the OmicsProcessing records part_of the legacy study ID and has_input the legacy biosample ID
+    #             omics_processing_records = db_client["omics_processing_set"].find(
+    #                 {"part_of": legacy_study_id, "has_input": legacy_biosample_id}
+    #             )
+    #
+    #             omics_processing_returned = len(list(omics_processing_records.clone()))
+    #             logging.info(f"Updating {omics_processing_returned} OmicsProcessing records for part_of: {legacy_study_id}, has_input: {legacy_biosample_id}")
+    #
+    #             # Update the OmicsProcessing records
+    #             for omics_processing_record in omics_processing_records:
+    #                 legacy_omics_processing_id = omics_processing_record["id"]
+    #                 omics_processing_record = _update_omics_processing_record(
+    #                     omics_processing_record, nmdc_study_id,
+    #                     biosample_record["id"],
+    #                     db_client, api_client, no_update, identifiers_map
+    #                     )
+    #                 updated_record_identifiers.append(
+    #                     ("omics_processing_set", legacy_omics_processing_id, omics_processing_record["id"])
+    #                     )
+    #         session.commit_transaction()
+    #         logging.info(f"Updated {len(updated_record_identifiers)} records")
+    #     except Exception as e:
+    #         logging.error(f"An error has occurred - dumping updated record identifiers")
+    #         _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
+    #         logging.exception(f"An error occurred while updating records: {e} - aborting transaction")
+    #         session.abort_transaction()
+
+    # _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
     logging.info(f"Elapsed time: {time.time() - start_time}")
     sys.exit()
 
+
+def _log_updates(updates):
+    for collection_name, record_updates in updates.items():
+        logging.info(f"{len(record_updates)} updates for collection: {collection_name}")
+        for _id, (model, update) in record_updates.items():
+            logging.info(f"Updating {_id} / {model.id} in {collection_name} with {len(update)} changes")
+            for attr, updated_value in update.items():
+                original_value = getattr(model, attr)
+                logging.info(f"  {attr}: {original_value} -> {updated_value}")
 
 
 def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id):
@@ -977,64 +1031,95 @@ def _get_has_input_from_read_qc(api_client, legacy_id):
     return list(has_input_data_objects)
 
 
-def _update_study_record(study_record: dict, new_study_id: str, db_client: Database[Union[Mapping[str, Any], Any]], no_update: bool) -> dict:
+# Method to compare any two nmdc pydantic models and return a dictionary of differences
+def compare_models(model, updated_model)-> dict:
     """
-    Update the study record with the new ID
+    Compare two nmdc dataclass models and return a dictionary of differences
     """
-    legacy_study_id = study_record["id"]
-    study_record["id"] = new_study_id
-    logging.info(f"Updating {legacy_study_id} /  {study_record['id']}: {study_record['name']}")
+    model_dict = asdict(model)
+    updated_model_dict = asdict(updated_model)
+    diff = {}
+    for key in model_dict.keys():
+        if model_dict[key] != updated_model_dict[key]:
+            diff[key] = (model_dict[key], updated_model_dict[key])
+    return diff
 
-    # Copy the legacy ID to gold_study_identifiers if it is not already there
+def _update_study(study: nmdc.Study, legacy_study_id: str, nmdc_study_id: str) -> nmdc.Study:
+    """
+    Update the study record.
+     - Update the ID
+        - Add the legacy ID to gold_study_identifiers if it is not already there
+    """
+    study.id = nmdc_study_id
     if legacy_study_id.startswith("gold:"):
-        gold_ids = study_record.get("gold_study_identifiers", [])
-        if legacy_study_id not in gold_ids:
-            gold_ids.append(legacy_study_id)
-            study_record["gold_study_identifiers"] = gold_ids
-            logging.info(f"Added legacy study ID to gold_study_identifiers: {legacy_study_id}")
+        study.gold_study_identifiers = list(set(study.gold_study_identifiers + [legacy_study_id]))
+    return study
 
-    if no_update:
-        logging.info(f"Skipping database update")
+
+def _update_biosample(biosample: nmdc.Biosample, nmdc_study_id: str, api_client, identifiers_map: dict = None) -> (
+        nmdc.Biosample):
+    # Check if we need to update the biosample ID and add the legacy ID to the alternate identifiers
+    if not biosample.id.startswith("nmdc:bsm-"):
+        biosample = _update_biosample_alternate_identifiers(biosample, biosample.id)
+        new_biosample_id = _get_new_biosample_id(biosample, api_client, identifiers_map)
+        biosample.id = new_biosample_id
+
+    # Handle the part_of array
+    part_of = biosample.part_of
+    # Remove anything that is not a NMDC study ID
+    part_of = [id for id in part_of if id.startswith("nmdc:sty-")]
+    # Add the new study ID to the part_of array
+    if nmdc_study_id not in part_of:
+        part_of.append(nmdc_study_id)
+        biosample.part_of = part_of
+
+    return biosample
+
+
+def _get_new_biosample_id(biosample, api_client, identifiers_map):
+    if identifiers_map and ("biosample_set", biosample.id) in identifiers_map:
+        new_biosample_id = identifiers_map[("biosample_set", biosample.id)]
+        logging.info(f"Using new biosample ID from identifiers_map: {new_biosample_id}")
     else:
-        logging.info(f"Updating database with new study record")
-        result = db_client["study_set"].replace_one({"id": legacy_study_id}, study_record)
-        logging.info(f"Updated {result.modified_count} study_set records")
-    return study_record
+        new_biosample_id = api_client.minter("nmdc:Biosample")
+        logging.info(f"Minted new biosample ID: {new_biosample_id}")
+    return new_biosample_id
 
-def _update_biosample_record(biosample_record: dict, new_study_id: str, db_client: Database[Union[Mapping[str, Any], Any]],
-                             api_client: NmdcRuntimeApi,  no_update: bool, identifiers_map: dict=None) -> dict:
-    """
-    Update the biosample record with the new ID
-    """
-    legacy_biosample_id = biosample_record["id"]
-    # Update the part_of array with the new study ID
-    part_of = biosample_record.get("part_of", [])
-    # Remove gold: IDs from part_of array
-    part_of = [id for id in part_of if not id.startswith("gold:")]
-    if new_study_id not in part_of:
-        part_of.append(new_study_id)
-        biosample_record["part_of"] = part_of
-        logging.info(f"Added new study ID to part_of: {new_study_id}")
 
-    # Add the legacy ID to the appropriate alt identifiers slot
-    biosample_record = _update_biosample_alternate_identifiers(biosample_record, legacy_biosample_id)
-
-    # Get new Biosample ID from the identifiers_map if provided, or mint a new one if needed
-    if not biosample_record["id"].startswith("nmdc:bsm-"):
-        if identifiers_map and ("biosample_set", legacy_biosample_id) in identifiers_map:
-            new_biosample_id = identifiers_map[("biosample_set", legacy_biosample_id)]
-            logging.info(f"Using new biosample ID from identifiers_map: {new_biosample_id}")
-        else:
-            new_biosample_id = api_client.minter("nmdc:Biosample")
-            logging.info(f"Minted new biosample ID: {new_biosample_id}")
-        biosample_record["id"] = new_biosample_id
-
-    if no_update:
-        logging.info(f"Skip Update:  {legacy_biosample_id} /  {biosample_record['id']} : {biosample_record['name']}")
-    else:
-        result = db_client["biosample_set"].replace_one({"id": legacy_biosample_id}, biosample_record)
-        logging.info(f"Updated {result.modified_count} biosample_set records {legacy_biosample_id} /  {biosample_record['id']} : {biosample_record['name']}")
-    return biosample_record
+# def _update_biosample_record(biosample_record: dict, new_study_id: str, db_client: Database[Union[Mapping[str, Any], Any]],
+#                              api_client: NmdcRuntimeApi,  no_update: bool, identifiers_map: dict=None) -> dict:
+#     """
+#     Update the biosample record with the new ID
+#     """
+#     legacy_biosample_id = biosample_record["id"]
+#     # Update the part_of array with the new study ID
+#     part_of = biosample_record.get("part_of", [])
+#     # Remove gold: IDs from part_of array
+#     part_of = [id for id in part_of if not id.startswith("gold:")]
+#     if new_study_id not in part_of:
+#         part_of.append(new_study_id)
+#         biosample_record["part_of"] = part_of
+#         logging.info(f"Added new study ID to part_of: {new_study_id}")
+#
+#     # Add the legacy ID to the appropriate alt identifiers slot
+#     biosample_record = _update_biosample_alternate_identifiers(biosample_record, legacy_biosample_id)
+#
+#     # Get new Biosample ID from the identifiers_map if provided, or mint a new one if needed
+#     if not biosample_record["id"].startswith("nmdc:bsm-"):
+#         if identifiers_map and ("biosample_set", legacy_biosample_id) in identifiers_map:
+#             new_biosample_id = identifiers_map[("biosample_set", legacy_biosample_id)]
+#             logging.info(f"Using new biosample ID from identifiers_map: {new_biosample_id}")
+#         else:
+#             new_biosample_id = api_client.minter("nmdc:Biosample")
+#             logging.info(f"Minted new biosample ID: {new_biosample_id}")
+#         biosample_record["id"] = new_biosample_id
+#
+#     if no_update:
+#         logging.info(f"Skip Update:  {legacy_biosample_id} /  {biosample_record['id']} : {biosample_record['name']}")
+#     else:
+#         result = db_client["biosample_set"].replace_one({"id": legacy_biosample_id}, biosample_record)
+#         logging.info(f"Updated {result.modified_count} biosample_set records {legacy_biosample_id} /  {biosample_record['id']} : {biosample_record['name']}")
+#     return biosample_record
 
 def _update_omics_processing_record(omics_processing_record: dict,new_study_id: str, new_biosample_id: str, db_client: (
     Database)[
@@ -1085,7 +1170,7 @@ def _update_omics_processing_record(omics_processing_record: dict,new_study_id: 
         logging.info(f"Updated {result.modified_count} omics_processing_set record {legacy_omics_processing_id} /  {omics_processing_record['id']}: {omics_processing_record['name']}")
     return omics_processing_record
 
-def _update_biosample_alternate_identifiers(biosample_record: dict, legacy_biosample_id: str) -> dict:
+def _update_biosample_alternate_identifiers(biosample: nmdc.Biosample, legacy_biosample_id: str) -> nmdc.Biosample:
     """
     Update the appropriate alt identifiers slot depending on the Biosample legacy ID:
     - gold_biosample_identifiers for legacy IDs starting with 'gold:'
@@ -1093,26 +1178,20 @@ def _update_biosample_alternate_identifiers(biosample_record: dict, legacy_biosa
     - emsl_biosample_identifiers for legacy IDs starting with 'emsl:'
     """
     if legacy_biosample_id.startswith("gold:"):
-        alt_identifiers = biosample_record.get("gold_biosample_identifiers", [])
-        if legacy_biosample_id not in alt_identifiers:
-            alt_identifiers.append(legacy_biosample_id)
-            biosample_record["gold_biosample_identifiers"] = alt_identifiers
+        if legacy_biosample_id not in biosample.gold_biosample_identifiers:
+            biosample.gold_biosample_identifiers.append(legacy_biosample_id)
             logging.info(f"Added legacy biosample ID to gold_biosample_identifiers: {legacy_biosample_id}")
     elif legacy_biosample_id.startswith("igsn:"):
-        alt_identifiers = biosample_record.get("igsn_biosample_identifiers", [])
-        if legacy_biosample_id not in alt_identifiers:
-            alt_identifiers.append(legacy_biosample_id)
-            biosample_record["igsn_biosample_identifiers"] = alt_identifiers
+        if legacy_biosample_id not in biosample.igsn_biosample_identifiers:
+            biosample.igsn_biosample_identifiers.append(legacy_biosample_id)
             logging.info(f"Added legacy biosample ID to igsn_biosample_identifiers: {legacy_biosample_id}")
     elif legacy_biosample_id.startswith("emsl:"):
-        alt_identifiers = biosample_record.get("emsl_biosample_identifiers", [])
-        if legacy_biosample_id not in alt_identifiers:
-            alt_identifiers.append(legacy_biosample_id)
-            biosample_record["emsl_biosample_identifiers"] = alt_identifiers
+        if legacy_biosample_id not in biosample.emsl_biosample_identifiers:
+            biosample.emsl_biosample_identifiers.append(legacy_biosample_id)
             logging.info(f"Added legacy biosample ID to emsl_biosample_identifiers: {legacy_biosample_id}")
     else:
         logging.warning(f"Unknown legacy ID format: {legacy_biosample_id}")
-    return biosample_record
+    return biosample
 
 def _update_omics_processing_record_alt_identifiers(omics_processing_record: dict, legacy_omics_processing_id: str) -> dict:
     """
