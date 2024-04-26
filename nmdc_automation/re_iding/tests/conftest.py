@@ -22,3 +22,10 @@ def data_object_record():
                 "id": "nmdc:7bf778baef033d36f118f8591256d6ef",
                 "file_size_bytes": 2571324879
             }
+
+
+@pytest.fixture
+def igsn_biosample_record():
+    """Return a dict of a test IGSN Biosample instance"""
+    with open(TEST_DATA_DIR / "igsn_biosample_record.json", "r") as f:
+        return json.load(f)

@@ -5,7 +5,12 @@ import pytest_mock
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_schema.nmdc import Database as NmdcDatabase
 from nmdc_schema.nmdc import DataObject as NmdcDataObject
-from nmdc_automation.re_iding.base import ReIdTool
+from nmdc_schema.nmdc import Biosample
+from nmdc_automation.re_iding.base import (
+    ReIdTool,
+    update_biosample,
+    compare_models,
+)
 
 
 TEST_DATAFILE_DIR = "./test_data/results"
@@ -47,3 +52,23 @@ def test_make_new_data_object(data_object_record, mocker):
     assert isinstance(new_do, NmdcDataObject)
     assert new_do.id == exp_do_id
     assert new_do.url == exp_url
+
+def test_update_biosample_igsn_biosample_record_id_set_correctly_no_id_map(igsn_biosample_record, mocker):
+    """
+    Test that we can update a Biosample with an IGSN Biosample record with no identifiers_map provided.
+    """
+    exp_biosample_id = "nmdc:bsm-1234-abcd12345"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_biosample_id
+    exp_study_id = "nmdc:sty-1234-abcd12345"
+
+    orig_biosample_id = igsn_biosample_record["id"]
+
+    biosample = Biosample(**igsn_biosample_record)
+    updated_biosample = update_biosample(biosample, exp_study_id, mock_api)
+
+    assert isinstance(updated_biosample, Biosample)
+    assert updated_biosample.id == exp_biosample_id
+    assert updated_biosample.part_of == [exp_study_id]
+    assert updated_biosample.igsn_biosample_identifiers == [orig_biosample_id]
+
