@@ -594,7 +594,7 @@ def compare_models(model, updated_model)-> dict:
     diff = {}
     for key in model_dict.keys():
         if model_dict[key] != updated_model_dict[key]:
-            diff[key] = (model_dict[key], updated_model_dict[key])
+            diff[key] = updated_model_dict[key]
     return diff
 
 

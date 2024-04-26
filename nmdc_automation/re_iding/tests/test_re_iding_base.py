@@ -88,5 +88,6 @@ def test_compare_models_igsn_biosample_updates(igsn_biosample_record, mocker):
     updated_biosample = update_biosample(biosample, exp_study_id, mock_api)
 
     changes = compare_models(biosample, updated_biosample)
-    assert changes["id"] == (orig_biosample_id, exp_biosample_id)
-    assert changes["part_of"] == ([orig_study_id], [exp_study_id])
+    assert changes["id"] == exp_biosample_id
+    assert changes["part_of"] == [exp_study_id]
+    assert changes["igsn_biosample_identifiers"] == [orig_biosample_id]
