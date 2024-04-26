@@ -635,6 +635,8 @@ def _get_biosample_legacy_id(biosample: nmdc.Biosample) -> str:
         return biosample.gold_biosample_identifiers[0]
     elif biosample.emsl_biosample_identifiers:
         return biosample.emsl_biosample_identifiers[0]
+    elif biosample.igsn_biosample_identifiers:
+        return biosample.igsn_biosample_identifiers[0]
     else:
         return biosample.id
 
