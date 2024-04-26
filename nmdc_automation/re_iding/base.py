@@ -735,3 +735,15 @@ def _get_new_omics_processing_id(omics_processing, api_client, identifiers_map):
         new_omics_processing_id = api_client.minter("nmdc:OmicsProcessing")
         logging.info(f"Minted new omics processing ID: {new_omics_processing_id}")
     return new_omics_processing_id
+
+
+def update_metabolomics_analysis_activity(metabolomics_analysis_activity: nmdc.MetabolomicsAnalysisActivity,
+                                         nmdc_study_id: str, nmdc_omics_processing_id: str,
+                                         api_client: NmdcRuntimeApi, identifiers_map: dict=None) -> nmdc.MetabolomicsAnalysisActivity:
+    """
+    Update the metabolomics analysis activity record with the new ID
+    """
+    updated_metabolomics_analysis_activity = deepcopy(metabolomics_analysis_activity)
+    # Check if we need to update the metabolomics analysis activity ID and add the legacy ID to the alternate identifiers
+    if not updated_metabolomics_analysis_activity.id.startswith("nmdc:metan-"):
+        pass

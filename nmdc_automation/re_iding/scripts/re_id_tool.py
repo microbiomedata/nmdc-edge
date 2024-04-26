@@ -196,7 +196,8 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
     # Keep track of the updated record identifiers as (collection_name, legacy_id, new_id)
     updated_record_identifiers = set()
 
-    # # Look up the study record, first by legacy ID then by NMDC ID
+    #====== Study Update ======
+    # Look up the study record, first by legacy ID then by NMDC ID
     study_record = db_client["study_set"].find_one({"id": legacy_study_id})
     if not study_record:
         study_record = db_client["study_set"].find_one({"id": nmdc_study_id})
@@ -221,6 +222,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
     if study_update:
         updates["study_set"][study_id] = (study, study_update)
 
+    #====== Biosample Update ======
     # Find all biosample records associated with the study by either study ID
     biosample_query = {
         "$or": [
@@ -228,10 +230,10 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
             {"part_of": nmdc_study_id}
         ]
     }
-    # get a list of nmdc.Biosample instances
     biosample_records = db_client["biosample_set"].find(biosample_query)
+    # Iterate over the biosample records and update them and their related omics processing records
     for biosample_record in biosample_records:
-        biosample_id = biosample_record.pop("_id")
+        biosample__id = biosample_record.pop("_id")
         biosample = nmdc.Biosample(**biosample_record)
         legacy_biosample_id = _get_biosample_legacy_id(biosample)
         updated_biosample = update_biosample(biosample, nmdc_study_id, api_client, identifiers_map)
@@ -239,8 +241,9 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
             updated_record_identifiers.add(("biosample_set", legacy_biosample_id, updated_biosample.id))
         biosample_update = compare_models(biosample, updated_biosample)
         if biosample_update:
-            updates["biosample_set"][biosample_id] = (biosample, biosample_update)
+            updates["biosample_set"][biosample__id] = (biosample, biosample_update)
 
+        #====== OmicsProcessing Update ======
         # Find all OmicsProcessing records part_of either study and has_input either biosample
         study_ids = [legacy_study_id, nmdc_study_id]
         biosample_ids = [legacy_biosample_id, biosample.id]
@@ -251,6 +254,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
             ]
         }
         omics_processing_records = db_client["omics_processing_set"].find(omics_processing_query)
+        # Iterate over the omics processing records and update them
         for omics_processing_record in omics_processing_records:
             omics_processing_id = omics_processing_record.pop("_id")
             omics_processing = nmdc.OmicsProcessing(**omics_processing_record)
@@ -260,6 +264,17 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
             omics_processing_update = compare_models(omics_processing, updated_omics_processing)
             if omics_processing_update:
                 updates["omics_processing_set"][omics_processing_id] = (omics_processing, omics_processing_update)
+
+            #====== Workflow Update for Metabolomics, Lipidomics, and NOM omics types ======
+            if not omics_processing.omics_type.has_raw_value in ["Metabolomics", "Lipidomics", "NOM"]:
+                continue
+
+            # Metabolomics:
+            if omics_processing.omics_type.has_raw_value == "Metabolomics":
+                # Update Metabolomics Activity and related DataObjects
+                pass
+
+
 
     if no_update:
         # Log the updates that would be made
@@ -284,6 +299,8 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
                 session.abort_transaction()
                 logging.exception(f"An error occurred while updating records: {e}")
 
+    logging.info("Writing updates and updated record identifiers to files")
+    _write_updates(updates, nmdc_study_id)
     _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
     logging.info(f"Elapsed time: {time.time() - start_time}")
     sys.exit()
@@ -298,6 +315,18 @@ def _log_updates(updates):
                 # original_value = getattr(model, attr)
                 logging.info(f"  {attr}: {updated_value}")
 
+
+def _write_updates(updates, nmdc_study_id):
+    # Write the updated records to a tsv file using csv writer in data_dir/study_id/study_id_updates.tsv
+    updates_file = DATA_DIR.joinpath(nmdc_study_id, f"{nmdc_study_id}_updates.tsv")
+    logging.info(f"Writing {len(updates)} updates to {updates_file}")
+    with open(updates_file, "w") as f:
+        writer = csv.writer(f, delimiter="\t")
+        writer.writerow(["collection_name", "id", "_id", "updated_fields"])
+        for collection_name, record_updates in updates.items():
+            for _id, (model, update) in record_updates.items():
+                updated_fields = ", ".join(update.keys())
+                writer.writerow([collection_name, model.id, _id, updated_fields])
 
 def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id):
     # Write the updated record identifiers to a tsv file using csv writer
@@ -318,6 +347,8 @@ def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
         writer.writerow(["collection_name", "legacy_id", "new_id"])
         for record in updated_record_identifiers:
             writer.writerow(record)
+
+
 
 
 @cli.command()
