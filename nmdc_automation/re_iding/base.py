@@ -594,7 +594,7 @@ def compare_models(model, updated_model)-> dict:
     diff = {}
     for key in model_dict.keys():
         if model_dict[key] != updated_model_dict[key]:
-            diff[key] = (model_dict[key], updated_model_dict[key])
+            diff[key] = updated_model_dict[key]
     return diff
 
 
@@ -618,7 +618,7 @@ def update_biosample(biosample: nmdc.Biosample, nmdc_study_id: str, api_client, 
     return updated_biosample
 
 
-def _get_new_biosample_id(biosample, api_client, identifiers_map):
+def _get_new_biosample_id(biosample, api_client, identifiers_map) -> str:
     if identifiers_map and ("biosample_set", biosample.id) in identifiers_map:
         new_biosample_id = identifiers_map[("biosample_set", biosample.id)]
         logging.info(f"Using new biosample ID from identifiers_map: {new_biosample_id}")
@@ -635,6 +635,8 @@ def _get_biosample_legacy_id(biosample: nmdc.Biosample) -> str:
         return biosample.gold_biosample_identifiers[0]
     elif biosample.emsl_biosample_identifiers:
         return biosample.emsl_biosample_identifiers[0]
+    elif biosample.igsn_biosample_identifiers:
+        return biosample.igsn_biosample_identifiers[0]
     else:
         return biosample.id
 

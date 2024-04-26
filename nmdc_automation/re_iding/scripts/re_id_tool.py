@@ -283,6 +283,8 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
         _log_updates(updates)
     else:
         # Update the records in the database
+        logging.info(f"Updating {len(updates)} collections - Updates:")
+        _log_updates(updates)
         with session.start_transaction():
             try:
                 for collection_name, record_updates in updates.items():
