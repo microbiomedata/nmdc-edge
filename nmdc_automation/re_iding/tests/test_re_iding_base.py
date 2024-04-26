@@ -72,3 +72,21 @@ def test_update_biosample_igsn_biosample_record_id_set_correctly_no_id_map(igsn_
     assert updated_biosample.part_of == [exp_study_id]
     assert updated_biosample.igsn_biosample_identifiers == [orig_biosample_id]
 
+def test_compare_models_igsn_biosample_updates(igsn_biosample_record, mocker):
+    """
+    Test that we can compare a Biosample with an IGSN Biosample record and update it.
+    """
+    exp_biosample_id = "nmdc:bsm-1234-abcd12345"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_biosample_id
+    exp_study_id = "nmdc:sty-1234-abcd12345"
+
+    orig_biosample_id = igsn_biosample_record["id"]
+    orig_study_id = igsn_biosample_record["part_of"][0]
+
+    biosample = Biosample(**igsn_biosample_record)
+    updated_biosample = update_biosample(biosample, exp_study_id, mock_api)
+
+    changes = compare_models(biosample, updated_biosample)
+    assert changes["id"] == (orig_biosample_id, exp_biosample_id)
+    assert changes["part_of"] == ([orig_study_id], [exp_study_id])
