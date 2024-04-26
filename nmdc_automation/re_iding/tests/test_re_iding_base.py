@@ -10,6 +10,7 @@ from nmdc_automation.re_iding.base import (
     ReIdTool,
     update_biosample,
     compare_models,
+    get_new_nmdc_id,
 )
 
 
@@ -91,3 +92,38 @@ def test_compare_models_igsn_biosample_updates(igsn_biosample_record, mocker):
     assert changes["id"] == exp_biosample_id
     assert changes["part_of"] == [exp_study_id]
     assert changes["igsn_biosample_identifiers"] == [orig_biosample_id]
+
+
+def test_get_new_nmdc_id_biosample(mocker):
+    """
+    Test that we can get a new NMDC ID.
+    """
+    exp_id = "nmdc:1234-abcd12345"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_id
+
+    nmdc_object = mocker.Mock(spec=Biosample)
+    nmdc_object.type.return_value = "nmdc:Biosample"
+
+    new_id = get_new_nmdc_id(nmdc_object, mock_api)
+    assert new_id == exp_id
+
+def test_get_new_nmdc_id_biosample_with_identifiers_map(mocker):
+    """
+    Test that we can get a new NMDC ID with an identifiers_map.
+    """
+    exp_id = "nmdc:1234-abcd12345"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_id
+
+    # Mock a simple object with type and id attributes
+    nmdc_object = mocker.Mock()
+    nmdc_object.type = "nmdc:Biosample"
+    nmdc_object.id = "nmdc:old_id"
+
+    identifiers_map = {
+        ("biosample_set", "nmdc:old_id"): exp_id
+    }
+
+    new_id = get_new_nmdc_id(nmdc_object, mock_api, identifiers_map)
+    assert new_id == exp_id

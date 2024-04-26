@@ -36,6 +36,28 @@ NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
 DATA_BASE_URL = "https://data.microbiomedata.org/data"
 # BASE_DIR = "/global/cfs/cdirs/m3408/results"
 
+# More constants for class types and set names
+# data object types
+BIOSAMPLE_TYPE = "nmdc:Biosample"
+OMICS_PROCESSING_TYPE = "nmdc:OmicsProcessing"
+DATA_OBJECT_TYPE = "nmdc:DataObject"
+METABOLOMICS_ANALYSIS_ACTIVITY_TYPE = "nmdc:MetabolomicsAnalysisActivity"
+# set names
+BIOSAMPLE_SET = "biosample_set"
+OMICS_PROCESSING_SET = "omics_processing_set"
+DATA_OBJECT_SET = "data_object_set"
+METABOLOMICS_ANALYSIS_ACTIVITY_SET = "metabolomics_analysis_activity_set"
+
+# map data object types set names
+DATA_OBJECT_TYPE_SET_MAP = {
+    BIOSAMPLE_TYPE: BIOSAMPLE_SET,
+    OMICS_PROCESSING_TYPE: OMICS_PROCESSING_SET,
+    DATA_OBJECT_TYPE: DATA_OBJECT_SET,
+    METABOLOMICS_ANALYSIS_ACTIVITY_TYPE: METABOLOMICS_ANALYSIS_ACTIVITY_SET
+}
+
+
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -598,12 +620,27 @@ def compare_models(model, updated_model)-> dict:
     return diff
 
 
+def get_new_nmdc_id(nmdc_object, api_client, identifiers_map: dict = None) -> str:
+    """
+    Get a nmdc ID from the identifiers_map or mint a new one
+    """
+    if identifiers_map and not DATA_OBJECT_TYPE_SET_MAP.get(nmdc_object.type):
+        raise ValueError(f"Set name not found for {nmdc_object.type}")
+
+    if identifiers_map and (DATA_OBJECT_TYPE_SET_MAP[nmdc_object.type], nmdc_object.id) in identifiers_map:
+        new_id = identifiers_map[(DATA_OBJECT_TYPE_SET_MAP[nmdc_object.type], nmdc_object.id)]
+        logging.info(f"Found new ID in identifiers_map: {new_id}")
+    else:
+        new_id = api_client.minter(nmdc_object.type)
+        logging.info(f"Minted new ID: {new_id}")
+    return new_id
+
 def update_biosample(biosample: nmdc.Biosample, nmdc_study_id: str, api_client, identifiers_map: dict = None) -> nmdc.Biosample:
     updated_biosample= deepcopy(biosample)
     # Check if we need to update the biosample ID and add the legacy ID to the alternate identifiers
     if not updated_biosample.id.startswith("nmdc:bsm-"):
         updated_biosample = _update_biosample_alternate_identifiers(updated_biosample, updated_biosample.id)
-        new_biosample_id = _get_new_biosample_id(updated_biosample, api_client, identifiers_map)
+        new_biosample_id = get_new_nmdc_id(updated_biosample, api_client, identifiers_map)
         updated_biosample.id = new_biosample_id
 
     # Handle the part_of array
@@ -616,17 +653,6 @@ def update_biosample(biosample: nmdc.Biosample, nmdc_study_id: str, api_client, 
         updated_biosample.part_of = part_of
 
     return updated_biosample
-
-
-def _get_new_biosample_id(biosample, api_client, identifiers_map) -> str:
-    if identifiers_map and ("biosample_set", biosample.id) in identifiers_map:
-        new_biosample_id = identifiers_map[("biosample_set", biosample.id)]
-        logging.info(f"Using new biosample ID from identifiers_map: {new_biosample_id}")
-    else:
-        new_biosample_id = api_client.minter("nmdc:Biosample")
-        logging.info(f"Minted new biosample ID: {new_biosample_id}")
-    return new_biosample_id
-
 
 def _get_biosample_legacy_id(biosample: nmdc.Biosample) -> str:
     if not biosample.id.startswith("nmdc:bsm-"):
@@ -650,7 +676,7 @@ def update_omics_processing(omics_processing: nmdc.OmicsProcessing, nmdc_study_i
     # Check if we need to update the omics processing ID and add the legacy ID to the alternate identifiers
     if not updated_omics_processing.id.startswith("nmdc:omprc-"):
         updated_omics_processing = _update_omics_processing_alternative_identifiers(updated_omics_processing, updated_omics_processing.id)
-        new_omics_processing_id = _get_new_omics_processing_id(updated_omics_processing, api_client, identifiers_map)
+        new_omics_processing_id = get_new_nmdc_id(updated_omics_processing, api_client, identifiers_map)
         updated_omics_processing.id = new_omics_processing_id
 
     # Update the has_input array
@@ -729,16 +755,6 @@ def _update_omics_processing_alternative_identifiers(omics_processing: nmdc.Omic
     return omics_processing
 
 
-def _get_new_omics_processing_id(omics_processing, api_client, identifiers_map):
-    if identifiers_map and ("omics_processing_set", omics_processing.id) in identifiers_map:
-        new_omics_processing_id = identifiers_map[("omics_processing_set", omics_processing.id)]
-        logging.info(f"Using new omics processing ID from identifiers_map: {new_omics_processing_id}")
-    else:
-        new_omics_processing_id = api_client.minter("nmdc:OmicsProcessing")
-        logging.info(f"Minted new omics processing ID: {new_omics_processing_id}")
-    return new_omics_processing_id
-
-
 def update_metabolomics_analysis_activity(metabolomics_analysis_activity: nmdc.MetabolomicsAnalysisActivity,
                                          nmdc_study_id: str, nmdc_omics_processing_id: str,
                                          api_client: NmdcRuntimeApi, identifiers_map: dict=None) -> nmdc.MetabolomicsAnalysisActivity:
@@ -747,5 +763,5 @@ def update_metabolomics_analysis_activity(metabolomics_analysis_activity: nmdc.M
     """
     updated_metabolomics_analysis_activity = deepcopy(metabolomics_analysis_activity)
     # Check if we need to update the metabolomics analysis activity ID and add the legacy ID to the alternate identifiers
-    if not updated_metabolomics_analysis_activity.id.startswith("nmdc:metan-"):
+    if not updated_metabolomics_analysis_activity.id.startswith("nmdc:wfmb-"):
         pass
