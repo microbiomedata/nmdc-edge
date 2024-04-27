@@ -22,7 +22,7 @@ export function Metatranscriptome(props) {
                 <CardBody>
                     <MyTooltip id='Metatranscriptome' text="Input Raw Reads" tooltip={workflowInputTips['Metatranscriptome']['fastq_tip']} showTooltip={true} place="right" />
                     <FastqInput name={props.name} full_name={props.full_name} setParams={props.setParams} single-input-max={1} paired-input-max={1}
-                    collapseParms={true} dataSources={['upload', 'public', 'globus']} />
+                    collapseParms={true} dataSources={['upload', 'project', 'public', 'globus']} projectTypes={['Retrieve SRA Data']} />
                 </CardBody>
             </Collapse>
         </Card>
