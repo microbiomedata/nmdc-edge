@@ -224,7 +224,7 @@ function ProjectResult(props) {
                                 {project.type === 'Metatranscriptome' &&
                                     <Metatranscriptome result={result} project={project} title={props.project.type + ' Result'} userType={type} allExpand={allExpand} allClosed={allClosed} />
                                 }
-                                {project.type === 'EnviroMS' &&
+                                {project.type === 'Natural Organic Matter' &&
                                     <EnviroMS result={result} project={project} title={props.project.type + ' Result'} userType={type} allExpand={allExpand} allClosed={allClosed} />
                                 }
                                 {project.type === 'Viruses and Plasmids' &&
