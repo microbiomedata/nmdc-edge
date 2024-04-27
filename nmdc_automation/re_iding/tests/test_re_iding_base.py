@@ -14,7 +14,8 @@ from nmdc_automation.re_iding.base import (
     update_biosample,
     compare_models,
     get_new_nmdc_id,
-    update_metabolomics_analysis_activity
+    update_metabolomics_analysis_activity,
+    update_omics_output_data_object,
 )
 
 
@@ -112,6 +113,20 @@ def test_get_new_nmdc_id_biosample(mocker):
     new_id = get_new_nmdc_id(nmdc_object, mock_api)
     assert new_id == exp_id
 
+def test_get_new_id_data_object(mocker):
+    """
+    Test that we can get a new NMDC ID.
+    """
+    exp_id = "nmdc:1234-abcd12345"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_id
+
+    nmdc_object = mocker.Mock(spec=NmdcDataObject)
+    nmdc_object.type.return_value = "nmdc:DataObject"
+
+    new_id = get_new_nmdc_id(nmdc_object, mock_api)
+    assert new_id == exp_id
+
 def test_get_new_nmdc_id_biosample_with_identifiers_map(mocker):
     """
     Test that we can get a new NMDC ID with an identifiers_map.
@@ -149,3 +164,22 @@ def test_update_metabolomics_analysis_activity(metabolomics_analysis_activity_re
     )
     assert isinstance(updated_metabolomics, MetabolomicsAnalysisActivity)
 
+def test_update_omics_output_data_object(data_object_record, mocker):
+    """
+    Test that we can update an OmicsOutputDataObject.
+    """
+    exp_id = "nmdc:1234-abcd12345"
+    exp_study_id = "nmdc:sty-1234-abcd12345"
+    exp_omics_processing_id = "nmdc:omprc-1234-abcd12345"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_id
+
+    orig_id = data_object_record["id"]
+    data_object = NmdcDataObject(**data_object_record)
+    updated_data_object = update_omics_output_data_object(
+        data_object, exp_omics_processing_id, mock_api
+    )
+    assert isinstance(updated_data_object, NmdcDataObject)
+    assert updated_data_object.id == exp_id
+    # assert updated_data_object.part_of == [exp_omics_processing_id]
+    # assert updated_data_object.igsn_data_object_identifiers == [orig_id]

@@ -20,8 +20,10 @@ from nmdc_automation.api import NmdcRuntimeApi, NmdcRuntimeUserApi
 from nmdc_automation.nmdc_common.client import NmdcApi
 import nmdc_schema.nmdc as nmdc
 from nmdc_automation.config import UserConfig
-from nmdc_automation.re_iding.base import ReIdTool, _get_biosample_legacy_id, compare_models, update_biosample, \
-    update_omics_processing
+from nmdc_automation.re_iding.base import (
+    ReIdTool, _get_biosample_legacy_id, compare_models, update_biosample,
+    update_omics_processing, update_omics_output_data_object,
+)
 from nmdc_automation.re_iding.db_utils import get_omics_processing_id, ANALYSIS_ACTIVITIES
 
 # Defaults
@@ -271,8 +273,13 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
 
             # Metabolomics:
             if omics_processing.omics_type.has_raw_value == "Metabolomics":
-                # Update Metabolomics Activity and related DataObjects
-                pass
+                # Get the has_output data object record (there should only be one)
+                has_output_data_object_id = omics_processing.has_output[0]
+                data_object_record = db_client["data_object_set"].find_one({"id": has_output_data_object_id})
+                data_object_id = data_object_record.pop("_id")
+                data_object = nmdc.DataObject(**data_object_record)
+                updated_data_object = update_omics_output_data_object(data_object, nmdc_study_id, api_client, identifiers_map)
+
 
 
 

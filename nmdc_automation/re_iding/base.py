@@ -19,14 +19,19 @@ from nmdc_schema.nmdc import DataObject as NmdcDataObject, \
 import nmdc_schema.nmdc as nmdc
 
 from nmdc_automation.api import NmdcRuntimeApi
-from nmdc_automation.re_iding.db_utils import (OMICS_PROCESSING_SET,
-                                               READS_QC_SET,
-                                               METAGENOME_ASSEMBLY_SET,
-                                                METATRANSCRIPTOME_ACTIVITY_SET,
-                                                READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
-                                               check_for_single_omics_processing_record,
-                                               get_data_object_record_by_id,
-                                               get_omics_processing_id)
+from nmdc_automation.re_iding.db_utils import (
+    BIOSAMPLE_SET,
+    OMICS_PROCESSING_SET,
+    READS_QC_SET,
+    METAGENOME_ASSEMBLY_SET,
+    METATRANSCRIPTOME_ACTIVITY_SET,
+    READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
+    DATA_OBJECT_SET,
+    METABOLOMICS_ANALYSIS_ACTIVITY_SET,
+    check_for_single_omics_processing_record,
+    get_data_object_record_by_id,
+    get_omics_processing_id
+)
 from nmdc_automation.re_iding.file_utils import (find_data_object_type,
                                                  compute_new_data_file_path,
                                                     link_data_file_paths,
@@ -42,11 +47,6 @@ BIOSAMPLE_TYPE = "nmdc:Biosample"
 OMICS_PROCESSING_TYPE = "nmdc:OmicsProcessing"
 DATA_OBJECT_TYPE = "nmdc:DataObject"
 METABOLOMICS_ANALYSIS_ACTIVITY_TYPE = "nmdc:MetabolomicsAnalysisActivity"
-# set names
-BIOSAMPLE_SET = "biosample_set"
-OMICS_PROCESSING_SET = "omics_processing_set"
-DATA_OBJECT_SET = "data_object_set"
-METABOLOMICS_ANALYSIS_ACTIVITY_SET = "metabolomics_analysis_activity_set"
 
 # map data object types set names
 DATA_OBJECT_TYPE_SET_MAP = {
@@ -753,6 +753,21 @@ def _update_omics_processing_alternative_identifiers(omics_processing: nmdc.Omic
     else:
         logging.warning(f"Unknown legacy ID format: {legacy_omics_processing_id}")
     return omics_processing
+
+def update_omics_output_data_object(
+        data_object: nmdc.DataObject, nmdc_omics_processing_id: str,
+        api_client: NmdcRuntimeApi, identifiers_map: dict=None) -> nmdc.DataObject:
+    """
+    Update the data object record with the new ID, and add the legacy ID to the alternate identifiers
+    """
+    updated_data_object = deepcopy(data_object)
+    # Check if we need to update the data object ID and set the alternative identifiers to the legacy ID
+    if not updated_data_object.id.startswith("nmdc:dobj-"):
+        data_object.alternative_identifiers = [data_object.id]
+        new_data_object_id = get_new_nmdc_id(updated_data_object, api_client, identifiers_map)
+        updated_data_object.id = new_data_object_id
+    return updated_data_object
+
 
 
 def update_metabolomics_analysis_activity(metabolomics_analysis_activity: nmdc.MetabolomicsAnalysisActivity,
