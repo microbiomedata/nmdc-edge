@@ -9,6 +9,7 @@ const dbsanitize = require('mongo-sanitize');
 const moment = require('moment');
 const jsonQuery = require('json-query');
 const config = require("../../config");
+const { workflowlist } = require("../../config/workflow");
 
 // Load input validation
 const validateUpdateInput = require("../../validation/user/update");
@@ -633,12 +634,19 @@ router.post("/project/files", (req, res) => {
         for (i; i < projects.length; i++) {
             const proj = projects[i];
             let projName = proj.owner + '/' + proj.name;
+            // get project output dir
+            let outdir = '';
+            Object.keys(workflowlist).forEach((key) => {
+                if(workflowlist[key]['full_name'] === proj.type) {
+                    outdir = workflowlist[key]['outdir'];
+                }
+            });
             if (proj.type === 'Retrieve SRA Data') {
                 projName += " (" + moment(proj.created).format('YYYY-MM-DD, h:mm:ss A') + ")";
-                files = common.getAllFiles(proj_dir + '/' + proj.code, files, req.body.fileTypes, "sradata/" + projName, '/sradata/' + proj.code, proj_dir + "/" + proj.code, req.body.endsWith);
+                files = common.getAllFiles(proj_dir + '/' + proj.code + '/' + outdir, files, req.body.fileTypes, "sradata/" + projName, '/sradata/' + proj.code + '/' + outdir, proj_dir + "/" + proj.code + '/' + outdir, req.body.endsWith);
             } else {
                 projName += " (" + proj.type + ", " + moment(proj.created).format('YYYY-MM-DD, h:mm:ss A') + ")";
-                files = common.getAllFiles(proj_dir + '/' + proj.code, files, req.body.fileTypes, "projects/" + projName, '/projects/' + proj.code, proj_dir + "/" + proj.code, req.body.endsWith);
+                files = common.getAllFiles(proj_dir + '/' + proj.code + '/' + outdir, files, req.body.fileTypes, "projects/" + projName, '/projects/' + proj.code + '/' + outdir, proj_dir + "/" + proj.code + '/' + outdir, req.body.endsWith);
             }
         };
         return res.send({ fileData: files });
