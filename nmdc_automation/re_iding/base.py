@@ -765,3 +765,6 @@ def update_metabolomics_analysis_activity(metabolomics_analysis_activity: nmdc.M
     # Check if we need to update the metabolomics analysis activity ID and add the legacy ID to the alternate identifiers
     if not updated_metabolomics_analysis_activity.id.startswith("nmdc:wfmb-"):
         pass
+
+
+    return updated_metabolomics_analysis_activity

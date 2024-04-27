@@ -29,3 +29,9 @@ def igsn_biosample_record():
     """Return a dict of a test IGSN Biosample instance"""
     with open(TEST_DATA_DIR / "igsn_biosample_record.json", "r") as f:
         return json.load(f)
+
+@pytest.fixture
+def metabolomics_analysis_activity_record():
+    """Return a dict of a test nmdc_metabolomics_analysis_activity instance"""
+    with open(TEST_DATA_DIR / "metabolomics_analysis_activity_record.json", "r") as f:
+        return json.load(f)

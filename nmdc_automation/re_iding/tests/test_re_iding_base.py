@@ -5,12 +5,16 @@ import pytest_mock
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_schema.nmdc import Database as NmdcDatabase
 from nmdc_schema.nmdc import DataObject as NmdcDataObject
-from nmdc_schema.nmdc import Biosample
+from nmdc_schema.nmdc import (
+    Biosample,
+    MetabolomicsAnalysisActivity
+)
 from nmdc_automation.re_iding.base import (
     ReIdTool,
     update_biosample,
     compare_models,
     get_new_nmdc_id,
+    update_metabolomics_analysis_activity
 )
 
 
@@ -127,3 +131,21 @@ def test_get_new_nmdc_id_biosample_with_identifiers_map(mocker):
 
     new_id = get_new_nmdc_id(nmdc_object, mock_api, identifiers_map)
     assert new_id == exp_id
+
+def test_update_metabolomics_analysis_activity(metabolomics_analysis_activity_record, mocker):
+    """
+    Test that we can update a MetabolomicsAnalysisActivity.
+    """
+    exp_id = "nmdc:1234-abcd12345"
+    exp_study_id = "nmdc:sty-1234-abcd12345"
+    exp_omics_processing_id = "nmdc:omprc-1234-abcd12345"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_id
+
+    orig_id = metabolomics_analysis_activity_record["id"]
+    metabolomics = MetabolomicsAnalysisActivity(**metabolomics_analysis_activity_record)
+    updated_metabolomics = update_metabolomics_analysis_activity(
+        metabolomics, exp_study_id, exp_omics_processing_id, mock_api
+    )
+    assert isinstance(updated_metabolomics, MetabolomicsAnalysisActivity)
+
