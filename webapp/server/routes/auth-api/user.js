@@ -151,7 +151,7 @@ router.get("/list", (req, res) => {
 router.get("/project/alllist", (req, res) => {
     logger.debug("/auth-api/user/project/alllist: " + req.user.email);
     //find all project owned by user and shared to user or public
-    Project.find({ 'status': { $ne: 'delete' }, 'type': { $ne: 'sra2fastq' }, $or: [{ 'owner': dbsanitize(req.user.email) }, { 'sharedto': dbsanitize(req.user.email) }, { 'public': true }] }).sort([['updated', -1]]).then(function (projects) {
+    Project.find({ 'status': { $ne: 'delete' }, $or: [{ 'owner': dbsanitize(req.user.email) }, { 'sharedto': dbsanitize(req.user.email) }, { 'public': true }] }).sort([['updated', -1]]).then(function (projects) {
         return res.send(projects);
     }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
 });
@@ -162,7 +162,7 @@ router.get("/project/alllist", (req, res) => {
 router.get("/project/list", (req, res) => {
     logger.debug("/auth-api/user/project/list: " + req.user.email);
     //find all project owned by user 
-    Project.find({ 'status': { $ne: 'delete' }, 'type': { $ne: 'sra2fastq' }, 'owner': dbsanitize(req.user.email) }).sort([['updated', -1]]).then(function (projects) {
+    Project.find({ 'status': { $ne: 'delete' }, 'owner': dbsanitize(req.user.email) }).sort([['updated', -1]]).then(function (projects) {
         return res.send(projects);
     }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
 });
@@ -633,7 +633,7 @@ router.post("/project/files", (req, res) => {
         for (i; i < projects.length; i++) {
             const proj = projects[i];
             let projName = proj.owner + '/' + proj.name;
-            if (proj.type === 'sra2fastq') {
+            if (proj.type === 'Retrieve SRA Data') {
                 projName += " (" + moment(proj.created).format('YYYY-MM-DD, h:mm:ss A') + ")";
                 files = common.getAllFiles(proj_dir + '/' + proj.code, files, req.body.fileTypes, "sradata/" + projName, '/sradata/' + proj.code, proj_dir + "/" + proj.code, req.body.endsWith);
             } else {
