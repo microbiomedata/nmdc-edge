@@ -121,7 +121,7 @@ function ProjectResult(props) {
             postData(url, userData)
                 .then(data => {
                     //console.log(data.fileData)
-                    if (project.type === 'virus_plasmid') {
+                    if (project.type === 'Viruses and Plasmids') {
                         data.fileData = data.fileData.filter(isSummaryFile);
                     }
                     setOutputs(data.fileData);
@@ -227,7 +227,7 @@ function ProjectResult(props) {
                                 {project.type === 'EnviroMS' &&
                                     <EnviroMS result={result} project={project} title={props.project.type + ' Result'} userType={type} allExpand={allExpand} allClosed={allClosed} />
                                 }
-                                {project.type === 'virus_plasmid' &&
+                                {project.type === 'Viruses and Plasmids' &&
                                     <VirusPlasmid result={result} project={project} title={props.project.type + ' Result'} userType={type} allExpand={allExpand} allClosed={allClosed} />
                                 }
                                 {project.type === 'Metaproteomics' &&
@@ -240,8 +240,8 @@ function ProjectResult(props) {
                         <Row className="justify-content-center">
                             <Col xs="12" md="10">
                                 <ProjectOutputs outputs={outputs} filePath={"/projects/" + project.code + "/output"} allExpand={allExpand} allClosed={allClosed} />
-                                {project.type === 'virus_plasmid' &&
-                                <a href={'https://portal.nersc.gov/genomad/index.html'} target='_blank' rel='noreferrer'>{'Learn more about the virus_plasmid outputs ...'}</a>
+                                {project.type === 'Viruses and Plasmids' &&
+                                <a href={'https://portal.nersc.gov/genomad/index.html'} target='_blank' rel='noreferrer'>{'Learn more about the Viruses and Plasmids outputs ...'}</a>
                                 }
                             </Col>
                         </Row>

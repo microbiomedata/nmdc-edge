@@ -173,7 +173,7 @@ router.get("/project/list", (req, res) => {
 router.get("/project/sradata", (req, res) => {
     logger.debug("/auth-api/user/project/sradata: " + req.user.email);
     //find all project owned by user 
-    Project.find({ 'status': { $ne: 'delete' }, 'type': 'sra2fastq', 'owner': dbsanitize(req.user.email) }).sort([['updated', -1]]).then(function (projects) {
+    Project.find({ 'status': { $ne: 'delete' }, 'type': 'Retrieve SRA Data', 'owner': dbsanitize(req.user.email) }).sort([['updated', -1]]).then(function (projects) {
         return res.send(projects);
     }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
 });
