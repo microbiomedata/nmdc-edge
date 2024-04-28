@@ -624,6 +624,7 @@ def get_new_nmdc_id(nmdc_object, api_client, identifiers_map: dict = None) -> st
     """
     Get a nmdc ID from the identifiers_map or mint a new one
     """
+    logging.info(f"Getting new ID for {nmdc_object.type} {nmdc_object.id}")
     if identifiers_map and not DATA_OBJECT_TYPE_SET_MAP.get(nmdc_object.type):
         raise ValueError(f"Set name not found for {nmdc_object.type}")
 
@@ -637,6 +638,8 @@ def get_new_nmdc_id(nmdc_object, api_client, identifiers_map: dict = None) -> st
 
 def update_biosample(biosample: nmdc.Biosample, nmdc_study_id: str, api_client, identifiers_map: dict = None) -> nmdc.Biosample:
     updated_biosample= deepcopy(biosample)
+    # Ensure that type is set to nmdc:Biosample
+    updated_biosample.type = "nmdc:Biosample"
     # Check if we need to update the biosample ID and add the legacy ID to the alternate identifiers
     if not updated_biosample.id.startswith("nmdc:bsm-"):
         updated_biosample = _update_biosample_alternate_identifiers(updated_biosample, updated_biosample.id)
@@ -673,6 +676,8 @@ def update_omics_processing(omics_processing: nmdc.OmicsProcessing, nmdc_study_i
     Update the omics processing record with the new ID
     """
     updated_omics_processing = deepcopy(omics_processing)
+    # Ensure that type is set to nmdc:OmicsProcessing
+    updated_omics_processing.type = "nmdc:OmicsProcessing"
     # Check if we need to update the omics processing ID and add the legacy ID to the alternate identifiers
     if not updated_omics_processing.id.startswith("nmdc:omprc-"):
         updated_omics_processing = _update_omics_processing_alternative_identifiers(updated_omics_processing, updated_omics_processing.id)

@@ -96,47 +96,6 @@ def cli(ctx, target):
     ctx.obj["is_direct_connection"] = True
 
 
-
-@cli.command()
-@click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
-@click.option( "--no-update", is_flag=True, default=False, help="Do not update the database")
-@click.pass_context
-def update_metabolomics(ctx, mongo_uri, no_update=False):
-    """
-    Update the NMDC Metabolomics Activity and related DataObject records:
-     - update the has_input and has_output data objects
-        - update the parent OmicsProcessing.has_output record with the new has_input data objects
-        - Re-ID the  Metabolomics Activity record and update with the new has_output data objects
-    """
-    start_time = time.time()
-    logging.info(f"Updating NMDC metabolomics data objects")
-    # Connect to the MongoDB server and check the database name
-    client = pymongo.MongoClient(mongo_uri, directConnection=True)
-    with pymongo.timeout(5):
-        assert ("nmdc" in client.list_database_names()), f"Database nmdc not found"
-    db_client = client["nmdc"]
-    # start a session
-
-    session = client.start_session()
-
-    # API client for minting new IDs
-    config = ctx.obj["site_config"]
-    api_client = NmdcRuntimeApi(config)
-
-    # Keep track of the updated record identifiers
-    updated_record_identifiers = []
-
-    # Get all Metabolomics OmicsProcessing records
-    omics_processing_records = db_client["omics_processing_set"].find(
-        {"omics_type.has_raw_value": "Metabolomics"}
-    )
-    len_omics_processing_records = len(list(omics_processing_records.clone()))
-    logging.info(f"Updating {len_omics_processing_records} Metabolomics OmicsProcessing records")
-
-
-    _write_updated_record_identifiers(updated_record_identifiers, "metabolomics")
-    logging.info(f"Elapsed time: {time.time() - start_time}")
-
 def _data_objects_have_valid_ids(data_objects):
     """
     Check that all data objects have valid NMDC IDs.
@@ -149,7 +108,7 @@ def _data_objects_have_valid_ids(data_objects):
 @cli.command()
 @click.argument("legacy_study_id", type=str, required=True)
 @click.argument("nmdc_study_id", type=str, required=True)
-@click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
 @click.option("--identifiers-file", type=click.Path(exists=True), required=False)
 @click.option("--no-update", is_flag=True, default=False, help="Do not update the database")
 @click.pass_context
@@ -210,7 +169,9 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
     updates = {
         "study_set": {},
         "biosample_set": {},
-        "omics_processing_set": {}
+        "omics_processing_set": {},
+        "data_object_set": {},
+        "metabolomics_analysis_activity_set": {},
     }
 
     study_id = study_record.pop("_id")
@@ -261,27 +222,46 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
             omics_processing_id = omics_processing_record.pop("_id")
             omics_processing = nmdc.OmicsProcessing(**omics_processing_record)
             updated_omics_processing = update_omics_processing(omics_processing, nmdc_study_id, biosample.id, api_client, identifiers_map)
+
+            # ===== Metabolomics OmicsProcessing Update =====
+            if updated_omics_processing.omics_type.has_raw_value == "Metabolomics":
+                # Update the has_output data object
+                has_output_data_object_id = omics_processing.has_output[0]
+                data_object_record = db_client["data_object_set"].find_one({"id": has_output_data_object_id})
+                data_object_id = data_object_record.pop("_id")
+                data_object = nmdc.DataObject(**data_object_record)
+                updated_data_object = update_omics_output_data_object(
+                    data_object, nmdc_study_id, api_client, identifiers_map
+                    )
+                # Update the parent OmicsProcessing record with the new has_output data object
+                updated_omics_processing.has_output = [updated_data_object.id]
+                if data_object.id != updated_data_object.id:
+                    updated_record_identifiers.add(("data_object_set", data_object.id, updated_data_object.id))
+                data_object_update = compare_models(data_object, updated_data_object)
+                if data_object_update:
+                    updates["data_object_set"][data_object_id] = (data_object, data_object_update)
+
+                #====== Metabolomics Analysis Activity Update ======
+                # Find all Metabolomics Analysis Activity records was_informed_by either OmicsProcessing
+                # and has_input either data object
+                omics_processing_ids = [omics_processing.id, updated_omics_processing.id]
+                data_object_ids = [data_object.id, updated_data_object.id]
+                metabolomics_analysis_activity_query = {
+                    "$and": [
+                        {"was_informed_by": {"$in": omics_processing_ids}},
+                        {"has_input": {"$in": data_object_ids}}
+                    ]
+                }
+                metabolomics_analysis_activity_records = db_client["metabolomics_analysis_activity_set"].find(metabolomics_analysis_activity_query)
+                logging.info(f"Found {len(list(metabolomics_analysis_activity_records.clone()))} Metabolomics Analysis Activity records")
+
+
+
             if omics_processing.id != updated_omics_processing.id:
                 updated_record_identifiers.add(("omics_processing_set", omics_processing.id, updated_omics_processing.id))
             omics_processing_update = compare_models(omics_processing, updated_omics_processing)
             if omics_processing_update:
                 updates["omics_processing_set"][omics_processing_id] = (omics_processing, omics_processing_update)
-
-            #====== Workflow Update for Metabolomics, Lipidomics, and NOM omics types ======
-            if not omics_processing.omics_type.has_raw_value in ["Metabolomics", "Lipidomics", "NOM"]:
-                continue
-
-            # Metabolomics:
-            if omics_processing.omics_type.has_raw_value == "Metabolomics":
-                # Get the has_output data object record (there should only be one)
-                has_output_data_object_id = omics_processing.has_output[0]
-                data_object_record = db_client["data_object_set"].find_one({"id": has_output_data_object_id})
-                data_object_id = data_object_record.pop("_id")
-                data_object = nmdc.DataObject(**data_object_record)
-                updated_data_object = update_omics_output_data_object(data_object, nmdc_study_id, api_client, identifiers_map)
-
-
-
 
     if no_update:
         # Log the updates that would be made
@@ -326,8 +306,12 @@ def _log_updates(updates):
 
 
 def _write_updates(updates, nmdc_study_id):
+    # Create a directory for the study if it doesn't exist
+    study_dir = DATA_DIR.joinpath(nmdc_study_id)
+    study_dir.mkdir(parents=True, exist_ok=True)
+
     # Write the updated records to a tsv file using csv writer in data_dir/study_id/study_id_updates.tsv
-    updates_file = DATA_DIR.joinpath(nmdc_study_id, f"{nmdc_study_id}_updates.tsv")
+    updates_file = study_dir.joinpath(f"{nmdc_study_id}_updates.tsv")
     logging.info(f"Writing {len(updates)} updates to {updates_file}")
     with open(updates_file, "w") as f:
         writer = csv.writer(f, delimiter="\t")
@@ -338,8 +322,10 @@ def _write_updates(updates, nmdc_study_id):
                 writer.writerow([collection_name, model.id, _id, updated_fields])
 
 def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id):
+    # Create a directory for the study if it doesn't exist
+    study_dir = DATA_DIR.joinpath(nmdc_study_id)
     # Write the updated record identifiers to a tsv file using csv writer
-    updated_record_identifiers_file = DATA_DIR.joinpath(f"{nmdc_study_id}_updated_record_identifiers.tsv")
+    updated_record_identifiers_file = study_dir.joinpath(f"{nmdc_study_id}_updated_record_identifiers.tsv")
     # Check if the file already exists - if so, append to it
     if updated_record_identifiers_file.exists():
         logging.info(f"Appending to existing file: {updated_record_identifiers_file}")
@@ -673,7 +659,7 @@ def process_records(ctx, study_id, data_dir, update_links=False):
 
 @cli.command()
 @click.argument("reid_records_file", type=click.Path(exists=True))
-@click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
 @click.pass_context
 def ingest_records(ctx, reid_records_file, mongo_uri):
     """
@@ -757,7 +743,7 @@ def _ingest_records(db_records, db_client, api_user_client):
 
 @cli.command()
 @click.argument("old_records_file", type=click.Path(exists=True))
-@click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
 @click.pass_context
 def delete_old_records(ctx, old_records_file, mongo_uri):
     """
