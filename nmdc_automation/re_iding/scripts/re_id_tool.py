@@ -21,8 +21,13 @@ from nmdc_automation.nmdc_common.client import NmdcApi
 import nmdc_schema.nmdc as nmdc
 from nmdc_automation.config import UserConfig
 from nmdc_automation.re_iding.base import (
-    ReIdTool, _get_biosample_legacy_id, compare_models, update_biosample,
-    update_omics_processing, update_omics_output_data_object,
+    ReIdTool,
+    _get_biosample_legacy_id,
+    compare_models,
+    update_biosample,
+    update_data_object,
+    update_omics_processing,
+    update_omics_output_data_object,
     update_metabolomics_analysis_activity,
 )
 from nmdc_automation.re_iding.db_utils import get_omics_processing_id, ANALYSIS_ACTIVITIES
@@ -175,7 +180,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
         "metabolomics_analysis_activity_set": {},
     }
 
-    study_id = study_record.pop("_id")
+    study__id = study_record.pop("_id")
     # TODO work out why we have to strip off part_of, study_category, and associated_dois
     study_record.pop("part_of", None)
     study_record.pop("study_category", None)
@@ -184,7 +189,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
     updated_study = _update_study(study, legacy_study_id, nmdc_study_id)
     study_update = compare_models(study, updated_study)
     if study_update:
-        updates["study_set"][study_id] = (study, study_update)
+        updates["study_set"][study__id] = (study, study_update)
 
     #====== Biosample Update ======
     # Find all biosample records associated with the study by either study ID
@@ -222,31 +227,35 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
         for omics_processing_record in omics_processing_records:
             omics_processing_id = omics_processing_record.pop("_id")
             omics_processing = nmdc.OmicsProcessing(**omics_processing_record)
-            updated_omics_processing = update_omics_processing(omics_processing, nmdc_study_id, biosample.id, api_client, identifiers_map)
+            updated_omics_processing = update_omics_processing(
+                omics_processing, nmdc_study_id, biosample.id, api_client, identifiers_map)
 
             # ===== Metabolomics OmicsProcessing Update =====
             if updated_omics_processing.omics_type.has_raw_value == "Metabolomics":
-                # Update the has_output data object
-                has_output_data_object_id = omics_processing.has_output[0]
-                data_object_record = db_client["data_object_set"].find_one({"id": has_output_data_object_id})
-                data_object_id = data_object_record.pop("_id")
-                data_object = nmdc.DataObject(**data_object_record)
-                updated_data_object = update_omics_output_data_object(
-                    data_object, nmdc_study_id, api_client, identifiers_map
+                # OmicsProcessing has_output goes to MetabolomicsAnalysisActivity has_input
+                # We assume there is only one data object in has_output
+                metabolomics_has_output_id = omics_processing.has_output[0]
+                metabolomics_output_record = db_client["data_object_set"].find_one({"id": metabolomics_has_output_id})
+                omics_processing_output__id = metabolomics_output_record.pop("_id")
+                omics_processing_output_data_object = nmdc.DataObject(**metabolomics_output_record)
+                updated_omics_processing_output_data_object = update_omics_output_data_object(
+                    omics_processing_output_data_object, nmdc_study_id, api_client, identifiers_map
                     )
                 # Update the parent OmicsProcessing record with the new has_output data object
-                updated_omics_processing.has_output = [updated_data_object.id]
-                if data_object.id != updated_data_object.id:
-                    updated_record_identifiers.add(("data_object_set", data_object.id, updated_data_object.id))
-                data_object_update = compare_models(data_object, updated_data_object)
+                updated_omics_processing.has_output = [updated_omics_processing_output_data_object.id]
+
+                if omics_processing_output_data_object.id != updated_omics_processing_output_data_object.id:
+                    updated_record_identifiers.add(("data_object_set", omics_processing_output_data_object.id,
+                                                    updated_omics_processing_output_data_object.id))
+                data_object_update = compare_models(omics_processing_output_data_object, updated_omics_processing_output_data_object)
                 if data_object_update:
-                    updates["data_object_set"][data_object_id] = (data_object, data_object_update)
+                    updates["data_object_set"][omics_processing_output__id] = (omics_processing_output_data_object, data_object_update)
 
                 #====== Metabolomics Analysis Activity Update ======
                 # Find all Metabolomics Analysis Activity records was_informed_by either OmicsProcessing
                 # and has_input either data object
                 omics_processing_ids = [omics_processing.id, updated_omics_processing.id]
-                data_object_ids = [data_object.id, updated_data_object.id]
+                data_object_ids = [omics_processing_output_data_object.id, updated_omics_processing_output_data_object.id]
                 metabolomics_analysis_activity_query = {
                     "$and": [
                         {"was_informed_by": {"$in": omics_processing_ids}},
@@ -256,21 +265,61 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
                 metabolomics_analysis_activity_records = db_client["metabolomics_analysis_activity_set"].find(metabolomics_analysis_activity_query)
                 logging.info(f"Found {len(list(metabolomics_analysis_activity_records.clone()))} Metabolomics Analysis Activity records")
 
-
                 for metabolomics_analysis_activity_record in metabolomics_analysis_activity_records:
-                    metabolomics_analysis_activity_id = metabolomics_analysis_activity_record.pop("_id")
+                    metabolomics_analysis_activity__id = metabolomics_analysis_activity_record.pop("_id")
                     metabolomics_analysis_activity = nmdc.MetabolomicsAnalysisActivity(**metabolomics_analysis_activity_record)
 
-                    # Find and update the Metabolomics has_output data objects
-                    has_output_data_object_ids = metabolomics_analysis_activity.has_output
-                    updated_has_output_data_objects = []
-                    for has_output_data_object_id in has_output_data_object_ids:
-                        pass
+                    #===== Metabolomics Data Objects Update =====
+                    # has_output data objects
+                    metabolomics_has_output_ids = metabolomics_analysis_activity.has_output
+                    updated_metabolomics_has_output_ids = []
+                    for metabolomics_has_output_id in metabolomics_has_output_ids:
+                        metabolomics_output_record = db_client["data_object_set"].find_one({"id": metabolomics_has_output_id})
+                        metabolomics_output__id = metabolomics_output_record.pop("_id")
+                        metabolomics_output_data_object = nmdc.DataObject(**metabolomics_output_record)
+                        updated_metabolomics_output_data_object = update_data_object(
+                            metabolomics_output_data_object, api_client, identifiers_map
+                        )
+                        updated_metabolomics_has_output_ids.append(updated_metabolomics_output_data_object.id)
+                        if metabolomics_output_data_object.id != updated_metabolomics_output_data_object.id:
+                            updated_record_identifiers.add(("data_object_set", metabolomics_output_data_object.id,
+                                                            updated_metabolomics_output_data_object.id))
+                        metabolomics_output_data_object_update = compare_models(metabolomics_output_data_object, updated_metabolomics_output_data_object)
+                        if metabolomics_output_data_object_update:
+                            updates["data_object_set"][metabolomics_output__id] = (metabolomics_output_data_object, metabolomics_output_data_object_update)
 
-                    updated_metabolomics_analysis_activity = update_metabolomics_analysis_activity(metabolomics_analysis_activity, nmdc_study_id, updated_omics_processing.id, updated_data_object.id, api_client, identifiers_map)
+                    # has_calibration_data data object
+                    calibration_data_object_id = metabolomics_analysis_activity.has_calibration
+                    calibration_data_object_record = db_client["data_object_set"].find_one({"id": calibration_data_object_id})
+                    calibration_data_object__id = calibration_data_object_record.pop("_id")
+                    calibration_data_object = nmdc.DataObject(**calibration_data_object_record)
+                    updated_calibration_data_object = update_data_object(
+                        calibration_data_object, api_client, identifiers_map
+                    )
+                    if calibration_data_object.id != updated_calibration_data_object.id:
+                        updated_record_identifiers.add(("data_object_set", calibration_data_object.id, updated_calibration_data_object.id))
+                    calibration_data_object_update = compare_models(calibration_data_object, updated_calibration_data_object)
+                    if calibration_data_object_update:
+                        updates["data_object_set"][calibration_data_object__id] = (calibration_data_object, calibration_data_object_update)
+
+                    # Update the Metabolomics Analysis Activity record
+                    updated_metabolomics_analysis_activity = update_metabolomics_analysis_activity(
+                        metabolomics_analysis_activity=metabolomics_analysis_activity,
+                        nmdc_omics_processing_id=updated_omics_processing.id,
+                        nmdc_input_data_object_id=updated_omics_processing_output_data_object.id,
+                        nmdc_output_data_object_ids=updated_metabolomics_has_output_ids,
+                        nmdc_calibration_data_object_id=updated_calibration_data_object.id,
+                        api_client=api_client,
+                        identifiers_map=identifiers_map
+                    )
                     if metabolomics_analysis_activity.id != updated_metabolomics_analysis_activity.id:
-                        updated_record_identifiers.add(("metabolomics_analysis_activity_set", metabolomics_analysis_activity.id, updated_metabolomics_analysis_activity.id))
-
+                        updated_record_identifiers.add(
+                            ("metabolomics_analysis_activity_set", metabolomics_analysis_activity.id, updated_metabolomics_analysis_activity.id))
+                    metabolomics_analysis_activity_update = compare_models(metabolomics_analysis_activity, updated_metabolomics_analysis_activity)
+                    if metabolomics_analysis_activity_update:
+                        updates["metabolomics_analysis_activity_set"][metabolomics_analysis_activity__id] = (
+                            metabolomics_analysis_activity, metabolomics_analysis_activity_update
+                        )
 
 
             if omics_processing.id != updated_omics_processing.id:
@@ -331,11 +380,11 @@ def _write_updates(updates, nmdc_study_id):
     logging.info(f"Writing {len(updates)} updates to {updates_file}")
     with open(updates_file, "w") as f:
         writer = csv.writer(f, delimiter="\t")
-        writer.writerow(["collection_name", "id", "_id", "updated_fields"])
+        writer.writerow(["collection_name", "id", "_id", "update"])
         for collection_name, record_updates in updates.items():
             for _id, (model, update) in record_updates.items():
                 updated_fields = ", ".join(update.keys())
-                writer.writerow([collection_name, model.id, _id, updated_fields])
+                writer.writerow([collection_name, model.id, _id, update])
 
 def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id):
     # Create a directory for the study if it doesn't exist

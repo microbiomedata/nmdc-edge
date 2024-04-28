@@ -152,7 +152,6 @@ def test_update_metabolomics_analysis_activity(metabolomics_analysis_activity_re
     Test that we can update a MetabolomicsAnalysisActivity.
     """
     exp_id = "nmdc:1234-abcd12345"
-    exp_study_id = "nmdc:sty-1234-abcd12345"
     exp_omics_processing_id = "nmdc:omprc-1234-abcd12345"
     exp_data_object_id = "nmdc:dobj-1234-abcd12345"
     exp_output_data_object_ids = ["nmdc:dobj-1234-abcd12345"]
@@ -173,6 +172,7 @@ def test_update_metabolomics_analysis_activity(metabolomics_analysis_activity_re
     assert isinstance(updated_metabolomics, MetabolomicsAnalysisActivity)
     assert updated_metabolomics.id == exp_id
 
+    assert updated_metabolomics.was_informed_by == exp_omics_processing_id
     assert updated_metabolomics.has_input == [exp_data_object_id]
     assert updated_metabolomics.has_output == exp_output_data_object_ids
     assert updated_metabolomics.has_calibration == exp_calibration_data_object_ids
@@ -194,5 +194,4 @@ def test_update_omics_output_data_object(data_object_record, mocker):
     )
     assert isinstance(updated_data_object, NmdcDataObject)
     assert updated_data_object.id == exp_id
-    # assert updated_data_object.part_of == [exp_omics_processing_id]
-    # assert updated_data_object.igsn_data_object_identifiers == [orig_id]
+    assert updated_data_object.alternative_identifiers == [orig_id]
