@@ -28,6 +28,7 @@ from nmdc_automation.re_iding.db_utils import (
     READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
     DATA_OBJECT_SET,
     METABOLOMICS_ANALYSIS_ACTIVITY_SET,
+    NOM_ANALYSIS_ACTIVITY_SET,
     check_for_single_omics_processing_record,
     get_data_object_record_by_id,
     get_omics_processing_id
@@ -47,13 +48,15 @@ BIOSAMPLE_TYPE = "nmdc:Biosample"
 OMICS_PROCESSING_TYPE = "nmdc:OmicsProcessing"
 DATA_OBJECT_TYPE = "nmdc:DataObject"
 METABOLOMICS_ANALYSIS_ACTIVITY_TYPE = "nmdc:MetabolomicsAnalysisActivity"
+NOM_ANALYSIS_ACTIVITY_TYPE = "nmdc:NomAnalysisActivity"
 
 # map data object types set names
 DATA_OBJECT_TYPE_SET_MAP = {
     BIOSAMPLE_TYPE: BIOSAMPLE_SET,
     OMICS_PROCESSING_TYPE: OMICS_PROCESSING_SET,
     DATA_OBJECT_TYPE: DATA_OBJECT_SET,
-    METABOLOMICS_ANALYSIS_ACTIVITY_TYPE: METABOLOMICS_ANALYSIS_ACTIVITY_SET
+    METABOLOMICS_ANALYSIS_ACTIVITY_TYPE: METABOLOMICS_ANALYSIS_ACTIVITY_SET,
+    NOM_ANALYSIS_ACTIVITY_TYPE: NOM_ANALYSIS_ACTIVITY_SET
 }
 
 
@@ -812,3 +815,26 @@ def update_metabolomics_analysis_activity(metabolomics_analysis_activity: nmdc.M
     updated_metabolomics_analysis_activity.has_calibration = nmdc_calibration_data_object_id
 
     return updated_metabolomics_analysis_activity
+
+
+def update_nom_analysis_activity(nom_analysis_activity: nmdc.NomAnalysisActivity,
+                                 nmdc_omics_processing_id: str, nmdc_input_data_object_id: str,
+                                 nmdc_output_data_object_ids: List[str], api_client: NmdcRuntimeApi,
+                                 identifiers_map: dict=None) -> nmdc.NomAnalysisActivity:
+    """
+    Update the NOM analysis activity record with the new ID
+    """
+    updated_nom_analysis_activity = deepcopy(nom_analysis_activity)
+    # Ensure that type is set to nmdc:NomAnalysisActivity
+    updated_nom_analysis_activity.type = "nmdc:NomAnalysisActivity"
+
+    # Check if we need to update the NOM analysis activity ID
+    if not updated_nom_analysis_activity.id.startswith("nmdc:wfna-"):
+        new_nom_analysis_activity_id = get_new_nmdc_id(updated_nom_analysis_activity, api_client, identifiers_map)
+        updated_nom_analysis_activity.id = new_nom_analysis_activity_id
+
+    updated_nom_analysis_activity.was_informed_by = nmdc_omics_processing_id
+    updated_nom_analysis_activity.has_input = [nmdc_input_data_object_id]
+    updated_nom_analysis_activity.has_output = nmdc_output_data_object_ids
+
+    return updated_nom_analysis_activity
