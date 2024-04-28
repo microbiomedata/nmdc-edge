@@ -774,17 +774,40 @@ def update_omics_output_data_object(
     return updated_data_object
 
 
+def update_data_object(data_object: nmdc.DataObject, api_client: NmdcRuntimeApi, identifiers_map: dict=None) -> nmdc.DataObject:
+    """
+    Update the data object record with a new ID
+    """
+    updated_data_object = deepcopy(data_object)
+    # Ensure that type is set to nmdc:DataObject
+    updated_data_object.type = "nmdc:DataObject"
+
+    # Check if we need to update the data object ID
+    if not updated_data_object.id.startswith("nmdc:dobj-"):
+        new_data_object_id = get_new_nmdc_id(updated_data_object, api_client, identifiers_map)
+        updated_data_object.id = new_data_object_id
+
+    return updated_data_object
+
 
 def update_metabolomics_analysis_activity(metabolomics_analysis_activity: nmdc.MetabolomicsAnalysisActivity,
-                                         nmdc_study_id: str, nmdc_omics_processing_id: str,
+                                        nmdc_omics_processing_id: str, nmdc_input_data_object_id: str,
+                                          nmdc_output_data_object_ids: List[str], nmdc_calibration_data_object_id: str,
                                          api_client: NmdcRuntimeApi, identifiers_map: dict=None) -> nmdc.MetabolomicsAnalysisActivity:
     """
     Update the metabolomics analysis activity record with the new ID
     """
     updated_metabolomics_analysis_activity = deepcopy(metabolomics_analysis_activity)
-    # Check if we need to update the metabolomics analysis activity ID and add the legacy ID to the alternate identifiers
-    if not updated_metabolomics_analysis_activity.id.startswith("nmdc:wfmb-"):
-        pass
+    # Ensure that type is set to nmdc:MetabolomicsAnalysisActivity
+    updated_metabolomics_analysis_activity.type = "nmdc:MetabolomicsAnalysisActivity"
 
+    # Check if we need to update the metabolomics analysis activity ID
+    if not updated_metabolomics_analysis_activity.id.startswith("nmdc:wfmb-"):
+        new_metabolomics_analysis_activity_id = get_new_nmdc_id(updated_metabolomics_analysis_activity, api_client, identifiers_map)
+        updated_metabolomics_analysis_activity.id = new_metabolomics_analysis_activity_id
+
+    updated_metabolomics_analysis_activity.has_input = [nmdc_input_data_object_id]
+    updated_metabolomics_analysis_activity.has_output = nmdc_output_data_object_ids
+    updated_metabolomics_analysis_activity.has_calibration = nmdc_calibration_data_object_id
 
     return updated_metabolomics_analysis_activity

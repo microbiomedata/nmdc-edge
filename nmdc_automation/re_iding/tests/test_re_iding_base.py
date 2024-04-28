@@ -154,15 +154,28 @@ def test_update_metabolomics_analysis_activity(metabolomics_analysis_activity_re
     exp_id = "nmdc:1234-abcd12345"
     exp_study_id = "nmdc:sty-1234-abcd12345"
     exp_omics_processing_id = "nmdc:omprc-1234-abcd12345"
+    exp_data_object_id = "nmdc:dobj-1234-abcd12345"
+    exp_output_data_object_ids = ["nmdc:dobj-1234-abcd12345"]
+    exp_calibration_data_object_ids = "nmdc:dobj-calibration-1234-abcd12345"
     mock_api = mocker.Mock(spec=NmdcRuntimeApi)
     mock_api.minter.return_value = exp_id
 
     orig_id = metabolomics_analysis_activity_record["id"]
     metabolomics = MetabolomicsAnalysisActivity(**metabolomics_analysis_activity_record)
     updated_metabolomics = update_metabolomics_analysis_activity(
-        metabolomics, exp_study_id, exp_omics_processing_id, mock_api
+        metabolomics,
+        exp_omics_processing_id,
+        exp_data_object_id,
+        exp_output_data_object_ids,
+        exp_calibration_data_object_ids,
+        mock_api
     )
     assert isinstance(updated_metabolomics, MetabolomicsAnalysisActivity)
+    assert updated_metabolomics.id == exp_id
+
+    assert updated_metabolomics.has_input == [exp_data_object_id]
+    assert updated_metabolomics.has_output == exp_output_data_object_ids
+    assert updated_metabolomics.has_calibration == exp_calibration_data_object_ids
 
 def test_update_omics_output_data_object(data_object_record, mocker):
     """

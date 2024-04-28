@@ -23,6 +23,7 @@ from nmdc_automation.config import UserConfig
 from nmdc_automation.re_iding.base import (
     ReIdTool, _get_biosample_legacy_id, compare_models, update_biosample,
     update_omics_processing, update_omics_output_data_object,
+    update_metabolomics_analysis_activity,
 )
 from nmdc_automation.re_iding.db_utils import get_omics_processing_id, ANALYSIS_ACTIVITIES
 
@@ -254,6 +255,21 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
                 }
                 metabolomics_analysis_activity_records = db_client["metabolomics_analysis_activity_set"].find(metabolomics_analysis_activity_query)
                 logging.info(f"Found {len(list(metabolomics_analysis_activity_records.clone()))} Metabolomics Analysis Activity records")
+
+
+                for metabolomics_analysis_activity_record in metabolomics_analysis_activity_records:
+                    metabolomics_analysis_activity_id = metabolomics_analysis_activity_record.pop("_id")
+                    metabolomics_analysis_activity = nmdc.MetabolomicsAnalysisActivity(**metabolomics_analysis_activity_record)
+
+                    # Find and update the Metabolomics has_output data objects
+                    has_output_data_object_ids = metabolomics_analysis_activity.has_output
+                    updated_has_output_data_objects = []
+                    for has_output_data_object_id in has_output_data_object_ids:
+                        pass
+
+                    updated_metabolomics_analysis_activity = update_metabolomics_analysis_activity(metabolomics_analysis_activity, nmdc_study_id, updated_omics_processing.id, updated_data_object.id, api_client, identifiers_map)
+                    if metabolomics_analysis_activity.id != updated_metabolomics_analysis_activity.id:
+                        updated_record_identifiers.add(("metabolomics_analysis_activity_set", metabolomics_analysis_activity.id, updated_metabolomics_analysis_activity.id))
 
 
 
