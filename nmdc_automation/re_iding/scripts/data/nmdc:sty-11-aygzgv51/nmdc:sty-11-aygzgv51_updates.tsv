@@ -1,600 +1,670 @@
-collection_name	id	_id	updated_fields
-study_set	gold:Gs0114663	649b009ec7d5d8b487299257	id
-biosample_set	gold:Gb0115231	649b003843aa17f5748437d5	id, part_of
-biosample_set	gold:Gb0115220	649b003843aa17f5748437d6	id, part_of
-biosample_set	gold:Gb0115221	649b003843aa17f5748437d7	id, part_of
-biosample_set	gold:Gb0115228	649b003843aa17f5748437d8	id, part_of
-biosample_set	gold:Gb0115225	649b003843aa17f5748437d9	id, part_of
-biosample_set	gold:Gb0115227	649b003843aa17f5748437da	id, part_of
-biosample_set	gold:Gb0115224	649b003843aa17f5748437db	id, part_of
-biosample_set	gold:Gb0115218	649b003843aa17f5748437dc	id, part_of
-biosample_set	gold:Gb0115229	649b003843aa17f5748437dd	id, part_of
-biosample_set	gold:Gb0115232	649b003843aa17f5748437de	id, part_of
-biosample_set	gold:Gb0115217	649b003843aa17f5748437df	id, part_of
-biosample_set	gold:Gb0115222	649b003843aa17f5748437e0	id, part_of
-biosample_set	gold:Gb0115230	649b003843aa17f5748437e1	id, part_of
-biosample_set	gold:Gb0115233	649b003843aa17f5748437e3	id, part_of
-biosample_set	gold:Gb0115219	649b003843aa17f5748437e8	id, part_of
-biosample_set	gold:Gb0115223	649b003843aa17f5748437ed	id, part_of
-biosample_set	gold:Gb0115226	649b003843aa17f5748437f5	id, part_of
-biosample_set	gold:Gb0126424	649b003843aa17f574843813	id, part_of
-biosample_set	gold:Gb0126426	649b003843aa17f574843817	id, part_of
-biosample_set	gold:Gb0126427	649b003843aa17f57484381c	id, part_of
-biosample_set	gold:Gb0126433	649b003843aa17f57484381d	id, part_of
-biosample_set	gold:Gb0126432	649b003843aa17f57484381e	id, part_of
-biosample_set	gold:Gb0126430	649b003843aa17f57484381f	id, part_of
-biosample_set	gold:Gb0126429	649b003843aa17f574843820	id, part_of
-biosample_set	gold:Gb0126431	649b003843aa17f574843821	id, part_of
-biosample_set	gold:Gb0126425	649b003843aa17f574843822	id, part_of
-biosample_set	gold:Gb0126436	649b003843aa17f574843823	id, part_of
-biosample_set	gold:Gb0126434	649b003843aa17f574843824	id, part_of
-biosample_set	gold:Gb0126435	649b003843aa17f574843825	id, part_of
-biosample_set	gold:Gb0126437	649b003843aa17f574843826	id, part_of
-biosample_set	gold:Gb0126438	649b003843aa17f574843827	id, part_of
-biosample_set	gold:Gb0126439	649b003843aa17f574843828	id, part_of
-biosample_set	gold:Gb0126428	649b003843aa17f574843829	id, part_of
-biosample_set	gold:Gb0126440	649b003843aa17f57484382a	id, part_of
-biosample_set	gold:Gb0126441	649b003843aa17f57484382b	id, part_of
-biosample_set	gold:Gb0126443	649b003843aa17f57484382c	id, part_of
-biosample_set	gold:Gb0126442	649b003843aa17f57484382d	id, part_of
-biosample_set	gold:Gb0126444	649b003843aa17f57484382e	id, part_of
-biosample_set	gold:Gb0126445	649b003843aa17f57484382f	id, part_of
-biosample_set	gold:Gb0126446	649b003843aa17f574843830	id, part_of
-biosample_set	gold:Gb0126447	649b003843aa17f574843831	id, part_of
-biosample_set	gold:Gb0126448	649b003843aa17f574843832	id, part_of
-biosample_set	gold:Gb0126449	649b003843aa17f574843833	id, part_of
-biosample_set	gold:Gb0126450	649b003843aa17f574843834	id, part_of
-biosample_set	gold:Gb0126452	649b003843aa17f574843835	id, part_of
-biosample_set	gold:Gb0126454	649b003843aa17f574843836	id, part_of
-biosample_set	gold:Gb0126453	649b003843aa17f574843837	id, part_of
-biosample_set	gold:Gb0126455	649b003843aa17f574843838	id, part_of
-biosample_set	gold:Gb0126456	649b003843aa17f574843839	id, part_of
-biosample_set	gold:Gb0126457	649b003843aa17f57484383a	id, part_of
-biosample_set	emsl:63ca2f94-6647-11eb-ae93-0242ac130002	649b003843aa17f574843925	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca3070-6647-11eb-ae93-0242ac130002	649b003843aa17f574843926	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca2c7e-6647-11eb-ae93-0242ac130002	649b003843aa17f574843927	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca3340-6647-11eb-ae93-0242ac130002	649b003843aa17f574843928	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca358e-6647-11eb-ae93-0242ac130002	649b003843aa17f574843929	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca3642-6647-11eb-ae93-0242ac130002	649b003843aa17f57484392a	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca2eae-6647-11eb-ae93-0242ac130002	649b003843aa17f57484392c	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca3700-6647-11eb-ae93-0242ac130002	649b003843aa17f57484392d	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca3868-6647-11eb-ae93-0242ac130002	649b003843aa17f57484392f	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca3e76-6647-11eb-ae93-0242ac130002	649b003843aa17f574843930	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca3b1a-6647-11eb-ae93-0242ac130002	649b003843aa17f574843931	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca37b4-6647-11eb-ae93-0242ac130002	649b003843aa17f574843932	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca3d04-6647-11eb-ae93-0242ac130002	649b003843aa17f574843933	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca3f2a-6647-11eb-ae93-0242ac130002	649b003843aa17f574843934	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca4088-6647-11eb-ae93-0242ac130002	649b003843aa17f574843935	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca3dc2-6647-11eb-ae93-0242ac130002	649b003843aa17f574843936	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca341c-6647-11eb-ae93-0242ac130002	649b003843aa17f574843937	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca34da-6647-11eb-ae93-0242ac130002	649b003843aa17f574843938	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca3fd4-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393a	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca443e-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393b	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca459c-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393c	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca47e0-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393d	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca4146-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393e	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca489e-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393f	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca4d4e-6647-11eb-ae93-0242ac130002	649b003843aa17f574843940	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca4952-6647-11eb-ae93-0242ac130002	649b003843aa17f574843941	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca4f6a-6647-11eb-ae93-0242ac130002	649b003843aa17f574843942	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca46fa-6647-11eb-ae93-0242ac130002	649b003843aa17f574843943	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca50c8-6647-11eb-ae93-0242ac130002	649b003843aa17f574843944	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca4a38-6647-11eb-ae93-0242ac130002	649b003843aa17f574843945	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca4aec-6647-11eb-ae93-0242ac130002	649b003843aa17f574843946	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca4e02-6647-11eb-ae93-0242ac130002	649b003843aa17f574843947	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca4eb6-6647-11eb-ae93-0242ac130002	649b003843aa17f574843949	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca5014-6647-11eb-ae93-0242ac130002	649b003843aa17f57484394a	id, part_of, type, emsl_biosample_identifiers
-biosample_set	emsl:63ca517c-6647-11eb-ae93-0242ac130002	649b003843aa17f57484394b	id, part_of, type, emsl_biosample_identifiers
-omics_processing_set	gold:Gp0115677	649b009773e8249959349b4f	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115666	649b009773e8249959349b34	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115667	649b009773e8249959349b37	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115674	649b009773e8249959349b4b	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115671	649b009773e8249959349b4d	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115673	649b009773e8249959349b4c	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115670	649b009773e8249959349b4a	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115664	649b009773e8249959349b38	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115675	649b009773e8249959349b50	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115678	649b009773e8249959349b39	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115663	649b009773e8249959349b33	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115668	649b009773e8249959349b35	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115676	649b009773e8249959349b4e	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115679	649b009773e8249959349b36	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115665	649b009773e8249959349b51	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115669	649b009773e8249959349b52	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0115672	649b009773e8249959349b53	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	gold:Gp0127623	649b009773e8249959349b3a	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499778	649b009773e8249959349d17	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500097	649b009773e8249959349d26	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511448	649b009773e8249959349d49	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512118	649b009773e8249959349d84	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127625	649b009773e8249959349b3b	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499773	649b009773e8249959349d13	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500162	649b009773e8249959349d30	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511451	649b009773e8249959349d4c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512109	649b009773e8249959349d7b	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127626	649b009773e8249959349b3c	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499557	649b009773e8249959349d03	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500837	649b009773e8249959349d40	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511450	649b009773e8249959349d56	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511905	649b009773e8249959349d67	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127632	649b009773e8249959349b44	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499636	649b009773e8249959349d0c	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500095	649b009773e8249959349d24	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511449	649b009773e8249959349d4d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512116	649b009773e8249959349d82	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127631	649b009773e8249959349b40	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499777	649b009773e8249959349d16	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500160	649b009773e8249959349d34	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511455	649b009773e8249959349d55	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511976	649b009773e8249959349d72	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127629	649b009773e8249959349b3e	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499571	649b009773e8249959349d0a	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500835	649b009773e8249959349d3c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511457	649b009773e8249959349d51	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512106	649b009773e8249959349d77	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127628	649b009773e8249959349b3f	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499782	649b009773e8249959349d19	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500093	649b009773e8249959349d22	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511453	649b009773e8249959349d4e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512110	649b009773e8249959349d7c	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127630	649b009773e8249959349b41	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499558	649b009773e8249959349d02	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500829	649b009773e8249959349d35	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511463	649b009773e8249959349d59	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511981	649b009773e8249959349d73	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127624	649b009773e8249959349b3d	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499784	649b009773e8249959349d1b	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500094	649b009773e8249959349d25	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511472	649b009773e8249959349d66	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512108	649b009773e8249959349d78	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127635	649b009773e8249959349b47	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499794	649b009773e8249959349d1e	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500101	649b009773e8249959349d2a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511403	649b009773e8249959349d48	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511903	649b009773e8249959349d65	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127633	649b009773e8249959349b42	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499565	649b009773e8249959349d09	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:501132	649b009773e8249959349d3b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511462	649b009773e8249959349d5a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511983	649b009773e8249959349d75	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127634	649b009773e8249959349b46	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499790	649b009773e8249959349d1a	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500088	649b009773e8249959349d21	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511454	649b009773e8249959349d50	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512113	649b009773e8249959349d80	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127636	649b009773e8249959349b45	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499452	649b009773e8249959349d00	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500836	649b009773e8249959349d3d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511464	649b009773e8249959349d5b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512117	649b009773e8249959349d83	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127637	649b009773e8249959349b48	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499718	649b009773e8249959349d10	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500164	649b009773e8249959349d31	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511467	649b009773e8249959349d5f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512115	649b009773e8249959349d81	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127638	649b009773e8249959349b49	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499561	649b009773e8249959349d04	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:501128	649b009773e8249959349d3e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511404	649b009773e8249959349d4b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511906	649b009773e8249959349d68	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127627	649b009773e8249959349b43	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499568	649b009773e8249959349d07	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500166	649b009773e8249959349d32	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511469	649b009773e8249959349d62	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512112	649b009773e8249959349d7f	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127639	649b009773e8249959349b58	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499721	649b009773e8249959349d14	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500102	649b009773e8249959349d2c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511452	649b009773e8249959349d4f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511979	649b009773e8249959349d71	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127640	649b009773e8249959349b54	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499722	649b009773e8249959349d15	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500098	649b009773e8249959349d2b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511460	649b009773e8249959349d57	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511975	649b009773e8249959349d6e	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127642	649b009773e8249959349b59	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499563	649b009773e8249959349d05	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500831	649b009773e8249959349d33	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511465	649b009773e8249959349d5d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512104	649b009773e8249959349d74	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127641	649b009773e8249959349b55	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499792	649b009773e8249959349d1f	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500096	649b009773e8249959349d29	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511459	649b009773e8249959349d54	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511978	649b009773e8249959349d70	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127643	649b009773e8249959349b56	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499567	649b009773e8249959349d0f	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500163	649b009773e8249959349d2f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511406	649b009773e8249959349d45	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511907	649b009773e8249959349d6a	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127644	649b009773e8249959349b57	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499455	649b009773e8249959349d06	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500830	649b009773e8249959349d36	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511405	649b009773e8249959349d46	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511904	649b009773e8249959349d64	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127645	649b009773e8249959349b5d	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499453	649b009773e8249959349d01	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500165	649b009773e8249959349d38	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511471	649b009773e8249959349d69	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512111	649b009773e8249959349d7d	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127646	649b009773e8249959349b5a	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499780	649b009773e8249959349d18	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500099	649b009773e8249959349d28	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511397	649b009773e8249959349d3f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511901	649b009773e8249959349d61	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127647	649b009773e8249959349b5c	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499786	649b009773e8249959349d1c	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500090	649b009773e8249959349d20	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511470	649b009773e8249959349d60	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511977	649b009773e8249959349d6d	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127648	649b009773e8249959349b5b	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499640	649b009773e8249959349d11	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500103	649b009773e8249959349d2e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511400	649b009773e8249959349d47	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511902	649b009773e8249959349d63	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127649	649b009773e8249959349b5e	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499562	649b009773e8249959349d08	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:501138	649b009773e8249959349d42	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511458	649b009773e8249959349d53	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512107	649b009773e8249959349d7e	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127651	649b009773e8249959349b62	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499639	649b009773e8249959349d12	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500091	649b009773e8249959349d23	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511456	649b009773e8249959349d52	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512105	649b009773e8249959349d76	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127653	649b009773e8249959349b64	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499575	649b009773e8249959349d0e	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500834	649b009773e8249959349d39	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511468	649b009773e8249959349d5e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511982	649b009773e8249959349d7a	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127652	649b009773e8249959349b5f	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499570	649b009773e8249959349d0b	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500833	649b009773e8249959349d3a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511447	649b009773e8249959349d4a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511974	649b009773e8249959349d6c	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127654	649b009773e8249959349b60	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499789	649b009773e8249959349d1d	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500100	649b009773e8249959349d27	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511402	649b009773e8249959349d43	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511908	649b009773e8249959349d6b	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127655	649b009773e8249959349b63	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499573	649b009773e8249959349d0d	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500161	649b009773e8249959349d2d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511461	649b009773e8249959349d58	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511980	649b009773e8249959349d79	id, alternative_identifiers, part_of
-omics_processing_set	gold:Gp0127656	649b009773e8249959349b61	id, gold_sequencing_project_identifiers, part_of
-omics_processing_set	emsl:499451	649b009773e8249959349cfc	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:500167	649b009773e8249959349d37	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511466	649b009773e8249959349d5c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:512114	649b009773e8249959349d89	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456435	649b009773e8249959349bd9	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456434	649b009773e8249959349bda	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456603	649b009773e8249959349c1b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456604	649b009773e8249959349c1c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456605	649b009773e8249959349c1e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457880	649b009773e8249959349c84	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457918	649b009773e8249959349ca4	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458256	649b009773e8249959349ccb	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458255	649b009773e8249959349ccc	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456439	649b009773e8249959349bdd	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456440	649b009773e8249959349be4	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456607	649b009773e8249959349c19	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456606	649b009773e8249959349c20	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456608	649b009773e8249959349c26	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457882	649b009773e8249959349c8c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457919	649b009773e8249959349ca8	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458257	649b009773e8249959349cc8	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458258	649b009773e8249959349cd0	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456425	649b009773e8249959349bd7	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456424	649b009773e8249959349bd8	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456597	649b009773e8249959349c14	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456599	649b009773e8249959349c16	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456596	649b009773e8249959349c32	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457878	649b009773e8249959349c82	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457916	649b009773e8249959349ca6	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458251	649b009773e8249959349cc7	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458252	649b009773e8249959349cca	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456445	649b009773e8249959349bdf	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456444	649b009773e8249959349bf3	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456609	649b009773e8249959349c27	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456610	649b009773e8249959349c28	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456611	649b009773e8249959349c2b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457883	649b009773e8249959349c85	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457920	649b009773e8249959349ca7	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458259	649b009773e8249959349ccd	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458260	649b009773e8249959349cd1	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456455	649b009773e8249959349be7	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456454	649b009773e8249959349beb	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456615	649b009773e8249959349c22	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456616	649b009773e8249959349c23	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456617	649b009773e8249959349c24	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457885	649b009773e8249959349c8b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457922	649b009773e8249959349caa	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458263	649b009773e8249959349cd2	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458264	649b009773e8249959349cd5	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456459	649b009773e8249959349be3	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456460	649b009773e8249959349be5	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456618	649b009773e8249959349c25	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456619	649b009773e8249959349c33	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456620	649b009773e8249959349c34	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457886	649b009773e8249959349c88	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457923	649b009773e8249959349cab	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458266	649b009773e8249959349cd7	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458265	649b009773e8249959349cd9	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456429	649b009773e8249959349bd6	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456430	649b009773e8249959349be0	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456600	649b009773e8249959349c18	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456602	649b009773e8249959349c1a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456601	649b009773e8249959349c1d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457879	649b009773e8249959349c86	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457917	649b009773e8249959349ca5	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458253	649b009773e8249959349cc5	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458254	649b009773e8249959349ccf	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456464	649b009773e8249959349be9	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456465	649b009773e8249959349bed	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456621	649b009773e8249959349c35	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456622	649b009773e8249959349c36	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456623	649b009773e8249959349c37	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457887	649b009773e8249959349c89	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457924	649b009773e8249959349cae	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458267	649b009773e8249959349cd4	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458268	649b009773e8249959349cd6	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456474	649b009773e8249959349bea	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456475	649b009773e8249959349bec	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456628	649b009773e8249959349c38	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456629	649b009773e8249959349c3c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456627	649b009773e8249959349c3d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457889	649b009773e8249959349c90	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457926	649b009773e8249959349caf	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458272	649b009773e8249959349cdc	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458271	649b009773e8249959349cdd	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456494	649b009773e8249959349bf2	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456495	649b009773e8249959349bf4	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456640	649b009773e8249959349c45	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456641	649b009773e8249959349c48	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456639	649b009773e8249959349c4a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457893	649b009773e8249959349c8d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457930	649b009773e8249959349cb3	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458280	649b009773e8249959349ce6	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458279	649b009773e8249959349ce7	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456480	649b009773e8249959349bef	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456479	649b009773e8249959349bf0	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456631	649b009773e8249959349c3e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456632	649b009773e8249959349c3f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456630	649b009773e8249959349c40	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457890	649b009773e8249959349c93	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457927	649b009773e8249959349cb9	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458273	649b009773e8249959349cda	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458274	649b009773e8249959349cdf	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456469	649b009773e8249959349be6	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456470	649b009773e8249959349be8	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456625	649b009773e8249959349c39	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456624	649b009773e8249959349c3a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456626	649b009773e8249959349c3b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457888	649b009773e8249959349c8f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457925	649b009773e8249959349cac	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458269	649b009773e8249959349cd8	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458270	649b009773e8249959349cdb	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456484	649b009773e8249959349bee	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456485	649b009773e8249959349bf1	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456633	649b009773e8249959349c41	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456635	649b009773e8249959349c42	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456634	649b009773e8249959349c46	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457891	649b009773e8249959349c8a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457928	649b009773e8249959349cb0	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458275	649b009773e8249959349cde	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458276	649b009773e8249959349ce1	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456500	649b009773e8249959349bf7	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456499	649b009773e8249959349bfc	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456643	649b009773e8249959349c47	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456642	649b009773e8249959349c4b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456644	649b009773e8249959349c4d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457894	649b009773e8249959349c91	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457931	649b009773e8249959349cb2	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458282	649b009773e8249959349ce3	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458281	649b009773e8249959349ce8	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456510	649b009773e8249959349bf9	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456509	649b009773e8249959349bfd	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456648	649b009773e8249959349c50	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456649	649b009773e8249959349c51	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456650	649b009773e8249959349c54	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457896	649b009773e8249959349c94	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457933	649b009773e8249959349cb4	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458285	649b009773e8249959349ce9	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458286	649b009773e8249959349cea	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456489	649b009773e8249959349bf5	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456490	649b009773e8249959349bf6	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456637	649b009773e8249959349c43	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456638	649b009773e8249959349c44	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456636	649b009773e8249959349c49	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457892	649b009773e8249959349c8e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457929	649b009773e8249959349cb1	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458278	649b009773e8249959349ce0	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458277	649b009773e8249959349ce4	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456449	649b009773e8249959349be1	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456450	649b009773e8249959349be2	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456614	649b009773e8249959349c21	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456613	649b009773e8249959349c2a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456612	649b009773e8249959349c2c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457884	649b009773e8249959349c87	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457921	649b009773e8249959349cad	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458261	649b009773e8249959349cce	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458262	649b009773e8249959349cd3	id, alternative_identifiers, part_of
-omics_processing_set	emsl:511401	649b009773e8249959349d41	id, alternative_identifiers, part_of
-omics_processing_set	emsl:501139	649b009773e8249959349d44	id, alternative_identifiers, has_output, part_of
-omics_processing_set	emsl:511909	649b009773e8249959349d6f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456505	649b009773e8249959349bf8	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456504	649b009773e8249959349bfa	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456647	649b009773e8249959349c4c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456645	649b009773e8249959349c4e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456646	649b009773e8249959349c4f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457895	649b009773e8249959349c92	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457932	649b009773e8249959349cb6	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458283	649b009773e8249959349ce2	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458284	649b009773e8249959349ce5	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456519	649b009773e8249959349bfe	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456520	649b009773e8249959349c12	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456654	649b009773e8249959349c55	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456655	649b009773e8249959349c56	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456656	649b009773e8249959349c57	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457898	649b009773e8249959349c95	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457935	649b009773e8249959349cb8	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458289	649b009773e8249959349ced	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458290	649b009773e8249959349cee	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456525	649b009773e8249959349c1f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456524	649b009773e8249959349c2e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456657	649b009773e8249959349c59	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456658	649b009773e8249959349c5a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456659	649b009773e8249959349c5b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457899	649b009773e8249959349c96	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457936	649b009773e8249959349cb7	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458291	649b009773e8249959349cf1	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458292	649b009773e8249959349cf8	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456535	649b009773e8249959349c01	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456534	649b009773e8249959349c2d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456663	649b009773e8249959349c5e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456665	649b009773e8249959349c60	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456664	649b009773e8249959349c62	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457901	649b009773e8249959349c9d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457938	649b009773e8249959349cba	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458296	649b009773e8249959349cf0	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456514	649b009773e8249959349bfb	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456515	649b009773e8249959349bff	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456651	649b009773e8249959349c52	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456653	649b009773e8249959349c53	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456652	649b009773e8249959349c58	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457897	649b009773e8249959349c97	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457934	649b009773e8249959349cb5	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458288	649b009773e8249959349ceb	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458287	649b009773e8249959349cec	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456540	649b009773e8249959349c02	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456539	649b009773e8249959349c03	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456667	649b009773e8249959349c61	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456666	649b009773e8249959349c63	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456668	649b009773e8249959349c65	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457902	649b009773e8249959349c9a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457939	649b009773e8249959349cbb	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458297	649b009773e8249959349cf7	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456560	649b009773e8249959349c0f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456559	649b009773e8249959349c11	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456679	649b009773e8249959349c6e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456680	649b009773e8249959349c6f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456678	649b009773e8249959349c70	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457906	649b009773e8249959349c9c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457943	649b009773e8249959349cc0	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458301	649b009773e8249959349cf4	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456544	649b009773e8249959349c05	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456545	649b009773e8249959349c0a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456670	649b009773e8249959349c64	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456669	649b009773e8249959349c66	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456671	649b009773e8249959349c6d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457903	649b009773e8249959349c98	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457940	649b009773e8249959349cbc	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458298	649b009773e8249959349cf3	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456574	649b009773e8249959349c09	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456575	649b009773e8249959349c0c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456687	649b009773e8249959349c77	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456688	649b009773e8249959349c78	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456689	649b009773e8249959349c7b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457909	649b009773e8249959349ca2	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457946	649b009773e8249959349cc4	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458304	649b009773e8249959349cfe	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456529	649b009773e8249959349c00	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456530	649b009773e8249959349c29	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456661	649b009773e8249959349c5c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456662	649b009773e8249959349c5d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456660	649b009773e8249959349c5f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457900	649b009773e8249959349c9b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457937	649b009773e8249959349cbd	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458294	649b009773e8249959349cef	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458293	649b009773e8249959349cf5	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456584	649b009773e8249959349c10	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456585	649b009773e8249959349c13	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456693	649b009773e8249959349c7d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456694	649b009773e8249959349c7e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456695	649b009773e8249959349c7f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457911	649b009773e8249959349ca3	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457948	649b009773e8249959349cc9	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458306	649b009773e8249959349cfb	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456550	649b009773e8249959349c04	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456549	649b009773e8249959349c2f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456672	649b009773e8249959349c67	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456673	649b009773e8249959349c68	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456674	649b009773e8249959349c69	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457904	649b009773e8249959349c99	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457941	649b009773e8249959349cbf	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458299	649b009773e8249959349cf2	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456554	649b009773e8249959349c0e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456555	649b009773e8249959349c30	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456675	649b009773e8249959349c6a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456676	649b009773e8249959349c6b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456677	649b009773e8249959349c6c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457905	649b009773e8249959349c9f	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457942	649b009773e8249959349cbe	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458300	649b009773e8249959349cfa	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456565	649b009773e8249959349c06	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456564	649b009773e8249959349c08	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456681	649b009773e8249959349c71	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456682	649b009773e8249959349c72	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456683	649b009773e8249959349c74	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457907	649b009773e8249959349c9e	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457944	649b009773e8249959349cc1	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458302	649b009773e8249959349cfd	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456569	649b009773e8249959349c07	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456570	649b009773e8249959349c0d	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456685	649b009773e8249959349c73	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456686	649b009773e8249959349c75	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456684	649b009773e8249959349c76	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457908	649b009773e8249959349ca0	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457945	649b009773e8249959349cc2	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458303	649b009773e8249959349cf6	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456579	649b009773e8249959349c0b	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456580	649b009773e8249959349c31	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456690	649b009773e8249959349c79	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456691	649b009773e8249959349c7a	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456692	649b009773e8249959349c7c	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457910	649b009773e8249959349ca1	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457947	649b009773e8249959349cc3	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458305	649b009773e8249959349cf9	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456589	649b009773e8249959349c15	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456590	649b009773e8249959349c17	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456698	649b009773e8249959349c80	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456697	649b009773e8249959349c81	id, alternative_identifiers, part_of
-omics_processing_set	emsl:456696	649b009773e8249959349c83	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457912	649b009773e8249959349ca9	id, alternative_identifiers, part_of
-omics_processing_set	emsl:457949	649b009773e8249959349cc6	id, alternative_identifiers, part_of
-omics_processing_set	emsl:458307	649b009773e8249959349cff	id, alternative_identifiers, part_of
-data_object_set	emsl:output_499778	649b003c1ae706d7b5b1465a	id, alternative_identifiers
-data_object_set	emsl:output_499773	649b003c1ae706d7b5b14658	id, alternative_identifiers
-data_object_set	emsl:output_499557	649b003c1ae706d7b5b14640	id, alternative_identifiers
-data_object_set	emsl:output_499636	649b003c1ae706d7b5b1464e	id, alternative_identifiers
-data_object_set	emsl:output_499777	649b003c1ae706d7b5b1465d	id, alternative_identifiers
-data_object_set	emsl:output_499571	649b003c1ae706d7b5b14648	id, alternative_identifiers
-data_object_set	emsl:output_499782	649b003c1ae706d7b5b1465f	id, alternative_identifiers
-data_object_set	emsl:output_499558	649b003c1ae706d7b5b14641	id, alternative_identifiers
-data_object_set	emsl:output_499784	649b003c1ae706d7b5b14659	id, alternative_identifiers
-data_object_set	emsl:output_499794	649b003c1ae706d7b5b14661	id, alternative_identifiers
-data_object_set	emsl:output_499565	649b003c1ae706d7b5b14645	id, alternative_identifiers
-data_object_set	emsl:output_499790	649b003c1ae706d7b5b14681	id, alternative_identifiers
-data_object_set	emsl:output_499452	649b003c1ae706d7b5b1463c	id, alternative_identifiers
-data_object_set	emsl:output_499718	649b003c1ae706d7b5b14657	id, alternative_identifiers
-data_object_set	emsl:output_499561	649b003c1ae706d7b5b14642	id, alternative_identifiers
-data_object_set	emsl:output_499568	649b003c1ae706d7b5b14646	id, alternative_identifiers
-data_object_set	emsl:output_499721	649b003c1ae706d7b5b14655	id, alternative_identifiers
-data_object_set	emsl:output_499722	649b003c1ae706d7b5b14654	id, alternative_identifiers
-data_object_set	emsl:output_499563	649b003c1ae706d7b5b14644	id, alternative_identifiers
-data_object_set	emsl:output_499792	649b003c1ae706d7b5b1465c	id, alternative_identifiers
-data_object_set	emsl:output_499567	649b003c1ae706d7b5b1464a	id, alternative_identifiers
-data_object_set	emsl:output_499455	649b003c1ae706d7b5b1463f	id, alternative_identifiers
-data_object_set	emsl:output_499453	649b003c1ae706d7b5b1463e	id, alternative_identifiers
-data_object_set	emsl:output_499780	649b003c1ae706d7b5b1465b	id, alternative_identifiers
-data_object_set	emsl:output_499786	649b003c1ae706d7b5b14660	id, alternative_identifiers
-data_object_set	emsl:output_499640	649b003c1ae706d7b5b14656	id, alternative_identifiers
-data_object_set	emsl:output_499562	649b003c1ae706d7b5b14649	id, alternative_identifiers
-data_object_set	emsl:output_499639	649b003c1ae706d7b5b14653	id, alternative_identifiers
-data_object_set	emsl:output_499575	649b003c1ae706d7b5b1464b	id, alternative_identifiers
-data_object_set	emsl:output_499570	649b003c1ae706d7b5b14647	id, alternative_identifiers
-data_object_set	emsl:output_499789	649b003c1ae706d7b5b14662	id, alternative_identifiers
-data_object_set	emsl:output_499573	649b003c1ae706d7b5b14650	id, alternative_identifiers
-data_object_set	emsl:output_499451	649b003c1ae706d7b5b1463b	id, alternative_identifiers
-data_object_set	emsl:output_501139	649b003c1ae706d7b5b14683	id, alternative_identifiers
+collection_name	id	_id	update
+study_set	gold:Gs0114663	649b009ec7d5d8b487299257	{'id': 'nmdc:sty-11-aygzgv51'}
+biosample_set	gold:Gb0115231	649b003843aa17f5748437d5	{'id': 'nmdc:bsm-11-kgmgzb59', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115220	649b003843aa17f5748437d6	{'id': 'nmdc:bsm-11-8bp59626', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115221	649b003843aa17f5748437d7	{'id': 'nmdc:bsm-11-aa0ty161', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115228	649b003843aa17f5748437d8	{'id': 'nmdc:bsm-11-1796p969', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115225	649b003843aa17f5748437d9	{'id': 'nmdc:bsm-11-jyg4q584', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115227	649b003843aa17f5748437da	{'id': 'nmdc:bsm-11-kh2s3z45', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115224	649b003843aa17f5748437db	{'id': 'nmdc:bsm-11-h7phtp20', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115218	649b003843aa17f5748437dc	{'id': 'nmdc:bsm-11-jws7zn80', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115229	649b003843aa17f5748437dd	{'id': 'nmdc:bsm-11-pwxyaa98', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115232	649b003843aa17f5748437de	{'id': 'nmdc:bsm-11-s7n76f83', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115217	649b003843aa17f5748437df	{'id': 'nmdc:bsm-11-t12f4343', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115222	649b003843aa17f5748437e0	{'id': 'nmdc:bsm-11-s5pq1337', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115230	649b003843aa17f5748437e1	{'id': 'nmdc:bsm-11-wq3ya887', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115233	649b003843aa17f5748437e3	{'id': 'nmdc:bsm-11-45egp255', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115219	649b003843aa17f5748437e8	{'id': 'nmdc:bsm-11-dg3tpc92', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115223	649b003843aa17f5748437ed	{'id': 'nmdc:bsm-11-e6ve6f98', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115226	649b003843aa17f5748437f5	{'id': 'nmdc:bsm-11-wbbb1d06', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126424	649b003843aa17f574843813	{'id': 'nmdc:bsm-11-bs3pg887', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126426	649b003843aa17f574843817	{'id': 'nmdc:bsm-11-q98j8x33', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126427	649b003843aa17f57484381c	{'id': 'nmdc:bsm-11-bvf30a69', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126433	649b003843aa17f57484381d	{'id': 'nmdc:bsm-11-zty21v62', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126432	649b003843aa17f57484381e	{'id': 'nmdc:bsm-11-jqwkv484', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126430	649b003843aa17f57484381f	{'id': 'nmdc:bsm-11-pht0bf33', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126429	649b003843aa17f574843820	{'id': 'nmdc:bsm-11-yat3xj21', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126431	649b003843aa17f574843821	{'id': 'nmdc:bsm-11-7vb3pb42', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126425	649b003843aa17f574843822	{'id': 'nmdc:bsm-11-brnetw92', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126436	649b003843aa17f574843823	{'id': 'nmdc:bsm-11-4532w771', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126434	649b003843aa17f574843824	{'id': 'nmdc:bsm-11-781ama69', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126435	649b003843aa17f574843825	{'id': 'nmdc:bsm-11-h4qpdb17', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126437	649b003843aa17f574843826	{'id': 'nmdc:bsm-11-q2e29059', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126438	649b003843aa17f574843827	{'id': 'nmdc:bsm-11-5twxwz95', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126439	649b003843aa17f574843828	{'id': 'nmdc:bsm-11-n0mvnt74', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126428	649b003843aa17f574843829	{'id': 'nmdc:bsm-11-g22na269', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126440	649b003843aa17f57484382a	{'id': 'nmdc:bsm-11-mddxaz76', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126441	649b003843aa17f57484382b	{'id': 'nmdc:bsm-11-gmebw194', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126443	649b003843aa17f57484382c	{'id': 'nmdc:bsm-11-p1kvba46', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126442	649b003843aa17f57484382d	{'id': 'nmdc:bsm-11-zv56kn22', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126444	649b003843aa17f57484382e	{'id': 'nmdc:bsm-11-80bkfr30', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126445	649b003843aa17f57484382f	{'id': 'nmdc:bsm-11-xpd2yg42', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126446	649b003843aa17f574843830	{'id': 'nmdc:bsm-11-vqqnqd95', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126447	649b003843aa17f574843831	{'id': 'nmdc:bsm-11-2606ks41', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126448	649b003843aa17f574843832	{'id': 'nmdc:bsm-11-jbcmkj97', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126449	649b003843aa17f574843833	{'id': 'nmdc:bsm-11-6r15cs47', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126450	649b003843aa17f574843834	{'id': 'nmdc:bsm-11-0nagm792', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126452	649b003843aa17f574843835	{'id': 'nmdc:bsm-11-evqygb38', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126454	649b003843aa17f574843836	{'id': 'nmdc:bsm-11-k038xf32', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126453	649b003843aa17f574843837	{'id': 'nmdc:bsm-11-cdtwtv47', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126455	649b003843aa17f574843838	{'id': 'nmdc:bsm-11-bmf4g273', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126456	649b003843aa17f574843839	{'id': 'nmdc:bsm-11-cahzev87', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126457	649b003843aa17f57484383a	{'id': 'nmdc:bsm-11-n6wb2h88', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	emsl:63ca2f94-6647-11eb-ae93-0242ac130002	649b003843aa17f574843925	{'id': 'nmdc:bsm-11-pvqfrd93', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca2f94-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3070-6647-11eb-ae93-0242ac130002	649b003843aa17f574843926	{'id': 'nmdc:bsm-11-6fa5ec57', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3070-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca2c7e-6647-11eb-ae93-0242ac130002	649b003843aa17f574843927	{'id': 'nmdc:bsm-11-f36dvt47', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca2c7e-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3340-6647-11eb-ae93-0242ac130002	649b003843aa17f574843928	{'id': 'nmdc:bsm-11-a6cn2q42', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3340-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca358e-6647-11eb-ae93-0242ac130002	649b003843aa17f574843929	{'id': 'nmdc:bsm-11-4pqzmr65', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca358e-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3642-6647-11eb-ae93-0242ac130002	649b003843aa17f57484392a	{'id': 'nmdc:bsm-11-ypy1gf50', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3642-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca2eae-6647-11eb-ae93-0242ac130002	649b003843aa17f57484392c	{'id': 'nmdc:bsm-11-d4749231', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca2eae-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3700-6647-11eb-ae93-0242ac130002	649b003843aa17f57484392d	{'id': 'nmdc:bsm-11-15yhdc21', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3700-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3868-6647-11eb-ae93-0242ac130002	649b003843aa17f57484392f	{'id': 'nmdc:bsm-11-77mgxa53', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3868-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3e76-6647-11eb-ae93-0242ac130002	649b003843aa17f574843930	{'id': 'nmdc:bsm-11-xqat5459', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3e76-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3b1a-6647-11eb-ae93-0242ac130002	649b003843aa17f574843931	{'id': 'nmdc:bsm-11-tr3rvk43', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3b1a-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca37b4-6647-11eb-ae93-0242ac130002	649b003843aa17f574843932	{'id': 'nmdc:bsm-11-f9636937', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca37b4-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3d04-6647-11eb-ae93-0242ac130002	649b003843aa17f574843933	{'id': 'nmdc:bsm-11-90jbg813', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3d04-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3f2a-6647-11eb-ae93-0242ac130002	649b003843aa17f574843934	{'id': 'nmdc:bsm-11-h1srxe56', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3f2a-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4088-6647-11eb-ae93-0242ac130002	649b003843aa17f574843935	{'id': 'nmdc:bsm-11-4v9b8d55', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4088-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3dc2-6647-11eb-ae93-0242ac130002	649b003843aa17f574843936	{'id': 'nmdc:bsm-11-dhkjm425', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3dc2-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca341c-6647-11eb-ae93-0242ac130002	649b003843aa17f574843937	{'id': 'nmdc:bsm-11-2rgmk425', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca341c-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca34da-6647-11eb-ae93-0242ac130002	649b003843aa17f574843938	{'id': 'nmdc:bsm-11-w0a24f53', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca34da-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3fd4-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393a	{'id': 'nmdc:bsm-11-rng4h388', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3fd4-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca443e-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393b	{'id': 'nmdc:bsm-11-m771ze06', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca443e-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca459c-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393c	{'id': 'nmdc:bsm-11-z2t9zx41', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca459c-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca47e0-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393d	{'id': 'nmdc:bsm-11-czne9815', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca47e0-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4146-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393e	{'id': 'nmdc:bsm-11-20t60930', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4146-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca489e-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393f	{'id': 'nmdc:bsm-11-34xg5284', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca489e-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4d4e-6647-11eb-ae93-0242ac130002	649b003843aa17f574843940	{'id': 'nmdc:bsm-11-mwg8rp16', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4d4e-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4952-6647-11eb-ae93-0242ac130002	649b003843aa17f574843941	{'id': 'nmdc:bsm-11-br3fze72', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4952-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4f6a-6647-11eb-ae93-0242ac130002	649b003843aa17f574843942	{'id': 'nmdc:bsm-11-c3g8ha59', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4f6a-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca46fa-6647-11eb-ae93-0242ac130002	649b003843aa17f574843943	{'id': 'nmdc:bsm-11-ye6k1w02', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca46fa-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca50c8-6647-11eb-ae93-0242ac130002	649b003843aa17f574843944	{'id': 'nmdc:bsm-11-ecgbfw46', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca50c8-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4a38-6647-11eb-ae93-0242ac130002	649b003843aa17f574843945	{'id': 'nmdc:bsm-11-501jk874', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4a38-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4aec-6647-11eb-ae93-0242ac130002	649b003843aa17f574843946	{'id': 'nmdc:bsm-11-s8fsk181', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4aec-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4e02-6647-11eb-ae93-0242ac130002	649b003843aa17f574843947	{'id': 'nmdc:bsm-11-p7fcgp84', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4e02-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4eb6-6647-11eb-ae93-0242ac130002	649b003843aa17f574843949	{'id': 'nmdc:bsm-11-mkegpc63', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4eb6-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca5014-6647-11eb-ae93-0242ac130002	649b003843aa17f57484394a	{'id': 'nmdc:bsm-11-sq8ewp94', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca5014-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca517c-6647-11eb-ae93-0242ac130002	649b003843aa17f57484394b	{'id': 'nmdc:bsm-11-5gvj2t52', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca517c-6647-11eb-ae93-0242ac130002']}
+omics_processing_set	gold:Gp0115677	649b009773e8249959349b4f	{'id': 'nmdc:omprc-11-a552xk83', 'gold_sequencing_project_identifiers': ['gold:Gp0115677'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115666	649b009773e8249959349b34	{'id': 'nmdc:omprc-11-dv4mdz78', 'gold_sequencing_project_identifiers': ['gold:Gp0115666'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115667	649b009773e8249959349b37	{'id': 'nmdc:omprc-11-p3jwdh66', 'gold_sequencing_project_identifiers': ['gold:Gp0115667'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115674	649b009773e8249959349b4b	{'id': 'nmdc:omprc-11-5y104r59', 'gold_sequencing_project_identifiers': ['gold:Gp0115674'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115671	649b009773e8249959349b4d	{'id': 'nmdc:omprc-11-vx24rs20', 'gold_sequencing_project_identifiers': ['gold:Gp0115671'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115673	649b009773e8249959349b4c	{'id': 'nmdc:omprc-11-9v6re869', 'gold_sequencing_project_identifiers': ['gold:Gp0115673'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115670	649b009773e8249959349b4a	{'id': 'nmdc:omprc-11-1sxpr008', 'gold_sequencing_project_identifiers': ['gold:Gp0115670'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115664	649b009773e8249959349b38	{'id': 'nmdc:omprc-11-wss1ff04', 'gold_sequencing_project_identifiers': ['gold:Gp0115664'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115675	649b009773e8249959349b50	{'id': 'nmdc:omprc-11-mq8cmq86', 'gold_sequencing_project_identifiers': ['gold:Gp0115675'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115678	649b009773e8249959349b39	{'id': 'nmdc:omprc-11-1q790f20', 'gold_sequencing_project_identifiers': ['gold:Gp0115678'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115663	649b009773e8249959349b33	{'id': 'nmdc:omprc-11-0mma7r06', 'gold_sequencing_project_identifiers': ['gold:Gp0115663'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115668	649b009773e8249959349b35	{'id': 'nmdc:omprc-11-7gwww542', 'gold_sequencing_project_identifiers': ['gold:Gp0115668'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115676	649b009773e8249959349b4e	{'id': 'nmdc:omprc-11-1wp7y266', 'gold_sequencing_project_identifiers': ['gold:Gp0115676'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115679	649b009773e8249959349b36	{'id': 'nmdc:omprc-11-vwd2q060', 'gold_sequencing_project_identifiers': ['gold:Gp0115679'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115665	649b009773e8249959349b51	{'id': 'nmdc:omprc-11-9npk1989', 'gold_sequencing_project_identifiers': ['gold:Gp0115665'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115669	649b009773e8249959349b52	{'id': 'nmdc:omprc-11-zmbbwy32', 'gold_sequencing_project_identifiers': ['gold:Gp0115669'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0115672	649b009773e8249959349b53	{'id': 'nmdc:omprc-11-k4rfv779', 'gold_sequencing_project_identifiers': ['gold:Gp0115672'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127623	649b009773e8249959349b3a	{'id': 'nmdc:omprc-11-9vqm5r26', 'gold_sequencing_project_identifiers': ['gold:Gp0127623'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499778	649b009773e8249959349d17	{'id': 'nmdc:omprc-11-7pw2p857', 'alternative_identifiers': ['emsl:499778'], 'has_output': ['nmdc:dobj-11-vmryt048'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500097	649b009773e8249959349d26	{'id': 'nmdc:omprc-11-0x148251', 'alternative_identifiers': ['emsl:500097'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511448	649b009773e8249959349d49	{'id': 'nmdc:omprc-11-nxe0n382', 'alternative_identifiers': ['emsl:511448'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512118	649b009773e8249959349d84	{'id': 'nmdc:omprc-11-yypp5568', 'alternative_identifiers': ['emsl:512118'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127625	649b009773e8249959349b3b	{'id': 'nmdc:omprc-11-mrj40q41', 'gold_sequencing_project_identifiers': ['gold:Gp0127625'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499773	649b009773e8249959349d13	{'id': 'nmdc:omprc-11-4pnkrq65', 'alternative_identifiers': ['emsl:499773'], 'has_output': ['nmdc:dobj-11-t8kp0p28'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500162	649b009773e8249959349d30	{'id': 'nmdc:omprc-11-y1yta976', 'alternative_identifiers': ['emsl:500162'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511451	649b009773e8249959349d4c	{'id': 'nmdc:omprc-11-vsd94513', 'alternative_identifiers': ['emsl:511451'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512109	649b009773e8249959349d7b	{'id': 'nmdc:omprc-11-3nhz6c66', 'alternative_identifiers': ['emsl:512109'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127626	649b009773e8249959349b3c	{'id': 'nmdc:omprc-11-arkgg989', 'gold_sequencing_project_identifiers': ['gold:Gp0127626'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499557	649b009773e8249959349d03	{'id': 'nmdc:omprc-11-rp1t0x63', 'alternative_identifiers': ['emsl:499557'], 'has_output': ['nmdc:dobj-11-cz13zz88'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500837	649b009773e8249959349d40	{'id': 'nmdc:omprc-11-jgzs5x79', 'alternative_identifiers': ['emsl:500837'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511450	649b009773e8249959349d56	{'id': 'nmdc:omprc-11-w9bdae15', 'alternative_identifiers': ['emsl:511450'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511905	649b009773e8249959349d67	{'id': 'nmdc:omprc-11-2ywt0w84', 'alternative_identifiers': ['emsl:511905'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127632	649b009773e8249959349b44	{'id': 'nmdc:omprc-11-zzre4p50', 'gold_sequencing_project_identifiers': ['gold:Gp0127632'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499636	649b009773e8249959349d0c	{'id': 'nmdc:omprc-11-pcr96y59', 'alternative_identifiers': ['emsl:499636'], 'has_output': ['nmdc:dobj-11-gbjfxb86'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500095	649b009773e8249959349d24	{'id': 'nmdc:omprc-11-z5d0c326', 'alternative_identifiers': ['emsl:500095'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511449	649b009773e8249959349d4d	{'id': 'nmdc:omprc-11-wx9q5777', 'alternative_identifiers': ['emsl:511449'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512116	649b009773e8249959349d82	{'id': 'nmdc:omprc-11-0eyzc918', 'alternative_identifiers': ['emsl:512116'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127631	649b009773e8249959349b40	{'id': 'nmdc:omprc-11-p8bmhx86', 'gold_sequencing_project_identifiers': ['gold:Gp0127631'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499777	649b009773e8249959349d16	{'id': 'nmdc:omprc-11-2f8rz974', 'alternative_identifiers': ['emsl:499777'], 'has_output': ['nmdc:dobj-11-4gcnpr37'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500160	649b009773e8249959349d34	{'id': 'nmdc:omprc-11-r08he359', 'alternative_identifiers': ['emsl:500160'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511455	649b009773e8249959349d55	{'id': 'nmdc:omprc-11-7jfekv42', 'alternative_identifiers': ['emsl:511455'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511976	649b009773e8249959349d72	{'id': 'nmdc:omprc-11-w807av81', 'alternative_identifiers': ['emsl:511976'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127629	649b009773e8249959349b3e	{'id': 'nmdc:omprc-11-9x1p5878', 'gold_sequencing_project_identifiers': ['gold:Gp0127629'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499571	649b009773e8249959349d0a	{'id': 'nmdc:omprc-11-a6az3033', 'alternative_identifiers': ['emsl:499571'], 'has_output': ['nmdc:dobj-11-heey8f75'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500835	649b009773e8249959349d3c	{'id': 'nmdc:omprc-11-3e88g956', 'alternative_identifiers': ['emsl:500835'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511457	649b009773e8249959349d51	{'id': 'nmdc:omprc-11-fkpp1v09', 'alternative_identifiers': ['emsl:511457'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512106	649b009773e8249959349d77	{'id': 'nmdc:omprc-11-farztq22', 'alternative_identifiers': ['emsl:512106'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127628	649b009773e8249959349b3f	{'id': 'nmdc:omprc-11-kjteag53', 'gold_sequencing_project_identifiers': ['gold:Gp0127628'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499782	649b009773e8249959349d19	{'id': 'nmdc:omprc-11-t1zyv666', 'alternative_identifiers': ['emsl:499782'], 'has_output': ['nmdc:dobj-11-0sf46f62'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500093	649b009773e8249959349d22	{'id': 'nmdc:omprc-11-y0x7fp77', 'alternative_identifiers': ['emsl:500093'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511453	649b009773e8249959349d4e	{'id': 'nmdc:omprc-11-ex0xdr44', 'alternative_identifiers': ['emsl:511453'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512110	649b009773e8249959349d7c	{'id': 'nmdc:omprc-11-9e955m06', 'alternative_identifiers': ['emsl:512110'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127630	649b009773e8249959349b41	{'id': 'nmdc:omprc-11-aerxjz18', 'gold_sequencing_project_identifiers': ['gold:Gp0127630'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499558	649b009773e8249959349d02	{'id': 'nmdc:omprc-11-kby38865', 'alternative_identifiers': ['emsl:499558'], 'has_output': ['nmdc:dobj-11-yw2s7h56'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500829	649b009773e8249959349d35	{'id': 'nmdc:omprc-11-47syqv17', 'alternative_identifiers': ['emsl:500829'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511463	649b009773e8249959349d59	{'id': 'nmdc:omprc-11-mr9tkq84', 'alternative_identifiers': ['emsl:511463'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511981	649b009773e8249959349d73	{'id': 'nmdc:omprc-11-8wy4vz63', 'alternative_identifiers': ['emsl:511981'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127624	649b009773e8249959349b3d	{'id': 'nmdc:omprc-11-c7vgg769', 'gold_sequencing_project_identifiers': ['gold:Gp0127624'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499784	649b009773e8249959349d1b	{'id': 'nmdc:omprc-11-9wp7nw27', 'alternative_identifiers': ['emsl:499784'], 'has_output': ['nmdc:dobj-11-w7xqm619'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500094	649b009773e8249959349d25	{'id': 'nmdc:omprc-11-nfa9wy41', 'alternative_identifiers': ['emsl:500094'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511472	649b009773e8249959349d66	{'id': 'nmdc:omprc-11-zk4b4g78', 'alternative_identifiers': ['emsl:511472'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512108	649b009773e8249959349d78	{'id': 'nmdc:omprc-11-mdphbt97', 'alternative_identifiers': ['emsl:512108'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127635	649b009773e8249959349b47	{'id': 'nmdc:omprc-11-w05ggd55', 'gold_sequencing_project_identifiers': ['gold:Gp0127635'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499794	649b009773e8249959349d1e	{'id': 'nmdc:omprc-11-dnv86x73', 'alternative_identifiers': ['emsl:499794'], 'has_output': ['nmdc:dobj-11-bdgx5s03'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500101	649b009773e8249959349d2a	{'id': 'nmdc:omprc-11-ykdcx663', 'alternative_identifiers': ['emsl:500101'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511403	649b009773e8249959349d48	{'id': 'nmdc:omprc-11-3bndtq67', 'alternative_identifiers': ['emsl:511403'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511903	649b009773e8249959349d65	{'id': 'nmdc:omprc-11-xj5rwz48', 'alternative_identifiers': ['emsl:511903'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127633	649b009773e8249959349b42	{'id': 'nmdc:omprc-11-byhm1n53', 'gold_sequencing_project_identifiers': ['gold:Gp0127633'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499565	649b009773e8249959349d09	{'id': 'nmdc:omprc-11-bqh51538', 'alternative_identifiers': ['emsl:499565'], 'has_output': ['nmdc:dobj-11-g26vca67'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:501132	649b009773e8249959349d3b	{'id': 'nmdc:omprc-11-h33wxj15', 'alternative_identifiers': ['emsl:501132'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511462	649b009773e8249959349d5a	{'id': 'nmdc:omprc-11-ddsfy638', 'alternative_identifiers': ['emsl:511462'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511983	649b009773e8249959349d75	{'id': 'nmdc:omprc-11-5hfgfn29', 'alternative_identifiers': ['emsl:511983'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127634	649b009773e8249959349b46	{'id': 'nmdc:omprc-11-bwkr2w14', 'gold_sequencing_project_identifiers': ['gold:Gp0127634'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499790	649b009773e8249959349d1a	{'id': 'nmdc:omprc-11-knmsd563', 'alternative_identifiers': ['emsl:499790'], 'has_output': ['nmdc:dobj-11-7sthbs22'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500088	649b009773e8249959349d21	{'id': 'nmdc:omprc-11-k0c6s786', 'alternative_identifiers': ['emsl:500088'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511454	649b009773e8249959349d50	{'id': 'nmdc:omprc-11-b2mkyw16', 'alternative_identifiers': ['emsl:511454'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512113	649b009773e8249959349d80	{'id': 'nmdc:omprc-11-1pbxf663', 'alternative_identifiers': ['emsl:512113'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127636	649b009773e8249959349b45	{'id': 'nmdc:omprc-11-8hzw5h36', 'gold_sequencing_project_identifiers': ['gold:Gp0127636'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499452	649b009773e8249959349d00	{'id': 'nmdc:omprc-11-aenc7m13', 'alternative_identifiers': ['emsl:499452'], 'has_output': ['nmdc:dobj-11-8zr77e06'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500836	649b009773e8249959349d3d	{'id': 'nmdc:omprc-11-fw292m22', 'alternative_identifiers': ['emsl:500836'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511464	649b009773e8249959349d5b	{'id': 'nmdc:omprc-11-w3a68d40', 'alternative_identifiers': ['emsl:511464'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512117	649b009773e8249959349d83	{'id': 'nmdc:omprc-11-hkb8qk92', 'alternative_identifiers': ['emsl:512117'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127637	649b009773e8249959349b48	{'id': 'nmdc:omprc-11-n45eza95', 'gold_sequencing_project_identifiers': ['gold:Gp0127637'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499718	649b009773e8249959349d10	{'id': 'nmdc:omprc-11-skp3hg92', 'alternative_identifiers': ['emsl:499718'], 'has_output': ['nmdc:dobj-11-vkpsfp12'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500164	649b009773e8249959349d31	{'id': 'nmdc:omprc-11-a7k43k65', 'alternative_identifiers': ['emsl:500164'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511467	649b009773e8249959349d5f	{'id': 'nmdc:omprc-11-9f8xnp33', 'alternative_identifiers': ['emsl:511467'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512115	649b009773e8249959349d81	{'id': 'nmdc:omprc-11-aykjn756', 'alternative_identifiers': ['emsl:512115'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127638	649b009773e8249959349b49	{'id': 'nmdc:omprc-11-ca5ykw88', 'gold_sequencing_project_identifiers': ['gold:Gp0127638'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499561	649b009773e8249959349d04	{'id': 'nmdc:omprc-11-wnmfz024', 'alternative_identifiers': ['emsl:499561'], 'has_output': ['nmdc:dobj-11-tyh8hn66'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:501128	649b009773e8249959349d3e	{'id': 'nmdc:omprc-11-912enr57', 'alternative_identifiers': ['emsl:501128'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511404	649b009773e8249959349d4b	{'id': 'nmdc:omprc-11-j75fm656', 'alternative_identifiers': ['emsl:511404'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511906	649b009773e8249959349d68	{'id': 'nmdc:omprc-11-b6bcst11', 'alternative_identifiers': ['emsl:511906'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127627	649b009773e8249959349b43	{'id': 'nmdc:omprc-11-mhjs5v56', 'gold_sequencing_project_identifiers': ['gold:Gp0127627'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499568	649b009773e8249959349d07	{'id': 'nmdc:omprc-11-7v09p449', 'alternative_identifiers': ['emsl:499568'], 'has_output': ['nmdc:dobj-11-vxc84y71'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500166	649b009773e8249959349d32	{'id': 'nmdc:omprc-11-3c2ar934', 'alternative_identifiers': ['emsl:500166'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511469	649b009773e8249959349d62	{'id': 'nmdc:omprc-11-zwm32t07', 'alternative_identifiers': ['emsl:511469'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512112	649b009773e8249959349d7f	{'id': 'nmdc:omprc-11-kzacsk61', 'alternative_identifiers': ['emsl:512112'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127639	649b009773e8249959349b58	{'id': 'nmdc:omprc-11-vm8nhn85', 'gold_sequencing_project_identifiers': ['gold:Gp0127639'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499721	649b009773e8249959349d14	{'id': 'nmdc:omprc-11-243sgb13', 'alternative_identifiers': ['emsl:499721'], 'has_output': ['nmdc:dobj-11-1jg9pn18'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500102	649b009773e8249959349d2c	{'id': 'nmdc:omprc-11-536n1877', 'alternative_identifiers': ['emsl:500102'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511452	649b009773e8249959349d4f	{'id': 'nmdc:omprc-11-mqf3dd05', 'alternative_identifiers': ['emsl:511452'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511979	649b009773e8249959349d71	{'id': 'nmdc:omprc-11-q6yv2286', 'alternative_identifiers': ['emsl:511979'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127640	649b009773e8249959349b54	{'id': 'nmdc:omprc-11-y2vzmr21', 'gold_sequencing_project_identifiers': ['gold:Gp0127640'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499722	649b009773e8249959349d15	{'id': 'nmdc:omprc-11-435mc117', 'alternative_identifiers': ['emsl:499722'], 'has_output': ['nmdc:dobj-11-bj1gna09'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500098	649b009773e8249959349d2b	{'id': 'nmdc:omprc-11-w6cmqa81', 'alternative_identifiers': ['emsl:500098'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511460	649b009773e8249959349d57	{'id': 'nmdc:omprc-11-gjeqnn59', 'alternative_identifiers': ['emsl:511460'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511975	649b009773e8249959349d6e	{'id': 'nmdc:omprc-11-3cx5j674', 'alternative_identifiers': ['emsl:511975'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127642	649b009773e8249959349b59	{'id': 'nmdc:omprc-11-yn5rkj30', 'gold_sequencing_project_identifiers': ['gold:Gp0127642'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499563	649b009773e8249959349d05	{'id': 'nmdc:omprc-11-v1zwtn59', 'alternative_identifiers': ['emsl:499563'], 'has_output': ['nmdc:dobj-11-vmmbwx12'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500831	649b009773e8249959349d33	{'id': 'nmdc:omprc-11-d206a536', 'alternative_identifiers': ['emsl:500831'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511465	649b009773e8249959349d5d	{'id': 'nmdc:omprc-11-zjcqxm52', 'alternative_identifiers': ['emsl:511465'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512104	649b009773e8249959349d74	{'id': 'nmdc:omprc-11-s050g534', 'alternative_identifiers': ['emsl:512104'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127641	649b009773e8249959349b55	{'id': 'nmdc:omprc-11-wyb84p29', 'gold_sequencing_project_identifiers': ['gold:Gp0127641'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499792	649b009773e8249959349d1f	{'id': 'nmdc:omprc-11-mfwgs154', 'alternative_identifiers': ['emsl:499792'], 'has_output': ['nmdc:dobj-11-wk1scc75'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500096	649b009773e8249959349d29	{'id': 'nmdc:omprc-11-r14hwm79', 'alternative_identifiers': ['emsl:500096'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511459	649b009773e8249959349d54	{'id': 'nmdc:omprc-11-xzw1bh54', 'alternative_identifiers': ['emsl:511459'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511978	649b009773e8249959349d70	{'id': 'nmdc:omprc-11-x8tsgb84', 'alternative_identifiers': ['emsl:511978'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127643	649b009773e8249959349b56	{'id': 'nmdc:omprc-11-eybpeq12', 'gold_sequencing_project_identifiers': ['gold:Gp0127643'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499567	649b009773e8249959349d0f	{'id': 'nmdc:omprc-11-gkgadc43', 'alternative_identifiers': ['emsl:499567'], 'has_output': ['nmdc:dobj-11-e5nhes60'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500163	649b009773e8249959349d2f	{'id': 'nmdc:omprc-11-8z5dvc71', 'alternative_identifiers': ['emsl:500163'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511406	649b009773e8249959349d45	{'id': 'nmdc:omprc-11-8801ey55', 'alternative_identifiers': ['emsl:511406'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511907	649b009773e8249959349d6a	{'id': 'nmdc:omprc-11-7qrafj42', 'alternative_identifiers': ['emsl:511907'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127644	649b009773e8249959349b57	{'id': 'nmdc:omprc-11-3hhwg185', 'gold_sequencing_project_identifiers': ['gold:Gp0127644'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499455	649b009773e8249959349d06	{'id': 'nmdc:omprc-11-epz5x776', 'alternative_identifiers': ['emsl:499455'], 'has_output': ['nmdc:dobj-11-4xm87k13'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500830	649b009773e8249959349d36	{'id': 'nmdc:omprc-11-2w62e008', 'alternative_identifiers': ['emsl:500830'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511405	649b009773e8249959349d46	{'id': 'nmdc:omprc-11-ssq6mp22', 'alternative_identifiers': ['emsl:511405'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511904	649b009773e8249959349d64	{'id': 'nmdc:omprc-11-mrv6h968', 'alternative_identifiers': ['emsl:511904'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127645	649b009773e8249959349b5d	{'id': 'nmdc:omprc-11-4dwyvt78', 'gold_sequencing_project_identifiers': ['gold:Gp0127645'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499453	649b009773e8249959349d01	{'id': 'nmdc:omprc-11-8h67f597', 'alternative_identifiers': ['emsl:499453'], 'has_output': ['nmdc:dobj-11-z85nwt62'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500165	649b009773e8249959349d38	{'id': 'nmdc:omprc-11-0aseh569', 'alternative_identifiers': ['emsl:500165'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511471	649b009773e8249959349d69	{'id': 'nmdc:omprc-11-qvbahz06', 'alternative_identifiers': ['emsl:511471'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512111	649b009773e8249959349d7d	{'id': 'nmdc:omprc-11-sbvzxj50', 'alternative_identifiers': ['emsl:512111'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127646	649b009773e8249959349b5a	{'id': 'nmdc:omprc-11-7wknab50', 'gold_sequencing_project_identifiers': ['gold:Gp0127646'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499780	649b009773e8249959349d18	{'id': 'nmdc:omprc-11-dj1rdy15', 'alternative_identifiers': ['emsl:499780'], 'has_output': ['nmdc:dobj-11-6etj1n54'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500099	649b009773e8249959349d28	{'id': 'nmdc:omprc-11-td7jkk63', 'alternative_identifiers': ['emsl:500099'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511397	649b009773e8249959349d3f	{'id': 'nmdc:omprc-11-rr2thf43', 'alternative_identifiers': ['emsl:511397'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511901	649b009773e8249959349d61	{'id': 'nmdc:omprc-11-qxc46e66', 'alternative_identifiers': ['emsl:511901'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127647	649b009773e8249959349b5c	{'id': 'nmdc:omprc-11-9ztt3r15', 'gold_sequencing_project_identifiers': ['gold:Gp0127647'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499786	649b009773e8249959349d1c	{'id': 'nmdc:omprc-11-and6pa84', 'alternative_identifiers': ['emsl:499786'], 'has_output': ['nmdc:dobj-11-fbx2bm19'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500090	649b009773e8249959349d20	{'id': 'nmdc:omprc-11-w1ahfz90', 'alternative_identifiers': ['emsl:500090'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511470	649b009773e8249959349d60	{'id': 'nmdc:omprc-11-qhnz4s45', 'alternative_identifiers': ['emsl:511470'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511977	649b009773e8249959349d6d	{'id': 'nmdc:omprc-11-r23nqh42', 'alternative_identifiers': ['emsl:511977'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127648	649b009773e8249959349b5b	{'id': 'nmdc:omprc-11-2m2ex432', 'gold_sequencing_project_identifiers': ['gold:Gp0127648'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499640	649b009773e8249959349d11	{'id': 'nmdc:omprc-11-b5fc6t32', 'alternative_identifiers': ['emsl:499640'], 'has_output': ['nmdc:dobj-11-angy1m90'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500103	649b009773e8249959349d2e	{'id': 'nmdc:omprc-11-mm6edx71', 'alternative_identifiers': ['emsl:500103'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511400	649b009773e8249959349d47	{'id': 'nmdc:omprc-11-7vtw1h61', 'alternative_identifiers': ['emsl:511400'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511902	649b009773e8249959349d63	{'id': 'nmdc:omprc-11-g426aq72', 'alternative_identifiers': ['emsl:511902'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127649	649b009773e8249959349b5e	{'id': 'nmdc:omprc-11-d7msx989', 'gold_sequencing_project_identifiers': ['gold:Gp0127649'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499562	649b009773e8249959349d08	{'id': 'nmdc:omprc-11-jtq2xm43', 'alternative_identifiers': ['emsl:499562'], 'has_output': ['nmdc:dobj-11-3h0a7913'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:501138	649b009773e8249959349d42	{'id': 'nmdc:omprc-11-188vtw34', 'alternative_identifiers': ['emsl:501138'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511458	649b009773e8249959349d53	{'id': 'nmdc:omprc-11-crv97q64', 'alternative_identifiers': ['emsl:511458'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512107	649b009773e8249959349d7e	{'id': 'nmdc:omprc-11-7m39ya36', 'alternative_identifiers': ['emsl:512107'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127651	649b009773e8249959349b62	{'id': 'nmdc:omprc-11-8p2n7925', 'gold_sequencing_project_identifiers': ['gold:Gp0127651'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499639	649b009773e8249959349d12	{'id': 'nmdc:omprc-11-5wqb8y69', 'alternative_identifiers': ['emsl:499639'], 'has_output': ['nmdc:dobj-11-ahaexb60'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500091	649b009773e8249959349d23	{'id': 'nmdc:omprc-11-7g9ydy57', 'alternative_identifiers': ['emsl:500091'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511456	649b009773e8249959349d52	{'id': 'nmdc:omprc-11-6e9wyw46', 'alternative_identifiers': ['emsl:511456'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512105	649b009773e8249959349d76	{'id': 'nmdc:omprc-11-9ttgcy67', 'alternative_identifiers': ['emsl:512105'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127653	649b009773e8249959349b64	{'id': 'nmdc:omprc-11-bq3dzf23', 'gold_sequencing_project_identifiers': ['gold:Gp0127653'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499575	649b009773e8249959349d0e	{'id': 'nmdc:omprc-11-yqnkpt95', 'alternative_identifiers': ['emsl:499575'], 'has_output': ['nmdc:dobj-11-t1rb2p74'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500834	649b009773e8249959349d39	{'id': 'nmdc:omprc-11-nkzpvz60', 'alternative_identifiers': ['emsl:500834'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511468	649b009773e8249959349d5e	{'id': 'nmdc:omprc-11-4kazyf36', 'alternative_identifiers': ['emsl:511468'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511982	649b009773e8249959349d7a	{'id': 'nmdc:omprc-11-7kmda043', 'alternative_identifiers': ['emsl:511982'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127652	649b009773e8249959349b5f	{'id': 'nmdc:omprc-11-j5na4f74', 'gold_sequencing_project_identifiers': ['gold:Gp0127652'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499570	649b009773e8249959349d0b	{'id': 'nmdc:omprc-11-0dehkd77', 'alternative_identifiers': ['emsl:499570'], 'has_output': ['nmdc:dobj-11-5vsgfs86'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500833	649b009773e8249959349d3a	{'id': 'nmdc:omprc-11-vg29e964', 'alternative_identifiers': ['emsl:500833'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511447	649b009773e8249959349d4a	{'id': 'nmdc:omprc-11-xjyyss53', 'alternative_identifiers': ['emsl:511447'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511974	649b009773e8249959349d6c	{'id': 'nmdc:omprc-11-5r40tk75', 'alternative_identifiers': ['emsl:511974'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127654	649b009773e8249959349b60	{'id': 'nmdc:omprc-11-d17hgn63', 'gold_sequencing_project_identifiers': ['gold:Gp0127654'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499789	649b009773e8249959349d1d	{'id': 'nmdc:omprc-11-djzh4m74', 'alternative_identifiers': ['emsl:499789'], 'has_output': ['nmdc:dobj-11-59mg1n41'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500100	649b009773e8249959349d27	{'id': 'nmdc:omprc-11-tkccjs14', 'alternative_identifiers': ['emsl:500100'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511402	649b009773e8249959349d43	{'id': 'nmdc:omprc-11-w856af64', 'alternative_identifiers': ['emsl:511402'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511908	649b009773e8249959349d6b	{'id': 'nmdc:omprc-11-b2c2fc43', 'alternative_identifiers': ['emsl:511908'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127655	649b009773e8249959349b63	{'id': 'nmdc:omprc-11-awfw7v25', 'gold_sequencing_project_identifiers': ['gold:Gp0127655'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499573	649b009773e8249959349d0d	{'id': 'nmdc:omprc-11-vrj49z68', 'alternative_identifiers': ['emsl:499573'], 'has_output': ['nmdc:dobj-11-8sbyef55'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500161	649b009773e8249959349d2d	{'id': 'nmdc:omprc-11-8hxrh542', 'alternative_identifiers': ['emsl:500161'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511461	649b009773e8249959349d58	{'id': 'nmdc:omprc-11-dkttfj91', 'alternative_identifiers': ['emsl:511461'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511980	649b009773e8249959349d79	{'id': 'nmdc:omprc-11-arasfc75', 'alternative_identifiers': ['emsl:511980'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	gold:Gp0127656	649b009773e8249959349b61	{'id': 'nmdc:omprc-11-zehspx36', 'gold_sequencing_project_identifiers': ['gold:Gp0127656'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:499451	649b009773e8249959349cfc	{'id': 'nmdc:omprc-11-42kwaf33', 'alternative_identifiers': ['emsl:499451'], 'has_output': ['nmdc:dobj-11-000tqn17'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:500167	649b009773e8249959349d37	{'id': 'nmdc:omprc-11-037tyj66', 'alternative_identifiers': ['emsl:500167'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511466	649b009773e8249959349d5c	{'id': 'nmdc:omprc-11-egdhdy93', 'alternative_identifiers': ['emsl:511466'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:512114	649b009773e8249959349d89	{'id': 'nmdc:omprc-11-7ncxsq33', 'alternative_identifiers': ['emsl:512114'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456435	649b009773e8249959349bd9	{'id': 'nmdc:omprc-11-7x6y2710', 'alternative_identifiers': ['emsl:456435'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456434	649b009773e8249959349bda	{'id': 'nmdc:omprc-11-jykghs79', 'alternative_identifiers': ['emsl:456434'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456603	649b009773e8249959349c1b	{'id': 'nmdc:omprc-11-vrbjvt74', 'alternative_identifiers': ['emsl:456603'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456604	649b009773e8249959349c1c	{'id': 'nmdc:omprc-11-qvtvg967', 'alternative_identifiers': ['emsl:456604'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456605	649b009773e8249959349c1e	{'id': 'nmdc:omprc-11-411xgt54', 'alternative_identifiers': ['emsl:456605'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457880	649b009773e8249959349c84	{'id': 'nmdc:omprc-11-9enp6j41', 'alternative_identifiers': ['emsl:457880'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457918	649b009773e8249959349ca4	{'id': 'nmdc:omprc-11-nfrtw558', 'alternative_identifiers': ['emsl:457918'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458256	649b009773e8249959349ccb	{'id': 'nmdc:omprc-11-5t1mys18', 'alternative_identifiers': ['emsl:458256'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458255	649b009773e8249959349ccc	{'id': 'nmdc:omprc-11-gqa18651', 'alternative_identifiers': ['emsl:458255'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456439	649b009773e8249959349bdd	{'id': 'nmdc:omprc-11-2xjw1c63', 'alternative_identifiers': ['emsl:456439'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456440	649b009773e8249959349be4	{'id': 'nmdc:omprc-11-epgrke37', 'alternative_identifiers': ['emsl:456440'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456607	649b009773e8249959349c19	{'id': 'nmdc:omprc-11-9xce9f11', 'alternative_identifiers': ['emsl:456607'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456606	649b009773e8249959349c20	{'id': 'nmdc:omprc-11-r3xn2r28', 'alternative_identifiers': ['emsl:456606'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456608	649b009773e8249959349c26	{'id': 'nmdc:omprc-11-qdpptz81', 'alternative_identifiers': ['emsl:456608'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457882	649b009773e8249959349c8c	{'id': 'nmdc:omprc-11-s216gf41', 'alternative_identifiers': ['emsl:457882'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457919	649b009773e8249959349ca8	{'id': 'nmdc:omprc-11-thms3d46', 'alternative_identifiers': ['emsl:457919'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458257	649b009773e8249959349cc8	{'id': 'nmdc:omprc-11-f4wd0686', 'alternative_identifiers': ['emsl:458257'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458258	649b009773e8249959349cd0	{'id': 'nmdc:omprc-11-7js2dp13', 'alternative_identifiers': ['emsl:458258'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456425	649b009773e8249959349bd7	{'id': 'nmdc:omprc-11-h290s384', 'alternative_identifiers': ['emsl:456425'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456424	649b009773e8249959349bd8	{'id': 'nmdc:omprc-11-gg2x7p10', 'alternative_identifiers': ['emsl:456424'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456597	649b009773e8249959349c14	{'id': 'nmdc:omprc-11-2trj5064', 'alternative_identifiers': ['emsl:456597'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456599	649b009773e8249959349c16	{'id': 'nmdc:omprc-11-z605w170', 'alternative_identifiers': ['emsl:456599'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456596	649b009773e8249959349c32	{'id': 'nmdc:omprc-11-rc3mrf31', 'alternative_identifiers': ['emsl:456596'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457878	649b009773e8249959349c82	{'id': 'nmdc:omprc-11-kd9r4363', 'alternative_identifiers': ['emsl:457878'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457916	649b009773e8249959349ca6	{'id': 'nmdc:omprc-11-ymg2r676', 'alternative_identifiers': ['emsl:457916'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458251	649b009773e8249959349cc7	{'id': 'nmdc:omprc-11-nfmb4z36', 'alternative_identifiers': ['emsl:458251'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458252	649b009773e8249959349cca	{'id': 'nmdc:omprc-11-hwp0w815', 'alternative_identifiers': ['emsl:458252'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456445	649b009773e8249959349bdf	{'id': 'nmdc:omprc-11-xkhtpy60', 'alternative_identifiers': ['emsl:456445'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456444	649b009773e8249959349bf3	{'id': 'nmdc:omprc-11-apxbv446', 'alternative_identifiers': ['emsl:456444'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456609	649b009773e8249959349c27	{'id': 'nmdc:omprc-11-dmzjx155', 'alternative_identifiers': ['emsl:456609'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456610	649b009773e8249959349c28	{'id': 'nmdc:omprc-11-fy7vha04', 'alternative_identifiers': ['emsl:456610'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456611	649b009773e8249959349c2b	{'id': 'nmdc:omprc-11-memq7s65', 'alternative_identifiers': ['emsl:456611'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457883	649b009773e8249959349c85	{'id': 'nmdc:omprc-11-s9nrz079', 'alternative_identifiers': ['emsl:457883'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457920	649b009773e8249959349ca7	{'id': 'nmdc:omprc-11-g2rtw568', 'alternative_identifiers': ['emsl:457920'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458259	649b009773e8249959349ccd	{'id': 'nmdc:omprc-11-25499k88', 'alternative_identifiers': ['emsl:458259'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458260	649b009773e8249959349cd1	{'id': 'nmdc:omprc-11-v87t6h20', 'alternative_identifiers': ['emsl:458260'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456455	649b009773e8249959349be7	{'id': 'nmdc:omprc-11-gb7d8x32', 'alternative_identifiers': ['emsl:456455'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456454	649b009773e8249959349beb	{'id': 'nmdc:omprc-11-jkw3a221', 'alternative_identifiers': ['emsl:456454'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456615	649b009773e8249959349c22	{'id': 'nmdc:omprc-11-kznaye29', 'alternative_identifiers': ['emsl:456615'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456616	649b009773e8249959349c23	{'id': 'nmdc:omprc-11-zdkdbw61', 'alternative_identifiers': ['emsl:456616'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456617	649b009773e8249959349c24	{'id': 'nmdc:omprc-11-pmp8a160', 'alternative_identifiers': ['emsl:456617'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457885	649b009773e8249959349c8b	{'id': 'nmdc:omprc-11-nz0g4r13', 'alternative_identifiers': ['emsl:457885'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457922	649b009773e8249959349caa	{'id': 'nmdc:omprc-11-bhwy6202', 'alternative_identifiers': ['emsl:457922'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458263	649b009773e8249959349cd2	{'id': 'nmdc:omprc-11-p7antq12', 'alternative_identifiers': ['emsl:458263'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458264	649b009773e8249959349cd5	{'id': 'nmdc:omprc-11-8mmff585', 'alternative_identifiers': ['emsl:458264'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456459	649b009773e8249959349be3	{'id': 'nmdc:omprc-11-4hnjcr11', 'alternative_identifiers': ['emsl:456459'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456460	649b009773e8249959349be5	{'id': 'nmdc:omprc-11-dwrtr078', 'alternative_identifiers': ['emsl:456460'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456618	649b009773e8249959349c25	{'id': 'nmdc:omprc-11-hq77e984', 'alternative_identifiers': ['emsl:456618'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456619	649b009773e8249959349c33	{'id': 'nmdc:omprc-11-22faea24', 'alternative_identifiers': ['emsl:456619'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456620	649b009773e8249959349c34	{'id': 'nmdc:omprc-11-1bq4t138', 'alternative_identifiers': ['emsl:456620'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457886	649b009773e8249959349c88	{'id': 'nmdc:omprc-11-vnd5qn25', 'alternative_identifiers': ['emsl:457886'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457923	649b009773e8249959349cab	{'id': 'nmdc:omprc-11-h9sn0023', 'alternative_identifiers': ['emsl:457923'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458266	649b009773e8249959349cd7	{'id': 'nmdc:omprc-11-742p1x18', 'alternative_identifiers': ['emsl:458266'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458265	649b009773e8249959349cd9	{'id': 'nmdc:omprc-11-k75v7m03', 'alternative_identifiers': ['emsl:458265'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456429	649b009773e8249959349bd6	{'id': 'nmdc:omprc-11-msq68e04', 'alternative_identifiers': ['emsl:456429'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456430	649b009773e8249959349be0	{'id': 'nmdc:omprc-11-4z1gzp95', 'alternative_identifiers': ['emsl:456430'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456600	649b009773e8249959349c18	{'id': 'nmdc:omprc-11-ggefkq25', 'alternative_identifiers': ['emsl:456600'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456602	649b009773e8249959349c1a	{'id': 'nmdc:omprc-11-w5s26r69', 'alternative_identifiers': ['emsl:456602'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456601	649b009773e8249959349c1d	{'id': 'nmdc:omprc-11-jd10gs64', 'alternative_identifiers': ['emsl:456601'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457879	649b009773e8249959349c86	{'id': 'nmdc:omprc-11-j3jw0h29', 'alternative_identifiers': ['emsl:457879'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457917	649b009773e8249959349ca5	{'id': 'nmdc:omprc-11-4ywzg744', 'alternative_identifiers': ['emsl:457917'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458253	649b009773e8249959349cc5	{'id': 'nmdc:omprc-11-t2x51y12', 'alternative_identifiers': ['emsl:458253'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458254	649b009773e8249959349ccf	{'id': 'nmdc:omprc-11-g7e0kb34', 'alternative_identifiers': ['emsl:458254'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456464	649b009773e8249959349be9	{'id': 'nmdc:omprc-11-47zk5d13', 'alternative_identifiers': ['emsl:456464'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456465	649b009773e8249959349bed	{'id': 'nmdc:omprc-11-yyydy058', 'alternative_identifiers': ['emsl:456465'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456621	649b009773e8249959349c35	{'id': 'nmdc:omprc-11-az7mdw62', 'alternative_identifiers': ['emsl:456621'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456622	649b009773e8249959349c36	{'id': 'nmdc:omprc-11-2zf1f991', 'alternative_identifiers': ['emsl:456622'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456623	649b009773e8249959349c37	{'id': 'nmdc:omprc-11-sp1x5a33', 'alternative_identifiers': ['emsl:456623'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457887	649b009773e8249959349c89	{'id': 'nmdc:omprc-11-c4e0e286', 'alternative_identifiers': ['emsl:457887'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457924	649b009773e8249959349cae	{'id': 'nmdc:omprc-11-erndbq78', 'alternative_identifiers': ['emsl:457924'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458267	649b009773e8249959349cd4	{'id': 'nmdc:omprc-11-hnjtj577', 'alternative_identifiers': ['emsl:458267'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458268	649b009773e8249959349cd6	{'id': 'nmdc:omprc-11-nm615y38', 'alternative_identifiers': ['emsl:458268'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456474	649b009773e8249959349bea	{'id': 'nmdc:omprc-11-z69jt197', 'alternative_identifiers': ['emsl:456474'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456475	649b009773e8249959349bec	{'id': 'nmdc:omprc-11-k7sr0n07', 'alternative_identifiers': ['emsl:456475'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456628	649b009773e8249959349c38	{'id': 'nmdc:omprc-11-5nserp51', 'alternative_identifiers': ['emsl:456628'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456629	649b009773e8249959349c3c	{'id': 'nmdc:omprc-11-sww83448', 'alternative_identifiers': ['emsl:456629'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456627	649b009773e8249959349c3d	{'id': 'nmdc:omprc-11-qdvrdq38', 'alternative_identifiers': ['emsl:456627'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457889	649b009773e8249959349c90	{'id': 'nmdc:omprc-11-158rgk09', 'alternative_identifiers': ['emsl:457889'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457926	649b009773e8249959349caf	{'id': 'nmdc:omprc-11-8g5mcs26', 'alternative_identifiers': ['emsl:457926'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458272	649b009773e8249959349cdc	{'id': 'nmdc:omprc-11-0j25y654', 'alternative_identifiers': ['emsl:458272'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458271	649b009773e8249959349cdd	{'id': 'nmdc:omprc-11-hashbm22', 'alternative_identifiers': ['emsl:458271'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456494	649b009773e8249959349bf2	{'id': 'nmdc:omprc-11-ce8svg62', 'alternative_identifiers': ['emsl:456494'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456495	649b009773e8249959349bf4	{'id': 'nmdc:omprc-11-7x1sdy07', 'alternative_identifiers': ['emsl:456495'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456640	649b009773e8249959349c45	{'id': 'nmdc:omprc-11-t7j8t703', 'alternative_identifiers': ['emsl:456640'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456641	649b009773e8249959349c48	{'id': 'nmdc:omprc-11-4rf7qx78', 'alternative_identifiers': ['emsl:456641'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456639	649b009773e8249959349c4a	{'id': 'nmdc:omprc-11-kc98vx96', 'alternative_identifiers': ['emsl:456639'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457893	649b009773e8249959349c8d	{'id': 'nmdc:omprc-11-zem5vk78', 'alternative_identifiers': ['emsl:457893'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457930	649b009773e8249959349cb3	{'id': 'nmdc:omprc-11-sw8yx098', 'alternative_identifiers': ['emsl:457930'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458280	649b009773e8249959349ce6	{'id': 'nmdc:omprc-11-1vtqc218', 'alternative_identifiers': ['emsl:458280'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458279	649b009773e8249959349ce7	{'id': 'nmdc:omprc-11-epe3v374', 'alternative_identifiers': ['emsl:458279'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456480	649b009773e8249959349bef	{'id': 'nmdc:omprc-11-sr87c484', 'alternative_identifiers': ['emsl:456480'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456479	649b009773e8249959349bf0	{'id': 'nmdc:omprc-11-4dnhak64', 'alternative_identifiers': ['emsl:456479'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456631	649b009773e8249959349c3e	{'id': 'nmdc:omprc-11-69d0q309', 'alternative_identifiers': ['emsl:456631'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456632	649b009773e8249959349c3f	{'id': 'nmdc:omprc-11-h7gb0s51', 'alternative_identifiers': ['emsl:456632'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456630	649b009773e8249959349c40	{'id': 'nmdc:omprc-11-djextn44', 'alternative_identifiers': ['emsl:456630'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457890	649b009773e8249959349c93	{'id': 'nmdc:omprc-11-814qs329', 'alternative_identifiers': ['emsl:457890'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457927	649b009773e8249959349cb9	{'id': 'nmdc:omprc-11-f7ry1w04', 'alternative_identifiers': ['emsl:457927'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458273	649b009773e8249959349cda	{'id': 'nmdc:omprc-11-2nq3zk74', 'alternative_identifiers': ['emsl:458273'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458274	649b009773e8249959349cdf	{'id': 'nmdc:omprc-11-vtt18169', 'alternative_identifiers': ['emsl:458274'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456469	649b009773e8249959349be6	{'id': 'nmdc:omprc-11-z1s73970', 'alternative_identifiers': ['emsl:456469'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456470	649b009773e8249959349be8	{'id': 'nmdc:omprc-11-wkpb7w29', 'alternative_identifiers': ['emsl:456470'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456625	649b009773e8249959349c39	{'id': 'nmdc:omprc-11-45gtaj35', 'alternative_identifiers': ['emsl:456625'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456624	649b009773e8249959349c3a	{'id': 'nmdc:omprc-11-vjnxxb54', 'alternative_identifiers': ['emsl:456624'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456626	649b009773e8249959349c3b	{'id': 'nmdc:omprc-11-s8d2ba75', 'alternative_identifiers': ['emsl:456626'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457888	649b009773e8249959349c8f	{'id': 'nmdc:omprc-11-xxs38m77', 'alternative_identifiers': ['emsl:457888'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457925	649b009773e8249959349cac	{'id': 'nmdc:omprc-11-6t5axs16', 'alternative_identifiers': ['emsl:457925'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458269	649b009773e8249959349cd8	{'id': 'nmdc:omprc-11-kx2jk684', 'alternative_identifiers': ['emsl:458269'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458270	649b009773e8249959349cdb	{'id': 'nmdc:omprc-11-mv6qyh92', 'alternative_identifiers': ['emsl:458270'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456484	649b009773e8249959349bee	{'id': 'nmdc:omprc-11-hhe04y79', 'alternative_identifiers': ['emsl:456484'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456485	649b009773e8249959349bf1	{'id': 'nmdc:omprc-11-gp8g2f20', 'alternative_identifiers': ['emsl:456485'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456633	649b009773e8249959349c41	{'id': 'nmdc:omprc-11-s0edyq23', 'alternative_identifiers': ['emsl:456633'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456635	649b009773e8249959349c42	{'id': 'nmdc:omprc-11-wa78sz70', 'alternative_identifiers': ['emsl:456635'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456634	649b009773e8249959349c46	{'id': 'nmdc:omprc-11-z1198j77', 'alternative_identifiers': ['emsl:456634'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457891	649b009773e8249959349c8a	{'id': 'nmdc:omprc-11-q0pj8v84', 'alternative_identifiers': ['emsl:457891'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457928	649b009773e8249959349cb0	{'id': 'nmdc:omprc-11-nj7cah39', 'alternative_identifiers': ['emsl:457928'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458275	649b009773e8249959349cde	{'id': 'nmdc:omprc-11-yw8xdz84', 'alternative_identifiers': ['emsl:458275'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458276	649b009773e8249959349ce1	{'id': 'nmdc:omprc-11-qy4jz907', 'alternative_identifiers': ['emsl:458276'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456500	649b009773e8249959349bf7	{'id': 'nmdc:omprc-11-79fzg438', 'alternative_identifiers': ['emsl:456500'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456499	649b009773e8249959349bfc	{'id': 'nmdc:omprc-11-mpsetk37', 'alternative_identifiers': ['emsl:456499'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456643	649b009773e8249959349c47	{'id': 'nmdc:omprc-11-c8bca917', 'alternative_identifiers': ['emsl:456643'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456642	649b009773e8249959349c4b	{'id': 'nmdc:omprc-11-bvmk4n46', 'alternative_identifiers': ['emsl:456642'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456644	649b009773e8249959349c4d	{'id': 'nmdc:omprc-11-9rkzn595', 'alternative_identifiers': ['emsl:456644'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457894	649b009773e8249959349c91	{'id': 'nmdc:omprc-11-zqmpjb87', 'alternative_identifiers': ['emsl:457894'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457931	649b009773e8249959349cb2	{'id': 'nmdc:omprc-11-46ve2p13', 'alternative_identifiers': ['emsl:457931'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458282	649b009773e8249959349ce3	{'id': 'nmdc:omprc-11-a7awad81', 'alternative_identifiers': ['emsl:458282'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458281	649b009773e8249959349ce8	{'id': 'nmdc:omprc-11-91brjp90', 'alternative_identifiers': ['emsl:458281'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456510	649b009773e8249959349bf9	{'id': 'nmdc:omprc-11-ah8s5798', 'alternative_identifiers': ['emsl:456510'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456509	649b009773e8249959349bfd	{'id': 'nmdc:omprc-11-msajt037', 'alternative_identifiers': ['emsl:456509'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456648	649b009773e8249959349c50	{'id': 'nmdc:omprc-11-879fwt63', 'alternative_identifiers': ['emsl:456648'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456649	649b009773e8249959349c51	{'id': 'nmdc:omprc-11-7haf3a51', 'alternative_identifiers': ['emsl:456649'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456650	649b009773e8249959349c54	{'id': 'nmdc:omprc-11-11dwyy72', 'alternative_identifiers': ['emsl:456650'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457896	649b009773e8249959349c94	{'id': 'nmdc:omprc-11-x4v26758', 'alternative_identifiers': ['emsl:457896'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457933	649b009773e8249959349cb4	{'id': 'nmdc:omprc-11-3ksc9h11', 'alternative_identifiers': ['emsl:457933'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458285	649b009773e8249959349ce9	{'id': 'nmdc:omprc-11-q5111v55', 'alternative_identifiers': ['emsl:458285'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458286	649b009773e8249959349cea	{'id': 'nmdc:omprc-11-9rt01r83', 'alternative_identifiers': ['emsl:458286'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456489	649b009773e8249959349bf5	{'id': 'nmdc:omprc-11-ankpfn07', 'alternative_identifiers': ['emsl:456489'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456490	649b009773e8249959349bf6	{'id': 'nmdc:omprc-11-1p12as52', 'alternative_identifiers': ['emsl:456490'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456637	649b009773e8249959349c43	{'id': 'nmdc:omprc-11-qtrv7771', 'alternative_identifiers': ['emsl:456637'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456638	649b009773e8249959349c44	{'id': 'nmdc:omprc-11-wfj98x13', 'alternative_identifiers': ['emsl:456638'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456636	649b009773e8249959349c49	{'id': 'nmdc:omprc-11-rengc387', 'alternative_identifiers': ['emsl:456636'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457892	649b009773e8249959349c8e	{'id': 'nmdc:omprc-11-metyht38', 'alternative_identifiers': ['emsl:457892'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457929	649b009773e8249959349cb1	{'id': 'nmdc:omprc-11-tv2zj207', 'alternative_identifiers': ['emsl:457929'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458278	649b009773e8249959349ce0	{'id': 'nmdc:omprc-11-e13dya63', 'alternative_identifiers': ['emsl:458278'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458277	649b009773e8249959349ce4	{'id': 'nmdc:omprc-11-y7yfh911', 'alternative_identifiers': ['emsl:458277'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456449	649b009773e8249959349be1	{'id': 'nmdc:omprc-11-5eeqan54', 'alternative_identifiers': ['emsl:456449'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456450	649b009773e8249959349be2	{'id': 'nmdc:omprc-11-xadda929', 'alternative_identifiers': ['emsl:456450'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456614	649b009773e8249959349c21	{'id': 'nmdc:omprc-11-3s76ra36', 'alternative_identifiers': ['emsl:456614'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456613	649b009773e8249959349c2a	{'id': 'nmdc:omprc-11-d1vq7b95', 'alternative_identifiers': ['emsl:456613'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456612	649b009773e8249959349c2c	{'id': 'nmdc:omprc-11-ef522e12', 'alternative_identifiers': ['emsl:456612'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457884	649b009773e8249959349c87	{'id': 'nmdc:omprc-11-jj4zs727', 'alternative_identifiers': ['emsl:457884'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457921	649b009773e8249959349cad	{'id': 'nmdc:omprc-11-5c229b60', 'alternative_identifiers': ['emsl:457921'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458261	649b009773e8249959349cce	{'id': 'nmdc:omprc-11-4y6zdm75', 'alternative_identifiers': ['emsl:458261'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458262	649b009773e8249959349cd3	{'id': 'nmdc:omprc-11-1zq9rq61', 'alternative_identifiers': ['emsl:458262'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511401	649b009773e8249959349d41	{'id': 'nmdc:omprc-11-b752gd58', 'alternative_identifiers': ['emsl:511401'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:501139	649b009773e8249959349d44	{'id': 'nmdc:omprc-11-3zggt669', 'alternative_identifiers': ['emsl:501139'], 'has_output': ['nmdc:dobj-11-zx45sv82'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:511909	649b009773e8249959349d6f	{'id': 'nmdc:omprc-11-h0vtjy90', 'alternative_identifiers': ['emsl:511909'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456505	649b009773e8249959349bf8	{'id': 'nmdc:omprc-11-w204c176', 'alternative_identifiers': ['emsl:456505'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456504	649b009773e8249959349bfa	{'id': 'nmdc:omprc-11-wr6y5056', 'alternative_identifiers': ['emsl:456504'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456647	649b009773e8249959349c4c	{'id': 'nmdc:omprc-11-cswc4x78', 'alternative_identifiers': ['emsl:456647'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456645	649b009773e8249959349c4e	{'id': 'nmdc:omprc-11-tn1efy12', 'alternative_identifiers': ['emsl:456645'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456646	649b009773e8249959349c4f	{'id': 'nmdc:omprc-11-jdatwg63', 'alternative_identifiers': ['emsl:456646'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457895	649b009773e8249959349c92	{'id': 'nmdc:omprc-11-1qqcrs04', 'alternative_identifiers': ['emsl:457895'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457932	649b009773e8249959349cb6	{'id': 'nmdc:omprc-11-76w9pf63', 'alternative_identifiers': ['emsl:457932'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458283	649b009773e8249959349ce2	{'id': 'nmdc:omprc-11-kk1vqk75', 'alternative_identifiers': ['emsl:458283'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458284	649b009773e8249959349ce5	{'id': 'nmdc:omprc-11-yqss9g35', 'alternative_identifiers': ['emsl:458284'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456519	649b009773e8249959349bfe	{'id': 'nmdc:omprc-11-b91whx09', 'alternative_identifiers': ['emsl:456519'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456520	649b009773e8249959349c12	{'id': 'nmdc:omprc-11-brapj121', 'alternative_identifiers': ['emsl:456520'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456654	649b009773e8249959349c55	{'id': 'nmdc:omprc-11-52t5j316', 'alternative_identifiers': ['emsl:456654'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456655	649b009773e8249959349c56	{'id': 'nmdc:omprc-11-1zvg3064', 'alternative_identifiers': ['emsl:456655'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456656	649b009773e8249959349c57	{'id': 'nmdc:omprc-11-sgvkx891', 'alternative_identifiers': ['emsl:456656'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457898	649b009773e8249959349c95	{'id': 'nmdc:omprc-11-cbjb4f91', 'alternative_identifiers': ['emsl:457898'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457935	649b009773e8249959349cb8	{'id': 'nmdc:omprc-11-rc6zqd65', 'alternative_identifiers': ['emsl:457935'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458289	649b009773e8249959349ced	{'id': 'nmdc:omprc-11-35zhyd04', 'alternative_identifiers': ['emsl:458289'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458290	649b009773e8249959349cee	{'id': 'nmdc:omprc-11-3g0ye511', 'alternative_identifiers': ['emsl:458290'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456525	649b009773e8249959349c1f	{'id': 'nmdc:omprc-11-smr5ed58', 'alternative_identifiers': ['emsl:456525'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456524	649b009773e8249959349c2e	{'id': 'nmdc:omprc-11-9t1v8804', 'alternative_identifiers': ['emsl:456524'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456657	649b009773e8249959349c59	{'id': 'nmdc:omprc-11-qp7saj04', 'alternative_identifiers': ['emsl:456657'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456658	649b009773e8249959349c5a	{'id': 'nmdc:omprc-11-94gqdj87', 'alternative_identifiers': ['emsl:456658'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456659	649b009773e8249959349c5b	{'id': 'nmdc:omprc-11-924wfs04', 'alternative_identifiers': ['emsl:456659'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457899	649b009773e8249959349c96	{'id': 'nmdc:omprc-11-e127mr56', 'alternative_identifiers': ['emsl:457899'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457936	649b009773e8249959349cb7	{'id': 'nmdc:omprc-11-vej65j56', 'alternative_identifiers': ['emsl:457936'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458291	649b009773e8249959349cf1	{'id': 'nmdc:omprc-11-bz8nvf13', 'alternative_identifiers': ['emsl:458291'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458292	649b009773e8249959349cf8	{'id': 'nmdc:omprc-11-pz4zm803', 'alternative_identifiers': ['emsl:458292'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456535	649b009773e8249959349c01	{'id': 'nmdc:omprc-11-b0exgb85', 'alternative_identifiers': ['emsl:456535'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456534	649b009773e8249959349c2d	{'id': 'nmdc:omprc-11-4vma2s90', 'alternative_identifiers': ['emsl:456534'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456663	649b009773e8249959349c5e	{'id': 'nmdc:omprc-11-g7s61059', 'alternative_identifiers': ['emsl:456663'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456665	649b009773e8249959349c60	{'id': 'nmdc:omprc-11-xrkqt367', 'alternative_identifiers': ['emsl:456665'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456664	649b009773e8249959349c62	{'id': 'nmdc:omprc-11-3yj9bb38', 'alternative_identifiers': ['emsl:456664'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457901	649b009773e8249959349c9d	{'id': 'nmdc:omprc-11-2ntp7a71', 'alternative_identifiers': ['emsl:457901'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457938	649b009773e8249959349cba	{'id': 'nmdc:omprc-11-emzf5817', 'alternative_identifiers': ['emsl:457938'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458296	649b009773e8249959349cf0	{'id': 'nmdc:omprc-11-hhasd859', 'alternative_identifiers': ['emsl:458296'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456514	649b009773e8249959349bfb	{'id': 'nmdc:omprc-11-dzwhxq82', 'alternative_identifiers': ['emsl:456514'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456515	649b009773e8249959349bff	{'id': 'nmdc:omprc-11-q8628f55', 'alternative_identifiers': ['emsl:456515'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456651	649b009773e8249959349c52	{'id': 'nmdc:omprc-11-c9ngq125', 'alternative_identifiers': ['emsl:456651'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456653	649b009773e8249959349c53	{'id': 'nmdc:omprc-11-6wxsd748', 'alternative_identifiers': ['emsl:456653'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456652	649b009773e8249959349c58	{'id': 'nmdc:omprc-11-hn3fem30', 'alternative_identifiers': ['emsl:456652'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457897	649b009773e8249959349c97	{'id': 'nmdc:omprc-11-xfmjms51', 'alternative_identifiers': ['emsl:457897'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457934	649b009773e8249959349cb5	{'id': 'nmdc:omprc-11-0vs1e911', 'alternative_identifiers': ['emsl:457934'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458288	649b009773e8249959349ceb	{'id': 'nmdc:omprc-11-9pf1dj72', 'alternative_identifiers': ['emsl:458288'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458287	649b009773e8249959349cec	{'id': 'nmdc:omprc-11-sxh1xj69', 'alternative_identifiers': ['emsl:458287'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456540	649b009773e8249959349c02	{'id': 'nmdc:omprc-11-dnpeq390', 'alternative_identifiers': ['emsl:456540'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456539	649b009773e8249959349c03	{'id': 'nmdc:omprc-11-36yts351', 'alternative_identifiers': ['emsl:456539'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456667	649b009773e8249959349c61	{'id': 'nmdc:omprc-11-kbgn9492', 'alternative_identifiers': ['emsl:456667'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456666	649b009773e8249959349c63	{'id': 'nmdc:omprc-11-g265kv95', 'alternative_identifiers': ['emsl:456666'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456668	649b009773e8249959349c65	{'id': 'nmdc:omprc-11-mrve8148', 'alternative_identifiers': ['emsl:456668'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457902	649b009773e8249959349c9a	{'id': 'nmdc:omprc-11-64n80y04', 'alternative_identifiers': ['emsl:457902'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457939	649b009773e8249959349cbb	{'id': 'nmdc:omprc-11-vd4n7m85', 'alternative_identifiers': ['emsl:457939'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458297	649b009773e8249959349cf7	{'id': 'nmdc:omprc-11-8em1q641', 'alternative_identifiers': ['emsl:458297'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456560	649b009773e8249959349c0f	{'id': 'nmdc:omprc-11-g5e6z598', 'alternative_identifiers': ['emsl:456560'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456559	649b009773e8249959349c11	{'id': 'nmdc:omprc-11-e6py8581', 'alternative_identifiers': ['emsl:456559'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456679	649b009773e8249959349c6e	{'id': 'nmdc:omprc-11-0mws7t39', 'alternative_identifiers': ['emsl:456679'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456680	649b009773e8249959349c6f	{'id': 'nmdc:omprc-11-6vvkhg34', 'alternative_identifiers': ['emsl:456680'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456678	649b009773e8249959349c70	{'id': 'nmdc:omprc-11-f3ty6n16', 'alternative_identifiers': ['emsl:456678'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457906	649b009773e8249959349c9c	{'id': 'nmdc:omprc-11-dp6mmb52', 'alternative_identifiers': ['emsl:457906'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457943	649b009773e8249959349cc0	{'id': 'nmdc:omprc-11-me26d182', 'alternative_identifiers': ['emsl:457943'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458301	649b009773e8249959349cf4	{'id': 'nmdc:omprc-11-51cpdm57', 'alternative_identifiers': ['emsl:458301'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456544	649b009773e8249959349c05	{'id': 'nmdc:omprc-11-phrgrb74', 'alternative_identifiers': ['emsl:456544'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456545	649b009773e8249959349c0a	{'id': 'nmdc:omprc-11-x7ea6d25', 'alternative_identifiers': ['emsl:456545'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456670	649b009773e8249959349c64	{'id': 'nmdc:omprc-11-m3mm6x57', 'alternative_identifiers': ['emsl:456670'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456669	649b009773e8249959349c66	{'id': 'nmdc:omprc-11-gsvttd81', 'alternative_identifiers': ['emsl:456669'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456671	649b009773e8249959349c6d	{'id': 'nmdc:omprc-11-80cfm033', 'alternative_identifiers': ['emsl:456671'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457903	649b009773e8249959349c98	{'id': 'nmdc:omprc-11-0s91kr16', 'alternative_identifiers': ['emsl:457903'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457940	649b009773e8249959349cbc	{'id': 'nmdc:omprc-11-wamvnm51', 'alternative_identifiers': ['emsl:457940'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458298	649b009773e8249959349cf3	{'id': 'nmdc:omprc-11-1b5vh087', 'alternative_identifiers': ['emsl:458298'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456574	649b009773e8249959349c09	{'id': 'nmdc:omprc-11-pkmbwf42', 'alternative_identifiers': ['emsl:456574'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456575	649b009773e8249959349c0c	{'id': 'nmdc:omprc-11-d9kpph66', 'alternative_identifiers': ['emsl:456575'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456687	649b009773e8249959349c77	{'id': 'nmdc:omprc-11-bxr4fg63', 'alternative_identifiers': ['emsl:456687'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456688	649b009773e8249959349c78	{'id': 'nmdc:omprc-11-r81zbz92', 'alternative_identifiers': ['emsl:456688'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456689	649b009773e8249959349c7b	{'id': 'nmdc:omprc-11-8efrtr68', 'alternative_identifiers': ['emsl:456689'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457909	649b009773e8249959349ca2	{'id': 'nmdc:omprc-11-8fnbxw46', 'alternative_identifiers': ['emsl:457909'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457946	649b009773e8249959349cc4	{'id': 'nmdc:omprc-11-7jq6eg52', 'alternative_identifiers': ['emsl:457946'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458304	649b009773e8249959349cfe	{'id': 'nmdc:omprc-11-9zq64v78', 'alternative_identifiers': ['emsl:458304'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456529	649b009773e8249959349c00	{'id': 'nmdc:omprc-11-xpfrqf74', 'alternative_identifiers': ['emsl:456529'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456530	649b009773e8249959349c29	{'id': 'nmdc:omprc-11-vft4gd44', 'alternative_identifiers': ['emsl:456530'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456661	649b009773e8249959349c5c	{'id': 'nmdc:omprc-11-zfdt5p32', 'alternative_identifiers': ['emsl:456661'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456662	649b009773e8249959349c5d	{'id': 'nmdc:omprc-11-k5ct1051', 'alternative_identifiers': ['emsl:456662'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456660	649b009773e8249959349c5f	{'id': 'nmdc:omprc-11-4c4b4q21', 'alternative_identifiers': ['emsl:456660'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457900	649b009773e8249959349c9b	{'id': 'nmdc:omprc-11-s8z0k827', 'alternative_identifiers': ['emsl:457900'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457937	649b009773e8249959349cbd	{'id': 'nmdc:omprc-11-qmasbb30', 'alternative_identifiers': ['emsl:457937'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458294	649b009773e8249959349cef	{'id': 'nmdc:omprc-11-9390gm55', 'alternative_identifiers': ['emsl:458294'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458293	649b009773e8249959349cf5	{'id': 'nmdc:omprc-11-krcjj343', 'alternative_identifiers': ['emsl:458293'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456584	649b009773e8249959349c10	{'id': 'nmdc:omprc-11-zkx9k651', 'alternative_identifiers': ['emsl:456584'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456585	649b009773e8249959349c13	{'id': 'nmdc:omprc-11-3b9myj50', 'alternative_identifiers': ['emsl:456585'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456693	649b009773e8249959349c7d	{'id': 'nmdc:omprc-11-wsb32h69', 'alternative_identifiers': ['emsl:456693'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456694	649b009773e8249959349c7e	{'id': 'nmdc:omprc-11-6rt4ks14', 'alternative_identifiers': ['emsl:456694'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456695	649b009773e8249959349c7f	{'id': 'nmdc:omprc-11-w6vp0477', 'alternative_identifiers': ['emsl:456695'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457911	649b009773e8249959349ca3	{'id': 'nmdc:omprc-11-0kg4pa61', 'alternative_identifiers': ['emsl:457911'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457948	649b009773e8249959349cc9	{'id': 'nmdc:omprc-11-572yzr59', 'alternative_identifiers': ['emsl:457948'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458306	649b009773e8249959349cfb	{'id': 'nmdc:omprc-11-eh11hm16', 'alternative_identifiers': ['emsl:458306'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456550	649b009773e8249959349c04	{'id': 'nmdc:omprc-11-wdm72y84', 'alternative_identifiers': ['emsl:456550'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456549	649b009773e8249959349c2f	{'id': 'nmdc:omprc-11-qh6f6j07', 'alternative_identifiers': ['emsl:456549'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456672	649b009773e8249959349c67	{'id': 'nmdc:omprc-11-qjbnbp56', 'alternative_identifiers': ['emsl:456672'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456673	649b009773e8249959349c68	{'id': 'nmdc:omprc-11-19trmc61', 'alternative_identifiers': ['emsl:456673'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456674	649b009773e8249959349c69	{'id': 'nmdc:omprc-11-s170zt76', 'alternative_identifiers': ['emsl:456674'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457904	649b009773e8249959349c99	{'id': 'nmdc:omprc-11-pfb58f95', 'alternative_identifiers': ['emsl:457904'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457941	649b009773e8249959349cbf	{'id': 'nmdc:omprc-11-sv7nzh16', 'alternative_identifiers': ['emsl:457941'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458299	649b009773e8249959349cf2	{'id': 'nmdc:omprc-11-kg4afv06', 'alternative_identifiers': ['emsl:458299'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456554	649b009773e8249959349c0e	{'id': 'nmdc:omprc-11-whfdsq75', 'alternative_identifiers': ['emsl:456554'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456555	649b009773e8249959349c30	{'id': 'nmdc:omprc-11-s6zbp345', 'alternative_identifiers': ['emsl:456555'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456675	649b009773e8249959349c6a	{'id': 'nmdc:omprc-11-brz0n457', 'alternative_identifiers': ['emsl:456675'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456676	649b009773e8249959349c6b	{'id': 'nmdc:omprc-11-phgzzh14', 'alternative_identifiers': ['emsl:456676'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456677	649b009773e8249959349c6c	{'id': 'nmdc:omprc-11-6d1esb06', 'alternative_identifiers': ['emsl:456677'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457905	649b009773e8249959349c9f	{'id': 'nmdc:omprc-11-3fr07v98', 'alternative_identifiers': ['emsl:457905'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457942	649b009773e8249959349cbe	{'id': 'nmdc:omprc-11-vvebe993', 'alternative_identifiers': ['emsl:457942'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458300	649b009773e8249959349cfa	{'id': 'nmdc:omprc-11-q4fkj727', 'alternative_identifiers': ['emsl:458300'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456565	649b009773e8249959349c06	{'id': 'nmdc:omprc-11-c3ck9411', 'alternative_identifiers': ['emsl:456565'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456564	649b009773e8249959349c08	{'id': 'nmdc:omprc-11-ez4qjd70', 'alternative_identifiers': ['emsl:456564'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456681	649b009773e8249959349c71	{'id': 'nmdc:omprc-11-hc19gt70', 'alternative_identifiers': ['emsl:456681'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456682	649b009773e8249959349c72	{'id': 'nmdc:omprc-11-x8cq1s80', 'alternative_identifiers': ['emsl:456682'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456683	649b009773e8249959349c74	{'id': 'nmdc:omprc-11-nnkx4q86', 'alternative_identifiers': ['emsl:456683'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457907	649b009773e8249959349c9e	{'id': 'nmdc:omprc-11-sdg7c532', 'alternative_identifiers': ['emsl:457907'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457944	649b009773e8249959349cc1	{'id': 'nmdc:omprc-11-5sbrg086', 'alternative_identifiers': ['emsl:457944'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458302	649b009773e8249959349cfd	{'id': 'nmdc:omprc-11-c77n9327', 'alternative_identifiers': ['emsl:458302'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456569	649b009773e8249959349c07	{'id': 'nmdc:omprc-11-sngvp359', 'alternative_identifiers': ['emsl:456569'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456570	649b009773e8249959349c0d	{'id': 'nmdc:omprc-11-m2kank37', 'alternative_identifiers': ['emsl:456570'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456685	649b009773e8249959349c73	{'id': 'nmdc:omprc-11-yagb1345', 'alternative_identifiers': ['emsl:456685'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456686	649b009773e8249959349c75	{'id': 'nmdc:omprc-11-547wts20', 'alternative_identifiers': ['emsl:456686'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456684	649b009773e8249959349c76	{'id': 'nmdc:omprc-11-6ary8q15', 'alternative_identifiers': ['emsl:456684'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457908	649b009773e8249959349ca0	{'id': 'nmdc:omprc-11-wbev4z47', 'alternative_identifiers': ['emsl:457908'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457945	649b009773e8249959349cc2	{'id': 'nmdc:omprc-11-qghxfb30', 'alternative_identifiers': ['emsl:457945'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458303	649b009773e8249959349cf6	{'id': 'nmdc:omprc-11-zqdrvf61', 'alternative_identifiers': ['emsl:458303'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456579	649b009773e8249959349c0b	{'id': 'nmdc:omprc-11-nhgxvv07', 'alternative_identifiers': ['emsl:456579'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456580	649b009773e8249959349c31	{'id': 'nmdc:omprc-11-skjq2n98', 'alternative_identifiers': ['emsl:456580'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456690	649b009773e8249959349c79	{'id': 'nmdc:omprc-11-xeq5tt12', 'alternative_identifiers': ['emsl:456690'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456691	649b009773e8249959349c7a	{'id': 'nmdc:omprc-11-my16xz54', 'alternative_identifiers': ['emsl:456691'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456692	649b009773e8249959349c7c	{'id': 'nmdc:omprc-11-x4hjdt77', 'alternative_identifiers': ['emsl:456692'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457910	649b009773e8249959349ca1	{'id': 'nmdc:omprc-11-zqx06z88', 'alternative_identifiers': ['emsl:457910'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457947	649b009773e8249959349cc3	{'id': 'nmdc:omprc-11-et1gq497', 'alternative_identifiers': ['emsl:457947'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458305	649b009773e8249959349cf9	{'id': 'nmdc:omprc-11-mc19qx86', 'alternative_identifiers': ['emsl:458305'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456589	649b009773e8249959349c15	{'id': 'nmdc:omprc-11-z55zba79', 'alternative_identifiers': ['emsl:456589'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456590	649b009773e8249959349c17	{'id': 'nmdc:omprc-11-y6ffh313', 'alternative_identifiers': ['emsl:456590'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456698	649b009773e8249959349c80	{'id': 'nmdc:omprc-11-vce52865', 'alternative_identifiers': ['emsl:456698'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456697	649b009773e8249959349c81	{'id': 'nmdc:omprc-11-wf081x69', 'alternative_identifiers': ['emsl:456697'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:456696	649b009773e8249959349c83	{'id': 'nmdc:omprc-11-7v8j6668', 'alternative_identifiers': ['emsl:456696'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457912	649b009773e8249959349ca9	{'id': 'nmdc:omprc-11-yfp2zk70', 'alternative_identifiers': ['emsl:457912'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:457949	649b009773e8249959349cc6	{'id': 'nmdc:omprc-11-vnvpgh69', 'alternative_identifiers': ['emsl:457949'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+omics_processing_set	emsl:458307	649b009773e8249959349cff	{'id': 'nmdc:omprc-11-g0jkcj83', 'alternative_identifiers': ['emsl:458307'], 'part_of': ['nmdc:sty-11-aygzgv51']}
+data_object_set	emsl:output_499778	649b003c1ae706d7b5b1465a	{'id': 'nmdc:dobj-11-vmryt048', 'alternative_identifiers': ['emsl:output_499778']}
+data_object_set	nmdc:1cfecddceb1c1eeb3ed4804931a0731d	649b00401ae706d7b5b16ea0	{'id': 'nmdc:dobj-11-ja0hz892'}
+data_object_set	emsl:output_499616	649b003c1ae706d7b5b14652	{'id': 'nmdc:dobj-11-xvmbm559'}
+data_object_set	emsl:output_499773	649b003c1ae706d7b5b14658	{'id': 'nmdc:dobj-11-t8kp0p28', 'alternative_identifiers': ['emsl:output_499773']}
+data_object_set	nmdc:3ecc9c25c106485875389e117ef61588	649b00401ae706d7b5b16e9b	{'id': 'nmdc:dobj-11-0gv5jf43'}
+data_object_set	emsl:output_499557	649b003c1ae706d7b5b14640	{'id': 'nmdc:dobj-11-cz13zz88', 'alternative_identifiers': ['emsl:output_499557']}
+data_object_set	nmdc:00d78702f520847b541f0104a77cad70	649b00401ae706d7b5b16e85	{'id': 'nmdc:dobj-11-wfbfvd88'}
+data_object_set	emsl:output_499433	649b003c1ae706d7b5b14639	{'id': 'nmdc:dobj-11-nsafje91'}
+data_object_set	emsl:output_499636	649b003c1ae706d7b5b1464e	{'id': 'nmdc:dobj-11-gbjfxb86', 'alternative_identifiers': ['emsl:output_499636']}
+data_object_set	nmdc:d5832185535f44642cc6bf89483ef059	649b00401ae706d7b5b16e99	{'id': 'nmdc:dobj-11-5vms5k15'}
+data_object_set	emsl:output_499777	649b003c1ae706d7b5b1465d	{'id': 'nmdc:dobj-11-4gcnpr37', 'alternative_identifiers': ['emsl:output_499777']}
+data_object_set	nmdc:9230cd3c3852a3fa8e84259e268e6702	649b00401ae706d7b5b16ea1	{'id': 'nmdc:dobj-11-9f20sk55'}
+data_object_set	emsl:output_499571	649b003c1ae706d7b5b14648	{'id': 'nmdc:dobj-11-heey8f75', 'alternative_identifiers': ['emsl:output_499571']}
+data_object_set	nmdc:3f553ced7a908db8cf077953156d600e	649b00401ae706d7b5b16e7f	{'id': 'nmdc:dobj-11-5syaxw11'}
+data_object_set	emsl:output_499782	649b003c1ae706d7b5b1465f	{'id': 'nmdc:dobj-11-0sf46f62', 'alternative_identifiers': ['emsl:output_499782']}
+data_object_set	nmdc:cb6b41acd16627196083dc05d0e9b84a	649b00401ae706d7b5b16e8d	{'id': 'nmdc:dobj-11-dsez5k64'}
+data_object_set	emsl:output_499558	649b003c1ae706d7b5b14641	{'id': 'nmdc:dobj-11-yw2s7h56', 'alternative_identifiers': ['emsl:output_499558']}
+data_object_set	nmdc:74eb81b41b702b96ae77695aee33744b	649b00401ae706d7b5b16e83	{'id': 'nmdc:dobj-11-3h059e34'}
+data_object_set	emsl:output_499784	649b003c1ae706d7b5b14659	{'id': 'nmdc:dobj-11-w7xqm619', 'alternative_identifiers': ['emsl:output_499784']}
+data_object_set	nmdc:dd6c18b04a9ef8ed0e83c9c77c6d4cec	649b00401ae706d7b5b16e96	{'id': 'nmdc:dobj-11-1z4kbp24'}
+data_object_set	emsl:output_499794	649b003c1ae706d7b5b14661	{'id': 'nmdc:dobj-11-bdgx5s03', 'alternative_identifiers': ['emsl:output_499794']}
+data_object_set	nmdc:758405752876d87ce9567704d8c32248	649b00401ae706d7b5b16e8e	{'id': 'nmdc:dobj-11-d3dfn355'}
+data_object_set	emsl:output_499565	649b003c1ae706d7b5b14645	{'id': 'nmdc:dobj-11-g26vca67', 'alternative_identifiers': ['emsl:output_499565']}
+data_object_set	nmdc:ad2ca9dfadfc09cb1dec956dfc8f787a	649b00401ae706d7b5b16e84	{'id': 'nmdc:dobj-11-f7p5r076'}
+data_object_set	emsl:output_499790	649b003c1ae706d7b5b14681	{'id': 'nmdc:dobj-11-7sthbs22', 'alternative_identifiers': ['emsl:output_499790']}
+data_object_set	nmdc:a433f93ed1694e377ddeabe90d9011cd	649b00401ae706d7b5b16e8f	{'id': 'nmdc:dobj-11-mab2xe04'}
+data_object_set	emsl:output_499452	649b003c1ae706d7b5b1463c	{'id': 'nmdc:dobj-11-8zr77e06', 'alternative_identifiers': ['emsl:output_499452']}
+data_object_set	nmdc:5069a13be04d8bfa522b2ec6f9e3818c	649b00401ae706d7b5b16e86	{'id': 'nmdc:dobj-11-4w8fzj22'}
+data_object_set	emsl:output_499718	649b003c1ae706d7b5b14657	{'id': 'nmdc:dobj-11-vkpsfp12', 'alternative_identifiers': ['emsl:output_499718']}
+data_object_set	nmdc:6768ee75177ee7990e6c6b827514bc91	649b00401ae706d7b5b16e98	{'id': 'nmdc:dobj-11-hhv24b29'}
+data_object_set	emsl:output_499561	649b003c1ae706d7b5b14642	{'id': 'nmdc:dobj-11-tyh8hn66', 'alternative_identifiers': ['emsl:output_499561']}
+data_object_set	nmdc:beebc90a1ae144d74afc8af67000c5ae	649b00401ae706d7b5b16e82	{'id': 'nmdc:dobj-11-2k77mq30'}
+data_object_set	emsl:output_499568	649b003c1ae706d7b5b14646	{'id': 'nmdc:dobj-11-vxc84y71', 'alternative_identifiers': ['emsl:output_499568']}
+data_object_set	nmdc:278120c57c9f186360147385ada0373b	649b00401ae706d7b5b16e87	{'id': 'nmdc:dobj-11-s9zsc341'}
+data_object_set	emsl:output_499721	649b003c1ae706d7b5b14655	{'id': 'nmdc:dobj-11-1jg9pn18', 'alternative_identifiers': ['emsl:output_499721']}
+data_object_set	nmdc:f6353e49924efa2ce7aa2279454eb352	649b00401ae706d7b5b16eaa	{'id': 'nmdc:dobj-11-6v2zcx91'}
+data_object_set	emsl:output_499722	649b003c1ae706d7b5b14654	{'id': 'nmdc:dobj-11-bj1gna09', 'alternative_identifiers': ['emsl:output_499722']}
+data_object_set	nmdc:bbfd602b4fe91ac87f2a18951fb7d2a1	649b00401ae706d7b5b16e9a	{'id': 'nmdc:dobj-11-xpp8tq16'}
+data_object_set	emsl:output_499563	649b003c1ae706d7b5b14644	{'id': 'nmdc:dobj-11-vmmbwx12', 'alternative_identifiers': ['emsl:output_499563']}
+data_object_set	nmdc:394e1c26fd2e0bb38a50cfe7a303f78a	649b00401ae706d7b5b16e8a	{'id': 'nmdc:dobj-11-2dk5xv40'}
+data_object_set	emsl:output_499792	649b003c1ae706d7b5b1465c	{'id': 'nmdc:dobj-11-wk1scc75', 'alternative_identifiers': ['emsl:output_499792']}
+data_object_set	nmdc:c74669e1f646c78e208331a50c6fb4ad	649b00401ae706d7b5b16e90	{'id': 'nmdc:dobj-11-h46tvh96'}
+data_object_set	emsl:output_499567	649b003c1ae706d7b5b1464a	{'id': 'nmdc:dobj-11-e5nhes60', 'alternative_identifiers': ['emsl:output_499567']}
+data_object_set	nmdc:1c9cb77275d4977bc171faad2aef7e47	649b00401ae706d7b5b16e80	{'id': 'nmdc:dobj-11-z7x62y82'}
+data_object_set	emsl:output_499455	649b003c1ae706d7b5b1463f	{'id': 'nmdc:dobj-11-4xm87k13', 'alternative_identifiers': ['emsl:output_499455']}
+data_object_set	nmdc:ac9275796fe3da1788b4878c0ed2583b	649b00401ae706d7b5b16e88	{'id': 'nmdc:dobj-11-kpgexr18'}
+data_object_set	emsl:output_499453	649b003c1ae706d7b5b1463e	{'id': 'nmdc:dobj-11-z85nwt62', 'alternative_identifiers': ['emsl:output_499453']}
+data_object_set	nmdc:87c68e0f06b384f25c32883ac3e98505	649b00401ae706d7b5b16e8c	{'id': 'nmdc:dobj-11-x93sj217'}
+data_object_set	emsl:output_499780	649b003c1ae706d7b5b1465b	{'id': 'nmdc:dobj-11-6etj1n54', 'alternative_identifiers': ['emsl:output_499780']}
+data_object_set	nmdc:4428012aa0ef3fc266a89911130668f9	649b00401ae706d7b5b16e95	{'id': 'nmdc:dobj-11-50rsv796'}
+data_object_set	emsl:output_499786	649b003c1ae706d7b5b14660	{'id': 'nmdc:dobj-11-fbx2bm19', 'alternative_identifiers': ['emsl:output_499786']}
+data_object_set	nmdc:dbb361183688093d4a88b892600988be	649b00401ae706d7b5b16e93	{'id': 'nmdc:dobj-11-fjxvq183'}
+data_object_set	emsl:output_499640	649b003c1ae706d7b5b14656	{'id': 'nmdc:dobj-11-angy1m90', 'alternative_identifiers': ['emsl:output_499640']}
+data_object_set	nmdc:df0ded7f1e1ecf259955aa837bbe3830	649b00401ae706d7b5b16ea6	{'id': 'nmdc:dobj-11-7v55hr29'}
+data_object_set	emsl:output_499562	649b003c1ae706d7b5b14649	{'id': 'nmdc:dobj-11-3h0a7913', 'alternative_identifiers': ['emsl:output_499562']}
+data_object_set	nmdc:4d93cec177e111e353c1b0a6909c84a2	649b00401ae706d7b5b16e81	{'id': 'nmdc:dobj-11-6n0r9a18'}
+data_object_set	emsl:output_499639	649b003c1ae706d7b5b14653	{'id': 'nmdc:dobj-11-ahaexb60', 'alternative_identifiers': ['emsl:output_499639']}
+data_object_set	nmdc:1f52814294dda994bf2f864d945b1be8	649b00401ae706d7b5b16ea9	{'id': 'nmdc:dobj-11-td2fpr73'}
+data_object_set	emsl:output_499575	649b003c1ae706d7b5b1464b	{'id': 'nmdc:dobj-11-t1rb2p74', 'alternative_identifiers': ['emsl:output_499575']}
+data_object_set	nmdc:eadcd3b883c0da0f9d42a9fb1162ffcf	649b00401ae706d7b5b16e7d	{'id': 'nmdc:dobj-11-dcyr6d84'}
+data_object_set	emsl:output_499570	649b003c1ae706d7b5b14647	{'id': 'nmdc:dobj-11-5vsgfs86', 'alternative_identifiers': ['emsl:output_499570']}
+data_object_set	nmdc:f582dfddb0869611ec48feef6c6e702f	649b00401ae706d7b5b16e7b	{'id': 'nmdc:dobj-11-mvcbef22'}
+data_object_set	emsl:output_499789	649b003c1ae706d7b5b14662	{'id': 'nmdc:dobj-11-59mg1n41', 'alternative_identifiers': ['emsl:output_499789']}
+data_object_set	nmdc:07bcb64a0633e25f15200ec6f0ac6182	649b00401ae706d7b5b16e92	{'id': 'nmdc:dobj-11-n1wg4j46'}
+data_object_set	emsl:output_499573	649b003c1ae706d7b5b14650	{'id': 'nmdc:dobj-11-8sbyef55', 'alternative_identifiers': ['emsl:output_499573']}
+data_object_set	nmdc:70db302d43caca83fc7dc58ef39fdb4a	649b00401ae706d7b5b16e7c	{'id': 'nmdc:dobj-11-5622ay15'}
+data_object_set	emsl:output_499451	649b003c1ae706d7b5b1463b	{'id': 'nmdc:dobj-11-000tqn17', 'alternative_identifiers': ['emsl:output_499451']}
+data_object_set	nmdc:46f4c76a787012c4ca3b9fb305616634	649b00401ae706d7b5b16e89	{'id': 'nmdc:dobj-11-0q2ch969'}
+data_object_set	emsl:output_501139	649b003c1ae706d7b5b14683	{'id': 'nmdc:dobj-11-zx45sv82', 'alternative_identifiers': ['emsl:output_501139']}
+data_object_set	nmdc:e2edb5620078b7bcfa23a843c9e6cccd	649b00401ae706d7b5b16e8b	{'id': 'nmdc:dobj-11-qncpf061'}
+metabolomics_analysis_activity_set	nmdc:5562d5fd197046ef99747ce856000a66	649b005676bbd532e9eeb192	{'id': 'nmdc:wfmb-11-r0rzm804', 'was_informed_by': 'nmdc:omprc-11-7pw2p857', 'has_input': ['nmdc:dobj-11-vmryt048'], 'has_output': ['nmdc:dobj-11-ja0hz892'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:e0e98515b3dd45e19ca60928137eca7d	649b005676bbd532e9eeb18d	{'id': 'nmdc:wfmb-11-pd7r6e39', 'was_informed_by': 'nmdc:omprc-11-4pnkrq65', 'has_input': ['nmdc:dobj-11-t8kp0p28'], 'has_output': ['nmdc:dobj-11-0gv5jf43'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:59f8d46f956143d79452f0225ea07bc5	649b005676bbd532e9eeb199	{'id': 'nmdc:wfmb-11-qecx1m46', 'was_informed_by': 'nmdc:omprc-11-rp1t0x63', 'has_input': ['nmdc:dobj-11-cz13zz88'], 'has_output': ['nmdc:dobj-11-wfbfvd88'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:697217a2baf24b8e9ed8d6690ff1d584	649b005676bbd532e9eeb187	{'id': 'nmdc:wfmb-11-30aryp30', 'was_informed_by': 'nmdc:omprc-11-pcr96y59', 'has_input': ['nmdc:dobj-11-gbjfxb86'], 'has_output': ['nmdc:dobj-11-5vms5k15'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:05fc30d6705b456b9f46e84ffa19f779	649b005676bbd532e9eeb17d	{'id': 'nmdc:wfmb-11-cst2an68', 'was_informed_by': 'nmdc:omprc-11-2f8rz974', 'has_input': ['nmdc:dobj-11-4gcnpr37'], 'has_output': ['nmdc:dobj-11-9f20sk55'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:12fe9ff4496c487f80f61a36ccdddd34	649b005676bbd532e9eeb19e	{'id': 'nmdc:wfmb-11-5zxg9c69', 'was_informed_by': 'nmdc:omprc-11-a6az3033', 'has_input': ['nmdc:dobj-11-heey8f75'], 'has_output': ['nmdc:dobj-11-5syaxw11'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:e8cd6700d72242eba74a2ff031dd428f	649b005676bbd532e9eeb198	{'id': 'nmdc:wfmb-11-1233kz58', 'was_informed_by': 'nmdc:omprc-11-t1zyv666', 'has_input': ['nmdc:dobj-11-0sf46f62'], 'has_output': ['nmdc:dobj-11-dsez5k64'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:ca39170c57e34f0c988f6efc09c9ab1d	649b005676bbd532e9eeb18a	{'id': 'nmdc:wfmb-11-eh0abj56', 'was_informed_by': 'nmdc:omprc-11-kby38865', 'has_input': ['nmdc:dobj-11-yw2s7h56'], 'has_output': ['nmdc:dobj-11-3h059e34'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:1e1e6ec21992492281ed32443334039f	649b005676bbd532e9eeb1a4	{'id': 'nmdc:wfmb-11-c83pxk88', 'was_informed_by': 'nmdc:omprc-11-9wp7nw27', 'has_input': ['nmdc:dobj-11-w7xqm619'], 'has_output': ['nmdc:dobj-11-1z4kbp24'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:ada0744cbcb347279ea529591af41f34	649b005676bbd532e9eeb189	{'id': 'nmdc:wfmb-11-vx9rrv62', 'was_informed_by': 'nmdc:omprc-11-dnv86x73', 'has_input': ['nmdc:dobj-11-bdgx5s03'], 'has_output': ['nmdc:dobj-11-d3dfn355'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:70a788d923d049928a7565ff8f647855	649b005676bbd532e9eeb1a6	{'id': 'nmdc:wfmb-11-13dth825', 'was_informed_by': 'nmdc:omprc-11-bqh51538', 'has_input': ['nmdc:dobj-11-g26vca67'], 'has_output': ['nmdc:dobj-11-f7p5r076'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:b68fc5654c424f8bb6c85528cf9b2886	649b005676bbd532e9eeb1a2	{'id': 'nmdc:wfmb-11-662ktc53', 'was_informed_by': 'nmdc:omprc-11-knmsd563', 'has_input': ['nmdc:dobj-11-7sthbs22'], 'has_output': ['nmdc:dobj-11-mab2xe04'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:7e528d8a151a498ba4aca02da927982f	649b005676bbd532e9eeb18e	{'id': 'nmdc:wfmb-11-413jh277', 'was_informed_by': 'nmdc:omprc-11-aenc7m13', 'has_input': ['nmdc:dobj-11-8zr77e06'], 'has_output': ['nmdc:dobj-11-4w8fzj22'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:14eaac9031b84e68b7bd5a5d931aaff4	649b005676bbd532e9eeb182	{'id': 'nmdc:wfmb-11-0gpv9610', 'was_informed_by': 'nmdc:omprc-11-skp3hg92', 'has_input': ['nmdc:dobj-11-vkpsfp12'], 'has_output': ['nmdc:dobj-11-hhv24b29'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:5d98d19c91d74e5996f5364f4019f7de	649b005676bbd532e9eeb19c	{'id': 'nmdc:wfmb-11-b47e5729', 'was_informed_by': 'nmdc:omprc-11-wnmfz024', 'has_input': ['nmdc:dobj-11-tyh8hn66'], 'has_output': ['nmdc:dobj-11-2k77mq30'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:bd9fb2bdf2da4f5197fa34c52bcc3bd5	649b005676bbd532e9eeb196	{'id': 'nmdc:wfmb-11-qnmnvh34', 'was_informed_by': 'nmdc:omprc-11-7v09p449', 'has_input': ['nmdc:dobj-11-vxc84y71'], 'has_output': ['nmdc:dobj-11-s9zsc341'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:a6eb24cff6224ac8b185633980932e26	649b005676bbd532e9eeb185	{'id': 'nmdc:wfmb-11-pwx69z42', 'was_informed_by': 'nmdc:omprc-11-243sgb13', 'has_input': ['nmdc:dobj-11-1jg9pn18'], 'has_output': ['nmdc:dobj-11-6v2zcx91'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:b67c4b1345b84ea096105b8ddf743e9f	649b005676bbd532e9eeb18c	{'id': 'nmdc:wfmb-11-55yegs10', 'was_informed_by': 'nmdc:omprc-11-435mc117', 'has_input': ['nmdc:dobj-11-bj1gna09'], 'has_output': ['nmdc:dobj-11-xpp8tq16'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:94e2b47b7bb54a7eb41c26566e3f45f9	649b005676bbd532e9eeb180	{'id': 'nmdc:wfmb-11-mge7a144', 'was_informed_by': 'nmdc:omprc-11-v1zwtn59', 'has_input': ['nmdc:dobj-11-vmmbwx12'], 'has_output': ['nmdc:dobj-11-2dk5xv40'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:6ed43b01ea734759acb178dda0fcb560	649b005676bbd532e9eeb194	{'id': 'nmdc:wfmb-11-vq7prt98', 'was_informed_by': 'nmdc:omprc-11-mfwgs154', 'has_input': ['nmdc:dobj-11-wk1scc75'], 'has_output': ['nmdc:dobj-11-h46tvh96'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:d914b9651f544a50b16f15c6b36f1337	649b005676bbd532e9eeb19f	{'id': 'nmdc:wfmb-11-f9t95w87', 'was_informed_by': 'nmdc:omprc-11-gkgadc43', 'has_input': ['nmdc:dobj-11-e5nhes60'], 'has_output': ['nmdc:dobj-11-z7x62y82'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:75d1659949b84805a1bcef7df5187048	649b005676bbd532e9eeb1a0	{'id': 'nmdc:wfmb-11-ackd3805', 'was_informed_by': 'nmdc:omprc-11-epz5x776', 'has_input': ['nmdc:dobj-11-4xm87k13'], 'has_output': ['nmdc:dobj-11-kpgexr18'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:fe0b83993e30481ba8eea739893f3f2e	649b005676bbd532e9eeb188	{'id': 'nmdc:wfmb-11-wb2j8m21', 'was_informed_by': 'nmdc:omprc-11-8h67f597', 'has_input': ['nmdc:dobj-11-z85nwt62'], 'has_output': ['nmdc:dobj-11-x93sj217'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:88c7169457454ab2a36b1c4a9dd2781b	649b005676bbd532e9eeb183	{'id': 'nmdc:wfmb-11-388na795', 'was_informed_by': 'nmdc:omprc-11-dj1rdy15', 'has_input': ['nmdc:dobj-11-6etj1n54'], 'has_output': ['nmdc:dobj-11-50rsv796'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:4cd9506d06e24315b6cd02aeb65928eb	649b005676bbd532e9eeb19a	{'id': 'nmdc:wfmb-11-kx6s4f94', 'was_informed_by': 'nmdc:omprc-11-and6pa84', 'has_input': ['nmdc:dobj-11-fbx2bm19'], 'has_output': ['nmdc:dobj-11-fjxvq183'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:66c8f6f728774a9a8b94d0dbdb091558	649b005676bbd532e9eeb1a5	{'id': 'nmdc:wfmb-11-g6t1gj29', 'was_informed_by': 'nmdc:omprc-11-b5fc6t32', 'has_input': ['nmdc:dobj-11-angy1m90'], 'has_output': ['nmdc:dobj-11-7v55hr29'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:1bd0fae566d14257b5b24d4eb32f188d	649b005676bbd532e9eeb195	{'id': 'nmdc:wfmb-11-zw6a9239', 'was_informed_by': 'nmdc:omprc-11-jtq2xm43', 'has_input': ['nmdc:dobj-11-3h0a7913'], 'has_output': ['nmdc:dobj-11-6n0r9a18'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:cdee3cc8648d43fbbcfd488247ba1887	649b005676bbd532e9eeb17b	{'id': 'nmdc:wfmb-11-nvt6j382', 'was_informed_by': 'nmdc:omprc-11-5wqb8y69', 'has_input': ['nmdc:dobj-11-ahaexb60'], 'has_output': ['nmdc:dobj-11-td2fpr73'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:6fdeaf901c4c4c8fa19ec94696a2d03a	649b005676bbd532e9eeb1a1	{'id': 'nmdc:wfmb-11-yqssh479', 'was_informed_by': 'nmdc:omprc-11-yqnkpt95', 'has_input': ['nmdc:dobj-11-t1rb2p74'], 'has_output': ['nmdc:dobj-11-dcyr6d84'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:12d1e59834b547188a302fea21fbfd89	649b005676bbd532e9eeb17c	{'id': 'nmdc:wfmb-11-7sdgmb18', 'was_informed_by': 'nmdc:omprc-11-0dehkd77', 'has_input': ['nmdc:dobj-11-5vsgfs86'], 'has_output': ['nmdc:dobj-11-mvcbef22'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:5fc5c065f09442bf86ce5ab73d00b35d	649b005676bbd532e9eeb197	{'id': 'nmdc:wfmb-11-tvteep16', 'was_informed_by': 'nmdc:omprc-11-djzh4m74', 'has_input': ['nmdc:dobj-11-59mg1n41'], 'has_output': ['nmdc:dobj-11-n1wg4j46'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
+metabolomics_analysis_activity_set	nmdc:633e5d5f0c3146cbb73fbc5b66f85a63	649b005676bbd532e9eeb190	{'id': 'nmdc:wfmb-11-dyn94c56', 'was_informed_by': 'nmdc:omprc-11-vrj49z68', 'has_input': ['nmdc:dobj-11-8sbyef55'], 'has_output': ['nmdc:dobj-11-5622ay15'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:f3daa12e0d754fcd9e11fba9ac0fc76e	649b005676bbd532e9eeb19b	{'id': 'nmdc:wfmb-11-c9yxbm82', 'was_informed_by': 'nmdc:omprc-11-42kwaf33', 'has_input': ['nmdc:dobj-11-000tqn17'], 'has_output': ['nmdc:dobj-11-0q2ch969'], 'has_calibration': 'nmdc:dobj-11-nsafje91'}
+metabolomics_analysis_activity_set	nmdc:e52864b2e65d4b56b25f947efac6f985	649b005676bbd532e9eeb191	{'id': 'nmdc:wfmb-11-px3k4y04', 'was_informed_by': 'nmdc:omprc-11-3zggt669', 'has_input': ['nmdc:dobj-11-zx45sv82'], 'has_output': ['nmdc:dobj-11-qncpf061'], 'has_calibration': 'nmdc:dobj-11-xvmbm559'}
