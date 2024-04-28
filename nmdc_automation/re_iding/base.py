@@ -768,7 +768,7 @@ def update_omics_output_data_object(
     updated_data_object = deepcopy(data_object)
     # Check if we need to update the data object ID and set the alternative identifiers to the legacy ID
     if not updated_data_object.id.startswith("nmdc:dobj-"):
-        data_object.alternative_identifiers = [data_object.id]
+        updated_data_object.alternative_identifiers = [data_object.id]
         new_data_object_id = get_new_nmdc_id(updated_data_object, api_client, identifiers_map)
         updated_data_object.id = new_data_object_id
     return updated_data_object
@@ -806,6 +806,7 @@ def update_metabolomics_analysis_activity(metabolomics_analysis_activity: nmdc.M
         new_metabolomics_analysis_activity_id = get_new_nmdc_id(updated_metabolomics_analysis_activity, api_client, identifiers_map)
         updated_metabolomics_analysis_activity.id = new_metabolomics_analysis_activity_id
 
+    updated_metabolomics_analysis_activity.was_informed_by = nmdc_omics_processing_id
     updated_metabolomics_analysis_activity.has_input = [nmdc_input_data_object_id]
     updated_metabolomics_analysis_activity.has_output = nmdc_output_data_object_ids
     updated_metabolomics_analysis_activity.has_calibration = nmdc_calibration_data_object_id
