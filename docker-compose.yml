@@ -16,6 +16,11 @@ services:
       #
       - "./webapp:/app/webapp"
       #
+      # Mount the host's "io" directory within the container, so that the host can "see" files uploaded via the web UI.
+      # The host path is set to `./io` by default, since that is what the `installation/install.sh` script used to do.
+      #
+      - ${IO_BASE_DIR_ON_HOST:-./io}:/app/io
+      #
       # ...but, don't mount the following subdirectories. For these subdirectories, we want the container to be
       # initialized with the subdirectories as they exist in the container image, instead of as they exist on the host.
       # That way (a) the installed npm packages are consistent with the container's architecture (i.e. amd64 vs. arm64);

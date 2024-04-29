@@ -117,14 +117,14 @@ Once the development stack is up and running, you can access various pieces of i
 ---
 title: Accessing parts of the development stack
 ---
-graph BT
-    host["Terminal<br>(You are here)"]
-    
+graph LR
     %% Links:
+    host -- "$ cd ./io" --> io
     host -- "$ curl http://localhost:8000" --> server
     host -- "$ curl http://localhost:8001" --> cromwell_server
     host -- "$ docker compose exec webapp sh" --> webapp_shell
     webapp_shell -- "# mongo --host mongo:27017" --> db
+    webapp_shell -- "# cd /app/io" --> io
     host -- "$ mongo --host localhost:27017" --> db
     webapp_shell -- "# wget -q -O- http://cromwell:8000" --> cromwell_server
     
@@ -139,7 +139,12 @@ graph BT
     
     subgraph CromwellContainer["cromwell container"]
         cromwell_server["Cromwell server"]
-    end    
+    end
+    
+    subgraph Host["Host"]
+        host["Terminal<br>(You are here)"]
+        io[("IO directory")]
+    end        
 ```
 
 ## Deployment
