@@ -178,6 +178,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
         "omics_processing_set": {},
         "data_object_set": {},
         "metabolomics_analysis_activity_set": {},
+        "nom_analysis_activity_set": {}
     }
 
     study__id = study_record.pop("_id")
