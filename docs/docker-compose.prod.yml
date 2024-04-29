@@ -16,9 +16,9 @@ version: "3"
 #    $ docker compose up --detach
 #
 #    # (Optional) View container logs.
-#    $ docker logs -f webapp
-#    $ docker logs -f mongo
-#    $ docker logs -f caddy
+#    $ docker compose logs -f webapp
+#    $ docker compose logs -f mongo
+#    $ docker compose logs -f caddy
 #
 ###############################################################################
 
