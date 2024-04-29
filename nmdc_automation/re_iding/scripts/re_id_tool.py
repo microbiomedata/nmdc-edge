@@ -231,7 +231,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
                 omics_processing, nmdc_study_id, biosample.id, api_client, identifiers_map)
 
             # ===== Metabolomics OmicsProcessing Update =====
-            if updated_omics_processing.omics_type.has_raw_value in ["Metabolomics", "Origanic Matter Characterization"]:
+            if updated_omics_processing.omics_type.has_raw_value in ["Metabolomics", "Organic Matter Characterization"]:
                 # OmicsProcessing has_output goes to the Activity's has_input
                 # We assume there is only one data object in has_output
                 omics_processing_output_id = omics_processing.has_output[0]
