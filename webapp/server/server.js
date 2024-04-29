@@ -37,9 +37,9 @@ const config = require("./config");
  */
 const ensureDirectoryIsUsable = (path) => {
   try {
-    // Check whether this process has full access to that path.
+    // Check whether there is a directory at that path and that this process has full access to it.
+    // Note: `fs.accessSync` throws an exception if access fails.
     if (fs.statSync(path).isDirectory()) {
-      // Note: `fs.accessSync` throws an exception if access fails.
       fs.accessSync(path, fs.constants.R_OK | fs.constants.W_OK | fs.constants.X_OK);
       console.error("Directory is usable:", path);
     } else {
