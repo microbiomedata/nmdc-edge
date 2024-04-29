@@ -17,7 +17,8 @@ services:
       - "./webapp:/app/webapp"
       #
       # Mount the host's "io" directory within the container, so that the host can "see" files uploaded via the web UI.
-      # The host path is set to `./io` by default, since that is what the `installation/install.sh` script used to do.
+      # The host path is set to `./io` by default, in an attempt to create a configuration familiar to people used to
+      # using the `installation/install.sh` script.
       #
       - ${IO_BASE_DIR_ON_HOST:-./io}:/app/io
       #

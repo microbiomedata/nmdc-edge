@@ -48,7 +48,7 @@ const ensureDirectoryIsUsable = (path) => {
     }
   } catch (error) {
     // Create a directory there to which this process has full access.
-    fs.mkdirSync(path, { recursive: true, mode: 0o700 });
+    fs.mkdirSync(path, {recursive: true, mode: 0o700});
     console.debug("Created directory:", path);
   }
 };
@@ -63,8 +63,7 @@ const ensureDirectoriesAreUsable = () => {
     config.IO.UPLOADED_FILES_DIR,
     config.IO.UPLOADED_FILES_TEMP_DIR,
     config.PROJECTS.BASE_DIR,
-]
-    .forEach((path) => ensureDirectoryIsUsable(path));
+  ].forEach((path) => ensureDirectoryIsUsable(path));
 };
 
 // Ensure directories are usable.
