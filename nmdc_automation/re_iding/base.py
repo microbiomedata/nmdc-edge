@@ -763,7 +763,7 @@ def _update_omics_processing_alternative_identifiers(omics_processing: nmdc.Omic
     return omics_processing
 
 def update_omics_output_data_object(
-        data_object: nmdc.DataObject, nmdc_omics_processing_id: str,
+        data_object: nmdc.DataObject, updated_omics_processing: nmdc.OmicsProcessing,
         api_client: NmdcRuntimeApi, identifiers_map: dict=None) -> nmdc.DataObject:
     """
     Update the data object record with the new ID, and add the legacy ID to the alternate identifiers
@@ -771,7 +771,11 @@ def update_omics_output_data_object(
     updated_data_object = deepcopy(data_object)
     # Check if we need to update the data object ID and set the alternative identifiers to the legacy ID
     if not updated_data_object.id.startswith("nmdc:dobj-"):
-        updated_data_object.alternative_identifiers = [data_object.id]
+        # Only update alternative_identifiers for Metabolomics and NOM
+        if updated_omics_processing.omics_type.has_raw_value in (
+            "Metabolomics", "Organic Matter Characterization"
+        ):
+            updated_data_object.alternative_identifiers = [data_object.id]
         new_data_object_id = get_new_nmdc_id(updated_data_object, api_client, identifiers_map)
         updated_data_object.id = new_data_object_id
     return updated_data_object
