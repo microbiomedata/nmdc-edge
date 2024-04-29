@@ -50,6 +50,9 @@ services:
   mongo:
     image: mongo
     restart: unless-stopped
+    volumes:
+      # Note: By default, the MongoDB server will store its data in `/data/db`.
+      - mongo-data:/data/db
     # Map localhost port 27017 to container port 27017 (MongoDB server listens on port 27017 by default).
     ports:
       - "27017:27017"
@@ -58,8 +61,22 @@ services:
   cromwell:
     image: broadinstitute/cromwell:87-b6d1f50
     restart: unless-stopped
+    volumes:
+      # TODO: Configure Cromwell to copy execution data into the projects data folder at `/projects-data`.
+      - ${PROJECTS_BASE_DIR_ON_HOST:-./io/projects}:/projects-data
+      # TODO: Configure Cromwell to write execution data to `/execution-data`.
+      - cromwell-execution-data:/execution-data
+      # TODO: Configure Cromwell to read reference data from `/reference-data`.
+      - cromwell-reference-data:/reference-data
     environment:
       CROMWELL_ARGS: "server"
     # Map localhost port 8001 to container port 8000 (Cromwell listens on port 8000 by default).
     ports:
       - "8001:8000"
+
+# Configure named volumes.
+# Reference: https://docs.docker.com/compose/compose-file/07-volumes/
+volumes:
+  mongo-data: {}
+  cromwell-execution-data: {}
+  cromwell-reference-data: {}
