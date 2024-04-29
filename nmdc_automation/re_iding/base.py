@@ -829,7 +829,7 @@ def update_nom_analysis_activity(nom_analysis_activity: nmdc.NomAnalysisActivity
     updated_nom_analysis_activity.type = "nmdc:NomAnalysisActivity"
 
     # Check if we need to update the NOM analysis activity ID
-    if not updated_nom_analysis_activity.id.startswith("nmdc:wfna-"):
+    if not updated_nom_analysis_activity.id.startswith("nmdc:wfnom--"):
         new_nom_analysis_activity_id = get_new_nmdc_id(updated_nom_analysis_activity, api_client, identifiers_map)
         updated_nom_analysis_activity.id = new_nom_analysis_activity_id
 
