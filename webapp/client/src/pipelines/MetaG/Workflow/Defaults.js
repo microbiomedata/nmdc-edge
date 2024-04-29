@@ -20,7 +20,7 @@ export const workflowInputTips = {
         fastq_tip: 'ReadsQC requires paired-end Illumina data in FASTQ format as the input; the file can be interleaved and can becompressed. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
     },
     ReadbasedAnalysis: {
-        fastq_tip: 'Input is single- or paired-end sequencing files (This can be the output from ReadsQC Workflow.) <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
+        fastq_tip: 'Input is single- or paired-end sequencing files (This can be the output from ReadsQC Workflow. Interleaved files are treated as single end.) <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
     },
     MetaAssembly: {
         fastq_tip: 'Metagenome Assembly requires paired-end Illumina data as an FASTQ file. This input can be the output from the ReadsQC workflow. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
