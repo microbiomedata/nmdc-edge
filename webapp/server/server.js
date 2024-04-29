@@ -58,7 +58,6 @@ const ensureDirectoryIsUsable = (path) => {
  */
 const ensureDirectoriesAreUsable = () => {
   [
-    config.IO.UPLOADED_FILES_DIR,
     config.IO.PUBLIC_BASE_DIR,
     config.IO.UPLOADED_FILES_DIR,
     config.IO.UPLOADED_FILES_TEMP_DIR,
