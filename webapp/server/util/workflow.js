@@ -295,28 +295,30 @@ const generatePipelineResult = function (proj) {
 
         } else if (workflow.name === 'virus_plasmid' && workflow.paramsOn) {
             result[workflow.name] = {};
-            const dirs = fs.readdirSync(outdir);
-            dirs.forEach(function (dir) {
-                if (fs.statSync(outdir + "/" + dir).isDirectory() && dir.endsWith('summary')) {
-                    const summaryFiles = fs.readdirSync(outdir + "/" + dir);
-                    summaryFiles.forEach(function (summaryFile) {
-                        if (summaryFile.endsWith('plasmid_summary.tsv')) {
-                            result[workflow.name]['plasmid_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-                        }
-                        if (summaryFile.endsWith('virus_summary.tsv')) {
-                            result[workflow.name]['virus_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-                        }
-                    });
-                }
-                if (fs.statSync(outdir + "/" + dir).isDirectory() && dir.endsWith('checkv')) {
-                    const summaryFiles = fs.readdirSync(outdir + "/" + dir);
-                    summaryFiles.forEach(function (summaryFile) {
-                        if (summaryFile.endsWith('quality_summary.tsv')) {
-                            result[workflow.name]['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-                        }
-                    });
-                }
-            });
+            if (fs.existsSync(outdir)) {
+                const dirs = fs.readdirSync(outdir);
+                dirs.forEach(function (dir) {
+                    if (fs.statSync(outdir + "/" + dir).isDirectory() && dir.endsWith('summary')) {
+                        const summaryFiles = fs.readdirSync(outdir + "/" + dir);
+                        summaryFiles.forEach(function (summaryFile) {
+                            if (summaryFile.endsWith('plasmid_summary.tsv')) {
+                                result[workflow.name]['plasmid_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                            }
+                            if (summaryFile.endsWith('virus_summary.tsv')) {
+                                result[workflow.name]['virus_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                            }
+                        });
+                    }
+                    if (fs.statSync(outdir + "/" + dir).isDirectory() && dir.endsWith('checkv')) {
+                        const summaryFiles = fs.readdirSync(outdir + "/" + dir);
+                        summaryFiles.forEach(function (summaryFile) {
+                            if (summaryFile.endsWith('quality_summary.tsv')) {
+                                result[workflow.name]['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                            }
+                        });
+                    }
+                });
+            }
         } else if (workflow.name === 'MetaAnnotation' && workflow.paramsOn) {
             result[workflow.name] = {};
             //find <prefix>_structural_annotation_stats.json
