@@ -208,6 +208,9 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
     biosample_records = db_client["biosample_set"].find(biosample_query)
     # Iterate over the biosample records and update them and their related omics processing records
     for biosample_record in biosample_records:
+        ## for testing only
+        # if biosample_record["id"] != "gold:Gb0126447":
+        #     continue
         biosample__id = biosample_record.pop("_id")
         biosample = nmdc.Biosample(**biosample_record)
         legacy_biosample_id = _get_biosample_legacy_id(biosample)
