@@ -2,10 +2,11 @@ version: "3"
 
 ###############################################################################
 #
-# Usage:
+# Usage (on a VM):
 #
-# 1. Ensure the persistent volume for Mongo data exists:
+# 1. Ensure the necessary persistent volumes exists and are accessible:
 #    $ stat /media/volume/nmdc-edge-web-app-mongo-data
+#    $ stat /media/volume/nmdc-edge-web-app-io-data
 #
 # 2. Set environment variables:
 #    $ export JWT_SECRET='...'
@@ -16,14 +17,14 @@ version: "3"
 #    $ docker compose up --detach
 #
 #    # (Optional) View container logs.
-#    $ docker compose logs -f webapp
+#    $ docker compose logs -f app
 #    $ docker compose logs -f mongo
 #    $ docker compose logs -f caddy
 #
 ###############################################################################
 
 services:
-  webapp:
+  app:
     # Reference: https://github.com/microbiomedata/nmdc-edge/pkgs/container/nmdc-edge-web-app
     image: ghcr.io/microbiomedata/nmdc-edge-web-app:commit-a8664570-node20-amd64
     restart: unless-stopped
@@ -33,9 +34,13 @@ services:
     # Reference: https://github.com/docker/for-linux/issues/264#issuecomment-784985736
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    volumes:
+      - /media/volume/nmdc-edge-web-app-io-data:/io
     environment:
       DATABASE_HOST: mongo
       APP_EXTERNAL_BASE_URL: https://edge-dev.microbiomedata.org
+      # Set `IO_BASE_DIR` to the path at which the persistent volume is mounted (see `volumes` above).
+      IO_BASE_DIR: /io
       # These lines tell Docker to populate these _container_ environment variables (on left)
       # with the values of the corresponding _host_ environment variables (on right).
       JWT_SECRET: ${JWT_SECRET}
@@ -77,4 +82,4 @@ services:
       caddy reverse-proxy
         --access-log
         --from 'edge-dev.microbiomedata.org:443'
-        --to 'webapp:8000'
+        --to 'app:8000'
