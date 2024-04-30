@@ -135,6 +135,8 @@ class Scheduler:
                 v = job.informed_by
             elif v == "{activity_id}":
                 v = activity_id
+            elif v == "{predecessor_activity_id}":
+                v = job.trigger_act.id
 
             inp[k] = v
 

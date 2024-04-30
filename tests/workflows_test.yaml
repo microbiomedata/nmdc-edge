@@ -188,6 +188,7 @@ Workflows:
       input_file: do:Assembly Contigs
       imgap_project_id: "scaffold"
       proj: "{activity_id}"
+      assembly_id: "{predecessor_activity_id}"
     Activity:
       name: "Metagenome Annotation Analysis Activity for {id}"
       type: nmdc:MetagenomeAnnotationActivity

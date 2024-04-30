@@ -131,6 +131,7 @@ def test_progress(db, mock_api):
     wf = workflow_by_name['Metagenome Assembly']
     mock_progress(db, wf)
     resp = jm.cycle()
+    assert "assembly_id" in resp[0]["config"]["inputs"]
     assert len(resp) == 1
 
     wf = workflow_by_name['Metagenome Annotation']
