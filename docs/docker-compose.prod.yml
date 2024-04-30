@@ -13,6 +13,9 @@ version: "3"
 #    $ export OAUTH_SECRET='...'
 #    $ export EMAIL_SHARED_SECRET='...'
 #
+#    # Note: You can generate a random 20-character string by running:
+#    $ openssl rand -base64 20
+#
 # 3. Spin up the stack.
 #    $ docker compose up --detach
 #
