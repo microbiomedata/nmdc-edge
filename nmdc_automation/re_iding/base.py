@@ -19,14 +19,20 @@ from nmdc_schema.nmdc import DataObject as NmdcDataObject, \
 import nmdc_schema.nmdc as nmdc
 
 from nmdc_automation.api import NmdcRuntimeApi
-from nmdc_automation.re_iding.db_utils import (OMICS_PROCESSING_SET,
-                                               READS_QC_SET,
-                                               METAGENOME_ASSEMBLY_SET,
-                                                METATRANSCRIPTOME_ACTIVITY_SET,
-                                                READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
-                                               check_for_single_omics_processing_record,
-                                               get_data_object_record_by_id,
-                                               get_omics_processing_id)
+from nmdc_automation.re_iding.db_utils import (
+    BIOSAMPLE_SET,
+    OMICS_PROCESSING_SET,
+    READS_QC_SET,
+    METAGENOME_ASSEMBLY_SET,
+    METATRANSCRIPTOME_ACTIVITY_SET,
+    READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
+    DATA_OBJECT_SET,
+    METABOLOMICS_ANALYSIS_ACTIVITY_SET,
+    NOM_ANALYSIS_ACTIVITY_SET,
+    check_for_single_omics_processing_record,
+    get_data_object_record_by_id,
+    get_omics_processing_id
+)
 from nmdc_automation.re_iding.file_utils import (find_data_object_type,
                                                  compute_new_data_file_path,
                                                     link_data_file_paths,
@@ -35,6 +41,25 @@ from nmdc_automation.re_iding.file_utils import (find_data_object_type,
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
 DATA_BASE_URL = "https://data.microbiomedata.org/data"
 # BASE_DIR = "/global/cfs/cdirs/m3408/results"
+
+# More constants for class types and set names
+# data object types
+BIOSAMPLE_TYPE = "nmdc:Biosample"
+OMICS_PROCESSING_TYPE = "nmdc:OmicsProcessing"
+DATA_OBJECT_TYPE = "nmdc:DataObject"
+METABOLOMICS_ANALYSIS_ACTIVITY_TYPE = "nmdc:MetabolomicsAnalysisActivity"
+NOM_ANALYSIS_ACTIVITY_TYPE = "nmdc:NomAnalysisActivity"
+
+# map data object types set names
+DATA_OBJECT_TYPE_SET_MAP = {
+    BIOSAMPLE_TYPE: BIOSAMPLE_SET,
+    OMICS_PROCESSING_TYPE: OMICS_PROCESSING_SET,
+    DATA_OBJECT_TYPE: DATA_OBJECT_SET,
+    METABOLOMICS_ANALYSIS_ACTIVITY_TYPE: METABOLOMICS_ANALYSIS_ACTIVITY_SET,
+    NOM_ANALYSIS_ACTIVITY_TYPE: NOM_ANALYSIS_ACTIVITY_SET
+}
+
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -598,12 +623,30 @@ def compare_models(model, updated_model)-> dict:
     return diff
 
 
+def get_new_nmdc_id(nmdc_object, api_client, identifiers_map: dict = None) -> str:
+    """
+    Get a nmdc ID from the identifiers_map or mint a new one
+    """
+    logging.info(f"Getting new ID for {nmdc_object.type} {nmdc_object.id}")
+    if identifiers_map and not DATA_OBJECT_TYPE_SET_MAP.get(nmdc_object.type):
+        raise ValueError(f"Set name not found for {nmdc_object.type}")
+
+    if identifiers_map and (DATA_OBJECT_TYPE_SET_MAP[nmdc_object.type], nmdc_object.id) in identifiers_map:
+        new_id = identifiers_map[(DATA_OBJECT_TYPE_SET_MAP[nmdc_object.type], nmdc_object.id)]
+        logging.info(f"Found new ID in identifiers_map: {new_id}")
+    else:
+        new_id = api_client.minter(nmdc_object.type)
+        logging.info(f"Minted new ID: {new_id}")
+    return new_id
+
 def update_biosample(biosample: nmdc.Biosample, nmdc_study_id: str, api_client, identifiers_map: dict = None) -> nmdc.Biosample:
     updated_biosample= deepcopy(biosample)
+    # Ensure that type is set to nmdc:Biosample
+    updated_biosample.type = "nmdc:Biosample"
     # Check if we need to update the biosample ID and add the legacy ID to the alternate identifiers
     if not updated_biosample.id.startswith("nmdc:bsm-"):
         updated_biosample = _update_biosample_alternate_identifiers(updated_biosample, updated_biosample.id)
-        new_biosample_id = _get_new_biosample_id(updated_biosample, api_client, identifiers_map)
+        new_biosample_id = get_new_nmdc_id(updated_biosample, api_client, identifiers_map)
         updated_biosample.id = new_biosample_id
 
     # Handle the part_of array
@@ -616,17 +659,6 @@ def update_biosample(biosample: nmdc.Biosample, nmdc_study_id: str, api_client, 
         updated_biosample.part_of = part_of
 
     return updated_biosample
-
-
-def _get_new_biosample_id(biosample, api_client, identifiers_map) -> str:
-    if identifiers_map and ("biosample_set", biosample.id) in identifiers_map:
-        new_biosample_id = identifiers_map[("biosample_set", biosample.id)]
-        logging.info(f"Using new biosample ID from identifiers_map: {new_biosample_id}")
-    else:
-        new_biosample_id = api_client.minter("nmdc:Biosample")
-        logging.info(f"Minted new biosample ID: {new_biosample_id}")
-    return new_biosample_id
-
 
 def _get_biosample_legacy_id(biosample: nmdc.Biosample) -> str:
     if not biosample.id.startswith("nmdc:bsm-"):
@@ -647,10 +679,12 @@ def update_omics_processing(omics_processing: nmdc.OmicsProcessing, nmdc_study_i
     Update the omics processing record with the new ID
     """
     updated_omics_processing = deepcopy(omics_processing)
+    # Ensure that type is set to nmdc:OmicsProcessing
+    updated_omics_processing.type = "nmdc:OmicsProcessing"
     # Check if we need to update the omics processing ID and add the legacy ID to the alternate identifiers
     if not updated_omics_processing.id.startswith("nmdc:omprc-"):
         updated_omics_processing = _update_omics_processing_alternative_identifiers(updated_omics_processing, updated_omics_processing.id)
-        new_omics_processing_id = _get_new_omics_processing_id(updated_omics_processing, api_client, identifiers_map)
+        new_omics_processing_id = get_new_nmdc_id(updated_omics_processing, api_client, identifiers_map)
         updated_omics_processing.id = new_omics_processing_id
 
     # Update the has_input array
@@ -728,12 +762,83 @@ def _update_omics_processing_alternative_identifiers(omics_processing: nmdc.Omic
         logging.warning(f"Unknown legacy ID format: {legacy_omics_processing_id}")
     return omics_processing
 
+def update_omics_output_data_object(
+        data_object: nmdc.DataObject, updated_omics_processing: nmdc.OmicsProcessing,
+        api_client: NmdcRuntimeApi, identifiers_map: dict=None) -> nmdc.DataObject:
+    """
+    Update the data object record with the new ID, and add the legacy ID to the alternate identifiers
+    """
+    updated_data_object = deepcopy(data_object)
+    # Check if we need to update the data object ID and set the alternative identifiers to the legacy ID
+    if not updated_data_object.id.startswith("nmdc:dobj-"):
+        # Only update alternative_identifiers for Metabolomics and NOM
+        if updated_omics_processing.omics_type.has_raw_value in (
+            "Metabolomics", "Organic Matter Characterization"
+        ):
+            updated_data_object.alternative_identifiers = [data_object.id]
+        new_data_object_id = get_new_nmdc_id(updated_data_object, api_client, identifiers_map)
+        updated_data_object.id = new_data_object_id
+    return updated_data_object
 
-def _get_new_omics_processing_id(omics_processing, api_client, identifiers_map):
-    if identifiers_map and ("omics_processing_set", omics_processing.id) in identifiers_map:
-        new_omics_processing_id = identifiers_map[("omics_processing_set", omics_processing.id)]
-        logging.info(f"Using new omics processing ID from identifiers_map: {new_omics_processing_id}")
-    else:
-        new_omics_processing_id = api_client.minter("nmdc:OmicsProcessing")
-        logging.info(f"Minted new omics processing ID: {new_omics_processing_id}")
-    return new_omics_processing_id
+
+def update_data_object(data_object: nmdc.DataObject, api_client: NmdcRuntimeApi, identifiers_map: dict=None) -> nmdc.DataObject:
+    """
+    Update the data object record with a new ID
+    """
+    updated_data_object = deepcopy(data_object)
+    # Ensure that type is set to nmdc:DataObject
+    updated_data_object.type = "nmdc:DataObject"
+
+    # Check if we need to update the data object ID
+    if not updated_data_object.id.startswith("nmdc:dobj-"):
+        new_data_object_id = get_new_nmdc_id(updated_data_object, api_client, identifiers_map)
+        updated_data_object.id = new_data_object_id
+
+    return updated_data_object
+
+
+def update_metabolomics_analysis_activity(metabolomics_analysis_activity: nmdc.MetabolomicsAnalysisActivity,
+                                        nmdc_omics_processing_id: str, nmdc_input_data_object_id: str,
+                                          nmdc_output_data_object_ids: List[str], nmdc_calibration_data_object_id: str,
+                                         api_client: NmdcRuntimeApi, identifiers_map: dict=None) -> nmdc.MetabolomicsAnalysisActivity:
+    """
+    Update the metabolomics analysis activity record with the new ID
+    """
+    updated_metabolomics_analysis_activity = deepcopy(metabolomics_analysis_activity)
+    # Ensure that type is set to nmdc:MetabolomicsAnalysisActivity
+    updated_metabolomics_analysis_activity.type = "nmdc:MetabolomicsAnalysisActivity"
+
+    # Check if we need to update the metabolomics analysis activity ID
+    if not updated_metabolomics_analysis_activity.id.startswith("nmdc:wfmb-"):
+        new_metabolomics_analysis_activity_id = get_new_nmdc_id(updated_metabolomics_analysis_activity, api_client, identifiers_map)
+        updated_metabolomics_analysis_activity.id = new_metabolomics_analysis_activity_id
+
+    updated_metabolomics_analysis_activity.was_informed_by = nmdc_omics_processing_id
+    updated_metabolomics_analysis_activity.has_input = [nmdc_input_data_object_id]
+    updated_metabolomics_analysis_activity.has_output = nmdc_output_data_object_ids
+    updated_metabolomics_analysis_activity.has_calibration = nmdc_calibration_data_object_id
+
+    return updated_metabolomics_analysis_activity
+
+
+def update_nom_analysis_activity(nom_analysis_activity: nmdc.NomAnalysisActivity,
+                                 nmdc_omics_processing_id: str, nmdc_input_data_object_id: str,
+                                 nmdc_output_data_object_ids: List[str], api_client: NmdcRuntimeApi,
+                                 identifiers_map: dict=None) -> nmdc.NomAnalysisActivity:
+    """
+    Update the NOM analysis activity record with the new ID
+    """
+    updated_nom_analysis_activity = deepcopy(nom_analysis_activity)
+    # Ensure that type is set to nmdc:NomAnalysisActivity
+    updated_nom_analysis_activity.type = "nmdc:NomAnalysisActivity"
+
+    # Check if we need to update the NOM analysis activity ID
+    if not updated_nom_analysis_activity.id.startswith("nmdc:wfnom--"):
+        new_nom_analysis_activity_id = get_new_nmdc_id(updated_nom_analysis_activity, api_client, identifiers_map)
+        updated_nom_analysis_activity.id = new_nom_analysis_activity_id
+
+    updated_nom_analysis_activity.was_informed_by = nmdc_omics_processing_id
+    updated_nom_analysis_activity.has_input = [nmdc_input_data_object_id]
+    updated_nom_analysis_activity.has_output = nmdc_output_data_object_ids
+
+    return updated_nom_analysis_activity

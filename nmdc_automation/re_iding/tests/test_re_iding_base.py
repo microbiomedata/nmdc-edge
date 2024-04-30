@@ -5,11 +5,17 @@ import pytest_mock
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_schema.nmdc import Database as NmdcDatabase
 from nmdc_schema.nmdc import DataObject as NmdcDataObject
-from nmdc_schema.nmdc import Biosample
+from nmdc_schema.nmdc import (
+    Biosample,
+    MetabolomicsAnalysisActivity
+)
 from nmdc_automation.re_iding.base import (
     ReIdTool,
     update_biosample,
     compare_models,
+    get_new_nmdc_id,
+    update_metabolomics_analysis_activity,
+    update_omics_output_data_object,
 )
 
 
@@ -91,3 +97,101 @@ def test_compare_models_igsn_biosample_updates(igsn_biosample_record, mocker):
     assert changes["id"] == exp_biosample_id
     assert changes["part_of"] == [exp_study_id]
     assert changes["igsn_biosample_identifiers"] == [orig_biosample_id]
+
+
+def test_get_new_nmdc_id_biosample(mocker):
+    """
+    Test that we can get a new NMDC ID.
+    """
+    exp_id = "nmdc:1234-abcd12345"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_id
+
+    nmdc_object = mocker.Mock(spec=Biosample)
+    nmdc_object.type.return_value = "nmdc:Biosample"
+
+    new_id = get_new_nmdc_id(nmdc_object, mock_api)
+    assert new_id == exp_id
+
+def test_get_new_id_data_object(mocker):
+    """
+    Test that we can get a new NMDC ID.
+    """
+    exp_id = "nmdc:1234-abcd12345"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_id
+
+    nmdc_object = mocker.Mock(spec=NmdcDataObject)
+    nmdc_object.type.return_value = "nmdc:DataObject"
+
+    new_id = get_new_nmdc_id(nmdc_object, mock_api)
+    assert new_id == exp_id
+
+def test_get_new_nmdc_id_biosample_with_identifiers_map(mocker):
+    """
+    Test that we can get a new NMDC ID with an identifiers_map.
+    """
+    exp_id = "nmdc:1234-abcd12345"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_id
+
+    # Mock a simple object with type and id attributes
+    nmdc_object = mocker.Mock()
+    nmdc_object.type = "nmdc:Biosample"
+    nmdc_object.id = "nmdc:old_id"
+
+    identifiers_map = {
+        ("biosample_set", "nmdc:old_id"): exp_id
+    }
+
+    new_id = get_new_nmdc_id(nmdc_object, mock_api, identifiers_map)
+    assert new_id == exp_id
+
+def test_update_metabolomics_analysis_activity(metabolomics_analysis_activity_record, mocker):
+    """
+    Test that we can update a MetabolomicsAnalysisActivity.
+    """
+    exp_id = "nmdc:1234-abcd12345"
+    exp_omics_processing_id = "nmdc:omprc-1234-abcd12345"
+    exp_data_object_id = "nmdc:dobj-1234-abcd12345"
+    exp_output_data_object_ids = ["nmdc:dobj-1234-abcd12345"]
+    exp_calibration_data_object_ids = "nmdc:dobj-calibration-1234-abcd12345"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_id
+
+    orig_id = metabolomics_analysis_activity_record["id"]
+    metabolomics = MetabolomicsAnalysisActivity(**metabolomics_analysis_activity_record)
+    updated_metabolomics = update_metabolomics_analysis_activity(
+        metabolomics,
+        exp_omics_processing_id,
+        exp_data_object_id,
+        exp_output_data_object_ids,
+        exp_calibration_data_object_ids,
+        mock_api
+    )
+    assert isinstance(updated_metabolomics, MetabolomicsAnalysisActivity)
+    assert updated_metabolomics.id == exp_id
+
+    assert updated_metabolomics.was_informed_by == exp_omics_processing_id
+    assert updated_metabolomics.has_input == [exp_data_object_id]
+    assert updated_metabolomics.has_output == exp_output_data_object_ids
+    assert updated_metabolomics.has_calibration == exp_calibration_data_object_ids
+
+def test_update_omics_output_data_object(data_object_record, mocker):
+    """
+    Test that we can update an OmicsOutputDataObject.
+    """
+    exp_id = "nmdc:1234-abcd12345"
+    exp_study_id = "nmdc:sty-1234-abcd12345"
+    exp_omics_processing_id = "nmdc:omprc-1234-abcd12345"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_id
+
+    orig_id = data_object_record["id"]
+    data_object = NmdcDataObject(**data_object_record)
+    updated_data_object = update_omics_output_data_object(
+        data_object, exp_omics_processing_id, mock_api
+    )
+    assert isinstance(updated_data_object, NmdcDataObject)
+    assert updated_data_object.id == exp_id
+    assert updated_data_object.alternative_identifiers == [orig_id]
