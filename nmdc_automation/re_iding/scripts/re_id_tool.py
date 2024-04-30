@@ -180,6 +180,11 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
         "metabolomics_analysis_activity_set": {},
         "nom_analysis_activity_set": {}
     }
+    # Keep track of records that we will be deleting as a dict of {collection_name: [record]}
+    deletions = {
+        "omics_processing_set": [],
+        "data_object_set": [],
+    }
 
     study__id = study_record.pop("_id")
     # TODO work out why we have to strip off part_of, study_category, and associated_dois
@@ -226,6 +231,18 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
         omics_processing_records = db_client["omics_processing_set"].find(omics_processing_query)
         # Iterate over the omics processing records and update them
         for omics_processing_record in omics_processing_records:
+
+            # Special Case: Lipidomics OmicsProcessing and its has_output data object(s) get deleted
+            if omics_processing_record["omics_type"]["has_raw_value"] == "Lipidomics":
+                deletions["omics_processing_set"].append(omics_processing_record)
+                omics_processing_output_ids = omics_processing_record.get("has_output", [])
+                for omics_processing_output_id in omics_processing_output_ids:
+                    data_object_record = db_client["data_object_set"].find_one({"id": omics_processing_output_id})
+                    if data_object_record:
+                        deletions["data_object_set"].append(data_object_record)
+                logging.info(f"Adding Lipidomics record to Delete list: {omics_processing_record['id']}")
+                continue
+
             omics_processing_id = omics_processing_record.pop("_id")
             omics_processing = nmdc.OmicsProcessing(**omics_processing_record)
             updated_omics_processing = update_omics_processing(
@@ -241,7 +258,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
                 omics_processing_output__id = omics_processing_output_record.pop("_id")
                 omics_processing_output_data_object = nmdc.DataObject(**omics_processing_output_record)
                 updated_omics_processing_output_data_object = update_omics_output_data_object(
-                    omics_processing_output_data_object, nmdc_study_id, api_client, identifiers_map
+                    omics_processing_output_data_object, updated_omics_processing, api_client, identifiers_map
                     )
                 # Update the parent OmicsProcessing record with the new has_output data object
                 updated_omics_processing.has_output = [updated_omics_processing_output_data_object.id]
@@ -381,17 +398,30 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
                 for collection_name, count in update_count_by_collection.items():
                     logging.info(f"Updated {count} records in {collection_name}")
 
+                # Delete the records that need to be deleted if any
+                for collection_name, records in deletions.items():
+                    delete_count = 0
+                    for record in records:
+                        result = db_client[collection_name].delete_one({"_id": record["_id"]})
+                        delete_count += result.deleted_count
+                    logging.info(f"Deleted {delete_count} records in {collection_name}")
+                session.commit_transaction()
+
             except Exception as e:
                 logging.error(f"An error occurred - aborting transaction")
                 session.abort_transaction()
                 logging.exception(f"An error occurred while updating records: {e}")
                 sys.exit(1)
 
+
+
     logging.info("Writing updates and updated record identifiers to files")
     _write_updates(updates, nmdc_study_id)
     # Don't overwrite the identifiers file if it was provided
     if not identifiers_file:
         _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
+    if deletions:
+        _write_deletions(deletions, nmdc_study_id)
     logging.info(f"Elapsed time: {time.time() - start_time}")
     sys.exit()
 
@@ -414,13 +444,44 @@ def _write_updates(updates, nmdc_study_id):
     # Write the updated records to a tsv file using csv writer in data_dir/study_id/study_id_updates.tsv
     updates_file = study_dir.joinpath(f"{nmdc_study_id}_updates.tsv")
     logging.info(f"Writing {len(updates)} updates to {updates_file}")
-    with open(updates_file, "w") as f:
+    # see if the file already exists - if so, append to it
+    if updates_file.exists():
+        logging.info(f"Appending to existing file: {updates_file}")
+        mode = "a"
+    else:
+        logging.info(f"Creating new file: {updates_file}")
+        mode = "w"
+    with open(updates_file, mode) as f:
         writer = csv.writer(f, delimiter="\t")
-        writer.writerow(["collection_name", "id", "_id", "update"])
+        if mode == "w":
+            writer.writerow(["collection_name", "id", "_id", "update"])
         for collection_name, record_updates in updates.items():
             for _id, (model, update) in record_updates.items():
                 updated_fields = ", ".join(update.keys())
                 writer.writerow([collection_name, model.id, _id, update])
+
+def _write_deletions(deletions, nmdc_study_id):
+    # Create a directory for the study if it doesn't exist
+    study_dir = DATA_DIR.joinpath(nmdc_study_id)
+    study_dir.mkdir(parents=True, exist_ok=True)
+
+    # Write the deleted records to a tsv file using csv writer in data_dir/study_id/study_id_deletions.tsv
+    deletions_file = study_dir.joinpath(f"{nmdc_study_id}_deletions.tsv")
+    logging.info(f"Writing {len(deletions)} deletions to {deletions_file}")
+    # see if the file already exists - if so, append to it
+    if deletions_file.exists():
+        logging.info(f"Appending to existing file: {deletions_file}")
+        mode = "a"
+    else:
+        logging.info(f"Creating new file: {deletions_file}")
+        mode = "w"
+    with open(deletions_file, mode) as f:
+        writer = csv.writer(f, delimiter="\t")
+        if mode == "w":
+            writer.writerow(["collection_name", "id", "_id"])
+        for collection_name, records in deletions.items():
+            for record in records:
+                writer.writerow([collection_name, record["id"], record["_id"]])
 
 def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id):
     # Create a directory for the study if it doesn't exist

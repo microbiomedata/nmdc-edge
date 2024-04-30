@@ -1,0 +1,245 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
+INFO:root:Updating NMDC study with legacy ID: gold:Gs0135149
+INFO:root:Updating NMDC study with ID: nmdc:sty-11-dcqce727
+INFO:root:Using 885 identifiers from data/nmdc:sty-11-dcqce727/nmdc:sty-11-dcqce727_updated_record_identifiers.tsv
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 66304e00f811f82943af313e, topology_type: Single, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "66304e00f811f82943af313e"}, "remainingTimeMS": 4}
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-0zn8n466
+INFO:root:Minted new ID: nmdc:wfnom-11-d71fxz35
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-k2f0w723
+INFO:root:Minted new ID: nmdc:wfnom-11-713mcv79
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-4z49e664
+INFO:root:Minted new ID: nmdc:wfnom-11-vgf83k14
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-sr5hpn07
+INFO:root:Minted new ID: nmdc:wfnom-11-awge5292
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-6vy03d68
+INFO:root:Minted new ID: nmdc:wfnom-11-p750ds21
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-0kkf8397
+INFO:root:Minted new ID: nmdc:wfnom-11-5wq7zk94
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-cvzevd48
+INFO:root:Minted new ID: nmdc:wfnom-11-1sytmh38
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-zcq8d803
+INFO:root:Minted new ID: nmdc:wfnom-11-mj1xy227
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-y67yxp16
+INFO:root:Minted new ID: nmdc:wfnom-11-t3eq5339
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-brb95134
+INFO:root:Minted new ID: nmdc:wfnom-11-mt73sr80
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-rensw594
+INFO:root:Minted new ID: nmdc:wfnom-11-qbwy8190
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-cs4sry88
+INFO:root:Minted new ID: nmdc:wfnom-11-jg97yt95
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-yr43aq02
+INFO:root:Minted new ID: nmdc:wfnom-11-8b62xt93
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-pm985908
+INFO:root:Minted new ID: nmdc:wfnom-11-gv2mex92
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-nk7epz55
+INFO:root:Minted new ID: nmdc:wfnom-11-v7r9an16
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-9hcdvy71
+INFO:root:Minted new ID: nmdc:wfnom-11-1gyjv293
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-vgpj3d51
+INFO:root:Minted new ID: nmdc:wfnom-11-qft7f057
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-10esda91
+INFO:root:Minted new ID: nmdc:wfnom-11-cx7b3866
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-bd5t6h17
+INFO:root:Minted new ID: nmdc:wfnom-11-8b3vc210
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-2ea8ss22
+INFO:root:Minted new ID: nmdc:wfnom-11-9xyeka38
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-aphz1v40
+INFO:root:Minted new ID: nmdc:wfnom-11-3fy33q41
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-p83yv362
+INFO:root:Minted new ID: nmdc:wfnom-11-w06ekf42
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-96mtmr61
+INFO:root:Minted new ID: nmdc:wfnom-11-0emw0561
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-dmd9td17
+INFO:root:Minted new ID: nmdc:wfnom-11-74p9y410
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-9sx98y19
+INFO:root:Minted new ID: nmdc:wfnom-11-7b079f33
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-js9f6049
+INFO:root:Minted new ID: nmdc:wfnom-11-crjzwk24
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-rmr5gm33
+INFO:root:Minted new ID: nmdc:wfnom-11-yg93rp45
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-vw2nkd31
+INFO:root:Minted new ID: nmdc:wfnom-11-ddrqs059
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-fq65ng37
+INFO:root:Minted new ID: nmdc:wfnom-11-y7ac2n45
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-4bf1w503
+INFO:root:Minted new ID: nmdc:wfnom-11-k8mjht14
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-f1cz5263
+INFO:root:Minted new ID: nmdc:wfnom-11-qemcwh67
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-bx18yt98
+INFO:root:Minted new ID: nmdc:wfnom-11-dzr84592
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-fsssph16
+INFO:root:Minted new ID: nmdc:wfnom-11-cb4nre66
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-6mxhaa21
+INFO:root:Minted new ID: nmdc:wfnom-11-ptaxwg46
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-21y2r927
+INFO:root:Minted new ID: nmdc:wfnom-11-wbfm4455
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-c7v6ax65
+INFO:root:Minted new ID: nmdc:wfnom-11-vra20917
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-sk42af54
+INFO:root:Minted new ID: nmdc:wfnom-11-j8rjj109
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-b1bfkr03
+INFO:root:Minted new ID: nmdc:wfnom-11-e4vdfr84
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-f3kqg360
+INFO:root:Minted new ID: nmdc:wfnom-11-07sw5n26
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-j7j4f710
+INFO:root:Minted new ID: nmdc:wfnom-11-kc8d1651
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-ay2qk675
+INFO:root:Minted new ID: nmdc:wfnom-11-ssc8ba04
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-53f8kv11
+INFO:root:Minted new ID: nmdc:wfnom-11-4m7wrg42
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-wdx9yy80
+INFO:root:Minted new ID: nmdc:wfnom-11-fhs12684
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-va77dm53
+INFO:root:Minted new ID: nmdc:wfnom-11-pccmva38
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-9nh4m161
+INFO:root:Minted new ID: nmdc:wfnom-11-mhj9kf79
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-wv39cw61
+INFO:root:Minted new ID: nmdc:wfnom-11-rg4pt221
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-y151d575
+INFO:root:Minted new ID: nmdc:wfnom-11-ysr19y08
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-berzfg33
+INFO:root:Minted new ID: nmdc:wfnom-11-4nbj4e03
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-sq3wxf03
+INFO:root:Minted new ID: nmdc:wfnom-11-qvq3pp74
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-b8v2t889
+INFO:root:Minted new ID: nmdc:wfnom-11-9mzfsw44
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-cbyn4e92
+INFO:root:Minted new ID: nmdc:wfnom-11-22tdws04
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-11eqbc98
+INFO:root:Minted new ID: nmdc:wfnom-11-svnqwq39
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-7rykqq47
+INFO:root:Minted new ID: nmdc:wfnom-11-fh466y12
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-y98ycd26
+INFO:root:Minted new ID: nmdc:wfnom-11-tggdvx22
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-3cgq9y61
+INFO:root:Minted new ID: nmdc:wfnom-11-afpxw286
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-aq4neb31
+INFO:root:Minted new ID: nmdc:wfnom-11-960gdv03
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-1y49z196
+INFO:root:Minted new ID: nmdc:wfnom-11-25tn0059
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-f82ptb73
+INFO:root:Minted new ID: nmdc:wfnom-11-kakgxc11
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-r4d7n244
+INFO:root:Minted new ID: nmdc:wfnom-11-nzajwn68
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-0tvq4a52
+INFO:root:Minted new ID: nmdc:wfnom-11-dtsdag78
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-pfwhzh56
+INFO:root:Minted new ID: nmdc:wfnom-11-xmy8ap83
+INFO:root:Found 0 Records for nom_analysis_activity_set
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-8d7rm205
+INFO:root:Minted new ID: nmdc:wfnom-11-rzhhpc65
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-2gkjrt12
+INFO:root:Minted new ID: nmdc:wfnom-11-vvs8t048
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-6v074z74
+INFO:root:Minted new ID: nmdc:wfnom-11-9vv3gc36
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-fxah0459
+INFO:root:Minted new ID: nmdc:wfnom-11-q5y7ty83
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-11-7s3zsz97
+INFO:root:Minted new ID: nmdc:wfnom-11-febarg50
+INFO:root:Updating the database
+INFO:root:Database update successful
+INFO:root:Updated 0 records in study_set
+INFO:root:Updated 0 records in biosample_set
+INFO:root:Updated 0 records in omics_processing_set
+INFO:root:Updated 0 records in data_object_set
+INFO:root:Updated 0 records in metabolomics_analysis_activity_set
+INFO:root:Updated 66 records in nom_analysis_activity_set
+INFO:root:Deleted 0 records in omics_processing_set
+INFO:root:Deleted 0 records in data_object_set
+INFO:root:Writing updates and updated record identifiers to files
+INFO:root:Writing 6 updates to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-dcqce727/nmdc:sty-11-dcqce727_updates.tsv
+INFO:root:Writing 2 deletions to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-dcqce727/nmdc:sty-11-dcqce727_deletions.tsv
+INFO:root:Elapsed time: 44.04988384246826
