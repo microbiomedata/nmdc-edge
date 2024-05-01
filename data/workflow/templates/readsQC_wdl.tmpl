@@ -17,19 +17,15 @@ call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input_fq2=<WORKFLOW>_input_fq2
 }
 
-scatter(file in readsqc_preprocess.input_files_gz) {
-    call <WORKFLOW>.nmdc_rqcfilter  as <ALIAS> {
-        input:
-            input_files=file,
-            outdir=<WORKFLOW>_outdir,
-            bbtools_container=<WORKFLOW>_bbtools_container,
-            database=<WORKFLOW>_database,
-            memory=<WORKFLOW>_memory,
-            threads=<WORKFLOW>_threads,
-            input_interleaved=<WORKFLOW>_input_interleaved,
-            input_fq1=readsqc_preprocess.input_fastq1_gz,
-            input_fq2=readsqc_preprocess.input_fastq2_gz
-    }
+scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
+
+        call ReadsQC.nmdc_rqcfilter  as nmdc_rqcfilter {
+            input:
+                input_files=file,
+                database=ReadsQC_database,
+                proj=ReadsQC_prefix,
+	   }
+
 }
 
 call <WORKFLOW>_output.readsqc_output as readsqc_output {
