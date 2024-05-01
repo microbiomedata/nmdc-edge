@@ -8,7 +8,7 @@ Boolean <WORKFLOW>_input_interleaved=true
 Array[File] <WORKFLOW>_input_fq1
 Array[File] <WORKFLOW>_input_fq2
 
-call <WORKFLOW>_preprocess.readsqc_preprocess as readsqc_preprocess {
+call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
     input:
         input_files=<WORKFLOW>_input_files,
         outdir=<WORKFLOW>_outdir,
