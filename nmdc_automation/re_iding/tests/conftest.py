@@ -23,6 +23,11 @@ def data_object_record():
                 "file_size_bytes": 2571324879
             }
 
+@pytest.fixture
+def metagenome_omics_processing_record():
+    """Return a dict of a test nmdc_metagenome_omics_processing instance"""
+    with open(TEST_DATA_DIR / "metagenome_omics_processing_record.json", "r") as f:
+        return json.load(f)
 
 @pytest.fixture
 def igsn_biosample_record():
@@ -41,3 +46,4 @@ def metabolomics_input_data_object_record():
     """Return a dict of a test nmdc_metabolomics_input_data_object instance"""
     with open(TEST_DATA_DIR / "metabolomics_input_data_object_record.json", "r") as f:
         return json.load(f)
+
