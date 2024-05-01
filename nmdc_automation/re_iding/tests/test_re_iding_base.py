@@ -21,7 +21,7 @@ from nmdc_automation.re_iding.base import (
 
 TEST_DATAFILE_DIR = "./test_data/results"
 
-def test_update_omics_processing_has_output(db_record, mocker):
+def test_reidtool_update_omics_processing_has_output(db_record, mocker):
     """
     Test that we can get a new Database with updated omics processing has_output
     and re-IDed data objects.
@@ -38,7 +38,7 @@ def test_update_omics_processing_has_output(db_record, mocker):
     assert new_db.omics_processing_set[0].has_output[0] == exp_do_id
 
 
-def test_make_new_data_object(data_object_record, mocker):
+def test_reidtool_make_new_data_object(data_object_record, mocker):
     """
     Test that we can make a new DataObject with a new ID and correct
     URL and Path attributes.
@@ -199,3 +199,4 @@ def test_update_omics_output_data_object(data_object_record, mocker):
     assert isinstance(updated_data_object, NmdcDataObject)
     assert updated_data_object.id == exp_id
     assert updated_data_object.alternative_identifiers == [orig_id]
+
