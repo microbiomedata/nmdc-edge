@@ -13,6 +13,12 @@ version: "3"
 #    $ export OAUTH_SECRET='...'
 #    $ export EMAIL_SHARED_SECRET='...'
 #
+#    # (Optional) Override default values:
+#    $ export APP_IMAGE='...'
+#    $ export APP_EXTERNAL_HOSTNAME='...'
+#    $ export IO_BASE_DIR_ON_HOST='...'
+#    $ export MONGO_DATA_DIR_ON_HOST='...'
+#
 #    # Note: You can generate a random 20-character string by running:
 #    $ openssl rand -base64 20
 #
@@ -29,7 +35,7 @@ version: "3"
 services:
   app:
     # Reference: https://github.com/microbiomedata/nmdc-edge/pkgs/container/nmdc-edge-web-app
-    image: ghcr.io/microbiomedata/nmdc-edge-web-app:commit-ff4a1fe2-node20-amd64
+    image: ${APP_IMAGE:-ghcr.io/microbiomedata/nmdc-edge-web-app:commit-ff4a1fe2-node20-amd64}
     restart: unless-stopped
     ports:
       - "8000:8000"
@@ -38,10 +44,10 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - /media/volume/nmdc-edge-web-app-io-data:/io
+      - ${IO_BASE_DIR_ON_HOST:-/media/volume/nmdc-edge-web-app-io-data}:/io
     environment:
       DATABASE_HOST: mongo
-      APP_EXTERNAL_BASE_URL: https://edge-dev.microbiomedata.org
+      APP_EXTERNAL_BASE_URL: https://${APP_EXTERNAL_HOSTNAME:-edge-dev.microbiomedata.org}
       # Set `IO_BASE_DIR` to the path at which the persistent volume is mounted (see `volumes` above).
       IO_BASE_DIR: /io
       # These lines tell Docker to populate these _container_ environment variables (on left)
@@ -60,7 +66,7 @@ services:
       - "27017:27017"
     # Map a persistent volume to `/data/db` within the container.
     volumes:
-      - /media/volume/nmdc-edge-web-app-mongo-data:/data/db
+      - {$MONGO_DATA_DIR_ON_HOST:-/media/volume/nmdc-edge-web-app-mongo-data}:/data/db
 
   caddy:
     image: caddy:2.7.6
@@ -81,8 +87,11 @@ services:
     #       and the `-` after it tells YAML not to append a trailing newline to the resulting string.
     #       Reference: https://yaml-multiline.info/
     #
+    # Note: The `${ENV_VAR_NAME:-default_value}` syntax tells Docker to use the value of the specified environment
+    #       variable if that environment variable exists; otherwise, use the value that follows the `:-` delimiter.
+    #
     command: >-
       caddy reverse-proxy
         --access-log
-        --from 'edge-dev.microbiomedata.org:443'
+        --from '${APP_EXTERNAL_HOSTNAME:-edge-dev.microbiomedata.org}:443'
         --to 'app:8000'
