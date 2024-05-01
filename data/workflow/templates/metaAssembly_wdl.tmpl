@@ -11,7 +11,7 @@
     Array[File] <WORKFLOW>_input_fq2
     String <WORKFLOW>_prefix
 
-    call preprocess.preprocess as preprocess {
+    call MetaAssembly_preprocess.preprocess as preprocess {
         input:
             input_files= <WORKFLOW>_input_files,
 		    outdir=<WORKFLOW>_outdir,
