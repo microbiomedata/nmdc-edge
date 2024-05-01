@@ -13,8 +13,6 @@
             input_files=<WORKFLOW>_input_file,
 		    outdir=<WORKFLOW>_outdir,
             paired=<WORKFLOW>_paired,
-            input_fq1=<WORKFLOW>_input_fq1,
-            input_fq2=<WORKFLOW>_input_fq2
     }
     call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
         input: input_file=preprocess.input_file_gz, cpu=<WORKFLOW>_cpu,
