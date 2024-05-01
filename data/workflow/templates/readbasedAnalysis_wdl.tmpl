@@ -5,15 +5,21 @@
     String <WORKFLOW>_prefix
     String <WORKFLOW>_outdir
     Boolean? <WORKFLOW>_paired = false
+
+    String <WORKFLOW>_db_gottcha2 = "/refdata/GOTTCHA2/RefSeq-r90.cg.BacteriaArchaeaViruses.species.fna"
+    String <WORKFLOW>_db_kraken2 = "/refdata/Kraken2"
+    String <WORKFLOW>_db_centrifuge = "/refdata/Centrifuge/hpv"
+
     call preprocess.preprocess as preprocess {
         input:
             input_files=<WORKFLOW>_input_file,
 		    outdir=<WORKFLOW>_outdir,
-            input_interleaved=<WORKFLOW>_input_interleaved,
+            paired=<WORKFLOW>_paired,
             input_fq1=<WORKFLOW>_input_fq1,
             input_fq2=<WORKFLOW>_input_fq2
     }
     call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
-        input: enabled_tools=<WORKFLOW>_enabled_tools, reads=preprocess.input_file_gz, cpu=<WORKFLOW>_cpu, prefix=<WORKFLOW>_prefix,
-        outdir=<WORKFLOW>_outdir, paired=<WORKFLOW>_paired
+        input: enabled_tools=<WORKFLOW>_enabled_tools, reads=preprocess.input_file_gz, cpu=<WORKFLOW>_cpu,
+        prefix=<WORKFLOW>_prefix, paired=<WORKFLOW>_paired,
+        db_gottcha2=<WORKFLOW>_db_gottcha2, db_kraken2=<WORKFLOW>_db_kraken2, db_centrifuge=<WORKFLOW>_db_centrifuge
     }
