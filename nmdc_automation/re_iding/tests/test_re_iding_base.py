@@ -183,6 +183,10 @@ def test_update_omics_output_data_object(data_object_record, mocker):
     """
     exp_id = "nmdc:1234-abcd12345"
     exp_study_id = "nmdc:sty-1234-abcd12345"
+    mock_updated_omics_processing = mocker.Mock()
+    mock_updated_omics_processing.omics_type.has_raw_value = "Metabolomics"
+
+
     exp_omics_processing_id = "nmdc:omprc-1234-abcd12345"
     mock_api = mocker.Mock(spec=NmdcRuntimeApi)
     mock_api.minter.return_value = exp_id
@@ -190,7 +194,7 @@ def test_update_omics_output_data_object(data_object_record, mocker):
     orig_id = data_object_record["id"]
     data_object = NmdcDataObject(**data_object_record)
     updated_data_object = update_omics_output_data_object(
-        data_object, exp_omics_processing_id, mock_api
+        data_object, mock_updated_omics_processing, mock_api
     )
     assert isinstance(updated_data_object, NmdcDataObject)
     assert updated_data_object.id == exp_id
