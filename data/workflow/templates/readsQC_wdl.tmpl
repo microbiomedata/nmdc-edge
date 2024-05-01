@@ -27,8 +27,8 @@ scatter(file in readsqc_preprocess.input_files_gz) {
             memory=<WORKFLOW>_memory,
             threads=<WORKFLOW>_threads,
             input_interleaved=<WORKFLOW>_input_interleaved,
-            input_fq1=readsqc_preprocess.input_fq1_gz,
-            input_fq2=readsqc_preprocess.input_fq2_gz
+            input_fq1=readsqc_preprocess.input_fastq1_gz,
+            input_fq2=readsqc_preprocess.input_fastq2_gz
     }
 }
 
