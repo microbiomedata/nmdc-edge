@@ -208,9 +208,6 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
     biosample_records = db_client["biosample_set"].find(biosample_query)
     # Iterate over the biosample records and update them and their related omics processing records
     for biosample_record in biosample_records:
-        ## for testing only
-        # if biosample_record["id"] != "gold:Gb0126447":
-        #     continue
         biosample__id = biosample_record.pop("_id")
         biosample = nmdc.Biosample(**biosample_record)
         legacy_biosample_id = _get_biosample_legacy_id(biosample)
@@ -234,6 +231,9 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
         omics_processing_records = db_client["omics_processing_set"].find(omics_processing_query)
         # Iterate over the omics processing records and update them
         for omics_processing_record in omics_processing_records:
+            # For testing only
+            if omics_processing_record["id"] != "gold:Gp0115663":
+                continue
 
             # Special Case: Lipidomics OmicsProcessing and its has_output data object(s) get deleted
             if omics_processing_record["omics_type"]["has_raw_value"] == "Lipidomics":
@@ -246,10 +246,11 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
                 logging.info(f"Adding Lipidomics record to Delete list: {omics_processing_record['id']}")
                 continue
 
+            # Update the OmicsProcessing record
             omics_processing_id = omics_processing_record.pop("_id")
             omics_processing = nmdc.OmicsProcessing(**omics_processing_record)
             updated_omics_processing = update_omics_processing(
-                omics_processing, nmdc_study_id, biosample.id, api_client, identifiers_map)
+                omics_processing, nmdc_study_id, updated_biosample.id, api_client, identifiers_map)
 
             # ===== Metabolomics OmicsProcessing Update =====
             if updated_omics_processing.omics_type.has_raw_value in ["Metabolomics", "Organic Matter Characterization"]:
