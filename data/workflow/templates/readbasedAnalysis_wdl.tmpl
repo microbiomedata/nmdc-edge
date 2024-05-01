@@ -18,6 +18,6 @@
     }
     call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
         input: reads=preprocess.input_file_gz, cpu=<WORKFLOW>_cpu,
-        prefix=<WORKFLOW>_prefix, paired=<WORKFLOW>_paired,
+        proj=<WORKFLOW>_prefix, paired=<WORKFLOW>_paired,
         db_gottcha2=<WORKFLOW>_db_gottcha2, db_kraken2=<WORKFLOW>_db_kraken2, db_centrifuge=<WORKFLOW>_db_centrifuge
     }
