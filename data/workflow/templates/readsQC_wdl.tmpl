@@ -16,20 +16,21 @@ call <WORKFLOW>_preprocess.readsqc_preprocess as readsqc_preprocess {
         input_fq1=<WORKFLOW>_input_fq1,
         input_fq2=<WORKFLOW>_input_fq2
 }
-if (input_interleaved) {
-    scatter(file in readsqc_preprocess.input_files_gz) {
-        call <WORKFLOW>.jgi_rqcfilter  as <ALIAS> {
-            input:
-                input_files=file,
-                outdir=<WORKFLOW>_outdir,
-                bbtools_container=<WORKFLOW>_bbtools_container,
-                database=<WORKFLOW>_database,
-                memory=<WORKFLOW>_memory,
-                threads=<WORKFLOW>_threads,
-                input_interleaved=<WORKFLOW>_input_interleaved,
-                input_fq1=readsqc_preprocess.input_fq1_gz,
-                input_fq2=readsqc_preprocess.input_fq2_gz
-        }
+
+scatter(file in readsqc_preprocess.input_files_gz) {
+    call <WORKFLOW>.jgi_rqcfilter  as <ALIAS> {
+        input:
+            input_files=file,
+            outdir=<WORKFLOW>_outdir,
+            bbtools_container=<WORKFLOW>_bbtools_container,
+            database=<WORKFLOW>_database,
+            memory=<WORKFLOW>_memory,
+            threads=<WORKFLOW>_threads,
+            input_interleaved=<WORKFLOW>_input_interleaved,
+            input_fq1=readsqc_preprocess.input_fq1_gz,
+            input_fq2=readsqc_preprocess.input_fq2_gz
+    }
+
 call <WORKFLOW>_output.readsqc_output as readsqc_output {
     input:
         input_files = nmdc_rqcfilter.filtered_final,
