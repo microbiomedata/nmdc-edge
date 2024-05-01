@@ -193,6 +193,10 @@ class Watcher:
 
         for product_record in job.outputs:
             outkey = f"{prefix}.{product_record['output']}"
+            if outkey not in job_outs and product_record.get("optional"):
+                logging.debug(f"Ignoring optional missing output {outkey}")
+                continue
+
             full_name = job_outs[outkey]
             file_name = os.path.basename(full_name)
             new_path = os.path.join(outdir, file_name)

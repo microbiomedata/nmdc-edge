@@ -298,11 +298,12 @@ Workflows:
         description: Annotation Stats for {id}
         name: Annotation statistics report
         suffix: _stats.tsv
-      # - output: contig_mapping
-      #   data_object_type: Contig Mapping File
-      #   description: Contig mappings file for {id}
-      #   name: Contig mappings between contigs and scaffolds
-      #   suffix: _contig_names_mapping.tsv
+      - output: contig_mapping
+        data_object_type: Contig Mapping File
+        description: Contig mappings file for {id}
+        name: Contig mappings between contigs and scaffolds
+        suffix: _contig_names_mapping.tsv
+        optional: True
       - output: imgap_version
         data_object_type: Annotation Info File
         description: Annotation info for {id}
