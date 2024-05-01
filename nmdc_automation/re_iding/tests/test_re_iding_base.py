@@ -14,7 +14,7 @@ from nmdc_automation.re_iding.base import (
     update_biosample,
     compare_models,
     get_new_nmdc_id,
-    update_metabolomics_analysis_activity,
+    _update_metabolomics_analysis_activity,
     update_omics_output_data_object,
     update_metabolomics_or_nom_data_object
 )
@@ -152,26 +152,22 @@ def test_update_metabolomics_analysis_activity(metabolomics_analysis_activity_re
     """
     Test that we can update a MetabolomicsAnalysisActivity.
     """
-    exp_id = "nmdc:1234-abcd12345"
+    exp_activity_id = "nmdc:wfmb-1234-abcd12345"
     exp_omics_processing_id = "nmdc:omprc-1234-abcd12345"
     exp_data_object_id = "nmdc:dobj-1234-abcd12345"
     exp_output_data_object_ids = ["nmdc:dobj-1234-abcd12345"]
     exp_calibration_data_object_ids = "nmdc:dobj-calibration-1234-abcd12345"
     mock_api = mocker.Mock(spec=NmdcRuntimeApi)
-    mock_api.minter.return_value = exp_id
+    mock_api.minter.return_value = exp_activity_id
 
     orig_id = metabolomics_analysis_activity_record["id"]
     metabolomics = MetabolomicsAnalysisActivity(**metabolomics_analysis_activity_record)
-    updated_metabolomics = update_metabolomics_analysis_activity(
-        metabolomics,
-        exp_omics_processing_id,
-        exp_data_object_id,
-        exp_output_data_object_ids,
-        exp_calibration_data_object_ids,
-        mock_api
-    )
+    updated_metabolomics = _update_metabolomics_analysis_activity(
+        exp_activity_id, metabolomics, exp_omics_processing_id, exp_data_object_id, exp_output_data_object_ids,
+        exp_calibration_data_object_ids
+        )
     assert isinstance(updated_metabolomics, MetabolomicsAnalysisActivity)
-    assert updated_metabolomics.id == exp_id
+    assert updated_metabolomics.id == exp_activity_id
 
     assert updated_metabolomics.was_informed_by == exp_omics_processing_id
     assert updated_metabolomics.has_input == [exp_data_object_id]
