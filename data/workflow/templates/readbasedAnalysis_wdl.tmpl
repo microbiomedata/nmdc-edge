@@ -11,8 +11,7 @@
     call readbasedanalysis_preprocess.preprocess as preprocess {
         input:
             input_files=<WORKFLOW>_input_file,
-		    outdir=<WORKFLOW>_outdir,
-            paired=<WORKFLOW>_paired,
+            paired=<WORKFLOW>_paired
     }
     call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
         input: input_file=preprocess.input_file_gz, cpu=<WORKFLOW>_cpu,
