@@ -16,6 +16,7 @@ from nmdc_automation.re_iding.base import (
     get_new_nmdc_id,
     update_metabolomics_analysis_activity,
     update_omics_output_data_object,
+    update_metabolomics_or_nom_data_object
 )
 
 
@@ -199,4 +200,23 @@ def test_update_omics_output_data_object(data_object_record, mocker):
     assert isinstance(updated_data_object, NmdcDataObject)
     assert updated_data_object.id == exp_id
     assert updated_data_object.alternative_identifiers == [orig_id]
+
+def test_update_metabolomics_or_nom_data_object(metabolomics_output_data_object_record, mocker):
+    """
+    Test that we can update a Metabolomics or NOM DataObject with both a new ID and
+    updated was_generated_by.
+    """
+    exp_do_id = "nmdc:dobj-1234-abcd12345"
+    exp_was_generated_by = "nmdc:activity-1234-abcd12345"
+    data_object = NmdcDataObject(**metabolomics_output_data_object_record)
+
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_do_id
+
+    updated_data_object = update_metabolomics_or_nom_data_object(
+        data_object, mock_api, identifiers_map=None, was_generated_by=exp_was_generated_by)
+    assert isinstance(updated_data_object, NmdcDataObject)
+    assert updated_data_object.id == exp_do_id
+    assert updated_data_object.was_generated_by == exp_was_generated_by
+
 
