@@ -83,3 +83,16 @@ def test_activies(db):
     # assert len(acts) == 5
     # assert len(acts[0].children) == 1
     # assert acts[0].children[0] == acts[1]
+
+def test_workflows():
+    """
+    Test Workflow object creation
+    """
+    wfs = load_workflows("./tests/workflows_test.yaml")
+    assert wfs is not None
+    wfm = {}
+    assert len(wfs) == 9
+    for wf in wfs:
+        wfm[wf.name] = wf
+    assert "MAGs" in wfm
+    assert len(wfm["MAGs"].optional_inputs) == 1

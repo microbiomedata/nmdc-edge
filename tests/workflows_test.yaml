@@ -337,6 +337,9 @@ Workflows:
       proteins_file: do:Annotation Amino Acid FASTA
       gene_phylogeny_file: do:Gene Phylogeny tsv
       proj: "{activity_id}"
+      map_file: do:Annotation Mapping File
+    Optional Inputs:
+    - map_file
     Activity:
       name: "Metagenome Assembled Genomes Analysis Activity for {id}"
       type: nmdc:MagsAnalysisActivity
