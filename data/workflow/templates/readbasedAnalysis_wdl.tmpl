@@ -10,7 +10,7 @@
 
     call readbasedanalysis_preprocess.preprocess as preprocess {
         input:
-            input_files=<WORKFLOW>_input_file,
+            input_files=<WORKFLOW>_reads,
             paired=<WORKFLOW>_paired
     }
     call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
