@@ -187,7 +187,7 @@ def assembly_agp(src, dst, act_id):
     old_id = find_assembly_id(scaf)
     return rewrite_id(src, dst, old_id, act_id)
 
-def update_bam(input_bam, output_bam, old_id, new_id):
+def rewrite_bam(input_bam, output_bam, old_id, new_id):
     # First, copy the header and update the reference sequence names
     header_dict = pysam.AlignmentFile(input_bam, "rb").header.copy().to_dict()
     header_dict['SQ'] = [{'LN': sq['LN'], 'SN': sq['SN'].replace(old_id, new_id)} for sq in header_dict['SQ']]
@@ -221,7 +221,7 @@ def update_bam(input_bam, output_bam, old_id, new_id):
 def assembly_coverage_bam(src, dst, act_id):
     scaf = str(src).replace("_pairedMapped_sorted.bam", "_scaffolds.fna")
     old_id = find_assembly_id(scaf)
-    md5, size = update_bam(src, dst, old_id, act_id)
+    md5, size = rewrite_bam(src, dst, old_id, act_id)
     return md5, size
 
 

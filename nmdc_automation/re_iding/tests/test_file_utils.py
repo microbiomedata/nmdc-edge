@@ -4,7 +4,7 @@ import shutil
 import tempfile
 import os
 
-from nmdc_automation.re_iding.file_utils import update_bam, md5_sum
+from nmdc_automation.re_iding.file_utils import rewrite_bam, md5_sum
 
 @pytest.fixture
 def sample_bam():
@@ -43,7 +43,7 @@ def test_modify_bam(sample_bam, tmpdir):
     new_pattern = "nmdc:updated_id"
 
     # Call the modify_bam function
-    update_bam(input_bam, output_bam, old_pattern, new_pattern)
+    rewrite_bam(input_bam, output_bam, old_pattern, new_pattern)
 
     # Check if the output BAM file exists
     assert os.path.exists(output_bam)
@@ -59,4 +59,4 @@ def test_modify_bam(sample_bam, tmpdir):
     # Check if the MD5 checksum and file size are correct
     expected_md5 = md5_sum(output_bam)
     expected_size = os.path.getsize(output_bam)
-    assert expected_md5, expected_size == update_bam(input_bam, output_bam, old_pattern, new_pattern)
+    assert expected_md5, expected_size == rewrite_bam(input_bam, output_bam, old_pattern, new_pattern)
