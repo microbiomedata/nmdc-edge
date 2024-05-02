@@ -627,15 +627,23 @@ def get_new_nmdc_id(nmdc_object, api_client, identifiers_map: dict = None) -> st
     """
     Get a nmdc ID from the identifiers_map or mint a new one
     """
-    logging.info(f"Getting new ID for {nmdc_object.type} {nmdc_object.id}")
-    if identifiers_map and not DATA_OBJECT_TYPE_SET_MAP.get(nmdc_object.type):
-        raise ValueError(f"Set name not found for {nmdc_object.type}")
+    try:
+        object_type_code = nmdc_object.type
+    except AttributeError:
+        raise ValueError(f"Object does not have a type attribute: {nmdc_object}")
 
-    if identifiers_map and (DATA_OBJECT_TYPE_SET_MAP[nmdc_object.type], nmdc_object.id) in identifiers_map:
-        new_id = identifiers_map[(DATA_OBJECT_TYPE_SET_MAP[nmdc_object.type], nmdc_object.id)]
+    # Fix typo "ndmc:" to "nmdc:"
+    if object_type_code.startswith("ndmc:"):
+        object_type_code = object_type_code.replace("ndmc:", "nmdc:")
+    logging.info(f"Getting new ID for {object_type_code} {nmdc_object.id}")
+    if identifiers_map and not DATA_OBJECT_TYPE_SET_MAP.get(object_type_code):
+        raise ValueError(f"Set name not found for {object_type_code}")
+
+    if identifiers_map and (DATA_OBJECT_TYPE_SET_MAP[object_type_code], nmdc_object.id) in identifiers_map:
+        new_id = identifiers_map[(DATA_OBJECT_TYPE_SET_MAP[object_type_code], nmdc_object.id)]
         logging.info(f"Found new ID in identifiers_map: {new_id}")
     else:
-        new_id = api_client.minter(nmdc_object.type)
+        new_id = api_client.minter(object_type_code)
         logging.info(f"Minted new ID: {new_id}")
     return new_id
 
