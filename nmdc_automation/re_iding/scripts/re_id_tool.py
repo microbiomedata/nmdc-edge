@@ -231,9 +231,6 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
         omics_processing_records = db_client["omics_processing_set"].find(omics_processing_query)
         # Iterate over the omics processing records and update them
         for omics_processing_record in omics_processing_records:
-            # For testing only
-            if omics_processing_record["id"] != "gold:Gp0115663":
-                continue
 
             # Special Case: Lipidomics OmicsProcessing and its has_output data object(s) get deleted
             if omics_processing_record["omics_type"]["has_raw_value"] == "Lipidomics":
