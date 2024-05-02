@@ -47,3 +47,9 @@ def metabolomics_input_data_object_record():
     with open(TEST_DATA_DIR / "metabolomics_input_data_object_record.json", "r") as f:
         return json.load(f)
 
+@pytest.fixture
+def metabolomics_output_data_object_record():
+    """Return a dict of a test nmdc_metabolomics_output_data_object instance"""
+    with open(TEST_DATA_DIR / "metabolomics_output_data_object_record.json", "r") as f:
+        return json.load(f)
+

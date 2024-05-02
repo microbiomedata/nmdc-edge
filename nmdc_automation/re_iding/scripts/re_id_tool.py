@@ -24,12 +24,8 @@ from nmdc_automation.re_iding.base import (
     ReIdTool,
     _get_biosample_legacy_id,
     compare_models,
-    update_biosample,
-    update_data_object,
-    update_omics_processing,
-    update_omics_output_data_object,
-    update_metabolomics_analysis_activity,
-    update_nom_analysis_activity
+    get_updates_for_metabolomics_or_nom, update_biosample,
+    update_omics_processing
 )
 from nmdc_automation.re_iding.db_utils import get_omics_processing_id, ANALYSIS_ACTIVITIES
 
@@ -191,6 +187,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
     study_record.pop("part_of", None)
     study_record.pop("study_category", None)
     study_record.pop("associated_dois", None)
+    study_record.pop("homepage_website", None)
     study = nmdc.Study(**study_record)
     updated_study = _update_study(study, legacy_study_id, nmdc_study_id)
     study_update = compare_models(study, updated_study)
@@ -249,127 +246,13 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
             updated_omics_processing = update_omics_processing(
                 omics_processing, nmdc_study_id, updated_biosample.id, api_client, identifiers_map)
 
-            # ===== Metabolomics OmicsProcessing Update =====
-            if updated_omics_processing.omics_type.has_raw_value in ["Metabolomics", "Organic Matter Characterization"]:
-                # OmicsProcessing has_output goes to the Activity's has_input
-                # We assume there is only one data object in has_output
-                omics_processing_output_id = omics_processing.has_output[0]
-                omics_processing_output_record = db_client["data_object_set"].find_one(
-                    {"id": omics_processing_output_id})
-                omics_processing_output__id = omics_processing_output_record.pop("_id")
-                omics_processing_output_data_object = nmdc.DataObject(**omics_processing_output_record)
-                updated_omics_processing_output_data_object = update_omics_output_data_object(
-                    omics_processing_output_data_object, updated_omics_processing, api_client, identifiers_map
-                    )
-                # Update the parent OmicsProcessing record with the new has_output data object
-                updated_omics_processing.has_output = [updated_omics_processing_output_data_object.id]
-
-                if omics_processing_output_data_object.id != updated_omics_processing_output_data_object.id:
-                    updated_record_identifiers.add(("data_object_set", omics_processing_output_data_object.id,
-                                                    updated_omics_processing_output_data_object.id))
-                omics_processing_output_update = compare_models(omics_processing_output_data_object,
-                                           updated_omics_processing_output_data_object)
-                if omics_processing_output_update:
-                    updates["data_object_set"][omics_processing_output__id] = (omics_processing_output_data_object,
-                                                                               omics_processing_output_update)
-
-                #====== Metabolomics Analysis Activity Update ======
-                # Find all Metabolomics Analysis Activity records was_informed_by either OmicsProcessing
-                # and has_input either data object
-                omics_processing_ids = [omics_processing.id, updated_omics_processing.id]
-                data_object_ids = [omics_processing_output_data_object.id, updated_omics_processing_output_data_object.id]
-                activity_query = {
-                    "$and": [
-                        {"was_informed_by": {"$in": omics_processing_ids}},
-                        {"has_input": {"$in": data_object_ids}}
-                    ]
-                }
-                if updated_omics_processing.omics_type.has_raw_value == "Metabolomics":
-                    set_name = "metabolomics_analysis_activity_set"
-                else:
-                    set_name = "nom_analysis_activity_set"
-                activity_records = db_client[set_name].find(activity_query)
-
-                logging.info(f"Found {len(list(activity_records.clone()))} Records for {set_name}")
-
-                for activity_record in activity_records:
-                    metabolomics_analysis_activity__id = activity_record.pop("_id")
-
-                    if updated_omics_processing.omics_type.has_raw_value == "Metabolomics":
-                        activity = nmdc.MetabolomicsAnalysisActivity(**activity_record)
-                    else:
-                        activity = nmdc.NomAnalysisActivity(**activity_record)
-
-                    # has_output data objects
-                    metabolomics_has_output_ids = activity.has_output
-                    updated_activity_has_output_ids = []
-                    for metabolomics_has_output_id in metabolomics_has_output_ids:
-                        metabolomics_output_record = db_client["data_object_set"].find_one({"id": metabolomics_has_output_id})
-                        metabolomics_output__id = metabolomics_output_record.pop("_id")
-                        metabolomics_output_data_object = nmdc.DataObject(**metabolomics_output_record)
-                        updated_metabolomics_output_data_object = update_data_object(
-                            metabolomics_output_data_object, api_client, identifiers_map
-                        )
-                        updated_activity_has_output_ids.append(updated_metabolomics_output_data_object.id)
-                        if metabolomics_output_data_object.id != updated_metabolomics_output_data_object.id:
-                            updated_record_identifiers.add(("data_object_set", metabolomics_output_data_object.id,
-                                                            updated_metabolomics_output_data_object.id))
-                        metabolomics_output_data_object_update = compare_models(metabolomics_output_data_object, updated_metabolomics_output_data_object)
-                        if metabolomics_output_data_object_update:
-                            updates["data_object_set"][metabolomics_output__id] = (metabolomics_output_data_object, metabolomics_output_data_object_update)
-
-                    # has_calibration_data data object for some activities
-                    if updated_omics_processing.omics_type.has_raw_value == "Metabolomics":
-                        calibration_data_object_id = activity.has_calibration
-                        calibration_data_object_record = db_client["data_object_set"].find_one({"id": calibration_data_object_id})
-                        calibration_data_object__id = calibration_data_object_record.pop("_id")
-                        calibration_data_object = nmdc.DataObject(**calibration_data_object_record)
-                        updated_calibration_data_object = update_data_object(
-                            calibration_data_object, api_client, identifiers_map
-                        )
-                        if calibration_data_object.id != updated_calibration_data_object.id:
-                            updated_record_identifiers.add(("data_object_set", calibration_data_object.id, updated_calibration_data_object.id))
-                        calibration_data_object_update = compare_models(calibration_data_object, updated_calibration_data_object)
-                        if calibration_data_object_update:
-                            updates["data_object_set"][calibration_data_object__id] = (calibration_data_object, calibration_data_object_update)
-
-                        # Update the Metabolomics Analysis Activity record
-                        updated_metabolomics_analysis_activity = update_metabolomics_analysis_activity(
-                            metabolomics_analysis_activity=activity,
-                            nmdc_omics_processing_id=updated_omics_processing.id,
-                            nmdc_input_data_object_id=updated_omics_processing_output_data_object.id,
-                            nmdc_output_data_object_ids=updated_activity_has_output_ids,
-                            nmdc_calibration_data_object_id=updated_calibration_data_object.id,
-                            api_client=api_client,
-                            identifiers_map=identifiers_map
-                        )
-                        if activity.id != updated_metabolomics_analysis_activity.id:
-                            updated_record_identifiers.add(
-                                ("metabolomics_analysis_activity_set", activity.id, updated_metabolomics_analysis_activity.id))
-                        metabolomics_analysis_activity_update = compare_models(activity, updated_metabolomics_analysis_activity)
-                        if metabolomics_analysis_activity_update:
-                            updates["metabolomics_analysis_activity_set"][metabolomics_analysis_activity__id] = (
-                                activity, metabolomics_analysis_activity_update
-                            )
-
-                    else:
-                        # Update the NOM Analysis Activity record
-                        updated_nom_analysis_activity = update_nom_analysis_activity(
-                            nom_analysis_activity=activity,
-                            nmdc_omics_processing_id=updated_omics_processing.id,
-                            nmdc_input_data_object_id=updated_omics_processing_output_data_object.id,
-                            nmdc_output_data_object_ids=updated_activity_has_output_ids,
-                            api_client=api_client,
-                            identifiers_map=identifiers_map
-                        )
-                        if activity.id != updated_nom_analysis_activity.id:
-                            updated_record_identifiers.add(
-                                ("nom_analysis_activity_set", activity.id, updated_nom_analysis_activity.id))
-                        nom_analysis_activity_update = compare_models(activity, updated_nom_analysis_activity)
-                        if nom_analysis_activity_update:
-                            updates["nom_analysis_activity_set"][metabolomics_analysis_activity__id] = (
-                                activity, nom_analysis_activity_update
-                            )
+            # ===== Additional updates for Metabolomics and Organic Matter Characterization =====
+            ANALYSIS_ACTIVITIES = ("Metabolomics", "Organic Matter Characterization")
+            if updated_omics_processing.omics_type.has_raw_value in ANALYSIS_ACTIVITIES:
+                updated_omics_processing, updated_record_identifiers, updates = get_updates_for_metabolomics_or_nom(
+                    omics_processing, updated_omics_processing, api_client, db_client, identifiers_map,
+                    updated_record_identifiers, updates
+                )
 
             if omics_processing.id != updated_omics_processing.id:
                 updated_record_identifiers.add(("omics_processing_set", omics_processing.id, updated_omics_processing.id))
@@ -413,8 +296,6 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
                 session.abort_transaction()
                 logging.exception(f"An error occurred while updating records: {e}")
                 sys.exit(1)
-
-
 
     logging.info("Writing updates and updated record identifiers to files")
     _write_updates(updates, nmdc_study_id)
