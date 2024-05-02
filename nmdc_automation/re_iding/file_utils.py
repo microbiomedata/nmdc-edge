@@ -218,6 +218,21 @@ def rewrite_bam(input_bam, output_bam, old_id, new_id):
     return md5, size
 
 
+def replace_and_write_bam(input_bam, output_bam, old_id, new_id):
+    with pysam.AlignmentFile(input_bam, "rb") as input_bam_file, \
+            pysam.AlignmentFile(output_bam, "wb", header=input_bam_file.header) as output_bam_file:
+
+        for read in input_bam_file:
+            # Replace old_id with new_id in tags and other fields if necessary
+            # Modify other attributes of the read as needed
+
+            # Example: Replace old_id in read name
+            read.query_name = read.query_name.replace(old_id, new_id)
+
+            # Write the modified read to the output BAM file
+            output_bam_file.write(read)
+
+
 def assembly_coverage_bam(src, dst, act_id):
     scaf = str(src).replace("_pairedMapped_sorted.bam", "_scaffolds.fna")
     old_id = find_assembly_id(scaf)
