@@ -1,5 +1,9 @@
 workflow readsqc_output {
-    File input_files
+    Array[File] input_files
+    Array[File] filtered_stats_final
+    Array[File] filtered_stats2_final
+    Array[File] rqc_info
+    Array[File] filtered_stats_json_final
     String? outdir
     String bbtools_container="microbiomedata/bbtools:38.96"
 
@@ -12,24 +16,51 @@ workflow readsqc_output {
 
 task make_output{
  	String outdir
-	String filtered
+	Array[File] filtered
 	String dollar ="$"
 	String container
 
  	command<<<
 			mkdir -p ${outdir}
+            for i in ${sep=' ' filtered}
+			do
+				f=${dollar}(basename $i)
+				dir=${dollar}(dirname $i)
+				prefix=${dollar}{f%_filtered.fastq.gz}
+				mkdir -p ${outdir}/$prefix
+                cp -f $i ${outdir}/$prefix
+                cp -f $dir/$prefix_filterStats.txt ${outdir}/$prefix
+                cp -f $dir/$prefix_filterStats2.txt ${outdir}/$prefix
+                cp -f $dir/$prefix_qa_stats.json ${outdir}/$prefix/filterStats.json
 
-            f=${dollar}(basename $filtered)
-            dir=${dollar}(dirname $filtered)
-            prefix=${dollar}{f%.anqdpht*}
-            mkdir -p ${outdir}/$prefix
-            cp -f $dir/../filtered/filterStats.txt ${outdir}/$prefix
-            cp -f $dir/../filtered/filterStats2.txt ${outdir}/$prefix
-            cp -f $dir/../filtered/filterStats.json ${outdir}/$prefix
-            cp -f $i ${outdir}/$prefix
-            echo ${outdir}/$prefix/$f
+            done
+            for i in ${sep=' ' stat}
+			do
+				f=${dollar}(basename $i)
+				dir=${dollar}(dirname $i)
+				prefix=${dollar}{f%.anqdpht*}
+                cp -f $i ${outdir}/$prefix
 
- 			chmod 764 -R ${outdir}
+            done
+            for i in ${sep=' ' stat2}
+			do
+				f=${dollar}(basename $i)
+				dir=${dollar}(dirname $i)
+				prefix=${dollar}{f%.anqdpht*}
+                cp -f $i ${outdir}/$prefix
+
+            done
+            for i in ${sep=' ' stat_json}
+			do
+				f=${dollar}(basename $i)
+				dir=${dollar}(dirname $i)
+				prefix=${dollar}{f%.anqdpht*}
+                cp -f $i ${outdir}/$prefix
+
+            done
+
+
+
  	>>>
 	runtime {
             docker: container

@@ -32,5 +32,9 @@ scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
 call <WORKFLOW>_output.readsqc_output as readsqc_output {
     input:
         input_files = nmdc_rqcfilter.filtered_final,
+        filtered_stats_final = nmdc_rqcfilter.filtered_stats_final,
+        filtered_stats2_final = nmdc_rqcfilter.filtered_stats2_final,
+        rqc_info = nmdc_rqcfilter.rqc_info,
+        filtered_stats_json_final = nmdc_rqcfilter.filtered_stats_json_final,
         outdir = <WORKFLOW>_outdir
 }
