@@ -1,0 +1,61 @@
+collection_name	id	_id	update
+study_set	gold:Gs0103573	649b009ec7d5d8b48729925e	{'id': 'nmdc:sty-11-1t150432'}
+biosample_set	gold:Gb0115839	649b003843aa17f5748437e2	{'id': 'nmdc:bsm-11-e26eb832', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115839']}
+biosample_set	gold:Gb0115841	649b003843aa17f5748437e4	{'id': 'nmdc:bsm-11-14r5mn87', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115841']}
+biosample_set	gold:Gb0115840	649b003843aa17f5748437e5	{'id': 'nmdc:bsm-11-wvkprg31', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115840']}
+biosample_set	gold:Gb0115842	649b003843aa17f5748437e6	{'id': 'nmdc:bsm-11-d2extt26', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115842']}
+biosample_set	gold:Gb0115844	649b003843aa17f5748437e7	{'id': 'nmdc:bsm-11-qqyp7f71', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115844']}
+biosample_set	gold:Gb0115843	649b003843aa17f5748437e9	{'id': 'nmdc:bsm-11-nzeyaf86', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115843']}
+biosample_set	gold:Gb0115847	649b003843aa17f5748437ea	{'id': 'nmdc:bsm-11-pkg9hc51', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115847']}
+biosample_set	gold:Gb0115848	649b003843aa17f5748437eb	{'id': 'nmdc:bsm-11-qh1p6r40', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115848']}
+biosample_set	gold:Gb0115849	649b003843aa17f5748437ec	{'id': 'nmdc:bsm-11-7emsne98', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115849']}
+biosample_set	gold:Gb0115846	649b003843aa17f5748437ee	{'id': 'nmdc:bsm-11-76mdfq19', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115846']}
+biosample_set	gold:Gb0115853	649b003843aa17f5748437ef	{'id': 'nmdc:bsm-11-9xr6db31', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115853']}
+biosample_set	gold:Gb0115851	649b003843aa17f5748437f0	{'id': 'nmdc:bsm-11-rnqcsv76', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115851']}
+biosample_set	gold:Gb0115845	649b003843aa17f5748437f1	{'id': 'nmdc:bsm-11-b2s5cq29', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115845']}
+biosample_set	gold:Gb0115852	649b003843aa17f5748437f2	{'id': 'nmdc:bsm-11-z4162460', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115852']}
+biosample_set	gold:Gb0115838	649b003843aa17f5748437f3	{'id': 'nmdc:bsm-11-7vnmm381', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115838']}
+biosample_set	gold:Gb0115850	649b003843aa17f5748437f4	{'id': 'nmdc:bsm-11-ersrag84', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115850']}
+biosample_set	gold:Gb0115854	649b003843aa17f5748437f6	{'id': 'nmdc:bsm-11-30cd7120', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115854']}
+biosample_set	gold:Gb0115856	649b003843aa17f5748437f7	{'id': 'nmdc:bsm-11-y3tncc45', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115856']}
+biosample_set	gold:Gb0115855	649b003843aa17f5748437f8	{'id': 'nmdc:bsm-11-f02h0258', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115855']}
+biosample_set	gold:Gb0115858	649b003843aa17f5748437f9	{'id': 'nmdc:bsm-11-dqj4a290', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115858']}
+biosample_set	gold:Gb0115859	649b003843aa17f5748437fa	{'id': 'nmdc:bsm-11-gvfc3e87', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115859']}
+biosample_set	gold:Gb0115857	649b003843aa17f5748437fb	{'id': 'nmdc:bsm-11-35130k22', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115857']}
+biosample_set	gold:Gb0115864	649b003843aa17f5748437fc	{'id': 'nmdc:bsm-11-hsnh4074', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115864']}
+biosample_set	gold:Gb0115860	649b003843aa17f5748437fd	{'id': 'nmdc:bsm-11-ggra1h17', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115860']}
+biosample_set	gold:Gb0115861	649b003843aa17f5748437fe	{'id': 'nmdc:bsm-11-y71yy032', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115861']}
+biosample_set	gold:Gb0115862	649b003843aa17f5748437ff	{'id': 'nmdc:bsm-11-8prsz519', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115862']}
+biosample_set	gold:Gb0115866	649b003843aa17f574843800	{'id': 'nmdc:bsm-11-y9sp8m81', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115866']}
+biosample_set	gold:Gb0115867	649b003843aa17f574843801	{'id': 'nmdc:bsm-11-b3dyqa19', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115867']}
+biosample_set	gold:Gb0115863	649b003843aa17f574843802	{'id': 'nmdc:bsm-11-000d2807', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115863']}
+biosample_set	gold:Gb0115865	649b003843aa17f574843803	{'id': 'nmdc:bsm-11-ant5sa78', 'part_of': ['nmdc:sty-11-1t150432'], 'gold_biosample_identifiers': ['gold:Gb0115865']}
+omics_processing_set	gold:Gp0116321	649b009773e824995934a0ce	{'id': 'nmdc:omprc-11-zz95jm39', 'has_input': ['nmdc:bsm-11-e26eb832'], 'gold_sequencing_project_identifiers': ['gold:Gp0116321'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116323	649b009773e824995934a0cf	{'id': 'nmdc:omprc-11-a9wmnh81', 'has_input': ['nmdc:bsm-11-14r5mn87'], 'gold_sequencing_project_identifiers': ['gold:Gp0116323'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116322	649b009773e824995934a0d0	{'id': 'nmdc:omprc-11-cbf1fm90', 'has_input': ['nmdc:bsm-11-wvkprg31'], 'gold_sequencing_project_identifiers': ['gold:Gp0116322'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116324	649b009773e824995934a0d1	{'id': 'nmdc:omprc-11-9j2tsv33', 'has_input': ['nmdc:bsm-11-d2extt26'], 'gold_sequencing_project_identifiers': ['gold:Gp0116324'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116326	649b009773e824995934a0ec	{'id': 'nmdc:omprc-11-gb56dp17', 'has_input': ['nmdc:bsm-11-qqyp7f71'], 'gold_sequencing_project_identifiers': ['gold:Gp0116326'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116325	649b009773e824995934a0d2	{'id': 'nmdc:omprc-11-wtnzk779', 'has_input': ['nmdc:bsm-11-nzeyaf86'], 'gold_sequencing_project_identifiers': ['gold:Gp0116325'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116329	649b009773e824995934a0d3	{'id': 'nmdc:omprc-11-krdxy567', 'has_input': ['nmdc:bsm-11-pkg9hc51'], 'gold_sequencing_project_identifiers': ['gold:Gp0116329'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116330	649b009773e824995934a0d4	{'id': 'nmdc:omprc-11-90jbgg86', 'has_input': ['nmdc:bsm-11-qh1p6r40'], 'gold_sequencing_project_identifiers': ['gold:Gp0116330'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116331	649b009773e824995934a0d9	{'id': 'nmdc:omprc-11-fqjwkr37', 'has_input': ['nmdc:bsm-11-7emsne98'], 'gold_sequencing_project_identifiers': ['gold:Gp0116331'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116328	649b009773e824995934a0f9	{'id': 'nmdc:omprc-11-ts524918', 'has_input': ['nmdc:bsm-11-76mdfq19'], 'gold_sequencing_project_identifiers': ['gold:Gp0116328'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116335	649b009773e824995934a14c	{'id': 'nmdc:omprc-11-vk8xg130', 'has_input': ['nmdc:bsm-11-9xr6db31'], 'gold_sequencing_project_identifiers': ['gold:Gp0116335'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116333	649b009773e824995934a0d6	{'id': 'nmdc:omprc-11-tdcqwk17', 'has_input': ['nmdc:bsm-11-rnqcsv76'], 'gold_sequencing_project_identifiers': ['gold:Gp0116333'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116327	649b009773e824995934a0da	{'id': 'nmdc:omprc-11-fw04hn57', 'has_input': ['nmdc:bsm-11-b2s5cq29'], 'gold_sequencing_project_identifiers': ['gold:Gp0116327'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116334	649b009773e824995934a0d5	{'id': 'nmdc:omprc-11-1635mf02', 'has_input': ['nmdc:bsm-11-z4162460'], 'gold_sequencing_project_identifiers': ['gold:Gp0116334'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116320	649b009773e824995934a0cd	{'id': 'nmdc:omprc-11-dn9skf88', 'has_input': ['nmdc:bsm-11-7vnmm381'], 'gold_sequencing_project_identifiers': ['gold:Gp0116320'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116332	649b009773e824995934a0d7	{'id': 'nmdc:omprc-11-y4f50788', 'has_input': ['nmdc:bsm-11-ersrag84'], 'gold_sequencing_project_identifiers': ['gold:Gp0116332'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116336	649b009773e824995934a0d8	{'id': 'nmdc:omprc-11-ncf6ad11', 'has_input': ['nmdc:bsm-11-30cd7120'], 'gold_sequencing_project_identifiers': ['gold:Gp0116336'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116338	649b009773e824995934a0ed	{'id': 'nmdc:omprc-11-aa038v98', 'has_input': ['nmdc:bsm-11-y3tncc45'], 'gold_sequencing_project_identifiers': ['gold:Gp0116338'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116337	649b009773e824995934a0f3	{'id': 'nmdc:omprc-11-274f9107', 'has_input': ['nmdc:bsm-11-f02h0258'], 'gold_sequencing_project_identifiers': ['gold:Gp0116337'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116340	649b009773e824995934a15b	{'id': 'nmdc:omprc-11-26jcge71', 'has_input': ['nmdc:bsm-11-dqj4a290'], 'gold_sequencing_project_identifiers': ['gold:Gp0116340'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116339	649b009773e824995934a0db	{'id': 'nmdc:omprc-11-bvnb1f53', 'has_input': ['nmdc:bsm-11-35130k22'], 'gold_sequencing_project_identifiers': ['gold:Gp0116339'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116346	649b009773e824995934a0f5	{'id': 'nmdc:omprc-11-yk9sb263', 'has_input': ['nmdc:bsm-11-hsnh4074'], 'gold_sequencing_project_identifiers': ['gold:Gp0116346'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116342	649b009773e824995934a0dd	{'id': 'nmdc:omprc-11-563d6k62', 'has_input': ['nmdc:bsm-11-ggra1h17'], 'gold_sequencing_project_identifiers': ['gold:Gp0116342'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116343	649b009773e824995934a0dc	{'id': 'nmdc:omprc-11-c39k4n84', 'has_input': ['nmdc:bsm-11-y71yy032'], 'gold_sequencing_project_identifiers': ['gold:Gp0116343'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116344	649b009773e824995934a0df	{'id': 'nmdc:omprc-11-8z42z966', 'has_input': ['nmdc:bsm-11-8prsz519'], 'gold_sequencing_project_identifiers': ['gold:Gp0116344'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116348	649b009773e824995934a0e2	{'id': 'nmdc:omprc-11-gmh80z42', 'has_input': ['nmdc:bsm-11-y9sp8m81'], 'gold_sequencing_project_identifiers': ['gold:Gp0116348'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116349	649b009773e824995934a0e3	{'id': 'nmdc:omprc-11-kar7k116', 'has_input': ['nmdc:bsm-11-b3dyqa19'], 'gold_sequencing_project_identifiers': ['gold:Gp0116349'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116345	649b009773e824995934a0e1	{'id': 'nmdc:omprc-11-gawpxy35', 'has_input': ['nmdc:bsm-11-000d2807'], 'gold_sequencing_project_identifiers': ['gold:Gp0116345'], 'part_of': ['nmdc:sty-11-1t150432']}
+omics_processing_set	gold:Gp0116347	649b009773e824995934a0de	{'id': 'nmdc:omprc-11-h4gt5d44', 'has_input': ['nmdc:bsm-11-ant5sa78'], 'gold_sequencing_project_identifiers': ['gold:Gp0116347'], 'part_of': ['nmdc:sty-11-1t150432']}
