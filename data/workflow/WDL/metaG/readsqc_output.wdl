@@ -34,30 +34,7 @@ task make_output{
                 cp -f $dir/$prefix_qa_stats.json ${outdir}/$prefix/filterStats.json
 
             done
-            for i in ${sep=' ' stat}
-			do
-				f=${dollar}(basename $i)
-				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.anqdpht*}
-                cp -f $i ${outdir}/$prefix
 
-            done
-            for i in ${sep=' ' stat2}
-			do
-				f=${dollar}(basename $i)
-				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.anqdpht*}
-                cp -f $i ${outdir}/$prefix
-
-            done
-            for i in ${sep=' ' stat_json}
-			do
-				f=${dollar}(basename $i)
-				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%.anqdpht*}
-                cp -f $i ${outdir}/$prefix
-
-            done
 
 
 
