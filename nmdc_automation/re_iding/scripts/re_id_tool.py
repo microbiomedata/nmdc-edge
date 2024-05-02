@@ -191,6 +191,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
     study_record.pop("part_of", None)
     study_record.pop("study_category", None)
     study_record.pop("associated_dois", None)
+    study_record.pop("homepage_website", None)
     study = nmdc.Study(**study_record)
     updated_study = _update_study(study, legacy_study_id, nmdc_study_id)
     study_update = compare_models(study, updated_study)
