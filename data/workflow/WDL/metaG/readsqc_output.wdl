@@ -10,6 +10,10 @@ workflow readsqc_output {
     call make_output {
         input: outdir=outdir,
         filtered= input_files,
+        filtered_stats_final=filtered_stats_final,
+        filtered_stats2_final=filtered_stats2_final,
+        rqc_info=rqc_info,
+        filtered_stats_json_final,
         container=bbtools_container
     }
 }
@@ -17,6 +21,10 @@ workflow readsqc_output {
 task make_output{
  	String outdir
 	Array[File] filtered
+	Array[File] filtered_stats_final
+    Array[File] filtered_stats2_final
+    Array[File] rqc_info
+    Array[File] filtered_stats_json_final
 	String dollar ="$"
 	String container
 
@@ -27,9 +35,12 @@ task make_output{
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%_filtered.fastq.gz}
+				echo "$f"
+				echo "$prefix"
+				echo ${dollar}prefix
 				mkdir -p ${outdir}/$prefix
                 cp -f $i ${outdir}/$prefix
-                cp -f $dir/$prefix_filterStats.txt ${outdir}/$prefix
+                cp -f $dir/${dollar}prefix_filterStats.txt ${outdir}/$prefix
                 cp -f $dir/$prefix_filterStats2.txt ${outdir}/$prefix
                 cp -f $dir/$prefix_qa_stats.json ${outdir}/$prefix/filterStats.json
 
