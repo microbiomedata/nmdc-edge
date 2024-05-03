@@ -226,6 +226,9 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
             ]
         }
         omics_processing_records = db_client["omics_processing_set"].find(omics_processing_query)
+        num_omics_processing_records = len(list(omics_processing_records.clone()))
+        logging.info(f"Found {num_omics_processing_records} OmicsProcessing records for biosample {biosample.id}")
+
         # Iterate over the omics processing records and update them
         for omics_processing_record in omics_processing_records:
 
@@ -299,9 +302,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
 
     logging.info("Writing updates and updated record identifiers to files")
     _write_updates(updates, nmdc_study_id)
-    # Don't overwrite the identifiers file if it was provided
-    if not identifiers_file:
-        _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
+    _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
     if deletions:
         _write_deletions(deletions, nmdc_study_id)
     logging.info(f"Elapsed time: {time.time() - start_time}")
@@ -371,7 +372,12 @@ def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
     # Write the updated record identifiers to a tsv file using csv writer
     updated_record_identifiers_file = study_dir.joinpath(f"{nmdc_study_id}_updated_record_identifiers.tsv")
     # Check if the file already exists - if so, append to it
+
+    existing_updated_record_identifiers = []
     if updated_record_identifiers_file.exists():
+        with open(updated_record_identifiers_file, "r") as f:
+            reader = csv.DictReader(f, delimiter="\t")
+            existing_updated_record_identifiers = list(reader)
         logging.info(f"Appending to existing file: {updated_record_identifiers_file}")
         mode = "a"
     else:
@@ -381,14 +387,15 @@ def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
     logging.info(
         f"Writing {len(updated_record_identifiers)} updated record identifiers to {updated_record_identifiers_file}"
         )
+    # Write the updated record identifiers to a tsv file using csv writer if they don't already exist in the file
+
     with open(updated_record_identifiers_file, mode) as f:
         writer = csv.writer(f, delimiter="\t")
-        writer.writerow(["collection_name", "legacy_id", "new_id"])
+        if mode == "w":
+            writer.writerow(["collection_name", "legacy_id", "new_id"])
         for record in updated_record_identifiers:
-            writer.writerow(record)
-
-
-
+            if record not in existing_updated_record_identifiers:
+                writer.writerow(record)
 
 @cli.command()
 @click.argument("study_id", type=str)
