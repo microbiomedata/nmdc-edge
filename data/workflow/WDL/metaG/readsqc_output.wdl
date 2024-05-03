@@ -40,9 +40,9 @@ task make_output{
 				echo ${dollar}prefix
 				mkdir -p ${outdir}/$prefix
                 cp -f $i ${outdir}/$prefix
-                cp -f $dir/${dollar}prefix_filterStats.txt ${outdir}/$prefix
-                cp -f $dir/$prefix_filterStats2.txt ${outdir}/$prefix
-                cp -f $dir/$prefix_qa_stats.json ${outdir}/$prefix/filterStats.json
+                cp -f $dir/${dollar}{prefix}_filterStats.txt  ${outdir}/$prefix
+                cp -f $dir/${dollar}{prefix}_filterStats2.txt  ${outdir}/$prefix
+                cp -f $dir/${dollar}{prefix}_qa_stats.json ${outdir}/$prefix/filterStats.json
 
             done
 
