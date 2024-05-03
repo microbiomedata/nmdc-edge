@@ -1,5 +1,4 @@
-{
-    "biosample_set": [
+[
         {
             "add_date": "2017-03-11",
             "collection_date": {
@@ -1850,5 +1849,5 @@
             "specific_ecosystem": "Peat",
             "type": "nmdc:Biosample"
         }
-    ]
-}
+]
+

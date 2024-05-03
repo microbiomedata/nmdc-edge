@@ -1,5 +1,4 @@
-{
-      "omics_processing_set": [
+[
         {
             "add_date": "2017-03-11",
             "gold_sequencing_project_identifiers": [
@@ -432,5 +431,4 @@
             "processing_institution": "JGI",
             "type": "nmdc:OmicsProcessing"
         }
-    ]
-}
+]
