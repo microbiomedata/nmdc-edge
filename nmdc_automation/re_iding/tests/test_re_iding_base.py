@@ -8,6 +8,7 @@ from nmdc_schema.nmdc import DataObject as NmdcDataObject
 from nmdc_schema.nmdc import (
     Biosample,
     MetabolomicsAnalysisActivity,
+    NomAnalysisActivity,
     OmicsProcessing,
 )
 from nmdc_automation.re_iding.base import (
@@ -147,6 +148,33 @@ def test_get_new_nmdc_id_biosample_with_identifiers_map(mocker):
         ("biosample_set", "nmdc:old_id"): exp_id
     }
 
+    new_id = get_new_nmdc_id(nmdc_object, mock_api, identifiers_map)
+    assert new_id == exp_id
+
+def test_get_new_nmdc_id_nom_activity_ndmc_typo_in_type(nom_activity_record_ndmc, mocker):
+    """
+    Test that we can get a new NMDC ID for a NOM Activity with a typo in the type.
+    """
+    exp_id = "nmdc:1234-abcd12345"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_id
+
+    nmdc_object = NomAnalysisActivity(**nom_activity_record_ndmc)
+
+    new_id = get_new_nmdc_id(nmdc_object, mock_api)
+    assert new_id == exp_id
+
+def test_get_new_nmdc_id_nom_activity_ndmc_typo_in_type_with_identifiers_map(nom_activity_record_ndmc, mocker):
+    exp_id = "nmdc:1234-abcd12345"
+    api_id = "should not see this"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = api_id
+
+    nmdc_object = NomAnalysisActivity(**nom_activity_record_ndmc)
+    old_id = nmdc_object.id
+    identifiers_map = {
+        ("nom_analysis_activity_set", old_id): exp_id
+    }
     new_id = get_new_nmdc_id(nmdc_object, mock_api, identifiers_map)
     assert new_id == exp_id
 
