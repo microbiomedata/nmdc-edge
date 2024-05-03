@@ -226,6 +226,9 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
             ]
         }
         omics_processing_records = db_client["omics_processing_set"].find(omics_processing_query)
+        num_omics_processing_records = len(list(omics_processing_records.clone()))
+        logging.info(f"Found {num_omics_processing_records} OmicsProcessing records for biosample {biosample.id}")
+
         # Iterate over the omics processing records and update them
         for omics_processing_record in omics_processing_records:
 
@@ -299,9 +302,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
 
     logging.info("Writing updates and updated record identifiers to files")
     _write_updates(updates, nmdc_study_id)
-    # Don't overwrite the identifiers file if it was provided
-    if not identifiers_file:
-        _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
+    _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
     if deletions:
         _write_deletions(deletions, nmdc_study_id)
     logging.info(f"Elapsed time: {time.time() - start_time}")
@@ -383,7 +384,8 @@ def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
         )
     with open(updated_record_identifiers_file, mode) as f:
         writer = csv.writer(f, delimiter="\t")
-        writer.writerow(["collection_name", "legacy_id", "new_id"])
+        if mode == "w":
+            writer.writerow(["collection_name", "legacy_id", "new_id"])
         for record in updated_record_identifiers:
             writer.writerow(record)
 
