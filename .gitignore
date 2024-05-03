@@ -6,6 +6,6 @@ htmlcov/
 .coverage
 attic
 .idea/
-
+.local/
 configs/.local_*
 attic/data/dryrun_data/
