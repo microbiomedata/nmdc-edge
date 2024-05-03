@@ -4,7 +4,11 @@ import shutil
 import tempfile
 import os
 
-from nmdc_automation.re_iding.file_utils import rewrite_bam, md5_sum
+from nmdc_automation.re_iding.file_utils import (
+    rewrite_bam,
+    replace_and_write_bam,
+    md5_sum
+)
 
 @pytest.fixture
 def sample_bam():
@@ -33,7 +37,7 @@ def test_sample_bam(sample_bam):
     assert os.path.getsize(sample_bam) > 0
 
 
-def test_modify_bam(sample_bam, tmpdir):
+def test_rewrite_bam(sample_bam, tmpdir):
     # Define input and output BAM file paths
     input_bam = sample_bam
     output_bam = str(tmpdir.join("output.bam"))
@@ -60,3 +64,21 @@ def test_modify_bam(sample_bam, tmpdir):
     expected_md5 = md5_sum(output_bam)
     expected_size = os.path.getsize(output_bam)
     assert expected_md5, expected_size == rewrite_bam(input_bam, output_bam, old_pattern, new_pattern)
+
+def test_replace_and_write_bam(sample_bam, tmpdir):
+    # Define input and output BAM file paths
+    input_bam = sample_bam
+    output_bam = str(tmpdir.join("output.bam"))
+
+    # Define old and new patterns for modification
+    old_pattern = "nmdc:mga0zv48"
+    new_pattern = "nmdc:updated_id"
+
+    # Call the modify_bam function
+    replace_and_write_bam(input_bam, output_bam, old_pattern, new_pattern)
+
+    # Check if the output BAM file exists
+    assert os.path.exists(output_bam)
+
+    # Check if the output BAM file is not empty
+    assert os.path.getsize(output_bam) > 0

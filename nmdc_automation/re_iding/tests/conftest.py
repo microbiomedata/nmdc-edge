@@ -24,6 +24,11 @@ def data_object_record():
         "type": "nmdc:DataObject"
     }
 
+@pytest.fixture
+def metagenome_omics_processing_record():
+    """Return a dict of a test nmdc_metagenome_omics_processing instance"""
+    with open(TEST_DATA_DIR / "metagenome_omics_processing_record.json", "r") as f:
+        return json.load(f)
 
 @pytest.fixture
 def igsn_biosample_record():
@@ -54,3 +59,4 @@ def nom_activity_record_ndmc():
     """Return a dict of a test nmdc_nom_activity instance"""
     with open(TEST_DATA_DIR / "nom_activity_record_ndmc.json", "r") as f:
         return json.load(f)
+
