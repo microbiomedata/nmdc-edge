@@ -8,6 +8,7 @@ import os
 import hashlib
 import json
 import gzip
+import pysam
 from subprocess import check_output
 from typing import Dict, Optional, Union, Tuple
 
@@ -186,19 +187,57 @@ def assembly_agp(src, dst, act_id):
     old_id = find_assembly_id(scaf)
     return rewrite_id(src, dst, old_id, act_id)
 
+def rewrite_bam(input_bam, output_bam, old_id, new_id):
+    # First, copy the header and update the reference sequence names
+    header_dict = pysam.AlignmentFile(input_bam, "rb").header.copy().to_dict()
+    header_dict['SQ'] = [{'LN': sq['LN'], 'SN': sq['SN'].replace(old_id, new_id)} for sq in header_dict['SQ']]
+    new_header = pysam.AlignmentHeader.from_dict(header_dict)
 
-def convert_script(script, src, dst, old_id, act_id):
-    cmd = [script, src, dst, old_id, act_id]
-    results = check_output(cmd)
-    md5 = md5_sum(dst)
-    size = os.stat(dst).st_size
+    # Write the output file with the modified header and close the file - we will reopen it for writing
+    with pysam.AlignmentFile(output_bam, "wb", header=header_dict) as output_bam_file:
+        logging.info(f"Writing to {output_bam}")
+        logging.info(f"Header: {header_dict}")
+        pass
+
+    # Reopen the output file for writing
+    with pysam.AlignmentFile(output_bam, "wb", header=new_header) as output_bam_file:
+        # Iterate over input aligned segments - make a new AlignedSegment object
+        for read in pysam.AlignmentFile(input_bam, "rb"):
+            read_dict = read.to_dict()
+            # replace old_id with new_id in the read_dict anywhere it appears
+            for key in read_dict:
+                if isinstance(read_dict[key], str):
+                    read_dict[key] = read_dict[key].replace(old_id, new_id)
+            # create a new AlignedSegment object from the modified read_dict and new_header
+            read = pysam.AlignedSegment.from_dict(read_dict, new_header)
+            # Write the modified alignment record to the output BAM file
+            output_bam_file.write(read)
+    # Return the MD5 checksum and size of the modified BAM file
+    md5 = md5_sum(output_bam)
+    size = os.stat(output_bam).st_size
     return md5, size
 
 
-def assembly_coverage_bam(script, src, dst, act_id):
+def replace_and_write_bam(input_bam, output_bam, old_id, new_id):
+    with pysam.AlignmentFile(input_bam, "rb") as input_bam_file, \
+            pysam.AlignmentFile(output_bam, "wb", header=input_bam_file.header) as output_bam_file:
+
+        for read in input_bam_file:
+            # Replace old_id with new_id in tags and other fields if necessary
+            # Modify other attributes of the read as needed
+
+            # Example: Replace old_id in read name
+            read.query_name = read.query_name.replace(old_id, new_id)
+
+            # Write the modified read to the output BAM file
+            output_bam_file.write(read)
+
+
+def assembly_coverage_bam(src, dst, act_id):
     scaf = str(src).replace("_pairedMapped_sorted.bam", "_scaffolds.fna")
     old_id = find_assembly_id(scaf)
-    return convert_script(script, src, dst, old_id, act_id)
+    md5, size = rewrite_bam(src, dst, old_id, act_id)
+    return md5, size
 
 
 def rewrite_sam(input_sam, output_sam, old_id, new_id):
@@ -234,7 +273,7 @@ def assembly_file_operations(data_object_record, data_object_type,
         md5, size = assembly_agp(old_file_path, destination, act_id)
     elif data_object_type == "Assembly Coverage BAM":
         md5, size = assembly_coverage_bam(
-            BAM_SCRIPT, old_file_path, destination, act_id
+            old_file_path, destination, act_id
         )
 
     return md5, size
