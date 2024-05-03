@@ -13,7 +13,7 @@ workflow readsqc_output {
         filtered_stats_final=filtered_stats_final,
         filtered_stats2_final=filtered_stats2_final,
         rqc_info=rqc_info,
-        filtered_stats_json_final,
+        filtered_stats_json_final=filtered_stats_json_final,
         container=bbtools_container
     }
 }
