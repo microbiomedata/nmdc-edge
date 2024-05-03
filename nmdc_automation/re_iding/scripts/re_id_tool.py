@@ -372,7 +372,12 @@ def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
     # Write the updated record identifiers to a tsv file using csv writer
     updated_record_identifiers_file = study_dir.joinpath(f"{nmdc_study_id}_updated_record_identifiers.tsv")
     # Check if the file already exists - if so, append to it
+
+    existing_updated_record_identifiers = []
     if updated_record_identifiers_file.exists():
+        with open(updated_record_identifiers_file, "r") as f:
+            reader = csv.DictReader(f, delimiter="\t")
+            existing_updated_record_identifiers = list(reader)
         logging.info(f"Appending to existing file: {updated_record_identifiers_file}")
         mode = "a"
     else:
@@ -382,15 +387,15 @@ def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
     logging.info(
         f"Writing {len(updated_record_identifiers)} updated record identifiers to {updated_record_identifiers_file}"
         )
+    # Write the updated record identifiers to a tsv file using csv writer if they don't already exist in the file
+
     with open(updated_record_identifiers_file, mode) as f:
         writer = csv.writer(f, delimiter="\t")
         if mode == "w":
             writer.writerow(["collection_name", "legacy_id", "new_id"])
         for record in updated_record_identifiers:
-            writer.writerow(record)
-
-
-
+            if record not in existing_updated_record_identifiers:
+                writer.writerow(record)
 
 @cli.command()
 @click.argument("study_id", type=str)
