@@ -227,6 +227,8 @@ workflow main_workflow {
 			read = if (input_interleaved) then input_files else flatten([input_fq1,input_fq2]),
 			filtered = nmdc_rqcfilter_call.filtered_final,
 			filtered_stats = nmdc_rqcfilter_call.filtered_stats_final,
+			filtered_stats2 = nmdc_rqcfilter_call.filtered_stats2_final,
+			filtered_stats_json = nmdc_rqcfilter_call.filtered_stats_json_final,
 			fasta=metaAssembly_call.contig,
 			scaffold=metaAssembly_call.scaffold,
 			agp=metaAssembly_call.agp,
@@ -370,6 +372,8 @@ task finish {
 	Array[File] read
 	Array[File?] filtered
 	Array[File?] filtered_stats
+	Array[File?] filtered_stats2
+	Array[File?] filtered_stats_json
 	File? fasta
 	File? scaffold
 	File? agp
@@ -395,14 +399,7 @@ task finish {
 	File? ko_ec_gff
 	File? stats_tsv
 	File? stats_json
-	# Future
 	File? gene_phylogeny_tsv
-	#    File proteins_cog_domtblout
-	#    File proteins_pfam_domtblout
-	#    File proteins_tigrfam_domtblout
-	#    File proteins_smart_domtblout
-	#    File proteins_supfam_domtblout
-	#    File proteins_cath_funfam_domtblout
 	File? product_names_tsv
 	File? crt_crisprs
 	File? short
@@ -427,10 +424,10 @@ task finish {
 	File? kraken2_krona_html
 	Int n_hqmq = length(hqmq_bin_fasta_files)
 	Int n_bin = length(bin_fasta_files)
-	String qadir="qa/"
-	String assemdir="assembly/"
-	String annodir="annotation/"
-	String magsdir="MAGs/"
+	String qadir="ReadsQC/"
+	String assemdir="MetagenomeAssembly/"
+	String annodir="MetagenomeAnnotation/"
+	String magsdir="MetagenomeMAGs/"
 	String rbadir="ReadbasedAnalysis/"
 	String sed_bin="s/bins./${prefix}_/g"
 	String dollar ="$"
@@ -439,6 +436,9 @@ task finish {
 		set -e
 		mkdir -p ${annodir}
 		mkdir -p ${assemdir}
+		mkdir -p ${qadir}
+		mkdir -p ${annodir}
+		mkdir -p ${rbadir}
 		end=`date --iso-8601=seconds`
 	
 
@@ -454,6 +454,18 @@ task finish {
 				${select_first(filtered)} 'Filtered Reads' \
 				${select_first(filtered_stats)} 'Filtered Stats'
 			cp activity.json data_objects.json ${qadir}/
+            for i in ${sep=' ' filtered}
+			do
+				f=${dollar}(basename $i)
+				dir=${dollar}(dirname $i)
+				prefix=${dollar}{f%_filtered.fastq.gz}
+				mkdir -p ${outdir}/$prefix
+                cp -f $i ${outdir}/$prefix
+                cp -f $dir/${dollar}{prefix}_filterStats.txt  ${qadir}/$prefix/filterStats.txt
+                cp -f $dir/${dollar}{prefix}_filterStats2.txt  ${qadir}/$prefix/filterStats2.txt
+                cp -f $dir/${dollar}{prefix}_qa_stats.json ${qadir}/$prefix/filterStats.json
+
+            done
 
 		
 
