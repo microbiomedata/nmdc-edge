@@ -171,12 +171,17 @@ function generateWDL(proj_home, workflow) {
     fs.writeFileSync(proj_home + '/pipeline.wdl', wdl);
     return true;
 }
-async function generateOptions(proj_home, workflow, proj) {
+async function generateOptions(proj_home, workflow) {
 
     const workflowSettings = workflowlist[workflow.name];
     const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, 'metaG_options.tmpl');
     let templInputs = String(fs.readFileSync(tmpl));
-    templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
+    if (workflow['name'] === 'ReadsQC') {
+        templInputs = {}
+    }
+    else {
+        templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
+    }
     fs.writeFileSync(proj_home + '/options.json', templInputs);
     return true;
 
