@@ -161,7 +161,7 @@ workflow main_workflow {
 	
 	## MAGs workflow
 	String? metaMAGs_outdir
-	String  metaMAGs_proj_name
+	String  metaMAGs_proj
 	File? metaMAGs_contig_file =  metaAssembly_call.contig
 	File? metaMAGs_sam_file =metaAssembly_call.bam
 	File? metaMAGs_gff_file = metaAnnotation_call.functional_gff
@@ -189,7 +189,7 @@ workflow main_workflow {
 
     call metaMAGs.nmdc_mags as metaMAGs_call {
         input:
-            proj_name=metaMAGs_proj_name,
+            proj_name=metaMAGs_proj,
             contig_file=metaMAGs_contig_file,
             sam_file=metaMAGs_sam_file,
             gff_file=metaMAGs_gff_file,
@@ -270,10 +270,7 @@ workflow main_workflow {
 			checkm=metaMAGs_call.final_checkm,
 			bac_summary = metaMAGs_call.final_gtdbtk_bac_summary,
 			ar_summary = metaMAGs_call.final_gtdbtk_ar_summary,
-			final_hqmq_bins = metaMAGs_call.final_hqmq_bins,
-			metabat_bins = metaMAGs_call.metabat_bins,
-			mags_stats_json=metaMAGs_call.final_stats,
-			mags_stats_tsv=metaMAGs_call.final_stats_tsv,
+			final_hqmq_bins = metaMAGs_call.final_hqmq_bins_zip,
 			final_hqmq_bins = metaMAGs_call.final_hqmq_bins_zip,
 			mags_stats_json=metaMAGs_call.final_stats_json,
 			hqmq_bin_fasta_files=metaMAGs_call.final_hqmq_bins_zip,
@@ -409,7 +406,6 @@ task finish {
 	File? bac_summary
 	File? ar_summary
 	File? final_hqmq_bins
-	File? metabat_bins
 	File? mags_stats_json
 	Array[File?] hqmq_bin_fasta_files
 	Array[File?] bin_fasta_files
@@ -459,8 +455,8 @@ task finish {
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%_filtered.fastq.gz}
-				mkdir -p ${outdir}/$prefix
-                cp -f $i ${outdir}/$prefix
+				mkdir -p ${qadir}/$prefix
+                cp -f $i ${qadir}/$prefix
                 cp -f $dir/${dollar}{prefix}_filterStats.txt  ${qadir}/$prefix/filterStats.txt
                 cp -f $dir/${dollar}{prefix}_filterStats2.txt  ${qadir}/$prefix/filterStats2.txt
                 cp -f $dir/${dollar}{prefix}_qa_stats.json ${qadir}/$prefix/filterStats.json
@@ -562,14 +558,13 @@ task finish {
 				${magsdir}/${prefix}_hqmq_bins.zip "high-quality and medium-quality bins" \
 				${magsdir}/${prefix}_checkm_qa.out "metabat2 bin checkm quality assessment result" \
 				${" " + bac_summary + " \"gtdbtk bacterial assignment result summary table\""} \
-				${" " + ar_summary + " \"gtdbtk archaea assignment result summary table\""}  \
-				${" " + metabat_bins +  " \"initial metabat bining result fasta output\""}
+				${" " + ar_summary + " \"gtdbtk archaea assignment result summary table\""}
         cp ${lowdepth}  ${magsdir}/${proj}_bins.lowDepth.fa
         cp ${short} ${magsdir}/${proj}_bins.tooShort.fa
         cp ${unbinned} ${magsdir}/${proj}_bins.unbinned.fa
         cp ${checkm} ${magsdir}/${proj}_checkm_qa.out
 			cp activity.json data_objects.json ${lowdepth} ${unbinned} ${mags_stats_json} ${ar_summary} ${final_hqmq_bins} \
-			${sep=" " hqmq_bin_fasta_files} ${sep=" " bin_fasta_files} ${metabat_bins} ${magsdir}/
+			${sep=" " hqmq_bin_fasta_files} ${sep=" " bin_fasta_files}  ${magsdir}/
 
 		    mkdir -p ${rbadir}
 			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \
