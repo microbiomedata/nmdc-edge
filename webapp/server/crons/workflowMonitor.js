@@ -176,7 +176,7 @@ async function generateOptions(proj_home, workflow) {
     const workflowSettings = workflowlist[workflow.name];
     const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, 'metaG_options.tmpl');
     let templInputs = String(fs.readFileSync(tmpl));
-    if (workflow['name'] === 'ReadsQC') {
+    if (workflow.name === 'ReadsQC') {
         templInputs = {}
     }
     else {
