@@ -35,13 +35,10 @@ task make_output{
 				f=${dollar}(basename $i)
 				dir=${dollar}(dirname $i)
 				prefix=${dollar}{f%_filtered.fastq.gz}
-				echo "$f"
-				echo "$prefix"
-				echo ${dollar}prefix
 				mkdir -p ${outdir}/$prefix
                 cp -f $i ${outdir}/$prefix
-                cp -f $dir/${dollar}{prefix}_filterStats.txt  ${outdir}/$prefix
-                cp -f $dir/${dollar}{prefix}_filterStats2.txt  ${outdir}/$prefix
+                cp -f $dir/${dollar}{prefix}_filterStats.txt  ${outdir}/$prefix/filterStats.txt
+                cp -f $dir/${dollar}{prefix}_filterStats2.txt  ${outdir}/$prefix/filterStats2.txt
                 cp -f $dir/${dollar}{prefix}_qa_stats.json ${outdir}/$prefix/filterStats.json
 
             done
