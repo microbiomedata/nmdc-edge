@@ -121,7 +121,6 @@ function generateOptions(proj_home) {
 
     const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, 'metagenome_pipeline_options.json');
     let templInputs = String(fs.readFileSync(tmpl));
-    templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home  + '"');
     fs.writeFileSync(proj_home + '/options.json', templInputs);
     return true;
 
