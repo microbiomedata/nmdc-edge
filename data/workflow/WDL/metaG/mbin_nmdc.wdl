@@ -1,5 +1,5 @@
 workflow nmdc_mags {
-    String proj_name
+    String proj
     String contig_file
     String sam_file
     String gff_file
@@ -23,9 +23,10 @@ workflow nmdc_mags {
     Int pthreads=1
     String gtdbtk_db="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
     String checkm_db="/refdata/checkM_DB/checkm_data_2015_01_16"
-    String package_container = "microbiomedata/nmdc_mbin_vis:0.1"
-    String container = "microbiomedata/nmdc_mbin@sha256:c8df293e80698627ce66df7cd07f6b10e9112184e3bf1379e615d10123f7bc64"
-
+    String eukcc2_db="/refdata/EUKCC2_DB/eukcc2_db_ver_1.2"
+    String package_container = "microbiomedata/nmdc_mbin_vis:0.2.0"
+    String container = "microbiomedata/nmdc_mbin@sha256:6f554ab22ff7e23dc97cdab1efa99de8f5d17172d57ce8d7923ca289c567ac9d"
+    }
     call stage {
         input:
             container=container,
@@ -48,7 +49,7 @@ workflow nmdc_mags {
 
     call mbin_nmdc {
         input:
-                name=proj_name,
+                name=proj,
                 fna = stage.contig,
                 aln = stage.sam,
                 gff = stage.gff,
@@ -57,11 +58,13 @@ workflow nmdc_mags {
                 pthreads = pthreads,
                 gtdbtk_env = gtdbtk_db,
                 checkm_env = checkm_db,
+                eukcc2_env = eukcc2_db,
+                map_file = map_file,
                 mbin_container = container
     }
     call package {
-         input:  proj = proj_name,
-                 bins=flatten([mbin_nmdc.hqmq_bin_fasta_files,mbin_nmdc.bin_fasta_files]),
+         input:  proj = proj,
+                 bins=flatten([mbin_nmdc.hqmq_bin_fasta_files,mbin_nmdc.lq_bin_fasta_files]),
                  json_stats=mbin_nmdc.stats_json,
                  gff_file=stage.gff,
                  proteins_file=stage.proteins,
@@ -83,7 +86,7 @@ workflow nmdc_mags {
         contigs=stage.contig,
         anno_gff=stage.gff,
         sorted_bam=stage.sam,
-        proj=proj_name,
+        proj=proj,
         start=stage.start,
         checkm = mbin_nmdc.checkm,
         bacsum= mbin_nmdc.bacsum,
@@ -97,12 +100,13 @@ workflow nmdc_mags {
         stats_json = mbin_nmdc.stats_json,
         stats_tsv = mbin_nmdc.stats_tsv,
         hqmq_bin_fasta_files = mbin_nmdc.hqmq_bin_fasta_files,
-        bin_fasta_files = mbin_nmdc.bin_fasta_files,
+        bin_fasta_files = mbin_nmdc.lq_bin_fasta_files,
         hqmq_bin_tarfiles = package.hqmq_bin_tarfiles,
         lq_bin_tarfiles = package.lq_bin_tarfiles,
         barplot = package.barplot,
         heatmap = package.heatmap,
         kronaplot = package.kronaplot,
+        eukcc_file=mbin_nmdc.eukcc_csv,
         ko_matrix = package.ko_matrix
     }
 
@@ -132,10 +136,12 @@ task mbin_nmdc {
     File gff
     File lineage
     String name
+    File? map_file
     Int? threads
     Int? pthreads
     String gtdbtk_env
     String checkm_env
+	String? eukcc2_env
     String mbin_container
 
 
@@ -173,13 +179,20 @@ task mbin_nmdc {
             echo "mbin.sdb exists."
         else
             mkdir -p gtdbtk-output
-            echo "Mbin Sdb Could not be created for ${name}" > mbin.sdb
+            echo "Mbin Sdb Could not be created for ~{name}" > mbin.sdb
+        fi
+
+        if [ -f eukcc_output/eukcc.csv.final ]; then
+            echo "eukcc.csv.final exists."
+        else
+            mkdir -p eukcc_output
+            echo "No EUKCC2 result for ~{name}" > eukcc_output/eukcc.csv.final
         fi
     >>>
 
     runtime{
         docker : mbin_container
-        memory : "60 G"
+        memory : "120 G"
 	    time : "2:00:00"
         cpu : threads
     }
@@ -195,8 +208,9 @@ task mbin_nmdc {
         File mbin_version = "mbin_nmdc_versions.log"
         File bacsum = "gtdbtk-output/gtdbtk.bac120.summary.tsv"
         File arcsum = "gtdbtk-output/gtdbtk.ar122.summary.tsv"
+	    File eukcc_csv = "eukcc_output/eukcc.csv.final"
         Array[File] hqmq_bin_fasta_files = glob("hqmq-metabat-bins/*fa")
-        Array[File] bin_fasta_files = glob("metabat-bins/*fa")
+        Array[File] lq_bin_fasta_files = glob("filtered-metabat-bins/*fa")
     }
 }
 
@@ -332,7 +346,7 @@ task package{
         fi
      }
      output {
-         Array[File] hqmq_bin_tarfiles = glob("*_HQ.tar.gz") + glob("*_MQ.tar.gz")
+         Array[File] hqmq_bin_tarfiles = flatten([glob("*_HQ.tar.gz"), glob("*_MQ.tar.gz")])
          Array[File] lq_bin_tarfiles = glob("*_LQ.tar.gz")
          File barplot = prefix + "_barplot.pdf"
          File heatmap = prefix + "_heatmap.pdf"
@@ -374,7 +388,7 @@ task finish_mags {
     File heatmap
     File kronaplot
     File ko_matrix
-
+    File eukcc_file
     command {
         set -e
         end=`date --iso-8601=seconds`
