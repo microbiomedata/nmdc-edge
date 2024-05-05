@@ -189,7 +189,7 @@ workflow main_workflow {
 
     call metaMAGs.nmdc_mags as metaMAGs_call {
         input:
-            proj_name=metaMAGs_proj,
+            proj=metaMAGs_proj,
             contig_file=metaMAGs_contig_file,
             sam_file=metaMAGs_sam_file,
             gff_file=metaMAGs_gff_file,
