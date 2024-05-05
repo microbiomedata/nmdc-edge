@@ -26,7 +26,7 @@ workflow nmdc_mags {
     String eukcc2_db="/refdata/EUKCC2_DB/eukcc2_db_ver_1.2"
     String package_container = "microbiomedata/nmdc_mbin_vis:0.2.0"
     String container = "microbiomedata/nmdc_mbin@sha256:6f554ab22ff7e23dc97cdab1efa99de8f5d17172d57ce8d7923ca289c567ac9d"
-    }
+
     call stage {
         input:
             container=container,
