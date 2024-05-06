@@ -33,9 +33,7 @@ function submitWorkflow(proj, workflow, inputsize) {
             wdlVersion = workflowlist[workflow.name]['wdl_version'];
         } else {
             // options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelinelist[workflow]['options_json'] ? pipelinelist[workflow]['options_json'] : 'notfound');
-            imports = path.join(config.WORKFLOWS.WDL_DIR, pipelinelist[workflow]['wdl_imports']);
             options_json = proj_home + '/options.json';
-            imports = process.env.WORKFLOW_WDL_HOME + "/" + pipelinelist[workflow]['wdl_imports'];
             wdlVersion = pipelinelist[workflow]['wdl_version'];
         }
         // if (fs.existsSync(options_json)) {
