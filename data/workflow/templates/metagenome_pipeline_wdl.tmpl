@@ -272,7 +272,6 @@ workflow main_workflow {
 			ar_summary = metaMAGs_call.final_gtdbtk_ar_summary,
 			final_hqmq_bins = metaMAGs_call.final_hqmq_bins_zip,
 			mags_stats_json=metaMAGs_call.final_stats_json,
-			hqmq_bin_fasta_files=metaMAGs_call.final_hqmq_bins_zip,
 			bin_fasta_files=metaMAGs_call.final_lq_bins_zip,
 			qadir=readsQC_outdir,
 			assemdir=metaAssembly_outdir,
@@ -406,7 +405,6 @@ task finish {
 	File? ar_summary
 	File? final_hqmq_bins
 	File? mags_stats_json
-	File? hqmq_bin_fasta_files
 	File? bin_fasta_files
 	File? gottcha2_report_tsv
 	File? gottcha2_full_tsv
@@ -517,7 +515,6 @@ task finish {
 
 
 			    mkdir -p hqmq
-				(cd hqmq && cp ${sep=" " hqmq_bin_fasta_files} .)
 				(cd hqmq && for binFA in *.fa; do
 					name=${dollar}{binFA/bins./}
 					binID=${dollar}{name/.fa/}
@@ -561,7 +558,7 @@ task finish {
         cp ${unbinned} ${magsdir}/${proj}_bins.unbinned.fa
         cp ${checkm} ${magsdir}/${proj}_checkm_qa.out
 			cp activity.json data_objects.json ${lowdepth} ${unbinned} ${mags_stats_json} ${ar_summary} ${final_hqmq_bins} \
-			${hqmq_bin_fasta_files} ${bin_fasta_files}  ${magsdir}/
+			${bin_fasta_files}  ${magsdir}/
 
 		    mkdir -p ${rbadir}
 			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \
