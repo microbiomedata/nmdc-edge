@@ -179,7 +179,7 @@ class ReIdTool:
             old_do_id = old_do_rec.get("id")
             params = copy.deepcopy(old_do_rec)
             params.pop("id", None)
-            new_do_id = get_new_nmdc_id(NmdcDataObject(**params), self.api_client, self.identifiers_map)
+            new_do_id = get_new_nmdc_id(NmdcDataObject(**old_do_rec), self.api_client, self.identifiers_map)
             self.updated_record_identifiers.add((DATA_OBJECT_SET, old_do_id, new_do_id))
             logger.info(f"nmdcDataObject\t{old_do_id}\t{new_do_id}")
 
@@ -206,6 +206,7 @@ class ReIdTool:
         for reads_qc_rec in db_record.get(READS_QC_SET, []):
             # old records have non-conforming type
             activity_type = "nmdc:ReadQcAnalysisActivity"
+            reads_qc_rec["type"] = activity_type
             omics_processing_id = new_omics_processing.id
             has_input = new_omics_processing.has_output
             
@@ -239,7 +240,6 @@ class ReIdTool:
                 if update_links:
                     logging.info(f"Updating links for {old_do_rec['url']} to {new_file_path}")
                     link_data_file_paths(old_do_rec["url"], self.data_dir, new_file_path)
-
 
                 new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec,
@@ -283,6 +283,7 @@ class ReIdTool:
             
             updated_has_output = []
             activity_obj = nmdc.MetagenomeAssembly(**assembly_rec)
+            activity_obj.type = activity_type
             new_activity_id = get_new_nmdc_id(
                 activity_obj, self.api_client, self.identifiers_map) + "." + self.workflow_iteration
 
@@ -373,6 +374,7 @@ class ReIdTool:
             omics_processing_id = new_omics_processing.id
             has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
             activity_obj = nmdc.ReadBasedTaxonomyAnalysisActivity(**read_based_rec)
+            activity_obj.type = activity_type
             new_activity_id = get_new_nmdc_id(
                 activity_obj, self.api_client, self.identifiers_map) + "." + self.workflow_iteration
 
@@ -462,6 +464,7 @@ class ReIdTool:
             has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
 
             activity_obj = nmdc.MetatranscriptomeActivity(**metatranscriptome_rec)
+            activity_obj.type = activity_type
             new_activity_id = get_new_nmdc_id(
                 activity_obj, self.api_client, self.identifiers_map) + "." + self.workflow_iteration
 
@@ -591,6 +594,7 @@ class ReIdTool:
             activity_type, data_object_type
             )
         data_obj = NmdcDataObject(**data_object_record)
+        data_obj.type = "nmdc:DataObject"
         new_data_object_id = get_new_nmdc_id(data_obj, self.api_client, self.identifiers_map)
         self.updated_record_identifiers.add((DATA_OBJECT_SET, data_object_record["id"], new_data_object_id))
         logger.info(f"nmdcDataObject\t{data_object_record['id']}\t{new_data_object_id}")
