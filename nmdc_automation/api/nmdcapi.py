@@ -96,7 +96,7 @@ class NmdcRuntimeApi:
         data = {"schema_class": {"id": id_type}, "how_many": 1}
         resp = requests.post(url, data=json.dumps(data), headers=self.header)
         if not resp.ok:
-            raise ValueError(f"Failed to mint ID of type {id_type}")
+            raise ValueError(f"Failed to mint ID of type {id_type} HTTP status: {resp.status_code} / ({resp.reason})")
         id = resp.json()[0]
         if informed_by:
             url = f"{self._base_url}pids/bind"
