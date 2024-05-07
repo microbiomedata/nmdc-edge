@@ -88,59 +88,58 @@ const generateWorkflowResult = function (proj) {
     const proj_home = path.join(config.PROJECTS.BASE_DIR, proj.code);
     const result_json = proj_home + "/result.json";
 
-    if (!fs.existsSync(result_json)) {
-        let result = {};
-        const conf_file = proj_home + "/conf.json";
-        let rawdata = fs.readFileSync(conf_file);
-        let workflowConf = JSON.parse(rawdata);
-        const outdir = proj_home + '/' + workflowlist[workflowConf.workflow.name].outdir;
+    let result = {};
+    const conf_file = proj_home + "/conf.json";
+    let rawdata = fs.readFileSync(conf_file);
+    let workflowConf = JSON.parse(rawdata);
+    const outdir = proj_home + '/' + workflowlist[workflowConf.workflow.name].outdir;
 
-        if (workflowConf.workflow.name === 'ReadsQC') {
-            let stats = {};
-            const dirs = fs.readdirSync(outdir);
-            dirs.forEach(function (dir) {
-                if (fs.statSync(outdir + "/" + dir).isDirectory()) {
-                    //load filterStats.json
-                    stats[dir] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/filterStats.json"));
-                }
-            });
-            result['stats'] = stats;
-        } else if (workflowConf.workflow.name === 'MetaAssembly') {
-            let statsOut = outdir + "/final_assembly/stats.json";
-            if (!fs.existsSync(statsOut)) {
-                statsOut = outdir + "/stats.json";
+    if (workflowConf.workflow.name === 'ReadsQC') {
+        let stats = {};
+        const dirs = fs.readdirSync(outdir);
+        dirs.forEach(function (dir) {
+            if (fs.statSync(outdir + "/" + dir).isDirectory()) {
+                //load filterStats.json
+                stats[dir] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/filterStats.json"));
             }
-            result['stats'] = JSON.parse(fs.readFileSync(statsOut));
+        });
+        result['stats'] = stats;
+    } else if (workflowConf.workflow.name === 'MetaAssembly') {
+        let statsOut = outdir + "/final_assembly/stats.json";
+        if (!fs.existsSync(statsOut)) {
+            statsOut = outdir + "/stats.json";
+        }
+        result['stats'] = JSON.parse(fs.readFileSync(statsOut));
 
-        } else if (workflowConf.workflow.name === 'ReadbasedAnalysis') {
-            let summary = null;
-            let htmls = {};
-            const dirs = fs.readdirSync(outdir);
-            dirs.forEach(function (dir) {
-                if (fs.statSync(outdir + "/" + dir).isDirectory()) {
-                    //get html
-                    const subs = fs.readdirSync(outdir + "/" + dir).filter(file => {
-                        return file.endsWith('html');
-                    });
-                    let subHtmls = []
-                    subs.forEach(function (html) {
-                        subHtmls.push(workflowlist[workflowConf.workflow.name].outdir + "/" + dir + "/" + html);
-                    });
-                    htmls[dir] = { "htmls": subHtmls };
-                } else if (dir.endsWith(".json") && dir !== 'activity.json' && dir !== 'data_objects.json') {
-                    summary = JSON.parse(fs.readFileSync(outdir + "/" + dir));
-                }
-            });
-            result = { "html": htmls, "summary": summary };
+    } else if (workflowConf.workflow.name === 'ReadbasedAnalysis') {
+        let summary = null;
+        let htmls = {};
+        const dirs = fs.readdirSync(outdir);
+        dirs.forEach(function (dir) {
+            if (fs.statSync(outdir + "/" + dir).isDirectory()) {
+                //get html
+                const subs = fs.readdirSync(outdir + "/" + dir).filter(file => {
+                    return file.endsWith('html');
+                });
+                let subHtmls = []
+                subs.forEach(function (html) {
+                    subHtmls.push(workflowlist[workflowConf.workflow.name].outdir + "/" + dir + "/" + html);
+                });
+                htmls[dir] = { "htmls": subHtmls };
+            } else if (dir.endsWith(".json") && dir !== 'activity.json' && dir !== 'data_objects.json') {
+                summary = JSON.parse(fs.readFileSync(outdir + "/" + dir));
+            }
+        });
+        result = { "html": htmls, "summary": summary };
 
-        } else if (workflowConf.workflow.name === 'MetaAnnotation') {
-            //find <prefix>_structural_annotation_stats.json
-            const files = fs.readdirSync(outdir);
-            files.forEach(function (file) {
-                if (file.endsWith("_structural_annotation_stats.json")) {
-                    result['stats'] = JSON.parse(fs.readFileSync(outdir + "/" + file));
-                }
-            });
+    } else if (workflowConf.workflow.name === 'MetaAnnotation') {
+        //find <prefix>_structural_annotation_stats.json
+        const files = fs.readdirSync(outdir);
+        files.forEach(function (file) {
+            if (file.endsWith("_structural_annotation_stats.json")) {
+                result['stats'] = JSON.parse(fs.readFileSync(outdir + "/" + file));
+            }
+        });
 
         } else if (workflowConf.workflow.name === 'MetaMAGs') {
             //result['stats'] = JSON.parse(fs.readFileSync(outdir + "/MAGs_stats.json"));
@@ -236,75 +235,74 @@ const generateWorkflowResult = function (proj) {
                 // link sra downloads to project output
                 fs.symlinkSync("../../../../sra/" + accession, outdir + "/" + accession)
 
-            })
-        }
-
-        fs.writeFileSync(result_json, JSON.stringify(result));
+        })
     }
+
+    fs.writeFileSync(result_json, JSON.stringify(result));
 }
 
 const generatePipelineResult = function (proj) {
     const proj_home = path.join(config.PROJECTS.BASE_DIR, proj.code);
     const result_json = proj_home + "/result.json";
 
-    if (!fs.existsSync(result_json)) {
-        let result = {};
-        const conf_file = proj_home + "/conf.json";
-        let rawdata = fs.readFileSync(conf_file);
-        let pipelineConf = JSON.parse(rawdata);
-        result['workflows'] = pipelineConf.workflows;
+    let result = {};
+    const conf_file = proj_home + "/conf.json";
+    let rawdata = fs.readFileSync(conf_file);
+    let pipelineConf = JSON.parse(rawdata);
+    result['workflows'] = pipelineConf.workflows;
 
-        pipelineConf.workflows.forEach(workflow => {
-            const outdir = proj_home + '/' + workflowlist[workflow.name].outdir;
-            if (workflow.name === 'ReadsQC' && workflow.paramsOn) {
-                result[workflow.name] = {};
-                let stats = {};
-                if (fs.existsSync(outdir)) {
-                    const dirs = fs.readdirSync(outdir);
-                    dirs.forEach(function (dir) {
-                        if (fs.statSync(outdir + "/" + dir).isDirectory()) {
-                            //load filterStats.json
-                            stats[dir] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/filterStats.json"));
-                        }
-                    });
-                }
-                result[workflow.name]['stats'] = stats;
-            } else if (workflow.name === 'MetaAssembly' && workflow.paramsOn) {
-                result[workflow.name] = {};
-                let statsOut = outdir + "/final_assembly/stats.json";
-                if (!fs.existsSync(statsOut)) {
-                    statsOut = outdir + "/stats.json";
-                }
-                if (fs.existsSync(statsOut)) {
-                    result[workflow.name]['stats'] = JSON.parse(fs.readFileSync(statsOut));
-                }
+    pipelineConf.workflows.forEach(workflow => {
+        const outdir = proj_home + '/' + workflowlist[workflow.name].outdir;
+        if (workflow.name === 'ReadsQC' && workflow.paramsOn) {
+            result[workflow.name] = {};
+            let stats = {};
+            if (fs.existsSync(outdir)) {
+                const dirs = fs.readdirSync(outdir);
+                dirs.forEach(function (dir) {
+                    if (fs.statSync(outdir + "/" + dir).isDirectory()) {
+                        //load filterStats.json
+                        stats[dir] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/filterStats.json"));
+                    }
+                });
+            }
+            result[workflow.name]['stats'] = stats;
+        } else if (workflow.name === 'MetaAssembly' && workflow.paramsOn) {
+            result[workflow.name] = {};
+            let statsOut = outdir + "/final_assembly/stats.json";
+            if (!fs.existsSync(statsOut)) {
+                statsOut = outdir + "/stats.json";
+            }
+            if (fs.existsSync(statsOut)) {
+                result[workflow.name]['stats'] = JSON.parse(fs.readFileSync(statsOut));
+            }
 
-            } else if (workflow.name === 'ReadbasedAnalysis' && workflow.paramsOn) {
-                result[workflow.name] = {};
-                let summary = null;
-                let htmls = {};
-                if (fs.existsSync(outdir)) {
-                    const dirs = fs.readdirSync(outdir);
-                    dirs.forEach(function (dir) {
-                        if (fs.statSync(outdir + "/" + dir).isDirectory()) {
-                            //get html
-                            const subs = fs.readdirSync(outdir + "/" + dir).filter(file => {
-                                return file.endsWith('html');
-                            });
-                            let subHtmls = []
-                            subs.forEach(function (html) {
-                                subHtmls.push(workflowlist[workflow.name].outdir + "/" + dir + "/" + html);
-                            });
-                            htmls[dir] = { "htmls": subHtmls };
-                        } else if (dir.endsWith(".json") && dir !== 'activity.json' && dir !== 'data_objects.json') {
-                            summary = JSON.parse(fs.readFileSync(outdir + "/" + dir));
-                        }
-                    });
-                }
-                result[workflow.name] = { "html": htmls, "summary": summary };
+        } else if (workflow.name === 'ReadbasedAnalysis' && workflow.paramsOn) {
+            result[workflow.name] = {};
+            let summary = null;
+            let htmls = {};
+            if (fs.existsSync(outdir)) {
+                const dirs = fs.readdirSync(outdir);
+                dirs.forEach(function (dir) {
+                    if (fs.statSync(outdir + "/" + dir).isDirectory()) {
+                        //get html
+                        const subs = fs.readdirSync(outdir + "/" + dir).filter(file => {
+                            return file.endsWith('html');
+                        });
+                        let subHtmls = []
+                        subs.forEach(function (html) {
+                            subHtmls.push(workflowlist[workflow.name].outdir + "/" + dir + "/" + html);
+                        });
+                        htmls[dir] = { "htmls": subHtmls };
+                    } else if (dir.endsWith(".json") && dir !== 'activity.json' && dir !== 'data_objects.json') {
+                        summary = JSON.parse(fs.readFileSync(outdir + "/" + dir));
+                    }
+                });
+            }
+            result[workflow.name] = { "html": htmls, "summary": summary };
 
-            } else if (workflow.name === 'virus_plasmid' && workflow.paramsOn) {
-                result[workflow.name] = {};
+        } else if (workflow.name === 'virus_plasmid' && workflow.paramsOn) {
+            result[workflow.name] = {};
+            if (fs.existsSync(outdir)) {
                 const dirs = fs.readdirSync(outdir);
                 dirs.forEach(function (dir) {
                     if (fs.statSync(outdir + "/" + dir).isDirectory() && dir.endsWith('summary')) {
@@ -327,39 +325,39 @@ const generatePipelineResult = function (proj) {
                         });
                     }
                 });
-            } else if (workflow.name === 'MetaAnnotation' && workflow.paramsOn) {
-                result[workflow.name] = {};
-                //find <prefix>_structural_annotation_stats.json
-                if (fs.existsSync(outdir)) {
-                    const files = fs.readdirSync(outdir);
-                    files.forEach(function (file) {
-                        if (file.endsWith("_structural_annotation_stats.json")) {
-                            result[workflow.name]['stats'] = JSON.parse(fs.readFileSync(outdir + "/" + file));
-                        }
-                    });
-                }
-
-            } else if (workflow.name === 'MetaMAGs' && workflow.paramsOn) {
-                result[workflow.name] = {};
-                if (fs.existsSync(outdir + "/MAGs_stats.json")) {
-
-                    let stats = JSON.parse(fs.readFileSync(outdir + "/MAGs_stats.json"));
-                    Object.keys(stats).forEach((item, index) => {
-                        //mags_list
-                        if (typeof stats[item] === 'object') {
-                            //delete members_id
-                            for (var i = 0; i < stats[item].length; i++) {
-                                delete stats[item][i]['members_id'];
-                            }
-                        }
-                    });
-                    result[workflow.name]['stats'] = stats;
-                }
             }
-        });
+        } else if (workflow.name === 'MetaAnnotation' && workflow.paramsOn) {
+            result[workflow.name] = {};
+            //find <prefix>_structural_annotation_stats.json
+            if (fs.existsSync(outdir)) {
+                const files = fs.readdirSync(outdir);
+                files.forEach(function (file) {
+                    if (file.endsWith("_structural_annotation_stats.json")) {
+                        result[workflow.name]['stats'] = JSON.parse(fs.readFileSync(outdir + "/" + file));
+                    }
+                });
+            }
 
-        fs.writeFileSync(result_json, JSON.stringify(result));
-    }
+        } else if (workflow.name === 'MetaMAGs' && workflow.paramsOn) {
+            result[workflow.name] = {};
+            if (fs.existsSync(outdir + "/MAGs_stats.json")) {
+
+                let stats = JSON.parse(fs.readFileSync(outdir + "/MAGs_stats.json"));
+                Object.keys(stats).forEach((item, index) => {
+                    //mags_list
+                    if (typeof stats[item] === 'object') {
+                        //delete members_id
+                        for (var i = 0; i < stats[item].length; i++) {
+                            delete stats[item][i]['members_id'];
+                        }
+                    }
+                });
+                result[workflow.name]['stats'] = stats;
+            }
+        }
+    });
+
+    fs.writeFileSync(result_json, JSON.stringify(result));
 }
 
 
@@ -518,42 +516,14 @@ async function findInputsize(conf) {
             size += stats.size;
         }
         else if (workflow === 'MetaMAGs') {
-            let stats = await fileStats(conf.workflow.contig_file);
+            let stats = await fileStats(conf.workflow.input_contig);
             size += stats.size;
-            stats = await fileStats(conf.workflow.sam_file);
+            stats = await fileStats(conf.workflow.input_sam);
             size += stats.size;
-            stats = await fileStats(conf.workflow.gff_file);
+            stats = await fileStats(conf.workflow.input_gff);
             size += stats.size;
-            stats = await fileStats(conf.workflow.proteins_file);
-            size += stats.size;
-            stats = await fileStats(conf.workflow.cog_file);
-            size += stats.size;
-            stats = await fileStats(conf.workflow.ec_file);
-            size += stats.size;
-            stats = await fileStats(conf.workflow.ko_file);
-            size += stats.size;
-            stats = await fileStats(conf.workflow.pfam_file);
-            size += stats.size;
-            stats = await fileStats(conf.workflow.tigrfam_file);
-            size += stats.size;
-            stats = await fileStats(conf.workflow.cath_funfam_file);
-            size += stats.size;
-            stats = await fileStats(conf.workflow.smart_file);
-            size += stats.size;
-            stats = await fileStats(conf.workflow.supfam_file);
-            size += stats.size;
-            stats = await fileStats(conf.workflow.product_names_file);
-            size += stats.size;
-            stats = await fileStats(conf.workflow.gene_phylogeny_file);
-            size += stats.size;
-            stats = await fileStats(conf.workflow.lineage_file);
-            size += stats.size;
-            if (conf.workflow.map_file) {
-                stats = await fileStats(conf.workflow.map_file);
-                size += stats.size;
-            }
-            if (conf.workflow.domain_file) {
-                stats = await fileStats(conf.workflow.domain_file);
+            if (conf.workflow.input_map) {
+                stats = await fileStats(conf.workflow.input_map);
                 size += stats.size;
             }
         }
@@ -588,11 +558,7 @@ async function fileStats(file) {
             .then(size => { return { size: size } })
             .catch(err => { return { size: 0 } });
     } else {
-        try {
-            return fs.statSync(file);
-        } catch (e) {
-            return { size: 0 };
-        }
+        return fs.statSync(file);
     }
 }
 

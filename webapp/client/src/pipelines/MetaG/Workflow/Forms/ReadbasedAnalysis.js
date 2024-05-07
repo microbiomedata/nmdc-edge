@@ -16,7 +16,7 @@ export function ReadbasedAnalysis(props) {
     });
     //need initial array for workflow selected more than once, otherwise workflows will share same inputs
     const [form, setState] = useState({ ...initialReadbasedAnalysis, fastqPaired: [], fastqSingle: [] });
-    const [collapseParms, setCollapseParms] = useState(true);
+    const [collapseParms, setCollapseParms] = useState(false);
     const [doValidation, setDoValidation] = useState(0);
 
     const toggleParms = () => {
@@ -114,7 +114,7 @@ export function ReadbasedAnalysis(props) {
                     </Row>
                     <br></br>
                     <MyTooltip id='ReadbasedAnalysis' text="Input Raw Reads" tooltip={workflowInputTips['ReadbasedAnalysis']['fastq_tip']} showTooltip={true} place="right" />
-                    <FastqInput projectTypes={['ReadsQC','sra2fastq']} singleType={'single-end'} name={props.name} full_name={props.full_name} setParams={updateFastqInputs} collapseParms={true} paired-input-max={form['paired-input-max']} />
+                    <FastqInput projectTypes={['ReadsQC','Retrieve SRA Data']} singleType={'single-end or interleaved'} name={props.name} full_name={props.full_name} setParams={updateFastqInputs} collapseParms={true} paired-input-max={form['paired-input-max']} />
                 </CardBody>
             </Collapse>
         </Card >

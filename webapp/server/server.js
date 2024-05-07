@@ -26,6 +26,48 @@ const dbBackup = require("./crons/dbBackup");
 const dbBackupClean = require("./crons/dbBackupClean");
 const config = require("./config");
 
+/**
+ * Ensures there is a usable directory at the specified path.
+ *
+ * References:
+ * - https://nodejs.org/api/fs.html#fsfstatsyncfd-options
+ * - https://nodejs.org/api/fs.html#fsmkdirsyncpath-options
+ * - https://nodejs.org/api/fs.html#fsaccesssyncpath-mode
+ * - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_dates#octal_numbers
+ */
+const ensureDirectoryIsUsable = (path) => {
+  try {
+    // Check whether there is a directory at that path and that this process has full access to it.
+    // Note: `fs.accessSync` throws an exception if access fails.
+    if (fs.statSync(path).isDirectory()) {
+      fs.accessSync(path, fs.constants.R_OK | fs.constants.W_OK | fs.constants.X_OK);
+      console.error("Directory is usable:", path);
+    } else {
+      console.error("Directory is not usable:", path);
+      throw new Error(`Directory is not usable: ${path}`);
+    }
+  } catch (error) {
+    // Create a directory there to which this process has full access.
+    fs.mkdirSync(path, {recursive: true, mode: 0o700});
+    console.debug("Created directory:", path);
+  }
+};
+
+/**
+ * Ensures directories are usable.
+ */
+const ensureDirectoriesAreUsable = () => {
+  [
+    config.IO.PUBLIC_BASE_DIR,
+    config.IO.UPLOADED_FILES_DIR,
+    config.IO.UPLOADED_FILES_TEMP_DIR,
+    config.PROJECTS.BASE_DIR,
+  ].forEach((path) => ensureDirectoryIsUsable(path));
+};
+
+// Ensure directories are usable.
+ensureDirectoriesAreUsable();
+
 const app = express();
 app.use(express.json());
 app.use(fileUpload({

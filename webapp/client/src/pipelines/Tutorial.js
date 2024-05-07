@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Row } from 'reactstrap';
-import { intro, pipelinelist } from './Defaults';
+import { intro, pipelinelist, workflowlist } from './Defaults';
 import TutorialBar from './Common/TutorialBar';
 import TutorialBarDropdown from './Common/TutorialBarDropdown';
 
@@ -46,6 +46,23 @@ function Tutorial() {
                                     pdfFrench={pipelinelist[item].pdfFrench ? pipelinelist[item].pdfFrench : null}
                                     video={pipelinelist[item].video ? pipelinelist[item].video : null}
                                     bgcolor={pipelinelist[item].bgcolor}
+                                />
+                                <br></br>
+                            </div>
+                        )
+                    })}
+                    {Object.keys(workflowlist).map((item, index) => {
+                        return (
+                            <div key={index}>
+                                <TutorialBar key={index}
+                                    title={workflowlist[item].title}
+                                    name={workflowlist[item].name}
+                                    docs={workflowlist[item].doclink ? workflowlist[item].doclink : null}
+                                    pdf={workflowlist[item].pdf ? workflowlist[item].pdf : null}
+                                    pdfSpanish={workflowlist[item].pdfSpanish ? workflowlist[item].pdfSpanish : null}
+                                    pdfFrench={workflowlist[item].pdfFrench ? workflowlist[item].pdfFrench : null}
+                                    video={workflowlist[item].video ? workflowlist[item].video : null}
+                                    bgcolor={workflowlist[item].bgcolor}
                                 />
                                 <br></br>
                             </div>

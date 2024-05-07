@@ -29,7 +29,7 @@ export const workflowlist = {
         // img: '/docs/images/Metaproteomics.png',
         // thumbnail: '/docs/images/Metaproteomics-thumbnail.png',
         link: 'https://github.com/microbiomedata/metaPro',
-        doclink: 'https://nmdc-proteomics-workflow.readthedocs.io/en/latest/',
+        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/7_Metaproteomics_index.html',
         info: 'Metaproteomics workflow/pipeline is an end-to-end data processing and analyzing pipeline for studying proteomes i.e studying protein identification and characterization using MS/MS data.'
     },
 }

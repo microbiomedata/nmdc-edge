@@ -9,7 +9,7 @@ import { Header } from '../../../Common/Forms/CardHeader';
 import { workflowInputTips } from '../Defaults';
 
 export function ReadsQC(props) {
-    const [collapseParms, setCollapseParms] = useState(true);
+    const [collapseParms, setCollapseParms] = useState(false);
 
     const toggleParms = () => {
         setCollapseParms(!collapseParms);
@@ -22,7 +22,7 @@ export function ReadsQC(props) {
                 <CardBody>
                     <MyTooltip id='ReadsQC' text="Input Raw Reads" tooltip={workflowInputTips['ReadsQC']['fastq_tip']} showTooltip={true} place="right" />
                     <FastqInput name={props.name} full_name={props.full_name} setParams={props.setParams} collapseParms={true} 
-                    dataSources={['upload', 'project', 'public', 'globus']} projectTypes={['sra2fastq']} />
+                    dataSources={['upload', 'project', 'public', 'globus']} projectTypes={['Retrieve SRA Data']} />
                 </CardBody>
             </Collapse>
         </Card>

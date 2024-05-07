@@ -20,7 +20,7 @@ export const workflowInputTips = {
         fastq_tip: 'ReadsQC requires paired-end Illumina data in FASTQ format as the input; the file can be interleaved and can becompressed. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
     },
     ReadbasedAnalysis: {
-        fastq_tip: 'Input is single- or paired-end sequencing files (This can be the output from ReadsQC Workflow.) <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
+        fastq_tip: 'Input is single- or paired-end sequencing files (This can be the output from ReadsQC Workflow. Interleaved files are treated as single end.) <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
     },
     MetaAssembly: {
         fastq_tip: 'Metagenome Assembly requires paired-end Illumina data as an FASTQ file. This input can be the output from the ReadsQC workflow. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
@@ -59,7 +59,7 @@ export const workflowlist = {
         pdf: '/docs/help/ReadsQC.pdf',
         link: 'https://github.com/microbiomedata/ReadsQC',
         doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/1_RQC_index.html',
-        info: 'This workflow is a replicate of the QA protocol implemented at JGI for Illumina reads and use the program “rqcfilter2” from BBTools(38:44) which implements them as a pipeline.'
+        info: 'This workflow utilizes the program “rqcfilter2” from BBTools to perform quality control on raw Illumina reads.'
     },
     ReadbasedAnalysis: {
         title: 'Read-based Taxonomy Classification',
@@ -81,7 +81,7 @@ export const workflowlist = {
         pdf: '/docs/help/MetagenomeAssembly.pdf',
         link: 'https://github.com/microbiomedata/metaAssembly',
         doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/3_MetaGAssemly_index.html',
-        info: 'It take paired-end reads runs error correction by bbcms (BBTools). The clean reads are assembled by MetaSpades. After assembly, the reads are mapped back to contigs by bbmap (BBTools) for coverage information.'
+        info: 'This workflow takes in paired-end Illumina reads in interleaved format and performs error correction, then reformats the interleaved file into two FASTQ files for downstream tasks using bbcms (BBTools).'
     },
     MetaAnnotation: {
         title: 'Metagenome Annotation',
@@ -100,6 +100,7 @@ export const workflowlist = {
         img: '/docs/images/MetagenomeMAGs.png',
         thumbnail: '/docs/images/MetagenomeMAGs-thumbnail.png',
         link: 'https://github.com/microbiomedata/metaMAGs',
+        doclink: 'https://github.com/microbiomedata/metaMAGs',
         info: 'The workflow is based on IMG MAGs pipeline for metagenome assembled genomes generation.'
     },
 }

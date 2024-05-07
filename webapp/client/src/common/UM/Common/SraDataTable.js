@@ -63,12 +63,14 @@ function SraDataTable(props) {
     const [action, setAction] = useState('');
     const [openUserSelector, setOpenUserSelector] = useState(false);
     const [userlist, setUserlist] = useState([]);
+    const [projectPageUrl, setProjectPageUrl] = useState("/user/project?code=");
 
     useEffect(() => {
         if (props.tableType === 'admin' && user.profile.type !== "admin") {
             props.history.push("/home");
         } else {
             if (props.tableType === 'admin') {
+                setProjectPageUrl("/admin/project?code=");
             }
             getProjects();
         }
@@ -298,6 +300,13 @@ function SraDataTable(props) {
                                     </div>
                                 )
                             }
+                        },
+                        {
+                            icon: () => <ExploreIcon />,
+                            tooltip: 'Go to project result page',
+                            render: rowData => {
+                                return <Redirect to={projectPageUrl + rowData.code} />
+                            },
                         },
                     ]}
 

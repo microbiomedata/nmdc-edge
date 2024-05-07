@@ -9,7 +9,7 @@ import { MyTooltip } from '../../../../common/MyTooltip';
 import { workflowInputTips } from '../Defaults';
 
 export function MetaAssembly(props) {
-    const [collapseParms, setCollapseParms] = useState(true);
+    const [collapseParms, setCollapseParms] = useState(false);
 
     const toggleParms = () => {
         setCollapseParms(!collapseParms);
@@ -21,7 +21,7 @@ export function MetaAssembly(props) {
             <Collapse isOpen={!collapseParms} id={"collapseParameters-" + props.name} >
                 <CardBody>
                     <MyTooltip id='MetaAssembly' text="Input Raw Reads" tooltip={workflowInputTips['MetaAssembly']['fastq_tip']} showTooltip={true} place="right" />
-                    <FastqInput projectTypes={['ReadsQC','sra2fastq']} name={props.name} full_name={props.full_name} setParams={props.setParams} collapseParms={true} />
+                    <FastqInput projectTypes={['ReadsQC','Retrieve SRA Data']} name={props.name} full_name={props.full_name} setParams={props.setParams} collapseParms={true} />
                 </CardBody>
             </Collapse>
         </Card>

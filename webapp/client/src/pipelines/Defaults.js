@@ -5,7 +5,7 @@ export const intro = {
     pdfSpanish: '/docs/help/NMDC_EDGE_quickStart_español.pdf',
     pdfFrench: '/docs/help/NMDC_EDGE_quickStart-French.pdf',
     video: '/docs/videos/nmdc-edge.mp4',
-        bgcolor: '#4F3C80'
+    bgcolor: '#4F3C80'
 }
 
 export const pipelinelist = {
@@ -50,58 +50,21 @@ export const pipelinelist = {
         },
         bgcolor: '#4F3C80'
     },
+}
+
+export const workflowlist = {
     MetaT: {
-        title: 'Metatranscriptomics',
-        name: 'Metatranscriptomics',
-        video: {
-            'Metatranscriptomics': '/docs/videos/MetaT.mp4',
-        },
-        pdf: {
-            'Metatranscriptomics': '/docs/help/NMDC_EDGE_metaT.pdf',
-        },
+        title: 'Metatranscriptome',
+        name: 'Metatranscriptome',
+        video:  '/docs/videos/MetaT.mp4', 
+        pdf: '/docs/help/NMDC_EDGE_metaT.pdf', 
         // pdfSpanish: {
-        //     'Metatranscriptomics': '/docs/help/NMDC_EDGE_metaT_español_INCOMPLETE.pdf',
+        //     'Metatranscriptome': '/docs/help/NMDC_EDGE_metaT_español_INCOMPLETE.pdf',
         // },
         // pdfFrench: {
-        //     'Metatranscriptomics': '/docs/help/NMDC_EDGE_metaT-French.pdf',
+        //     'Metatranscriptome': '/docs/help/NMDC_EDGE_metaT-French.pdf',
         // },
-        doclink: {
-            'Metatranscriptomics': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/6_MetaT_index.html',
-        },
-        bgcolor: '#4F3C80'
-    },
-    OrganicM: {
-        title: 'Organic Matter',
-        name: 'Organic Matter',
-        pdf: {
-            'Natural Organic Matter': '/docs/help/NMDC_EDGE_NOM.pdf',
-        },
-        pdfSpanish: {
-            'Natural Organic Matter': '/docs/help/NMDC_EDGE_NOM_español.pdf',
-        },
-        pdfFrench: {
-            'Natural Organic Matter': '/docs/help/NMDC_EDGE_NOM-French.pdf',
-        },
-        doclink: {
-            'Natural Organic Matter': 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/9_NOM_index.html#',
-        },
-        bgcolor: '#4F3C80'
-    },
-    geNomad: {
-        title: 'Viruses and Plasmids',
-        name: 'Viruses and Plasmids',
-        video: {
-            'Viruses and Plasmids': '/docs/videos/Viruses_plasmids_tutorial_v1.mp4',
-        },
-        pdf: {
-            'Viruses and Plasmids': '/docs/help/NMDC_EDGE_geNomad.pdf',
-        },
-        pdfSpanish: {
-            'Viruses and Plasmids': '/docs/help/NMDC_EDGE_geNomad_español.pdf',
-        },
-        pdfFrench: {
-            'Viruses and Plasmids': '/docs/help/NMDC_EDGE_geNomad-French.pdf',
-        },
+        doclink:  'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/6_MetaT_index.html', 
         bgcolor: '#4F3C80'
     },
     MetaP: {
@@ -110,6 +73,24 @@ export const pipelinelist = {
         // pdf: {
         //     'Metaproteomics': '/docs/help/NMDC_EDGE_metaP.pdf',
         // },
+        bgcolor: '#4F3C80'
+    },
+    OrganicM: {
+        title: 'Natural Organic Matter',
+        name: 'Natural Organic Matter',
+        pdf: '/docs/help/NMDC_EDGE_NOM.pdf', 
+        pdfSpanish:  '/docs/help/NMDC_EDGE_NOM_español.pdf', 
+        pdfFrench:   '/docs/help/NMDC_EDGE_NOM-French.pdf', 
+        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/9_NOM_index.html#', 
+        bgcolor: '#4F3C80'
+    },
+    geNomad: {
+        title: 'Viruses and Plasmids',
+        name: 'Viruses and Plasmids',
+        video:   '/docs/videos/Viruses_plasmids_tutorial_v1.mp4', 
+        pdf: '/docs/help/NMDC_EDGE_geNomad.pdf', 
+        pdfSpanish:  '/docs/help/NMDC_EDGE_geNomad_español.pdf', 
+        pdfFrench:  '/docs/help/NMDC_EDGE_geNomad-French.pdf', 
         bgcolor: '#4F3C80'
     },
 }

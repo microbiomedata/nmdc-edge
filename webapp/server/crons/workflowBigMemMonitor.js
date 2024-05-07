@@ -12,7 +12,7 @@ const config = require("../config");
 module.exports = function workflowBigMemMonitor() {
     logger.debug("workflow big mem monitor");
     //only process one job at each time based on job updated time
-    CromwellJob.find({ 'status': { $in: ['Submitted', 'Running'] }, 'type': { $in: ['virus_plasmid'] } }).sort({ updated: 1 }).then(jobs => {
+    CromwellJob.find({ 'status': { $in: ['Submitted', 'Running'] }, 'type': { $in: ['Viruses and Plasmids'] } }).sort({ updated: 1 }).then(jobs => {
         //submit request only when the current cromwell running jobs less than the max allowed jobs
         if (jobs.length >= config.CROMWELL.NUM_BIG_MEM_JOBS_MAX) {
             return;
@@ -23,7 +23,7 @@ module.exports = function workflowBigMemMonitor() {
             jobInputsize += job.inputsize;
         });
         //only process one request at each time
-        Project.find({ 'type': { $in: ['virus_plasmid'] }, 'status': 'in queue' }).sort({ updated: 1 }).then(async projs => {
+        Project.find({ 'type': { $in: ['Viruses and Plasmids'] }, 'status': 'in queue' }).sort({ updated: 1 }).then(async projs => {
             let proj = projs[0];
             if (!proj) {
                 logger.debug("No workflow big mem request to process");
