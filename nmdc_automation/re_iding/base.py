@@ -12,7 +12,7 @@ from typing import Dict, List
 import os
 import re
 import yaml
-from nmdc_schema import nmdc as nmdc
+from pathlib import Path
 
 from nmdc_schema.nmdc import DataObject as NmdcDataObject, \
     Database as NmdcDatabase, OmicsProcessing, WorkflowExecutionActivity
@@ -23,7 +23,9 @@ from nmdc_automation.re_iding.db_utils import (
     BIOSAMPLE_SET,
     OMICS_PROCESSING_SET,
     READS_QC_SET,
+    MAGS_ACTIVITY_SET,
     METAGENOME_ASSEMBLY_SET,
+    METAGENOME_ANNOTATION_ACTIVITY_SET,
     METATRANSCRIPTOME_ACTIVITY_SET,
     READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
     DATA_OBJECT_SET,
@@ -38,6 +40,7 @@ from nmdc_automation.re_iding.file_utils import (find_data_object_type,
                                                     link_data_file_paths,
                                                  assembly_file_operations)
 
+DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
 DATA_BASE_URL = "https://data.microbiomedata.org/data"
 # BASE_DIR = "/global/cfs/cdirs/m3408/results"
@@ -45,18 +48,31 @@ DATA_BASE_URL = "https://data.microbiomedata.org/data"
 # More constants for class types and set names
 # data object types
 BIOSAMPLE_TYPE = "nmdc:Biosample"
-OMICS_PROCESSING_TYPE = "nmdc:OmicsProcessing"
 DATA_OBJECT_TYPE = "nmdc:DataObject"
+MAGS_ANALYSIS_ACTIVITY_TYPE = "nmdc:MAGsAnalysisActivity"
 METABOLOMICS_ANALYSIS_ACTIVITY_TYPE = "nmdc:MetabolomicsAnalysisActivity"
+METAGENOME_ANNOTATION_ACTIVITY_TYPE = "nmdc:MetagenomeAnnotationActivity"
+METAGENOME_ASSEMBLY_TYPE = "nmdc:MetagenomeAssembly"
+METATRANSCRIPTOME_ACTIVITY_TYPE = "nmdc:MetatranscriptomeActivity"
 NOM_ANALYSIS_ACTIVITY_TYPE = "nmdc:NomAnalysisActivity"
+OMICS_PROCESSING_TYPE = "nmdc:OmicsProcessing"
+READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_TYPE = "nmdc:ReadBasedTaxonomyAnalysisActivity"
+READ_QC_ANALYSIS_ACTIVITY_TYPE = "nmdc:ReadQcAnalysisActivity"
+
 
 # map data object types set names
 DATA_OBJECT_TYPE_SET_MAP = {
     BIOSAMPLE_TYPE: BIOSAMPLE_SET,
-    OMICS_PROCESSING_TYPE: OMICS_PROCESSING_SET,
     DATA_OBJECT_TYPE: DATA_OBJECT_SET,
+    MAGS_ANALYSIS_ACTIVITY_TYPE: MAGS_ACTIVITY_SET,
     METABOLOMICS_ANALYSIS_ACTIVITY_TYPE: METABOLOMICS_ANALYSIS_ACTIVITY_SET,
-    NOM_ANALYSIS_ACTIVITY_TYPE: NOM_ANALYSIS_ACTIVITY_SET
+    METAGENOME_ANNOTATION_ACTIVITY_TYPE: METAGENOME_ANNOTATION_ACTIVITY_SET,
+    METAGENOME_ASSEMBLY_TYPE: METAGENOME_ASSEMBLY_SET,
+    METATRANSCRIPTOME_ACTIVITY_TYPE: METATRANSCRIPTOME_ACTIVITY_SET,
+    NOM_ANALYSIS_ACTIVITY_TYPE: NOM_ANALYSIS_ACTIVITY_SET,
+    OMICS_PROCESSING_TYPE: OMICS_PROCESSING_SET,
+    READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_TYPE: READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
+    READ_QC_ANALYSIS_ACTIVITY_TYPE: READS_QC_SET
 }
 
 
@@ -72,7 +88,7 @@ logger = logging.getLogger(__name__)
 
 class ReIdTool:
     def __init__(self, api_client: NmdcRuntimeApi, data_dir: str,
-                 template_file: str = None, iteration: str = "1"):
+                 template_file: str = None, iteration: str = "1", identifiers_map: dict = None):
         self.api_client = api_client
         self.data_dir = data_dir
         self.workflow_iteration = iteration
@@ -81,19 +97,8 @@ class ReIdTool:
         with open(template_file, "r") as f:
             self.workflow_template = yaml.safe_load(f)["Workflows"]
         # collector to track ID changes as (type, old_id, new_id)
-        self.id_changes = []
-
-    def write_id_changes(self, study_id: str):
-        """
-        Write ID changes to a file.
-        """
-        filename = f"{study_id}_id_changes.tsv"
-        with open(filename, "w") as f:
-            writer = csv.writer(f, delimiter="\t")
-            writer.writerow(["type", "old_id", "new_id"])
-            for change in self.id_changes:
-                writer.writerow(change)
-
+        self.updated_record_identifiers = set()
+        self.identifiers_map = identifiers_map
 
 
     def _workflow_template_for_type(self, workflow_type: str) -> Dict:
@@ -174,8 +179,8 @@ class ReIdTool:
             old_do_id = old_do_rec.get("id")
             params = copy.deepcopy(old_do_rec)
             params.pop("id", None)
-            new_do_id = self.api_client.minter("nmdc:DataObject")
-            self.id_changes.append(("nmdc:DataObject", old_do_id, new_do_id))
+            new_do_id = get_new_nmdc_id(NmdcDataObject(**params), self.api_client, self.identifiers_map)
+            self.updated_record_identifiers.add((DATA_OBJECT_SET, old_do_id, new_do_id))
             logger.info(f"nmdcDataObject\t{old_do_id}\t{new_do_id}")
 
             # Add new do ID to new OmicsProcessing has_output
@@ -204,8 +209,11 @@ class ReIdTool:
             omics_processing_id = new_omics_processing.id
             has_input = new_omics_processing.has_output
             
-            new_activity_id = self.api_client.minter(activity_type) + "." + self.workflow_iteration
-            self.id_changes.append((activity_type, reads_qc_rec["id"], new_activity_id))
+            activity_obj = nmdc.ReadQcAnalysisActivity(**reads_qc_rec)
+            new_activity_id = get_new_nmdc_id(
+                activity_obj, self.api_client, self.identifiers_map) + "." + self.workflow_iteration
+
+            self.updated_record_identifiers.add((READS_QC_SET, reads_qc_rec["id"], new_activity_id))
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
             
             new_readsqc_base_dir = os.path.join(self.data_dir, omics_processing_id,
@@ -237,7 +245,7 @@ class ReIdTool:
                     omics_processing_id, activity_type, new_activity_id, old_do_rec,
                     data_object_type,
                 )
-                self.id_changes.append(("nmdc:DataObject", old_do_id, new_do.id))
+                self.updated_record_identifiers.add((DATA_OBJECT_SET, old_do_id, new_do.id))
                 # add new data object to new database and update has_output
                 new_db.data_object_set.append(new_do)
                 updated_has_output.append(new_do.id)
@@ -274,9 +282,11 @@ class ReIdTool:
             has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
             
             updated_has_output = []
-            
-            new_activity_id = self.api_client.minter(activity_type) + "." + self.workflow_iteration
-            self.id_changes.append((activity_type, assembly_rec["id"], new_activity_id))
+            activity_obj = nmdc.MetagenomeAssembly(**assembly_rec)
+            new_activity_id = get_new_nmdc_id(
+                activity_obj, self.api_client, self.identifiers_map) + "." + self.workflow_iteration
+
+            self.updated_record_identifiers.add((METAGENOME_ASSEMBLY_TYPE, assembly_rec["id"], new_activity_id))
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
             
             new_assembly_base_dir = os.path.join(self.data_dir, omics_processing_id,
@@ -320,7 +330,7 @@ class ReIdTool:
                 new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
                 )
-                self.id_changes.append(("nmdc:DataObject", old_do_id, new_do.id))
+                self.updated_record_identifiers.add((DATA_OBJECT_SET, old_do_id, new_do.id))
                 # add new data object to new database and update has_output
                 new_db.data_object_set.append(new_do)
                 updated_has_output.append(new_do.id)
@@ -362,9 +372,12 @@ class ReIdTool:
             activity_type = "nmdc:ReadBasedTaxonomyAnalysisActivity"
             omics_processing_id = new_omics_processing.id
             has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
-            
-            new_activity_id = self.api_client.minter(activity_type) + "." + self.workflow_iteration
-            self.id_changes.append((activity_type, read_based_rec["id"], new_activity_id))
+            activity_obj = nmdc.ReadBasedTaxonomyAnalysisActivity(**read_based_rec)
+            new_activity_id = get_new_nmdc_id(
+                activity_obj, self.api_client, self.identifiers_map) + "." + self.workflow_iteration
+
+            self.updated_record_identifiers.add((READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET, read_based_rec["id"],
+                                               new_activity_id))
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
             
             new_readbased_base_dir = os.path.join(self.data_dir, omics_processing_id,
@@ -397,7 +410,7 @@ class ReIdTool:
                 new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
                 )
-                self.id_changes.append(("nmdc:DataObject", old_do_id, new_do.id))
+                self.updated_record_identifiers.add((DATA_OBJECT_SET, old_do_id, new_do.id))
                 # add new data object to new database and update has_output
                 new_db.data_object_set.append(new_do)
                 updated_has_output.append(new_do.id)
@@ -448,10 +461,12 @@ class ReIdTool:
             omics_processing_id = new_omics_processing.id
             has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
 
+            activity_obj = nmdc.MetatranscriptomeActivity(**metatranscriptome_rec)
+            new_activity_id = get_new_nmdc_id(
+                activity_obj, self.api_client, self.identifiers_map) + "." + self.workflow_iteration
 
-
-            new_activity_id = self.api_client.minter(activity_type) + "." + self.workflow_iteration
-            self.id_changes.append((activity_type, metatranscriptome_rec["id"], new_activity_id))
+            self.updated_record_identifiers.add((METATRANSCRIPTOME_ACTIVITY_SET, metatranscriptome_rec["id"],
+                                               new_activity_id))
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
             new_metatranscriptome_base_dir = os.path.join(self.data_dir, omics_processing_id,
                                                           new_activity_id)
@@ -491,7 +506,7 @@ class ReIdTool:
                 new_do = self.make_new_data_object(
                     omics_processing_id, activity_type, new_activity_id, old_do_rec, data_object_type
                 )
-                self.id_changes.append(("nmdc:DataObject", old_do_id, new_do.id))
+                self.updated_record_identifiers.add((DATA_OBJECT_SET, old_do_id, new_do.id))
                 # add new data object to new database and update has_output
                 new_db.data_object_set.append(new_do)
                 updated_has_output.append(new_do.id)
@@ -575,7 +590,9 @@ class ReIdTool:
         template = self.data_object_template(
             activity_type, data_object_type
             )
-        new_data_object_id = self.api_client.minter("nmdc:DataObject")
+        data_obj = NmdcDataObject(**data_object_record)
+        new_data_object_id = get_new_nmdc_id(data_obj, self.api_client, self.identifiers_map)
+        self.updated_record_identifiers.add((DATA_OBJECT_SET, data_object_record["id"], new_data_object_id))
         logger.info(f"nmdcDataObject\t{data_object_record['id']}\t{new_data_object_id}")
         new_description = re.sub(
             "[^ ]+$", f"{omics_processing_id}", data_object_record["description"]
@@ -1007,3 +1024,27 @@ def get_updates_for_metabolomics_or_nom(omics_processing, updated_omics_processi
                 )
 
     return updated_omics_processing, updated_record_identifiers, updates
+
+
+def write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id):
+    # Create a directory for the study if it doesn't exist
+    study_dir = DATA_DIR.joinpath(nmdc_study_id)
+    # Write the updated record identifiers to a tsv file using csv writer
+    updated_record_identifiers_file = study_dir.joinpath(f"{nmdc_study_id}_updated_record_identifiers.tsv")
+    # Check if the file already exists - if so, append to it
+    if updated_record_identifiers_file.exists():
+        logging.info(f"Appending to existing file: {updated_record_identifiers_file}")
+        mode = "a"
+    else:
+        logging.info(f"Creating new file: {updated_record_identifiers_file}")
+        mode = "w"
+
+    logging.info(
+        f"Writing {len(updated_record_identifiers)} updated record identifiers to {updated_record_identifiers_file}"
+        )
+    with open(updated_record_identifiers_file, mode) as f:
+        writer = csv.writer(f, delimiter="\t")
+        if mode == "w":
+            writer.writerow(["collection_name", "legacy_id", "new_id"])
+        for record in updated_record_identifiers:
+            writer.writerow(record)

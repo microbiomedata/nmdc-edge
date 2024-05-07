@@ -23,7 +23,7 @@ from nmdc_automation.config import UserConfig
 from nmdc_automation.re_iding.base import (
     ReIdTool,
     _get_biosample_legacy_id,
-    compare_models,
+    write_updated_record_identifiers, compare_models,
     get_updates_for_metabolomics_or_nom, update_biosample,
     update_omics_processing
 )
@@ -301,7 +301,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
     _write_updates(updates, nmdc_study_id)
     # Don't overwrite the identifiers file if it was provided
     if not identifiers_file:
-        _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
+        write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
     if deletions:
         _write_deletions(deletions, nmdc_study_id)
     logging.info(f"Elapsed time: {time.time() - start_time}")
@@ -364,30 +364,6 @@ def _write_deletions(deletions, nmdc_study_id):
         for collection_name, records in deletions.items():
             for record in records:
                 writer.writerow([collection_name, record["id"], record["_id"]])
-
-def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id):
-    # Create a directory for the study if it doesn't exist
-    study_dir = DATA_DIR.joinpath(nmdc_study_id)
-    # Write the updated record identifiers to a tsv file using csv writer
-    updated_record_identifiers_file = study_dir.joinpath(f"{nmdc_study_id}_updated_record_identifiers.tsv")
-    # Check if the file already exists - if so, append to it
-    if updated_record_identifiers_file.exists():
-        logging.info(f"Appending to existing file: {updated_record_identifiers_file}")
-        mode = "a"
-    else:
-        logging.info(f"Creating new file: {updated_record_identifiers_file}")
-        mode = "w"
-
-    logging.info(
-        f"Writing {len(updated_record_identifiers)} updated record identifiers to {updated_record_identifiers_file}"
-        )
-    with open(updated_record_identifiers_file, mode) as f:
-        writer = csv.writer(f, delimiter="\t")
-        writer.writerow(["collection_name", "legacy_id", "new_id"])
-        for record in updated_record_identifiers:
-            writer.writerow(record)
-
-
 
 
 @cli.command()
@@ -643,8 +619,9 @@ def extract_records(ctx, study_id):
     help=f"Optional base datafile directory. Default: {BASE_DATAFILE_DIR}",
 )
 @click.option("--update-links", is_flag=True, default=False)
+@click.option("--identifiers-file", type=click.Path(exists=True), required=False)
 @click.pass_context
-def process_records(ctx, study_id, data_dir, update_links=False):
+def process_records(ctx, study_id, data_dir, update_links=False, identifiers_file=None):
     """
     Read the JSON file of extracted workflow records and their data objects and
     re-ID the records with newly-minted NMDC IDs, update data file headers.
@@ -661,6 +638,17 @@ def process_records(ctx, study_id, data_dir, update_links=False):
     # Get Database dump file paths and the data directory
     db_infile, db_outfile = _get_database_paths(study_id)
     logging.info(f"Using data_dir: {data_dir}")
+
+    # Read the identifiers file if provided as a .tsv file with columns: collection_name, legacy_id, new_id
+    if identifiers_file:
+        with open(identifiers_file, "r") as f:
+            reader = csv.DictReader(f, delimiter="\t")
+            identifiers = list(reader)
+            logging.info(f"Using {len(identifiers)} identifiers from {identifiers_file}")
+        # convert the identifiers to a mapping of (collection_name, legacy_id) -> new_id
+        identifiers_map = {(record["collection_name"], record["legacy_id"]): record["new_id"] for record in identifiers}
+    else:
+        identifiers_map = None
 
     # Initialize re-ID tool
     reid_tool = ReIdTool(api_client, data_dir)
@@ -692,7 +680,7 @@ def process_records(ctx, study_id, data_dir, update_links=False):
 
         re_ided_db_records.append(new_db)
 
-    reid_tool.write_id_changes(study_id)
+    write_updated_record_identifiers(reid_tool.updated_record_identifiers, study_id)
 
     logging.info(f"Writing {len(re_ided_db_records)} records to {db_outfile}")
     logging.info(f"Elapsed time: {time.time() - start_time}")
