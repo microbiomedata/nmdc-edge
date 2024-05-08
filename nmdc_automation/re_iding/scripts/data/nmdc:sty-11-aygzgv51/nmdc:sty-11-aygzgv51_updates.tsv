@@ -1,0 +1,88 @@
+collection_name	id	_id	update
+study_set	gold:Gs0114663	649b009ec7d5d8b487299257	{'id': 'nmdc:sty-11-aygzgv51'}
+biosample_set	gold:Gb0115231	649b003843aa17f5748437d5	{'id': 'nmdc:bsm-11-kgmgzb59', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115220	649b003843aa17f5748437d6	{'id': 'nmdc:bsm-11-8bp59626', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115221	649b003843aa17f5748437d7	{'id': 'nmdc:bsm-11-aa0ty161', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115228	649b003843aa17f5748437d8	{'id': 'nmdc:bsm-11-1796p969', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115225	649b003843aa17f5748437d9	{'id': 'nmdc:bsm-11-jyg4q584', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115227	649b003843aa17f5748437da	{'id': 'nmdc:bsm-11-kh2s3z45', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115224	649b003843aa17f5748437db	{'id': 'nmdc:bsm-11-h7phtp20', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115218	649b003843aa17f5748437dc	{'id': 'nmdc:bsm-11-jws7zn80', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115229	649b003843aa17f5748437dd	{'id': 'nmdc:bsm-11-pwxyaa98', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115232	649b003843aa17f5748437de	{'id': 'nmdc:bsm-11-s7n76f83', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115217	649b003843aa17f5748437df	{'id': 'nmdc:bsm-11-t12f4343', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115222	649b003843aa17f5748437e0	{'id': 'nmdc:bsm-11-s5pq1337', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115230	649b003843aa17f5748437e1	{'id': 'nmdc:bsm-11-wq3ya887', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115233	649b003843aa17f5748437e3	{'id': 'nmdc:bsm-11-45egp255', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115219	649b003843aa17f5748437e8	{'id': 'nmdc:bsm-11-dg3tpc92', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115223	649b003843aa17f5748437ed	{'id': 'nmdc:bsm-11-e6ve6f98', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0115226	649b003843aa17f5748437f5	{'id': 'nmdc:bsm-11-wbbb1d06', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126424	649b003843aa17f574843813	{'id': 'nmdc:bsm-11-bs3pg887', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126426	649b003843aa17f574843817	{'id': 'nmdc:bsm-11-q98j8x33', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126427	649b003843aa17f57484381c	{'id': 'nmdc:bsm-11-bvf30a69', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126433	649b003843aa17f57484381d	{'id': 'nmdc:bsm-11-zty21v62', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126432	649b003843aa17f57484381e	{'id': 'nmdc:bsm-11-jqwkv484', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126430	649b003843aa17f57484381f	{'id': 'nmdc:bsm-11-pht0bf33', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126429	649b003843aa17f574843820	{'id': 'nmdc:bsm-11-yat3xj21', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126431	649b003843aa17f574843821	{'id': 'nmdc:bsm-11-7vb3pb42', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126425	649b003843aa17f574843822	{'id': 'nmdc:bsm-11-brnetw92', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126436	649b003843aa17f574843823	{'id': 'nmdc:bsm-11-4532w771', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126434	649b003843aa17f574843824	{'id': 'nmdc:bsm-11-781ama69', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126435	649b003843aa17f574843825	{'id': 'nmdc:bsm-11-h4qpdb17', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126437	649b003843aa17f574843826	{'id': 'nmdc:bsm-11-q2e29059', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126438	649b003843aa17f574843827	{'id': 'nmdc:bsm-11-5twxwz95', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126439	649b003843aa17f574843828	{'id': 'nmdc:bsm-11-n0mvnt74', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126428	649b003843aa17f574843829	{'id': 'nmdc:bsm-11-g22na269', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126440	649b003843aa17f57484382a	{'id': 'nmdc:bsm-11-mddxaz76', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126441	649b003843aa17f57484382b	{'id': 'nmdc:bsm-11-gmebw194', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126443	649b003843aa17f57484382c	{'id': 'nmdc:bsm-11-p1kvba46', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126442	649b003843aa17f57484382d	{'id': 'nmdc:bsm-11-zv56kn22', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126444	649b003843aa17f57484382e	{'id': 'nmdc:bsm-11-80bkfr30', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126445	649b003843aa17f57484382f	{'id': 'nmdc:bsm-11-xpd2yg42', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126446	649b003843aa17f574843830	{'id': 'nmdc:bsm-11-vqqnqd95', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126447	649b003843aa17f574843831	{'id': 'nmdc:bsm-11-2606ks41', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126448	649b003843aa17f574843832	{'id': 'nmdc:bsm-11-jbcmkj97', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126449	649b003843aa17f574843833	{'id': 'nmdc:bsm-11-6r15cs47', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126450	649b003843aa17f574843834	{'id': 'nmdc:bsm-11-0nagm792', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126452	649b003843aa17f574843835	{'id': 'nmdc:bsm-11-evqygb38', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126454	649b003843aa17f574843836	{'id': 'nmdc:bsm-11-k038xf32', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126453	649b003843aa17f574843837	{'id': 'nmdc:bsm-11-cdtwtv47', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126455	649b003843aa17f574843838	{'id': 'nmdc:bsm-11-bmf4g273', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126456	649b003843aa17f574843839	{'id': 'nmdc:bsm-11-cahzev87', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	gold:Gb0126457	649b003843aa17f57484383a	{'id': 'nmdc:bsm-11-n6wb2h88', 'part_of': ['nmdc:sty-11-aygzgv51']}
+biosample_set	emsl:63ca2f94-6647-11eb-ae93-0242ac130002	649b003843aa17f574843925	{'id': 'nmdc:bsm-11-pvqfrd93', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca2f94-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3070-6647-11eb-ae93-0242ac130002	649b003843aa17f574843926	{'id': 'nmdc:bsm-11-6fa5ec57', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3070-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca2c7e-6647-11eb-ae93-0242ac130002	649b003843aa17f574843927	{'id': 'nmdc:bsm-11-f36dvt47', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca2c7e-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3340-6647-11eb-ae93-0242ac130002	649b003843aa17f574843928	{'id': 'nmdc:bsm-11-a6cn2q42', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3340-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca358e-6647-11eb-ae93-0242ac130002	649b003843aa17f574843929	{'id': 'nmdc:bsm-11-4pqzmr65', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca358e-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3642-6647-11eb-ae93-0242ac130002	649b003843aa17f57484392a	{'id': 'nmdc:bsm-11-ypy1gf50', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3642-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca2eae-6647-11eb-ae93-0242ac130002	649b003843aa17f57484392c	{'id': 'nmdc:bsm-11-d4749231', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca2eae-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3700-6647-11eb-ae93-0242ac130002	649b003843aa17f57484392d	{'id': 'nmdc:bsm-11-15yhdc21', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3700-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3868-6647-11eb-ae93-0242ac130002	649b003843aa17f57484392f	{'id': 'nmdc:bsm-11-77mgxa53', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3868-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3e76-6647-11eb-ae93-0242ac130002	649b003843aa17f574843930	{'id': 'nmdc:bsm-11-xqat5459', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3e76-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3b1a-6647-11eb-ae93-0242ac130002	649b003843aa17f574843931	{'id': 'nmdc:bsm-11-tr3rvk43', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3b1a-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca37b4-6647-11eb-ae93-0242ac130002	649b003843aa17f574843932	{'id': 'nmdc:bsm-11-f9636937', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca37b4-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3d04-6647-11eb-ae93-0242ac130002	649b003843aa17f574843933	{'id': 'nmdc:bsm-11-90jbg813', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3d04-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3f2a-6647-11eb-ae93-0242ac130002	649b003843aa17f574843934	{'id': 'nmdc:bsm-11-h1srxe56', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3f2a-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4088-6647-11eb-ae93-0242ac130002	649b003843aa17f574843935	{'id': 'nmdc:bsm-11-4v9b8d55', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4088-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3dc2-6647-11eb-ae93-0242ac130002	649b003843aa17f574843936	{'id': 'nmdc:bsm-11-dhkjm425', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3dc2-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca341c-6647-11eb-ae93-0242ac130002	649b003843aa17f574843937	{'id': 'nmdc:bsm-11-2rgmk425', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca341c-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca34da-6647-11eb-ae93-0242ac130002	649b003843aa17f574843938	{'id': 'nmdc:bsm-11-w0a24f53', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca34da-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca3fd4-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393a	{'id': 'nmdc:bsm-11-rng4h388', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca3fd4-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca443e-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393b	{'id': 'nmdc:bsm-11-m771ze06', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca443e-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca459c-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393c	{'id': 'nmdc:bsm-11-z2t9zx41', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca459c-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca47e0-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393d	{'id': 'nmdc:bsm-11-czne9815', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca47e0-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4146-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393e	{'id': 'nmdc:bsm-11-20t60930', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4146-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca489e-6647-11eb-ae93-0242ac130002	649b003843aa17f57484393f	{'id': 'nmdc:bsm-11-34xg5284', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca489e-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4d4e-6647-11eb-ae93-0242ac130002	649b003843aa17f574843940	{'id': 'nmdc:bsm-11-mwg8rp16', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4d4e-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4952-6647-11eb-ae93-0242ac130002	649b003843aa17f574843941	{'id': 'nmdc:bsm-11-br3fze72', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4952-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4f6a-6647-11eb-ae93-0242ac130002	649b003843aa17f574843942	{'id': 'nmdc:bsm-11-c3g8ha59', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4f6a-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca46fa-6647-11eb-ae93-0242ac130002	649b003843aa17f574843943	{'id': 'nmdc:bsm-11-ye6k1w02', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca46fa-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca50c8-6647-11eb-ae93-0242ac130002	649b003843aa17f574843944	{'id': 'nmdc:bsm-11-ecgbfw46', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca50c8-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4a38-6647-11eb-ae93-0242ac130002	649b003843aa17f574843945	{'id': 'nmdc:bsm-11-501jk874', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4a38-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4aec-6647-11eb-ae93-0242ac130002	649b003843aa17f574843946	{'id': 'nmdc:bsm-11-s8fsk181', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4aec-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4e02-6647-11eb-ae93-0242ac130002	649b003843aa17f574843947	{'id': 'nmdc:bsm-11-p7fcgp84', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4e02-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca4eb6-6647-11eb-ae93-0242ac130002	649b003843aa17f574843949	{'id': 'nmdc:bsm-11-mkegpc63', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca4eb6-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca5014-6647-11eb-ae93-0242ac130002	649b003843aa17f57484394a	{'id': 'nmdc:bsm-11-sq8ewp94', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca5014-6647-11eb-ae93-0242ac130002']}
+biosample_set	emsl:63ca517c-6647-11eb-ae93-0242ac130002	649b003843aa17f57484394b	{'id': 'nmdc:bsm-11-5gvj2t52', 'part_of': ['nmdc:sty-11-aygzgv51'], 'type': 'nmdc:Biosample', 'emsl_biosample_identifiers': ['emsl:63ca517c-6647-11eb-ae93-0242ac130002']}
+omics_processing_set	gold:Gp0115663	649b009773e8249959349b33	{'id': 'nmdc:omprc-11-0mma7r06', 'has_input': ['nmdc:bsm-11-t12f4343'], 'gold_sequencing_project_identifiers': ['gold:Gp0115663'], 'part_of': ['nmdc:sty-11-aygzgv51']}

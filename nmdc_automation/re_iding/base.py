@@ -6,24 +6,33 @@ records and data objects.
 import copy
 import csv
 import logging
+from copy import deepcopy
+from dataclasses import asdict
 from typing import Dict, List
 import os
 import re
 import yaml
+from nmdc_schema import nmdc as nmdc
 
 from nmdc_schema.nmdc import DataObject as NmdcDataObject, \
     Database as NmdcDatabase, OmicsProcessing, WorkflowExecutionActivity
 import nmdc_schema.nmdc as nmdc
 
 from nmdc_automation.api import NmdcRuntimeApi
-from nmdc_automation.re_iding.db_utils import (OMICS_PROCESSING_SET,
-                                               READS_QC_SET,
-                                               METAGENOME_ASSEMBLY_SET,
-                                                METATRANSCRIPTOME_ACTIVITY_SET,
-                                                READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
-                                               check_for_single_omics_processing_record,
-                                               get_data_object_record_by_id,
-                                               get_omics_processing_id)
+from nmdc_automation.re_iding.db_utils import (
+    BIOSAMPLE_SET,
+    OMICS_PROCESSING_SET,
+    READS_QC_SET,
+    METAGENOME_ASSEMBLY_SET,
+    METATRANSCRIPTOME_ACTIVITY_SET,
+    READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
+    DATA_OBJECT_SET,
+    METABOLOMICS_ANALYSIS_ACTIVITY_SET,
+    NOM_ANALYSIS_ACTIVITY_SET,
+    check_for_single_omics_processing_record,
+    get_data_object_record_by_id,
+    get_omics_processing_id
+)
 from nmdc_automation.re_iding.file_utils import (find_data_object_type,
                                                  compute_new_data_file_path,
                                                     link_data_file_paths,
@@ -32,6 +41,25 @@ from nmdc_automation.re_iding.file_utils import (find_data_object_type,
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
 DATA_BASE_URL = "https://data.microbiomedata.org/data"
 # BASE_DIR = "/global/cfs/cdirs/m3408/results"
+
+# More constants for class types and set names
+# data object types
+BIOSAMPLE_TYPE = "nmdc:Biosample"
+OMICS_PROCESSING_TYPE = "nmdc:OmicsProcessing"
+DATA_OBJECT_TYPE = "nmdc:DataObject"
+METABOLOMICS_ANALYSIS_ACTIVITY_TYPE = "nmdc:MetabolomicsAnalysisActivity"
+NOM_ANALYSIS_ACTIVITY_TYPE = "nmdc:NomAnalysisActivity"
+
+# map data object types set names
+DATA_OBJECT_TYPE_SET_MAP = {
+    BIOSAMPLE_TYPE: BIOSAMPLE_SET,
+    OMICS_PROCESSING_TYPE: OMICS_PROCESSING_SET,
+    DATA_OBJECT_TYPE: DATA_OBJECT_SET,
+    METABOLOMICS_ANALYSIS_ACTIVITY_TYPE: METABOLOMICS_ANALYSIS_ACTIVITY_SET,
+    NOM_ANALYSIS_ACTIVITY_TYPE: NOM_ANALYSIS_ACTIVITY_SET
+}
+
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -581,3 +609,401 @@ class ReIdTool:
                                                                          "_")
         return new_filename
 
+
+def compare_models(model, updated_model)-> dict:
+    """
+    Compare two nmdc dataclass models and return a dictionary of differences
+    """
+    model_dict = asdict(model)
+    updated_model_dict = asdict(updated_model)
+    diff = {}
+    for key in model_dict.keys():
+        if model_dict[key] != updated_model_dict[key]:
+            diff[key] = updated_model_dict[key]
+    return diff
+
+
+def get_new_nmdc_id(nmdc_object, api_client, identifiers_map: dict = None) -> str:
+    """
+    Get a nmdc ID from the identifiers_map or mint a new one
+    """
+    try:
+        object_type_code = nmdc_object.type
+    except AttributeError:
+        raise ValueError(f"Object does not have a type attribute: {nmdc_object}")
+
+    # Fix typo "ndmc:" to "nmdc:"
+    if object_type_code.startswith("ndmc:"):
+        object_type_code = object_type_code.replace("ndmc:", "nmdc:")
+    logging.info(f"Getting new ID for {object_type_code} {nmdc_object.id}")
+    if identifiers_map and not DATA_OBJECT_TYPE_SET_MAP.get(object_type_code):
+        raise ValueError(f"Set name not found for {object_type_code}")
+
+    if identifiers_map and (DATA_OBJECT_TYPE_SET_MAP[object_type_code], nmdc_object.id) in identifiers_map:
+        new_id = identifiers_map[(DATA_OBJECT_TYPE_SET_MAP[object_type_code], nmdc_object.id)]
+        logging.info(f"Found new ID in identifiers_map: {new_id}")
+    else:
+        new_id = api_client.minter(object_type_code)
+        logging.info(f"Minted new ID: {new_id}")
+    return new_id
+
+def update_biosample(biosample: nmdc.Biosample, nmdc_study_id: str, api_client, identifiers_map: dict = None) -> nmdc.Biosample:
+    updated_biosample= deepcopy(biosample)
+    # Ensure that type is set to nmdc:Biosample
+    updated_biosample.type = "nmdc:Biosample"
+    # Check if we need to update the biosample ID and add the legacy ID to the alternate identifiers
+    if not updated_biosample.id.startswith("nmdc:bsm-"):
+        updated_biosample = _update_biosample_alternate_identifiers(updated_biosample, updated_biosample.id)
+        new_biosample_id = get_new_nmdc_id(updated_biosample, api_client, identifiers_map)
+        updated_biosample.id = new_biosample_id
+
+    # Handle the part_of array
+    part_of = updated_biosample.part_of
+    # Remove anything that is not a NMDC study ID
+    part_of = [id for id in part_of if id.startswith("nmdc:sty-")]
+    # Add the new study ID to the part_of array
+    if nmdc_study_id not in part_of:
+        part_of.append(nmdc_study_id)
+        updated_biosample.part_of = part_of
+
+    return updated_biosample
+
+def _get_biosample_legacy_id(biosample: nmdc.Biosample) -> str:
+    if not biosample.id.startswith("nmdc:bsm-"):
+        return biosample.id
+    elif biosample.gold_biosample_identifiers:
+        return biosample.gold_biosample_identifiers[0]
+    elif biosample.emsl_biosample_identifiers:
+        return biosample.emsl_biosample_identifiers[0]
+    elif biosample.igsn_biosample_identifiers:
+        return biosample.igsn_biosample_identifiers[0]
+    else:
+        return biosample.id
+
+
+def update_omics_processing(omics_processing: nmdc.OmicsProcessing, nmdc_study_id: str, nmdc_biosample_id: str,
+                            api_client: NmdcRuntimeApi, identifiers_map: dict=None) -> nmdc.OmicsProcessing:
+    """
+    Update the omics processing record with the new ID
+    """
+    updated_omics_processing = deepcopy(omics_processing)
+    # Ensure that type is set to nmdc:OmicsProcessing
+    updated_omics_processing.type = "nmdc:OmicsProcessing"
+    # Check if we need to update the omics processing ID and add the legacy ID to the alternate identifiers
+    if not updated_omics_processing.id.startswith("nmdc:omprc-"):
+        updated_omics_processing = _update_omics_processing_alternative_identifiers(updated_omics_processing, updated_omics_processing.id)
+        new_omics_processing_id = get_new_nmdc_id(updated_omics_processing, api_client, identifiers_map)
+        updated_omics_processing.id = new_omics_processing_id
+
+    # Update the has_input array
+    has_input = updated_omics_processing.has_input
+    # Only Biosamples (nmdc;bsm-*) or ProcessedSamples (nmdc:prcsm-*) should be in the has_input array
+    has_input = [id for id in has_input if id.startswith("nmdc:bsm-") or id.startswith("nmdc:prcsm-")]
+    if nmdc_biosample_id not in has_input:
+        has_input.append(nmdc_biosample_id)
+        updated_omics_processing.has_input = has_input
+        logging.info(f"Added new biosample ID to has_input: {nmdc_biosample_id}")
+
+    # Update the part_of array with the new study ID
+    part_of = updated_omics_processing.part_of
+    # Remove gold: IDs from part_of array
+    part_of = [id for id in part_of if not id.startswith("gold:")]
+    if nmdc_study_id not in part_of:
+        part_of.append(nmdc_study_id)
+        updated_omics_processing.part_of = part_of
+        logging.info(f"Added new study ID to part_of: {nmdc_study_id}")
+
+    return updated_omics_processing
+
+
+def _get_omics_processing_legacy_id(omics_processing: nmdc.OmicsProcessing) -> str:
+    if not omics_processing.id.startswith("nmdc:omprc-"):
+        return omics_processing.id
+    elif omics_processing.gold_sequencing_project_identifiers:
+        return omics_processing.gold_sequencing_project_identifiers[0]
+    elif omics_processing.alternative_identifiers:
+        return omics_processing.alternative_identifiers[0]
+    else:
+        return omics_processing.id
+
+
+def _update_biosample_alternate_identifiers(biosample: nmdc.Biosample, legacy_biosample_id: str) -> nmdc.Biosample:
+    """
+    Update the appropriate alt identifiers slot depending on the Biosample legacy ID:
+    - gold_biosample_identifiers for legacy IDs starting with 'gold:'
+    - igsn_biosample_identifiers for legacy IDs starting with 'igsn:'
+    - emsl_biosample_identifiers for legacy IDs starting with 'emsl:'
+    """
+    if legacy_biosample_id.startswith("gold:"):
+        if legacy_biosample_id not in biosample.gold_biosample_identifiers:
+            biosample.gold_biosample_identifiers.append(legacy_biosample_id)
+            logging.info(f"Added legacy biosample ID to gold_biosample_identifiers: {legacy_biosample_id}")
+    elif legacy_biosample_id.startswith("igsn:"):
+        if legacy_biosample_id not in biosample.igsn_biosample_identifiers:
+            biosample.igsn_biosample_identifiers.append(legacy_biosample_id)
+            logging.info(f"Added legacy biosample ID to igsn_biosample_identifiers: {legacy_biosample_id}")
+    elif legacy_biosample_id.startswith("emsl:"):
+        if legacy_biosample_id not in biosample.emsl_biosample_identifiers:
+            biosample.emsl_biosample_identifiers.append(legacy_biosample_id)
+            logging.info(f"Added legacy biosample ID to emsl_biosample_identifiers: {legacy_biosample_id}")
+    else:
+        logging.warning(f"Unknown legacy ID format: {legacy_biosample_id}")
+    return biosample
+
+
+def _update_omics_processing_alternative_identifiers(omics_processing: nmdc.OmicsProcessing,
+                                                     legacy_omics_processing_id: str) -> nmdc.OmicsProcessing:
+    """
+    Update the appropriate alt identifiers slot depending on the OmicsProcessing legacy ID:
+    - gold_sequencing_project_identifiers for legacy IDs starting with 'gold:'
+    - alternative_identifiers for legacy IDs starting with 'emsl:'
+    """
+    if legacy_omics_processing_id.startswith("gold:"):
+        if legacy_omics_processing_id not in omics_processing.gold_sequencing_project_identifiers:
+            omics_processing.gold_sequencing_project_identifiers.append(legacy_omics_processing_id)
+            logging.info(f"Added legacy omics processing ID to gold_sequencing_project_identifiers: {legacy_omics_processing_id}")
+    elif legacy_omics_processing_id.startswith("emsl:"):
+        if legacy_omics_processing_id not in omics_processing.alternative_identifiers:
+            omics_processing.alternative_identifiers.append(legacy_omics_processing_id)
+            logging.info(f"Added legacy omics processing ID to alternative_identifiers: {legacy_omics_processing_id}")
+    else:
+        logging.warning(f"Unknown legacy ID format: {legacy_omics_processing_id}")
+    return omics_processing
+
+def update_omics_output_data_object(
+        data_object: nmdc.DataObject, updated_omics_processing: nmdc.OmicsProcessing,
+        api_client: NmdcRuntimeApi, identifiers_map: dict=None) -> nmdc.DataObject:
+    """
+    Update the data object record with the new ID, and add the legacy ID to the alternate identifiers
+    """
+    updated_data_object = deepcopy(data_object)
+    # Check if we need to update the data object ID and set the alternative identifiers to the legacy ID
+    if not updated_data_object.id.startswith("nmdc:dobj-"):
+        # Only update alternative_identifiers for Metabolomics and NOM
+        if updated_omics_processing.omics_type.has_raw_value in (
+            "Metabolomics", "Organic Matter Characterization"
+        ):
+            updated_data_object.alternative_identifiers = [data_object.id]
+        new_data_object_id = get_new_nmdc_id(updated_data_object, api_client, identifiers_map)
+        updated_data_object.id = new_data_object_id
+    return updated_data_object
+
+
+def update_metabolomics_or_nom_data_object(data_object: nmdc.DataObject, api_client: NmdcRuntimeApi,
+                                           identifiers_map: dict = None, was_generated_by=None) -> nmdc.DataObject:
+    """
+    Update for data object from Metabolomics or NOM Analysis Activity
+    Special case data objects get was_generated_by set to the metabolomics or NOM analysis activity ID
+    """
+    updated_data_object = deepcopy(data_object)
+    # Ensure that type is set to nmdc:DataObject
+    updated_data_object.type = "nmdc:DataObject"
+
+    # Check if we need to update the data object ID
+    if not updated_data_object.id.startswith("nmdc:dobj-"):
+        new_data_object_id = get_new_nmdc_id(updated_data_object, api_client, identifiers_map)
+        updated_data_object.id = new_data_object_id
+    if was_generated_by:
+        updated_data_object.was_generated_by = was_generated_by
+
+    return updated_data_object
+
+
+def _update_metabolomics_analysis_activity(activity_id: str, metabolomics_analysis_activity:
+nmdc.MetabolomicsAnalysisActivity, nmdc_omics_processing_id: str, nmdc_input_data_object_id: str,
+                                           nmdc_output_data_object_ids: List[str], nmdc_calibration_data_object_id: str,
+                                           identifiers_map: dict = None) -> nmdc.MetabolomicsAnalysisActivity:
+    """
+    Update the metabolomics activity.
+    A valid nmdc activity_id starts with 'nmdc:wfmb-' and must be provided.
+    """
+    if not activity_id.startswith("nmdc:wfmb-"):
+        raise ValueError(f"Invalid metabolomics analysis activity ID: {activity_id}")
+    updated_metabolomics_analysis_activity = deepcopy(metabolomics_analysis_activity)
+    # Ensure that type is set to nmdc:MetabolomicsAnalysisActivity
+    updated_metabolomics_analysis_activity.type = "nmdc:MetabolomicsAnalysisActivity"
+    updated_metabolomics_analysis_activity.id = activity_id
+    updated_metabolomics_analysis_activity.was_informed_by = nmdc_omics_processing_id
+    updated_metabolomics_analysis_activity.has_input = [nmdc_input_data_object_id]
+    updated_metabolomics_analysis_activity.has_output = nmdc_output_data_object_ids
+    updated_metabolomics_analysis_activity.has_calibration = nmdc_calibration_data_object_id
+
+    return updated_metabolomics_analysis_activity
+
+
+def _update_nom_analysis_activity(
+        activity_id: str,
+        nom_analysis_activity: nmdc.NomAnalysisActivity,
+        nmdc_omics_processing_id: str, nmdc_input_data_object_id: str,
+        nmdc_output_data_object_ids: List[str],
+        identifiers_map: dict = None) -> nmdc.NomAnalysisActivity:
+    """
+    Update the NOM analysis activity record with the new ID
+    """
+    if not activity_id.startswith("nmdc:wfnom-"):
+        raise ValueError(f"Invalid NOM analysis activity ID: {activity_id}")
+    updated_nom_analysis_activity = deepcopy(nom_analysis_activity)
+    # Ensure that type is set to nmdc:NomAnalysisActivity
+    updated_nom_analysis_activity.type = "nmdc:NomAnalysisActivity"
+
+    updated_nom_analysis_activity.id = activity_id
+    updated_nom_analysis_activity.was_informed_by = nmdc_omics_processing_id
+    updated_nom_analysis_activity.has_input = [nmdc_input_data_object_id]
+    updated_nom_analysis_activity.has_output = nmdc_output_data_object_ids
+
+    return updated_nom_analysis_activity
+
+
+def get_updates_for_metabolomics_or_nom(omics_processing, updated_omics_processing, api_client, db_client,
+                                        identifiers_map, updated_record_identifiers, updates):
+    """
+    Update Metabolomics or NOM Analysis Activity records and their associated data objects.
+    Returns updated_omics_processing, updated_record_identifiers, and updates dictionaries.
+    """
+    # If either the omics_processing or updated_omics_processing is not Metabolomics or NOM, raise an error
+    if omics_processing.omics_type.has_raw_value not in ("Metabolomics", "Organic Matter Characterization"):
+        raise ValueError(f"Omics Processing omics_type is not Metabolomics or NOM: {omics_processing.omics_type.has_raw_value}")
+    if updated_omics_processing.omics_type.has_raw_value not in ("Metabolomics", "Organic Matter Characterization"):
+        raise ValueError(f"Updated Omics Processing omics_type is not Metabolomics or NOM: {updated_omics_processing.omics_type.has_raw_value}")
+
+
+    # OmicsProcessing has_output goes to the Activity's has_input
+    # We assume there is only one data object in has_output
+    omics_processing_output_id = omics_processing.has_output[0]
+    omics_processing_output_record = db_client["data_object_set"].find_one(
+        {"id": omics_processing_output_id}
+    )
+    omics_processing_output__id = omics_processing_output_record.pop("_id")
+    omics_processing_output_data_object = nmdc.DataObject(**omics_processing_output_record)
+    updated_omics_processing_output_data_object = update_omics_output_data_object(
+        omics_processing_output_data_object, updated_omics_processing, api_client, identifiers_map
+    )
+    # Update the parent OmicsProcessing record with the new has_output data object
+    updated_omics_processing.has_output = [updated_omics_processing_output_data_object.id]
+
+    if omics_processing_output_data_object.id != updated_omics_processing_output_data_object.id:
+        updated_record_identifiers.add(
+            ("data_object_set", omics_processing_output_data_object.id,
+             updated_omics_processing_output_data_object.id)
+        )
+    omics_processing_output_update = compare_models(
+        omics_processing_output_data_object,
+        updated_omics_processing_output_data_object
+    )
+    if omics_processing_output_update:
+        updates["data_object_set"][omics_processing_output__id] = (omics_processing_output_data_object,
+                                                                   omics_processing_output_update)
+
+    # ====== Metabolomics Analysis Activity Update ======
+    # Find all Metabolomics Analysis Activity records was_informed_by either OmicsProcessing
+    # and has_input either data object
+    omics_processing_ids = [omics_processing.id, updated_omics_processing.id]
+    data_object_ids = [omics_processing_output_data_object.id, updated_omics_processing_output_data_object.id]
+    activity_query = {
+        "$and": [
+            {"was_informed_by": {"$in": omics_processing_ids}},
+            {"has_input": {"$in": data_object_ids}}
+        ]
+    }
+    if updated_omics_processing.omics_type.has_raw_value == "Metabolomics":
+        set_name = "metabolomics_analysis_activity_set"
+    else:
+        set_name = "nom_analysis_activity_set"
+    activity_records = db_client[set_name].find(activity_query)
+    logging.info(f"Found {len(list(activity_records.clone()))} Records for {set_name}")
+
+    for activity_record in activity_records:
+        activity__id = activity_record.pop("_id")
+
+        if updated_omics_processing.omics_type.has_raw_value == "Metabolomics":
+            activity = nmdc.MetabolomicsAnalysisActivity(**activity_record)
+        else:
+            activity = nmdc.NomAnalysisActivity(**activity_record)
+
+        updated_activity_id = get_new_nmdc_id(activity, api_client, identifiers_map)
+
+        # has_output data objects
+        activity_has_output_ids = activity.has_output
+        updated_activity_has_output_ids = []
+        for activity_has_output_id in activity_has_output_ids:
+            activity_output_record = db_client["data_object_set"].find_one({"id": activity_has_output_id})
+            activity_output__id = activity_output_record.pop("_id")
+            activity_output_data_object = nmdc.DataObject(**activity_output_record)
+            # Update the data object record
+            updated_activity_output_data_object = update_metabolomics_or_nom_data_object(
+                activity_output_data_object, api_client, identifiers_map, was_generated_by=updated_activity_id
+                )
+            updated_activity_has_output_ids.append(updated_activity_output_data_object.id)
+            if activity_output_data_object.id != updated_activity_output_data_object.id:
+                updated_record_identifiers.add(
+                    ("data_object_set", activity_output_data_object.id,
+                     updated_activity_output_data_object.id)
+                )
+            activity_output_data_object_update = compare_models(
+                activity_output_data_object, updated_activity_output_data_object
+            )
+            if activity_output_data_object_update:
+                updates["data_object_set"][activity_output__id] = (
+                    activity_output_data_object, activity_output_data_object_update)
+
+        # has_calibration_data data object for some activities
+        if updated_omics_processing.omics_type.has_raw_value == "Metabolomics":
+            calibration_data_object_id = activity.has_calibration
+            calibration_data_object_record = db_client["data_object_set"].find_one(
+                {"id": calibration_data_object_id}
+            )
+            calibration_data_object__id = calibration_data_object_record.pop("_id")
+            calibration_data_object = nmdc.DataObject(**calibration_data_object_record)
+            updated_calibration_data_object = update_metabolomics_or_nom_data_object(
+                calibration_data_object, api_client, identifiers_map
+                )
+            if calibration_data_object.id != updated_calibration_data_object.id:
+                updated_record_identifiers.add(
+                    ("data_object_set", calibration_data_object.id, updated_calibration_data_object.id)
+                )
+            calibration_data_object_update = compare_models(
+                calibration_data_object, updated_calibration_data_object
+            )
+            if calibration_data_object_update:
+                updates["data_object_set"][calibration_data_object__id] = (
+                    calibration_data_object, calibration_data_object_update)
+
+            # Update the Metabolomics Analysis Activity record
+            updated_metabolomics_analysis_activity = _update_metabolomics_analysis_activity(
+                activity_id=updated_activity_id, metabolomics_analysis_activity=activity,
+                nmdc_omics_processing_id=updated_omics_processing.id,
+                nmdc_input_data_object_id=updated_omics_processing_output_data_object.id,
+                nmdc_output_data_object_ids=updated_activity_has_output_ids,
+                nmdc_calibration_data_object_id=updated_calibration_data_object.id, identifiers_map=identifiers_map
+                )
+            if activity.id != updated_metabolomics_analysis_activity.id:
+                updated_record_identifiers.add(
+                    ("metabolomics_analysis_activity_set", activity.id, updated_metabolomics_analysis_activity.id)
+                )
+            metabolomics_analysis_activity_update = compare_models(activity, updated_metabolomics_analysis_activity)
+            if metabolomics_analysis_activity_update:
+                updates["metabolomics_analysis_activity_set"][activity__id] = (
+                    activity, metabolomics_analysis_activity_update
+                )
+
+        else:
+            # Update the NOM Analysis Activity record
+            updated_nom_analysis_activity = _update_nom_analysis_activity(
+                activity_id=updated_activity_id,
+                nom_analysis_activity=activity,
+                nmdc_omics_processing_id=updated_omics_processing.id,
+                nmdc_input_data_object_id=updated_omics_processing_output_data_object.id,
+                nmdc_output_data_object_ids=updated_activity_has_output_ids,
+                identifiers_map=identifiers_map
+            )
+            if activity.id != updated_nom_analysis_activity.id:
+                updated_record_identifiers.add(
+                    ("nom_analysis_activity_set", activity.id, updated_nom_analysis_activity.id)
+                )
+            nom_analysis_activity_update = compare_models(activity, updated_nom_analysis_activity)
+            if nom_analysis_activity_update:
+                updates["nom_analysis_activity_set"][activity__id] = (
+                    activity, nom_analysis_activity_update
+                )
+
+    return updated_omics_processing, updated_record_identifiers, updates
