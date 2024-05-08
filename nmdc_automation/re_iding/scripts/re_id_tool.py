@@ -20,8 +20,13 @@ from nmdc_automation.api import NmdcRuntimeApi, NmdcRuntimeUserApi
 from nmdc_automation.nmdc_common.client import NmdcApi
 import nmdc_schema.nmdc as nmdc
 from nmdc_automation.config import UserConfig
-from nmdc_automation.re_iding.base import ReIdTool, _get_biosample_legacy_id, compare_models, update_biosample, \
+from nmdc_automation.re_iding.base import (
+    ReIdTool,
+    _get_biosample_legacy_id,
+    compare_models,
+    get_updates_for_metabolomics_or_nom, update_biosample,
     update_omics_processing
+)
 from nmdc_automation.re_iding.db_utils import get_omics_processing_id, ANALYSIS_ACTIVITIES
 
 # Defaults
@@ -94,10 +99,19 @@ def cli(ctx, target):
     ctx.obj["is_direct_connection"] = True
 
 
+def _data_objects_have_valid_ids(data_objects):
+    """
+    Check that all data objects have valid NMDC IDs.
+    """
+    for data_object in data_objects:
+        if not data_object["id"].startswith("nmdc:dobj-"):
+            return False
+    return True
+
 @cli.command()
 @click.argument("legacy_study_id", type=str, required=True)
 @click.argument("nmdc_study_id", type=str, required=True)
-@click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
 @click.option("--identifiers-file", type=click.Path(exists=True), required=False)
 @click.option("--no-update", is_flag=True, default=False, help="Do not update the database")
 @click.pass_context
@@ -128,7 +142,6 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
     else:
         identifiers_map = None
 
-
     # Connect to the MongoDB server and check the database name
     is_direct_connection = ctx.obj["is_direct_connection"]
     database_name = ctx.obj["database_name"]
@@ -146,7 +159,8 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
     # Keep track of the updated record identifiers as (collection_name, legacy_id, new_id)
     updated_record_identifiers = set()
 
-    # # Look up the study record, first by legacy ID then by NMDC ID
+    #====== Study Update ======
+    # Look up the study record, first by legacy ID then by NMDC ID
     study_record = db_client["study_set"].find_one({"id": legacy_study_id})
     if not study_record:
         study_record = db_client["study_set"].find_one({"id": nmdc_study_id})
@@ -157,20 +171,30 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
     updates = {
         "study_set": {},
         "biosample_set": {},
-        "omics_processing_set": {}
+        "omics_processing_set": {},
+        "data_object_set": {},
+        "metabolomics_analysis_activity_set": {},
+        "nom_analysis_activity_set": {}
+    }
+    # Keep track of records that we will be deleting as a dict of {collection_name: [record]}
+    deletions = {
+        "omics_processing_set": [],
+        "data_object_set": [],
     }
 
-    study_id = study_record.pop("_id")
+    study__id = study_record.pop("_id")
     # TODO work out why we have to strip off part_of, study_category, and associated_dois
     study_record.pop("part_of", None)
     study_record.pop("study_category", None)
     study_record.pop("associated_dois", None)
+    study_record.pop("homepage_website", None)
     study = nmdc.Study(**study_record)
     updated_study = _update_study(study, legacy_study_id, nmdc_study_id)
     study_update = compare_models(study, updated_study)
     if study_update:
-        updates["study_set"][study_id] = (study, study_update)
+        updates["study_set"][study__id] = (study, study_update)
 
+    #====== Biosample Update ======
     # Find all biosample records associated with the study by either study ID
     biosample_query = {
         "$or": [
@@ -178,10 +202,10 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
             {"part_of": nmdc_study_id}
         ]
     }
-    # get a list of nmdc.Biosample instances
     biosample_records = db_client["biosample_set"].find(biosample_query)
+    # Iterate over the biosample records and update them and their related omics processing records
     for biosample_record in biosample_records:
-        biosample_id = biosample_record.pop("_id")
+        biosample__id = biosample_record.pop("_id")
         biosample = nmdc.Biosample(**biosample_record)
         legacy_biosample_id = _get_biosample_legacy_id(biosample)
         updated_biosample = update_biosample(biosample, nmdc_study_id, api_client, identifiers_map)
@@ -189,8 +213,9 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
             updated_record_identifiers.add(("biosample_set", legacy_biosample_id, updated_biosample.id))
         biosample_update = compare_models(biosample, updated_biosample)
         if biosample_update:
-            updates["biosample_set"][biosample_id] = (biosample, biosample_update)
+            updates["biosample_set"][biosample__id] = (biosample, biosample_update)
 
+        #====== OmicsProcessing Update ======
         # Find all OmicsProcessing records part_of either study and has_input either biosample
         study_ids = [legacy_study_id, nmdc_study_id]
         biosample_ids = [legacy_biosample_id, biosample.id]
@@ -201,10 +226,34 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
             ]
         }
         omics_processing_records = db_client["omics_processing_set"].find(omics_processing_query)
+        # Iterate over the omics processing records and update them
         for omics_processing_record in omics_processing_records:
+
+            # Special Case: Lipidomics OmicsProcessing and its has_output data object(s) get deleted
+            if omics_processing_record["omics_type"]["has_raw_value"] == "Lipidomics":
+                deletions["omics_processing_set"].append(omics_processing_record)
+                omics_processing_output_ids = omics_processing_record.get("has_output", [])
+                for omics_processing_output_id in omics_processing_output_ids:
+                    data_object_record = db_client["data_object_set"].find_one({"id": omics_processing_output_id})
+                    if data_object_record:
+                        deletions["data_object_set"].append(data_object_record)
+                logging.info(f"Adding Lipidomics record to Delete list: {omics_processing_record['id']}")
+                continue
+
+            # Update the OmicsProcessing record
             omics_processing_id = omics_processing_record.pop("_id")
             omics_processing = nmdc.OmicsProcessing(**omics_processing_record)
-            updated_omics_processing = update_omics_processing(omics_processing, nmdc_study_id, biosample.id, api_client, identifiers_map)
+            updated_omics_processing = update_omics_processing(
+                omics_processing, nmdc_study_id, updated_biosample.id, api_client, identifiers_map)
+
+            # ===== Additional updates for Metabolomics and Organic Matter Characterization =====
+            ANALYSIS_ACTIVITIES = ("Metabolomics", "Organic Matter Characterization")
+            if updated_omics_processing.omics_type.has_raw_value in ANALYSIS_ACTIVITIES:
+                updated_omics_processing, updated_record_identifiers, updates = get_updates_for_metabolomics_or_nom(
+                    omics_processing, updated_omics_processing, api_client, db_client, identifiers_map,
+                    updated_record_identifiers, updates
+                )
+
             if omics_processing.id != updated_omics_processing.id:
                 updated_record_identifiers.add(("omics_processing_set", omics_processing.id, updated_omics_processing.id))
             omics_processing_update = compare_models(omics_processing, updated_omics_processing)
@@ -213,28 +262,48 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
 
     if no_update:
         # Log the updates that would be made
-        logging.info("No update flag set")
-        logging.info(f"Would update {len(updates)} collections")
-        _log_updates(updates)
+        logging.info("No update flag set - Not updating the database")
     else:
         # Update the records in the database
+        logging.info("Updating the database")
         with session.start_transaction():
             try:
+                update_count_by_collection = {}
                 for collection_name, record_updates in updates.items():
+                    update_count_by_collection[collection_name] = 0
                     for _id, (model, update) in record_updates.items():
                         # update the record
                         filter_criteria = {"_id": _id}
                         update_criteria = {"$set": update}
                         result = db_client[collection_name].update_one(filter_criteria, update_criteria)
-                        logging.info(f"Updated {result.modified_count} {collection_name} records")
+                        update_count_by_collection[collection_name] += result.modified_count
                 session.commit_transaction()
-                logging.info(f"Updated {len(updates)} collections")
+                logging.info("Database update successful")
+                for collection_name, count in update_count_by_collection.items():
+                    logging.info(f"Updated {count} records in {collection_name}")
+
+                # Delete the records that need to be deleted if any
+                for collection_name, records in deletions.items():
+                    delete_count = 0
+                    for record in records:
+                        result = db_client[collection_name].delete_one({"_id": record["_id"]})
+                        delete_count += result.deleted_count
+                    logging.info(f"Deleted {delete_count} records in {collection_name}")
+                session.commit_transaction()
+
             except Exception as e:
                 logging.error(f"An error occurred - aborting transaction")
                 session.abort_transaction()
                 logging.exception(f"An error occurred while updating records: {e}")
+                sys.exit(1)
 
-    _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
+    logging.info("Writing updates and updated record identifiers to files")
+    _write_updates(updates, nmdc_study_id)
+    # Don't overwrite the identifiers file if it was provided
+    if not identifiers_file:
+        _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
+    if deletions:
+        _write_deletions(deletions, nmdc_study_id)
     logging.info(f"Elapsed time: {time.time() - start_time}")
     sys.exit()
 
@@ -249,9 +318,58 @@ def _log_updates(updates):
                 logging.info(f"  {attr}: {updated_value}")
 
 
+def _write_updates(updates, nmdc_study_id):
+    # Create a directory for the study if it doesn't exist
+    study_dir = DATA_DIR.joinpath(nmdc_study_id)
+    study_dir.mkdir(parents=True, exist_ok=True)
+
+    # Write the updated records to a tsv file using csv writer in data_dir/study_id/study_id_updates.tsv
+    updates_file = study_dir.joinpath(f"{nmdc_study_id}_updates.tsv")
+    logging.info(f"Writing {len(updates)} updates to {updates_file}")
+    # see if the file already exists - if so, append to it
+    if updates_file.exists():
+        logging.info(f"Appending to existing file: {updates_file}")
+        mode = "a"
+    else:
+        logging.info(f"Creating new file: {updates_file}")
+        mode = "w"
+    with open(updates_file, mode) as f:
+        writer = csv.writer(f, delimiter="\t")
+        if mode == "w":
+            writer.writerow(["collection_name", "id", "_id", "update"])
+        for collection_name, record_updates in updates.items():
+            for _id, (model, update) in record_updates.items():
+                updated_fields = ", ".join(update.keys())
+                writer.writerow([collection_name, model.id, _id, update])
+
+def _write_deletions(deletions, nmdc_study_id):
+    # Create a directory for the study if it doesn't exist
+    study_dir = DATA_DIR.joinpath(nmdc_study_id)
+    study_dir.mkdir(parents=True, exist_ok=True)
+
+    # Write the deleted records to a tsv file using csv writer in data_dir/study_id/study_id_deletions.tsv
+    deletions_file = study_dir.joinpath(f"{nmdc_study_id}_deletions.tsv")
+    logging.info(f"Writing {len(deletions)} deletions to {deletions_file}")
+    # see if the file already exists - if so, append to it
+    if deletions_file.exists():
+        logging.info(f"Appending to existing file: {deletions_file}")
+        mode = "a"
+    else:
+        logging.info(f"Creating new file: {deletions_file}")
+        mode = "w"
+    with open(deletions_file, mode) as f:
+        writer = csv.writer(f, delimiter="\t")
+        if mode == "w":
+            writer.writerow(["collection_name", "id", "_id"])
+        for collection_name, records in deletions.items():
+            for record in records:
+                writer.writerow([collection_name, record["id"], record["_id"]])
+
 def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id):
+    # Create a directory for the study if it doesn't exist
+    study_dir = DATA_DIR.joinpath(nmdc_study_id)
     # Write the updated record identifiers to a tsv file using csv writer
-    updated_record_identifiers_file = DATA_DIR.joinpath(f"{nmdc_study_id}_updated_record_identifiers.tsv")
+    updated_record_identifiers_file = study_dir.joinpath(f"{nmdc_study_id}_updated_record_identifiers.tsv")
     # Check if the file already exists - if so, append to it
     if updated_record_identifiers_file.exists():
         logging.info(f"Appending to existing file: {updated_record_identifiers_file}")
@@ -268,6 +386,8 @@ def _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
         writer.writerow(["collection_name", "legacy_id", "new_id"])
         for record in updated_record_identifiers:
             writer.writerow(record)
+
+
 
 
 @cli.command()
@@ -583,7 +703,7 @@ def process_records(ctx, study_id, data_dir, update_links=False):
 
 @cli.command()
 @click.argument("reid_records_file", type=click.Path(exists=True))
-@click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
 @click.pass_context
 def ingest_records(ctx, reid_records_file, mongo_uri):
     """
@@ -667,7 +787,7 @@ def _ingest_records(db_records, db_client, api_user_client):
 
 @cli.command()
 @click.argument("old_records_file", type=click.Path(exists=True))
-@click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
 @click.pass_context
 def delete_old_records(ctx, old_records_file, mongo_uri):
     """
