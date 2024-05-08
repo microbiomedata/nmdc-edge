@@ -550,13 +550,16 @@ async function findInputsize(conf) {
 }
 
 async function fileStats(file) {
-    if (file.toLowerCase().startsWith('http')) {
-        return await ufs(file)
-            .then(size => { return { size: size } })
-            .catch(err => { return { size: 0 } });
-    } else {
-        return fs.statSync(file);
-    }
+  if(!file) {
+    return { size: 0 };
+  }
+  if (file.toLowerCase().startsWith('http')) {
+      return await ufs(file)
+          .then(size => { return { size: size } })
+          .catch(err => { return { size: 0 } });
+  } else {
+      return fs.statSync(file);
+  }
 }
 
 module.exports = { submitWorkflow, generateWorkflowResult, generatePipelineResult, generateRunStats, findInputsize };
