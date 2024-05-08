@@ -40,7 +40,7 @@ from nmdc_automation.re_iding.file_utils import (find_data_object_type,
                                                     link_data_file_paths,
                                                  assembly_file_operations)
 
-DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
+DATA_DIR = Path(__file__).parent.absolute().joinpath("scripts/data")
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
 DATA_BASE_URL = "https://data.microbiomedata.org/data"
 # BASE_DIR = "/global/cfs/cdirs/m3408/results"
@@ -176,6 +176,7 @@ class ReIdTool:
         for old_do_id in old_do_ids:
             old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
             old_do_rec["data_object_type"] = "Metagenome Raw Reads"
+            old_do_rec["type"] = "nmdc:DataObject"
             old_do_id = old_do_rec.get("id")
             params = copy.deepcopy(old_do_rec)
             params.pop("id", None)
