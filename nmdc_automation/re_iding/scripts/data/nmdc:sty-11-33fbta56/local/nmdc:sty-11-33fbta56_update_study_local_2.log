@@ -1,0 +1,1677 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
+INFO:root:Updating NMDC study with legacy ID: gold:Gs0110138
+INFO:root:Updating NMDC study with ID: nmdc:sty-11-33fbta56
+INFO:root:Using 19 identifiers from data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_updated_record_identifiers.tsv
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 663532ca22d5b22baaab8119, topology_type: Single, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "663532ca22d5b22baaab8119"}, "remainingTimeMS": 4}
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-8s9qew72
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208366
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208366
+INFO:root:Minted new ID: nmdc:omprc-11-rva4t450
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-8s9qew72
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-7ay9p920
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208367
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208367
+INFO:root:Minted new ID: nmdc:omprc-11-m18g8570
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-7ay9p920
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-zxhe0n95
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208362
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208362
+INFO:root:Minted new ID: nmdc:omprc-11-2d9mtk98
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-zxhe0n95
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-wady4q34
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208381
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208381
+INFO:root:Minted new ID: nmdc:omprc-11-w64fyc72
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-wady4q34
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-hd1n0692
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208370
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208370
+INFO:root:Minted new ID: nmdc:omprc-11-rb8mym19
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-hd1n0692
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-kynkbj13
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208368
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208368
+INFO:root:Minted new ID: nmdc:omprc-11-rd7ejx86
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-kynkbj13
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-xtn73s23
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208375
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208375
+INFO:root:Minted new ID: nmdc:omprc-11-8rvks738
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-xtn73s23
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-a9h01527
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208382
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208382
+INFO:root:Minted new ID: nmdc:omprc-11-q2ghw763
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-a9h01527
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-a6yx8957
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208365
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208365
+INFO:root:Minted new ID: nmdc:omprc-11-3cjsz636
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-a6yx8957
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-q21a1x03
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208361
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208361
+INFO:root:Minted new ID: nmdc:omprc-11-6xnzee61
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-q21a1x03
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-csykqn65
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208378
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208378
+INFO:root:Minted new ID: nmdc:omprc-11-4mbh2x39
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-csykqn65
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-zyae7e18
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208363
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208363
+INFO:root:Minted new ID: nmdc:omprc-11-83a36c19
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-zyae7e18
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-hhscy494
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208374
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208374
+INFO:root:Minted new ID: nmdc:omprc-11-rqh9af29
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-hhscy494
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-apwavf24
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208380
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208380
+INFO:root:Minted new ID: nmdc:omprc-11-edvr3p74
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-apwavf24
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-jpst4g08
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208373
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208373
+INFO:root:Minted new ID: nmdc:omprc-11-7er6vp76
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-jpst4g08
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-5vpcg357
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208376
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208376
+INFO:root:Minted new ID: nmdc:omprc-11-jbb6s916
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-5vpcg357
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-y9xv8p63
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208371
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208371
+INFO:root:Minted new ID: nmdc:omprc-11-17zbfc43
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-y9xv8p63
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-qctyr565
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208377
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208377
+INFO:root:Minted new ID: nmdc:omprc-11-ya193831
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-qctyr565
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-jg6cyv90
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208364
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208364
+INFO:root:Minted new ID: nmdc:omprc-11-77vhh772
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-jg6cyv90
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-g4j6b812
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208359
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208359
+INFO:root:Minted new ID: nmdc:omprc-11-7e91we04
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-g4j6b812
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-zm5skn77
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208360
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208360
+INFO:root:Minted new ID: nmdc:omprc-11-bb1rn809
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-zm5skn77
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-kprgwc64
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208369
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208369
+INFO:root:Minted new ID: nmdc:omprc-11-rspx2p98
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-kprgwc64
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-012qca33
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208372
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208372
+INFO:root:Minted new ID: nmdc:omprc-11-ksz5a248
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-012qca33
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-6qdzd845
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0208379
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0208379
+INFO:root:Minted new ID: nmdc:omprc-11-929jdr52
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-12-6qdzd845
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139005
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139005
+INFO:root:Minted new ID: nmdc:bsm-11-0th0f951
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139005
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138728
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138728
+INFO:root:Minted new ID: nmdc:omprc-11-00jnnh63
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-0th0f951
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139004
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139004
+INFO:root:Minted new ID: nmdc:bsm-11-b0yyaj81
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139004
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138727
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138727
+INFO:root:Minted new ID: nmdc:omprc-11-gqh5n394
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-b0yyaj81
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139007
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139007
+INFO:root:Minted new ID: nmdc:bsm-11-632pwb14
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139007
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138730
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138730
+INFO:root:Minted new ID: nmdc:omprc-11-t370xt44
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-632pwb14
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139006
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139006
+INFO:root:Minted new ID: nmdc:bsm-11-djpnm180
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139006
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138729
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138729
+INFO:root:Minted new ID: nmdc:omprc-11-0ztw3291
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-djpnm180
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139008
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139008
+INFO:root:Minted new ID: nmdc:bsm-11-vv2m3c04
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139008
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138731
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138731
+INFO:root:Minted new ID: nmdc:omprc-11-mv4vg343
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-vv2m3c04
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139009
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139009
+INFO:root:Minted new ID: nmdc:bsm-11-v2n45230
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139009
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138732
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138732
+INFO:root:Minted new ID: nmdc:omprc-11-6v0rxt76
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-v2n45230
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139011
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139011
+INFO:root:Minted new ID: nmdc:bsm-11-3y0sx890
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139011
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138734
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138734
+INFO:root:Minted new ID: nmdc:omprc-11-6yypat07
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-3y0sx890
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139010
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139010
+INFO:root:Minted new ID: nmdc:bsm-11-kvf10q14
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139010
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138733
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138733
+INFO:root:Minted new ID: nmdc:omprc-11-55hc3c46
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-kvf10q14
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139014
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139014
+INFO:root:Minted new ID: nmdc:bsm-11-kx2mbv77
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139014
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138737
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138737
+INFO:root:Minted new ID: nmdc:omprc-11-r8c6sp24
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-kx2mbv77
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139012
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139012
+INFO:root:Minted new ID: nmdc:bsm-11-cjxrr846
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139012
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138735
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138735
+INFO:root:Minted new ID: nmdc:omprc-11-thvg0y82
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-cjxrr846
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139013
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139013
+INFO:root:Minted new ID: nmdc:bsm-11-qdhvkb24
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139013
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138736
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138736
+INFO:root:Minted new ID: nmdc:omprc-11-m39jmg34
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-qdhvkb24
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139016
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139016
+INFO:root:Minted new ID: nmdc:bsm-11-jsmb3z31
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139016
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138739
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138739
+INFO:root:Minted new ID: nmdc:omprc-11-8ve8r890
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-jsmb3z31
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139015
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139015
+INFO:root:Minted new ID: nmdc:bsm-11-rmk39a13
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139015
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138738
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138738
+INFO:root:Minted new ID: nmdc:omprc-11-v6xbg243
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-rmk39a13
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139018
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139018
+INFO:root:Minted new ID: nmdc:bsm-11-h70nfb49
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139018
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138741
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138741
+INFO:root:Minted new ID: nmdc:omprc-11-pxe4p517
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-h70nfb49
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139017
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139017
+INFO:root:Minted new ID: nmdc:bsm-11-dwmd8y19
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139017
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138740
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138740
+INFO:root:Minted new ID: nmdc:omprc-11-3d5aej44
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-dwmd8y19
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139019
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139019
+INFO:root:Minted new ID: nmdc:bsm-11-jrfezx06
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139019
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138742
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138742
+INFO:root:Minted new ID: nmdc:omprc-11-0890hh18
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-jrfezx06
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139020
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139020
+INFO:root:Minted new ID: nmdc:bsm-11-w2dyhp97
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139020
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138743
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138743
+INFO:root:Minted new ID: nmdc:omprc-11-9yv88a43
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-w2dyhp97
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139021
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139021
+INFO:root:Minted new ID: nmdc:bsm-11-hs2gse62
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139021
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138744
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138744
+INFO:root:Minted new ID: nmdc:omprc-11-jjp8jh32
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-hs2gse62
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139022
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139022
+INFO:root:Minted new ID: nmdc:bsm-11-9mdzmt70
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139022
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138745
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138745
+INFO:root:Minted new ID: nmdc:omprc-11-nz1p9724
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-9mdzmt70
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139024
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139024
+INFO:root:Minted new ID: nmdc:bsm-11-6t6pft49
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139024
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138747
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138747
+INFO:root:Minted new ID: nmdc:omprc-11-5rg0w006
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-6t6pft49
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139023
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139023
+INFO:root:Minted new ID: nmdc:bsm-11-z7xnkw03
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139023
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138746
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138746
+INFO:root:Minted new ID: nmdc:omprc-11-nsyt1g45
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-z7xnkw03
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139025
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139025
+INFO:root:Minted new ID: nmdc:bsm-11-hx4xk841
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139025
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138748
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138748
+INFO:root:Minted new ID: nmdc:omprc-11-cfame221
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-hx4xk841
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139026
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139026
+INFO:root:Minted new ID: nmdc:bsm-11-yh3g9a43
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139026
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138749
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138749
+INFO:root:Minted new ID: nmdc:omprc-11-kpsr0091
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-yh3g9a43
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139027
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139027
+INFO:root:Minted new ID: nmdc:bsm-11-64t2pv16
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139027
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138750
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138750
+INFO:root:Minted new ID: nmdc:omprc-11-52yez251
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-64t2pv16
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139028
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139028
+INFO:root:Minted new ID: nmdc:bsm-11-8eayek90
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139028
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138751
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138751
+INFO:root:Minted new ID: nmdc:omprc-11-n77wpx46
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-8eayek90
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139029
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139029
+INFO:root:Minted new ID: nmdc:bsm-11-npfthr57
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139029
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138752
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138752
+INFO:root:Minted new ID: nmdc:omprc-11-b8kjgk29
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-npfthr57
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139030
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139030
+INFO:root:Minted new ID: nmdc:bsm-11-js8br855
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139030
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138753
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138753
+INFO:root:Minted new ID: nmdc:omprc-11-3des4569
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-js8br855
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139031
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139031
+INFO:root:Minted new ID: nmdc:bsm-11-8nm59y54
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139031
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138754
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138754
+INFO:root:Minted new ID: nmdc:omprc-11-k6tkhd57
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-8nm59y54
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139032
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139032
+INFO:root:Minted new ID: nmdc:bsm-11-jhtvqr82
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139032
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138755
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138755
+INFO:root:Minted new ID: nmdc:omprc-11-59ratd17
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-jhtvqr82
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139033
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139033
+INFO:root:Minted new ID: nmdc:bsm-11-xpdm1p86
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139033
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138756
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138756
+INFO:root:Minted new ID: nmdc:omprc-11-49w8k874
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-xpdm1p86
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139034
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139034
+INFO:root:Minted new ID: nmdc:bsm-11-h90s6j14
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139034
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138757
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138757
+INFO:root:Minted new ID: nmdc:omprc-11-8csmb476
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-h90s6j14
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139035
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139035
+INFO:root:Minted new ID: nmdc:bsm-11-r1yfk985
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139035
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138758
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138758
+INFO:root:Minted new ID: nmdc:omprc-11-wrzv5049
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-r1yfk985
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139036
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139036
+INFO:root:Minted new ID: nmdc:bsm-11-906v5084
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139036
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138759
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138759
+INFO:root:Minted new ID: nmdc:omprc-11-45dk8x02
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-906v5084
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139038
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139038
+INFO:root:Minted new ID: nmdc:bsm-11-77v8mj45
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139038
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138761
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138761
+INFO:root:Minted new ID: nmdc:omprc-11-e351sj13
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-77v8mj45
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139037
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139037
+INFO:root:Minted new ID: nmdc:bsm-11-dwprbz91
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139037
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138760
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138760
+INFO:root:Minted new ID: nmdc:omprc-11-cqv96w66
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-dwprbz91
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139039
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139039
+INFO:root:Minted new ID: nmdc:bsm-11-tnp9v506
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139039
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138762
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138762
+INFO:root:Minted new ID: nmdc:omprc-11-2wv2z868
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-tnp9v506
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139040
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139040
+INFO:root:Minted new ID: nmdc:bsm-11-zgzr0110
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139040
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138763
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138763
+INFO:root:Minted new ID: nmdc:omprc-11-qnsavv19
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-zgzr0110
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0139041
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0139041
+INFO:root:Minted new ID: nmdc:bsm-11-5dq7he74
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0139041
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0138764
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0138764
+INFO:root:Minted new ID: nmdc:omprc-11-fe11m915
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-5dq7he74
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153609
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153609
+INFO:root:Minted new ID: nmdc:bsm-11-0mxw2a38
+INFO:root:Found 3 OmicsProcessing records for biosample gold:Gb0153609
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213331
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213331
+INFO:root:Minted new ID: nmdc:omprc-11-c2mx8s38
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-0mxw2a38
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598513
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598513
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-wfzppa38
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-0mxw2a38
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598520
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598520
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-zderzd14
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-0mxw2a38
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153611
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153611
+INFO:root:Minted new ID: nmdc:bsm-11-xrzrzw95
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153611
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213333
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213333
+INFO:root:Minted new ID: nmdc:omprc-11-kfhxh447
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-xrzrzw95
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598851
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598851
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-3cb88758
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-xrzrzw95
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153617
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153617
+INFO:root:Minted new ID: nmdc:bsm-11-y30s2h05
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153617
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213339
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213339
+INFO:root:Minted new ID: nmdc:omprc-11-5hv2nk47
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-y30s2h05
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153612
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153612
+INFO:root:Minted new ID: nmdc:bsm-11-szct3r34
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153612
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213334
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213334
+INFO:root:Minted new ID: nmdc:omprc-11-pkt3zp92
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-szct3r34
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153619
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153619
+INFO:root:Minted new ID: nmdc:bsm-11-vbhs0y41
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153619
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213341
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213341
+INFO:root:Minted new ID: nmdc:omprc-11-f1x4gf89
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-vbhs0y41
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153614
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153614
+INFO:root:Minted new ID: nmdc:bsm-11-zwwn7q59
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153614
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213336
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213336
+INFO:root:Minted new ID: nmdc:omprc-11-5eqgpx13
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-zwwn7q59
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598508
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598508
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-ntj89023
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-zwwn7q59
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153618
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153618
+INFO:root:Minted new ID: nmdc:bsm-11-3ge7t252
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153618
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213340
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213340
+INFO:root:Minted new ID: nmdc:omprc-11-548cft33
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-3ge7t252
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153626
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153626
+INFO:root:Minted new ID: nmdc:bsm-11-t7e0r229
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153626
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213348
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213348
+INFO:root:Minted new ID: nmdc:omprc-11-apds8v27
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-t7e0r229
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153622
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153622
+INFO:root:Minted new ID: nmdc:bsm-11-vk8tzb16
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153622
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213344
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213344
+INFO:root:Minted new ID: nmdc:omprc-11-e8pvpx85
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-vk8tzb16
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598852
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598852
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-y6a4a751
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-vk8tzb16
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153621
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153621
+INFO:root:Minted new ID: nmdc:bsm-11-yqcm3088
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153621
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213343
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213343
+INFO:root:Minted new ID: nmdc:omprc-11-h33rjj70
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-yqcm3088
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598849
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598849
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-n81fed07
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-yqcm3088
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153620
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153620
+INFO:root:Minted new ID: nmdc:bsm-11-3p7fsd79
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153620
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213342
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213342
+INFO:root:Minted new ID: nmdc:omprc-11-9xwcte55
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-3p7fsd79
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153627
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153627
+INFO:root:Minted new ID: nmdc:bsm-11-xfk9wd44
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153627
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213349
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213349
+INFO:root:Minted new ID: nmdc:omprc-11-9xvm7x96
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-xfk9wd44
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153628
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153628
+INFO:root:Minted new ID: nmdc:bsm-11-khcwfk50
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153628
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213350
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213350
+INFO:root:Minted new ID: nmdc:omprc-11-ygh9h340
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-khcwfk50
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153613
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153613
+INFO:root:Minted new ID: nmdc:bsm-11-j7es3k30
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153613
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213335
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213335
+INFO:root:Minted new ID: nmdc:omprc-11-8ftx4854
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-j7es3k30
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598512
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598512
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-xp74k207
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-j7es3k30
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153615
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153615
+INFO:root:Minted new ID: nmdc:bsm-11-j1w81f69
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153615
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213337
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213337
+INFO:root:Minted new ID: nmdc:omprc-11-8hpgfe58
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-j1w81f69
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598510
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598510
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-01pm7g24
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-j1w81f69
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153629
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153629
+INFO:root:Minted new ID: nmdc:bsm-11-w9hc7928
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153629
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213351
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213351
+INFO:root:Minted new ID: nmdc:omprc-11-4v5y6484
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-w9hc7928
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598853
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598853
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-gqqn9s76
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-w9hc7928
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153616
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153616
+INFO:root:Minted new ID: nmdc:bsm-11-93mjfa90
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153616
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213338
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213338
+INFO:root:Minted new ID: nmdc:omprc-11-h0w27134
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-93mjfa90
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153610
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153610
+INFO:root:Minted new ID: nmdc:bsm-11-gcp6f209
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153610
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213332
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213332
+INFO:root:Minted new ID: nmdc:omprc-11-mfw3zf87
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-gcp6f209
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598848
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598848
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-nfce4r12
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-gcp6f209
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153632
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153632
+INFO:root:Minted new ID: nmdc:bsm-11-n6y0n205
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153632
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213354
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213354
+INFO:root:Minted new ID: nmdc:omprc-11-xgs9hr15
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-n6y0n205
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153631
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153631
+INFO:root:Minted new ID: nmdc:bsm-11-z9n0gb75
+INFO:root:Found 3 OmicsProcessing records for biosample gold:Gb0153631
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213353
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213353
+INFO:root:Minted new ID: nmdc:omprc-11-nyqrqb35
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-z9n0gb75
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598509
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598509
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-ar7xyy02
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-z9n0gb75
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598850
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598850
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-e8g0x640
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-z9n0gb75
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153630
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153630
+INFO:root:Minted new ID: nmdc:bsm-11-zd2gen39
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153630
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213352
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213352
+INFO:root:Minted new ID: nmdc:omprc-11-x49dtg13
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-zd2gen39
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153637
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153637
+INFO:root:Minted new ID: nmdc:bsm-11-k0jtkn32
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153637
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213359
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213359
+INFO:root:Minted new ID: nmdc:omprc-11-m6ma2r82
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-k0jtkn32
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598517
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598517
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-x7wa2f92
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-k0jtkn32
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153623
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153623
+INFO:root:Minted new ID: nmdc:bsm-11-58yfxx86
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153623
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213345
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213345
+INFO:root:Minted new ID: nmdc:omprc-11-fm10dn26
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-58yfxx86
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598515
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598515
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-jdn7t580
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-58yfxx86
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153641
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153641
+INFO:root:Minted new ID: nmdc:bsm-11-41y7wj79
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153641
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213363
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213363
+INFO:root:Minted new ID: nmdc:omprc-11-fdvwwf60
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-41y7wj79
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598506
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598506
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-qt23cc45
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-41y7wj79
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153638
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153638
+INFO:root:Minted new ID: nmdc:bsm-11-be2yr810
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153638
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213360
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213360
+INFO:root:Minted new ID: nmdc:omprc-11-vn4etq18
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-be2yr810
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598847
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598847
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-12yc8z47
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-be2yr810
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153633
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153633
+INFO:root:Minted new ID: nmdc:bsm-11-4thv1176
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153633
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213355
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213355
+INFO:root:Minted new ID: nmdc:omprc-11-67h07k03
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-4thv1176
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153640
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153640
+INFO:root:Minted new ID: nmdc:bsm-11-y6348274
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153640
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213362
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213362
+INFO:root:Minted new ID: nmdc:omprc-11-p9675z43
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-y6348274
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153624
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153624
+INFO:root:Minted new ID: nmdc:bsm-11-1swk5q61
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153624
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213346
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213346
+INFO:root:Minted new ID: nmdc:omprc-11-cygzv543
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-1swk5q61
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153625
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153625
+INFO:root:Minted new ID: nmdc:bsm-11-dktdhf74
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153625
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213347
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213347
+INFO:root:Minted new ID: nmdc:omprc-11-bqvjr450
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-dktdhf74
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153635
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153635
+INFO:root:Minted new ID: nmdc:bsm-11-bngaz516
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153635
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213357
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213357
+INFO:root:Minted new ID: nmdc:omprc-11-g5btwy13
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-bngaz516
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153634
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153634
+INFO:root:Minted new ID: nmdc:bsm-11-amqezq92
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153634
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213356
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213356
+INFO:root:Minted new ID: nmdc:omprc-11-sdc8qw81
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-amqezq92
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153639
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153639
+INFO:root:Minted new ID: nmdc:bsm-11-rt00q767
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153639
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213361
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213361
+INFO:root:Minted new ID: nmdc:omprc-11-dh1re997
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-rt00q767
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598511
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598511
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-tvrwvx57
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-rt00q767
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153642
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153642
+INFO:root:Minted new ID: nmdc:bsm-11-we32m551
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153642
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213364
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213364
+INFO:root:Minted new ID: nmdc:omprc-11-qpph1f73
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-we32m551
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598846
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598846
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-3tce2d28
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-we32m551
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153636
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153636
+INFO:root:Minted new ID: nmdc:bsm-11-ta30q841
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153636
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213358
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213358
+INFO:root:Minted new ID: nmdc:omprc-11-81mgty07
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-ta30q841
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153643
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153643
+INFO:root:Minted new ID: nmdc:bsm-11-r530p433
+INFO:root:Found 2 OmicsProcessing records for biosample gold:Gb0153643
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213365
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213365
+INFO:root:Minted new ID: nmdc:omprc-11-sx5qap94
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-r530p433
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:598516
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:598516
+INFO:root:Found new ID in identifiers_map: nmdc:omprc-11-y8rt3j77
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-r530p433
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153646
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153646
+INFO:root:Minted new ID: nmdc:bsm-11-7zsdrv30
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153646
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213368
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213368
+INFO:root:Minted new ID: nmdc:omprc-11-wsfr0a06
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-7zsdrv30
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153644
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153644
+INFO:root:Minted new ID: nmdc:bsm-11-aqjqcz13
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153644
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213366
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213366
+INFO:root:Minted new ID: nmdc:omprc-11-pef8j480
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-aqjqcz13
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153647
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153647
+INFO:root:Minted new ID: nmdc:bsm-11-0r1edn21
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153647
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213369
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213369
+INFO:root:Minted new ID: nmdc:omprc-11-ev46sw45
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-0r1edn21
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153651
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153651
+INFO:root:Minted new ID: nmdc:bsm-11-6f1hhh40
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153651
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213373
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213373
+INFO:root:Minted new ID: nmdc:omprc-11-7qbtzg68
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-6f1hhh40
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153648
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153648
+INFO:root:Minted new ID: nmdc:bsm-11-hahmrj93
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153648
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213370
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213370
+INFO:root:Minted new ID: nmdc:omprc-11-mad1q019
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-hahmrj93
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153650
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153650
+INFO:root:Minted new ID: nmdc:bsm-11-ck8c6h17
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153650
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213372
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213372
+INFO:root:Minted new ID: nmdc:omprc-11-4197bd10
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-ck8c6h17
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153649
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153649
+INFO:root:Minted new ID: nmdc:bsm-11-qcgysf78
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153649
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213371
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213371
+INFO:root:Minted new ID: nmdc:omprc-11-r2966k57
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-qcgysf78
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153652
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153652
+INFO:root:Minted new ID: nmdc:bsm-11-ek2dg380
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153652
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213374
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213374
+INFO:root:Minted new ID: nmdc:omprc-11-05cbzv85
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-ek2dg380
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153653
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153653
+INFO:root:Minted new ID: nmdc:bsm-11-815jr513
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153653
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213375
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213375
+INFO:root:Minted new ID: nmdc:omprc-11-fw0s8m44
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-815jr513
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0153645
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0153645
+INFO:root:Minted new ID: nmdc:bsm-11-vy7tcs91
+INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0153645
+INFO:root:Added legacy omics processing ID to gold_sequencing_project_identifiers: gold:Gp0213367
+INFO:root:Getting new ID for nmdc:OmicsProcessing gold:Gp0213367
+INFO:root:Minted new ID: nmdc:omprc-11-8xc8a247
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-vy7tcs91
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f7107d6-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f7107d6-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-tzd2aj30
+INFO:root:Found 3 OmicsProcessing records for biosample emsl:2f7107d6-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570823
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570823
+INFO:root:Minted new ID: nmdc:omprc-11-tx62vd11
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-tzd2aj30
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570823
+INFO:root:Minted new ID: nmdc:dobj-11-tdj33r49
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:1ffd38c0c3b54d70bd558f24341cc20c
+INFO:root:Minted new ID: nmdc:wfnom-11-44dtjj93
+INFO:root:Getting new ID for nmdc:DataObject nmdc:566e165704a77811cd62b0117714babc
+INFO:root:Minted new ID: nmdc:dobj-11-pwv51860
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570993
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570993
+INFO:root:Minted new ID: nmdc:omprc-11-4q8mx712
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-tzd2aj30
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570993
+INFO:root:Minted new ID: nmdc:dobj-11-pfd4fs51
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:71098e26a5f24894ac3af5918b6c3e14
+INFO:root:Minted new ID: nmdc:wfnom-11-mp8jp755
+INFO:root:Getting new ID for nmdc:DataObject nmdc:fb519e48e55235821d3449b39581d26b
+INFO:root:Minted new ID: nmdc:dobj-11-vbc35e90
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572507
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572507
+INFO:root:Minted new ID: nmdc:omprc-11-3ferfx37
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-tzd2aj30
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572507
+INFO:root:Minted new ID: nmdc:dobj-11-5jjvdj47
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:a2f4f1b7699a4867ade5d67d7fee398c
+INFO:root:Minted new ID: nmdc:wfnom-11-w26mgh92
+INFO:root:Getting new ID for nmdc:DataObject nmdc:5bab3e6f92c6cbb80dcf546d558e2a97
+INFO:root:Minted new ID: nmdc:dobj-11-pttzfw52
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f710d8a-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f710d8a-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-76974067
+INFO:root:Found 3 OmicsProcessing records for biosample emsl:2f710d8a-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572512
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572512
+INFO:root:Minted new ID: nmdc:omprc-11-fnt02p83
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-76974067
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572512
+INFO:root:Minted new ID: nmdc:dobj-11-52007487
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:c5e636081a01417a96df551b9595b957
+INFO:root:Minted new ID: nmdc:wfnom-11-rxt4ts39
+INFO:root:Getting new ID for nmdc:DataObject nmdc:cba5c29f595ae89d745c36ad6f37aa15
+INFO:root:Minted new ID: nmdc:dobj-11-knqs4h83
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570983
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570983
+INFO:root:Minted new ID: nmdc:omprc-11-cswbgm85
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-76974067
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570983
+INFO:root:Minted new ID: nmdc:dobj-11-8850tc68
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:cd837255d3894dc195ca0769380695f1
+INFO:root:Minted new ID: nmdc:wfnom-11-m666dv73
+INFO:root:Getting new ID for nmdc:DataObject nmdc:b1c462d22acbc9f5044149fe76794f90
+INFO:root:Minted new ID: nmdc:dobj-11-29zm6b04
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570791
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570791
+INFO:root:Minted new ID: nmdc:omprc-11-y1ek8856
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-76974067
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570791
+INFO:root:Minted new ID: nmdc:dobj-11-prt9e631
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:ecabd3700a904d74b36b75c509ebe49a
+INFO:root:Minted new ID: nmdc:wfnom-11-hp1qbw36
+INFO:root:Getting new ID for nmdc:DataObject nmdc:12670891a340a3f9404e60d237e1a88a
+INFO:root:Minted new ID: nmdc:dobj-11-0qp07t25
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f710cae-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f710cae-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-p6aba636
+INFO:root:Found 2 OmicsProcessing records for biosample emsl:2f710cae-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572511
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572511
+INFO:root:Minted new ID: nmdc:omprc-11-y0mz0a89
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-p6aba636
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572511
+INFO:root:Minted new ID: nmdc:dobj-11-3y8ng017
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:38e7376204f64074890f4d563d17253f
+INFO:root:Minted new ID: nmdc:wfnom-11-17422g18
+INFO:root:Getting new ID for nmdc:DataObject nmdc:4d89ee2050a4e15d152c1a5fc0ab0568
+INFO:root:Minted new ID: nmdc:dobj-11-wqjj1f95
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570825
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570825
+INFO:root:Minted new ID: nmdc:omprc-11-kezvdw02
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-p6aba636
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570825
+INFO:root:Minted new ID: nmdc:dobj-11-pqx5dr28
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:92c72205fd9f4ce4ab8ca9340fc62857
+INFO:root:Minted new ID: nmdc:wfnom-11-t7ctah15
+INFO:root:Getting new ID for nmdc:DataObject nmdc:54b519561b61eb9172e30537b4448ab1
+INFO:root:Minted new ID: nmdc:dobj-11-m8hj6x32
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f7109ac-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f7109ac-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-53j10g60
+INFO:root:Found 3 OmicsProcessing records for biosample emsl:2f7109ac-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570826
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570826
+INFO:root:Minted new ID: nmdc:omprc-11-cj6f2167
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-53j10g60
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570826
+INFO:root:Minted new ID: nmdc:dobj-11-6bs0ag84
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:50b21df0d87047da8d431a0bd32e0508
+INFO:root:Minted new ID: nmdc:wfnom-11-6qzb2p33
+INFO:root:Getting new ID for nmdc:DataObject nmdc:045758d3eda8c1b9a883f6d54fd326b1
+INFO:root:Minted new ID: nmdc:dobj-11-0yt3zm59
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:571000
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:571000
+INFO:root:Minted new ID: nmdc:omprc-11-rtw7cx77
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-53j10g60
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_571000
+INFO:root:Minted new ID: nmdc:dobj-11-xxpbpr76
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:4fa2de328fd348a1bcf47236da5aeb3b
+INFO:root:Minted new ID: nmdc:wfnom-11-htfx3t37
+INFO:root:Getting new ID for nmdc:DataObject nmdc:485b80462609c8db6fe8f918d6063246
+INFO:root:Minted new ID: nmdc:dobj-11-zfr94341
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572509
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572509
+INFO:root:Minted new ID: nmdc:omprc-11-be53cz03
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-53j10g60
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572509
+INFO:root:Minted new ID: nmdc:dobj-11-pvngn635
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:3934b9585f2944319a424be2be29ebd1
+INFO:root:Minted new ID: nmdc:wfnom-11-gd5qhe68
+INFO:root:Getting new ID for nmdc:DataObject nmdc:3864ecf810c03396cd1f9bf73c75724d
+INFO:root:Minted new ID: nmdc:dobj-11-fnsrx793
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f7116fe-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f7116fe-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-m32tdb17
+INFO:root:Found 2 OmicsProcessing records for biosample emsl:2f7116fe-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572518
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572518
+INFO:root:Minted new ID: nmdc:omprc-11-8vnwk351
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-m32tdb17
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572518
+INFO:root:Minted new ID: nmdc:dobj-11-85kq6a48
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:dbf500c5a122417f9e1315fb4dfcf142
+INFO:root:Minted new ID: nmdc:wfnom-11-125ytt82
+INFO:root:Getting new ID for nmdc:DataObject nmdc:ed9fe490dd83c276373a6359ebda0114
+INFO:root:Minted new ID: nmdc:dobj-11-5s8tgh34
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570976
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570976
+INFO:root:Minted new ID: nmdc:omprc-11-4h0f6205
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-m32tdb17
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570976
+INFO:root:Minted new ID: nmdc:dobj-11-rbpqah84
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:077d0afc91e4414caf7dbf38851c735b
+INFO:root:Minted new ID: nmdc:wfnom-11-xtkc0s72
+INFO:root:Getting new ID for nmdc:DataObject nmdc:e2c09235eb45e30c4818ef363d3c04bb
+INFO:root:Minted new ID: nmdc:dobj-11-gwqm2g71
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f711028-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f711028-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-jm8xpb31
+INFO:root:Found 6 OmicsProcessing records for biosample emsl:2f711028-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572515
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572515
+INFO:root:Minted new ID: nmdc:omprc-11-68s6n971
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-jm8xpb31
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572515
+INFO:root:Minted new ID: nmdc:dobj-11-48y3sg22
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:d8c800ff0f36426aaec76da3c37b58f0
+INFO:root:Minted new ID: nmdc:wfnom-11-wrdsn969
+INFO:root:Getting new ID for nmdc:DataObject nmdc:b9d9a4620221c2d1549461d3037d938e
+INFO:root:Minted new ID: nmdc:dobj-11-0areye98
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572516
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572516
+INFO:root:Minted new ID: nmdc:omprc-11-r7w6f186
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-jm8xpb31
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572516
+INFO:root:Minted new ID: nmdc:dobj-11-dzz3tt75
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:d0f88116be36453699238804940d09c6
+INFO:root:Minted new ID: nmdc:wfnom-11-xg4p9b07
+INFO:root:Getting new ID for nmdc:DataObject nmdc:faebea5b9c639f9586d610b905ae7ef1
+INFO:root:Minted new ID: nmdc:dobj-11-p044m109
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570989
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570989
+INFO:root:Minted new ID: nmdc:omprc-11-hmngd335
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-jm8xpb31
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570989
+INFO:root:Minted new ID: nmdc:dobj-11-8svj5668
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:7bff17602b79498abfcd129c644c57cb
+INFO:root:Minted new ID: nmdc:wfnom-11-gqzvmx20
+INFO:root:Getting new ID for nmdc:DataObject nmdc:a37873421639d719092806534ac19c68
+INFO:root:Minted new ID: nmdc:dobj-11-s9fd4a25
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570853
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570853
+INFO:root:Minted new ID: nmdc:omprc-11-yfhe7217
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-jm8xpb31
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570853
+INFO:root:Minted new ID: nmdc:dobj-11-j34j3268
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:fce5f3f1e61c4b63a9fbee8a57a3c93c
+INFO:root:Minted new ID: nmdc:wfnom-11-w74c7n05
+INFO:root:Getting new ID for nmdc:DataObject nmdc:7568c6c5134d22ba2abbc223ce061282
+INFO:root:Minted new ID: nmdc:dobj-11-ks4z0194
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570994
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570994
+INFO:root:Minted new ID: nmdc:omprc-11-8th6va09
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-jm8xpb31
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570994
+INFO:root:Minted new ID: nmdc:dobj-11-s127z108
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:42e9dc8204b94913a7517661ed1ed355
+INFO:root:Minted new ID: nmdc:wfnom-11-8ectfs53
+INFO:root:Getting new ID for nmdc:DataObject nmdc:b2d9da6f5b9ef00cc8b1437232d41283
+INFO:root:Minted new ID: nmdc:dobj-11-brjz1p79
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570843
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570843
+INFO:root:Minted new ID: nmdc:omprc-11-pbzqqt59
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-jm8xpb31
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570843
+INFO:root:Minted new ID: nmdc:dobj-11-rc9t4c51
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:54b56467b5164c2fb12c900aff7f4142
+INFO:root:Minted new ID: nmdc:wfnom-11-4q2qcj25
+INFO:root:Getting new ID for nmdc:DataObject nmdc:bc9164b0fdc1754c976da7a89ba15a98
+INFO:root:Minted new ID: nmdc:dobj-11-58gdx032
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f710a92-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f710a92-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-a69shz96
+INFO:root:Found 3 OmicsProcessing records for biosample emsl:2f710a92-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570988
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570988
+INFO:root:Minted new ID: nmdc:omprc-11-s16k3m38
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-a69shz96
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570988
+INFO:root:Minted new ID: nmdc:dobj-11-fen3yh78
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:915908f6de9d4daeb4b13b989789a7bb
+INFO:root:Minted new ID: nmdc:wfnom-11-krbvmf49
+INFO:root:Getting new ID for nmdc:DataObject nmdc:05377ed6e4a06aed9a3f9f1dc9d185ee
+INFO:root:Minted new ID: nmdc:dobj-11-s7fs3280
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570796
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570796
+INFO:root:Minted new ID: nmdc:omprc-11-rvssd852
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-a69shz96
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570796
+INFO:root:Minted new ID: nmdc:dobj-11-bycrej30
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:e3c08321e9424ee08ad15015e689a8d8
+INFO:root:Minted new ID: nmdc:wfnom-11-95jmk044
+INFO:root:Getting new ID for nmdc:DataObject nmdc:014bfe902eeedfd2f1876782f516f0e3
+INFO:root:Minted new ID: nmdc:dobj-11-7hk58x68
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572510
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572510
+INFO:root:Minted new ID: nmdc:omprc-11-yfhmb898
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-a69shz96
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572510
+INFO:root:Minted new ID: nmdc:dobj-11-ntdjs574
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:61cc51ba87b24edf8a6d06f2fb96a7c1
+INFO:root:Minted new ID: nmdc:wfnom-11-vxd0gy75
+INFO:root:Getting new ID for nmdc:DataObject nmdc:716017f01f57432fa42ec3d19aa8ad69
+INFO:root:Minted new ID: nmdc:dobj-11-cjef1q44
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f7118c0-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f7118c0-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-2cg1nb02
+INFO:root:Found 2 OmicsProcessing records for biosample emsl:2f7118c0-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570846
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570846
+INFO:root:Minted new ID: nmdc:omprc-11-a385gj76
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-2cg1nb02
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570846
+INFO:root:Minted new ID: nmdc:dobj-11-hfenq993
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:1df27a3ac0514423b275e4221c943285
+INFO:root:Minted new ID: nmdc:wfnom-11-vrxpyr19
+INFO:root:Getting new ID for nmdc:DataObject nmdc:8ace8bbe037be3d09031d60f12d56010
+INFO:root:Minted new ID: nmdc:dobj-11-j16g9y70
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572520
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572520
+INFO:root:Minted new ID: nmdc:omprc-11-rey48w13
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-2cg1nb02
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572520
+INFO:root:Minted new ID: nmdc:dobj-11-seszkm66
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:cbdd4469f71f4922a481da67bea4d685
+INFO:root:Minted new ID: nmdc:wfnom-11-a2zz9f36
+INFO:root:Getting new ID for nmdc:DataObject nmdc:2b2e4204fa2cf843dd19af5746f1be13
+INFO:root:Minted new ID: nmdc:dobj-11-c0rsmy62
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f711514-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f711514-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-dh6mrp16
+INFO:root:Found 2 OmicsProcessing records for biosample emsl:2f711514-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572517
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572517
+INFO:root:Minted new ID: nmdc:omprc-11-6h394088
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-dh6mrp16
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572517
+INFO:root:Minted new ID: nmdc:dobj-11-yb5dwk58
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:db9d9bc4cc7f4c2f947fb8c44b259026
+INFO:root:Minted new ID: nmdc:wfnom-11-7azaqp68
+INFO:root:Getting new ID for nmdc:DataObject nmdc:d2ec3e22371eec1ca2d2343f49423416
+INFO:root:Minted new ID: nmdc:dobj-11-71ph5r41
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570837
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570837
+INFO:root:Minted new ID: nmdc:omprc-11-4w60kx68
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-dh6mrp16
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570837
+INFO:root:Minted new ID: nmdc:dobj-11-tygpwr74
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:8e96ee77aa7e4608931a1d03c39361d9
+INFO:root:Minted new ID: nmdc:wfnom-11-4yt5re61
+INFO:root:Getting new ID for nmdc:DataObject nmdc:b3e01861175cd905be3b1cfda3320e36
+INFO:root:Minted new ID: nmdc:dobj-11-qyspvf83
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f7105c4-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f7105c4-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-9hf92j19
+INFO:root:Found 3 OmicsProcessing records for biosample emsl:2f7105c4-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570819
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570819
+INFO:root:Minted new ID: nmdc:omprc-11-act7pw53
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-9hf92j19
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570819
+INFO:root:Minted new ID: nmdc:dobj-11-gf0nan58
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:933d65fcb7294ad5a02cab374e4ccef3
+INFO:root:Minted new ID: nmdc:wfnom-11-8y9t4h04
+INFO:root:Getting new ID for nmdc:DataObject nmdc:9d3f15a21760ef50d957c4f1044f0d62
+INFO:root:Minted new ID: nmdc:dobj-11-yts19134
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570991
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570991
+INFO:root:Minted new ID: nmdc:omprc-11-g1366730
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-9hf92j19
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570991
+INFO:root:Minted new ID: nmdc:dobj-11-kaqjgn57
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:a1453a2ae5bf4bcca2165b90b96d1082
+INFO:root:Minted new ID: nmdc:wfnom-11-7f8hg086
+INFO:root:Getting new ID for nmdc:DataObject nmdc:596ea737570fefcd00dc54b936cb0245
+INFO:root:Minted new ID: nmdc:dobj-11-g5payx03
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572506
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572506
+INFO:root:Minted new ID: nmdc:omprc-11-degamz65
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-9hf92j19
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572506
+INFO:root:Minted new ID: nmdc:dobj-11-fbvqs075
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:49825989690a40e1a16b65c4d5c9b9e4
+INFO:root:Minted new ID: nmdc:wfnom-11-hy54k077
+INFO:root:Getting new ID for nmdc:DataObject nmdc:95d49cd43ee6b006282388f10d9f0c86
+INFO:root:Minted new ID: nmdc:dobj-11-87czq907
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f7108d0-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f7108d0-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-y9mnbm73
+INFO:root:Found 2 OmicsProcessing records for biosample emsl:2f7108d0-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570855
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570855
+INFO:root:Minted new ID: nmdc:omprc-11-zx04de55
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-y9mnbm73
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570855
+INFO:root:Minted new ID: nmdc:dobj-11-dbv5w266
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:9500e077cf194d69b4c6c81ac29c3ae7
+INFO:root:Minted new ID: nmdc:wfnom-11-9aj81v53
+INFO:root:Getting new ID for nmdc:DataObject nmdc:ef2340296e315839abd272804269b112
+INFO:root:Minted new ID: nmdc:dobj-11-1197yn84
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572508
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572508
+INFO:root:Minted new ID: nmdc:omprc-11-ck9yye98
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-y9mnbm73
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572508
+INFO:root:Minted new ID: nmdc:dobj-11-y5297v25
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:085ac1d530814804927e022726d040e1
+INFO:root:Minted new ID: nmdc:wfnom-11-s9hzyk29
+INFO:root:Getting new ID for nmdc:DataObject nmdc:7cba431d3deb61180861102eb7cece5a
+INFO:root:Minted new ID: nmdc:dobj-11-6efn2q36
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f710f4c-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f710f4c-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-8q71rh18
+INFO:root:Found 3 OmicsProcessing records for biosample emsl:2f710f4c-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570987
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570987
+INFO:root:Minted new ID: nmdc:omprc-11-zs3fk495
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-8q71rh18
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570987
+INFO:root:Minted new ID: nmdc:dobj-11-g1kkfw92
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:90fa03adebfb4d24ad9d37c5ebf8e901
+INFO:root:Minted new ID: nmdc:wfnom-11-3jezgb68
+INFO:root:Getting new ID for nmdc:DataObject nmdc:4e8a366ff7eef243d6e1f42e83f88993
+INFO:root:Minted new ID: nmdc:dobj-11-n3yx5q35
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570841
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570841
+INFO:root:Minted new ID: nmdc:omprc-11-r67d1j02
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-8q71rh18
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570841
+INFO:root:Minted new ID: nmdc:dobj-11-sttg2m86
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:dfba724378a04726858c22fd824ddab3
+INFO:root:Minted new ID: nmdc:wfnom-11-bv2vmf43
+INFO:root:Getting new ID for nmdc:DataObject nmdc:657cb31c86b5be51a300b9df17dabecb
+INFO:root:Minted new ID: nmdc:dobj-11-s58f5w21
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572514
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572514
+INFO:root:Minted new ID: nmdc:omprc-11-zwy63s65
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-8q71rh18
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572514
+INFO:root:Minted new ID: nmdc:dobj-11-qm15mx23
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:b712f0b5e8dc4c5394a5f70aaa755b4f
+INFO:root:Minted new ID: nmdc:wfnom-11-2402db82
+INFO:root:Getting new ID for nmdc:DataObject nmdc:f894c79c726dc59a60ca1874120878a8
+INFO:root:Minted new ID: nmdc:dobj-11-81vww085
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f711992-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f711992-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-4y6qg270
+INFO:root:Found 2 OmicsProcessing records for biosample emsl:2f711992-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570836
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570836
+INFO:root:Minted new ID: nmdc:omprc-11-rd50xn50
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-4y6qg270
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570836
+INFO:root:Minted new ID: nmdc:dobj-11-wv0ptr50
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:580d7176f039405da3342f8fe86c08bf
+INFO:root:Minted new ID: nmdc:wfnom-11-nc8ry656
+INFO:root:Getting new ID for nmdc:DataObject nmdc:1bd3edc0afdbcccb42de42f37cdf6e43
+INFO:root:Minted new ID: nmdc:dobj-11-ngmr8p77
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572521
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572521
+INFO:root:Minted new ID: nmdc:omprc-11-mc430k63
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-4y6qg270
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572521
+INFO:root:Minted new ID: nmdc:dobj-11-dj2q3p51
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:216c15f409c54cb79eaa88b916585120
+INFO:root:Minted new ID: nmdc:wfnom-11-7fnwbw81
+INFO:root:Getting new ID for nmdc:DataObject nmdc:043c430c590c8deefa39404380e58697
+INFO:root:Minted new ID: nmdc:dobj-11-wfd8wq40
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f7117ee-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f7117ee-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-bmbpkj97
+INFO:root:Found 2 OmicsProcessing records for biosample emsl:2f7117ee-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572519
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572519
+INFO:root:Minted new ID: nmdc:omprc-11-qrkdr106
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-bmbpkj97
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572519
+INFO:root:Minted new ID: nmdc:dobj-11-x1mmhh97
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:8c0b410a3a414b6d815ee67904bacc8a
+INFO:root:Minted new ID: nmdc:wfnom-11-4p41kn27
+INFO:root:Getting new ID for nmdc:DataObject nmdc:188773c8106d24968ed0b32a753707c7
+INFO:root:Minted new ID: nmdc:dobj-11-bhgfh831
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570809
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570809
+INFO:root:Minted new ID: nmdc:omprc-11-7ra74p22
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-bmbpkj97
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570809
+INFO:root:Minted new ID: nmdc:dobj-11-eth7zm51
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:1acf56df295d499ca087a4dde67d3d28
+INFO:root:Minted new ID: nmdc:wfnom-11-qk8z2156
+INFO:root:Getting new ID for nmdc:DataObject nmdc:187973c6008296311ce4e0f6922dfecb
+INFO:root:Minted new ID: nmdc:dobj-11-70y9cr48
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f711bfe-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f711bfe-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-n5vdc856
+INFO:root:Found 3 OmicsProcessing records for biosample emsl:2f711bfe-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570812
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570812
+INFO:root:Minted new ID: nmdc:omprc-11-h63xzy56
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-n5vdc856
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570812
+INFO:root:Minted new ID: nmdc:dobj-11-y8gcye12
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:cb211ba203104933b000d987e7e664d0
+INFO:root:Minted new ID: nmdc:wfnom-11-ety0n288
+INFO:root:Getting new ID for nmdc:DataObject nmdc:d444c570be616460be2c44cecd6549ea
+INFO:root:Minted new ID: nmdc:dobj-11-33enyy72
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570990
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570990
+INFO:root:Minted new ID: nmdc:omprc-11-r790ve05
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-n5vdc856
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570990
+INFO:root:Minted new ID: nmdc:dobj-11-9q4pf285
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:70dedd343e254bd7a2a2c83cfbf2b4cb
+INFO:root:Minted new ID: nmdc:wfnom-11-argb9854
+INFO:root:Getting new ID for nmdc:DataObject nmdc:03a41ac4ad0381c412b3a55b06633cfa
+INFO:root:Minted new ID: nmdc:dobj-11-xmmw4243
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572522
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572522
+INFO:root:Minted new ID: nmdc:omprc-11-pmx6p486
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-n5vdc856
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572522
+INFO:root:Minted new ID: nmdc:dobj-11-2v2tv106
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:dff83d9a3180431091499f7ee60311c1
+INFO:root:Minted new ID: nmdc:wfnom-11-bn632596
+INFO:root:Getting new ID for nmdc:DataObject nmdc:b5f24d2666c43ba7d38d3980634eca53
+INFO:root:Minted new ID: nmdc:dobj-11-d4wyek11
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f71038a-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f71038a-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-296hsn02
+INFO:root:Found 6 OmicsProcessing records for biosample emsl:2f71038a-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570998
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570998
+INFO:root:Minted new ID: nmdc:omprc-11-kv5qqp10
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-296hsn02
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570998
+INFO:root:Minted new ID: nmdc:dobj-11-652ztq34
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:5ce8eff76cb04507a7f267dcd5e488c0
+INFO:root:Minted new ID: nmdc:wfnom-11-ckvzhn98
+INFO:root:Getting new ID for nmdc:DataObject nmdc:37a908449befa3a25a26c2c84a68b581
+INFO:root:Minted new ID: nmdc:dobj-11-df347785
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570856
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570856
+INFO:root:Minted new ID: nmdc:omprc-11-tvg7gd57
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-296hsn02
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570856
+INFO:root:Minted new ID: nmdc:dobj-11-wad4a053
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:63e7c5e8924946f4b3b18e60c1dd3452
+INFO:root:Minted new ID: nmdc:wfnom-11-c7p3a174
+INFO:root:Getting new ID for nmdc:DataObject nmdc:6110cf11b16b2553b7dbe64d89c3f112
+INFO:root:Minted new ID: nmdc:dobj-11-1a86rk30
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570845
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570845
+INFO:root:Minted new ID: nmdc:omprc-11-5kgr0a30
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-296hsn02
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570845
+INFO:root:Minted new ID: nmdc:dobj-11-3ya0qx52
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:6269af1f091340e4813cbdee776dd00d
+INFO:root:Minted new ID: nmdc:wfnom-11-k9twwp81
+INFO:root:Getting new ID for nmdc:DataObject nmdc:2f63cae47d1b3e7fa6098edde516b24d
+INFO:root:Minted new ID: nmdc:dobj-11-788dsh42
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572505
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572505
+INFO:root:Minted new ID: nmdc:omprc-11-a3rv9d03
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-296hsn02
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572505
+INFO:root:Minted new ID: nmdc:dobj-11-e0rr1d74
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:4018b9716e5446718beeb7f2bd61da6f
+INFO:root:Minted new ID: nmdc:wfnom-11-ccash923
+INFO:root:Getting new ID for nmdc:DataObject nmdc:2a03fd5756ee7277a7687c589e1b19b3
+INFO:root:Minted new ID: nmdc:dobj-11-9gz9nc65
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:571001
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:571001
+INFO:root:Minted new ID: nmdc:omprc-11-wbg1dn41
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-296hsn02
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_571001
+INFO:root:Minted new ID: nmdc:dobj-11-3karpw50
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:14a44a3f0e7c43e190aec0d1906c23a1
+INFO:root:Minted new ID: nmdc:wfnom-11-r4vnhz90
+INFO:root:Getting new ID for nmdc:DataObject nmdc:8d0fa20919a57eb5bd5eaf1f3bf60342
+INFO:root:Minted new ID: nmdc:dobj-11-gbgewv91
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572504
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572504
+INFO:root:Minted new ID: nmdc:omprc-11-d4v9ay24
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-296hsn02
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572504
+INFO:root:Minted new ID: nmdc:dobj-11-qsvqsj11
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:2eb7aba54d1b4d2abfe33399dd15188b
+INFO:root:Minted new ID: nmdc:wfnom-11-35cbb552
+INFO:root:Getting new ID for nmdc:DataObject nmdc:96687259609750c22df604fb2d048abe
+INFO:root:Minted new ID: nmdc:dobj-11-m6mdyj30
+INFO:root:Added legacy biosample ID to emsl_biosample_identifiers: emsl:2f710e70-5dd1-11ec-bf63-0242ac130002
+INFO:root:Getting new ID for nmdc:Biosample emsl:2f710e70-5dd1-11ec-bf63-0242ac130002
+INFO:root:Minted new ID: nmdc:bsm-11-gsz4y703
+INFO:root:Found 3 OmicsProcessing records for biosample emsl:2f710e70-5dd1-11ec-bf63-0242ac130002
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:572513
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:572513
+INFO:root:Minted new ID: nmdc:omprc-11-sahw2429
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-gsz4y703
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_572513
+INFO:root:Minted new ID: nmdc:dobj-11-881zyp42
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:592c7e1ee7f54da99949ad7151be84a7
+INFO:root:Minted new ID: nmdc:wfnom-11-4m2g3h43
+INFO:root:Getting new ID for nmdc:DataObject nmdc:3808a13e98b0ee33fe31b87a75c1560f
+INFO:root:Minted new ID: nmdc:dobj-11-q82s8911
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570793
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570793
+INFO:root:Minted new ID: nmdc:omprc-11-n73gg109
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-gsz4y703
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570793
+INFO:root:Minted new ID: nmdc:dobj-11-45s84381
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:02940887a50b434c81947bed3b75f6a7
+INFO:root:Minted new ID: nmdc:wfnom-11-99q07k18
+INFO:root:Getting new ID for nmdc:DataObject nmdc:7dfa28e1f0c1bda627b4586e8d4eb799
+INFO:root:Minted new ID: nmdc:dobj-11-6dbjcp46
+INFO:root:Added legacy omics processing ID to alternative_identifiers: emsl:570986
+INFO:root:Getting new ID for nmdc:OmicsProcessing emsl:570986
+INFO:root:Minted new ID: nmdc:omprc-11-775n3h35
+INFO:root:Added new biosample ID to has_input: nmdc:bsm-11-gsz4y703
+INFO:root:Added new study ID to part_of: nmdc:sty-11-33fbta56
+INFO:root:Getting new ID for nmdc:DataObject emsl:output_570986
+INFO:root:Minted new ID: nmdc:dobj-11-qhc2xa59
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:ebab9e3767994d4b806603b28f2164d5
+INFO:root:Minted new ID: nmdc:wfnom-11-r49shs40
+INFO:root:Getting new ID for nmdc:DataObject nmdc:6a910f6557748bef7f7bee1a70a8562f
+INFO:root:Minted new ID: nmdc:dobj-11-xbhxrv20
+INFO:root:Updating the database
+INFO:root:Database update successful
+INFO:root:Updated 1 records in study_set
+INFO:root:Updated 100 records in biosample_set
+INFO:root:Updated 176 records in omics_processing_set
+INFO:root:Updated 100 records in data_object_set
+INFO:root:Updated 0 records in metabolomics_analysis_activity_set
+INFO:root:Updated 50 records in nom_analysis_activity_set
+INFO:root:Deleted 0 records in omics_processing_set
+INFO:root:Deleted 0 records in data_object_set
+INFO:root:Writing updates and updated record identifiers to files
+INFO:root:Writing 6 updates to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_updates.tsv
+INFO:root:Creating new file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_updates.tsv
+INFO:root:Writing 2 deletions to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_deletions.tsv
+INFO:root:Creating new file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_deletions.tsv
+INFO:root:Elapsed time: 246.06957602500916

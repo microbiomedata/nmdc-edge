@@ -196,7 +196,6 @@ def rewrite_bam(input_bam, output_bam, old_id, new_id):
     # Write the output file with the modified header and close the file - we will reopen it for writing
     with pysam.AlignmentFile(output_bam, "wb", header=header_dict) as output_bam_file:
         logging.info(f"Writing to {output_bam}")
-        logging.info(f"Header: {header_dict}")
         pass
 
     # Reopen the output file for writing
