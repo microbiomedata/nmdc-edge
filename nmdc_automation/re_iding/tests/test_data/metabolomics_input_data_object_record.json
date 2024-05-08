@@ -1,0 +1,7 @@
+{
+  "id": "emsl:output_499451",
+  "name": "output: Froze_Core_2015_S2_30_40_15_Metab",
+  "description": "Full scan GC-MS (but not GC QExactive, which is EI-HMS)",
+  "file_size_bytes": 4003840,
+  "type": "nmdc:DataObject"
+}

@@ -9,6 +9,7 @@ from typing import Dict, Optional
 from nmdc_schema.nmdc import Database, DataObject
 
 # Some constants for set names we care about
+BIOSAMPLE_SET = "biosample_set"
 OMICS_PROCESSING_SET = "omics_processing_set"
 DATA_OBJECT_SET = "data_object_set"
 READS_QC_SET = "read_qc_analysis_activity_set"

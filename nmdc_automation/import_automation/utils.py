@@ -180,7 +180,7 @@ def filter_import_by_type(workflow_data: dict, nmdc_type: str) -> dict:
 
     Args:
         workflow_data (dict): Workflows
-        nmdc_type (str): ndmc:xxxxxActivity
+        nmdc_type (str): nmdc:xxxxxActivity
 
     Returns:
         dict: Filtered workflows
