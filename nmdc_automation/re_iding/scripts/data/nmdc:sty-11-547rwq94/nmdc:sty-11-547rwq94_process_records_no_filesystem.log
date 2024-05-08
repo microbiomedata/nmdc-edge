@@ -1,0 +1,953 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
+INFO:root:Processing workflow records for study_id: nmdc:sty-11-547rwq94
+INFO:root:Using data_dir: /global/cfs/cdirs/m3408/results
+INFO:root:Using 161 identifiers from data/nmdc:sty-11-547rwq94/nmdc:sty-11-547rwq94_updated_record_identifiers.tsv
+INFO:root:Using db_infile: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-547rwq94/nmdc:sty-11-547rwq94_associated_record_dump.json
+INFO:root:Read 79 records from db_infile
+INFO:root:omics_processing_id: nmdc:omprc-11-xxv2qg83
+INFO:root:Getting new ID for nmdc:DataObject nmdc:9f6b1d66ed59a7eeb111f3940c4c2870
+INFO:root:Minted new ID: nmdc:dobj-11-145pqm96
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:9f6b1d66ed59a7eeb111f3940c4c2870	nmdc:dobj-11-145pqm96
+INFO:root:Getting new ID for nmdc:DataObject nmdc:2e08bd88c7df264282772667984b1f18
+INFO:root:Minted new ID: nmdc:dobj-11-0bghan91
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:2e08bd88c7df264282772667984b1f18	nmdc:dobj-11-0bghan91
+INFO:root:Getting new ID for nmdc:DataObject nmdc:94924d86576c5c258fcf959ba6a312f9
+INFO:root:Minted new ID: nmdc:dobj-11-p1h2ab07
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:94924d86576c5c258fcf959ba6a312f9	nmdc:dobj-11-p1h2ab07
+INFO:nmdc_automation.re_iding.base:Updating reads_qc_analysis_activity_set for nmdc:omprc-11-xxv2qg83
+INFO:root:Getting new ID for nmdc:ReadQcAnalysisActivity nmdc:f62650f0d7c4c8b9a4a852a478c8f8c5
+INFO:root:Minted new ID: nmdc:wfrqc-11-hzz9v273
+INFO:root:New activity id created for nmdc:omprc-11-xxv2qg83 activity type nmdc:ReadQcAnalysisActivity: nmdc:wfrqc-11-hzz9v273.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrqc-11-hzz9v273.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:8eff093598ad1cca7f4729afcbaeb648
+INFO:root:New file path computed for Filtered Sequencing Reads: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrqc-11-hzz9v273.1/nmdc_wfrqc-11-hzz9v273.1_filtered.fastq.gz
+INFO:root:Getting new ID for nmdc:DataObject nmdc:8eff093598ad1cca7f4729afcbaeb648
+INFO:root:Minted new ID: nmdc:dobj-11-snmgv131
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:8eff093598ad1cca7f4729afcbaeb648	nmdc:dobj-11-snmgv131
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Reads for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-hzz9v273.1_filtered.fastq.gz
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:9cf7a7e296a49bfdc1c923da679ed774
+INFO:root:New file path computed for QC Statistics: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrqc-11-hzz9v273.1/nmdc_wfrqc-11-hzz9v273.1_filterStats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:9cf7a7e296a49bfdc1c923da679ed774
+INFO:root:Minted new ID: nmdc:dobj-11-nvhr2m08
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:9cf7a7e296a49bfdc1c923da679ed774	nmdc:dobj-11-nvhr2m08
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Stats for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-hzz9v273.1_filterStats.txt
+INFO:nmdc_automation.re_iding.base:nmdc:ReadQcAnalysisActivity	nmdc:f62650f0d7c4c8b9a4a852a478c8f8c5	nmdc:wfrqc-11-hzz9v273.1
+INFO:root:Getting new ID for nmdc:ReadQcAnalysisActivity nmdc:a5bcd8fd394b6c81c87b7729848efac1
+INFO:root:Minted new ID: nmdc:wfrqc-11-e90c1k57
+INFO:root:New activity id created for nmdc:omprc-11-xxv2qg83 activity type nmdc:ReadQcAnalysisActivity: nmdc:wfrqc-11-e90c1k57.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrqc-11-e90c1k57.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:2bf234c4b1e1bebb57bb024a98263707
+INFO:root:New file path computed for Filtered Sequencing Reads: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrqc-11-e90c1k57.1/nmdc_wfrqc-11-e90c1k57.1_filtered.fastq.gz
+INFO:root:Getting new ID for nmdc:DataObject nmdc:2bf234c4b1e1bebb57bb024a98263707
+INFO:root:Minted new ID: nmdc:dobj-11-6vpxx823
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:2bf234c4b1e1bebb57bb024a98263707	nmdc:dobj-11-6vpxx823
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Reads for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-e90c1k57.1_filtered.fastq.gz
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:d29cdebdd92ce85b6dcf32d913e495db
+INFO:root:New file path computed for QC Statistics: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrqc-11-e90c1k57.1/nmdc_wfrqc-11-e90c1k57.1_filterStats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:d29cdebdd92ce85b6dcf32d913e495db
+INFO:root:Minted new ID: nmdc:dobj-11-bww51t91
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:d29cdebdd92ce85b6dcf32d913e495db	nmdc:dobj-11-bww51t91
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Stats for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-e90c1k57.1_filterStats.txt
+INFO:nmdc_automation.re_iding.base:nmdc:ReadQcAnalysisActivity	nmdc:a5bcd8fd394b6c81c87b7729848efac1	nmdc:wfrqc-11-e90c1k57.1
+INFO:root:Getting new ID for nmdc:ReadQcAnalysisActivity nmdc:097a88676de66bd72ee2d18ee150ebae
+INFO:root:Minted new ID: nmdc:wfrqc-11-reh9rd17
+INFO:root:New activity id created for nmdc:omprc-11-xxv2qg83 activity type nmdc:ReadQcAnalysisActivity: nmdc:wfrqc-11-reh9rd17.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrqc-11-reh9rd17.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:84f3256226d69e856d6bd15f80ae300d
+INFO:root:New file path computed for Filtered Sequencing Reads: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrqc-11-reh9rd17.1/nmdc_wfrqc-11-reh9rd17.1_filtered.fastq.gz
+INFO:root:Getting new ID for nmdc:DataObject nmdc:84f3256226d69e856d6bd15f80ae300d
+INFO:root:Minted new ID: nmdc:dobj-11-n3hhr007
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:84f3256226d69e856d6bd15f80ae300d	nmdc:dobj-11-n3hhr007
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Reads for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-reh9rd17.1_filtered.fastq.gz
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:0c6b9d150c549544c1534d195f07d1ae
+INFO:root:New file path computed for QC Statistics: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrqc-11-reh9rd17.1/nmdc_wfrqc-11-reh9rd17.1_filterStats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:0c6b9d150c549544c1534d195f07d1ae
+INFO:root:Minted new ID: nmdc:dobj-11-s0wj9b81
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:0c6b9d150c549544c1534d195f07d1ae	nmdc:dobj-11-s0wj9b81
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Stats for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-reh9rd17.1_filterStats.txt
+INFO:nmdc_automation.re_iding.base:nmdc:ReadQcAnalysisActivity	nmdc:097a88676de66bd72ee2d18ee150ebae	nmdc:wfrqc-11-reh9rd17.1
+INFO:nmdc_automation.re_iding.base:Updating metagenome_assembly_set for nmdc:omprc-11-xxv2qg83
+INFO:root:Getting new ID for nmdc:MetagenomeAssembly nmdc:a5bcd8fd394b6c81c87b7729848efac1
+INFO:root:Minted new ID: nmdc:wfmgas-11-nt3mdg38
+INFO:root:New activity id created for nmdc:omprc-11-xxv2qg83 activity type nmdc:MetagenomeAssembly: nmdc:wfmgas-11-nt3mdg38.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-nt3mdg38.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:ca1ab1d22c66d61ad6a96d546be3fedb
+INFO:root:New file path computed for Assembly Contigs: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-nt3mdg38.1/nmdc_wfmgas-11-nt3mdg38.1_contigs.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:ca1ab1d22c66d61ad6a96d546be3fedb
+INFO:root:Minted new ID: nmdc:dobj-11-rgjk0661
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:ca1ab1d22c66d61ad6a96d546be3fedb	nmdc:dobj-11-rgjk0661
+INFO:nmdc_automation.re_iding.base:new_description: Assembled contigs fasta for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-nt3mdg38.1_contigs.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:8ee7cc7a603455f889af143db03a7065
+INFO:root:New file path computed for Assembly Scaffolds: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-nt3mdg38.1/nmdc_wfmgas-11-nt3mdg38.1_scaffolds.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:8ee7cc7a603455f889af143db03a7065
+INFO:root:Minted new ID: nmdc:dobj-11-70sf2r57
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:8ee7cc7a603455f889af143db03a7065	nmdc:dobj-11-70sf2r57
+INFO:nmdc_automation.re_iding.base:new_description: Assembled scaffold fasta for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-nt3mdg38.1_scaffolds.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:fc5314742b9ddd1f8cf26189d64cdaec
+INFO:root:New file path computed for Assembly Coverage Stats: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-nt3mdg38.1/nmdc_wfmgas-11-nt3mdg38.1_covstats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:fc5314742b9ddd1f8cf26189d64cdaec
+INFO:root:Minted new ID: nmdc:dobj-11-t59xna17
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:fc5314742b9ddd1f8cf26189d64cdaec	nmdc:dobj-11-t59xna17
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Contig Coverage Stats for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-nt3mdg38.1_covstats.txt
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:4a501251320cba5223b7bc62127cff06
+INFO:root:New file path computed for Assembly AGP: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-nt3mdg38.1/nmdc_wfmgas-11-nt3mdg38.1_assembly.agp
+INFO:root:Getting new ID for nmdc:DataObject nmdc:4a501251320cba5223b7bc62127cff06
+INFO:root:Minted new ID: nmdc:dobj-11-jqc61051
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:4a501251320cba5223b7bc62127cff06	nmdc:dobj-11-jqc61051
+INFO:nmdc_automation.re_iding.base:new_description: Assembled AGP file for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-nt3mdg38.1_assembly.agp
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:a924b2073ba6182bbe49f96a504ac621
+INFO:root:New file path computed for Assembly Coverage BAM: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-nt3mdg38.1/nmdc_wfmgas-11-nt3mdg38.1_pairedMapped_sorted.bam
+INFO:root:Getting new ID for nmdc:DataObject nmdc:a924b2073ba6182bbe49f96a504ac621
+INFO:root:Minted new ID: nmdc:dobj-11-e87kt662
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:a924b2073ba6182bbe49f96a504ac621	nmdc:dobj-11-e87kt662
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Alignment BAM file for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-nt3mdg38.1_pairedMapped_sorted.bam
+INFO:nmdc_automation.re_iding.base:nmdc:MetagenomeAssembly	nmdc:a5bcd8fd394b6c81c87b7729848efac1	nmdc:wfmgas-11-nt3mdg38.1
+INFO:root:Getting new ID for nmdc:MetagenomeAssembly nmdc:f62650f0d7c4c8b9a4a852a478c8f8c5
+INFO:root:Minted new ID: nmdc:wfmgas-11-ga7sf140
+INFO:root:New activity id created for nmdc:omprc-11-xxv2qg83 activity type nmdc:MetagenomeAssembly: nmdc:wfmgas-11-ga7sf140.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-ga7sf140.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:3b16cfb81b30d822773dbd08038d4bef
+INFO:root:New file path computed for Assembly Contigs: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-ga7sf140.1/nmdc_wfmgas-11-ga7sf140.1_contigs.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:3b16cfb81b30d822773dbd08038d4bef
+INFO:root:Minted new ID: nmdc:dobj-11-wafm9g42
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:3b16cfb81b30d822773dbd08038d4bef	nmdc:dobj-11-wafm9g42
+INFO:nmdc_automation.re_iding.base:new_description: Assembled contigs fasta for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-ga7sf140.1_contigs.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:ff84d15af101b138efeef313ccd8c4a8
+INFO:root:New file path computed for Assembly Scaffolds: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-ga7sf140.1/nmdc_wfmgas-11-ga7sf140.1_scaffolds.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:ff84d15af101b138efeef313ccd8c4a8
+INFO:root:Minted new ID: nmdc:dobj-11-hsek8d16
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:ff84d15af101b138efeef313ccd8c4a8	nmdc:dobj-11-hsek8d16
+INFO:nmdc_automation.re_iding.base:new_description: Assembled scaffold fasta for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-ga7sf140.1_scaffolds.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:811ee579e6a0feedb6bd87606ec75e02
+INFO:root:New file path computed for Assembly Coverage Stats: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-ga7sf140.1/nmdc_wfmgas-11-ga7sf140.1_covstats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:811ee579e6a0feedb6bd87606ec75e02
+INFO:root:Minted new ID: nmdc:dobj-11-8rdarc45
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:811ee579e6a0feedb6bd87606ec75e02	nmdc:dobj-11-8rdarc45
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Contig Coverage Stats for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-ga7sf140.1_covstats.txt
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:63f9b085b8a2012e36c3a7942322429e
+INFO:root:New file path computed for Assembly AGP: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-ga7sf140.1/nmdc_wfmgas-11-ga7sf140.1_assembly.agp
+INFO:root:Getting new ID for nmdc:DataObject nmdc:63f9b085b8a2012e36c3a7942322429e
+INFO:root:Minted new ID: nmdc:dobj-11-8ay7zr23
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:63f9b085b8a2012e36c3a7942322429e	nmdc:dobj-11-8ay7zr23
+INFO:nmdc_automation.re_iding.base:new_description: Assembled AGP file for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-ga7sf140.1_assembly.agp
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:1f5465edee395e919239c69f58859dd8
+INFO:root:New file path computed for Assembly Coverage BAM: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-ga7sf140.1/nmdc_wfmgas-11-ga7sf140.1_pairedMapped_sorted.bam
+INFO:root:Getting new ID for nmdc:DataObject nmdc:1f5465edee395e919239c69f58859dd8
+INFO:root:Minted new ID: nmdc:dobj-11-0xdz6j58
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:1f5465edee395e919239c69f58859dd8	nmdc:dobj-11-0xdz6j58
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Alignment BAM file for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-ga7sf140.1_pairedMapped_sorted.bam
+INFO:nmdc_automation.re_iding.base:nmdc:MetagenomeAssembly	nmdc:f62650f0d7c4c8b9a4a852a478c8f8c5	nmdc:wfmgas-11-ga7sf140.1
+INFO:root:Getting new ID for nmdc:MetagenomeAssembly nmdc:097a88676de66bd72ee2d18ee150ebae
+INFO:root:Minted new ID: nmdc:wfmgas-11-fzr3jp04
+INFO:root:New activity id created for nmdc:omprc-11-xxv2qg83 activity type nmdc:MetagenomeAssembly: nmdc:wfmgas-11-fzr3jp04.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-fzr3jp04.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:4d9348c294cc6f2924616383a37bd132
+INFO:root:New file path computed for Assembly Contigs: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-fzr3jp04.1/nmdc_wfmgas-11-fzr3jp04.1_contigs.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:4d9348c294cc6f2924616383a37bd132
+INFO:root:Minted new ID: nmdc:dobj-11-q0y9tw49
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:4d9348c294cc6f2924616383a37bd132	nmdc:dobj-11-q0y9tw49
+INFO:nmdc_automation.re_iding.base:new_description: Assembled contigs fasta for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-fzr3jp04.1_contigs.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:10cba94ea4abe24ed387c2fa136554ac
+INFO:root:New file path computed for Assembly Scaffolds: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-fzr3jp04.1/nmdc_wfmgas-11-fzr3jp04.1_scaffolds.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:10cba94ea4abe24ed387c2fa136554ac
+INFO:root:Minted new ID: nmdc:dobj-11-7ny69y38
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:10cba94ea4abe24ed387c2fa136554ac	nmdc:dobj-11-7ny69y38
+INFO:nmdc_automation.re_iding.base:new_description: Assembled scaffold fasta for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-fzr3jp04.1_scaffolds.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:1b87ba1126ee648ee750d846011931e3
+INFO:root:New file path computed for Assembly Coverage Stats: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-fzr3jp04.1/nmdc_wfmgas-11-fzr3jp04.1_covstats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:1b87ba1126ee648ee750d846011931e3
+INFO:root:Minted new ID: nmdc:dobj-11-cfmtxb62
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:1b87ba1126ee648ee750d846011931e3	nmdc:dobj-11-cfmtxb62
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Contig Coverage Stats for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-fzr3jp04.1_covstats.txt
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:7b16784fa30a8d5da79d07ba5fe7627b
+INFO:root:New file path computed for Assembly AGP: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-fzr3jp04.1/nmdc_wfmgas-11-fzr3jp04.1_assembly.agp
+INFO:root:Getting new ID for nmdc:DataObject nmdc:7b16784fa30a8d5da79d07ba5fe7627b
+INFO:root:Minted new ID: nmdc:dobj-11-kjbaxb22
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:7b16784fa30a8d5da79d07ba5fe7627b	nmdc:dobj-11-kjbaxb22
+INFO:nmdc_automation.re_iding.base:new_description: Assembled AGP file for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-fzr3jp04.1_assembly.agp
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:c74fe6e6f0fd225b119a750aea04d283
+INFO:root:New file path computed for Assembly Coverage BAM: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfmgas-11-fzr3jp04.1/nmdc_wfmgas-11-fzr3jp04.1_pairedMapped_sorted.bam
+INFO:root:Getting new ID for nmdc:DataObject nmdc:c74fe6e6f0fd225b119a750aea04d283
+INFO:root:Minted new ID: nmdc:dobj-11-17nwqb58
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:c74fe6e6f0fd225b119a750aea04d283	nmdc:dobj-11-17nwqb58
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Alignment BAM file for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-fzr3jp04.1_pairedMapped_sorted.bam
+INFO:nmdc_automation.re_iding.base:nmdc:MetagenomeAssembly	nmdc:097a88676de66bd72ee2d18ee150ebae	nmdc:wfmgas-11-fzr3jp04.1
+INFO:nmdc_automation.re_iding.base:Updating read_based_taxonomy_analysis_activity_set for nmdc:omprc-11-xxv2qg83
+INFO:root:Getting new ID for nmdc:ReadBasedTaxonomyAnalysisActivity nmdc:a5bcd8fd394b6c81c87b7729848efac1
+INFO:root:Minted new ID: nmdc:wfrbt-11-vnkqns38
+INFO:root:New activity id created for nmdc:omprc-11-xxv2qg83 activity type nmdc:ReadBasedTaxonomyAnalysisActivity: nmdc:wfrbt-11-vnkqns38.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-vnkqns38.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:409592a41a6ba180dab95c04409476dd
+INFO:root:New file path computed for GOTTCHA2 Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-vnkqns38.1/nmdc_wfrbt-11-vnkqns38.1_gottcha2_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:409592a41a6ba180dab95c04409476dd
+INFO:root:Minted new ID: nmdc:dobj-11-8h135965
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:409592a41a6ba180dab95c04409476dd	nmdc:dobj-11-8h135965
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-vnkqns38.1_gottcha2_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:130ec2353031572d120d14d2e8f1004a
+INFO:root:New file path computed for GOTTCHA2 Report Full: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-vnkqns38.1/nmdc_wfrbt-11-vnkqns38.1_gottcha2_report_full.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:130ec2353031572d120d14d2e8f1004a
+INFO:root:Minted new ID: nmdc:dobj-11-bz2akp84
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:130ec2353031572d120d14d2e8f1004a	nmdc:dobj-11-bz2akp84
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 full TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-vnkqns38.1_gottcha2_report_full.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:bf76cb10fc00d5a93db4b12193cb72ea
+INFO:root:New file path computed for GOTTCHA2 Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-vnkqns38.1/nmdc_wfrbt-11-vnkqns38.1_gottcha2_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:bf76cb10fc00d5a93db4b12193cb72ea
+INFO:root:Minted new ID: nmdc:dobj-11-a1ebxn50
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:bf76cb10fc00d5a93db4b12193cb72ea	nmdc:dobj-11-a1ebxn50
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 Krona HTML report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-vnkqns38.1_gottcha2_krona.html
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:023d0ffe21751f4f4bdfadf0b67eae36
+INFO:root:New file path computed for Centrifuge Taxonomic Classification: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-vnkqns38.1/nmdc_wfrbt-11-vnkqns38.1_centrifuge_classification.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:023d0ffe21751f4f4bdfadf0b67eae36
+INFO:root:Minted new ID: nmdc:dobj-11-msjxc807
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:023d0ffe21751f4f4bdfadf0b67eae36	nmdc:dobj-11-msjxc807
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge classification TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-vnkqns38.1_centrifuge_classification.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:d6efe738b880fd8c6f12a52f8021b6fa
+INFO:root:New file path computed for Centrifuge Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-vnkqns38.1/nmdc_wfrbt-11-vnkqns38.1_centrifuge_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:d6efe738b880fd8c6f12a52f8021b6fa
+INFO:root:Minted new ID: nmdc:dobj-11-d8eze048
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:d6efe738b880fd8c6f12a52f8021b6fa	nmdc:dobj-11-d8eze048
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-vnkqns38.1_centrifuge_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:b1546529117ab336f08a7d6a381113e0
+INFO:root:New file path computed for Centrifuge Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-vnkqns38.1/nmdc_wfrbt-11-vnkqns38.1_centrifuge_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:b1546529117ab336f08a7d6a381113e0
+INFO:root:Minted new ID: nmdc:dobj-11-k33a1738
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:b1546529117ab336f08a7d6a381113e0	nmdc:dobj-11-k33a1738
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge Krona HTML report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-vnkqns38.1_centrifuge_krona.html
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:019fa10cc20877f5ac01bdf7b8f7dfe4
+INFO:root:New file path computed for Kraken2 Taxonomic Classification: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-vnkqns38.1/nmdc_wfrbt-11-vnkqns38.1_kraken2_classification.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:019fa10cc20877f5ac01bdf7b8f7dfe4
+INFO:root:Minted new ID: nmdc:dobj-11-ey2gth43
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:019fa10cc20877f5ac01bdf7b8f7dfe4	nmdc:dobj-11-ey2gth43
+INFO:nmdc_automation.re_iding.base:new_description: Kraken classification TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-vnkqns38.1_kraken2_classification.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:62a2a0735db29bbad611a24ede4c5732
+INFO:root:New file path computed for Kraken2 Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-vnkqns38.1/nmdc_wfrbt-11-vnkqns38.1_kraken2_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:62a2a0735db29bbad611a24ede4c5732
+INFO:root:Minted new ID: nmdc:dobj-11-nmbr4551
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:62a2a0735db29bbad611a24ede4c5732	nmdc:dobj-11-nmbr4551
+INFO:nmdc_automation.re_iding.base:new_description: Kraken2 TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-vnkqns38.1_kraken2_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:ff3af8aee1fce81473751cbefcf90915
+INFO:root:New file path computed for Kraken2 Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-vnkqns38.1/nmdc_wfrbt-11-vnkqns38.1_kraken2_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:ff3af8aee1fce81473751cbefcf90915
+INFO:root:Minted new ID: nmdc:dobj-11-z7d8wt96
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:ff3af8aee1fce81473751cbefcf90915	nmdc:dobj-11-z7d8wt96
+INFO:nmdc_automation.re_iding.base:new_description: Kraken2 Krona HTML report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-vnkqns38.1_kraken2_krona.html
+INFO:nmdc_automation.re_iding.base:nmdc:ReadBasedTaxonomyAnalysisActivity	nmdc:a5bcd8fd394b6c81c87b7729848efac1	nmdc:wfrbt-11-vnkqns38.1
+INFO:root:Getting new ID for nmdc:ReadBasedTaxonomyAnalysisActivity nmdc:f62650f0d7c4c8b9a4a852a478c8f8c5
+INFO:root:Minted new ID: nmdc:wfrbt-11-73xdbj85
+INFO:root:New activity id created for nmdc:omprc-11-xxv2qg83 activity type nmdc:ReadBasedTaxonomyAnalysisActivity: nmdc:wfrbt-11-73xdbj85.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-73xdbj85.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:793e52f36949ee3afe6b45f24f5e0a89
+INFO:root:New file path computed for GOTTCHA2 Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-73xdbj85.1/nmdc_wfrbt-11-73xdbj85.1_gottcha2_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:793e52f36949ee3afe6b45f24f5e0a89
+INFO:root:Minted new ID: nmdc:dobj-11-0dn7g365
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:793e52f36949ee3afe6b45f24f5e0a89	nmdc:dobj-11-0dn7g365
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-73xdbj85.1_gottcha2_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:c18fd0b22207bc4d2f3e3ab1ff6a1f0f
+INFO:root:New file path computed for GOTTCHA2 Report Full: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-73xdbj85.1/nmdc_wfrbt-11-73xdbj85.1_gottcha2_report_full.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:c18fd0b22207bc4d2f3e3ab1ff6a1f0f
+INFO:root:Minted new ID: nmdc:dobj-11-8v1d9k82
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:c18fd0b22207bc4d2f3e3ab1ff6a1f0f	nmdc:dobj-11-8v1d9k82
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 full TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-73xdbj85.1_gottcha2_report_full.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:9f25709774d2eaa7781f80828e9798a3
+INFO:root:New file path computed for GOTTCHA2 Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-73xdbj85.1/nmdc_wfrbt-11-73xdbj85.1_gottcha2_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:9f25709774d2eaa7781f80828e9798a3
+INFO:root:Minted new ID: nmdc:dobj-11-9p245b61
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:9f25709774d2eaa7781f80828e9798a3	nmdc:dobj-11-9p245b61
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 Krona HTML report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-73xdbj85.1_gottcha2_krona.html
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:1ed101ebd0b0eb9133b397f69e0cda97
+INFO:root:New file path computed for Centrifuge Taxonomic Classification: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-73xdbj85.1/nmdc_wfrbt-11-73xdbj85.1_centrifuge_classification.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:1ed101ebd0b0eb9133b397f69e0cda97
+INFO:root:Minted new ID: nmdc:dobj-11-1bhvm447
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:1ed101ebd0b0eb9133b397f69e0cda97	nmdc:dobj-11-1bhvm447
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge classification TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-73xdbj85.1_centrifuge_classification.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:e40d0107c48f8cc73e8b986c1a5724aa
+INFO:root:New file path computed for Centrifuge Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-73xdbj85.1/nmdc_wfrbt-11-73xdbj85.1_centrifuge_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:e40d0107c48f8cc73e8b986c1a5724aa
+INFO:root:Minted new ID: nmdc:dobj-11-2wad0x87
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:e40d0107c48f8cc73e8b986c1a5724aa	nmdc:dobj-11-2wad0x87
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-73xdbj85.1_centrifuge_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:fc303930867756dd9fa6498cd37eef0f
+INFO:root:New file path computed for Centrifuge Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-73xdbj85.1/nmdc_wfrbt-11-73xdbj85.1_centrifuge_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:fc303930867756dd9fa6498cd37eef0f
+INFO:root:Minted new ID: nmdc:dobj-11-x1bv0t82
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:fc303930867756dd9fa6498cd37eef0f	nmdc:dobj-11-x1bv0t82
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge Krona HTML report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-73xdbj85.1_centrifuge_krona.html
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:d79c303c1ab9f33bdc0d559398110484
+INFO:root:New file path computed for Kraken2 Taxonomic Classification: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-73xdbj85.1/nmdc_wfrbt-11-73xdbj85.1_kraken2_classification.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:d79c303c1ab9f33bdc0d559398110484
+INFO:root:Minted new ID: nmdc:dobj-11-x5bjtj63
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:d79c303c1ab9f33bdc0d559398110484	nmdc:dobj-11-x5bjtj63
+INFO:nmdc_automation.re_iding.base:new_description: Kraken classification TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-73xdbj85.1_kraken2_classification.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:436dc84ca5cb6f2a474d2d8d894a103e
+INFO:root:New file path computed for Kraken2 Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-73xdbj85.1/nmdc_wfrbt-11-73xdbj85.1_kraken2_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:436dc84ca5cb6f2a474d2d8d894a103e
+INFO:root:Minted new ID: nmdc:dobj-11-acar8w10
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:436dc84ca5cb6f2a474d2d8d894a103e	nmdc:dobj-11-acar8w10
+INFO:nmdc_automation.re_iding.base:new_description: Kraken2 TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-73xdbj85.1_kraken2_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:f79808edc0651d86078128ce3a82392a
+INFO:root:New file path computed for Kraken2 Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-73xdbj85.1/nmdc_wfrbt-11-73xdbj85.1_kraken2_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:f79808edc0651d86078128ce3a82392a
+INFO:root:Minted new ID: nmdc:dobj-11-m44bc823
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:f79808edc0651d86078128ce3a82392a	nmdc:dobj-11-m44bc823
+INFO:nmdc_automation.re_iding.base:new_description: Kraken2 Krona HTML report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-73xdbj85.1_kraken2_krona.html
+INFO:nmdc_automation.re_iding.base:nmdc:ReadBasedTaxonomyAnalysisActivity	nmdc:f62650f0d7c4c8b9a4a852a478c8f8c5	nmdc:wfrbt-11-73xdbj85.1
+INFO:root:Getting new ID for nmdc:ReadBasedTaxonomyAnalysisActivity nmdc:097a88676de66bd72ee2d18ee150ebae
+INFO:root:Minted new ID: nmdc:wfrbt-11-n15g5a90
+INFO:root:New activity id created for nmdc:omprc-11-xxv2qg83 activity type nmdc:ReadBasedTaxonomyAnalysisActivity: nmdc:wfrbt-11-n15g5a90.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-n15g5a90.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:17e5468ee599f08b2caa277f1ea2eb9f
+INFO:root:New file path computed for GOTTCHA2 Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-n15g5a90.1/nmdc_wfrbt-11-n15g5a90.1_gottcha2_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:17e5468ee599f08b2caa277f1ea2eb9f
+INFO:root:Minted new ID: nmdc:dobj-11-p976hr98
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:17e5468ee599f08b2caa277f1ea2eb9f	nmdc:dobj-11-p976hr98
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-n15g5a90.1_gottcha2_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:2f2a975c8aa991fcfd537af3c5b29785
+INFO:root:New file path computed for GOTTCHA2 Report Full: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-n15g5a90.1/nmdc_wfrbt-11-n15g5a90.1_gottcha2_report_full.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:2f2a975c8aa991fcfd537af3c5b29785
+INFO:root:Minted new ID: nmdc:dobj-11-bw90vg28
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:2f2a975c8aa991fcfd537af3c5b29785	nmdc:dobj-11-bw90vg28
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 full TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-n15g5a90.1_gottcha2_report_full.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:d2f1bd2ce0e20657cc0fa2c3a78e0338
+INFO:root:New file path computed for GOTTCHA2 Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-n15g5a90.1/nmdc_wfrbt-11-n15g5a90.1_gottcha2_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:d2f1bd2ce0e20657cc0fa2c3a78e0338
+INFO:root:Minted new ID: nmdc:dobj-11-2pp3bc03
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:d2f1bd2ce0e20657cc0fa2c3a78e0338	nmdc:dobj-11-2pp3bc03
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 Krona HTML report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-n15g5a90.1_gottcha2_krona.html
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:0102de5715f4669843c9ce95d7582402
+INFO:root:New file path computed for Centrifuge Taxonomic Classification: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-n15g5a90.1/nmdc_wfrbt-11-n15g5a90.1_centrifuge_classification.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:0102de5715f4669843c9ce95d7582402
+INFO:root:Minted new ID: nmdc:dobj-11-6mcwnc42
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:0102de5715f4669843c9ce95d7582402	nmdc:dobj-11-6mcwnc42
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge classification TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-n15g5a90.1_centrifuge_classification.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:676a61b282f7668a22bf73ce4071d0ad
+INFO:root:New file path computed for Centrifuge Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-n15g5a90.1/nmdc_wfrbt-11-n15g5a90.1_centrifuge_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:676a61b282f7668a22bf73ce4071d0ad
+INFO:root:Minted new ID: nmdc:dobj-11-9fbqzc43
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:676a61b282f7668a22bf73ce4071d0ad	nmdc:dobj-11-9fbqzc43
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-n15g5a90.1_centrifuge_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:b749cd27e23f077f79f9628b35e6049c
+INFO:root:New file path computed for Centrifuge Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-n15g5a90.1/nmdc_wfrbt-11-n15g5a90.1_centrifuge_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:b749cd27e23f077f79f9628b35e6049c
+INFO:root:Minted new ID: nmdc:dobj-11-yswsfc82
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:b749cd27e23f077f79f9628b35e6049c	nmdc:dobj-11-yswsfc82
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge Krona HTML report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-n15g5a90.1_centrifuge_krona.html
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:0e4e7a0eff6d32ad3a4f789b18006480
+INFO:root:New file path computed for Kraken2 Taxonomic Classification: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-n15g5a90.1/nmdc_wfrbt-11-n15g5a90.1_kraken2_classification.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:0e4e7a0eff6d32ad3a4f789b18006480
+INFO:root:Minted new ID: nmdc:dobj-11-xree3f32
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:0e4e7a0eff6d32ad3a4f789b18006480	nmdc:dobj-11-xree3f32
+INFO:nmdc_automation.re_iding.base:new_description: Kraken classification TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-n15g5a90.1_kraken2_classification.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:e499fed8219e8cd0e52888b5c3386b96
+INFO:root:New file path computed for Kraken2 Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-n15g5a90.1/nmdc_wfrbt-11-n15g5a90.1_kraken2_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:e499fed8219e8cd0e52888b5c3386b96
+INFO:root:Minted new ID: nmdc:dobj-11-ezrgk966
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:e499fed8219e8cd0e52888b5c3386b96	nmdc:dobj-11-ezrgk966
+INFO:nmdc_automation.re_iding.base:new_description: Kraken2 TSV report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-n15g5a90.1_kraken2_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:c133477e2b2c5924f958fb2c932ddbe5
+INFO:root:New file path computed for Kraken2 Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-xxv2qg83/nmdc:wfrbt-11-n15g5a90.1/nmdc_wfrbt-11-n15g5a90.1_kraken2_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:c133477e2b2c5924f958fb2c932ddbe5
+INFO:root:Minted new ID: nmdc:dobj-11-khz2r310
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:c133477e2b2c5924f958fb2c932ddbe5	nmdc:dobj-11-khz2r310
+INFO:nmdc_automation.re_iding.base:new_description: Kraken2 Krona HTML report for nmdc:omprc-11-xxv2qg83
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-n15g5a90.1_kraken2_krona.html
+INFO:nmdc_automation.re_iding.base:nmdc:ReadBasedTaxonomyAnalysisActivity	nmdc:097a88676de66bd72ee2d18ee150ebae	nmdc:wfrbt-11-n15g5a90.1
+INFO:nmdc_automation.re_iding.base:No metatranscriptome_activity_set found for nmdc:omprc-11-xxv2qg83
+INFO:root:omics_processing_id: nmdc:omprc-11-pfxhrs79
+INFO:root:Getting new ID for nmdc:DataObject nmdc:47ccf15b0bff588636b8a488f343f457
+INFO:root:Minted new ID: nmdc:dobj-11-s5mfd276
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:47ccf15b0bff588636b8a488f343f457	nmdc:dobj-11-s5mfd276
+INFO:root:Getting new ID for nmdc:DataObject nmdc:5b78b0f864bfbd495ea9a4c245536406
+INFO:root:Minted new ID: nmdc:dobj-11-sx608s80
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:5b78b0f864bfbd495ea9a4c245536406	nmdc:dobj-11-sx608s80
+INFO:root:Getting new ID for nmdc:DataObject nmdc:baf245903ec64b7441f3ecaac848c69c
+INFO:root:Minted new ID: nmdc:dobj-11-3ttmxp06
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:baf245903ec64b7441f3ecaac848c69c	nmdc:dobj-11-3ttmxp06
+INFO:nmdc_automation.re_iding.base:Updating reads_qc_analysis_activity_set for nmdc:omprc-11-pfxhrs79
+INFO:root:Getting new ID for nmdc:ReadQcAnalysisActivity nmdc:35ecc186fb465626c68b0599078fdb14
+INFO:root:Minted new ID: nmdc:wfrqc-11-y1tppt81
+INFO:root:New activity id created for nmdc:omprc-11-pfxhrs79 activity type nmdc:ReadQcAnalysisActivity: nmdc:wfrqc-11-y1tppt81.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrqc-11-y1tppt81.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:3cb2f1b165f4bc09903f3f49921e5eba
+INFO:root:New file path computed for Filtered Sequencing Reads: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrqc-11-y1tppt81.1/nmdc_wfrqc-11-y1tppt81.1_filtered.fastq.gz
+INFO:root:Getting new ID for nmdc:DataObject nmdc:3cb2f1b165f4bc09903f3f49921e5eba
+INFO:root:Minted new ID: nmdc:dobj-11-skkc5t79
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:3cb2f1b165f4bc09903f3f49921e5eba	nmdc:dobj-11-skkc5t79
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Reads for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-y1tppt81.1_filtered.fastq.gz
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:5d7591cc54b5a75f6ef8c01681cda321
+INFO:root:New file path computed for QC Statistics: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrqc-11-y1tppt81.1/nmdc_wfrqc-11-y1tppt81.1_filterStats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:5d7591cc54b5a75f6ef8c01681cda321
+INFO:root:Minted new ID: nmdc:dobj-11-wmeg2885
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:5d7591cc54b5a75f6ef8c01681cda321	nmdc:dobj-11-wmeg2885
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Stats for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-y1tppt81.1_filterStats.txt
+INFO:nmdc_automation.re_iding.base:nmdc:ReadQcAnalysisActivity	nmdc:35ecc186fb465626c68b0599078fdb14	nmdc:wfrqc-11-y1tppt81.1
+INFO:root:Getting new ID for nmdc:ReadQcAnalysisActivity nmdc:45999ff56bd45c7f4594c8ce4cc3e4dc
+INFO:root:Minted new ID: nmdc:wfrqc-11-t8zmxd86
+INFO:root:New activity id created for nmdc:omprc-11-pfxhrs79 activity type nmdc:ReadQcAnalysisActivity: nmdc:wfrqc-11-t8zmxd86.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrqc-11-t8zmxd86.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:ac14a73bd1dade1a9acef81b397d15c2
+INFO:root:New file path computed for Filtered Sequencing Reads: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrqc-11-t8zmxd86.1/nmdc_wfrqc-11-t8zmxd86.1_filtered.fastq.gz
+INFO:root:Getting new ID for nmdc:DataObject nmdc:ac14a73bd1dade1a9acef81b397d15c2
+INFO:root:Minted new ID: nmdc:dobj-11-2g502g46
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:ac14a73bd1dade1a9acef81b397d15c2	nmdc:dobj-11-2g502g46
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Reads for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-t8zmxd86.1_filtered.fastq.gz
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:64aee15ebf0653218d0cea0ab4123553
+INFO:root:New file path computed for QC Statistics: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrqc-11-t8zmxd86.1/nmdc_wfrqc-11-t8zmxd86.1_filterStats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:64aee15ebf0653218d0cea0ab4123553
+INFO:root:Minted new ID: nmdc:dobj-11-yebjt640
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:64aee15ebf0653218d0cea0ab4123553	nmdc:dobj-11-yebjt640
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Stats for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-t8zmxd86.1_filterStats.txt
+INFO:nmdc_automation.re_iding.base:nmdc:ReadQcAnalysisActivity	nmdc:45999ff56bd45c7f4594c8ce4cc3e4dc	nmdc:wfrqc-11-t8zmxd86.1
+INFO:root:Getting new ID for nmdc:ReadQcAnalysisActivity nmdc:916a83fca0e0855024dc5bd1efb06a01
+INFO:root:Minted new ID: nmdc:wfrqc-11-br08n688
+INFO:root:New activity id created for nmdc:omprc-11-pfxhrs79 activity type nmdc:ReadQcAnalysisActivity: nmdc:wfrqc-11-br08n688.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrqc-11-br08n688.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:0fa4cb8f515eb5f3367dac6c8008bace
+INFO:root:New file path computed for Filtered Sequencing Reads: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrqc-11-br08n688.1/nmdc_wfrqc-11-br08n688.1_filtered.fastq.gz
+INFO:root:Getting new ID for nmdc:DataObject nmdc:0fa4cb8f515eb5f3367dac6c8008bace
+INFO:root:Minted new ID: nmdc:dobj-11-pe8fwp76
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:0fa4cb8f515eb5f3367dac6c8008bace	nmdc:dobj-11-pe8fwp76
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Reads for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-br08n688.1_filtered.fastq.gz
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:0b931575b87b1723082a7fe78e2e07dc
+INFO:root:New file path computed for QC Statistics: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrqc-11-br08n688.1/nmdc_wfrqc-11-br08n688.1_filterStats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:0b931575b87b1723082a7fe78e2e07dc
+INFO:root:Minted new ID: nmdc:dobj-11-3a226f69
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:0b931575b87b1723082a7fe78e2e07dc	nmdc:dobj-11-3a226f69
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Stats for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-br08n688.1_filterStats.txt
+INFO:nmdc_automation.re_iding.base:nmdc:ReadQcAnalysisActivity	nmdc:916a83fca0e0855024dc5bd1efb06a01	nmdc:wfrqc-11-br08n688.1
+INFO:nmdc_automation.re_iding.base:Updating metagenome_assembly_set for nmdc:omprc-11-pfxhrs79
+INFO:root:Getting new ID for nmdc:MetagenomeAssembly nmdc:35ecc186fb465626c68b0599078fdb14
+INFO:root:Minted new ID: nmdc:wfmgas-11-jx4s5n60
+INFO:root:New activity id created for nmdc:omprc-11-pfxhrs79 activity type nmdc:MetagenomeAssembly: nmdc:wfmgas-11-jx4s5n60.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-jx4s5n60.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:063c5b841af4b8e8b78b2648c2003768
+INFO:root:New file path computed for Assembly Contigs: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-jx4s5n60.1/nmdc_wfmgas-11-jx4s5n60.1_contigs.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:063c5b841af4b8e8b78b2648c2003768
+INFO:root:Minted new ID: nmdc:dobj-11-cmdmbw12
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:063c5b841af4b8e8b78b2648c2003768	nmdc:dobj-11-cmdmbw12
+INFO:nmdc_automation.re_iding.base:new_description: Assembled contigs fasta for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-jx4s5n60.1_contigs.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:25375ed276a5c612e22ae5ff81a75b51
+INFO:root:New file path computed for Assembly Scaffolds: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-jx4s5n60.1/nmdc_wfmgas-11-jx4s5n60.1_scaffolds.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:25375ed276a5c612e22ae5ff81a75b51
+INFO:root:Minted new ID: nmdc:dobj-11-cg93vs28
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:25375ed276a5c612e22ae5ff81a75b51	nmdc:dobj-11-cg93vs28
+INFO:nmdc_automation.re_iding.base:new_description: Assembled scaffold fasta for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-jx4s5n60.1_scaffolds.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:8f871133e0fca16b1e6fef14eb05bf1a
+INFO:root:New file path computed for Assembly Coverage Stats: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-jx4s5n60.1/nmdc_wfmgas-11-jx4s5n60.1_covstats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:8f871133e0fca16b1e6fef14eb05bf1a
+INFO:root:Minted new ID: nmdc:dobj-11-tdshfp20
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:8f871133e0fca16b1e6fef14eb05bf1a	nmdc:dobj-11-tdshfp20
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Contig Coverage Stats for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-jx4s5n60.1_covstats.txt
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:7d032789eab3b57f91cee070abd82f2d
+INFO:root:New file path computed for Assembly AGP: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-jx4s5n60.1/nmdc_wfmgas-11-jx4s5n60.1_assembly.agp
+INFO:root:Getting new ID for nmdc:DataObject nmdc:7d032789eab3b57f91cee070abd82f2d
+INFO:root:Minted new ID: nmdc:dobj-11-78wpg385
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:7d032789eab3b57f91cee070abd82f2d	nmdc:dobj-11-78wpg385
+INFO:nmdc_automation.re_iding.base:new_description: Assembled AGP file for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-jx4s5n60.1_assembly.agp
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:2921b2dd082559d9f98e4e3565ff2af0
+INFO:root:New file path computed for Assembly Coverage BAM: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-jx4s5n60.1/nmdc_wfmgas-11-jx4s5n60.1_pairedMapped_sorted.bam
+INFO:root:Getting new ID for nmdc:DataObject nmdc:2921b2dd082559d9f98e4e3565ff2af0
+INFO:root:Minted new ID: nmdc:dobj-11-56veyt35
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:2921b2dd082559d9f98e4e3565ff2af0	nmdc:dobj-11-56veyt35
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Alignment BAM file for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-jx4s5n60.1_pairedMapped_sorted.bam
+INFO:nmdc_automation.re_iding.base:nmdc:MetagenomeAssembly	nmdc:35ecc186fb465626c68b0599078fdb14	nmdc:wfmgas-11-jx4s5n60.1
+INFO:root:Getting new ID for nmdc:MetagenomeAssembly nmdc:45999ff56bd45c7f4594c8ce4cc3e4dc
+INFO:root:Minted new ID: nmdc:wfmgas-11-9zn5wp74
+INFO:root:New activity id created for nmdc:omprc-11-pfxhrs79 activity type nmdc:MetagenomeAssembly: nmdc:wfmgas-11-9zn5wp74.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-9zn5wp74.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:3e359fb8861ecab7562e01e44a9ef1b2
+INFO:root:New file path computed for Assembly Contigs: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-9zn5wp74.1/nmdc_wfmgas-11-9zn5wp74.1_contigs.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:3e359fb8861ecab7562e01e44a9ef1b2
+INFO:root:Minted new ID: nmdc:dobj-11-x42x8759
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:3e359fb8861ecab7562e01e44a9ef1b2	nmdc:dobj-11-x42x8759
+INFO:nmdc_automation.re_iding.base:new_description: Assembled contigs fasta for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-9zn5wp74.1_contigs.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:bb01282b1777b23cfa2384f65ca3bb03
+INFO:root:New file path computed for Assembly Scaffolds: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-9zn5wp74.1/nmdc_wfmgas-11-9zn5wp74.1_scaffolds.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:bb01282b1777b23cfa2384f65ca3bb03
+INFO:root:Minted new ID: nmdc:dobj-11-b4dm5j27
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:bb01282b1777b23cfa2384f65ca3bb03	nmdc:dobj-11-b4dm5j27
+INFO:nmdc_automation.re_iding.base:new_description: Assembled scaffold fasta for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-9zn5wp74.1_scaffolds.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:e0e2400442d727a212534a1fcec40310
+INFO:root:New file path computed for Assembly Coverage Stats: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-9zn5wp74.1/nmdc_wfmgas-11-9zn5wp74.1_covstats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:e0e2400442d727a212534a1fcec40310
+INFO:root:Minted new ID: nmdc:dobj-11-nxm5cz85
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:e0e2400442d727a212534a1fcec40310	nmdc:dobj-11-nxm5cz85
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Contig Coverage Stats for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-9zn5wp74.1_covstats.txt
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:600564866645ea56600632263de564e0
+INFO:root:New file path computed for Assembly AGP: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-9zn5wp74.1/nmdc_wfmgas-11-9zn5wp74.1_assembly.agp
+INFO:root:Getting new ID for nmdc:DataObject nmdc:600564866645ea56600632263de564e0
+INFO:root:Minted new ID: nmdc:dobj-11-vp53pe16
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:600564866645ea56600632263de564e0	nmdc:dobj-11-vp53pe16
+INFO:nmdc_automation.re_iding.base:new_description: Assembled AGP file for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-9zn5wp74.1_assembly.agp
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:15fecb5ca96c4b8129951b1b6f515226
+INFO:root:New file path computed for Assembly Coverage BAM: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-9zn5wp74.1/nmdc_wfmgas-11-9zn5wp74.1_pairedMapped_sorted.bam
+INFO:root:Getting new ID for nmdc:DataObject nmdc:15fecb5ca96c4b8129951b1b6f515226
+INFO:root:Minted new ID: nmdc:dobj-11-rac8f787
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:15fecb5ca96c4b8129951b1b6f515226	nmdc:dobj-11-rac8f787
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Alignment BAM file for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-9zn5wp74.1_pairedMapped_sorted.bam
+INFO:nmdc_automation.re_iding.base:nmdc:MetagenomeAssembly	nmdc:45999ff56bd45c7f4594c8ce4cc3e4dc	nmdc:wfmgas-11-9zn5wp74.1
+INFO:root:Getting new ID for nmdc:MetagenomeAssembly nmdc:916a83fca0e0855024dc5bd1efb06a01
+INFO:root:Minted new ID: nmdc:wfmgas-11-9pqs3152
+INFO:root:New activity id created for nmdc:omprc-11-pfxhrs79 activity type nmdc:MetagenomeAssembly: nmdc:wfmgas-11-9pqs3152.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-9pqs3152.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:4244f582cb8f3f9abbfdd086d006ed2f
+INFO:root:New file path computed for Assembly Contigs: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-9pqs3152.1/nmdc_wfmgas-11-9pqs3152.1_contigs.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:4244f582cb8f3f9abbfdd086d006ed2f
+INFO:root:Minted new ID: nmdc:dobj-11-k7fvbm62
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:4244f582cb8f3f9abbfdd086d006ed2f	nmdc:dobj-11-k7fvbm62
+INFO:nmdc_automation.re_iding.base:new_description: Assembled contigs fasta for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-9pqs3152.1_contigs.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:12689fb081567fd267354e2f45079c21
+INFO:root:New file path computed for Assembly Scaffolds: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-9pqs3152.1/nmdc_wfmgas-11-9pqs3152.1_scaffolds.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:12689fb081567fd267354e2f45079c21
+INFO:root:Minted new ID: nmdc:dobj-11-4p71ks80
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:12689fb081567fd267354e2f45079c21	nmdc:dobj-11-4p71ks80
+INFO:nmdc_automation.re_iding.base:new_description: Assembled scaffold fasta for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-9pqs3152.1_scaffolds.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:8c2d07b5d704043716ef1317ce52e943
+INFO:root:New file path computed for Assembly Coverage Stats: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-9pqs3152.1/nmdc_wfmgas-11-9pqs3152.1_covstats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:8c2d07b5d704043716ef1317ce52e943
+INFO:root:Minted new ID: nmdc:dobj-11-9msc4172
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:8c2d07b5d704043716ef1317ce52e943	nmdc:dobj-11-9msc4172
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Contig Coverage Stats for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-9pqs3152.1_covstats.txt
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:27cd7e50b6fb2420da9b68257bc62aed
+INFO:root:New file path computed for Assembly AGP: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-9pqs3152.1/nmdc_wfmgas-11-9pqs3152.1_assembly.agp
+INFO:root:Getting new ID for nmdc:DataObject nmdc:27cd7e50b6fb2420da9b68257bc62aed
+INFO:root:Minted new ID: nmdc:dobj-11-k0449468
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:27cd7e50b6fb2420da9b68257bc62aed	nmdc:dobj-11-k0449468
+INFO:nmdc_automation.re_iding.base:new_description: Assembled AGP file for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-9pqs3152.1_assembly.agp
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:52031838b7aa3d21eee9dcbec1ad73fc
+INFO:root:New file path computed for Assembly Coverage BAM: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfmgas-11-9pqs3152.1/nmdc_wfmgas-11-9pqs3152.1_pairedMapped_sorted.bam
+INFO:root:Getting new ID for nmdc:DataObject nmdc:52031838b7aa3d21eee9dcbec1ad73fc
+INFO:root:Minted new ID: nmdc:dobj-11-azfppt88
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:52031838b7aa3d21eee9dcbec1ad73fc	nmdc:dobj-11-azfppt88
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Alignment BAM file for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-9pqs3152.1_pairedMapped_sorted.bam
+INFO:nmdc_automation.re_iding.base:nmdc:MetagenomeAssembly	nmdc:916a83fca0e0855024dc5bd1efb06a01	nmdc:wfmgas-11-9pqs3152.1
+INFO:nmdc_automation.re_iding.base:Updating read_based_taxonomy_analysis_activity_set for nmdc:omprc-11-pfxhrs79
+INFO:root:Getting new ID for nmdc:ReadBasedTaxonomyAnalysisActivity nmdc:35ecc186fb465626c68b0599078fdb14
+INFO:root:Minted new ID: nmdc:wfrbt-11-9r7d1127
+INFO:root:New activity id created for nmdc:omprc-11-pfxhrs79 activity type nmdc:ReadBasedTaxonomyAnalysisActivity: nmdc:wfrbt-11-9r7d1127.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9r7d1127.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:c857943038ecc8f59427784348241100
+INFO:root:New file path computed for GOTTCHA2 Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9r7d1127.1/nmdc_wfrbt-11-9r7d1127.1_gottcha2_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:c857943038ecc8f59427784348241100
+INFO:root:Minted new ID: nmdc:dobj-11-xvypja61
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:c857943038ecc8f59427784348241100	nmdc:dobj-11-xvypja61
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9r7d1127.1_gottcha2_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:db8b13c8e7101f0c1ccaea02dae3637b
+INFO:root:New file path computed for GOTTCHA2 Report Full: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9r7d1127.1/nmdc_wfrbt-11-9r7d1127.1_gottcha2_report_full.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:db8b13c8e7101f0c1ccaea02dae3637b
+INFO:root:Minted new ID: nmdc:dobj-11-b339xq35
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:db8b13c8e7101f0c1ccaea02dae3637b	nmdc:dobj-11-b339xq35
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 full TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9r7d1127.1_gottcha2_report_full.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:8b5817def0bb85b2d6e66d3be9bfbb4e
+INFO:root:New file path computed for GOTTCHA2 Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9r7d1127.1/nmdc_wfrbt-11-9r7d1127.1_gottcha2_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:8b5817def0bb85b2d6e66d3be9bfbb4e
+INFO:root:Minted new ID: nmdc:dobj-11-dc6qy468
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:8b5817def0bb85b2d6e66d3be9bfbb4e	nmdc:dobj-11-dc6qy468
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 Krona HTML report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9r7d1127.1_gottcha2_krona.html
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:5ebd3a9851ced77e985dfdead129dab3
+INFO:root:New file path computed for Centrifuge Taxonomic Classification: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9r7d1127.1/nmdc_wfrbt-11-9r7d1127.1_centrifuge_classification.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:5ebd3a9851ced77e985dfdead129dab3
+INFO:root:Minted new ID: nmdc:dobj-11-gj9e4t51
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:5ebd3a9851ced77e985dfdead129dab3	nmdc:dobj-11-gj9e4t51
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge classification TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9r7d1127.1_centrifuge_classification.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:75e0c1bacd31b9034076718ab30e95f4
+INFO:root:New file path computed for Centrifuge Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9r7d1127.1/nmdc_wfrbt-11-9r7d1127.1_centrifuge_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:75e0c1bacd31b9034076718ab30e95f4
+INFO:root:Minted new ID: nmdc:dobj-11-zg1mcf75
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:75e0c1bacd31b9034076718ab30e95f4	nmdc:dobj-11-zg1mcf75
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9r7d1127.1_centrifuge_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:07aaf46840f67bc6d8c43b1ce6a57900
+INFO:root:New file path computed for Centrifuge Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9r7d1127.1/nmdc_wfrbt-11-9r7d1127.1_centrifuge_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:07aaf46840f67bc6d8c43b1ce6a57900
+INFO:root:Minted new ID: nmdc:dobj-11-xkakst55
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:07aaf46840f67bc6d8c43b1ce6a57900	nmdc:dobj-11-xkakst55
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge Krona HTML report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9r7d1127.1_centrifuge_krona.html
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:5e7bbbdc5099a060d8ca80f61b215eab
+INFO:root:New file path computed for Kraken2 Taxonomic Classification: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9r7d1127.1/nmdc_wfrbt-11-9r7d1127.1_kraken2_classification.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:5e7bbbdc5099a060d8ca80f61b215eab
+INFO:root:Minted new ID: nmdc:dobj-11-1988ng21
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:5e7bbbdc5099a060d8ca80f61b215eab	nmdc:dobj-11-1988ng21
+INFO:nmdc_automation.re_iding.base:new_description: Kraken classification TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9r7d1127.1_kraken2_classification.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:a88930fba1e877ea37ca0647dd51cb72
+INFO:root:New file path computed for Kraken2 Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9r7d1127.1/nmdc_wfrbt-11-9r7d1127.1_kraken2_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:a88930fba1e877ea37ca0647dd51cb72
+INFO:root:Minted new ID: nmdc:dobj-11-2yr2ak10
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:a88930fba1e877ea37ca0647dd51cb72	nmdc:dobj-11-2yr2ak10
+INFO:nmdc_automation.re_iding.base:new_description: Kraken2 TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9r7d1127.1_kraken2_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:8a19f2d02f60af5f91814b35a62327dd
+INFO:root:New file path computed for Kraken2 Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9r7d1127.1/nmdc_wfrbt-11-9r7d1127.1_kraken2_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:8a19f2d02f60af5f91814b35a62327dd
+INFO:root:Minted new ID: nmdc:dobj-11-m3agt951
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:8a19f2d02f60af5f91814b35a62327dd	nmdc:dobj-11-m3agt951
+INFO:nmdc_automation.re_iding.base:new_description: Kraken2 Krona HTML report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9r7d1127.1_kraken2_krona.html
+INFO:nmdc_automation.re_iding.base:nmdc:ReadBasedTaxonomyAnalysisActivity	nmdc:35ecc186fb465626c68b0599078fdb14	nmdc:wfrbt-11-9r7d1127.1
+INFO:root:Getting new ID for nmdc:ReadBasedTaxonomyAnalysisActivity nmdc:916a83fca0e0855024dc5bd1efb06a01
+INFO:root:Minted new ID: nmdc:wfrbt-11-c0ah1964
+INFO:root:New activity id created for nmdc:omprc-11-pfxhrs79 activity type nmdc:ReadBasedTaxonomyAnalysisActivity: nmdc:wfrbt-11-c0ah1964.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-c0ah1964.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:76fe3c39aa47e1bc041f7ab3e32131cd
+INFO:root:New file path computed for GOTTCHA2 Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-c0ah1964.1/nmdc_wfrbt-11-c0ah1964.1_gottcha2_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:76fe3c39aa47e1bc041f7ab3e32131cd
+INFO:root:Minted new ID: nmdc:dobj-11-t60say90
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:76fe3c39aa47e1bc041f7ab3e32131cd	nmdc:dobj-11-t60say90
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-c0ah1964.1_gottcha2_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:f692a3168c80ab4ee51f6103d03f1ebc
+INFO:root:New file path computed for GOTTCHA2 Report Full: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-c0ah1964.1/nmdc_wfrbt-11-c0ah1964.1_gottcha2_report_full.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:f692a3168c80ab4ee51f6103d03f1ebc
+INFO:root:Minted new ID: nmdc:dobj-11-m4y9bg77
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:f692a3168c80ab4ee51f6103d03f1ebc	nmdc:dobj-11-m4y9bg77
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 full TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-c0ah1964.1_gottcha2_report_full.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:731bb99733b25b67f52bf0c6d22081b1
+INFO:root:New file path computed for GOTTCHA2 Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-c0ah1964.1/nmdc_wfrbt-11-c0ah1964.1_gottcha2_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:731bb99733b25b67f52bf0c6d22081b1
+INFO:root:Minted new ID: nmdc:dobj-11-gpxy7z07
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:731bb99733b25b67f52bf0c6d22081b1	nmdc:dobj-11-gpxy7z07
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 Krona HTML report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-c0ah1964.1_gottcha2_krona.html
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:c28530fa17dfe848786204abc1979fd9
+INFO:root:New file path computed for Centrifuge Taxonomic Classification: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-c0ah1964.1/nmdc_wfrbt-11-c0ah1964.1_centrifuge_classification.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:c28530fa17dfe848786204abc1979fd9
+INFO:root:Minted new ID: nmdc:dobj-11-ben0k095
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:c28530fa17dfe848786204abc1979fd9	nmdc:dobj-11-ben0k095
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge classification TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-c0ah1964.1_centrifuge_classification.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:86d5926f1bb3a432b661e1848908018a
+INFO:root:New file path computed for Centrifuge Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-c0ah1964.1/nmdc_wfrbt-11-c0ah1964.1_centrifuge_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:86d5926f1bb3a432b661e1848908018a
+INFO:root:Minted new ID: nmdc:dobj-11-vjs6dd94
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:86d5926f1bb3a432b661e1848908018a	nmdc:dobj-11-vjs6dd94
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-c0ah1964.1_centrifuge_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:eac90b26d0fed0a39fa12a3b4026d43e
+INFO:root:New file path computed for Centrifuge Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-c0ah1964.1/nmdc_wfrbt-11-c0ah1964.1_centrifuge_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:eac90b26d0fed0a39fa12a3b4026d43e
+INFO:root:Minted new ID: nmdc:dobj-11-gawqn537
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:eac90b26d0fed0a39fa12a3b4026d43e	nmdc:dobj-11-gawqn537
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge Krona HTML report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-c0ah1964.1_centrifuge_krona.html
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:4e559ff708c43b2e2e337b83b11881f6
+INFO:root:New file path computed for Kraken2 Taxonomic Classification: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-c0ah1964.1/nmdc_wfrbt-11-c0ah1964.1_kraken2_classification.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:4e559ff708c43b2e2e337b83b11881f6
+INFO:root:Minted new ID: nmdc:dobj-11-h3ekk947
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:4e559ff708c43b2e2e337b83b11881f6	nmdc:dobj-11-h3ekk947
+INFO:nmdc_automation.re_iding.base:new_description: Kraken classification TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-c0ah1964.1_kraken2_classification.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:8a884ba7b5d8705ebc2fe19c7d103705
+INFO:root:New file path computed for Kraken2 Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-c0ah1964.1/nmdc_wfrbt-11-c0ah1964.1_kraken2_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:8a884ba7b5d8705ebc2fe19c7d103705
+INFO:root:Minted new ID: nmdc:dobj-11-0xpa1s40
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:8a884ba7b5d8705ebc2fe19c7d103705	nmdc:dobj-11-0xpa1s40
+INFO:nmdc_automation.re_iding.base:new_description: Kraken2 TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-c0ah1964.1_kraken2_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:ad58f0a9081267ac0ab688c6d9eb0650
+INFO:root:New file path computed for Kraken2 Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-c0ah1964.1/nmdc_wfrbt-11-c0ah1964.1_kraken2_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:ad58f0a9081267ac0ab688c6d9eb0650
+INFO:root:Minted new ID: nmdc:dobj-11-jh9wpa13
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:ad58f0a9081267ac0ab688c6d9eb0650	nmdc:dobj-11-jh9wpa13
+INFO:nmdc_automation.re_iding.base:new_description: Kraken2 Krona HTML report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-c0ah1964.1_kraken2_krona.html
+INFO:nmdc_automation.re_iding.base:nmdc:ReadBasedTaxonomyAnalysisActivity	nmdc:916a83fca0e0855024dc5bd1efb06a01	nmdc:wfrbt-11-c0ah1964.1
+INFO:root:Getting new ID for nmdc:ReadBasedTaxonomyAnalysisActivity nmdc:45999ff56bd45c7f4594c8ce4cc3e4dc
+INFO:root:Minted new ID: nmdc:wfrbt-11-9p5m2183
+INFO:root:New activity id created for nmdc:omprc-11-pfxhrs79 activity type nmdc:ReadBasedTaxonomyAnalysisActivity: nmdc:wfrbt-11-9p5m2183.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9p5m2183.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:61f87390cbaec8b0fc8f3399e8cc85e9
+INFO:root:New file path computed for GOTTCHA2 Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9p5m2183.1/nmdc_wfrbt-11-9p5m2183.1_gottcha2_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:61f87390cbaec8b0fc8f3399e8cc85e9
+INFO:root:Minted new ID: nmdc:dobj-11-9kazza82
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:61f87390cbaec8b0fc8f3399e8cc85e9	nmdc:dobj-11-9kazza82
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9p5m2183.1_gottcha2_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:3439c90c73fb82c46121bed003726efe
+INFO:root:New file path computed for GOTTCHA2 Report Full: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9p5m2183.1/nmdc_wfrbt-11-9p5m2183.1_gottcha2_report_full.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:3439c90c73fb82c46121bed003726efe
+INFO:root:Minted new ID: nmdc:dobj-11-4bv6hc03
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:3439c90c73fb82c46121bed003726efe	nmdc:dobj-11-4bv6hc03
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 full TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9p5m2183.1_gottcha2_report_full.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:ebf7726a105896124b1975f71c2d46b5
+INFO:root:New file path computed for GOTTCHA2 Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9p5m2183.1/nmdc_wfrbt-11-9p5m2183.1_gottcha2_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:ebf7726a105896124b1975f71c2d46b5
+INFO:root:Minted new ID: nmdc:dobj-11-fmdbh123
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:ebf7726a105896124b1975f71c2d46b5	nmdc:dobj-11-fmdbh123
+INFO:nmdc_automation.re_iding.base:new_description: Gottcha2 Krona HTML report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9p5m2183.1_gottcha2_krona.html
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:a3964dd07d21e2d6a73e54e42640a802
+INFO:root:New file path computed for Centrifuge Taxonomic Classification: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9p5m2183.1/nmdc_wfrbt-11-9p5m2183.1_centrifuge_classification.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:a3964dd07d21e2d6a73e54e42640a802
+INFO:root:Minted new ID: nmdc:dobj-11-fj3fqe02
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:a3964dd07d21e2d6a73e54e42640a802	nmdc:dobj-11-fj3fqe02
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge classification TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9p5m2183.1_centrifuge_classification.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:895483cb0c2cd77790cc4b2eed78383b
+INFO:root:New file path computed for Centrifuge Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9p5m2183.1/nmdc_wfrbt-11-9p5m2183.1_centrifuge_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:895483cb0c2cd77790cc4b2eed78383b
+INFO:root:Minted new ID: nmdc:dobj-11-d73g2144
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:895483cb0c2cd77790cc4b2eed78383b	nmdc:dobj-11-d73g2144
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9p5m2183.1_centrifuge_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:28ecff2ad7e6dee8bb024286cc8e0cd7
+INFO:root:New file path computed for Centrifuge Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9p5m2183.1/nmdc_wfrbt-11-9p5m2183.1_centrifuge_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:28ecff2ad7e6dee8bb024286cc8e0cd7
+INFO:root:Minted new ID: nmdc:dobj-11-ae0czp61
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:28ecff2ad7e6dee8bb024286cc8e0cd7	nmdc:dobj-11-ae0czp61
+INFO:nmdc_automation.re_iding.base:new_description: Centrifuge Krona HTML report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9p5m2183.1_centrifuge_krona.html
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:4b4a02f74befb3bd362f22e72a857358
+INFO:root:New file path computed for Kraken2 Taxonomic Classification: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9p5m2183.1/nmdc_wfrbt-11-9p5m2183.1_kraken2_classification.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:4b4a02f74befb3bd362f22e72a857358
+INFO:root:Minted new ID: nmdc:dobj-11-j42wcw96
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:4b4a02f74befb3bd362f22e72a857358	nmdc:dobj-11-j42wcw96
+INFO:nmdc_automation.re_iding.base:new_description: Kraken classification TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9p5m2183.1_kraken2_classification.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:1a052f90aa39beb5a9b2ff59c27047f4
+INFO:root:New file path computed for Kraken2 Classification Report: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9p5m2183.1/nmdc_wfrbt-11-9p5m2183.1_kraken2_report.tsv
+INFO:root:Getting new ID for nmdc:DataObject nmdc:1a052f90aa39beb5a9b2ff59c27047f4
+INFO:root:Minted new ID: nmdc:dobj-11-dz333170
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:1a052f90aa39beb5a9b2ff59c27047f4	nmdc:dobj-11-dz333170
+INFO:nmdc_automation.re_iding.base:new_description: Kraken2 TSV report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9p5m2183.1_kraken2_report.tsv
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:3cd9ed447db9c578b3a5d88a59a49d41
+INFO:root:New file path computed for Kraken2 Krona Plot: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-pfxhrs79/nmdc:wfrbt-11-9p5m2183.1/nmdc_wfrbt-11-9p5m2183.1_kraken2_krona.html
+INFO:root:Getting new ID for nmdc:DataObject nmdc:3cd9ed447db9c578b3a5d88a59a49d41
+INFO:root:Minted new ID: nmdc:dobj-11-6xj6s607
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:3cd9ed447db9c578b3a5d88a59a49d41	nmdc:dobj-11-6xj6s607
+INFO:nmdc_automation.re_iding.base:new_description: Kraken2 Krona HTML report for nmdc:omprc-11-pfxhrs79
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrbt-11-9p5m2183.1_kraken2_krona.html
+INFO:nmdc_automation.re_iding.base:nmdc:ReadBasedTaxonomyAnalysisActivity	nmdc:45999ff56bd45c7f4594c8ce4cc3e4dc	nmdc:wfrbt-11-9p5m2183.1
+INFO:nmdc_automation.re_iding.base:No metatranscriptome_activity_set found for nmdc:omprc-11-pfxhrs79
+INFO:root:omics_processing_id: nmdc:omprc-11-g54wdz69
+INFO:root:Getting new ID for nmdc:DataObject nmdc:64f288a541b1c9eb56d8e83aef6f381e
+INFO:root:Minted new ID: nmdc:dobj-11-pw5zm135
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:64f288a541b1c9eb56d8e83aef6f381e	nmdc:dobj-11-pw5zm135
+INFO:root:Getting new ID for nmdc:DataObject nmdc:90d1d613541efa15d23eaff2e6a30889
+INFO:root:Minted new ID: nmdc:dobj-11-kmy63d76
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:90d1d613541efa15d23eaff2e6a30889	nmdc:dobj-11-kmy63d76
+INFO:nmdc_automation.re_iding.base:Updating reads_qc_analysis_activity_set for nmdc:omprc-11-g54wdz69
+INFO:root:Getting new ID for nmdc:ReadQcAnalysisActivity nmdc:23f566e73d1e6095cfe49ff57bb2ad4c
+INFO:root:Minted new ID: nmdc:wfrqc-11-fjkas362
+INFO:root:New activity id created for nmdc:omprc-11-g54wdz69 activity type nmdc:ReadQcAnalysisActivity: nmdc:wfrqc-11-fjkas362.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfrqc-11-fjkas362.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:9b50061675e419bb8a238dddc961d592
+INFO:root:New file path computed for Filtered Sequencing Reads: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfrqc-11-fjkas362.1/nmdc_wfrqc-11-fjkas362.1_filtered.fastq.gz
+INFO:root:Getting new ID for nmdc:DataObject nmdc:9b50061675e419bb8a238dddc961d592
+INFO:root:Minted new ID: nmdc:dobj-11-yqctjr29
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:9b50061675e419bb8a238dddc961d592	nmdc:dobj-11-yqctjr29
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Reads for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-fjkas362.1_filtered.fastq.gz
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:310f71c19f74c4683e8e109ea33ac129
+INFO:root:New file path computed for QC Statistics: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfrqc-11-fjkas362.1/nmdc_wfrqc-11-fjkas362.1_filterStats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:310f71c19f74c4683e8e109ea33ac129
+INFO:root:Minted new ID: nmdc:dobj-11-vayqw427
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:310f71c19f74c4683e8e109ea33ac129	nmdc:dobj-11-vayqw427
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Stats for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-fjkas362.1_filterStats.txt
+INFO:nmdc_automation.re_iding.base:nmdc:ReadQcAnalysisActivity	nmdc:23f566e73d1e6095cfe49ff57bb2ad4c	nmdc:wfrqc-11-fjkas362.1
+INFO:root:Getting new ID for nmdc:ReadQcAnalysisActivity nmdc:53741f195cd67218562374f91e88052c
+INFO:root:Minted new ID: nmdc:wfrqc-11-t9sg4v34
+INFO:root:New activity id created for nmdc:omprc-11-g54wdz69 activity type nmdc:ReadQcAnalysisActivity: nmdc:wfrqc-11-t9sg4v34.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfrqc-11-t9sg4v34.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:7bd4b5fc04f6e9002792dac03acc4b66
+INFO:root:New file path computed for Filtered Sequencing Reads: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfrqc-11-t9sg4v34.1/nmdc_wfrqc-11-t9sg4v34.1_filtered.fastq.gz
+INFO:root:Getting new ID for nmdc:DataObject nmdc:7bd4b5fc04f6e9002792dac03acc4b66
+INFO:root:Minted new ID: nmdc:dobj-11-4e7e9220
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:7bd4b5fc04f6e9002792dac03acc4b66	nmdc:dobj-11-4e7e9220
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Reads for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-t9sg4v34.1_filtered.fastq.gz
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:f6a49b146382fb80928974d4ac3c3f12
+INFO:root:New file path computed for QC Statistics: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfrqc-11-t9sg4v34.1/nmdc_wfrqc-11-t9sg4v34.1_filterStats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:f6a49b146382fb80928974d4ac3c3f12
+INFO:root:Minted new ID: nmdc:dobj-11-v07dzt37
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:f6a49b146382fb80928974d4ac3c3f12	nmdc:dobj-11-v07dzt37
+INFO:nmdc_automation.re_iding.base:new_description: Filtered Stats for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfrqc-11-t9sg4v34.1_filterStats.txt
+INFO:nmdc_automation.re_iding.base:nmdc:ReadQcAnalysisActivity	nmdc:53741f195cd67218562374f91e88052c	nmdc:wfrqc-11-t9sg4v34.1
+INFO:nmdc_automation.re_iding.base:Updating metagenome_assembly_set for nmdc:omprc-11-g54wdz69
+INFO:root:Getting new ID for nmdc:MetagenomeAssembly nmdc:23f566e73d1e6095cfe49ff57bb2ad4c
+INFO:root:Minted new ID: nmdc:wfmgas-11-816j8j12
+INFO:root:New activity id created for nmdc:omprc-11-g54wdz69 activity type nmdc:MetagenomeAssembly: nmdc:wfmgas-11-816j8j12.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfmgas-11-816j8j12.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:fdd19765d189faf12d137a4b5469f00f
+INFO:root:New file path computed for Assembly Contigs: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfmgas-11-816j8j12.1/nmdc_wfmgas-11-816j8j12.1_contigs.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:fdd19765d189faf12d137a4b5469f00f
+INFO:root:Minted new ID: nmdc:dobj-11-qp3yky18
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:fdd19765d189faf12d137a4b5469f00f	nmdc:dobj-11-qp3yky18
+INFO:nmdc_automation.re_iding.base:new_description: Assembled contigs fasta for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-816j8j12.1_contigs.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:42e962292ac1fce1e343e1bf657e0b7a
+INFO:root:New file path computed for Assembly Scaffolds: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfmgas-11-816j8j12.1/nmdc_wfmgas-11-816j8j12.1_scaffolds.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:42e962292ac1fce1e343e1bf657e0b7a
+INFO:root:Minted new ID: nmdc:dobj-11-76y4y549
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:42e962292ac1fce1e343e1bf657e0b7a	nmdc:dobj-11-76y4y549
+INFO:nmdc_automation.re_iding.base:new_description: Assembled scaffold fasta for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-816j8j12.1_scaffolds.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:726129680a778216ff6458142075edbe
+INFO:root:New file path computed for Assembly Coverage Stats: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfmgas-11-816j8j12.1/nmdc_wfmgas-11-816j8j12.1_covstats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:726129680a778216ff6458142075edbe
+INFO:root:Minted new ID: nmdc:dobj-11-nkt9xd12
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:726129680a778216ff6458142075edbe	nmdc:dobj-11-nkt9xd12
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Contig Coverage Stats for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-816j8j12.1_covstats.txt
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:70f6d661ab1d5ee2eef22c7e9ef7f40a
+INFO:root:New file path computed for Assembly AGP: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfmgas-11-816j8j12.1/nmdc_wfmgas-11-816j8j12.1_assembly.agp
+INFO:root:Getting new ID for nmdc:DataObject nmdc:70f6d661ab1d5ee2eef22c7e9ef7f40a
+INFO:root:Minted new ID: nmdc:dobj-11-3advrh20
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:70f6d661ab1d5ee2eef22c7e9ef7f40a	nmdc:dobj-11-3advrh20
+INFO:nmdc_automation.re_iding.base:new_description: Assembled AGP file for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-816j8j12.1_assembly.agp
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:859b94a3fb3ecfad0e4af357853caa52
+INFO:root:New file path computed for Assembly Coverage BAM: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfmgas-11-816j8j12.1/nmdc_wfmgas-11-816j8j12.1_pairedMapped_sorted.bam
+INFO:root:Getting new ID for nmdc:DataObject nmdc:859b94a3fb3ecfad0e4af357853caa52
+INFO:root:Minted new ID: nmdc:dobj-11-x6af4r49
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:859b94a3fb3ecfad0e4af357853caa52	nmdc:dobj-11-x6af4r49
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Alignment BAM file for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-816j8j12.1_pairedMapped_sorted.bam
+INFO:nmdc_automation.re_iding.base:nmdc:MetagenomeAssembly	nmdc:23f566e73d1e6095cfe49ff57bb2ad4c	nmdc:wfmgas-11-816j8j12.1
+INFO:root:Getting new ID for nmdc:MetagenomeAssembly nmdc:53741f195cd67218562374f91e88052c
+INFO:root:Minted new ID: nmdc:wfmgas-11-865wpg14
+INFO:root:New activity id created for nmdc:omprc-11-g54wdz69 activity type nmdc:MetagenomeAssembly: nmdc:wfmgas-11-865wpg14.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfmgas-11-865wpg14.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:9cecf0c7c7e6208c76209cc620f4443f
+INFO:root:New file path computed for Assembly Contigs: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfmgas-11-865wpg14.1/nmdc_wfmgas-11-865wpg14.1_contigs.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:9cecf0c7c7e6208c76209cc620f4443f
+INFO:root:Minted new ID: nmdc:dobj-11-awcn7302
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:9cecf0c7c7e6208c76209cc620f4443f	nmdc:dobj-11-awcn7302
+INFO:nmdc_automation.re_iding.base:new_description: Assembled contigs fasta for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-865wpg14.1_contigs.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:b56617745786ae4b0ac21c0a30de333f
+INFO:root:New file path computed for Assembly Scaffolds: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfmgas-11-865wpg14.1/nmdc_wfmgas-11-865wpg14.1_scaffolds.fna
+INFO:root:Getting new ID for nmdc:DataObject nmdc:b56617745786ae4b0ac21c0a30de333f
+INFO:root:Minted new ID: nmdc:dobj-11-bd27zr27
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:b56617745786ae4b0ac21c0a30de333f	nmdc:dobj-11-bd27zr27
+INFO:nmdc_automation.re_iding.base:new_description: Assembled scaffold fasta for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-865wpg14.1_scaffolds.fna
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:78722a645c2dde136cf27598db0778c8
+INFO:root:New file path computed for Assembly Coverage Stats: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfmgas-11-865wpg14.1/nmdc_wfmgas-11-865wpg14.1_covstats.txt
+INFO:root:Getting new ID for nmdc:DataObject nmdc:78722a645c2dde136cf27598db0778c8
+INFO:root:Minted new ID: nmdc:dobj-11-9txgec91
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:78722a645c2dde136cf27598db0778c8	nmdc:dobj-11-9txgec91
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Contig Coverage Stats for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-865wpg14.1_covstats.txt
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:8dda1008bbb58646fd3b953ad123cf84
+INFO:root:New file path computed for Assembly AGP: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfmgas-11-865wpg14.1/nmdc_wfmgas-11-865wpg14.1_assembly.agp
+INFO:root:Getting new ID for nmdc:DataObject nmdc:8dda1008bbb58646fd3b953ad123cf84
+INFO:root:Minted new ID: nmdc:dobj-11-em7jss47
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:8dda1008bbb58646fd3b953ad123cf84	nmdc:dobj-11-em7jss47
+INFO:nmdc_automation.re_iding.base:new_description: Assembled AGP file for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-865wpg14.1_assembly.agp
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:00cb652ca5195471f8d6b0fab02352cf
+INFO:root:New file path computed for Assembly Coverage BAM: /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfmgas-11-865wpg14.1/nmdc_wfmgas-11-865wpg14.1_pairedMapped_sorted.bam
+INFO:root:Getting new ID for nmdc:DataObject nmdc:00cb652ca5195471f8d6b0fab02352cf
+INFO:root:Minted new ID: nmdc:dobj-11-1b101737
+INFO:nmdc_automation.re_iding.base:nmdcDataObject	nmdc:00cb652ca5195471f8d6b0fab02352cf	nmdc:dobj-11-1b101737
+INFO:nmdc_automation.re_iding.base:new_description: Metagenome Alignment BAM file for nmdc:omprc-11-g54wdz69
+INFO:nmdc_automation.re_iding.base:new_filename: nmdc_wfmgas-11-865wpg14.1_pairedMapped_sorted.bam
+INFO:nmdc_automation.re_iding.base:nmdc:MetagenomeAssembly	nmdc:53741f195cd67218562374f91e88052c	nmdc:wfmgas-11-865wpg14.1
+INFO:nmdc_automation.re_iding.base:Updating read_based_taxonomy_analysis_activity_set for nmdc:omprc-11-g54wdz69
+INFO:root:Getting new ID for nmdc:ReadBasedTaxonomyAnalysisActivity nmdc:53741f195cd67218562374f91e88052c
+INFO:root:Minted new ID: nmdc:wfrbt-11-asspg032
+INFO:root:New activity id created for nmdc:omprc-11-g54wdz69 activity type nmdc:ReadBasedTaxonomyAnalysisActivity: nmdc:wfrbt-11-asspg032.1
+INFO:root:Skipping directory creation for /global/cfs/cdirs/m3408/results/nmdc:omprc-11-g54wdz69/nmdc:wfrbt-11-asspg032.1
+INFO:nmdc_automation.re_iding.base:old_do_id: nmdc:dc2e21becda8d6b010a95897cf97ae90
+Traceback (most recent call last):
+  File "/Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/./re_id_tool.py", line 1136, in <module>
+    cli(obj={})
+  File "/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+  File "/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+  File "/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/click/core.py", line 1688, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+  File "/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+  File "/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/click/decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "/Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/./re_id_tool.py", line 675, in process_records
+    new_db = reid_tool.update_read_based_taxonomy_analysis_activity_set(
+  File "/Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/base.py", line 399, in update_read_based_taxonomy_analysis_activity_set
+    old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
+  File "/Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/db_utils.py", line 72, in get_data_object_record_by_id
+    raise ValueError(f"Multiple data objects found with id: {id}")
+ValueError: Multiple data objects found with id: nmdc:dc2e21becda8d6b010a95897cf97ae90
