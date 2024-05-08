@@ -1,0 +1,208 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:34: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
+INFO:root:Updating NMDC study with legacy ID: gold:Gs0110138
+INFO:root:Updating NMDC study with ID: nmdc:sty-11-33fbta56
+INFO:root:Study record already updated: nmdc:sty-11-33fbta56
+INFO:root:Biosample record already updated: nmdc:bsm-11-tghc6n47
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139005
+INFO:root:Biosample record already updated: nmdc:bsm-11-7t840x48
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139004
+INFO:root:Biosample record already updated: nmdc:bsm-11-3na7p233
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139007
+INFO:root:Biosample record already updated: nmdc:bsm-11-gz7w2v55
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139006
+INFO:root:Biosample record already updated: nmdc:bsm-11-sgwyj607
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139008
+INFO:root:Biosample record already updated: nmdc:bsm-11-egmy8h48
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139009
+INFO:root:Biosample record already updated: nmdc:bsm-11-1txq8z10
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139011
+INFO:root:Biosample record already updated: nmdc:bsm-11-vkcv4y83
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139010
+INFO:root:Biosample record already updated: nmdc:bsm-11-g9fwwf72
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139014
+INFO:root:Biosample record already updated: nmdc:bsm-11-et4x6s13
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139012
+INFO:root:Biosample record already updated: nmdc:bsm-11-hrwwz752
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139013
+INFO:root:Biosample record already updated: nmdc:bsm-11-hsh30m25
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139016
+INFO:root:Biosample record already updated: nmdc:bsm-11-9a2z3t27
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139015
+INFO:root:Biosample record already updated: nmdc:bsm-11-zxszef36
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139018
+INFO:root:Biosample record already updated: nmdc:bsm-11-ecw0dr61
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139017
+INFO:root:Biosample record already updated: nmdc:bsm-11-7cats351
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139019
+INFO:root:Biosample record already updated: nmdc:bsm-11-hxj0nb56
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139020
+INFO:root:Biosample record already updated: nmdc:bsm-11-4ghtrb23
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139021
+INFO:root:Biosample record already updated: nmdc:bsm-11-9q364m36
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139022
+INFO:root:Biosample record already updated: nmdc:bsm-11-smsyf370
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139024
+INFO:root:Biosample record already updated: nmdc:bsm-11-67x33024
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139023
+INFO:root:Biosample record already updated: nmdc:bsm-11-jytwb037
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139025
+INFO:root:Biosample record already updated: nmdc:bsm-11-748q0a42
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139026
+INFO:root:Biosample record already updated: nmdc:bsm-11-b0drhp33
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139027
+INFO:root:Biosample record already updated: nmdc:bsm-11-33xd1t27
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139028
+INFO:root:Biosample record already updated: nmdc:bsm-11-s18zxz38
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139029
+INFO:root:Biosample record already updated: nmdc:bsm-11-55a09m42
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139030
+INFO:root:Biosample record already updated: nmdc:bsm-11-w9nnzq29
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139031
+INFO:root:Biosample record already updated: nmdc:bsm-11-efe22k95
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139032
+INFO:root:Biosample record already updated: nmdc:bsm-11-dp3x3p31
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139033
+INFO:root:Biosample record already updated: nmdc:bsm-11-s3qh8f03
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139034
+INFO:root:Biosample record already updated: nmdc:bsm-11-hrbjjx93
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139035
+INFO:root:Biosample record already updated: nmdc:bsm-11-22ahbq33
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139036
+INFO:root:Biosample record already updated: nmdc:bsm-11-1vq2v369
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139038
+INFO:root:Biosample record already updated: nmdc:bsm-11-xsz8k898
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139037
+INFO:root:Biosample record already updated: nmdc:bsm-11-wyqn6f49
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139039
+INFO:root:Biosample record already updated: nmdc:bsm-11-0qh00b84
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139040
+INFO:root:Biosample record already updated: nmdc:bsm-11-wnwphf39
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0139041
+INFO:root:Biosample record already updated: nmdc:bsm-11-v4dc4793
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153609
+INFO:root:Biosample record already updated: nmdc:bsm-11-sepbst28
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153611
+INFO:root:Biosample record already updated: nmdc:bsm-11-61phh313
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153617
+INFO:root:Biosample record already updated: nmdc:bsm-11-qs751c95
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153612
+INFO:root:Biosample record already updated: nmdc:bsm-11-39pyxp28
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153619
+INFO:root:Biosample record already updated: nmdc:bsm-11-vck0kt41
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153614
+INFO:root:Biosample record already updated: nmdc:bsm-11-58yv8s73
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153618
+INFO:root:Biosample record already updated: nmdc:bsm-11-pk3snf50
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153626
+INFO:root:Biosample record already updated: nmdc:bsm-11-v7amkp06
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153622
+INFO:root:Biosample record already updated: nmdc:bsm-11-bdp18d52
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153621
+INFO:root:Biosample record already updated: nmdc:bsm-11-5724m743
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153620
+INFO:root:Biosample record already updated: nmdc:bsm-11-8krpj173
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153627
+INFO:root:Biosample record already updated: nmdc:bsm-11-z5rz8j11
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153628
+INFO:root:Biosample record already updated: nmdc:bsm-11-rd8cx756
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153613
+INFO:root:Biosample record already updated: nmdc:bsm-11-mpdzjy86
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153615
+INFO:root:Biosample record already updated: nmdc:bsm-11-k70vm582
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153629
+INFO:root:Biosample record already updated: nmdc:bsm-11-90xz2r21
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153616
+INFO:root:Biosample record already updated: nmdc:bsm-11-dv6jbq47
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153610
+INFO:root:Biosample record already updated: nmdc:bsm-11-ba9f8g37
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153632
+INFO:root:Biosample record already updated: nmdc:bsm-11-hwfxtb69
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153631
+INFO:root:Biosample record already updated: nmdc:bsm-11-fch0jy42
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153630
+INFO:root:Biosample record already updated: nmdc:bsm-11-3hq20631
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153637
+INFO:root:Biosample record already updated: nmdc:bsm-11-v2cexe46
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153623
+INFO:root:Biosample record already updated: nmdc:bsm-11-82y5sg24
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153641
+INFO:root:Biosample record already updated: nmdc:bsm-11-f6tymr64
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153638
+INFO:root:Biosample record already updated: nmdc:bsm-11-w5y5y822
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153633
+INFO:root:Biosample record already updated: nmdc:bsm-11-2148gw11
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153640
+INFO:root:Biosample record already updated: nmdc:bsm-11-vsn7py33
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153624
+INFO:root:Biosample record already updated: nmdc:bsm-11-z1vvhk26
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153625
+INFO:root:Biosample record already updated: nmdc:bsm-11-tc5zyt88
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153635
+INFO:root:Biosample record already updated: nmdc:bsm-11-c6204p11
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153634
+INFO:root:Biosample record already updated: nmdc:bsm-11-frntap17
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153639
+INFO:root:Biosample record already updated: nmdc:bsm-11-vwnhw298
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153642
+INFO:root:Biosample record already updated: nmdc:bsm-11-ryybzp87
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153636
+INFO:root:Biosample record already updated: nmdc:bsm-11-djeceb03
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153643
+INFO:root:Biosample record already updated: nmdc:bsm-11-wxrs1774
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153646
+INFO:root:Biosample record already updated: nmdc:bsm-11-6eqywm15
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153644
+INFO:root:Biosample record already updated: nmdc:bsm-11-55kk9k72
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153647
+INFO:root:Biosample record already updated: nmdc:bsm-11-kvnc9q20
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153651
+INFO:root:Biosample record already updated: nmdc:bsm-11-80m2mh95
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153648
+INFO:root:Biosample record already updated: nmdc:bsm-11-b6yndn67
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153650
+INFO:root:Biosample record already updated: nmdc:bsm-11-r3xkx742
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153649
+INFO:root:Biosample record already updated: nmdc:bsm-11-d7vff354
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153652
+INFO:root:Biosample record already updated: nmdc:bsm-11-y0vyza78
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153653
+INFO:root:Biosample record already updated: nmdc:bsm-11-cbnygm82
+INFO:root:Updating 0 OmicsProcessing records for part_of: gold:Gs0110138, has_input: gold:Gb0153645
+INFO:root:Biosample record already updated: nmdc:bsm-11-jxs6gd39
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-jxs6gd39
+INFO:root:Biosample record already updated: nmdc:bsm-11-vm2a5k82
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-vm2a5k82
+INFO:root:Biosample record already updated: nmdc:bsm-11-teyc6p06
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-teyc6p06
+INFO:root:Biosample record already updated: nmdc:bsm-11-qpgdx082
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-qpgdx082
+INFO:root:Biosample record already updated: nmdc:bsm-11-4ghhe534
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-4ghhe534
+INFO:root:Biosample record already updated: nmdc:bsm-11-74rzt733
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-74rzt733
+INFO:root:Biosample record already updated: nmdc:bsm-11-6s4nca69
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-6s4nca69
+INFO:root:Biosample record already updated: nmdc:bsm-11-gte4zv75
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-gte4zv75
+INFO:root:Biosample record already updated: nmdc:bsm-11-cwg0g740
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-cwg0g740
+INFO:root:Biosample record already updated: nmdc:bsm-11-0x9vf068
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-0x9vf068
+INFO:root:Biosample record already updated: nmdc:bsm-11-84ka7n06
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-84ka7n06
+INFO:root:Biosample record already updated: nmdc:bsm-11-xwnbqg65
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-xwnbqg65
+INFO:root:Biosample record already updated: nmdc:bsm-11-gjwxz789
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-gjwxz789
+INFO:root:Biosample record already updated: nmdc:bsm-11-anq1xb80
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-anq1xb80
+INFO:root:Biosample record already updated: nmdc:bsm-11-6bhc9t05
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-6bhc9t05
+INFO:root:Biosample record already updated: nmdc:bsm-11-rqwkjr51
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-rqwkjr51
+INFO:root:Biosample record already updated: nmdc:bsm-11-wsa9se45
+WARNING:root:No legacy biosample IDs found for biosample: nmdc:bsm-11-wsa9se45
+INFO:root:Writing 0 updated record identifiers to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-33fbta56_updated_record_identifiers.tsv
+INFO:root:Elapsed time: 3.751174211502075
