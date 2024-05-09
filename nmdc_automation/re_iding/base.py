@@ -288,7 +288,7 @@ class ReIdTool:
             new_activity_id = get_new_nmdc_id(
                 activity_obj, self.api_client, self.identifiers_map) + "." + self.workflow_iteration
 
-            self.updated_record_identifiers.add((METAGENOME_ASSEMBLY_TYPE, assembly_rec["id"], new_activity_id))
+            self.updated_record_identifiers.add((METAGENOME_ASSEMBLY_SET, assembly_rec["id"], new_activity_id))
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
             
             new_assembly_base_dir = os.path.join(self.data_dir, omics_processing_id,
