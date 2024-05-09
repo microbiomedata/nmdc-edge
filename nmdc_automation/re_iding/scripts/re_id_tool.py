@@ -302,7 +302,7 @@ def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_fi
 
     logging.info("Writing updates and updated record identifiers to files")
     _write_updates(updates, nmdc_study_id)
-    _write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
+    write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
     if deletions:
         _write_deletions(deletions, nmdc_study_id)
     logging.info(f"Elapsed time: {time.time() - start_time}")
