@@ -1119,8 +1119,6 @@ def _get_has_input_from_read_qc(api_client, legacy_id):
     return list(has_input_data_objects)
 
 
-# Method to compare any two nmdc pydantic models and return a dictionary of differences
-
 def _update_study(study: nmdc.Study, legacy_study_id: str, nmdc_study_id: str) -> nmdc.Study:
     """
     Update the study record.

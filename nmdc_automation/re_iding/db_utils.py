@@ -69,5 +69,5 @@ def get_data_object_record_by_id(db_record: Dict, id: str)-> Optional[Dict]:
         logging.warning(f"No data object found with id: {id}")
         return None
     elif len(data_objects) > 1:
-        raise ValueError(f"Multiple data objects found with id: {id}")
+        logging.warning(f"Multiple data objects found with id: {id}")
     return data_objects[0]
