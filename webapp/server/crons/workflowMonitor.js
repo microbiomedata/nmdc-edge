@@ -157,6 +157,7 @@ function generateWDL(proj_home, workflow) {
     }
     if(workflowname === 'ReadbasedAnalysis') {
         imports += 'import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess' + "\n";
+        imports += 'import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output' + "\n";
     }
     const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowSettings['wdl_tmpl']);
     let templWDL = String(fs.readFileSync(tmpl));
