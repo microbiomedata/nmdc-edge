@@ -1,0 +1,232 @@
+[
+  {
+    "id": "nmdc:dobj-11-zp8y8706",
+    "name": "SpruceW_P10_15_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-n81fed07",
+    "file_size_bytes": 1077512038,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P10_15_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "2007130E8BCE9DAE98FEB3D026F54EA6",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1303310"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-hxpyr783",
+    "name": "SpruceW_P10_45_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-y6a4a751",
+    "file_size_bytes": 829683146,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P10_45_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "0EE8CBF99DFD1F6E2683752B4D980543",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1303242"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-p83she53",
+    "name": "SpruceW_P10_87_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-jdn7t580",
+    "file_size_bytes": 1007971211,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P10_87_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "AB5CA8826FD6BD61360B45363049E009",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1303324"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-zsjnzy61",
+    "name": "SpruceW_P13_15_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-gqqn9s76",
+    "file_size_bytes": 1102980955,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P13_15_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "86FE736A376CC6EF06AFD46959731312",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1303219"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-zmsy8g60",
+    "name": "SpruceW_P13_87A_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-e8g0x640",
+    "file_size_bytes": 1077413493,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P13_87A_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "7DF984E5E0A7D155786378946FD8B7B4",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1303260"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-rjpqdg61",
+    "name": "SpruceW_P13_87B_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-ar7xyy02",
+    "file_size_bytes": 1039856660,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P13_87B_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "1687075E50E9D5A65BCCC388EC9CD40C",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1303333"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-wxxce156",
+    "name": "SpruceW_P17_15_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-x7wa2f92",
+    "file_size_bytes": 1389676955,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P17_15_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "3AC7072D147D7C7C109E17598786C198",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1303326"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-g9y63y11",
+    "name": "SpruceW_P17_45_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-12yc8z47",
+    "file_size_bytes": 891035278,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P17_45_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "83BE1C6F74B1F9E9D9E9388AB798FB89",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1303276"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-9tesv782",
+    "name": "SpruceW_P17_87_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-tvrwvx57",
+    "file_size_bytes": 986480814,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P17_87_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "B6BC3C79BC048029A7D2B653878EF121",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1303291"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-ha2grm22",
+    "name": "SpruceW_P19_15_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-qt23cc45",
+    "file_size_bytes": 1150434379,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P19_15_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "3EFB4966125DFA9329ADE5B18EADDA8E",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1303327"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-a7jp2y68",
+    "name": "SpruceW_P19_45_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-3tce2d28",
+    "file_size_bytes": 860873124,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P19_45_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "B28507A0FB96ECFA055ECEA1149A0B09",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1303330"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-z8zzxy29",
+    "name": "SpruceW_P19_87_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-y8rt3j77",
+    "file_size_bytes": 972040165,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P19_87_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "F7969C83593E1D18FF9F0C5EE85EBA52",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1304125"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-9gcej008",
+    "name": "SpruceW_P4_15A_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-wfzppa38",
+    "file_size_bytes": 1414525798,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P4_15A_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "2626425D90248B9CAA8C1819CDE755F2",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1304126"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-421jnb25",
+    "name": "SpruceW_P4_15B_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-zderzd14",
+    "file_size_bytes": 1392686704,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P4_15B_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "92BA8399ABEA5A97991216ED856E8612",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1304135"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-sktxhz28",
+    "name": "SpruceW_P4_45_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-nfce4r12",
+    "file_size_bytes": 862272679,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P4_45_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "57298D2317365ED0AF5DD480A40E1180",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1304139"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-zh8bje59",
+    "name": "SpruceW_P4_87_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-3cb88758",
+    "file_size_bytes": 833550001,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P4_87_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "6AC32DAE25FAEF06B8CCF5A5D9250F07",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1304138"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-8b08d605",
+    "name": "SpruceW_P6_15_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-xp74k207",
+    "file_size_bytes": 1464357140,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P6_15_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "7B1F3E1EF0C2FF146254B1634FC0A4C0",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1304133"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-8rq8rp06",
+    "name": "SpruceW_P6_45_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-ntj89023",
+    "file_size_bytes": 1154100270,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P6_45_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "CC6CDD502874DE1263F5209E96D80025",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1304137"
+    ]
+  },
+  {
+    "id": "nmdc:dobj-11-2th53141",
+    "name": "SpruceW_P6_87_22Jun17_Pippin_17-04-06.raw",
+    "description": "raw instrument file for nmdc:omprc-11-01pm7g24",
+    "file_size_bytes": 949868269,
+    "url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/SpruceW_P6_87_22Jun17_Pippin_17-04-06.raw",
+    "md5_checksum": "32EAA67A6FF284200B9539853F512D59",
+    "data_object_type": "LC-DDA-MS/MS Raw Data",
+    "alternative_identifiers": [
+      "my_emsl:1304141"
+    ]
+  }
+]
+
+
