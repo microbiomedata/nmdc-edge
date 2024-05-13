@@ -1,0 +1,64 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
+INFO:root:Submitting re id'd records from : data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_re_ided_record_dump.json
+INFO:root:Using: https://api-napa.microbiomedata.org/
+INFO:root:Using MongoDB URI: mongodb://michael.thornton-napa:barman-reconfirm-leggings-883@localhost:27777
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 6642525d8ffb0dafa184dc33, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "6642525d8ffb0dafa184dc33"}, "remainingTimeMS": 4}
+INFO:root:Connected to MongoDB server at mongodb://michael.thornton-napa:barman-reconfirm-leggings-883@localhost:27777
+INFO:root:omics_processing_id: nmdc:omprc-11-wk0zte27
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-yttatv24
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-g0cas508
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+INFO:root:Inserted 17 records into data_object_set
+INFO:root:Inserting 1 records into metagenome_assembly_set
+INFO:root:Inserted 1 records into metagenome_assembly_set
+INFO:root:Inserting 1 records into read_qc_analysis_activity_set
+INFO:root:Inserted 1 records into read_qc_analysis_activity_set
+INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:Inserted 1 records into read_based_taxonomy_analysis_activity_set
+INFO:root:omics_processing_id: nmdc:omprc-11-58n3jq96
+INFO:root:Updated 1 omics_processing_set records
+INFO:root:DB Record validated - submitting to API
+INFO:root:Inserting 17 records into data_object_set
+ERROR:root:An error occurred - aborting transaction
+ERROR:root:An error occurred while ingesting records: batch op errors occurred, full error: {'writeErrors': [{'index': 8, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: nmdc.data_object_set index: id_1 dup key: { id: "nmdc:dobj-11-nzcbay04" }', 'keyPattern': {'id': 1}, 'keyValue': {'id': 'nmdc:dobj-11-nzcbay04'}, 'op': {'id': 'nmdc:dobj-11-nzcbay04', 'name': 'nmdc_wfrbt-11-dag1cy38.1.1_gottcha2_report.tsv', 'description': 'Gottcha2 TSV report for nmdc:omprc-11-58n3jq96', 'file_size_bytes': 109, 'md5_checksum': 'dc2e21becda8d6b010a95897cf97ae90', 'data_object_type': 'GOTTCHA2 Classification Report', 'url': 'https://data.microbiomedata.org/data/nmdc:omprc-11-58n3jq96/nmdc:wfrbt-11-dag1cy38.1.1/nmdc_wfrbt-11-dag1cy38.1.1_gottcha2_report.tsv', 'type': 'nmdc:DataObject', '_id': ObjectId('664252678ffb0dafa184dc78')}}, {'index': 10, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: nmdc.data_object_set index: id_1 dup key: { id: "nmdc:dobj-11-xrkw9704" }', 'keyPattern': {'id': 1}, 'keyValue': {'id': 'nmdc:dobj-11-xrkw9704'}, 'op': {'id': 'nmdc:dobj-11-xrkw9704', 'name': 'nmdc_wfrbt-11-dag1cy38.1.1_gottcha2_krona.html', 'description': 'Gottcha2 Krona HTML report for nmdc:omprc-11-58n3jq96', 'file_size_bytes': 226638, 'md5_checksum': '425873a08e598b0ca2987ff7b9b5da1f', 'data_object_type': 'GOTTCHA2 Krona Plot', 'url': 'https://data.microbiomedata.org/data/nmdc:omprc-11-58n3jq96/nmdc:wfrbt-11-dag1cy38.1.1/nmdc_wfrbt-11-dag1cy38.1.1_gottcha2_krona.html', 'type': 'nmdc:DataObject', '_id': ObjectId('664252678ffb0dafa184dc7a')}}], 'writeConcernErrors': [], 'nInserted': 15, 'nUpserted': 0, 'nMatched': 0, 'nModified': 0, 'nRemoved': 0, 'upserted': []}
+Traceback (most recent call last):
+  File "/Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/./re_id_tool.py", line 729, in ingest_records
+    _ingest_records(db_records, db_client, api_user_client)
+  File "/Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/./re_id_tool.py", line 770, in _ingest_records
+    insertion_result = db_client[collection_name].insert_many(collection, ordered=False)
+  File "/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/pymongo/_csot.py", line 108, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/pymongo/collection.py", line 742, in insert_many
+    blk.execute(write_concern, session, _Op.INSERT)
+  File "/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/pymongo/bulk.py", line 595, in execute
+    return self.execute_command(generator, write_concern, session, operation)
+  File "/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/pymongo/bulk.py", line 462, in execute_command
+    _raise_bulk_write_error(full_result)
+  File "/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/pymongo/bulk.py", line 165, in _raise_bulk_write_error
+    raise BulkWriteError(full_result)
+pymongo.errors.BulkWriteError: batch op errors occurred, full error: {'writeErrors': [{'index': 8, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: nmdc.data_object_set index: id_1 dup key: { id: "nmdc:dobj-11-nzcbay04" }', 'keyPattern': {'id': 1}, 'keyValue': {'id': 'nmdc:dobj-11-nzcbay04'}, 'op': {'id': 'nmdc:dobj-11-nzcbay04', 'name': 'nmdc_wfrbt-11-dag1cy38.1.1_gottcha2_report.tsv', 'description': 'Gottcha2 TSV report for nmdc:omprc-11-58n3jq96', 'file_size_bytes': 109, 'md5_checksum': 'dc2e21becda8d6b010a95897cf97ae90', 'data_object_type': 'GOTTCHA2 Classification Report', 'url': 'https://data.microbiomedata.org/data/nmdc:omprc-11-58n3jq96/nmdc:wfrbt-11-dag1cy38.1.1/nmdc_wfrbt-11-dag1cy38.1.1_gottcha2_report.tsv', 'type': 'nmdc:DataObject', '_id': ObjectId('664252678ffb0dafa184dc78')}}, {'index': 10, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: nmdc.data_object_set index: id_1 dup key: { id: "nmdc:dobj-11-xrkw9704" }', 'keyPattern': {'id': 1}, 'keyValue': {'id': 'nmdc:dobj-11-xrkw9704'}, 'op': {'id': 'nmdc:dobj-11-xrkw9704', 'name': 'nmdc_wfrbt-11-dag1cy38.1.1_gottcha2_krona.html', 'description': 'Gottcha2 Krona HTML report for nmdc:omprc-11-58n3jq96', 'file_size_bytes': 226638, 'md5_checksum': '425873a08e598b0ca2987ff7b9b5da1f', 'data_object_type': 'GOTTCHA2 Krona Plot', 'url': 'https://data.microbiomedata.org/data/nmdc:omprc-11-58n3jq96/nmdc:wfrbt-11-dag1cy38.1.1/nmdc_wfrbt-11-dag1cy38.1.1_gottcha2_krona.html', 'type': 'nmdc:DataObject', '_id': ObjectId('664252678ffb0dafa184dc7a')}}], 'writeConcernErrors': [], 'nInserted': 15, 'nUpserted': 0, 'nMatched': 0, 'nModified': 0, 'nRemoved': 0, 'upserted': []}
+INFO:root:Elapsed time: 10.421718120574951
