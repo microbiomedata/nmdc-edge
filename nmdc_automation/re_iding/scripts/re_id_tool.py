@@ -776,8 +776,9 @@ def _ingest_records(db_records, db_client, api_user_client):
 @cli.command()
 @click.argument("old_records_file", type=click.Path(exists=True))
 @click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
+@click.option("--failed-records", is_flag=True, default=False)
 @click.pass_context
-def delete_old_records(ctx, old_records_file, mongo_uri):
+def delete_old_records(ctx, old_records_file, mongo_uri, failed_records=False):
     """
     Read in json dump of old records and:
     delete them using
@@ -811,7 +812,7 @@ def delete_old_records(ctx, old_records_file, mongo_uri):
             for record_identifier in old_db_records:
                 for set_name, object_record in record_identifier.items():
                     # we don't want to delete the omics_processing_set
-                    if set_name == "omics_processing_set":
+                    if set_name == "omics_processing_set" and not failed_records:
                         continue
                     delete_ids = []
                     if isinstance(object_record, list):
