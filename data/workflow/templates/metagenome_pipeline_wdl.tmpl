@@ -520,7 +520,9 @@ task finish {
 			cp activity.json data_objects.json ${lowdepth} ${unbinned} ${mags_stats_json} ${ar_summary} ${final_hqmq_bins} \
 			${bin_fasta_files}  ${magsdir}/
 
-		    mkdir -p ${rbadir}
+		    mkdir -p ${rbadir}/gottcha2/
+		    mkdir -p ${rbadir}/centrifuge/
+		    mkdir -p ${rbadir}/kraken2/
 			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \
 				--name "ReadBased Analysis Activity for ${proj}" --part ${proj} \
 				--start ${start} --end $end \
