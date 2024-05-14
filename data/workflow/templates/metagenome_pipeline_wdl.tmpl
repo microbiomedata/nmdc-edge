@@ -87,7 +87,15 @@ workflow main_workflow {
             db_gottcha2=db_gottcha2, db_kraken2=db_kraken2, db_centrifuge=db_centrifuge
     }
 
+     call readbasedAnalysis_output.readbasedAnalysis_output as readbasedAnalysis_output {
+        input: gottcha2_report_tsv=ReadbasedAnalysis_call.final_gottcha2_report_tsv, gottcha2_full_tsv=ReadbasedAnalysis_call.final_gottcha2_full_tsv,
+        gottcha2_krona_html=ReadbasedAnalysis_call.final_gottcha2_krona_html, kraken2_report_tsv=ReadbasedAnalysis_call.final_kraken2_report_tsv,
+        kraken2_classification_tsv=ReadbasedAnalysis_call.final_kraken2_classification_tsv, kraken2_krona_html=ReadbasedAnalysis_call.final_kraken2_krona_html,
+        centrifuge_report_tsv=ReadbasedAnalysis_call.final_centrifuge_report_tsv,
+        centrifuge_classification_tsv=ReadbasedAnalysis_call.final_centrifuge_classification_tsv,
+        centrifuge_krona_html=ReadbasedAnalysis_call.final_centrifuge_krona_html, PREFIX=readbasedAnalysis_prefix
 
+    }
 	## Assembly workflow
 	File metaAssembly_input_file = nmdc_rqcfilter_call.filtered_final[0]
 	String? metaAssembly_outdir
@@ -264,6 +272,7 @@ workflow main_workflow {
 			kraken2_classification_tsv = ReadbasedAnalysis_call.final_kraken2_classification_tsv,
 			kraken2_report_tsv = ReadbasedAnalysis_call.final_kraken2_report_tsv,
 			kraken2_krona_html = ReadbasedAnalysis_call.final_kraken2_krona_html,
+			summary_json = readbasedAnalysis_output.summary_json,
 			short=metaMAGs_call.short,
 			lowdepth=metaMAGs_call.low,
 			unbinned=metaMAGs_call.final_unbinned_fa,
@@ -415,6 +424,7 @@ task finish {
 	File? kraken2_classification_tsv
 	File? kraken2_report_tsv
 	File? kraken2_krona_html
+	File? summary_json
 	String qadir="ReadsQC/"
 	String assemdir="MetagenomeAssembly/"
 	String annodir="MetagenomeAnnotation/"
@@ -539,7 +549,7 @@ task finish {
 				${kraken2_report_tsv} "Kraken2 TSV report" \
 				${kraken2_krona_html} "Kraken2 Krona HTML report"
 
-			cp activity.json data_objects.json  ${rbadir}/
+			cp activity.json data_objects.json ${summary_json} ${rbadir}/
 			cp ${gottcha2_report_tsv} ${gottcha2_full_tsv} ${gottcha2_krona_html} ${rbadir}/gottcha2/
 			cp ${centrifuge_classification_tsv} ${centrifuge_report_tsv} ${centrifuge_krona_html} ${rbadir}/centrifuge/
 			cp ${kraken2_classification_tsv} ${kraken2_report_tsv} ${kraken2_krona_html} ${rbadir}/kraken2/
