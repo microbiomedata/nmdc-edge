@@ -243,6 +243,7 @@ workflow main_workflow {
 			agp=metaAssembly_call.agp,
 			bam=metaAssembly_call.bam,
 			covstats=metaAssembly_call.covstats,
+			asmstats=metaAssembly_call.asmstats,
 			proteins_faa=metaAnnotation_call.proteins_faa,
 			functional_gff=metaAnnotation_call.functional_gff,
 			structural_gff=metaAnnotation_call.structural_gff,
@@ -384,6 +385,7 @@ task finish {
 	File? agp
 	File? bam
 	File? covstats
+	File? asmstats
 	File? proteins_faa
 	File? structural_gff
 	File? functional_gff
@@ -484,7 +486,7 @@ task finish {
 				${scaffold} 'Assembled scaffold fasta' \
 				${agp} 'Assembled AGP file' \
 				${bam} 'Metagenome Alignment BAM file'
-			cp ${fasta} ${scaffold} ${agp} ${bam} ${covstats} activity.json data_objects.json ${assemdir}/
+			cp ${fasta} ${scaffold} ${agp} ${bam} ${covstats} ${asmstats} activity.json data_objects.json ${assemdir}/
 
 
 
