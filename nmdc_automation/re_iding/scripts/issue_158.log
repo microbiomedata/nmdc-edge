@@ -1,0 +1,399 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
+INFO:root:Updating NMDC study with legacy ID: gold:Gs0110138
+INFO:root:Updating NMDC study with ID: nmdc:sty-11-33fbta56
+INFO:root:Using 5595 identifiers from data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_updated_record_identifiers.tsv
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 6643bd0407e622a3412ac457, topology_type: Single, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "6643bd0407e622a3412ac457"}, "remainingTimeMS": 4}
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-g2g18577
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-1zaz4e70
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-pqs6ny28
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-b6c8gc67
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-vddfky70
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-9f7prw31
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-6qyzj798
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-812pfz86
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-cd0gpa52
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-r4xkyv62
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-xvtjdd91
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-jysshy94
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-gka9ep46
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-dy8far98
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-ae5nwn37
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-w4p2c488
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-k3qdj961
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-a6mdnz19
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-2emax608
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-kvrv9r77
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-esyrvz17
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-3m53s826
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-1xj08562
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-1yxr6g13
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-jwd2sh54
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-0rbgnx27
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-synr2s82
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-admtgq37
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-9eq1bk61
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-qz02sz62
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-q4a6fr63
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-6kqsrx25
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-s8ar7z65
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-kdzmpc47
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-jqt5hw28
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-0ccq7d70
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-qgnx3d34
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-7a5pec39
+INFO:root:Found 3 OmicsProcessing records for biosample nmdc:bsm-11-r7etjt92
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-mdzzy643
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-pdhkqr18
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-5kpxca41
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-1sdbzr85
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-hwkpb467
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-3et38e69
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-69b2yq09
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-gefxrh04
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-smse4k81
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-vkyx7d09
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-9vf5pb43
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-pnp02z76
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-73g2se27
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-s3f3p831
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-m747cj05
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-phavxz03
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-nyyz2d28
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-z5pqgm37
+INFO:root:Found 3 OmicsProcessing records for biosample nmdc:bsm-11-72m39v44
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-30erpz17
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-8vx92061
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-9xqvm689
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-bmsf2v03
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-zdvp1h28
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-yk31mk93
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-2029hk78
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-h3y06p57
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-y8t5fz68
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-mpw43j53
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-8e82r317
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-s760x572
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-85jerh91
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-5yrj4x19
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-2g0ne120
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-1qwvyk02
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-6zhcg991
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-1am26d65
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-wwcw8150
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-bpcmwd75
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-nst1nn04
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-0at24w45
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-kxejbn97
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-rfmnh189
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-11-bxpvyn12
+INFO:root:Found 3 OmicsProcessing records for biosample nmdc:bsm-11-t61pkq78
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-12c00b04
+INFO:root:Minted new ID: nmdc:wfnom-13-mp415a45
+INFO:root:Updating data object: nmdc:dobj-11-1jr2gx02
+INFO:root:was_generated_by: nmdc:wfnom-13-mp415a45
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-40546817
+INFO:root:Minted new ID: nmdc:wfnom-13-2qtv3g76
+INFO:root:Updating data object: nmdc:dobj-11-tav3nv16
+INFO:root:was_generated_by: nmdc:wfnom-13-2qtv3g76
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-3tm09w71
+INFO:root:Minted new ID: nmdc:wfnom-13-3kbk6v28
+INFO:root:Updating data object: nmdc:dobj-11-y9gpex59
+INFO:root:was_generated_by: nmdc:wfnom-13-3kbk6v28
+INFO:root:Found 3 OmicsProcessing records for biosample nmdc:bsm-11-gb3s6s16
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-7kybph92
+INFO:root:Minted new ID: nmdc:wfnom-13-s4hvdm68
+INFO:root:Updating data object: nmdc:dobj-11-c7me1k61
+INFO:root:was_generated_by: nmdc:wfnom-13-s4hvdm68
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-j2krk625
+INFO:root:Minted new ID: nmdc:wfnom-13-92fy0r68
+INFO:root:Updating data object: nmdc:dobj-11-0d1zvm04
+INFO:root:was_generated_by: nmdc:wfnom-13-92fy0r68
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-02yzks96
+INFO:root:Minted new ID: nmdc:wfnom-13-04ta7690
+INFO:root:Updating data object: nmdc:dobj-11-qjrq8497
+INFO:root:was_generated_by: nmdc:wfnom-13-04ta7690
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-5k80hn75
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-zzp3b051
+INFO:root:Minted new ID: nmdc:wfnom-13-hxsy2k90
+INFO:root:Updating data object: nmdc:dobj-11-dk4mj126
+INFO:root:was_generated_by: nmdc:wfnom-13-hxsy2k90
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-ex70wr91
+INFO:root:Minted new ID: nmdc:wfnom-13-fm2rx636
+INFO:root:Updating data object: nmdc:dobj-11-dxmksn43
+INFO:root:was_generated_by: nmdc:wfnom-13-fm2rx636
+INFO:root:Found 3 OmicsProcessing records for biosample nmdc:bsm-11-5yfcz134
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-rn0vn652
+INFO:root:Minted new ID: nmdc:wfnom-13-v79jwj06
+INFO:root:Updating data object: nmdc:dobj-11-kvxbdf60
+INFO:root:was_generated_by: nmdc:wfnom-13-v79jwj06
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-451ksp71
+INFO:root:Minted new ID: nmdc:wfnom-13-zh1ghj22
+INFO:root:Updating data object: nmdc:dobj-11-ts2hjc50
+INFO:root:was_generated_by: nmdc:wfnom-13-zh1ghj22
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-xfmma859
+INFO:root:Minted new ID: nmdc:wfnom-13-b1a99y20
+INFO:root:Updating data object: nmdc:dobj-11-8rseyq18
+INFO:root:was_generated_by: nmdc:wfnom-13-b1a99y20
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-6ptf9b46
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-spcx1c35
+INFO:root:Minted new ID: nmdc:wfnom-13-jyxkjh61
+INFO:root:Updating data object: nmdc:dobj-11-0hrt8e43
+INFO:root:was_generated_by: nmdc:wfnom-13-jyxkjh61
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-y9j5x404
+INFO:root:Minted new ID: nmdc:wfnom-13-0dk8k098
+INFO:root:Updating data object: nmdc:dobj-11-ww0a3m25
+INFO:root:was_generated_by: nmdc:wfnom-13-0dk8k098
+INFO:root:Found 6 OmicsProcessing records for biosample nmdc:bsm-11-va8nkh85
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-4bm1pr16
+INFO:root:Minted new ID: nmdc:wfnom-13-tn02rw74
+INFO:root:Updating data object: nmdc:dobj-11-z5fsaq96
+INFO:root:was_generated_by: nmdc:wfnom-13-tn02rw74
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-1y9f1v62
+INFO:root:Minted new ID: nmdc:wfnom-13-4m4w7r33
+INFO:root:Updating data object: nmdc:dobj-11-hs24n880
+INFO:root:was_generated_by: nmdc:wfnom-13-4m4w7r33
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-7dmqjv10
+INFO:root:Minted new ID: nmdc:wfnom-13-2z9zfp09
+INFO:root:Updating data object: nmdc:dobj-11-xq5n5h75
+INFO:root:was_generated_by: nmdc:wfnom-13-2z9zfp09
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-bhat9y82
+INFO:root:Minted new ID: nmdc:wfnom-13-ess14j94
+INFO:root:Updating data object: nmdc:dobj-11-x43q8039
+INFO:root:was_generated_by: nmdc:wfnom-13-ess14j94
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-a73r3m32
+INFO:root:Minted new ID: nmdc:wfnom-13-v8mejg62
+INFO:root:Updating data object: nmdc:dobj-11-z0aa8v04
+INFO:root:was_generated_by: nmdc:wfnom-13-v8mejg62
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-tn95ah93
+INFO:root:Minted new ID: nmdc:wfnom-13-4bd6dp86
+INFO:root:Updating data object: nmdc:dobj-11-m1c7wb97
+INFO:root:was_generated_by: nmdc:wfnom-13-4bd6dp86
+INFO:root:Found 3 OmicsProcessing records for biosample nmdc:bsm-11-hqe6hv88
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-g9e35b80
+INFO:root:Minted new ID: nmdc:wfnom-13-nsapw076
+INFO:root:Updating data object: nmdc:dobj-11-sf4tp175
+INFO:root:was_generated_by: nmdc:wfnom-13-nsapw076
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-1fbwst10
+INFO:root:Minted new ID: nmdc:wfnom-13-6nm05g17
+INFO:root:Updating data object: nmdc:dobj-11-7qd16951
+INFO:root:was_generated_by: nmdc:wfnom-13-6nm05g17
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-9adswv63
+INFO:root:Minted new ID: nmdc:wfnom-13-yvt4bc38
+INFO:root:Updating data object: nmdc:dobj-11-m0j1w377
+INFO:root:was_generated_by: nmdc:wfnom-13-yvt4bc38
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-dhs1zg71
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-pn0j8242
+INFO:root:Minted new ID: nmdc:wfnom-13-q7sy8294
+INFO:root:Updating data object: nmdc:dobj-11-mpqg5417
+INFO:root:was_generated_by: nmdc:wfnom-13-q7sy8294
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-2r4kje90
+INFO:root:Minted new ID: nmdc:wfnom-13-ekz1dg56
+INFO:root:Updating data object: nmdc:dobj-11-hzwcfs23
+INFO:root:was_generated_by: nmdc:wfnom-13-ekz1dg56
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-8mk1zz06
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-n1g15f92
+INFO:root:Minted new ID: nmdc:wfnom-13-n5a88744
+INFO:root:Updating data object: nmdc:dobj-11-za9xts14
+INFO:root:was_generated_by: nmdc:wfnom-13-n5a88744
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-ssdxwe56
+INFO:root:Minted new ID: nmdc:wfnom-13-1p4rdg75
+INFO:root:Updating data object: nmdc:dobj-11-zj1wfq80
+INFO:root:was_generated_by: nmdc:wfnom-13-1p4rdg75
+INFO:root:Found 3 OmicsProcessing records for biosample nmdc:bsm-11-56v9ea04
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-cry13v51
+INFO:root:Minted new ID: nmdc:wfnom-13-cgq9tj26
+INFO:root:Updating data object: nmdc:dobj-11-hfmygy53
+INFO:root:was_generated_by: nmdc:wfnom-13-cgq9tj26
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-m9n9tf04
+INFO:root:Minted new ID: nmdc:wfnom-13-fs3vxw30
+INFO:root:Updating data object: nmdc:dobj-11-w33hb832
+INFO:root:was_generated_by: nmdc:wfnom-13-fs3vxw30
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-7hr0vr18
+INFO:root:Minted new ID: nmdc:wfnom-13-131eaq08
+INFO:root:Updating data object: nmdc:dobj-11-vj82hb28
+INFO:root:was_generated_by: nmdc:wfnom-13-131eaq08
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-fxdwan47
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-j8tz6912
+INFO:root:Minted new ID: nmdc:wfnom-13-8tfc7d64
+INFO:root:Updating data object: nmdc:dobj-11-0m0sbp95
+INFO:root:was_generated_by: nmdc:wfnom-13-8tfc7d64
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-k16yre05
+INFO:root:Minted new ID: nmdc:wfnom-13-rzevm354
+INFO:root:Updating data object: nmdc:dobj-11-0p80nq86
+INFO:root:was_generated_by: nmdc:wfnom-13-rzevm354
+INFO:root:Found 3 OmicsProcessing records for biosample nmdc:bsm-11-rtk1ny84
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-hhb1d436
+INFO:root:Minted new ID: nmdc:wfnom-13-em5xzw94
+INFO:root:Updating data object: nmdc:dobj-11-9tbnk193
+INFO:root:was_generated_by: nmdc:wfnom-13-em5xzw94
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-v96nwt74
+INFO:root:Minted new ID: nmdc:wfnom-13-1fax6726
+INFO:root:Updating data object: nmdc:dobj-11-wegspa21
+INFO:root:was_generated_by: nmdc:wfnom-13-1fax6726
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-2e5mgc69
+INFO:root:Minted new ID: nmdc:wfnom-13-amg9kt18
+INFO:root:Updating data object: nmdc:dobj-11-mf49yc58
+INFO:root:was_generated_by: nmdc:wfnom-13-amg9kt18
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-r90qrb31
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-cs9rzx45
+INFO:root:Minted new ID: nmdc:wfnom-13-qfhqp769
+INFO:root:Updating data object: nmdc:dobj-11-wyrscw04
+INFO:root:was_generated_by: nmdc:wfnom-13-qfhqp769
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-g3a30873
+INFO:root:Minted new ID: nmdc:wfnom-13-dyhynk23
+INFO:root:Updating data object: nmdc:dobj-11-cqkwfm81
+INFO:root:was_generated_by: nmdc:wfnom-13-dyhynk23
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-11-n8d7er75
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-2j0z9q39
+INFO:root:Minted new ID: nmdc:wfnom-13-nam24028
+INFO:root:Updating data object: nmdc:dobj-11-gqbwkd86
+INFO:root:was_generated_by: nmdc:wfnom-13-nam24028
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-bpy5pt37
+INFO:root:Minted new ID: nmdc:wfnom-13-zxkmkj35
+INFO:root:Updating data object: nmdc:dobj-11-zwc17a49
+INFO:root:was_generated_by: nmdc:wfnom-13-zxkmkj35
+INFO:root:Found 3 OmicsProcessing records for biosample nmdc:bsm-11-j2esax97
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-68e9sa59
+INFO:root:Minted new ID: nmdc:wfnom-13-v9y5c823
+INFO:root:Updating data object: nmdc:dobj-11-3g288x16
+INFO:root:was_generated_by: nmdc:wfnom-13-v9y5c823
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-2cxm2259
+INFO:root:Minted new ID: nmdc:wfnom-13-kh0jwq53
+INFO:root:Updating data object: nmdc:dobj-11-4q19wb45
+INFO:root:was_generated_by: nmdc:wfnom-13-kh0jwq53
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-5df13933
+INFO:root:Minted new ID: nmdc:wfnom-13-p1fmhw43
+INFO:root:Updating data object: nmdc:dobj-11-5eaez604
+INFO:root:was_generated_by: nmdc:wfnom-13-p1fmhw43
+INFO:root:Found 6 OmicsProcessing records for biosample nmdc:bsm-11-ac1ybr22
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-xqw7fk97
+INFO:root:Minted new ID: nmdc:wfnom-13-54jtxn80
+INFO:root:Updating data object: nmdc:dobj-11-dcmjjh31
+INFO:root:was_generated_by: nmdc:wfnom-13-54jtxn80
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-d75esf69
+INFO:root:Minted new ID: nmdc:wfnom-13-dbcjq837
+INFO:root:Updating data object: nmdc:dobj-11-7a8xtt07
+INFO:root:was_generated_by: nmdc:wfnom-13-dbcjq837
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-0jj4yj74
+INFO:root:Minted new ID: nmdc:wfnom-13-qvq83k30
+INFO:root:Updating data object: nmdc:dobj-11-8hjj6036
+INFO:root:was_generated_by: nmdc:wfnom-13-qvq83k30
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-yf3wje72
+INFO:root:Minted new ID: nmdc:wfnom-13-sjrgnn41
+INFO:root:Updating data object: nmdc:dobj-11-r683n974
+INFO:root:was_generated_by: nmdc:wfnom-13-sjrgnn41
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-ndmzbt55
+INFO:root:Minted new ID: nmdc:wfnom-13-3gtwjy19
+INFO:root:Updating data object: nmdc:dobj-11-1ds8g716
+INFO:root:was_generated_by: nmdc:wfnom-13-3gtwjy19
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-b2z1x990
+INFO:root:Minted new ID: nmdc:wfnom-13-81dsw203
+INFO:root:Updating data object: nmdc:dobj-11-sbjtv620
+INFO:root:was_generated_by: nmdc:wfnom-13-81dsw203
+INFO:root:Found 3 OmicsProcessing records for biosample nmdc:bsm-11-ryrnex45
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-c0h1de24
+INFO:root:Minted new ID: nmdc:wfnom-13-0234fv92
+INFO:root:Updating data object: nmdc:dobj-11-zad8j110
+INFO:root:was_generated_by: nmdc:wfnom-13-0234fv92
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-trzwep12
+INFO:root:Minted new ID: nmdc:wfnom-13-jfxhmz33
+INFO:root:Updating data object: nmdc:dobj-11-png32x48
+INFO:root:was_generated_by: nmdc:wfnom-13-jfxhmz33
+INFO:root:Found 1 Records for nom_analysis_activity_set
+INFO:root:Getting new ID for nmdc:NomAnalysisActivity nmdc:wfnom-13-6amcmh29
+INFO:root:Minted new ID: nmdc:wfnom-13-9man5t58
+INFO:root:Updating data object: nmdc:dobj-11-e05dt991
+INFO:root:was_generated_by: nmdc:wfnom-13-9man5t58
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-8s9qew72
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-7ay9p920
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-zxhe0n95
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-wady4q34
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-hd1n0692
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-kynkbj13
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-xtn73s23
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-a9h01527
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-a6yx8957
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-q21a1x03
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-csykqn65
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-zyae7e18
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-hhscy494
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-apwavf24
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-jpst4g08
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-5vpcg357
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-y9xv8p63
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-qctyr565
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-jg6cyv90
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-g4j6b812
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-zm5skn77
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-kprgwc64
+INFO:root:Found 2 OmicsProcessing records for biosample nmdc:bsm-12-012qca33
+INFO:root:Found 1 OmicsProcessing records for biosample nmdc:bsm-12-6qdzd845
+INFO:root:Updating the database
+INFO:root:Database update successful
+INFO:root:Updated 0 records in study_set
+INFO:root:Updated 0 records in biosample_set
+INFO:root:Updated 0 records in omics_processing_set
+INFO:root:Updated 100 records in data_object_set
+INFO:root:Updated 0 records in metabolomics_analysis_activity_set
+INFO:root:Updated 50 records in nom_analysis_activity_set
+INFO:root:Deleted 0 records in omics_processing_set
+INFO:root:Deleted 0 records in data_object_set
+INFO:root:Writing updates and updated record identifiers to files
+INFO:root:Writing 6 updates to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_updates.tsv
+INFO:root:Appending to existing file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_updates.tsv
+INFO:root:Appending to existing file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_updated_record_identifiers.tsv
+INFO:root:Writing 175 updated record identifiers to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_updated_record_identifiers.tsv
+INFO:root:Writing 2 deletions to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_deletions.tsv
+INFO:root:Appending to existing file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_deletions.tsv
+INFO:root:Elapsed time: 28.404411792755127
