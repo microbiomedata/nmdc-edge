@@ -801,13 +801,16 @@ def update_omics_output_data_object(
     updated_data_object = deepcopy(data_object)
     # Check if we need to update the data object ID and set the alternative identifiers to the legacy ID
     if not updated_data_object.id.startswith("nmdc:dobj-"):
-        # Only update alternative_identifiers for Metabolomics and NOM
+        # Only update alternative_identifiers and was_generated_by for Metabolomics and NOM
         if updated_omics_processing.omics_type.has_raw_value in (
             "Metabolomics", "Organic Matter Characterization"
         ):
             updated_data_object.alternative_identifiers = [data_object.id]
         new_data_object_id = get_new_nmdc_id(updated_data_object, api_client, identifiers_map)
         updated_data_object.id = new_data_object_id
+    # Set the was_generated_by to the updated omics processing ID if it exists
+    if data_object.was_generated_by:
+        updated_data_object.was_generated_by = updated_omics_processing.id
     return updated_data_object
 
 
@@ -817,6 +820,8 @@ def update_metabolomics_or_nom_data_object(data_object: nmdc.DataObject, api_cli
     Update for data object from Metabolomics or NOM Analysis Activity
     Special case data objects get was_generated_by set to the metabolomics or NOM analysis activity ID
     """
+    logging.info(f"Updating data object: {data_object.id}")
+    logging.info(f"was_generated_by: {was_generated_by}")
     updated_data_object = deepcopy(data_object)
     # Ensure that type is set to nmdc:DataObject
     updated_data_object.type = "nmdc:DataObject"
