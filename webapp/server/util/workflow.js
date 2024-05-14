@@ -339,21 +339,23 @@ const generatePipelineResult = function (proj) {
                 }
 
             } else if (workflow.name === 'MetaMAGs' && workflow.paramsOn) {
+                const files = fs.readdirSync(outdir);
                 result[workflow.name] = {};
-                if (fs.existsSync(outdir + "/MAGs_stats.json")) {
-
-                    let stats = JSON.parse(fs.readFileSync(outdir + "/MAGs_stats.json"));
-                    Object.keys(stats).forEach((item, index) => {
-                        //mags_list
-                        if (typeof stats[item] === 'object') {
-                            //delete members_id
-                            for (var i = 0; i < stats[item].length; i++) {
-                                delete stats[item][i]['members_id'];
+                files.forEach(function (file) {
+                    if (file.endsWith("_mags_stats.json")) {
+                        let stats = JSON.parse(fs.readFileSync(outdir + "/" + file));
+                        Object.keys(stats).forEach((item, index) => {
+                            //mags_list
+                            if (typeof stats[item] === 'object') {
+                                //delete members_id
+                                for (var i = 0; i < stats[item].length; i++) {
+                                    delete stats[item][i]['members_id'];
+                                }
                             }
-                        }
-                    });
-                    result[workflow.name]['stats'] = stats;
-                }
+                        });
+                        result[workflow.name]['stats'] = stats;
+                    }
+                });
             }
         });
 
