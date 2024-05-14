@@ -748,7 +748,7 @@ def _ingest_records(db_records, db_client, api_user_client):
             # Update the omics_processing_record with the new has_output via PyMongo
             filter_criteria = {"id": omics_processing_id}
             update_criteria = {"$set": {"has_output": omics_processing_record["has_output"]}}
-            result = db_client["omics_processing_set"].update_one(filter_criteria, update_criteria)
+            result = db_client["omics_processing_set"].update_one(filter_criteria, update_criteria, upsert=True)
             logging.info(f"Updated {result.modified_count} omics_processing_set records")
 
         # validate the record
@@ -767,8 +767,13 @@ def _ingest_records(db_records, db_client, api_user_client):
                     continue
                 logging.info(f"Inserting {len(collection)} records into {collection_name}")
 
-                insertion_result = db_client[collection_name].insert_many(collection, ordered=False)
-                logging.info(f"Inserted {len(insertion_result.inserted_ids)} records into {collection_name}")
+                # insertion_result = db_client[collection_name].insert_many(collection, ordered=False)
+                for record in collection:
+                    try:
+                        insertion_result = db_client[collection_name].insert_one(record)
+                    except pymongo.errors.DuplicateKeyError:
+                        logging.error(f"DuplicateKeyError: {record['id']}")
+                        continue
         else:
             logging.error("Workflow Record validation failed")
 
