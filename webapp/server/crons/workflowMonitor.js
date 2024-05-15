@@ -175,7 +175,7 @@ function generateWDL(proj_home, workflow) {
 async function generateOptions(proj_home, workflow) {
 
     const workflowSettings = workflowlist[workflow.name];
-    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, 'metaG_options.tmpl');
+    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowSettings['options_json']);
     let templInputs = String(fs.readFileSync(tmpl));
     if (workflow.name === 'ReadsQC') {
         templInputs = "{}"
