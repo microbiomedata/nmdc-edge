@@ -1,0 +1,2848 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
+INFO:root:Extracting workflow records for study_id: nmdc:sty-11-dcqce727
+INFO:root:study_id: nmdc:sty-11-dcqce727
+INFO:root:Retrieved 745 OmicsProcessing records for study nmdc:sty-11-dcqce727
+INFO:root:omics_processing_record: nmdc:omprc-11-g64qzj45
+INFO:root:legacy_id: gold:Gp0321263
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-g64qzj45
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-dcdvye59
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321263
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321263
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321263
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321263
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321263
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321263
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-cmzv1409
+INFO:root:legacy_id: gold:Gp0321267
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-cmzv1409
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-xddmyr77
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321267
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321267
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321267
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321267
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321267
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321267
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-mhvkx843
+INFO:root:legacy_id: gold:Gp0321269
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-mhvkx843
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-wybrvf03
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321269
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321269
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321269
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321269
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321269
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321269
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-68k5y818
+INFO:root:legacy_id: gold:Gp0321266
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-68k5y818
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-h83xx787
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321266
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321266
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321266
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321266
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321266
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321266
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-na1nx314
+INFO:root:legacy_id: gold:Gp0321264
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-na1nx314
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-5yy8yr64
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321264
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321264
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321264
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321264
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321264
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321264
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-x8d5sn79
+INFO:root:legacy_id: gold:Gp0321276
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-x8d5sn79
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-w63kxf39
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321276
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321276
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321276
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321276
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321276
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321276
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-drx50403
+INFO:root:legacy_id: gold:Gp0321279
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-drx50403
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-ntpy6w80
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321279
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321279
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321279
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321279
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321279
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321279
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-s3s0zm60
+INFO:root:legacy_id: gold:Gp0321268
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-s3s0zm60
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-f2g6hx71
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321268
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321268
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321268
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321268
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321268
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321268
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-etatj619
+INFO:root:legacy_id: gold:Gp0321278
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-etatj619
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-e45ky533
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321278
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321278
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321278
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321278
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321278
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321278
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-rzm6gd60
+INFO:root:legacy_id: gold:Gp0321271
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-rzm6gd60
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-m5v99g89
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321271
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321271
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321271
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321271
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321271
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321271
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-q73gxd95
+INFO:root:legacy_id: gold:Gp0321282
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-q73gxd95
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-yzr8hb92
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321282
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321282
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321282
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321282
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321282
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321282
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-07rew774
+INFO:root:legacy_id: gold:Gp0321281
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-07rew774
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-mzhg2r50
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321281
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321281
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321281
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321281
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321281
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321281
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-6en1kq28
+INFO:root:legacy_id: gold:Gp0321277
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-6en1kq28
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-tz4w4k76
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321277
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321277
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321277
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321277
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321277
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321277
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-4yd5j947
+INFO:root:legacy_id: gold:Gp0321280
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-4yd5j947
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-kv8g6m34
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321280
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321280
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321280
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321280
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321280
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321280
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-nr0gd026
+INFO:root:legacy_id: gold:Gp0321283
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-nr0gd026
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-jpnwx802
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321283
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321283
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321283
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321283
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321283
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321283
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-vfnk5y95
+INFO:root:legacy_id: gold:Gp0321284
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-vfnk5y95
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-s5bqaf95
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321284
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321284
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321284
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321284
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321284
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321284
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-dq6g4m57
+INFO:root:legacy_id: gold:Gp0321285
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-dq6g4m57
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-7qs31d67
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321285
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321285
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321285
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321285
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321285
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321285
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-sfxft595
+INFO:root:legacy_id: gold:Gp0321287
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-sfxft595
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-h83yrn72
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321287
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321287
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321287
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321287
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321287
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321287
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-mgvz8g12
+INFO:root:legacy_id: gold:Gp0321270
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-mgvz8g12
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-ncn6yd64
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321270
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321270
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321270
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321270
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321270
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321270
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-2sqcsq78
+INFO:root:legacy_id: gold:Gp0321286
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-2sqcsq78
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-3tb7tc68
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321286
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321286
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321286
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321286
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321286
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321286
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-dzdxwx25
+INFO:root:legacy_id: gold:Gp0321288
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-dzdxwx25
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-0edjjy82
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321288
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321288
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321288
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321288
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321288
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321288
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-1r8zkv64
+INFO:root:legacy_id: gold:Gp0321290
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-1r8zkv64
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-bq3gm541
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321290
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321290
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321290
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321290
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321290
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321290
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-pg2efw41
+INFO:root:legacy_id: gold:Gp0321289
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-pg2efw41
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-g4pnhq87
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321289
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321289
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321289
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321289
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321289
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321289
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-68vaj331
+INFO:root:legacy_id: gold:Gp0321291
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-68vaj331
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-pnbvqt91
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321291
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321291
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321291
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321291
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321291
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321291
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-hrp26z60
+INFO:root:legacy_id: gold:Gp0321292
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-hrp26z60
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-wgnd0849
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321292
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321292
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321292
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321292
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321292
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321292
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-y306mx58
+INFO:root:legacy_id: gold:Gp0321274
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-y306mx58
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-hxq92y53
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321274
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321274
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321274
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321274
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321274
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321274
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-5tf7z628
+INFO:root:legacy_id: gold:Gp0321293
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-5tf7z628
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-t9ybta23
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321293
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321293
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321293
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321293
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321293
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321293
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-6snc8628
+INFO:root:legacy_id: gold:Gp0321294
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-6snc8628
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-s9yjd161
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321294
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321294
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321294
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321294
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321294
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321294
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-jrw60k63
+INFO:root:legacy_id: gold:Gp0321265
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-jrw60k63
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-8bevks57
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321265
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321265
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321265
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321265
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321265
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321265
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-fccche09
+INFO:root:legacy_id: gold:Gp0321295
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-fccche09
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-e5ewcm47
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321295
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321295
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321295
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321295
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321295
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321295
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-06t74t89
+INFO:root:legacy_id: gold:Gp0321273
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-06t74t89
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-t4cd0r10
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321273
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321273
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321273
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321273
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321273
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321273
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-1m5gb537
+INFO:root:legacy_id: gold:Gp0321300
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-1m5gb537
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-k8qrkz64
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321300
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321300
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321300
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321300
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321300
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321300
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-em86fn10
+INFO:root:legacy_id: gold:Gp0321272
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-em86fn10
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-t63fkp62
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321272
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321272
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321272
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321272
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321272
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321272
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-0p5zak44
+INFO:root:legacy_id: gold:Gp0321297
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-0p5zak44
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-cxbpfq19
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321297
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321297
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321297
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321297
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321297
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321297
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-1s73re13
+INFO:root:legacy_id: gold:Gp0321301
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-1s73re13
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-1p7hty81
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321301
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321301
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321301
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321301
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321301
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321301
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-fhfwft70
+INFO:root:legacy_id: gold:Gp0321296
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-fhfwft70
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-ecfnyd81
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321296
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321296
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321296
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321296
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321296
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321296
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-5dzvyn71
+INFO:root:legacy_id: gold:Gp0321298
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-5dzvyn71
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-5edtvd40
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321298
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321298
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321298
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321298
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321298
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321298
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-q8t6xq96
+INFO:root:legacy_id: gold:Gp0321303
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-q8t6xq96
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-h4vgs280
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321303
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321303
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321303
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321303
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321303
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321303
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-gnypef72
+INFO:root:legacy_id: gold:Gp0321302
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-gnypef72
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-nfwam448
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321302
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321302
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321302
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321302
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321302
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321302
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-m56mzy63
+INFO:root:legacy_id: gold:Gp0321305
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-m56mzy63
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-neq6c448
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321305
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321305
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321305
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321305
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321305
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321305
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-01t0n632
+INFO:root:legacy_id: gold:Gp0321307
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-01t0n632
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-e96nzw90
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321307
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321307
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321307
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321307
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321307
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321307
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-6n8p2021
+INFO:root:legacy_id: gold:Gp0321309
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-6n8p2021
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-4rwnky57
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321309
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321309
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321309
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321309
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321309
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321309
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-3pss5226
+INFO:root:legacy_id: gold:Gp0321308
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-3pss5226
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-dckecm28
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321308
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321308
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321308
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321308
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321308
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321308
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-4rfgze31
+INFO:root:legacy_id: gold:Gp0321310
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-4rfgze31
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-zt6gey91
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321310
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321310
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321310
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321310
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321310
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321310
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-yvd51073
+INFO:root:legacy_id: gold:Gp0324008
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-yvd51073
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-3fn9ej64
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324008
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324008
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324008
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324008
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324008
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324008
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-g2ha8c10
+INFO:root:legacy_id: gold:Gp0324007
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-g2ha8c10
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-t1yy3t25
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324007
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324007
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324007
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324007
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324007
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324007
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-7jvs5r67
+INFO:root:legacy_id: gold:Gp0321299
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-7jvs5r67
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-440hnh79
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321299
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321299
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321299
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321299
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321299
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321299
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-h26hwt12
+INFO:root:legacy_id: gold:Gp0321304
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-h26hwt12
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-46jbx979
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321304
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321304
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321304
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321304
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321304
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321304
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-968zsd96
+INFO:root:legacy_id: gold:Gp0321306
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-968zsd96
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-rp90za42
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321306
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321306
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321306
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321306
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321306
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321306
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-xcxmar66
+INFO:root:legacy_id: gold:Gp0324010
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-xcxmar66
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-3wfx8970
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324010
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324010
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324010
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324010
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324010
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324010
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-7ea21c69
+INFO:root:legacy_id: gold:Gp0324009
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-7ea21c69
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-qypf8w27
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324009
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324009
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324009
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324009
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324009
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324009
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-6tsbsj78
+INFO:root:legacy_id: gold:Gp0324011
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-6tsbsj78
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-rtymec72
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324011
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324011
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324011
+INFO:root:found 1 records
+INFO:root:record: nmdc:bf1804579749f77ffa53fb5374466894, Metagenome assembly 503568_190755
+ERROR:root:DataObjectNoType: nmdc:9f01c13bcea834da2c37f174935c9f1e
+ERROR:root:FailedDataObject: nmdc:6925f067188452145dbbef7e94bf0b65,
+ERROR:root:FailedDataObject: nmdc:19a72ae1120f929c620b56189a81a3d9,
+ERROR:root:FailedDataObject: nmdc:5ad02b131a390b65a424b1cd6e2447dd,
+ERROR:root:FailedDataObject: nmdc:283a48b6c9e677914acc9995ab4ccedc,
+ERROR:root:failing_data_objects: 5
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:bf1804579749f77ffa53fb5374466894, Metagenome assembly 503568_190755
+ERROR:root:FailedRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324011
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324011
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324011
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-9j20de04
+INFO:root:legacy_id: gold:Gp0324006
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-9j20de04
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-6t1xzs22
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324006
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324006
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324006
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324006
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324006
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324006
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-znnrcs96
+INFO:root:legacy_id: gold:Gp0321275
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-znnrcs96
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-0v48rq39
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0321275
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0321275
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0321275
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0321275
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0321275
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0321275
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-mgf5kw59
+INFO:root:legacy_id: gold:Gp0324035
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-mgf5kw59
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-hgj6eg72
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324035
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324035
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324035
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324035
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324035
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324035
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-yjkz9e96
+INFO:root:legacy_id: gold:Gp0324036
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-yjkz9e96
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-kjraq557
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324036
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324036
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324036
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324036
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324036
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324036
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-c62t4a06
+INFO:root:legacy_id: gold:Gp0324033
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-c62t4a06
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-mwav9z64
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324033
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324033
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324033
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324033
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324033
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324033
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-a1c4n355
+INFO:root:legacy_id: gold:Gp0324034
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-a1c4n355
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-csn5rf23
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324034
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324034
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324034
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324034
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324034
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324034
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-c06jfz22
+INFO:root:legacy_id: gold:Gp0324038
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-c06jfz22
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-6gx90w64
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324038
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324038
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324038
+INFO:root:found 1 records
+INFO:root:record: nmdc:3a9420c939e9d1b6c662cfe16aa93c41, Metagenome assembly 503568_191741
+ERROR:root:DataObjectNoType: nmdc:24be75be3850137d6a7d43547f36f941
+ERROR:root:FailedDataObject: nmdc:38fb6bf2888ca9b8909bcfa567abaab4,
+ERROR:root:FailedDataObject: nmdc:6658c27261dfe1ad1dc3d6c87441cd68,
+ERROR:root:FailedDataObject: nmdc:4da7c3bf2fb29ba8e136265b59525ea4,
+ERROR:root:FailedDataObject: nmdc:7ab75e53cb9f8f4859e18fad0c7fc30c,
+ERROR:root:failing_data_objects: 5
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:3a9420c939e9d1b6c662cfe16aa93c41, Metagenome assembly 503568_191741
+ERROR:root:FailedRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324038
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324038
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324038
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-cbxa1m53
+INFO:root:legacy_id: gold:Gp0324037
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-cbxa1m53
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-rw6msn82
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324037
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324037
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324037
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324037
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324037
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324037
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-eaax9n58
+INFO:root:legacy_id: gold:Gp0324039
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-eaax9n58
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-svmkwb87
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324039
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324039
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324039
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324039
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324039
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324039
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-0je03p79
+INFO:root:legacy_id: gold:Gp0324040
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-0je03p79
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-yx6hnr88
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324040
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324040
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324040
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324040
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324040
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324040
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-a19y2g85
+INFO:root:legacy_id: gold:Gp0324043
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-a19y2g85
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-2mpry766
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324043
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324043
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324043
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324043
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324043
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324043
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-4nj72263
+INFO:root:legacy_id: gold:Gp0324044
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-4nj72263
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-bhazzz67
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324044
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324044
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324044
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324044
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324044
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324044
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-7hqvqf75
+INFO:root:legacy_id: gold:Gp0324042
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-7hqvqf75
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-mekqyf64
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324042
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324042
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324042
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324042
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324042
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324042
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-f022f763
+INFO:root:legacy_id: gold:Gp0324045
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-f022f763
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-2j8xp392
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324045
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324045
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324045
+INFO:root:found 1 records
+INFO:root:record: nmdc:9585a4f0c0e772b63998da73c5e26917, Metagenome assembly 503568_191748
+ERROR:root:DataObjectNoType: nmdc:7f2287c2564a46a7bf59f7c3a4373ec4
+ERROR:root:FailedDataObject: nmdc:149d662e1c5975a5a32a757bc1b08001,
+ERROR:root:FailedDataObject: nmdc:ec78aa5f7e361f7a40956f5e2d6e81c7,
+ERROR:root:FailedDataObject: nmdc:0e5bdd198c064009f501495de8bb4418,
+ERROR:root:FailedDataObject: nmdc:4586ed365a05185c8238317e025b0c6b,
+ERROR:root:failing_data_objects: 5
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:9585a4f0c0e772b63998da73c5e26917, Metagenome assembly 503568_191748
+ERROR:root:FailedRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324045
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324045
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324045
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-nfr98091
+INFO:root:legacy_id: gold:Gp0324047
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-nfr98091
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-7yxq5c28
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324047
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324047
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324047
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324047
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324047
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324047
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-zcn4n672
+INFO:root:legacy_id: gold:Gp0324048
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-zcn4n672
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-7he67110
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324048
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324048
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324048
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324048
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324048
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324048
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-f7rsq338
+INFO:root:legacy_id: gold:Gp0324041
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-f7rsq338
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-s2tvzv05
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324041
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324041
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324041
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324041
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324041
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324041
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-hr5hca79
+INFO:root:legacy_id: gold:Gp0324050
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-hr5hca79
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-1pfx3x04
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324050
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324050
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324050
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324050
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324050
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324050
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-dggs6c67
+INFO:root:legacy_id: gold:Gp0324049
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-dggs6c67
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-pc244545
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324049
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324049
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324049
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324049
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324049
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324049
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-zc27jw43
+INFO:root:legacy_id: gold:Gp0324053
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-zc27jw43
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-99nxrj82
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324053
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324053
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324053
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324053
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324053
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324053
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-9qa3bb61
+INFO:root:legacy_id: gold:Gp0324046
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-9qa3bb61
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-0ph9pc21
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324046
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324046
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324046
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324046
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324046
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324046
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-5pdhma95
+INFO:root:legacy_id: gold:Gp0324052
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-5pdhma95
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-4q126e81
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324052
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324052
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324052
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324052
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324052
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324052
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-5hskwj08
+INFO:root:legacy_id: gold:Gp0324051
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-5hskwj08
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-jxdfqt35
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324051
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324051
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324051
+INFO:root:found 1 records
+INFO:root:record: nmdc:0acdb761a0621771b319654b99f9b780, Metagenome assembly 503568_191754
+ERROR:root:DataObjectNoType: nmdc:73187ea143816c4ad5e17313448d7603
+ERROR:root:FailedDataObject: nmdc:f2250787d5898bf0a5799ec5a53b847c,
+ERROR:root:FailedDataObject: nmdc:a6a23993a918fd288c1f8f0f6e84c2e9,
+ERROR:root:FailedDataObject: nmdc:2d1949010d1ed5e834473e38330ae8ac,
+ERROR:root:FailedDataObject: nmdc:b08e4335f8157089c87ac7707df8b21b,
+ERROR:root:failing_data_objects: 5
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:0acdb761a0621771b319654b99f9b780, Metagenome assembly 503568_191754
+ERROR:root:FailedRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324051
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324051
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324051
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-77m0w637
+INFO:root:legacy_id: gold:Gp0324055
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-77m0w637
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-wptdpy70
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324055
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324055
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324055
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324055
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324055
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324055
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-98vg7045
+INFO:root:legacy_id: gold:Gp0324056
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-98vg7045
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-0c8cb224
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324056
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324056
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324056
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324056
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324056
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324056
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-3520xg18
+INFO:root:legacy_id: gold:Gp0324054
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-3520xg18
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-f95wh918
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324054
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324054
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324054
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324054
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324054
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324054
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-vdc5qe39
+INFO:root:legacy_id: gold:Gp0324059
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-vdc5qe39
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-3sg3c056
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324059
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324059
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324059
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324059
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324059
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324059
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-5wvp5724
+INFO:root:legacy_id: gold:Gp0324060
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-5wvp5724
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-rpfhxr90
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324060
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324060
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324060
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324060
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324060
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324060
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-p7wqmr69
+INFO:root:legacy_id: gold:Gp0324061
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-p7wqmr69
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-d9kwpc79
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324061
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324061
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324061
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324061
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324061
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324061
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-5tff8a55
+INFO:root:legacy_id: gold:Gp0324057
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-5tff8a55
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-xsdy8f89
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324057
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324057
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324057
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324057
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324057
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324057
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-m3crv637
+INFO:root:legacy_id: gold:Gp0324062
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-m3crv637
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-v58fm520
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324062
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324062
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324062
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324062
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324062
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324062
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-7zr92j47
+INFO:root:legacy_id: gold:Gp0396393
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-7zr92j47
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-d18xk082
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0396393
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0396393
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0396393
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0396393
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0396393
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0396393
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-r5fvfr23
+INFO:root:legacy_id: gold:Gp0396394
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-r5fvfr23
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-ar7dac09
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0396394
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0396394
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0396394
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0396394
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0396394
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0396394
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-0xam0659
+INFO:root:legacy_id: gold:Gp0324058
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-0xam0659
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-xcrw0s39
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0324058
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0324058
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0324058
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0324058
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0324058
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0324058
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-k6445x75
+INFO:root:legacy_id: gold:Gp0396395
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-k6445x75
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-b4rz6058
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0396395
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0396395
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0396395
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0396395
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0396395
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0396395
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-mwkys755
+INFO:root:legacy_id: gold:Gp0396397
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-mwkys755
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-zjhnnh65
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0396397
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0396397
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0396397
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0396397
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0396397
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0396397
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-gqxycn24
+INFO:root:legacy_id: gold:Gp0396398
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-gqxycn24
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-6bn4fw62
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0396398
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0396398
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0396398
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0396398
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0396398
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0396398
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-q9gj0738
+INFO:root:legacy_id: gold:Gp0396400
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-q9gj0738
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-nrmb8m08
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0396400
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0396400
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0396400
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0396400
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0396400
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0396400
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-93btbb47
+INFO:root:legacy_id: gold:Gp0396399
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-93btbb47
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-jr0q5418
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0396399
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0396399
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0396399
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0396399
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0396399
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0396399
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-7gb1kt31
+INFO:root:legacy_id: gold:Gp0396401
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-7gb1kt31
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-3gd1hs19
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0396401
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0396401
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0396401
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0396401
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0396401
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0396401
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-d0kcqk97
+INFO:root:legacy_id: gold:Gp0396396
+INFO:root:Adding OmicsProcessing: nmdc:omprc-11-d0kcqk97
+INFO:root:Adding OmicsProcessing Metagenome Raw Reads has_output DataObject:nmdc:dobj-11-nfe1y966
+INFO:root:set_name: read_qc_analysis_activity_set for gold:Gp0396396
+INFO:root:found 0 records
+INFO:root:set_name: read_based_taxonomy_analysis_activity_set for gold:Gp0396396
+INFO:root:found 0 records
+INFO:root:set_name: metagenome_assembly_set for gold:Gp0396396
+INFO:root:found 1 records
+INFO:root:record: nmdc:5e6a570f47043af67032eeddbcd92dcc, Metagenome assembly 503568_212405
+ERROR:root:DataObjectNoType: nmdc:ff5cfbb3f561d3d85dc8241afb0cfdd7
+ERROR:root:FailedDataObject: nmdc:bd990072d130789a508203f8bdf80e08,
+ERROR:root:FailedDataObject: nmdc:70ab6bfe35a390fd4b5330d395661a8b,
+ERROR:root:FailedDataObject: nmdc:66b6007ce8163962fdb4b8e45edd1f27,
+ERROR:root:FailedDataObject: nmdc:1f0c7dad9664ecdd55a7a724bcd9725a,
+ERROR:root:failing_data_objects: 5
+ERROR:root:WorkflowActivityMissingDataObjects: nmdc:5e6a570f47043af67032eeddbcd92dcc, Metagenome assembly 503568_212405
+ERROR:root:FailedRecords: metagenome_assembly_set, 1
+INFO:root:set_name: metagenome_annotation_activity_set for gold:Gp0396396
+INFO:root:found 0 records
+INFO:root:set_name: mags_activity_set for gold:Gp0396396
+INFO:root:found 0 records
+INFO:root:set_name: metatranscriptome_activity_set for gold:Gp0396396
+INFO:root:found 0 records
+INFO:root:omics_processing_record: nmdc:omprc-11-0axbav19
+INFO:root:legacy_id: emsl:705701
+INFO:root:omics_processing_record: nmdc:omprc-11-33v69k15
+INFO:root:legacy_id: emsl:705702
+INFO:root:omics_processing_record: nmdc:omprc-11-xv1ekm53
+INFO:root:legacy_id: emsl:705704
+INFO:root:omics_processing_record: nmdc:omprc-11-zb0ftc71
+INFO:root:legacy_id: emsl:705705
+INFO:root:omics_processing_record: nmdc:omprc-11-sp27gz10
+INFO:root:legacy_id: emsl:705703
+INFO:root:omics_processing_record: nmdc:omprc-11-g2y50t17
+INFO:root:legacy_id: emsl:705708
+INFO:root:omics_processing_record: nmdc:omprc-11-qcbm2k35
+INFO:root:legacy_id: emsl:705706
+INFO:root:omics_processing_record: nmdc:omprc-11-46aay419
+INFO:root:legacy_id: emsl:705710
+INFO:root:omics_processing_record: nmdc:omprc-11-0mbv7j82
+INFO:root:legacy_id: emsl:705707
+INFO:root:omics_processing_record: nmdc:omprc-11-h64paq80
+INFO:root:legacy_id: emsl:705711
+INFO:root:omics_processing_record: nmdc:omprc-11-h47pa056
+INFO:root:legacy_id: emsl:705712
+INFO:root:omics_processing_record: nmdc:omprc-11-yw947n41
+INFO:root:legacy_id: emsl:705713
+INFO:root:omics_processing_record: nmdc:omprc-11-zdc6ag76
+INFO:root:legacy_id: emsl:705714
+INFO:root:omics_processing_record: nmdc:omprc-11-pwndsr65
+INFO:root:legacy_id: emsl:705715
+INFO:root:omics_processing_record: nmdc:omprc-11-q4kkvw92
+INFO:root:legacy_id: emsl:705709
+INFO:root:omics_processing_record: nmdc:omprc-11-d8m91t62
+INFO:root:legacy_id: emsl:705716
+INFO:root:omics_processing_record: nmdc:omprc-11-q1jvg615
+INFO:root:legacy_id: emsl:705717
+INFO:root:omics_processing_record: nmdc:omprc-11-kw5xe726
+INFO:root:legacy_id: emsl:705718
+INFO:root:omics_processing_record: nmdc:omprc-11-yt12y346
+INFO:root:legacy_id: emsl:705720
+INFO:root:omics_processing_record: nmdc:omprc-11-x4h2th90
+INFO:root:legacy_id: emsl:705719
+INFO:root:omics_processing_record: nmdc:omprc-11-r8391161
+INFO:root:legacy_id: emsl:705721
+INFO:root:omics_processing_record: nmdc:omprc-11-ttg5bk85
+INFO:root:legacy_id: emsl:705725
+INFO:root:omics_processing_record: nmdc:omprc-11-d6gaqm51
+INFO:root:legacy_id: emsl:705724
+INFO:root:omics_processing_record: nmdc:omprc-11-3e2gtk65
+INFO:root:legacy_id: emsl:705730
+INFO:root:omics_processing_record: nmdc:omprc-11-nm64fv56
+INFO:root:legacy_id: emsl:705723
+INFO:root:omics_processing_record: nmdc:omprc-11-t57k0r11
+INFO:root:legacy_id: emsl:705728
+INFO:root:omics_processing_record: nmdc:omprc-11-mp539973
+INFO:root:legacy_id: emsl:705726
+INFO:root:omics_processing_record: nmdc:omprc-11-mbn5e746
+INFO:root:legacy_id: emsl:705727
+INFO:root:omics_processing_record: nmdc:omprc-11-bv21g222
+INFO:root:legacy_id: emsl:705722
+INFO:root:omics_processing_record: nmdc:omprc-11-pv423k67
+INFO:root:legacy_id: emsl:705732
+INFO:root:omics_processing_record: nmdc:omprc-11-tmre8t16
+INFO:root:legacy_id: emsl:705927
+INFO:root:omics_processing_record: nmdc:omprc-11-71wwfm60
+INFO:root:legacy_id: emsl:705933
+INFO:root:omics_processing_record: nmdc:omprc-11-db13rg07
+INFO:root:legacy_id: emsl:705929
+INFO:root:omics_processing_record: nmdc:omprc-11-9v4v5654
+INFO:root:legacy_id: emsl:705729
+INFO:root:omics_processing_record: nmdc:omprc-11-3ttqet75
+INFO:root:legacy_id: emsl:705930
+INFO:root:omics_processing_record: nmdc:omprc-11-4sxc2169
+INFO:root:legacy_id: emsl:705735
+INFO:root:omics_processing_record: nmdc:omprc-11-a63r6p47
+INFO:root:legacy_id: emsl:705734
+INFO:root:omics_processing_record: nmdc:omprc-11-mfjkg768
+INFO:root:legacy_id: emsl:705731
+INFO:root:omics_processing_record: nmdc:omprc-11-vcp22813
+INFO:root:legacy_id: emsl:705932
+INFO:root:omics_processing_record: nmdc:omprc-11-jy0p6085
+INFO:root:legacy_id: emsl:705733
+INFO:root:omics_processing_record: nmdc:omprc-11-bz6vyg97
+INFO:root:legacy_id: emsl:705928
+INFO:root:omics_processing_record: nmdc:omprc-11-rx9sc727
+INFO:root:legacy_id: emsl:705935
+INFO:root:omics_processing_record: nmdc:omprc-11-g130vx84
+INFO:root:legacy_id: emsl:713140
+INFO:root:omics_processing_record: nmdc:omprc-11-tythhh76
+INFO:root:legacy_id: emsl:705934
+INFO:root:omics_processing_record: nmdc:omprc-11-xxz2t932
+INFO:root:legacy_id: emsl:705936
+INFO:root:omics_processing_record: nmdc:omprc-11-6d7j9d48
+INFO:root:legacy_id: emsl:713142
+INFO:root:omics_processing_record: nmdc:omprc-11-kvr4a093
+INFO:root:legacy_id: emsl:713143
+INFO:root:omics_processing_record: nmdc:omprc-11-ccnqd285
+INFO:root:legacy_id: emsl:713141
+INFO:root:omics_processing_record: nmdc:omprc-11-2n7xhh34
+INFO:root:legacy_id: emsl:713149
+INFO:root:omics_processing_record: nmdc:omprc-11-3efe8451
+INFO:root:legacy_id: emsl:705931
+INFO:root:omics_processing_record: nmdc:omprc-11-rfe54k59
+INFO:root:legacy_id: emsl:713145
+INFO:root:omics_processing_record: nmdc:omprc-11-q562sw87
+INFO:root:legacy_id: emsl:713144
+INFO:root:omics_processing_record: nmdc:omprc-11-b5rgp837
+INFO:root:legacy_id: emsl:713148
+INFO:root:omics_processing_record: nmdc:omprc-11-61087f43
+INFO:root:legacy_id: emsl:713154
+INFO:root:omics_processing_record: nmdc:omprc-11-rjydzz49
+INFO:root:legacy_id: emsl:713150
+INFO:root:omics_processing_record: nmdc:omprc-11-3akr7v07
+INFO:root:legacy_id: emsl:713153
+INFO:root:omics_processing_record: nmdc:omprc-11-t5pj4d50
+INFO:root:legacy_id: emsl:713155
+INFO:root:omics_processing_record: nmdc:omprc-11-ftmbdh47
+INFO:root:legacy_id: emsl:713583
+INFO:root:omics_processing_record: nmdc:omprc-11-m1mm0e35
+INFO:root:legacy_id: emsl:713585
+INFO:root:omics_processing_record: nmdc:omprc-11-zbm1t642
+INFO:root:legacy_id: emsl:713584
+INFO:root:omics_processing_record: nmdc:omprc-11-ka9jae92
+INFO:root:legacy_id: emsl:713586
+INFO:root:omics_processing_record: nmdc:omprc-11-yjncyq75
+INFO:root:legacy_id: emsl:713579
+INFO:root:omics_processing_record: nmdc:omprc-11-53z2fg33
+INFO:root:legacy_id: emsl:713580
+INFO:root:omics_processing_record: nmdc:omprc-11-5qsrbn34
+INFO:root:legacy_id: emsl:713588
+INFO:root:omics_processing_record: nmdc:omprc-11-ax586g23
+INFO:root:legacy_id: emsl:713581
+INFO:root:omics_processing_record: nmdc:omprc-11-3fb17r19
+INFO:root:legacy_id: emsl:713589
+INFO:root:omics_processing_record: nmdc:omprc-11-y1cgqe43
+INFO:root:legacy_id: emsl:713582
+INFO:root:omics_processing_record: nmdc:omprc-11-etgajw56
+INFO:root:legacy_id: emsl:713590
+INFO:root:omics_processing_record: nmdc:omprc-11-mdnexj86
+INFO:root:legacy_id: emsl:713592
+INFO:root:omics_processing_record: nmdc:omprc-11-9xrm3m54
+INFO:root:legacy_id: emsl:713591
+INFO:root:omics_processing_record: nmdc:omprc-11-dyxrbk81
+INFO:root:legacy_id: emsl:713595
+INFO:root:omics_processing_record: nmdc:omprc-11-rcrac005
+INFO:root:legacy_id: emsl:713594
+INFO:root:omics_processing_record: nmdc:omprc-11-np822k75
+INFO:root:legacy_id: emsl:713597
+INFO:root:omics_processing_record: nmdc:omprc-11-06nyq555
+INFO:root:legacy_id: emsl:713593
+INFO:root:omics_processing_record: nmdc:omprc-11-z7kqew07
+INFO:root:legacy_id: emsl:713598
+INFO:root:omics_processing_record: nmdc:omprc-11-mym45c79
+INFO:root:legacy_id: emsl:713599
+INFO:root:omics_processing_record: nmdc:omprc-11-312t7h24
+INFO:root:legacy_id: emsl:713600
+INFO:root:omics_processing_record: nmdc:omprc-11-4qbmx486
+INFO:root:legacy_id: emsl:713601
+INFO:root:omics_processing_record: nmdc:omprc-11-84hxby95
+INFO:root:legacy_id: emsl:713602
+INFO:root:omics_processing_record: nmdc:omprc-11-cyfnpp98
+INFO:root:legacy_id: emsl:713603
+INFO:root:omics_processing_record: nmdc:omprc-11-42tqgj54
+INFO:root:legacy_id: emsl:713604
+INFO:root:omics_processing_record: nmdc:omprc-11-747yj357
+INFO:root:legacy_id: emsl:715126
+INFO:root:omics_processing_record: nmdc:omprc-11-bnqywd37
+INFO:root:legacy_id: emsl:715127
+INFO:root:omics_processing_record: nmdc:omprc-11-6v482z29
+INFO:root:legacy_id: emsl:715125
+INFO:root:omics_processing_record: nmdc:omprc-11-35fkn204
+INFO:root:legacy_id: emsl:715124
+INFO:root:omics_processing_record: nmdc:omprc-11-3x7fba45
+INFO:root:legacy_id: emsl:715128
+INFO:root:omics_processing_record: nmdc:omprc-11-t88ntb43
+INFO:root:legacy_id: emsl:715131
+INFO:root:omics_processing_record: nmdc:omprc-11-s4rfq811
+INFO:root:legacy_id: emsl:715129
+INFO:root:omics_processing_record: nmdc:omprc-11-tvbsrp53
+INFO:root:legacy_id: emsl:715135
+INFO:root:omics_processing_record: nmdc:omprc-11-ccvm7119
+INFO:root:legacy_id: emsl:715130
+INFO:root:omics_processing_record: nmdc:omprc-11-weefpt30
+INFO:root:legacy_id: emsl:715137
+INFO:root:omics_processing_record: nmdc:omprc-11-2wfq1183
+INFO:root:legacy_id: emsl:715306
+INFO:root:omics_processing_record: nmdc:omprc-11-hwd4s648
+INFO:root:legacy_id: emsl:715308
+INFO:root:omics_processing_record: nmdc:omprc-11-4941qv53
+INFO:root:legacy_id: emsl:715136
+INFO:root:omics_processing_record: nmdc:omprc-11-4j8hbc70
+INFO:root:legacy_id: emsl:715140
+INFO:root:omics_processing_record: nmdc:omprc-11-57m3d706
+INFO:root:legacy_id: emsl:715143
+INFO:root:omics_processing_record: nmdc:omprc-11-y49kfp85
+INFO:root:legacy_id: emsl:715307
+INFO:root:omics_processing_record: nmdc:omprc-11-ttb3z992
+INFO:root:legacy_id: emsl:715145
+INFO:root:omics_processing_record: nmdc:omprc-11-53125b67
+INFO:root:legacy_id: emsl:715309
+INFO:root:omics_processing_record: nmdc:omprc-11-hxpvwb76
+INFO:root:legacy_id: emsl:715310
+INFO:root:omics_processing_record: nmdc:omprc-11-janz0n52
+INFO:root:legacy_id: emsl:715313
+INFO:root:omics_processing_record: nmdc:omprc-11-m8q6d745
+INFO:root:legacy_id: emsl:715312
+INFO:root:omics_processing_record: nmdc:omprc-11-c4t4h677
+INFO:root:legacy_id: emsl:715311
+INFO:root:omics_processing_record: nmdc:omprc-11-hgmpwq06
+INFO:root:legacy_id: emsl:715315
+INFO:root:omics_processing_record: nmdc:omprc-11-21t3c052
+INFO:root:legacy_id: emsl:715314
+INFO:root:omics_processing_record: nmdc:omprc-11-rbznq861
+INFO:root:legacy_id: emsl:715320
+INFO:root:omics_processing_record: nmdc:omprc-11-ky6fzj65
+INFO:root:legacy_id: emsl:715316
+INFO:root:omics_processing_record: nmdc:omprc-11-5kykhc55
+INFO:root:legacy_id: emsl:715317
+INFO:root:omics_processing_record: nmdc:omprc-11-z3a1t246
+INFO:root:legacy_id: emsl:715318
+INFO:root:omics_processing_record: nmdc:omprc-11-ea925b39
+INFO:root:legacy_id: emsl:715138
+INFO:root:omics_processing_record: nmdc:omprc-11-c43mfa12
+INFO:root:legacy_id: emsl:715319
+INFO:root:omics_processing_record: nmdc:omprc-11-6z31xv09
+INFO:root:legacy_id: emsl:717355
+INFO:root:omics_processing_record: nmdc:omprc-11-g8nc3h65
+INFO:root:legacy_id: emsl:717356
+INFO:root:omics_processing_record: nmdc:omprc-11-0vatrd96
+INFO:root:legacy_id: emsl:715139
+INFO:root:omics_processing_record: nmdc:omprc-11-x0cyj831
+INFO:root:legacy_id: emsl:715146
+INFO:root:omics_processing_record: nmdc:omprc-11-afkc4d02
+INFO:root:legacy_id: emsl:715141
+INFO:root:omics_processing_record: nmdc:omprc-11-v2p26r52
+INFO:root:legacy_id: emsl:715134
+INFO:root:omics_processing_record: nmdc:omprc-11-fb439m57
+INFO:root:legacy_id: emsl:715142
+INFO:root:omics_processing_record: nmdc:omprc-11-xsyr1e35
+INFO:root:legacy_id: emsl:715305
+INFO:root:omics_processing_record: nmdc:omprc-11-3hk0kn16
+INFO:root:legacy_id: emsl:717357
+INFO:root:omics_processing_record: nmdc:omprc-11-d0eppv25
+INFO:root:legacy_id: emsl:717359
+INFO:root:omics_processing_record: nmdc:omprc-11-d1y2rt42
+INFO:root:legacy_id: emsl:717361
+INFO:root:omics_processing_record: nmdc:omprc-11-7nt1nt74
+INFO:root:legacy_id: emsl:717358
+INFO:root:omics_processing_record: nmdc:omprc-11-kyjcpq11
+INFO:root:legacy_id: emsl:717360
+INFO:root:omics_processing_record: nmdc:omprc-11-pangqf25
+INFO:root:legacy_id: emsl:717363
+INFO:root:omics_processing_record: nmdc:omprc-11-by2e0665
+INFO:root:legacy_id: emsl:717362
+INFO:root:omics_processing_record: nmdc:omprc-11-3z3n5k49
+INFO:root:legacy_id: emsl:717364
+INFO:root:omics_processing_record: nmdc:omprc-11-535qmr58
+INFO:root:legacy_id: emsl:717366
+INFO:root:omics_processing_record: nmdc:omprc-11-m1fkzb64
+INFO:root:legacy_id: emsl:717365
+INFO:root:omics_processing_record: nmdc:omprc-11-mve88b40
+INFO:root:legacy_id: emsl:717367
+INFO:root:omics_processing_record: nmdc:omprc-11-763e5c29
+INFO:root:legacy_id: emsl:717369
+INFO:root:omics_processing_record: nmdc:omprc-11-tphwbt53
+INFO:root:legacy_id: emsl:717370
+INFO:root:omics_processing_record: nmdc:omprc-11-dhrewd51
+INFO:root:legacy_id: emsl:717368
+INFO:root:omics_processing_record: nmdc:omprc-11-6trsgk72
+INFO:root:legacy_id: emsl:723572
+INFO:root:omics_processing_record: nmdc:omprc-11-mtg99038
+INFO:root:legacy_id: emsl:723574
+INFO:root:omics_processing_record: nmdc:omprc-11-btar7a11
+INFO:root:legacy_id: emsl:723571
+INFO:root:omics_processing_record: nmdc:omprc-11-gwbgsq73
+INFO:root:legacy_id: emsl:723575
+INFO:root:omics_processing_record: nmdc:omprc-11-wnkw5n06
+INFO:root:legacy_id: emsl:723578
+INFO:root:omics_processing_record: nmdc:omprc-11-kjv9rz13
+INFO:root:legacy_id: emsl:723577
+INFO:root:omics_processing_record: nmdc:omprc-11-m2mxrf35
+INFO:root:legacy_id: emsl:723579
+INFO:root:omics_processing_record: nmdc:omprc-11-vkqbn854
+INFO:root:legacy_id: emsl:723584
+INFO:root:omics_processing_record: nmdc:omprc-11-nyvkmp55
+INFO:root:legacy_id: emsl:723581
+INFO:root:omics_processing_record: nmdc:omprc-11-614yjh95
+INFO:root:legacy_id: emsl:723583
+INFO:root:omics_processing_record: nmdc:omprc-11-nnfdpp58
+INFO:root:legacy_id: emsl:723580
+INFO:root:omics_processing_record: nmdc:omprc-11-878qkz47
+INFO:root:legacy_id: emsl:723588
+INFO:root:omics_processing_record: nmdc:omprc-11-8k4ttj48
+INFO:root:legacy_id: emsl:723589
+INFO:root:omics_processing_record: nmdc:omprc-11-gtynxs32
+INFO:root:legacy_id: emsl:723595
+INFO:root:omics_processing_record: nmdc:omprc-11-chm0dc48
+INFO:root:legacy_id: emsl:723591
+INFO:root:omics_processing_record: nmdc:omprc-11-by3n3d34
+INFO:root:legacy_id: emsl:723593
+INFO:root:omics_processing_record: nmdc:omprc-11-t0jy1732
+INFO:root:legacy_id: emsl:723597
+INFO:root:omics_processing_record: nmdc:omprc-11-0yt7eq64
+INFO:root:legacy_id: emsl:723598
+INFO:root:omics_processing_record: nmdc:omprc-11-1casqm27
+INFO:root:legacy_id: emsl:723599
+INFO:root:omics_processing_record: nmdc:omprc-11-994pa532
+INFO:root:legacy_id: emsl:723600
+INFO:root:omics_processing_record: nmdc:omprc-11-eccqpa81
+INFO:root:legacy_id: emsl:723592
+INFO:root:omics_processing_record: nmdc:omprc-11-v66r1e39
+INFO:root:legacy_id: emsl:723602
+INFO:root:omics_processing_record: nmdc:omprc-11-dmeg6a90
+INFO:root:legacy_id: emsl:723609
+INFO:root:omics_processing_record: nmdc:omprc-11-m1310w19
+INFO:root:legacy_id: emsl:723603
+INFO:root:omics_processing_record: nmdc:omprc-11-58gp7n41
+INFO:root:legacy_id: emsl:723610
+INFO:root:omics_processing_record: nmdc:omprc-11-f3a3hk51
+INFO:root:legacy_id: emsl:723601
+INFO:root:omics_processing_record: nmdc:omprc-11-a3exke19
+INFO:root:legacy_id: emsl:723613
+INFO:root:omics_processing_record: nmdc:omprc-11-ghtcay44
+INFO:root:legacy_id: emsl:723614
+INFO:root:omics_processing_record: nmdc:omprc-11-mspjwp39
+INFO:root:legacy_id: emsl:723615
+INFO:root:omics_processing_record: nmdc:omprc-11-qcf0ye42
+INFO:root:legacy_id: emsl:723612
+INFO:root:omics_processing_record: nmdc:omprc-11-58fh7q15
+INFO:root:legacy_id: emsl:723618
+INFO:root:omics_processing_record: nmdc:omprc-11-r2a2tf15
+INFO:root:legacy_id: emsl:723622
+INFO:root:omics_processing_record: nmdc:omprc-11-t2317225
+INFO:root:legacy_id: emsl:723617
+INFO:root:omics_processing_record: nmdc:omprc-11-0wjf8j30
+INFO:root:legacy_id: emsl:723626
+INFO:root:omics_processing_record: nmdc:omprc-11-4thk4020
+INFO:root:legacy_id: emsl:723621
+INFO:root:omics_processing_record: nmdc:omprc-11-pyndvw19
+INFO:root:legacy_id: emsl:723628
+INFO:root:omics_processing_record: nmdc:omprc-11-nnr3c474
+INFO:root:legacy_id: emsl:723629
+INFO:root:omics_processing_record: nmdc:omprc-11-aeb6bv40
+INFO:root:legacy_id: emsl:723625
+INFO:root:omics_processing_record: nmdc:omprc-11-42x05r33
+INFO:root:legacy_id: emsl:723630
+INFO:root:omics_processing_record: nmdc:omprc-11-hw0kpk75
+INFO:root:legacy_id: emsl:723632
+INFO:root:omics_processing_record: nmdc:omprc-11-9zp68h58
+INFO:root:legacy_id: emsl:723635
+INFO:root:omics_processing_record: nmdc:omprc-11-d0hczv70
+INFO:root:legacy_id: emsl:723633
+INFO:root:omics_processing_record: nmdc:omprc-11-w3t2ka20
+INFO:root:legacy_id: emsl:723636
+INFO:root:omics_processing_record: nmdc:omprc-11-1qr9g902
+INFO:root:legacy_id: emsl:723634
+INFO:root:omics_processing_record: nmdc:omprc-11-mtqnsh86
+INFO:root:legacy_id: emsl:723637
+INFO:root:omics_processing_record: nmdc:omprc-11-9te1p106
+INFO:root:legacy_id: emsl:723638
+INFO:root:omics_processing_record: nmdc:omprc-11-5etgxd36
+INFO:root:legacy_id: emsl:723639
+INFO:root:omics_processing_record: nmdc:omprc-11-chjyn459
+INFO:root:legacy_id: emsl:723640
+INFO:root:omics_processing_record: nmdc:omprc-11-qds5kj22
+INFO:root:legacy_id: emsl:723641
+INFO:root:omics_processing_record: nmdc:omprc-11-kr0xkg97
+INFO:root:legacy_id: emsl:723642
+INFO:root:omics_processing_record: nmdc:omprc-11-cn9p1983
+INFO:root:legacy_id: emsl:723644
+INFO:root:omics_processing_record: nmdc:omprc-11-cpq9t457
+INFO:root:legacy_id: emsl:723643
+INFO:root:omics_processing_record: nmdc:omprc-11-afg13x21
+INFO:root:legacy_id: emsl:723645
+INFO:root:omics_processing_record: nmdc:omprc-11-b12myq79
+INFO:root:legacy_id: emsl:723647
+INFO:root:omics_processing_record: nmdc:omprc-11-68xvhn46
+INFO:root:legacy_id: emsl:723646
+INFO:root:omics_processing_record: nmdc:omprc-11-m0jp5d17
+INFO:root:legacy_id: emsl:723649
+INFO:root:omics_processing_record: nmdc:omprc-11-8jc0tf63
+INFO:root:legacy_id: emsl:723651
+INFO:root:omics_processing_record: nmdc:omprc-11-w39jqq64
+INFO:root:legacy_id: emsl:723650
+INFO:root:omics_processing_record: nmdc:omprc-11-rx0gfz57
+INFO:root:legacy_id: emsl:724054
+INFO:root:omics_processing_record: nmdc:omprc-11-ap02sp76
+INFO:root:legacy_id: emsl:724055
+INFO:root:omics_processing_record: nmdc:omprc-11-mjktpg77
+INFO:root:legacy_id: emsl:724053
+INFO:root:omics_processing_record: nmdc:omprc-11-v0g8gg87
+INFO:root:legacy_id: emsl:724056
+INFO:root:omics_processing_record: nmdc:omprc-11-1kdzwc90
+INFO:root:legacy_id: emsl:724057
+INFO:root:omics_processing_record: nmdc:omprc-11-3b7s4033
+INFO:root:legacy_id: emsl:723648
+INFO:root:omics_processing_record: nmdc:omprc-11-25nc8t13
+INFO:root:legacy_id: emsl:724058
+INFO:root:omics_processing_record: nmdc:omprc-11-7xz6d915
+INFO:root:legacy_id: emsl:724060
+INFO:root:omics_processing_record: nmdc:omprc-11-tkt3s758
+INFO:root:legacy_id: emsl:724059
+INFO:root:omics_processing_record: nmdc:omprc-11-xs25v505
+INFO:root:legacy_id: emsl:724061
+INFO:root:omics_processing_record: nmdc:omprc-11-da0m7352
+INFO:root:legacy_id: emsl:724063
+INFO:root:omics_processing_record: nmdc:omprc-11-30zbcz24
+INFO:root:legacy_id: emsl:724065
+INFO:root:omics_processing_record: nmdc:omprc-11-s6s2k118
+INFO:root:legacy_id: emsl:724067
+INFO:root:omics_processing_record: nmdc:omprc-11-b2968x48
+INFO:root:legacy_id: emsl:724066
+INFO:root:omics_processing_record: nmdc:omprc-11-0bwn4t70
+INFO:root:legacy_id: emsl:724064
+INFO:root:omics_processing_record: nmdc:omprc-11-51wk6490
+INFO:root:legacy_id: emsl:724069
+INFO:root:omics_processing_record: nmdc:omprc-11-1y35h291
+INFO:root:legacy_id: emsl:724068
+INFO:root:omics_processing_record: nmdc:omprc-11-y57z5r36
+INFO:root:legacy_id: emsl:724070
+INFO:root:omics_processing_record: nmdc:omprc-11-77zzn373
+INFO:root:legacy_id: emsl:724071
+INFO:root:omics_processing_record: nmdc:omprc-11-9vbm4g80
+INFO:root:legacy_id: emsl:724075
+INFO:root:omics_processing_record: nmdc:omprc-11-rh3def95
+INFO:root:legacy_id: emsl:724077
+INFO:root:omics_processing_record: nmdc:omprc-11-m3ez4h22
+INFO:root:legacy_id: emsl:724078
+INFO:root:omics_processing_record: nmdc:omprc-11-z01fy363
+INFO:root:legacy_id: emsl:724079
+INFO:root:omics_processing_record: nmdc:omprc-11-1a2f1q56
+INFO:root:legacy_id: emsl:724081
+INFO:root:omics_processing_record: nmdc:omprc-11-xzd2zf78
+INFO:root:legacy_id: emsl:724074
+INFO:root:omics_processing_record: nmdc:omprc-11-34k87848
+INFO:root:legacy_id: emsl:724083
+INFO:root:omics_processing_record: nmdc:omprc-11-pn3p9r73
+INFO:root:legacy_id: emsl:724084
+INFO:root:omics_processing_record: nmdc:omprc-11-tg0svb81
+INFO:root:legacy_id: emsl:724085
+INFO:root:omics_processing_record: nmdc:omprc-11-ggqqp936
+INFO:root:legacy_id: emsl:724080
+INFO:root:omics_processing_record: nmdc:omprc-11-4zqp7450
+INFO:root:legacy_id: emsl:724086
+INFO:root:omics_processing_record: nmdc:omprc-11-7fr5pn24
+INFO:root:legacy_id: emsl:724087
+INFO:root:omics_processing_record: nmdc:omprc-11-6p5wq151
+INFO:root:legacy_id: emsl:724082
+INFO:root:omics_processing_record: nmdc:omprc-11-z7qaw875
+INFO:root:legacy_id: emsl:724088
+INFO:root:omics_processing_record: nmdc:omprc-11-jr74xy25
+INFO:root:legacy_id: emsl:724089
+INFO:root:omics_processing_record: nmdc:omprc-11-t9y1j113
+INFO:root:legacy_id: emsl:724091
+INFO:root:omics_processing_record: nmdc:omprc-11-f61fz451
+INFO:root:legacy_id: emsl:724092
+INFO:root:omics_processing_record: nmdc:omprc-11-9rn4yb09
+INFO:root:legacy_id: emsl:724090
+INFO:root:omics_processing_record: nmdc:omprc-11-yba6vc27
+INFO:root:legacy_id: emsl:724094
+INFO:root:omics_processing_record: nmdc:omprc-11-bpywr174
+INFO:root:legacy_id: emsl:724093
+INFO:root:omics_processing_record: nmdc:omprc-11-g5pcw249
+INFO:root:legacy_id: emsl:724096
+INFO:root:omics_processing_record: nmdc:omprc-11-4vvcg136
+INFO:root:legacy_id: emsl:724095
+INFO:root:omics_processing_record: nmdc:omprc-11-969vz067
+INFO:root:legacy_id: emsl:724097
+INFO:root:omics_processing_record: nmdc:omprc-11-r0jhs134
+INFO:root:legacy_id: emsl:724405
+INFO:root:omics_processing_record: nmdc:omprc-11-kjjc3z87
+INFO:root:legacy_id: emsl:724098
+INFO:root:omics_processing_record: nmdc:omprc-11-xa10s074
+INFO:root:legacy_id: emsl:724407
+INFO:root:omics_processing_record: nmdc:omprc-11-hh1jah95
+INFO:root:legacy_id: emsl:724406
+INFO:root:omics_processing_record: nmdc:omprc-11-m5gz3047
+INFO:root:legacy_id: emsl:724408
+INFO:root:omics_processing_record: nmdc:omprc-11-0wrpqj11
+INFO:root:legacy_id: emsl:724410
+INFO:root:omics_processing_record: nmdc:omprc-11-fpwcvj12
+INFO:root:legacy_id: emsl:724409
+INFO:root:omics_processing_record: nmdc:omprc-11-hxwtdj41
+INFO:root:legacy_id: emsl:724411
+INFO:root:omics_processing_record: nmdc:omprc-11-xtcnky83
+INFO:root:legacy_id: emsl:724414
+INFO:root:omics_processing_record: nmdc:omprc-11-a13hgp20
+INFO:root:legacy_id: emsl:724413
+INFO:root:omics_processing_record: nmdc:omprc-11-td54q538
+INFO:root:legacy_id: emsl:724412
+INFO:root:omics_processing_record: nmdc:omprc-11-5t63rf59
+INFO:root:legacy_id: emsl:724415
+INFO:root:omics_processing_record: nmdc:omprc-11-zns9hc70
+INFO:root:legacy_id: emsl:724416
+INFO:root:omics_processing_record: nmdc:omprc-11-cbz77g83
+INFO:root:legacy_id: emsl:724419
+INFO:root:omics_processing_record: nmdc:omprc-11-bzfjsv63
+INFO:root:legacy_id: emsl:724418
+INFO:root:omics_processing_record: nmdc:omprc-11-91rda692
+INFO:root:legacy_id: emsl:724428
+INFO:root:omics_processing_record: nmdc:omprc-11-bgtzcs75
+INFO:root:legacy_id: emsl:724422
+INFO:root:omics_processing_record: nmdc:omprc-11-46ewpf91
+INFO:root:legacy_id: emsl:724429
+INFO:root:omics_processing_record: nmdc:omprc-11-dx0dep18
+INFO:root:legacy_id: emsl:724423
+INFO:root:omics_processing_record: nmdc:omprc-11-124z1p47
+INFO:root:legacy_id: emsl:724420
+INFO:root:omics_processing_record: nmdc:omprc-11-h5x3ht62
+INFO:root:legacy_id: emsl:724421
+INFO:root:omics_processing_record: nmdc:omprc-11-mwm9yq73
+INFO:root:legacy_id: emsl:724427
+INFO:root:omics_processing_record: nmdc:omprc-11-5y5txf92
+INFO:root:legacy_id: emsl:724430
+INFO:root:omics_processing_record: nmdc:omprc-11-y1nwmq10
+INFO:root:legacy_id: emsl:724417
+INFO:root:omics_processing_record: nmdc:omprc-11-jmqbpr32
+INFO:root:legacy_id: emsl:724424
+INFO:root:omics_processing_record: nmdc:omprc-11-j00knm96
+INFO:root:legacy_id: emsl:724433
+INFO:root:omics_processing_record: nmdc:omprc-11-ca7ds518
+INFO:root:legacy_id: emsl:738616
+INFO:root:omics_processing_record: nmdc:omprc-11-zkdpd682
+INFO:root:legacy_id: emsl:731077
+INFO:root:omics_processing_record: nmdc:omprc-11-ns6p5d89
+INFO:root:legacy_id: emsl:738617
+INFO:root:omics_processing_record: nmdc:omprc-11-xvjhfm93
+INFO:root:legacy_id: emsl:724431
+INFO:root:omics_processing_record: nmdc:omprc-11-jr5dcx94
+INFO:root:legacy_id: emsl:731080
+INFO:root:omics_processing_record: nmdc:omprc-11-fbpp0f91
+INFO:root:legacy_id: emsl:738618
+INFO:root:omics_processing_record: nmdc:omprc-11-8g3bd870
+INFO:root:legacy_id: emsl:738619
+INFO:root:omics_processing_record: nmdc:omprc-11-ndjpyr72
+INFO:root:legacy_id: emsl:738622
+INFO:root:omics_processing_record: nmdc:omprc-11-tnxsy138
+INFO:root:legacy_id: emsl:724436
+INFO:root:omics_processing_record: nmdc:omprc-11-r74bf408
+INFO:root:legacy_id: emsl:738621
+INFO:root:omics_processing_record: nmdc:omprc-11-r0v46e46
+INFO:root:legacy_id: emsl:738620
+INFO:root:omics_processing_record: nmdc:omprc-11-c2cq8w84
+INFO:root:legacy_id: emsl:738623
+INFO:root:omics_processing_record: nmdc:omprc-11-r2ajas93
+INFO:root:legacy_id: emsl:738624
+INFO:root:omics_processing_record: nmdc:omprc-11-tp3j0g63
+INFO:root:legacy_id: emsl:738626
+INFO:root:omics_processing_record: nmdc:omprc-11-q55a5c26
+INFO:root:legacy_id: emsl:738630
+INFO:root:omics_processing_record: nmdc:omprc-11-73x30h48
+INFO:root:legacy_id: emsl:738625
+INFO:root:omics_processing_record: nmdc:omprc-11-rzmc7t10
+INFO:root:legacy_id: emsl:731078
+INFO:root:omics_processing_record: nmdc:omprc-11-18drfd48
+INFO:root:legacy_id: emsl:738628
+INFO:root:omics_processing_record: nmdc:omprc-11-scpbrd05
+INFO:root:legacy_id: emsl:738627
+INFO:root:omics_processing_record: nmdc:omprc-11-d66vt991
+INFO:root:legacy_id: emsl:738632
+INFO:root:omics_processing_record: nmdc:omprc-11-4z41t420
+INFO:root:legacy_id: emsl:738631
+INFO:root:omics_processing_record: nmdc:omprc-11-78a9fd24
+INFO:root:legacy_id: emsl:724437
+INFO:root:omics_processing_record: nmdc:omprc-11-28y8t995
+INFO:root:legacy_id: emsl:738613
+INFO:root:omics_processing_record: nmdc:omprc-11-xcg0qc34
+INFO:root:legacy_id: emsl:738633
+INFO:root:omics_processing_record: nmdc:omprc-11-8hgz8f10
+INFO:root:legacy_id: emsl:724438
+INFO:root:omics_processing_record: nmdc:omprc-11-4xdj3s30
+INFO:root:legacy_id: emsl:738612
+INFO:root:omics_processing_record: nmdc:omprc-11-59h39k59
+INFO:root:legacy_id: emsl:731079
+INFO:root:omics_processing_record: nmdc:omprc-11-haekyd17
+INFO:root:legacy_id: emsl:724432
+INFO:root:omics_processing_record: nmdc:omprc-11-t3087269
+INFO:root:legacy_id: emsl:738614
+INFO:root:omics_processing_record: nmdc:omprc-11-7sv22v66
+INFO:root:legacy_id: emsl:724434
+INFO:root:omics_processing_record: nmdc:omprc-11-1sh30280
+INFO:root:legacy_id: emsl:738615
+INFO:root:omics_processing_record: nmdc:omprc-11-x2v1t879
+INFO:root:legacy_id: emsl:724435
+INFO:root:omics_processing_record: nmdc:omprc-11-rn8hzz02
+INFO:root:legacy_id: emsl:738637
+INFO:root:omics_processing_record: nmdc:omprc-11-2njysg89
+INFO:root:legacy_id: emsl:738636
+INFO:root:omics_processing_record: nmdc:omprc-11-0k9fs359
+INFO:root:legacy_id: emsl:738640
+INFO:root:omics_processing_record: nmdc:omprc-11-c6b4y620
+INFO:root:legacy_id: emsl:738641
+INFO:root:omics_processing_record: nmdc:omprc-11-dz2zce09
+INFO:root:legacy_id: emsl:738638
+INFO:root:omics_processing_record: nmdc:omprc-11-nbpfaq83
+INFO:root:legacy_id: emsl:738643
+INFO:root:omics_processing_record: nmdc:omprc-11-7e022y58
+INFO:root:legacy_id: emsl:738642
+INFO:root:omics_processing_record: nmdc:omprc-11-qtgrph13
+INFO:root:legacy_id: emsl:738645
+INFO:root:omics_processing_record: nmdc:omprc-11-tt3qae70
+INFO:root:legacy_id: emsl:738644
+INFO:root:omics_processing_record: nmdc:omprc-11-sm755a13
+INFO:root:legacy_id: emsl:738647
+INFO:root:omics_processing_record: nmdc:omprc-11-sc4q9v39
+INFO:root:legacy_id: emsl:738648
+INFO:root:omics_processing_record: nmdc:omprc-11-sw4w8v07
+INFO:root:legacy_id: emsl:738649
+INFO:root:omics_processing_record: nmdc:omprc-11-fsewae97
+INFO:root:legacy_id: emsl:738650
+INFO:root:omics_processing_record: nmdc:omprc-11-adhq0r51
+INFO:root:legacy_id: emsl:738646
+INFO:root:omics_processing_record: nmdc:omprc-11-q79wr449
+INFO:root:legacy_id: emsl:738651
+INFO:root:omics_processing_record: nmdc:omprc-11-q5v8dt49
+INFO:root:legacy_id: emsl:738653
+INFO:root:omics_processing_record: nmdc:omprc-11-12jf3456
+INFO:root:legacy_id: emsl:738655
+INFO:root:omics_processing_record: nmdc:omprc-11-zt2c3f72
+INFO:root:legacy_id: emsl:738652
+INFO:root:omics_processing_record: nmdc:omprc-11-vzs8vp08
+INFO:root:legacy_id: emsl:738657
+INFO:root:omics_processing_record: nmdc:omprc-11-mbtk1e51
+INFO:root:legacy_id: emsl:738658
+INFO:root:omics_processing_record: nmdc:omprc-11-c47v1b47
+INFO:root:legacy_id: emsl:738656
+INFO:root:omics_processing_record: nmdc:omprc-11-chmjxr22
+INFO:root:legacy_id: emsl:738662
+INFO:root:omics_processing_record: nmdc:omprc-11-zykm2w67
+INFO:root:legacy_id: emsl:738668
+INFO:root:omics_processing_record: nmdc:omprc-11-k5st6g31
+INFO:root:legacy_id: emsl:738659
+INFO:root:omics_processing_record: nmdc:omprc-11-r5be0s52
+INFO:root:legacy_id: emsl:738671
+INFO:root:omics_processing_record: nmdc:omprc-11-qd2a1p74
+INFO:root:legacy_id: emsl:738660
+INFO:root:omics_processing_record: nmdc:omprc-11-dgvmc543
+INFO:root:legacy_id: emsl:738669
+INFO:root:omics_processing_record: nmdc:omprc-11-yww37322
+INFO:root:legacy_id: emsl:738672
+INFO:root:omics_processing_record: nmdc:omprc-11-161k0w89
+INFO:root:legacy_id: emsl:738674
+INFO:root:omics_processing_record: nmdc:omprc-11-hpvrgr34
+INFO:root:legacy_id: emsl:738673
+INFO:root:omics_processing_record: nmdc:omprc-11-38r98d70
+INFO:root:legacy_id: emsl:738661
+INFO:root:omics_processing_record: nmdc:omprc-11-t8jm8663
+INFO:root:legacy_id: emsl:738675
+INFO:root:omics_processing_record: nmdc:omprc-11-endfv043
+INFO:root:legacy_id: emsl:738676
+INFO:root:omics_processing_record: nmdc:omprc-11-rww18t48
+INFO:root:legacy_id: emsl:738678
+INFO:root:omics_processing_record: nmdc:omprc-11-7s9e4e04
+INFO:root:legacy_id: emsl:738679
+INFO:root:omics_processing_record: nmdc:omprc-11-kvkx2z37
+INFO:root:legacy_id: emsl:738682
+INFO:root:omics_processing_record: nmdc:omprc-11-ea6hcf61
+INFO:root:legacy_id: emsl:738677
+INFO:root:omics_processing_record: nmdc:omprc-11-9mv6dc61
+INFO:root:legacy_id: emsl:738683
+INFO:root:omics_processing_record: nmdc:omprc-11-eny9af28
+INFO:root:legacy_id: emsl:738685
+INFO:root:omics_processing_record: nmdc:omprc-11-mct8r134
+INFO:root:legacy_id: emsl:738687
+INFO:root:omics_processing_record: nmdc:omprc-11-g4xcrx69
+INFO:root:legacy_id: emsl:738686
+INFO:root:omics_processing_record: nmdc:omprc-11-zhjanf82
+INFO:root:legacy_id: emsl:738688
+INFO:root:omics_processing_record: nmdc:omprc-11-38m6nj47
+INFO:root:legacy_id: emsl:738684
+INFO:root:omics_processing_record: nmdc:omprc-11-4x7wvs50
+INFO:root:legacy_id: emsl:738680
+INFO:root:omics_processing_record: nmdc:omprc-11-wrvryq81
+INFO:root:legacy_id: emsl:738691
+INFO:root:omics_processing_record: nmdc:omprc-11-7p5yh409
+INFO:root:legacy_id: emsl:738690
+INFO:root:omics_processing_record: nmdc:omprc-11-9btb0f16
+INFO:root:legacy_id: emsl:738692
+INFO:root:omics_processing_record: nmdc:omprc-11-ebwjfr75
+INFO:root:legacy_id: emsl:738693
+INFO:root:omics_processing_record: nmdc:omprc-11-hgsbzd54
+INFO:root:legacy_id: emsl:738689
+INFO:root:omics_processing_record: nmdc:omprc-11-y9dxx320
+INFO:root:legacy_id: emsl:738695
+INFO:root:omics_processing_record: nmdc:omprc-11-az8j2h74
+INFO:root:legacy_id: emsl:738696
+INFO:root:omics_processing_record: nmdc:omprc-11-vf19sb33
+INFO:root:legacy_id: emsl:738694
+INFO:root:omics_processing_record: nmdc:omprc-11-m7ygh689
+INFO:root:legacy_id: emsl:738697
+INFO:root:omics_processing_record: nmdc:omprc-11-tecnk371
+INFO:root:legacy_id: emsl:738698
+INFO:root:omics_processing_record: nmdc:omprc-11-h5mxac55
+INFO:root:legacy_id: emsl:738699
+INFO:root:omics_processing_record: nmdc:omprc-11-eykya571
+INFO:root:legacy_id: emsl:738700
+INFO:root:omics_processing_record: nmdc:omprc-11-95catj32
+INFO:root:legacy_id: emsl:738701
+INFO:root:omics_processing_record: nmdc:omprc-11-e1v0z392
+INFO:root:legacy_id: emsl:738705
+INFO:root:omics_processing_record: nmdc:omprc-11-w41n1r73
+INFO:root:legacy_id: emsl:738702
+INFO:root:omics_processing_record: nmdc:omprc-11-0azt4973
+INFO:root:legacy_id: emsl:738720
+INFO:root:omics_processing_record: nmdc:omprc-11-vzf0e332
+INFO:root:legacy_id: emsl:738706
+INFO:root:omics_processing_record: nmdc:omprc-11-72km8517
+INFO:root:legacy_id: emsl:738704
+INFO:root:omics_processing_record: nmdc:omprc-11-5c8pk582
+INFO:root:legacy_id: emsl:738723
+INFO:root:omics_processing_record: nmdc:omprc-11-rb4y5x71
+INFO:root:legacy_id: emsl:738724
+INFO:root:omics_processing_record: nmdc:omprc-11-rba9ca78
+INFO:root:legacy_id: emsl:738725
+INFO:root:omics_processing_record: nmdc:omprc-11-x3b7vp27
+INFO:root:legacy_id: emsl:738721
+INFO:root:omics_processing_record: nmdc:omprc-11-n27mxr96
+INFO:root:legacy_id: emsl:738726
+INFO:root:omics_processing_record: nmdc:omprc-11-ftzqsg70
+INFO:root:legacy_id: emsl:738722
+INFO:root:omics_processing_record: nmdc:omprc-11-nr4wy934
+INFO:root:legacy_id: emsl:738728
+INFO:root:omics_processing_record: nmdc:omprc-11-mzwxmy90
+INFO:root:legacy_id: emsl:738729
+INFO:root:omics_processing_record: nmdc:omprc-11-5gfwth66
+INFO:root:legacy_id: emsl:738727
+INFO:root:omics_processing_record: nmdc:omprc-11-dd1v8383
+INFO:root:legacy_id: emsl:738738
+INFO:root:omics_processing_record: nmdc:omprc-11-ddfgwy38
+INFO:root:legacy_id: emsl:738735
+INFO:root:omics_processing_record: nmdc:omprc-11-35pmt522
+INFO:root:legacy_id: emsl:738737
+INFO:root:omics_processing_record: nmdc:omprc-11-0k0g1p09
+INFO:root:legacy_id: emsl:738739
+INFO:root:omics_processing_record: nmdc:omprc-11-728s8471
+INFO:root:legacy_id: emsl:738743
+INFO:root:omics_processing_record: nmdc:omprc-11-aa5ec902
+INFO:root:legacy_id: emsl:738747
+INFO:root:omics_processing_record: nmdc:omprc-11-16rvwt69
+INFO:root:legacy_id: emsl:738746
+INFO:root:omics_processing_record: nmdc:omprc-11-tvtt9m13
+INFO:root:legacy_id: emsl:738740
+INFO:root:omics_processing_record: nmdc:omprc-11-f4p6p742
+INFO:root:legacy_id: emsl:738744
+INFO:root:omics_processing_record: nmdc:omprc-11-ev6k6v68
+INFO:root:legacy_id: emsl:738745
+INFO:root:omics_processing_record: nmdc:omprc-11-9xfb9e80
+INFO:root:legacy_id: emsl:738748
+INFO:root:omics_processing_record: nmdc:omprc-11-pm508t70
+INFO:root:legacy_id: emsl:738750
+INFO:root:omics_processing_record: nmdc:omprc-11-nf8cam41
+INFO:root:legacy_id: emsl:738753
+INFO:root:omics_processing_record: nmdc:omprc-11-zsm7g281
+INFO:root:legacy_id: emsl:738752
+INFO:root:omics_processing_record: nmdc:omprc-11-077nww93
+INFO:root:legacy_id: emsl:738751
+INFO:root:omics_processing_record: nmdc:omprc-11-j6a07g15
+INFO:root:legacy_id: emsl:738754
+INFO:root:omics_processing_record: nmdc:omprc-11-cfmrh989
+INFO:root:legacy_id: emsl:738755
+INFO:root:omics_processing_record: nmdc:omprc-11-0sc76a11
+INFO:root:legacy_id: emsl:738756
+INFO:root:omics_processing_record: nmdc:omprc-11-x0ab9397
+INFO:root:legacy_id: emsl:738749
+INFO:root:omics_processing_record: nmdc:omprc-11-jby4m321
+INFO:root:legacy_id: emsl:738757
+INFO:root:omics_processing_record: nmdc:omprc-11-00383810
+INFO:root:legacy_id: emsl:738758
+INFO:root:omics_processing_record: nmdc:omprc-11-3h27b735
+INFO:root:legacy_id: emsl:738759
+INFO:root:omics_processing_record: nmdc:omprc-11-rt8y9b75
+INFO:root:legacy_id: emsl:738760
+INFO:root:omics_processing_record: nmdc:omprc-11-rsprhc80
+INFO:root:legacy_id: emsl:738762
+INFO:root:omics_processing_record: nmdc:omprc-11-y4zf9y48
+INFO:root:legacy_id: emsl:738761
+INFO:root:omics_processing_record: nmdc:omprc-11-fssms686
+INFO:root:legacy_id: emsl:738763
+INFO:root:omics_processing_record: nmdc:omprc-11-rpjztv09
+INFO:root:legacy_id: emsl:738766
+INFO:root:omics_processing_record: nmdc:omprc-11-xpccey56
+INFO:root:legacy_id: emsl:738765
+INFO:root:omics_processing_record: nmdc:omprc-11-82wzvr47
+INFO:root:legacy_id: emsl:738767
+INFO:root:omics_processing_record: nmdc:omprc-11-a142hb16
+INFO:root:legacy_id: emsl:738768
+INFO:root:omics_processing_record: nmdc:omprc-11-fj6qpn10
+INFO:root:legacy_id: emsl:738764
+INFO:root:omics_processing_record: nmdc:omprc-11-c334q041
+INFO:root:legacy_id: emsl:738769
+INFO:root:omics_processing_record: nmdc:omprc-11-5bqn1x12
+INFO:root:legacy_id: emsl:738770
+INFO:root:omics_processing_record: nmdc:omprc-11-jg1t6z38
+INFO:root:legacy_id: emsl:738771
+INFO:root:omics_processing_record: nmdc:omprc-11-x33m3r78
+INFO:root:legacy_id: emsl:738772
+INFO:root:omics_processing_record: nmdc:omprc-11-hh9adz38
+INFO:root:legacy_id: emsl:738774
+INFO:root:omics_processing_record: nmdc:omprc-11-343k5431
+INFO:root:legacy_id: emsl:738773
+INFO:root:omics_processing_record: nmdc:omprc-11-btbzd907
+INFO:root:legacy_id: emsl:738776
+INFO:root:omics_processing_record: nmdc:omprc-11-kderev77
+INFO:root:legacy_id: emsl:738775
+INFO:root:omics_processing_record: nmdc:omprc-11-6xc0h180
+INFO:root:legacy_id: emsl:738778
+INFO:root:omics_processing_record: nmdc:omprc-11-cq27eh51
+INFO:root:legacy_id: emsl:738779
+INFO:root:omics_processing_record: nmdc:omprc-11-4bwt4h87
+INFO:root:legacy_id: emsl:738777
+INFO:root:omics_processing_record: nmdc:omprc-11-r45e8023
+INFO:root:legacy_id: emsl:738781
+INFO:root:omics_processing_record: nmdc:omprc-11-qvj0kw75
+INFO:root:legacy_id: emsl:738780
+INFO:root:omics_processing_record: nmdc:omprc-11-p29fy802
+INFO:root:legacy_id: emsl:738782
+INFO:root:omics_processing_record: nmdc:omprc-11-f1dwmd03
+INFO:root:legacy_id: emsl:738784
+INFO:root:omics_processing_record: nmdc:omprc-11-4972zs67
+INFO:root:legacy_id: emsl:738785
+INFO:root:omics_processing_record: nmdc:omprc-11-44gwjk25
+INFO:root:legacy_id: emsl:738783
+INFO:root:omics_processing_record: nmdc:omprc-11-mdj3xf66
+INFO:root:legacy_id: emsl:738786
+INFO:root:omics_processing_record: nmdc:omprc-11-jz0btn60
+INFO:root:legacy_id: emsl:738787
+INFO:root:omics_processing_record: nmdc:omprc-11-j3yhxg66
+INFO:root:legacy_id: emsl:738791
+INFO:root:omics_processing_record: nmdc:omprc-11-a9se5p84
+INFO:root:legacy_id: emsl:738792
+INFO:root:omics_processing_record: nmdc:omprc-11-39x7cc71
+INFO:root:legacy_id: emsl:738788
+INFO:root:omics_processing_record: nmdc:omprc-11-9deve776
+INFO:root:legacy_id: emsl:738794
+INFO:root:omics_processing_record: nmdc:omprc-11-bmtpjj33
+INFO:root:legacy_id: emsl:738793
+INFO:root:omics_processing_record: nmdc:omprc-11-rjwysn24
+INFO:root:legacy_id: emsl:738796
+INFO:root:omics_processing_record: nmdc:omprc-11-2j94jz34
+INFO:root:legacy_id: emsl:738795
+INFO:root:omics_processing_record: nmdc:omprc-11-937x4g02
+INFO:root:legacy_id: emsl:738798
+INFO:root:omics_processing_record: nmdc:omprc-11-aq1gz632
+INFO:root:legacy_id: emsl:738797
+INFO:root:omics_processing_record: nmdc:omprc-11-bbjc2645
+INFO:root:legacy_id: emsl:738799
+INFO:root:omics_processing_record: nmdc:omprc-11-ysdrmm94
+INFO:root:legacy_id: emsl:738802
+INFO:root:omics_processing_record: nmdc:omprc-11-g3w2mb54
+INFO:root:legacy_id: emsl:738804
+INFO:root:omics_processing_record: nmdc:omprc-11-m5j53d60
+INFO:root:legacy_id: emsl:738800
+INFO:root:omics_processing_record: nmdc:omprc-11-d1bk0n36
+INFO:root:legacy_id: emsl:738803
+INFO:root:omics_processing_record: nmdc:omprc-11-3pf9c248
+INFO:root:legacy_id: emsl:738805
+INFO:root:omics_processing_record: nmdc:omprc-11-gxjzcm36
+INFO:root:legacy_id: emsl:738808
+INFO:root:omics_processing_record: nmdc:omprc-11-5ethx107
+INFO:root:legacy_id: emsl:738806
+INFO:root:omics_processing_record: nmdc:omprc-11-sxzd0555
+INFO:root:legacy_id: emsl:738809
+INFO:root:omics_processing_record: nmdc:omprc-11-rzg42j42
+INFO:root:legacy_id: emsl:738814
+INFO:root:omics_processing_record: nmdc:omprc-11-8td2gq03
+INFO:root:legacy_id: emsl:738810
+INFO:root:omics_processing_record: nmdc:omprc-11-7rq3ex03
+INFO:root:legacy_id: emsl:738815
+INFO:root:omics_processing_record: nmdc:omprc-11-9502zr85
+INFO:root:legacy_id: emsl:738816
+INFO:root:omics_processing_record: nmdc:omprc-11-fxekz673
+INFO:root:legacy_id: emsl:738817
+INFO:root:omics_processing_record: nmdc:omprc-11-ydm3fp05
+INFO:root:legacy_id: emsl:738818
+INFO:root:omics_processing_record: nmdc:omprc-11-r66hap73
+INFO:root:legacy_id: emsl:738811
+INFO:root:omics_processing_record: nmdc:omprc-11-3e3ry727
+INFO:root:legacy_id: emsl:738820
+INFO:root:omics_processing_record: nmdc:omprc-11-qh2bk797
+INFO:root:legacy_id: emsl:738819
+INFO:root:omics_processing_record: nmdc:omprc-11-s9xtq276
+INFO:root:legacy_id: emsl:738822
+INFO:root:omics_processing_record: nmdc:omprc-11-k65gfz32
+INFO:root:legacy_id: emsl:738824
+INFO:root:omics_processing_record: nmdc:omprc-11-sb2mqn79
+INFO:root:legacy_id: emsl:738821
+INFO:root:omics_processing_record: nmdc:omprc-11-gf3z0496
+INFO:root:legacy_id: emsl:738826
+INFO:root:omics_processing_record: nmdc:omprc-11-9r3d2m46
+INFO:root:legacy_id: emsl:738827
+INFO:root:omics_processing_record: nmdc:omprc-11-zb5kt020
+INFO:root:legacy_id: emsl:738831
+INFO:root:omics_processing_record: nmdc:omprc-11-ctr64v46
+INFO:root:legacy_id: emsl:738832
+INFO:root:omics_processing_record: nmdc:omprc-11-286vgj49
+INFO:root:legacy_id: emsl:738833
+INFO:root:omics_processing_record: nmdc:omprc-11-esmz1m96
+INFO:root:legacy_id: emsl:738825
+INFO:root:omics_processing_record: nmdc:omprc-11-g5nser40
+INFO:root:legacy_id: emsl:738834
+INFO:root:omics_processing_record: nmdc:omprc-11-s9w13372
+INFO:root:legacy_id: emsl:738836
+INFO:root:omics_processing_record: nmdc:omprc-11-m5begt41
+INFO:root:legacy_id: emsl:738837
+INFO:root:omics_processing_record: nmdc:omprc-11-bfgn9566
+INFO:root:legacy_id: emsl:738839
+INFO:root:omics_processing_record: nmdc:omprc-11-h3dq5425
+INFO:root:legacy_id: emsl:738829
+INFO:root:omics_processing_record: nmdc:omprc-11-p38fqr69
+INFO:root:legacy_id: emsl:738838
+INFO:root:omics_processing_record: nmdc:omprc-11-9gdey850
+INFO:root:legacy_id: emsl:738840
+INFO:root:omics_processing_record: nmdc:omprc-11-rxvzx162
+INFO:root:legacy_id: emsl:738841
+INFO:root:omics_processing_record: nmdc:omprc-11-erzxnw58
+INFO:root:legacy_id: emsl:738844
+INFO:root:omics_processing_record: nmdc:omprc-11-ctn1ah51
+INFO:root:legacy_id: emsl:738843
+INFO:root:omics_processing_record: nmdc:omprc-11-g0pjdn65
+INFO:root:legacy_id: emsl:738847
+INFO:root:omics_processing_record: nmdc:omprc-11-p2f9vf13
+INFO:root:legacy_id: emsl:738846
+INFO:root:omics_processing_record: nmdc:omprc-11-hdn9rw67
+INFO:root:legacy_id: emsl:738849
+INFO:root:omics_processing_record: nmdc:omprc-11-xbjdek61
+INFO:root:legacy_id: emsl:738865
+INFO:root:omics_processing_record: nmdc:omprc-11-d7jy0430
+INFO:root:legacy_id: emsl:738853
+INFO:root:omics_processing_record: nmdc:omprc-11-2s8azf10
+INFO:root:legacy_id: emsl:738845
+INFO:root:omics_processing_record: nmdc:omprc-11-3bsf1j46
+INFO:root:legacy_id: emsl:738870
+INFO:root:omics_processing_record: nmdc:omprc-11-q0ps1q22
+INFO:root:legacy_id: emsl:738867
+INFO:root:omics_processing_record: nmdc:omprc-11-w686et39
+INFO:root:legacy_id: emsl:738871
+INFO:root:omics_processing_record: nmdc:omprc-11-3v5ey087
+INFO:root:legacy_id: emsl:738869
+INFO:root:omics_processing_record: nmdc:omprc-11-4fz9sa63
+INFO:root:legacy_id: emsl:739456
+INFO:root:omics_processing_record: nmdc:omprc-11-n26eke64
+INFO:root:legacy_id: emsl:739458
+INFO:root:omics_processing_record: nmdc:omprc-11-gp6h9e51
+INFO:root:legacy_id: emsl:738862
+INFO:root:omics_processing_record: nmdc:omprc-11-mr66yh87
+INFO:root:legacy_id: emsl:739460
+INFO:root:omics_processing_record: nmdc:omprc-11-d9epaf81
+INFO:root:legacy_id: emsl:738861
+INFO:root:omics_processing_record: nmdc:omprc-11-v2bv1e89
+INFO:root:legacy_id: emsl:739462
+INFO:root:omics_processing_record: nmdc:omprc-11-jnz6cf12
+INFO:root:legacy_id: emsl:739457
+INFO:root:omics_processing_record: nmdc:omprc-11-kt3e7361
+INFO:root:legacy_id: emsl:739459
+INFO:root:omics_processing_record: nmdc:omprc-11-wmqtj834
+INFO:root:legacy_id: emsl:739463
+INFO:root:omics_processing_record: nmdc:omprc-11-0axgtd43
+INFO:root:legacy_id: emsl:739465
+INFO:root:omics_processing_record: nmdc:omprc-11-ev20h209
+INFO:root:legacy_id: emsl:739461
+INFO:root:omics_processing_record: nmdc:omprc-11-r39g8a97
+INFO:root:legacy_id: emsl:739466
+INFO:root:omics_processing_record: nmdc:omprc-11-ex2xjz39
+INFO:root:legacy_id: emsl:738857
+INFO:root:omics_processing_record: nmdc:omprc-11-d2xj9545
+INFO:root:legacy_id: emsl:739468
+INFO:root:omics_processing_record: nmdc:omprc-11-w059vd36
+INFO:root:legacy_id: emsl:739467
+INFO:root:omics_processing_record: nmdc:omprc-11-emm5k305
+INFO:root:legacy_id: emsl:739469
+INFO:root:omics_processing_record: nmdc:omprc-11-082yx178
+INFO:root:legacy_id: emsl:738863
+INFO:root:omics_processing_record: nmdc:omprc-11-mqctwg03
+INFO:root:legacy_id: emsl:738851
+INFO:root:omics_processing_record: nmdc:omprc-11-6ks2f736
+INFO:root:legacy_id: emsl:739474
+INFO:root:omics_processing_record: nmdc:omprc-11-bxrwrv31
+INFO:root:legacy_id: emsl:739475
+INFO:root:omics_processing_record: nmdc:omprc-11-dn07kn75
+INFO:root:legacy_id: emsl:738850
+INFO:root:omics_processing_record: nmdc:omprc-11-j3r5qn16
+INFO:root:legacy_id: emsl:738864
+INFO:root:omics_processing_record: nmdc:omprc-11-qxtjyg27
+INFO:root:legacy_id: emsl:739477
+INFO:root:omics_processing_record: nmdc:omprc-11-f9czqx50
+INFO:root:legacy_id: emsl:739472
+INFO:root:omics_processing_record: nmdc:omprc-11-bgs7jm50
+INFO:root:legacy_id: emsl:738852
+INFO:root:omics_processing_record: nmdc:omprc-11-dzd6ss74
+INFO:root:legacy_id: emsl:739471
+INFO:root:omics_processing_record: nmdc:omprc-11-rbgfvf12
+INFO:root:legacy_id: emsl:739476
+INFO:root:omics_processing_record: nmdc:omprc-11-gtc44797
+INFO:root:legacy_id: emsl:738856
+INFO:root:omics_processing_record: nmdc:omprc-11-1h43bm61
+INFO:root:legacy_id: emsl:739483
+INFO:root:omics_processing_record: nmdc:omprc-11-9cf36460
+INFO:root:legacy_id: emsl:739481
+INFO:root:omics_processing_record: nmdc:omprc-11-q6qtvf50
+INFO:root:legacy_id: emsl:739489
+INFO:root:omics_processing_record: nmdc:omprc-11-v2s7wt02
+INFO:root:legacy_id: emsl:739488
+INFO:root:omics_processing_record: nmdc:omprc-11-5e7wsa78
+INFO:root:legacy_id: emsl:739478
+INFO:root:omics_processing_record: nmdc:omprc-11-5fe76w81
+INFO:root:legacy_id: emsl:739480
+INFO:root:omics_processing_record: nmdc:omprc-11-h1pqwh46
+INFO:root:legacy_id: emsl:739479
+INFO:root:omics_processing_record: nmdc:omprc-11-23gte893
+INFO:root:legacy_id: emsl:743556
+INFO:root:omics_processing_record: nmdc:omprc-11-27fz6s68
+INFO:root:legacy_id: emsl:738855
+INFO:root:omics_processing_record: nmdc:omprc-11-g5kv6k03
+INFO:root:legacy_id: emsl:739486
+INFO:root:omics_processing_record: nmdc:omprc-11-dyh4hp51
+INFO:root:legacy_id: emsl:743557
+INFO:root:omics_processing_record: nmdc:omprc-11-h274xn54
+INFO:root:legacy_id: emsl:739484
+INFO:root:omics_processing_record: nmdc:omprc-11-gqxdrf92
+INFO:root:legacy_id: emsl:743560
+INFO:root:omics_processing_record: nmdc:omprc-11-h5zjts80
+INFO:root:legacy_id: emsl:743561
+INFO:root:omics_processing_record: nmdc:omprc-11-fjaf5x26
+INFO:root:legacy_id: emsl:739487
+INFO:root:omics_processing_record: nmdc:omprc-11-w8hxmq76
+INFO:root:legacy_id: emsl:743562
+INFO:root:omics_processing_record: nmdc:omprc-11-18bvsb52
+INFO:root:legacy_id: emsl:743558
+INFO:root:omics_processing_record: nmdc:omprc-11-436vnt35
+INFO:root:legacy_id: emsl:739482
+INFO:root:omics_processing_record: nmdc:omprc-11-1r0xzj92
+INFO:root:legacy_id: emsl:743559
+INFO:root:omics_processing_record: nmdc:omprc-11-s6774r92
+INFO:root:legacy_id: emsl:743564
+INFO:root:omics_processing_record: nmdc:omprc-11-8qxxfh56
+INFO:root:legacy_id: emsl:743563
+INFO:root:omics_processing_record: nmdc:omprc-11-tpzfbc47
+INFO:root:legacy_id: emsl:743569
+INFO:root:omics_processing_record: nmdc:omprc-11-a9n8zj05
+INFO:root:legacy_id: emsl:743568
+INFO:root:omics_processing_record: nmdc:omprc-11-pzydw669
+INFO:root:legacy_id: emsl:743567
+INFO:root:omics_processing_record: nmdc:omprc-11-z47ysk63
+INFO:root:legacy_id: emsl:743572
+INFO:root:omics_processing_record: nmdc:omprc-11-jh7edf15
+INFO:root:legacy_id: emsl:739485
+INFO:root:omics_processing_record: nmdc:omprc-11-rcr6ty92
+INFO:root:legacy_id: emsl:743570
+INFO:root:omics_processing_record: nmdc:omprc-11-dyw8rx80
+INFO:root:legacy_id: emsl:743571
+INFO:root:omics_processing_record: nmdc:omprc-11-gmv6sa24
+INFO:root:legacy_id: emsl:743576
+INFO:root:omics_processing_record: nmdc:omprc-11-ppm4mx05
+INFO:root:legacy_id: emsl:743566
+INFO:root:omics_processing_record: nmdc:omprc-11-cawcwm11
+INFO:root:legacy_id: emsl:743575
+INFO:root:omics_processing_record: nmdc:omprc-11-2wksyj50
+INFO:root:legacy_id: emsl:743578
+INFO:root:omics_processing_record: nmdc:omprc-11-qfvk6874
+INFO:root:legacy_id: emsl:743579
+INFO:root:omics_processing_record: nmdc:omprc-11-vk6e2q41
+INFO:root:legacy_id: emsl:743580
+INFO:root:omics_processing_record: nmdc:omprc-11-3njhqd74
+INFO:root:legacy_id: emsl:743581
+INFO:root:omics_processing_record: nmdc:omprc-11-44dyvv09
+INFO:root:legacy_id: emsl:743582
+INFO:root:omics_processing_record: nmdc:omprc-11-sry4y818
+INFO:root:legacy_id: emsl:743583
+INFO:root:omics_processing_record: nmdc:omprc-11-aks6pa89
+INFO:root:legacy_id: emsl:743584
+INFO:root:omics_processing_record: nmdc:omprc-11-7r54f509
+INFO:root:legacy_id: emsl:743585
+INFO:root:omics_processing_record: nmdc:omprc-11-jmc6ab81
+INFO:root:legacy_id: emsl:743586
+INFO:root:omics_processing_record: nmdc:omprc-11-kfkr8v14
+INFO:root:legacy_id: emsl:743587
+INFO:root:omics_processing_record: nmdc:omprc-11-r6w5mt02
+INFO:root:legacy_id: emsl:743588
+INFO:root:omics_processing_record: nmdc:omprc-11-3abb3q40
+INFO:root:legacy_id: emsl:743589
+INFO:root:omics_processing_record: nmdc:omprc-11-th5cyk90
+INFO:root:legacy_id: emsl:743591
+INFO:root:omics_processing_record: nmdc:omprc-11-p054r264
+INFO:root:legacy_id: emsl:743590
+INFO:root:omics_processing_record: nmdc:omprc-11-ksp6np30
+INFO:root:legacy_id: emsl:743594
+INFO:root:omics_processing_record: nmdc:omprc-11-3pmcnh87
+INFO:root:legacy_id: emsl:743595
+INFO:root:omics_processing_record: nmdc:omprc-11-xqf09580
+INFO:root:legacy_id: emsl:743593
+INFO:root:omics_processing_record: nmdc:omprc-11-34yyqj71
+INFO:root:legacy_id: emsl:743592
+INFO:root:omics_processing_record: nmdc:omprc-11-r418ym62
+INFO:root:legacy_id: emsl:743597
+INFO:root:omics_processing_record: nmdc:omprc-11-3ajvwz58
+INFO:root:legacy_id: emsl:743600
+INFO:root:omics_processing_record: nmdc:omprc-11-faq86e15
+INFO:root:legacy_id: emsl:743598
+INFO:root:omics_processing_record: nmdc:omprc-11-zag02388
+INFO:root:legacy_id: emsl:743596
+INFO:root:omics_processing_record: nmdc:omprc-11-ybphwj40
+INFO:root:legacy_id: emsl:743599
+INFO:root:omics_processing_record: nmdc:omprc-11-ybbm1n88
+INFO:root:legacy_id: emsl:743601
+INFO:root:omics_processing_record: nmdc:omprc-11-pckmv931
+INFO:root:legacy_id: emsl:747940
+INFO:root:omics_processing_record: nmdc:omprc-11-tnkgcg20
+INFO:root:legacy_id: emsl:747941
+INFO:root:omics_processing_record: nmdc:omprc-11-z2s2q036
+INFO:root:legacy_id: emsl:747938
+INFO:root:omics_processing_record: nmdc:omprc-11-602yjb23
+INFO:root:legacy_id: emsl:747948
+INFO:root:omics_processing_record: nmdc:omprc-11-nekaa067
+INFO:root:legacy_id: emsl:747951
+INFO:root:omics_processing_record: nmdc:omprc-11-whaqb374
+INFO:root:legacy_id: emsl:747939
+INFO:root:omics_processing_record: nmdc:omprc-11-ehz9st39
+INFO:root:legacy_id: emsl:747955
+INFO:root:omics_processing_record: nmdc:omprc-11-yvw2jv44
+INFO:root:legacy_id: emsl:747960
+INFO:root:omics_processing_record: nmdc:omprc-11-7w84w224
+INFO:root:legacy_id: emsl:747959
+INFO:root:omics_processing_record: nmdc:omprc-11-zcq9mn03
+INFO:root:legacy_id: emsl:747956
+INFO:root:omics_processing_record: nmdc:omprc-11-hjqwx103
+INFO:root:legacy_id: emsl:747945
+INFO:root:omics_processing_record: nmdc:omprc-11-e3a4b128
+INFO:root:legacy_id: emsl:747953
+INFO:root:omics_processing_record: nmdc:omprc-11-7m8py655
+INFO:root:legacy_id: emsl:747957
+INFO:root:omics_processing_record: nmdc:omprc-11-rn9an303
+INFO:root:legacy_id: emsl:747958
+INFO:root:omics_processing_record: nmdc:omprc-11-9szv3v28
+INFO:root:legacy_id: emsl:747949
+INFO:root:omics_processing_record: nmdc:omprc-11-bjn35881
+INFO:root:legacy_id: emsl:747952
+INFO:root:omics_processing_record: nmdc:omprc-11-j08n2a21
+INFO:root:legacy_id: emsl:747963
+INFO:root:omics_processing_record: nmdc:omprc-11-5j43x242
+INFO:root:legacy_id: emsl:747964
+INFO:root:omics_processing_record: nmdc:omprc-11-d7k4c925
+INFO:root:legacy_id: emsl:747961
+INFO:root:omics_processing_record: nmdc:omprc-11-d0eb2316
+INFO:root:legacy_id: emsl:747962
+INFO:root:omics_processing_record: nmdc:omprc-11-rf56m648
+INFO:root:legacy_id: emsl:747967
+INFO:root:omics_processing_record: nmdc:omprc-11-wbdcew17
+INFO:root:legacy_id: emsl:747965
+INFO:root:omics_processing_record: nmdc:omprc-11-db9cx004
+INFO:root:legacy_id: emsl:747942
+INFO:root:omics_processing_record: nmdc:omprc-11-1ej3c738
+INFO:root:legacy_id: emsl:747950
+INFO:root:omics_processing_record: nmdc:omprc-11-e00d9b89
+INFO:root:legacy_id: emsl:747946
+INFO:root:omics_processing_record: nmdc:omprc-11-xwagap85
+INFO:root:legacy_id: emsl:747947
+INFO:root:omics_processing_record: nmdc:omprc-11-vzpgnm05
+INFO:root:legacy_id: emsl:747968
+INFO:root:omics_processing_record: nmdc:omprc-11-me5f5n76
+INFO:root:legacy_id: emsl:747954
+INFO:root:omics_processing_record: nmdc:omprc-11-1z56yj81
+INFO:root:legacy_id: emsl:747974
+INFO:root:omics_processing_record: nmdc:omprc-11-0v6ypn79
+INFO:root:legacy_id: emsl:747973
+INFO:root:omics_processing_record: nmdc:omprc-11-f1pcnb81
+INFO:root:legacy_id: emsl:747975
+INFO:root:omics_processing_record: nmdc:omprc-11-a4vc3f43
+INFO:root:legacy_id: emsl:747976
+INFO:root:omics_processing_record: nmdc:omprc-11-eepr5m85
+INFO:root:legacy_id: emsl:747970
+INFO:root:omics_processing_record: nmdc:omprc-11-qxj5gy93
+INFO:root:legacy_id: emsl:747977
+INFO:root:omics_processing_record: nmdc:omprc-11-a3ya2591
+INFO:root:legacy_id: emsl:747978
+INFO:root:omics_processing_record: nmdc:omprc-11-db61jq89
+INFO:root:legacy_id: emsl:747982
+INFO:root:omics_processing_record: nmdc:omprc-11-abpk1108
+INFO:root:legacy_id: emsl:747983
+INFO:root:omics_processing_record: nmdc:omprc-11-ygj24642
+INFO:root:legacy_id: emsl:747985
+INFO:root:omics_processing_record: nmdc:omprc-11-eatrbs73
+INFO:root:legacy_id: emsl:747981
+INFO:root:omics_processing_record: nmdc:omprc-11-5evh3135
+INFO:root:legacy_id: emsl:747989
+INFO:root:omics_processing_record: nmdc:omprc-11-qg346k90
+INFO:root:legacy_id: emsl:747986
+INFO:root:omics_processing_record: nmdc:omprc-11-5rq7w608
+INFO:root:legacy_id: emsl:747987
+INFO:root:omics_processing_record: nmdc:omprc-11-0c11c271
+INFO:root:legacy_id: emsl:747990
+INFO:root:omics_processing_record: nmdc:omprc-11-jjwsd752
+INFO:root:legacy_id: emsl:747996
+INFO:root:omics_processing_record: nmdc:omprc-11-g85gdb36
+INFO:root:legacy_id: emsl:747997
+INFO:root:omics_processing_record: nmdc:omprc-11-qn9nhh12
+INFO:root:legacy_id: emsl:747999
+INFO:root:omics_processing_record: nmdc:omprc-11-3x68c186
+INFO:root:legacy_id: emsl:748001
+INFO:root:omics_processing_record: nmdc:omprc-11-khxbww22
+INFO:root:legacy_id: emsl:747998
+INFO:root:omics_processing_record: nmdc:omprc-11-0p45x689
+INFO:root:legacy_id: emsl:747988
+INFO:root:omics_processing_record: nmdc:omprc-11-4pb6gb10
+INFO:root:legacy_id: emsl:748000
+INFO:root:omics_processing_record: nmdc:omprc-11-2btzhy04
+INFO:root:legacy_id: emsl:748004
+INFO:root:omics_processing_record: nmdc:omprc-11-w5gc0t85
+INFO:root:legacy_id: emsl:748002
+INFO:root:omics_processing_record: nmdc:omprc-11-fzpjf245
+INFO:root:legacy_id: emsl:748005
+INFO:root:omics_processing_record: nmdc:omprc-11-ahhz2j61
+INFO:root:legacy_id: emsl:748006
+INFO:root:omics_processing_record: nmdc:omprc-11-rgnkm067
+INFO:root:legacy_id: emsl:748009
+INFO:root:omics_processing_record: nmdc:omprc-11-qjpyk527
+INFO:root:legacy_id: emsl:748010
+INFO:root:omics_processing_record: nmdc:omprc-11-0ryvfa98
+INFO:root:legacy_id: emsl:748013
+INFO:root:omics_processing_record: nmdc:omprc-11-cysygs38
+INFO:root:legacy_id: emsl:748007
+INFO:root:omics_processing_record: nmdc:omprc-11-8h85tg22
+INFO:root:legacy_id: emsl:748016
+INFO:root:omics_processing_record: nmdc:omprc-11-8z05ax59
+INFO:root:legacy_id: emsl:748015
+INFO:root:omics_processing_record: nmdc:omprc-11-8gw96985
+INFO:root:legacy_id: emsl:748012
+INFO:root:omics_processing_record: nmdc:omprc-11-h9n96q39
+INFO:root:legacy_id: emsl:748021
+INFO:root:omics_processing_record: nmdc:omprc-11-1caezz38
+INFO:root:legacy_id: emsl:748018
+INFO:root:omics_processing_record: nmdc:omprc-11-m74g0f96
+INFO:root:legacy_id: emsl:748022
+INFO:root:omics_processing_record: nmdc:omprc-11-yy2h7b73
+INFO:root:legacy_id: emsl:748029
+INFO:root:omics_processing_record: nmdc:omprc-11-d5k47180
+INFO:root:legacy_id: emsl:748023
+INFO:root:omics_processing_record: nmdc:omprc-11-5qgtqv91
+INFO:root:legacy_id: emsl:748031
+INFO:root:omics_processing_record: nmdc:omprc-11-2jvdsa06
+INFO:root:legacy_id: emsl:748030
+INFO:root:omics_processing_record: nmdc:omprc-11-jv019q80
+INFO:root:legacy_id: emsl:748033
+INFO:root:omics_processing_record: nmdc:omprc-11-yd8r3q14
+INFO:root:legacy_id: emsl:748032
+INFO:root:omics_processing_record: nmdc:omprc-11-1ykjys54
+INFO:root:legacy_id: emsl:748035
+INFO:root:omics_processing_record: nmdc:omprc-11-tpjcgz70
+INFO:root:legacy_id: emsl:748037
+INFO:root:omics_processing_record: nmdc:omprc-11-tbhrxm62
+INFO:root:legacy_id: emsl:748034
+INFO:root:omics_processing_record: nmdc:omprc-11-20me4m30
+INFO:root:legacy_id: emsl:749025
+INFO:root:omics_processing_record: nmdc:omprc-11-mvmr7d93
+INFO:root:legacy_id: emsl:749024
+INFO:root:omics_processing_record: nmdc:omprc-11-kpzxe492
+INFO:root:legacy_id: emsl:748038
+INFO:root:omics_processing_record: nmdc:omprc-11-59zfat15
+INFO:root:legacy_id: emsl:748036
+INFO:root:omics_processing_record: nmdc:omprc-11-6jkq5y32
+INFO:root:legacy_id: emsl:749026
+INFO:root:omics_processing_record: nmdc:omprc-11-4v0j6k64
+INFO:root:legacy_id: emsl:749029
+INFO:root:omics_processing_record: nmdc:omprc-11-nrxpd620
+INFO:root:legacy_id: emsl:749028
+INFO:root:omics_processing_record: nmdc:omprc-11-svh22m07
+INFO:root:legacy_id: emsl:749031
+INFO:root:omics_processing_record: nmdc:omprc-11-2mstjy17
+INFO:root:legacy_id: emsl:749030
+INFO:root:omics_processing_record: nmdc:omprc-11-mhsmb555
+INFO:root:legacy_id: emsl:749032
+INFO:root:omics_processing_record: nmdc:omprc-11-a7xwjj33
+INFO:root:legacy_id: emsl:749033
+INFO:root:omics_processing_record: nmdc:omprc-11-jhnx1b87
+INFO:root:legacy_id: emsl:749035
+INFO:root:omics_processing_record: nmdc:omprc-11-gtbev989
+INFO:root:legacy_id: emsl:749027
+INFO:root:omics_processing_record: nmdc:omprc-11-sfd1ts81
+INFO:root:legacy_id: emsl:749034
+INFO:root:omics_processing_record: nmdc:omprc-11-adby9129
+INFO:root:legacy_id: emsl:749037
+INFO:root:omics_processing_record: nmdc:omprc-11-n9ds4r41
+INFO:root:legacy_id: emsl:749036
+INFO:root:omics_processing_record: nmdc:omprc-11-bd7ws356
+INFO:root:legacy_id: emsl:749038
+INFO:root:omics_processing_record: nmdc:omprc-11-2wyw5284
+INFO:root:legacy_id: emsl:749040
+INFO:root:omics_processing_record: nmdc:omprc-11-a9bbzv19
+INFO:root:legacy_id: emsl:749041
+INFO:root:omics_processing_record: nmdc:omprc-11-4bkm8h92
+INFO:root:legacy_id: emsl:749042
+INFO:root:omics_processing_record: nmdc:omprc-11-rcjp7545
+INFO:root:legacy_id: emsl:749039
+INFO:root:omics_processing_record: nmdc:omprc-11-x4w9sp19
+INFO:root:legacy_id: emsl:749045
+INFO:root:omics_processing_record: nmdc:omprc-11-brkhe637
+INFO:root:legacy_id: emsl:749043
+INFO:root:omics_processing_record: nmdc:omprc-11-x962cw38
+INFO:root:legacy_id: emsl:749044
+INFO:root:omics_processing_record: nmdc:omprc-11-mvh2ne14
+INFO:root:legacy_id: emsl:749046
+INFO:root:omics_processing_record: nmdc:omprc-11-aqbbcp54
+INFO:root:legacy_id: emsl:749047
+INFO:root:omics_processing_record: nmdc:omprc-11-mqep7w23
+INFO:root:legacy_id: emsl:749049
+INFO:root:omics_processing_record: nmdc:omprc-11-1d3dyz94
+INFO:root:legacy_id: emsl:749048
+INFO:root:Writing 93 records to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-dcqce727_associated_record_dump.json
+INFO:root:Elapsed time: 86.59667015075684
+INFO:root:Writing 5 failed records to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-dcqce727_failed_record_dump.json
+INFO:root:Found 0 omics processing records with missing has_output
+INFO:root:Found 0 read qc records with missing data objects

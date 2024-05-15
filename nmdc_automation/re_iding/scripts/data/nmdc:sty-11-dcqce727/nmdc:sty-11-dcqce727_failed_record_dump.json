@@ -2,17 +2,17 @@
     {
         "data_object_set": [
             {
-                "id": "nmdc:6925f067188452145dbbef7e94bf0b65",
-                "name": "assembly_scaffolds.fna",
-                "description": "Assembled scaffold fasta for gold:Gp0324011",
-                "file_size_bytes": 124469722,
-                "type": "nmdc:DataObject"
-            },
-            {
                 "id": "nmdc:9f01c13bcea834da2c37f174935c9f1e",
                 "name": "pairedMapped_sorted.bam",
                 "description": "Metagenome Alignment BAM file for gold:Gp0324011",
                 "file_size_bytes": 7333440175,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:6925f067188452145dbbef7e94bf0b65",
+                "name": "assembly_scaffolds.fna",
+                "description": "Assembled scaffold fasta for gold:Gp0324011",
+                "file_size_bytes": 124469722,
                 "type": "nmdc:DataObject"
             },
             {
@@ -23,17 +23,17 @@
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:283a48b6c9e677914acc9995ab4ccedc",
-                "name": "assembly.agp",
-                "description": "Assembled AGP file for gold:Gp0324011",
-                "file_size_bytes": 20453978,
-                "type": "nmdc:DataObject"
-            },
-            {
                 "id": "nmdc:5ad02b131a390b65a424b1cd6e2447dd",
                 "name": "assembly_contigs.fna",
                 "description": "Assembled contigs fasta for gold:Gp0324011",
                 "file_size_bytes": 125310452,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:283a48b6c9e677914acc9995ab4ccedc",
+                "name": "assembly.agp",
+                "description": "Assembled AGP file for gold:Gp0324011",
+                "file_size_bytes": 20453978,
                 "type": "nmdc:DataObject"
             }
         ],
@@ -93,10 +93,10 @@
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:7ab75e53cb9f8f4859e18fad0c7fc30c",
-                "name": "assembly.agp",
-                "description": "Assembled AGP file for gold:Gp0324038",
-                "file_size_bytes": 16602009,
+                "id": "nmdc:38fb6bf2888ca9b8909bcfa567abaab4",
+                "name": "assembly_contigs.fna",
+                "description": "Assembled contigs fasta for gold:Gp0324038",
+                "file_size_bytes": 103922072,
                 "type": "nmdc:DataObject"
             },
             {
@@ -107,17 +107,17 @@
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:38fb6bf2888ca9b8909bcfa567abaab4",
-                "name": "assembly_contigs.fna",
-                "description": "Assembled contigs fasta for gold:Gp0324038",
-                "file_size_bytes": 103922072,
-                "type": "nmdc:DataObject"
-            },
-            {
                 "id": "nmdc:4da7c3bf2fb29ba8e136265b59525ea4",
                 "name": "pairedMapped_sorted.bam",
                 "description": "Metagenome Alignment BAM file for gold:Gp0324038",
                 "file_size_bytes": 6831587254,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:7ab75e53cb9f8f4859e18fad0c7fc30c",
+                "name": "assembly.agp",
+                "description": "Assembled AGP file for gold:Gp0324038",
+                "file_size_bytes": 16602009,
                 "type": "nmdc:DataObject"
             }
         ],
@@ -170,13 +170,6 @@
     {
         "data_object_set": [
             {
-                "id": "nmdc:0e5bdd198c064009f501495de8bb4418",
-                "name": "assembly.agp",
-                "description": "Assembled AGP file for gold:Gp0324045",
-                "file_size_bytes": 126706942,
-                "type": "nmdc:DataObject"
-            },
-            {
                 "id": "nmdc:7f2287c2564a46a7bf59f7c3a4373ec4",
                 "name": "assembly_scaffolds.fna",
                 "description": "Assembled scaffold fasta for gold:Gp0324045",
@@ -184,10 +177,10 @@
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:4586ed365a05185c8238317e025b0c6b",
-                "name": "mapping_stats.txt",
-                "description": "Metagenome Contig Coverage Stats for gold:Gp0324045",
-                "file_size_bytes": 139937457,
+                "id": "nmdc:149d662e1c5975a5a32a757bc1b08001",
+                "name": "assembly_contigs.fna",
+                "description": "Assembled contigs fasta for gold:Gp0324045",
+                "file_size_bytes": 805551422,
                 "type": "nmdc:DataObject"
             },
             {
@@ -198,10 +191,17 @@
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:149d662e1c5975a5a32a757bc1b08001",
-                "name": "assembly_contigs.fna",
-                "description": "Assembled contigs fasta for gold:Gp0324045",
-                "file_size_bytes": 805551422,
+                "id": "nmdc:0e5bdd198c064009f501495de8bb4418",
+                "name": "assembly.agp",
+                "description": "Assembled AGP file for gold:Gp0324045",
+                "file_size_bytes": 126706942,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:4586ed365a05185c8238317e025b0c6b",
+                "name": "mapping_stats.txt",
+                "description": "Metagenome Contig Coverage Stats for gold:Gp0324045",
+                "file_size_bytes": 139937457,
                 "type": "nmdc:DataObject"
             }
         ],
@@ -268,10 +268,10 @@
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:b08e4335f8157089c87ac7707df8b21b",
-                "name": "assembly.agp",
-                "description": "Assembled AGP file for gold:Gp0324051",
-                "file_size_bytes": 39602474,
+                "id": "nmdc:a6a23993a918fd288c1f8f0f6e84c2e9",
+                "name": "assembly_contigs.fna",
+                "description": "Assembled contigs fasta for gold:Gp0324051",
+                "file_size_bytes": 233397242,
                 "type": "nmdc:DataObject"
             },
             {
@@ -282,10 +282,10 @@
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:a6a23993a918fd288c1f8f0f6e84c2e9",
-                "name": "assembly_contigs.fna",
-                "description": "Assembled contigs fasta for gold:Gp0324051",
-                "file_size_bytes": 233397242,
+                "id": "nmdc:b08e4335f8157089c87ac7707df8b21b",
+                "name": "assembly.agp",
+                "description": "Assembled AGP file for gold:Gp0324051",
+                "file_size_bytes": 39602474,
                 "type": "nmdc:DataObject"
             }
         ],
@@ -338,10 +338,10 @@
     {
         "data_object_set": [
             {
-                "id": "nmdc:1f0c7dad9664ecdd55a7a724bcd9725a",
-                "name": "mapping_stats.txt",
-                "description": "Metagenome Contig Coverage Stats for gold:Gp0396396",
-                "file_size_bytes": 104907401,
+                "id": "nmdc:ff5cfbb3f561d3d85dc8241afb0cfdd7",
+                "name": "assembly_scaffolds.fna",
+                "description": "Assembled scaffold fasta for gold:Gp0396396",
+                "file_size_bytes": 633503782,
                 "type": "nmdc:DataObject"
             },
             {
@@ -359,17 +359,17 @@
                 "type": "nmdc:DataObject"
             },
             {
-                "id": "nmdc:ff5cfbb3f561d3d85dc8241afb0cfdd7",
-                "name": "assembly_scaffolds.fna",
-                "description": "Assembled scaffold fasta for gold:Gp0396396",
-                "file_size_bytes": 633503782,
-                "type": "nmdc:DataObject"
-            },
-            {
                 "id": "nmdc:66b6007ce8163962fdb4b8e45edd1f27",
                 "name": "pairedMapped_sorted.bam",
                 "description": "Metagenome Alignment BAM file for gold:Gp0396396",
                 "file_size_bytes": 8947289278,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:1f0c7dad9664ecdd55a7a724bcd9725a",
+                "name": "mapping_stats.txt",
+                "description": "Metagenome Contig Coverage Stats for gold:Gp0396396",
+                "file_size_bytes": 104907401,
                 "type": "nmdc:DataObject"
             }
         ],
