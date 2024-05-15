@@ -6,6 +6,7 @@ workflowlist = {
         full_name: 'Read-based Taxonomy Classification',
         wdl_tmpl: 'readbasedAnalysis_wdl.tmpl',
         inputs_tmpl: 'readbasedAnalysis_inputs.tmpl',
+        options_json: 'metaG_options.json',
         outdir: 'output/ReadbasedAnalysis',
         cromwell_calls: ['main_workflow.ReadbasedAnalysis'],
         wdl_version: 'draft-2'
@@ -17,7 +18,7 @@ workflowlist = {
         full_name: 'ReadsQC',
         wdl_tmpl: 'readsQC_wdl.tmpl',
         inputs_tmpl: 'readsQC_inputs.tmpl',
-        options_json: 'readsQC_options.json',
+        options_json: 'metaG_options.json',
         outdir: 'output/ReadsQC',
         cromwell_calls: ['main_workflow.jgi_rqcfilter'],
         wdl_version: 'draft-2'
@@ -29,7 +30,7 @@ workflowlist = {
         full_name: 'Metagenome Annotation',
         wdl_tmpl: 'metaAnnotation_wdl.tmpl',
         inputs_tmpl: 'metaAnnotation_inputs.tmpl',
-        options_json: 'metaAnnotation_options.json',
+        options_json: 'metaG_options.json',
         outdir: 'output/MetagenomeAnnotation',
         cromwell_calls: ['main_workflow.annotation'],
         wdl_version: 'draft-2'
@@ -41,7 +42,7 @@ workflowlist = {
         full_name: 'Metagenome Assembly',
         wdl_tmpl: 'metaAssembly_wdl.tmpl',
         inputs_tmpl: 'metaAssembly_inputs.tmpl',
-        options_json: 'metaAssembly_options.json',
+        options_json: 'metaG_options.json',
         outdir: 'output/MetagenomeAssembly',
         cromwell_calls: ['main_workflow.jgi_metaASM'],
         wdl_version: 'draft-2'
@@ -53,7 +54,7 @@ workflowlist = {
         full_name: 'Metagenome MAGs',
         wdl_tmpl: 'metaMAGs_wdl.tmpl',
         inputs_tmpl: 'metaMAGs_inputs.tmpl',
-        options_json: 'metaMAGs_options.json',
+        options_json: 'metaG_options.json',
         outdir: 'output/MetagenomeMAGs',
         cromwell_calls: ['main_workflow.nmdc_mags'],
         wdl_version: 'draft-2'
