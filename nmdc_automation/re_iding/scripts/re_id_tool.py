@@ -561,6 +561,7 @@ def extract_records(ctx, study_id):
                 if failing_data_objects:
                     logging.error(f"failing_data_objects: {len(failing_data_objects)}")
                     db_failed.data_object_set.extend(failing_data_objects)
+                    is_failed_data = True
 
                 # if ReadsQC was failed for missing Data Objects or OmicsProcessing failed has_output, every other
                 # workflow record is failed as well
@@ -575,6 +576,7 @@ def extract_records(ctx, study_id):
                     logging.error(f"WorkflowActivityMissingDataObjects: {workflow_record['id']},"
                                     f" {workflow_record['name']}")
                     failing_records.append(workflow_record)
+                    is_failed_data = True
                 else:
                     passing_records.append(workflow_record)
 
