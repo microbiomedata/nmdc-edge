@@ -87,8 +87,17 @@ module.exports = function pipelineMonitor() {
                         throw new Error(err);
                     });
                 });
+                let promise3 = new Promise(function (resolve, reject) {
+                    const options = generateOptions(proj_home, pipeline);
+                    if (options) {
+                        resolve(proj);
+                    } else {
+                        logger.error("Failed to generate options.json for project " + proj.code);
+                        reject("Failed to generate options.json for project " + proj.code);
+                    }
+                });
 
-                Promise.all([promise1, promise2]).then(function (projs) {
+                Promise.all([promise1, promise2, promise3]).then(function (projs) {
                     //submit workflow to cromwell
                     common.write2log(path.join(config.PROJECTS.BASE_DIR, proj.code, "log.txt"), "submit workflow to cromwell");
                     logger.info("submit workflow to cromwell");
@@ -107,6 +116,15 @@ module.exports = function pipelineMonitor() {
 
     });
 };
+
+function generateOptions(proj_home, pipeline) {
+    const pipelineSettings = pipelinelist[pipeline];
+    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelineSettings['options_json']);
+    let templInputs = String(fs.readFileSync(tmpl));
+    fs.writeFileSync(proj_home + '/options.json', templInputs);
+    return true;
+
+}
 
 function generateWDL(proj_home, pipeline) {
     //build wdl
