@@ -1,11 +1,39 @@
 # Configuration for the NmdcRuntimeUserApi client and workflows
 # Update the username and password with your own credentials
 # and store this file in <project_root>/configs/.local_napa_config.toml
+[cromwell]
+cromwell_url = "http://localhost:8088/api/workflows/v1"
+cromwell_api = "http://localhost:9999"
+
+[directories]
+stage_dir = "/path/to/stage/dir"
+template_dir = "/path/to/template/dir"
+data_dir = "/tmp"
+raw_dir = "/path/to/raw/data/files"
+
+[site]
+resource = "Resource Name"
+site = "Processing Site"
+
+[nmdc]
+url_root = "https://data.microbiomedata.org/data/"
+api_url = "https://api-napa.microbiomedata.org/"
+
 [api]
 base_url = "https://api-napa.microbiomedata.org/"
-username = "xxxxx"
-password = "xxxxx"
+username = xxxx
+password = xxxx
+
+[state]
+watch_state = "State File"
+agent_state = "/tmp/agent.state"
+activity_id_state = "/Path/to/activity_id_state"
 
 [workflows]
 workflows_config = "./configs/workflows.yaml"
+
+[credentials]
+client_id = xxxx
+client_secret = xxxx
+
 

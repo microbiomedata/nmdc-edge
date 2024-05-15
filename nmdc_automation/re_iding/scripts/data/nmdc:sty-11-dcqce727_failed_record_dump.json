@@ -1,0 +1,422 @@
+[
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:6925f067188452145dbbef7e94bf0b65",
+                "name": "assembly_scaffolds.fna",
+                "description": "Assembled scaffold fasta for gold:Gp0324011",
+                "file_size_bytes": 124469722,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:9f01c13bcea834da2c37f174935c9f1e",
+                "name": "pairedMapped_sorted.bam",
+                "description": "Metagenome Alignment BAM file for gold:Gp0324011",
+                "file_size_bytes": 7333440175,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:19a72ae1120f929c620b56189a81a3d9",
+                "name": "mapping_stats.txt",
+                "description": "Metagenome Contig Coverage Stats for gold:Gp0324011",
+                "file_size_bytes": 23441591,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:283a48b6c9e677914acc9995ab4ccedc",
+                "name": "assembly.agp",
+                "description": "Assembled AGP file for gold:Gp0324011",
+                "file_size_bytes": 20453978,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:5ad02b131a390b65a424b1cd6e2447dd",
+                "name": "assembly_contigs.fna",
+                "description": "Assembled contigs fasta for gold:Gp0324011",
+                "file_size_bytes": 125310452,
+                "type": "nmdc:DataObject"
+            }
+        ],
+        "metagenome_assembly_set": [
+            {
+                "id": "nmdc:bf1804579749f77ffa53fb5374466894",
+                "name": "Metagenome assembly 503568_190755",
+                "was_informed_by": "gold:Gp0324011",
+                "started_at_time": "2020-04-10T00:00:00Z",
+                "ended_at_time": "2020-04-10T00:00:00Z",
+                "type": "nmdc:MetagenomeAssembly",
+                "execution_resource": "LANL B-div",
+                "git_url": "https://github.com/microbiomedata/metaAssembly/releases/tag/1.0.0",
+                "has_input": [
+                    "nmdc:13eeb84b2cba3495012d570cf5f63887"
+                ],
+                "has_output": [
+                    "nmdc:19a72ae1120f929c620b56189a81a3d9",
+                    "nmdc:5ad02b131a390b65a424b1cd6e2447dd",
+                    "nmdc:6925f067188452145dbbef7e94bf0b65",
+                    "nmdc:283a48b6c9e677914acc9995ab4ccedc",
+                    "nmdc:9f01c13bcea834da2c37f174935c9f1e"
+                ],
+                "scaffolds": 289531,
+                "contigs": 289531,
+                "scaf_bp": 114976020,
+                "contig_bp": 114976020,
+                "scaf_logsum": 140736,
+                "scaf_powsum": 14874,
+                "ctg_logsum": 140736,
+                "ctg_powsum": 14874,
+                "asm_score": 2.63,
+                "scaf_max": 12622,
+                "ctg_max": 12622,
+                "gc_avg": 0.57113,
+                "gc_std": 0.06257,
+                "num_input_reads": 188456658,
+                "num_aligned_reads": 177713000,
+                "ctg_l50": 379,
+                "ctg_l90": 260,
+                "ctg_n50": 91225,
+                "ctg_n90": 240491,
+                "scaf_l50": 379,
+                "scaf_l90": 260,
+                "scaf_n50": 91225,
+                "scaf_n90": 240491
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:24be75be3850137d6a7d43547f36f941",
+                "name": "mapping_stats.txt",
+                "description": "Metagenome Contig Coverage Stats for gold:Gp0324038",
+                "file_size_bytes": 19113329,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:7ab75e53cb9f8f4859e18fad0c7fc30c",
+                "name": "assembly.agp",
+                "description": "Assembled AGP file for gold:Gp0324038",
+                "file_size_bytes": 16602009,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:6658c27261dfe1ad1dc3d6c87441cd68",
+                "name": "assembly_scaffolds.fna",
+                "description": "Assembled scaffold fasta for gold:Gp0324038",
+                "file_size_bytes": 103235365,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:38fb6bf2888ca9b8909bcfa567abaab4",
+                "name": "assembly_contigs.fna",
+                "description": "Assembled contigs fasta for gold:Gp0324038",
+                "file_size_bytes": 103922072,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:4da7c3bf2fb29ba8e136265b59525ea4",
+                "name": "pairedMapped_sorted.bam",
+                "description": "Metagenome Alignment BAM file for gold:Gp0324038",
+                "file_size_bytes": 6831587254,
+                "type": "nmdc:DataObject"
+            }
+        ],
+        "metagenome_assembly_set": [
+            {
+                "id": "nmdc:3a9420c939e9d1b6c662cfe16aa93c41",
+                "name": "Metagenome assembly 503568_191741",
+                "was_informed_by": "gold:Gp0324038",
+                "started_at_time": "2020-04-10T00:00:00Z",
+                "ended_at_time": "2020-04-11T00:00:00Z",
+                "type": "nmdc:MetagenomeAssembly",
+                "execution_resource": "LANL B-div",
+                "git_url": "https://github.com/microbiomedata/metaAssembly/releases/tag/1.0.0",
+                "has_input": [
+                    "nmdc:8eab835b6a86f0ef5b193598f9762b8d"
+                ],
+                "has_output": [
+                    "nmdc:24be75be3850137d6a7d43547f36f941",
+                    "nmdc:38fb6bf2888ca9b8909bcfa567abaab4",
+                    "nmdc:6658c27261dfe1ad1dc3d6c87441cd68",
+                    "nmdc:7ab75e53cb9f8f4859e18fad0c7fc30c",
+                    "nmdc:4da7c3bf2fb29ba8e136265b59525ea4"
+                ],
+                "scaffolds": 235571,
+                "contigs": 235571,
+                "scaf_bp": 95500574,
+                "contig_bp": 95500574,
+                "scaf_logsum": 132138,
+                "scaf_powsum": 14014,
+                "ctg_logsum": 132138,
+                "ctg_powsum": 14014,
+                "asm_score": 2.837,
+                "scaf_max": 12630,
+                "ctg_max": 12630,
+                "gc_avg": 0.55736,
+                "gc_std": 0.06805,
+                "num_input_reads": 184472378,
+                "num_aligned_reads": 176815655,
+                "ctg_l50": 390,
+                "ctg_l90": 258,
+                "ctg_n50": 72318,
+                "ctg_n90": 194441,
+                "scaf_l50": 390,
+                "scaf_l90": 258,
+                "scaf_n50": 72318,
+                "scaf_n90": 194441
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:0e5bdd198c064009f501495de8bb4418",
+                "name": "assembly.agp",
+                "description": "Assembled AGP file for gold:Gp0324045",
+                "file_size_bytes": 126706942,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:7f2287c2564a46a7bf59f7c3a4373ec4",
+                "name": "assembly_scaffolds.fna",
+                "description": "Assembled scaffold fasta for gold:Gp0324045",
+                "file_size_bytes": 800287828,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:4586ed365a05185c8238317e025b0c6b",
+                "name": "mapping_stats.txt",
+                "description": "Metagenome Contig Coverage Stats for gold:Gp0324045",
+                "file_size_bytes": 139937457,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:ec78aa5f7e361f7a40956f5e2d6e81c7",
+                "name": "pairedMapped_sorted.bam",
+                "description": "Metagenome Alignment BAM file for gold:Gp0324045",
+                "file_size_bytes": 11215286627,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:149d662e1c5975a5a32a757bc1b08001",
+                "name": "assembly_contigs.fna",
+                "description": "Assembled contigs fasta for gold:Gp0324045",
+                "file_size_bytes": 805551422,
+                "type": "nmdc:DataObject"
+            }
+        ],
+        "metagenome_assembly_set": [
+            {
+                "id": "nmdc:9585a4f0c0e772b63998da73c5e26917",
+                "name": "Metagenome assembly 503568_191748",
+                "was_informed_by": "gold:Gp0324045",
+                "started_at_time": "2020-04-11T00:00:00Z",
+                "ended_at_time": "2020-04-12T00:00:00Z",
+                "type": "nmdc:MetagenomeAssembly",
+                "execution_resource": "LANL B-div",
+                "git_url": "https://github.com/microbiomedata/metaAssembly/releases/tag/1.0.0",
+                "has_input": [
+                    "nmdc:cfcbae7f3178a0cf9d39e7b030a962eb"
+                ],
+                "has_output": [
+                    "nmdc:4586ed365a05185c8238317e025b0c6b",
+                    "nmdc:149d662e1c5975a5a32a757bc1b08001",
+                    "nmdc:7f2287c2564a46a7bf59f7c3a4373ec4",
+                    "nmdc:0e5bdd198c064009f501495de8bb4418",
+                    "nmdc:ec78aa5f7e361f7a40956f5e2d6e81c7"
+                ],
+                "scaffolds": 1759658,
+                "contigs": 1759658,
+                "scaf_bp": 740741791,
+                "contig_bp": 740741791,
+                "scaf_logsum": 815653,
+                "scaf_powsum": 86683,
+                "ctg_logsum": 815653,
+                "ctg_powsum": 86683,
+                "asm_score": 3.283,
+                "scaf_max": 29092,
+                "ctg_max": 29092,
+                "gc_avg": 0.58423,
+                "gc_std": 0.08693,
+                "num_input_reads": 236158232,
+                "num_aligned_reads": 174124960,
+                "ctg_l50": 403,
+                "ctg_l90": 285,
+                "ctg_n50": 579579,
+                "ctg_n90": 1487168,
+                "scaf_l50": 403,
+                "scaf_l90": 285,
+                "scaf_n50": 579579,
+                "scaf_n90": 1487168
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:73187ea143816c4ad5e17313448d7603",
+                "name": "pairedMapped_sorted.bam",
+                "description": "Metagenome Alignment BAM file for gold:Gp0324051",
+                "file_size_bytes": 7923825909,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:f2250787d5898bf0a5799ec5a53b847c",
+                "name": "assembly_scaffolds.fna",
+                "description": "Assembled scaffold fasta for gold:Gp0324051",
+                "file_size_bytes": 231774494,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:b08e4335f8157089c87ac7707df8b21b",
+                "name": "assembly.agp",
+                "description": "Assembled AGP file for gold:Gp0324051",
+                "file_size_bytes": 39602474,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:2d1949010d1ed5e834473e38330ae8ac",
+                "name": "mapping_stats.txt",
+                "description": "Metagenome Contig Coverage Stats for gold:Gp0324051",
+                "file_size_bytes": 44611446,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:a6a23993a918fd288c1f8f0f6e84c2e9",
+                "name": "assembly_contigs.fna",
+                "description": "Assembled contigs fasta for gold:Gp0324051",
+                "file_size_bytes": 233397242,
+                "type": "nmdc:DataObject"
+            }
+        ],
+        "metagenome_assembly_set": [
+            {
+                "id": "nmdc:0acdb761a0621771b319654b99f9b780",
+                "name": "Metagenome assembly 503568_191754",
+                "was_informed_by": "gold:Gp0324051",
+                "started_at_time": "2020-04-11T00:00:00Z",
+                "ended_at_time": "2020-04-12T00:00:00Z",
+                "type": "nmdc:MetagenomeAssembly",
+                "execution_resource": "LANL B-div",
+                "git_url": "https://github.com/microbiomedata/metaAssembly/releases/tag/1.0.0",
+                "has_input": [
+                    "nmdc:e3f23c7c70b18abadd1e5dd400ed36cd"
+                ],
+                "has_output": [
+                    "nmdc:2d1949010d1ed5e834473e38330ae8ac",
+                    "nmdc:a6a23993a918fd288c1f8f0f6e84c2e9",
+                    "nmdc:f2250787d5898bf0a5799ec5a53b847c",
+                    "nmdc:b08e4335f8157089c87ac7707df8b21b",
+                    "nmdc:73187ea143816c4ad5e17313448d7603"
+                ],
+                "scaffolds": 557949,
+                "contigs": 557949,
+                "scaf_bp": 213527126,
+                "contig_bp": 213527126,
+                "scaf_logsum": 204383,
+                "scaf_powsum": 21874,
+                "ctg_logsum": 204383,
+                "ctg_powsum": 21874,
+                "asm_score": 3.184,
+                "scaf_max": 12718,
+                "ctg_max": 12718,
+                "gc_avg": 0.55142,
+                "gc_std": 0.08523,
+                "num_input_reads": 206659210,
+                "num_aligned_reads": 179785511,
+                "ctg_l50": 354,
+                "ctg_l90": 280,
+                "ctg_n50": 192963,
+                "ctg_n90": 472891,
+                "scaf_l50": 354,
+                "scaf_l90": 280,
+                "scaf_n50": 192963,
+                "scaf_n90": 472891
+            }
+        ]
+    },
+    {
+        "data_object_set": [
+            {
+                "id": "nmdc:1f0c7dad9664ecdd55a7a724bcd9725a",
+                "name": "mapping_stats.txt",
+                "description": "Metagenome Contig Coverage Stats for gold:Gp0396396",
+                "file_size_bytes": 104907401,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:bd990072d130789a508203f8bdf80e08",
+                "name": "assembly_contigs.fna",
+                "description": "Assembled contigs fasta for gold:Gp0396396",
+                "file_size_bytes": 637487753,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:70ab6bfe35a390fd4b5330d395661a8b",
+                "name": "assembly.agp",
+                "description": "Assembled AGP file for gold:Gp0396396",
+                "file_size_bytes": 94567254,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:ff5cfbb3f561d3d85dc8241afb0cfdd7",
+                "name": "assembly_scaffolds.fna",
+                "description": "Assembled scaffold fasta for gold:Gp0396396",
+                "file_size_bytes": 633503782,
+                "type": "nmdc:DataObject"
+            },
+            {
+                "id": "nmdc:66b6007ce8163962fdb4b8e45edd1f27",
+                "name": "pairedMapped_sorted.bam",
+                "description": "Metagenome Alignment BAM file for gold:Gp0396396",
+                "file_size_bytes": 8947289278,
+                "type": "nmdc:DataObject"
+            }
+        ],
+        "metagenome_assembly_set": [
+            {
+                "id": "nmdc:5e6a570f47043af67032eeddbcd92dcc",
+                "name": "Metagenome assembly 503568_212405",
+                "was_informed_by": "gold:Gp0396396",
+                "started_at_time": "2020-04-12T00:00:00Z",
+                "ended_at_time": "2020-04-12T00:00:00Z",
+                "type": "nmdc:MetagenomeAssembly",
+                "execution_resource": "LANL B-div",
+                "git_url": "https://github.com/microbiomedata/metaAssembly/releases/tag/1.0.0",
+                "has_input": [
+                    "nmdc:75f7ed5a2ef4061cd4ab827cd82daf5e"
+                ],
+                "has_output": [
+                    "nmdc:1f0c7dad9664ecdd55a7a724bcd9725a",
+                    "nmdc:bd990072d130789a508203f8bdf80e08",
+                    "nmdc:ff5cfbb3f561d3d85dc8241afb0cfdd7",
+                    "nmdc:70ab6bfe35a390fd4b5330d395661a8b",
+                    "nmdc:66b6007ce8163962fdb4b8e45edd1f27"
+                ],
+                "scaffolds": 1319935,
+                "contigs": 1319935,
+                "scaf_bp": 588601293,
+                "contig_bp": 588601293,
+                "scaf_logsum": 921801,
+                "scaf_powsum": 99413,
+                "ctg_logsum": 921801,
+                "ctg_powsum": 99413,
+                "asm_score": 3.593,
+                "scaf_max": 26305,
+                "ctg_max": 26305,
+                "gc_avg": 0.62012,
+                "gc_std": 0.09258,
+                "num_input_reads": 150427906,
+                "num_aligned_reads": 78548870,
+                "ctg_l50": 427,
+                "ctg_l90": 287,
+                "ctg_n50": 409271,
+                "ctg_n90": 1115083,
+                "scaf_l50": 427,
+                "scaf_l90": 287,
+                "scaf_n50": 409271,
+                "scaf_n90": 1115083
+            }
+        ]
+    }
+]
