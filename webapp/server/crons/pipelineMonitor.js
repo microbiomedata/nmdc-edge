@@ -88,7 +88,7 @@ module.exports = function pipelineMonitor() {
                     });
                 });
                 let promise3 = new Promise(function (resolve, reject) {
-                    const options = generateOptions(proj_home);
+                    const options = generateOptions(proj_home, pipeline);
                     if (options) {
                         resolve(proj);
                     } else {
@@ -117,9 +117,9 @@ module.exports = function pipelineMonitor() {
     });
 };
 
-function generateOptions(proj_home) {
-
-    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, 'metagenome_pipeline_options.json');
+function generateOptions(proj_home, pipeline) {
+    const pipelineSettings = pipelinelist[pipeline];
+    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelineSettings['options_json']);
     let templInputs = String(fs.readFileSync(tmpl));
     fs.writeFileSync(proj_home + '/options.json', templInputs);
     return true;
