@@ -1,0 +1,97 @@
+version: "3"
+
+###############################################################################
+#
+# Usage (on a VM):
+#
+# 1. Ensure the necessary persistent volumes exists and are accessible:
+#    $ stat /media/volume/nmdc-edge-web-app-mongo-data
+#    $ stat /media/volume/nmdc-edge-web-app-io-data
+#
+# 2. Set environment variables:
+#    $ export JWT_SECRET='...'
+#    $ export OAUTH_SECRET='...'
+#    $ export EMAIL_SHARED_SECRET='...'
+#
+#    # (Optional) Override default values:
+#    $ export APP_IMAGE='...'
+#    $ export APP_EXTERNAL_HOSTNAME='...'
+#    $ export IO_BASE_DIR_ON_HOST='...'
+#    $ export MONGO_DATA_DIR_ON_HOST='...'
+#
+#    # Note: You can generate a random 20-character string by running:
+#    $ openssl rand -base64 20
+#
+# 3. Spin up the stack.
+#    $ docker compose up --detach
+#
+#    # (Optional) View container logs.
+#    $ docker compose logs -f app
+#    $ docker compose logs -f mongo
+#    $ docker compose logs -f caddy
+#
+###############################################################################
+
+services:
+  app:
+    # Reference: https://github.com/microbiomedata/nmdc-edge/pkgs/container/nmdc-edge-web-app
+    image: ${APP_IMAGE:-ghcr.io/microbiomedata/nmdc-edge-web-app:commit-ff4a1fe2-node20-amd64}
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    # When the container host is Linux, this makes it so containers can access the host via `host.docker.internal`.
+    # Reference: https://github.com/docker/for-linux/issues/264#issuecomment-784985736
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ${IO_BASE_DIR_ON_HOST:-/media/volume/nmdc-edge-web-app-io-data}:/io
+    environment:
+      DATABASE_HOST: mongo
+      APP_EXTERNAL_BASE_URL: https://${APP_EXTERNAL_HOSTNAME:-edge-dev.microbiomedata.org}
+      # Set `IO_BASE_DIR` to the path at which the persistent volume is mounted (see `volumes` above).
+      IO_BASE_DIR: /io
+      # These lines tell Docker to populate these _container_ environment variables (on left)
+      # with the values of the corresponding _host_ environment variables (on right).
+      JWT_SECRET: ${JWT_SECRET}
+      OAUTH_SECRET: ${OAUTH_SECRET}
+      EMAIL_SHARED_SECRET: ${EMAIL_SHARED_SECRET}
+    depends_on:
+      - mongo
+      - caddy
+
+  mongo:
+    image: mongo:6.0.4
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    # Map a persistent volume to `/data/db` within the container.
+    volumes:
+      - {$MONGO_DATA_DIR_ON_HOST:-/media/volume/nmdc-edge-web-app-mongo-data}:/data/db
+
+  caddy:
+    image: caddy:2.7.6
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "80:80"
+      - "443:443"
+
+    # Run caddy as a reverse proxy.
+    #
+    # References:
+    # - https://caddyserver.com/docs/quick-starts/reverse-proxy
+    # - https://caddyserver.com/docs/command-line#caddy-reverse-proxy
+    #
+    # Note: The `>` character tells YAML to "fold" the newlines in the multiline string into spaces,
+    #       and the `-` after it tells YAML not to append a trailing newline to the resulting string.
+    #       Reference: https://yaml-multiline.info/
+    #
+    # Note: The `${ENV_VAR_NAME:-default_value}` syntax tells Docker to use the value of the specified environment
+    #       variable if that environment variable exists; otherwise, use the value that follows the `:-` delimiter.
+    #
+    command: >-
+      caddy reverse-proxy
+        --access-log
+        --from '${APP_EXTERNAL_HOSTNAME:-edge-dev.microbiomedata.org}:443'
+        --to 'app:8000'

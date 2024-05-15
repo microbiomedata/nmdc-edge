@@ -49,10 +49,11 @@ const makeIntIfDefined = (val) => {
     return typeof val === "string" ? parseInt(val, 10) : undefined;
 };
 
-// Determine several reusable directory paths based upon the directory containing this config file.
+// Determine several reusable directory paths based upon environment variables
+// and/or the path to the directory containing this `config.js` file.
 const CLIENT_BASE_DIR = path.join(__dirname, "../client");
 const DATA_BASE_DIR = path.join(__dirname, "../../data")
-const IO_BASE_DIR = path.join(__dirname, "../../io");
+const IO_BASE_DIR = process.env.IO_BASE_DIR || path.join(__dirname, "../../io");
 
 const config = {
     // Name of environment in which application is running (either "production" or "development").
