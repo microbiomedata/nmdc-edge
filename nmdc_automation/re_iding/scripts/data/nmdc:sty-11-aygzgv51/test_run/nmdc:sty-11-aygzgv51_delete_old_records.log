@@ -2,9 +2,9 @@
   warnings.warn(
 INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
 INFO:root:Deleting old objects found in : data/nmdc:sty-11-aygzgv51/nmdc:sty-11-aygzgv51_associated_record_dump.json
-INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664642db66602c6603a55fc6, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664642db66602c6603a55fc6"}, "remainingTimeMS": 4}
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 663d13b86de348509f9c856c, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "663d13b86de348509f9c856c"}, "remainingTimeMS": 4}
 INFO:root:Deleting 35 records from data_object_set
-INFO:root:Deleted 34 records from data_object_set
+INFO:root:Deleted 35 records from data_object_set
 INFO:root:Deleting 1 records from mags_activity_set
 INFO:root:Deleted 1 records from mags_activity_set
 INFO:root:Deleting 1 records from metagenome_annotation_activity_set
@@ -436,7 +436,7 @@ INFO:root:Deleted 1 records from read_qc_analysis_activity_set
 INFO:root:Deleting 1 records from read_based_taxonomy_analysis_activity_set
 INFO:root:Deleted 1 records from read_based_taxonomy_analysis_activity_set
 INFO:root:Deleting 35 records from data_object_set
-INFO:root:Deleted 32 records from data_object_set
+INFO:root:Deleted 34 records from data_object_set
 INFO:root:Deleting 1 records from mags_activity_set
 INFO:root:Deleted 1 records from mags_activity_set
 INFO:root:Deleting 1 records from metagenome_annotation_activity_set
@@ -606,4 +606,4 @@ INFO:root:Deleted 1 records from read_based_taxonomy_analysis_activity_set
 INFO:root:Deleting 50 functional annotation records
 INFO:root:Deleted 0 functional annotation records
 INFO:root:Writing 1976 deleted record identifiers to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-aygzgv51_deleted_record_identifiers.tsv
-INFO:root:Elapsed time: 10.852546215057373
+INFO:root:Elapsed time: 6.9891791343688965
