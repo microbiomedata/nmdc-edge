@@ -1,0 +1,997 @@
+% python ./nmdc_schema/metap_records_delete.py  --mongo-uri mongodb://michael.thornton-napa:barman-reconfirm-leggings-883@localhost:27777
+INFO:metap_records_delete.py:Deleting all records
+INFO:metap_records_delete.py:Deleting all records from metap_gene_function_aggregation
+INFO:metap_records_delete.py:Found 6054 documents in metap_gene_function_aggregation
+INFO:metap_records_delete.py:Deleted 6054 record(s) from metap_gene_function_aggregation
+INFO:metap_records_delete.py:Deleting all records from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Found 52 documents in metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ec0db6c4103faf47d3393ec27d541639 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3e92b5e47e5dd880405359dfe602e821 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:c53c01010dc489623f81673e40aa5abd from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1df99f01693b279064dee572b59663a2 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:13c01dc1895862f779124a05dcc3711b from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1761a687d660d27d647585fbd8103849 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:dc73ac87ae016e7c132abb07bf19f9ff from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9508ce10ee6f8ea7469b12fa9d5dd88c from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:e66a77c427dbd8b4af2bdaca9f137bb2 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:dcc994c1beece4fc4f34a7a84c58ce88 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:c8fbbea393f17a84a2692d2e4b0a76cd from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a99a5f69092a4c7067a0423b908975b9 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1eaa8564e70098536a750cf97060757a from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b765a91b1b27cae7ed4f83eaf2f9b3a6 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:dbcf7b384570f6b39ff14878a9e27e52 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7be410c677eb7e831551aaddaccd4a45 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1da9109d239e49948b9691f713ae7bb9 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3295c3291c2bff848c8d62693027e993 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1ce42cf1509e4771ab65c1fe146b3079 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:86065708460fbbacddf0be9b30cadbc2 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:762329cf5fb83b1cb00bbe3f222acde5 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:c1008b9dc6147e7e5813d56af925eca1 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:cc95214b9dce04dc645839e18700308a from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1707ac78a91f0b9e9464750532d6c439 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:62bc027e7b14e82d1f5626af6fee3ee7 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:89b6d306cbf8b3f09b4f338228608075 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9258ffc2c46bfeba843a1d58468b5085 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:f4cfa0106e56b805a7221de2f6e8effb from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9cd20ddd6415b539c7683f929dbc8fb6 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:aa8809dfb4b0a00427928e69b8dfe2bf from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:8d7c2e648d9cb046ea71e03f43c3e15b from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ca1fba4fe247a9c804052c4c44330605 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:26f921fac12e8811d8f38bdab2118ab8 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b53fbbd68014e2560efb0423f194f8a2 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:6cfaf9136f80c516e7f4027099bea802 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a2a1a2d83a2286e912eb4cfcad9f9667 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:c9859930f10aafeb2f16a5d7ab829493 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:918cea0faa1187c50c7eef0d0f01c5ba from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4fa387604db2a078de704a9b2f28a03c from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:8ab3155a8f6aba289dec8b3114ea89cc from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:40bc1136b7f5f153d6d81b26c8a411d8 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7563405c2803e2591f9078c5c517e239 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ec123af9ca11caf33092d375c8447b22 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:20683d6e990823113990a0d8392b4d12 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9115be7303cf09fa9725f979af7fcb2f from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7faa99720e7bf7e1354bf1d6285a9d9f from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:2f78b6cea3fd93e8b1a27e6377f5038e from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:0ebed00ac47fcea5f6f6783e2116436b from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b849f6790aea4671912ac03562f39f2e from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a0f21d754437f1dc99b26a91b5145a32 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:47981758f568cb9702bf46c2e4fc5441 from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b30f39172a5aa2ed093d4898a76cbc1f from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Deleted 52 record(s) from metaproteomics_analysis_activity_set
+INFO:metap_records_delete.py:Found 468 matching records in data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fcaf49af89de1ba899a5 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fc9e49af89de1ba8999f from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fcb149af89de1ba899a7 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fcd549af89de1ba899aa from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fcd649af89de1ba899ab from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd0549af89de1ba899ae from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd0549af89de1ba899af from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fcd649af89de1ba899ac from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fcd549af89de1ba899a9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd0649af89de1ba899b0 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fcaf49af89de1ba899a4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fcb049af89de1ba899a6 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd2849af89de1ba899b3 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd0749af89de1ba899b1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd2949af89de1ba899b4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd4849af89de1ba899b8 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd2a49af89de1ba899b6 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd2a49af89de1ba899b5 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fc9f49af89de1ba899a1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd4849af89de1ba899b9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fca049af89de1ba899a2 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd4949af89de1ba899ba from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fc9f49af89de1ba899a0 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd4949af89de1ba899bb from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd7349af89de1ba899bd from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd9949af89de1ba899c2 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd7549af89de1ba899c0 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd7449af89de1ba899be from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd7549af89de1ba899bf from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fdbb49af89de1ba899c8 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fdba49af89de1ba899c7 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd9a49af89de1ba899c3 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd9a49af89de1ba899c4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fdbc49af89de1ba899ca from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fdbb49af89de1ba899c9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fd9b49af89de1ba899c5 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fdcd49af89de1ba899ce from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fdcc49af89de1ba899cc from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fdf749af89de1ba899d1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fdf849af89de1ba899d2 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fdcd49af89de1ba899cf from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fdf949af89de1ba899d3 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fdcc49af89de1ba899cd from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fdf949af89de1ba899d4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fe2c49af89de1ba899d8 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fe2b49af89de1ba899d7 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fe2c49af89de1ba899d9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fe7049af89de1ba899db from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fe7149af89de1ba899dc from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fe9549af89de1ba899e0 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fe9649af89de1ba899e1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fe9749af89de1ba899e2 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fe9749af89de1ba899e3 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fed749af89de1ba899e5 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fed849af89de1ba899e7 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fe7149af89de1ba899dd from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fed749af89de1ba899e6 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fed949af89de1ba899e8 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6ff0349af89de1ba899ea from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6ff0449af89de1ba899ec from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6ff0549af89de1ba899ed from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6ff0449af89de1ba899eb from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fe7249af89de1ba899de from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6ff7449af89de1ba899f0 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fe2a49af89de1ba899d6 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6ffbd49af89de1ba899f4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6ff7649af89de1ba899f2 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6ff7449af89de1ba899ef from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fff049af89de1ba899fa from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fff049af89de1ba899f9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6ffbf49af89de1ba899f7 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7002149af89de1ba89a06 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7005949af89de1ba89a09 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7005a49af89de1ba89a0a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7005a49af89de1ba89a0b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6ffbd49af89de1ba899f5 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7007c49af89de1ba89a0d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7007d49af89de1ba89a0e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7007d49af89de1ba89a0f from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7007e49af89de1ba89a10 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6ffbe49af89de1ba899f6 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7008f49af89de1ba89a12 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7009049af89de1ba89a13 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7009049af89de1ba89a14 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7009149af89de1ba89a15 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e700af49af89de1ba89a17 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e700af49af89de1ba89a18 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e700b049af89de1ba89a19 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e700b049af89de1ba89a1a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7002049af89de1ba89a04 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7002049af89de1ba89a03 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7002149af89de1ba89a05 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7001249af89de1ba89a01 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7001149af89de1ba89a00 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fff249af89de1ba899fc from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6fff149af89de1ba899fb from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7001149af89de1ba899ff from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7001049af89de1ba899fe from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e700e049af89de1ba89a1c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e700e149af89de1ba89a1e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7005849af89de1ba89a08 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e700e249af89de1ba89a1f from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e6ff7549af89de1ba899f1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e700ee49af89de1ba89a21 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7011b49af89de1ba89a26 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e700ef49af89de1ba89a24 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e700e049af89de1ba89a1d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e700ee49af89de1ba89a22 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7011b49af89de1ba89a27 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7011c49af89de1ba89a28 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7013249af89de1ba89a2c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e700ef49af89de1ba89a23 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7013149af89de1ba89a2b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7013249af89de1ba89a2d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7015f49af89de1ba89a31 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7015e49af89de1ba89a30 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7016049af89de1ba89a32 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7016049af89de1ba89a33 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7019849af89de1ba89a36 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7019849af89de1ba89a35 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7013349af89de1ba89a2e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7011c49af89de1ba89a29 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e701be49af89de1ba89a3a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7019949af89de1ba89a38 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e701bf49af89de1ba89a3b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e701bf49af89de1ba89a3c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e701c049af89de1ba89a3d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3154a856d58d450aafca16b1c2a35ee8 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:66ce58906010a9db55ff04fc488bcb13 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: 60e7019849af89de1ba89a37 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:6061d2d559c364eea4111431ed8a957b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:20ce2090c6fbbfd882121d652dbe6625 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:45b88a478aaed1fe714ce780ef822458 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:206c8ef651ccfc32ece7f2ae91a4af28 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:07a21f92d805d5d291959611fb5d73e9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a2933b7be5301b33e1fa6d95d39d6702 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4ed89c704a24ca527bd68ec3f90dc628 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9d257dcd5bf6ff5906c23f2857b4151e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:68364aa3066ed50b8e545a08928f182f from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:6633851e35ee42d3f652eb74c83af5e9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:65ead13ef24aa332458b98bc88b8eb35 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9ca25709685f9ed3e2ee353d48f165ca from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b10c06c522b6091b686cd27699033255 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:bc21ca6d5ebe06a8a39a4527513d9c97 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:c2895ef6573d01d164d3c85ab9c048c2 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:04ec63c9e3226a8e574b19ed1c121bcb from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:84d91f6cc61611dac7f8d5bc6fe35f3f from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a1a252c36372788e7c4f514493dd5762 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:88b864407e31ec95114efde23ce488b0 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:00eea9c63422deb2f2338086d1b48fac from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:33c8cb22eb3e16cf93562dba4ef69e99 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1fa770fabd4793166121af13a92b086c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:8d448b14fc0ba1fa7a493aeca90fd5d5 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:19a893c33a2c8f5ff1bfc15abfe49ffc from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b99239fdd7e93c1715375398b894d323 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3f7313d0ae51123134b6be463a8d3ad7 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9d7126095a1388d21fec878383eff975 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:52ed29c2bc688547036ec12cd9c882e0 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:e24ba7fdddac5ecf18f694b07a605568 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7e5544a7f4b4e382077b3e9cdb886361 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3e108a6011272d17b48a04bd53b373b3 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:2c2e397e4d06738bc5d10ec8458ce11a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ae24b9b95686da2b6cee2e769bc3d23d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:51ef5ddc9cd66fe2d85f4f98aeaab125 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:2e23700ee5a577a8ee6199607f78498d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:fe963ef3c52577ecf1114ed47d42b509 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:43ce0b790532839029f0e59b05742f9c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a61961f47061ef2c80de77e3f6dc5c0c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:63bcb0e7fd20db441edcdb698783216e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:82fb9339f44569bbe821e8eba71dcc07 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4d5cbf27d498c3ec92493c7b8a72ed5a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:92a642bedb1bf223a0cb76ce0ac4d1b5 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:da7acac4b49c6da58dad2f98d4939935 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b1f7d2c16e98f62f2d9c15606a897a0c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3ba52454f6555bad57d35c3a42f8c2b3 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:830bb1abebc923b0a739a49e009d6924 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:00c9b94055ba43d728f79e571558a511 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3ed4c7c0f0ac74ff9456a347e84c838b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:5238412ca0f3a9ff430d9c606e78b717 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b299070334b82985619b17632d92c9e9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4c50ae806431360350cca93cba62b76a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:0bfae8449f4bc3759d31c4d3692a04c7 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:2465a7a08eb920311b0714d6c9a6a0a5 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:37736751c6fc23350f13515e5e1b8ea6 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:79bc9e82b99e1f46b26f206c97a849a6 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b78161f36ce4d16ad7f0d15cd70d6d03 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7775365d7adfddfbb12cbb37a224c89e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:49cf5b4837bf74a8111a6ad527741c6b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:8447aa7c33373b1491e495b06a609659 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7f2728f3945c098ae67f3dc55a805294 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:13547bca55b71ebaf4defdb56a3447a1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:bdcd291f7784e466b7074859793716a4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ab82b6ade2ed572de16005a8bff426a4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ea4cbb170ade293e5b6dd66800713a68 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ebc5208639b5494f58ed2c76f970fef9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:40b37db65e26f469cc09fb0d812548a2 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1225464dca0136563d6a00dbaaa251aa from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:78c78ac34f682a9a8f23c9d138c9c641 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:e2a94a8fdbea548d9d728c0f1e19f901 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:fb27fdda1a5cccb87e10f26733e2b466 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3f0fe2d751f7d3fcc37007f044afff90 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:d1fac89585e98f659fa9d925c2ebd48b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:38c910ee28c4b2026f1a7acc89bafe2e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3c8e06c7bea4598cf0e8ac5be8bfdb2b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3eddf925b84e9adafbf541de467c49f0 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:059c191163f8bfe2d6c4710635ecb90c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:13b292071d4dd3f18d28ef1145a4032f from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:f5c259e0ccb011f26ffa056ef66166cf from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9a91ded5cf8eb909f79b86b67dd2aa36 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:cabfa3b1dfbb904719d635755a828e6d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1f47c93ead0390ea8f5cf4638dbd0141 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:412a27774f8547ecaacd14fe76a6f386 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:855812f3d746ac502cb7cf21b69825a6 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:97b78ed3a9808d7e06f343919ac9bf58 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3371704cb01837a49c9204dfbb1d4dc4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:25b4b6b8dccb1e58da377c0342e973a4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:dc5a6506f205edb4ae66cef8c5f1a281 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7568d01d1759664ba41b0c937c451c37 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:36c646b61f93d67e970564e8a3d838c5 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9ff7ebb15da7442df3469d5bccf20c84 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:abc860e5c35c14ba46e9893bf3b17a72 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:19026cf2aaa12b7e88db25793e52d613 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b233811241a31d99869c44edeb219416 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:01c826c3a77231b65ae27e451b490a04 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:63f5b68e264b903ae3c66a42e8296d7b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:311f008a3fe65eeb4695119a3033a918 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3bd28cde7720029806e2ce606a954ec7 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:17f2b4bebfed9e1261c91c68d101b46d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4ed4c0b9b344146b2f6a6654c0e9e244 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a388da269ea15090723dc53be3fca621 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:2c509411ae37b9964e4e2801442c2c42 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:88f07a34ce72574d106f05e367f8517c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7e3ec52214cfdc2d8281e21bd8ad4c10 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:eadf2523e2848d87080dea5c381dbfb3 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4cd06c2ffe92a7210fa0c047a9f598d6 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:315289276a91f02d4364c785bbae6ddb from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:dad7755583b13c8e35b58b733f9100ed from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:51c7751ede4f52696d8547f40ee29ce9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:17555106ea5dcac8aaee80008db6aef1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:f12a3567c5ffec82cf392f3af1f15465 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:d2fe78a7617525bddd2ddacf25ae8460 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:13c2bdabf348aabee6f4f29c1b03fd59 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7e3995ab8c811fd0b66c61210c344eff from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:8b86a2e32dcbe5ca9e46f6ef0c2d11c8 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:434a3f2a3a5a528c54ae94d6b1f48b4e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ba0576662f1dbef245836b6365fa3e4a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4a06de34d6130c113654abfe2f37f5b2 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:daea52bb2844a588d20b70d3c481bb04 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:fe99af037e5eec0f726c87f506573062 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9814a0504bb54b6f6576d66f5ee7aa4a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:f8f3683d57628009407c528c61a78763 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4f6ca122e4ea75efbfc4e9729d078bb7 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:f531e09b77e533de48002c9197c5dc3a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:18d86ea63db5e891d5b5c42369cb7aff from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:83dad177ff305027e2540575e5a738e9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:94f1c3ffce911fb2e308ec298f9eb158 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:fc9aaf9e991b3f5fd8873f669d82fc19 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:e4e83e47c7c2baf8f5b8fd931a0cdaa8 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:15c84c13c638936fc6a8a3532dab1516 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3ad870369a7d5077ebc5fa57eb91a3f9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:2b2e7d591d6de948eefa418dbc200baa from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:e72ffe5050c2fe5ce24bbc09ae29023d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:bb778c0395247730569ae25ecd0ef70f from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:c147265086684907c6c7e6a531cd11f4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:cc532ea1add57e721acb837f360094b4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b7ac3e544a9c4c8185fa4a1e94da62ba from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:75c96f96707958b2c036185c081d71c4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7d3167d7a84003650b471fa908fa320b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:308b38d8f11b3a04d068c4e681da03fc from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:5ce956e759e204a18f22be53380edadd from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:82d63c1068458eb81e788a75fe8963df from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ac79211c00154ee447988f7edf7b4a9a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:71f58308714d27fff9785b7207719d9a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:59cd87c59afb6306ae1e83d7e2fe7221 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ec76ba3ccc0452f1874931d8b7a29709 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:8c97ae182ccbe98564b2596e9bd5bcae from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3405da962f7226820191866b714eeaa4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:86801bbbf549e7c6c63610982b3b39c0 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:2189ba7c7e69ab364ec75bdecf0cf858 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:21e7e340eb7ffa21a5fe3ee345ad9247 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a2d98f4f7da7861349935c082ed6df0a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:906133606ba09034ef0914aa7701944f from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:f9b4233427948144c27aa6b48bf479aa from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ecf96bc0ed6c6560556d8474a78fa0bc from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:40fbb172e7b992ba62ca63cd64975819 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1be3b774d9afa4fa6f4fb3aa3c6ffd6c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a5f85b60075de799d71658865a9dd21c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:52b35c306209488869f09b702cfff1e0 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a48df85b53eb227680304db559c55d3e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:e916af1a682c1f5b54305f8dbda6a70a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:e323bdf1f0d0466e26c84160b849346c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:5d53dd32bb8a6894ca99dfbc938258e3 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:752313d321632812b44a61ad15942278 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9a95af1d4d4e2804b54e5deac5868193 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:290d96a2e36df3f551d1b88896adcab9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:c36e3023982cc4b1c13fe00c8d7d5233 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:cba769808edc84cb2668c5188f814f40 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:266050c8ea97bb5a70201792a6c6ba75 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:43dee167acd7afef25be92fc46c69e9b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:86d051c70f121510b825f9a6c1418c1f from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:af4818a57eed8fb495f6b6a790ea4f15 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:82c729c7ee192f62779d70370b20d529 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:d2a0863795bd8f0526f4ef0863b8ad34 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:99754feff3485903a0e2008458da174a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:138fb40350cbf588822d3943ee897ffa from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:acb9a19e069ab92da7f0dcd7e6eac925 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4bee9c2a2be46201061aa5577cbc56c9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a1e17f73cd91f55f3befdc6c647d84e2 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:2fb1b2df6d9d3b65beb9a289a69a5b6e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:455a01669ee763729b54ba79c1bdfa35 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b468a20dd35e5f0df6e7073a19626e29 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:658e680ebb807f62c7c91bf1eb31a556 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:33ba77d5531a6bfa50829dad66240bf6 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:c6004d386fe9e551065444c75645dc3e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:8fa74c0ea76c8551dfb82a3be2e120d5 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:d088ea3e77008703b255669ccd144967 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:6104633ef33341b2374039b3fa7bf41c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:93819960e653be671fdfe12a5f19137b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a47a8f7e4c1f4dd799c1fa732418d4bf from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:c9896c207d6ba62036daa2f97f39076c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9517d7b8c4ec328d122c5c637e1f3376 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b03bd1b0b8af18da04aeeb7aa487d196 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:47a5fb1f78b3c860541c39aac4d53939 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:29b563703553772d2711a0c0ab6a5f91 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:bfbba889420da797992c774ebba3e3d1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:0381c19640575ae125f4d864b69c1883 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:d5040e25fdf5448d9945c4d4723dd59b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a08e6c2928fb713ebe5a22d0e1d28f5f from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ce68c7070ca39ccb2e2069b9574a65cb from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:cbaeb582d31af186cca0eb277a06eea1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b6f1e13f6069040637d1b92218cee285 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:d16bb3dadef239c1b9bb83a8cd7d3fd8 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7757112be528c28d22a094216a23011a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3464dd2fc8a8143dad24c4bc9e70c977 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ec05f3f7013677cdea25e33e4bc6af8d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:aa4b715c8db0bb4174420991cbe0dfee from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:5d5be61125bd4507235ec98831f7d3ee from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:8ca4309675b2dad9c8f2c5c68c659557 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:0ec3c50c6b45de6d8f2bac632ee811c6 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:cc3d4a392929396d5d84e816eab09574 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ec43a0ba3e9986314e1a70b9dd979d9b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:79e87156561cc15811ccf8a8b2c8f99c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:8366900364fcb9fee529334fbae9c18d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:0ba292af334ffc92ec03eeb98e7833ca from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1cbce150a4f7af19e5c86344e2b72b60 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:931ffc419a5d3a4fbb9315f6023a4334 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:356f65acd321ada1b990b92b37a3543e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:891ae9460c3b7343ffbfa97133ec4c13 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a5b4eb69d3b7c91c2cb0368e406c46c3 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:fc0575c8de0a52e46c8b326c2a635989 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:5bc4c022449f1856ba74f250507068f9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9a5429cac03ca2fe7362c74332d97efc from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:6058050cff44e88a3507d5f164a85a2a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:59b7a098afad7c45f7f3917221f29255 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a819ef3c9b046c90991662edb60d4a9c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ccf410dfcb1b88bc546c7d7b5a8dd565 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:2f5b8bf85213dcc5c691ce56e40a04a3 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:d805a2a1455f32a6a67dc78a29bc1937 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:d1380fc74975993db09e53f2514a2c14 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9fd12c4613c6cd925f183b2461d04157 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:6848acb52276dc2b9164d610080a13e4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:06bf40081ff73a5d2a834852e1c45920 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:e4bdda7ab6cd35609f225bda507c9dee from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ed01a31f5736fa4b5e731443f0be6bd6 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b7c506d45efa63d09f3dc6ef33f35a64 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:8dc574992be3529354fcbe446035daa0 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:39b70f05d64526b783bfab2aefb04b4d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:833e7b72098ee58410d65f8f236e9cae from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4f1452dba61167947aee80b19a92931a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9e7a42d121fe92ce7ae94930f793319b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:f98affd8bb52887280de66b5448cbce1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:873d39d177241970048f20f58bb6beb4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:bc13eaa514ef4a64ab08750ae45673e2 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:cae2f0a9f1c5ec91f2b683b2ca319fd7 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:93fb7f37f4dc5dfea9e33ebb00039d65 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ce09fae3ef49c0377e41534ed833a7e8 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:685647b39aecb372ada320a2fcc4c905 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:2e832be020f29ce0aa294012b3f4780a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:aa307cf60fbc823b199bd8df16cfa978 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b3f590c39a598f993db2599afc99c159 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:89f070b97783d9fc0b19dd106255ccc5 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3000bc8900b3a33a51a7c688dc051a31 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:252b0aa843e5cd89908ef0fc56e086c1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:524564166bf436e957f93541f588a602 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:db455c55fc52f2a4f24fdf78e7d6c08d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:d41f09f366be5b53286557109740c66e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:aab4284ecce5b0e21a93a48f504303d8 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:fe6a69413090d7a760709cd2d7f22c1c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:afc4e018269079d5c053dbeea95450a5 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:139cd89c8eda6447d6e80b6f873b9de1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:8cf1ba2adf41307ef9b0b064fb2394ec from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b6fc8b593b639ccf518db48d792aab3c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:587ef2cc4cb513f7be359b12bb50e321 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:b053eee080ef1f3abb6c6fe8451c2f93 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1cce7d715eadc1a61224438899c0f509 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:73f4b475f286b150dd4fe02ff1b7914d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1a2742737f5022079f8a485a5da71a42 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a994a138f06762689dddbbefcb482ff7 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:40562e4497753d2410b1f436a24bafa2 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:6fe6c951f6565206c1542ad9fc103b85 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:2019bd64b7fc4594ce1718bab9fcf1a7 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4037f07610fb25db1073a5f6eaa4b76e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7aa1128d30bbe9489fa2637729b43217 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:c7299304c268adae7fd4d87189fb05b1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ee602a3ef7ef3091dc8a7cfa8869ab0a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:07f218c402b0c7906b4f432065e26aab from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:22e74f7dfac80d34285cc7c21845c48b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:03049f98dbfbff27abde08781deee610 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:52d9b05207eb97fc3145d19fa740984a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:651ffc1d93dd2afbec385dfce3ec8473 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:58fe149303ad73f471c7b4c9edb90601 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4e43d0319ce841e88da165dc528ea8cb from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:96f41eda47bc319dd311e9dd7bd094eb from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:73047c062257958261d05f97f10788d8 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:c09103727e008eb04ea79041955c08e4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:6e46c1de29b77ef05b200fe8797495bc from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7652e982318761c9aacfa5f8fc48e06a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3d656835cd38326ad2f93ffa677ce967 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3c77ce36fdcda80f99ceb5f5ca0751ac from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:8514fb210019cb279916212059452711 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:654004cacfc3caa257907a98de51d2ea from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3446695619f65e063082b739630cdb4f from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3f8d964a06b8827e8b3921977efa116d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:f6a3bc465fa8d1967c426aad31b18b1a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:5fba92e1ff714d69154d168066e5d095 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:81269e470d908bfa6eac7c8e75e6845c from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:26e2aa347bc3f58a385e1c26bcc91bb1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:eca9fa0401a44d1ed747db1316d36326 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ceb2082c3123d6e3d4d5cbed3ee25a77 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:802f000938c13b4ec0bcbdffd309d3ec from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7c27e70b2e683f591c92eb5d3636b2a1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:d6b8f201b01d7d0122e191ae72d15422 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:01497fd64c9b7777ea0618e28ca7d43e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4c42bae83b16529405e691da33f7d6a4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:f20b819bb8f0ae159290c281c06303ee from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7a213e37d7ae6bffb06bf8ac9b10ecf3 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:e6a94879e8bed64d1ad92f3a3efab64a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:a6e8ca4b59e1d1f8f1d953369ec081f3 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:5c9d98e6eb3bf8c6a7e75028e9bff498 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:9bebae5cbacc21e9666b91a8e2a9d97e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:bf0ccd0ccf6cc21cf70f81e0edc3a572 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ee13030c06ddb72af9ef00a43c0096ff from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:edd63dd6226879d69d60bfacf0dcb765 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:256b75e308dcbe7c52b32e7102ad4000 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:3abf74f64088ae89f6e644d00f09c95e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:0446d367d466361194e179eb5a81fd7e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:4f8191c657ff4d81f518813a57a34c99 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:22a6123be8e1d27d333359844ef6b52e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:aa79c16b92f4aac7f02f190d8488b4a0 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ffc4051d78c867b09520635e592af595 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:30660280d70e9a990a47bc14a2fba3f2 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:970e0f8763e28bc641b59b3e0c403434 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:beb6456827745e86846646c17ea29cb9 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:f28f61fd85329b915606bc4544f56557 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:1d5a205e83c17892910727894fb0aa2e from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:dd18ac3555a998d4ab49166b8b7028cc from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:ba3bc1f60fbfa3fb7ab7a46cfbf8af78 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:92280e2a57c0a97a7cc49e276fe24b71 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:7d0e2052e1dbe00a337740d990d6999a from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:15bc7545d5afc7a15ba83f7701bacfcc from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:51e45b0d4ae84af36f391a3e9a383498 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:d9dcfec2a17c5f0d762f8e6fc4b7b28b from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:67d1d63ce943a9226a84200cc2d57bdc from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:73cda87002dda1f5bfc10867950a626d from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:42c4ecc698a9185eb1db48c1aa03c7e5 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:66c4c0026d87e95363eebbbdfedc9dd1 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:c0cb6642a129b39ed52559f8d02613e4 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
+INFO:metap_records_delete.py:Deleting record with ID: nmdc:96780ab2fa4c0b0e1fd9c07d94e21635 from data_object_set
+INFO:metap_records_delete.py:Deleted 1 record(s) from data_object_set
