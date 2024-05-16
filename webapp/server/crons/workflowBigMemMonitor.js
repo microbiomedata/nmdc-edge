@@ -3,7 +3,7 @@ const path = require('path');
 const FormData = require('form-data');
 const Project = require("../models/Project");
 const CromwellJob = require("../models/CromwellJob");
-const { workflowlist } = require("../config/workflow");
+const { workflowlist, pipelinelist} = require("../config/workflow");
 const common = require("../util/common");
 const logger = require('../util/logger');
 const { submitWorkflow, findInputsize } = require("../util/workflow");
@@ -84,8 +84,17 @@ module.exports = function workflowBigMemMonitor() {
                         }
                     })
                 });
+                let promise3 = new Promise(function (resolve, reject) {
+                    const options = generateOptions(proj_home, pipeline);
+                    if (options) {
+                        resolve(proj);
+                    } else {
+                        logger.error("Failed to generate options.json for project " + proj.code);
+                        reject("Failed to generate options.json for project " + proj.code);
+                    }
+                });
 
-                Promise.all([promise1, promise2]).then(function (projs) {
+                Promise.all([promise1, promise2, promise3]).then(function (projs) {
                     //submit workflow to cromwell
                     common.write2log(path.join(config.PROJECTS.BASE_DIR, proj.code, "log.txt"), "submit workflow to cromwell");
                     logger.info("submit workflow to cromwell");
@@ -131,7 +140,14 @@ function generateWDL(proj_home, workflow) {
     fs.writeFileSync(proj_home + '/pipeline.wdl', wdl);
     return true;
 }
+function generateOptions(proj_home, pipeline) {
+    const pipelineSettings = pipelinelist[pipeline];
+    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelineSettings['options_json']);
+    let templInputs = String(fs.readFileSync(tmpl));
+    fs.writeFileSync(proj_home + '/options.json', templInputs);
+    return true;
 
+}
 async function generateInputs(proj_home, workflow, proj) {
     //build pipeline_inputs.json
     let inputs = "{\n";
