@@ -1,0 +1,205 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
+INFO:root:Updating NMDC study with legacy ID: gold:Gs0110119
+INFO:root:Updating NMDC study with ID: nmdc:sty-11-zs2syx06
+INFO:root:Using 61 identifiers from data/nmdc:sty-11-zs2syx06/nmdc:sty-11-zs2syx06_updated_record_identifiers.tsv
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664649c5f14cd12760681724, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664649c5f14cd12760681724"}, "remainingTimeMS": 4}
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110680
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-nw1kv312
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110680
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110703
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-9jmsx185
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110703
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110681
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-3zrd9503
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110681
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110710
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-m9x30m09
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110710
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110682
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-5rq8ss77
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110682
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110698
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-p5wfy028
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110698
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110702
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-g3czag93
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110702
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110711
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-jj4ex381
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110711
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110722
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-6d0fbs25
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110722
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110712
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-tgaceb95
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110712
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110683
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-hgmdfw78
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110683
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110685
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-q9wgcx83
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110685
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110723
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-848pnr92
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110723
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110724
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-9e071d86
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110724
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110684
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-53vv0844
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110684
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110699
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-h8fvmy11
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110699
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110705
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-97ysfd94
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110705
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110704
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-fvq25f95
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110704
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110726
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-2fjtje68
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110726
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110727
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-q9t77h09
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110727
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110686
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-z89h2493
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110686
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110714
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-p352az39
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110714
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110687
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-y139pj96
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110687
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110730
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-m7n5pw63
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110730
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110688
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-04qjyv47
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110688
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110729
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-ewkt3569
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110729
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110691
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-gty4z826
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110691
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110717
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-zdnd6345
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110717
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110707
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-4x1n6x51
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110707
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110700
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-qyb8rk28
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110700
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110728
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-zh066e37
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110728
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110709
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-5xjkdn69
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110709
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110718
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-85xd8591
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110718
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110716
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-05082t91
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110716
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110719
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-fhhhq785
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110719
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110706
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-vgn31z43
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110706
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110713
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-p63g8y35
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110713
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110701
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-xamj1f55
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110701
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110715
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-91fn7556
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110715
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110721
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-p74q7b60
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110721
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110720
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-7np5cn89
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110720
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110689
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-pfzbgz66
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110689
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110725
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-88v02977
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110725
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110733
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-vh8dn920
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110733
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110731
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-68bafb13
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110731
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110693
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-pwk88919
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110693
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110708
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-rw5syf17
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110708
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110692
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-7fej8x56
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110692
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110690
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-bse61y88
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110690
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110732
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-kn725j33
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110732
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110694
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-yy5h7074
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110694
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110735
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-xj0gfa57
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110735
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110696
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-wzay4h94
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110696
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110736
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-9f05tt87
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110736
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110737
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-f3yqzn33
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110737
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110734
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-kks98r86
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110734
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110739
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-frwkqh05
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110739
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110697
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-segc2858
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110697
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110695
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-9c67ms41
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110695
+INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110738
+INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-g5mb2s08
+INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110738
+INFO:root:Updating the database
+INFO:root:Database update successful
+INFO:root:Updated 1 records in study_set
+INFO:root:Updated 60 records in biosample_set
+INFO:root:Updated 0 records in omics_processing_set
+INFO:root:Updated 0 records in data_object_set
+INFO:root:Updated 0 records in metabolomics_analysis_activity_set
+INFO:root:Updated 0 records in nom_analysis_activity_set
+INFO:root:Deleted 0 records in omics_processing_set
+INFO:root:Deleted 0 records in data_object_set
+INFO:root:Writing updates and updated record identifiers to files
+INFO:root:Writing 6 updates to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-zs2syx06/nmdc:sty-11-zs2syx06_updates.tsv
+INFO:root:Creating new file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-zs2syx06/nmdc:sty-11-zs2syx06_updates.tsv
+INFO:root:Appending to existing file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-zs2syx06/nmdc:sty-11-zs2syx06_updated_record_identifiers.tsv
+INFO:root:Writing 61 updated record identifiers to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-zs2syx06/nmdc:sty-11-zs2syx06_updated_record_identifiers.tsv
+INFO:root:Writing 2 deletions to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-zs2syx06/nmdc:sty-11-zs2syx06_deletions.tsv
+INFO:root:Creating new file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-zs2syx06/nmdc:sty-11-zs2syx06_deletions.tsv
+INFO:root:Elapsed time: 4.708312034606934
