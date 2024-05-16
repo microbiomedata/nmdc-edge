@@ -841,10 +841,10 @@ def delete_old_records(ctx, old_records_file, mongo_uri, failed_records=False):
 
             # delete functional annotation agg records
             if annotation_ids:
-                logging.info(f"Deleting {len(annotation_ids)} functional annotation records")
-                filter_query = {"id": {"$in": list(annotation_ids)}}
+                logging.info(f"Searching for functional annotations for {len(annotation_ids)} annotation activities")
+                filter_query = {"metagenome_annotation_id": {"$in": list(annotation_ids)}}
                 try:
-                    delete_result = db["functional_annotation_activity_set"].delete_many(filter_query)
+                    delete_result = db["functional_annotation_agg"].delete_many(filter_query)
                     logging.info(f"Deleted {delete_result.deleted_count} functional annotation records")
                 except Exception as e:
                     logging.exception(f"An error occurred while deleting functional annotation records: {e}")
