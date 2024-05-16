@@ -140,14 +140,20 @@ function generateWDL(proj_home, workflow) {
     fs.writeFileSync(proj_home + '/pipeline.wdl', wdl);
     return true;
 }
-function generateOptions(proj_home, pipeline) {
-    const pipelineSettings = pipelinelist[pipeline];
-    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelineSettings['options_json']);
+async function generateOptions(proj_home, workflow) {
+
+    const workflowSettings = workflowlist[workflow.name];
+    const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowSettings['options_json']);
     let templInputs = String(fs.readFileSync(tmpl));
+    if (workflow.name === 'ReadsQC') {
+        templInputs = "{}"
+    } else {
+        templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
+    }
     fs.writeFileSync(proj_home + '/options.json', templInputs);
     return true;
-
 }
+
 async function generateInputs(proj_home, workflow, proj) {
     //build pipeline_inputs.json
     let inputs = "{\n";
