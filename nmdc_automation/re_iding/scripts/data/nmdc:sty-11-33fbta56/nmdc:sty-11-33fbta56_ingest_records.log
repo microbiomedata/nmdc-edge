@@ -1,0 +1,23 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
+INFO:root:Submitting re id'd records from : data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_re_ided_record_dump.json
+INFO:root:Using: https://api-napa.microbiomedata.org/
+INFO:root:Using MongoDB URI: mongodb://michael.thornton-napa:barman-reconfirm-leggings-883@localhost:27777
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664554f94beabaa601a2c1ae, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664554f94beabaa601a2c1ae"}, "remainingTimeMS": 4}
+INFO:root:Connected to MongoDB server at mongodb://michael.thornton-napa:barman-reconfirm-leggings-883@localhost:27777
+INFO:root:omics_processing_id: nmdc:omprc-11-wk0zte27
+INFO:root:Updated 1 omics_processing_set records
+ERROR:root:An error occurred - aborting transaction
+ERROR:root:An error occurred while ingesting records: 500 Server Error: Internal Server Error for url: https://api-napa.microbiomedata.org/metadata/json:validate
+Traceback (most recent call last):
+  File "/Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/./re_id_tool.py", line 731, in ingest_records
+    _ingest_records(db_records, db_client, api_user_client)
+  File "/Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/./re_id_tool.py", line 757, in _ingest_records
+    if api_user_client.validate_record(record):
+  File "/Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/api/nmdcapi.py", line 410, in validate_record
+    response.raise_for_status()
+  File "/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: https://api-napa.microbiomedata.org/metadata/json:validate
+INFO:root:Elapsed time: 3.8852598667144775
