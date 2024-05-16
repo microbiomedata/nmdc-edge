@@ -85,7 +85,7 @@ module.exports = function workflowBigMemMonitor() {
                     })
                 });
                 let promise3 = new Promise(function (resolve, reject) {
-                    const options = generateOptions(proj_home, pipeline);
+                    const options = generateOptions(proj_home, workflow);
                     if (options) {
                         resolve(proj);
                     } else {
