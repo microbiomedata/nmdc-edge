@@ -3,8 +3,8 @@
 INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
 INFO:root:Updating NMDC study with legacy ID: gold:Gs0103573
 INFO:root:Updating NMDC study with ID: nmdc:sty-11-1t150432
-INFO:root:Using 613 identifiers from data/nmdc:sty-11-1t150432/nmdc:sty-11-1t150432_updated_record_identifiers.tsv
-INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664796064b0ba010610d3ce2, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664796064b0ba010610d3ce2"}, "remainingTimeMS": 4}
+INFO:root:Using 640 identifiers from data/nmdc:sty-11-1t150432/nmdc:sty-11-1t150432_updated_record_identifiers.tsv
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 6646353467d798cb031af614, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "6646353467d798cb031af614"}, "remainingTimeMS": 4}
 INFO:root:Added legacy biosample ID to gold_biosample_identifiers: gold:Gb0115839
 INFO:root:Getting new ID for nmdc:Biosample gold:Gb0115839
 INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-6qgwc522
@@ -287,4 +287,4 @@ INFO:root:Appending to existing file: /Users/MBThornton/Documents/code/nmdc_auto
 INFO:root:Writing 60 updated record identifiers to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-1t150432/nmdc:sty-11-1t150432_updated_record_identifiers.tsv
 INFO:root:Writing 2 deletions to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-1t150432/nmdc:sty-11-1t150432_deletions.tsv
 INFO:root:Creating new file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-1t150432/nmdc:sty-11-1t150432_deletions.tsv
-INFO:root:Elapsed time: 3.122344970703125
+INFO:root:Elapsed time: 3.121511936187744
