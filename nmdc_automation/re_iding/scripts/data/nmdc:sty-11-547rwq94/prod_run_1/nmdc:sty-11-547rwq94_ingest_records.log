@@ -4,7 +4,7 @@ INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
 INFO:root:Submitting re id'd records from : data/nmdc:sty-11-547rwq94/nmdc:sty-11-547rwq94_re_ided_record_dump.json
 INFO:root:Using: https://api-napa.microbiomedata.org/
 INFO:root:Using MongoDB URI: mongodb://michael.thornton-napa:barman-reconfirm-leggings-883@localhost:27777
-INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 66479a2ee1e7755de1d0e352, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "66479a2ee1e7755de1d0e352"}, "remainingTimeMS": 4}
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664637cdd9c46f3a315bdb48, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664637cdd9c46f3a315bdb48"}, "remainingTimeMS": 4}
 INFO:root:Connected to MongoDB server at mongodb://michael.thornton-napa:barman-reconfirm-leggings-883@localhost:27777
 INFO:root:omics_processing_id: nmdc:omprc-11-xxv2qg83
 INFO:root:Updated 1 omics_processing_set records
@@ -559,4 +559,4 @@ INFO:root:Inserting 34 records into data_object_set
 INFO:root:Inserting 2 records into metagenome_assembly_set
 INFO:root:Inserting 2 records into read_qc_analysis_activity_set
 INFO:root:Inserting 2 records into read_based_taxonomy_analysis_activity_set
-INFO:root:Elapsed time: 323.5768098831177
+INFO:root:Elapsed time: 467.45517086982727

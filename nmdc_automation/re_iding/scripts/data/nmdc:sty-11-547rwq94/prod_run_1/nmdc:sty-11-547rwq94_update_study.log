@@ -3,8 +3,8 @@
 INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
 INFO:root:Updating NMDC study with legacy ID: gold:Gs0154244
 INFO:root:Updating NMDC study with ID: nmdc:sty-11-547rwq94
-INFO:root:Using 3552 identifiers from data/nmdc:sty-11-547rwq94/nmdc:sty-11-547rwq94_updated_record_identifiers.tsv
-INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664799c47c56c8040fa671fc, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664799c47c56c8040fa671fc"}, "remainingTimeMS": 4}
+INFO:root:Using 3961 identifiers from data/nmdc:sty-11-547rwq94/nmdc:sty-11-547rwq94_updated_record_identifiers.tsv
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664637685ed751ca335390a2, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664637685ed751ca335390a2"}, "remainingTimeMS": 4}
 INFO:root:Getting new ID for nmdc:Biosample gold:Gb0239918
 INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-mrymeq51
 INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0239918
@@ -582,4 +582,4 @@ INFO:root:Appending to existing file: /Users/MBThornton/Documents/code/nmdc_auto
 INFO:root:Writing 161 updated record identifiers to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-547rwq94/nmdc:sty-11-547rwq94_updated_record_identifiers.tsv
 INFO:root:Writing 2 deletions to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-547rwq94/nmdc:sty-11-547rwq94_deletions.tsv
 INFO:root:Creating new file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-547rwq94/nmdc:sty-11-547rwq94_deletions.tsv
-INFO:root:Elapsed time: 7.864767074584961
+INFO:root:Elapsed time: 8.499607801437378
