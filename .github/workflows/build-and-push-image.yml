@@ -30,7 +30,7 @@ jobs:
                   flavor: latest=false
                   tags: type=semver,pattern={{version}}
               # Use the `docker/build-push-action` action to build the image described
-              # by the `Dockerfile`. If the build succeeds, push the image to GHCR.
+              # by the specified Dockerfile. If the build succeeds, push the image to GHCR.
               # This action uses the `tags` and `labels` parameters to tag and label
               # the image, respectively, with the output from the "meta" step above.
               # For more info: https://github.com/docker/build-push-action#usage.
@@ -39,6 +39,7 @@ jobs:
               uses: docker/build-push-action@v5
               with:
                   context: .
+                  file: webapp-node20.Dockerfile
                   push: true
                   tags: ${{ steps.meta.outputs.tags }}
                   labels: ${{ steps.meta.outputs.labels }}
