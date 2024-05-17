@@ -3,8 +3,8 @@
 INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
 INFO:root:Updating NMDC study with legacy ID: gold:Gs0114675
 INFO:root:Updating NMDC study with ID: nmdc:sty-11-8fb6t785
-INFO:root:Using 94 identifiers from data/nmdc:sty-11-8fb6t785/nmdc:sty-11-8fb6t785_updated_record_identifiers.tsv
-INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664794095b9916c0bbbfc03b, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664794095b9916c0bbbfc03b"}, "remainingTimeMS": 4}
+INFO:root:Using 47 identifiers from data/nmdc:sty-11-8fb6t785/nmdc:sty-11-8fb6t785_updated_record_identifiers.tsv
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664630170aef1411e5195833, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664630170aef1411e5195833"}, "remainingTimeMS": 4}
 INFO:root:Getting new ID for nmdc:Biosample gold:Gb0119260
 INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-gvp5zp51
 INFO:root:Found 1 OmicsProcessing records for biosample gold:Gb0119260
@@ -206,4 +206,4 @@ INFO:root:Appending to existing file: /Users/MBThornton/Documents/code/nmdc_auto
 INFO:root:Writing 47 updated record identifiers to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-8fb6t785/nmdc:sty-11-8fb6t785_updated_record_identifiers.tsv
 INFO:root:Writing 2 deletions to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-8fb6t785/nmdc:sty-11-8fb6t785_deletions.tsv
 INFO:root:Creating new file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-8fb6t785/nmdc:sty-11-8fb6t785_deletions.tsv
-INFO:root:Elapsed time: 2.5278451442718506
+INFO:root:Elapsed time: 2.805699110031128
