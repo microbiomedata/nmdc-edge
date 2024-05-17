@@ -1,10 +1,8 @@
-/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
-  warnings.warn(
 INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
 INFO:root:Updating NMDC study with legacy ID: gold:Gs0110119
 INFO:root:Updating NMDC study with ID: nmdc:sty-11-zs2syx06
-INFO:root:Using 61 identifiers from data/nmdc:sty-11-zs2syx06/nmdc:sty-11-zs2syx06_updated_record_identifiers.tsv
-INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664649c5f14cd12760681724, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664649c5f14cd12760681724"}, "remainingTimeMS": 4}
+INFO:root:Using 122 identifiers from data/nmdc:sty-11-zs2syx06/nmdc:sty-11-zs2syx06_updated_record_identifiers.tsv
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 6647bf0ba88aede91382c854, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "6647bf0ba88aede91382c854"}, "remainingTimeMS": 4}
 INFO:root:Getting new ID for nmdc:Biosample gold:Gb0110680
 INFO:root:Found new ID in identifiers_map: nmdc:bsm-11-nw1kv312
 INFO:root:Found 0 OmicsProcessing records for biosample gold:Gb0110680
@@ -202,4 +200,5 @@ INFO:root:Appending to existing file: /Users/MBThornton/Documents/code/nmdc_auto
 INFO:root:Writing 61 updated record identifiers to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-zs2syx06/nmdc:sty-11-zs2syx06_updated_record_identifiers.tsv
 INFO:root:Writing 2 deletions to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-zs2syx06/nmdc:sty-11-zs2syx06_deletions.tsv
 INFO:root:Creating new file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-zs2syx06/nmdc:sty-11-zs2syx06_deletions.tsv
-INFO:root:Elapsed time: 4.708312034606934
+INFO:root:Elapsed time: 4.172338008880615
+
