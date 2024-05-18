@@ -124,7 +124,7 @@ function Main(props) {
 
     return (
         <div className="animated fadeIn" style={disabled ? { pointerEvents: 'none', opacity: '0.4' } : {}}>
-            <span className="pt-3 text-muted edge-text-size-small">Natural Organic Matter | Run Workflow </span>
+            <span className="edge-workflow-tag pt-3 text-muted edge-text-size-small">Natural Organic Matter | Run Workflow </span>
             <Row className="justify-content-center">
                 <Col xs="12" md="10">
                     <ToastContainer />
