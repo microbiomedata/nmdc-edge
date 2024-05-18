@@ -142,7 +142,7 @@ router.post("/update", (req, res) => {
 //for share/unshare
 router.get("/list", (req, res) => {
     logger.debug("/auth-api/user/list: " + req.user.email);
-    User.find({ 'status': 'active' }, { firstname: 1, lastname: 1, email: 1 }).sort([['firstname', 1], ['lastname', 1]]).then(function (users) {
+    User.find({ 'status': 'active', 'email' : { $regex: "@orcid.org", $options: 'i' } }, { firstname: 1, lastname: 1, email: 1 }).sort([['firstname', 1], ['lastname', 1]]).then(function (users) {
         return res.send(users);
     }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
 
