@@ -58,15 +58,15 @@ workflowlist = {
         cromwell_calls: ['main_workflow.nmdc_mags'],
         wdl_version: 'draft-2'
     },
-    Metatranscriptome: {
+    Metatranscriptomics: {
         wdl: 'metaT.wdl',
         wdl_imports: 'metaT/imports.zip',
         name: 'nmdc_metat',
-        full_name: 'Metatranscriptome',
+        full_name: 'Metatranscriptomics',
         wdl_tmpl: 'metaT_wdl.tmpl',
         inputs_tmpl: 'metaT_inputs.tmpl',
         options_json: 'metaT_options.json',
-        outdir: 'output/Metatranscriptome',
+        outdir: 'output/Metatranscriptomics',
         cromwell_calls: ['main_workflow.nmdc_metat'],
         wdl_version: 'draft-2'
     },
@@ -78,7 +78,7 @@ workflowlist = {
         wdl_tmpl: 'enviroMS_wdl.tmpl',
         inputs_tmpl: 'enviroMS_inputs.tmpl',
         options_json: 'enviroMS_options.json',
-        outdir: 'output/EnviroMS',
+        outdir: 'output/NOM',
         cromwell_calls: ['main_workflow.enviroMS'],
         wdl_version: 'draft-2'
     },

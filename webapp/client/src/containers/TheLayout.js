@@ -3,7 +3,8 @@ import {
   TheContent,
   TheSidebar,
   TheFooter,
-  TheHeader
+  TheHeader,
+  NMDCHeader
 } from './index'
 
 const TheLayout = (props) => {
@@ -12,11 +13,10 @@ const TheLayout = (props) => {
     <div className="c-app c-default-layout">
       <TheSidebar/>
       <div className="c-wrapper">
-        <TheHeader {...props}/>
+        <NMDCHeader {...props}/>
         <div className="c-body">
           <TheContent/>
         </div>
-        <TheFooter/>
       </div>
     </div>
   )

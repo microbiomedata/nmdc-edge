@@ -5,7 +5,8 @@ const Home = React.lazy(() => import('./pipelines/Home'));
 const Tutorial = React.lazy(() => import('./pipelines/Tutorial'));
 const PublicProjectList = React.lazy(() => import('./common/UM/Public/ProjectList'));
 const PublicProjectPage = React.lazy(() => import('./pipelines/Common/Results/ProjectPage/Public'));
-const UserLogin = React.lazy(() => import('./common/UM/User/Login'));
+const UserLogin = React.lazy(() => import('./common/UM/Common/ORCIDLoginPage'));
+const tempLogin = React.lazy(() => import('./common/UM/User/Login'));
 const UserActivate = React.lazy(() => import('./common/UM/User/Activate'));
 const UserRegister = React.lazy(() => import('./common/UM/User/Register'));
 const UserResetpassword = React.lazy(() => import('./common/UM/User/Resetpassword'));
@@ -19,6 +20,7 @@ const routes = [
   { path: '/public/projectlist', name: 'ProjectList', component: PublicProjectList },
   { path: '/public/project', name: 'ProjectPage', component: PublicProjectPage },
   { path: '/login', exact: true, name: 'Login', component: UserLogin },
+  { path: '/templogin', exact: true, name: 'tempLogin', component: tempLogin },
   { path: '/activate', exact: true, name: 'Activate', component: UserActivate },
   { path: '/register', exact: true, name: 'Register', component: UserRegister },
   { path: '/resetpassword', exact: true, name: 'Resetpassword', component: UserResetpassword },

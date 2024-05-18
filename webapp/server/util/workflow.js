@@ -153,11 +153,11 @@ const generateWorkflowResult = function (proj) {
             }
         });
         result['stats'] = stats;
-    } else if (workflowConf.workflow.name === 'Metatranscriptome') {
+    } else if (workflowConf.workflow.name === 'Metatranscriptomics') {
         result['top_features'] = JSON.parse(fs.readFileSync(outdir + "/metat_output/top100_features.json"));
         const features_tsv = outdir + "/metat_output/rpkm_sorted_features.tsv";
         if (fs.existsSync(features_tsv)) {
-            result['features_tsv'] = "output/Metatranscriptome/metat_output/rpkm_sorted_features.tsv";
+            result['features_tsv'] = "output/Metatranscriptomics/metat_output/rpkm_sorted_features.tsv";
         }
     } else if (workflowConf.workflow.name === 'EnviroMS') {
         let stats = {};
@@ -481,7 +481,7 @@ async function findInputsize(conf) {
 
     } else {
         const workflow = conf.workflow.name;
-        if (workflow === 'ReadsQC' || workflow === 'MetaAssembly' || workflow === 'Metatranscriptome') {
+        if (workflow === 'ReadsQC' || workflow === 'MetaAssembly' || workflow === 'Metatranscriptomics') {
             const fastqs = conf.workflow.input_fastq.fastqs;
             if (conf.workflow.input_fastq.interleaved) {
                 await Promise.all(fastqs.map(async (file) => {

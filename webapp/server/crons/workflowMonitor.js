@@ -168,7 +168,7 @@ async function generateInputs(proj_home, workflow, proj) {
         templInputs = templInputs.replace(/<PREFIX>/, '"' + proj.name + '"');
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
 
-    } else if (workflow.name === 'ReadsQC' || workflow.name === 'MetaAssembly' || workflow.name === 'Metatranscriptome') {
+    } else if (workflow.name === 'ReadsQC' || workflow.name === 'MetaAssembly' || workflow.name === 'Metatranscriptomics') {
         let interleaved = workflow['input_fastq']['interleaved'];
         let input_fastq = workflow['input_fastq']['fastqs'];
 
@@ -208,7 +208,7 @@ async function generateInputs(proj_home, workflow, proj) {
                 }
             }
 
-            if (workflow.name === 'Metatranscriptome') {
+            if (workflow.name === 'Metatranscriptomics') {
                 templInputs = templInputs.replace(/<INPUT_FILE_SINGLE>/, '"' + inputs_fq[0] + '"');
                 templInputs = templInputs.replace(/<INPUT_FQ1>/, '""');
                 templInputs = templInputs.replace(/<INPUT_FQ2>/, '""');
@@ -275,7 +275,7 @@ async function generateInputs(proj_home, workflow, proj) {
                     inputs_fq2.push(fq2);
                 }
             }
-            if (workflow.name === 'Metatranscriptome') {
+            if (workflow.name === 'Metatranscriptomics') {
                 //only allow 1 input set
                 templInputs = templInputs.replace(/<INPUT_FQ1>/, '"' + inputs_fq1[0] + '"');
                 templInputs = templInputs.replace(/<INPUT_FQ2>/, '"' + inputs_fq2[0] + '"');

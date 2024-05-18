@@ -8,19 +8,19 @@ export const defaults = {
 }
 
 export const workflowOptions = [
-    { value: 'Metatranscriptome', label: 'Metatranscriptome' },
+    { value: 'Metatranscriptomics', label: 'Metatranscriptomics' },
 ];
 
 export const workflowInputTips = {
-    Metatranscriptome: {
-        fastq_tip: 'Metatranscriptome requires interleaved data in FASTQ format as the input; the file can be compressed. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
+    Metatranscriptomics: {
+        fastq_tip: 'Metatranscriptomics requires interleaved data in FASTQ format as the input; the file can be compressed. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
     },
 }
 
 export const workflowlist = {
-    Metatranscriptome: {
-        title: 'Metatranscriptome',
-        name: 'Metatranscriptome Workflow',
+    Metatranscriptomics: {
+        title: 'Metatranscriptomics',
+        name: 'Metatranscriptomics Workflow',
         img: '/docs/images/Metatranscriptome.png',
         thumbnail: '/docs/images/Metatranscriptome-thumbnail.png',
         link: 'https://github.com/microbiomedata/metaT',
@@ -29,7 +29,7 @@ export const workflowlist = {
     },
 }
 
-export const initialMetaTranscriptome = {
+export const initialMetatranscriptomics = {
     validForm: false,
     errMessage: '',
     input_fastq: [],

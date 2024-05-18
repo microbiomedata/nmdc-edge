@@ -1,0 +1,274 @@
+//NMDC 
+$blue-base: #00aae7;
+.nmdc-edge-home {
+  padding-left: 60px;
+  padding-right: 60px;
+  a {
+    //text-decoration: underline;
+    //text-underline-offset: 2px;
+    color: $blue-base;
+  }
+}
+.nmdc-edge-app-banner {
+  padding-left: 60px;
+  padding-right: 60px;
+  font-size: 16px;
+  
+  .nmdc-edge-app-banner-content{
+    padding-left: 20px;
+
+  }
+}
+
+// nmdc header
+.nmdc-header {
+  padding: 0px 0;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  height: 82px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12);
+  box-shadow: 0 2px 2px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-transition: .2s ease-in-out;
+  -o-transition: .2s ease-in-out;
+  transition: .2s ease-in-out;
+
+}
+
+.nmdc-header-logo {
+    padding-top: 12px;
+    padding-right: 20px;
+    padding-bottom: 22px;
+    padding-left: 20px;
+}
+
+.nmdc-header-nav-item {
+  position: relative;
+  padding: 8px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap
+}
+
+.nmdc-header-nav-link {
+  display: flex;
+  align-items: center;
+  padding-top: 22px;
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-bottom: 35px;
+  color: #707070;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  a {
+    color: #707070;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  @include hover-focus {
+    -webkit-background-size: 100% 1px;
+    background-size: 100% 1px;
+    color: #4f3b80;
+    text-shadow: 0 0 1px #4f3b80;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+}
+
+.nmdc-header-dropdown-menu {
+  position: absolute;
+  top: 56px;
+  z-index: 1;
+  display: none; // none by default, but block on "open" of the menu
+  float: left;
+  margin-left: -12px;
+  min-width: 160px;
+  text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  list-style: none;
+  background-color: white;
+  box-shadow: 2px 8px 16px 0px rgba(0,0,0,0.2);
+
+  a {
+    color: #3c4b64;
+    font-size: 12px;
+    padding: 12px 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: block;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  a:active {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+    
+  .nmdc-edge-link {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+}
+
+.nmdc-header-nav-link:hover .nmdc-header-dropdown-menu {
+    -webkit-background-size: 100% 1px;
+    background-size: 100% 1px;
+    color: #4f3b80;
+    text-shadow: 0 0 1px #4f3b80;
+    font-weight: 400;
+    text-decoration: none;
+    display: block;
+}
+
+.nmdc-header-chevron {
+  border: 0;
+  margin-left: 4px;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  position: relative;
+  background-color: transparent;
+  -webkit-transition: .2s ease-in;
+  -o-transition: .2s ease-in;
+  transition: .2s ease-in;
+  margin-bottom: 2px
+}
+
+.nmdc-header-chevron:after,.nmdc-header-chevron:before {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 1px;
+  background-color: #707070;
+  top: 50%
+}
+
+.nmdc-header-chevron:before {
+  -webkit-transform: rotate(45deg) translateY(-50%);
+  -ms-transform: rotate(45deg) translateY(-50%);
+  transform: rotate(45deg) translateY(-50%);
+  left: 0
+}
+
+.nmdc-header-chevron:after {
+  -webkit-transform: rotate(-45deg) translateY(-50%);
+  -ms-transform: rotate(-45deg) translateY(-50%);
+  transform: rotate(-45deg) translateY(-50%);
+  right: 0
+}
+
+.nmdc-header-vr {
+  border-left: 1px solid #d8dbe0;
+  height: 60px;
+  padding-top: 0px;
+  padding-bottom: 50px;
+}
+
+.nmdc-header-orcid {
+  display: flex;
+  align-items: center;
+  padding-top: 12px;
+  padding-right: 30px;
+  padding-left: 16px;
+  padding-bottom: 25px;
+  color: #707070;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  a {
+    color: #707070;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  @include hover-focus {
+    -webkit-background-size: 100% 1px;
+    background-size: 100% 1px;
+    color: #4f3b80;
+    text-shadow: 0 0 1px #4f3b80;
+    font-weight: 400;
+    text-decoration: none;
+
+    .nmdc-header-orcid-img {
+      filter: opacity(100%);
+    }
+    .nmdc-header-orcid-icon {
+      filter: opacity(100%);
+    }
+  }
+}
+
+.nmdc-header-orcid-img {
+  height: 28px;
+  filter: opacity(65%);
+}
+.nmdc-header-orcid-icon {
+  filter: opacity(65%);
+}
+.nmdc-header-orcid-login-help {
+  position: absolute;
+  top: 56px;
+  right: 10px;
+  z-index: 1;
+  display: none; // none by default, but block on "open" of the menu
+  width: 500px;
+  height: 100%;
+  text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  text-transform: none;
+  background-color: white;
+
+  .nmdc-header-orcid-login-help-title {
+    font-size: 20px;
+    color: black;
+  }
+  .nmdc-header-orcid-login-help-text {
+    font-size: 14px;
+    color: #616161;
+    font-weight: 200;
+  }
+  .nmdc-header-orcid-login-help-text a {
+    font-size: 14px;
+    color: #616161;
+    font-weight: 200;
+    text-transform: none;
+    text-decoration: underline;
+    text-underline-offset: 1px;
+  }
+}
+
+.nmdc-header-orcid-login:hover .nmdc-header-orcid-login-help {
+  -webkit-background-size: 100% 1px;
+  background-size: 100% 1px;
+  display: block;
+}
+
+//hide menu on topbar
+@media screen and (max-width: 992px) {
+  .nmdc-header-nav-link {
+      display: none !important;
+  }
+  .nmdc-header-no-min {
+    display: none !important;
+  }
+}

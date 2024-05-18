@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'reactstrap';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,6 +20,8 @@ export function ORCIDLogin(props) {
 
     const closeConfirm = () => {
         setOpenConfirm(false);
+        //return to home page
+        //window.location = '/home';
     }
     const handleYes = () => {
         setOpenConfirm(false);
@@ -75,6 +77,10 @@ export function ORCIDLogin(props) {
         dispatch(cleanupMessages());
     }
 
+    useEffect(() => {
+        getORCID();
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
+
     return (
         <>
             <LoaderDialog loading={page.submitting_form} text="Verifying email..." />
@@ -83,9 +89,6 @@ export function ORCIDLogin(props) {
                 handleClickClose={closeConfirm} handleClickYes={handleYes} />
             <MessageDialog isOpen={messages.sociallogin ? true : false} message={messages.sociallogin} handleClickClose={closeMsgModal} />
             <MessageDialog isOpen={errors.sociallogin ? true : false} message={errors.sociallogin} handleClickClose={closeMsgModal} className='modal-danger' />
-            <p className="text-muted">Use your ORCID account for faster login or registration</p>
-
-            <Button color="success" className="px-4" block onClick={e => getORCID()}>Login with ORCiD</Button>
         </>
     );
 }

@@ -167,7 +167,7 @@ function ProjectResult(props) {
                     <Col xs="12" md="10">
                         <div className="clearfix">
                             <p className="text-muted float-left">
-                                The project might be deleted or you have no permission to acces it.
+                                The project might be deleted or you have no permission to access it.
                             </p>
                         </div>
                     </Col>

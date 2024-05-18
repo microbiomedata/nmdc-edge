@@ -4,7 +4,7 @@ import CIcon from '@coreui/icons-react'
 const _nav = [
   {
     _tag: 'CSidebarNavItem',
-    name: 'Home',
+    name: 'NMDC EDGE',
     to: '/home',
     icon: <CIcon name="cilHome" customClasses="c-sidebar-nav-icon" />
   },
@@ -34,38 +34,6 @@ const _nav = [
   },
   {
     _tag: 'CSidebarNavTitle',
-    _children: ['NMDC'],
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'NMDC Home',
-    target: '_blank',
-    href: 'https://microbiomedata.org/',
-    icon: <CIcon name="cilExternalLink" customClasses="c-sidebar-nav-icon" />
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Sample Submission Portal',
-    target: '_blank',
-    href: 'https://data.microbiomedata.org/submission/home',
-    icon: <CIcon name="cilExternalLink" customClasses="c-sidebar-nav-icon" />
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Data Portal',
-    target: '_blank',
-    href: 'https://data.microbiomedata.org/',
-    icon: <CIcon name="cilExternalLink" customClasses="c-sidebar-nav-icon" />
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Documentation',
-    target: '_blank',
-    href: 'https://nmdc-documentation.readthedocs.io/en/latest/index.html',
-    icon: <CIcon name="cilExternalLink" customClasses="c-sidebar-nav-icon" />
-  },
-  {
-    _tag: 'CSidebarNavTitle',
     _children: ['Workflows'],
   },
 
@@ -88,7 +56,7 @@ const _nav = [
   },
   {
     _tag: 'CSidebarNavItem',
-    name: 'Metatranscriptome',
+    name: 'Metatranscriptomics',
     icon: 'cilCursor',
     to: '/metat/workflow',
   },

@@ -5,13 +5,12 @@ import {
 
 import { getData, postData, notify } from '../../../common/util';
 import { LoaderDialog, MessageDialog } from '../../../common/Dialogs';
-import MySelect from '../../../common/MySelect';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { workflowlist, workflowOptions } from './Defaults';
 import { Project } from '../../Common/Forms/Project';
-import { Metatranscriptome } from './Forms/Metatranscriptome';
+import { Metatranscriptomics } from './Forms/Metatranscriptomics';
 
 function Main(props) {
     const [openDialog, setOpenDialog] = useState(false);
@@ -55,7 +54,7 @@ function Main(props) {
         inputDisplay.input = {};
         let myWorkflow = {};
         myWorkflow.name = workflow;
-        if (workflow === 'Metatranscriptome') {
+        if (workflow === 'Metatranscriptomics') {
             let myInputs = {};
             if (selectedWorkflows[workflow].interleaved) {
                 myInputs.interleaved = true;
@@ -122,7 +121,7 @@ function Main(props) {
 
     return (
         <div className="animated fadeIn" style={disabled ? { pointerEvents: 'none', opacity: '0.4' } : {}}>
-            <span className="pt-3 text-muted edge-text-size-small">Metatranscriptome | Run Workflow </span>
+            <span className="pt-3 text-muted edge-text-size-small">Metatranscriptomics | Run Workflow </span>
             <Row className="justify-content-center">
                 <Col xs="12" md="10">
                     <ToastContainer />
@@ -163,8 +162,8 @@ function Main(props) {
                             />
                             <br></br> */}
                             <br></br>
-                            {workflow === 'Metatranscriptome' &&
-                                <Metatranscriptome name={workflow} full_name={workflow} setParams={setWorkflowParams} />
+                            {workflow === 'Metatranscriptomics' &&
+                                <Metatranscriptomics name={workflow} full_name={workflow} setParams={setWorkflowParams} />
                             }
                             <br></br>
                         </div>

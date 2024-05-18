@@ -27,7 +27,7 @@ export const workflowlist = {
 
 export const workflowInputTips = {
     Input: {
-        fastq_tip: 'Input is paired-end Illumina data in FASTQ format as the input; the file can be interleaved and can becompressed. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
+        fastq_tip: 'Input is paired-end Illumina data in FASTQ format as the input; the file can be interleaved and can be compressed. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
     },
     MetaMAGs: {
         map_tip: 'input map<br />Note: The file size limit for the URL input is 10GB',

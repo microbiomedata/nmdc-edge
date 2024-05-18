@@ -22,6 +22,8 @@ const isEmpty = require("is-empty");
 const User = require("../../models/User");
 const Project = require("../../models/Project");
 const Upload = require("../../models/Upload");
+const OrcidUser = require("../../models/OrcidUser");
+const validateLoginInput = require("../../validation/user/login");
 
 const common = require("../common");
 const logger = require('../../util/logger');
@@ -93,10 +95,10 @@ router.post("/update", (req, res) => {
             if (!isEmpty(req.body.status)) {
                 user.status = req.body.status;
             }
-            if (!isEmpty(req.body.mailto)) {
+            if ('mailto' in req.body) {
                 user.mailto = req.body.mailto;
             }
-            if (!isEmpty(req.body.notification)) {
+            if ('notification' in req.body) {
                 user.notification = req.body.notification;
             }
 
@@ -637,7 +639,7 @@ router.post("/project/files", (req, res) => {
             // get project output dir
             let outdir = '';
             Object.keys(workflowlist).forEach((key) => {
-                if(workflowlist[key]['full_name'] === proj.type) {
+                if (workflowlist[key]['full_name'] === proj.type) {
                     outdir = workflowlist[key]['outdir'];
                 }
             });
@@ -743,6 +745,73 @@ router.post("/globus/files", (req, res) => {
     }
 
     return res.send({ fileData: files });
+});
+
+// @route POST auth-api/user/import-old-data
+// @access Private
+// import projects/uploads to orcid account
+router.post("/import-old-data", async (req, res) => {
+    logger.debug("/auth-api/user/import-old-data: " + req.user.email);
+    //valid user/password
+    // Form validation
+    const { errors, isValid } = validateLoginInput(req.body);
+    // Check validation
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    const email = dbsanitize(req.body.email);
+    const password = req.body.password;
+
+    try {
+        // Find user by email
+        const user = await User.findOne({ email: email });
+        // Check if user exists
+        if (!user) {
+            logger.error("login: Email not found." + email)
+            return res.status(400).json({ email: "Email not found" });
+        }
+
+        // Check password
+        const isMatch = await bcrypt.compare(password, user.password)
+        // User matched
+        if (isMatch) {
+            // find all uploads shared to the user and change email to orcid account
+            await Upload.updateMany(
+                { 'sharedto': req.body.email }, { $set: { "sharedto.$": req.user.email } },
+            );
+            // find all uploads owned by user and change owner to orcid account
+            const uploads = await Upload.updateMany({ 'status': { $ne: 'delete' }, 'owner': req.body.email }, { 'owner': req.user.email });
+
+            // find all projects shared to the user and change email to orcid account
+            await Project.updateMany(
+                { 'sharedto': req.body.email }, { $set: { "sharedto.$": req.user.email } },
+            );
+            // find all projects owned by user and change owner to orcid account
+            const projects = await Project.updateMany({ 'status': { $ne: 'delete' }, 'owner': req.body.email }, { 'owner': req.user.email });
+            if (!(projects.n === 0 && uploads.n === 0)) {
+                // save to orciduser
+                const newOrcidUser = new OrcidUser({
+                    orcidid: req.user.email,
+                    email: req.body.email
+                });
+                await newOrcidUser.save();
+                // update orcid account
+                if(!req.user.mailto) {
+                    console.log('update mailto')
+                    await User.updateOne({'email': req.user.email}, {'mailto': req.body.email });
+                }
+                // return success
+                logger.info('import projects: ' + projects.n + ', uploads: ' + uploads.n);
+                return res.send({projects: projects.n, uploads: uploads.n});
+            } else {
+                return res.status(400).json({'old projects': 0, 'old uploads': 0, message: 'Nothing to import'});
+            }
+        } else {
+            logger.error("login: Password incorrect." + email)
+            return res.status(400).json({ password: "Password incorrect" });
+        }
+    } catch (err) { logger.error(err); return res.status(500).json(sysError); };
 });
 
 module.exports = router;
