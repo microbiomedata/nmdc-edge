@@ -39,7 +39,7 @@ export function Project(props) {
     useEffect(() => {
         setState({ ...initialProject });
         setValue('proj_name', '', { shouldValidate: true });
-    }, [props.reset]);
+    }, [props.reset]);// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         //validate form

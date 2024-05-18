@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   CCreateElement,
   CSidebar,
-  CSidebarBrand,
   CSidebarNav,
   CSidebarNavDivider,
   CSidebarNavTitle,
@@ -12,12 +11,8 @@ import {
   CSidebarNavItem,
 } from '@coreui/react'
 
-import CIcon from '@coreui/icons-react'
-
 // sidebar nav config
 import navigation from './_nav';
-import logo from '../assets/img/brand/logo.png'
-
 import { setSidebar } from "../redux/actions/userActions";
 
 const TheSidebar = () => {

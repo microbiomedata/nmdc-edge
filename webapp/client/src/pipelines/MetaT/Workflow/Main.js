@@ -24,7 +24,7 @@ function Main(props) {
     const [selectedWorkflows, setSelectedWorkflows] = useState({});
     const [doValidation, setDoValidation] = useState(0);
 
-    const [workflow, setWorkflow] = useState(workflowOptions[0].value);
+    const [workflow] = useState(workflowOptions[0].value);
 
     //callback function for child component
     const setProject = (params) => {

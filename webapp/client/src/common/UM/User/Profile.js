@@ -17,7 +17,7 @@ function Profile(props) {
     const messages = useSelector(state => state.messages);
     const [notification, setNotification] = useState(user.notification);
 
-    const { register, handleSubmit, formState: { errors }, watch, setValue, clearErrors } = useForm({
+    const { register, handleSubmit, formState: { errors }, setValue, clearErrors } = useForm({
     });
 
     const firstnameReg = {
@@ -83,7 +83,7 @@ function Profile(props) {
         if (notification !== 'on') {
             clearErrors();
         }
-    }, [notification]);
+    }, [notification]);// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (messages.update) {
@@ -91,7 +91,7 @@ function Profile(props) {
         }
         //clean up error/message
         dispatch(cleanupMessages());
-    }, [messages.update]);
+    }, [messages.update]);// eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="app-body flex-row align-items-center">

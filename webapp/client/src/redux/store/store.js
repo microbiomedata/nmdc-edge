@@ -1,13 +1,13 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "../reducers";
-import {createLogger} from 'redux-logger';
+// import {createLogger} from 'redux-logger';
 
-const logger = createLogger({
-    /* https://github.com/evgenyrodionov/redux-logger */
-    collapsed: true,
-    diff: true
-});
+// const logger = createLogger({
+//     /* https://github.com/evgenyrodionov/redux-logger */
+//     collapsed: true,
+//     diff: true
+// });
 
 const initialState = {};
 //const middleware = [thunk, logger];

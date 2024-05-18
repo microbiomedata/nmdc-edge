@@ -3,7 +3,7 @@ import MaterialTable from "material-table";
 import { MuiThemeProvider } from '@material-ui/core';
 import { tableIcons, theme } from '../../../../common/table';
 
-function Top_features(props) {
+function TopFeatures(props) {
     const [featureData, setFeatureData] = useState([]);
     const [selectedRow, setSelectedRow] = useState(null);
     
@@ -124,4 +124,4 @@ function Top_features(props) {
     );
 }
 
-export default Top_features;
+export default TopFeatures;

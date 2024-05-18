@@ -129,7 +129,7 @@ export const popupWindow = (url, windowName, win, w, h) => {
 }
 
 export const validFile = (filename, path) => {
-    const regexp = new RegExp(/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)\/[a-zA-Z0-9()]{1}/, 'i');
+    const regexp = new RegExp(/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)\/[a-zA-Z0-9()]{1}/, 'i');
     
     if(filename === path) {
         //text input must be a http(s) url

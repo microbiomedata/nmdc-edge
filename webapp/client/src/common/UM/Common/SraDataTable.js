@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom'
 import { Badge } from 'reactstrap';
 import { updateProjectAdmin } from "../../../redux/actions/adminActions";
 import { updateProject, cleanupMessages } from "../../../redux/actions/userActions";
@@ -26,19 +25,6 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { BsFolderSymlink } from "react-icons/bs";
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from "@material-ui/core/IconButton";
-
-const columns = [
-    { title: 'Name', field: 'name', filterPlaceholder: 'Name filter', tooltip: 'name', grouping: false },
-    {
-        title: 'Status', field: 'status', editable: 'never', grouping: false,
-        render: rowData => { return <Badge color={projectStatusColors[rowData.status]}>{projectStatusNames[rowData.status]}</Badge> },
-        lookup: { 'in queue': 'In queue', 'running': 'Running', 'failed': 'Failed', 'rerun': 'Re-run', 'complete': 'Complete' }
-    },
-    { title: 'Shared', field: 'shared', lookup: { true: 'Yes', false: 'No' }, editable: 'never' },
-    { title: 'Public', field: 'public', lookup: { true: 'Yes', false: 'No' } },
-    { title: 'Created', field: 'created', type: 'datetime', editable: 'never', filtering: false, grouping: false },
-    { title: 'Updated', field: 'updated', type: 'datetime', editable: 'never', filtering: false, grouping: false },
-];
 
 const actionDialogs = {
     '': { 'message': "This action is not undoable." },

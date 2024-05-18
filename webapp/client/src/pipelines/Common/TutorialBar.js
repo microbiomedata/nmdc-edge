@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Col, Row } from 'reactstrap';
 import IconButton from '@material-ui/core/IconButton';
 import { SiReadthedocs } from 'react-icons/si';
-import { GrDocumentPdf } from 'react-icons/gr';
 import { FaFilePdf } from 'react-icons/fa';
 import { FiVideo } from 'react-icons/fi';
 
@@ -10,8 +9,6 @@ import { VideoDialog } from '../../common/Dialogs';
 import config from "../../config";
 
 function TutorialBar(props) {
-    const [video, setVideo] = useState();
-    const [name, setName] = useState();
     const [openVideo, setOpenVideo] = useState(false);
 
     const closeVideo = () => {

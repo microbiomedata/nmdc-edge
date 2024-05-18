@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const Home = React.lazy(() => import('./pipelines/Home'));
 const Tutorial = React.lazy(() => import('./pipelines/Tutorial'));
 const PublicProjectList = React.lazy(() => import('./common/UM/Public/ProjectList'));

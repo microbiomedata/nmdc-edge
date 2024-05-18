@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Card, CardBody, Col, Row, Collapse, Input
-} from 'reactstrap';
+import {Col, Row, Input } from 'reactstrap';
 import { useForm } from "react-hook-form";
 import { MyTooltip } from '../../../../common/MyTooltip';
-import { Header } from '../../../Common/Forms/CardHeader';
 import { defaults, initialSra2fastq, workflowInputTips } from '../Defaults';
 
 export function Sra2fastq(props) {
-  const [collapseParms, setCollapseParms] = useState(false);
   const { register, setValue, formState: { errors }, trigger } = useForm({
     mode: defaults['form_mode'],
   });
 
-
-  const toggleParms = () => {
-    setCollapseParms(!collapseParms);
-  }
   const isValidAccessions = (accessions) => {
     if (!accessions) {
       if (props.required) {

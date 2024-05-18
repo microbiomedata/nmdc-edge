@@ -84,16 +84,7 @@ export function Metaproteomics(props) {
         setValue("fasta_hidden", filename, { shouldValidate: true });
         setDoValidation(doValidation + 1);
     }
-
-    const handleGFFFileSelection = (filename, type, index, key) => {
-        setState({
-            ...form,
-            'input_gff': filename, 'input_gff_display': key
-        });
-        setValue("gff_hidden", filename, { shouldValidate: true });
-        setDoValidation(doValidation + 1);
-    }
-
+    
     //trigger validation method when input changes
     useEffect(() => {
         //validate form

@@ -5,7 +5,6 @@ import {
 
 import { getData, postData, notify } from '../../../common/util';
 import { LoaderDialog, MessageDialog } from '../../../common/Dialogs';
-import MySelect from '../../../common/MySelect';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -22,20 +21,14 @@ function Main(props) {
     const [submitting, setSubmitting] = useState(false);
     const [requestSubmit, setRequestSubmit] = useState(false);
 
-    const [projectParams, setProjectParams] = useState();
+    const [projectParams] = useState();
 
     const [selectedWorkflows, setSelectedWorkflows] = useState({});
     const [doValidation, setDoValidation] = useState(0);
 
-    const [workflow, setWorkflow] = useState(workflowOptions[0].value);
+    const [workflow] = useState(workflowOptions[0].value);
     const [refreshTable, setRefreshTable] = useState(0)
 
-    //callback function for child component
-    const setProject = (params) => {
-        //console.log("main project:", params)
-        setProjectParams(params);
-        setDoValidation(doValidation + 1);
-    }
     const setWorkflowParams = (params, workflowName) => {
         //console.log("workflow:", params, workflowName)
         setSelectedWorkflows({ ...selectedWorkflows, [workflowName]: params });

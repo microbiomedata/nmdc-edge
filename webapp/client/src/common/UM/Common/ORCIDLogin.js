@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'reactstrap';
-
 import { useDispatch, useSelector } from 'react-redux';
-
 import { popupWindow } from '../../util';
-
 import { socialLogin, cleanupMessages } from "../../../redux/actions/userActions";
 import { LoaderDialog, ConfirmDialogNoHeader, MessageDialog } from '../../Dialogs';
 import config from "../../../config";

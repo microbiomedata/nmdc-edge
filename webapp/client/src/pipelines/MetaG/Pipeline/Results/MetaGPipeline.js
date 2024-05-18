@@ -17,7 +17,7 @@ function MetaGPipeline(props) {
             stats[item.Workflow] = item.Status;
         });
         setRunStats(stats);
-    }, []);
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
@@ -34,6 +34,8 @@ function MetaGPipeline(props) {
                     return <MetaAnnotation key={index} result={props.result[workflow.name]} project={props.project} title={workflowlist[workflow.name].title + ' Result'} userType={props.type} allExpand={props.allExpand} allClosed={props.allClosed} />
                 } else if (workflow.paramsOn && workflow.name === 'MetaMAGs' && runStats['Metagenome MAGs'] === 'Done') {
                     return <MetaMAGs key={index} result={props.result[workflow.name]} project={props.project} title={workflowlist[workflow.name].title + ' Result'} userType={props.type} allExpand={props.allExpand} allClosed={props.allClosed} />
+                } else {
+                    return <></>;
                 }
             })
             }

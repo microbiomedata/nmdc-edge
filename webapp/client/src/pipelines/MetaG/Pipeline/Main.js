@@ -28,7 +28,7 @@ function Main(props) {
     const [projectParams, setProjectParams] = useState();
     const [inputsParams, setInputsParams] = useState({ ...initialFastqInput });
 
-    const [workflows, setWorkflows] = useState({
+    const [workflows] = useState({
         "ReadsQC": { ...initialReadsQC },
         "ReadbasedAnalysis": { ...initialReadbasedAnalysis },
         "MetaAssembly": { ...initialMetaAssembly },

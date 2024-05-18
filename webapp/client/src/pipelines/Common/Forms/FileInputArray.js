@@ -25,12 +25,6 @@ export function FileInputArray(props) {
     const [form, setState] = useState({ ...initialFileInputArray });
     const [doValidation, setDoValidation] = useState(0);
 
-    const resetFileInputArray = () => {
-        form.inputFiles = [];
-        form.inputFiles_validInput = [];
-        form.inputFilesDisplay = [];
-    }
-
     const handleInputFileSelection = (path, type, index, key) => {
         if (!validFile(key, path)) {
             form.inputFiles_validInput[index] = false;
