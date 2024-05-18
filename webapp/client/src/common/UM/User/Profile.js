@@ -160,7 +160,7 @@ function Profile(props) {
                             </>
                         }
                         <div className="edge-center">
-                            <Button color="success" type="submit" >Save Changes</Button>{' '}
+                            <Button color="primary" type="submit" >Save Changes</Button>{' '}
                             <Button color="secondary" onClick={onReset} >Reset</Button>
                         </div>
                         <br></br>
