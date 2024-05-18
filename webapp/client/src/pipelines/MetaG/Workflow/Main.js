@@ -88,14 +88,41 @@ function Main(props) {
             inputDisplay.input['Input FASTA File'] = selectedWorkflows[workflow].input_fasta_display;
 
         } else if (workflow === 'MetaMAGs') {
-            myWorkflow.input_contig = selectedWorkflows[workflow].input_contig;
-            myWorkflow.input_sam = selectedWorkflows[workflow].input_sam;
-            myWorkflow.input_gff = selectedWorkflows[workflow].input_gff;
-            myWorkflow.input_map = selectedWorkflows[workflow].input_map;
-            inputDisplay.input['Input Contig File'] = selectedWorkflows[workflow].input_contig_display;
-            inputDisplay.input['Input Sam/Bam File'] = selectedWorkflows[workflow].input_sam_display;
-            inputDisplay.input['Input GFF File'] = selectedWorkflows[workflow].input_gff_display;
-            inputDisplay.input['Input Map File'] = selectedWorkflows[workflow].input_map_display;
+            myWorkflow.sam_file= selectedWorkflows[workflow].sam_file;
+            myWorkflow.contig_file = selectedWorkflows[workflow].contig_file;
+            myWorkflow.proteins_file = selectedWorkflows[workflow].proteins_file;
+            myWorkflow.gff_file = selectedWorkflows[workflow].gff_file;
+            myWorkflow.cog_file = selectedWorkflows[workflow].cog_file;
+            myWorkflow.ec_file = selectedWorkflows[workflow].ec_file;
+            myWorkflow.ko_file = selectedWorkflows[workflow].ko_file;
+            myWorkflow.pfam_file = selectedWorkflows[workflow].pfam_file;
+            myWorkflow.tigrfam_file = selectedWorkflows[workflow].tigrfam_file;
+            myWorkflow.cath_funfam_file = selectedWorkflows[workflow].cath_funfam_file;
+            myWorkflow.smart_file = selectedWorkflows[workflow].smart_file;
+            myWorkflow.supfam_file = selectedWorkflows[workflow].supfam_file;
+            myWorkflow.product_names_file = selectedWorkflows[workflow].product_names_file;
+            myWorkflow.gene_phylogeny_file = selectedWorkflows[workflow].gene_phylogeny_file;
+            myWorkflow.lineage_file = selectedWorkflows[workflow].lineage_file;
+            myWorkflow.map_file = selectedWorkflows[workflow].map_file;
+            myWorkflow.domain_file = selectedWorkflows[workflow].domain_file;
+
+            inputDisplay.input['sam/bam file'] = selectedWorkflows[workflow].sam_file_display;
+            inputDisplay.input['contig file'] = selectedWorkflows[workflow].contig_file_display;
+            inputDisplay.input['proteins file'] = selectedWorkflows[workflow].proteins_file_display;
+            inputDisplay.input['gff file'] = selectedWorkflows[workflow].gff_file_display;
+            inputDisplay.input['cog file'] = selectedWorkflows[workflow].cog_file_display;
+            inputDisplay.input['ec file'] = selectedWorkflows[workflow].ec_file_display;
+            inputDisplay.input['ko file'] = selectedWorkflows[workflow].ko_file_display;
+            inputDisplay.input['pfam file'] = selectedWorkflows[workflow].pfam_file_display;
+            inputDisplay.input['tigrfam file'] = selectedWorkflows[workflow].tigrfam_file_display;
+            inputDisplay.input['cath_funfam file'] = selectedWorkflows[workflow].cath_funfam_file_display;
+            inputDisplay.input['smart file'] = selectedWorkflows[workflow].smart_file_display;
+            inputDisplay.input['supfam file'] = selectedWorkflows[workflow].supfam_file_display;
+            inputDisplay.input['product_names file'] = selectedWorkflows[workflow].product_names_file_display;
+            inputDisplay.input['gene_phylogeny file'] = selectedWorkflows[workflow].gene_phylogeny_file_display;
+            inputDisplay.input['lineage file'] = selectedWorkflows[workflow].lineage_file_display;
+            inputDisplay.input['map file'] = selectedWorkflows[workflow].map_file_display;
+            inputDisplay.input['domain file'] = selectedWorkflows[workflow].domain_file_display;
 
         } else if (workflow === 'MetaAssembly' || workflow === 'ReadsQC') {
             let myInputs = {};

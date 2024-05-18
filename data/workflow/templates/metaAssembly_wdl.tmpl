@@ -1,4 +1,4 @@
-    Array[File] <WORKFLOW>_input_file
+    Array[File] <WORKFLOW>_input_files
     String? <WORKFLOW>_outdir
     String <WORKFLOW>_rename_contig_prefix="scaffold"
     Float <WORKFLOW>_uniquekmer=1000
@@ -9,18 +9,25 @@
     Boolean <WORKFLOW>_input_interleaved=true
     Array[File] <WORKFLOW>_input_fq1
     Array[File] <WORKFLOW>_input_fq2
+    String <WORKFLOW>_prefix
 
+    call MetaAssembly_preprocess.preprocess as preprocess {
+        input:
+            input_files= <WORKFLOW>_input_files,
+		    outdir=<WORKFLOW>_outdir,
+            input_interleaved=<WORKFLOW>_input_interleaved,
+            input_fq1=<WORKFLOW>_input_fq1,
+            input_fq2=<WORKFLOW>_input_fq2,
+    }
     call <WORKFLOW>.jgi_metaASM as <ALIAS> {
         input: 
-		input_file=<WORKFLOW>_input_file, 
+		input_file=preprocess.input_file_gz,
+		proj=<WORKFLOW>_prefix,
 		outdir=<WORKFLOW>_outdir, 
-		rename_contig_prefix=<WORKFLOW>_rename_contig_prefix, 
+		rename_contig_prefix=<WORKFLOW>_prefix,
 		uniquekmer=<WORKFLOW>_uniquekmer, 
 		bbtools_container=<WORKFLOW>_bbtools_container, 
 		spades_container=<WORKFLOW>_spades_container, 
 		memory=<WORKFLOW>_memory, 
-		threads=<WORKFLOW>_threads,
-		input_interleaved=<WORKFLOW>_input_interleaved, 
-		input_fq1=<WORKFLOW>_input_fq1, 
-		input_fq2=<WORKFLOW>_input_fq2
+		threads=<WORKFLOW>_threads
     }
