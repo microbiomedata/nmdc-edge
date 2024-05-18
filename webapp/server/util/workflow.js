@@ -18,8 +18,11 @@ function submitWorkflow(proj, workflow, inputsize) {
     logger.debug("workflowSource: " + proj_home + '/pipeline.wdl');
     formData.append("workflowInputs", fs.createReadStream(proj_home + '/pipeline_inputs.json'));
     logger.debug("workflowInputs" + proj_home + '/pipeline_inputs.json');
-    formData.append("workflowOptions", fs.createReadStream(proj_home + '/options.json'));
-    logger.debug("workflowInputs" + proj_home + '/options.json');
+    const options_json = proj_home + '/options.json';
+    if (fs.existsSync(options_json)) {
+        formData.append("workflowOptions", fs.createReadStream(options_json));
+        logger.debug("workflowOptions:" + options_json);
+    }
 
     //imports.wdl
     let imports = path.join(config.WORKFLOWS.WDL_DIR, "imports.zip");
@@ -37,10 +40,6 @@ function submitWorkflow(proj, workflow, inputsize) {
             options_json = proj_home + '/options.json';
             wdlVersion = pipelinelist[workflow]['wdl_version'];
         }
-        // if (fs.existsSync(options_json)) {
-        //     formData.append("workflowOptions", fs.createReadStream(options_json));
-        //     logger.debug("workflowOptions:" + options_json);
-        // }
     }
 
     formData.append("workflowType", config.CROMWELL.WORKFLOW_TYPE);
@@ -142,102 +141,102 @@ const generateWorkflowResult = function (proj) {
             }
         });
 
-        } else if (workflowConf.workflow.name === 'MetaMAGs') {
-            const files = fs.readdirSync(outdir);
-            files.forEach(function (file) {
-                if (file.endsWith("_mags_stats.json")) {
-                    let stats = JSON.parse(fs.readFileSync(outdir + "/" + file));
-                    Object.keys(stats).forEach((item, index) => {
-                        //mags_list
-                        if (typeof stats[item] === 'object') {
-                            //delete members_id
-                            for (var i = 0; i < stats[item].length; i++) {
-                                delete stats[item][i]['members_id'];
-                            }
+    } else if (workflowConf.workflow.name === 'MetaMAGs') {
+        const files = fs.readdirSync(outdir);
+        files.forEach(function (file) {
+            if (file.endsWith("_mags_stats.json")) {
+                let stats = JSON.parse(fs.readFileSync(outdir + "/" + file));
+                Object.keys(stats).forEach((item, index) => {
+                    //mags_list
+                    if (typeof stats[item] === 'object') {
+                        //delete members_id
+                        for (var i = 0; i < stats[item].length; i++) {
+                            delete stats[item][i]['members_id'];
                         }
-                    });
-                    result['stats'] = stats;
-                }
-            });
-        } else if (workflowConf.workflow.name === 'Metatranscriptome') {
-            result['top_features'] = JSON.parse(fs.readFileSync(outdir + "/metat_output/top100_features.json"));
-            const features_tsv = outdir + "/metat_output/rpkm_sorted_features.tsv";
-            if (fs.existsSync(features_tsv)) {
-                result['features_tsv'] = "output/Metatranscriptome/metat_output/rpkm_sorted_features.tsv";
-            }
-        } else if (workflowConf.workflow.name === 'EnviroMS') {
-            let stats = {};
-            const dirs = fs.readdirSync(outdir);
-            dirs.forEach(function (dir) {
-                if (fs.statSync(outdir + "/" + dir).isDirectory()) {
-                    stats[dir] = {};
-                    //load <input filename>.json
-                    const subs = fs.readdirSync(outdir + "/" + dir).filter(file => {
-                        return file.endsWith('.json');
-                    });
-                    stats[dir]['conf'] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/" + subs[0]));
-                    //get .png
-                    const pngs = fs.readdirSync(outdir + "/" + dir).filter(file => {
-                        return file.endsWith('.png');
-                    });
-                    stats[dir]['pngs'] = {};
-                    pngs.forEach(function (png) {
-                        stats[dir]['pngs'][png] = workflowlist[workflowConf.workflow.name].outdir + "/" + dir + "/" + png;
-                    });
-                    //get molecules
-                    let top_molecules = outdir + "/" + dir + "/top100_molecules.json";
-                    if (fs.existsSync(top_molecules))
-                        stats[dir]['top_molecules'] = JSON.parse(fs.readFileSync(top_molecules));
-                    const molecules_tsv = outdir + "/" + dir + "/enviroms_sorted_molecules.tsv";
-                    if (fs.existsSync(molecules_tsv)) {
-                        stats[dir]['molecules_tsv'] = "output/EnviroMS/" + dir + "/enviroms_sorted_molecules.tsv";
                     }
+                });
+                result['stats'] = stats;
+            }
+        });
+    } else if (workflowConf.workflow.name === 'Metatranscriptome') {
+        result['top_features'] = JSON.parse(fs.readFileSync(outdir + "/metat_output/top100_features.json"));
+        const features_tsv = outdir + "/metat_output/rpkm_sorted_features.tsv";
+        if (fs.existsSync(features_tsv)) {
+            result['features_tsv'] = "output/Metatranscriptome/metat_output/rpkm_sorted_features.tsv";
+        }
+    } else if (workflowConf.workflow.name === 'EnviroMS') {
+        let stats = {};
+        const dirs = fs.readdirSync(outdir);
+        dirs.forEach(function (dir) {
+            if (fs.statSync(outdir + "/" + dir).isDirectory()) {
+                stats[dir] = {};
+                //load <input filename>.json
+                const subs = fs.readdirSync(outdir + "/" + dir).filter(file => {
+                    return file.endsWith('.json');
+                });
+                stats[dir]['conf'] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/" + subs[0]));
+                //get .png
+                const pngs = fs.readdirSync(outdir + "/" + dir).filter(file => {
+                    return file.endsWith('.png');
+                });
+                stats[dir]['pngs'] = {};
+                pngs.forEach(function (png) {
+                    stats[dir]['pngs'][png] = workflowlist[workflowConf.workflow.name].outdir + "/" + dir + "/" + png;
+                });
+                //get molecules
+                let top_molecules = outdir + "/" + dir + "/top100_molecules.json";
+                if (fs.existsSync(top_molecules))
+                    stats[dir]['top_molecules'] = JSON.parse(fs.readFileSync(top_molecules));
+                const molecules_tsv = outdir + "/" + dir + "/enviroms_sorted_molecules.tsv";
+                if (fs.existsSync(molecules_tsv)) {
+                    stats[dir]['molecules_tsv'] = "output/EnviroMS/" + dir + "/enviroms_sorted_molecules.tsv";
                 }
-            });
-            result['stats'] = stats;
-            logger.debug(result)
-        } else if (workflowConf.workflow.name === 'virus_plasmid') {
-            const dirs = fs.readdirSync(outdir);
-            dirs.forEach(function (dir) {
-                if (fs.statSync(outdir + "/" + dir).isDirectory() && dir.endsWith('summary')) {
-                    const summaryFiles = fs.readdirSync(outdir + "/" + dir);
-                    summaryFiles.forEach(function (summaryFile) {
-                        if (summaryFile.endsWith('plasmid_summary.tsv')) {
-                            result['plasmid_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-                        }
-                        if (summaryFile.endsWith('virus_summary.tsv')) {
-                            result['virus_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-                        }
-                    });
-                }
-                if (fs.statSync(outdir + "/" + dir).isDirectory() && dir.endsWith('checkv')) {
-                    const summaryFiles = fs.readdirSync(outdir + "/" + dir);
-                    summaryFiles.forEach(function (summaryFile) {
-                        if (summaryFile.endsWith('quality_summary.tsv')) {
-                            result['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-                        }
-                    });
-                }
-            });
-        } else if (workflowConf.workflow.name === 'Metaproteomics') {
-            const dirs = fs.readdirSync(outdir);
-            dirs.forEach(function (summaryFile) {
-                if (summaryFile.endsWith('_QC_metrics.tsv')) {
-                    result['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-                }
-            });
-        } else if (workflowConf.workflow.name === 'sra2fastq') {
-            //use relative path 
-            //const sraDataDir = config.IO.SRA_DATA_BASE_DIR;
-            const accessions = workflowConf.workflow.accessions.toUpperCase().split(/\s*(?:,|$)\s*/);;
-            accessions.forEach((accession) => {
-                // link sra downloads to project output
-                fs.symlinkSync("../../../../sra/" + accession, outdir + "/" + accession)
+            }
+        });
+        result['stats'] = stats;
+        logger.debug(result)
+    } else if (workflowConf.workflow.name === 'virus_plasmid') {
+        const dirs = fs.readdirSync(outdir);
+        dirs.forEach(function (dir) {
+            if (fs.statSync(outdir + "/" + dir).isDirectory() && dir.endsWith('summary')) {
+                const summaryFiles = fs.readdirSync(outdir + "/" + dir);
+                summaryFiles.forEach(function (summaryFile) {
+                    if (summaryFile.endsWith('plasmid_summary.tsv')) {
+                        result['plasmid_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                    }
+                    if (summaryFile.endsWith('virus_summary.tsv')) {
+                        result['virus_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                    }
+                });
+            }
+            if (fs.statSync(outdir + "/" + dir).isDirectory() && dir.endsWith('checkv')) {
+                const summaryFiles = fs.readdirSync(outdir + "/" + dir);
+                summaryFiles.forEach(function (summaryFile) {
+                    if (summaryFile.endsWith('quality_summary.tsv')) {
+                        result['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                    }
+                });
+            }
+        });
+    } else if (workflowConf.workflow.name === 'Metaproteomics') {
+        const dirs = fs.readdirSync(outdir);
+        dirs.forEach(function (summaryFile) {
+            if (summaryFile.endsWith('_QC_metrics.tsv')) {
+                result['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+            }
+        });
+    } else if (workflowConf.workflow.name === 'sra2fastq') {
+        //use relative path 
+        //const sraDataDir = config.IO.SRA_DATA_BASE_DIR;
+        const accessions = workflowConf.workflow.accessions.toUpperCase().split(/\s*(?:,|$)\s*/);;
+        accessions.forEach((accession) => {
+            // link sra downloads to project output
+            fs.symlinkSync("../../../../sra/" + accession, outdir + "/" + accession)
 
         })
     }
 
-        fs.writeFileSync(result_json, JSON.stringify(result));
+    fs.writeFileSync(result_json, JSON.stringify(result));
 
 }
 
@@ -557,16 +556,16 @@ async function findInputsize(conf) {
 }
 
 async function fileStats(file) {
-  if(!file) {
-    return { size: 0 };
-  }
-  if (file.toLowerCase().startsWith('http')) {
-      return await ufs(file)
-          .then(size => { return { size: size } })
-          .catch(err => { return { size: 0 } });
-  } else {
-      return fs.statSync(file);
-  }
+    if (!file) {
+        return { size: 0 };
+    }
+    if (file.toLowerCase().startsWith('http')) {
+        return await ufs(file)
+            .then(size => { return { size: size } })
+            .catch(err => { return { size: 0 } });
+    } else {
+        return fs.statSync(file);
+    }
 }
 
 module.exports = { submitWorkflow, generateWorkflowResult, generatePipelineResult, generateRunStats, findInputsize };
