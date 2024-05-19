@@ -51,7 +51,7 @@ workflow main_workflow {
         }
     scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
 
-        call readsQC.nmdc_rqcfilter  as nmdc_rqcfilter_call {
+        call readsQC.nmdc_rqcfilter  as jgi_rqcfilter_call {
             input:
                 input_files=file,
                 database=readsQC_database,
