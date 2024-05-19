@@ -162,7 +162,7 @@ const generateWorkflowResult = function (proj) {
             result['top_features'] = JSON.parse(fs.readFileSync(outdir + "/metat_output/top100_features.json"));
             const features_tsv = outdir + "/metat_output/rpkm_sorted_features.tsv";
             if (fs.existsSync(features_tsv)) {
-                result['features_tsv'] = "output/Metatranscriptome/metat_output/rpkm_sorted_features.tsv";
+                result['features_tsv'] = "output/Metatranscriptomics/metat_output/rpkm_sorted_features.tsv";
             }
         } else if (workflowConf.workflow.name === 'EnviroMS') {
             let stats = {};
@@ -189,7 +189,7 @@ const generateWorkflowResult = function (proj) {
                         stats[dir]['top_molecules'] = JSON.parse(fs.readFileSync(top_molecules));
                     const molecules_tsv = outdir + "/" + dir + "/enviroms_sorted_molecules.tsv";
                     if (fs.existsSync(molecules_tsv)) {
-                        stats[dir]['molecules_tsv'] = "output/EnviroMS/" + dir + "/enviroms_sorted_molecules.tsv";
+                        stats[dir]['molecules_tsv'] = "output/NOM/" + dir + "/enviroms_sorted_molecules.tsv";
                     }
                 }
             });
@@ -512,7 +512,7 @@ async function findInputsize(conf) {
 
     } else {
         const workflow = conf.workflow.name;
-        if (workflow === 'ReadsQC' || workflow === 'MetaAssembly' || workflow === 'Metatranscriptomics') {
+        if (workflow === 'ReadsQC' || workflow === 'MetaAssembly' || workflow === 'Metatranscriptome') {
             const fastqs = conf.workflow.input_fastq.fastqs;
             if (conf.workflow.input_fastq.interleaved) {
                 await Promise.all(fastqs.map(async (file) => {

@@ -59,7 +59,7 @@ workflowlist = {
         cromwell_calls: ['main_workflow.nmdc_mags'],
         wdl_version: 'draft-2'
     },
-    Metatranscriptomics: {
+    Metatranscriptome: {
         wdl: 'metaT.wdl',
         wdl_imports: 'metaT/imports.zip',
         name: 'nmdc_metat',

@@ -283,7 +283,7 @@ async function generateInputs(proj_home, workflow, proj) {
                     inputs_fq2.push(fq2);
                 }
             }
-            if (workflow.name === 'Metatranscriptomics') {
+            if (workflow.name === 'Metatranscriptome') {
                 //only allow 1 input set
                 templInputs = templInputs.replace(/<INPUT_FQ1>/, '"' + inputs_fq1[0] + '"');
                 templInputs = templInputs.replace(/<INPUT_FQ2>/, '"' + inputs_fq2[0] + '"');

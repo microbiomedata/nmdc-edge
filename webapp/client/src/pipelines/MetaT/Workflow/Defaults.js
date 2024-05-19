@@ -8,7 +8,7 @@ export const defaults = {
 }
 
 export const workflowOptions = [
-    { value: 'Metatranscriptomics', label: 'Metatranscriptomics' },
+    { value: 'Metatranscriptome', label: 'Metatranscriptomics' },
 ];
 
 export const workflowInputTips = {
