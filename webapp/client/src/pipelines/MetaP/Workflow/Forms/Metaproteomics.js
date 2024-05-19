@@ -145,7 +145,7 @@ export function Metaproteomics(props) {
                         </Col>
                     </Row>
                     <br></br>
-                    <Row>
+                    {/* <Row>
                         <Col md="3">
                             <MyTooltip id='MetaP-gff' text="Input GFF File" tooltip={workflowInputTips['Metaproteomics']['gff_tip']} showTooltip={true} place="right" />
                         </Col>
@@ -156,7 +156,7 @@ export function Metaproteomics(props) {
                             />
                         </Col>
                     </Row>
-                    <br></br>
+                    <br></br> */}
                     <Row>
                         <Col md="3">
                             <MyTooltip id='MetaP-thermo-raw' text="Thermo Raw?" tooltip={workflowInputTips['Metaproteomics']['thermo_raw']} showTooltip={true} place="right" />

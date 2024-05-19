@@ -101,7 +101,7 @@ export const workflowlist = {
         thumbnail: '/docs/images/MetagenomeMAGs-thumbnail.png',
         link: 'https://github.com/microbiomedata/metaMAGs',
         doclink: 'https://github.com/microbiomedata/metaMAGs',
-        info: 'The workflow is based on IMG MAGs pipeline for metagenome assembled genomes generation.'
+        info: 'This workflow is based on IMG’s metagenome assembled genomes (MAGs) pipeline.'
     },
 }
 
