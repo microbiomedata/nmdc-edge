@@ -17,7 +17,7 @@ export function Project(props) {
             maxLength: { value: 30, message: 'Max 30 characters exceeded' },
             pattern: { // Validation pattern
                 value: /^[a-zA-Z0-9\-_.]+$/,
-                message: 'Only alphabets, numbers, dashs, dot and underscore are allowed in project name.'
+                message: 'Only alphabets, numbers, dashs, dot and underscore are allowed.'
             }
         })
     };
