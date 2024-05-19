@@ -12,13 +12,13 @@ export const workflowOptions = [
 ];
 
 export const workflowInputTips = {
-    Metatranscriptomics: {
+    Metatranscriptome: {
         fastq_tip: 'Metatranscriptomics requires interleaved data in FASTQ format as the input; the file can be compressed. <br/>Acceptable file formats: .fastq, .fq, .fastq.gz, .fq.gz<br />Note: The file size limit for the URL input is 10GB'
     },
 }
 
 export const workflowlist = {
-    Metatranscriptomics: {
+    Metatranscriptome: {
         title: 'Metatranscriptomics',
         name: 'Metatranscriptomics Workflow',
         img: '/docs/images/Metatranscriptome.png',
@@ -27,11 +27,4 @@ export const workflowlist = {
         doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/6_MetaT_index.html',
         info: 'This workflow is designed to analyze metatranscriptomes.'
     },
-}
-
-export const initialMetatranscriptomics = {
-    validForm: false,
-    errMessage: '',
-    input_fastq: [],
-    'single-input-max': 1,
 }

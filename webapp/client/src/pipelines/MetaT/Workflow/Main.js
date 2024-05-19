@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { workflowlist, workflowOptions } from './Defaults';
 import { Project } from '../../Common/Forms/Project';
-import { Metatranscriptomics } from './Forms/Metatranscriptomics';
+import { Metatranscriptome } from './Forms/Metatranscriptome';
 
 function Main(props) {
     const [openDialog, setOpenDialog] = useState(false);
@@ -54,7 +54,7 @@ function Main(props) {
         inputDisplay.input = {};
         let myWorkflow = {};
         myWorkflow.name = workflow;
-        if (workflow === 'Metatranscriptomics') {
+        if (workflow === 'Metatranscriptome') {
             let myInputs = {};
             if (selectedWorkflows[workflow].interleaved) {
                 myInputs.interleaved = true;
@@ -162,8 +162,8 @@ function Main(props) {
                             />
                             <br></br> */}
                             <br></br>
-                            {workflow === 'Metatranscriptomics' &&
-                                <Metatranscriptomics name={workflow} full_name={workflow} setParams={setWorkflowParams} />
+                            {workflow === 'Metatranscriptome' &&
+                                <Metatranscriptome name={workflow} full_name={workflow} setParams={setWorkflowParams} />
                             }
                             <br></br>
                         </div>
