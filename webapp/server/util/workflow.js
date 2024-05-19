@@ -363,7 +363,6 @@ const generatePipelineResult = function (proj) {
     }
 }
 
-
 function generateRunStats(project) {
     let conf_file = path.join(config.PROJECTS.BASE_DIR, project.code, 'conf.json');
     let job_metadata_file = path.join(config.PROJECTS.BASE_DIR, project.code, 'cromwell_job_metadata.json');
@@ -375,13 +374,35 @@ function generateRunStats(project) {
     if (fs.existsSync(job_metadata_file)) {
         rawdata = fs.readFileSync(job_metadata_file);
         let jobStats = JSON.parse(rawdata);
+        // get run stats for individual workflow
         if (conf.workflow) {
             let workflowStats = {};
-            const cromwellCalls = workflowlist[conf.workflow.name]["cromwell_calls"];
             workflowStats['Workflow'] = workflowlist[conf.workflow.name].full_name;
             workflowStats['Run'] = 'On';
-            getWorkflowStats(jobStats, cromwellCalls, conf.workflow, workflowStats, stats);
+            workflowStats['Status'] = jobStats['status'];
+            workflowStats['Running Time'] = '';
+            workflowStats['Start'] = '';
+            workflowStats['End'] = '';
+            let myStart = '';
+            let myEnd = '';
+            let start = jobStats['start'];
+            let end = jobStats['end'];
+            if (start) {
+                workflowStats['Start'] = moment(start).format('YYYY-MM-DD HH:mm:ss');
+                myStart = start;
+            }
+            if (end) {
+                workflowStats['End'] = moment(end).format('YYYY-MM-DD HH:mm:ss');
+                myEnd = end;
+            }
+            if (myStart && myEnd) {
+                var ms = moment(myEnd, 'YYYY-MM-DD HH:mm:ss').diff(moment(myStart, 'YYYY-MM-DD HH:mm:ss'));
+                var d = moment.duration(ms);
+                workflowStats['Running Time'] = timeFormat(d);
+            }
+            stats.push(workflowStats);
         }
+        // get run stats for metaG pipeline
         if (conf.workflows) {
             conf.workflows.forEach(workflow => {
                 let workflowStats = {};
