@@ -298,8 +298,19 @@ def compute_new_data_file_path(
 
 def link_data_file_paths(old_url: str, old_base_dir: Union[str, os.PathLike], new_path: Union[str, os.PathLike])-> \
         None:
-    suffix = old_url.split("https://data.microbiomedata.org/data/")[1]
+    base_url = "https://data.microbiomedata.org/data/"
+    if not old_url.startswith(base_url):
+        logging.error(f"The URL {old_url} does not start with the expected base URL {base_url}.")
+        return
+    # Extract the suffix and construct the old file path
+    suffix = old_url[len(base_url):]
     old_file_path = Path(old_base_dir, suffix)
+    new_file_path = Path(new_path)
+    # Check if the destination link already exists
+    if new_file_path.exists():
+        logging.info(f"File already exists at {new_file_path}. Skipping linking.")
+        return
+
     try:
         os.link(old_file_path, new_path)
         logging.info(f"Successfully created link between {old_file_path} and {new_path}")
