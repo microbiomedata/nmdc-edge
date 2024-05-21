@@ -322,8 +322,8 @@ def link_data_file_paths(old_url: str, old_base_dir: Union[str, os.PathLike], ne
 
     try:
         os.link(old_file_path, new_path)
-        logging.info(f"Successfully created link between {old_file_path} and {new_path}")
+        logging.info(f"Successfully created link between {old_file_path} and {new_file_path}")
     except OSError as e:
-        logging.error(f"An error occurred while linking the file: {e}")
+        logging.error(f"An error occurred while linking the file from {old_file_path} to {new_file_path}: {e}")
     except Exception as e:
-        logging.error(f"Unexpected error: {e}")
+        logging.error(f"Unexpected error while linking the file from {old_file_path} to {new_file_path}: {e}")
