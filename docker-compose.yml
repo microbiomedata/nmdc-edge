@@ -39,9 +39,9 @@ services:
       JWT_SECRET: "jwt-secret"
       OAUTH_SECRET: "oauth-secret"
       EMAIL_SHARED_SECRET: "email-shared-secret"
-    # Map localhost port 8000 to container port 8000.
+    # Map localhost port 8000 to container port 5000.
     ports:
-      - "8000:8000"
+      - "8000:5000"
     depends_on:
       - mongo
       - cromwell
