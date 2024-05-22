@@ -134,33 +134,6 @@ function Login(props) {
                     </Row>
                   </Form>
                   <Row className="justify-content-center">
-                    {config.EMAIL.IS_ENABLED &&
-                      <>
-                        <Col xs="12">
-                          <Link to="/activate">
-                            <Button color="link" className="px-0">Account not active?</Button>
-                          </Link>
-                        </Col>
-                        <Col xs="12">
-                          <Link to="/resetpassword">
-                            <Button color="link" className="px-0">Forgot your password?</Button>
-                          </Link>
-                        </Col>
-                      </>
-                    }
-                    <Col xs="12">
-                      <Link to="/register">
-                        <Button color="link" className="px-0">No account? Create one</Button>
-                      </Link>
-                    </Col>
-                    {config.ORCID.IS_ENABLED === true &&
-                      <>
-                        <Col xs="12">
-                          <hr></hr>
-                          <ORCIDLogin />
-                        </Col>
-                      </>
-                    }
                   </Row>
                 </CardBody>
               </Card>

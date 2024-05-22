@@ -19,10 +19,10 @@ const routes = [
   { path: '/public/projectlist', name: 'ProjectList', component: PublicProjectList },
   { path: '/public/project', name: 'ProjectPage', component: PublicProjectPage },
   { path: '/login', exact: true, name: 'Login', component: UserLogin },
-  { path: '/templogin', exact: true, name: 'tempLogin', component: tempLogin },
-  { path: '/activate', exact: true, name: 'Activate', component: UserActivate },
-  { path: '/register', exact: true, name: 'Register', component: UserRegister },
-  { path: '/resetpassword', exact: true, name: 'Resetpassword', component: UserResetpassword },
+  { path: '/nmdcedgeadminlogin', exact: true, name: 'tempLogin', component: tempLogin },
+  // { path: '/activate', exact: true, name: 'Activate', component: UserActivate },
+  // { path: '/register', exact: true, name: 'Register', component: UserRegister },
+  // { path: '/resetpassword', exact: true, name: 'Resetpassword', component: UserResetpassword },
   { path: '/oauth', name: 'OAuth', component: OAuth },
   
 ];
