@@ -1,5 +1,7 @@
-    "main_workflow.<WORKFLOW>_enabled_tools": <ENABLED_TOOLS>,
-    "main_workflow.<WORKFLOW>_reads": <READS>,
-    "main_workflow.<WORKFLOW>_paired": <PAIRED>,
-    "main_workflow.<WORKFLOW>_prefix": <PREFIX>,
-    "main_workflow.<WORKFLOW>_outdir": <OUTDIR>
+{
+    "main_workflow.enabled_tools": <%- JSON.stringify(enabled_tools) %>,
+    "main_workflow.reads": <%- JSON.stringify(reads) %>,
+    "main_workflow.paired": <%= paired %>,
+    "main_workflow.prefix": "<%= prefix %>",
+    "main_workflow.outdir": "<%= outdir %>"
+}

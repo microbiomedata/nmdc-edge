@@ -2,5 +2,7 @@
   "default_runtime_attributes": {
     "docker": "bfoster1/img-omics:0.1.9",
     "maxRetries": 3
-  }
+  },
+  "final_workflow_outputs_dir": "<%= outdir %>",
+  "use_relative_output_paths": true
 }
