@@ -254,27 +254,36 @@ def get_old_file_path(data_object_record: dict, old_base_dir: Union[str, os.Path
 
 
 def assembly_file_operations(data_object_record, data_object_type,
-                             destination, act_id, old_base_dir):
+                             new_file_path, act_id, old_base_dir):
+    """
+    Perform file operations for different assembly data object types.
+    """
+    if new_file_path.exists():
+        logging.info(f"File already exists at {new_file_path}. Skipping processing.")
+        return None, None
+
     logging.info(f"Processing {data_object_type} for {act_id}")
-    logging.info(f"Destination: {destination}")
+    logging.info(f"Destination: {new_file_path}")
     logging.info(f"Old base dir: {old_base_dir}")
     # get old file path upfront
     old_file_path = get_old_file_path(data_object_record, old_base_dir)
     logging.info(f"Old file path: {old_file_path}")
 
     if data_object_type == "Assembly Coverage Stats":
-        md5, size = assembly_coverage_stats(old_file_path, destination, act_id)
+        md5, size = assembly_coverage_stats(old_file_path, new_file_path, act_id)
     elif data_object_type == "Assembly Contigs":
-        md5, size = assembly_contigs(old_file_path, destination, act_id)
+        md5, size = assembly_contigs(old_file_path, new_file_path, act_id)
     elif data_object_type == "Assembly Scaffolds":
-        md5, size = assembly_scaffolds(old_file_path, destination, act_id)
+        md5, size = assembly_scaffolds(old_file_path, new_file_path, act_id)
     elif data_object_type == "Assembly AGP":
-        md5, size = assembly_agp(old_file_path, destination, act_id)
+        md5, size = assembly_agp(old_file_path, new_file_path, act_id)
     elif data_object_type == "Assembly Coverage BAM":
         md5, size = assembly_coverage_bam(
-            old_file_path, destination, act_id
+            old_file_path, new_file_path, act_id
         )
-
+    else:
+        logging.error(f"Unsupported data object type: {data_object_type}")
+        md5, size = None, None
     return md5, size
 
 
@@ -298,12 +307,23 @@ def compute_new_data_file_path(
 
 def link_data_file_paths(old_url: str, old_base_dir: Union[str, os.PathLike], new_path: Union[str, os.PathLike])-> \
         None:
-    suffix = old_url.split("https://data.microbiomedata.org/data/")[1]
+    base_url = "https://data.microbiomedata.org/data/"
+    if not old_url.startswith(base_url):
+        logging.error(f"The URL {old_url} does not start with the expected base URL {base_url}.")
+        return
+    # Extract the suffix and construct the old file path
+    suffix = old_url[len(base_url):]
     old_file_path = Path(old_base_dir, suffix)
+    new_file_path = Path(new_path)
+    # Check if the destination link already exists
+    if new_file_path.exists():
+        logging.info(f"File already exists at {new_file_path}. Skipping linking.")
+        return
+
     try:
         os.link(old_file_path, new_path)
-        logging.info(f"Successfully created link between {old_file_path} and {new_path}")
+        logging.info(f"Successfully created link between {old_file_path} and {new_file_path}")
     except OSError as e:
-        logging.error(f"An error occurred while linking the file: {e}")
+        logging.error(f"An error occurred while linking the file from {old_file_path} to {new_file_path}: {e}")
     except Exception as e:
-        logging.error(f"Unexpected error: {e}")
+        logging.error(f"Unexpected error while linking the file from {old_file_path} to {new_file_path}: {e}")
