@@ -37,7 +37,6 @@ function submitWorkflow(proj, workflow, inputsize) {
         } else {
             // options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelinelist[workflow]['options_json'] ? pipelinelist[workflow]['options_json'] : 'notfound');
             imports = path.join(config.WORKFLOWS.WDL_DIR, pipelinelist[workflow]['wdl_imports']);
-            options_json = proj_home + '/options.json';
             wdlVersion = pipelinelist[workflow]['wdl_version'];
         }
     }
@@ -339,23 +338,25 @@ const generatePipelineResult = function (proj) {
                 }
 
             } else if (workflow.name === 'MetaMAGs' && workflow.paramsOn) {
-                const files = fs.readdirSync(outdir);
-                result[workflow.name] = {};
-                files.forEach(function (file) {
-                    if (file.endsWith("_mags_stats.json")) {
-                        let stats = JSON.parse(fs.readFileSync(outdir + "/" + file));
-                        Object.keys(stats).forEach((item, index) => {
-                            //mags_list
-                            if (typeof stats[item] === 'object') {
-                                //delete members_id
-                                for (var i = 0; i < stats[item].length; i++) {
-                                    delete stats[item][i]['members_id'];
+                if (fs.existsSync(outdir)) {
+                    const files = fs.readdirSync(outdir);
+                    result[workflow.name] = {};
+                    files.forEach(function (file) {
+                        if (file.endsWith("_mags_stats.json")) {
+                            let stats = JSON.parse(fs.readFileSync(outdir + "/" + file));
+                            Object.keys(stats).forEach((item, index) => {
+                                //mags_list
+                                if (typeof stats[item] === 'object') {
+                                    //delete members_id
+                                    for (var i = 0; i < stats[item].length; i++) {
+                                        delete stats[item][i]['members_id'];
+                                    }
                                 }
-                            }
-                        });
-                        result[workflow.name]['stats'] = stats;
-                    }
-                });
+                            });
+                            result[workflow.name]['stats'] = stats;
+                        }
+                    });
+                }
             }
         });
 

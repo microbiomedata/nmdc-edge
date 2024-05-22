@@ -66,7 +66,7 @@ workflow main_workflow {
 		"kraken2": true,
 		"centrifuge": true
 	}
-    File readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final[0]
+    File readbasedAnalysis_reads = jgi_rqcfilter_call.filtered_final[0]
 	String ReadbasedAnalysis_container = "poeli/nmdc_taxa_profilers:1.0.5"
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
@@ -98,7 +98,7 @@ workflow main_workflow {
 
     }
 	## Assembly workflow
-	File metaAssembly_input_file = nmdc_rqcfilter_call.filtered_final[0]
+	File metaAssembly_input_file = jgi_rqcfilter_call.filtered_final[0]
 	String? metaAssembly_outdir
 	String metaAssembly_rename_contig_prefix="scaffold"
 	Float metaAssembly_uniquekmer=1000
@@ -238,10 +238,10 @@ workflow main_workflow {
 			git_url=git_url,
 			informed_by=informed_by,
 			read = if (input_interleaved) then input_files else flatten([input_fq1,input_fq2]),
-			filtered = nmdc_rqcfilter_call.filtered_final,
-			filtered_stats = nmdc_rqcfilter_call.filtered_stats_final,
-			filtered_stats2 = nmdc_rqcfilter_call.filtered_stats2_final,
-			filtered_stats_json = nmdc_rqcfilter_call.filtered_stats_json_final,
+			filtered = jgi_rqcfilter_call.filtered_final,
+			filtered_stats = jgi_rqcfilter_call.filtered_stats_final,
+			filtered_stats2 = jgi_rqcfilter_call.filtered_stats2_final,
+			filtered_stats_json = jgi_rqcfilter_call.filtered_stats_json_final,
 			fasta=metaAssembly_call.contig,
 			scaffold=metaAssembly_call.scaffold,
 			agp=metaAssembly_call.agp,
