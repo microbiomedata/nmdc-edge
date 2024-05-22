@@ -653,7 +653,7 @@ def process_records(ctx, study_id, data_dir, update_links=False, identifiers_fil
         identifiers_map = None
 
     # Initialize re-ID tool
-    reid_tool = ReIdTool(api_client, data_dir, identifiers_map = identifiers_map)
+    reid_tool = ReIdTool(api_client, data_dir, identifiers_map=identifiers_map)
 
     # Read extracted DB records
     logging.info(f"Using db_infile: {db_infile}")

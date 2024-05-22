@@ -88,10 +88,9 @@ logger = logging.getLogger(__name__)
 
 class ReIdTool:
     def __init__(self, api_client: NmdcRuntimeApi, data_dir: str,
-                 template_file: str = None, iteration: str = "1", identifiers_map: dict = None):
+                 template_file: str = None, identifiers_map: dict = None):
         self.api_client = api_client
         self.data_dir = data_dir
-        self.workflow_iteration = iteration
         if template_file is None:
             template_file = NAPA_TEMPLATE
         with open(template_file, "r") as f:
@@ -212,8 +211,7 @@ class ReIdTool:
             has_input = new_omics_processing.has_output
             
             activity_obj = nmdc.ReadQcAnalysisActivity(**reads_qc_rec)
-            new_activity_id = get_new_nmdc_id(
-                activity_obj, self.api_client, self.identifiers_map) + "." + self.workflow_iteration
+            new_activity_id = get_new_nmdc_id(activity_obj, self.api_client, self.identifiers_map)
 
             self.updated_record_identifiers.add((READS_QC_SET, reads_qc_rec["id"], new_activity_id))
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
@@ -285,8 +283,7 @@ class ReIdTool:
             updated_has_output = []
             activity_obj = nmdc.MetagenomeAssembly(**assembly_rec)
             activity_obj.type = activity_type
-            new_activity_id = get_new_nmdc_id(
-                activity_obj, self.api_client, self.identifiers_map) + "." + self.workflow_iteration
+            new_activity_id = get_new_nmdc_id(activity_obj, self.api_client, self.identifiers_map)
 
             self.updated_record_identifiers.add((METAGENOME_ASSEMBLY_SET, assembly_rec["id"], new_activity_id))
             logging.info(f"New activity id created for {omics_processing_id} activity type {activity_type}: {new_activity_id}")
@@ -376,8 +373,7 @@ class ReIdTool:
             has_input = [self._get_input_do_id(new_db, "Filtered Sequencing Reads")]
             activity_obj = nmdc.ReadBasedTaxonomyAnalysisActivity(**read_based_rec)
             activity_obj.type = activity_type
-            new_activity_id = get_new_nmdc_id(
-                activity_obj, self.api_client, self.identifiers_map) + "." + self.workflow_iteration
+            new_activity_id = get_new_nmdc_id(activity_obj, self.api_client, self.identifiers_map)
 
             self.updated_record_identifiers.add((READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET, read_based_rec["id"],
                                                new_activity_id))
@@ -466,8 +462,7 @@ class ReIdTool:
 
             activity_obj = nmdc.MetatranscriptomeActivity(**metatranscriptome_rec)
             activity_obj.type = activity_type
-            new_activity_id = get_new_nmdc_id(
-                activity_obj, self.api_client, self.identifiers_map) + "." + self.workflow_iteration
+            new_activity_id = get_new_nmdc_id(activity_obj, self.api_client, self.identifiers_map)
 
             self.updated_record_identifiers.add((METATRANSCRIPTOME_ACTIVITY_SET, metatranscriptome_rec["id"],
                                                new_activity_id))
@@ -666,6 +661,9 @@ def get_new_nmdc_id(nmdc_object, api_client, identifiers_map: dict = None) -> st
         logging.info(f"Found new ID in identifiers_map: {new_id}")
     else:
         new_id = api_client.minter(object_type_code)
+        # For new workflow IDs, we assume that the .version is 1
+        if new_id.startswith("nmdc:wf") and not new_id.endswith(".1"):
+            new_id = new_id + ".1"
         logging.info(f"Minted new ID: {new_id}")
     return new_id
 

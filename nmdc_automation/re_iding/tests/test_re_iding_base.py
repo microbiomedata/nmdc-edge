@@ -131,6 +131,21 @@ def test_get_new_id_data_object(mocker):
     new_id = get_new_nmdc_id(nmdc_object, mock_api)
     assert new_id == exp_id
 
+def test_get_new_id_metabolomics_analysis_activity(mocker):
+    """
+    Test that we can get a new NMDC ID with a .1 suffix.
+    """
+    exp_api_return = "nmdc:wfmb-1234-abcd12345"
+    exp_id = "nmdc:wfmb-1234-abcd12345.1"
+    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
+    mock_api.minter.return_value = exp_api_return
+
+    nmdc_object = mocker.Mock(spec=MetabolomicsAnalysisActivity)
+    nmdc_object.type.return_value = "nmdc:MetabolomicsAnalysisActivity"
+
+    new_id = get_new_nmdc_id(nmdc_object, mock_api)
+    assert new_id == exp_id
+
 def test_get_new_nmdc_id_biosample_with_identifiers_map(mocker):
     """
     Test that we can get a new NMDC ID with an identifiers_map.
@@ -155,9 +170,10 @@ def test_get_new_nmdc_id_nom_activity_ndmc_typo_in_type(nom_activity_record_ndmc
     """
     Test that we can get a new NMDC ID for a NOM Activity with a typo in the type.
     """
-    exp_id = "nmdc:1234-abcd12345"
+    exp_api_id = "nmdc:wfnom-1234-abcd12345"
+    exp_id = "nmdc:wfnom-1234-abcd12345.1"
     mock_api = mocker.Mock(spec=NmdcRuntimeApi)
-    mock_api.minter.return_value = exp_id
+    mock_api.minter.return_value = exp_api_id
 
     nmdc_object = NomAnalysisActivity(**nom_activity_record_ndmc)
 
@@ -178,19 +194,16 @@ def test_get_new_nmdc_id_nom_activity_ndmc_typo_in_type_with_identifiers_map(nom
     new_id = get_new_nmdc_id(nmdc_object, mock_api, identifiers_map)
     assert new_id == exp_id
 
-def test_update_metabolomics_analysis_activity(metabolomics_analysis_activity_record, mocker):
+def test_update_metabolomics_analysis_activity(metabolomics_analysis_activity_record):
     """
     Test that we can update a MetabolomicsAnalysisActivity.
     """
+    exp_api_return = "nmdc:wfmb-1234-abcd12345"
     exp_activity_id = "nmdc:wfmb-1234-abcd12345"
     exp_omics_processing_id = "nmdc:omprc-1234-abcd12345"
     exp_data_object_id = "nmdc:dobj-1234-abcd12345"
     exp_output_data_object_ids = ["nmdc:dobj-1234-abcd12345"]
     exp_calibration_data_object_ids = "nmdc:dobj-calibration-1234-abcd12345"
-    mock_api = mocker.Mock(spec=NmdcRuntimeApi)
-    mock_api.minter.return_value = exp_activity_id
-
-    orig_id = metabolomics_analysis_activity_record["id"]
     metabolomics = MetabolomicsAnalysisActivity(**metabolomics_analysis_activity_record)
     updated_metabolomics = _update_metabolomics_analysis_activity(
         exp_activity_id, metabolomics, exp_omics_processing_id, exp_data_object_id, exp_output_data_object_ids,
