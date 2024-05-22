@@ -6,9 +6,9 @@ const PublicProjectList = React.lazy(() => import('./common/UM/Public/ProjectLis
 const PublicProjectPage = React.lazy(() => import('./pipelines/Common/Results/ProjectPage/Public'));
 const UserLogin = React.lazy(() => import('./common/UM/Common/ORCIDLoginPage'));
 const tempLogin = React.lazy(() => import('./common/UM/User/Login'));
-const UserActivate = React.lazy(() => import('./common/UM/User/Activate'));
-const UserRegister = React.lazy(() => import('./common/UM/User/Register'));
-const UserResetpassword = React.lazy(() => import('./common/UM/User/Resetpassword'));
+// const UserActivate = React.lazy(() => import('./common/UM/User/Activate'));
+// const UserRegister = React.lazy(() => import('./common/UM/User/Register'));
+// const UserResetpassword = React.lazy(() => import('./common/UM/User/Resetpassword'));
 const OAuth = React.lazy(() => import('./common/UM/Common/ORCIDOAuthCallback'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -24,7 +24,7 @@ const routes = [
   // { path: '/register', exact: true, name: 'Register', component: UserRegister },
   // { path: '/resetpassword', exact: true, name: 'Resetpassword', component: UserResetpassword },
   { path: '/oauth', name: 'OAuth', component: OAuth },
-  
+
 ];
 
 export default routes;
