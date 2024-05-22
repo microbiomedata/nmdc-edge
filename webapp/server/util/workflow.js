@@ -37,7 +37,6 @@ function submitWorkflow(proj, workflow, inputsize) {
         } else {
             // options_json = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelinelist[workflow]['options_json'] ? pipelinelist[workflow]['options_json'] : 'notfound');
             imports = path.join(config.WORKFLOWS.WDL_DIR, pipelinelist[workflow]['wdl_imports']);
-            options_json = proj_home + '/options.json';
             wdlVersion = pipelinelist[workflow]['wdl_version'];
         }
     }
