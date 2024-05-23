@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { popupWindow } from '../../util';
 import { socialLogin, cleanupMessages } from "../../../redux/actions/userActions";
-import { LoaderDialog, ConfirmDialogNoHeader, MessageDialog } from '../../Dialogs';
+import { LoaderDialog, MessageDialog } from '../../Dialogs';
 import config from "../../../config";
 
 export function ORCIDLogin(props) {
@@ -10,36 +10,6 @@ export function ORCIDLogin(props) {
     const errors = useSelector(state => state.errors);
     const messages = useSelector(state => state.messages);
     const page = useSelector(state => state.page);
-
-    const [userData, setUserData] = useState({});
-    const [openConfirm, setOpenConfirm] = useState(false);
-
-    const closeConfirm = () => {
-        setOpenConfirm(false);
-        //return to home page
-        //window.location = '/home';
-    }
-    const handleYes = () => {
-        setOpenConfirm(false);
-
-        //clean up error messages
-        dispatch(cleanupMessages());
-        //social login
-        var status = "active";
-        if (config.EMAIL.IS_ENABLED) {
-            status = "inactive";
-        }
-        if (userData.socialtype === 'orcid') {
-            status = "active";
-            if (!userData.lastname) {
-                //is optional in ORCiD
-                userData.lastname = 'unknown';
-            }
-        }
-        userData.status = status;
-
-        dispatch(socialLogin(userData));
-    }
 
     const getORCID = () => {
         const url = config.ORCID.AUTH_URI;
@@ -56,7 +26,7 @@ export function ORCIDLogin(props) {
         // Do stuff
         //console.log("got mes", message)
         const data = message.data;
-        const user = {
+        const userData = {
             firstname: data.given_name,
             lastname: data.family_name,
             email: data.sub + "@orcid.org",
@@ -64,8 +34,17 @@ export function ORCIDLogin(props) {
             password: data.sub
         };
 
-        setUserData(user);
-        setOpenConfirm(true);
+        //clean up error messages
+        dispatch(cleanupMessages());
+        //orcid login
+        const status = "active";
+        if (!userData.lastname) {
+            //is optional in ORCiD
+            userData.lastname = 'unknown';
+        }
+        userData.status = status;
+
+        dispatch(socialLogin(userData));
     }
 
     const closeMsgModal = () => {
@@ -80,9 +59,6 @@ export function ORCIDLogin(props) {
     return (
         <>
             <LoaderDialog loading={page.submitting_form} text="Verifying email..." />
-            <ConfirmDialogNoHeader html={true} isOpen={openConfirm} action={"Continue to " + config.APP.NAME + "?"}
-                message={"Hi " + userData.firstname + ",<br/><br/> Welcome to " + config.APP.NAME + "!<br/>"}
-                handleClickClose={closeConfirm} handleClickYes={handleYes} />
             <MessageDialog isOpen={messages.sociallogin ? true : false} message={messages.sociallogin} handleClickClose={closeMsgModal} />
             <MessageDialog isOpen={errors.sociallogin ? true : false} message={errors.sociallogin} handleClickClose={closeMsgModal} className='modal-danger' />
         </>
