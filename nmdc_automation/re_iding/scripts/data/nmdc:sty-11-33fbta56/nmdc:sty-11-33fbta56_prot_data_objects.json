@@ -1,4 +1,4 @@
-{"data_object_set": [
+
 {
 "id": "nmdc:dobj-11-zp8y8706",
 "name": "SpruceW_P10_15_22Jun17_Pippin_17-04-06.raw",
@@ -207,5 +207,4 @@
 "data_object_type": "LC-DDA-MS/MS Raw Data",
 "alternative_identifiers": ["my_emsl:1303219"]
 }
-]
-}
+
