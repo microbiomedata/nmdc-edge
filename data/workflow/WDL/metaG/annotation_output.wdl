@@ -36,8 +36,8 @@ task annotation_vis{
     String dollar='$'
 
     command <<<
-	cp /opt/conda/envs/annotationVis/bin/opaver_anno.pl .
-	cp -r /opt/conda/envs/annotationVis/bin/ec_info ec_info
+        cp /opt/conda/envs/annotationVis/bin/opaver_anno.pl .
+        cp -r /opt/conda/envs/annotationVis/bin/ec_info ec_info
         perl opaver_anno.pl -g ${gff}  -o ${OUTPATH}/kegg_map
         ## make symlink to omics-pathway-viewer/data location
         projectID=`basename ${PROJPATH}`
@@ -45,12 +45,10 @@ task annotation_vis{
 
         plot_protein_len.py --input ${gff} --output ${OUTPATH}/${projectName}.protein_size_histogram.html
 
-	initmapfile=`ls ${OUTPATH}/kegg_map/*png | head -n 1`
-	initmapfilebase=`basename $initmapfile`
-	mapid=${dollar}{initmapfilebase/.png/}
-	echo "{ 'opaver_web_path':'opaver_web/pathway_anno.html?data=$projectID&mapid=$mapid' }" > ${OUTPATH}/opaver_web_path.json 
+        mapid=`head -n 1 ${OUTPATH}/kegg_map/exp_pathway.txt | cut -f 1 `
+        echo "{ 'opaver_web_path':'opaver_web/pathway_anno.html?data=$projectID&mapid=$mapid' }" > ${OUTPATH}/opaver_web_path.json 
 
-	chmod -R 755 ${OUTPATH}
+        chmod -R 755 ${OUTPATH}
     >>>
 
     output {
