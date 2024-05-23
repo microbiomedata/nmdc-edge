@@ -402,3 +402,127 @@ nom_analysis_activity_set	nmdc:2eb7aba54d1b4d2abfe33399dd15188b	649b0096daa6c19f
 nom_analysis_activity_set	nmdc:592c7e1ee7f54da99949ad7151be84a7	649b0096daa6c19f56b27aa0	{'id': 'nmdc:wfnom-13-h80r3b18.1', 'was_informed_by': 'nmdc:omprc-13-dfrysc17', 'has_input': ['nmdc:dobj-13-wkdw7559'], 'has_output': ['nmdc:dobj-13-654kxg73']}
 nom_analysis_activity_set	nmdc:02940887a50b434c81947bed3b75f6a7	649b0096daa6c19f56b27aaa	{'id': 'nmdc:wfnom-13-j7eknx20.1', 'was_informed_by': 'nmdc:omprc-13-ptmk7584', 'has_input': ['nmdc:dobj-13-c3cehd26'], 'has_output': ['nmdc:dobj-13-a1qzj743']}
 nom_analysis_activity_set	nmdc:ebab9e3767994d4b806603b28f2164d5	649b0096daa6c19f56b27aa4	{'id': 'nmdc:wfnom-13-qp25nd90.1', 'was_informed_by': 'nmdc:omprc-13-ewstnt57', 'has_input': ['nmdc:dobj-13-j942ha20'], 'has_output': ['nmdc:dobj-13-mftyrb72']}
+omics_processing_set	gold:Gp0208366	649b009773e824995934a095	{'id': 'nmdc:omprc-13-raec4p73', 'has_input': ['nmdc:bsm-12-8s9qew72'], 'gold_sequencing_project_identifiers': ['gold:Gp0208366'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208367	649b009773e824995934a097	{'id': 'nmdc:omprc-13-tyegt911', 'has_input': ['nmdc:bsm-12-7ay9p920'], 'gold_sequencing_project_identifiers': ['gold:Gp0208367'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208362	649b009773e824995934a092	{'id': 'nmdc:omprc-13-7fawd058', 'has_input': ['nmdc:bsm-12-zxhe0n95'], 'gold_sequencing_project_identifiers': ['gold:Gp0208362'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208381	649b009773e824995934a0a4	{'id': 'nmdc:omprc-13-0wqa9e56', 'has_input': ['nmdc:bsm-12-wady4q34'], 'gold_sequencing_project_identifiers': ['gold:Gp0208381'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208370	649b009773e824995934a099	{'id': 'nmdc:omprc-13-wt52a627', 'has_input': ['nmdc:bsm-12-hd1n0692'], 'gold_sequencing_project_identifiers': ['gold:Gp0208370'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208368	649b009773e824995934a096	{'id': 'nmdc:omprc-13-gg3se785', 'has_input': ['nmdc:bsm-12-kynkbj13'], 'gold_sequencing_project_identifiers': ['gold:Gp0208368'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208375	649b009773e824995934a09c	{'id': 'nmdc:omprc-13-qygpy809', 'has_input': ['nmdc:bsm-12-xtn73s23'], 'gold_sequencing_project_identifiers': ['gold:Gp0208375'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208382	649b009773e824995934a0a2	{'id': 'nmdc:omprc-13-pyrq2463', 'has_input': ['nmdc:bsm-12-a9h01527'], 'gold_sequencing_project_identifiers': ['gold:Gp0208382'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208365	649b009773e824995934a094	{'id': 'nmdc:omprc-13-8jt97v82', 'has_input': ['nmdc:bsm-12-a6yx8957'], 'gold_sequencing_project_identifiers': ['gold:Gp0208365'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208361	649b009773e824995934a090	{'id': 'nmdc:omprc-13-zeb8dd80', 'has_input': ['nmdc:bsm-12-q21a1x03'], 'gold_sequencing_project_identifiers': ['gold:Gp0208361'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208378	649b009773e824995934a0a1	{'id': 'nmdc:omprc-13-0y3nv322', 'has_input': ['nmdc:bsm-12-csykqn65'], 'gold_sequencing_project_identifiers': ['gold:Gp0208378'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208363	649b009773e824995934a091	{'id': 'nmdc:omprc-13-v5bkf320', 'has_input': ['nmdc:bsm-12-zyae7e18'], 'gold_sequencing_project_identifiers': ['gold:Gp0208363'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208374	649b009773e824995934a09a	{'id': 'nmdc:omprc-13-5y0shh63', 'has_input': ['nmdc:bsm-12-hhscy494'], 'gold_sequencing_project_identifiers': ['gold:Gp0208374'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208380	649b009773e824995934a18a	{'id': 'nmdc:omprc-13-bje6kq59', 'has_input': ['nmdc:bsm-12-apwavf24'], 'gold_sequencing_project_identifiers': ['gold:Gp0208380'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208373	649b009773e824995934a09f	{'id': 'nmdc:omprc-13-b1mn8a33', 'has_input': ['nmdc:bsm-12-jpst4g08'], 'gold_sequencing_project_identifiers': ['gold:Gp0208373'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208376	649b009773e824995934a09e	{'id': 'nmdc:omprc-13-fmhrks03', 'has_input': ['nmdc:bsm-12-5vpcg357'], 'gold_sequencing_project_identifiers': ['gold:Gp0208376'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208371	649b009773e824995934a09b	{'id': 'nmdc:omprc-13-yknbcp10', 'has_input': ['nmdc:bsm-12-y9xv8p63'], 'gold_sequencing_project_identifiers': ['gold:Gp0208371'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208377	649b009773e824995934a0a0	{'id': 'nmdc:omprc-13-nd44rc31', 'has_input': ['nmdc:bsm-12-qctyr565'], 'gold_sequencing_project_identifiers': ['gold:Gp0208377'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208364	649b009773e824995934a093	{'id': 'nmdc:omprc-13-sxf5rw54', 'has_input': ['nmdc:bsm-12-jg6cyv90'], 'gold_sequencing_project_identifiers': ['gold:Gp0208364'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208359	649b009773e824995934a08b	{'id': 'nmdc:omprc-13-8tp1p823', 'has_input': ['nmdc:bsm-12-g4j6b812'], 'gold_sequencing_project_identifiers': ['gold:Gp0208359'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208360	649b009773e824995934a08f	{'id': 'nmdc:omprc-13-xe7k8b11', 'has_input': ['nmdc:bsm-12-zm5skn77'], 'gold_sequencing_project_identifiers': ['gold:Gp0208360'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208369	649b009773e824995934a098	{'id': 'nmdc:omprc-13-73svg764', 'has_input': ['nmdc:bsm-12-kprgwc64'], 'gold_sequencing_project_identifiers': ['gold:Gp0208369'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208372	649b009773e824995934a09d	{'id': 'nmdc:omprc-13-r4c8yc98', 'has_input': ['nmdc:bsm-12-012qca33'], 'gold_sequencing_project_identifiers': ['gold:Gp0208372'], 'part_of': ['nmdc:sty-11-33fbta56']}
+omics_processing_set	gold:Gp0208379	649b009773e824995934a0a3	{'id': 'nmdc:omprc-13-n10k2e95', 'has_input': ['nmdc:bsm-12-6qdzd845'], 'gold_sequencing_project_identifiers': ['gold:Gp0208379'], 'part_of': ['nmdc:sty-11-33fbta56']}
+data_object_set	nmdc:dobj-13-9zwcxk07	649b00451ae706d7b5b1a632	{'was_generated_by': 'nmdc:wfnom-13-fche6e41.1'}
+data_object_set	nmdc:dobj-13-egq9fs06	649b00451ae706d7b5b1a62e	{'was_generated_by': 'nmdc:wfnom-13-9j7m0h19.1'}
+data_object_set	nmdc:dobj-13-h5b2rq44	649b00451ae706d7b5b1a631	{'was_generated_by': 'nmdc:wfnom-13-cnmwh136.1'}
+data_object_set	nmdc:dobj-13-jda54f49	649b00451ae706d7b5b1a63e	{'was_generated_by': 'nmdc:wfnom-13-mdnfmd27.1'}
+data_object_set	nmdc:dobj-13-bh4xmr77	649b00451ae706d7b5b1a63f	{'was_generated_by': 'nmdc:wfnom-13-dhtdjq87.1'}
+data_object_set	nmdc:dobj-13-cj6bwt84	649b00451ae706d7b5b1a640	{'was_generated_by': 'nmdc:wfnom-13-ntk1n835.1'}
+data_object_set	nmdc:dobj-13-yw3xee60	649b00451ae706d7b5b1a63a	{'was_generated_by': 'nmdc:wfnom-13-he2w8d48.1'}
+data_object_set	nmdc:dobj-13-dbftws21	649b00451ae706d7b5b1a63c	{'was_generated_by': 'nmdc:wfnom-13-cwssrj40.1'}
+data_object_set	nmdc:dobj-13-wm64e954	649b00451ae706d7b5b1a639	{'was_generated_by': 'nmdc:wfnom-13-rrgf8289.1'}
+data_object_set	nmdc:dobj-13-4gm1h866	649b00451ae706d7b5b1a637	{'was_generated_by': 'nmdc:wfnom-13-zkpmny52.1'}
+data_object_set	nmdc:dobj-13-epbyxy18	649b00451ae706d7b5b1a636	{'was_generated_by': 'nmdc:wfnom-13-4324gv45.1'}
+data_object_set	nmdc:dobj-13-pda3gp97	649b00451ae706d7b5b1a64e	{'was_generated_by': 'nmdc:wfnom-13-rfat2s10.1'}
+data_object_set	nmdc:dobj-13-fpjqzn13	649b00451ae706d7b5b1a650	{'was_generated_by': 'nmdc:wfnom-13-yk81en60.1'}
+data_object_set	nmdc:dobj-13-e927cz77	649b00451ae706d7b5b1a645	{'was_generated_by': 'nmdc:wfnom-13-a55z2c35.1'}
+data_object_set	nmdc:dobj-13-1c0ggc89	649b00451ae706d7b5b1a646	{'was_generated_by': 'nmdc:wfnom-13-wnbrw890.1'}
+data_object_set	nmdc:dobj-13-r3ytyh97	649b00451ae706d7b5b1a648	{'was_generated_by': 'nmdc:wfnom-13-tfw3fg07.1'}
+data_object_set	nmdc:dobj-13-639hdv72	649b00451ae706d7b5b1a64a	{'was_generated_by': 'nmdc:wfnom-13-3pgram41.1'}
+data_object_set	nmdc:dobj-13-zkgr9031	649b00451ae706d7b5b1a64d	{'was_generated_by': 'nmdc:wfnom-13-5c2dhn02.1'}
+data_object_set	nmdc:dobj-13-mfm2y928	649b00451ae706d7b5b1a64b	{'was_generated_by': 'nmdc:wfnom-13-1e8e6f14.1'}
+data_object_set	nmdc:dobj-13-13mme329	649b00451ae706d7b5b1a63b	{'was_generated_by': 'nmdc:wfnom-13-47ytyt72.1'}
+data_object_set	nmdc:dobj-13-5rakzk42	649b00451ae706d7b5b1a643	{'was_generated_by': 'nmdc:wfnom-13-t1v85209.1'}
+data_object_set	nmdc:dobj-13-kjvtn259	649b00451ae706d7b5b1a638	{'was_generated_by': 'nmdc:wfnom-13-z73z4g07.1'}
+data_object_set	nmdc:dobj-13-n2g0fg49	649b00451ae706d7b5b1a64f	{'was_generated_by': 'nmdc:wfnom-13-eb5p2960.1'}
+data_object_set	nmdc:dobj-13-t7bfec16	649b00451ae706d7b5b1a656	{'was_generated_by': 'nmdc:wfnom-13-zygt4n23.1'}
+data_object_set	nmdc:dobj-13-4ag2r312	649b00451ae706d7b5b1a654	{'was_generated_by': 'nmdc:wfnom-13-aw1pex48.1'}
+data_object_set	nmdc:dobj-13-nk4aj145	649b00451ae706d7b5b1a655	{'was_generated_by': 'nmdc:wfnom-13-z0c04z67.1'}
+data_object_set	nmdc:dobj-13-wdr7zv47	649b00451ae706d7b5b1a62d	{'was_generated_by': 'nmdc:wfnom-13-mcm33d75.1'}
+data_object_set	nmdc:dobj-13-mnw6p887	649b00451ae706d7b5b1a62f	{'was_generated_by': 'nmdc:wfnom-13-df71fn74.1'}
+data_object_set	nmdc:dobj-13-jv7g5324	649b00451ae706d7b5b1a62b	{'was_generated_by': 'nmdc:wfnom-13-6nzj6945.1'}
+data_object_set	nmdc:dobj-13-9gfrtv29	649b00451ae706d7b5b1a630	{'was_generated_by': 'nmdc:wfnom-13-ymtbrv65.1'}
+data_object_set	nmdc:dobj-13-cc4eas68	649b00451ae706d7b5b1a633	{'was_generated_by': 'nmdc:wfnom-13-cjdcs181.1'}
+data_object_set	nmdc:dobj-13-8x4p0t78	649b00451ae706d7b5b1a644	{'was_generated_by': 'nmdc:wfnom-13-shkmk172.1'}
+data_object_set	nmdc:dobj-13-annrzk07	649b00451ae706d7b5b1a647	{'was_generated_by': 'nmdc:wfnom-13-y23nw425.1'}
+data_object_set	nmdc:dobj-13-jw7x6n78	649b00451ae706d7b5b1a649	{'was_generated_by': 'nmdc:wfnom-13-pgjtwe83.1'}
+data_object_set	nmdc:dobj-13-mw495z33	649b00451ae706d7b5b1a652	{'was_generated_by': 'nmdc:wfnom-13-a59sef62.1'}
+data_object_set	nmdc:dobj-13-371fx262	649b00451ae706d7b5b1a651	{'was_generated_by': 'nmdc:wfnom-13-r3b4sa32.1'}
+data_object_set	nmdc:dobj-13-4k8vqy39	649b00451ae706d7b5b1a64c	{'was_generated_by': 'nmdc:wfnom-13-pgmapb70.1'}
+data_object_set	nmdc:dobj-13-5f09m942	649b00451ae706d7b5b1a653	{'was_generated_by': 'nmdc:wfnom-13-zrwtp763.1'}
+data_object_set	nmdc:dobj-13-hy6n1463	649b00451ae706d7b5b1a65b	{'was_generated_by': 'nmdc:wfnom-13-ywz79p63.1'}
+data_object_set	nmdc:dobj-13-jmv5e702	649b00451ae706d7b5b1a657	{'was_generated_by': 'nmdc:wfnom-13-yxyega64.1'}
+data_object_set	nmdc:dobj-13-j0nwnf78	649b00451ae706d7b5b1a65c	{'was_generated_by': 'nmdc:wfnom-13-xaqa2298.1'}
+data_object_set	nmdc:dobj-13-k6nnrx04	649b00451ae706d7b5b1a628	{'was_generated_by': 'nmdc:wfnom-13-jk17qe26.1'}
+data_object_set	nmdc:dobj-13-nxv2mc44	649b00451ae706d7b5b1a627	{'was_generated_by': 'nmdc:wfnom-13-3dfz4524.1'}
+data_object_set	nmdc:dobj-13-mftdjx50	649b00451ae706d7b5b1a62c	{'was_generated_by': 'nmdc:wfnom-13-3kzyv204.1'}
+data_object_set	nmdc:dobj-13-jvdfzz64	649b00451ae706d7b5b1a629	{'was_generated_by': 'nmdc:wfnom-13-e9r7cp31.1'}
+data_object_set	nmdc:dobj-13-xstcrm22	649b00451ae706d7b5b1a62a	{'was_generated_by': 'nmdc:wfnom-13-pf3q7r17.1'}
+data_object_set	nmdc:dobj-13-ndcybr82	649b00451ae706d7b5b1a626	{'was_generated_by': 'nmdc:wfnom-13-56qbb461.1'}
+data_object_set	nmdc:dobj-13-654kxg73	649b00451ae706d7b5b1a63d	{'was_generated_by': 'nmdc:wfnom-13-vbtte081.1'}
+data_object_set	nmdc:dobj-13-a1qzj743	649b00451ae706d7b5b1a642	{'was_generated_by': 'nmdc:wfnom-13-eh7wfe56.1'}
+data_object_set	nmdc:dobj-13-mftyrb72	649b00451ae706d7b5b1a641	{'was_generated_by': 'nmdc:wfnom-13-xm8ztz08.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-2vzcvh09.1	649b0096daa6c19f56b27a90	{'id': 'nmdc:wfnom-13-fche6e41.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-s1tgjk70.1	649b0096daa6c19f56b27a9b	{'id': 'nmdc:wfnom-13-9j7m0h19.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-vt7fa951.1	649b0096daa6c19f56b27aa1	{'id': 'nmdc:wfnom-13-cnmwh136.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-n94hex70.1	649b0096daa6c19f56b27a91	{'id': 'nmdc:wfnom-13-mdnfmd27.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-pt69rt29.1	649b0096daa6c19f56b27aad	{'id': 'nmdc:wfnom-13-dhtdjq87.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-c2xfca28.1	649b0096daa6c19f56b27a9e	{'id': 'nmdc:wfnom-13-ntk1n835.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-65eghz72.1	649b0096daa6c19f56b27ab1	{'id': 'nmdc:wfnom-13-he2w8d48.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-p3kqhh61.1	649b0096daa6c19f56b27abc	{'id': 'nmdc:wfnom-13-cwssrj40.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-ce2mm395.1	649b0096daa6c19f56b27aae	{'id': 'nmdc:wfnom-13-rrgf8289.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-60qada30.1	649b0096daa6c19f56b27ab8	{'id': 'nmdc:wfnom-13-zkpmny52.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-1ykje598.1	649b0096daa6c19f56b27abd	{'id': 'nmdc:wfnom-13-4324gv45.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-cpfh4744.1	649b0096daa6c19f56b27ab5	{'id': 'nmdc:wfnom-13-rfat2s10.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-74s8xb21.1	649b0096daa6c19f56b27ac0	{'id': 'nmdc:wfnom-13-yk81en60.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-3h0pbb07.1	649b0096daa6c19f56b27a95	{'id': 'nmdc:wfnom-13-a55z2c35.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-84wag952.1	649b0096daa6c19f56b27a94	{'id': 'nmdc:wfnom-13-wnbrw890.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-eg4htp32.1	649b0096daa6c19f56b27aa7	{'id': 'nmdc:wfnom-13-tfw3fg07.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-befd5z80.1	649b0096daa6c19f56b27aa9	{'id': 'nmdc:wfnom-13-3pgram41.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-k9tdtt72.1	649b0096daa6c19f56b27aa3	{'id': 'nmdc:wfnom-13-5c2dhn02.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-frt40706.1	649b0096daa6c19f56b27aa2	{'id': 'nmdc:wfnom-13-1e8e6f14.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-bdwkkz36.1	649b0096daa6c19f56b27aab	{'id': 'nmdc:wfnom-13-47ytyt72.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-mda54q37.1	649b0096daa6c19f56b27ab4	{'id': 'nmdc:wfnom-13-t1v85209.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-ey516047.1	649b0096daa6c19f56b27ac4	{'id': 'nmdc:wfnom-13-z73z4g07.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-2w27bd07.1	649b0096daa6c19f56b27a96	{'id': 'nmdc:wfnom-13-eb5p2960.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-4pva8736.1	649b0096daa6c19f56b27aac	{'id': 'nmdc:wfnom-13-zygt4n23.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-1rh7cp81.1	649b0096daa6c19f56b27a98	{'id': 'nmdc:wfnom-13-aw1pex48.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-e0tw7258.1	649b0096daa6c19f56b27aaf	{'id': 'nmdc:wfnom-13-z0c04z67.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-fmevq695.1	649b0096daa6c19f56b27a9c	{'id': 'nmdc:wfnom-13-mcm33d75.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-zfvwvn04.1	649b0096daa6c19f56b27a8d	{'id': 'nmdc:wfnom-13-df71fn74.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-z7n77j14.1	649b0096daa6c19f56b27aa6	{'id': 'nmdc:wfnom-13-6nzj6945.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-y4e34092.1	649b0096daa6c19f56b27a8f	{'id': 'nmdc:wfnom-13-ymtbrv65.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-4ydy1y88.1	649b0096daa6c19f56b27a9f	{'id': 'nmdc:wfnom-13-cjdcs181.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-hkr54a27.1	649b0096daa6c19f56b27ab9	{'id': 'nmdc:wfnom-13-shkmk172.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-2c5kgp43.1	649b0096daa6c19f56b27aba	{'id': 'nmdc:wfnom-13-y23nw425.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-k381q936.1	649b0096daa6c19f56b27abe	{'id': 'nmdc:wfnom-13-pgjtwe83.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-qhhq5z41.1	649b0096daa6c19f56b27ab7	{'id': 'nmdc:wfnom-13-a59sef62.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-5kd16w54.1	649b0096daa6c19f56b27abb	{'id': 'nmdc:wfnom-13-r3b4sa32.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-yaj2wy05.1	649b0096daa6c19f56b27ab0	{'id': 'nmdc:wfnom-13-pgmapb70.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-qzp5q758.1	649b0096daa6c19f56b27ab6	{'id': 'nmdc:wfnom-13-zrwtp763.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-qv60fv08.1	649b0096daa6c19f56b27ab3	{'id': 'nmdc:wfnom-13-ywz79p63.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-s9ez8969.1	649b0096daa6c19f56b27ab2	{'id': 'nmdc:wfnom-13-yxyega64.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-tc8xjr83.1	649b0096daa6c19f56b27abf	{'id': 'nmdc:wfnom-13-xaqa2298.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-3zkhzb59.1	649b0096daa6c19f56b27a92	{'id': 'nmdc:wfnom-13-jk17qe26.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-jr6ae044.1	649b0096daa6c19f56b27a8e	{'id': 'nmdc:wfnom-13-3dfz4524.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-n3cp9t95.1	649b0096daa6c19f56b27a9a	{'id': 'nmdc:wfnom-13-3kzyv204.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-vwbcwp17.1	649b0096daa6c19f56b27aa8	{'id': 'nmdc:wfnom-13-e9r7cp31.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-eb5f8063.1	649b0096daa6c19f56b27a9d	{'id': 'nmdc:wfnom-13-pf3q7r17.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-mc9n1t16.1	649b0096daa6c19f56b27aa5	{'id': 'nmdc:wfnom-13-56qbb461.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-h80r3b18.1	649b0096daa6c19f56b27aa0	{'id': 'nmdc:wfnom-13-vbtte081.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-j7eknx20.1	649b0096daa6c19f56b27aaa	{'id': 'nmdc:wfnom-13-eh7wfe56.1'}
+nom_analysis_activity_set	nmdc:wfnom-13-qp25nd90.1	649b0096daa6c19f56b27aa4	{'id': 'nmdc:wfnom-13-xm8ztz08.1'}
