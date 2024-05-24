@@ -50,7 +50,7 @@ const NMDCHeader = (props) => {
         onClick={toggleSidebarMobile}
       />
       <a href="https://microbiomedata.org/" className="nmdc-header-logo">
-        <img style={{ width: '100%', height: 55 }} src={logo} alt="Home page" />
+        <img style={{ width: 160, height: 55 }} src={logo} alt="Home page" />
       </a>
 
       <CHeaderNav className="d-md-down-none mr-auto">
