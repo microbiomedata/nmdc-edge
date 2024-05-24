@@ -98,7 +98,7 @@ workflow main_workflow {
 
     }
 	## Assembly workflow
-	File metaAssembly_input_file = jgi_rqcfilter_call.filtered_final[0]
+	Array[File] metaAssembly_input_file = jgi_rqcfilter_call.filtered_final
 	String? metaAssembly_outdir
 	String metaAssembly_rename_contig_prefix="scaffold"
 	Float metaAssembly_uniquekmer=1000
