@@ -81,8 +81,8 @@ class App extends Component {
     alert("You've been logged out due to inactivity.");
     // Send a logout request to the API
     store.dispatch(logout());
-    // Redirect to login
-    this.props.history.push('/home');
+    // Redirect to home
+    window.location.href = "/home";
     this.destroy(); // Cleanup
   }
 
