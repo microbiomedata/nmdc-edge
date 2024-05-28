@@ -11,6 +11,7 @@ import sys
 import time
 from pathlib import Path
 import json
+import re
 
 import click
 from linkml_runtime.dumpers import json_dumper
@@ -689,6 +690,63 @@ def process_records(ctx, study_id, data_dir, update_links=False, identifiers_fil
     json_data = json.loads(json_dumper.dumps(re_ided_db_records, inject_type=False))
     with open(db_outfile, "w") as f:
         f.write(json.dumps(json_data, indent=4))
+
+@cli.command()
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
+@click.option(
+    "--data-dir",
+    default=BASE_DATAFILE_DIR,
+    help=f"Optional base datafile directory. Default: {BASE_DATAFILE_DIR}",
+)
+@click.option("--update-links", is_flag=True, default=False)
+@click.pass_context
+def fix_workflow_records(ctx, mongo_uri=None, data_dir=None, update_links=False):
+    """
+    Search for workflow records with incorrectly versioned NMDC IDs and fix them, updating the database,
+    updating the file system directories and file headers. Records from read_qc_analysis_activity_set and
+    read_based_taxonomy_analysis_activity_set are affected by this issue.
+
+    Example of an incorrectly versioned NMDC ID:
+        Incorrect: nmdc:wfrqc-11-zbyqeq59.1.1
+        Correct: nmdc:wfrqc-11-zbyqeq59.1
+    """
+    start_time = time.time()
+
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    database_name = ctx.obj["database_name"]
+    client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
+    with pymongo.timeout(5):
+        assert (database_name in client.list_database_names()), f"Database {database_name} not found"
+    logging.info(f"Connected to MongoDB server at {mongo_uri}")
+    db_client = client[database_name]
+    session = client.start_session()
+
+    incorrect_version_query = {
+        "$or": [
+            {"id": {"$not": {"$regex": "[.]"}}},  # No decimal points
+            {"id": {"$regex": ".*\\..*\\..*"}}  # More than one decimal point
+        ]
+    }
+
+    # Read QC Analysis Activity Set records
+    logging.info("Checking Read QC Analysis Activity Set records")
+    read_qc_records = db_client["read_qc_analysis_activity_set"].find(incorrect_version_query)
+    logging.info(f"Found {len(list(read_qc_records.clone()))} read_qc_analysis_activity_set records with incorrect IDs")
+    for record in read_qc_records:
+        logging.info(f"Found Read QC Analysis Activity record with incorrect ID: {record['id']}")
+        # fix the ID
+        fixed_id = re.sub(r"\.\d$", "", record["id"])
+        logging.info(f"Fixed ID: {fixed_id}")
+
+    # Read Based Taxonomy Analysis Activity Set records
+    logging.info("Checking Read Based Taxonomy Analysis Activity Set records")
+    read_based_records = db_client["read_based_taxonomy_analysis_activity_set"].find(incorrect_version_query)
+    logging.info(f"Found {len(list(read_based_records.clone()))} read_based_taxonomy_analysis_activity_set records with incorrect IDs")
+    for record in read_based_records:
+        logging.info(f"Found Read Based Taxonomy Analysis Activity record with incorrect ID: {record['id']}")
+        # fix the ID
+        fixed_id = re.sub(r"\.\d$", "", record["id"])
+        logging.info(f"Fixed ID: {fixed_id}")
 
 
 @cli.command()
