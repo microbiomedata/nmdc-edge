@@ -43,6 +43,12 @@ jobs:
                   push: true
                   tags: ${{ steps.meta.outputs.tags }}
                   labels: ${{ steps.meta.outputs.labels }}
+                  # Use the Git tag name as the application version identifier.
+                  # Here, we inject the Git tag name into the container image via
+                  # the `--build-arg` CLI option of `$ docker build`. Then, in the
+                  # Dockerfile, we consume it via the `ARG` keyword.
+                  build-args: |
+                    NMDC_EDGE_WEB_APP_VERSION=${{ github.ref_name }}
 
 # References:
 # - https://docs.github.com/en/actions/publishing-packages/publishing-docker-images#publishing-images-to-github-packages
