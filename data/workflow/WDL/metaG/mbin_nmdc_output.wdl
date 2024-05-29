@@ -69,7 +69,7 @@ task pdf_to_png {
 
     python <<CODE
     from pathlib import Path
-    import pymupdf 
+    import fitz 
     for pdf in [${sep="," pdf_files}] :
         prefix = Path(pdf).stem
         output = "${outdir}/%s.png" % prefix
@@ -77,8 +77,8 @@ task pdf_to_png {
         with open(pdf) as f:
             first_line = f.readline()
             if "No KO analysis" not in first_line:
-                doc = pymupdf.open(pdf)  # open document
-                mat = pymupdf.Matrix(2, 2)   # zoom factor 2 in each dimension
+                doc = fitz.open(pdf)  # open document
+                mat = fitz.Matrix(2, 2)   # zoom factor 2 in each dimension
                 for page in doc:  # iterate through the pages
                     pix = page.get_pixmap(matrix=mat)  # render page to an image
                     pix.save(output )  # store image as a PNG
