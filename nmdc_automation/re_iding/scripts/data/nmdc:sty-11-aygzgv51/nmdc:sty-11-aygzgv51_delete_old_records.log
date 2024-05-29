@@ -1,8 +1,8 @@
 /Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
   warnings.warn(
 INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
-INFO:root:Deleting old objects found in : ./data/nmdc:sty-11-aygzgv51/nmdc:sty-11-aygzgv51_associated_record_dump.json
-INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664fbb376d71a26bbd179f7f, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664fbb376d71a26bbd179f7f"}, "remainingTimeMS": 4}
+INFO:root:Deleting old objects found in : data/nmdc:sty-11-aygzgv51/nmdc:sty-11-aygzgv51_associated_record_dump.json
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 66576e5075fd418f1096d717, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "66576e5075fd418f1096d717"}, "remainingTimeMS": 4}
 INFO:root:Deleting 29 records from data_object_set
 INFO:root:Deleted 29 records from data_object_set
 INFO:root:Deleting 1 records from metagenome_annotation_activity_set
@@ -510,4 +510,4 @@ INFO:root:Deleted 1 records from read_based_taxonomy_analysis_activity_set
 INFO:root:Searching for functional annotations for 50 annotation activities
 INFO:root:Deleted 205521 functional annotation records
 INFO:root:Writing 1649 deleted record identifiers to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-aygzgv51_deleted_record_identifiers.tsv
-INFO:root:Elapsed time: 37.632838010787964
+INFO:root:Elapsed time: 28.513436794281006

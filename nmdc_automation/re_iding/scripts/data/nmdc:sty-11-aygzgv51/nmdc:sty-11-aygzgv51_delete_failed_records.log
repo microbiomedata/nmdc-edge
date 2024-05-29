@@ -2,7 +2,7 @@
   warnings.warn(
 INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
 INFO:root:Deleting old objects found in : data/nmdc:sty-11-aygzgv51/nmdc:sty-11-aygzgv51_failed_record_dump.json
-INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664fbcfabcea32c2931431d9, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664fbcfabcea32c2931431d9"}, "remainingTimeMS": 4}
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 66577025e629db764efd06bf, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "66577025e629db764efd06bf"}, "remainingTimeMS": 4}
 INFO:root:Deleting 5 records from data_object_set
 INFO:root:Deleted 5 records from data_object_set
 INFO:root:Deleting 1 records from mags_activity_set
@@ -194,4 +194,4 @@ INFO:root:Deleted 1 records from data_object_set
 INFO:root:Deleting 1 records from mags_activity_set
 INFO:root:Deleted 1 records from mags_activity_set
 INFO:root:Writing 278 deleted record identifiers to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-aygzgv51_deleted_record_identifiers.tsv
-INFO:root:Elapsed time: 2.2237141132354736
+INFO:root:Elapsed time: 2.669987201690674

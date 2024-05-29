@@ -1,10 +1,10 @@
 /Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
   warnings.warn(
 INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
-INFO:root:Submitting re id'd records from : ./data/nmdc:sty-11-aygzgv51/nmdc:sty-11-aygzgv51_re_ided_record_dump.json
+INFO:root:Submitting re id'd records from : data/nmdc:sty-11-aygzgv51/nmdc:sty-11-aygzgv51_re_ided_record_dump_l.json
 INFO:root:Using: https://api-napa.microbiomedata.org/
 INFO:root:Using MongoDB URI: mongodb://michael.thornton-napa:barman-reconfirm-leggings-883@localhost:27777
-INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664fb743bc13748f1455c2c1, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664fb743bc13748f1455c2c1"}, "remainingTimeMS": 4}
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 66576b56f9884c1d238d879f, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "66576b56f9884c1d238d879f"}, "remainingTimeMS": 4}
 INFO:root:Connected to MongoDB server at mongodb://michael.thornton-napa:barman-reconfirm-leggings-883@localhost:27777
 INFO:root:omics_processing_id: nmdc:omprc-13-nssdcy07
 INFO:root:Updated 1 omics_processing_set records
@@ -355,4 +355,4 @@ INFO:root:Inserting 17 records into data_object_set
 INFO:root:Inserting 1 records into metagenome_assembly_set
 INFO:root:Inserting 1 records into read_qc_analysis_activity_set
 INFO:root:Inserting 1 records into read_based_taxonomy_analysis_activity_set
-INFO:root:Elapsed time: 169.54011917114258
+INFO:root:Elapsed time: 232.76622700691223
