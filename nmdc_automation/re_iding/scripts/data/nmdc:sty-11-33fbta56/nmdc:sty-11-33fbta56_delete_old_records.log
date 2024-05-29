@@ -2,7 +2,7 @@
   warnings.warn(
 INFO:root:Using NAPA config: ../../../configs/.local_napa_user_config.toml
 INFO:root:Deleting old objects found in : data/nmdc:sty-11-33fbta56/nmdc:sty-11-33fbta56_associated_record_dump.json
-INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 664fa90b84422eeca269fd45, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "664fa90b84422eeca269fd45"}, "remainingTimeMS": 4}
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 66576496f4985ce4cf66b76c, topology_type: Single, servers: [<ServerDescription ('localhost', 27777) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "66576496f4985ce4cf66b76c"}, "remainingTimeMS": 4}
 INFO:root:Deleting 38 records from data_object_set
 INFO:root:Deleted 38 records from data_object_set
 INFO:root:Deleting 1 records from mags_activity_set
@@ -1256,4 +1256,4 @@ INFO:root:Deleted 1 records from read_based_taxonomy_analysis_activity_set
 INFO:root:Searching for functional annotations for 107 annotation activities
 INFO:root:Deleted 561749 functional annotation records
 INFO:root:Writing 4434 deleted record identifiers to /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/nmdc:sty-11-33fbta56_deleted_record_identifiers.tsv
-INFO:root:Elapsed time: 48.01938271522522
+INFO:root:Elapsed time: 58.718652963638306
