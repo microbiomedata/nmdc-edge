@@ -179,14 +179,14 @@ task mbin_nmdc {
             echo "mbin.sdb exists."
         else
             mkdir -p gtdbtk-output
-            echo "Mbin Sdb Could not be created for ~{name}" > mbin.sdb
+            echo "Mbin Sdb Could not be created for ${name}" > mbin.sdb
         fi
 
         if [ -f eukcc_output/eukcc.csv.final ]; then
             echo "eukcc.csv.final exists."
         else
             mkdir -p eukcc_output
-            echo "No EUKCC2 result for ~{name}" > eukcc_output/eukcc.csv.final
+            echo "No EUKCC2 result for ${name}" > eukcc_output/eukcc.csv.final
         fi
     >>>
 

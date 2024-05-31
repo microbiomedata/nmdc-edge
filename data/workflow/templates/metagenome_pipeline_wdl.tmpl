@@ -234,8 +234,8 @@ workflow main_workflow {
     }
 	call metaMAGsOutput.pdf_to_png as metaMAGs_vis {
 		input:
-			outdir = metaMAGs_outdir
-    		container = metaMAGsVis_container
+			outdir = metaMAGs_outdir,
+    		container = metaMAGsVis_container,
     		pdf_files = [metaMAGs_call.barplot,metaMAGs_call.heatmap]
 	}
 
