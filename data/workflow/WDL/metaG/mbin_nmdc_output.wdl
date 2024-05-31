@@ -70,19 +70,21 @@ task pdf_to_png {
     python <<CODE
     from pathlib import Path
     import fitz 
-    for pdf in [${sep="," pdf_files}] :
+    files_string= "${sep=' ' pdf_files}"
+    pdfs = files_string.split()
+    for pdf in pdfs :
         prefix = Path(pdf).stem
         output = "${outdir}/%s.png" % prefix
         print(output)
-        with open(pdf) as f:
-            first_line = f.readline()
+        with open(pd,'rb') as f:
+            first_line = str(f.read(1024))
             if "No KO analysis" not in first_line:
                 doc = fitz.open(pdf)  # open document
                 mat = fitz.Matrix(2, 2)   # zoom factor 2 in each dimension
                 for page in doc:  # iterate through the pages
                     pix = page.get_pixmap(matrix=mat)  # render page to an image
-                    pix.save(output )  # store image as a PNG
-    >>
+                    pix.save(output)  # store image as a PNG
+    CODE
 
     >>>
     
