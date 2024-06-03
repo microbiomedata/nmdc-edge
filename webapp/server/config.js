@@ -67,6 +67,8 @@ const config = {
         SERVER_PORT: makeIntIfDefined(process.env.APP_SERVER_PORT) || 5000,
         // Path to the "docs" directory on the filesystem.
         DOCS_BASE_DIR: process.env.DOCS_BASE_DIR || path.join(DATA_BASE_DIR, "docs"),
+        // Version identifier of the application.
+        VERSION: process.env.NMDC_EDGE_WEB_APP_VERSION || "v0.0.0-default",
     },
     AUTH: {
         // A secret string with which the web server will sign JWTs (JSON Web Tokens).
