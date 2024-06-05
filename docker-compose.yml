@@ -39,9 +39,11 @@ services:
       JWT_SECRET: "jwt-secret"
       OAUTH_SECRET: "oauth-secret"
       EMAIL_SHARED_SECRET: "email-shared-secret"
-    # Map localhost port 8000 to container port 8000.
+      NMDC_EDGE_WEB_APP_VERSION: v0.0.0-local
+    # Map localhost port 8000 to container port 5000 (the latter can
+    # be overridden via the `APP_SERVER_PORT` environment variable).
     ports:
-      - "8000:8000"
+      - "8000:${APP_SERVER_PORT:-5000}"
     depends_on:
       - mongo
       - cromwell

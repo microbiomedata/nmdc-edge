@@ -1,0 +1,57 @@
+name: Build and push container image to GHCR
+
+# Run this workflow whenever a Release is published.
+on:
+    release:
+        types: [published]
+
+jobs:
+    build-and-push-image:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout branch
+              uses: actions/checkout@v4
+            - name: Authenticate with container registry
+              uses: docker/login-action@v3
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+              # Use the `docker/metadata-action` action to extract values that can
+              # be incorporated into the tags and labels of the resulting container
+              # image. The step's `id` ("meta") can be used in subsequent steps to
+              # reference the output of this step.
+              # For more info: https://github.com/docker/metadata-action
+            - name: Prepare metadata of container image
+              id: meta
+              uses: docker/metadata-action@v5
+              with:
+                  images: ghcr.io/microbiomedata/nmdc-edge-web-app
+                  flavor: latest=false
+                  tags: type=semver,pattern={{version}}
+              # Use the `docker/build-push-action` action to build the image described
+              # by the specified Dockerfile. If the build succeeds, push the image to GHCR.
+              # This action uses the `tags` and `labels` parameters to tag and label
+              # the image, respectively, with the output from the "meta" step above.
+              # For more info: https://github.com/docker/build-push-action#usage.
+            - name: Build and push container image
+              id: push
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  file: webapp-node20.Dockerfile
+                  push: true
+                  tags: ${{ steps.meta.outputs.tags }}
+                  labels: ${{ steps.meta.outputs.labels }}
+                  # Use the Git tag name as the application version identifier.
+                  # Here, we add a `--build-arg` CLI option to the `$ docker build`
+                  # command that runs during this step. In the Dockerfile, we
+                  # consume it via the `ARG` directive and then use the `ENV`
+                  # directive to assign it to an environment variable that will
+                  # exist within the container image.
+                  build-args: |
+                    NMDC_EDGE_WEB_APP_VERSION=${{ github.ref_name }}
+
+# References:
+# - https://docs.github.com/en/actions/publishing-packages/publishing-docker-images#publishing-images-to-github-packages
+# - https://github.com/microbiomedata/nmdc-aggregator/blob/main/.github/workflows/build-and-push-image.yml
