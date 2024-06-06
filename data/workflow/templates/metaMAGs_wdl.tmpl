@@ -23,6 +23,7 @@
     String <WORKFLOW>_gtdbtk_db="/refdata/GTDBTK_DB"
     String <WORKFLOW>_checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
     String <WORKFLOW>_eukcc2_db="/refdata/eukcc2_db_ver_1.2"
+    String metaMAGsVis_container = "microbiomedata/nmdc_mbin_vis:0.4.0"
 
 
     call <WORKFLOW>.nmdc_mags  as <ALIAS> {
@@ -36,3 +37,27 @@
         gtdbtk_db=<WORKFLOW>_gtdbtk_db, checkm_db=<WORKFLOW>_checkm_db, scratch_dir=<WORKFLOW>_outdir,
         eukcc2_db=<WORKFLOW>_eukcc2_db
     }
+
+    call mbin_nmdc_output.pdf_to_png as metaMAGs_vis {
+		input:
+			outdir = <WORKFLOW>_outdir
+    		container = metaMAGsVis_container
+    		pdf_files = [<ALIAS>.barplot,<ALIAS>.heatmap]
+	}
+
+    output {
+        File final_hqmq_bins_zip = <ALIAS>.final_hqmq_bins_zip
+        File final_lq_bins_zip = <ALIAS>.final_lq_bins_zip
+        File final_gtdbtk_bac_summary = <ALIAS>.final_gtdbtk_bac_summary
+        File final_gtdbtk_ar_summary = <ALIAS>.final_gtdbtk_ar_summary
+        File short = <ALIAS>.final_short
+        File low = <ALIAS>.final_lowDepth_fa
+        File final_unbinned_fa  = <ALIAS>.final_unbinned_fa
+        File final_checkm = <ALIAS>.final_checkm
+        File mags_version = <ALIAS>.final_version
+        File final_stats_json = <ALIAS>.final_stats_json
+        File barplot = <ALIAS>.final_barplot
+        File heatmap = <ALIAS>.final_heatmap
+        File kronaplot = <ALIAS>.final_kronaplot
+    }
+

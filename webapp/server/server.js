@@ -114,6 +114,10 @@ app.use(passport.initialize());
 require("./util/passport")(passport);
 
 // Routes
+app.get("/api/version", (req, res) => {
+  // Return the version identifier of the NMDC EDGE web application.
+  res.json({ version: config.APP.VERSION });
+});
 app.use("/api/user", user);
 app.use("/api/project", project);
 app.use("/auth-api/user", passport.authenticate('user', { session: false }), auth_user);

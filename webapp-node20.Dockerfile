@@ -11,6 +11,15 @@ FROM node:20-alpine
 LABEL org.opencontainers.image.description="NMDC EDGE Web App (Node v20)"
 LABEL org.opencontainers.image.source="https://github.com/microbiomedata/nmdc-edge"
 
+# Create an environment variable that contains the web app version identifier.
+#
+# Note: Its value will come from the `--build-arg NMDC_EDGE_WEB_APP_VERSION={value}`
+#       CLI option, if any, included in the `$ docker build` command.
+#       Reference: https://docs.docker.com/reference/dockerfile/#arg
+#
+ARG NMDC_EDGE_WEB_APP_VERSION
+ENV NMDC_EDGE_WEB_APP_VERSION="$NMDC_EDGE_WEB_APP_VERSION"
+
 # Install programs upon which the web app or its build process(es) depend.
 #
 # Note: `apk` (Alpine Package Keeper) is the Alpine Linux equivalent of `apt`.

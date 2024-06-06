@@ -66,7 +66,7 @@ services:
       - "27017:27017"
     # Map a persistent volume to `/data/db` within the container.
     volumes:
-      - {$MONGO_DATA_DIR_ON_HOST:-/media/volume/nmdc-edge-web-app-mongo-data}:/data/db
+      - ${MONGO_DATA_DIR_ON_HOST:-/media/volume/nmdc-edge-web-app-mongo-data}:/data/db
 
   caddy:
     image: caddy:2.7.6
