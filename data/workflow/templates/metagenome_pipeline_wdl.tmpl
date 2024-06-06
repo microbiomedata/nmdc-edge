@@ -3,7 +3,7 @@ import "readsqc_preprocess.wdl" as readsqc_preprocess
 import "ReadbasedAnalysis.wdl" as readbasedAnalysis
 import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output
-import "jgi_assembly.wdl" as metaAssembly
+import "nmdcEDGE_assembly.wdl" as metaAssembly
 import "annotation_full.wdl" as metaAnnotation
 import "annotation_output.wdl" as metaAnnotationOutput
 import "mbin_nmdc.wdl" as metaMAGs
@@ -98,19 +98,20 @@ workflow main_workflow {
 
     }
 	## Assembly workflow
-	File metaAssembly_input_file = jgi_rqcfilter_call.filtered_final[0]
+	Array[File] metaAssembly_input_file = jgi_rqcfilter_call.filtered_final
 	String? metaAssembly_outdir
 	String metaAssembly_rename_contig_prefix="scaffold"
 	Float metaAssembly_uniquekmer=1000
 	String metaAssembly_bbtools_container="microbiomedata/bbtools:38.96"
 	String metaAssembly_spades_container="microbiomedata/spades:3.15.0"
+	String metaAssembly_quast_container="staphb/quast:5.2.0-slim"
 	String metaAssembly_memory="100g"
 	String metaAssembly_threads="4"
 	Array[File] metaAssembly_input_fq1=[]
 	Array[File] metaAssembly_input_fq2=[]
 
 
-    call metaAssembly.jgi_metaASM as metaAssembly_call {
+    call metaAssembly.nmdc_edge_assembly as metaAssembly_call {
         input:
             proj=proj,
             input_file=metaAssembly_input_file,
@@ -119,6 +120,7 @@ workflow main_workflow {
             uniquekmer=metaAssembly_uniquekmer,
             bbtools_container=metaAssembly_bbtools_container,
             spades_container=metaAssembly_spades_container,
+			quast_container=metaAssembly_quast_container,
             memory=metaAssembly_memory,
             threads=metaAssembly_threads
     }
@@ -149,6 +151,7 @@ workflow main_workflow {
 	String  metaAnnotation_outdir
 	Int     metaAnnotation_additional_threads=8
 	String  metaAnnotation_database_location="/refdata/img/"
+	String  metaAnnotation_opaver_web_path="/expanse/projects/nmdc/edge_app/nmdc-edge/io/opaver_web/data"
 
 
     call metaAnnotation.annotation as metaAnnotation_call {
@@ -164,7 +167,8 @@ workflow main_workflow {
           imgap_project_type=metaAnnotation_imgap_project_id,
           outdir=metaAnnotation_outdir,
           final_stats_tsv=metaAnnotation_call.stats_tsv,
-          functional_gff=metaAnnotation_call.functional_gff
+          functional_gff=metaAnnotation_call.functional_gff,
+		  opaver_web_path=metaAnnotation_opaver_web_path
   }
 
 	
@@ -193,7 +197,9 @@ workflow main_workflow {
 	Int metaMAGs_pthreads=1
 	String metaMAGs_database="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
     String checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
-    String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:c8df293e80698627ce66df7cd07f6b10e9112184e3bf1379e615d10123f7bc64"
+	String eukcc2_db="/refdata/EUKCC2_DB/eukcc2_db_ver_1.2"
+	String metaMAGsVis_container = "microbiomedata/nmdc_mbin_vis:0.4.0"
+    String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:57930406fb5cc364bacfc904066519de6cdc2d0ceda9db0eebf2336df3ef5349"
 	
 
     call metaMAGs.nmdc_mags as metaMAGs_call {
@@ -221,9 +227,17 @@ workflow main_workflow {
             pthreads=metaMAGs_pthreads,
             gtdbtk_db=metaMAGs_database,
             checkm_db=checkm_db,
+			eukcc2_db=eukcc2_db,
             scratch_dir=metaMAGs_outdir,
+			package_container=metaMAGsVis_container,
             container=metaMAGs_container
     }
+	call metaMAGsOutput.pdf_to_png as metaMAGs_vis {
+		input:
+			outdir = metaMAGs_outdir,
+    		container = metaMAGsVis_container,
+    		pdf_files = [metaMAGs_call.barplot,metaMAGs_call.heatmap]
+	}
 
 	call finish {
 		input: container="microbiomedata/workflowmeta:1.0.5.1",

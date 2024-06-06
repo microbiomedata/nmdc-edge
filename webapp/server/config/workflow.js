@@ -36,7 +36,7 @@ workflowlist = {
         wdl_version: 'draft-2'
     },
     MetaAssembly: {
-        wdl: 'jgi_assembly.wdl',
+        wdl: 'nmdcEDGE_assembly.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'jgi_metaASM',
         full_name: 'Metagenome Assembly',

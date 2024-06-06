@@ -11,6 +11,7 @@ workflow mbin_nmdc_output {
     File checkm
     File json_stats
     File tsv_stats
+    Array[File] bin_fasta_files
     Array[File] hqmq_bin_fasta_files
     String container = "microbiomedata/nmdc_mbin:0.1.6"
     String? proj = "MAGs"
@@ -40,7 +41,7 @@ workflow mbin_nmdc_output {
     }
 
   call make_output {
-            input: container="microbiomedata/workflowmeta:1.0.5.1",
+            input: container="microbiomedata/nmdc_mbin_vis:0.4.0",
                    activity_json=generate_objects.activity_json,
                    object_json=generate_objects.data_object_json,
                    short=short,
@@ -56,6 +57,47 @@ workflow mbin_nmdc_output {
 
         }
 }
+
+task pdf_to_png {
+    String? outdir
+    String container =  "microbiomedata/nmdc_mbin_vis:0.4.0"
+    Array[File] pdf_files
+
+    command<<<
+    set -euo pipefail
+    mkdir -p ${outdir}
+
+    python <<CODE
+    from pathlib import Path
+    import fitz 
+    files_string= "${sep=' ' pdf_files}"
+    pdfs = files_string.split()
+    for pdf in pdfs :
+        prefix = Path(pdf).stem
+        output = "${outdir}/%s.png" % prefix
+        print(output)
+        with open(pd,'rb') as f:
+            first_line = str(f.read(1024))
+            if "No KO analysis" not in first_line:
+                doc = fitz.open(pdf)  # open document
+                mat = fitz.Matrix(2, 2)   # zoom factor 2 in each dimension
+                for page in doc:  # iterate through the pages
+                    pix = page.get_pixmap(matrix=mat)  # render page to an image
+                    pix.save(output)  # store image as a PNG
+    CODE
+
+    >>>
+    
+    runtime {
+        docker: container
+        memory: "1 GiB"
+        cpu:  1
+    }
+    output{
+        Array[File] png_files = read_lines(stdout())
+    }
+}
+
 task generate_objects{
     String container
     String start
