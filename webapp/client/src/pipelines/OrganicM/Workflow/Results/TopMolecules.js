@@ -3,7 +3,7 @@ import MaterialTable from "material-table";
 import { MuiThemeProvider } from '@material-ui/core';
 import { tableIcons, theme } from '../../../../common/table';
 
-function Top_molecules(props) {
+function TopMolecules(props) {
     const [moleculeData, setmoleculeData] = useState([]);
     const [selectedRow, setSelectedRow] = useState(null);
 
@@ -132,4 +132,4 @@ function Top_molecules(props) {
     );
 }
 
-export default Top_molecules;
+export default TopMolecules;

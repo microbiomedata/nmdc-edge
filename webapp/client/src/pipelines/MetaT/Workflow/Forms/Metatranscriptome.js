@@ -5,7 +5,7 @@ import {
 
 import { FastqInput } from '../../../Common/Forms/FastqInput';
 import { Header } from '../../../Common/Forms/CardHeader';
-import { initialMetaTranscriptome, workflowInputTips } from '../Defaults';
+import { workflowInputTips } from '../Defaults';
 import { MyTooltip } from '../../../../common/MyTooltip';
 
 export function Metatranscriptome(props) {

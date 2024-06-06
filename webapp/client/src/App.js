@@ -69,7 +69,7 @@ class App extends Component {
 
   setTimeout() {
     // 3600 * 1000 = 60mins
-    this.logoutTimeout = setTimeout(this.logout, 3600 * 100000);
+    this.logoutTimeout = setTimeout(this.logout, 3600 * 1000);
   }
 
   resetTimeout() {
@@ -81,8 +81,8 @@ class App extends Component {
     alert("You've been logged out due to inactivity.");
     // Send a logout request to the API
     store.dispatch(logout());
-    // Redirect to login
-    window.location.href = "./";
+    // Redirect to home
+    window.location.href = "/home";
     this.destroy(); // Cleanup
   }
 

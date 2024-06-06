@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import {
-    Col, Row, Button
-} from 'reactstrap';
+import { Col, Row, Button } from 'reactstrap';
 import { LoaderDialog, FileViewerDialog } from '../common/Dialogs';
 import { postData, fetchFile } from '../common/util';
 import ProjectGeneral from './Common/Results/ProjectGeneral';
@@ -25,16 +22,14 @@ function ProjectResult(props) {
     const [conf, setConf] = useState();
     const [result, setResult] = useState();
     const [outputs, setOutputs] = useState();
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState();
+    const [loading] = useState(false);
+    const [error] = useState();
     const [view_log_file, setView_log_file] = useState(false);
     const [log_file_content, setLog_file_content] = useState('');
     const [allExpand, setAllExpand] = useState(0);
     const [allClosed, setAllClosed] = useState(0);
     //disable the expand | close
     const disableExpandClose = false;
-
-    const user = useSelector(state => state.user);
 
     useEffect(() => {
         setProject(props.project);
@@ -167,7 +162,7 @@ function ProjectResult(props) {
                     <Col xs="12" md="10">
                         <div className="clearfix">
                             <p className="text-muted float-left">
-                                The project might be deleted or you have no permission to acces it.
+                                The project might be deleted or you have no permission to access it.
                             </p>
                         </div>
                     </Col>
@@ -241,7 +236,7 @@ function ProjectResult(props) {
                             <Col xs="12" md="10">
                                 <ProjectOutputs outputs={outputs} filePath={"/projects/" + project.code + "/output"} allExpand={allExpand} allClosed={allClosed} />
                                 {project.type === 'Viruses and Plasmids' &&
-                                <a href={'https://portal.nersc.gov/genomad/index.html'} target='_blank' rel='noreferrer'>{'Learn more about the Viruses and Plasmids outputs ...'}</a>
+                                    <a href={'https://portal.nersc.gov/genomad/index.html'} target='_blank' rel='noreferrer'>{'Learn more about the Viruses and Plasmids outputs ...'}</a>
                                 }
                             </Col>
                         </Row>

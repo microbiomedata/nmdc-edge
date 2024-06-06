@@ -1,27 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom'
 import { Col, Row, Badge } from 'reactstrap';
 import MaterialTable from "material-table";
 import { MuiThemeProvider } from '@material-ui/core';
 import { tableIcons, theme, projectStatusColors, projectStatusNames } from '../../table';
 
 import RefreshIcon from '@material-ui/icons/Refresh';
-import ExploreIcon from '@material-ui/icons/Explore';
+import { BsFolderSymlink } from "react-icons/bs";
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from "@material-ui/core/IconButton";
 import { getData } from '../../util';
-
-const columns = [
-    { title: 'Project', field: 'name', filterPlaceholder: 'Project filter', tooltip: 'Project name', grouping: false },
-    { title: 'Description', field: 'desc', hidden: true, grouping: false },
-    //{ title: 'Owner', field: 'owner', editable: 'never', tooltip: 'Project owner' },
-    { title: 'Type', field: 'type', editable: 'never' },
-    {
-        title: 'Status', field: 'status', grouping: false,
-        render: rowData => { return <Badge color={projectStatusColors[rowData.status]}>{projectStatusNames[rowData.status]}</Badge> },
-        lookup: { 'in queue': 'In queue', 'running': 'Running', 'failed': 'Failed', 'rerun': 'Re-run', 'complete': 'Complete' }
-    },
-    { title: 'Created', field: 'created', type: 'datetime', editable: 'never', hidden: false, filtering: false, grouping: false },
-    { title: 'Updated', field: 'updated', type: 'datetime', editable: 'never', filtering: false, grouping: false },
-];
 
 function ProjectList(props) {
     const [tableData, setTableData] = useState();
@@ -70,7 +57,37 @@ function ProjectList(props) {
                         <MuiThemeProvider theme={theme}>
                             <MaterialTable
                                 isLoading={loading}
-                                columns={columns}
+                                columns={[
+                                    { title: 'Project', field: 'name', filterPlaceholder: 'Project filter', tooltip: 'Project name', grouping: false },
+                                    { title: 'Description', field: 'desc', hidden: true, grouping: false },
+                                    //{ title: 'Owner', field: 'owner', editable: 'never', tooltip: 'Project owner' },
+                                    { title: 'Type', field: 'type', editable: 'never' },
+                                    {
+                                        title: 'Status', field: 'status', grouping: false,
+                                        render: rowData => { return <Badge color={projectStatusColors[rowData.status]}>{projectStatusNames[rowData.status]}</Badge> },
+                                        lookup: { 'in queue': 'In queue', 'running': 'Running', 'failed': 'Failed', 'rerun': 'Re-run', 'complete': 'Complete' }
+                                    },
+                                    {
+                                        title: "Result",
+                                        render: (rowData) => {
+                                            const button = (
+                                                <Tooltip title={'Go to result page'}>
+                                                    <span>
+                                                        <IconButton
+                                                            onClick={() => {
+                                                                props.history.push("/public/project?code=" + rowData.code);
+                                                            }}
+                                                        >
+                                                        <BsFolderSymlink style={{ color: '#4f3B80' }} />
+                                                        </IconButton></span>
+                                                </Tooltip>
+                                            );
+                                            return button;
+                                        }
+                                    },
+                                    { title: 'Created', field: 'created', type: 'datetime', editable: 'never', hidden: false, filtering: false, grouping: false },
+                                    { title: 'Updated', field: 'updated', type: 'datetime', editable: 'never', filtering: false, grouping: false },
+                                ]}
                                 data={tableData}
                                 title={"Public Projects"}
                                 icons={tableIcons}
@@ -80,7 +97,7 @@ function ProjectList(props) {
                                     pageSizeOptions: [10, 20, 50, 100],
                                     addRowPosition: 'first',
                                     columnsButton: true,
-                                    actionsColumnIndex: 5,
+                                    actionsColumnIndex: 8,
                                     emptyRowsWhenPaging: false,
                                     showTitle: true,
                                 }}
@@ -92,15 +109,6 @@ function ProjectList(props) {
                                         tooltip: 'Refresh Data',
                                         isFreeAction: true,
                                         onClick: () => getProjects(),
-                                    },
-                                ]}
-                                detailPanel={[
-                                    {
-                                        icon: () => <ExploreIcon />,
-                                        tooltip: 'Go to project result page',
-                                        render: rowData => {
-                                            return <Redirect to={"/public/project?code=" + rowData.code} />
-                                        },
                                     },
                                 ]}
                             />

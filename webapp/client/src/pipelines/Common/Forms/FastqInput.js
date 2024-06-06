@@ -29,7 +29,6 @@ export function FastqInput(props) {
 
     //need initial array for workflow selected more than once, otherwise workflows will share same inputs
     const [form, setState] = useState({ ...initialFastqInput });
-    const [collapseParms, setCollapseParms] = useState(props.collapseParms);
     const [doValidation, setDoValidation] = useState(0);
     const [singleType, setSingleType] = useState("interleaved");
 

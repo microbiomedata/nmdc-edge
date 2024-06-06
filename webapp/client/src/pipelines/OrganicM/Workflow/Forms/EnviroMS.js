@@ -15,7 +15,7 @@ import { FileInputArray } from '../../../Common/Forms/FileInputArray';
 
 export function EnviroMS(props) {
     const enabled = false;
-    const { register, control, setValue, formState: { errors }, trigger } = useForm({
+    const { register, setValue, formState: { errors }, trigger } = useForm({
         mode: defaults['form_mode'],
     });
     //need initial array for workflow selected more than once, otherwise workflows will share same inputs

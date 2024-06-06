@@ -3,7 +3,7 @@ import {
     Col, Row, Input
 } from 'reactstrap';
 import { useForm } from "react-hook-form";
-import { WarningTooltip } from '../../../common/MyTooltip';
+import {MyTooltip } from '../../../common/MyTooltip';
 import { defaults, initialProject } from './Defaults';
 
 export function Project(props) {
@@ -17,7 +17,7 @@ export function Project(props) {
             maxLength: { value: 30, message: 'Max 30 characters exceeded' },
             pattern: { // Validation pattern
                 value: /^[a-zA-Z0-9\-_.]+$/,
-                message: 'Only alphabets, numbers, dashs, dot and underscore are allowed in project name.'
+                message: 'Only alphabets, numbers, dashs, dot and underscore are allowed.'
             }
         })
     };
@@ -25,7 +25,7 @@ export function Project(props) {
     const [
         form,
         setState
-    ] = useState({...initialProject});
+    ] = useState({ ...initialProject });
     const [doValidation, setDoValidation] = useState(0);
 
     const setNewState = (e) => {
@@ -39,7 +39,7 @@ export function Project(props) {
     useEffect(() => {
         setState({ ...initialProject });
         setValue('proj_name', '', { shouldValidate: true });
-    }, [props.reset]);
+    }, [props.reset]);// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         //validate form
@@ -63,10 +63,7 @@ export function Project(props) {
         <>
             <Row>
                 <Col md="3">
-                    Project/Run Name
-                    {(errors.proj_name) &&
-                        <WarningTooltip id='projectName' tooltip={errors.proj_name.message} />
-                    }
+                    <MyTooltip id='projectname' text="Project/Run Name" tooltip={initialProject.project_name_tip} showTooltip={true} place="right" />
                 </Col>
                 <Col xs="12" md="9">
                     <Input type="text" name="proj_name" id="proj_name" defaultValue={form.proj_name}

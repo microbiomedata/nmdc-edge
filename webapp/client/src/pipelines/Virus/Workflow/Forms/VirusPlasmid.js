@@ -9,7 +9,7 @@ import 'rc-slider/assets/index.css';
 import { validFile } from '../../../../common/util';
 import FileSelector from '../../../../common/FileSelector';
 import MySelect from '../../../../common/MySelect';
-import { WarningTooltip, MyTooltip } from '../../../../common/MyTooltip';
+import { MyTooltip } from '../../../../common/MyTooltip';
 import { useForm } from "react-hook-form";
 import { Header } from '../../../Common/Forms/CardHeader';
 import { defaults, initialVirusPlasmid, workflowInputTips } from '../Defaults';
@@ -91,14 +91,6 @@ export function VirusPlasmid(props) {
 
     const toggleParms = () => {
         setCollapseParms(!collapseParms);
-    }
-
-    const setNewState = (e) => {
-        setState({
-            ...form,
-            [e.target.name]: e.target.value
-        });
-        setDoValidation(doValidation + 1);
     }
 
     const setNewState2 = (name, value) => {

@@ -20,7 +20,7 @@ call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
 
 scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
 
-        call ReadsQC.nmdc_rqcfilter  as nmdc_rqcfilter {
+        call ReadsQC.nmdc_rqcfilter  as jgi_rqcfilter_call {
             input:
                 input_files=file,
                 database=ReadsQC_database,

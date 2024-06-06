@@ -84,16 +84,7 @@ export function Metaproteomics(props) {
         setValue("fasta_hidden", filename, { shouldValidate: true });
         setDoValidation(doValidation + 1);
     }
-
-    const handleGFFFileSelection = (filename, type, index, key) => {
-        setState({
-            ...form,
-            'input_gff': filename, 'input_gff_display': key
-        });
-        setValue("gff_hidden", filename, { shouldValidate: true });
-        setDoValidation(doValidation + 1);
-    }
-
+    
     //trigger validation method when input changes
     useEffect(() => {
         //validate form
@@ -154,7 +145,7 @@ export function Metaproteomics(props) {
                         </Col>
                     </Row>
                     <br></br>
-                    <Row>
+                    {/* <Row>
                         <Col md="3">
                             <MyTooltip id='MetaP-gff' text="Input GFF File" tooltip={workflowInputTips['Metaproteomics']['gff_tip']} showTooltip={true} place="right" />
                         </Col>
@@ -165,7 +156,7 @@ export function Metaproteomics(props) {
                             />
                         </Col>
                     </Row>
-                    <br></br>
+                    <br></br> */}
                     <Row>
                         <Col md="3">
                             <MyTooltip id='MetaP-thermo-raw' text="Thermo Raw?" tooltip={workflowInputTips['Metaproteomics']['thermo_raw']} showTooltip={true} place="right" />

@@ -1,16 +1,7 @@
 // Here you can add other styles
-$primary: #321fdb;
-$secondary: #ced2d8;
-$success: #2eb85c;
-$danger: #e55353;
-$warning: #f9b115;
-$info: #3399ff;
-$light: #ebedef;
-$dark: #636f83;
 //containers
 .c-main {
     background-color: white;
-    padding-top: 20px;
 }
 
 .dropdown-menu {
@@ -59,6 +50,7 @@ $dark: #636f83;
   }
 
 //UM
+
 .um-card {
     background-color: $light;
 }
@@ -78,6 +70,10 @@ $dark: #636f83;
 }
 
 //form
+.edge-workflow-tag {
+    padding-left: 60px;
+}
+
 .red-text {
     color: $danger;
 }

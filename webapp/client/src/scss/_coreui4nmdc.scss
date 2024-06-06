@@ -1,0 +1,257 @@
+// CoreUI Header
+// scss-docs-start header
+//nmdc header height
+$header-height:                 82px;
+
+//header 
+.c-header {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: $zindex-fixed - 1;
+  min-height: $header-height;
+
+  &[class*="bg-"]  {
+    border-color: rgba($black, .1);
+  }
+
+  &.c-header-fixed {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: $zindex-fixed - 1;
+  }
+
+  .c-subheader {
+    border-bottom: 0;
+  }
+}
+
+// stylelint-disable selector-max-class, declaration-no-important, selector-max-compound-selectors, function-url-quotes, selector-max-combinators
+.c-sidebar {
+  position: relative;
+  display: flex;
+  // $sidebar-width is the width of the columns
+  flex: 0 0 $sidebar-width;
+  flex-direction: column;
+  // put the nav on the left
+  order: -1;
+  width: $sidebar-width;
+  padding: $sidebar-padding;
+  box-shadow: none;
+
+  &.c-sidebar-right {
+    order: 99;
+  }
+
+  @include media-breakpoint-down(breakpoint-before($mobile-breakpoint)) {
+    // Some of our components use this property to detect if the sidebar has mobile behavior.
+    --is-mobile: true;
+    position: fixed;
+    top: $header-height;
+    bottom: 0;
+    z-index: $zindex-fixed + 1;
+
+    @include ltr {
+      &:not(.c-sidebar-right){
+        left: 0;
+      }
+      &.c-sidebar-right {
+        right: 0;
+      }
+    }
+    @include rtl {
+      &:not(.c-sidebar-right){
+        right: 0;
+      }
+      &.c-sidebar-right {
+        left: 0;
+      }
+    }
+  }
+
+  @include ltr {
+    &:not(.c-sidebar-right){
+      margin-left: - $sidebar-width;
+    }
+    &.c-sidebar-right {
+      margin-right: - $sidebar-width;
+    }
+  }
+
+  @include rtl {
+    &:not(.c-sidebar-right){
+      margin-right: - $sidebar-width;
+    }
+    &.c-sidebar-right {
+      margin-left: - $sidebar-width;
+    }
+  }
+
+  &[class*="bg-"]  {
+    border-color: rgba($black, .1);
+  }
+
+  @each $width, $value in $sidebar-widths {
+    &.c-sidebar-#{$width} {
+      flex: 0 0 $value;
+      width: $value;
+
+      @include ltr {
+        &:not(.c-sidebar-right){
+          margin-left: - $value;
+        }
+        &.c-sidebar-right {
+          margin-right: - $value;
+        }
+      }
+
+      @include rtl {
+        &:not(.c-sidebar-right){
+          margin-right: - $value;
+        }
+        &.c-sidebar-right {
+          margin-left: - $value;
+        }
+      }
+    }
+  }
+
+  &.c-sidebar-fixed {
+    @include media-breakpoint-up($mobile-breakpoint) {
+      position: fixed;
+      top: $header-height;
+      bottom: 0;
+      z-index: $zindex-fixed;
+
+      @include ltr {
+        &:not(.c-sidebar-right) {
+          left: 0;
+        }
+
+        &.c-sidebar-right {
+          right: 0;
+        }
+      }
+
+      @include rtl {
+        &:not(.c-sidebar-right) {
+          right: 0;
+        }
+
+        &.c-sidebar-right {
+          left: 0;
+        }
+      }
+    }
+  }
+
+  &.c-sidebar-overlaid {
+    position: fixed;
+    top: $header-height;
+    bottom: 0;
+    z-index: $zindex-fixed + 2;
+
+    @include ltr {
+      &:not(.c-sidebar-right) {
+        left: 0;
+      }
+
+      &.c-sidebar-right {
+        right: 0;
+      }
+    }
+
+    @include rtl {
+      &:not(.c-sidebar-right) {
+        right: 0;
+      }
+
+      &.c-sidebar-right {
+        left: 0;
+      }
+    }
+  }
+}
+
+//layouts
+.c-app {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+.c-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100vh;
+
+  &:not(.c-wrapper-fluid) {
+
+    .c-subheader-fixed {
+      position: relative;
+    }
+
+    .c-header-fixed {
+      position: fixed;
+      top: 0;
+
+      @media all and (-ms-high-contrast: none) {
+        position: fixed;
+        margin: inherit;
+
+        ~ .c-body {
+          margin-top: 104px;
+        }
+      }
+    }
+
+    .c-footer-fixed {
+      position: sticky;
+      bottom: 0;
+
+      @media all and (-ms-high-contrast: none) {
+        position: fixed;
+        margin: inherit;
+
+        ~ .c-body {
+          margin-bottom: 49px;
+        }
+      }
+    }
+
+    .c-body {
+      // deprecate v4
+      // fix footer position to avoid breaking change.
+      display: flex;
+      flex-direction: column;
+      // ---
+
+      flex-grow: 1;
+    }
+  }
+
+  // deprecate v4
+  &.c-wrapper-fluid {
+    min-height: 100vh;
+  }
+}
+
+.c-main {
+  flex-basis: auto;
+  flex-shrink: 0;
+  flex-grow: 1;
+  min-width: 0;
+  //adjusted for the SubMenu
+  padding-top: 100px;
+
+  > .container-fluid {
+    @include media-breakpoint-up(md) {
+      //adjusted for the SubMenu
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+  }
+}

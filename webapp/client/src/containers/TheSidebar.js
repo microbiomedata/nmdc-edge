@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   CCreateElement,
   CSidebar,
-  CSidebarBrand,
   CSidebarNav,
   CSidebarNavDivider,
   CSidebarNavTitle,
@@ -12,12 +11,8 @@ import {
   CSidebarNavItem,
 } from '@coreui/react'
 
-import CIcon from '@coreui/icons-react'
-
 // sidebar nav config
 import navigation from './_nav';
-import logo from '../assets/img/brand/logo.png'
-
 import { setSidebar } from "../redux/actions/userActions";
 
 const TheSidebar = () => {
@@ -29,18 +24,6 @@ const TheSidebar = () => {
       show={sidebar.sidebarShow}
       onShowChange={(val) => dispatch(setSidebar(val))}
     >
-      <CSidebarBrand className="d-md-down-none" to="/home">
-        <CIcon
-          className="c-sidebar-brand-full"
-          src={logo}
-          height={40}
-        />
-        <CIcon
-          className="c-sidebar-brand-minimized"
-          src={logo}
-          height={20}
-        />
-      </CSidebarBrand>
       <CSidebarNav>
 
         <CCreateElement

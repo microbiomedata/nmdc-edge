@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, Card, CardBody, Collapse } from 'reactstrap';
+import { Card, CardBody, Collapse } from 'reactstrap';
 import { Header } from '../../../Common/Results/CardHeader';
-import Top_features from './Top_features';
+import TopFeatures from './TopFeatures';
 import config from "../../../../config";
 
 function Metatranscriptome(props) {
@@ -36,8 +36,8 @@ function Metatranscriptome(props) {
                             <br></br><br></br>
                         </>
                     }
-                    {props.result.top_features &&
-                        <Top_features result={props.result} />
+                    {props.result.top_features && 
+                        <TopFeatures result={props.result} />
                     }
                 </CardBody>
             </Collapse>

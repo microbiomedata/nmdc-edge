@@ -11,6 +11,8 @@ import routes from '../routes'
 import privateRoutes from '../private-routes'
 
 import PrivateRoute from "../common/PrivateRoute";
+import AppBanner from './AppBanner'
+import SubMenuBar from './SubMenuBar'
 
 const loading = (
   <div className="pt-3 text-center">
@@ -23,6 +25,8 @@ const TheContent = () => {
     <main className="c-main">
       <CContainer fluid>
         <Suspense fallback={loading}>
+          <AppBanner />
+          <SubMenuBar />
           <Switch>
             {routes.map((route, idx) => {
               return route.component && (

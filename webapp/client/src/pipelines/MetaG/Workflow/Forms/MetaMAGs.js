@@ -181,13 +181,13 @@ export function MetaMAGs(props) {
                                 placeholder={'Select a file or enter a file http(s) url'}
                                 validFile={form.sam_file_validInput}
                                 dataSources={['project', 'upload', 'public', 'globus']}
-                                projectTypes={['Metagenome Assembly']}
+                                projectTypes={['Metagenome Pipeline', 'Metagenome Assembly']}
                                 fileTypes={['sam', 'bam']} fieldname={'sam_file'} viewFile={false} />
                         </Col>
                     </Row>
                     <br></br>
 
-                    <Row>
+                    {/* <Row>
                         <Col md="3">
                             <MyTooltip id='MetaMAGs-contig_file' text="contig file" tooltip={workflowInputTips['MetaMAGs']['contig_file']} showTooltip={false} place="right" />
                         </Col>
@@ -198,12 +198,12 @@ export function MetaMAGs(props) {
                                 placeholder={'Select a file or enter a file http(s) url'}
                                 validFile={form.contig_file_validInput}
                                 dataSources={['project', 'upload', 'public', 'globus']}
-                                projectTypes={['Metagenome Assembly']}
+                                projectTypes={['Metagenome Pipeline', 'Metagenome Assembly']}
                                 fileTypes={['fasta', 'fa', 'faa', 'fasta.gz', 'fa.gz', 'fna', 'fna.gz']}
                                 fieldname={'contig_file'} viewFile={false} />
                         </Col>
                     </Row>
-                    <br></br>
+                    <br></br> */}
 
                     <Row>
                         <Col md="3">
@@ -215,12 +215,12 @@ export function MetaMAGs(props) {
                                 placeholder={'Select a file or enter a file http(s) url'}
                                 validFile={form.proteins_file_validInput}
                                 dataSources={['project', 'upload', 'public']}
-                                projectTypes={['Metagenome Annotation']}
+                                projectTypes={['Metagenome Pipeline', 'Metagenome Annotation']}
                                 fileTypes={['faa']} fieldname={'proteins_file'} viewFile={false} />
                         </Col>
                     </Row>
                     <br></br>
-
+{/* 
                     <Row>
                         <Col md="3">
                             <MyTooltip id='MetaMAGs-gff_file' text="gff file" tooltip={workflowInputTips['MetaMAGs']['gff_file']} showTooltip={false} place="right" />
@@ -423,7 +423,7 @@ export function MetaMAGs(props) {
                                 fileTypes={['tsv']} fieldname={'lineage_file'} viewFile={false} />
                         </Col>
                     </Row>
-                    <br></br>
+                    <br></br> */}
 
                     <Row>
                         <Col md="3">

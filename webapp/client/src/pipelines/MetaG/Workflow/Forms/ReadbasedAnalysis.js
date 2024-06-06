@@ -11,11 +11,11 @@ import { Header } from '../../../Common/Forms/CardHeader';
 import { FastqInput } from '../../../Common/Forms/FastqInput';
 
 export function ReadbasedAnalysis(props) {
-    const { register, control, setValue, formState: { errors }, trigger } = useForm({
+    const { register, setValue, formState: { errors }, trigger } = useForm({
         mode: defaults['form_mode'],
     });
     //need initial array for workflow selected more than once, otherwise workflows will share same inputs
-    const [form, setState] = useState({ ...initialReadbasedAnalysis, fastqPaired: [], fastqSingle: [] });
+    const [form] = useState({ ...initialReadbasedAnalysis, fastqPaired: [], fastqSingle: [] });
     const [collapseParms, setCollapseParms] = useState(false);
     const [doValidation, setDoValidation] = useState(0);
 

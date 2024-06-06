@@ -7,7 +7,7 @@ import { Project } from './Project';
 import { FastqInput } from './FastqInput';
 import { Header } from './CardHeader';
 import { MyTooltip } from '../../../common/MyTooltip';
-import { defaults, initialSubprojectInput } from './Defaults';
+import { initialSubprojectInput } from './Defaults';
 
 export function SubprojectInput(props) {
     const [form, setState] = useState({ ...initialSubprojectInput });

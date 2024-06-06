@@ -10,6 +10,7 @@ export const initialProject = {
     proj_desc: '',
     validForm: false,
     errMessage: 'Project name required',
+    project_name_tip: '(required, at least 3 but less than 30 characters)<br/>Only alphabets, numbers, dashs, dot and underscore are allowed.',
 }
 
 export const initialConfigFile = {

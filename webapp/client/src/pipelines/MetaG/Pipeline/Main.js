@@ -28,7 +28,7 @@ function Main(props) {
     const [projectParams, setProjectParams] = useState();
     const [inputsParams, setInputsParams] = useState({ ...initialFastqInput });
 
-    const [workflows, setWorkflows] = useState({
+    const [workflows] = useState({
         "ReadsQC": { ...initialReadsQC },
         "ReadbasedAnalysis": { ...initialReadbasedAnalysis },
         "MetaAssembly": { ...initialMetaAssembly },
@@ -206,7 +206,7 @@ function Main(props) {
                 message={'<div><b>' + sysMsg + '</b></div>'}
                 handleClickClose={closeMsgModal}
             />
-            <span className="pt-3 text-muted edge-text-size-small">Metagenomics | Run Multiple Workflows </span>
+            <span className="edge-workflow-tag pt-3 text-muted edge-text-size-small">Metagenomics | Run Multiple Workflows </span>
             <Row className="justify-content-center">
                 <Col xs="12" md="10">
                     <Form onSubmit={e => { e.preventDefault(); }}>

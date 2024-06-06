@@ -56,8 +56,8 @@ export const projectStatusColors= {
     'failed': 'danger',
     'complete': 'success',
     'rerun': 'info',
-    'processing': 'primary',
-    'submitted': 'primary',
+    'processing': 'info',
+    'submitted': 'info',
 };
 
 export const projectStatusNames= {

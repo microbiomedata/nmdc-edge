@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Row } from 'reactstrap';
 import { SiReadthedocs } from 'react-icons/si';
-import { GrDocumentPdf } from 'react-icons/gr';
 import { FaFilePdf } from 'react-icons/fa';
 import { FiVideo } from 'react-icons/fi';
 import {

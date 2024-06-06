@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { Col, Row, Card, CardBody, Collapse } from 'reactstrap';
 import ReactJson from 'react-json-view';
 import { Header } from '../../../Common/Results/CardHeader';
-import Top_molecules from './Top_molecules';
+import TopMolecules from './TopMolecules';
 import config from "../../../../config";
 
 function EnviroMS(props) {
@@ -74,7 +74,7 @@ function EnviroMS(props) {
                                 </>
                             }
                             {props.result.stats[input]['top_molecules'] &&
-                                <Top_molecules result={props.result.stats[input]} />
+                                <TopMolecules result={props.result.stats[input]} />
                             }
                         </>
                     }

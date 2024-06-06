@@ -176,6 +176,9 @@ async function generateOptions(proj_home, workflow) {
 
     const workflowSettings = workflowlist[workflow.name];
     const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowSettings['options_json']);
+    if(!tmpl.existsSync) {
+        return true;
+    }
     let templInputs = String(fs.readFileSync(tmpl));
     if (workflow.name === 'ReadsQC') {
         templInputs = "{}"
@@ -206,7 +209,7 @@ async function generateInputs(proj_home, workflow, proj) {
         templInputs = templInputs.replace(/<PREFIX>/, '"' + proj.name + '"');
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
 
-    } else if (workflow.name === 'ReadsQC' || workflow.name === 'MetaAssembly' || workflow.name === 'Metatranscriptome') {
+    } else if (workflow.name === 'ReadsQC' || workflow.name === 'MetaAssembly' || workflow.name === 'Metatranscriptomics') {
         let interleaved = workflow['input_fastq']['interleaved'];
         let input_fastq = workflow['input_fastq']['fastqs'];
 
@@ -246,7 +249,7 @@ async function generateInputs(proj_home, workflow, proj) {
                 }
             }
 
-            if (workflow.name === 'Metatranscriptome') {
+            if (workflow.name === 'Metatranscriptomics') {
                 templInputs = templInputs.replace(/<INPUT_FILE_SINGLE>/, '"' + inputs_fq[0] + '"');
                 templInputs = templInputs.replace(/<INPUT_FQ1>/, '""');
                 templInputs = templInputs.replace(/<INPUT_FQ2>/, '""');

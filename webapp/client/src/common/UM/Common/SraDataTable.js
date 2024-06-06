@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom'
 import { Badge } from 'reactstrap';
 import { updateProjectAdmin } from "../../../redux/actions/adminActions";
 import { updateProject, cleanupMessages } from "../../../redux/actions/userActions";
@@ -23,21 +22,9 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import LockIcon from '@material-ui/icons/Lock';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
-import ExploreIcon from '@material-ui/icons/Explore';
+import { BsFolderSymlink } from "react-icons/bs";
 import Tooltip from '@material-ui/core/Tooltip';
-
-const columns = [
-    { title: 'Name', field: 'name', filterPlaceholder: 'Name filter', tooltip: 'name', grouping: false },
-    {
-        title: 'Status', field: 'status', editable: 'never', grouping: false,
-        render: rowData => { return <Badge color={projectStatusColors[rowData.status]}>{projectStatusNames[rowData.status]}</Badge> },
-        lookup: { 'in queue': 'In queue', 'running': 'Running', 'failed': 'Failed', 'rerun': 'Re-run', 'complete': 'Complete' }
-    },
-    { title: 'Shared', field: 'shared', lookup: { true: 'Yes', false: 'No' }, editable: 'never' },
-    { title: 'Public', field: 'public', lookup: { true: 'Yes', false: 'No' } },
-    { title: 'Created', field: 'created', type: 'datetime', editable: 'never', filtering: false, grouping: false },
-    { title: 'Updated', field: 'updated', type: 'datetime', editable: 'never', filtering: false, grouping: false },
-];
+import IconButton from "@material-ui/core/IconButton";
 
 const actionDialogs = {
     '': { 'message': "This action is not undoable." },
@@ -268,7 +255,36 @@ function SraDataTable(props) {
             <MuiThemeProvider theme={theme}>
                 <MaterialTable
                     isLoading={isLoading}
-                    columns={columns}
+                    columns={[
+                        { title: 'Name', field: 'name', filterPlaceholder: 'Name filter', tooltip: 'name', grouping: false },
+                        {
+                            title: 'Status', field: 'status', editable: 'never', grouping: false,
+                            render: rowData => { return <Badge color={projectStatusColors[rowData.status]}>{projectStatusNames[rowData.status]}</Badge> },
+                            lookup: { 'in queue': 'In queue', 'running': 'Running', 'failed': 'Failed', 'rerun': 'Re-run', 'complete': 'Complete' }
+                        },
+                        {
+                            title: "Result",
+                            render: (rowData) => {
+                                const button = (
+                                    <Tooltip title={'Go to result page'}>
+                                        <span>
+                                            <IconButton
+                                                onClick={() => {
+                                                    props.history.push(projectPageUrl + rowData.code);
+                                                }}
+                                            >
+                                                <BsFolderSymlink style={{ color: '#4f3B80' }} />
+                                            </IconButton></span>
+                                    </Tooltip>
+                                );
+                                return button;
+                            }
+                        },
+                        { title: 'Shared', field: 'shared', lookup: { true: 'Yes', false: 'No' }, editable: 'never' },
+                        { title: 'Public', field: 'public', lookup: { true: 'Yes', false: 'No' } },
+                        { title: 'Created', field: 'created', type: 'datetime', editable: 'never', filtering: false, grouping: false },
+                        { title: 'Updated', field: 'updated', type: 'datetime', editable: 'never', filtering: false, grouping: false },
+                    ]}
                     data={tableData}
                     title={props.title}
                     icons={tableIcons}
@@ -300,13 +316,6 @@ function SraDataTable(props) {
                                     </div>
                                 )
                             }
-                        },
-                        {
-                            icon: () => <ExploreIcon />,
-                            tooltip: 'Go to project result page',
-                            render: rowData => {
-                                return <Redirect to={projectPageUrl + rowData.code} />
-                            },
                         },
                     ]}
 
