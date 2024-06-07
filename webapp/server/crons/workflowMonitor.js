@@ -209,7 +209,7 @@ async function generateInputs(proj_home, workflow, proj) {
         templInputs = templInputs.replace(/<PREFIX>/, '"' + proj.name + '"');
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
 
-    } else if (workflow.name === 'ReadsQC' || workflow.name === 'MetaAssembly' || workflow.name === 'Metatranscriptomics') {
+    } else if (workflow.name === 'ReadsQC' || workflow.name === 'MetaAssembly' || workflow.name === 'Metatranscriptome') {
         let interleaved = workflow['input_fastq']['interleaved'];
         let input_fastq = workflow['input_fastq']['fastqs'];
 
@@ -249,7 +249,7 @@ async function generateInputs(proj_home, workflow, proj) {
                 }
             }
 
-            if (workflow.name === 'Metatranscriptomics') {
+            if (workflow.name === 'Metatranscriptome') {
                 templInputs = templInputs.replace(/<INPUT_FILE_SINGLE>/, '"' + inputs_fq[0] + '"');
                 templInputs = templInputs.replace(/<INPUT_FQ1>/, '""');
                 templInputs = templInputs.replace(/<INPUT_FQ2>/, '""');
