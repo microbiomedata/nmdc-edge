@@ -76,7 +76,7 @@ task pdf_to_png {
         prefix = Path(pdf).stem
         output = "${outdir}/%s.png" % prefix
         print(output)
-        with open(pd,'rb') as f:
+        with open(pdf,'rb') as f:
             first_line = str(f.read(1024))
             if "No KO analysis" not in first_line:
                 doc = fitz.open(pdf)  # open document
