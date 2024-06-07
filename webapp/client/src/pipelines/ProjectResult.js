@@ -216,7 +216,7 @@ function ProjectResult(props) {
                                 {project.type === 'Metagenome Pipeline' && runStats &&
                                     <MetaGPipeline result={result} stats={runStats} project={project} userType={type} allExpand={allExpand} allClosed={allClosed} />
                                 }
-                                {project.type === 'Metatranscriptome' &&
+                                {project.type === 'Metatranscriptomics' &&
                                     <Metatranscriptome result={result} project={project} title={props.project.type + ' Result'} userType={type} allExpand={allExpand} allClosed={allClosed} />
                                 }
                                 {project.type === 'Natural Organic Matter' &&
