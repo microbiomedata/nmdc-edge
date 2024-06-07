@@ -219,7 +219,7 @@ function Main(props) {
                             <br></br>
                             <Input title={"Input"} full_name={"Input"} name={"Input"} setParams={setInputs} />
                             <br></br>
-                            <b>Choose Workflows</b>
+                            {/* <b>Choose Workflows</b>
                             <p>
                                 All of the NMDC Metagenomic workflows are connected in EDGE, so that the output of one
                                 workflow can automatically be the input for the next workflow if several metagenomic workflows are selected.
@@ -233,7 +233,7 @@ function Main(props) {
                             <MetaAnnotation full_name={workflowlist["MetaAnnotation"].name} name={"MetaAnnotation"} setParams={setWorkflowParams} onoff={metaAssembly_onoff} />
                             <MetaMAGs full_name={workflowlist["MetaMAGs"].name} name={"MetaMAGs"} setParams={setWorkflowParams} onoff={metaMAGs_onoff} />
 
-                            <br></br>
+                            <br></br> */}
 
                         </div>
 
