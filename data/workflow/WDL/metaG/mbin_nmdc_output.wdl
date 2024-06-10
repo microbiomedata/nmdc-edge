@@ -94,7 +94,7 @@ task pdf_to_png {
         cpu:  1
     }
     output{
-        Array[File] png_files = read_lines(stdout())
+        Array[String] png_files = read_lines(stdout())
     }
 }
 
