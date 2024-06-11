@@ -158,15 +158,15 @@ if (config.NODE_ENV === 'production') {
   cron.schedule(config.CRON.SCHEDULES.PIPELINE_MONITOR, function () {
     pipelineMonitor();
   });
-  // monitor workflow requests on every 3 minutes
+  // monitor workflow requests on every 3 minutes 
   cron.schedule(config.CRON.SCHEDULES.WORKFLOW_MONITOR, function () {
     workflowMonitor();
   });
-  // monitor workflow requests on every 3 minutes
+  // monitor workflow requests on every 3 minutes 
   cron.schedule(config.CRON.SCHEDULES.WORKFLOW_BIG_MEM_MONITOR, function () {
     workflowBigMemMonitor();
   });
-  // monitor cromwell jobs on every 3 minutes
+  // monitor cromwell jobs on every 3 minutes 
   cron.schedule(config.CRON.SCHEDULES.CROMWELL_MONITOR, function () {
     //cromwellMonitor();
   });
