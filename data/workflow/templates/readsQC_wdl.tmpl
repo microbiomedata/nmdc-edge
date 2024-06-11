@@ -8,6 +8,7 @@ Boolean <WORKFLOW>_input_interleaved=true
 Array[File] <WORKFLOW>_input_fq1
 Array[File] <WORKFLOW>_input_fq2
 String? ReadsQC_prefix
+Boolean chastityfilter_flag=false
 
 call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
     input:
@@ -20,11 +21,12 @@ call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
 
 scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
 
-        call ReadsQC.nmdc_rqcfilter  as jgi_rqcfilter_call {
+        call ReadsQC.nmdc_rqcfilter  as nmdc_rqcfilter {
             input:
                 input_files=file,
                 database=ReadsQC_database,
                 proj=ReadsQC_prefix,
+                chastityfilter_flag=chastityfilter_flag
 	   }
 
 }
