@@ -15,6 +15,7 @@ const project = require("./routes/api/project");
 const auth_user = require("./routes/auth-api/user");
 const auth_admin = require("./routes/auth-api/admin");
 const logger = require('./util/logger');
+const common = require("./util/common");
 const pipelineMonitor = require("./crons/pipelineMonitor");
 const workflowMonitor = require("./crons/workflowMonitor");
 const workflowBigMemMonitor = require("./crons/workflowBigMemMonitor");
@@ -65,8 +66,29 @@ const ensureDirectoriesAreUsable = () => {
   ].forEach((path) => ensureDirectoryIsUsable(path));
 };
 
-// Ensure directories are usable.
+/**
+ * Checks whether the application can access the Cromwell API.
+ *
+ * Note: If the application fails to access the Cromwell API and the `doThrowException`
+ *       flag is set (by default, it is not set), this function throws an Exception.
+ */
+const checkWhetherAppCanAccessCromwellApi = (doThrowException = false) => {
+  const statusUrl = `${config.CROMWELL.API_BASE_URL}/engine/v1/status`;
+  common.getData(statusUrl).then(status => {
+    console.log(`Successfully accessed Cromwell API: ${statusUrl}`);
+    console.log(status);
+  }).catch(error => {
+    console.error(`Failed to access Cromwell API: ${statusUrl}`);
+    console.error(error);
+    if (doThrowException) {
+      throw new Error("Failed to access Cromwell API");
+    }
+  });
+};
+
+// Check the foundational health of the application.
 ensureDirectoriesAreUsable();
+checkWhetherAppCanAccessCromwellApi();
 
 const app = express();
 app.use(express.json());
@@ -136,15 +158,15 @@ if (config.NODE_ENV === 'production') {
   cron.schedule(config.CRON.SCHEDULES.PIPELINE_MONITOR, function () {
     pipelineMonitor();
   });
-  // monitor workflow requests on every 3 minutes 
+  // monitor workflow requests on every 3 minutes
   cron.schedule(config.CRON.SCHEDULES.WORKFLOW_MONITOR, function () {
     workflowMonitor();
   });
-  // monitor workflow requests on every 3 minutes 
+  // monitor workflow requests on every 3 minutes
   cron.schedule(config.CRON.SCHEDULES.WORKFLOW_BIG_MEM_MONITOR, function () {
     workflowBigMemMonitor();
   });
-  // monitor cromwell jobs on every 3 minutes 
+  // monitor cromwell jobs on every 3 minutes
   cron.schedule(config.CRON.SCHEDULES.CROMWELL_MONITOR, function () {
     //cromwellMonitor();
   });
