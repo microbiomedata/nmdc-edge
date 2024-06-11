@@ -76,7 +76,7 @@ logging.basicConfig(
 
 @click.group()
 @click.pass_context
-def cli(ctx, target):
+def cli(ctx):
     """
     NMDC re-ID tool
     """
