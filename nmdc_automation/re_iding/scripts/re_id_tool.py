@@ -75,26 +75,13 @@ logging.basicConfig(
 
 
 @click.group()
-@click.option(
-    "--target",
-    type=click.Choice(["PROD", "NAPA"], case_sensitive=False),
-    required=True,
-)
 @click.pass_context
 def cli(ctx, target):
     """
     NMDC re-ID tool
     """
     ctx.ensure_object(dict)
-    if target == "PROD":
-        site_config = PROD_CONFIG
-        logging.info(f"Using PROD config: {site_config}")
-    elif target == "NAPA":
-        site_config = NAPA_CONFIG
-        logging.info(f"Using NAPA config: {site_config}")
-    else:
-        raise ValueError(f"Invalid target: {target}")
-
+    site_config = NAPA_CONFIG
     ctx.obj["site_config"] = site_config
     ctx.obj["database_name"] = "nmdc"
     ctx.obj["is_direct_connection"] = True
