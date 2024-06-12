@@ -10,19 +10,20 @@ You can learn more about the NMDC EDGE platform by reading the [NMDC EDGE tutori
 
 ## Table of contents
 
-* [Architecture](#architecture)
-* [Development](#development)
-  * [Development stack](#development-stack)
-    * [Setup](#setup)
-      * [Prerequisites](#prerequisites)
-      * [Procedure](#procedure)
-    * [Usage](#usage)
-* [Deployment](#deployment)
-  * [Building and publishing the container image](#building-and-publishing-the-container-image)
-    * [Building](#building)
-    * [Publishing](#publishing)
-      * [References](#references)
-  * [Instantiating the container image](#instantiating-the-container-image)
+<!-- TOC -->
+* [nmdc-edge](#nmdc-edge)
+  * [Table of contents](#table-of-contents)
+  * [Architecture](#architecture)
+  * [Development](#development)
+    * [Development stack](#development-stack)
+      * [Setup](#setup)
+        * [Prerequisites](#prerequisites)
+        * [Procedure](#procedure)
+      * [Usage](#usage)
+  * [Deployment](#deployment)
+    * [Building and publishing a container image](#building-and-publishing-a-container-image)
+    * [Instantiating the container image](#instantiating-the-container-image)
+<!-- TOC -->
 
 ## Architecture
 
@@ -149,106 +150,42 @@ graph LR
 
 ## Deployment
 
-### Building and publishing the container image
+Deploying the NMDC EDGE web app involves doing two things:
+1. Building and publishing a container image
+2. Instantiating the container image
 
-Here's how you can build and deploy new versions of the `webapp` container image.
+### Building and publishing a container image
 
-#### Building
+You can build and publish a container image by creating a
+[Release](https://github.com/microbiomedata/nmdc-edge/releases)
+on GitHub. When a qualifying Release gets created, a
+[GitHub Actions workflow](https://github.com/microbiomedata/nmdc-edge/tree/main/.github/workflows)
+will automatically run. That workflow will build a container image and publish (push) it to the
+[GitHub Container Registry](https://github.com/microbiomedata/nmdc-edge/pkgs/container/nmdc-edge-web-app).
+A qualifying Release is any Release whose associated Git tag is a valid
+[Semantic Versioning (semver)](https://semver.org/) string (e.g. `v0.1.0-alpha.1`).  
 
-You can build a new version of the `webapp` container image by issuing one of the following commands:
+Here's how you can create a qualifying Release:
 
-- If the architecture of the computer you're using to build the image, and the architecture of the computer on which 
-  containers based upon the image will run, are the **same** (e.g. both are arm64, or both are AMD64); then you can use
-  this command to build the image (replace `{some_tag}` with a unique identifier for this version, such as `v1.2.3`):
-  ```shell
-  docker build -f webapp-node20.Dockerfile \
-               -t nmdc-edge-web-app:{some_tag} .
-  ```
-  <details>
-    <summary>Example</summary>
+1. When viewing this repository on GitHub, go to [Releases](https://github.com/microbiomedata/nmdc-edge/releases).
+2. Click the "Draft a new release" button.
+3. Fill in the form as follows:
+   1. Create a tag. Name it with a semantic versioning string.
+   2. Click the "Generate release notes" button.
+   3. Leave the "Release title" field empty (so GitHub reuses the tag name as the Release title).
+   4. Mark the "Set as a pre-release" button.
+   5. Click the "Publish release" button.
+4. Wait about 5 minutes for the container image to be built and published to the
+   [GitHub Container Registry](https://github.com/microbiomedata/nmdc-edge/pkgs/container/nmdc-edge-web-app).
+   1. Taking a long time? Check the "Actions" tab on GitHub to see the status of the GitHub Actions workflow that
+      builds and publishes the container image.
 
-    ```console
-    $ docker build -f webapp-node20.Dockerfile -t nmdc-edge-web-app:v1.2.3 .
-    ```
-  </details>
-
-- If the architecture of the computer you're using to build the image is **arm64** (e.g. an M1 Mac), and the
-  architecture of the computer on which containers based upon the image will run is **AMD64**; then you can use _this_
-  command to build the image (replace `{some_tag}` with a unique identifier for this version, such as `v1.2.3`):
-  ```shell
-  docker buildx build --platform linux/amd64 \
-                      -f webapp-node20.Dockerfile \
-                      -t nmdc-edge-web-app:some-tag .
-  ```
-  <details>
-    <summary>Example</summary>
-
-    ```console
-    $ docker buildx build --platform linux/amd64 -f webapp-node20.Dockerfile -t nmdc-edge-web-app:v1.2.3 .
-    ```
-  </details>
-
-#### Publishing
-
-Here's how you can publish the newly-built container image to 
-[GitHub Container Registry (GHCR)](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
-
-1. Get the ID of the newly-built container image.
-   ```shell
-   docker images
-   ```
-   <details>
-     <summary>Example</summary>
-
-     ```console
-     $ docker images
-     REPOSITORY         TAG     IMAGE ID      CREATED       SIZE
-     ...
-     nmdc-edge-web-app  v1.2.3  365743f24303  1 minute ago  1.35GB
-     ...
-     ```
-   </details>
-2. Give the container image a tag that begins with `ghcr.io/microbiomedata/nmdc-edge-web-app` 
-   (replace `{image_id}` with the ID of the container image, and replace `{some_tag}` with the tag
-   you want the container image to have when published).
-   ```shell
-   docker tag {image_id} ghcr.io/microbiomedata/nmdc-edge-web-app:{some_tag}
-   ```
-   <details>
-     <summary>Example</summary>
-
-     ```console
-     $ docker tag 365743f24303 ghcr.io/microbiomedata/nmdc-edge-web-app:v1.2.3
-     ```
-   </details>
-3. Upload the container image to GitHub Container Registry (GHCR) (replace `{some_tag}` with the same tag
-   you used in the previous step):
-   ```shell
-   docker push ghcr.io/microbiomedata/nmdc-edge-web-app:{some_tag}
-   ```
-   <details>
-     <summary>Example</summary>
-
-     ```console
-     $ docker push ghcr.io/microbiomedata/nmdc-edge-web-app:v1.2.3
-     The push refers to repository [ghcr.io/microbiomedata/nmdc-edge-web-app]
-     1990b48a8037: Pushing [====================>          ]  35.07MB/64.54MB
-     c60069b08109: Pushing [====>                          ]   37.4MB/271.3MB
-     986a439534f8: Pushing [===>                           ]  47.53MB/440.2MB
-     7f3870580da8: Pushed
-     ff224f440bfc: Pushed
-     ...
-     d4fc045c9e3a: Waiting   
-     ```
-   </details>
-4. Verify the container image is listed on 
-   [GHCR](https://github.com/orgs/microbiomedata/packages/container/package/nmdc-edge-web-app).
-
-##### References
-
-- https://github.com/orgs/microbiomedata/packages/container/package/nmdc-edge-web-app
-- https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
+Once the container image is in the GitHub Container Registry, you can instantiate it.
 
 ### Instantiating the container image
 
-_Coming soon..._
+You can instantiate the container image by defining some environment variables
+and then running `$ docker compose up`, using the production Docker Compose file located at
+[`./docs/docker-compose.prod.yml`](https://github.com/microbiomedata/nmdc-edge/blob/main/docs/docker-compose.prod.yml).
+You can learn more about the environment variables by reading the comments within the production
+Docker Compose file.
