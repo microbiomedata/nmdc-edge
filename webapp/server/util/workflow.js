@@ -109,6 +109,10 @@ const generateWorkflowResult = function (proj) {
             statsOut = outdir + "/stats.json";
         }
         result['stats'] = JSON.parse(fs.readFileSync(statsOut));
+        let reportHtml = outdir + "/metagenome_workflow_report.html";
+        if(fs.existsSync(reportHtml)) {
+            result['reportHtml'] = workflowlist[workflowConf.workflow.name].outdir + "/metagenome_workflow_report.html";
+        }
 
     } else if (workflowConf.workflow.name === 'ReadbasedAnalysis') {
         let summary = null;
@@ -138,6 +142,13 @@ const generateWorkflowResult = function (proj) {
             if (file.endsWith("_structural_annotation_stats.json")) {
                 result['stats'] = JSON.parse(fs.readFileSync(outdir + "/" + file));
             }
+            if(file.endsWith("protein_size_histogram.html")) {
+                result['proteinSizeHistogram'] = workflowlist[workflowConf.workflow.name].outdir + "/" + file;
+            }
+            if(file === "opaver_web_path.json") {
+                const webPath = JSON.parse(fs.readFileSync(outdir + "/" + file));
+                result['opaverWebPath'] = webPath['opaver_web_path'];
+            }
         });
 
         } else if (workflowConf.workflow.name === 'MetaMAGs') {
@@ -155,6 +166,15 @@ const generateWorkflowResult = function (proj) {
                         }
                     });
                     result['stats'] = stats;
+                }
+                if(file.endsWith("_barplot.png")) {
+                    result['barplot'] =  workflowlist[workflowConf.workflow.name].outdir + "/" + file;
+                }
+                if(file.endsWith("_heatmap.png")) {
+                    result['heatmap'] =  workflowlist[workflowConf.workflow.name].outdir + "/" + file;
+                }
+                if(file.endsWith("_kronaplot.html")) {
+                    result['kronaplot'] =  workflowlist[workflowConf.workflow.name].outdir + "/" + file;
                 }
             });
         } else if (workflowConf.workflow.name === 'Metatranscriptome') {
@@ -274,6 +294,11 @@ const generatePipelineResult = function (proj) {
                 if (fs.existsSync(statsOut)) {
                     result[workflow.name]['stats'] = JSON.parse(fs.readFileSync(statsOut));
                 }
+                let reportHtml = outdir + "/metagenome_workflow_report.html";
+                if(fs.existsSync(reportHtml)) {
+                    result[workflow.name]['reportHtml'] = workflowlist[workflow.name].outdir + "/metagenome_workflow_report.html";
+                }
+                console.log(result[workflow.name]['reportHtml'])
 
             } else if (workflow.name === 'ReadbasedAnalysis' && workflow.paramsOn) {
                 result[workflow.name] = {};
@@ -334,6 +359,15 @@ const generatePipelineResult = function (proj) {
                         if (file.endsWith("_structural_annotation_stats.json")) {
                             result[workflow.name]['stats'] = JSON.parse(fs.readFileSync(outdir + "/" + file));
                         }
+                        if(file.endsWith("protein_size_histogram.html")) {
+                            result[workflow.name]['proteinSizeHistogram'] = workflowlist[workflow.name].outdir + "/" + file;
+                        }
+                        if(file === "opaver_web_path.json") {
+                            console.log('opaver')
+                            const webPath = JSON.parse(fs.readFileSync(outdir + "/" + file));
+                            console.log(webPath)
+                            result[workflow.name]['opaverWebPath'] = webPath['opaver_web_path'];
+                        }
                     });
                 }
 
@@ -354,6 +388,15 @@ const generatePipelineResult = function (proj) {
                                 }
                             });
                             result[workflow.name]['stats'] = stats;
+                        }
+                        if(file.endsWith("_barplot.png")) {
+                            result[workflow.name]['barplot'] = workflowlist[workflow.name].outdir + "/" + file;
+                        }
+                        if(file.endsWith("_heatmap.png")) {
+                            result[workflow.name]['heatmap'] = workflowlist[workflow.name].outdir + "/" + file;
+                        }
+                        if(file.endsWith("_kronaplot.html")) {
+                            result[workflow.name]['kronaplot'] = workflowlist[workflow.name].outdir + "/" + file;
                         }
                     });
                 }
