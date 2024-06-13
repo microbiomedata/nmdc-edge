@@ -15,7 +15,7 @@ export function ORCIDLogin(props) {
         const url = config.ORCID.AUTH_URI;
         //console.log(url)
         //open ORCiD login page
-        popupWindow(url, 'ORCiD', window, 600, 700);
+        window.open(url)
         // Add a message listener to handle popup messages
         window.addEventListener('message', HandleMessages);
     }
