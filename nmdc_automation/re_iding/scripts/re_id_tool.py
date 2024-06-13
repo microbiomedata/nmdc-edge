@@ -662,7 +662,12 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
     # we map omics_processing_id, workflow_id, and data_path
     # example_map = {
     #     "nmdc:ompcrc-11-1t150432": [
-    #         {"workflow_id": "nmdc:wfrqc-11-zbyqeq59.1.1", "data_path": "nmdc:omdcrc-11-1t150432/nmdc:wfrqc-11-zbyqeq59.1.1"},
+    #         {"workflow_id": "nmdc:wfrqc-11-zbyqeq59.1.1", "data_paths":
+    #           [
+    #               "nmdc:omdcrc-11-1t150432/nmdc:wfrqc-11-zbyqeq59.1.1",
+    #               "nmdc:omdcrc-11-1t150432/nmdc:wfrqc-11-zbyqeq59.1.1.1",
+    #           ]
+    #         },
     #     ]
     # }
     omics_processing_workflows_map = {}
@@ -678,8 +683,12 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
         if production:
             omics_processing_workflows_map[omics_processing_id] = []
         else:
+            # for local testing, only initialize the map for the local test omics_processing_id
             if omics_processing_id == local_test_omics_processing_id:
                 omics_processing_workflows_map[omics_processing_id] = []
+            else:
+                continue
+
     logging.info(f"Initialized map for {len(omics_processing_workflows_map)} omics_processing records")
 
     # For each omics_processing_id, find all the workflow records that are informed_by it and add them to the map
@@ -689,7 +698,27 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
             workflow_records = db_client[collection_name].find({"was_informed_by": omics_processing_id})
             for workflow_record in workflow_records:
                 workflow_id = workflow_record["id"]
-                omics_processing_workflows_map[omics_processing_id].append({"workflow_id": workflow_id, "data_path": None})
+                # Look on the filesystem for data file dir path(s) that contain the workflow ID root (non-versioned e.g.
+                # nmdc:wfrqc-11-zbyqeq59)
+                omics_processing_dir = data_dir.joinpath(omics_processing_id)
+                if not omics_processing_dir.exists():
+                    logging.warning(f"Directory not found: {omics_processing_dir}")
+                    continue
+                data_paths = []
+                for data_path in omics_processing_dir.iterdir():
+                    if workflow_id in data_path.name:
+                        data_paths.append(data_path)
+                if data_paths:
+                    omics_processing_workflows_map[omics_processing_id].append(
+                        {
+                            "workflow_id": workflow_id,
+                            "data_paths": [str(data_path) for data_path in data_paths]
+                        }
+                    )
+
+
+
+
     total_workflow_records = sum([len(records) for records in omics_processing_workflows_map.values()])
     logging.info(f"Added {total_workflow_records} workflow records to the map")
 
@@ -703,17 +732,18 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
     for omics_processing_id, workflow_records in omics_processing_workflows_map.items():
         for record in workflow_records:
             workflow_id = record["workflow_id"]
-            # look for a single decimal point in the workflow ID
+            # look for anything other than a single decimal point in the workflow ID
             if  workflow_id.count(".") != 1:
                 logging.info(f"Found record with malformed workflow ID: {workflow_id}")
                 if omics_processing_id not in pruned_map:
                     pruned_map[omics_processing_id] = []
                 pruned_map[omics_processing_id].append(record)
+                continue
 
-            data_path = record["data_path"]
-            if data_path:
-                # look for a single decimal point in the data path
+            data_paths = record["data_paths"]
+            for data_path in data_paths:
                 if data_path.count(".") != 1:
+                    logging.info(f"Found record with malformed data path: {data_path}")
                     if omics_processing_id not in pruned_map:
                         pruned_map[omics_processing_id] = []
                     pruned_map[omics_processing_id].append(record)
@@ -729,6 +759,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
             f.write(serialized_map)
     else:
         logging.info(serialized_map)
+
 
 
 @cli.command()
