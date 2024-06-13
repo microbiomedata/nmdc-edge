@@ -61,10 +61,12 @@ STUDIES = (
     "nmdc:sty-11-8fb6t785",
 )
 
-
-BASE_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
-
 DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
+PROD_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
+# assuming Mac: /Users/username/Documents/data/results
+LOCAL_DATAFILE_DIR = Path.home().joinpath("Documents/data/results")
+
+
 DRYRUN_DATAFILE_DIR = DATA_DIR.joinpath("dryrun_data/results")
 LOG_PATH = DATA_DIR.joinpath("re_id_tool.log")
 
@@ -605,8 +607,8 @@ def extract_records(ctx, study_id):
 @click.argument("study_id", type=str)
 @click.option(
     "--data-dir",
-    default=BASE_DATAFILE_DIR,
-    help=f"Optional base datafile directory. Default: {BASE_DATAFILE_DIR}",
+    default=PROD_DATAFILE_DIR,
+    help=f"Optional base datafile directory. Default: {PROD_DATAFILE_DIR}",
 )
 @click.option("--update-links", is_flag=True, default=False)
 @click.option("--identifiers-file", type=click.Path(exists=True), required=False)
@@ -681,13 +683,12 @@ def process_records(ctx, study_id, data_dir, update_links=False, identifiers_fil
 @cli.command()
 @click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
 @click.option(
-    "--data-dir",
-    default=BASE_DATAFILE_DIR,
-    help=f"Optional base datafile directory. Default: {BASE_DATAFILE_DIR}",
+    "--production", is_flag=True, default=False,
+    help="Use the data file directory for production, default is local"
 )
 @click.option("--update-links", is_flag=True, default=False)
 @click.pass_context
-def fix_workflow_records(ctx, mongo_uri=None, data_dir=None, update_links=False):
+def fix_workflow_records(ctx, mongo_uri=None, production=False, update_links=False):
     """
     Search for workflow records with incorrectly versioned NMDC IDs and fix them, updating the database,
     updating the file system directories and file headers. Records from read_qc_analysis_activity_set and
@@ -699,6 +700,12 @@ def fix_workflow_records(ctx, mongo_uri=None, data_dir=None, update_links=False)
     """
     start_time = time.time()
 
+    if production:
+        data_dir = PROD_DATAFILE_DIR
+    else:
+        data_dir = LOCAL_DATAFILE_DIR
+
+    # connect to db
     is_direct_connection = ctx.obj["is_direct_connection"]
     database_name = ctx.obj["database_name"]
     client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
@@ -706,7 +713,6 @@ def fix_workflow_records(ctx, mongo_uri=None, data_dir=None, update_links=False)
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
     logging.info(f"Connected to MongoDB server at {mongo_uri}")
     db_client = client[database_name]
-    session = client.start_session()
 
     incorrect_version_query = {
         "$or": [
@@ -714,26 +720,76 @@ def fix_workflow_records(ctx, mongo_uri=None, data_dir=None, update_links=False)
             {"id": {"$regex": ".*\\..*\\..*"}}  # More than one decimal point
         ]
     }
+    # database collections to check
+    collections = [
+        "mags_activity_set",
+        "metabolomics_analysis_activity_set",
+        "metagenome_annotation_activity_set",
+        "metagenome_assembly_set",
+        "metatranscriptome_activity_set",
+        "read_based_taxonomy_analysis_activity_set",
+        "read_qc_analysis_activity_set",
+    ]
+    # directory structure is based on omics_processing_id
+    omics_processing_workflows_map = {}
+    study_ids = set()
+    for collection_name in collections:
+        logging.info(f"Checking {collection_name} records")
+        records = db_client[collection_name].find(incorrect_version_query)
+        len_records = len(list(records.clone()))
+        logging.info(f"Found {len_records} records with incorrect IDs")
+        for record in records:
+            logging.info(f"Found record with incorrect ID: {record['id']}")
+            # fix the ID
+            old_id = record["id"]
+            fixed_id = re.sub(r"\.\d$", "", old_id)
+            logging.info(f"Fixed ID: {fixed_id}")
 
-    # Read QC Analysis Activity Set records
-    logging.info("Checking Read QC Analysis Activity Set records")
-    read_qc_records = db_client["read_qc_analysis_activity_set"].find(incorrect_version_query)
-    logging.info(f"Found {len(list(read_qc_records.clone()))} read_qc_analysis_activity_set records with incorrect IDs")
-    for record in read_qc_records:
-        logging.info(f"Found Read QC Analysis Activity record with incorrect ID: {record['id']}")
-        # fix the ID
-        fixed_id = re.sub(r"\.\d$", "", record["id"])
-        logging.info(f"Fixed ID: {fixed_id}")
+            # Get the omics processing ID this record was_informed_by
+            omics_processing_id = record["was_informed_by"]
+            if omics_processing_id not in omics_processing_workflows_map:
+                omics_processing_workflows_map[omics_processing_id] = []
+                omics_processing_workflows_map[omics_processing_id].append((old_id, fixed_id))
 
-    # Read Based Taxonomy Analysis Activity Set records
-    logging.info("Checking Read Based Taxonomy Analysis Activity Set records")
-    read_based_records = db_client["read_based_taxonomy_analysis_activity_set"].find(incorrect_version_query)
-    logging.info(f"Found {len(list(read_based_records.clone()))} read_based_taxonomy_analysis_activity_set records with incorrect IDs")
-    for record in read_based_records:
-        logging.info(f"Found Read Based Taxonomy Analysis Activity record with incorrect ID: {record['id']}")
-        # fix the ID
-        fixed_id = re.sub(r"\.\d$", "", record["id"])
-        logging.info(f"Fixed ID: {fixed_id}")
+
+
+    # check the results directory for each omics_processing_id
+    logging.info(f"Found {len(omics_processing_workflows_map)} omics_processing records with incorrect IDs")
+
+    affected_dirs = set()
+    for omics_processing_id in omics_processing_workflows_map.keys():
+        omics_processing_dir = Path(data_dir).joinpath(omics_processing_id)
+        if not omics_processing_dir.exists():
+            # logging.info(f"Directory not found: {omics_processing_dir}")
+            continue
+        logging.info(f"PARENT DATA DIRECTORY: {omics_processing_dir}")
+        # get affected directories that have an affected ID in the database
+        for old_id, fixed_id in omics_processing_workflows_map[omics_processing_id]:
+            # handle the directories that have old_id in the database
+            old_dir = omics_processing_dir.joinpath(old_id)
+            if not old_dir.exists():
+                logging.warning(f"AFFECTED ID / DIR NOT FOUND: {old_dir}")
+                continue
+            logging.info(f"AFFECTED ID / DIRECTORY: {old_dir}")
+            affected_dirs.add(old_dir)
+        # look for other dirs that may have an affected dirname where the ID is NOT in the database
+        # affected dirname ends with either no decimal or more than one decimal point
+        for dir in omics_processing_dir.iterdir():
+            if dir.is_dir():
+                if re.search(r"\.\d$", dir.name):
+                    logging.info(f"AFFECTED DIR: {dir}")
+                    affected_dirs.add(dir)
+
+    # summarize findings
+    logging.info(f"Found {len(omics_processing_workflows_map)} omics_processing records with incorrect IDs")
+    affected_ids = sum([len(ids) for ids in omics_processing_workflows_map.values()])
+    logging.info(f"Found {affected_ids} affected IDs")
+
+    logging.info(f"Found {len(affected_dirs)} affected directories")
+    for dir in affected_dirs:
+        logging.info(f"Affected directory: {dir}")
+
+    logging.info(f"Elapsed time: {time.time() - start_time}")
 
 
 @cli.command()
