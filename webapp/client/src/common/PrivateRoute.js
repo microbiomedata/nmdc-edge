@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
     //console.log(rest)
+    localStorage.setItem("loginFrom", rest.location.pathname+rest.location.search);
     return (
         <Route
             {...rest}
@@ -13,7 +14,7 @@ const PrivateRoute = ({ component: Component, user, ...rest }) => {
                     <Component {...props} />
                 ) : (
                         <Redirect to={{
-                            pathname: '/login',
+                            pathname: '/oauth',
                             state: { from: rest.location.pathname+rest.location.search }
                         }} />
                     )

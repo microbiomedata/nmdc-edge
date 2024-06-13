@@ -30,15 +30,15 @@ function SubMenuBar(props) {
               handleClickClose={handleDialogClose}
             />
             <div className="edge-center" >
-              <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-sm btn-ghost-info" onClick={() => { setOpenDialog(true) }}>Import Old Projects/Uploads with Email/Passsword</CHeaderNavLink>
-              <CHeaderNavLink className="btn btn-pill btn-sm btn-ghost-primary" to="/user/projectlist">My Projects</CHeaderNavLink>
-              <CHeaderNavLink className="btn btn-pill btn-sm btn-ghost-primary" to="/user/allprojectlist">All Projects Available to Me</CHeaderNavLink>
-              <CHeaderNavLink className="btn btn-pill btn-sm btn-ghost-primary" to="/user/jobqueue">Job Queue</CHeaderNavLink>
-              <CHeaderNavLink className="btn btn-pill btn-sm btn-ghost-primary" to="/user/profile">My Profile</CHeaderNavLink>
+              <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-ghost-info" onClick={() => { setOpenDialog(true) }}>Import Old Projects/Uploads with Email/Passsword</CHeaderNavLink>
+              <CHeaderNavLink className="btn btn-pill btn-ghost-primary" to="/user/projectlist">My Projects</CHeaderNavLink>
+              <CHeaderNavLink className="btn btn-pill btn-ghost-primary" to="/user/allprojectlist">All Projects Available to Me</CHeaderNavLink>
+              <CHeaderNavLink className="btn btn-pill btn-ghost-primary" to="/user/jobqueue">Job Queue</CHeaderNavLink>
+              <CHeaderNavLink className="btn btn-pill btn-ghost-primary" to="/user/profile">My Profile</CHeaderNavLink>
               {user.profile.type === 'admin' && <>
-                <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-sm btn-ghost-danger" to="/admin/projectlist">Admin Projects</CHeaderNavLink>
-                <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-sm btn-ghost-danger" to="/admin/filelist">Admin Uploads</CHeaderNavLink>
-                <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-sm btn-ghost-danger" to="/admin/userlist">Admin Users</CHeaderNavLink>
+                <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-ghost-danger" to="/admin/projectlist">Admin Projects</CHeaderNavLink>
+                <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-ghost-danger" to="/admin/filelist">Admin Uploads</CHeaderNavLink>
+                <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-ghost-danger" to="/admin/userlist">Admin Users</CHeaderNavLink>
               </>}
             </div>
             <hr />
