@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { login, cleanupMessages } from "../../../redux/actions/userActions";
 import { Form, Input, Button, Card, CardBody, CardGroup, Col, Container, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 
@@ -9,8 +8,6 @@ import { useForm } from "react-hook-form";
 import CIcon from '@coreui/icons-react';
 import { MyTooltip } from '../../MyTooltip';
 import { UM_messages } from '../Common/Defaults';
-import { ORCIDLogin } from '../Common/ORCIDLogin';
-import config from "../../../config";
 
 function Login(props) {
   const dispatch = useDispatch();

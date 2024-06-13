@@ -4,6 +4,9 @@ import config from "../config";
 import workflows from '../assets/img/nmdc-edge-workflows.png';
 
 function Home() {
+  //set to home for all public routes after logged in
+  localStorage.setItem("loginFrom", "/home");
+
   return (
     <div className="animated fadeIn nmdc-edge-home">
       <Row className="justify-content-center">
