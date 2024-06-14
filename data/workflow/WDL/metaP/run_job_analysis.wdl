@@ -19,31 +19,22 @@ task masic {
         docker: 'microbiomedata/metapro-masic:v3.2.7901'
     }
 }
-
 task msconvert {
     input{
         File   raw_file
         String dataset_name
-        String thermo_out = "${dataset_name}.mzML"
-        Boolean thermo = true
     }
     command {
-    
-        set -eo pipefail
-        if ${thermo}; then
-            thermorawfileparser -i ~{raw_file} -b ~{thermo_out} -f 2
-        else
-            msconvert \
-            ~{raw_file} \
-            --zlib \
-            --filter 'peakPicking true 1-' 
-        fi
+        wine msconvert \
+        ~{raw_file} \
+        --zlib \
+        --filter 'peakPicking true 1-'
     }
     output {
         File   outfile = "${dataset_name}.mzML"
     }
     runtime {
-        docker: 'pwizard_conda'
+        docker: 'microbiomedata/metapro-msconvert:v3.0.21258'
     }
 }
 task msgfplus {
@@ -52,7 +43,6 @@ task msgfplus {
         File   contaminated_fasta_file
         File   msgfplus_params
         String dataset_name
-        String annotation_name
         String revcat_name = basename(sub(contaminated_fasta_file, ".fasta", ".revCat.fasta"))
     }
     command {
@@ -131,18 +121,23 @@ task masicresultmerge {
         File   sic_stats_file
         File   synopsis_file
         String dataset_name
+        String dataset_id
+        String faa_file_id
     }
     command {
         synopsis_file_loc=$(find .. -type f -regex ".*~{dataset_name}_syn.txt")
         cp $synopsis_file_loc ../execution/
         sic_stats_file_loc=$(find .. -type f -regex ".*~{dataset_name}_SICstats.txt")
         cp $sic_stats_file_loc ../execution/
-        mv ~{dataset_name}_syn.txt ~{dataset_name}_msgfplus_syn.txt
+        mv ~{dataset_name}_syn.txt ~{dataset_id}_~{faa_file_id}_msgfplus_syn.txt
+        mv ~{dataset_name}_SICstats.txt ~{dataset_id}_~{faa_file_id}_SICStats.txt
         mono /app/MASICResultsMerge/MASICResultsMerger.exe \
-        ~{dataset_name}_msgfplus_syn.txt
+        ~{dataset_id}_~{faa_file_id}_msgfplus_syn.txt
+        date --iso-8601=seconds > stop.txt
     }
     output {
-        File   outfile = "${dataset_name}_msgfplus_syn_PlusSICStats.txt"
+        File   outfile = "${dataset_id}_${faa_file_id}_msgfplus_syn_PlusSICStats.txt"
+        String stop = read_string("stop.txt")
     }
     runtime {
         docker: 'microbiomedata/metapro-masicresultsmerge:v2.0.7983'
@@ -201,29 +196,28 @@ task concatcontaminate {
         String output_filename = basename(faa_file)
     }
     command<<<
+        date -u --iso-8601=seconds > start.txt
         cat ~{faa_file} ~{contaminate_file} > ~{output_filename}
     >>>
     output {
         File    outfile = output_filename
-    }
-    runtime {
-        docker: 'microbiomedata/metapro-masic:v3.2.7901'
+        String  start = read_string("start.txt")
     }
 }
 
 workflow job_analysis{
     input{
         String dataset_name
-        String annotation_name
         File   raw_file_loc
         File   faa_file_loc
-        Boolean thermo
         String QVALUE_THRESHOLD
         File   MASIC_PARAM_FILENAME
         File   MSGFPLUS_PARAM_FILENAME
         File   CONTAMINANT_FILENAME
         Int    FASTA_SPLIT_ON_SIZE_MB
         Int    FASTA_SPLIT_COUNT
+        String dataset_id
+        String faa_file_id
     }
     call concatcontaminate {
         input:
@@ -239,8 +233,7 @@ workflow job_analysis{
     call msconvert {
         input:
             raw_file     = raw_file_loc,
-            dataset_name = dataset_name,
-            thermo = thermo
+            dataset_name = dataset_name
     }
     if(size(faa_file_loc, 'MB') > FASTA_SPLIT_ON_SIZE_MB)
     {
@@ -267,7 +260,6 @@ workflow job_analysis{
                     contaminated_fasta_file = concatcontaminatesplit.outfile,
                     msgfplus_params         = MSGFPLUS_PARAM_FILENAME,
                     dataset_name            = dataset_basename,
-                    annotation_name         = annotation_name
             }
         }
         call msgfplusresultsmerge {
@@ -280,6 +272,7 @@ workflow job_analysis{
 
         File? msgfplus_split_and_merged = msgfplusresultsmerge.outfile_mzid
         File? rev_cat_fasta_split_and_merged = msgfplusresultsmerge.outfile_fasta
+        Boolean? fasta_size_greater_than_split_size = true
     }
     if(size(faa_file_loc, 'MB') <= FASTA_SPLIT_ON_SIZE_MB)
     {
@@ -289,14 +282,19 @@ workflow job_analysis{
                 contaminated_fasta_file = concatcontaminate.outfile,
                 msgfplus_params         = MSGFPLUS_PARAM_FILENAME,
                 dataset_name            = dataset_name,
-                annotation_name         = annotation_name
         }
 
         File? msgfplus_not_split = msgfplus.outfile
         File? rev_cat_fasta_not_split = msgfplus.rev_cat_fasta
+        Boolean? fasta_size_less_than_or_equal_split_size = false
     }
+
+    # These arrays should have only a single valid value
     Array[File?] msgfplus_mzids          = [msgfplus_not_split, msgfplus_split_and_merged]
     Array[File?] msgfplus_revCata_fastas = [rev_cat_fasta_not_split, rev_cat_fasta_split_and_merged]
+
+    # The value of the single valid boolean indicates if we've taken the split FASTA processing route
+    Array[Boolean?] fasta_split_state    = [fasta_size_greater_than_split_size, fasta_size_less_than_or_equal_split_size]
 
     call mzidtotsvconverter {
         input:
@@ -316,15 +314,17 @@ workflow job_analysis{
         input:
             sic_stats_file = masic.outfile,
             synopsis_file  = peptidehitresultsprocrunner.outfile,
-            dataset_name   = dataset_name
+            dataset_name   = dataset_name,
+            dataset_id     = dataset_id,
+            faa_file_id    = faa_file_id
     }
 
     output {
         File   resultant_file = masicresultmerge.outfile
         File   faa_with_contaminates = concatcontaminate.outfile
         File   first_hits_file = peptidehitresultsprocrunner.first_hits_file
-        String start_time= ""
-        String end_time=""
+        String start_time= concatcontaminate.start
+        String end_time=masicresultmerge.stop
+        Boolean did_split = select_first(fasta_split_state)
      }
-
 }

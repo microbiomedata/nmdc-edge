@@ -102,7 +102,7 @@ workflowlist = {
         full_name: 'Metaproteomics',
         wdl_tmpl: 'metaProteomics_wdl.tmpl',
         inputs_tmpl: 'metaProteomics_inputs.tmpl',
-        options_json: 'metaProteomics_options.json',
+        options_json: 'metaG_options.tmpl',
         outdir: 'output/Metaproteomics',
         cromwell_calls: ['metapro.job_analysis','metapro.report_gen','metapro.make_output','metapro.gen_metadata'],
         wdl_version: '1.0'

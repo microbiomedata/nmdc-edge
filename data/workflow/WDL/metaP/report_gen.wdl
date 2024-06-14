@@ -7,34 +7,40 @@ task ficus_analysis {
         File   resultant_file
         File   first_hits_file
         String Dataset_id
-        String genome_directory
+        String faa_file_id
         String q_value_threshold
         String dataset_name
+        Boolean did_split
     }
     command {
-        python /app/post-processing/compute_fdr.py \
-            --file=~{first_hits_file}   \
-            --fdr=~{q_value_threshold}  \
-            --spece=1.0e-10 \
-            --speceinc=1.0e-13  \
-            --iter
-        specEValue=$(cat out.json | jq ".SpecEValue")
+        if [ ${did_split} == true ]; then
+            python /app/post-processing/compute_fdr.py \
+                --file=${first_hits_file}   \
+                --fdr=${q_value_threshold}  \
+                --spece=1.0e-10 \
+                --speceinc=1.0e-13  \
+                --iter
+            threshold=$(cat out.json | jq ".SpecEValue")
+        else
+            threshold=${q_value_threshold}
+        fi
         python /app/post-processing/ficus_analysis.py \
-            ~{faa_txt_file} \
-            ~{gff_file} \
-            ~{resultant_file} \
-            ~{Dataset_id} \
-            ~{genome_directory} \
-            $specEValue \
-            ~{dataset_name}
+            ${faa_txt_file} \
+            ${gff_file} \
+            ${resultant_file} \
+            ${Dataset_id} \
+            ${faa_file_id} \
+            $threshold \
+            ${dataset_name} \
+            ${did_split}
     }
     output {
-        File   peptide_file   = "${Dataset_id}_${genome_directory}_Peptide_Report.tsv"
-        File   protein_file   = "${Dataset_id}_${genome_directory}_Protein_Report.tsv"
-        File   qc_metric_file = "${Dataset_id}_${genome_directory}_QC_metrics.tsv"
+        File   peptide_file   = "${Dataset_id}_${faa_file_id}_Peptide_Report.tsv"
+        File   protein_file   = "${Dataset_id}_${faa_file_id}_Protein_Report.tsv"
+        File   qc_metric_file = "${Dataset_id}_${faa_file_id}_QC_metrics.tsv"
     }
     runtime {
-        docker: 'microbiomedata/metapro-post-processing:1.1.0'
+        docker: 'microbiomedata/metapro-post-processing:1.2.1'
     }
 }
 task proteinDigestionSimulator {
@@ -49,7 +55,7 @@ task proteinDigestionSimulator {
         -O:~{'.'}
     }
     output {
-        File outfile = "${annotation_name}_proteins.txt"
+        File outfile = "${annotation_name}_proteins.txt" # TODO use faa_file and replace ext to find file
     }
     runtime {
         docker: "microbiomedata/metapro-proteindigestionsimulator:v2.3.7794"
@@ -63,10 +69,11 @@ workflow report_gen{
         File   resultant_file
         File   first_hits_file
         String Dataset_id
-        String genome_directory
+        String faa_file_id
         String annotation_name
         String q_value_threshold
         String dataset_name
+        Boolean did_split
     }
 
     call proteinDigestionSimulator {
@@ -81,9 +88,10 @@ workflow report_gen{
             resultant_file    = resultant_file,
             first_hits_file   = first_hits_file,
             Dataset_id        = Dataset_id,
-            genome_directory  = genome_directory,
+            faa_file_id       = faa_file_id,
             q_value_threshold = q_value_threshold,
-            dataset_name      = dataset_name
+            dataset_name      = dataset_name,
+            did_split         = did_split
     }
     output {
         File   peptide_file   = ficus_analysis.peptide_file
