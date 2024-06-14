@@ -3,6 +3,7 @@ workflow nmdc_rqcfilter {
     String  proj
     String  input_files
     String  database="/refdata/"
+    Boolean chastityfilter_flag=true
 
     call stage {
         input: container=container,
@@ -13,7 +14,8 @@ workflow nmdc_rqcfilter {
         input: input_files=stage.read,
             threads=16,
             database=database,
-            memory="60G"
+            memory="60G",
+            chastityfilter_flag=chastityfilter_flag
     }
     call make_info_file {
         input: info_file = qc.info_file,
@@ -75,7 +77,7 @@ task rqcfilter {
      File input_files
      String container="microbiomedata/bbtools:38.96"
      String database
-     Boolean chastityfilter_flag=true
+     Boolean chastityfilter_flag
      String? memory
      String? threads
      String filename_outlog="stdout.log"

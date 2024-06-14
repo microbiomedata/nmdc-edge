@@ -35,6 +35,7 @@ workflow readsqc_preprocess {
     output {
 
        Array[File]? input_files_gz = if (input_interleaved) then gzip_int.input_files_gz else gzip_pe.input_files_gz
+       Boolean? isIllumina = if (input_interleaved) then gzip_int.isIllumina else gzip_pe.isIllumina
     }
 }
 
@@ -47,11 +48,16 @@ task gzip_input_int{
         mkdir -p ${outdir}
         if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then
             cp ${sep=" " input_files} ${outdir}/
-
+	    header=`zcat ${input_files[0]} | head -n1`
         else
             cp ${sep=" " input_files} ${outdir}/
             gzip -f ${outdir}/*.fastq
+            header=`cat ${input_files[0]} | head -n1`
         fi
+	
+	# simple format check 
+	NumField=`echo $header | cut -d' ' -f2 | awk -F':' "{print NF}"`
+        if [ $NumField -eq 4 ]; then echo "true"; else echo "false"; fi
  	>>>
 	runtime {
             docker: container
@@ -60,6 +66,7 @@ task gzip_input_int{
         }
 	output{
         Array[File]? input_files_gz = glob("${outdir}/*.gz")
+        Boolean isIllumina = read_boolean(stdout())
 	}
 }
 

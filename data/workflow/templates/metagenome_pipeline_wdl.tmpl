@@ -40,6 +40,7 @@ workflow main_workflow {
 	String readsQC_threads="4"
 	Array[File] input_fq1=[]
 	Array[File] input_fq2=[]
+	Boolean readsQC_chastityfilter_flag=false
 
     call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input:
@@ -51,11 +52,12 @@ workflow main_workflow {
         }
     scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
 
-        call readsQC.nmdc_rqcfilter  as jgi_rqcfilter_call {
+        call readsQC.nmdc_rqcfilter  as nmdc_rqcfilter_call {
             input:
                 input_files=file,
                 database=readsQC_database,
                 proj=proj,
+                chastityfilter_flag=readsqc_preprocess.isIllumina
        }
 
     }
@@ -66,7 +68,7 @@ workflow main_workflow {
 		"kraken2": true,
 		"centrifuge": true
 	}
-    File readbasedAnalysis_reads = jgi_rqcfilter_call.filtered_final[0]
+    File readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final[0]
 	String ReadbasedAnalysis_container = "poeli/nmdc_taxa_profilers:1.0.5"
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
@@ -98,7 +100,7 @@ workflow main_workflow {
 
     }
 	## Assembly workflow
-	Array[File] metaAssembly_input_file = jgi_rqcfilter_call.filtered_final
+	Array[File] metaAssembly_input_file = nmdc_rqcfilter_call.filtered_final
 	String? metaAssembly_outdir
 	String metaAssembly_rename_contig_prefix="scaffold"
 	Float metaAssembly_uniquekmer=1000
@@ -248,10 +250,10 @@ workflow main_workflow {
 			git_url=git_url,
 			informed_by=informed_by,
 			read = if (input_interleaved) then input_files else flatten([input_fq1,input_fq2]),
-			filtered = jgi_rqcfilter_call.filtered_final,
-			filtered_stats = jgi_rqcfilter_call.filtered_stats_final,
-			filtered_stats2 = jgi_rqcfilter_call.filtered_stats2_final,
-			filtered_stats_json = jgi_rqcfilter_call.filtered_stats_json_final,
+			filtered = nmdc_rqcfilter_call.filtered_final,
+			filtered_stats = nmdc_rqcfilter_call.filtered_stats_final,
+			filtered_stats2 = nmdc_rqcfilter_call.filtered_stats2_final,
+			filtered_stats_json = nmdc_rqcfilter_call.filtered_stats_json_final,
 			fasta=metaAssembly_call.contig,
 			scaffold=metaAssembly_call.scaffold,
 			agp=metaAssembly_call.agp,
