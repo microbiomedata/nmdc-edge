@@ -3,7 +3,7 @@ import React from 'react';
 const PartnerDropdown = (props) => {
   return (
     <>
-      <div className="nmdc-header-nav-link" >
+      <div className="nmdc-header-nav-link nmdc-header-nav-link-no-min" >
         Partner with Us
         <button className="nmdc-header-chevron"> </button>
         <div className="nmdc-header-dropdown-menu" >
