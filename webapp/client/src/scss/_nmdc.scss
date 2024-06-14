@@ -264,10 +264,23 @@ $blue-base: #00aae7;
 }
 
 //hide menu on topbar
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 450px) {
   .nmdc-header-nav-link {
       display: none !important;
   }
+  .nmdc-header-no-min {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 992px) {
+  .nmdc-header-nav-link-no-min {
+      display: none !important;
+  }
+  .nmdc-header-no-min {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 1030px) {
   .nmdc-header-no-min {
     display: none !important;
   }
