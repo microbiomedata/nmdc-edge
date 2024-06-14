@@ -8,7 +8,7 @@ const tempLogin = React.lazy(() => import('./common/UM/User/Login'));
 // const UserActivate = React.lazy(() => import('./common/UM/User/Activate'));
 // const UserRegister = React.lazy(() => import('./common/UM/User/Register'));
 // const UserResetpassword = React.lazy(() => import('./common/UM/User/Resetpassword'));
-const OAuth = React.lazy(() => import('./common/UM/Common/ORCIDOAuthCallback'));
+const OAuth = React.lazy(() => import('./common/UM/Common/OrcidLogin'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [

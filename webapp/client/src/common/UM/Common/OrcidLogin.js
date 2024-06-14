@@ -7,7 +7,7 @@ import config from "../../../config";
 
 const queryString = require('query-string');
 
-function ORCIDOAuthCallback(props) {
+function OrcidLogin(props) {
     const dispatch = useDispatch();
     const errors = useSelector(state => state.errors);
     const messages = useSelector(state => state.messages);
@@ -83,4 +83,4 @@ function ORCIDOAuthCallback(props) {
     );
 }
 
-export default ORCIDOAuthCallback;
+export default OrcidLogin;

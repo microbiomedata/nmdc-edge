@@ -227,3 +227,10 @@
     align-items: center;
     height:75vh;  
 }
+
+.submenu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
