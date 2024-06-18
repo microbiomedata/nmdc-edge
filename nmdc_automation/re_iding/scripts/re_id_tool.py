@@ -618,9 +618,12 @@ def process_records(ctx, study_id, data_dir, update_links=False, identifiers_fil
 @click.pass_context
 def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file=False):
     """
-    Search for workflow records with incorrectly versioned NMDC IDs and fix them, updating the database,
-    updating the file system directories and file headers. Records from read_qc_analysis_activity_set and
-    read_based_taxonomy_analysis_activity_set are affected by this issue.
+    Search for workflow records with incorrectly versioned NMDC IDs. Incorrectly
+    versioned IDs have more than one decimal point in the version number. These can
+    exist in the database and/or in the data file directory. This command builds a map
+    of omics_processing records and their associated workflow records and data paths.
+    It then prunes the map to only include records with incorrectly versioned workflow IDs
+    and/or data paths. The pruned map is then used to identify the affected records.
 
     Example of an incorrectly versioned NMDC ID:
         Incorrect: nmdc:wfrqc-11-zbyqeq59.1.1
@@ -642,12 +645,6 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
     logging.info(f"Connected to MongoDB server at {mongo_uri}")
     db_client = client[database_name]
 
-    incorrect_version_query = {
-        "$or": [
-            {"id": {"$not": {"$regex": "[.]"}}},  # No decimal points
-            {"id": {"$regex": ".*\\..*\\..*"}}  # More than one decimal point
-        ]
-    }
     # database collections to check
     workflow_collections = [
         "mags_activity_set",
@@ -658,7 +655,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
         "read_based_taxonomy_analysis_activity_set",
         "read_qc_analysis_activity_set",
     ]
-    # directory structure is based on omics_processing_id
+    # directory structure is based on omics_processing_id so
     # we map omics_processing_id, workflow_id, and data_path
     # example_map = {
     #     "nmdc:ompcrc-11-1t150432": [
@@ -716,12 +713,8 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                         }
                     )
 
-
-
-
     total_workflow_records = sum([len(records) for records in omics_processing_workflows_map.values()])
     logging.info(f"Added {total_workflow_records} workflow records to the map")
-
 
     # Iterate over the map to get  records with malformed workflow IDs and/or data paths
     # anything other that a single decimal point in the workflow ID is considered malformed
@@ -759,6 +752,34 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
             f.write(serialized_map)
     else:
         logging.info(serialized_map)
+
+
+@cli.command()
+@click.option("--production", is_flag=True, default=False)
+@click.option("--update-files", is_flag=True, default=False)
+@click.pass_context
+def fix_affected_workflows(ctx, production=False, update_files=False):
+    """
+    Read the JSON file of affected workflow records and their data paths and
+    fix the malformed workflow IDs and/or data paths and update the data files:
+    - Fix malformed workflow IDs and write out update changes to a JSON file, one per affected collection
+    """
+    start_time = time.time()
+    if production:
+        data_dir = PROD_DATAFILE_DIR
+    else:
+        data_dir = LOCAL_DATAFILE_DIR
+
+    affected_records_file = Path("affected_workflow_records.json")
+    logging.info(f"Reading affected workflow records from {affected_records_file}")
+    with open(affected_records_file, "r") as f:
+        affected_records = json.load(f)
+
+    # Iterate over the affected records and fix the malformed workflow IDs and/or data paths
+    # and update the data files
+    for omics_processing_id, records in affected_records.items():
+        for record in records:
+            pass
 
 
 

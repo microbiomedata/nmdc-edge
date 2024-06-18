@@ -36,6 +36,24 @@ ANALYSIS_ACTIVITIES = [
     NOM_ANALYSIS_ACTIVITY_SET
 ]
 
+WORKFLOW_ID_CODE_MAP = {
+    "nmdc:wfmag": MAGS_ACTIVITY_SET,
+    "nmdc:wfmb": METABOLOMICS_ANALYSIS_ACTIVITY_SET,
+    "nmdc:wfmgan": METAGENOME_ANNOTATION_ACTIVITY_SET,
+    "nmdc:wfmgas": METAGENOME_ASSEMBLY_SET,
+    "nmdc:wfrbt": READ_BASED_TAXONOMY_ANALYSIS_ACTIVITY_SET,
+    "nmdc:wfrqc": READS_QC_SET,
+}
+
+
+def get_collection_name_from_workflow_id(workflow_id: str) -> str:
+    """
+    Get the collection name for the given workflow ID based on the
+    embedded code.
+     e.g. nmdc:wfrqc-11-zbyqeq59.1 -> nmdc:wfrqc -> READS_QC_SET
+    """
+    code = workflow_id.split("-")[0]
+    return WORKFLOW_ID_CODE_MAP.get(code, "unknown")
 
 
 def get_omics_processing_id(db_record: Dict) -> str:
