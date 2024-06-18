@@ -632,7 +632,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
         Correct: nmdc:wfrqc-11-zbyqeq59.1
     """
     start_time = time.time()
-    local_test_omics_processing_id = "nmdc:omprc-11-gqbhbd17"
+    local_test_omics_processing_ids = ["nmdc:omprc-11-gqbhbd17", "nmdc:omprc-11-wmzpa354"]
     if production:
         data_dir = PROD_DATAFILE_DIR
     else:
@@ -661,7 +661,16 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
     # we map omics_processing_id, workflow_id, and data_path
     # example_map = {
     #     "nmdc:ompcrc-11-1t150432": [
-    #         {"workflow_id": "nmdc:wfrqc-11-zbyqeq59.1.1", "data_paths":
+    #         {"workflow_id": "nmdc:wfrqc-11-zbyqeq59.1.1",
+    #         "type": "nmdc:ReadQCAnalysisActivity",
+    #         "data_objects": [
+    #           {
+    #               "id": "nmdc:dobj-11-1tfde585",
+    #               "name": ""nmdc_wfrqc-11-pbxpdr12.1.1_filtered.fastq.gz"",
+    #               "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1.1/nmdc_wfrqc-11-pbxpdr12.1.1_filtered.fastq.gz"
+    #            }
+    #         ],
+    #         "data_paths":
     #           [
     #               "nmdc:omdcrc-11-1t150432/nmdc:wfrqc-11-zbyqeq59.1.1",
     #               "nmdc:omdcrc-11-1t150432/nmdc:wfrqc-11-zbyqeq59.1.1.1",
@@ -683,7 +692,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
             omics_processing_workflows_map[omics_processing_id] = []
         else:
             # for local testing, only initialize the map for the local test omics_processing_id
-            if omics_processing_id == local_test_omics_processing_id:
+            if omics_processing_id in local_test_omics_processing_ids:
                 omics_processing_workflows_map[omics_processing_id] = []
             else:
                 continue
@@ -697,8 +706,20 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
             workflow_records = db_client[collection_name].find({"was_informed_by": omics_processing_id})
             for workflow_record in workflow_records:
                 workflow_id = workflow_record["id"]
+                data_objects = []
+                for data_object_id in workflow_record.get("has_output", []):
+                    data_object_record = db_client["data_object_set"].find_one({"id": data_object_id})
+                    if data_object_record:
+                        data_objects.append({
+                            "id": data_object_record["id"],
+                            "name": data_object_record.get("name"),
+                            "url": data_object_record.get("url")
+                        })
+                if not data_objects:
+                    logging.warning(f"No data objects found for workflow: {workflow_id}")
+
                 # Look on the filesystem for data file dir path(s) that contain the workflow ID root (non-versioned e.g.
-                # nmdc:wfrqc-11-zbyqeq59)
+                # nmdc:wfrqc-11-zbyqeq59. These may be different from the workflow ID in the database)
                 omics_processing_dir = data_dir.joinpath(omics_processing_id)
                 if not omics_processing_dir.exists():
                     logging.warning(f"Directory not found: {omics_processing_dir}")
@@ -707,13 +728,15 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                 for data_path in omics_processing_dir.iterdir():
                     if workflow_id in data_path.name:
                         data_paths.append(data_path)
-                if data_paths:
-                    omics_processing_workflows_map[omics_processing_id].append(
-                        {
-                            "workflow_id": workflow_id,
-                            "data_paths": [str(data_path) for data_path in data_paths]
-                        }
-                    )
+
+                omics_processing_workflows_map[omics_processing_id].append(
+                    {
+                        "workflow_id": workflow_id,
+                        "type": workflow_record["type"],
+                        "data_objects": data_objects,
+                        "data_paths": [str(data_path) for data_path in data_paths]
+                    }
+                )
 
     total_workflow_records = sum([len(records) for records in omics_processing_workflows_map.values()])
     logging.info(f"Added {total_workflow_records} workflow records to the map")
@@ -757,14 +780,54 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
 
 
 @cli.command()
-@click.option("--production", is_flag=True, default=False)
-@click.option("--update-files", is_flag=True, default=False)
 @click.pass_context
-def fix_affected_workflows(ctx, production=False, update_files=False):
+def update_affected_workflows(ctx):
     """
     Read the JSON file of affected workflow records and their data paths and
     fix the malformed workflow IDs and/or data paths and update the data files:
-    - Fix malformed workflow IDs and write out update changes to a JSON file, one per affected collection
+    - Fix malformed workflow IDs and write out update changes to a JSON file, one per affected collection to be used
+        with the /queries:run endpoint
+    """
+    start_time = time.time()
+
+    affected_records_file = Path("affected_workflow_records.json")
+    logging.info(f"Reading affected workflow records from {affected_records_file}")
+    with open(affected_records_file, "r") as f:
+        affected_records = json.load(f)
+
+    # Iterate over the affected records and fix the malformed workflow IDs and/or data paths and output the changes
+    # to a JSON file
+
+    updates_map = {}
+    for omics_processing_id, records in affected_records.items():
+        for record in records:
+            workflow_id = record["workflow_id"]
+            collection_name = get_collection_name_from_workflow_id(workflow_id)
+            # Fix the workflow ID
+            fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
+            if collection_name not in updates_map:
+                updates_map[collection_name] = {"update": collection_name, "updates": []}
+            updates_map[collection_name]["updates"].append(
+                {"q": {"id": workflow_id}, "u": {"$set": {"id": fixed_workflow_id}}}
+            )
+    # Write updates to JSON files, one per affected collection
+    for collection_name, update in updates_map.items():
+        update_outfile = Path(f"{collection_name}_updates.json")
+        logging.info(f"Writing updates to {update_outfile}")
+        with open(update_outfile, "w") as f:
+            f.write(json.dumps(update, indent=4))
+
+    elapsed_time = time.time() - start_time
+    logging.info(f"Elapsed time: {elapsed_time}")
+
+@cli.command()
+@click.option("--production", is_flag=True, default=False)
+@click.option("--update-files", is_flag=True, default=False)
+@click.pass_context
+def update_affected_data_files(ctx, production=False, update_files=False):
+    """
+    Read the JSON file of affected workflow records and their data paths and
+    fix the malformed workflow IDs and/or data paths and update the data files:
     """
     start_time = time.time()
     if production:
@@ -777,33 +840,28 @@ def fix_affected_workflows(ctx, production=False, update_files=False):
     with open(affected_records_file, "r") as f:
         affected_records = json.load(f)
 
-    # Iterate over the affected records and fix the malformed workflow IDs and/or data paths and output the changes
-    # to a JSON file
-
-    updates_map = {}
-
+    # Iterate over the affected records and fix the malformed workflow IDs and/or data paths and update the data files
     for omics_processing_id, records in affected_records.items():
         for record in records:
             workflow_id = record["workflow_id"]
-            collection_name = get_collection_name_from_workflow_id(workflow_id)
-
-            # Fix the workflow ID
+            data_paths = record["data_paths"]
             fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
-
-            if collection_name not in updates_map:
-                updates_map[collection_name] = {"update": collection_name, "updates": []}
-            updates_map[collection_name]["updates"].append(
-                {"q": {"id": workflow_id}, "u": {"$set": {"id": fixed_workflow_id}}}
-            )
-
-    # Write updates to JSON files, one per affected collection
-    for collection_name, update in updates_map.items():
-        update_outfile = Path(f"{collection_name}_updates.json")
-        logging.info(f"Writing updates to {update_outfile}")
-        with open(update_outfile, "w") as f:
-            f.write(json.dumps(update, indent=4))
+            for data_path in data_paths:
+                data_path = Path(data_path)
+                fixed_data_path = data_path.parent.joinpath(fixed_workflow_id)
+                if update_files:
+                    logging.info(f"Updating data file: {data_path}")
+                    data_path.rename(fixed_data_path)
+                    # for backwards compatibility, symlink the malformed data path to the fixed data path
+                    data_path.symlink_to(fixed_data_path)
 
 
+
+                else:
+                    logging.info(f"Would update data file: {data_path} to {fixed_data_path}")
+
+    elapsed_time = time.time() - start_time
+    logging.info(f"Elapsed time: {elapsed_time}")
 
 
 @cli.command()
