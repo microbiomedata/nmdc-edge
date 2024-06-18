@@ -843,7 +843,6 @@ def update_affected_records(ctx):
                             {"q": {"id": data_object_id}, "u": {"$set": {"url": fixed_data_object_url}}}
                         )
 
-
     # Write updates to JSON files, one per affected collection
     for collection_name, update in updates_map.items():
         update_outfile = Path(f"{collection_name}_updates.json")
@@ -855,49 +854,6 @@ def update_affected_records(ctx):
     logging.info(f"Writing data object updates to {data_object_update_outfile}")
     with open(data_object_update_outfile, "w") as f:
         f.write(json.dumps(data_object_update_map, indent=4))
-
-    elapsed_time = time.time() - start_time
-    logging.info(f"Elapsed time: {elapsed_time}")
-
-@cli.command()
-@click.option("--production", is_flag=True, default=False)
-@click.option("--update-files", is_flag=True, default=False)
-@click.pass_context
-def update_affected_files(ctx, production=False, update_files=False):
-    """
-    Read the JSON file of affected workflow records and their data paths and
-    fix the malformed workflow IDs and/or data paths and update the data files:
-    """
-    start_time = time.time()
-    if production:
-        data_dir = PROD_DATAFILE_DIR
-    else:
-        data_dir = LOCAL_DATAFILE_DIR
-
-    affected_records_file = Path("affected_workflow_records.json")
-    logging.info(f"Reading affected workflow records from {affected_records_file}")
-    with open(affected_records_file, "r") as f:
-        affected_records = json.load(f)
-
-    # Iterate over the affected records and fix the malformed workflow IDs and/or data paths and update the data files
-    for omics_processing_id, records in affected_records.items():
-        for record in records:
-            workflow_id = record["workflow_id"]
-            data_paths = record["data_paths"]
-            fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
-            for data_path in data_paths:
-                data_path = Path(data_path)
-                fixed_data_path = data_path.parent.joinpath(fixed_workflow_id)
-                if update_files:
-                    logging.info(f"Updating data file: {data_path}")
-                    data_path.rename(fixed_data_path)
-                    # for backwards compatibility, symlink the malformed data path to the fixed data path
-                    data_path.symlink_to(fixed_data_path)
-
-
-
-                else:
-                    logging.info(f"Would update data file: {data_path} to {fixed_data_path}")
 
     elapsed_time = time.time() - start_time
     logging.info(f"Elapsed time: {elapsed_time}")
@@ -1404,8 +1360,6 @@ def _write_deleted_record_identifiers(deleted_record_identifiers, old_base_name)
         f.write("collection_name\ttype\tid\n")
         for record_identifier in deleted_record_identifiers:
             f.write("\t".join(record_identifier) + "\n")
-
-
 
 
 if __name__ == "__main__":
