@@ -35,7 +35,7 @@ def test_get_collection_name_from_workflow_id():
 
 
 def test_fix_malformed_workflow_id_version():
-    
+
     # Test for a workflow ID with a correct version
     workflow_id = "nmdc:wfrqc-11-zbyqeq59.1"
     fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)

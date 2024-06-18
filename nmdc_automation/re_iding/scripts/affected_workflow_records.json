@@ -1,0 +1,22 @@
+{
+    "nmdc:omprc-11-gqbhbd17": [
+        {
+            "workflow_id": "nmdc:wfmgas-11-ytmtmx06.1",
+            "data_paths": [
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfmgas-11-ytmtmx06.1.1"
+            ]
+        },
+        {
+            "workflow_id": "nmdc:wfrbt-11-gjxsgv37.1.1",
+            "data_paths": [
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1.1"
+            ]
+        },
+        {
+            "workflow_id": "nmdc:wfrqc-11-k8vbs933.1.1",
+            "data_paths": [
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrqc-11-k8vbs933.1.1.1"
+            ]
+        }
+    ]
+}

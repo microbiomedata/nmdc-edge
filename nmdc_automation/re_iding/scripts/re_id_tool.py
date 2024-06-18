@@ -29,7 +29,7 @@ from nmdc_automation.re_iding.base import (
     update_omics_processing
 )
 from nmdc_automation.re_iding.db_utils import (
-    get_omics_processing_id, ANALYSIS_ACTIVITIES, get_collection_name_from_workflow_id
+    get_omics_processing_id, ANALYSIS_ACTIVITIES, get_collection_name_from_workflow_id, fix_malformed_workflow_id_version
 )
 
 # Defaults
@@ -788,7 +788,20 @@ def fix_affected_workflows(ctx, production=False, update_files=False):
             collection_name = get_collection_name_from_workflow_id(workflow_id)
 
             # Fix the workflow ID
-            fixed_workflow_id = _fix_workflow_id(workflow_id)
+            fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
+
+            if collection_name not in updates_map:
+                updates_map[collection_name] = {"update": collection_name, "updates": []}
+            updates_map[collection_name]["updates"].append(
+                {"q": {"id": workflow_id}, "u": {"$set": {"id": fixed_workflow_id}}}
+            )
+
+    # Write updates to JSON files, one per affected collection
+    for collection_name, update in updates_map.items():
+        update_outfile = Path(f"{collection_name}_updates.json")
+        logging.info(f"Writing updates to {update_outfile}")
+        with open(update_outfile, "w") as f:
+            f.write(json.dumps(update, indent=4))
 
 
 
