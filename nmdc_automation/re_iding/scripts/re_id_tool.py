@@ -781,7 +781,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
 
 @cli.command()
 @click.pass_context
-def update_affected_workflows(ctx):
+def update_affected_records(ctx):
     """
     Read the JSON file of affected workflow records and their data paths and
     fix the malformed workflow IDs and/or data paths and update the data files:
@@ -799,10 +799,15 @@ def update_affected_workflows(ctx):
     # to a JSON file
 
     updates_map = {}
+    data_object_update_map = {
+        "update": "data_object_set",
+        "updates": []
+    }
     for omics_processing_id, records in affected_records.items():
         for record in records:
             workflow_id = record["workflow_id"]
             collection_name = get_collection_name_from_workflow_id(workflow_id)
+
             # Fix the workflow ID
             fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
             if collection_name not in updates_map:
@@ -810,12 +815,37 @@ def update_affected_workflows(ctx):
             updates_map[collection_name]["updates"].append(
                 {"q": {"id": workflow_id}, "u": {"$set": {"id": fixed_workflow_id}}}
             )
+            # Fix name and url in data objects
+            data_objects = record["data_objects"]
+            for data_object in data_objects:
+                data_object_id = data_object["id"]
+                data_object_name = data_object.get("name")
+                data_object_url = data_object.get("url")
+                if data_object_name:
+                    fixed_data_object_name = fix_malformed_workflow_id_version(data_object_name)
+                    if data_object_name != fixed_data_object_name:
+                        data_object_update_map["updates"].append(
+                            {"q": {"id": data_object_id}, "u": {"$set": {"name": fixed_data_object_name}}}
+                        )
+                if data_object_url:
+                    fixed_data_object_url = fix_malformed_workflow_id_version(data_object_url)
+                    if data_object_url != fixed_data_object_url:
+                        data_object_update_map["updates"].append(
+                            {"q": {"id": data_object_id}, "u": {"$set": {"url": fixed_data_object_url}}}
+                        )
+
+
     # Write updates to JSON files, one per affected collection
     for collection_name, update in updates_map.items():
         update_outfile = Path(f"{collection_name}_updates.json")
         logging.info(f"Writing updates to {update_outfile}")
         with open(update_outfile, "w") as f:
             f.write(json.dumps(update, indent=4))
+    # Write data object updates to a JSON file
+    data_object_update_outfile = Path("data_object_updates.json")
+    logging.info(f"Writing data object updates to {data_object_update_outfile}")
+    with open(data_object_update_outfile, "w") as f:
+        f.write(json.dumps(data_object_update_map, indent=4))
 
     elapsed_time = time.time() - start_time
     logging.info(f"Elapsed time: {elapsed_time}")
@@ -824,7 +854,7 @@ def update_affected_workflows(ctx):
 @click.option("--production", is_flag=True, default=False)
 @click.option("--update-files", is_flag=True, default=False)
 @click.pass_context
-def update_affected_data_files(ctx, production=False, update_files=False):
+def update_affected_files(ctx, production=False, update_files=False):
     """
     Read the JSON file of affected workflow records and their data paths and
     fix the malformed workflow IDs and/or data paths and update the data files:

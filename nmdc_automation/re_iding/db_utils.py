@@ -70,7 +70,35 @@ def fix_malformed_workflow_id_version(workflow_id: str) -> str:
         return f"{workflow_id}.1"
     return workflow_id
 
+def fix_malformed_data_object_name(name: str) -> str:
+    """
+    Fix a malformed data object name - example
+    - "nmdc_wfrqc-11-pbxpdr12.1.1_filtered.fastq.gz" -> "nmdc_wfrqc-11-pbxpdr12.1_filtered.fastq.gz"
+    - "nmdc_wfrqc-11-pbxpdr12_filtered.fastq.gz" -> "nmdc_wfrqc-11-pbxpdr12.1_filtered.fastq.gz"
+    """
+    # Split along the `_` to get nmdc, the workflow id and the rest of the name
+    parts = name.split("_")
+    nmdc = parts[0]
+    workflow_id = parts[1]
+    rest = "_".join(parts[2:])
+    fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
+    return f"{nmdc}_{fixed_workflow_id}_{rest}"
 
+
+def fix_malformed_data_object_url(url: str) -> str:
+    """
+    Fix a malformed data object URL - example
+    - "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1.1/nmdc_wfrqc-11-pbxpdr12.1.1_filtered.fastq.gz"
+    -> "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1/nmdc_wfrqc-11-pbxpdr12.1_filtered.fastq.gz"
+    """
+    parts = url.split("/")
+    name = parts[-1]
+    dirname = parts[-2]
+    fixed_name = fix_malformed_data_object_name(name)
+    fixed_dirname = fix_malformed_workflow_id_version(dirname)
+    parts[-1] = fixed_name
+    parts[-2] = fixed_dirname
+    return "/".join(parts)
 
 
 def get_omics_processing_id(db_record: Dict) -> str:
