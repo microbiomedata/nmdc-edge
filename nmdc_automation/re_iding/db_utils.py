@@ -56,6 +56,23 @@ def get_collection_name_from_workflow_id(workflow_id: str) -> str:
     return WORKFLOW_ID_CODE_MAP.get(code, "unknown")
 
 
+def fix_malformed_workflow_id_version(workflow_id: str) -> str:
+    """
+    Fix a malformed workflow id version examples
+        - extra .1(s) at the end of the version e.g. nmdc:wfrqc-11-zbyqeq59.1.1
+        - missing version e.g nmdc:wfrqc-11-zbyqeq59
+    Corrected version will be nmdc:wfrqc-11-zbyqeq59.1
+    """
+    parts = workflow_id.split(".")
+    if len(parts) >2:
+        return ".".join(parts[:2])
+    elif len(parts) == 1:
+        return f"{workflow_id}.1"
+    return workflow_id
+
+
+
+
 def get_omics_processing_id(db_record: Dict) -> str:
     """
     Get the ID of the OmicsProcessing record in the given Database instance.

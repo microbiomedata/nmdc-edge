@@ -28,7 +28,9 @@ from nmdc_automation.re_iding.base import (
     get_updates_for_metabolomics_or_nom, update_biosample,
     update_omics_processing
 )
-from nmdc_automation.re_iding.db_utils import get_omics_processing_id, ANALYSIS_ACTIVITIES
+from nmdc_automation.re_iding.db_utils import (
+    get_omics_processing_id, ANALYSIS_ACTIVITIES, get_collection_name_from_workflow_id
+)
 
 # Defaults
 NAPA_CONFIG = Path("../../../configs/.local_napa_user_config.toml")
@@ -775,11 +777,19 @@ def fix_affected_workflows(ctx, production=False, update_files=False):
     with open(affected_records_file, "r") as f:
         affected_records = json.load(f)
 
-    # Iterate over the affected records and fix the malformed workflow IDs and/or data paths
-    # and update the data files
+    # Iterate over the affected records and fix the malformed workflow IDs and/or data paths and output the changes
+    # to a JSON file
+
+    updates_map = {}
+
     for omics_processing_id, records in affected_records.items():
         for record in records:
-            pass
+            workflow_id = record["workflow_id"]
+            collection_name = get_collection_name_from_workflow_id(workflow_id)
+
+            # Fix the workflow ID
+            fixed_workflow_id = _fix_workflow_id(workflow_id)
+
 
 
 
@@ -1284,6 +1294,8 @@ def _write_deleted_record_identifiers(deleted_record_identifiers, old_base_name)
         f.write("collection_name\ttype\tid\n")
         for record_identifier in deleted_record_identifiers:
             f.write("\t".join(record_identifier) + "\n")
+
+
 
 
 if __name__ == "__main__":

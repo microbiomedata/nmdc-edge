@@ -1,5 +1,8 @@
 import pytest
-from nmdc_automation.re_iding.db_utils import get_collection_name_from_workflow_id
+from nmdc_automation.re_iding.db_utils import (
+    get_collection_name_from_workflow_id,
+    fix_malformed_workflow_id_version,
+)
 
 def test_get_collection_name_from_workflow_id():
     # Test for a known workflow ID
@@ -29,4 +32,23 @@ def test_get_collection_name_from_workflow_id():
     # Test for a known workflow ID
     workflow_id = "nmdc:wfrbt-11-zbyqeq59.1"
     assert get_collection_name_from_workflow_id(workflow_id) == "read_based_taxonomy_analysis_activity_set"
+
+
+def test_fix_malformed_workflow_id_version():
     
+    # Test for a workflow ID with a correct version
+    workflow_id = "nmdc:wfrqc-11-zbyqeq59.1"
+    fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
+    assert fixed_workflow_id == "nmdc:wfrqc-11-zbyqeq59.1"
+
+    # Test for a workflow ID with an extra .1(s) at the end of the version
+    workflow_id = "nmdc:wfrqc-11-zbyqeq59.1.1"
+    assert fix_malformed_workflow_id_version(workflow_id) == "nmdc:wfrqc-11-zbyqeq59.1"
+
+    # Test for a workflow ID with a missing version
+    workflow_id = "nmdc:wfrqc-11-zbyqeq59"
+    assert fix_malformed_workflow_id_version(workflow_id) == "nmdc:wfrqc-11-zbyqeq59.1"
+
+    # Test for a workflow ID with extra .1(s) at the end of the version
+    workflow_id = "nmdc:wfrqc-11-zbyqeq59.1.1.1"
+    assert fix_malformed_workflow_id_version(workflow_id) == "nmdc:wfrqc-11-zbyqeq59.1"
