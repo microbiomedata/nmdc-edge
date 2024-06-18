@@ -1,0 +1,445 @@
+{
+    "update": "data_object_set",
+    "updates": [
+        {
+            "q": {
+                "id": "nmdc:dobj-11-15yt8631"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-5azt1x40.1_gottcha2_report.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-15yt8631"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1_gottcha2_report.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hbx5y982"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-5azt1x40.1_gottcha2_report_full.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hbx5y982"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1_gottcha2_report_full.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-f27e8v32"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-5azt1x40.1_gottcha2_krona.html"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-f27e8v32"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1_gottcha2_krona.html"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-80cfrn71"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-5azt1x40.1_centrifuge_classification.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-80cfrn71"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1_centrifuge_classification.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zqxsws55"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-5azt1x40.1_centrifuge_report.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zqxsws55"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1_centrifuge_report.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-z2e2ym68"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-5azt1x40.1_centrifuge_krona.html"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-z2e2ym68"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1_centrifuge_krona.html"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sy2wpw68"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-5azt1x40.1_kraken2_classification.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sy2wpw68"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1_kraken2_classification.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-06z99j64"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-5azt1x40.1_kraken2_report.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-06z99j64"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1_kraken2_report.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9ga0jt53"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-5azt1x40.1_kraken2_krona.html"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9ga0jt53"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1_kraken2_krona.html"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1tfde585"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrqc-11-pbxpdr12.1_filtered.fastq.gz"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1tfde585"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1/nmdc_wfrqc-11-pbxpdr12.1_filtered.fastq.gz"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xwgbd609"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrqc-11-pbxpdr12.1_filterStats.txt"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xwgbd609"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1/nmdc_wfrqc-11-pbxpdr12.1_filterStats.txt"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2x71h597"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1_gottcha2_report.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2x71h597"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1_gottcha2_report.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-za47q470"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1_gottcha2_report_full.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-za47q470"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1_gottcha2_report_full.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ntfbdq86"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1_gottcha2_krona.html"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ntfbdq86"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1_gottcha2_krona.html"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-61dg2w84"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1_centrifuge_classification.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-61dg2w84"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1_centrifuge_classification.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b1g4jf44"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1_centrifuge_report.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b1g4jf44"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1_centrifuge_report.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yzk1hd77"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1_centrifuge_krona.html"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yzk1hd77"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1_centrifuge_krona.html"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-svva8869"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1_kraken2_classification.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-svva8869"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1_kraken2_classification.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-p0876z23"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1_kraken2_report.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-p0876z23"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1_kraken2_report.tsv"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-khvr5w16"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1_kraken2_krona.html"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-khvr5w16"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1_kraken2_krona.html"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xyyv3473"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrqc-11-k8vbs933.1_filtered.fastq.gz"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xyyv3473"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrqc-11-k8vbs933.1/nmdc_wfrqc-11-k8vbs933.1_filtered.fastq.gz"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kx5m8p57"
+            },
+            "u": {
+                "$set": {
+                    "name": "nmdc_wfrqc-11-k8vbs933.1_filterStats.txt"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kx5m8p57"
+            },
+            "u": {
+                "$set": {
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrqc-11-k8vbs933.1/nmdc_wfrqc-11-k8vbs933.1_filterStats.txt"
+                }
+            }
+        }
+    ]
+}

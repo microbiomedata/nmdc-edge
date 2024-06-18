@@ -1,0 +1,25 @@
+{
+    "update": "read_qc_analysis_activity_set",
+    "updates": [
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-pbxpdr12.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrqc-11-pbxpdr12.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k8vbs933.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrqc-11-k8vbs933.1"
+                }
+            }
+        }
+    ]
+}

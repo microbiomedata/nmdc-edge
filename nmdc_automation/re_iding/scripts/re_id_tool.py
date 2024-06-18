@@ -29,7 +29,12 @@ from nmdc_automation.re_iding.base import (
     update_omics_processing
 )
 from nmdc_automation.re_iding.db_utils import (
-    get_omics_processing_id, ANALYSIS_ACTIVITIES, get_collection_name_from_workflow_id, fix_malformed_workflow_id_version
+    get_omics_processing_id,
+    ANALYSIS_ACTIVITIES,
+    get_collection_name_from_workflow_id,
+    fix_malformed_workflow_id_version,
+    fix_malformed_data_object_name,
+    fix_malformed_data_object_url
 )
 
 # Defaults
@@ -810,11 +815,13 @@ def update_affected_records(ctx):
 
             # Fix the workflow ID
             fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
-            if collection_name not in updates_map:
-                updates_map[collection_name] = {"update": collection_name, "updates": []}
-            updates_map[collection_name]["updates"].append(
-                {"q": {"id": workflow_id}, "u": {"$set": {"id": fixed_workflow_id}}}
-            )
+            if workflow_id != fixed_workflow_id:
+                logging.info(f"Fixing workflow ID: {workflow_id} to {fixed_workflow_id}")
+                if collection_name not in updates_map:
+                    updates_map[collection_name] = {"update": collection_name, "updates": []}
+                updates_map[collection_name]["updates"].append(
+                    {"q": {"id": workflow_id}, "u": {"$set": {"id": fixed_workflow_id}}}
+                )
             # Fix name and url in data objects
             data_objects = record["data_objects"]
             for data_object in data_objects:
@@ -822,14 +829,16 @@ def update_affected_records(ctx):
                 data_object_name = data_object.get("name")
                 data_object_url = data_object.get("url")
                 if data_object_name:
-                    fixed_data_object_name = fix_malformed_workflow_id_version(data_object_name)
+                    fixed_data_object_name = fix_malformed_data_object_name(data_object_name)
                     if data_object_name != fixed_data_object_name:
+                        logging.info(f"Fixing data object name: {data_object_name} to {fixed_data_object_name}")
                         data_object_update_map["updates"].append(
                             {"q": {"id": data_object_id}, "u": {"$set": {"name": fixed_data_object_name}}}
                         )
                 if data_object_url:
-                    fixed_data_object_url = fix_malformed_workflow_id_version(data_object_url)
+                    fixed_data_object_url = fix_malformed_data_object_url(data_object_url)
                     if data_object_url != fixed_data_object_url:
+                        logging.info(f"Fixing data object url: {data_object_url} to {fixed_data_object_url}")
                         data_object_update_map["updates"].append(
                             {"q": {"id": data_object_id}, "u": {"$set": {"url": fixed_data_object_url}}}
                         )
