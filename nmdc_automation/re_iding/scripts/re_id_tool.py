@@ -715,11 +715,15 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                 for data_object_id in workflow_record.get("has_output", []):
                     data_object_record = db_client["data_object_set"].find_one({"id": data_object_id})
                     if data_object_record:
-                        data_objects.append({
-                            "id": data_object_record["id"],
-                            "name": data_object_record.get("name"),
-                            "url": data_object_record.get("url")
-                        })
+                        data_objects.append(
+                            {
+                                "id": data_object_record["id"],
+                                "name": data_object_record.get("name"),
+                                "url": data_object_record.get("url"),
+                                "data_object_type": data_object_record.get("data_object_type"),
+                                "file_size_bytes": data_object_record.get("file_size_bytes"),
+                            }
+                        )
                 if not data_objects:
                     logging.warning(f"No data objects found for workflow: {workflow_id}")
 
@@ -736,6 +740,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
 
                 omics_processing_workflows_map[omics_processing_id].append(
                     {
+                        "_id": str(workflow_record["_id"]),
                         "workflow_id": workflow_id,
                         "type": workflow_record["type"],
                         "data_objects": data_objects,
@@ -785,15 +790,26 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
 
 
 @cli.command()
+@click.argument("input-file", type=click.Path(exists=True))
+@click.option("--production", is_flag=True, default=False)
+@click.option("--update-files", is_flag=True, default=False)
 @click.pass_context
-def update_affected_records(ctx):
+def process_affected_workflows(ctx, input_file, production=False, update_files=False):
     """
     Read the JSON file of affected workflow records and their data paths and
-    fix the malformed workflow IDs and/or data paths and update the data files:
-    - Fix malformed workflow IDs and write out update changes to a JSON file, one per affected collection to be used
-        with the /queries:run endpoint
+    fix occurrences of incorrectly versioned workflow IDs in the database and/or
+    in the data file directory.
+
+    Data file and directory updates are applied to the filesystem if the --update-files
+    flag is set, otherwise the changes are only written to the log.
+
+    Database updates are written to a JSON files, one per collection.
     """
     start_time = time.time()
+    if production:
+        data_dir = PROD_DATAFILE_DIR
+    else:
+        data_dir = LOCAL_DATAFILE_DIR
 
     affected_records_file = Path("affected_workflow_records.json")
     logging.info(f"Reading affected workflow records from {affected_records_file}")
@@ -809,54 +825,70 @@ def update_affected_records(ctx):
         "updates": []
     }
     for omics_processing_id, records in affected_records.items():
+        logging.info(f"Processing affected records for omics_processing_id: {omics_processing_id}")
         for record in records:
+
+            # workflow ID from the database
+            record_id = record["_id"]
             workflow_id = record["workflow_id"]
             collection_name = get_collection_name_from_workflow_id(workflow_id)
-
-            # Fix the workflow ID
             fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
-            if workflow_id != fixed_workflow_id:
-                logging.info(f"Fixing workflow ID: {workflow_id} to {fixed_workflow_id}")
-                if collection_name not in updates_map:
-                    updates_map[collection_name] = {"update": collection_name, "updates": []}
-                updates_map[collection_name]["updates"].append(
-                    {"q": {"id": workflow_id}, "u": {"$set": {"id": fixed_workflow_id}}}
-                )
-            # Fix name and url in data objects
-            data_objects = record["data_objects"]
-            for data_object in data_objects:
-                data_object_id = data_object["id"]
-                data_object_name = data_object.get("name")
-                data_object_url = data_object.get("url")
-                if data_object_name:
-                    fixed_data_object_name = fix_malformed_data_object_name(data_object_name)
-                    if data_object_name != fixed_data_object_name:
-                        logging.info(f"Fixing data object name: {data_object_name} to {fixed_data_object_name}")
-                        data_object_update_map["updates"].append(
-                            {"q": {"id": data_object_id}, "u": {"$set": {"name": fixed_data_object_name}}}
-                        )
-                if data_object_url:
-                    fixed_data_object_url = fix_malformed_data_object_url(data_object_url)
-                    if data_object_url != fixed_data_object_url:
-                        logging.info(f"Fixing data object url: {data_object_url} to {fixed_data_object_url}")
-                        data_object_update_map["updates"].append(
-                            {"q": {"id": data_object_id}, "u": {"$set": {"url": fixed_data_object_url}}}
-                        )
+            if fixed_workflow_id != workflow_id:
+                logging.info(f"Fixed workflow ID: {workflow_id} -> {fixed_workflow_id}")
+                updates_map.setdefault(collection_name, []).append({
+                    "q": {"_id": record_id},
+                    "u": {"$set": {"id": fixed_workflow_id}}
+                })
+                # add the old ID to alternative_identifiers
+                updates_map.setdefault(collection_name, []).append({
+                    "q": {"_id": record_id},
+                    "u": {"$addToSet": {"alternative_identifiers": workflow_id}}
+                })
+            else:
+                logging.info(f"Workflow ID in the database is correct: {workflow_id}")
 
-    # Write updates to JSON files, one per affected collection
-    for collection_name, update in updates_map.items():
-        update_outfile = Path(f"{collection_name}_updates.json")
-        logging.info(f"Writing updates to {update_outfile}")
-        with open(update_outfile, "w") as f:
-            f.write(json.dumps(update, indent=4))
-    # Write data object updates to a JSON file
-    data_object_update_outfile = Path("data_object_updates.json")
-    logging.info(f"Writing data object updates to {data_object_update_outfile}")
-    with open(data_object_update_outfile, "w") as f:
+            # workflow ID in the data file path(s)
+            for data_path in record["data_paths"]:
+                workflow_dir_name = data_path.split("/")[-1]
+                omics_dir_name = data_path.split("/")[-2]
+                fixed_workflow_dir_name = fix_malformed_workflow_id_version(workflow_dir_name)
+                # get the actual data file path depending on the environment
+                data_file_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
+                # in the omics_processing directory, rename the workflow directory to the fixed ID
+                # and create a symbolic link from the old directory name to the new one if the --update-files flag is set
+                if fixed_workflow_dir_name != workflow_dir_name:
+                    logging.info(f"Fixed data file path: {data_file_path} -> {fixed_workflow_dir_name}")
+                    # add the old ID to alternative_identifiers
+                    updates_map.setdefault(collection_name, []).append({
+                        "q": {"_id": record_id},
+                        "u": {"$addToSet": {"alternative_identifiers": workflow_id}}
+                    })
+
+                    if update_files:
+                        fixed_data_file_path = data_dir.joinpath(omics_dir_name, fixed_workflow_dir_name)
+                        data_file_path.rename(fixed_data_file_path)
+                        data_file_path.symlink_to(fixed_data_file_path)
+                    else:
+                        logging.info(f"Would fix data file path: {data_file_path} -> {fixed_workflow_dir_name}")
+
+    # write data object updates to a JSON file
+    data_object_updates_file = Path("data_object_updates.json")
+    logging.info(f"Writing data object updates to {data_object_updates_file}")
+    with open(data_object_updates_file, "w") as f:
         f.write(json.dumps(data_object_update_map, indent=4))
+    # Write the database updates to a JSON files, one per collection
+    for collection_name, updates in updates_map.items():
+        updates_file = Path(f"{collection_name}_updates.json")
+        logging.info(f"Writing updates for {collection_name} to {updates_file}")
+        with open(updates_file, "w") as f:
+            f.write(json.dumps(updates, indent=4))
+    # Write the data object updates to a JSON file
+    data_object_updates_file = Path("data_object_updates.json")
+    logging.info(f"Writing data object updates to {data_object_updates_file}")
 
     elapsed_time = time.time() - start_time
     logging.info(f"Elapsed time: {elapsed_time}")
+
 
 
 @cli.command()
