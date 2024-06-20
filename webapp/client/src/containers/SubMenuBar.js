@@ -30,7 +30,7 @@ function SubMenuBar(props) {
               handleClickClose={handleDialogClose}
             />
             <div className="submenu" >
-              <span className="nmdc-header-no-min" style={{paddingLeft:'150px'}}></span>
+              <span className="nmdc-header-no-min" style={{paddingLeft:'50px'}}></span>
               <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-ghost-info" onClick={() => { setOpenDialog(true) }}>Import Old Projects/Uploads with Email/Passsword</CHeaderNavLink>
               <CHeaderNavLink className="btn btn-pill btn-ghost-primary" to="/user/projectlist">My Projects</CHeaderNavLink>
               <CHeaderNavLink className="btn btn-pill btn-ghost-primary" to="/user/allprojectlist">All Projects Available to Me</CHeaderNavLink>
@@ -42,7 +42,7 @@ function SubMenuBar(props) {
                 <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-ghost-danger" to="/admin/userlist">Admin Users</CHeaderNavLink>
               </>}
 
-              <span className="nmdc-header-no-min" style={{paddingRight:'150px'}}></span>
+              <span className="nmdc-header-no-min" style={{paddingRight:'50px'}}></span>
             </div>
             <hr />
           </div>

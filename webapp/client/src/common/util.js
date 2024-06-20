@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import store from "../redux/store/store";
+import { logout } from "../redux/actions/userActions";
 
 //action notification
 export const notify = (type, msg, timeout) => {
@@ -18,6 +20,11 @@ export const notify = (type, msg, timeout) => {
     }
 };
 
+const signOut = (e) => {
+    store.dispatch(logout());
+    window.location.href = "/home";
+}
+
 //fetch data
 export const postData = (url, params) => {
     return new Promise(function (resolve, reject) {
@@ -28,6 +35,10 @@ export const postData = (url, params) => {
                 resolve(data);
             })
             .catch(err => {
+                if (err.response && err.response.status === 401) {
+                    //Unauthorized
+                    signOut();
+                }
                 if (err.response) {
                     reject(err.response.data);
                 } else {
@@ -48,6 +59,10 @@ export const getData = (url) => {
                 resolve(data);
             })
             .catch(err => {
+                if (err.response && err.response.status === 401) {
+                    //Unauthorized
+                    signOut();
+                }
                 if (err.response) {
                     reject(err.response.data);
                 } else {
@@ -130,8 +145,8 @@ export const popupWindow = (url, windowName, win, w, h) => {
 
 export const validFile = (filename, path) => {
     const regexp = new RegExp(/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)\/[a-zA-Z0-9()]{1}/, 'i');
-    
-    if(filename === path) {
+
+    if (filename === path) {
         //text input must be a http(s) url
         return regexp.test(filename)
     } else {
