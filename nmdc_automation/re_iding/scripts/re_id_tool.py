@@ -834,7 +834,7 @@ def process_affected_workflows(ctx, input_file, production=False, update_files=F
             collection_name = get_collection_name_from_workflow_id(workflow_id)
             fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
             if fixed_workflow_id != workflow_id:
-                logging.info(f"Fixed workflow ID: {workflow_id} -> {fixed_workflow_id}")
+                logging.info(f"Workflow ID in the database is malformed: {workflow_id} should be {fixed_workflow_id}")
                 updates_map.setdefault(collection_name, []).append({
                     "q": {"_id": record_id},
                     "u": {"$set": {"id": fixed_workflow_id}}
@@ -847,39 +847,39 @@ def process_affected_workflows(ctx, input_file, production=False, update_files=F
             else:
                 logging.info(f"Workflow ID in the database is correct: {workflow_id}")
 
-            # workflow ID in the data file path(s)
+            # Data paths based on the omics_processing_id and workflow_id
             for data_path in record["data_paths"]:
                 workflow_dir_name = data_path.split("/")[-1]
                 omics_dir_name = data_path.split("/")[-2]
                 fixed_workflow_dir_name = fix_malformed_workflow_id_version(workflow_dir_name)
                 # get the actual data file path depending on the environment
                 data_file_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
-                # in the omics_processing directory, rename the workflow directory to the fixed ID
-                # and create a symbolic link from the old directory name to the new one if the --update-files flag is set
                 if fixed_workflow_dir_name != workflow_dir_name:
-                    logging.info(f"Workflow ID in data file path is malformed: {workflow_dir_name}")
+                    logging.info(f"Data Path directory name is malformed: {workflow_dir_name}")
                     # add the old ID to alternative_identifiers
                     updates_map.setdefault(collection_name, []).append({
                         "q": {"_id": record_id},
                         "u": {"$addToSet": {"alternative_identifiers": workflow_dir_name}}
                     })
-
                     if update_files:
                         fixed_data_file_path = data_dir.joinpath(omics_dir_name, fixed_workflow_dir_name)
-                        logging.info(f"Updating data file path: {data_file_path} -> {fixed_data_file_path}")
+                        logging.info(f"Updating Data Path: {data_file_path} -> {fixed_data_file_path}")
                         # rename the directory if it has not already been renamed
                         if not fixed_data_file_path.exists():
                             data_file_path.rename(fixed_data_file_path)
+                        else:
+                            logging.info(f"Data Path already renamed: {fixed_data_file_path}")
                         # create a relative symbolic link in the omics_processing directory to the new directory
                         link_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
                         if not link_path.exists():
                             link_path.symlink_to(fixed_workflow_dir_name)
-
-
-
+                        else:
+                            logging.info(f"Data Path link already exists: {link_path}")
                     else:
                         logging.info(f"--update-files not selected. Would do: {data_file_path} ->"
                                      f" {fixed_workflow_dir_name}")
+                else:
+                    logging.info(f"Data Path is correct: {workflow_dir_name}")
 
     # write data object updates to a JSON file
     data_object_updates_file = Path("data_object_updates.json")
