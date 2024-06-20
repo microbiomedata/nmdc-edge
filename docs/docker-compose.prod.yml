@@ -37,15 +37,15 @@ services:
   app:
     # Reference: https://github.com/microbiomedata/nmdc-edge/pkgs/container/nmdc-edge-web-app
     image: ${APP_IMAGE:-ghcr.io/microbiomedata/nmdc-edge-web-app:commit-ff4a1fe2-node20-amd64}
-    # Alternatively, to build an image from a Dockerfile (which will allow you to specify build-time args):
+    # Alternatively, to build an image from a Dockerfile (which will allow you to specify args at build time):
     #build:
     #  context: /path/to/folder/containing/Dockerfile
     #  dockerfile: webapp-node20.Dockerfile
     #  args:
-    #    - USER_ID=60005
-    #    - GROUP_ID=60005
-    #    - USER_NAME=webuser
-    #    - GROUP_NAME=webuser
+    #    - USER_ID: ${USER_ID:-60005}
+    #    - GROUP_ID: ${GROUP_ID:-60005}
+    #    - USER_NAME: ${USER_NAME:-webuser}
+    #    - GROUP_NAME: ${GROUP_NAME:-webuser}
     restart: unless-stopped
     ports:
       - "8000:${APP_SERVER_PORT:-5000}"
