@@ -39,7 +39,7 @@ services:
     image: ${APP_IMAGE:-ghcr.io/microbiomedata/nmdc-edge-web-app:commit-ff4a1fe2-node20-amd64}
     # Alternatively, to build an image from a Dockerfile (which will allow you to specify args at build time):
     #build:
-    #  context: /path/to/folder/containing/Dockerfile
+    #  context: /path/to/repository/root/directory
     #  dockerfile: webapp-node20.Dockerfile
     #  args:
     #    - USER_ID: ${USER_ID:-60005}
