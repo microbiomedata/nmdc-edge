@@ -60,9 +60,7 @@ function User(props) {
                             <h4 className="pt-3">Project not found</h4>
                             <hr />
                             <p className="text-muted float-left">
-                                The project might be deleted or you have no permission to acces it.
-                                <br></br>
-                                {error}
+                                The project might be deleted or you have no permission to access it.
                             </p>
                         </div>
                     </Col>
