@@ -140,6 +140,35 @@ app.get("/api/version", (req, res) => {
   // Return the version identifier of the NMDC EDGE web application.
   res.json({ version: config.APP.VERSION });
 });
+app.get("/api/health", async (req, res) => {
+  // Check whether the app can access the Cromwell API.
+  // Reference: https://cromwell.readthedocs.io/en/stable/api/RESTAPI/#return-the-current-health-status-of-any-monitored-subsystems
+  const statusUrl = `${config.CROMWELL.API_BASE_URL}/engine/v1/status`;
+  let appCanAccessCromwellApi = false;
+  try {
+    await common.getData(statusUrl);
+    appCanAccessCromwellApi = true;
+    console.info(`Successfully accessed Cromwell API at ${statusUrl}.`);
+  } catch (error) {
+    console.error(`Failed to access Cromwell API at ${statusUrl}.\n`, error);
+  }
+
+  // Check whether the app can access the Mongo server.
+  // Reference: https://mongoosejs.com/docs/api/connection.html#Connection.prototype.readyState
+  let appCanAccessMongoServer = false;
+  try {
+    appCanAccessMongoServer = mongoose.connection.readyState === 1;
+    console.info(`Successfully accessed Mongo server.`);
+  } catch (error) {
+    console.error(`Failed to access Mongo server.\n`, error);
+  }
+
+  return res.json({
+    api: true,
+    cromwell: appCanAccessCromwellApi,
+    mongo: appCanAccessMongoServer,
+  });
+});
 app.use("/api/user", user);
 app.use("/api/project", project);
 app.use("/auth-api/user", passport.authenticate('user', { session: false }), auth_user);
