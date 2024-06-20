@@ -857,19 +857,29 @@ def process_affected_workflows(ctx, input_file, production=False, update_files=F
                 # in the omics_processing directory, rename the workflow directory to the fixed ID
                 # and create a symbolic link from the old directory name to the new one if the --update-files flag is set
                 if fixed_workflow_dir_name != workflow_dir_name:
-                    logging.info(f"Fixed data file path: {data_file_path} -> {fixed_workflow_dir_name}")
+                    logging.info(f"Workflow ID in data file path is malformed: {workflow_dir_name}")
                     # add the old ID to alternative_identifiers
                     updates_map.setdefault(collection_name, []).append({
                         "q": {"_id": record_id},
-                        "u": {"$addToSet": {"alternative_identifiers": workflow_id}}
+                        "u": {"$addToSet": {"alternative_identifiers": workflow_dir_name}}
                     })
 
                     if update_files:
                         fixed_data_file_path = data_dir.joinpath(omics_dir_name, fixed_workflow_dir_name)
-                        data_file_path.rename(fixed_data_file_path)
-                        data_file_path.symlink_to(fixed_data_file_path)
+                        logging.info(f"Updating data file path: {data_file_path} -> {fixed_data_file_path}")
+                        # rename the directory if it has not already been renamed
+                        if not fixed_data_file_path.exists():
+                            data_file_path.rename(fixed_data_file_path)
+                        # create a relative symbolic link in the omics_processing directory to the new directory
+                        link_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
+                        if not link_path.exists():
+                            link_path.symlink_to(fixed_workflow_dir_name)
+
+
+
                     else:
-                        logging.info(f"Would fix data file path: {data_file_path} -> {fixed_workflow_dir_name}")
+                        logging.info(f"--update-files not selected. Would do: {data_file_path} ->"
+                                     f" {fixed_workflow_dir_name}")
 
     # write data object updates to a JSON file
     data_object_updates_file = Path("data_object_updates.json")
