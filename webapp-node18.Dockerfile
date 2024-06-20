@@ -20,6 +20,13 @@ LABEL org.opencontainers.image.source="https://github.com/microbiomedata/nmdc-ed
 ARG NMDC_EDGE_WEB_APP_VERSION
 ENV NMDC_EDGE_WEB_APP_VERSION="$NMDC_EDGE_WEB_APP_VERSION"
 
+# Allow the developer to (optionally) customize the ID and name of the user by which PM2 will
+# be launched; and the ID and name of the group to which that user will belong.
+ARG USER_ID=60005
+ARG GROUP_ID=60005
+ARG USER_NAME=webuser
+ARG GROUP_NAME=webuser
+
 # Install programs upon which the web app or its build process(es) depend.
 #
 # Note: `apk` (Alpine Package Keeper) is the Alpine Linux equivalent of `apt`.
@@ -83,6 +90,17 @@ RUN cd webapp/client && NODE_OPTIONS=--openssl-legacy-provider npm run build
 # Build the web app server (e.g. Express app).
 #
 RUN cd webapp/server && npm ci
+
+# Create a group having the specified GID (Group ID) and group name, and create
+# a user (in that group) having the specified UID (User ID) and user name.
+# Reference: https://gist.github.com/utkuozdemir/3380c32dfee472d35b9c3e39bc72ff01
+RUN addgroup -g $GROUP_ID $GROUP_NAME && \
+    adduser --shell /sbin/nologin --disabled-password \
+            --ingroup $GROUP_NAME --uid $USER_ID $USER_NAME
+
+# Switch to that user before running the subsequent commands.
+# Reference: https://docs.docker.com/reference/dockerfile/#user
+USER $USER_NAME
 
 # Run PM2 in the foreground. PM2 will serve the NMDC EDGE web app.
 #
