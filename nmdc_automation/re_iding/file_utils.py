@@ -327,3 +327,110 @@ def link_data_file_paths(old_url: str, old_base_dir: Union[str, os.PathLike], ne
         logging.error(f"An error occurred while linking the file from {old_file_path} to {new_file_path}: {e}")
     except Exception as e:
         logging.error(f"Unexpected error while linking the file from {old_file_path} to {new_file_path}: {e}")
+
+def _check_valid_data_objects_and_files(fixed_workflow_id, data_objects, data_dir):
+    """
+    Examine each of the data objects in the data_objects list and its associated data file for:
+    - Data object name uses the fixed workflow ID
+    - Data object URL uses the fixed workflow ID
+    - Data file name uses the fixed workflow ID
+    - Data object URL points to a valid data file
+
+    The conventions are as follows:
+    - data file names must contain the fixed workflow ID followed by a single underscore
+        e.g. nmdc_wfmgas-11-y43zyn66.1_contigs.fna
+    - the url must contain both the fixed ID followed by a forward slash (the directory name) and the data file name
+        e.g. nmdc_wfmgas-11-y43zyn66.1/nmdc_wfmgas-11-y43zyn66.1_contigs.fna
+    Return True if all checks pass, False otherwise
+    """
+    # the colon gets replaced with underscore in the data file name
+    workflow_name = fixed_workflow_id.replace(":", "_")
+    name_fragment = f"{workflow_name}_"
+    dir_fragment = f"{fixed_workflow_id}/"
+    for data_object in data_objects:
+        # check the data object name
+        data_object_name = data_object.get("name")
+        if data_object_name and name_fragment in data_object_name:
+            logging.info(f"Data object name is correct: {data_object_name}")
+        else:
+            logging.warning(f"Data object name is incorrect: {data_object_name}")
+            return False
+        # check the data object URL - it must contain both fragments
+        data_object_url = data_object.get("url")
+        if data_object_url and dir_fragment in data_object_url and name_fragment in data_object_url:
+            logging.info(f"Data object URL is correct: {data_object_url}")
+        else:
+            logging.warning(f"Data object URL is incorrect: {data_object_url}")
+            return False
+        # Everything after https://data.microbiomedata.org/data/ is the data path
+        data_path = data_object_url.split("https://data.microbiomedata.org/data/")[-1]
+        data_file_path = data_dir.joinpath(data_path)
+        if data_file_path.exists():
+            logging.info(f"Data file exists: {data_file_path}")
+        else:
+            logging.warning(f"Data file not found: {data_file_path}")
+            return False
+    return True
+
+
+def get_corresponding_data_file_for_url(data_object_url, data_dir):
+    """
+    Get the corresponding data file for the given data object URL. The URL and/or the data file name
+    may contain malformed workflow IDs that need to be fixed, and they may be different between the
+    data object URL and the actual data file path.
+
+    Return the best matching data file path
+    """
+    # Everything after */data/ is the data path
+    # e.g. https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfmgas-11-y43zyn66.1/nmdc_wfmgas-11-y43zyn66.1_contigs.fna
+    file_name_from_url = data_object_url.split("/")[-1]
+    workflow_dir_from_url = data_object_url.split("/")[-2]
+    omics_dir_from_url = data_object_url.split("/")[-3]
+
+    # try to find the data file path based on the URL
+    data_file_path = data_dir.joinpath(omics_dir_from_url, workflow_dir_from_url, file_name_from_url)
+    if data_file_path.exists():
+        logging.info(f"Found data file path based on URL: {data_file_path}")
+        return data_file_path
+    else:
+        logging.warning(f"Data file path not found based on URL: {data_file_path}")
+        # prefix is everything before the first .1 in the file name
+        prefix = file_name_from_url.split(".1")[0]
+        # suffix is everything after the last .1 in the file name
+        suffix = file_name_from_url.split(".1")[-1]
+        # look for a data file that contains the prefix and suffix - raise an error if there are multiple matches
+        matching_files = list(data_dir.glob(f"**/{prefix}*{suffix}"))
+        if len(matching_files) == 1:
+            logging.info(f"Found data file path based on prefix and suffix: {matching_files[0]}")
+            return matching_files[0]
+        elif len(matching_files) == 0:
+            logging.warning(f"No data file found based on prefix and suffix: {prefix}*{suffix}")
+            return None
+        else:
+            logging.error(f"Multiple data files found based on prefix and suffix: {matching_files}")
+            raise ValueError(f"Multiple data files found based on prefix and suffix: {matching_files}")
+
+
+
+def _update_data_objects_and_files(fixed_workflow_id, updates_map, data_objects, data_dir, update_files=False):
+    """
+    Examine each of the data objects in the updates_map and its associated data file for malformed workflow IDs
+    in file names and file headers,  and the name and URL attribute of the data object record.
+    - Rename the data file and create a symbolic link for the data file if the --update-files flag is set
+    - Re-write the data file headers with the fixed workflow ID if applicable and the --update-files flag is set
+    - Update the data object record with:
+        - updated name attribute
+        - updated URL attribute
+        - updated file_size_bytes attribute if the file was rewritten
+        - updated md5_checksum attribute if the file was rewritten
+    - Data object updates get added to the updates_map for writing to the database
+    """
+    # the colon gets replaced with underscore in the data file name
+    workflow_name = fixed_workflow_id.replace(":", "_")
+    name_fragment = f"{workflow_name}_"
+    dir_fragment = f"{fixed_workflow_id}/"
+
+    for data_object in data_objects:
+        pass
+
+    return updates_map

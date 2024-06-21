@@ -11,7 +11,6 @@ import sys
 import time
 from pathlib import Path
 import json
-import re
 
 import click
 from linkml_runtime.dumpers import json_dumper
@@ -32,9 +31,10 @@ from nmdc_automation.re_iding.db_utils import (
     get_omics_processing_id,
     ANALYSIS_ACTIVITIES,
     get_collection_name_from_workflow_id,
-    fix_malformed_workflow_id_version,
-    fix_malformed_data_object_name,
-    fix_malformed_data_object_url
+    fix_malformed_workflow_id_version
+)
+from nmdc_automation.re_iding.file_utils import (
+    get_corresponding_data_file_for_url,
 )
 
 # Defaults
@@ -881,12 +881,11 @@ def process_affected_workflows(ctx, input_file, production=False, update_files=F
                     logging.info(f"Data Path is correct: {workflow_dir_name}")
 
             # Data Objects and their corresponding data files
-            if _check_valid_data_objects_and_files(fixed_workflow_id, record["data_objects"], data_dir):
-                logging.info(f"Data Objects and Data Files are correct")
-                continue
-            else:
-                logging.warning(f"Data Objects and/or Data Files are mal-formed"
-                                f"for workflow: {fixed_workflow_id}")
+            for data_object in record["data_objects"]:
+                data_object_url = data_object.get("url")
+                # look for the corresponding data file
+                data_file_path = get_corresponding_data_file_for_url(data_object_url, data_dir)
+
 
     # Write the database updates to a JSON files, one per collection
     for collection_name, updates in updates_map.items():
@@ -1404,115 +1403,6 @@ def _write_deleted_record_identifiers(deleted_record_identifiers, old_base_name)
         f.write("collection_name\ttype\tid\n")
         for record_identifier in deleted_record_identifiers:
             f.write("\t".join(record_identifier) + "\n")
-
-
-def _check_valid_data_objects_and_files(fixed_workflow_id, data_objects, data_dir):
-    """
-    Examine each of the data objects in the data_objects list and its associated data file for:
-    - Data object name uses the fixed workflow ID
-    - Data object URL uses the fixed workflow ID
-    - Data file name uses the fixed workflow ID
-    - Data object URL points to a valid data file
-
-    The conventions are as follows:
-    - data file names must contain the fixed workflow ID followed by a single underscore
-        e.g. nmdc_wfmgas-11-y43zyn66.1_contigs.fna
-    - the url must contain both the fixed ID followed by a forward slash (the directory name) and the data file name
-        e.g. nmdc_wfmgas-11-y43zyn66.1/nmdc_wfmgas-11-y43zyn66.1_contigs.fna
-    Return True if all checks pass, False otherwise
-    """
-    # the colon gets replaced with underscore in the data file name
-    workflow_name = fixed_workflow_id.replace(":", "_")
-    name_fragment = f"{workflow_name}_"
-    dir_fragment = f"{fixed_workflow_id}/"
-    for data_object in data_objects:
-        # check the data object name
-        data_object_name = data_object.get("name")
-        if data_object_name and name_fragment in data_object_name:
-            logging.info(f"Data object name is correct: {data_object_name}")
-        else:
-            logging.warning(f"Data object name is incorrect: {data_object_name}")
-            return False
-        # check the data object URL - it must contain both fragments
-        data_object_url = data_object.get("url")
-        if data_object_url and dir_fragment in data_object_url and name_fragment in data_object_url:
-            logging.info(f"Data object URL is correct: {data_object_url}")
-        else:
-            logging.warning(f"Data object URL is incorrect: {data_object_url}")
-            return False
-        # Everything after https://data.microbiomedata.org/data/ is the data path
-        data_path = data_object_url.split("https://data.microbiomedata.org/data/")[-1]
-        data_file_path = data_dir.joinpath(data_path)
-        if data_file_path.exists():
-            logging.info(f"Data file exists: {data_file_path}")
-        else:
-            logging.warning(f"Data file not found: {data_file_path}")
-            return False
-    return True
-
-
-
-
-
-def _update_data_objects_and_files(fixed_workflow_id, updates_map, data_objects, data_dir, update_files=False):
-    """
-    Examine each of the data objects in the updates_map and its associated data file for malformed workflow IDs
-    in file names and file headers,  and the name and URL attribute of the data object record.
-    - Rename the data file and create a symbolic link for the data file if the --update-files flag is set
-    - Re-write the data file headers with the fixed workflow ID if applicable and the --update-files flag is set
-    - Update the data object record with:
-        - updated name attribute
-        - updated URL attribute
-        - updated file_size_bytes attribute if the file was rewritten
-        - updated md5_checksum attribute if the file was rewritten
-    - Data object updates get added to the updates_map for writing to the database
-    """
-    for data_object in data_objects:
-        data_object_id = data_object["id"]
-        data_object_name = data_object.get("name")
-        data_object_url = data_object.get("url")
-        data_object_file_size_bytes = data_object.get("file_size_bytes")
-        data_object_md5_checksum = data_object.get("md5_checksum")
-        data_object_type = data_object.get("data_object_type")
-        data_object_file_path = data_dir.joinpath(data_object_id)
-        # check if the data object file exists
-        if not data_object_file_path.exists():
-            logging.warning(f"Data object file not found: {data_object_file_path}")
-            continue
-        # check if the data object file name contains the fixed workflow ID
-        if fixed_workflow_id in data_object_file_path.name:
-            logging.info(f"Data object file name is correct: {data_object_file_path}")
-            continue
-        # if the data object file name does not contain the fixed workflow ID, rename the file
-        fixed_data_object_file_path = data_dir.joinpath(fixed_workflow_id)
-        logging.info(f"Updating Data Object: {data_object_file_path} -> {fixed_data_object_file_path}")
-        if update_files:
-            # rename the file if it has not already been renamed
-            if not fixed_data_object_file_path.exists():
-                data_object_file_path.rename(fixed_data_object_file_path)
-            else:
-                logging.info(f"Data Object file already renamed: {fixed_data_object_file_path}")
-            # create a relative symbolic link in the data object directory to the new file
-            link_path = data_dir.joinpath(data_object_id)
-            if not link_path.exists():
-                link_path.symlink_to(fixed_workflow_id)
-            else:
-                logging.info(f"Data Object link already exists: {link_path}")
-            # update the data object record with the new file name
-            updates_map.setdefault("data_object_set", []).append({
-                "q": {"id": data_object_id},
-                "u": {"$set": {"id": fixed_workflow_id}}
-            })
-        else:
-            logging.info(f"--update-files not selected. Would do: {data_object_file_path} -> {fixed_workflow_id}")
-
-        # rewrite the data file headers with the fixed workflow ID if the file was renamed
-        if update_files:
-            with open(fixed_data_object_file_path, "r") as f:
-                data = f.read()
-            # replace the old workflow ID with the fixed workflow
-
-
 
 
 if __name__ == "__main__":
