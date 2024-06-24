@@ -131,7 +131,12 @@ def test_progress(db, mock_api):
     wf = workflow_by_name['Metagenome Assembly']
     mock_progress(db, wf)
     resp = jm.cycle()
+    assert "assembly_id" in resp[0]["config"]["inputs"]
     assert len(resp) == 1
+    omap = {}
+    for o in resp[0]["config"]["outputs"]:
+        omap[o["output"]] = o
+    assert omap["contig_mapping"]["optional"] is True
 
     wf = workflow_by_name['Metagenome Annotation']
     mock_progress(db, wf)

@@ -122,11 +122,14 @@ class Scheduler:
         activity_id = f"{base_id}.{iteration}"
         inp_objects = []
         inp = dict()
+        optional_inputs = wf.optional_inputs
         for k, v in job.workflow.inputs.items():
             if v.startswith("do:"):
                 do_type = v[3:]
                 dobj = do_by_type.get(do_type)
                 if not dobj:
+                    if k in optional_inputs:
+                        continue
                     raise ValueError(f"Unable to resolve {do_type}")
                 inp_objects.append(dobj)
                 v = dobj["url"]
@@ -135,6 +138,8 @@ class Scheduler:
                 v = job.informed_by
             elif v == "{activity_id}":
                 v = activity_id
+            elif v == "{predecessor_activity_id}":
+                v = job.trigger_act.id
 
             inp[k] = v
 
