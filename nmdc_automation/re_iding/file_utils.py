@@ -25,6 +25,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+
 def find_data_object_type(data_object_rec: Dict)-> Optional[str]:
     """
     Determine the data_object_type for a DO record based on its URL extension.
@@ -47,7 +48,6 @@ def find_data_object_type(data_object_rec: Dict)-> Optional[str]:
     else:
         logger.error(f"Could not determine data object type for: {data_object_rec}")
         return None
-
 
 
 def _infer_data_object_type_from_url(data_object_rec: Dict) -> Optional[str]:
@@ -73,6 +73,7 @@ def _infer_data_object_type_from_url(data_object_rec: Dict) -> Optional[str]:
         logger.error(f"Cannot infer type from url for: {data_object_rec}")
         return None
 
+
 def _infer_data_object_type_from_name(data_object_rec: Dict) -> Optional[str]:
     """
     Determine the data_object_type for a DO record based on its name.
@@ -97,7 +98,8 @@ def _infer_data_object_type_from_name(data_object_rec: Dict) -> Optional[str]:
     else:
         logger.error(f"Cannot infer type from name for: {data_object_rec}")
         return None
-    
+
+
 def md5_sum(fn: str) -> str:
     """
     Calculate the MD5 hash of a file.
@@ -115,23 +117,12 @@ def md5_sum(fn: str) -> str:
     return file_hash.hexdigest()
 
 
-def read_json_file(filename: str)-> Dict[str, str]:
-    """
-    Read a JSON file and return its content as a dictionary.
-
-    Parameters:
-    - filename (str): The path to the JSON file.
-
-    Returns:
-    - dict: The content of the JSON file.
-    """
-    with open(filename, "r") as json_file:
-        data = json.load(json_file)
-    return data
-
-
-def rewrite_id(src: str, dst: str, old_id: str, new_id: str, prefix: str =
-None) -> Tuple[str, int]:
+def rewrite_file_and_replace_identifiers(
+        src: Union[str, os.PathLike],
+        dst: Union[str, os.PathLike],
+        old_id: str,
+        new_id: str,
+        prefix: str = None) -> Tuple[str, int]:
     """
     Rewrite lines in a file, replacing occurrences of an old ID with a new ID.
     An optional prefix can be specified to limit which lines are modified.
@@ -164,28 +155,6 @@ def find_assembly_id(src):
     line = fsrc.readline()
     return "_".join(line[1:].split("_")[0:-1])
 
-
-def assembly_contigs(src, dst, act_id):
-    scaf = str(src).replace("_contigs", "_scaffolds")
-    old_id = find_assembly_id(scaf)
-    return rewrite_id(src, dst, old_id, act_id, prefix=">")
-
-
-def assembly_scaffolds(src, dst, act_id):
-    old_id = find_assembly_id(src)
-    return rewrite_id(src, dst, old_id, act_id, prefix=">")
-
-
-def assembly_coverage_stats(src, dst, act_id):
-    scaf = str(src).replace("_covstats.txt", "_scaffolds.fna")
-    old_id = find_assembly_id(scaf)
-    return rewrite_id(src, dst, old_id, act_id)
-
-
-def assembly_agp(src, dst, act_id):
-    scaf = str(src).replace("_assembly.agp", "_scaffolds.fna")
-    old_id = find_assembly_id(scaf)
-    return rewrite_id(src, dst, old_id, act_id)
 
 def rewrite_bam(input_bam, output_bam, old_id, new_id):
     # First, copy the header and update the reference sequence names
@@ -232,59 +201,52 @@ def replace_and_write_bam(input_bam, output_bam, old_id, new_id):
             output_bam_file.write(read)
 
 
-def assembly_coverage_bam(src, dst, act_id):
-    scaf = str(src).replace("_pairedMapped_sorted.bam", "_scaffolds.fna")
-    old_id = find_assembly_id(scaf)
-    md5, size = rewrite_bam(src, dst, old_id, act_id)
-    return md5, size
-
-
-def rewrite_sam(input_sam, output_sam, old_id, new_id):
-    with gzip.open(input_sam, "rt") as f_in, gzip.open(output_sam, "wt") as f_out:
-        for line in f_in:
-            f_out.write(line.replace(old_id, new_id))
-
-
-def get_old_file_path(data_object_record: dict, old_base_dir: Union[str, os.PathLike]) -> Path:
-    old_url = data_object_record["url"]
-    suffix = old_url.split("https://data.microbiomedata.org/data/")[1]
-    old_file_path = Path(old_base_dir, suffix)
-
-    return old_file_path
-
-
-def assembly_file_operations(data_object_record, data_object_type,
-                             new_file_path, act_id, old_base_dir):
+def assembly_file_operations(
+        old_workflow_id: str,
+        new_workflow_id: str,
+        data_object_type: str,
+        old_file_path: Path,
+        new_file_path: Path
+) -> Optional[Tuple[str, int]]:
     """
     Perform file operations for different assembly data object types.
     """
     if new_file_path.exists():
         logging.info(f"File already exists at {new_file_path}. Skipping processing.")
-        return None, None
+        return
 
-    logging.info(f"Processing {data_object_type} for {act_id}")
+    logging.info(f"Processing {data_object_type} for {new_workflow_id}")
     logging.info(f"Destination: {new_file_path}")
-    logging.info(f"Old base dir: {old_base_dir}")
-    # get old file path upfront
-    old_file_path = get_old_file_path(data_object_record, old_base_dir)
     logging.info(f"Old file path: {old_file_path}")
 
     if data_object_type == "Assembly Coverage Stats":
-        md5, size = assembly_coverage_stats(old_file_path, new_file_path, act_id)
+        md5, size = rewrite_file_and_replace_identifiers(old_file_path, new_file_path, old_workflow_id, new_workflow_id)
     elif data_object_type == "Assembly Contigs":
-        md5, size = assembly_contigs(old_file_path, new_file_path, act_id)
+        md5, size = rewrite_file_and_replace_identifiers(
+            old_file_path, new_file_path,old_workflow_id, new_workflow_id, prefix=">")
     elif data_object_type == "Assembly Scaffolds":
-        md5, size = assembly_scaffolds(old_file_path, new_file_path, act_id)
+        md5, size = rewrite_file_and_replace_identifiers(
+            old_file_path, new_file_path, old_workflow_id, new_workflow_id, prefix=">")
     elif data_object_type == "Assembly AGP":
-        md5, size = assembly_agp(old_file_path, new_file_path, act_id)
+        md5, size = rewrite_file_and_replace_identifiers(
+            old_file_path, new_file_path, old_workflow_id, new_workflow_id)
     elif data_object_type == "Assembly Coverage BAM":
-        md5, size = assembly_coverage_bam(
-            old_file_path, new_file_path, act_id
+        md5, size = rewrite_bam(
+            old_file_path, new_file_path, old_workflow_id, new_workflow_id
         )
     else:
         logging.error(f"Unsupported data object type: {data_object_type}")
         md5, size = None, None
     return md5, size
+
+
+def get_workflow_id_from_scaffold_file(scaffold_file: Union[str, os.PathLike]) -> str:
+    """
+    Extract the workflow ID from the first line of a scaffold file.
+    """
+    with open(scaffold_file, "r") as f:
+        line = f.readline()
+        return "_".join(line[1:].split("_")[0:-1])
 
 
 def compute_new_data_file_path(
@@ -305,7 +267,7 @@ def compute_new_data_file_path(
     return new_data_file_path
 
 
-def link_data_file_paths(old_url: str, old_base_dir: Union[str, os.PathLike], new_path: Union[str, os.PathLike])-> \
+def link_data_file_paths(old_url: str, old_base_dir: Union[str, os.PathLike], new_path: Union[str, os.PathLike]) -> \
         None:
     base_url = "https://data.microbiomedata.org/data/"
     if not old_url.startswith(base_url):
@@ -328,52 +290,8 @@ def link_data_file_paths(old_url: str, old_base_dir: Union[str, os.PathLike], ne
     except Exception as e:
         logging.error(f"Unexpected error while linking the file from {old_file_path} to {new_file_path}: {e}")
 
-def _check_valid_data_objects_and_files(fixed_workflow_id, data_objects, data_dir):
-    """
-    Examine each of the data objects in the data_objects list and its associated data file for:
-    - Data object name uses the fixed workflow ID
-    - Data object URL uses the fixed workflow ID
-    - Data file name uses the fixed workflow ID
-    - Data object URL points to a valid data file
 
-    The conventions are as follows:
-    - data file names must contain the fixed workflow ID followed by a single underscore
-        e.g. nmdc_wfmgas-11-y43zyn66.1_contigs.fna
-    - the url must contain both the fixed ID followed by a forward slash (the directory name) and the data file name
-        e.g. nmdc_wfmgas-11-y43zyn66.1/nmdc_wfmgas-11-y43zyn66.1_contigs.fna
-    Return True if all checks pass, False otherwise
-    """
-    # the colon gets replaced with underscore in the data file name
-    workflow_name = fixed_workflow_id.replace(":", "_")
-    name_fragment = f"{workflow_name}_"
-    dir_fragment = f"{fixed_workflow_id}/"
-    for data_object in data_objects:
-        # check the data object name
-        data_object_name = data_object.get("name")
-        if data_object_name and name_fragment in data_object_name:
-            logging.info(f"Data object name is correct: {data_object_name}")
-        else:
-            logging.warning(f"Data object name is incorrect: {data_object_name}")
-            return False
-        # check the data object URL - it must contain both fragments
-        data_object_url = data_object.get("url")
-        if data_object_url and dir_fragment in data_object_url and name_fragment in data_object_url:
-            logging.info(f"Data object URL is correct: {data_object_url}")
-        else:
-            logging.warning(f"Data object URL is incorrect: {data_object_url}")
-            return False
-        # Everything after https://data.microbiomedata.org/data/ is the data path
-        data_path = data_object_url.split("https://data.microbiomedata.org/data/")[-1]
-        data_file_path = data_dir.joinpath(data_path)
-        if data_file_path.exists():
-            logging.info(f"Data file exists: {data_file_path}")
-        else:
-            logging.warning(f"Data file not found: {data_file_path}")
-            return False
-    return True
-
-
-def get_corresponding_data_file_for_url(data_object_url, data_dir):
+def get_corresponding_data_file_path_for_url(data_object_url: str, data_dir: Path) -> Optional[Path]:
     """
     Get the corresponding data file for the given data object URL. The URL and/or the data file name
     may contain malformed workflow IDs that need to be fixed, and they may be different between the
@@ -393,13 +311,17 @@ def get_corresponding_data_file_for_url(data_object_url, data_dir):
         logging.info(f"Found data file path based on URL: {data_file_path}")
         return data_file_path
     else:
-        logging.warning(f"Data file path not found based on URL: {data_file_path}")
+        logging.warning(f"Exact Data file path not found based on URL: {data_file_path}")
+        workflow_path = data_dir.joinpath(omics_dir_from_url, workflow_dir_from_url)
         # prefix is everything before the first .1 in the file name
         prefix = file_name_from_url.split(".1")[0]
         # suffix is everything after the last .1 in the file name
         suffix = file_name_from_url.split(".1")[-1]
         # look for a data file that contains the prefix and suffix - raise an error if there are multiple matches
-        matching_files = list(data_dir.glob(f"**/{prefix}*{suffix}"))
+        # ignore symlinks
+        logging.info(workflow_path)
+        matching_files = list(workflow_path.glob(f"{prefix}*{suffix}"))
+        matching_files = [f for f in matching_files if not os.path.islink(f)]
         if len(matching_files) == 1:
             logging.info(f"Found data file path based on prefix and suffix: {matching_files[0]}")
             return matching_files[0]
@@ -409,28 +331,3 @@ def get_corresponding_data_file_for_url(data_object_url, data_dir):
         else:
             logging.error(f"Multiple data files found based on prefix and suffix: {matching_files}")
             raise ValueError(f"Multiple data files found based on prefix and suffix: {matching_files}")
-
-
-
-def _update_data_objects_and_files(fixed_workflow_id, updates_map, data_objects, data_dir, update_files=False):
-    """
-    Examine each of the data objects in the updates_map and its associated data file for malformed workflow IDs
-    in file names and file headers,  and the name and URL attribute of the data object record.
-    - Rename the data file and create a symbolic link for the data file if the --update-files flag is set
-    - Re-write the data file headers with the fixed workflow ID if applicable and the --update-files flag is set
-    - Update the data object record with:
-        - updated name attribute
-        - updated URL attribute
-        - updated file_size_bytes attribute if the file was rewritten
-        - updated md5_checksum attribute if the file was rewritten
-    - Data object updates get added to the updates_map for writing to the database
-    """
-    # the colon gets replaced with underscore in the data file name
-    workflow_name = fixed_workflow_id.replace(":", "_")
-    name_fragment = f"{workflow_name}_"
-    dir_fragment = f"{fixed_workflow_id}/"
-
-    for data_object in data_objects:
-        pass
-
-    return updates_map

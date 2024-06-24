@@ -31,10 +31,12 @@ from nmdc_automation.re_iding.db_utils import (
     get_omics_processing_id,
     ANALYSIS_ACTIVITIES,
     get_collection_name_from_workflow_id,
-    fix_malformed_workflow_id_version
+    fix_malformed_workflow_id_version,
+    fix_malformed_data_object_name,
+    fix_malformed_data_object_url,
 )
 from nmdc_automation.re_iding.file_utils import (
-    get_corresponding_data_file_for_url,
+    get_corresponding_data_file_path_for_url,
 )
 
 # Defaults
@@ -846,28 +848,28 @@ def process_affected_workflows(ctx, input_file, production=False, update_files=F
             else:
                 logging.info(f"Workflow ID in the database is correct: {workflow_id}")
 
-            # Data paths based on the omics_processing_id and workflow_id
+            # Data paths are based on the omics_processing_id and workflow_id
             for data_path in record["data_paths"]:
                 workflow_dir_name = data_path.split("/")[-1]
                 omics_dir_name = data_path.split("/")[-2]
                 fixed_workflow_dir_name = fix_malformed_workflow_id_version(workflow_dir_name)
                 # get the actual data file path depending on the environment
-                data_file_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
+                workflow_dir_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
                 if fixed_workflow_dir_name != workflow_dir_name:
-                    logging.warning(f"Data Path directory name is malformed: {workflow_dir_name}")
+                    logging.warning(f"Workflow Directory directory name is malformed: {workflow_dir_name}")
                     # add the old ID to alternative_identifiers
                     updates_map.setdefault(collection_name, []).append({
                         "q": {"_id": record_id},
                         "u": {"$addToSet": {"alternative_identifiers": workflow_dir_name}}
                     })
                     if update_files:
-                        fixed_data_file_path = data_dir.joinpath(omics_dir_name, fixed_workflow_dir_name)
-                        logging.info(f"Updating Data Path: {data_file_path} -> {fixed_data_file_path}")
+                        fixed_workflow_dir_path = data_dir.joinpath(omics_dir_name, fixed_workflow_dir_name)
+                        logging.info(f"Updating Data Path: {workflow_dir_path} -> {fixed_workflow_dir_path}")
                         # rename the directory if it has not already been renamed
-                        if not fixed_data_file_path.exists():
-                            data_file_path.rename(fixed_data_file_path)
+                        if not fixed_workflow_dir_path.exists():
+                            workflow_dir_path.rename(fixed_workflow_dir_path)
                         else:
-                            logging.info(f"Data Path already renamed: {fixed_data_file_path}")
+                            logging.info(f"Data Path already renamed: {fixed_workflow_dir_path}")
                         # create a relative symbolic link in the omics_processing directory to the new directory
                         link_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
                         if not link_path.exists():
@@ -875,16 +877,53 @@ def process_affected_workflows(ctx, input_file, production=False, update_files=F
                         else:
                             logging.info(f"Data Path link already exists: {link_path}")
                     else:
-                        logging.info(f"--update-files not selected. Would do: {data_file_path} ->"
+                        logging.info(f"--update-files not selected. Would do: {workflow_dir_path} ->"
                                      f" {fixed_workflow_dir_name}")
                 else:
-                    logging.info(f"Data Path is correct: {workflow_dir_name}")
+                    logging.info(f"Workflow Directory Path is correct: {workflow_dir_name}")
 
             # Data Objects and their corresponding data files
             for data_object in record["data_objects"]:
-                data_object_url = data_object.get("url")
-                # look for the corresponding data file
-                data_file_path = get_corresponding_data_file_for_url(data_object_url, data_dir)
+                data_object_id = data_object["id"]
+                data_object_url = data_object["url"]
+                data_object_name = data_object["name"]
+                data_object_type = data_object.get("data_object_type")
+                # check the name and url and add to the updates_map if they are malformed
+                fixed_data_object_name = fix_malformed_data_object_name(data_object_name)
+                fixed_data_object_url = fix_malformed_data_object_url(data_object_url)
+                if fixed_data_object_name != data_object_name:
+                    logging.warning(f"Data Object name is malformed: {data_object_name}")
+                    updates_map.setdefault("data_object_set", []).append({
+                        "q": {"id": data_object_id},
+                        "u": {"$set": {"name": fixed_data_object_name}}
+                    })
+                if fixed_data_object_url != data_object_url:
+                    logging.warning(f"Data Object URL is malformed: {data_object_url}")
+                    logging.info(f"Fixed URL: {fixed_data_object_url}")
+                    updates_map.setdefault("data_object_set", []).append({
+                        "q": {"id": data_object_id},
+                        "u": {"$set": {"url": fixed_data_object_url}}
+                    })
+
+                # find the actual data file path based on the environment and url. There may be version mismatches
+                data_file_path = get_corresponding_data_file_path_for_url(data_object_url, data_dir)
+                if not data_file_path:
+                    logging.warning(f"Data file not found for URL: {data_object_url}")
+                    continue
+                # get the expected / fixed data file path bases on the environment and the fixed url. Relative path is
+                # everything after /data/ in the url
+                relative_data_file_path = fixed_data_object_url.split("/data/")[-1]
+                fixed_data_file_path = data_dir.joinpath(relative_data_file_path)
+                if data_file_path != fixed_data_file_path:
+                    logging.warning(f"Data file path is incorrect: {data_file_path}")
+                    if update_files:
+                        logging.info(f"Updating Data file path: {data_file_path} -> {fixed_data_file_path}")
+                    else:
+                        logging.info(f"--update-files not selected. Would do: {data_file_path} -> {fixed_data_file_path}")
+
+
+
+
 
 
     # Write the database updates to a JSON files, one per collection

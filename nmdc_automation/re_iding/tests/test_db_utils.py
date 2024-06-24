@@ -91,3 +91,11 @@ def test_fix_malformed_data_object_url():
     # test a url with correct version digits
     url = "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1/nmdc_wfrqc-11-pbxpdr12.1_filtered.fastq.gz"
     fixed_url = fix_malformed_data_object_url(url)
+    assert fixed_url == expected_url
+
+    # url that fails in the re_id to
+    failed_url = "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrqc-11-k8vbs933.1.1/nmdc_wfrqc-11-k8vbs933.1.1_filtered.fastq.gz"
+    correct_url = "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrqc-11-k8vbs933.1/nmdc_wfrqc-11-k8vbs933.1_filtered.fastq.gz"
+    fixed_url = fix_malformed_data_object_url(failed_url)
+    assert fixed_url == correct_url
+

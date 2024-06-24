@@ -9,7 +9,7 @@ from nmdc_automation.re_iding.file_utils import (
     replace_and_write_bam,
     md5_sum,
     link_data_file_paths,
-    get_corresponding_data_file_for_url,
+    get_corresponding_data_file_path_for_url,
 )
 
 
@@ -146,7 +146,7 @@ def test_get_corresponding_data_file_for_url(data_dir):
     file_path.touch()
 
     url = "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfmgas-11-y43zyn66.1/nmdc_wfmgas-11-y43zyn66.1_contigs.fna"
-    result = get_corresponding_data_file_for_url(url, data_dir)
+    result = get_corresponding_data_file_path_for_url(url, data_dir)
     assert result == file_path
 
 def test_get_corresponding_data_file_for_url_nearest_match(data_dir):
@@ -155,12 +155,12 @@ def test_get_corresponding_data_file_for_url_nearest_match(data_dir):
     file_path.touch()
 
     url = "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfmgas-11-y43zyn66.1/nmdc_wfmgas-11-y43zyn66.1_contigs.fna"
-    result = get_corresponding_data_file_for_url(url, data_dir)
+    result = get_corresponding_data_file_path_for_url(url, data_dir)
     assert result == file_path
 
 def test_get_corresponding_data_file_for_url_invalid_url(data_dir):
     url = "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfmgas-11-y43zyn66.1/nmdc_wfmgas-11-y43zyn66.1_contigs.fna"
-    result = get_corresponding_data_file_for_url(url, data_dir)
+    result = get_corresponding_data_file_path_for_url(url, data_dir)
     assert result is None
 
 def test_get_corresponding_data_file_for_url_multiple_files_raises_exception(data_dir):
@@ -172,4 +172,4 @@ def test_get_corresponding_data_file_for_url_multiple_files_raises_exception(dat
 
     url = "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfmgas-11-y43zyn66.1/nmdc_wfmgas-11-y43zyn66.1_contigs.fna"
     with pytest.raises(ValueError) as e:
-        get_corresponding_data_file_for_url(url, data_dir)
+        get_corresponding_data_file_path_for_url(url, data_dir)
