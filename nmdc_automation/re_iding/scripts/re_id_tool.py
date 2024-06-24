@@ -66,7 +66,7 @@ STUDIES = (
     "nmdc:sty-11-8fb6t785",
 )
 DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
-PROD_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
+PROD_DATAFILE_DIR = Path("/global/cfs/cdirs/m3408/results")
 # assuming Mac: /Users/username/Documents/data/results
 LOCAL_DATAFILE_DIR = Path.home().joinpath("Documents/data/results")
 DRYRUN_DATAFILE_DIR = DATA_DIR.joinpath("dryrun_data/results")
@@ -639,7 +639,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
         Correct: nmdc:wfrqc-11-zbyqeq59.1
     """
     start_time = time.time()
-    local_test_omics_processing_ids = ["nmdc:omprc-11-gqbhbd17", "nmdc:omprc-11-wmzpa354"]
+    local_test_omics_processing_ids = ["nmdc:omprc-11-gqbhbd17", "nmdc:omprc-11-wmzpa354", "nmdc:omprc-11-0nftn704"]
     if production:
         data_dir = PROD_DATAFILE_DIR
     else:
