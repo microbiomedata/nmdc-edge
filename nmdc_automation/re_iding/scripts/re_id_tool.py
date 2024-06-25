@@ -641,6 +641,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
     """
     start_time = time.time()
     local_test_omics_processing_ids = ["nmdc:omprc-11-gqbhbd17", "nmdc:omprc-11-wmzpa354", "nmdc:omprc-11-0nftn704"]
+    # local_test_omics_processing_ids = ["nmdc:omprc-11-0nftn704",]
     if production:
         data_dir = PROD_DATAFILE_DIR
     else:
@@ -796,7 +797,16 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
             malformed_workflow_dirs = [workflow_dir for workflow_dir in workflow_dirs if workflow_dir.count(".") != 1]
             if malformed_workflow_dirs:
                 logging.info(f"Found malformed workflow directories for workflow ID: {workflow_id}")
-                wf_dict["workflow_dirs"] = malformed_workflow_dirs
+                wf_dict["workflow_dirs"].extend(malformed_workflow_dirs)
+
+            # Check for workflow dirs that are properly formed but have a different blade than the workflow ID
+            # e.g. nmdc:wfrqc-11-zbyqeq59.1.1 -> zbyqeq59
+            wf_blade = workflow_id.split("-")[-1].split(".")[0]
+            misidentified_workflow_dirs = [workflow_dir for workflow_dir in workflow_dirs if wf_blade not in workflow_dir]
+            if misidentified_workflow_dirs:
+                logging.info(f"Found misidentified workflow directories for workflow ID: {workflow_id}")
+                wf_dict["workflow_dirs"].extend(misidentified_workflow_dirs)
+
 
             #  Check for malformed data file names and/or paths
             data_paths = record["data_paths"]
@@ -806,6 +816,9 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                 fixed_do_name = fix_malformed_data_object_name(do_name)
                 if fixed_do_name != do_name:
                     logging.warning(f"Data Object name is malformed: {do_name} should be {fixed_do_name}")
+                    malformed_data_paths.append(data_path)
+                elif wf_blade not in do_name:
+                    logging.warning(f"Data Object name is misidentified: {do_name}")
                     malformed_data_paths.append(data_path)
             if malformed_data_paths:
                 logging.info(f"Found malformed data paths for workflow ID: {workflow_id}")

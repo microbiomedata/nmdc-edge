@@ -575,12 +575,35 @@
     ],
     "nmdc:omprc-11-0nftn704": [
         {
+            "_id": "6647b5a08ca986147c427a47",
+            "workflow_id": "nmdc:wfmgas-11-fk987013.1",
+            "type": "nmdc:MetagenomeAssembly",
+            "data_objects": [],
+            "workflow_dirs": [
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfmgas-11-371gjw05.1",
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfmgas-11-hbhxv517.1"
+            ],
+            "data_paths": [
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfmgas-11-371gjw05.1/nmdc_wfmgas-11-371gjw05.1_scaffolds.fna",
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfmgas-11-371gjw05.1/nmdc_wfmgas-11-371gjw05.1_covstats.txt",
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfmgas-11-371gjw05.1/nmdc_wfmgas-11-371gjw05.1_pairedMapped_sorted.bam",
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfmgas-11-371gjw05.1/nmdc_wfmgas-11-371gjw05.1_assembly.agp",
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfmgas-11-371gjw05.1/nmdc_wfmgas-11-371gjw05.1_contigs.fna",
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfmgas-11-hbhxv517.1/nmdc_wfmgas-11-hbhxv517.1_assembly.agp",
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfmgas-11-hbhxv517.1/nmdc_wfmgas-11-hbhxv517.1_scaffolds.fna",
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfmgas-11-hbhxv517.1/nmdc_wfmgas-11-hbhxv517.1_pairedMapped_sorted.bam",
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfmgas-11-hbhxv517.1/nmdc_wfmgas-11-hbhxv517.1_covstats.txt",
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfmgas-11-hbhxv517.1/nmdc_wfmgas-11-hbhxv517.1_contigs.fna"
+            ]
+        },
+        {
             "_id": "6647b5a08ca986147c427a4b",
             "workflow_id": "nmdc:wfrbt-11-0es1zz02.1",
             "type": "nmdc:ReadBasedTaxonomyAnalysisActivity",
             "data_objects": [],
             "workflow_dirs": [
                 "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-0es1zz02.1.1",
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1.1",
                 "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1.1"
             ],
             "data_paths": [
@@ -610,6 +633,7 @@
             "type": "nmdc:ReadQcAnalysisActivity",
             "data_objects": [],
             "workflow_dirs": [
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrqc-11-c6bt9333.1.1",
                 "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrqc-11-c6bt9333.1.1"
             ],
             "data_paths": [
