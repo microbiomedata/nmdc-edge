@@ -714,6 +714,8 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
             workflow_records = db_client[collection_name].find({"was_informed_by": omics_processing_id})
             for workflow_record in workflow_records:
                 workflow_id = workflow_record["id"]
+                # type code from id, e.g. nmdc:wfmgas-11-y43zyn66.1 -> wfmgas
+                workflow_type_code = workflow_id.split("-")[0].split(":")[1]
                 data_objects = []
                 for data_object_id in workflow_record.get("has_output", []):
                     data_object_record = db_client["data_object_set"].find_one({"id": data_object_id})
@@ -741,14 +743,12 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                 data_paths = []
                 for workflow_dir in omics_processing_dir.iterdir():
                     # get every data path with an nmdc: namespace
-                    if "nmdc:" in workflow_dir.name:
+                    if workflow_type_code in workflow_dir.name:
                         workflow_dirs.append(workflow_dir)
                         # find the data paths for each workflow directory
                         for data_path in workflow_dir.iterdir():
-                            if "nmdc_" in data_path.name:
+                            if workflow_type_code in data_path.name:
                                 data_paths.append(data_path)
-
-
 
                 omics_processing_workflows_map[omics_processing_id].append(
                     {
