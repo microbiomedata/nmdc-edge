@@ -1,0 +1,2236 @@
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "listDatabases", "topologyDescription": "<TopologyDescription id: 667a20a855baca4ec89f8e39, topology_type: Single, servers: [<ServerDescription ('mongo-loadbalancer.nmdc-napa.production.svc.spin.nersc.org', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "667a20a855baca4ec89f8e39"}, "remainingTimeMS": 4}
+INFO:root:Connected to MongoDB server at mongodb://michael.thornton-napa:barman-reconfirm-leggings-883@mongo-loadbalancer.nmdc-napa.production.svc.spin.nersc.org:27017
+INFO:root:Initializing omics_processing_workflows_map
+INFO:root:Initialized map for 5907 omics_processing records
+INFO:root:Adding workflow records to the map
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-2ej6ck07
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-vr5ybs24
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-9k8fn549
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-4qwgce53
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-bt39q460
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-x20k9a47
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-646f5y05
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-p77gyb21
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-ch30ac97
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-btk6fw69
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-bareeg45
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-qt9ynt90
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-ta8sat74
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-tw8qwk16
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-w61kxv89
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-dczfsx15
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-te00ma89
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-sdcsk511
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-24x1t789
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-7ggv8g85
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-5kw30812
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-mgz2pf93
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-z0r17261
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-122e4240
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-k0r2nd02
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-ycz9ee56
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-89zx6167
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-fz7v2a68
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-7978gs68
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-eq464g35
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-s66wvt48
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-sm9k3d73
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-rp6wth71
+WARNING:root:Directory not found: /global/cfs/cdirs/m3408/results/nmdc:omprc-13-kj900083
+INFO:root:Added 10707 workflow records to the map
+INFO:root:Pruning the map to only include records with malformed workflow IDs and/or data paths
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-h0c5gx64.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-t0xw3k43.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-t0xw3k43.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-t0xw3k43.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-t0xw3k43.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-gdvrvd40.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-gdvrvd40.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gdvrvd40.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gdvrvd40.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-6ag53s33.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-5vz4y795.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-5vz4y795.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-5vz4y795.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-5vz4y795.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-x193vx97.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-x193vx97.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-x193vx97.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-x193vx97.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-zyg04s52.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-ys9j7606.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-ys9j7606.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ys9j7606.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ys9j7606.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-t64yrz89.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-t64yrz89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-t64yrz89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-t64yrz89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-rnc9md05.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-r96c2887.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-r96c2887.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-r96c2887.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-r96c2887.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-z3fzcc68.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-z3fzcc68.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-z3fzcc68.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-z3fzcc68.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-79wz8g17.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-cpc3bw57.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-cpc3bw57.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-cpc3bw57.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-cpc3bw57.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-dg35v431.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-dg35v431.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-dg35v431.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-dg35v431.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3mevrn76.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-c3wt9z48.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-c3wt9z48.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-c3wt9z48.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-c3wt9z48.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-vydrkb12.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-vydrkb12.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vydrkb12.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vydrkb12.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-j853xj15.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-y9r7yf69.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-y9r7yf69.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-y9r7yf69.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-y9r7yf69.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-yw926m76.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-yw926m76.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-yw926m76.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-yw926m76.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-22zm0w73.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-q7w6wk39.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-q7w6wk39.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-q7w6wk39.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-q7w6wk39.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-c4bha567.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-c4bha567.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-c4bha567.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-c4bha567.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-n8vday31.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-w689bh62.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-w689bh62.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-w689bh62.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-w689bh62.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-ezt4ea73.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-ezt4ea73.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ezt4ea73.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ezt4ea73.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-bv77qg61.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-9v6gjw48.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-9v6gjw48.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-9v6gjw48.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-9v6gjw48.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-ehjswc88.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-ehjswc88.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ehjswc88.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ehjswc88.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-deqft702.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-amk4nh49.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-amk4nh49.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-amk4nh49.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-amk4nh49.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-z82mhz36.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-z82mhz36.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-z82mhz36.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-z82mhz36.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3taqdd25.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-d7dv6w83.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-d7dv6w83.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-d7dv6w83.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-d7dv6w83.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-mwedhm67.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-mwedhm67.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-mwedhm67.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-mwedhm67.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-0jnpsg37.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-krmfef48.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-krmfef48.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-krmfef48.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-krmfef48.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-3h7evp15.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-3h7evp15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3h7evp15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3h7evp15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-w9rv5y45.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-238vfn43.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-238vfn43.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-238vfn43.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-238vfn43.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-4xz85e38.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-4xz85e38.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-4xz85e38.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-4xz85e38.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-h4p1e392.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-s4hfm818.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-s4hfm818.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-s4hfm818.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-s4hfm818.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-3by6jd60.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-3by6jd60.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3by6jd60.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3by6jd60.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-mzvszr34.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-vm3fgh22.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-vm3fgh22.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-vm3fgh22.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-vm3fgh22.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-fpgxe725.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-fpgxe725.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fpgxe725.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fpgxe725.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-p88mvg70.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-34djeq06.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-34djeq06.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-34djeq06.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-34djeq06.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-y5g8s266.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-y5g8s266.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-y5g8s266.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-y5g8s266.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-xyjy4892.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-cq2hsx55.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-cq2hsx55.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-cq2hsx55.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-cq2hsx55.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-7edgm346.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-7edgm346.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7edgm346.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7edgm346.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-8e4dh543.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-rkkq9798.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-rkkq9798.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rkkq9798.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rkkq9798.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-69750b89.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-69750b89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-69750b89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-69750b89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-sqywqt64.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-yba43363.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-yba43363.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-yba43363.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-yba43363.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-1s5w5146.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-1s5w5146.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1s5w5146.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1s5w5146.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-z4ak3j48.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-x2dg0v11.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-x2dg0v11.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-x2dg0v11.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-x2dg0v11.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-t30nkn52.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-t30nkn52.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-t30nkn52.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-t30nkn52.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-19qjwt61.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-gef4j704.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-gef4j704.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gef4j704.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gef4j704.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-bn3rwt84.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-bn3rwt84.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-bn3rwt84.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-bn3rwt84.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3awv3f39.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-g9t23w61.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-g9t23w61.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-g9t23w61.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-g9t23w61.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-1g93yh86.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-1g93yh86.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1g93yh86.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1g93yh86.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-j865zd53.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-3rp4e238.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-3rp4e238.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3rp4e238.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3rp4e238.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-t3ngp898.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-t3ngp898.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-t3ngp898.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-t3ngp898.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-w9yy7g24.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-ccw1zd35.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-ccw1zd35.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ccw1zd35.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ccw1zd35.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-219bm853.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-219bm853.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-219bm853.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-219bm853.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-1q1mk112.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-stz84k08.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-stz84k08.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-stz84k08.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-stz84k08.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-ktdnpt92.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-ktdnpt92.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ktdnpt92.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ktdnpt92.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-dv908t09.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-6b439354.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-6b439354.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-6b439354.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-6b439354.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-h8ggck29.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-h8ggck29.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-h8ggck29.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-h8ggck29.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-kjq0se46.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-1ka7pd24.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-1ka7pd24.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-1ka7pd24.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-1ka7pd24.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-2pd02515.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-2pd02515.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-2pd02515.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-2pd02515.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-yfsej175.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-nrwr4k79.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-nrwr4k79.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-nrwr4k79.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-nrwr4k79.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-fwcdk864.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-fwcdk864.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fwcdk864.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fwcdk864.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-2re5jt49.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-2gwxtc21.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-2gwxtc21.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-2gwxtc21.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-2gwxtc21.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-7a92fz44.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-7a92fz44.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7a92fz44.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7a92fz44.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-rv09ka33.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-ngsz0n81.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-ngsz0n81.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ngsz0n81.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ngsz0n81.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-81eeq579.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-81eeq579.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-81eeq579.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-81eeq579.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-4nrhpa24.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-epx8m949.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-epx8m949.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-epx8m949.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-epx8m949.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-7va96w16.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-7va96w16.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7va96w16.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7va96w16.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-vf6x6z88.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-hhwvh153.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-hhwvh153.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-hhwvh153.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-hhwvh153.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-xtned817.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-xtned817.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xtned817.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xtned817.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ys1rsn30.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-5gcw5k71.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-5gcw5k71.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-5gcw5k71.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-5gcw5k71.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-rc8rfn14.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-rc8rfn14.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-rc8rfn14.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-rc8rfn14.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-wn0shh72.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-a19v5v56.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-a19v5v56.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-a19v5v56.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-a19v5v56.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-v3053g30.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-v3053g30.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-v3053g30.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-v3053g30.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ptthwj35.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-1dhaj641.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-1dhaj641.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-1dhaj641.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-1dhaj641.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-9tqve155.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-9tqve155.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9tqve155.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9tqve155.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3yq9s355.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-zwer9s74.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-zwer9s74.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-zwer9s74.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-zwer9s74.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-937rsg57.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-937rsg57.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-937rsg57.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-937rsg57.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-g2n9fq71.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-s5n8ke70.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-s5n8ke70.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-s5n8ke70.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-s5n8ke70.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-0mbern62.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-0mbern62.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0mbern62.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0mbern62.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-29t8r468.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-rjgvyr52.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-rjgvyr52.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rjgvyr52.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rjgvyr52.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-mwnx1a98.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-mwnx1a98.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-mwnx1a98.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-mwnx1a98.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-j0vjs907.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-cd9y2m63.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-cd9y2m63.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-cd9y2m63.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-cd9y2m63.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-vb1jsp69.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-vb1jsp69.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vb1jsp69.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vb1jsp69.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ewcrag86.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-k7tctf12.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-k7tctf12.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-k7tctf12.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-k7tctf12.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-hka4ca23.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-hka4ca23.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-hka4ca23.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-hka4ca23.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-npwe1c07.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-zx6x0k84.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-zx6x0k84.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-zx6x0k84.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-zx6x0k84.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-3pa06k15.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-3pa06k15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3pa06k15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3pa06k15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ffhd3479.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-qjcvqv08.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-qjcvqv08.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-qjcvqv08.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-qjcvqv08.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-9es0dk42.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-9es0dk42.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9es0dk42.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9es0dk42.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-dr9prs10.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-0227se86.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-0227se86.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-0227se86.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-0227se86.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-gf3cdj41.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-gf3cdj41.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gf3cdj41.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gf3cdj41.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-axkmh931.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-axkmh931.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-axkmh931.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-axkmh931.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3gx7ek23.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-krmkys65.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-krmkys65.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-krmkys65.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-krmkys65.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-y2ar1484.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-y2ar1484.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-y2ar1484.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-y2ar1484.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-vj8mft72.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-dv54hp39.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-dv54hp39.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-dv54hp39.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-dv54hp39.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-q8v5jr07.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-q8v5jr07.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-q8v5jr07.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-q8v5jr07.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-a9spsr63.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-m0bhjt35.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-m0bhjt35.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-m0bhjt35.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-m0bhjt35.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-r0af8979.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-r0af8979.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-r0af8979.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-r0af8979.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-sy4wmv80.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-sy4wmv80.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-sy4wmv80.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-sy4wmv80.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-9t2kh514.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-9t2kh514.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9t2kh514.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9t2kh514.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-8emfgd73.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-8emfgd73.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-8emfgd73.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-8emfgd73.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-81zm8m62.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-81zm8m62.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-81zm8m62.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-81zm8m62.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-kqkm8c78.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-raanr328.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-raanr328.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-raanr328.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-raanr328.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-73v5k850.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-73v5k850.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-73v5k850.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-73v5k850.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-bjnpzf15.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-bjnpzf15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-bjnpzf15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-bjnpzf15.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-hae3ew26.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-hae3ew26.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-hae3ew26.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-hae3ew26.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-p5evc123.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-p5evc123.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-p5evc123.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-p5evc123.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-zddhh246.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-zddhh246.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zddhh246.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zddhh246.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-k2vn5b47.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-k2vn5b47.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k2vn5b47.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k2vn5b47.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-xyvfqd05.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-xyvfqd05.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xyvfqd05.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xyvfqd05.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-5kqpx015.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-5kqpx015.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-5kqpx015.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-5kqpx015.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-jcndpf62.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-jcndpf62.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jcndpf62.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jcndpf62.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-yfbjaw37.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-yfbjaw37.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-yfbjaw37.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-yfbjaw37.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-f3hzpz33.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-f3hzpz33.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-f3hzpz33.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-f3hzpz33.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-3yfsm721.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-3yfsm721.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3yfsm721.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3yfsm721.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-0hv1g425.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-0hv1g425.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0hv1g425.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0hv1g425.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-r4tz4v64.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-r4tz4v64.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-r4tz4v64.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-r4tz4v64.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-pxcwnx22.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-pxcwnx22.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-pxcwnx22.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-pxcwnx22.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-0fj8z602.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-0fj8z602.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0fj8z602.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0fj8z602.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-fkp8p148.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-fkp8p148.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fkp8p148.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fkp8p148.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-7crt6991.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-7crt6991.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7crt6991.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7crt6991.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-de09zz53.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-de09zz53.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-de09zz53.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-de09zz53.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-70drpv96.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-70drpv96.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-70drpv96.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-70drpv96.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-wsefs883.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-wsefs883.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-wsefs883.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-wsefs883.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-7wzgcf43.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-7wzgcf43.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7wzgcf43.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7wzgcf43.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-gejspt09.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-gejspt09.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gejspt09.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gejspt09.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-cg6k5m80.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-cg6k5m80.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-cg6k5m80.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-cg6k5m80.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-xykg2205.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-xykg2205.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xykg2205.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xykg2205.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-qjxcxw61.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-qjxcxw61.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-qjxcxw61.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-qjxcxw61.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-z42gkx85.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-z42gkx85.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-z42gkx85.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-z42gkx85.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-2nyfnw23.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-2nyfnw23.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-2nyfnw23.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-2nyfnw23.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-kqc44k36.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-kqc44k36.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-kqc44k36.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-kqc44k36.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-ffvs4t65.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-ffvs4t65.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ffvs4t65.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ffvs4t65.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-94z2te56.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-94z2te56.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-94z2te56.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-94z2te56.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-v1cttp33.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-v1cttp33.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-v1cttp33.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-v1cttp33.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-rbqpfj11.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-rbqpfj11.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-rbqpfj11.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-rbqpfj11.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-z1gmdd95.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-z1gmdd95.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-z1gmdd95.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-z1gmdd95.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-6h4c9j92.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-6h4c9j92.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6h4c9j92.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6h4c9j92.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-06tt3774.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-06tt3774.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-06tt3774.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-06tt3774.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-1ytfxf74.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-1ytfxf74.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1ytfxf74.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1ytfxf74.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-gpy26033.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-gpy26033.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gpy26033.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gpy26033.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-veb6z243.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-veb6z243.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-veb6z243.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-veb6z243.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-c58h5h40.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-7gv4ws33.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-wsrpa953.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-nvt77985.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-d48z5k21.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6ar5e454.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-8k9nyx32.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-erqpmf22.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fjas1n75.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-9p2g7g44.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ptvp7a58.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-r9qgvn52.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-mqfybk73.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-q5evt919.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k9jvj061.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-sk3s2385.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-zqgyhr87.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fa4ydp64.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-tn12sx29.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rqr46385.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9kw81k67.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-bf09y212.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-w0qkeh42.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1j4mgt89.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-rx25v985.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-v2598v30.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1da57n29.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-aamcgj46.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-vyffbx61.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-w3tay123.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-6480te90.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-2gpv1808.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-kp8z3s04.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-zfc9h385.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-4bsja502.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vxdp6k26.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-4rzr9s29.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-j3amwx12.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-cscn3849.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-wwdpxv49.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-71pza760.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-31r8k602.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-5jrn0e81.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-20hjwb47.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-c0297r16.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-zng4bk76.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-dghmaq29.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9rb36513.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-gxs9xz82.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ryeg7n41.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-n86r2b74.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-wy5dze13.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-26b8hv12.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-450qpn48.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-z13y4t53.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-hdyf6229.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-kc2dp639.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-5tfa5989.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ch8r2h45.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-246v3f20.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-gjknkr60.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-q3qq6g81.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-agbydh28.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-f38z3203.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-v1tv1m26.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jzt9zr38.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-0qvjnc54.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-thag1807.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-thag1807.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-thag1807.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-thag1807.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-eewamc97.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-eewamc97.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-eewamc97.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-eewamc97.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-vzzdj355.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-gg6b9z13.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-gg6b9z13.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gg6b9z13.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gg6b9z13.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-f3hcbe47.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-f3hcbe47.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-f3hcbe47.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-f3hcbe47.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-pg651427.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-t7n9fh59.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-t7n9fh59.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-t7n9fh59.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-t7n9fh59.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-6nm5rc14.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-6nm5rc14.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6nm5rc14.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6nm5rc14.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-2f051195.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-egtffm84.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-egtffm84.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-egtffm84.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-egtffm84.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-cm451c54.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-cm451c54.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-cm451c54.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-cm451c54.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-qjdaq860.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-a9ptva73.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-a9ptva73.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-a9ptva73.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-a9ptva73.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-e478zg48.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-e478zg48.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-e478zg48.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-e478zg48.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-c5c2sc05.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-b8b4ak16.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-b8b4ak16.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-b8b4ak16.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-b8b4ak16.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-h27ts138.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-h27ts138.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-h27ts138.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-h27ts138.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-2fm5d996.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-6909nf42.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-6909nf42.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-6909nf42.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-6909nf42.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-0twyfq11.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-0twyfq11.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0twyfq11.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0twyfq11.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-y43zyn66.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-5azt1x40.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-5azt1x40.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-5azt1x40.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-5azt1x40.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-pbxpdr12.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-pbxpdr12.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-pbxpdr12.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-pbxpdr12.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-sdhg4187.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-s624re67.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-8bepc353.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-82ngs811.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-xx38hd49.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-m8hgtr03.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-f5gstg91.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-65496e27.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-65496e27.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-65496e27.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-65496e27.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-ysm9at61.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-ysm9at61.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ysm9at61.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ysm9at61.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-zj0a0183.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-8y74s137.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-8y74s137.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-8y74s137.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-8y74s137.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-n8fmb765.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-n8fmb765.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-n8fmb765.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-n8fmb765.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-abrwx823.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-kywvy429.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-kywvy429.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-kywvy429.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-kywvy429.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-13kvq120.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-13kvq120.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-13kvq120.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-13kvq120.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-91gp1s76.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-a6y95w36.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-a6y95w36.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-a6y95w36.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-a6y95w36.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-q1xhpa89.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-q1xhpa89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-q1xhpa89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-q1xhpa89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-fv06e587.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3jq5q538.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-4vxt6k43.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-46z1zb69.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-8skv7z45.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-8skv7z45.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-8skv7z45.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-8skv7z45.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-ejcnaq52.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-ejcnaq52.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ejcnaq52.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ejcnaq52.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-x030z174.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-wwff2375.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7f8yxp61.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-wws9th17.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-k4jd3173.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-k4jd3173.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-k4jd3173.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-k4jd3173.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-jjmz9411.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-jjmz9411.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jjmz9411.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jjmz9411.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-yyxaew02.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-95fk9a04.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gmadf320.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-rvnc5m55.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-c0jrkb53.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-c0jrkb53.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-c0jrkb53.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-c0jrkb53.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-rczj4j92.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-rczj4j92.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-rczj4j92.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-rczj4j92.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-gek2e270.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-v4cc8y71.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-v4cc8y71.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-v4cc8y71.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-v4cc8y71.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-fg41ck06.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-fg41ck06.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fg41ck06.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fg41ck06.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-4s86qw41.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-zhk1af31.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-zhk1af31.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-zhk1af31.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-zhk1af31.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-a70j1512.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-a70j1512.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-a70j1512.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-a70j1512.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-t7mf8q75.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-qcrw5v02.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-qcrw5v02.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-qcrw5v02.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-qcrw5v02.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-wr7arn08.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-wr7arn08.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-wr7arn08.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-wr7arn08.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-vxyvzw35.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-s4hjex45.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-s4hjex45.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-s4hjex45.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-s4hjex45.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-49sbz723.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-49sbz723.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-49sbz723.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-49sbz723.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-xaq9xp33.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-678j6a22.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-678j6a22.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-678j6a22.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-678j6a22.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-gca19d35.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-gca19d35.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gca19d35.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gca19d35.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-tk08np26.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-ac274f39.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-ac274f39.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ac274f39.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ac274f39.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-fzvvxh87.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-fzvvxh87.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fzvvxh87.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fzvvxh87.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-9t3mb885.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-7av50z30.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-7av50z30.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-7av50z30.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-7av50z30.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-p9pcd004.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-p9pcd004.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-p9pcd004.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-p9pcd004.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-b7bbqt56.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-aeh8f610.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-aeh8f610.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-aeh8f610.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-aeh8f610.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-z9evn793.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-z9evn793.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-z9evn793.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-z9evn793.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-n73aj889.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-ntyk2w59.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-ntyk2w59.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ntyk2w59.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ntyk2w59.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-xa853y15.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-xa853y15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xa853y15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xa853y15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ym0xw874.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-c73hxg52.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-c73hxg52.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-c73hxg52.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-c73hxg52.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-sw2k0k15.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-sw2k0k15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-sw2k0k15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-sw2k0k15.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-jjedh198.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-4gpp3r08.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-4gpp3r08.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-4gpp3r08.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-4gpp3r08.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-jrvs5w13.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-jrvs5w13.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jrvs5w13.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jrvs5w13.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-j0yjfd50.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-3d8we351.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-3d8we351.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3d8we351.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3d8we351.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-v6fv8n25.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-v6fv8n25.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-v6fv8n25.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-v6fv8n25.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-kmxmrr70.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-3yrnh009.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-3yrnh009.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3yrnh009.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3yrnh009.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-g9gq4d45.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-g9gq4d45.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-g9gq4d45.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-g9gq4d45.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-bhrxx171.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-kwdysx47.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-kwdysx47.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-kwdysx47.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-kwdysx47.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-qnvzjw11.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-qnvzjw11.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-qnvzjw11.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-qnvzjw11.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-cycn6c47.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-mrj2mg18.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-mrj2mg18.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-mrj2mg18.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-mrj2mg18.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-6f5wg076.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-6f5wg076.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6f5wg076.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6f5wg076.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-tmb3bg62.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-8pmvez63.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-8pmvez63.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-8pmvez63.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-8pmvez63.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-vsq39t12.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-vsq39t12.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vsq39t12.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vsq39t12.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-0sqjja96.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-n919fm68.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-n919fm68.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-n919fm68.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-n919fm68.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-xarcd524.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-xarcd524.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xarcd524.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xarcd524.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-f26wnz39.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-fgn19493.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-fgn19493.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-fgn19493.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-fgn19493.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-8sywqs26.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-8sywqs26.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-8sywqs26.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-8sywqs26.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3k8tz293.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-swjmkr42.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-swjmkr42.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-swjmkr42.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-swjmkr42.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-qf2wjk58.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-qf2wjk58.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-qf2wjk58.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-qf2wjk58.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-axqz3612.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-3n1heh08.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-3n1heh08.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3n1heh08.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3n1heh08.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-k5qycf60.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-k5qycf60.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k5qycf60.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k5qycf60.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-qz87sk11.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-w1egjz83.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-w1egjz83.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-w1egjz83.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-w1egjz83.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-q511yx78.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-q511yx78.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-q511yx78.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-q511yx78.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-sy91x837.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-rhpxt041.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-rhpxt041.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rhpxt041.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rhpxt041.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-tkkvdb36.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-tkkvdb36.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-tkkvdb36.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-tkkvdb36.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-24v3hk97.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-bb59v745.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-bb59v745.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-bb59v745.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-bb59v745.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-0kn7a639.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-0kn7a639.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0kn7a639.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0kn7a639.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3n199g41.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-kcsrqh49.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-kcsrqh49.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-kcsrqh49.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-kcsrqh49.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-c6nqb294.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-c6nqb294.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-c6nqb294.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-c6nqb294.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-mhdrmr69.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-s8rtxc91.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-s8rtxc91.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-s8rtxc91.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-s8rtxc91.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-2bzc3z37.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-2bzc3z37.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-2bzc3z37.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-2bzc3z37.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-c1ts6n68.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-ecszmx10.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-ecszmx10.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ecszmx10.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ecszmx10.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-hcjx5725.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-hcjx5725.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-hcjx5725.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-hcjx5725.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-b55d4k28.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-k2hghm11.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-k2hghm11.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-k2hghm11.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-k2hghm11.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-jhnds893.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-jhnds893.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jhnds893.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jhnds893.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-hbbt8x88.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-gthy8157.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-gthy8157.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gthy8157.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gthy8157.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-g6qt1512.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-g6qt1512.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-g6qt1512.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-g6qt1512.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-jpcn6g21.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-xac6zr18.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-xac6zr18.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-xac6zr18.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-xac6zr18.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-927cef71.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-927cef71.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-927cef71.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-927cef71.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-zxqvpb14.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-rh3av542.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-rh3av542.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rh3av542.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rh3av542.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-rkv8p278.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-rkv8p278.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-rkv8p278.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-rkv8p278.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-kddp9423.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-jfxgwy12.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-jfxgwy12.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-jfxgwy12.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-jfxgwy12.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-365way27.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-365way27.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-365way27.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-365way27.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-8mt6yw67.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-wwye1z89.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-wwye1z89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-wwye1z89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-wwye1z89.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-pq2kcn93.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-pq2kcn93.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-pq2kcn93.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-pq2kcn93.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-0dhr0095.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-a8gwc719.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-a8gwc719.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-a8gwc719.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-a8gwc719.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-vegq8937.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-vegq8937.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vegq8937.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vegq8937.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-gevkcw93.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-8t897r42.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-8t897r42.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-8t897r42.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-8t897r42.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-ghckk775.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-ghckk775.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ghckk775.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ghckk775.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-21vaym94.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-vdkjay93.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-vdkjay93.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-vdkjay93.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-vdkjay93.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-8mjejp91.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-8mjejp91.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-8mjejp91.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-8mjejp91.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-cqh39h49.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-rgxw4771.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-rgxw4771.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rgxw4771.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rgxw4771.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-33ewqt10.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-33ewqt10.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-33ewqt10.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-33ewqt10.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-dckyzx47.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-rjzh9y18.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-rjzh9y18.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rjzh9y18.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rjzh9y18.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-cq9mkf80.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-cq9mkf80.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-cq9mkf80.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-cq9mkf80.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ez3x1327.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-d2490062.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-d2490062.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-d2490062.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-d2490062.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-zk122741.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-zk122741.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zk122741.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zk122741.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-760nfs62.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-3j4t1356.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-3j4t1356.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3j4t1356.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3j4t1356.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-y3njq405.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-y3njq405.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-y3njq405.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-y3njq405.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-eej96x42.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-as8t5783.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-as8t5783.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-as8t5783.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-as8t5783.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-19qsz463.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-19qsz463.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-19qsz463.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-19qsz463.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-jh2v6v21.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-v5h4x469.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-v5h4x469.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-v5h4x469.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-v5h4x469.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-7qkynk27.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-7qkynk27.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7qkynk27.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7qkynk27.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-fgzj7d81.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-gzxjsc21.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-gzxjsc21.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gzxjsc21.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gzxjsc21.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-v1mycy70.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-v1mycy70.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-v1mycy70.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-v1mycy70.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-8b6jn966.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-g401cy76.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-g401cy76.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-g401cy76.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-g401cy76.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-k7zbrt21.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-k7zbrt21.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k7zbrt21.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k7zbrt21.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-vwgbwc91.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-hnmfdt56.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-hnmfdt56.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-hnmfdt56.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-hnmfdt56.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-s403ws31.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-s403ws31.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-s403ws31.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-s403ws31.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-4sf7ka16.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-25ptjc82.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-25ptjc82.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-25ptjc82.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-25ptjc82.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-scvm0d54.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-scvm0d54.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-scvm0d54.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-scvm0d54.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-xx5byh60.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-m3s1x993.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-m3s1x993.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-m3s1x993.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-m3s1x993.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-6dqtca16.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-6dqtca16.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6dqtca16.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6dqtca16.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-bvcfas62.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-a7a15v43.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-a7a15v43.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-a7a15v43.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-a7a15v43.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-j17j3175.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-j17j3175.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-j17j3175.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-j17j3175.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-4ry4j195.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-7m3wh273.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-7m3wh273.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-7m3wh273.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-7m3wh273.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-tj7t6r07.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-tj7t6r07.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-tj7t6r07.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-tj7t6r07.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-e6202b54.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-wjpxj427.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-wjpxj427.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-wjpxj427.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-wjpxj427.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-r3ywxe72.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-r3ywxe72.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-r3ywxe72.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-r3ywxe72.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-zbvadk74.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-rf1cc810.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-rf1cc810.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rf1cc810.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rf1cc810.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-427gb114.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-427gb114.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-427gb114.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-427gb114.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-tey9k086.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-jdp97291.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-jdp97291.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-jdp97291.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-jdp97291.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-41rj7s65.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-41rj7s65.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-41rj7s65.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-41rj7s65.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-bb6rss38.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-pzddg709.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-pzddg709.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-pzddg709.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-pzddg709.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-8345mm40.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-8345mm40.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-8345mm40.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-8345mm40.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-8327vn97.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-bnj8y850.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-bnj8y850.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-bnj8y850.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-bnj8y850.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-qty50481.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-qty50481.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-qty50481.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-qty50481.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-gx269e36.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-gs3b0355.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-gs3b0355.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gs3b0355.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gs3b0355.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-1zet8e33.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-1zet8e33.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1zet8e33.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1zet8e33.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-w87qpm34.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-3h44mj23.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-3h44mj23.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3h44mj23.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3h44mj23.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-7dymtg10.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-7dymtg10.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7dymtg10.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7dymtg10.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-cnjchy08.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-4ny5dk25.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-4ny5dk25.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-4ny5dk25.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-4ny5dk25.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-49yd1c21.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-49yd1c21.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-49yd1c21.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-49yd1c21.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-2ytf2971.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-6p5m9k18.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-6p5m9k18.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-6p5m9k18.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-6p5m9k18.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-pbjykd04.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-pbjykd04.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-pbjykd04.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-pbjykd04.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-xrkvr396.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-1qdmg175.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-1qdmg175.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-1qdmg175.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-1qdmg175.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-014wn728.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-014wn728.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-014wn728.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-014wn728.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ytmtmx06.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-gjxsgv37.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-gjxsgv37.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gjxsgv37.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gjxsgv37.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-k8vbs933.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-k8vbs933.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k8vbs933.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k8vbs933.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-q9xjqw21.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-ym0vw131.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-ym0vw131.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ym0vw131.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ym0vw131.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-wj20a642.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-wj20a642.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-wj20a642.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-wj20a642.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-xpswf488.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-0cwxhq39.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-0cwxhq39.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-0cwxhq39.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-0cwxhq39.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-vj4eyy55.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-vj4eyy55.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vj4eyy55.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vj4eyy55.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-fqzvez02.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-0zmrb623.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-0zmrb623.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-0zmrb623.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-0zmrb623.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-trdd9g28.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-trdd9g28.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-trdd9g28.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-trdd9g28.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-hwzvbt33.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-kr2bd641.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-kr2bd641.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-kr2bd641.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-kr2bd641.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-9dj67y29.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-9dj67y29.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9dj67y29.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9dj67y29.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ebhekm48.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-rk1a6j32.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-rk1a6j32.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rk1a6j32.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rk1a6j32.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-j1t5p416.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-j1t5p416.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-j1t5p416.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-j1t5p416.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-v3hp5766.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-cj6sqm60.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-cj6sqm60.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-cj6sqm60.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-cj6sqm60.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-zbyqeq59.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-zbyqeq59.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zbyqeq59.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zbyqeq59.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-n13vtd55.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-504xc702.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-504xc702.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-504xc702.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-504xc702.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-ks4axh82.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-ks4axh82.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ks4axh82.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ks4axh82.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-9va66e71.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-ve0gvv78.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-ve0gvv78.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ve0gvv78.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ve0gvv78.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-ry2p1127.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-ry2p1127.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ry2p1127.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ry2p1127.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-cpt8v588.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-fbxp0m66.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-fbxp0m66.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-fbxp0m66.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-fbxp0m66.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-5tmx6b89.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-5tmx6b89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-5tmx6b89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-5tmx6b89.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-fteaxg98.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-htffg359.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-htffg359.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-htffg359.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-htffg359.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-vb25vw79.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-vb25vw79.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vb25vw79.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vb25vw79.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-t1xmym84.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-7v5ewt31.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-7v5ewt31.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-7v5ewt31.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-7v5ewt31.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-tevf9q37.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-tevf9q37.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-tevf9q37.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-tevf9q37.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-mhzmae60.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-kvtnfz75.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-kvtnfz75.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-kvtnfz75.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-kvtnfz75.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-hcnchw77.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-hcnchw77.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-hcnchw77.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-hcnchw77.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-mq9skw55.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-rngybm87.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-rngybm87.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rngybm87.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rngybm87.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-5ytm0d41.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-5ytm0d41.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-5ytm0d41.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-5ytm0d41.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-x9c68q16.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-z04bp583.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-z04bp583.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-z04bp583.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-z04bp583.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-xgtfc910.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-xgtfc910.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xgtfc910.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xgtfc910.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-7nkxb175.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-ktehyc68.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-ktehyc68.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ktehyc68.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ktehyc68.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-3kt8db56.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-3kt8db56.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3kt8db56.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3kt8db56.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-9xvxtn39.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-k0h3cf29.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-k0h3cf29.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-k0h3cf29.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-k0h3cf29.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-k6ad3d54.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-k6ad3d54.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k6ad3d54.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k6ad3d54.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-dpyrs059.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-yc78tb10.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-yc78tb10.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-yc78tb10.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-yc78tb10.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-7mfd6624.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-7mfd6624.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7mfd6624.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7mfd6624.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-a7rqf042.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-9xege427.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-9xege427.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-9xege427.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-9xege427.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-032gnn40.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-032gnn40.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-032gnn40.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-032gnn40.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-w2rz8k44.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-9m5m2j68.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-9m5m2j68.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-9m5m2j68.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-9m5m2j68.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-7hhvm084.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-7hhvm084.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7hhvm084.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7hhvm084.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-h1jkg614.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-r63d8n75.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-r63d8n75.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-r63d8n75.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-r63d8n75.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-0nvksg17.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-0nvksg17.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0nvksg17.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0nvksg17.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ec7geb61.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-szfp2h88.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-szfp2h88.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-szfp2h88.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-szfp2h88.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-yh8trj42.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-yh8trj42.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-yh8trj42.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-yh8trj42.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-rj379t41.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-9n1ve609.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-cqm1wz27.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-dctjn506.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-041r7855.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-041r7855.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-041r7855.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-041r7855.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-20z6n251.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-20z6n251.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-20z6n251.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-20z6n251.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3n8th922.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-4np37r90.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-4np37r90.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-4np37r90.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-4np37r90.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-3hdezv37.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-3hdezv37.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3hdezv37.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3hdezv37.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-c9981r97.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-5ft7f628.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-5ft7f628.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-5ft7f628.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-5ft7f628.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-paqhap34.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-paqhap34.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-paqhap34.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-paqhap34.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-vzhjvz63.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-se6dxw02.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-se6dxw02.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-se6dxw02.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-se6dxw02.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-mz31h259.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-mz31h259.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-mz31h259.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-mz31h259.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-2vdjva26.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-g1055s72.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-g1055s72.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-g1055s72.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-g1055s72.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-tva59671.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-tva59671.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-tva59671.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-tva59671.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-yrf7h703.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-v89gpf24.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-v89gpf24.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-v89gpf24.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-v89gpf24.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-s8vaqs84.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-s8vaqs84.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-s8vaqs84.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-s8vaqs84.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-cc4dwp63.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-212mqj33.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-bf0m4247.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ht3neh44.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-6pt18m55.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-6pt18m55.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-6pt18m55.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-6pt18m55.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-m36jmq45.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-m36jmq45.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-m36jmq45.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-m36jmq45.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-655hxz18.1
+INFO:root:Found malformed workflow ID: nmdc:wfrbt-11-7s4eth38.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrbt-11-7s4eth38.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-7s4eth38.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-7s4eth38.1.1
+INFO:root:Found malformed workflow ID: nmdc:wfrqc-11-21x8c956.1.1
+INFO:root:Found malformed data objects for workflow ID: nmdc:wfrqc-11-21x8c956.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-21x8c956.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-21x8c956.1.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-kwg2y084.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-xgqa6873.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-7xb99s46.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-r75fzy31.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-tkwdm987.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-56krnc53.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-bgbdz820.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-js34e157.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-m90jhf22.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-t7h5e444.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ax34gm76.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-xpqv5n81.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rdgj1479.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3wh3jx72.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-d2fjh185.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1yxman68.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9zr71q76.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-qshfm913.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-0h7v2n03.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-nx0xqt90.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ntzgy808.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-f8e4bd27.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-sm0mb248.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-cvts7634.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ne0xjx55.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-pjhab282.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-6qybfd19.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-shsra227.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-zmgv9691.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-cytjk368.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-vx6s3j35.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-htcd3w36.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-z66qav98.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-53qeh520.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-pex5sx90.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-kfqbxb77.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ews0j173.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-4q5amn61.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-z1vs6396.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-6a9y3y52.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-9r9tp963.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-jtbm5t26.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ynefxh47.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3jsqnx66.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-x2p7r217.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ch7pxv21.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-qb1ffd63.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-b46j5h73.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-dhdsnr60.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-5yf4md22.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-qaf0t504.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-mhwk2h43.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-4h8xn421.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-483pr674.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-b10dj192.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-sbgmk506.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vfr0av51.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-mfg8mw34.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-jnm92a04.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gpdad736.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-2j6erj43.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-5dj1wm90.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-xsa77011.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-d2fxby53.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-eakd5a61.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-drwj2z92.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1cd9sm67.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-yb360w59.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-dw65hn13.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-eczdyw62.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-9g1mm772.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0ph9k733.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-82dn9038.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-8q36zg69.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-9vwma858.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-1jsxhm75.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-v1g7v484.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9wtp6889.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-vhf12m59.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-qn9sah36.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-qv11vv73.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-6hc5hq02.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ar19cd41.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gdkssf20.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-d10ehd02.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zp8fcn70.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ha83c851.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-v5cm5m45.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-5kgwjy19.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-qe3v8w61.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-zae4s237.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gtgn7p39.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9whrtm39.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-xx0jhr77.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-4f6bkk05.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-03btnd94.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-4fybqm41.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-fyndm054.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-0d965s84.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zqv19108.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-tj61ec70.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0323p949.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-8y3xww58.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ce47yn34.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1kvamr33.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-w14hqz65.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-9ekrs555.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-b3nart55.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-yxghrx34.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-wsa3dn14.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-kdpf0676.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-gztdmr46.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-k8j2dg02.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-aq78pe67.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ers37h85.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-v10gvz09.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vr4nv743.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-1x165124.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-tyd4sf39.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-t27fvs58.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3vdnr737.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-r77v2w15.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-daxyk116.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3jr60116.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-hs6vd175.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-cj32kh40.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6eqgen35.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ak9h8e36.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-p1qcwk63.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-79mnxk53.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ecdf1f37.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-mkdt8739.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-zatfmn05.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-22ngb664.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0qn3r938.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-t7awem63.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-04479087.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-0tke2621.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-9th20t06.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-wnbbp468.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-kjrsxy80.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3gk24h95.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-g1778f62.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-te3vth33.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rk0t0t72.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-7b18rs07.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-s42zd222.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-p5bfzc45.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0t0ggn95.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k1m7bg06.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-2fbrfs75.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-q0j8ts57.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-7fs29808.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-5vn71m68.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-fjmr1v80.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-6h76tz40.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vcjh7791.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-f6vqqn03.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ypq4pw26.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-e74j9178.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-4nh2xe34.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-j3mq8424.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-x2g5mw32.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-97z2db95.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vbe3a633.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-p4zmr944.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-99xg4t54.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-dafdv182.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-zqsr4m89.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-w45keb83.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-2c0a4412.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-8nxwre78.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-33qv5912.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-hc14e762.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-qt6wv627.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-tz5nx085.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-91v5zq65.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-194zk102.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-5x0g9e85.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-kjttc196.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-gr6sbq52.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-frgrnn85.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-gps7yy51.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-hb6aq572.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ezf8qm71.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gdnkdb33.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-51ayvb52.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-vve1me55.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-mfzhrw69.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zswvva73.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-5bxje049.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-85dkey29.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-x8fpwj64.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-v44mat06.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-2v057664.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ma2ycy58.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-c0k3jc13.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-t4weqj74.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-nw3xqh06.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-mph58e90.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-kvaq8y47.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-j0hz8v06.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-v6mzaa70.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-vh9w2k20.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rd29dy36.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-q5a46e02.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-yt7f7869.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-e7xyrj30.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-4akhh462.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-qsmkc225.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-jjh8t306.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-47dzys93.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-wskgbz11.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-mbacve56.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fsm7mt14.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-fnvzj435.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-536ca986.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-5z1fc019.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-7exf1a62.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-vhtjqa84.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gngdvz60.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-d4kgww34.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jcvnv692.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-krqwm386.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jm9tn991.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-1d95hb15.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-jx4wsn79.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-e2n4xq10.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-kr80vg94.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-7thc9d71.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-r9c5sc04.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9km3zp78.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-m2er9p97.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1sqqch41.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-hessyp25.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-av1qdp21.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-nq793g43.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-vz4fjz32.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-xx1qe651.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ywq3dk98.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k9r0h878.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-r6t8db28.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zh7njm16.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3vynwx20.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-xbn4ec53.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-9171fw87.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ntg2sj73.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-rxh9rz81.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1fa30k25.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-6cdt5h48.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-trrg5a53.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6ejn6077.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-yvv4ce87.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-kabfe829.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-a83j6b46.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-x99nte88.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-fcpwr528.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-037bzq57.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-1qmj0s10.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ph1fd568.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-kz539b93.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-tfkbk993.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-wrx64626.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-sgrthd29.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-a9f5wm61.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-t9f8aw17.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zs816886.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-30w3zf61.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-tmb28v91.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-zkbf3z53.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-50zafd61.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-h2z0k111.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-m9jpzr42.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k7h9ny59.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-kmvm6q44.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xwez4647.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-epv82k87.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ea12t340.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-etctbg90.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-zjhxev90.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-tekqkv53.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-nzxnct92.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-h6tg5m13.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-z0qhq638.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-wqmfc260.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ebpydj54.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-4cb35s41.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-akpq2578.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-csv8f091.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gdf8es92.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-8wbw7y79.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-4rk9xd24.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-a9m9rq58.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-529kjq68.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vcc4re26.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-69n2cr43.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-m3qpmm33.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-vhcvqv50.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-hv32sv78.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-103yk954.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-s5gbqy46.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-a0je2z32.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-e7d4d026.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-rmb80m90.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-acqygb90.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ge5vbq48.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-2mtrr006.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-4xwzy097.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-pstev786.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-dhrevy96.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-bmyxfw52.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zd6j0562.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-s2d56v29.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-btxh4g16.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-9sg5by65.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3syvvc07.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-k599xz56.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ksb4dr37.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-48fbn967.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-cf5qda16.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9vea4z71.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-4k2gvg88.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-s94vxt50.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-mwb05c83.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-r2bcsn79.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-t0d5cv77.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-s0m3pg40.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-vdz29415.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-nqz6da10.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-8qhb8d98.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6x5z7s30.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6yswbf60.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-dxn40g92.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-9btf9f56.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-k1bs5q69.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-fae77s47.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-bstrmt82.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-qr1r8g04.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-0qms8y27.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-12b0n974.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gxpc9186.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-dn0sv237.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-q05dcs83.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-4180wr07.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-r5tchc78.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-2e6jg289.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-6js28359.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rc72be49.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-5atjb581.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-7029bg14.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-bt98cm02.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-7arrtq41.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-2x6b1p05.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gsh10c76.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ame1pq54.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ct2m3162.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-fzdedr42.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-2wkqaw33.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-nyn6ag02.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-v3bhth58.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-8f9kvr52.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-akw34264.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-5g1g1407.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-taks9745.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-tmzmcs11.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vctdb905.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-2gqecx79.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-d65zwn34.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6dcg9n36.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-1haw2363.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-yjygvx86.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-7n3arv90.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-8vpxnb18.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-rf2ecd16.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-9atsk255.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-f9gg9k93.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-92g1qf20.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-djnwq256.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-jsprbk17.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-jxwr7128.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3pbqb382.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-80akps77.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-n71kzw28.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3h7exq14.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-h61g6y89.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-vys5gz86.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-pst36316.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-cz6k5p95.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6gp71m35.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-y2myc645.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-j3tvkn48.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-x7j34c18.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-fgrbyy33.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-j44kyf70.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-mgr8rm88.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-whs31r74.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-2pfw0b29.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-dcenga16.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3f87dr55.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gk1kyw72.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-y52g3b02.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-kd2acf82.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-rhkxgw76.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-cv4nav16.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-x5n39063.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-j8g23411.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-t12jsr97.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-jdc4s773.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vedak467.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-dykmt746.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-x0zsgw59.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-8rjhxw11.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-z6hmth60.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-46x7ee30.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-6s67w260.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-nyvpn994.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-95dpe706.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6sps9w45.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-b0a9rh92.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0ka2mb56.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3zwb1x75.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-sydpyw90.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-akcnsa64.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-e6rbpm35.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-t0yj9d92.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-b7qgwb41.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-215nhq12.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zq4t6342.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-v3ps5b32.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ftcex360.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-1fz03z60.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-442bw829.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-6qxe0q16.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-0ds75667.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-x1se6z25.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-mxeh0z30.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-56wet745.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-cr694y70.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-n7s21737.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0cxqvr05.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ch1r2t28.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3adskj45.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-str15m83.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-95wgrc37.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-2yw8gm33.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-cxqnzw54.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-6yrp4c10.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-s4csvp33.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-yw2pag63.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jgjndx33.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-zq4zf123.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-72am8c92.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-x0cssm36.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-s6f2hc25.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ex8mcm05.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-80e8tj63.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ssvatt69.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-sqd9tz78.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-mtvqvp62.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-b4ng9k41.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-2bnbwf23.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1ar09j11.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jxrhv969.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-dze6kr28.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-6kn1av14.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-9gcfv049.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-r5gb6v32.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-qkk22016.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-xtfwyy92.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-emknyg47.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-2tcgdg88.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-em8tyk89.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-jzeqep21.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-cw0sz788.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-r20td275.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-p6dv3h88.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-3cdkeg12.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-z23fha04.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-jh67z188.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-9n4vs491.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-n2agbn24.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-qp7sy660.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-bf9znh81.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-t0ds9989.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-cnv9c386.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-aqcjnt38.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-pv953g54.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-swn0cs39.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-qnzhtw78.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-2hkx8r45.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-v27f3w31.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-wr61mm53.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-48c0bh04.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-jke6c630.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-t56t1q88.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-msd2rf28.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-gvmgj833.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-p1w7y911.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-706vqa60.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-f35pcd14.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-k6b05703.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-tn62tn33.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-j6psye37.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-h3g38t66.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-xvbwg807.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-vekgt602.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-hp6e4871.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-sntvfd77.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-9hkanc13.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-378ft346.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-bvp3nn47.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-qx4y8z29.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ye7w8144.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-d8tk6f65.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-qm695590.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-1kr9m008.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-x5464y19.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-10ptzq49.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-eyp5gr61.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-j07mgp10.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-ynwe5216.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-r2yww325.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-2zjx1n32.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-0nhd8a62.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-w36zzw20.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-tfnt2s34.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-nmb12g56.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-nyxy4h29.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ys6mez34.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-k6yyex89.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-p76xg208.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3627fa34.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-zfd3xf20.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-536ng698.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-rwqwx062.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-dk03e914.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-ww2emg96.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-1h7zpx36.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-antgnd29.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-ftsjxn60.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-edjmz815.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-c6q3eq84.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-4wat0e75.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-qh7sc053.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-69q9hj10.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-c5mkdm72.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-qdjq4q93.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-v9055b36.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-bkfg0j23.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-t37fkj53.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jg9qfq19.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-bjr9bm17.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-5v49aa29.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-bxh0ta71.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-3rfg3k79.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-42en4q91.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-js1szx69.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-btymtp73.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-xt5zpm58.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-3yha2c04.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-gx73ct80.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-nq0zgf94.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-dsqd2x38.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-gh64eb30.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-h8zkmf82.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-fk987013.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-4tfjax90.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-0es1zz02.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-hhbdnx62.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-c6bt9333.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmag-11-t323m521.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmag-11-enrgvn24.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgan-11-5wyq6h92.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfmgas-11-xtr4b463.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrbt-11-f1n8e604.1
+INFO:root:Found malformed data paths for workflow ID: nmdc:wfrqc-11-jwry8s48.1
+INFO:root:Writing affected workflow records to affected_workflow_records.json
