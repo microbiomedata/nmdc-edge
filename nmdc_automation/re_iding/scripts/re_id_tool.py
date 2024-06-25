@@ -737,11 +737,18 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                 if not omics_processing_dir.exists():
                     logging.warning(f"Directory not found: {omics_processing_dir}")
                     continue
+                workflow_dirs = []
                 data_paths = []
-                for data_path in omics_processing_dir.iterdir():
+                for workflow_dir in omics_processing_dir.iterdir():
                     # get every data path with an nmdc: namespace
-                    if "nmdc:" in data_path.name:
-                        data_paths.append(data_path)
+                    if "nmdc:" in workflow_dir.name:
+                        workflow_dirs.append(workflow_dir)
+                        # find the data paths for each workflow directory
+                        for data_path in workflow_dir.iterdir():
+                            if "nmdc_" in data_path.name:
+                                data_paths.append(data_path)
+
+
 
                 omics_processing_workflows_map[omics_processing_id].append(
                     {
@@ -749,6 +756,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                         "workflow_id": workflow_id,
                         "type": workflow_record["type"],
                         "data_objects": data_objects,
+                        "workflow_dirs": [str(workflow_dir) for workflow_dir in workflow_dirs],
                         "data_paths": [str(data_path) for data_path in data_paths]
                     }
                 )
@@ -765,62 +773,61 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
     for omics_processing_id, workflow_records in omics_processing_workflows_map.items():
         for record in workflow_records:
             workflow_id = record["workflow_id"]
-            # Check for malformed workflow IDs in the Workflow attributes
-            if workflow_id.count(".") != 1:
-                logging.info(f"Found malformed workflow ID: {workflow_id}")
-                wf_dict = {
-                    "_id": record["_id"],
-                    "workflow_id": workflow_id,
-                    "type": record["type"],
-                    "data_objects": [],
-                    "data_paths": [],
-                }
-                data_objects = record["data_objects"]
-                malformed_data_objects = []
-                for data_object in data_objects:
-                    if check_if_data_object_record_has_malformed_version(data_object):
-                        malformed_data_objects.append(data_object)
-                if malformed_data_objects:
-                    logging.info(f"Found malformed data objects for workflow ID: {workflow_id}")
-                    wf_dict["data_objects"] = malformed_data_objects
+            wf_dict = {
+                "_id": record["_id"],
+                "workflow_id": workflow_id,
+                "type": record["type"],
+                "data_objects": [],
+                "workflow_dirs": [],
+                "data_paths": [],
+            }
+            # Check for malformed data objects where name and/or url are malformed
+            data_objects = record["data_objects"]
+            malformed_data_objects = []
+            for data_object in data_objects:
+                if check_if_data_object_record_has_malformed_version(data_object):
+                    malformed_data_objects.append(data_object)
+            if malformed_data_objects:
+                logging.info(f"Found malformed data objects for workflow ID: {workflow_id}")
+                wf_dict["data_objects"] = malformed_data_objects
 
-                # Check for malformed data paths - these can exist independently of the workflow ID
-                data_paths = record["data_paths"]
-                malformed_data_paths = [data_path for data_path in data_paths if data_path.count(".") != 1]
-                if malformed_data_paths:
-                    logging.info(f"Found malformed data paths for workflow ID: {workflow_id}")
-                    wf_dict["data_paths"] = malformed_data_paths
-                pruned_map.setdefault(omics_processing_id, []).append(
-                    wf_dict
-                )
-            # Check for malformed data paths - these can exist independently of the workflow ID
+            # Check for malformed workflow directories
+            workflow_dirs = record["workflow_dirs"]
+            malformed_workflow_dirs = [workflow_dir for workflow_dir in workflow_dirs if workflow_dir.count(".") != 1]
+            if malformed_workflow_dirs:
+                logging.info(f"Found malformed workflow directories for workflow ID: {workflow_id}")
+                wf_dict["workflow_dirs"] = malformed_workflow_dirs
+
+            #  Check for malformed data file names and/or paths
             data_paths = record["data_paths"]
-            malformed_data_paths = [data_path for data_path in data_paths if data_path.count(".") != 1]
+            malformed_data_paths = []
+            for data_path in data_paths:
+                do_name = data_path.split("/")[-1]
+                fixed_do_name = fix_malformed_data_object_name(do_name)
+                if fixed_do_name != do_name:
+                    logging.warning(f"Data Object name is malformed: {do_name} should be {fixed_do_name}")
+                    malformed_data_paths.append(data_path)
             if malformed_data_paths:
                 logging.info(f"Found malformed data paths for workflow ID: {workflow_id}")
-                data_objects = record["data_objects"]
-                malformed_data_objects = []
-                for data_object in data_objects:
-                    if check_if_data_object_record_has_malformed_version(data_object):
-                        malformed_data_objects.append(data_object)
-                pruned_map.setdefault(omics_processing_id, []).append(
-                    {
-                        "_id": record["_id"],
-                        "workflow_id": workflow_id,
-                        "type": record["type"],
-                        "data_objects": malformed_data_objects,
-                        "data_paths": malformed_data_paths,
-                    }
-                )
+                wf_dict["data_paths"] = malformed_data_paths
 
+            if wf_dict["data_objects"] or wf_dict["workflow_dirs"] or wf_dict["data_paths"]:
+                pruned_map.setdefault(omics_processing_id, []).append(wf_dict)
+            # also check for malformed workflow IDs
+            fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
+            if fixed_workflow_id != workflow_id:
+                logging.warning(f"Workflow ID in the database is malformed: {workflow_id} should be {fixed_workflow_id}")
+                pruned_map.setdefault(omics_processing_id, []).append(wf_dict)
 
-
-
-
+    total_pruned_records = sum([len(records) for records in pruned_map.values()])
+    logging.info(f"Pruned map contains {total_pruned_records} records")
     # Serialize the map for writing to a file or displaying
     serialized_map = json.dumps(pruned_map, indent=4)
     if write_to_file:
-        map_outfile = Path("affected_workflow_records.json")
+        if production:
+            map_outfile = Path("affected_workflow_records_prod.json")
+        else:
+            map_outfile = Path("affected_workflow_records_local.json")
         logging.info(f"Writing affected workflow records to {map_outfile}")
         with open(map_outfile, "w") as f:
             f.write(serialized_map)
