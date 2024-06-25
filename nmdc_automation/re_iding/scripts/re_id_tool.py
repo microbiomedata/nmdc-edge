@@ -849,11 +849,10 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
 
 
 @cli.command()
-@click.argument("input-file", type=click.Path(exists=True))
 @click.option("--production", is_flag=True, default=False)
 @click.option("--update-files", is_flag=True, default=False)
 @click.pass_context
-def process_affected_workflows(ctx, input_file, production=False, update_files=False):
+def process_affected_workflows(ctx, production=False, update_files=False):
     """
     Read the JSON file of affected workflow records and their data paths and
     fix occurrences of incorrectly versioned workflow IDs in the database and/or
@@ -867,10 +866,11 @@ def process_affected_workflows(ctx, input_file, production=False, update_files=F
     start_time = time.time()
     if production:
         data_dir = PROD_DATAFILE_DIR
+        affected_records_file = Path("affected_workflow_records_prod.json")
     else:
         data_dir = LOCAL_DATAFILE_DIR
+        affected_records_file = Path("affected_workflow_records_local.json")
 
-    affected_records_file = Path("affected_workflow_records.json")
     logging.info(f"Reading affected workflow records from {affected_records_file}")
     with open(affected_records_file, "r") as f:
         affected_records = json.load(f)
@@ -884,9 +884,11 @@ def process_affected_workflows(ctx, input_file, production=False, update_files=F
         logging.info(f"Processing affected records for omics_processing_id: {omics_processing_id}")
         for record in records:
 
-            # workflow ID from the database
+            # Check the workflow ID extracted from the database and fix it if it is malformed
+            # It is possible that the workflow ID from the database is correct but related data paths are incorrect
             record_id = record["_id"]
             workflow_id = record["workflow_id"]
+            wf_blade = workflow_id.split("-")[-1].split(".")[0]
             collection_name = get_collection_name_from_workflow_id(workflow_id)
             fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
             if fixed_workflow_id != workflow_id:
@@ -904,13 +906,28 @@ def process_affected_workflows(ctx, input_file, production=False, update_files=F
             else:
                 logging.info(f"Workflow ID in the database is correct: {workflow_id}")
 
-            # Data paths are based on the omics_processing_id and workflow_id
-            for data_path in record["data_paths"]:
-                workflow_dir_name = data_path.split("/")[-1]
-                omics_dir_name = data_path.split("/")[-2]
+            # Case:
+            #   - No affected data objects and multiple workflow directories
+            if len(record["workflow_dirs"]) > 1 and not record["data_objects"]:
+                logging.warning(f"Multiple workflow directories found for workflow ID: {workflow_id}")
+                # if none of the workflow directories contain the correct blade, we have a problem that we can't fix here
+                if not any([wf_blade in workflow_dir for workflow_dir in record["workflow_dirs"]]):
+                    logging.error(f"None of the workflow directories contain the correct blade: {wf_blade}")
+                    continue
+
+
+
+            # Workflow directories are based on the workflow and omics_processing IDs
+            for workflow_dir in record["workflow_dirs"]:
+                workflow_dir_name = workflow_dir.split("/")[-1]
+                omics_dir_name = workflow_dir.split("/")[-2]
+
+
+
                 fixed_workflow_dir_name = fix_malformed_workflow_id_version(workflow_dir_name)
                 # get the actual data file path depending on the environment
                 workflow_dir_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
+
                 if fixed_workflow_dir_name != workflow_dir_name:
                     logging.warning(f"Workflow Directory directory name is malformed: {workflow_dir_name}")
                     # add the old ID to alternative_identifiers
@@ -935,6 +952,7 @@ def process_affected_workflows(ctx, input_file, production=False, update_files=F
                     else:
                         logging.info(f"--update-files not selected. Would do: {workflow_dir_path} ->"
                                      f" {fixed_workflow_dir_name}")
+
                 else:
                     logging.info(f"Workflow Directory Path is correct: {workflow_dir_name}")
 
