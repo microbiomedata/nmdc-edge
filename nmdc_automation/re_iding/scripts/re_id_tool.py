@@ -767,7 +767,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
             workflow_id = record["workflow_id"]
             # Check for malformed workflow IDs in the Workflow attributes
             if workflow_id.count(".") != 1:
-                logging.info(f"Found record with malformed workflow ID: {workflow_id}")
+                logging.info(f"Found malformed workflow ID: {workflow_id}")
                 wf_dict = {
                     "_id": record["_id"],
                     "workflow_id": workflow_id,
@@ -781,14 +781,14 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                     if check_if_data_object_record_has_malformed_version(data_object):
                         malformed_data_objects.append(data_object)
                 if malformed_data_objects:
-                    logging.info(f"Found record with malformed data objects: {malformed_data_objects}")
+                    logging.info(f"Found malformed data objects for workflow ID: {workflow_id}")
                     wf_dict["data_objects"] = malformed_data_objects
 
                 # Check for malformed data paths - these can exist independently of the workflow ID
                 data_paths = record["data_paths"]
                 malformed_data_paths = [data_path for data_path in data_paths if data_path.count(".") != 1]
                 if malformed_data_paths:
-                    logging.info(f"Found record with malformed data paths: {malformed_data_paths}")
+                    logging.info(f"Found malformed data paths for workflow ID: {workflow_id}")
                     wf_dict["data_paths"] = malformed_data_paths
                 pruned_map.setdefault(omics_processing_id, []).append(
                     wf_dict
@@ -797,7 +797,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
             data_paths = record["data_paths"]
             malformed_data_paths = [data_path for data_path in data_paths if data_path.count(".") != 1]
             if malformed_data_paths:
-                logging.info(f"Found record with malformed data paths: {malformed_data_paths}")
+                logging.info(f"Found malformed data paths for workflow ID: {workflow_id}")
                 data_objects = record["data_objects"]
                 malformed_data_objects = []
                 for data_object in data_objects:
