@@ -134,7 +134,7 @@ pipelinelist = {
         workflows: {
             ReadsQC: {
                 full_name: 'ReadsQC',
-                cromwell_calls: ['main_workflow.jgi_rqcfilter_call']
+                cromwell_calls: ['main_workflow.jgi_rqcfilter_call', 'main_workflow.nmdc_rqcfilter_call']
             },
             ReadbasedAnalysis: {
                 full_name: 'Read-based Taxonomy Classification',
