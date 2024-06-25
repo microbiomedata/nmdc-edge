@@ -123,6 +123,7 @@ def check_for_single_omics_processing_record(db_record: Dict) -> bool:
         raise ValueError("Multiple omics_processing_set found in db_record")
     return True
 
+
 def get_data_object_record_by_id(db_record: Dict, id: str)-> Optional[Dict]:
     """
     Return the data object record with the given ID.
@@ -134,3 +135,15 @@ def get_data_object_record_by_id(db_record: Dict, id: str)-> Optional[Dict]:
     elif len(data_objects) > 1:
         raise ValueError(f"Multiple data objects found with id: {id}")
     return data_objects[0]
+
+def check_if_data_object_record_has_malformed_version(data_object: Dict) -> bool:
+    """
+    Check if the data object record has a malformed version
+    """
+    name = data_object["name"]
+    url = data_object["url"]
+    fixed_name = fix_malformed_data_object_name(name)
+    fixed_url = fix_malformed_data_object_url(url)
+    if name != fixed_name or url != fixed_url:
+        return True
+    return False
