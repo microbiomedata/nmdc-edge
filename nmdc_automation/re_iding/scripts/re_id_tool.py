@@ -738,7 +738,8 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                     continue
                 data_paths = []
                 for data_path in omics_processing_dir.iterdir():
-                    if workflow_id in data_path.name:
+                    # get every data path with an nmdc: namespace
+                    if "nmdc:" in data_path.name:
                         data_paths.append(data_path)
 
                 omics_processing_workflows_map[omics_processing_id].append(
