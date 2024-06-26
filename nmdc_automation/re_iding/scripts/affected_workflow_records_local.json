@@ -81,25 +81,25 @@
             "workflow_dirs": [
                 "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1.1"
             ],
-            "data_paths": [
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_report_full.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_classification.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1/nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_classification.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1.1/nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1.1/nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1.1/nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1.1/nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1.1/nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1.1/nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_report_full.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1.1/nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_classification.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1.1/nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1.1/nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_classification.tsv"
+            "data_files": [
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_krona.html",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_krona.html",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_report.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_report.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_report.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_report_full.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_classification.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_krona.html",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_classification.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_krona.html",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_krona.html",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_report.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_report.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_report.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_report_full.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_classification.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_krona.html",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_classification.tsv"
             ]
         },
         {
@@ -127,11 +127,11 @@
             "workflow_dirs": [
                 "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1.1.1"
             ],
-            "data_paths": [
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1.1.1/nmdc_wfrqc-11-pbxpdr12.1.1.1_filtered.fastq.gz",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1.1.1/nmdc_wfrqc-11-pbxpdr12.1.1.1_filterStats.txt",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1/nmdc_wfrqc-11-pbxpdr12.1.1.1_filtered.fastq.gz",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1/nmdc_wfrqc-11-pbxpdr12.1.1.1_filterStats.txt"
+            "data_files": [
+                "nmdc_wfrqc-11-pbxpdr12.1.1.1_filtered.fastq.gz",
+                "nmdc_wfrqc-11-pbxpdr12.1.1.1_filterStats.txt",
+                "nmdc_wfrqc-11-pbxpdr12.1.1.1_filtered.fastq.gz",
+                "nmdc_wfrqc-11-pbxpdr12.1.1.1_filterStats.txt"
             ]
         }
     ],
@@ -217,21 +217,21 @@
             "workflow_dirs": [
                 "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1.1"
             ],
-            "data_paths": [
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_kraken2_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_kraken2_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_centrifuge_classification.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_centrifuge_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_report_full.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_kraken2_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_kraken2_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_centrifuge_classification.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_centrifuge_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1/nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_report_full.tsv"
+            "data_files": [
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_report.tsv",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_kraken2_krona.html",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_krona.html",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_kraken2_report.tsv",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_centrifuge_classification.tsv",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_centrifuge_report.tsv",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_report_full.tsv",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_report.tsv",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_kraken2_krona.html",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_krona.html",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_kraken2_report.tsv",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_centrifuge_classification.tsv",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_centrifuge_report.tsv",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_report_full.tsv"
             ]
         },
         {
@@ -259,11 +259,11 @@
             "workflow_dirs": [
                 "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrqc-11-k8vbs933.1.1.1"
             ],
-            "data_paths": [
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrqc-11-k8vbs933.1.1.1/nmdc_wfrqc-11-k8vbs933.1.1.1_filtered.fastq.gz",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrqc-11-k8vbs933.1.1.1/nmdc_wfrqc-11-k8vbs933.1.1.1_filterStats.txt",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrqc-11-k8vbs933.1/nmdc_wfrqc-11-k8vbs933.1.1.1_filtered.fastq.gz",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-gqbhbd17/nmdc:wfrqc-11-k8vbs933.1/nmdc_wfrqc-11-k8vbs933.1.1.1_filterStats.txt"
+            "data_files": [
+                "nmdc_wfrqc-11-k8vbs933.1.1.1_filtered.fastq.gz",
+                "nmdc_wfrqc-11-k8vbs933.1.1.1_filterStats.txt",
+                "nmdc_wfrqc-11-k8vbs933.1.1.1_filtered.fastq.gz",
+                "nmdc_wfrqc-11-k8vbs933.1.1.1_filterStats.txt"
             ]
         }
     ],
@@ -278,25 +278,25 @@
                 "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1.1",
                 "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1.1"
             ],
-            "data_paths": [
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-0es1zz02.1.1/nmdc_wfrbt-11-0es1zz02.1.1_kraken2_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-0es1zz02.1.1/nmdc_wfrbt-11-0es1zz02.1.1_kraken2_classification.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-0es1zz02.1.1/nmdc_wfrbt-11-0es1zz02.1.1_kraken2_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-0es1zz02.1.1/nmdc_wfrbt-11-0es1zz02.1.1_centrifuge_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-0es1zz02.1.1/nmdc_wfrbt-11-0es1zz02.1.1_gottcha2_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-0es1zz02.1.1/nmdc_wfrbt-11-0es1zz02.1.1_gottcha2_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-0es1zz02.1.1/nmdc_wfrbt-11-0es1zz02.1.1_centrifuge_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-0es1zz02.1.1/nmdc_wfrbt-11-0es1zz02.1.1_gottcha2_report_full.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-0es1zz02.1.1/nmdc_wfrbt-11-0es1zz02.1.1_centrifuge_classification.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1.1/nmdc_wfrbt-11-4tfjax90.1.1_gottcha2_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1.1/nmdc_wfrbt-11-4tfjax90.1.1_gottcha2_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1.1/nmdc_wfrbt-11-4tfjax90.1.1_gottcha2_report_full.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1.1/nmdc_wfrbt-11-4tfjax90.1.1_centrifuge_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1.1/nmdc_wfrbt-11-4tfjax90.1.1_centrifuge_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1.1/nmdc_wfrbt-11-4tfjax90.1.1_kraken2_report.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1.1/nmdc_wfrbt-11-4tfjax90.1.1_centrifuge_classification.tsv",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1.1/nmdc_wfrbt-11-4tfjax90.1.1_kraken2_krona.html",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1.1/nmdc_wfrbt-11-4tfjax90.1.1_kraken2_classification.tsv"
+            "data_files": [
+                "nmdc_wfrbt-11-0es1zz02.1.1_kraken2_report.tsv",
+                "nmdc_wfrbt-11-0es1zz02.1.1_kraken2_classification.tsv",
+                "nmdc_wfrbt-11-0es1zz02.1.1_kraken2_krona.html",
+                "nmdc_wfrbt-11-0es1zz02.1.1_centrifuge_report.tsv",
+                "nmdc_wfrbt-11-0es1zz02.1.1_gottcha2_krona.html",
+                "nmdc_wfrbt-11-0es1zz02.1.1_gottcha2_report.tsv",
+                "nmdc_wfrbt-11-0es1zz02.1.1_centrifuge_krona.html",
+                "nmdc_wfrbt-11-0es1zz02.1.1_gottcha2_report_full.tsv",
+                "nmdc_wfrbt-11-0es1zz02.1.1_centrifuge_classification.tsv",
+                "nmdc_wfrbt-11-4tfjax90.1.1_gottcha2_krona.html",
+                "nmdc_wfrbt-11-4tfjax90.1.1_gottcha2_report.tsv",
+                "nmdc_wfrbt-11-4tfjax90.1.1_gottcha2_report_full.tsv",
+                "nmdc_wfrbt-11-4tfjax90.1.1_centrifuge_report.tsv",
+                "nmdc_wfrbt-11-4tfjax90.1.1_centrifuge_krona.html",
+                "nmdc_wfrbt-11-4tfjax90.1.1_kraken2_report.tsv",
+                "nmdc_wfrbt-11-4tfjax90.1.1_centrifuge_classification.tsv",
+                "nmdc_wfrbt-11-4tfjax90.1.1_kraken2_krona.html",
+                "nmdc_wfrbt-11-4tfjax90.1.1_kraken2_classification.tsv"
             ]
         },
         {
@@ -308,9 +308,9 @@
                 "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrqc-11-c6bt9333.1.1",
                 "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrqc-11-c6bt9333.1.1"
             ],
-            "data_paths": [
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrqc-11-c6bt9333.1.1/nmdc_wfrqc-11-c6bt9333.1.1_filterStats.txt",
-                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrqc-11-c6bt9333.1.1/nmdc_wfrqc-11-c6bt9333.1.1_filtered.fastq.gz"
+            "data_files": [
+                "nmdc_wfrqc-11-c6bt9333.1.1_filterStats.txt",
+                "nmdc_wfrqc-11-c6bt9333.1.1_filtered.fastq.gz"
             ]
         }
     ]

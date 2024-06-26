@@ -736,15 +736,15 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                     logging.warning(f"Directory not found: {omics_processing_dir}")
                     continue
                 workflow_dirs = []
-                data_paths = []
+                data_files = []
                 for workflow_dir in omics_processing_dir.iterdir():
                     # get every data path with an nmdc: namespace
                     if workflow_type_code in workflow_dir.name:
                         workflow_dirs.append(workflow_dir)
                         # find the data paths for each workflow directory
-                        for data_path in workflow_dir.iterdir():
-                            if workflow_type_code in data_path.name:
-                                data_paths.append(data_path)
+                        for data_file in workflow_dir.iterdir():
+                            if data_file.is_file() and workflow_type_code in data_file.name:
+                                data_files.append(data_file.name)
 
                 omics_processing_workflows_map[omics_processing_id].append(
                     {
@@ -753,7 +753,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                         "type": workflow_record["type"],
                         "data_objects": data_objects,
                         "workflow_dirs": [str(workflow_dir) for workflow_dir in workflow_dirs],
-                        "data_paths": [str(data_path) for data_path in data_paths]
+                        "data_files": [str(data_file) for data_file in data_files]
                     }
                 )
 
@@ -775,7 +775,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                 "type": record["type"],
                 "data_objects": [],
                 "workflow_dirs": [],
-                "data_paths": [],
+                "data_files": [],
             }
             # Check for malformed data objects where name and/or url are malformed
             data_objects = record["data_objects"]
@@ -804,20 +804,20 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
 
 
             #  Check for malformed data file names and/or paths
-            data_paths = record["data_paths"]
-            malformed_data_paths = []
-            for data_path in data_paths:
-                do_name = data_path.split("/")[-1]
+            data_files = record["data_files"]
+            malformed_data_files = []
+            for data_file in data_files:
+                do_name = data_file.split("/")[-1]
                 fixed_do_name = fix_malformed_data_object_name(do_name)
                 if fixed_do_name != do_name:
                     logging.warning(f"Data Object name is malformed: {do_name} should be {fixed_do_name}")
-                    malformed_data_paths.append(data_path)
+                    malformed_data_files.append(data_file)
                 elif wf_blade not in do_name:
                     logging.warning(f"Data Object name is misidentified: {do_name}")
-                    malformed_data_paths.append(data_path)
-            if malformed_data_paths:
+                    malformed_data_files.append(data_file)
+            if malformed_data_files:
                 logging.info(f"Found malformed data paths for workflow ID: {workflow_id}")
-                wf_dict["data_paths"] = malformed_data_paths
+                wf_dict["data_files"] = malformed_data_files
 
             if wf_dict["data_objects"] or wf_dict["workflow_dirs"] or wf_dict["data_paths"]:
                 pruned_map.setdefault(omics_processing_id, []).append(wf_dict)
