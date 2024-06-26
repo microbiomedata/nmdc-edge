@@ -658,11 +658,6 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
 
     # database collections to check
     workflow_collections = [
-        "mags_activity_set",
-        "metabolomics_analysis_activity_set",
-        "metagenome_annotation_activity_set",
-        "metagenome_assembly_set",
-        "metatranscriptome_activity_set",
         "read_based_taxonomy_analysis_activity_set",
         "read_qc_analysis_activity_set",
     ]
@@ -830,7 +825,9 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
             fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
             if fixed_workflow_id != workflow_id:
                 logging.warning(f"Workflow ID in the database is malformed: {workflow_id} should be {fixed_workflow_id}")
-                pruned_map.setdefault(omics_processing_id, []).append(wf_dict)
+                # add the wf_dict to the pruned map if it is not already there
+                if wf_dict not in pruned_map.get(omics_processing_id, []):
+                    pruned_map.setdefault(omics_processing_id, []).append(wf_dict)
 
     total_pruned_records = sum([len(records) for records in pruned_map.values()])
     logging.info(f"Pruned map contains {total_pruned_records} records")
@@ -906,57 +903,7 @@ def process_affected_workflows(ctx, production=False, update_files=False):
             else:
                 logging.info(f"Workflow ID in the database is correct: {workflow_id}")
 
-            # Case:
-            #   - No affected data objects and multiple workflow directories
-            if len(record["workflow_dirs"]) > 1 and not record["data_objects"]:
-                logging.warning(f"Multiple workflow directories found for workflow ID: {workflow_id}")
-                # if none of the workflow directories contain the correct blade, we have a problem that we can't fix here
-                if not any([wf_blade in workflow_dir for workflow_dir in record["workflow_dirs"]]):
-                    logging.error(f"None of the workflow directories contain the correct blade: {wf_blade}")
-                    continue
-
-
-
-            # Workflow directories are based on the workflow and omics_processing IDs
-            for workflow_dir in record["workflow_dirs"]:
-                workflow_dir_name = workflow_dir.split("/")[-1]
-                omics_dir_name = workflow_dir.split("/")[-2]
-
-
-
-                fixed_workflow_dir_name = fix_malformed_workflow_id_version(workflow_dir_name)
-                # get the actual data file path depending on the environment
-                workflow_dir_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
-
-                if fixed_workflow_dir_name != workflow_dir_name:
-                    logging.warning(f"Workflow Directory directory name is malformed: {workflow_dir_name}")
-                    # add the old ID to alternative_identifiers
-                    updates_map.setdefault(collection_name, []).append({
-                        "q": {"_id": record_id},
-                        "u": {"$addToSet": {"alternative_identifiers": workflow_dir_name}}
-                    })
-                    if update_files:
-                        fixed_workflow_dir_path = data_dir.joinpath(omics_dir_name, fixed_workflow_dir_name)
-                        logging.info(f"Updating Data Path: {workflow_dir_path} -> {fixed_workflow_dir_path}")
-                        # rename the directory if it has not already been renamed
-                        if not fixed_workflow_dir_path.exists():
-                            workflow_dir_path.rename(fixed_workflow_dir_path)
-                        else:
-                            logging.info(f"Data Path already renamed: {fixed_workflow_dir_path}")
-                        # create a relative symbolic link in the omics_processing directory to the new directory
-                        link_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
-                        if not link_path.exists():
-                            link_path.symlink_to(fixed_workflow_dir_name)
-                        else:
-                            logging.info(f"Data Path link already exists: {link_path}")
-                    else:
-                        logging.info(f"--update-files not selected. Would do: {workflow_dir_path} ->"
-                                     f" {fixed_workflow_dir_name}")
-
-                else:
-                    logging.info(f"Workflow Directory Path is correct: {workflow_dir_name}")
-
-            # Data Objects and their corresponding data files
+            # Data Objects and corresponding Data File Paths
             for data_object in record["data_objects"]:
                 data_object_id = data_object["id"]
                 data_object_url = data_object["url"]
@@ -979,24 +926,76 @@ def process_affected_workflows(ctx, production=False, update_files=False):
                         "u": {"$set": {"url": fixed_data_object_url}}
                     })
 
-                # find the actual data file path based on the environment and url. There may be version mismatches
-                data_file_path = get_corresponding_data_file_path_for_url(data_object_url, data_dir)
-                if not data_file_path:
-                    logging.warning(f"Data file not found for URL: {data_object_url}")
+            # Workflow Directories
+            # Special case:
+            #   - No affected data objects and multiple workflow directories with incorrect blades - skip for now
+            if len(record["workflow_dirs"]) > 1 and not record["data_objects"]:
+                logging.warning(f"Multiple workflow directories found for workflow ID: {workflow_id}")
+                # if none of the workflow directories contain the correct blade, we have a problem that we can't fix here
+                if not any([wf_blade in workflow_dir for workflow_dir in record["workflow_dirs"]]):
+                    logging.error(f"None of the workflow directories contain the correct blade: {wf_blade}")
                     continue
-                # get the expected / fixed data file path bases on the environment and the fixed url. Relative path is
-                # everything after /data/ in the url
-                relative_data_file_path = fixed_data_object_url.split("/data/")[-1]
-                fixed_data_file_path = data_dir.joinpath(relative_data_file_path)
-                if data_file_path != fixed_data_file_path:
-                    logging.warning(f"Data file path is incorrect: {data_file_path}")
+
+            # Workflow directories: check for malformed directory names and fix them. Add the old ID to alternative_identifiers
+            # and create a symbolic link to the new directory
+            for workflow_dir in record["workflow_dirs"]:
+                workflow_dir_name = workflow_dir.split("/")[-1]
+                omics_dir_name = workflow_dir.split("/")[-2]
+
+                fixed_workflow_dir_name = fix_malformed_workflow_id_version(workflow_dir_name)
+                # get the actual data file path depending on the environment
+                workflow_dir_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
+
+                if fixed_workflow_dir_name != workflow_dir_name:
+                    logging.warning(f"Workflow Directory directory name is malformed: {workflow_dir_name}")
+                    # add the old ID to alternative_identifiers
+                    updates_map.setdefault(collection_name, []).append({
+                        "q": {"_id": record_id},
+                        "u": {"$addToSet": {"alternative_identifiers": workflow_dir_name}}
+                    })
+
+                    # rename the directory if it has not already been renamed and create a symbolic link
                     if update_files:
-                        logging.info(f"Updating Data file path: {data_file_path} -> {fixed_data_file_path}")
+                        fixed_workflow_dir_path = data_dir.joinpath(omics_dir_name, fixed_workflow_dir_name)
+                        logging.info(f"Updating Data Path: {workflow_dir_path} -> {fixed_workflow_dir_path}")
+                        # rename the directory if it has not already been renamed
+                        if not fixed_workflow_dir_path.exists():
+                            workflow_dir_path.rename(fixed_workflow_dir_path)
+                        else:
+                            logging.info(f"Data Path already renamed: {fixed_workflow_dir_path}")
+                        # create a relative symbolic link in the omics_processing directory to the new directory
+                        link_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
+                        if not link_path.exists():
+                            link_path.symlink_to(fixed_workflow_dir_name)
+                        else:
+                            logging.info(f"Data Path link already exists: {link_path}")
                     else:
-                        logging.info(f"--update-files not selected. Would do: {data_file_path} -> {fixed_data_file_path}")
+                        logging.info(f"--update-files not selected. Would do: {workflow_dir_path} ->"
+                                     f" {fixed_workflow_dir_name}")
+
+                else:
+                    logging.info(f"Workflow Directory Path is correct: {workflow_dir_name}")
 
 
 
+                # # find the actual data file path based on the environment and url. There may be version mismatches
+                # data_file_path = get_corresponding_data_file_path_for_url(data_object_url, data_dir)
+                # if not data_file_path:
+                #     logging.warning(f"Data file not found for URL: {data_object_url}")
+                #     continue
+                # # get the expected / fixed data file path bases on the environment and the fixed url. Relative path is
+                # # everything after /data/ in the url
+                # relative_data_file_path = fixed_data_object_url.split("/data/")[-1]
+                # fixed_data_file_path = data_dir.joinpath(relative_data_file_path)
+                # if data_file_path != fixed_data_file_path:
+                #     logging.warning(f"Data file path is incorrect: {data_file_path}")
+                #     if update_files:
+                #         logging.info(f"Updating Data file path: {data_file_path} -> {fixed_data_file_path}")
+                #     else:
+                #         logging.info(f"--update-files not selected. Would do: {data_file_path} -> {fixed_data_file_path}")
+
+
+            # Data File Paths and Data Files
 
 
 
