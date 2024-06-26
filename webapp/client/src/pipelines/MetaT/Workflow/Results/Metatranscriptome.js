@@ -36,8 +36,11 @@ function Metatranscriptome(props) {
                             <br></br><br></br>
                         </>
                     }
-                    {props.result.top_features && 
-                        <TopFeatures result={props.result} />
+                    {props.result.features_json &&
+                        <>
+                            <h4 className="pt-3">Features</h4>
+                            <TopFeatures result={props.result} />
+                        </>
                     }
                 </CardBody>
             </Collapse>

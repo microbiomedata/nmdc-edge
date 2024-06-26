@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MaterialTable from "material-table";
 import { MuiThemeProvider } from '@material-ui/core';
-import { tableIcons, theme } from '../../../../common/table';
+import { tableIcons, theme, handleTableNumberFilter } from '../../../../common/table';
 
 function TopFeatures(props) {
     const [featureData, setFeatureData] = useState([]);
@@ -16,12 +16,15 @@ function TopFeatures(props) {
         },
         {
             title: 'start', field: 'start',
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['start']),
         },
         {
             title: 'end', field: 'end', 
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['end']),
         },
         {
             title: 'length', field: 'length',
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['length']),
         },
         {
             title: 'strand', field: 'strand',
@@ -34,6 +37,7 @@ function TopFeatures(props) {
         },
         {
             title: 'read_count', field: 'read_count', 
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['read_count']),
         },
         {
             title: 'rpkm', field: 'rpkm',
@@ -62,7 +66,7 @@ function TopFeatures(props) {
     ];
     //componentDidMount()
     useEffect(() => {
-        let features = props.result.top_features.map(obj => {
+        let features = props.result.features_json.map(obj => {
             //console.log(obj)
             let rObj = {};
             rObj['read_count'] = obj.read_count;
@@ -106,11 +110,12 @@ function TopFeatures(props) {
                         columnsButton: true,
                         grouping: false,
                         search: true,
+                        filtering: true,
                         paging: true,
-                        pageSize: 5,
-                        pageSizeOptions: [5, 10, 20, 50, 100],
+                        pageSize: 10,
+                        pageSizeOptions: [10, 20, 50, 100],
                         emptyRowsWhenPaging: false,
-                        showTitle: true,
+                        showTitle: false,
                         rowStyle: rowData => ({
                           backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
                         })

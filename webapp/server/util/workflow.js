@@ -110,7 +110,7 @@ const generateWorkflowResult = function (proj) {
         }
         result['stats'] = JSON.parse(fs.readFileSync(statsOut));
         let reportHtml = outdir + "/metagenome_workflow_report.html";
-        if(fs.existsSync(reportHtml)) {
+        if (fs.existsSync(reportHtml)) {
             result['reportHtml'] = workflowlist[workflowConf.workflow.name].outdir + "/metagenome_workflow_report.html";
         }
 
@@ -142,115 +142,115 @@ const generateWorkflowResult = function (proj) {
             if (file.endsWith("_structural_annotation_stats.json")) {
                 result['stats'] = JSON.parse(fs.readFileSync(outdir + "/" + file));
             }
-            if(file.endsWith("protein_size_histogram.html")) {
+            if (file.endsWith("protein_size_histogram.html")) {
                 result['proteinSizeHistogram'] = workflowlist[workflowConf.workflow.name].outdir + "/" + file;
             }
-            if(file === "opaver_web_path.json") {
+            if (file === "opaver_web_path.json") {
                 const webPath = JSON.parse(fs.readFileSync(outdir + "/" + file));
                 result['opaverWebPath'] = webPath['opaver_web_path'];
             }
         });
 
-        } else if (workflowConf.workflow.name === 'MetaMAGs') {
-            const files = fs.readdirSync(outdir);
-            files.forEach(function (file) {
-                if (file.endsWith("_mags_stats.json")) {
-                    let stats = JSON.parse(fs.readFileSync(outdir + "/" + file));
-                    Object.keys(stats).forEach((item, index) => {
-                        //mags_list
-                        if (typeof stats[item] === 'object') {
-                            //delete members_id
-                            for (var i = 0; i < stats[item].length; i++) {
-                                delete stats[item][i]['members_id'];
-                            }
+    } else if (workflowConf.workflow.name === 'MetaMAGs') {
+        const files = fs.readdirSync(outdir);
+        files.forEach(function (file) {
+            if (file.endsWith("_mags_stats.json")) {
+                let stats = JSON.parse(fs.readFileSync(outdir + "/" + file));
+                Object.keys(stats).forEach((item, index) => {
+                    //mags_list
+                    if (typeof stats[item] === 'object') {
+                        //delete members_id
+                        for (var i = 0; i < stats[item].length; i++) {
+                            delete stats[item][i]['members_id'];
                         }
-                    });
-                    result['stats'] = stats;
-                }
-                if(file.endsWith("_barplot.png")) {
-                    result['barplot'] =  workflowlist[workflowConf.workflow.name].outdir + "/" + file;
-                }
-                if(file.endsWith("_heatmap.png")) {
-                    result['heatmap'] =  workflowlist[workflowConf.workflow.name].outdir + "/" + file;
-                }
-                if(file.endsWith("_kronaplot.html")) {
-                    result['kronaplot'] =  workflowlist[workflowConf.workflow.name].outdir + "/" + file;
-                }
-            });
-        } else if (workflowConf.workflow.name === 'Metatranscriptome') {
-            result['top_features'] = JSON.parse(fs.readFileSync(outdir + "/metat_output/top100_features.json"));
-            const features_tsv = outdir + "/metat_output/rpkm_sorted_features.tsv";
-            if (fs.existsSync(features_tsv)) {
-                result['features_tsv'] = "output/Metatranscriptomics/metat_output/rpkm_sorted_features.tsv";
-            }
-        } else if (workflowConf.workflow.name === 'EnviroMS') {
-            let stats = {};
-            const dirs = fs.readdirSync(outdir);
-            dirs.forEach(function (dir) {
-                if (fs.statSync(outdir + "/" + dir).isDirectory()) {
-                    stats[dir] = {};
-                    //load <input filename>.json
-                    const subs = fs.readdirSync(outdir + "/" + dir).filter(file => {
-                        return file.endsWith('.json');
-                    });
-                    stats[dir]['conf'] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/" + subs[0]));
-                    //get .png
-                    const pngs = fs.readdirSync(outdir + "/" + dir).filter(file => {
-                        return file.endsWith('.png');
-                    });
-                    stats[dir]['pngs'] = {};
-                    pngs.forEach(function (png) {
-                        stats[dir]['pngs'][png] = workflowlist[workflowConf.workflow.name].outdir + "/" + dir + "/" + png;
-                    });
-                    //get molecules
-                    let top_molecules = outdir + "/" + dir + "/top100_molecules.json";
-                    if (fs.existsSync(top_molecules))
-                        stats[dir]['top_molecules'] = JSON.parse(fs.readFileSync(top_molecules));
-                    const molecules_tsv = outdir + "/" + dir + "/enviroms_sorted_molecules.tsv";
-                    if (fs.existsSync(molecules_tsv)) {
-                        stats[dir]['molecules_tsv'] = "output/NOM/" + dir + "/enviroms_sorted_molecules.tsv";
                     }
+                });
+                result['stats'] = stats;
+            }
+            if (file.endsWith("_barplot.png")) {
+                result['barplot'] = workflowlist[workflowConf.workflow.name].outdir + "/" + file;
+            }
+            if (file.endsWith("_heatmap.png")) {
+                result['heatmap'] = workflowlist[workflowConf.workflow.name].outdir + "/" + file;
+            }
+            if (file.endsWith("_kronaplot.html")) {
+                result['kronaplot'] = workflowlist[workflowConf.workflow.name].outdir + "/" + file;
+            }
+        });
+    } else if (workflowConf.workflow.name === 'Metatranscriptome') {
+        if (fs.existsSync(outdir + "/metat_output")) {
+            const files = fs.readdirSync(outdir + "/metat_output");
+            files.forEach(function (file) {
+                if (file.endsWith("_sorted_features.tsv")) {
+                    result['features_json'] = Papa.parse(fs.readFileSync(outdir + "/metat_output/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
                 }
             });
-            result['stats'] = stats;
-            logger.debug(result)
-        } else if (workflowConf.workflow.name === 'virus_plasmid') {
-            const dirs = fs.readdirSync(outdir);
-            dirs.forEach(function (dir) {
-                if (fs.statSync(outdir + "/" + dir).isDirectory() && dir.endsWith('summary')) {
-                    const summaryFiles = fs.readdirSync(outdir + "/" + dir);
-                    summaryFiles.forEach(function (summaryFile) {
-                        if (summaryFile.endsWith('plasmid_summary.tsv')) {
-                            result['plasmid_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-                        }
-                        if (summaryFile.endsWith('virus_summary.tsv')) {
-                            result['virus_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-                        }
-                    });
+        }
+    } else if (workflowConf.workflow.name === 'EnviroMS') {
+        let stats = {};
+        const dirs = fs.readdirSync(outdir);
+        dirs.forEach(function (dir) {
+            if (fs.statSync(outdir + "/" + dir).isDirectory()) {
+                stats[dir] = {};
+                //load <input filename>.json
+                const subs = fs.readdirSync(outdir + "/" + dir).filter(file => {
+                    return file.endsWith('.json');
+                });
+                stats[dir]['conf'] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/" + subs[0]));
+                //get .png
+                const pngs = fs.readdirSync(outdir + "/" + dir).filter(file => {
+                    return file.endsWith('.png');
+                });
+                stats[dir]['pngs'] = {};
+                pngs.forEach(function (png) {
+                    stats[dir]['pngs'][png] = workflowlist[workflowConf.workflow.name].outdir + "/" + dir + "/" + png;
+                });
+                const molecules_tsv = outdir + "/" + dir + "/enviroms_sorted_molecules.tsv";
+                if (fs.existsSync(molecules_tsv)) {
+                    //stats[dir]['molecules_tsv'] = "output/NOM/" + dir + "/enviroms_sorted_molecules.tsv";
+                    stats[dir]['molecules_json'] = Papa.parse(fs.readFileSync(molecules_tsv).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
                 }
-                if (fs.statSync(outdir + "/" + dir).isDirectory() && dir.endsWith('checkv')) {
-                    const summaryFiles = fs.readdirSync(outdir + "/" + dir);
-                    summaryFiles.forEach(function (summaryFile) {
-                        if (summaryFile.endsWith('quality_summary.tsv')) {
-                            result['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-                        }
-                    });
-                }
-            });
-        } else if (workflowConf.workflow.name === 'Metaproteomics') {
-            const dirs = fs.readdirSync(outdir);
-            dirs.forEach(function (summaryFile) {
-                if (summaryFile.endsWith('_QC_metrics.tsv')) {
-                    result['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-                }
-            });
-        } else if (workflowConf.workflow.name === 'sra2fastq') {
-            //use relative path 
-            //const sraDataDir = config.IO.SRA_DATA_BASE_DIR;
-            const accessions = workflowConf.workflow.accessions.toUpperCase().split(/\s*(?:,|$)\s*/);;
-            accessions.forEach((accession) => {
-                // link sra downloads to project output
-                fs.symlinkSync("../../../../sra/" + accession, outdir + "/" + accession)
+            }
+        });
+        result['stats'] = stats;
+        logger.debug(result)
+    } else if (workflowConf.workflow.name === 'virus_plasmid') {
+        const dirs = fs.readdirSync(outdir);
+        dirs.forEach(function (dir) {
+            if (fs.statSync(outdir + "/" + dir).isDirectory() && dir.endsWith('summary')) {
+                const summaryFiles = fs.readdirSync(outdir + "/" + dir);
+                summaryFiles.forEach(function (summaryFile) {
+                    if (summaryFile.endsWith('plasmid_summary.tsv')) {
+                        result['plasmid_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                    }
+                    if (summaryFile.endsWith('virus_summary.tsv')) {
+                        result['virus_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                    }
+                });
+            }
+            if (fs.statSync(outdir + "/" + dir).isDirectory() && dir.endsWith('checkv')) {
+                const summaryFiles = fs.readdirSync(outdir + "/" + dir);
+                summaryFiles.forEach(function (summaryFile) {
+                    if (summaryFile.endsWith('quality_summary.tsv')) {
+                        result['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                    }
+                });
+            }
+        });
+    } else if (workflowConf.workflow.name === 'Metaproteomics') {
+        const dirs = fs.readdirSync(outdir);
+        dirs.forEach(function (summaryFile) {
+            if (summaryFile.endsWith('_QC_metrics.tsv')) {
+                result['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+            }
+        });
+    } else if (workflowConf.workflow.name === 'sra2fastq') {
+        //use relative path 
+        //const sraDataDir = config.IO.SRA_DATA_BASE_DIR;
+        const accessions = workflowConf.workflow.accessions.toUpperCase().split(/\s*(?:,|$)\s*/);;
+        accessions.forEach((accession) => {
+            // link sra downloads to project output
+            fs.symlinkSync("../../../../sra/" + accession, outdir + "/" + accession)
 
         })
     }
@@ -295,7 +295,7 @@ const generatePipelineResult = function (proj) {
                     result[workflow.name]['stats'] = JSON.parse(fs.readFileSync(statsOut));
                 }
                 let reportHtml = outdir + "/metagenome_workflow_report.html";
-                if(fs.existsSync(reportHtml)) {
+                if (fs.existsSync(reportHtml)) {
                     result[workflow.name]['reportHtml'] = workflowlist[workflow.name].outdir + "/metagenome_workflow_report.html";
                 }
                 console.log(result[workflow.name]['reportHtml'])
@@ -359,10 +359,10 @@ const generatePipelineResult = function (proj) {
                         if (file.endsWith("_structural_annotation_stats.json")) {
                             result[workflow.name]['stats'] = JSON.parse(fs.readFileSync(outdir + "/" + file));
                         }
-                        if(file.endsWith("protein_size_histogram.html")) {
+                        if (file.endsWith("protein_size_histogram.html")) {
                             result[workflow.name]['proteinSizeHistogram'] = workflowlist[workflow.name].outdir + "/" + file;
                         }
-                        if(file === "opaver_web_path.json") {
+                        if (file === "opaver_web_path.json") {
                             console.log('opaver')
                             const webPath = JSON.parse(fs.readFileSync(outdir + "/" + file));
                             console.log(webPath)
@@ -389,13 +389,13 @@ const generatePipelineResult = function (proj) {
                             });
                             result[workflow.name]['stats'] = stats;
                         }
-                        if(file.endsWith("_barplot.png")) {
+                        if (file.endsWith("_barplot.png")) {
                             result[workflow.name]['barplot'] = workflowlist[workflow.name].outdir + "/" + file;
                         }
-                        if(file.endsWith("_heatmap.png")) {
+                        if (file.endsWith("_heatmap.png")) {
                             result[workflow.name]['heatmap'] = workflowlist[workflow.name].outdir + "/" + file;
                         }
-                        if(file.endsWith("_kronaplot.html")) {
+                        if (file.endsWith("_kronaplot.html")) {
                             result[workflow.name]['kronaplot'] = workflowlist[workflow.name].outdir + "/" + file;
                         }
                     });

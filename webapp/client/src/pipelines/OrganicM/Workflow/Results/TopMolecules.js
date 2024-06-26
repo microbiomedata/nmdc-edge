@@ -1,84 +1,100 @@
 import React, { useEffect, useState } from 'react';
 import MaterialTable from "material-table";
 import { MuiThemeProvider } from '@material-ui/core';
-import { tableIcons, theme } from '../../../../common/table';
+import { tableIcons, theme, handleTableNumberFilter } from '../../../../common/table';
 
 function TopMolecules(props) {
     const [moleculeData, setmoleculeData] = useState([]);
     const [selectedRow, setSelectedRow] = useState(null);
-
     const moleculeColumns = [
         {
-            title: 'Index', field: 'Index',
+            title: 'Index', field: 'Index', filtering: true,
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['Index']),
         },
         {
-            title: 'm/z', field: 'm/z', 
+            title: 'm/z', field: 'm/z',
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['m/z']),
         },
         {
-            title: 'Calibrated m/z', field: 'Calibrated m/z',
+            title: 'Calibrated m/z', field: 'Calibrated m/z', hidden: true,
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['Calibrated m/z']),
         },
         {
-            title: 'Calculated m/z', field: 'Calculated m/z', 
+            title: 'Calculated m/z', field: 'Calculated m/z', hidden: true,
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['Calculated m/z']),
         },
         {
             title: 'Peak Height', field: 'Peak Height',
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['Peak Height']),
         },
         {
             title: 'Resolving Power', field: 'Resolving Power',
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['Resolving Power']),
         },
         {
             title: 'S/N', field: 'S/N',
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['S/N']),
         },
         {
-            title: 'Ion Charge', field: 'Ion Charge',
+            title: 'Ion Charge', field: 'Ion Charge', hidden: true
         },
         {
-            title: 'm/z Error (ppm)', field: 'm/z Error (ppm)', 
+            title: 'm/z Error (ppm)', field: 'm/z Error (ppm)', hidden: true,
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['m/z Error (ppm)']),
         },
         {
-            title: 'm/z Error Score', field: 'm/z Error Score',
+            title: 'm/z Error Score', field: 'm/z Error Score', hidden: false,
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['m/z Error Score']),
         },
         {
-            title: 'Isotopologue Similarity', field: 'Isotopologue Similarity', hidden: true
+            title: 'Isotopologue Similarity', field: 'Isotopologue Similarity', hidden: true,
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['Isotopologue Similarity']),
         },
         {
-            title: 'Confidence Score', field: 'Confidence Score', hidden: true
+            title: 'Confidence Score', field: 'Confidence Score', hidden: false,
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['Confidence Score']),
         },
         {
-            title: 'DBE', field: 'DBE', hidden: true
+            title: 'DBE', field: 'DBE', hidden: true,
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['DBE']),
         },
         {
-            title: 'H/C', field: 'H/C', hidden: true
+            title: 'H/C', field: 'H/C', hidden: true,
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['H/C']),
         },
         {
-            title: 'O/C', field: 'O/C', hidden: true
+            title: 'O/C', field: 'O/C', hidden: true,
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['O/C']),
         },
         {
-            title: 'Heteroatom Class', field: 'Heteroatom Class', hidden: true
+            title: 'Heteroatom Class', field: 'Heteroatom Class', hidden: true,
         },
         {
-            title: 'Ion Type', field: 'Ion Type', hidden: true
+            title: 'Ion Type', field: 'Ion Type', hidden: true,
         },
         {
-            title: 'Is Isotopologue', field: 'Is Isotopologue', hidden: true
+            title: 'Is Isotopologue', field: 'Is Isotopologue', hidden: true,
         },
         {
-            title: 'Mono Isotopic Index', field: 'Mono Isotopic Index', hidden: true
+            title: 'Mono Isotopic Index', field: 'Mono Isotopic Index', hidden: true,
         },
         {
             title: 'Molecular Formula', field: 'Molecular Formula', hidden: false
         },
         {
-            title: 'C', field: 'C', hidden: true
+            title: 'C', field: 'C', hidden: true,
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['C']),
         },
         {
-            title: 'H', field: 'H', hidden: true
+            title: 'H', field: 'H', hidden: true,
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['H']),
         },
         {
-            title: 'O', field: 'O', hidden: true
+            title: 'O', field: 'O', hidden: true,
+            customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['O']),
         },
         {
-            title: '13C', field: '13C', hidden: true
+            title: '13C', field: '13C', hidden: true,
         },
         {
             title: '18O', field: '18O', hidden: true
@@ -89,7 +105,7 @@ function TopMolecules(props) {
     ];
     //componentDidMount()
     useEffect(() => {
-        let molecules = props.result.top_molecules.map(obj => {
+        let molecules = props.result.molecules_json.map(obj => {
             //console.log(obj)
             let rObj = obj
 
@@ -104,7 +120,7 @@ function TopMolecules(props) {
         <>
             <MuiThemeProvider theme={theme}>
                 <MaterialTable
-                    title="Top_molecules"
+                    title="Molecules"
                     columns={moleculeColumns}
                     icons={tableIcons}
                     data={moleculeData}
@@ -114,13 +130,14 @@ function TopMolecules(props) {
                         columnsButton: true,
                         grouping: false,
                         search: true,
+                        filtering: true,
                         paging: true,
-                        pageSize: 5,
-                        pageSizeOptions: [5, 10, 20, 50, 100],
+                        pageSize: 10,
+                        pageSizeOptions: [10, 20, 50, 100],
                         emptyRowsWhenPaging: false,
-                        showTitle: true,
+                        showTitle: false,
                         rowStyle: rowData => ({
-                          backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
+                            backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
                         })
                     }}
                     onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}

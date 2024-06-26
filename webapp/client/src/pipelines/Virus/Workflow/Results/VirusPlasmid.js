@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardBody, Collapse, TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
-import { JsonTable } from '../../../../common/Tables';
 import { Header } from '../../../Common/Results/CardHeader';
+import VirusSummary from './VirusSummary';
+import PlasmidSummary from './PlasmidSummary';
+import QualitySummary from './QualitySummary';
 
 function VirusPlasmid(props) {
     const [activeTab, setActiveTab] = useState(0);
@@ -54,7 +56,7 @@ function VirusPlasmid(props) {
                         <TabPane key={0} tabId={0}>
                             <br></br>
                             {props.result.virus_summary[0] ?
-                                <JsonTable data={props.result.virus_summary} headers={Object.keys(props.result.virus_summary[0])} />
+                                <VirusSummary result={props.result.virus_summary} />
                                 : <span>Empty table
                                     <br></br>
                                     <br></br></span>
@@ -63,7 +65,7 @@ function VirusPlasmid(props) {
                         <TabPane key={1} tabId={1}>
                             <br></br>
                             {props.result.plasmid_summary[0] ?
-                                <JsonTable data={props.result.plasmid_summary} headers={Object.keys(props.result.plasmid_summary[0])} />
+                                <PlasmidSummary result={props.result.plasmid_summary} />
                                 : <span>Empty table
                                     <br></br>
                                     <br></br></span>
@@ -72,7 +74,7 @@ function VirusPlasmid(props) {
                         <TabPane key={2} tabId={2}>
                             <br></br>
                             {props.result.quality_summary[0] ?
-                                <JsonTable data={props.result.quality_summary} headers={Object.keys(props.result.quality_summary[0])} />
+                                <QualitySummary result={props.result.quality_summary} />
                                 : <span>Empty table
                                     <br></br>
                                     <br></br></span>
