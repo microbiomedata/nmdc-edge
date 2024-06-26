@@ -45,6 +45,9 @@ task run {
 
   command <<<
     set -euo pipefail
+    touch ${project_id}_rfam_misc_bind_misc_feature_regulatory.gff
+    touch ${project_id}_rfam_rrna.gff
+    touch ${project_id}_rfam_ncrna_tmrna.gff
     ${bin} --notextw --cut_tc --cpu ${threads} -Z ${cmzscore} --tblout ${project_id}_rfam.tbl ${cm} ${input_fasta}
     tool_and_version=$(${bin} -h | grep INFERNAL | perl -pne 's/^.*INFERNAL/INFERNAL/' )
     grep -v '^#' ${project_id}_rfam.tbl | \
