@@ -66,12 +66,12 @@ STUDIES = (
     "nmdc:sty-11-zs2syx06",
     "nmdc:sty-11-8fb6t785",
 )
-DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
+REPO_DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
 PROD_DATAFILE_DIR = Path("/global/cfs/cdirs/m3408/results")
 # assuming Mac: /Users/username/Documents/data/results
 LOCAL_DATAFILE_DIR = Path.home().joinpath("Documents/data/results")
-DRYRUN_DATAFILE_DIR = DATA_DIR.joinpath("dryrun_data/results")
-LOG_PATH = DATA_DIR.joinpath("re_id_tool.log")
+DRYRUN_DATAFILE_DIR = REPO_DATA_DIR.joinpath("dryrun_data/results")
+LOG_PATH = REPO_DATA_DIR.joinpath("re_id_tool.log")
 
 logging.basicConfig(
     level=logging.INFO,
@@ -523,7 +523,7 @@ def extract_records(ctx, study_id):
             retrieved_databases.append(db)
 
     json_data = json.loads(json_dumper.dumps(retrieved_databases, inject_type=False))
-    db_outfile = DATA_DIR.joinpath(f"{study_id}_associated_record_dump.json")
+    db_outfile = REPO_DATA_DIR.joinpath(f"{study_id}_associated_record_dump.json")
     logging.info(f"Writing {len(retrieved_databases)} records to {db_outfile}")
     logging.info(f"Elapsed time: {time.time() - start_time}")
     with open(db_outfile, "w") as f:
@@ -531,7 +531,7 @@ def extract_records(ctx, study_id):
 
     # write failed records to a separate file if they exist
     if retrieved_failed_databases:
-        db_failed_outfile = DATA_DIR.joinpath(f"{study_id}_failed_record_dump.json")
+        db_failed_outfile = REPO_DATA_DIR.joinpath(f"{study_id}_failed_record_dump.json")
         logging.info(f"Writing {len(retrieved_failed_databases)} failed records to {db_failed_outfile}")
         logging.info(f"Found {omics_level_failure_count} omics processing records with missing has_output")
         logging.info(f"Found {read_qc_level_failure_count} read qc records with missing data objects")
@@ -738,8 +738,8 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                 workflow_dirs = []
                 data_files = []
                 for workflow_dir in omics_processing_dir.iterdir():
-                    # get every data path with an nmdc: namespace
-                    if workflow_type_code in workflow_dir.name:
+                    # get every data path with an nmdc: namespace that is not a symlink
+                    if workflow_type_code in workflow_dir.name and not workflow_dir.is_symlink():
                         workflow_dirs.append(workflow_dir)
                         # find the data paths for each workflow directory
                         for data_file in workflow_dir.iterdir():
@@ -769,13 +769,16 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
     for omics_processing_id, workflow_records in omics_processing_workflows_map.items():
         for record in workflow_records:
             workflow_id = record["workflow_id"]
+            wf_blade = workflow_id.split("-")[-1].split(".")[0]
             wf_dict = {
                 "_id": record["_id"],
                 "workflow_id": workflow_id,
                 "type": record["type"],
                 "data_objects": [],
                 "workflow_dirs": [],
+                "misidentified_workflow_dirs": [],
                 "data_files": [],
+                "misidentified_data_files": [],
             }
             # Check for malformed data objects where name and/or url are malformed
             data_objects = record["data_objects"]
@@ -789,37 +792,53 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
 
             # Check for malformed workflow directories
             workflow_dirs = record["workflow_dirs"]
-            malformed_workflow_dirs = [workflow_dir for workflow_dir in workflow_dirs if workflow_dir.count(".") != 1]
+            malformed_workflow_dirs = []
+            misidentified_workflow_dirs = []
+            for workflow_dir in workflow_dirs:
+                if wf_blade not in workflow_dir:
+                    logging.info(f"Workflow directory is misidentified: {workflow_dir} should contain {wf_blade}")
+                    misidentified_workflow_dirs.append(workflow_dir)
+                    continue
+                workflow_dir_name = workflow_dir.split("/")[-1]
+                fixed_workflow_dir_name = fix_malformed_workflow_id_version(workflow_dir_name)
+                if fixed_workflow_dir_name != workflow_dir_name:
+                    logging.info(f"Workflow directory is malformed: {workflow_dir} should be {fixed_workflow_dir_name}")
+                    malformed_workflow_dirs.append(workflow_dir)
+                else:
+                    logging.info(f"Workflow directory is correct: {workflow_dir}")
             if malformed_workflow_dirs:
                 logging.info(f"Found malformed workflow directories for workflow ID: {workflow_id}")
-                wf_dict["workflow_dirs"].extend(malformed_workflow_dirs)
-
-            # Check for workflow dirs that are properly formed but have a different blade than the workflow ID
-            # e.g. nmdc:wfrqc-11-zbyqeq59.1.1 -> zbyqeq59
-            wf_blade = workflow_id.split("-")[-1].split(".")[0]
-            misidentified_workflow_dirs = [workflow_dir for workflow_dir in workflow_dirs if wf_blade not in workflow_dir]
+                wf_dict["workflow_dirs"] = malformed_workflow_dirs
             if misidentified_workflow_dirs:
                 logging.info(f"Found misidentified workflow directories for workflow ID: {workflow_id}")
-                wf_dict["workflow_dirs"].extend(misidentified_workflow_dirs)
-
+                wf_dict["misidentified_workflow_dirs"] = misidentified_workflow_dirs
 
             #  Check for malformed data file names and/or paths
             data_files = record["data_files"]
             malformed_data_files = []
+            misidentified_data_files = []
             for data_file in data_files:
                 do_name = data_file.split("/")[-1]
+                if wf_blade not in do_name:
+                    logging.info(f"Data file name is misidentified: {do_name} should contain {wf_blade}")
+                    misidentified_data_files.append(data_file)
+                    continue
                 fixed_do_name = fix_malformed_data_object_name(do_name)
                 if fixed_do_name != do_name:
-                    logging.warning(f"Data Object name is malformed: {do_name} should be {fixed_do_name}")
+                    logging.info(f"Data Object name is malformed: {do_name} should be {fixed_do_name}")
                     malformed_data_files.append(data_file)
-                elif wf_blade not in do_name:
-                    logging.warning(f"Data Object name is misidentified: {do_name}")
-                    malformed_data_files.append(data_file)
+
             if malformed_data_files:
                 logging.info(f"Found malformed data paths for workflow ID: {workflow_id}")
                 wf_dict["data_files"] = malformed_data_files
+            if misidentified_data_files:
+                logging.info(f"Found misidentified data paths for workflow ID: {workflow_id}")
+                wf_dict["misidentified_data_files"] = misidentified_data_files
 
-            if wf_dict["data_objects"] or wf_dict["workflow_dirs"] or wf_dict["data_paths"]:
+            # add the wf_dict to the pruned map if it is not already there if it has any data objects or data paths
+            # For now, we are only interested in records with malformed data objects or data paths
+            # TODO handle misidentified workflow directories and data files
+            if wf_dict["data_objects"] or wf_dict["workflow_dirs"] or wf_dict["data_files"]:
                 pruned_map.setdefault(omics_processing_id, []).append(wf_dict)
             # also check for malformed workflow IDs
             fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
@@ -835,9 +854,9 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
     serialized_map = json.dumps(pruned_map, indent=4)
     if write_to_file:
         if production:
-            map_outfile = Path("affected_workflow_records_prod.json")
+            map_outfile = Path.joinpath(REPO_DATA_DIR, Path("affected_workflow_records_prod.json"))
         else:
-            map_outfile = Path("affected_workflow_records_local.json")
+            map_outfile = Path.joinpath(REPO_DATA_DIR, Path("affected_workflow_records_local.json"))
         logging.info(f"Writing affected workflow records to {map_outfile}")
         with open(map_outfile, "w") as f:
             f.write(serialized_map)
@@ -862,11 +881,11 @@ def process_affected_workflows(ctx, production=False, update_files=False):
     """
     start_time = time.time()
     if production:
-        data_dir = PROD_DATAFILE_DIR
-        affected_records_file = Path("affected_workflow_records_prod.json")
+        datafile_dir = PROD_DATAFILE_DIR
+        affected_records_file = Path.joinpath(REPO_DATA_DIR, Path("affected_workflow_records_prod.json"))
     else:
-        data_dir = LOCAL_DATAFILE_DIR
-        affected_records_file = Path("affected_workflow_records_local.json")
+        datafile_dir = LOCAL_DATAFILE_DIR
+        affected_records_file = Path.joinpath(REPO_DATA_DIR, Path("affected_workflow_records_local.json"))
 
     logging.info(f"Reading affected workflow records from {affected_records_file}")
     with open(affected_records_file, "r") as f:
@@ -932,9 +951,11 @@ def process_affected_workflows(ctx, production=False, update_files=False):
             if len(record["workflow_dirs"]) > 1 and not record["data_objects"]:
                 logging.warning(f"Multiple workflow directories found for workflow ID: {workflow_id}")
                 # if none of the workflow directories contain the correct blade, we have a problem that we can't fix here
-                if not any([wf_blade in workflow_dir for workflow_dir in record["workflow_dirs"]]):
-                    logging.error(f"None of the workflow directories contain the correct blade: {wf_blade}")
-                    continue
+                for workflow_dir in record["workflow_dirs"]:
+                    logging.info(f"Workflow Directory: {workflow_dir}")
+                    if wf_blade not in workflow_dir:
+                        logging.warning(f"Workflow Directory does not contain the correct blade: {workflow_dir}")
+                        continue
             # Workflow directories: check for malformed directory names and fix them. Add the old ID to alternative_identifiers
             # and create a symbolic link to the new directory
             for workflow_dir in record["workflow_dirs"]:
@@ -942,17 +963,19 @@ def process_affected_workflows(ctx, production=False, update_files=False):
                 omics_dir_name = workflow_dir.split("/")[-2]
                 fixed_workflow_dir_name = fix_malformed_workflow_id_version(workflow_dir_name)
                 # get the actual data file path depending on the environment
-                workflow_dir_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
+                workflow_dir_path = datafile_dir.joinpath(omics_dir_name, workflow_dir_name)
                 if fixed_workflow_dir_name != workflow_dir_name:
                     logging.warning(f"Workflow Directory directory name is malformed: {workflow_dir_name}")
-                    # add the old ID to alternative_identifiers
-                    updates_map.setdefault(collection_name, []).append({
-                        "q": {"_id": record_id},
-                        "u": {"$addToSet": {"alternative_identifiers": workflow_dir_name}}
-                    })
+
+                    # add the old ID to workflow alternative_identifiers if it has the correct blade
+                    if wf_blade in workflow_dir_name:
+                        updates_map.setdefault(collection_name, []).append({
+                            "q": {"_id": record_id},
+                            "u": {"$addToSet": {"alternative_identifiers": workflow_dir_name}}
+                        })
                     # rename the directory if it has not already been renamed and create a symbolic link
                     if update_files:
-                        fixed_workflow_dir_path = data_dir.joinpath(omics_dir_name, fixed_workflow_dir_name)
+                        fixed_workflow_dir_path = datafile_dir.joinpath(omics_dir_name, fixed_workflow_dir_name)
                         logging.info(f"Updating Data Path: {workflow_dir_path} -> {fixed_workflow_dir_path}")
                         # rename the directory if it has not already been renamed
                         if not fixed_workflow_dir_path.exists():
@@ -960,7 +983,7 @@ def process_affected_workflows(ctx, production=False, update_files=False):
                         else:
                             logging.info(f"Data Path already renamed: {fixed_workflow_dir_path}")
                         # create a relative symbolic link in the omics_processing directory to the new directory
-                        link_path = data_dir.joinpath(omics_dir_name, workflow_dir_name)
+                        link_path = datafile_dir.joinpath(omics_dir_name, workflow_dir_name)
                         if not link_path.exists():
                             link_path.symlink_to(fixed_workflow_dir_name)
                         else:
@@ -975,7 +998,7 @@ def process_affected_workflows(ctx, production=False, update_files=False):
             # and create a symbolic link to the new file
             # Assume that omics_processing_id/fixed_workflow_dir_name exists
             wf_dir_name = fixed_workflow_dir_name if fixed_workflow_dir_name else workflow_dir_name
-            wf_dir_path = data_dir.joinpath(omics_processing_id, wf_dir_name)
+            wf_dir_path = datafile_dir.joinpath(omics_processing_id, wf_dir_name)
             for data_file_name in record["data_files"]:
                 data_file_path = wf_dir_path.joinpath(data_file_name)
                 fixed_data_file_name = fix_malformed_data_object_name(data_file_name)
@@ -1003,13 +1026,14 @@ def process_affected_workflows(ctx, production=False, update_files=False):
 
     # Write the database updates to a JSON files, one per collection
     for collection_name, updates in updates_map.items():
-        updates_file = Path(f"{collection_name}_updates.json")
+        updates_file = Path.joinpath(REPO_DATA_DIR, Path(f"{collection_name}_updates.json"))
         logging.info(f"Writing updates for {collection_name} to {updates_file}")
+        updates_out = {
+            "update": collection_name,
+            "updates": updates
+        }
         with open(updates_file, "w") as f:
             f.write(json.dumps(updates, indent=4))
-    # Write the data object updates to a JSON file
-    data_object_updates_file = Path("data_object_updates.json")
-    logging.info(f"Writing data object updates to {data_object_updates_file}")
     elapsed_time = time.time() - start_time
     logging.info(f"Elapsed time: {elapsed_time}")
 
@@ -1354,8 +1378,8 @@ def _get_database_paths(study_id):
     """
     db_infile_suffix = "_associated_record_dump.json"
     db_outfile_suffix = "_re_ided_record_dump.json"
-    db_infile = DATA_DIR.joinpath(study_id, f"{study_id}{db_infile_suffix}")
-    db_outfile = DATA_DIR.joinpath(study_id, f"{study_id}{db_outfile_suffix}")
+    db_infile = REPO_DATA_DIR.joinpath(study_id, f"{study_id}{db_infile_suffix}")
+    db_outfile = REPO_DATA_DIR.joinpath(study_id, f"{study_id}{db_outfile_suffix}")
     return db_infile, db_outfile
 
 
@@ -1422,7 +1446,7 @@ def _log_updates(updates):
 
 def _write_updates(updates, nmdc_study_id):
     # Create a directory for the study if it doesn't exist
-    study_dir = DATA_DIR.joinpath(nmdc_study_id)
+    study_dir = REPO_DATA_DIR.joinpath(nmdc_study_id)
     study_dir.mkdir(parents=True, exist_ok=True)
 
     # Write the updated records to a tsv file using csv writer in data_dir/study_id/study_id_updates.tsv
@@ -1447,7 +1471,7 @@ def _write_updates(updates, nmdc_study_id):
 
 def _write_deletions(deletions, nmdc_study_id):
     # Create a directory for the study if it doesn't exist
-    study_dir = DATA_DIR.joinpath(nmdc_study_id)
+    study_dir = REPO_DATA_DIR.joinpath(nmdc_study_id)
     study_dir.mkdir(parents=True, exist_ok=True)
 
     # Write the deleted records to a tsv file using csv writer in data_dir/study_id/study_id_deletions.tsv
@@ -1507,7 +1531,7 @@ def _ingest_records(db_records, db_client, api_user_client):
 
 def _write_deleted_record_identifiers(deleted_record_identifiers, old_base_name):
     # write the deleted records to a tsv file
-    deleted_record_identifiers_file = DATA_DIR.joinpath(f"{old_base_name}_deleted_record_identifiers.tsv")
+    deleted_record_identifiers_file = REPO_DATA_DIR.joinpath(f"{old_base_name}_deleted_record_identifiers.tsv")
     logging.info(
         f"Writing {len(deleted_record_identifiers)} deleted record identifiers to {deleted_record_identifiers_file}"
         )
