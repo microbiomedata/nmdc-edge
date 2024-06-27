@@ -6,20 +6,20 @@ import { tableIcons, theme, handleTableNumberFilter } from '../../../../common/t
 function Features(props) {
     const [featureData, setFeatureData] = useState([]);
     const [selectedRow, setSelectedRow] = useState(null);
-    
+
     const featureColumns = [
         {
             title: 'seqid', field: 'seqid',
         },
         {
-            title: 'featuretype', field: 'featuretype', 
+            title: 'featuretype', field: 'featuretype',
         },
         {
             title: 'start', field: 'start',
             customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['start']),
         },
         {
-            title: 'end', field: 'end', 
+            title: 'end', field: 'end',
             customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['end']),
         },
         {
@@ -36,7 +36,7 @@ function Features(props) {
             title: 'product', field: 'product',
         },
         {
-            title: 'read_count', field: 'read_count', 
+            title: 'read_count', field: 'read_count',
             customFilterAndSearch: (term, rowData) => handleTableNumberFilter(term, rowData['read_count']),
         },
         {
@@ -117,10 +117,10 @@ function Features(props) {
                         emptyRowsWhenPaging: false,
                         showTitle: false,
                         rowStyle: rowData => ({
-                          backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
+                            backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
                         })
                     }}
-                    //onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
+                //onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
                 />
             </MuiThemeProvider>
             <br></br><br></br>
