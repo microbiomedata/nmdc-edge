@@ -77,6 +77,7 @@ def fix_malformed_data_object_name(name: str) -> str:
     - "nmdc_wfrqc-11-pbxpdr12_filtered.fastq.gz" -> "nmdc_wfrqc-11-pbxpdr12.1_filtered.fastq.gz"
     """
     # Split along the `_` to get nmdc, the workflow id and the rest of the name
+    logging.info(f"Fixing malformed data object name: {name}")
     parts = name.split("_")
     nmdc = parts[0]
     workflow_id = parts[1]
