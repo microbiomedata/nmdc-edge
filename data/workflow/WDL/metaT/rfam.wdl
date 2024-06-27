@@ -48,7 +48,7 @@ task run {
 
     ${bin} --notextw --cut_tc --cpu ${threads} -Z ${cmzscore} --tblout ${project_id}_rfam.tbl ${cm} ${input_fasta}
     tool_and_version=$(${bin} -h | grep INFERNAL | perl -pne 's/^.*INFERNAL/INFERNAL/' )
-    (grep -v '^#' ${project_id}_rfam.tbl || test $? = 1)  \
+    (grep -v '^#' ${project_id}_rfam.tbl || test $? = 1) | \
         awk '$17 == "!" {print $1,$3,$4,$6,$7,$8,$9,$10,$11,$15,$16}' | \
         sort -k1,1 -k10,10nr -k11,11n | \
         ${clan_filter_bin} "$tool_and_version" \
