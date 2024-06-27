@@ -83,7 +83,7 @@ function VirusSummary(props) {
                           backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
                         })
                     }}
-                    onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
+                    //onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
                 />
             </MuiThemeProvider>
             <br></br><br></br>

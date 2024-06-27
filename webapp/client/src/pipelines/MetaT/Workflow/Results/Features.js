@@ -3,7 +3,7 @@ import MaterialTable from "material-table";
 import { MuiThemeProvider } from '@material-ui/core';
 import { tableIcons, theme, handleTableNumberFilter } from '../../../../common/table';
 
-function TopFeatures(props) {
+function Features(props) {
     const [featureData, setFeatureData] = useState([]);
     const [selectedRow, setSelectedRow] = useState(null);
     
@@ -120,7 +120,7 @@ function TopFeatures(props) {
                           backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
                         })
                     }}
-                    onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
+                    //onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
                 />
             </MuiThemeProvider>
             <br></br><br></br>
@@ -129,4 +129,4 @@ function TopFeatures(props) {
     );
 }
 
-export default TopFeatures;
+export default Features;

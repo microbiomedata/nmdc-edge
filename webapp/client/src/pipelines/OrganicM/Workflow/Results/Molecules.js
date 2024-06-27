@@ -3,7 +3,7 @@ import MaterialTable from "material-table";
 import { MuiThemeProvider } from '@material-ui/core';
 import { tableIcons, theme, handleTableNumberFilter } from '../../../../common/table';
 
-function TopMolecules(props) {
+function Molecules(props) {
     const [moleculeData, setmoleculeData] = useState([]);
     const [selectedRow, setSelectedRow] = useState(null);
     const moleculeColumns = [
@@ -140,7 +140,7 @@ function TopMolecules(props) {
                             backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
                         })
                     }}
-                    onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
+                    //onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
                 />
             </MuiThemeProvider>
             <br></br><br></br>
@@ -149,4 +149,4 @@ function TopMolecules(props) {
     );
 }
 
-export default TopMolecules;
+export default Molecules;
