@@ -712,6 +712,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
                 workflow_id = workflow_record["id"]
                 # type code from id, e.g. nmdc:wfmgas-11-y43zyn66.1 -> wfmgas
                 workflow_type_code = workflow_id.split("-")[0].split(":")[1]
+
                 data_objects = []
                 for data_object_id in workflow_record.get("has_output", []):
                     data_object_record = db_client["data_object_set"].find_one({"id": data_object_id})
@@ -784,7 +785,7 @@ def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file
             data_objects = record["data_objects"]
             malformed_data_objects = []
             for data_object in data_objects:
-                if check_if_data_object_record_has_malformed_version(data_object):
+                if check_if_data_object_record_has_malformed_version(data_object, workflow_id):
                     malformed_data_objects.append(data_object)
             if malformed_data_objects:
                 logging.info(f"Found malformed data objects for workflow ID: {workflow_id}")

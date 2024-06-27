@@ -136,16 +136,27 @@ def get_data_object_record_by_id(db_record: Dict, id: str)-> Optional[Dict]:
         raise ValueError(f"Multiple data objects found with id: {id}")
     return data_objects[0]
 
-def check_if_data_object_record_has_malformed_version(data_object: Dict) -> bool:
+def check_if_data_object_record_has_malformed_version(data_object: Dict, workflow_id: str) -> bool:
     """
     Check if the data object record has a malformed version
     """
-    name = data_object["name"]
-    logging.info(f"Checking data object name: {name}")
-    url = data_object["url"]
-    logging.info(f"Checking data object url: {url}")
-    fixed_name = fix_malformed_data_object_name(name)
-    fixed_url = fix_malformed_data_object_url(url)
-    if name != fixed_name or url != fixed_url:
-        return True
-    return False
+    # Name can be a filename e.g. nmdc_wfrbt-13-3m1n3g49.1_gottcha2_report.tsv
+    # but can be almosdt anything e.g. GOTTCHA2 classification report file
+    data_object_name = data_object.get("name", "")
+    workflow_name = workflow_id.replace("nmdc:", "nmdc_")
+    is_malformed_name = False
+    if workflow_name in data_object_name:
+        fixed_data_object_name = fix_malformed_data_object_name(data_object_name)
+        if fixed_data_object_name != data_object_name:
+            is_malformed_name = True
+            logging.warning(f"Data object name is malformed: {data_object_name}")
+
+    data_object_url = data_object.get("url", "")
+    is_malformed_url = False
+    if data_object_url:
+        fixed_data_object_url = fix_malformed_data_object_url(data_object_url)
+        if fixed_data_object_url != data_object_url:
+            is_malformed_url = True
+            logging.warning(f"Data object URL is malformed: {data_object_url}")
+
+    return is_malformed_name or is_malformed_url
