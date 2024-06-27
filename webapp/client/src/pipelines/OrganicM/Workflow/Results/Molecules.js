@@ -5,7 +5,7 @@ import { tableIcons, theme, handleTableNumberFilter } from '../../../../common/t
 
 function Molecules(props) {
     const [moleculeData, setmoleculeData] = useState([]);
-    const [selectedRow, setSelectedRow] = useState(null);
+    
     const moleculeColumns = [
         {
             title: 'Index', field: 'Index', filtering: true,
@@ -136,11 +136,7 @@ function Molecules(props) {
                         pageSizeOptions: [10, 20, 50, 100],
                         emptyRowsWhenPaging: false,
                         showTitle: false,
-                        rowStyle: rowData => ({
-                            backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
-                        })
                     }}
-                //onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
                 />
             </MuiThemeProvider>
             <br></br><br></br>

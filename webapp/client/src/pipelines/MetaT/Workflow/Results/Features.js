@@ -5,7 +5,6 @@ import { tableIcons, theme, handleTableNumberFilter } from '../../../../common/t
 
 function Features(props) {
     const [featureData, setFeatureData] = useState([]);
-    const [selectedRow, setSelectedRow] = useState(null);
 
     const featureColumns = [
         {
@@ -116,11 +115,7 @@ function Features(props) {
                         pageSizeOptions: [10, 20, 50, 100],
                         emptyRowsWhenPaging: false,
                         showTitle: false,
-                        rowStyle: rowData => ({
-                            backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
-                        })
                     }}
-                //onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
                 />
             </MuiThemeProvider>
             <br></br><br></br>
