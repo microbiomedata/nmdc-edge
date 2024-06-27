@@ -94,6 +94,9 @@ def fix_malformed_data_object_url(url: str) -> str:
     """
     parts = url.split("/")
     name = parts[-1]
+    # if the name does not look like an NMDC workflow data file name, do not try to fix it
+    if not name.startswith("nmdc_wf"):
+        return url
     dirname = parts[-2]
     fixed_name = fix_malformed_data_object_name(name)
     fixed_dirname = fix_malformed_workflow_id_version(dirname)
