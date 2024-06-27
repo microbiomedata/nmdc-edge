@@ -945,17 +945,6 @@ def process_affected_workflows(ctx, production=False, update_files=False):
                         "u": {"$set": {"url": fixed_data_object_url}}
                     })
 
-            # Workflow Directories
-            # Special case:
-            #   - No affected data objects and multiple workflow directories with incorrect blades - skip for now
-            if len(record["workflow_dirs"]) > 1 and not record["data_objects"]:
-                logging.warning(f"Multiple workflow directories found for workflow ID: {workflow_id}")
-                # if none of the workflow directories contain the correct blade, we have a problem that we can't fix here
-                for workflow_dir in record["workflow_dirs"]:
-                    logging.info(f"Workflow Directory: {workflow_dir}")
-                    if wf_blade not in workflow_dir:
-                        logging.warning(f"Workflow Directory does not contain the correct blade: {workflow_dir}")
-                        continue
             # Workflow directories: check for malformed directory names and fix them. Add the old ID to alternative_identifiers
             # and create a symbolic link to the new directory
             for workflow_dir in record["workflow_dirs"]:
@@ -966,13 +955,11 @@ def process_affected_workflows(ctx, production=False, update_files=False):
                 workflow_dir_path = datafile_dir.joinpath(omics_dir_name, workflow_dir_name)
                 if fixed_workflow_dir_name != workflow_dir_name:
                     logging.warning(f"Workflow Directory directory name is malformed: {workflow_dir_name}")
-
-                    # add the old ID to workflow alternative_identifiers if it has the correct blade
-                    if wf_blade in workflow_dir_name:
-                        updates_map.setdefault(collection_name, []).append({
-                            "q": {"_id": record_id},
-                            "u": {"$addToSet": {"alternative_identifiers": workflow_dir_name}}
-                        })
+                    # add the old ID to workflow alternative_identifier
+                    updates_map.setdefault(collection_name, []).append({
+                        "q": {"_id": record_id},
+                        "u": {"$addToSet": {"alternative_identifiers": workflow_dir_name}}
+                    })
                     # rename the directory if it has not already been renamed and create a symbolic link
                     if update_files:
                         fixed_workflow_dir_path = datafile_dir.joinpath(omics_dir_name, fixed_workflow_dir_name)
@@ -997,8 +984,8 @@ def process_affected_workflows(ctx, production=False, update_files=False):
             # Data Files: check for malformed data file names and fix them. Look in the real (not symlinked) directory
             # and create a symbolic link to the new file
             # Assume that omics_processing_id/fixed_workflow_dir_name exists
-            wf_dir_name = fixed_workflow_dir_name if fixed_workflow_dir_name else workflow_dir_name
-            wf_dir_path = datafile_dir.joinpath(omics_processing_id, wf_dir_name)
+
+            wf_dir_path = datafile_dir.joinpath(omics_processing_id, fixed_workflow_id)
             for data_file_name in record["data_files"]:
                 data_file_path = wf_dir_path.joinpath(data_file_name)
                 fixed_data_file_name = fix_malformed_data_object_name(data_file_name)
@@ -1033,7 +1020,7 @@ def process_affected_workflows(ctx, production=False, update_files=False):
             "updates": updates
         }
         with open(updates_file, "w") as f:
-            f.write(json.dumps(updates, indent=4))
+            f.write(json.dumps(updates_out, indent=4))
     elapsed_time = time.time() - start_time
     logging.info(f"Elapsed time: {elapsed_time}")
 

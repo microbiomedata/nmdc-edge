@@ -141,7 +141,9 @@ def check_if_data_object_record_has_malformed_version(data_object: Dict) -> bool
     Check if the data object record has a malformed version
     """
     name = data_object["name"]
+    logging.info(f"Checking data object name: {name}")
     url = data_object["url"]
+    logging.info(f"Checking data object url: {url}")
     fixed_name = fix_malformed_data_object_name(name)
     fixed_url = fix_malformed_data_object_url(url)
     if name != fixed_name or url != fixed_url:
