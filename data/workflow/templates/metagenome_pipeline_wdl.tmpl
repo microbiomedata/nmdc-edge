@@ -1,5 +1,6 @@
 import "rqcfilter.wdl" as readsQC
 import "readsqc_preprocess.wdl" as readsqc_preprocess
+import "readsqc_output.wdl" as readsqc_output
 import "ReadbasedAnalysis.wdl" as readbasedAnalysis
 import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output
@@ -35,6 +36,7 @@ workflow main_workflow {
 	## QC workflow
 	String? readsQC_outdir
 	String readsQC_bbtools_container="microbiomedata/bbtools:38.96"
+	String readsQC_vis_container="microbiomedata/fastqc_vis:1.0"
 	String readsQC_database="/refdata"
 	String readsQC_memory="60g"
 	String readsQC_threads="4"
@@ -61,6 +63,14 @@ workflow main_workflow {
        }
 
     }
+
+	call readsqc_output.fastqc_report as fastqc_report {
+		input:
+			input: outdir=readsQC_outdir,
+			filtered= nmdc_rqcfilter_call.filtered_final,
+			container=readsQC_vis_container
+
+	}
 
 	## ReadbasedAnalysis workflow
 	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
