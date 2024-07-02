@@ -35,10 +35,13 @@ from nmdc_automation.re_iding.db_utils import (
     get_data_object_record_by_id,
     get_omics_processing_id
 )
-from nmdc_automation.re_iding.file_utils import (find_data_object_type,
-                                                 compute_new_data_file_path,
-                                                    link_data_file_paths,
-                                                 assembly_file_operations)
+from nmdc_automation.re_iding.file_utils import (
+    find_data_object_type,
+    compute_new_data_file_path,
+    link_data_file_paths,
+    assembly_file_operations,
+    get_workflow_id_from_scaffold_file,
+)
 
 DATA_DIR = Path(__file__).parent.absolute().joinpath("scripts/data")
 NAPA_TEMPLATE = "../../../configs/re_iding_worklfows.yaml"
@@ -297,7 +300,10 @@ class ReIdTool:
                 logging.info(f"Making directory {new_assembly_base_dir}")
             else:
                 logging.info(f"Skipping directory creation for {new_assembly_base_dir}")
-            
+
+            # get the old workflow ID from the scaffolds file.
+            # This is used to update the assembly file name
+
             for old_do_id in assembly_rec["has_output"]:
                 logger.info(f"old_do_id: {old_do_id}")
                 old_do_rec = get_data_object_record_by_id(db_record, old_do_id)
@@ -314,7 +320,7 @@ class ReIdTool:
 
                 if update_links:
                     updated_md5, updated_file_size = assembly_file_operations(
-                    old_do_rec, data_object_type, new_file_path, new_activity_id,
+                    old_url, data_object_type, new_file_path, new_activity_id,
                         self.data_dir)
                     logging.info(f"Updated md5: {updated_md5}, updated file size: {updated_file_size}")
                 else:
