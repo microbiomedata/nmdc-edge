@@ -21,7 +21,7 @@ workflow readsqc_output {
         input: outdir=outdir,
         filtered= input_files,
         filtered_stats2_final=filtered_stats2_final,
-        container=bbtools_container
+        container=vis_container
     }
 }
 
