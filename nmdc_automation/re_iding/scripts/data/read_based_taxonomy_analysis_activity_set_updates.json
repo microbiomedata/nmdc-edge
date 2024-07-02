@@ -3,7 +3,7 @@
     "updates": [
         {
             "q": {
-                "_id": "6647b8ffe95c3fa0447675bd"
+                "id": "nmdc:wfrbt-11-t0xw3k43.1.1"
             },
             "u": {
                 "$set": {
@@ -13,37 +13,7 @@
         },
         {
             "q": {
-                "_id": "6647b8ffe95c3fa0447675bd"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-t0xw3k43.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b8ffe95c3fa0447675bd"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-t0xw3k43.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b8ffe95c3fa0447675bd"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-t0xw3k43.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b902e95c3fa0447675d1"
+                "id": "nmdc:wfrbt-11-5vz4y795.1.1"
             },
             "u": {
                 "$set": {
@@ -53,27 +23,7 @@
         },
         {
             "q": {
-                "_id": "6647b902e95c3fa0447675d1"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-5vz4y795.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b902e95c3fa0447675d1"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-5vz4y795.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b909e95c3fa0447675e5"
+                "id": "nmdc:wfrbt-11-ys9j7606.1.1"
             },
             "u": {
                 "$set": {
@@ -83,27 +33,7 @@
         },
         {
             "q": {
-                "_id": "6647b909e95c3fa0447675e5"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ys9j7606.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b909e95c3fa0447675e5"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ys9j7606.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b914e95c3fa0447675f9"
+                "id": "nmdc:wfrbt-11-r96c2887.1.1"
             },
             "u": {
                 "$set": {
@@ -113,27 +43,7 @@
         },
         {
             "q": {
-                "_id": "6647b914e95c3fa0447675f9"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-r96c2887.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b914e95c3fa0447675f9"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-r96c2887.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b917e95c3fa04476760d"
+                "id": "nmdc:wfrbt-11-cpc3bw57.1.1"
             },
             "u": {
                 "$set": {
@@ -143,27 +53,7 @@
         },
         {
             "q": {
-                "_id": "6647b917e95c3fa04476760d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-cpc3bw57.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b917e95c3fa04476760d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-cpc3bw57.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b91de95c3fa044767621"
+                "id": "nmdc:wfrbt-11-c3wt9z48.1.1"
             },
             "u": {
                 "$set": {
@@ -173,27 +63,7 @@
         },
         {
             "q": {
-                "_id": "6647b91de95c3fa044767621"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-c3wt9z48.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b91de95c3fa044767621"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-c3wt9z48.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b920e95c3fa044767635"
+                "id": "nmdc:wfrbt-11-y9r7yf69.1.1"
             },
             "u": {
                 "$set": {
@@ -203,27 +73,7 @@
         },
         {
             "q": {
-                "_id": "6647b920e95c3fa044767635"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-y9r7yf69.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b920e95c3fa044767635"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-y9r7yf69.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b923e95c3fa044767649"
+                "id": "nmdc:wfrbt-11-q7w6wk39.1.1"
             },
             "u": {
                 "$set": {
@@ -233,27 +83,7 @@
         },
         {
             "q": {
-                "_id": "6647b923e95c3fa044767649"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-q7w6wk39.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b923e95c3fa044767649"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-q7w6wk39.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b926e95c3fa04476765d"
+                "id": "nmdc:wfrbt-11-w689bh62.1.1"
             },
             "u": {
                 "$set": {
@@ -263,27 +93,7 @@
         },
         {
             "q": {
-                "_id": "6647b926e95c3fa04476765d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-w689bh62.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b926e95c3fa04476765d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-w689bh62.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b92ae95c3fa044767671"
+                "id": "nmdc:wfrbt-11-9v6gjw48.1.1"
             },
             "u": {
                 "$set": {
@@ -293,27 +103,7 @@
         },
         {
             "q": {
-                "_id": "6647b92ae95c3fa044767671"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-9v6gjw48.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b92ae95c3fa044767671"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-9v6gjw48.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b92ce95c3fa044767685"
+                "id": "nmdc:wfrbt-11-amk4nh49.1.1"
             },
             "u": {
                 "$set": {
@@ -323,27 +113,7 @@
         },
         {
             "q": {
-                "_id": "6647b92ce95c3fa044767685"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-amk4nh49.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b92ce95c3fa044767685"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-amk4nh49.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b938e95c3fa044767699"
+                "id": "nmdc:wfrbt-11-d7dv6w83.1.1"
             },
             "u": {
                 "$set": {
@@ -353,27 +123,7 @@
         },
         {
             "q": {
-                "_id": "6647b938e95c3fa044767699"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-d7dv6w83.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b938e95c3fa044767699"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-d7dv6w83.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b93be95c3fa0447676ad"
+                "id": "nmdc:wfrbt-11-krmfef48.1.1"
             },
             "u": {
                 "$set": {
@@ -383,27 +133,7 @@
         },
         {
             "q": {
-                "_id": "6647b93be95c3fa0447676ad"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-krmfef48.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b93be95c3fa0447676ad"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-krmfef48.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b96ae95c3fa0447676c1"
+                "id": "nmdc:wfrbt-11-238vfn43.1.1"
             },
             "u": {
                 "$set": {
@@ -413,27 +143,7 @@
         },
         {
             "q": {
-                "_id": "6647b96ae95c3fa0447676c1"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-238vfn43.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b96ae95c3fa0447676c1"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-238vfn43.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b96de95c3fa0447676d5"
+                "id": "nmdc:wfrbt-11-s4hfm818.1.1"
             },
             "u": {
                 "$set": {
@@ -443,27 +153,7 @@
         },
         {
             "q": {
-                "_id": "6647b96de95c3fa0447676d5"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-s4hfm818.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b96de95c3fa0447676d5"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-s4hfm818.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b970e95c3fa0447676e9"
+                "id": "nmdc:wfrbt-11-vm3fgh22.1.1"
             },
             "u": {
                 "$set": {
@@ -473,27 +163,7 @@
         },
         {
             "q": {
-                "_id": "6647b970e95c3fa0447676e9"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-vm3fgh22.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b970e95c3fa0447676e9"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-vm3fgh22.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b974e95c3fa0447676fd"
+                "id": "nmdc:wfrbt-11-34djeq06.1.1"
             },
             "u": {
                 "$set": {
@@ -503,27 +173,7 @@
         },
         {
             "q": {
-                "_id": "6647b974e95c3fa0447676fd"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-34djeq06.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b974e95c3fa0447676fd"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-34djeq06.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b976e95c3fa044767711"
+                "id": "nmdc:wfrbt-11-cq2hsx55.1.1"
             },
             "u": {
                 "$set": {
@@ -533,27 +183,7 @@
         },
         {
             "q": {
-                "_id": "6647b976e95c3fa044767711"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-cq2hsx55.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b976e95c3fa044767711"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-cq2hsx55.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b979e95c3fa044767725"
+                "id": "nmdc:wfrbt-11-rkkq9798.1.1"
             },
             "u": {
                 "$set": {
@@ -563,27 +193,7 @@
         },
         {
             "q": {
-                "_id": "6647b979e95c3fa044767725"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rkkq9798.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b979e95c3fa044767725"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rkkq9798.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b982e95c3fa044767739"
+                "id": "nmdc:wfrbt-11-yba43363.1.1"
             },
             "u": {
                 "$set": {
@@ -593,27 +203,7 @@
         },
         {
             "q": {
-                "_id": "6647b982e95c3fa044767739"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-yba43363.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b982e95c3fa044767739"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-yba43363.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b985e95c3fa04476774d"
+                "id": "nmdc:wfrbt-11-x2dg0v11.1.1"
             },
             "u": {
                 "$set": {
@@ -623,27 +213,7 @@
         },
         {
             "q": {
-                "_id": "6647b985e95c3fa04476774d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-x2dg0v11.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b985e95c3fa04476774d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-x2dg0v11.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b99ce95c3fa044767761"
+                "id": "nmdc:wfrbt-11-gef4j704.1.1"
             },
             "u": {
                 "$set": {
@@ -653,27 +223,7 @@
         },
         {
             "q": {
-                "_id": "6647b99ce95c3fa044767761"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gef4j704.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b99ce95c3fa044767761"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gef4j704.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9a0e95c3fa044767775"
+                "id": "nmdc:wfrbt-11-g9t23w61.1.1"
             },
             "u": {
                 "$set": {
@@ -683,27 +233,7 @@
         },
         {
             "q": {
-                "_id": "6647b9a0e95c3fa044767775"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-g9t23w61.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9a0e95c3fa044767775"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-g9t23w61.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9a3e95c3fa044767789"
+                "id": "nmdc:wfrbt-11-3rp4e238.1.1"
             },
             "u": {
                 "$set": {
@@ -713,27 +243,7 @@
         },
         {
             "q": {
-                "_id": "6647b9a3e95c3fa044767789"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3rp4e238.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9a3e95c3fa044767789"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3rp4e238.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9aee95c3fa04476779d"
+                "id": "nmdc:wfrbt-11-ccw1zd35.1.1"
             },
             "u": {
                 "$set": {
@@ -743,27 +253,7 @@
         },
         {
             "q": {
-                "_id": "6647b9aee95c3fa04476779d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ccw1zd35.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9aee95c3fa04476779d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ccw1zd35.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9b1e95c3fa0447677b1"
+                "id": "nmdc:wfrbt-11-stz84k08.1.1"
             },
             "u": {
                 "$set": {
@@ -773,27 +263,7 @@
         },
         {
             "q": {
-                "_id": "6647b9b1e95c3fa0447677b1"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-stz84k08.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9b1e95c3fa0447677b1"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-stz84k08.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9b4e95c3fa0447677c5"
+                "id": "nmdc:wfrbt-11-6b439354.1.1"
             },
             "u": {
                 "$set": {
@@ -803,27 +273,7 @@
         },
         {
             "q": {
-                "_id": "6647b9b4e95c3fa0447677c5"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-6b439354.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9b4e95c3fa0447677c5"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-6b439354.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9b7e95c3fa0447677d9"
+                "id": "nmdc:wfrbt-11-1ka7pd24.1.1"
             },
             "u": {
                 "$set": {
@@ -833,27 +283,7 @@
         },
         {
             "q": {
-                "_id": "6647b9b7e95c3fa0447677d9"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-1ka7pd24.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9b7e95c3fa0447677d9"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-1ka7pd24.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9bae95c3fa0447677ed"
+                "id": "nmdc:wfrbt-11-nrwr4k79.1.1"
             },
             "u": {
                 "$set": {
@@ -863,27 +293,7 @@
         },
         {
             "q": {
-                "_id": "6647b9bae95c3fa0447677ed"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-nrwr4k79.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9bae95c3fa0447677ed"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-nrwr4k79.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9bfe95c3fa044767801"
+                "id": "nmdc:wfrbt-11-2gwxtc21.1.1"
             },
             "u": {
                 "$set": {
@@ -893,27 +303,7 @@
         },
         {
             "q": {
-                "_id": "6647b9bfe95c3fa044767801"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-2gwxtc21.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9bfe95c3fa044767801"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-2gwxtc21.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9c8e95c3fa044767815"
+                "id": "nmdc:wfrbt-11-ngsz0n81.1.1"
             },
             "u": {
                 "$set": {
@@ -923,27 +313,7 @@
         },
         {
             "q": {
-                "_id": "6647b9c8e95c3fa044767815"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ngsz0n81.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9c8e95c3fa044767815"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ngsz0n81.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9cae95c3fa044767829"
+                "id": "nmdc:wfrbt-11-epx8m949.1.1"
             },
             "u": {
                 "$set": {
@@ -953,27 +323,7 @@
         },
         {
             "q": {
-                "_id": "6647b9cae95c3fa044767829"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-epx8m949.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9cae95c3fa044767829"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-epx8m949.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9cde95c3fa04476783d"
+                "id": "nmdc:wfrbt-11-hhwvh153.1.1"
             },
             "u": {
                 "$set": {
@@ -983,27 +333,7 @@
         },
         {
             "q": {
-                "_id": "6647b9cde95c3fa04476783d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-hhwvh153.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9cde95c3fa04476783d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-hhwvh153.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9d3e95c3fa044767851"
+                "id": "nmdc:wfrbt-11-5gcw5k71.1.1"
             },
             "u": {
                 "$set": {
@@ -1013,27 +343,7 @@
         },
         {
             "q": {
-                "_id": "6647b9d3e95c3fa044767851"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-5gcw5k71.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9d3e95c3fa044767851"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-5gcw5k71.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9d6e95c3fa044767865"
+                "id": "nmdc:wfrbt-11-a19v5v56.1.1"
             },
             "u": {
                 "$set": {
@@ -1043,27 +353,7 @@
         },
         {
             "q": {
-                "_id": "6647b9d6e95c3fa044767865"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-a19v5v56.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9d6e95c3fa044767865"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-a19v5v56.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9e1e95c3fa044767879"
+                "id": "nmdc:wfrbt-11-1dhaj641.1.1"
             },
             "u": {
                 "$set": {
@@ -1073,27 +363,7 @@
         },
         {
             "q": {
-                "_id": "6647b9e1e95c3fa044767879"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-1dhaj641.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9e1e95c3fa044767879"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-1dhaj641.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9e5e95c3fa04476788d"
+                "id": "nmdc:wfrbt-11-zwer9s74.1.1"
             },
             "u": {
                 "$set": {
@@ -1103,27 +373,7 @@
         },
         {
             "q": {
-                "_id": "6647b9e5e95c3fa04476788d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-zwer9s74.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9e5e95c3fa04476788d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-zwer9s74.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9e8e95c3fa0447678a1"
+                "id": "nmdc:wfrbt-11-s5n8ke70.1.1"
             },
             "u": {
                 "$set": {
@@ -1133,27 +383,7 @@
         },
         {
             "q": {
-                "_id": "6647b9e8e95c3fa0447678a1"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-s5n8ke70.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9e8e95c3fa0447678a1"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-s5n8ke70.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9f0e95c3fa0447678b5"
+                "id": "nmdc:wfrbt-11-rjgvyr52.1.1"
             },
             "u": {
                 "$set": {
@@ -1163,27 +393,7 @@
         },
         {
             "q": {
-                "_id": "6647b9f0e95c3fa0447678b5"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rjgvyr52.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9f0e95c3fa0447678b5"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rjgvyr52.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9f3e95c3fa0447678c9"
+                "id": "nmdc:wfrbt-11-cd9y2m63.1.1"
             },
             "u": {
                 "$set": {
@@ -1193,27 +403,7 @@
         },
         {
             "q": {
-                "_id": "6647b9f3e95c3fa0447678c9"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-cd9y2m63.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9f3e95c3fa0447678c9"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-cd9y2m63.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9f6e95c3fa0447678dd"
+                "id": "nmdc:wfrbt-11-k7tctf12.1.1"
             },
             "u": {
                 "$set": {
@@ -1223,27 +413,7 @@
         },
         {
             "q": {
-                "_id": "6647b9f6e95c3fa0447678dd"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-k7tctf12.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9f6e95c3fa0447678dd"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-k7tctf12.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9f8e95c3fa0447678f1"
+                "id": "nmdc:wfrbt-11-zx6x0k84.1.1"
             },
             "u": {
                 "$set": {
@@ -1253,27 +423,7 @@
         },
         {
             "q": {
-                "_id": "6647b9f8e95c3fa0447678f1"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-zx6x0k84.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9f8e95c3fa0447678f1"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-zx6x0k84.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9fbe95c3fa044767905"
+                "id": "nmdc:wfrbt-11-qjcvqv08.1.1"
             },
             "u": {
                 "$set": {
@@ -1283,27 +433,7 @@
         },
         {
             "q": {
-                "_id": "6647b9fbe95c3fa044767905"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-qjcvqv08.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b9fbe95c3fa044767905"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-qjcvqv08.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647ba12e95c3fa044767919"
+                "id": "nmdc:wfrbt-11-0227se86.1.1"
             },
             "u": {
                 "$set": {
@@ -1313,27 +443,7 @@
         },
         {
             "q": {
-                "_id": "6647ba12e95c3fa044767919"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-0227se86.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647ba12e95c3fa044767919"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-0227se86.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647ba26e95c3fa044767932"
+                "id": "nmdc:wfrbt-11-krmkys65.1.1"
             },
             "u": {
                 "$set": {
@@ -1343,27 +453,7 @@
         },
         {
             "q": {
-                "_id": "6647ba26e95c3fa044767932"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-krmkys65.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647ba26e95c3fa044767932"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-krmkys65.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647ba2ce95c3fa044767946"
+                "id": "nmdc:wfrbt-11-dv54hp39.1.1"
             },
             "u": {
                 "$set": {
@@ -1373,27 +463,7 @@
         },
         {
             "q": {
-                "_id": "6647ba2ce95c3fa044767946"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-dv54hp39.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647ba2ce95c3fa044767946"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-dv54hp39.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647ba30e95c3fa04476795a"
+                "id": "nmdc:wfrbt-11-m0bhjt35.1.1"
             },
             "u": {
                 "$set": {
@@ -1403,27 +473,7 @@
         },
         {
             "q": {
-                "_id": "6647ba30e95c3fa04476795a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-m0bhjt35.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647ba30e95c3fa04476795a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-m0bhjt35.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647ba3ce95c3fa04476797e"
+                "id": "nmdc:wfrbt-11-raanr328.1.1"
             },
             "u": {
                 "$set": {
@@ -1433,247 +483,7 @@
         },
         {
             "q": {
-                "_id": "6647ba3ce95c3fa04476797e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-raanr328.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647ba3ce95c3fa04476797e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-raanr328.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1674858c324c013a6c3"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-7gv4ws33.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b16e4858c324c013a6d7"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-d48z5k21.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1704858c324c013a6eb"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-erqpmf22.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1734858c324c013a6ff"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ptvp7a58.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1764858c324c013a713"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-q5evt919.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1794858c324c013a727"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-zqgyhr87.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b17e4858c324c013a73b"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rqr46385.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1814858c324c013a74f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-w0qkeh42.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1834858c324c013a763"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-v2598v30.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1864858c324c013a777"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-vyffbx61.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1894858c324c013a78b"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-2gpv1808.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b18c4858c324c013a79f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-4bsja502.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b18f4858c324c013a7b3"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-j3amwx12.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1914858c324c013a7c7"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-71pza760.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1964858c324c013a7db"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-20hjwb47.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1994858c324c013a7ef"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-dghmaq29.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b19c4858c324c013a803"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ryeg7n41.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b19e4858c324c013a817"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-26b8hv12.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1a14858c324c013a82b"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-hdyf6229.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1a44858c324c013a83f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ch8r2h45.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1a74858c324c013a853"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-q3qq6g81.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1ae4858c324c013a867"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-v1tv1m26.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0d7f34bb863ec2f24d2"
+                "id": "nmdc:wfrbt-11-thag1807.1.1"
             },
             "u": {
                 "$set": {
@@ -1683,37 +493,7 @@
         },
         {
             "q": {
-                "_id": "6647c0d7f34bb863ec2f24d2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-thag1807.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0d7f34bb863ec2f24d2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-thag1807.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0d7f34bb863ec2f24d2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-thag1807.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0daf34bb863ec2f24e6"
+                "id": "nmdc:wfrbt-11-gg6b9z13.1.1"
             },
             "u": {
                 "$set": {
@@ -1723,27 +503,7 @@
         },
         {
             "q": {
-                "_id": "6647c0daf34bb863ec2f24e6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gg6b9z13.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0daf34bb863ec2f24e6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gg6b9z13.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0ddf34bb863ec2f24fa"
+                "id": "nmdc:wfrbt-11-t7n9fh59.1.1"
             },
             "u": {
                 "$set": {
@@ -1753,27 +513,7 @@
         },
         {
             "q": {
-                "_id": "6647c0ddf34bb863ec2f24fa"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-t7n9fh59.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0ddf34bb863ec2f24fa"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-t7n9fh59.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0dff34bb863ec2f250e"
+                "id": "nmdc:wfrbt-11-egtffm84.1.1"
             },
             "u": {
                 "$set": {
@@ -1783,27 +523,7 @@
         },
         {
             "q": {
-                "_id": "6647c0dff34bb863ec2f250e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-egtffm84.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0dff34bb863ec2f250e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-egtffm84.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0e2f34bb863ec2f2522"
+                "id": "nmdc:wfrbt-11-a9ptva73.1.1"
             },
             "u": {
                 "$set": {
@@ -1813,27 +533,7 @@
         },
         {
             "q": {
-                "_id": "6647c0e2f34bb863ec2f2522"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-a9ptva73.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0e2f34bb863ec2f2522"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-a9ptva73.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0e5f34bb863ec2f2536"
+                "id": "nmdc:wfrbt-11-b8b4ak16.1.1"
             },
             "u": {
                 "$set": {
@@ -1843,27 +543,7 @@
         },
         {
             "q": {
-                "_id": "6647c0e5f34bb863ec2f2536"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-b8b4ak16.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0e5f34bb863ec2f2536"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-b8b4ak16.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0e8f34bb863ec2f254a"
+                "id": "nmdc:wfrbt-11-6909nf42.1.1"
             },
             "u": {
                 "$set": {
@@ -1873,27 +553,7 @@
         },
         {
             "q": {
-                "_id": "6647c0e8f34bb863ec2f254a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-6909nf42.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0e8f34bb863ec2f254a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-6909nf42.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0ebf34bb863ec2f255e"
+                "id": "nmdc:wfrbt-11-5azt1x40.1.1"
             },
             "u": {
                 "$set": {
@@ -1903,47 +563,7 @@
         },
         {
             "q": {
-                "_id": "6647c0ebf34bb863ec2f255e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-5azt1x40.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0ebf34bb863ec2f255e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-5azt1x40.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1b14858c324c013a87b"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-s624re67.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1b44858c324c013a88f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-xx38hd49.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0edf34bb863ec2f2572"
+                "id": "nmdc:wfrbt-11-65496e27.1.1"
             },
             "u": {
                 "$set": {
@@ -1953,27 +573,7 @@
         },
         {
             "q": {
-                "_id": "6647c0edf34bb863ec2f2572"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-65496e27.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0edf34bb863ec2f2572"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-65496e27.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0f1f34bb863ec2f2586"
+                "id": "nmdc:wfrbt-11-8y74s137.1.1"
             },
             "u": {
                 "$set": {
@@ -1983,27 +583,7 @@
         },
         {
             "q": {
-                "_id": "6647c0f1f34bb863ec2f2586"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-8y74s137.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0f1f34bb863ec2f2586"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-8y74s137.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0f4f34bb863ec2f259a"
+                "id": "nmdc:wfrbt-11-kywvy429.1.1"
             },
             "u": {
                 "$set": {
@@ -2013,27 +593,7 @@
         },
         {
             "q": {
-                "_id": "6647c0f4f34bb863ec2f259a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-kywvy429.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0f4f34bb863ec2f259a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-kywvy429.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0f7f34bb863ec2f25ae"
+                "id": "nmdc:wfrbt-11-a6y95w36.1.1"
             },
             "u": {
                 "$set": {
@@ -2043,37 +603,7 @@
         },
         {
             "q": {
-                "_id": "6647c0f7f34bb863ec2f25ae"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-a6y95w36.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0f7f34bb863ec2f25ae"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-a6y95w36.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1b74858c324c013a8a3"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3jq5q538.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0f9f34bb863ec2f25c2"
+                "id": "nmdc:wfrbt-11-8skv7z45.1.1"
             },
             "u": {
                 "$set": {
@@ -2083,37 +613,7 @@
         },
         {
             "q": {
-                "_id": "6647c0f9f34bb863ec2f25c2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-8skv7z45.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0f9f34bb863ec2f25c2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-8skv7z45.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1ba4858c324c013a8b7"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-wwff2375.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0fcf34bb863ec2f25d6"
+                "id": "nmdc:wfrbt-11-k4jd3173.1.1"
             },
             "u": {
                 "$set": {
@@ -2123,37 +623,7 @@
         },
         {
             "q": {
-                "_id": "6647c0fcf34bb863ec2f25d6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-k4jd3173.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0fcf34bb863ec2f25d6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-k4jd3173.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1bc4858c324c013a8cb"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-95fk9a04.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0fff34bb863ec2f25ea"
+                "id": "nmdc:wfrbt-11-c0jrkb53.1.1"
             },
             "u": {
                 "$set": {
@@ -2163,27 +633,7 @@
         },
         {
             "q": {
-                "_id": "6647c0fff34bb863ec2f25ea"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-c0jrkb53.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c0fff34bb863ec2f25ea"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-c0jrkb53.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c101f34bb863ec2f25fe"
+                "id": "nmdc:wfrbt-11-v4cc8y71.1.1"
             },
             "u": {
                 "$set": {
@@ -2193,27 +643,7 @@
         },
         {
             "q": {
-                "_id": "6647c101f34bb863ec2f25fe"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-v4cc8y71.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c101f34bb863ec2f25fe"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-v4cc8y71.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c104f34bb863ec2f2612"
+                "id": "nmdc:wfrbt-11-zhk1af31.1.1"
             },
             "u": {
                 "$set": {
@@ -2223,27 +653,7 @@
         },
         {
             "q": {
-                "_id": "6647c104f34bb863ec2f2612"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-zhk1af31.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c104f34bb863ec2f2612"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-zhk1af31.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c107f34bb863ec2f2626"
+                "id": "nmdc:wfrbt-11-qcrw5v02.1.1"
             },
             "u": {
                 "$set": {
@@ -2253,27 +663,7 @@
         },
         {
             "q": {
-                "_id": "6647c107f34bb863ec2f2626"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-qcrw5v02.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c107f34bb863ec2f2626"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-qcrw5v02.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c10af34bb863ec2f263a"
+                "id": "nmdc:wfrbt-11-s4hjex45.1.1"
             },
             "u": {
                 "$set": {
@@ -2283,27 +673,7 @@
         },
         {
             "q": {
-                "_id": "6647c10af34bb863ec2f263a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-s4hjex45.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c10af34bb863ec2f263a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-s4hjex45.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c10ff34bb863ec2f264e"
+                "id": "nmdc:wfrbt-11-678j6a22.1.1"
             },
             "u": {
                 "$set": {
@@ -2313,27 +683,7 @@
         },
         {
             "q": {
-                "_id": "6647c10ff34bb863ec2f264e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-678j6a22.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c10ff34bb863ec2f264e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-678j6a22.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c112f34bb863ec2f2662"
+                "id": "nmdc:wfrbt-11-ac274f39.1.1"
             },
             "u": {
                 "$set": {
@@ -2343,27 +693,7 @@
         },
         {
             "q": {
-                "_id": "6647c112f34bb863ec2f2662"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ac274f39.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c112f34bb863ec2f2662"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ac274f39.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c115f34bb863ec2f2676"
+                "id": "nmdc:wfrbt-11-7av50z30.1.1"
             },
             "u": {
                 "$set": {
@@ -2373,27 +703,7 @@
         },
         {
             "q": {
-                "_id": "6647c115f34bb863ec2f2676"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-7av50z30.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c115f34bb863ec2f2676"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-7av50z30.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c117f34bb863ec2f268a"
+                "id": "nmdc:wfrbt-11-aeh8f610.1.1"
             },
             "u": {
                 "$set": {
@@ -2403,27 +713,7 @@
         },
         {
             "q": {
-                "_id": "6647c117f34bb863ec2f268a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-aeh8f610.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c117f34bb863ec2f268a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-aeh8f610.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c11af34bb863ec2f269e"
+                "id": "nmdc:wfrbt-11-ntyk2w59.1.1"
             },
             "u": {
                 "$set": {
@@ -2433,27 +723,7 @@
         },
         {
             "q": {
-                "_id": "6647c11af34bb863ec2f269e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ntyk2w59.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c11af34bb863ec2f269e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ntyk2w59.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c11df34bb863ec2f26b2"
+                "id": "nmdc:wfrbt-11-c73hxg52.1.1"
             },
             "u": {
                 "$set": {
@@ -2463,27 +733,7 @@
         },
         {
             "q": {
-                "_id": "6647c11df34bb863ec2f26b2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-c73hxg52.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c11df34bb863ec2f26b2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-c73hxg52.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c11ff34bb863ec2f26c6"
+                "id": "nmdc:wfrbt-11-4gpp3r08.1.1"
             },
             "u": {
                 "$set": {
@@ -2493,27 +743,7 @@
         },
         {
             "q": {
-                "_id": "6647c11ff34bb863ec2f26c6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-4gpp3r08.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c11ff34bb863ec2f26c6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-4gpp3r08.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c122f34bb863ec2f26da"
+                "id": "nmdc:wfrbt-11-3d8we351.1.1"
             },
             "u": {
                 "$set": {
@@ -2523,27 +753,7 @@
         },
         {
             "q": {
-                "_id": "6647c122f34bb863ec2f26da"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3d8we351.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c122f34bb863ec2f26da"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3d8we351.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c125f34bb863ec2f26ee"
+                "id": "nmdc:wfrbt-11-3yrnh009.1.1"
             },
             "u": {
                 "$set": {
@@ -2553,27 +763,7 @@
         },
         {
             "q": {
-                "_id": "6647c125f34bb863ec2f26ee"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3yrnh009.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c125f34bb863ec2f26ee"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3yrnh009.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c127f34bb863ec2f2702"
+                "id": "nmdc:wfrbt-11-kwdysx47.1.1"
             },
             "u": {
                 "$set": {
@@ -2583,27 +773,7 @@
         },
         {
             "q": {
-                "_id": "6647c127f34bb863ec2f2702"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-kwdysx47.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c127f34bb863ec2f2702"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-kwdysx47.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c12af34bb863ec2f2716"
+                "id": "nmdc:wfrbt-11-mrj2mg18.1.1"
             },
             "u": {
                 "$set": {
@@ -2613,27 +783,7 @@
         },
         {
             "q": {
-                "_id": "6647c12af34bb863ec2f2716"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-mrj2mg18.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c12af34bb863ec2f2716"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-mrj2mg18.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c12df34bb863ec2f272a"
+                "id": "nmdc:wfrbt-11-8pmvez63.1.1"
             },
             "u": {
                 "$set": {
@@ -2643,27 +793,7 @@
         },
         {
             "q": {
-                "_id": "6647c12df34bb863ec2f272a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-8pmvez63.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c12df34bb863ec2f272a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-8pmvez63.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c12ff34bb863ec2f273e"
+                "id": "nmdc:wfrbt-11-n919fm68.1.1"
             },
             "u": {
                 "$set": {
@@ -2673,27 +803,7 @@
         },
         {
             "q": {
-                "_id": "6647c12ff34bb863ec2f273e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-n919fm68.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c12ff34bb863ec2f273e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-n919fm68.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c132f34bb863ec2f2752"
+                "id": "nmdc:wfrbt-11-fgn19493.1.1"
             },
             "u": {
                 "$set": {
@@ -2703,27 +813,7 @@
         },
         {
             "q": {
-                "_id": "6647c132f34bb863ec2f2752"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-fgn19493.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c132f34bb863ec2f2752"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-fgn19493.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c135f34bb863ec2f2766"
+                "id": "nmdc:wfrbt-11-swjmkr42.1.1"
             },
             "u": {
                 "$set": {
@@ -2733,27 +823,7 @@
         },
         {
             "q": {
-                "_id": "6647c135f34bb863ec2f2766"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-swjmkr42.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c135f34bb863ec2f2766"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-swjmkr42.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c138f34bb863ec2f277a"
+                "id": "nmdc:wfrbt-11-3n1heh08.1.1"
             },
             "u": {
                 "$set": {
@@ -2763,27 +833,7 @@
         },
         {
             "q": {
-                "_id": "6647c138f34bb863ec2f277a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3n1heh08.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c138f34bb863ec2f277a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3n1heh08.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c13af34bb863ec2f278e"
+                "id": "nmdc:wfrbt-11-w1egjz83.1.1"
             },
             "u": {
                 "$set": {
@@ -2793,27 +843,7 @@
         },
         {
             "q": {
-                "_id": "6647c13af34bb863ec2f278e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-w1egjz83.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c13af34bb863ec2f278e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-w1egjz83.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c13df34bb863ec2f27a2"
+                "id": "nmdc:wfrbt-11-rhpxt041.1.1"
             },
             "u": {
                 "$set": {
@@ -2823,27 +853,7 @@
         },
         {
             "q": {
-                "_id": "6647c13df34bb863ec2f27a2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rhpxt041.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c13df34bb863ec2f27a2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rhpxt041.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c140f34bb863ec2f27b6"
+                "id": "nmdc:wfrbt-11-bb59v745.1.1"
             },
             "u": {
                 "$set": {
@@ -2853,27 +863,7 @@
         },
         {
             "q": {
-                "_id": "6647c140f34bb863ec2f27b6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-bb59v745.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c140f34bb863ec2f27b6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-bb59v745.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c142f34bb863ec2f27ca"
+                "id": "nmdc:wfrbt-11-kcsrqh49.1.1"
             },
             "u": {
                 "$set": {
@@ -2883,27 +873,7 @@
         },
         {
             "q": {
-                "_id": "6647c142f34bb863ec2f27ca"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-kcsrqh49.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c142f34bb863ec2f27ca"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-kcsrqh49.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c145f34bb863ec2f27de"
+                "id": "nmdc:wfrbt-11-s8rtxc91.1.1"
             },
             "u": {
                 "$set": {
@@ -2913,27 +883,7 @@
         },
         {
             "q": {
-                "_id": "6647c145f34bb863ec2f27de"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-s8rtxc91.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c145f34bb863ec2f27de"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-s8rtxc91.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c148f34bb863ec2f27f2"
+                "id": "nmdc:wfrbt-11-ecszmx10.1.1"
             },
             "u": {
                 "$set": {
@@ -2943,27 +893,7 @@
         },
         {
             "q": {
-                "_id": "6647c148f34bb863ec2f27f2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ecszmx10.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c148f34bb863ec2f27f2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ecszmx10.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c14bf34bb863ec2f2806"
+                "id": "nmdc:wfrbt-11-k2hghm11.1.1"
             },
             "u": {
                 "$set": {
@@ -2973,27 +903,7 @@
         },
         {
             "q": {
-                "_id": "6647c14bf34bb863ec2f2806"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-k2hghm11.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c14bf34bb863ec2f2806"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-k2hghm11.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c14ef34bb863ec2f281a"
+                "id": "nmdc:wfrbt-11-gthy8157.1.1"
             },
             "u": {
                 "$set": {
@@ -3003,27 +913,7 @@
         },
         {
             "q": {
-                "_id": "6647c14ef34bb863ec2f281a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gthy8157.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c14ef34bb863ec2f281a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gthy8157.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c151f34bb863ec2f282e"
+                "id": "nmdc:wfrbt-11-xac6zr18.1.1"
             },
             "u": {
                 "$set": {
@@ -3033,27 +923,7 @@
         },
         {
             "q": {
-                "_id": "6647c151f34bb863ec2f282e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-xac6zr18.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c151f34bb863ec2f282e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-xac6zr18.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c155f34bb863ec2f2842"
+                "id": "nmdc:wfrbt-11-rh3av542.1.1"
             },
             "u": {
                 "$set": {
@@ -3063,27 +933,7 @@
         },
         {
             "q": {
-                "_id": "6647c155f34bb863ec2f2842"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rh3av542.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c155f34bb863ec2f2842"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rh3av542.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c158f34bb863ec2f2856"
+                "id": "nmdc:wfrbt-11-jfxgwy12.1.1"
             },
             "u": {
                 "$set": {
@@ -3093,27 +943,7 @@
         },
         {
             "q": {
-                "_id": "6647c158f34bb863ec2f2856"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-jfxgwy12.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c158f34bb863ec2f2856"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-jfxgwy12.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c15bf34bb863ec2f286a"
+                "id": "nmdc:wfrbt-11-wwye1z89.1.1"
             },
             "u": {
                 "$set": {
@@ -3123,27 +953,7 @@
         },
         {
             "q": {
-                "_id": "6647c15bf34bb863ec2f286a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-wwye1z89.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c15bf34bb863ec2f286a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-wwye1z89.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c15df34bb863ec2f287e"
+                "id": "nmdc:wfrbt-11-a8gwc719.1.1"
             },
             "u": {
                 "$set": {
@@ -3153,27 +963,7 @@
         },
         {
             "q": {
-                "_id": "6647c15df34bb863ec2f287e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-a8gwc719.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c15df34bb863ec2f287e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-a8gwc719.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c160f34bb863ec2f2892"
+                "id": "nmdc:wfrbt-11-8t897r42.1.1"
             },
             "u": {
                 "$set": {
@@ -3183,27 +973,7 @@
         },
         {
             "q": {
-                "_id": "6647c160f34bb863ec2f2892"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-8t897r42.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c160f34bb863ec2f2892"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-8t897r42.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c163f34bb863ec2f28a6"
+                "id": "nmdc:wfrbt-11-vdkjay93.1.1"
             },
             "u": {
                 "$set": {
@@ -3213,27 +983,7 @@
         },
         {
             "q": {
-                "_id": "6647c163f34bb863ec2f28a6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-vdkjay93.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c163f34bb863ec2f28a6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-vdkjay93.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c165f34bb863ec2f28ba"
+                "id": "nmdc:wfrbt-11-rgxw4771.1.1"
             },
             "u": {
                 "$set": {
@@ -3243,27 +993,7 @@
         },
         {
             "q": {
-                "_id": "6647c165f34bb863ec2f28ba"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rgxw4771.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c165f34bb863ec2f28ba"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rgxw4771.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c168f34bb863ec2f28ce"
+                "id": "nmdc:wfrbt-11-rjzh9y18.1.1"
             },
             "u": {
                 "$set": {
@@ -3273,27 +1003,7 @@
         },
         {
             "q": {
-                "_id": "6647c168f34bb863ec2f28ce"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rjzh9y18.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c168f34bb863ec2f28ce"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rjzh9y18.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c16bf34bb863ec2f28e2"
+                "id": "nmdc:wfrbt-11-d2490062.1.1"
             },
             "u": {
                 "$set": {
@@ -3303,27 +1013,7 @@
         },
         {
             "q": {
-                "_id": "6647c16bf34bb863ec2f28e2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-d2490062.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c16bf34bb863ec2f28e2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-d2490062.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c16ef34bb863ec2f28f6"
+                "id": "nmdc:wfrbt-11-3j4t1356.1.1"
             },
             "u": {
                 "$set": {
@@ -3333,27 +1023,7 @@
         },
         {
             "q": {
-                "_id": "6647c16ef34bb863ec2f28f6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3j4t1356.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c16ef34bb863ec2f28f6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3j4t1356.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c171f34bb863ec2f290a"
+                "id": "nmdc:wfrbt-11-as8t5783.1.1"
             },
             "u": {
                 "$set": {
@@ -3363,27 +1033,7 @@
         },
         {
             "q": {
-                "_id": "6647c171f34bb863ec2f290a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-as8t5783.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c171f34bb863ec2f290a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-as8t5783.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c174f34bb863ec2f291e"
+                "id": "nmdc:wfrbt-11-v5h4x469.1.1"
             },
             "u": {
                 "$set": {
@@ -3393,27 +1043,7 @@
         },
         {
             "q": {
-                "_id": "6647c174f34bb863ec2f291e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-v5h4x469.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c174f34bb863ec2f291e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-v5h4x469.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c177f34bb863ec2f2932"
+                "id": "nmdc:wfrbt-11-gzxjsc21.1.1"
             },
             "u": {
                 "$set": {
@@ -3423,27 +1053,7 @@
         },
         {
             "q": {
-                "_id": "6647c177f34bb863ec2f2932"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gzxjsc21.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c177f34bb863ec2f2932"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gzxjsc21.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c17af34bb863ec2f2946"
+                "id": "nmdc:wfrbt-11-g401cy76.1.1"
             },
             "u": {
                 "$set": {
@@ -3453,27 +1063,7 @@
         },
         {
             "q": {
-                "_id": "6647c17af34bb863ec2f2946"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-g401cy76.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c17af34bb863ec2f2946"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-g401cy76.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c17ef34bb863ec2f295a"
+                "id": "nmdc:wfrbt-11-hnmfdt56.1.1"
             },
             "u": {
                 "$set": {
@@ -3483,27 +1073,7 @@
         },
         {
             "q": {
-                "_id": "6647c17ef34bb863ec2f295a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-hnmfdt56.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c17ef34bb863ec2f295a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-hnmfdt56.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c181f34bb863ec2f296e"
+                "id": "nmdc:wfrbt-11-25ptjc82.1.1"
             },
             "u": {
                 "$set": {
@@ -3513,27 +1083,7 @@
         },
         {
             "q": {
-                "_id": "6647c181f34bb863ec2f296e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-25ptjc82.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c181f34bb863ec2f296e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-25ptjc82.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c184f34bb863ec2f2982"
+                "id": "nmdc:wfrbt-11-m3s1x993.1.1"
             },
             "u": {
                 "$set": {
@@ -3543,27 +1093,7 @@
         },
         {
             "q": {
-                "_id": "6647c184f34bb863ec2f2982"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-m3s1x993.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c184f34bb863ec2f2982"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-m3s1x993.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c188f34bb863ec2f2996"
+                "id": "nmdc:wfrbt-11-a7a15v43.1.1"
             },
             "u": {
                 "$set": {
@@ -3573,27 +1103,7 @@
         },
         {
             "q": {
-                "_id": "6647c188f34bb863ec2f2996"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-a7a15v43.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c188f34bb863ec2f2996"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-a7a15v43.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c18bf34bb863ec2f29aa"
+                "id": "nmdc:wfrbt-11-7m3wh273.1.1"
             },
             "u": {
                 "$set": {
@@ -3603,27 +1113,7 @@
         },
         {
             "q": {
-                "_id": "6647c18bf34bb863ec2f29aa"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-7m3wh273.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c18bf34bb863ec2f29aa"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-7m3wh273.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c18ef34bb863ec2f29be"
+                "id": "nmdc:wfrbt-11-wjpxj427.1.1"
             },
             "u": {
                 "$set": {
@@ -3633,27 +1123,7 @@
         },
         {
             "q": {
-                "_id": "6647c18ef34bb863ec2f29be"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-wjpxj427.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c18ef34bb863ec2f29be"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-wjpxj427.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c191f34bb863ec2f29d2"
+                "id": "nmdc:wfrbt-11-rf1cc810.1.1"
             },
             "u": {
                 "$set": {
@@ -3663,27 +1133,7 @@
         },
         {
             "q": {
-                "_id": "6647c191f34bb863ec2f29d2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rf1cc810.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c191f34bb863ec2f29d2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rf1cc810.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c194f34bb863ec2f29e6"
+                "id": "nmdc:wfrbt-11-jdp97291.1.1"
             },
             "u": {
                 "$set": {
@@ -3693,27 +1143,7 @@
         },
         {
             "q": {
-                "_id": "6647c194f34bb863ec2f29e6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-jdp97291.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c194f34bb863ec2f29e6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-jdp97291.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c198f34bb863ec2f29fa"
+                "id": "nmdc:wfrbt-11-pzddg709.1.1"
             },
             "u": {
                 "$set": {
@@ -3723,27 +1153,7 @@
         },
         {
             "q": {
-                "_id": "6647c198f34bb863ec2f29fa"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-pzddg709.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c198f34bb863ec2f29fa"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-pzddg709.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c19cf34bb863ec2f2a0e"
+                "id": "nmdc:wfrbt-11-bnj8y850.1.1"
             },
             "u": {
                 "$set": {
@@ -3753,27 +1163,7 @@
         },
         {
             "q": {
-                "_id": "6647c19cf34bb863ec2f2a0e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-bnj8y850.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c19cf34bb863ec2f2a0e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-bnj8y850.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c19ff34bb863ec2f2a22"
+                "id": "nmdc:wfrbt-11-gs3b0355.1.1"
             },
             "u": {
                 "$set": {
@@ -3783,27 +1173,7 @@
         },
         {
             "q": {
-                "_id": "6647c19ff34bb863ec2f2a22"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gs3b0355.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c19ff34bb863ec2f2a22"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gs3b0355.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1a2f34bb863ec2f2a36"
+                "id": "nmdc:wfrbt-11-3h44mj23.1.1"
             },
             "u": {
                 "$set": {
@@ -3813,27 +1183,7 @@
         },
         {
             "q": {
-                "_id": "6647c1a2f34bb863ec2f2a36"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3h44mj23.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1a2f34bb863ec2f2a36"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3h44mj23.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1a6f34bb863ec2f2a4a"
+                "id": "nmdc:wfrbt-11-4ny5dk25.1.1"
             },
             "u": {
                 "$set": {
@@ -3843,27 +1193,7 @@
         },
         {
             "q": {
-                "_id": "6647c1a6f34bb863ec2f2a4a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-4ny5dk25.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1a6f34bb863ec2f2a4a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-4ny5dk25.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1a9f34bb863ec2f2a5e"
+                "id": "nmdc:wfrbt-11-6p5m9k18.1.1"
             },
             "u": {
                 "$set": {
@@ -3873,27 +1203,7 @@
         },
         {
             "q": {
-                "_id": "6647c1a9f34bb863ec2f2a5e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-6p5m9k18.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1a9f34bb863ec2f2a5e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-6p5m9k18.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1aef34bb863ec2f2a72"
+                "id": "nmdc:wfrbt-11-1qdmg175.1.1"
             },
             "u": {
                 "$set": {
@@ -3903,27 +1213,7 @@
         },
         {
             "q": {
-                "_id": "6647c1aef34bb863ec2f2a72"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-1qdmg175.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1aef34bb863ec2f2a72"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-1qdmg175.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1b2f34bb863ec2f2a86"
+                "id": "nmdc:wfrbt-11-gjxsgv37.1.1"
             },
             "u": {
                 "$set": {
@@ -3933,27 +1223,7 @@
         },
         {
             "q": {
-                "_id": "6647c1b2f34bb863ec2f2a86"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gjxsgv37.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1b2f34bb863ec2f2a86"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gjxsgv37.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1b5f34bb863ec2f2a9a"
+                "id": "nmdc:wfrbt-11-ym0vw131.1.1"
             },
             "u": {
                 "$set": {
@@ -3963,27 +1233,7 @@
         },
         {
             "q": {
-                "_id": "6647c1b5f34bb863ec2f2a9a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ym0vw131.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1b5f34bb863ec2f2a9a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ym0vw131.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1b8f34bb863ec2f2aae"
+                "id": "nmdc:wfrbt-11-0cwxhq39.1.1"
             },
             "u": {
                 "$set": {
@@ -3993,27 +1243,7 @@
         },
         {
             "q": {
-                "_id": "6647c1b8f34bb863ec2f2aae"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-0cwxhq39.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1b8f34bb863ec2f2aae"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-0cwxhq39.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1bcf34bb863ec2f2ac2"
+                "id": "nmdc:wfrbt-11-0zmrb623.1.1"
             },
             "u": {
                 "$set": {
@@ -4023,27 +1253,7 @@
         },
         {
             "q": {
-                "_id": "6647c1bcf34bb863ec2f2ac2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-0zmrb623.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1bcf34bb863ec2f2ac2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-0zmrb623.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1bff34bb863ec2f2ad6"
+                "id": "nmdc:wfrbt-11-kr2bd641.1.1"
             },
             "u": {
                 "$set": {
@@ -4053,27 +1263,7 @@
         },
         {
             "q": {
-                "_id": "6647c1bff34bb863ec2f2ad6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-kr2bd641.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1bff34bb863ec2f2ad6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-kr2bd641.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1c2f34bb863ec2f2aea"
+                "id": "nmdc:wfrbt-11-rk1a6j32.1.1"
             },
             "u": {
                 "$set": {
@@ -4083,27 +1273,7 @@
         },
         {
             "q": {
-                "_id": "6647c1c2f34bb863ec2f2aea"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rk1a6j32.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1c2f34bb863ec2f2aea"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rk1a6j32.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1c7f34bb863ec2f2afe"
+                "id": "nmdc:wfrbt-11-cj6sqm60.1.1"
             },
             "u": {
                 "$set": {
@@ -4113,27 +1283,7 @@
         },
         {
             "q": {
-                "_id": "6647c1c7f34bb863ec2f2afe"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-cj6sqm60.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1c7f34bb863ec2f2afe"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-cj6sqm60.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1caf34bb863ec2f2b12"
+                "id": "nmdc:wfrbt-11-504xc702.1.1"
             },
             "u": {
                 "$set": {
@@ -4143,27 +1293,7 @@
         },
         {
             "q": {
-                "_id": "6647c1caf34bb863ec2f2b12"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-504xc702.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1caf34bb863ec2f2b12"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-504xc702.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1cef34bb863ec2f2b26"
+                "id": "nmdc:wfrbt-11-ve0gvv78.1.1"
             },
             "u": {
                 "$set": {
@@ -4173,27 +1303,7 @@
         },
         {
             "q": {
-                "_id": "6647c1cef34bb863ec2f2b26"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ve0gvv78.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1cef34bb863ec2f2b26"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ve0gvv78.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1d2f34bb863ec2f2b3a"
+                "id": "nmdc:wfrbt-11-fbxp0m66.1.1"
             },
             "u": {
                 "$set": {
@@ -4203,27 +1313,7 @@
         },
         {
             "q": {
-                "_id": "6647c1d2f34bb863ec2f2b3a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-fbxp0m66.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1d2f34bb863ec2f2b3a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-fbxp0m66.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1d5f34bb863ec2f2b4e"
+                "id": "nmdc:wfrbt-11-htffg359.1.1"
             },
             "u": {
                 "$set": {
@@ -4233,27 +1323,7 @@
         },
         {
             "q": {
-                "_id": "6647c1d5f34bb863ec2f2b4e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-htffg359.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1d5f34bb863ec2f2b4e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-htffg359.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1d8f34bb863ec2f2b62"
+                "id": "nmdc:wfrbt-11-7v5ewt31.1.1"
             },
             "u": {
                 "$set": {
@@ -4263,27 +1333,7 @@
         },
         {
             "q": {
-                "_id": "6647c1d8f34bb863ec2f2b62"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-7v5ewt31.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1d8f34bb863ec2f2b62"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-7v5ewt31.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1ddf34bb863ec2f2b76"
+                "id": "nmdc:wfrbt-11-kvtnfz75.1.1"
             },
             "u": {
                 "$set": {
@@ -4293,27 +1343,7 @@
         },
         {
             "q": {
-                "_id": "6647c1ddf34bb863ec2f2b76"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-kvtnfz75.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1ddf34bb863ec2f2b76"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-kvtnfz75.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1e0f34bb863ec2f2b8a"
+                "id": "nmdc:wfrbt-11-rngybm87.1.1"
             },
             "u": {
                 "$set": {
@@ -4323,27 +1353,7 @@
         },
         {
             "q": {
-                "_id": "6647c1e0f34bb863ec2f2b8a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rngybm87.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1e0f34bb863ec2f2b8a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rngybm87.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1e7f34bb863ec2f2b9e"
+                "id": "nmdc:wfrbt-11-z04bp583.1.1"
             },
             "u": {
                 "$set": {
@@ -4353,27 +1363,7 @@
         },
         {
             "q": {
-                "_id": "6647c1e7f34bb863ec2f2b9e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-z04bp583.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1e7f34bb863ec2f2b9e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-z04bp583.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1eaf34bb863ec2f2bb2"
+                "id": "nmdc:wfrbt-11-ktehyc68.1.1"
             },
             "u": {
                 "$set": {
@@ -4383,27 +1373,7 @@
         },
         {
             "q": {
-                "_id": "6647c1eaf34bb863ec2f2bb2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ktehyc68.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1eaf34bb863ec2f2bb2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ktehyc68.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1eff34bb863ec2f2bc6"
+                "id": "nmdc:wfrbt-11-k0h3cf29.1.1"
             },
             "u": {
                 "$set": {
@@ -4413,27 +1383,7 @@
         },
         {
             "q": {
-                "_id": "6647c1eff34bb863ec2f2bc6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-k0h3cf29.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1eff34bb863ec2f2bc6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-k0h3cf29.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1f2f34bb863ec2f2bda"
+                "id": "nmdc:wfrbt-11-yc78tb10.1.1"
             },
             "u": {
                 "$set": {
@@ -4443,27 +1393,7 @@
         },
         {
             "q": {
-                "_id": "6647c1f2f34bb863ec2f2bda"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-yc78tb10.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1f2f34bb863ec2f2bda"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-yc78tb10.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1f6f34bb863ec2f2bee"
+                "id": "nmdc:wfrbt-11-9xege427.1.1"
             },
             "u": {
                 "$set": {
@@ -4473,27 +1403,7 @@
         },
         {
             "q": {
-                "_id": "6647c1f6f34bb863ec2f2bee"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-9xege427.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1f6f34bb863ec2f2bee"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-9xege427.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1faf34bb863ec2f2c02"
+                "id": "nmdc:wfrbt-11-9m5m2j68.1.1"
             },
             "u": {
                 "$set": {
@@ -4503,27 +1413,7 @@
         },
         {
             "q": {
-                "_id": "6647c1faf34bb863ec2f2c02"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-9m5m2j68.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1faf34bb863ec2f2c02"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-9m5m2j68.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1fdf34bb863ec2f2c16"
+                "id": "nmdc:wfrbt-11-r63d8n75.1.1"
             },
             "u": {
                 "$set": {
@@ -4533,27 +1423,7 @@
         },
         {
             "q": {
-                "_id": "6647c1fdf34bb863ec2f2c16"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-r63d8n75.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c1fdf34bb863ec2f2c16"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-r63d8n75.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c201f34bb863ec2f2c2a"
+                "id": "nmdc:wfrbt-11-szfp2h88.1.1"
             },
             "u": {
                 "$set": {
@@ -4563,37 +1433,7 @@
         },
         {
             "q": {
-                "_id": "6647c201f34bb863ec2f2c2a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-szfp2h88.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c201f34bb863ec2f2c2a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-szfp2h88.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1bf4858c324c013a8df"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-9n1ve609.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c206f34bb863ec2f2c3e"
+                "id": "nmdc:wfrbt-11-041r7855.1.1"
             },
             "u": {
                 "$set": {
@@ -4603,27 +1443,7 @@
         },
         {
             "q": {
-                "_id": "6647c206f34bb863ec2f2c3e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-041r7855.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c206f34bb863ec2f2c3e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-041r7855.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c20af34bb863ec2f2c52"
+                "id": "nmdc:wfrbt-11-4np37r90.1.1"
             },
             "u": {
                 "$set": {
@@ -4633,27 +1453,7 @@
         },
         {
             "q": {
-                "_id": "6647c20af34bb863ec2f2c52"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-4np37r90.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c20af34bb863ec2f2c52"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-4np37r90.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c20ff34bb863ec2f2c66"
+                "id": "nmdc:wfrbt-11-5ft7f628.1.1"
             },
             "u": {
                 "$set": {
@@ -4663,27 +1463,7 @@
         },
         {
             "q": {
-                "_id": "6647c20ff34bb863ec2f2c66"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-5ft7f628.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c20ff34bb863ec2f2c66"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-5ft7f628.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c213f34bb863ec2f2c7a"
+                "id": "nmdc:wfrbt-11-se6dxw02.1.1"
             },
             "u": {
                 "$set": {
@@ -4693,27 +1473,7 @@
         },
         {
             "q": {
-                "_id": "6647c213f34bb863ec2f2c7a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-se6dxw02.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c213f34bb863ec2f2c7a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-se6dxw02.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c218f34bb863ec2f2c8e"
+                "id": "nmdc:wfrbt-11-g1055s72.1.1"
             },
             "u": {
                 "$set": {
@@ -4723,27 +1483,7 @@
         },
         {
             "q": {
-                "_id": "6647c218f34bb863ec2f2c8e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-g1055s72.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c218f34bb863ec2f2c8e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-g1055s72.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c21cf34bb863ec2f2ca2"
+                "id": "nmdc:wfrbt-11-v89gpf24.1.1"
             },
             "u": {
                 "$set": {
@@ -4753,37 +1493,7 @@
         },
         {
             "q": {
-                "_id": "6647c21cf34bb863ec2f2ca2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-v89gpf24.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c21cf34bb863ec2f2ca2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-v89gpf24.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b1c24858c324c013a8f3"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-212mqj33.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c221f34bb863ec2f2cb6"
+                "id": "nmdc:wfrbt-11-6pt18m55.1.1"
             },
             "u": {
                 "$set": {
@@ -4793,1951 +1503,11 @@
         },
         {
             "q": {
-                "_id": "6647c221f34bb863ec2f2cb6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-6pt18m55.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c221f34bb863ec2f2cb6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-6pt18m55.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c225f34bb863ec2f2cca"
+                "id": "nmdc:wfrbt-11-7s4eth38.1.1"
             },
             "u": {
                 "$set": {
                     "id": "nmdc:wfrbt-11-7s4eth38.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c225f34bb863ec2f2cca"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-7s4eth38.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647c225f34bb863ec2f2cca"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-7s4eth38.1.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b48b8ca986147c426bad"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-r75fzy31.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b48b8ca986147c426bae"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-tkwdm987.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b48b8ca986147c426baf"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-56krnc53.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b48f8ca986147c426be9"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rdgj1479.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b48f8ca986147c426bea"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3wh3jx72.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b48f8ca986147c426beb"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-d2fjh185.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4928ca986147c426c12"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ntzgy808.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4928ca986147c426c13"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-f8e4bd27.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4978ca986147c426c60"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-zmgv9691.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4978ca986147c426c61"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-cytjk368.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4978ca986147c426c62"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-vx6s3j35.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4978ca986147c426c63"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-htcd3w36.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4998ca986147c426c77"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-4q5amn61.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b49d8ca986147c426cb1"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ynefxh47.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b49d8ca986147c426cb2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3jsqnx66.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b49d8ca986147c426cb3"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-x2p7r217.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4a08ca986147c426ced"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-mhwk2h43.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4a08ca986147c426cee"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-4h8xn421.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4a08ca986147c426cef"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-483pr674.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4a38ca986147c426d03"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-jnm92a04.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4a68ca986147c426d3d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-d2fxby53.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4a68ca986147c426d3e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-eakd5a61.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4a68ca986147c426d3f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-drwj2z92.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4a98ca986147c426d53"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-9g1mm772.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4ac8ca986147c426d7a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-9vwma858.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4ac8ca986147c426d7b"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-1jsxhm75.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4b08ca986147c426d8f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-qn9sah36.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4b38ca986147c426db6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gdkssf20.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4b38ca986147c426db7"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-d10ehd02.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4b68ca986147c426dde"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-qe3v8w61.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4b68ca986147c426ddf"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-zae4s237.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4ba8ca986147c426e19"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-4fybqm41.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4ba8ca986147c426e1a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-fyndm054.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4ba8ca986147c426e1b"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-0d965s84.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4bd8ca986147c426e2f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ce47yn34.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4c08ca986147c426e56"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-b3nart55.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4c08ca986147c426e57"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-yxghrx34.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4c38ca986147c426e7e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-aq78pe67.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4c38ca986147c426e7f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ers37h85.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4c78ca986147c426ecc"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-r77v2w15.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4c78ca986147c426ecd"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-daxyk116.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4c78ca986147c426ece"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3jr60116.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4c78ca986147c426ecf"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-hs6vd175.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4cb8ca986147c426ef6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-mkdt8739.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4cb8ca986147c426ef7"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-zatfmn05.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4ce8ca986147c426f1e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-0tke2621.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4ce8ca986147c426f1f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-9th20t06.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4d18ca986147c426f59"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rk0t0t72.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4d18ca986147c426f5a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-7b18rs07.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4d18ca986147c426f5b"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-s42zd222.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4d58ca986147c426f95"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-5vn71m68.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4d58ca986147c426f96"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-fjmr1v80.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4d58ca986147c426f97"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-6h76tz40.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4d88ca986147c426fbe"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-j3mq8424.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4d88ca986147c426fbf"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-x2g5mw32.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4db8ca986147c426fe6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-dafdv182.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4db8ca986147c426fe7"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-zqsr4m89.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4df8ca986147c42700e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-hc14e762.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4df8ca986147c42700f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-qt6wv627.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4e28ca986147c427023"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-5x0g9e85.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4e78ca986147c427070"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ezf8qm71.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4e78ca986147c427071"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gdnkdb33.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4e78ca986147c427072"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-51ayvb52.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4e78ca986147c427073"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-vve1me55.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4ea8ca986147c427087"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-v44mat06.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4ed8ca986147c4270ae"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-t4weqj74.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4ed8ca986147c4270af"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-nw3xqh06.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4f18ca986147c4270e9"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rd29dy36.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4f18ca986147c4270ea"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-q5a46e02.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4f18ca986147c4270eb"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-yt7f7869.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4f48ca986147c427112"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-wskgbz11.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4f48ca986147c427113"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-mbacve56.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4f88ca986147c42714d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-vhtjqa84.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4f88ca986147c42714e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gngdvz60.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4f88ca986147c42714f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-d4kgww34.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4fc8ca986147c427189"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-kr80vg94.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4fc8ca986147c42718a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-7thc9d71.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4fc8ca986147c42718b"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-r9c5sc04.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4ff8ca986147c4271c5"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-vz4fjz32.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4ff8ca986147c4271c6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-xx1qe651.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b4ff8ca986147c4271c7"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ywq3dk98.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5038ca986147c4271ee"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-9171fw87.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5038ca986147c4271ef"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ntg2sj73.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5068ca986147c427203"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-trrg5a53.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5098ca986147c427217"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-kabfe829.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b50b8ca986147c42722b"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-fcpwr528.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b50f8ca986147c427265"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-tfkbk993.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b50f8ca986147c427266"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-wrx64626.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b50f8ca986147c427267"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-sgrthd29.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5138ca986147c4272a1"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-50zafd61.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5138ca986147c4272a2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-h2z0k111.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5138ca986147c4272a3"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-m9jpzr42.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5168ca986147c4272dd"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-zjhxev90.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5168ca986147c4272de"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-tekqkv53.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5168ca986147c4272df"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-nzxnct92.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b51a8ca986147c42732c"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gdf8es92.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b51a8ca986147c42732d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-8wbw7y79.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b51a8ca986147c42732e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-4rk9xd24.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b51a8ca986147c42732f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-a9m9rq58.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b51e8ca986147c427356"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-103yk954.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b51e8ca986147c427357"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-s5gbqy46.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5218ca986147c427391"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-2mtrr006.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5218ca986147c427392"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-4xwzy097.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5218ca986147c427393"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-pstev786.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5258ca986147c4273cd"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3syvvc07.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5258ca986147c4273ce"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-k599xz56.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5258ca986147c4273cf"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ksb4dr37.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5298ca986147c42741c"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-t0d5cv77.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5298ca986147c42741d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-s0m3pg40.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5298ca986147c42741e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-vdz29415.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5298ca986147c42741f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-nqz6da10.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b52d8ca986147c42746c"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-qr1r8g04.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b52d8ca986147c42746d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-0qms8y27.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b52d8ca986147c42746e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-12b0n974.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b52d8ca986147c42746f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gxpc9186.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5318ca986147c427496"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rc72be49.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5328ca986147c427497"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-5atjb581.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5358ca986147c4274ab"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-2x6b1p05.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5398ca986147c4274f8"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-nyn6ag02.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5398ca986147c4274f9"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-v3bhth58.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5398ca986147c4274fa"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-8f9kvr52.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5398ca986147c4274fb"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-akw34264.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b53c8ca986147c42750f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-d65zwn34.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5418ca986147c427536"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-7n3arv90.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5418ca986147c427537"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-8vpxnb18.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5458ca986147c427571"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-jsprbk17.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5458ca986147c427572"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-jxwr7128.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5458ca986147c427573"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3pbqb382.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5498ca986147c42759a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-pst36316.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5498ca986147c42759b"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-cz6k5p95.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b54d8ca986147c4275e8"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-mgr8rm88.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b54d8ca986147c4275e9"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-whs31r74.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b54d8ca986147c4275ea"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-2pfw0b29.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b54d8ca986147c4275eb"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-dcenga16.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5518ca986147c427625"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-j8g23411.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5518ca986147c427626"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-t12jsr97.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5518ca986147c427627"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-jdc4s773.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5548ca986147c427661"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-6s67w260.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5548ca986147c427662"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-nyvpn994.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5548ca986147c427663"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-95dpe706.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5588ca986147c42769d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-e6rbpm35.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5588ca986147c42769e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-t0yj9d92.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5588ca986147c42769f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-b7qgwb41.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b55c8ca986147c4276ec"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-0ds75667.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b55c8ca986147c4276ed"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-x1se6z25.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b55c8ca986147c4276ee"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-mxeh0z30.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b55c8ca986147c4276ef"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-56wet745.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5608ca986147c42773c"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-cxqnzw54.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5608ca986147c42773d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-6yrp4c10.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5608ca986147c42773e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-s4csvp33.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5608ca986147c42773f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-yw2pag63.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5668ca986147c42778c"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-sqd9tz78.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5668ca986147c42778d"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-mtvqvp62.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5668ca986147c42778e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-b4ng9k41.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5668ca986147c42778f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-2bnbwf23.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5698ca986147c4277b6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-qkk22016.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5698ca986147c4277b7"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-xtfwyy92.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b56c8ca986147c4277de"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-cw0sz788.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b56c8ca986147c4277df"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-r20td275.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5708ca986147c427819"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-n2agbn24.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5708ca986147c42781a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-qp7sy660.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5708ca986147c42781b"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-bf9znh81.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5738ca986147c427842"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-qnzhtw78.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5738ca986147c427843"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-2hkx8r45.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5768ca986147c427857"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-jke6c630.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b57a8ca986147c4278a4"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-f35pcd14.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b57a8ca986147c4278a5"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-k6b05703.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b57a8ca986147c4278a6"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-tn62tn33.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b57a8ca986147c4278a7"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-j6psye37.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b57e8ca986147c4278ce"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-378ft346.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b57e8ca986147c4278cf"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-bvp3nn47.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5818ca986147c4278e3"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-qm695590.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5848ca986147c4278f7"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-10ptzq49.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5878ca986147c42791e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-r2yww325.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5878ca986147c42791f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-2zjx1n32.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b58b8ca986147c427946"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-nyxy4h29.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b58b8ca986147c427947"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ys6mez34.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b58f8ca986147c42796e"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-536ng698.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b58f8ca986147c42796f"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-rwqwx062.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5928ca986147c427996"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-ftsjxn60.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5928ca986147c427997"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-edjmz815.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5968ca986147c4279d1"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-qdjq4q93.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5968ca986147c4279d2"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-v9055b36.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5968ca986147c4279d3"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-bkfg0j23.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5998ca986147c4279fa"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-3rfg3k79.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5998ca986147c4279fb"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-42en4q91.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b59d8ca986147c427a22"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-gx73ct80.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b59d8ca986147c427a23"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-nq0zgf94.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5a08ca986147c427a4a"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-4tfjax90.1.1"
-                }
-            }
-        },
-        {
-            "q": {
-                "_id": "6647b5a08ca986147c427a4b"
-            },
-            "u": {
-                "$addToSet": {
-                    "alternative_identifiers": "nmdc:wfrbt-11-0es1zz02.1.1"
                 }
             }
         }
