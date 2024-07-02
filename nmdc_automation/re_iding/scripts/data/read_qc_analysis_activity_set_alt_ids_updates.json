@@ -1,5 +1,5 @@
 {
-    "update": "read_qc_analysis_activity_set_alt_ids",
+    "update": "read_qc_analysis_activity_set",
     "updates": [
         {
             "q": {
