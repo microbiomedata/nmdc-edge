@@ -903,21 +903,22 @@ def process_affected_workflows(ctx, production=False, update_files=False):
 
             # Check the workflow ID extracted from the database and fix it if it is malformed
             # It is possible that the workflow ID from the database is correct but related data paths are incorrect
-            record_id = record["_id"]
+            # record_id = record["_id"]
             workflow_id = record["workflow_id"]
             wf_blade = workflow_id.split("-")[-1].split(".")[0]
             collection_name = get_collection_name_from_workflow_id(workflow_id)
+            collection_alt_ids = f"{collection_name}_alt_ids"
             fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
             if fixed_workflow_id != workflow_id:
                 logging.warning(f"Workflow ID in the database is malformed: {workflow_id} should be"
                                 f" {fixed_workflow_id}")
                 updates_map.setdefault(collection_name, []).append({
-                    "q": {"_id": record_id},
+                    "q": {"id": workflow_id},
                     "u": {"$set": {"id": fixed_workflow_id}}
                 })
-                # add the old ID to alternative_identifiers
-                updates_map.setdefault(collection_name, []).append({
-                    "q": {"_id": record_id},
+                # add the old ID to alternative_identifiers to be applied after the update so we use the correct ID
+                updates_map.setdefault(collection_alt_ids, []).append({
+                    "q": {"id": fixed_workflow_id},
                     "u": {"$addToSet": {"alternative_identifiers": workflow_id}}
                 })
             else:
@@ -957,8 +958,8 @@ def process_affected_workflows(ctx, production=False, update_files=False):
                 if fixed_workflow_dir_name != workflow_dir_name:
                     logging.warning(f"Workflow Directory directory name is malformed: {workflow_dir_name}")
                     # add the old ID to workflow alternative_identifier
-                    updates_map.setdefault(collection_name, []).append({
-                        "q": {"_id": record_id},
+                    updates_map.setdefault(collection_alt_ids, []).append({
+                        "q": {"id": fixed_workflow_id},
                         "u": {"$addToSet": {"alternative_identifiers": workflow_dir_name}}
                     })
                     # rename the directory if it has not already been renamed and create a symbolic link
