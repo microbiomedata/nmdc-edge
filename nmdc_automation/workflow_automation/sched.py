@@ -39,7 +39,7 @@ def within_range(wf1: Workflow, wf2: Workflow, force=False) -> bool:
     """
 
     def get_version(wf):
-        v_string = wf1.version.lstrip("b").lstrip("v")
+        v_string = wf.version.lstrip("b").lstrip("v")
         return Version.parse(v_string)
 
     # Apples and oranges
