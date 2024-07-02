@@ -278,7 +278,11 @@ class Scheduler:
             if act.was_informed_by in skiplist:
                 logging.debug(f"Skipping: {act.was_informed_by}")
                 continue
+            if not act.workflow.enabled:
+                logging.debug(f"Skipping: {act.id}, workflow disabled.")
+                continue
             if allowlist and act.was_informed_by not in allowlist:
+                logging.debug(f"Skipping: {act.was_informed_by}, not in allow list.")
                 continue
             jobs = self.find_new_jobs(act)
             for job in jobs:
