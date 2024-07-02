@@ -45,7 +45,7 @@ task fastqc_report{
 			prefix=${dollar}{f%_filtered.fastq.gz}
             fastqc -q -o output --dir $PWD $i
             mkdir -p ${outdir}/$prefix
-            qc_summary.py --input ~/Downloads/stats.txt  --output ${outdir}/$prefix/qc_summary.html
+            qc_summary.py --input $dir/${dollar}{prefix}_filterStats2.txt  --output ${outdir}/$prefix/qc_summary.html
         done
 
         multiqc -z -o output output
