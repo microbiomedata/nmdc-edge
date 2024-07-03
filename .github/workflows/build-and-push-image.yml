@@ -51,8 +51,8 @@ jobs:
                   # exist within the container image.
                   build-args: |
                     NMDC_EDGE_WEB_APP_VERSION=${{ github.ref_name }}
-                    REACT_APP_IS_ORCID_AUTH_ENABLED=true
-                    REACT_APP_ORCID_CLIENT_ID=${{ vars.ORCID_CLIENT_ID }}
+                    IS_ORCID_AUTH_ENABLED=true
+                    ORCID_CLIENT_ID=${{ vars.ORCID_CLIENT_ID }}
 
 # References:
 # - https://docs.github.com/en/actions/learn-github-actions/variables#using-the-vars-context-to-access-configuration-variable-values
