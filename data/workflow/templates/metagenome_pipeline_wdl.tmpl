@@ -78,20 +78,25 @@ workflow main_workflow {
 		"kraken2": true,
 		"centrifuge": true
 	}
-    File readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final[0]
+    Array[File] readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final
 	String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.5"
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
 	String readbasedAnalysis_outdir
-	Boolean? readbasedAnalysis_paired = true
+	Boolean? readbasedAnalysis_paired = false
 	String db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
 	String db_kraken2 = "/refdata/Kraken2"
 	String db_centrifuge = "/refdata/Centrifuge/hpv"
 
+	call readbasedanalysis_preprocess.preprocess as readbased_preprocess {
+    	input:
+        	input_files=readbasedAnalysis_reads,
+        	paired=readbasedAnalysis_paired
+	}
 
     call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
         input:
-            input_file=readbasedAnalysis_reads,
+            input_file=readbased_preprocess.input_file_gz,
             cpu=readbasedAnalysis_cpu,
             proj=readbasedAnalysis_prefix,
             paired=readbasedAnalysis_paired,
