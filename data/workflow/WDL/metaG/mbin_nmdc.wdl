@@ -404,6 +404,7 @@ task finish_mags {
         ln ${heatmap} ${prefix}_heatmap.pdf
         ln ${kronaplot} ${prefix}_kronaplot.html
         ln ${ko_matrix} ${prefix}_ko_matrix.txt
+        ln ${eukcc_file} ${prefix}_eukcc.csv
 
         # cp all tarfiles, zip them under prefix, if empty touch no_mags.txt
         mkdir -p hqmq
@@ -414,18 +415,18 @@ task finish_mags {
         else
             (cd hqmq && touch no_hqmq_mags.txt)
             (cd hqmq && cp ${mbin_sdb} .)
-            (cd hqmq && zip ../${prefix}_hqmq_bin.zip *.txt mbin.sdb)
+            (cd hqmq && zip -j ../${prefix}_hqmq_bin.zip *.txt mbin.sdb)
         fi
 
         mkdir -p lq
         if [ ${n_lq} -gt 0 ] ; then
             (cd lq && cp ${sep=" " lq_bin_tarfiles} .)
             (cd lq && cp ${mbin_sdb} .)
-            (cd lq && zip -j ../${prefix}_lq_bin.zip *tar.gz mbin.sdb ../*pdf ../*kronaplot.html ../*ko_matrix.txt)
+            (cd lq && zip -j ../${prefix}_lq_bin.zip *tar.gz mbin.sdb ${prefix}_eukcc.csv ../*pdf ../*kronaplot.html ../*ko_matrix.txt)
         else
             (cd lq && touch no_lq_mags.txt)
             (cd lq && cp ${mbin_sdb} .)
-            (cd lq && zip ../${prefix}_lq_bin.zip *.txt mbin.sdb)
+            (cd lq && zip -j ../${prefix}_lq_bin.zip *.txt mbin.sdb ${prefix}_eukcc.csv)
         fi
 
         # Fix up attribute name
