@@ -20,6 +20,13 @@ LABEL org.opencontainers.image.source="https://github.com/microbiomedata/nmdc-ed
 ARG NMDC_EDGE_WEB_APP_VERSION
 ENV NMDC_EDGE_WEB_APP_VERSION="$NMDC_EDGE_WEB_APP_VERSION"
 
+# Create ORCID-related environment variables Node.js will consume while building the React app.
+ARG IS_ORCID_AUTH_ENABLED
+ENV REACT_APP_IS_ORCID_AUTH_ENABLED="$IS_ORCID_AUTH_ENABLED"
+
+ARG ORCID_CLIENT_ID
+ENV REACT_APP_ORCID_CLIENT_ID="$ORCID_CLIENT_ID"
+
 # Allow the developer to (optionally) customize the ID and name of the user by which PM2 will
 # be launched; and the ID and name of the group to which that user will belong.
 ARG USER_ID=60005
