@@ -69,7 +69,7 @@ workflow main_workflow {
 		"centrifuge": true
 	}
     File readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final[0]
-	String ReadbasedAnalysis_container = "poeli/nmdc_taxa_profilers:1.0.5"
+	String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.5"
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
 	String readbasedAnalysis_outdir

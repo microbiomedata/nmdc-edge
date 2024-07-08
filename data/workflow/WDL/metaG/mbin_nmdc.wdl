@@ -383,7 +383,7 @@ task finish_mags {
     File stats_json
     File stats_tsv
     Int n_hqmq=length(hqmq_bin_tarfiles)
-    Int n_bin=length(bin_fasta_files)
+    Int n_lq=length(lq_bin_tarfiles)
     File barplot
     File heatmap
     File kronaplot
@@ -418,7 +418,7 @@ task finish_mags {
         fi
 
         mkdir -p lq
-        if [ ${n_bin} -gt 0 ] ; then
+        if [ ${n_lq} -gt 0 ] ; then
             (cd lq && cp ${sep=" " lq_bin_tarfiles} .)
             (cd lq && cp ${mbin_sdb} .)
             (cd lq && zip -j ../${prefix}_lq_bin.zip *tar.gz mbin.sdb ../*pdf ../*kronaplot.html ../*ko_matrix.txt)

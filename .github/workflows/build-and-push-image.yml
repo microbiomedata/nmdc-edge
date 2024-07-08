@@ -51,7 +51,10 @@ jobs:
                   # exist within the container image.
                   build-args: |
                     NMDC_EDGE_WEB_APP_VERSION=${{ github.ref_name }}
+                    IS_ORCID_AUTH_ENABLED=true
+                    ORCID_CLIENT_ID=${{ vars.ORCID_CLIENT_ID }}
 
 # References:
+# - https://docs.github.com/en/actions/learn-github-actions/variables#using-the-vars-context-to-access-configuration-variable-values
 # - https://docs.github.com/en/actions/publishing-packages/publishing-docker-images#publishing-images-to-github-packages
 # - https://github.com/microbiomedata/nmdc-aggregator/blob/main/.github/workflows/build-and-push-image.yml
