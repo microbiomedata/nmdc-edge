@@ -100,7 +100,6 @@ def test_submit(db, mock_api):
     assert len(resp) == 1
 
     # The job should now be in a submitted state
-    # make this pass
     resp = jm.cycle()
     assert len(resp) == 0
 
