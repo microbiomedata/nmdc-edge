@@ -178,14 +178,49 @@ const generateWorkflowResult = function (proj) {
             }
         });
     } else if (workflowConf.workflow.name === 'Metatranscriptome') {
-        if (fs.existsSync(outdir + "/metat_output")) {
-            const files = fs.readdirSync(outdir + "/metat_output");
-            files.forEach(function (file) {
-                if (file.endsWith("_sorted_features.tsv")) {
-                    result['features_json'] = Papa.parse(fs.readFileSync(outdir + "/metat_output/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-                }
-            });
-        }
+        const dirs = fs.readdirSync(outdir);
+        dirs.forEach(function (dir) {
+            if (dir === 'qa') {
+                const files = fs.readdirSync(outdir + "/qa");
+                files.forEach(function (file) {
+                    if (file.endsWith("_stats.json")) {
+                        result['qa-stats'] = JSON.parse(fs.readFileSync(outdir + "/qa/" + file));
+                    }
+                });
+            }
+            else if (dir === 'assembly') {
+                const files = fs.readdirSync(outdir + "/assembly");
+                files.forEach(function (file) {
+                    if (file === "stats.json") {
+                        result['assembly-stats'] = JSON.parse(fs.readFileSync(outdir + "/assembly/" + file));
+                    }
+                });
+            }
+            else if (dir === 'annotation') {
+                const files = fs.readdirSync(outdir + "/annotation");
+                files.forEach(function (file) {
+                    if (file.endsWith("_stats.json")) {
+                        result['annotation-stats'] = JSON.parse(fs.readFileSync(outdir + "/annotation/" + file));
+                    }
+                });
+            }
+            // if (dir === 'mapback') {
+            //     const files = fs.readdirSync(outdir + "/mapback");
+            //     files.forEach(function (file) {
+            //         if (file.endsWith("_covstats.txt")) {
+            //             result['mapback-stats'] = Papa.parse(fs.readFileSync(outdir + "/mapback/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+            //         }
+            //     });
+            // }
+            else if (dir === 'metat_output') {
+                const files = fs.readdirSync(outdir + "/metat_output");
+                files.forEach(function (file) {
+                    if (file.endsWith("_sorted_features.tsv")) {
+                        result['metat_output-features'] = Papa.parse(fs.readFileSync(outdir + "/metat_output/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                    }
+                });
+            }
+        });
     } else if (workflowConf.workflow.name === 'EnviroMS') {
         let stats = {};
         const dirs = fs.readdirSync(outdir);

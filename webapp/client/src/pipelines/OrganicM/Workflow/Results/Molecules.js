@@ -105,15 +105,7 @@ function Molecules(props) {
     ];
     //componentDidMount()
     useEffect(() => {
-        let molecules = props.result.molecules_json.map(obj => {
-            //console.log(obj)
-            let rObj = obj
-
-            return rObj;
-        });
-
-        setmoleculeData(molecules);
-
+        setmoleculeData(props.result.molecules_json);
     }, [props.result]);
 
     return (

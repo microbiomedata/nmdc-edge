@@ -48,15 +48,7 @@ function PlasmidSummary(props) {
   ];
   //componentDidMount()
   useEffect(() => {
-    let features = props.result.map(obj => {
-      //console.log(obj)
-      let rObj = obj;
-
-      return rObj;
-    });
-
-    setFeatureData(features);
-
+    setFeatureData(props.result);
   }, [props.result]);
 
   return (

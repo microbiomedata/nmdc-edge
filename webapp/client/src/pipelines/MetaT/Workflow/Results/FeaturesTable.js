@@ -3,7 +3,7 @@ import MaterialTable from "material-table";
 import { MuiThemeProvider } from '@material-ui/core';
 import { tableIcons, theme, handleTableNumberFilter } from '../../../../common/table';
 
-function Features(props) {
+function FeaturesTable(props) {
     const [featureData, setFeatureData] = useState([]);
 
     const featureColumns = [
@@ -29,9 +29,6 @@ function Features(props) {
             title: 'strand', field: 'strand',
         },
         {
-            title: 'frame', field: 'frame',
-        },
-        {
             title: 'product', field: 'product',
         },
         {
@@ -48,9 +45,6 @@ function Features(props) {
             title: 'source', field: 'source', hidden: true
         },
         {
-            title: 'extra', field: 'extra', hidden: true
-        },
-        {
             title: 'cog', field: 'Cog', hidden: true
         },
         {
@@ -65,35 +59,8 @@ function Features(props) {
     ];
     //componentDidMount()
     useEffect(() => {
-        let features = props.result.features_json.map(obj => {
-            //console.log(obj)
-            let rObj = {};
-            rObj['read_count'] = obj.read_count;
-            rObj['rpkm'] = obj.rpkm;
-            rObj['featuretype'] = obj.featuretype;
-            rObj['seqid'] = obj.seqid;
-            rObj['id'] = obj.id;
-            rObj['source'] = obj.source;
-            rObj['start'] = obj.start;
-            rObj['end'] = obj.end;
-            rObj['length'] = obj.length;
-            rObj['strand'] = obj.strand;
-            rObj['frame'] = obj.frame;
-            rObj['product'] = obj.product;
-            rObj['cog'] = obj.cog;
-            rObj['pfam'] = obj.pfam;
-            rObj['ko'] = obj.ko;
-            rObj['ec_number'] = obj.ec_number;
-            if (obj['extra']) {
-                rObj['extra'] = obj['extra'].toString();
-            }
-
-            return rObj;
-        });
-
-        setFeatureData(features);
-
-    }, [props.result]);
+        setFeatureData(props.data);
+    }, [props.data]);
 
     return (
         <>
@@ -124,4 +91,4 @@ function Features(props) {
     );
 }
 
-export default Features;
+export default FeaturesTable;
