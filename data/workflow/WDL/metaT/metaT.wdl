@@ -1,17 +1,11 @@
 # metaT workflow wrapper
 version 1.0
 
-import "https://raw.githubusercontent.com/microbiomedata/metaT_Assembly/8374bc8c722ddbf2ec4eb68d0800c29526abc945/metaT_assembly.wdl" as assembly
-import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/v1.1.1/annotation_full.wdl" as annotation
-
-import "./rqcfilter.wdl" as readsqc 
-# import "./git_submodules/assembly/metaT_assembly.wdl" as assembly 
-# import "./git_submodules/annotation/annotation_full.wdl" as annotation 
-import "./readcount.wdl" as readcounts
-# import "./git_submodules/ReadbasedAnalysis/ReadbasedAnalysis.wdl" as readanalysis 
-# import ".git_submodules/virusPlasmids/viral-plasmid_wf.wdl" as genomad 
+import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadsQC/v0.0.1/rqcfilter.wdl?ref=b9f57348975e0ac4a32f733153ff579488e55ba9" as readsqc
+import "https://raw.githubusercontent.com/microbiomedata/metaT_Assembly/v0.0.0/metaT_assembly.wdl?ref=75f6272246afc4b38f080f844752723e2094634a" as assembly
+import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/v1.1.1/annotation_full.wdl?ref=ecef194c0fb3c189f977ab194bac39d2cc3f3211" as annotation
+import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadCounts/v0.0.0/readcount.wdl?ref=ef019d90adccbce816ff9d4d7fa219b21e8a46bc" as readcounts
 import "./to_json.wdl" as json
-
 
 
 workflow metaT {
@@ -21,7 +15,6 @@ workflow metaT {
         Array[String] input_files
         String strand_type
         String prefix = sub(project_id, ":", "_")
-        String out_dir = "~{prefix}_metaT"
         String container = "bryce911/bbtools:38.86"
     }
 
@@ -50,7 +43,6 @@ workflow metaT {
         bam = asse.final_bam,
         gff = anno.functional_gff,
         map = anno.map_file,
-        out = out_dir,
         rna_type = strand_type,
         proj_id = project_id
 
@@ -108,8 +100,8 @@ workflow metaT {
         File map_file = anno.map_file
         # metaT_ReadCounts
         File count_table = rc.count_table
-        File? count_ig = rc.count_table
-        File? count_log = rc.count_table
+        File? count_ig = rc.count_ig
+        File? count_log = rc.count_log
         File readcount_info = rc.info_file
         # output tables
         File gff_json = tj.gff_json
