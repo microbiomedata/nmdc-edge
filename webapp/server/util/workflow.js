@@ -180,11 +180,11 @@ const generateWorkflowResult = function (proj) {
     } else if (workflowConf.workflow.name === 'Metatranscriptome') {
         const dirs = fs.readdirSync(outdir);
         dirs.forEach(function (dir) {
-            if (dir === 'qa') {
-                const files = fs.readdirSync(outdir + "/qa");
+            if (dir === 'readsQC') {
+                const files = fs.readdirSync(outdir + "/readsQC");
                 files.forEach(function (file) {
                     if (file.endsWith("_stats.json")) {
-                        result['qa-stats'] = JSON.parse(fs.readFileSync(outdir + "/qa/" + file));
+                        result['readsQC-stats'] = JSON.parse(fs.readFileSync(outdir + "/readsQC/" + file));
                     }
                 });
             }
@@ -204,19 +204,11 @@ const generateWorkflowResult = function (proj) {
                     }
                 });
             }
-            // if (dir === 'mapback') {
-            //     const files = fs.readdirSync(outdir + "/mapback");
-            //     files.forEach(function (file) {
-            //         if (file.endsWith("_covstats.txt")) {
-            //             result['mapback-stats'] = Papa.parse(fs.readFileSync(outdir + "/mapback/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-            //         }
-            //     });
-            // }
-            else if (dir === 'metat_output') {
-                const files = fs.readdirSync(outdir + "/metat_output");
+            else if (dir === 'readMapping') {
+                const files = fs.readdirSync(outdir + "/readMapping");
                 files.forEach(function (file) {
                     if (file.endsWith("_sorted_features.tsv")) {
-                        result['metat_output-features'] = Papa.parse(fs.readFileSync(outdir + "/metat_output/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                        result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/readMapping/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
                     }
                 });
             }

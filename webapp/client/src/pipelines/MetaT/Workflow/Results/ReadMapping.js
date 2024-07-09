@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardBody, Collapse } from 'reactstrap';
 import { Header } from '../../../Common/Results/CardHeader';
-import MapBackTable from './MapBackTable';
 import FeaturesTable from './FeaturesTable';
 
 function ReadMapping(props) {
@@ -28,10 +27,6 @@ function ReadMapping(props) {
       <Header toggle={true} toggleParms={toggleCard} title={props.title} collapseParms={collapseCard} />
       <Collapse isOpen={!collapseCard} >
         <CardBody>
-          {/* {props.mapback && <>
-            <MapBackTable data={props.mapback} />
-            <br></br>
-          </>} */}
           {props.features && <>
             <FeaturesTable data={props.features} />
             <br></br>

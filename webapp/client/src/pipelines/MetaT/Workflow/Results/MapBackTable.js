@@ -60,13 +60,13 @@ function MapBackTable(props) {
         <>
             <MuiThemeProvider theme={theme}>
                 <MaterialTable
-                    title="Top_MapBack"
+                    title="MapBack"
                     columns={featureColumns}
                     icons={tableIcons}
                     data={featureData}
                     options={{
                         exportButton: false,
-                        exportFileName: 'metaT_top_MapBack',
+                        exportFileName: 'metaT_MapBack',
                         columnsButton: true,
                         grouping: false,
                         search: true,

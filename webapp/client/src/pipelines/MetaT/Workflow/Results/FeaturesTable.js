@@ -66,13 +66,13 @@ function FeaturesTable(props) {
         <>
             <MuiThemeProvider theme={theme}>
                 <MaterialTable
-                    title="Top_features"
+                    title="features"
                     columns={featureColumns}
                     icons={tableIcons}
                     data={featureData}
                     options={{
                         exportButton: false,
-                        exportFileName: 'metaT_top_features',
+                        exportFileName: 'metaT_features',
                         columnsButton: true,
                         grouping: false,
                         search: true,
