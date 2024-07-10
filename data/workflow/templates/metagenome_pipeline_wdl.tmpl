@@ -1,5 +1,6 @@
 import "rqcfilter.wdl" as readsQC
 import "readsqc_preprocess.wdl" as readsqc_preprocess
+import "readsqc_output.wdl" as readsqc_output
 import "ReadbasedAnalysis.wdl" as readbasedAnalysis
 import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output
@@ -35,6 +36,7 @@ workflow main_workflow {
 	## QC workflow
 	String? readsQC_outdir
 	String readsQC_bbtools_container="microbiomedata/bbtools:38.96"
+	String readsQC_vis_container="microbiomedata/fastqc_vis:1.0"
 	String readsQC_database="/refdata"
 	String readsQC_memory="60g"
 	String readsQC_threads="4"
@@ -58,9 +60,18 @@ workflow main_workflow {
                 database=readsQC_database,
                 proj=proj,
                 chastityfilter_flag=readsqc_preprocess.isIllumina
-       }
+		}
 
     }
+
+	call readsqc_output.fastqc_report as fastqc_report {
+		input:
+		  outdir=readsQC_outdir,
+		  input_files_prefix = readsqc_preprocess.input_files_prefix,
+		  filtered=nmdc_rqcfilter_call.filtered_final,
+		  filtered_stats2_final=nmdc_rqcfilter_call.filtered_stats2_final,
+		  container=readsQC_vis_container
+	}
 
 	## ReadbasedAnalysis workflow
 	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
@@ -77,11 +88,11 @@ workflow main_workflow {
 	String db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
 	String db_kraken2 = "/refdata/Kraken2"
 	String db_centrifuge = "/refdata/Centrifuge/hpv"
-
+    
 	call readbasedanalysis_preprocess.preprocess as readbased_preprocess {
-    	input:
-        	input_files=readbasedAnalysis_reads,
-        	paired=readbasedAnalysis_paired
+	input:
+		input_files=readbasedAnalysis_reads,
+		paired=readbasedAnalysis_paired
 	}
 
     call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
@@ -254,6 +265,7 @@ workflow main_workflow {
 			url_base=url_base,
 			git_url=git_url,
 			informed_by=informed_by,
+			input_files_prefix = readsqc_preprocess.input_files_prefix,
 			read = if (input_interleaved) then input_files else flatten([input_fq1,input_fq2]),
 			filtered = nmdc_rqcfilter_call.filtered_final,
 			filtered_stats = nmdc_rqcfilter_call.filtered_stats_final,
@@ -401,6 +413,8 @@ task finish {
 	String url_base
 	String git_url
 	Array[File] read
+	Array[String] input_files_prefix
+	Int file_num = length(input_files_prefix)
 	Array[File?] filtered
 	Array[File?] filtered_stats
 	Array[File?] filtered_stats2
@@ -488,20 +502,19 @@ task finish {
 				${select_first(filtered)} 'Filtered Reads' \
 				${select_first(filtered_stats)} 'Filtered Stats'
 			cp activity.json data_objects.json ${qadir}/
-            for i in ${sep=' ' filtered}
+			ARRAYPrefix=(${sep=" " input_files_prefix})
+			ARRAYFastq=(${sep=" " filtered})
+			for (( i = 0; i < ${file_num}; i++ ))
 			do
-				f=${dollar}(basename $i)
-				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%_filtered.fastq.gz}
+				f=${dollar}(basename ${dollar}{ARRAYPrefix[$i]})
+				dir=${dollar}(dirname ${dollar}{ARRAYFastq[$i]})
+				prefix=${dollar}{ARRAYPrefix[$i]}
 				mkdir -p ${qadir}/$prefix
-                cp -f $i ${qadir}/$prefix
-                cp -f $dir/${dollar}{prefix}_filterStats.txt  ${qadir}/$prefix/filterStats.txt
-                cp -f $dir/${dollar}{prefix}_filterStats2.txt  ${qadir}/$prefix/filterStats2.txt
-                cp -f $dir/${dollar}{prefix}_qa_stats.json ${qadir}/$prefix/filterStats.json
-
-            done
-
-		
+				cp -f ${dollar}{ARRAYFastq[$i]} ${qadir}/$prefix/$prefix.filtered.fastq.gz
+				cp -f $dir/*filterStats.txt  ${qadir}/$prefix/filterStats.txt
+				cp -f $dir/*filterStats2.txt  ${qadir}/$prefix/filterStats2.txt
+				cp -f $dir/*qa_stats.json ${qadir}/$prefix/filterStats.json
+			done
 
 			# Generate assembly objects
 			/scripts/generate_objects.py --type "assembly" --id ${informed_by} \
