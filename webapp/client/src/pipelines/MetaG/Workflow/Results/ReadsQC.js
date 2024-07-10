@@ -59,12 +59,12 @@ function ReadsQC(props) {
                                 </NavLink>
                             </NavItem>
                         </Nav>
-                        <TabContent activeTab={activeTab}>
+                        <TabContent activeTab={activeTab} >
                             <TabPane key={0} tabId={0}>
                                 <a href={url + props.result.reportHtml} target="_blank" rel="noreferrer" >[Report full window view]</a>
                                 <br></br><br></br>
                                 <div key={"readsQC-report"} >
-                                    <iframe src={url + props.result.reportHtml} className='edge-iframe' title={"multiqc_report"} />
+                                    <embed src={url + props.result.reportHtml} className='edge-iframe' title={"multiqc_report"} />
                                 </div>
 
                             </TabPane>
@@ -91,7 +91,7 @@ function ReadsQC(props) {
                                         </Col>
                                     </Row>
                                     <div key={"readsQC-summary"} >
-                                        <iframe src={url + props.result.summaries[input]} className='edge-iframe' title={"qc summary"} />
+                                        <embed src={url + props.result.summaries[input]} className='edge-iframe' title={"qc summary"} />
                                     </div>
                                 </>
                                 }
