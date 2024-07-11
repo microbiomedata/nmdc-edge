@@ -151,7 +151,7 @@ function generateWDL(proj_home, workflow) {
         imports += 'import "readsqc_output.wdl" as ReadsQC_output' + "\n";
         imports += 'import "readsqc_preprocess.wdl" as readsqc_preprocess' + "\n";
     }
-    if(workflowname === 'metaMAGs') {
+    if(workflowname === 'MetaMAGs') {
         imports += 'import "mbin_nmdc_preprocess.wdl" as mbin_nmdc_preprocess' + "\n";
         imports += 'import "mbin_nmdc_output.wdl" as mbin_nmdc_output' + "\n";
     }
