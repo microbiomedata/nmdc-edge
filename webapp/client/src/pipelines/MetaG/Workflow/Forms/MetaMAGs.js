@@ -187,7 +187,7 @@ export function MetaMAGs(props) {
                     </Row>
                     <br></br>
 
-                    {/* <Row>
+                    <Row>
                         <Col md="3">
                             <MyTooltip id='MetaMAGs-contig_file' text="contig file" tooltip={workflowInputTips['MetaMAGs']['contig_file']} showTooltip={false} place="right" />
                         </Col>
@@ -203,7 +203,7 @@ export function MetaMAGs(props) {
                                 fieldname={'contig_file'} viewFile={false} />
                         </Col>
                     </Row>
-                    <br></br> */}
+                    <br></br>
 
                     <Row>
                         <Col md="3">
@@ -220,7 +220,7 @@ export function MetaMAGs(props) {
                         </Col>
                     </Row>
                     <br></br>
-{/* 
+
                     <Row>
                         <Col md="3">
                             <MyTooltip id='MetaMAGs-gff_file' text="gff file" tooltip={workflowInputTips['MetaMAGs']['gff_file']} showTooltip={false} place="right" />
@@ -423,7 +423,7 @@ export function MetaMAGs(props) {
                                 fileTypes={['tsv']} fieldname={'lineage_file'} viewFile={false} />
                         </Col>
                     </Row>
-                    <br></br> */}
+                    <br></br>
 
                     <Row>
                         <Col md="3">
