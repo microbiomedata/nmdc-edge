@@ -40,8 +40,8 @@
 
     call mbin_nmdc_output.pdf_to_png as metaMAGs_vis {
 		input:
-			outdir = <WORKFLOW>_outdir
-    		container = metaMAGsVis_container
+			outdir = <WORKFLOW>_outdir,
+    		container = metaMAGsVis_container,
     		pdf_files = [<ALIAS>.barplot,<ALIAS>.heatmap]
 	}
 
