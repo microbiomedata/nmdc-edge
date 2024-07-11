@@ -95,14 +95,22 @@ const generateWorkflowResult = function (proj) {
 
     if (workflowConf.workflow.name === 'ReadsQC') {
         let stats = {};
+        let summaries = {};
         const dirs = fs.readdirSync(outdir);
         dirs.forEach(function (dir) {
-            if (fs.statSync(outdir + "/" + dir).isDirectory()) {
-                //load filterStats.json
+            if (dir === 'multiqc_report.html') {
+                result['reportHtml'] = workflowlist[workflowConf.workflow.name].outdir + "/multiqc_report.html";
+            }
+            else if (fs.statSync(outdir + "/" + dir).isDirectory()) {
                 stats[dir] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/filterStats.json"));
+                //qc_summary.html
+                if (fs.existsSync(outdir + "/" + dir + "/qc_summary.html")) {
+                    summaries[dir] = workflowlist[workflowConf.workflow.name].outdir + "/" + dir + "/qc_summary.html";
+                }
             }
         });
         result['stats'] = stats;
+        result['summaries'] = summaries;
     } else if (workflowConf.workflow.name === 'MetaAssembly') {
         let statsOut = outdir + "/final_assembly/stats.json";
         if (!fs.existsSync(statsOut)) {
@@ -302,16 +310,24 @@ const generatePipelineResult = function (proj) {
             if (workflow.name === 'ReadsQC' && workflow.paramsOn) {
                 result[workflow.name] = {};
                 let stats = {};
+                let summaries = {};
                 if (fs.existsSync(outdir)) {
                     const dirs = fs.readdirSync(outdir);
                     dirs.forEach(function (dir) {
-                        if (fs.statSync(outdir + "/" + dir).isDirectory()) {
-                            //load filterStats.json
+                        if (dir === 'multiqc_report.html') {
+                            result[workflow.name]['reportHtml'] = workflowlist[workflow.name].outdir + "/multiqc_report.html";
+                        }
+                        else if (fs.statSync(outdir + "/" + dir).isDirectory()) {
                             stats[dir] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/filterStats.json"));
+                            //qc_summary.html
+                            if (fs.existsSync(outdir + "/" + dir + "/qc_summary.html")) {
+                                summaries[dir] = workflowlist[workflow.name].outdir + "/" + dir + "/qc_summary.html";
+                            }
                         }
                     });
                 }
                 result[workflow.name]['stats'] = stats;
+                result[workflow.name]['summaries'] = summaries;
             } else if (workflow.name === 'MetaAssembly' && workflow.paramsOn) {
                 result[workflow.name] = {};
                 let statsOut = outdir + "/final_assembly/stats.json";

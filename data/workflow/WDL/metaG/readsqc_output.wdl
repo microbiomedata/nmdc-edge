@@ -6,6 +6,7 @@ workflow readsqc_output {
     Array[File] filtered_stats_json_final
     String? outdir
     String bbtools_container="microbiomedata/bbtools:38.96"
+    String vis_container="microbiomedata/fastqc_vis:1.0"
 
     call make_output {
         input: outdir=outdir,
@@ -16,6 +17,50 @@ workflow readsqc_output {
         filtered_stats_json_final=filtered_stats_json_final,
         container=bbtools_container
     }
+    call fastqc_report {
+        input: outdir=outdir,
+        filtered= input_files,
+        filtered_stats2_final=filtered_stats2_final,
+        container=vis_container
+    }
+}
+
+
+task fastqc_report{
+    String outdir
+    Array[File] filtered
+    Array[File] filtered_stats2_final
+    String container
+    String dollar ="$"
+
+    command<<<
+        set -euo pipefail
+
+        mkdir -p output
+
+        for i in ${sep=' ' filtered}
+        do
+            f=${dollar}(basename $i)
+			dir=${dollar}(dirname $i)
+			prefix=${dollar}{f%_filtered.fastq.gz}
+            fastqc -q -o output --dir $PWD $i
+            mkdir -p ${outdir}/$prefix
+            qc_summary.py --input $dir/${dollar}{prefix}_filterStats2.txt  --output ${outdir}/$prefix/qc_summary.html
+        done
+
+        multiqc -z -o output output
+
+        cp output/multiqc_report.html ${outdir}/multiqc_report.html
+    >>>
+
+	runtime {
+        docker: container
+        memory: "1 GiB"
+        cpu:  1
+    }
+	output{
+		File fastqc_html = "${outdir}/multiqc_report.html"
+	}
 }
 
 task make_output{
@@ -29,6 +74,7 @@ task make_output{
 	String container
 
  	command<<<
+            set -euo pipefail
 			mkdir -p ${outdir}
             for i in ${sep=' ' filtered}
 			do
