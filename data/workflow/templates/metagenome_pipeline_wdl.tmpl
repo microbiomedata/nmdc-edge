@@ -72,6 +72,17 @@ workflow main_workflow {
 		  container=readsQC_vis_container
 	}
 
+	call readsqc_output.make_output as make_output {
+	    input:
+		  outdir=readsQC_outdir,
+		  filtered=nmdc_rqcfilter_call.filtered_final,
+          filtered_stats_final=nmdc_rqcfilter_call.filtered_stats_final,
+		  filtered_stats2_final=nmdc_rqcfilter_call.filtered_stats2_final,
+          filtered_stats_json_final = nmdc_rqcfilter_call.filtered_stats_json_final,
+          rqc_info = nmdc_rqcfilter_call.rqc_info,
+		  container=readsQC_vis_container
+	}
+
 	## ReadbasedAnalysis workflow
 	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
 		"gottcha2": true,
