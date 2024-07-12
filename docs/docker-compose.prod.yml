@@ -19,6 +19,8 @@ version: "3"
 #    $ export IO_BASE_DIR_ON_HOST='...'
 #    $ export MONGO_DATA_DIR_ON_HOST='...'
 #    $ export CROMWELL_API_BASE_URL='...'
+#    $ export WORKFLOWS_TEMPLATE_DIR='...'
+#    $ export WORKFLOWS_WDL_DIR='...'
 #
 #    # Note: You can generate a random 20-character string by running:
 #    $ openssl rand -base64 20
@@ -54,13 +56,15 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ${IO_BASE_DIR_ON_HOST:-/media/volume/nmdc-edge-web-app-io-data}:/io
+      - ${IO_BASE_DIR_ON_HOST:-/media/volume/nmdc-edge-web-app-io-data}:/project/io
     environment:
       DATABASE_HOST: mongo
       CROMWELL_API_BASE_URL: ${CROMWELL_API_BASE_URL}
       APP_EXTERNAL_BASE_URL: https://${APP_EXTERNAL_HOSTNAME:-edge-dev.microbiomedata.org}
       # Set `IO_BASE_DIR` to the path at which the persistent volume is mounted (see `volumes` above).
-      IO_BASE_DIR: /io
+      IO_BASE_DIR: /project/io
+      WORKFLOWS_TEMPLATE_DIR: ${WORKFLOWS_TEMPLATE_DIR:-/project/io/nmdc-edge/data/workflow/templates}
+      WORKFLOWS_WDL_DIR: ${WORKFLOWS_WDL_DIR:-/project/io/nmdc-edge/data/workflow/WDL}
       # These lines tell Docker to populate these _container_ environment variables (on left)
       # with the values of the corresponding _host_ environment variables (on right).
       JWT_SECRET: ${JWT_SECRET}
