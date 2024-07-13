@@ -48,7 +48,7 @@ def within_range(wf1: Workflow, wf2: Workflow, force=False) -> bool:
     v1 = get_version(wf1)
     v2 = get_version(wf2)
     if force:
-        return v1==v2
+        return v1 == v2
     if v1.major == v2.major and v1.minor == v2.minor:
         return True
     return False
@@ -267,7 +267,8 @@ class Scheduler:
 
         return new_jobs
 
-    def cycle(self, dryrun: bool = False, skiplist: set = set(), allowlist = None) -> list:
+    def cycle(self, dryrun: bool = False, skiplist: set = set(),
+              allowlist=None) -> list:
         """
         This function does a single cycle of looking for new jobs
         """

@@ -1,12 +1,19 @@
 import logging
 from typing import List
 from .workflows import Workflow
+from semver.version import Version
+
+
+warned_objects = set()
 
 
 def _load_data_objects(db, workflows: List[Workflow]):
     """
     Read all of the data objects and generate
     a map by ID
+
+    TODO: In the future this will probably need to be redone
+    since the number of data objects could get very large.
     """
 
     # Build up a filter of what types are used
@@ -23,7 +30,28 @@ def _load_data_objects(db, workflows: List[Workflow]):
     return data_objs_by_id
 
 
+def _within_range(ver1: str, ver2: str) -> bool:
+    """
+    Determine if two workflows are within a major and minor
+    version of each other.
+    """
+
+    def get_version(version):
+        v_string = version.lstrip("b").lstrip("v")
+        return Version.parse(v_string)
+
+    v1 = get_version(ver1)
+    v2 = get_version(ver2)
+    if v1.major == v2.major and v1.minor == v2.minor:
+        return True
+    return False
+
+
 def _check(match_types, data_object_ids, data_objs):
+    """
+    This iterates through a list of data objects and
+    checks the type against the match types.
+    """
     if not data_object_ids:
         return False
     if not match_types or len(match_types) == 0:
@@ -37,6 +65,10 @@ def _check(match_types, data_object_ids, data_objs):
 
 
 def _filter_skip(wf, rec, data_objs):
+    """
+    Some workflows require specific inputs or outputs.  This
+    implements the filtering for those.
+    """
     match_in = _check(wf.filter_input_objects,
                       rec.get("has_input"),
                       data_objs)
@@ -56,8 +88,9 @@ def _read_acitivites(db, workflows: List[Workflow],
         logging.debug(f"Checking {wf.name}:{wf.version}")
         q = filter
         q["git_url"] = wf.git_repo
-        q["version"] = wf.version
         for rec in db[wf.collection].find(q):
+            if wf.version and not _within_range(rec["version"], wf.version):
+                continue
             if wf.collection == "omics_processing_set" and \
                rec["id"].startswith("gold"):
                 continue
@@ -87,7 +120,9 @@ def _resolve_relationships(activities, data_obj_act):
         for do_id in act.has_input:
             if do_id not in data_obj_act:
                 # This really shouldn't happen
-                logging.warning(f"Missing data object {do_id}")
+                if do_id not in warned_objects:
+                    logging.warning(f"Missing data object {do_id}")
+                    warned_objects.add(do_id)
                 continue
             parent_act = data_obj_act[do_id]
             # This is to cover the case where it was a duplicate.
@@ -133,7 +168,9 @@ def _find_data_object_activities(activities, data_objs_by_id):
             # Once we re-id the data objects this
             # shouldn't happen
             if do_id in data_obj_act:
-                logging.warning(f"Duplicate output object {do_id}")
+                if do_id not in warned_objects:
+                    logging.warning(f"Duplicate output object {do_id}")
+                    warned_objects.add(do_id)
                 data_obj_act[do_id] = None
             else:
                 data_obj_act[do_id] = act
