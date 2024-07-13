@@ -37,7 +37,7 @@ def _within_range(ver1: str, ver2: str) -> bool:
     """
 
     def get_version(version):
-        v_string = version.lstrip("b").lstrip("v")
+        v_string = version.lstrip("b").lstrip("v").rstrip("-beta")
         return Version.parse(v_string)
 
     v1 = get_version(ver1)
@@ -90,6 +90,7 @@ def _read_acitivites(db, workflows: List[Workflow],
         q["git_url"] = wf.git_repo
         for rec in db[wf.collection].find(q):
             if wf.version and not _within_range(rec["version"], wf.version):
+                logging.debug(f"Skipping {wf.name} {wf.version} {rec['version']}")
                 continue
             if wf.collection == "omics_processing_set" and \
                rec["id"].startswith("gold"):
@@ -134,7 +135,9 @@ def _resolve_relationships(activities, data_obj_act):
             # This is just a safeguard
             if act.was_informed_by != parent_act.was_informed_by:
                 logging.warning("Mismatched informed by for "
-                                f"{do_id} in {act.id}")
+                                f"{do_id} in {act.id} "
+                                f"{act.was_informed_by} != "
+                                f"{parent_act.was_informed_by}")
                 continue
             # We only want to use it as a parent if it is the right
             # parent workflow. Some inputs may come from ancestors
