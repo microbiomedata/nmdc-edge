@@ -272,7 +272,7 @@ class Scheduler:
         """
         This function does a single cycle of looking for new jobs
         """
-        filt = None
+        filt = {}
         if allowlist:
             filt = {"was_informed_by": {"$in": list(allowlist)}}
         acts = load_activities(self.db, self.workflows, filter=filt)
