@@ -18,6 +18,8 @@
 #   - Operating system: `Ubuntu 22.04`
 #   - It has a ≥10 GB (persistent) Volume mounted at some path
 #     (see `MONGO_DATA_DIR_PATH` in "Configuration" section below)
+# - The VM belongs to the same security group as the NFS server. At the time
+#   of this writing, that group is named: `cluster-alma8-secgroup`
 # - You can SSH into the VM as the user: `exouser`
 #
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -30,12 +32,24 @@
 # - NMDC_EDGE_WEB_APP_GROUP_NAME: Name of group to which that user will belong
 # - NMDC_EDGE_WEB_APP_GID: GID of that group
 # - NFS_SERVER_IP_ADDRESS: IP address of the NFS server
-# - LOCAL_NFS_VOLUME_MOUNT_PATH: Local mount point for the volume mounted via NFS
+# - LOCAL_NFS_VOLUME_MOUNT_PATH: Local path at which you want to mount the NFS volume
+#
+# ━━━━━
+# Usage
+# ━━━━━
+#
+# 1. Get this script onto the VM (copy/paste its contents into Vim, then save):
+#    $ vi ~/initialize_vm_on_jetstream2.sh
+# 2. Make the script executable by running:
+#    $ chmod +x ~/initialize_vm_on_jetstream2.sh
+# 3. Define any necessary environment variables (see above).
+# 4. Run the script and follow the on-screen instructions:
+#    $ ~/initialize_vm_on_jetstream2.sh
 #
 ###############################################################################
 
 # Read environment variables into local variables.
-mongo_data_dir_path="${MONGO_DATA_DIR_PATH:-/media/volume/nmdc-edge-web-app-mongo-data-20240711}"
+mongo_data_dir_path="${MONGO_DATA_DIR_PATH:-/media/volume/nmdc-edge-web-app-mongo-data-20240715}"
 nmdc_edge_web_app_user_name="${NMDC_EDGE_WEB_APP_USER_NAME:-webuser}"
 nmdc_edge_web_app_uid="${NMDC_EDGE_WEB_APP_UID:-60005}"
 nmdc_edge_web_app_group_name="${NMDC_EDGE_WEB_APP_GROUP_NAME:-webuser}"
