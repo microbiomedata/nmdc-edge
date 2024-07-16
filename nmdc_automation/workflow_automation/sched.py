@@ -48,7 +48,7 @@ def within_range(wf1: Workflow, wf2: Workflow, force=False) -> bool:
     v1 = get_version(wf1)
     v2 = get_version(wf2)
     if force:
-        return v1==v2
+        return v1 == v2
     if v1.major == v2.major and v1.minor == v2.minor:
         return True
     return False
@@ -267,11 +267,15 @@ class Scheduler:
 
         return new_jobs
 
-    def cycle(self, dryrun: bool = False, skiplist: set = set(), allowlist = None) -> list:
+    def cycle(self, dryrun: bool = False, skiplist: set = set(),
+              allowlist=None) -> list:
         """
         This function does a single cycle of looking for new jobs
         """
-        acts = load_activities(self.db, self.workflows)
+        filt = {}
+        if allowlist:
+            filt = {"was_informed_by": {"$in": list(allowlist)}}
+        acts = load_activities(self.db, self.workflows, filter=filt)
         self.get_existing_jobs.cache_clear()
         job_recs = []
         for act in acts:
@@ -281,14 +285,11 @@ class Scheduler:
             if not act.workflow.enabled:
                 logging.debug(f"Skipping: {act.id}, workflow disabled.")
                 continue
-            if allowlist and act.was_informed_by not in allowlist:
-                logging.debug(f"Skipping: {act.was_informed_by}, not in allow list.")
-                continue
             jobs = self.find_new_jobs(act)
             for job in jobs:
                 if dryrun:
                     msg = f"new job: informed_by: {job.informed_by} trigger: {job.trigger_id} "
-                    msg += f"wf: {job.workflow.name}"
+                    msg += f"wf: {job.workflow.name} ver: {job.workflow.version}"
                     logging.info(msg)
                     continue
                 try:
@@ -323,6 +324,8 @@ def main():  # pragma: no cover
                 allowlist.add(line.rstrip())
     while True:
         sched.cycle(dryrun=dryrun, skiplist=skiplist, allowlist=allowlist)
+        if dryrun:
+            break
         _sleep(_POLL_INTERVAL)
 
 
