@@ -112,7 +112,7 @@ def fix_malformed_assembly_paths(expected_paths_file, production, update_files, 
                 new_workflow_id = exp_assembly_id
                 data_object_type = _infer_data_object_type_from_name(datafile.name)
                 old_file_path = datafile
-                new_file_path = working_dir.joinpath(f"nmdc_{new_workflow_id}_{datafile_type}")
+                new_file_path = working_dir.joinpath(f"nmdc_{exp_datafile_assembly_id}_{datafile_type}")
                 num_processed += 1
                 logger.info(f"Data file name does not match expected: {datafile.name}")
                 logger.info(f"Data object type: {data_object_type}")
