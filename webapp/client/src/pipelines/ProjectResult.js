@@ -22,7 +22,7 @@ function ProjectResult(props) {
     const [conf, setConf] = useState();
     const [result, setResult] = useState();
     const [outputs, setOutputs] = useState();
-    const [loading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [error] = useState();
     const [view_log_file, setView_log_file] = useState(false);
     const [log_file_content, setLog_file_content] = useState('');
@@ -92,9 +92,11 @@ function ProjectResult(props) {
                 .then(data => {
                     //console.log(data.result)
                     setResult(data.result);
+                    setLoading(false);
                 })
                 .catch(error => {
                     alert(error);
+                    setLoading(false);
                 });
         }
         function isSummaryFile(value) {
@@ -126,12 +128,14 @@ function ProjectResult(props) {
         }
 
         if (project && project.code) {
+            setLoading(true);
             getProjectConf();
             getProjectRunStats();
             if (project.status === 'complete' || (project.type === 'Metagenome Pipeline' && project.status === 'failed')) {
                 getProjectResult();
                 getProjectOutputs();
             }
+
         }
     }, [project, type]);
 
