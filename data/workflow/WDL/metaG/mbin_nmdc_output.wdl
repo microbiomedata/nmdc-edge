@@ -78,7 +78,7 @@ task pdf_to_png {
         print(output)
         with open(pdf,'rb') as f:
             first_line = str(f.read(1024))
-            if "No KO analysis" not in first_line:
+            if "No KO analysis" not in first_line and "no modules" not in first_line:
                 doc = fitz.open(pdf)  # open document
                 mat = fitz.Matrix(2, 2)   # zoom factor 2 in each dimension
                 for page in doc:  # iterate through the pages
