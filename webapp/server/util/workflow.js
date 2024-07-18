@@ -188,11 +188,11 @@ const generateWorkflowResult = function (proj) {
     } else if (workflowConf.workflow.name === 'Metatranscriptome') {
         const dirs = fs.readdirSync(outdir);
         dirs.forEach(function (dir) {
-            if (dir === 'readsQC') {
-                const files = fs.readdirSync(outdir + "/readsQC");
+            if (dir === 'qa') {
+                const files = fs.readdirSync(outdir + "/qa");
                 files.forEach(function (file) {
                     if (file.endsWith("_stats.json")) {
-                        result['readsQC-stats'] = JSON.parse(fs.readFileSync(outdir + "/readsQC/" + file));
+                        result['readsQC-stats'] = JSON.parse(fs.readFileSync(outdir + "/qa/" + file));
                     }
                 });
             }
@@ -212,11 +212,11 @@ const generateWorkflowResult = function (proj) {
                     }
                 });
             }
-            else if (dir === 'readMapping') {
-                const files = fs.readdirSync(outdir + "/readMapping");
+            else if (dir === 'metat_output') {
+                const files = fs.readdirSync(outdir + "/metat_output");
                 files.forEach(function (file) {
                     if (file.endsWith("_sorted_features.tsv")) {
-                        result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/readMapping/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                        result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/metat_output/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
                     }
                 });
             }
