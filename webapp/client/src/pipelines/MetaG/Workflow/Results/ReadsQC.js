@@ -91,7 +91,7 @@ function ReadsQC(props) {
                                         </Col>
                                     </Row>
                                     <div key={"readsQC-summary"} >
-                                        <embed src={url + props.result.summaries[input]} className='edge-iframe' title={"qc summary"} />
+                                        <embed key={props.result.summaries[input]} src={url + props.result.summaries[input]} className='edge-iframe' title={"qc summary"} />
                                     </div>
                                 </>
                                 }
