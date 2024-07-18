@@ -255,10 +255,12 @@ const generateWorkflowResult = function (proj) {
     } else if (workflowConf.workflow.name === 'sra2fastq') {
         //use relative path 
         //const sraDataDir = config.IO.SRA_DATA_BASE_DIR;
-        const accessions = workflowConf.workflow.accessions.toUpperCase().split(/\s*(?:,|$)\s*/);;
+        const accessions = workflowConf.workflow.accessions.toUpperCase().split(/\s*(?:,|$)\s*/);
         accessions.forEach((accession) => {
             // link sra downloads to project output
-            fs.symlinkSync("../../../../sra/" + accession, outdir + "/" + accession)
+            if (!fs.existsSync(outdir + "/" + accession)) {
+                fs.symlinkSync("../../../../sra/" + accession, outdir + "/" + accession);
+            }
 
         })
     }
