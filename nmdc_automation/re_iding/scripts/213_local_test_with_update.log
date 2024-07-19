@@ -1,60 +1,101 @@
 /Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
   warnings.warn(
-2024-07-17 11:25:51,288 - __main__ - INFO - Expected paths file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/malformed_assembly_paths/expected_paths.txt
-2024-07-17 11:25:51,288 - __main__ - INFO - Production: False
-2024-07-17 11:25:51,288 - __main__ - INFO - Update files: True
-2024-07-17 11:25:51,288 - __main__ - INFO - Found assembly directory: nmdc:wfmgas-11-8k9nyx32.1.1
-2024-07-17 11:25:51,288 - __main__ - INFO - Renamed assembly directory: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1
-2024-07-17 11:25:51,288 - __main__ - INFO - Found 5 data files for: wfmgas-11-8k9nyx32.1
-2024-07-17 11:25:51,288 - __main__ - INFO - Examining: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_contigs.fna
-2024-07-17 11:25:51,288 - __main__ - INFO - Data file name does not match expected: nmdc_wfmgas-11-8k9nyx32.1.1_contigs.fna
-2024-07-17 11:25:51,288 - __main__ - INFO - Data object type: Assembly Contigs
-2024-07-17 11:25:51,288 - __main__ - INFO - Old path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_contigs.fna
-2024-07-17 11:25:51,288 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_contigs.fna
-2024-07-17 11:25:51,288 - root - INFO - Processing Assembly Contigs for nmdc:wfmgas-11-8k9nyx32.1
-2024-07-17 11:25:51,288 - root - INFO - Destination: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_contigs.fna
-2024-07-17 11:25:51,288 - root - INFO - Old file path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_contigs.fna
-2024-07-17 11:26:03,125 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_contigs.fna
-2024-07-17 11:26:03,125 - __main__ - INFO - MD5: 05ebd17c0937ad94d1471d4800563466, Size: 2176921564
-2024-07-17 11:26:03,164 - __main__ - INFO - Examining: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_pairedMapped_sorted.bam
-2024-07-17 11:26:03,183 - __main__ - INFO - Data file name does not match expected: nmdc_wfmgas-11-8k9nyx32.1.1_pairedMapped_sorted.bam
-2024-07-17 11:26:03,183 - __main__ - INFO - Data object type: Assembly Coverage BAM
-2024-07-17 11:26:03,183 - __main__ - INFO - Old path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_pairedMapped_sorted.bam
-2024-07-17 11:26:03,183 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_pairedMapped_sorted.bam
-2024-07-17 11:26:03,183 - root - INFO - Processing Assembly Coverage BAM for nmdc:wfmgas-11-8k9nyx32.1
-2024-07-17 11:26:03,183 - root - INFO - Destination: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_pairedMapped_sorted.bam
-2024-07-17 11:26:03,183 - root - INFO - Old file path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_pairedMapped_sorted.bam
-2024-07-17 11:26:15,225 - root - INFO - Writing to /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_pairedMapped_sorted.bam
-2024-07-17 12:32:47,525 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_pairedMapped_sorted.bam
-2024-07-17 12:32:47,527 - __main__ - INFO - MD5: 921101dd095ca60cbef96d8d9891ed02, Size: 23283516108
-2024-07-17 12:32:47,632 - __main__ - INFO - Examining: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_scaffolds.fna
-2024-07-17 12:32:47,711 - __main__ - INFO - Data file name does not match expected: nmdc_wfmgas-11-8k9nyx32.1.1_scaffolds.fna
-2024-07-17 12:32:47,711 - __main__ - INFO - Data object type: Assembly Scaffolds
-2024-07-17 12:32:47,711 - __main__ - INFO - Old path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_scaffolds.fna
-2024-07-17 12:32:47,711 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_scaffolds.fna
-2024-07-17 12:32:47,711 - root - INFO - Processing Assembly Scaffolds for nmdc:wfmgas-11-8k9nyx32.1
-2024-07-17 12:32:47,711 - root - INFO - Destination: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_scaffolds.fna
-2024-07-17 12:32:47,711 - root - INFO - Old file path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_scaffolds.fna
-2024-07-17 12:32:59,041 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_scaffolds.fna
-2024-07-17 12:32:59,041 - __main__ - INFO - MD5: e54a5b7ac344404fbb893d22a1a198c6, Size: 2165542398
-2024-07-17 12:32:59,064 - __main__ - INFO - Examining: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_assembly.agp
-2024-07-17 12:32:59,089 - __main__ - INFO - Data file name does not match expected: nmdc_wfmgas-11-8k9nyx32.1.1_assembly.agp
-2024-07-17 12:32:59,089 - __main__ - INFO - Data object type: Assembly AGP
-2024-07-17 12:32:59,089 - __main__ - INFO - Old path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_assembly.agp
-2024-07-17 12:32:59,089 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_assembly.agp
-2024-07-17 12:32:59,089 - root - INFO - Processing Assembly AGP for nmdc:wfmgas-11-8k9nyx32.1
-2024-07-17 12:32:59,089 - root - INFO - Destination: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_assembly.agp
-2024-07-17 12:32:59,089 - root - INFO - Old file path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_assembly.agp
-2024-07-17 12:33:01,006 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_assembly.agp
-2024-07-17 12:33:01,006 - __main__ - INFO - MD5: 0b81f7fff21292c504f40b3a5f1a387a, Size: 321289661
-2024-07-17 12:33:01,015 - __main__ - INFO - Examining: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_covstats.txt
-2024-07-17 12:33:01,015 - __main__ - INFO - Data file name does not match expected: nmdc_wfmgas-11-8k9nyx32.1.1_covstats.txt
-2024-07-17 12:33:01,015 - __main__ - INFO - Data object type: Assembly Coverage Stats
-2024-07-17 12:33:01,015 - __main__ - INFO - Old path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_covstats.txt
-2024-07-17 12:33:01,015 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_covstats.txt
-2024-07-17 12:33:01,015 - root - INFO - Processing Assembly Coverage Stats for nmdc:wfmgas-11-8k9nyx32.1
-2024-07-17 12:33:01,015 - root - INFO - Destination: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_covstats.txt
-2024-07-17 12:33:01,015 - root - INFO - Old file path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1.1_covstats.txt
-2024-07-17 12:33:02,657 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-jesygj92/nmdc:wfmgas-11-8k9nyx32.1/nmdc_wfmgas-11-8k9nyx32.1_covstats.txt
-2024-07-17 12:33:02,657 - __main__ - INFO - MD5: 6e267069523c6015135ded75d592635a, Size: 315190471
-2024-07-17 12:33:02,667 - __main__ - INFO - Processed 5 files in 4031.3794412612915 seconds.
+2024-07-19 10:16:04,110 - __main__ - INFO - Expected paths file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/malformed_assembly_paths/expected_paths.txt
+2024-07-19 10:16:04,110 - __main__ - INFO - Production: False
+2024-07-19 10:16:04,110 - __main__ - INFO - Update files: True
+2024-07-19 10:16:04,110 - __main__ - INFO - Found assembly directory: nmdc:wfmgas-11-c58h5h40.1.1
+2024-07-19 10:16:04,111 - __main__ - INFO - Renamed assembly directory: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1
+2024-07-19 10:16:04,111 - __main__ - INFO - Found 5 data files for: wfmgas-11-c58h5h40.1
+2024-07-19 10:16:04,111 - __main__ - INFO - Examining: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_covstats.txt
+2024-07-19 10:16:04,111 - __main__ - INFO - Data file name does not match expected: nmdc_wfmgas-11-c58h5h40.1.1_covstats.txt
+2024-07-19 10:16:04,111 - __main__ - INFO - Data object type: Assembly Coverage Stats
+2024-07-19 10:16:04,111 - __main__ - INFO - Old path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_covstats.txt
+2024-07-19 10:16:04,111 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_covstats.txt
+2024-07-19 10:16:04,504 - __main__ - INFO - API request: https://api.microbiomedata.org/data_objects?filter=name%3Anmdc_wfmgas-11-c58h5h40.1_covstats.txt&per_page=25
+2024-07-19 10:16:04,504 - __main__ - INFO - API request successful: 200
+2024-07-19 10:16:04,504 - __main__ - INFO - DataObject ID: nmdc:dobj-11-es73a604
+2024-07-19 10:16:04,504 - __main__ - INFO - DataObject Size: 1256824
+2024-07-19 10:16:04,504 - __main__ - INFO - DataObject MD5: 45ccbd14dfffc1342ec1be26804efe48
+2024-07-19 10:16:04,504 - __main__ - INFO - Processing: Assembly Coverage Stats: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_covstats.txt
+2024-07-19 10:16:04,504 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_covstats.txt
+2024-07-19 10:16:04,504 - root - INFO - Processing Assembly Coverage Stats for nmdc:wfmgas-11-c58h5h40.1
+2024-07-19 10:16:04,505 - root - INFO - Destination: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_covstats.txt
+2024-07-19 10:16:04,505 - root - INFO - Old file path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_covstats.txt
+2024-07-19 10:16:04,524 - __main__ - INFO - MD5: fd80a6a1dcc8c3b271fafa73fbc96c91, Size: 1439428
+2024-07-19 10:16:04,524 - __main__ - WARNING - Size mismatch: 1439428 != 1256824
+2024-07-19 10:16:04,524 - __main__ - WARNING - MD5 mismatch: fd80a6a1dcc8c3b271fafa73fbc96c91 != 45ccbd14dfffc1342ec1be26804efe48
+2024-07-19 10:16:04,524 - __main__ - INFO - Examining: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_pairedMapped_sorted.bam
+2024-07-19 10:16:04,524 - __main__ - INFO - Data file name does not match expected: nmdc_wfmgas-11-c58h5h40.1.1_pairedMapped_sorted.bam
+2024-07-19 10:16:04,524 - __main__ - INFO - Data object type: Assembly Coverage BAM
+2024-07-19 10:16:04,524 - __main__ - INFO - Old path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_pairedMapped_sorted.bam
+2024-07-19 10:16:04,524 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_pairedMapped_sorted.bam
+2024-07-19 10:16:04,807 - __main__ - INFO - API request: https://api.microbiomedata.org/data_objects?filter=name%3Anmdc_wfmgas-11-c58h5h40.1_pairedMapped_sorted.bam&per_page=25
+2024-07-19 10:16:04,807 - __main__ - INFO - API request successful: 200
+2024-07-19 10:16:04,807 - __main__ - INFO - DataObject ID: nmdc:dobj-11-mtdatv38
+2024-07-19 10:16:04,807 - __main__ - INFO - DataObject Size: 16072673376
+2024-07-19 10:16:04,807 - __main__ - INFO - DataObject MD5: 3f358b38968c80fd566fa30479b83b74
+2024-07-19 10:16:04,807 - __main__ - INFO - Processing: Assembly Coverage BAM: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_pairedMapped_sorted.bam
+2024-07-19 10:16:04,807 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_pairedMapped_sorted.bam
+2024-07-19 10:16:04,807 - root - INFO - Processing Assembly Coverage BAM for nmdc:wfmgas-11-c58h5h40.1
+2024-07-19 10:16:04,807 - root - INFO - Destination: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_pairedMapped_sorted.bam
+2024-07-19 10:16:04,807 - root - INFO - Old file path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_pairedMapped_sorted.bam
+2024-07-19 10:16:04,867 - root - INFO - Writing to /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_pairedMapped_sorted.bam
+2024-07-19 11:17:38,015 - __main__ - INFO - MD5: d64ba56fb8fcb837b3a7916fbcf24e25, Size: 15805145304
+2024-07-19 11:17:38,017 - __main__ - WARNING - Size mismatch: 15805145304 != 16072673376
+2024-07-19 11:17:38,017 - __main__ - WARNING - MD5 mismatch: d64ba56fb8fcb837b3a7916fbcf24e25 != 3f358b38968c80fd566fa30479b83b74
+2024-07-19 11:17:38,036 - __main__ - INFO - Examining: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_scaffolds.fna
+2024-07-19 11:17:38,070 - __main__ - INFO - Data file name does not match expected: nmdc_wfmgas-11-c58h5h40.1.1_scaffolds.fna
+2024-07-19 11:17:38,070 - __main__ - INFO - Data object type: Assembly Scaffolds
+2024-07-19 11:17:38,070 - __main__ - INFO - Old path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_scaffolds.fna
+2024-07-19 11:17:38,070 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_scaffolds.fna
+2024-07-19 11:17:38,525 - __main__ - INFO - API request: https://api.microbiomedata.org/data_objects?filter=name%3Anmdc_wfmgas-11-c58h5h40.1_scaffolds.fna&per_page=25
+2024-07-19 11:17:38,527 - __main__ - INFO - API request successful: 200
+2024-07-19 11:17:38,527 - __main__ - INFO - DataObject ID: nmdc:dobj-11-br4yzj12
+2024-07-19 11:17:38,527 - __main__ - INFO - DataObject Size: 5207530
+2024-07-19 11:17:38,527 - __main__ - INFO - DataObject MD5: 47ebdbd8c22d15d9d7e269911fe9ecb2
+2024-07-19 11:17:38,527 - __main__ - INFO - Processing: Assembly Scaffolds: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_scaffolds.fna
+2024-07-19 11:17:38,527 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_scaffolds.fna
+2024-07-19 11:17:38,527 - root - INFO - Processing Assembly Scaffolds for nmdc:wfmgas-11-c58h5h40.1
+2024-07-19 11:17:38,528 - root - INFO - Destination: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_scaffolds.fna
+2024-07-19 11:17:38,528 - root - INFO - Old file path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_scaffolds.fna
+2024-07-19 11:17:38,583 - __main__ - INFO - MD5: f06742dd3a5056a2068f13cbffb264a7, Size: 5390014
+2024-07-19 11:17:38,583 - __main__ - WARNING - Size mismatch: 5390014 != 5207530
+2024-07-19 11:17:38,583 - __main__ - WARNING - MD5 mismatch: f06742dd3a5056a2068f13cbffb264a7 != 47ebdbd8c22d15d9d7e269911fe9ecb2
+2024-07-19 11:17:38,583 - __main__ - INFO - Examining: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_contigs.fna
+2024-07-19 11:17:38,583 - __main__ - INFO - Data file name does not match expected: nmdc_wfmgas-11-c58h5h40.1.1_contigs.fna
+2024-07-19 11:17:38,583 - __main__ - INFO - Data object type: Assembly Contigs
+2024-07-19 11:17:38,583 - __main__ - INFO - Old path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_contigs.fna
+2024-07-19 11:17:38,583 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_contigs.fna
+2024-07-19 11:17:38,868 - __main__ - INFO - API request: https://api.microbiomedata.org/data_objects?filter=name%3Anmdc_wfmgas-11-c58h5h40.1_contigs.fna&per_page=25
+2024-07-19 11:17:38,868 - __main__ - INFO - API request successful: 200
+2024-07-19 11:17:38,868 - __main__ - INFO - DataObject ID: nmdc:dobj-11-77ap4d59
+2024-07-19 11:17:38,868 - __main__ - INFO - DataObject Size: 5253263
+2024-07-19 11:17:38,868 - __main__ - INFO - DataObject MD5: acffc29caedac5fb9e94a46c98a4fcc5
+2024-07-19 11:17:38,869 - __main__ - INFO - Processing: Assembly Contigs: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_contigs.fna
+2024-07-19 11:17:38,869 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_contigs.fna
+2024-07-19 11:17:38,869 - root - INFO - Processing Assembly Contigs for nmdc:wfmgas-11-c58h5h40.1
+2024-07-19 11:17:38,869 - root - INFO - Destination: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_contigs.fna
+2024-07-19 11:17:38,869 - root - INFO - Old file path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_contigs.fna
+2024-07-19 11:17:38,926 - __main__ - INFO - MD5: 99fce333b1a022fca330291b6125fcfb, Size: 5435867
+2024-07-19 11:17:38,926 - __main__ - WARNING - Size mismatch: 5435867 != 5253263
+2024-07-19 11:17:38,926 - __main__ - WARNING - MD5 mismatch: 99fce333b1a022fca330291b6125fcfb != acffc29caedac5fb9e94a46c98a4fcc5
+2024-07-19 11:17:38,926 - __main__ - INFO - Examining: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_assembly.agp
+2024-07-19 11:17:38,926 - __main__ - INFO - Data file name does not match expected: nmdc_wfmgas-11-c58h5h40.1.1_assembly.agp
+2024-07-19 11:17:38,926 - __main__ - INFO - Data object type: Assembly AGP
+2024-07-19 11:17:38,926 - __main__ - INFO - Old path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_assembly.agp
+2024-07-19 11:17:38,926 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_assembly.agp
+2024-07-19 11:17:39,191 - __main__ - INFO - API request: https://api.microbiomedata.org/data_objects?filter=name%3Anmdc_wfmgas-11-c58h5h40.1_assembly.agp&per_page=25
+2024-07-19 11:17:39,191 - __main__ - INFO - API request successful: 200
+2024-07-19 11:17:39,191 - __main__ - INFO - DataObject ID: nmdc:dobj-11-m2kj6723
+2024-07-19 11:17:39,191 - __main__ - INFO - DataObject Size: 906579
+2024-07-19 11:17:39,191 - __main__ - INFO - DataObject MD5: acdc5ea2818a80ad942c46c88af07b9f
+2024-07-19 11:17:39,191 - __main__ - INFO - Processing: Assembly AGP: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_assembly.agp
+2024-07-19 11:17:39,191 - __main__ - INFO - New path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_assembly.agp
+2024-07-19 11:17:39,191 - root - INFO - Processing Assembly AGP for nmdc:wfmgas-11-c58h5h40.1
+2024-07-19 11:17:39,191 - root - INFO - Destination: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1_assembly.agp
+2024-07-19 11:17:39,192 - root - INFO - Old file path: /Users/MBThornton/Documents/data/results/nmdc:omprc-11-bq3k1133/nmdc:wfmgas-11-c58h5h40.1/nmdc_wfmgas-11-c58h5h40.1.1_assembly.agp
+2024-07-19 11:17:39,209 - __main__ - INFO - MD5: 138c689c6067cf670dff71004688c98f, Size: 1271907
+2024-07-19 11:17:39,209 - __main__ - WARNING - Size mismatch: 1271907 != 906579
+2024-07-19 11:17:39,209 - __main__ - WARNING - MD5 mismatch: 138c689c6067cf670dff71004688c98f != acdc5ea2818a80ad942c46c88af07b9f
+2024-07-19 11:17:39,213 - __main__ - INFO - Processed 5 files in 3695.10276389122 seconds.
+2024-07-19 11:17:39,213 - __main__ - INFO - Data Object Changes: {('nmdc:dobj-11-mtdatv38', 'update', 'file_size_bytes', '15805145304'), ('nmdc:dobj-11-m2kj6723', 'update', 'file_size_bytes', '1271907'), ('nmdc:dobj-11-77ap4d59', 'update', 'md5_checksum', '99fce333b1a022fca330291b6125fcfb'), ('nmdc:dobj-11-mtdatv38', 'update', 'md5_checksum', 'd64ba56fb8fcb837b3a7916fbcf24e25'), ('nmdc:dobj-11-br4yzj12', 'update', 'file_size_bytes', '5390014'), ('nmdc:dobj-11-es73a604', 'update', 'md5_checksum', 'fd80a6a1dcc8c3b271fafa73fbc96c91'), ('nmdc:dobj-11-br4yzj12', 'update', 'md5_checksum', 'f06742dd3a5056a2068f13cbffb264a7'), ('nmdc:dobj-11-m2kj6723', 'update', 'md5_checksum', '138c689c6067cf670dff71004688c98f'), ('nmdc:dobj-11-77ap4d59', 'update', 'file_size_bytes', '5435867'), ('nmdc:dobj-11-es73a604', 'update', 'file_size_bytes', '1439428')}
