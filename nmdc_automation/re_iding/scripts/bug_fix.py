@@ -4,9 +4,11 @@
 import click
 import logging
 from pathlib import Path
+import requests
 import time
 
 from nmdc_automation.re_iding.file_utils import assembly_file_operations
+
 
 PROD_DATAFILE_DIR = Path("/global/cfs/cdirs/m3408/results")
 LOCAL_DATAFILE_DIR = Path.home().joinpath("Documents/data/results")
@@ -38,6 +40,11 @@ def fix_malformed_assembly_paths(expected_paths_file, production, update_files, 
         datafile_dir = PROD_DATAFILE_DIR
     else:
         datafile_dir = LOCAL_DATAFILE_DIR
+
+    api_url = "https://api.microbiomedata.org/data_objects"
+    data_object_changesheet = "data_object_changesheet.tsv"
+    changesheet_header = "id\taction\tattribute\tvalue"
+    data_object_changes = set()
 
     logger.info(f"Expected paths file: {expected_paths_file}")
     logger.info(f"Production: {production}")
@@ -111,22 +118,58 @@ def fix_malformed_assembly_paths(expected_paths_file, production, update_files, 
                 old_workflow_id = assembly_id
                 new_workflow_id = exp_assembly_id
                 data_object_type = _infer_data_object_type_from_name(datafile.name)
+                new_datafile_name = f"nmdc_{exp_datafile_assembly_id}_{datafile_type}"
                 old_file_path = datafile
-                new_file_path = working_dir.joinpath(f"nmdc_{exp_datafile_assembly_id}_{datafile_type}")
+                new_file_path = working_dir.joinpath(new_datafile_name)
                 num_processed += 1
                 logger.info(f"Data file name does not match expected: {datafile.name}")
                 logger.info(f"Data object type: {data_object_type}")
                 logger.info(f"Old path: {old_file_path}")
                 logger.info(f"New path: {new_file_path}")
 
+                # Query the API to get the id of the data object - e.g.
+                params = {
+                    "filter": f"name:{new_datafile_name}",
+                    "per_page": 25
+                }
+
+                response = requests.get(api_url, params=params)
+                # show what we submitted
+                logger.info(f"API request: {response.url}")
+                if response.status_code != 200:
+                    logger.error(f"API request failed: {response.status_code}")
+                    continue
+                    # api returns a 200 response even if no data object is found
+                elif len(response.json()["results"]) == 0:
+                    logger.error(f"No data object found for: {datafile.name}")
+                    continue
+                else:
+                    logger.info(f"API request successful: {response.status_code}")
+
+                data_object = response.json()["results"][0]
+                logger.info(f"DataObject ID: {data_object['id']}")
+                logger.info(f"DataObject Size: {data_object['file_size_bytes']}")
+                logger.info(f"DataObject MD5: {data_object['md5_checksum']}")
+
+
                 if update_files:
                     if not data_object_type:
                         logger.error(f"Do not know how to update with no data object type: {datafile.name}")
                         continue
+                    logger.info(f"Processing: {data_object_type}: {old_file_path}")
+                    logger.info(f"New path: {new_file_path}")
                     md5, size = assembly_file_operations(
                         old_workflow_id, new_workflow_id, data_object_type, old_file_path, new_file_path)
-                    logger.info(f"New path: {new_file_path}")
                     logger.info(f"MD5: {md5}, Size: {size}")
+                    # Check size and md5
+                    if size != data_object['file_size_bytes']:
+                        logger.warning(f"Size mismatch: {size} != {data_object['file_size_bytes']}")
+                        change = (data_object['id'], "update", "file_size_bytes", str(size))
+                        data_object_changes.add(change)
+                    if md5 != data_object['md5_checksum']:
+                        logger.warning(f"MD5 mismatch: {md5} != {data_object['md5_checksum']}")
+                        change = (data_object['id'], "update", "md5_checksum", md5)
+                        data_object_changes.add(change)
 
                     # Remove the old file
                     old_file_path.unlink()
@@ -136,6 +179,13 @@ def fix_malformed_assembly_paths(expected_paths_file, production, update_files, 
                     logger.info(f"Would update to {new_file_path}")
 
     logger.info(f"Processed {num_processed} files in {time.time() - start_time} seconds.")
+    logger.info(f"Data Object Changes: {data_object_changes}")
+    # Write the data object changes to a changesheet
+    changesheet_file = REPO_DATA_DIR.joinpath(data_object_changesheet)
+    with open(changesheet_file, "w") as f:
+        f.write(changesheet_header + "\n")
+        for change in data_object_changes:
+            f.write("\t".join(change) + "\n")
 
 
 
