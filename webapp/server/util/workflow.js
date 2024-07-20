@@ -189,11 +189,11 @@ const generateWorkflowResult = function (proj) {
     } else if (workflowConf.workflow.name === 'Metatranscriptome') {
         const dirs = fs.readdirSync(outdir);
         dirs.forEach(function (dir) {
-            if (dir === 'qa') {
-                const files = fs.readdirSync(outdir + "/qa");
+            if (dir === 'readsQC') {
+                const files = fs.readdirSync(outdir + "/readsQC");
                 files.forEach(function (file) {
                     if (file.endsWith("_stats.json")) {
-                        result['readsQC-stats'] = JSON.parse(fs.readFileSync(outdir + "/qa/" + file));
+                        result['readsQC-stats'] = JSON.parse(fs.readFileSync(outdir + "/readsQC/" + file));
                     }
                 });
             }
@@ -213,17 +213,17 @@ const generateWorkflowResult = function (proj) {
                     }
                 });
             }
-            else if (dir === 'metat_output') {
-                const files = fs.readdirSync(outdir + "/metat_output");
+            else if (dir === 'readMapping') {
+                const files = fs.readdirSync(outdir + "/readMapping");
                 files.forEach(function (file) {
                     if (file.endsWith("_sorted_features.tsv")) {
-                        var rows = parseInt(execSync("wc -l < " + outdir + "/metat_output/" + file).toString().trim());
+                        var rows = parseInt(execSync("wc -l < " + outdir + "/readMapping/" + file).toString().trim());
                         if (rows > config.IO.MAX_DATATABLE_ROWS) {
                             result['readMapping-features-too-large'] = true;
-                            result['readMapping-features'] = "output/Metatranscriptomics/metat_output/" + file;
+                            result['readMapping-features'] = "output/Metatranscriptomics/readMapping/" + file;
                         } else {
                             result['readMapping-features-too-large'] = false;
-                            result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/metat_output/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                            result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/readMapping/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
                         }
                     }
                 });
