@@ -1,6 +1,7 @@
 # nmdc-edge
+Version 1.0
 
-This repository contains the source code of the NMDC EDGE web application.
+This repository contains the source code of the NMDC EDGE web application. 
 
 The NMDC EDGE web application is the web-based interface through which researchers can access the NMDC EDGE platform. 
 The NMDC EDGE platform is a [Cromwell](https://cromwell.readthedocs.io/en/stable/)-based system researchers can use to
