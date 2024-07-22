@@ -200,7 +200,7 @@ const generateWorkflowResult = function (proj) {
             else if (dir === 'assembly') {
                 const files = fs.readdirSync(outdir + "/assembly");
                 files.forEach(function (file) {
-                    if (file === "stats.json") {
+                    if (file.endsWith("_stats.json")) {
                         result['assembly-stats'] = JSON.parse(fs.readFileSync(outdir + "/assembly/" + file));
                     }
                 });

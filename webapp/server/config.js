@@ -168,7 +168,7 @@ const config = {
         // Directory used by file uploading function.
         UPLOADED_FILES_TEMP_DIR: process.env.UPLOADED_FILES_TEMP_DIR || path.join(IO_BASE_DIR, "upload/tmp"),
         // Maximum rows to pass to UI data table
-        MAX_DATATABLE_ROWS: process.env.MAX_DATATABLE_ROWS || 200000,
+        MAX_DATATABLE_ROWS: process.env.MAX_DATATABLE_ROWS || 300000,
     },
     // Parameters that influence the behavior of `Winston.js`, a logging library.
     // Reference: https://github.com/winstonjs/winston-daily-rotate-file#options
