@@ -483,6 +483,7 @@ task finish_metat {
       File ec_tsv 
       File lineage_tsv 
       File stats_tsv 
+      File stats_json
       File cog_gff 
       File pfam_gff 
       File tigrfam_gff 
@@ -554,6 +555,7 @@ task finish_metat {
       cp ~{ec_tsv} ~{annodir}/~{prefix}_ec.tsv
       cp ~{lineage_tsv} ~{annodir}/~{prefix}_scaffold_lineage.tsv
       cp ~{stats_tsv} ~{annodir}/~{prefix}_anno_stats.tsv
+      cp ~{stats_json} ~{annodir}/~{prefix}_anno_stats.json
       cp ~{cog_gff} ~{annodir}/~{prefix}_cog.gff
       cp ~{pfam_gff} ~{annodir}/~{prefix}_pfam.gff
       cp ~{tigrfam_gff} ~{annodir}/~{prefix}_tigrfam.gff
@@ -620,6 +622,7 @@ task finish_metat {
          File final_ec_tsv = "~{annodir}/~{prefix}_ec.tsv"
          File final_lineage_tsv = "~{annodir}/~{prefix}_scaffold_lineage.tsv"
          File final_stats_tsv = "~{annodir}/~{prefix}_anno_stats.tsv"
+         File final_stats_json = "~{annodir}/~{prefix}_anno_stats.json"
          File final_cog_gff = "~{annodir}/~{prefix}_cog.gff"
          File final_pfam_gff = "~{annodir}/~{prefix}_pfam.gff"
          File final_tigrfam_gff = "~{annodir}/~{prefix}_tigrfam.gff"

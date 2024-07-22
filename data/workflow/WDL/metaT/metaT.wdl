@@ -3,7 +3,7 @@ version 1.0
 
 import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadsQC/v0.0.3/rqcfilter.wdl" as readsqc
 import "https://raw.githubusercontent.com/microbiomedata/metaT_Assembly/v0.0.1/metaT_assembly.wdl" as assembly
-import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/v1.1.1/annotation_full.wdl" as annotation
+import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/v1.1.2/annotation_full.wdl" as annotation
 import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadCounts/v0.0.1/readcount.wdl" as readcounts
 import "./metat_tasks.wdl" as tasks
 
@@ -98,6 +98,7 @@ workflow nmdc_metaT {
         ec_tsv = anno.ec_tsv,
         lineage_tsv = anno.lineage_tsv,
         stats_tsv = anno.stats_tsv,
+        stats_json = anno.stats_json,
         cog_gff = anno.cog_gff,
         pfam_gff = anno.pfam_gff,
         tigrfam_gff = anno.tigrfam_gff,
@@ -157,6 +158,7 @@ workflow nmdc_metaT {
         File ec_tsv = fi.final_ec_tsv
         File lineage_tsv = fi.final_lineage_tsv
         File stats_tsv = fi.final_stats_tsv
+        File stats_json = fi.final_stats_json
         File cog_gff = fi.final_cog_gff
         File pfam_gff = fi.final_pfam_gff
         File tigrfam_gff = fi.final_tigrfam_gff
