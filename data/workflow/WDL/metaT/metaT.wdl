@@ -1,11 +1,11 @@
 # metaT workflow wrapper
 version 1.0
 
-import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadsQC/v0.0.1/rqcfilter.wdl?ref=b9f57348975e0ac4a32f733153ff579488e55ba9" as readsqc
-import "https://raw.githubusercontent.com/microbiomedata/metaT_Assembly/v0.0.0/metaT_assembly.wdl?ref=75f6272246afc4b38f080f844752723e2094634a" as assembly
-import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/v1.1.1/annotation_full.wdl?ref=ecef194c0fb3c189f977ab194bac39d2cc3f3211" as annotation
-import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadCounts/v0.0.0/readcount.wdl?ref=ef019d90adccbce816ff9d4d7fa219b21e8a46bc" as readcounts
-import "./to_json.wdl" as json
+import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadsQC/v0.0.1/rqcfilter.wdl" as readsqc
+import "https://raw.githubusercontent.com/microbiomedata/metaT_Assembly/main/metaT_assembly.wdl" as assembly
+import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/v1.1.1/annotation_full.wdl" as annotation
+import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadCounts/v0.0.1/readcount.wdl" as readcounts
+import "./metat_tasks.wdl" as tasks
 
 
 workflow metaT {
@@ -13,9 +13,11 @@ workflow metaT {
     input {
         String  project_id
         Array[String] input_files
-        String strand_type
+        String? strand_type
         String prefix = sub(project_id, ":", "_")
         String container = "bryce911/bbtools:38.86"
+        String tj_container =  "microbiomedata/meta_t@sha256:f18ff86c78909f70c7b6b8aa3a2d5c521800e10e0e270a9aa7fce6f383c224ba"
+        String fi_container="scanon/nmdc-meta:v0.0.1"
     }
 
     call readsqc.metaTReadsQC as qc {
@@ -48,78 +50,136 @@ workflow metaT {
 
     }
 
-
-    call json.rctojson as tj{
+    call tasks.rctojson as tj{
         input:
         readcount = rc.count_table,
         gff = anno.functional_gff,
-        prefix = prefix
+        prefix = prefix,
+        container = tj_container
     }
 
-    output{ # what outputs to give users
+    call tasks.finish_metat as fi {
+        input: 
+        container=fi_container,
+        proj = project_id, 
+        filtered = qc.filtered_final,
+        filtered_stats = qc.filtered_stats_final,
+        filtered_stats2 = qc.filtered_stats2_final,
+        rqc_info = qc.rqc_info,
+        tar_bam = asse.final_tar_bam,
+        contigs = asse.final_contigs,
+        scaffolds = asse.final_scaffolds,
+        asse_log = asse.final_log,
+	    readlen = asse.final_readlen,
+        sam = asse.final_sam,
+        bam = asse.final_bam,
+        asmstats = asse.asmstats,
+        asse_info  = asse.info_file,
+        proteins_faa = anno.proteins_faa,
+        structural_gff = anno.structural_gff,
+        ko_ec_gff = anno.ko_ec_gff,
+        gene_phylogeny_tsv = anno.gene_phylogeny_tsv,
+        functional_gff = anno.functional_gff,
+        ko_tsv = anno.ko_tsv,
+        ec_tsv = anno.ec_tsv,
+        lineage_tsv = anno.lineage_tsv,
+        stats_tsv = anno.stats_tsv,
+        cog_gff = anno.cog_gff,
+        pfam_gff = anno.pfam_gff,
+        tigrfam_gff = anno.tigrfam_gff,
+        smart_gff = anno.smart_gff,
+        supfam_gff = anno.supfam_gff,
+        cath_funfam_gff = anno.cath_funfam_gff,
+        crt_gff = anno.crt_gff,
+        genemark_gff = anno.genemark_gff,
+        prodigal_gff = anno.prodigal_gff,
+        trna_gff = anno.trna_gff,
+        rfam_gff = anno.final_rfam_gff,
+        product_names_tsv = anno.product_names_tsv,
+        crt_crisprs = anno.crt_crisprs,
+        imgap_version = anno.imgap_version,
+        renamed_fasta = anno.renamed_fasta,
+        map_file = anno.map_file,
+        count_table = rc.count_table,
+        count_ig = rc.count_ig,
+        count_log = rc.count_log,
+        readcount_info = rc.info_file,
+        gff_json = tj.gff_json,
+        rc_json = tj.rc_json,
+        gff_rc_json = tj.gff_rc_json,
+		cds_json = tj.cds_json,
+		sense_json = tj.sense_json,
+		anti_json = tj.anti_json,
+        top100_json = tj.top100_json,
+		sorted_json = tj.sorted_json,
+        sorted_tsv = tj.sorted_tsv
+ 
+  }
+
+    output{ 
         # metaT_ReadsQC
-        File filtered_final = qc.filtered_final
-        File filtered_stats_final = qc.filtered_stats_final
-        File filtered_stats2_final = qc.filtered_stats2_final
-        File rqc_info = qc.rqc_info
+        File filtered_final = fi.final_filtered
+        File filtered_stats_final = fi.final_filtered_stats
+        File filtered_stats2_final = fi.final_filtered_stats2
+        File rqc_info = fi.final_rqc_info
+        File rqc_stats = fi.final_rqc_stats
         # metaT_Assembly
-        File final_tar_bam = asse.final_tar_bam
-        File final_contigs = asse.final_contigs
-        File final_scaffolds = asse.final_scaffolds
-        File final_log = asse.final_log
-	    File final_readlen = asse.final_readlen
-        File final_sam = asse.final_sam
-        File final_bam = asse.final_bam
-        File final_asmstats = asse.asmstats
-        File asse_info  = asse.info_file
+        File final_tar_bam = fi.final_tar_bam
+        File final_contigs = fi.final_contigs
+        File final_scaffolds = fi.final_scaffolds
+        File final_asse_log = fi.final_asm_log
+	    File final_readlen = fi.final_readlen
+        File final_sam = fi.final_sam
+        File final_bam = fi.final_bam
+        File final_asmstats = fi.final_asmstats
+        File asse_info  = fi.final_asm_info
         # mg_annotation
-        File proteins_faa = anno.proteins_faa
-        File structural_gff = anno.structural_gff
-        File ko_ec_gff = anno.ko_ec_gff
-        File gene_phylogeny_tsv = anno.gene_phylogeny_tsv
-        File functional_gff = anno.functional_gff
-        File ko_tsv = anno.ko_tsv
-        File ec_tsv = anno.ec_tsv
-        File lineage_tsv = anno.lineage_tsv
-        File stats_tsv = anno.stats_tsv
-        File cog_gff = anno.cog_gff
-        File pfam_gff = anno.pfam_gff
-        File tigrfam_gff = anno.tigrfam_gff
-        File smart_gff = anno.smart_gff
-        File supfam_gff = anno.supfam_gff
-        File cath_funfam_gff = anno.cath_funfam_gff
-        File crt_gff = anno.crt_gff
-        File genemark_gff = anno.genemark_gff
-        File prodigal_gff = anno.prodigal_gff
-        File trna_gff = anno.trna_gff
-        File final_rfam_gff = anno.final_rfam_gff
-        File product_names_tsv = anno.product_names_tsv
-        File crt_crisprs = anno.crt_crisprs
-        File imgap_version = anno.imgap_version
-        File renamed_fasta = anno.renamed_fasta
-        File map_file = anno.map_file
+        File proteins_faa = fi.final_proteins_faa
+        File structural_gff = fi.final_structural_gff
+        File ko_ec_gff = fi.final_ko_ec_gff
+        File gene_phylogeny_tsv = fi.final_gene_phylogeny_tsv
+        File functional_gff = fi.final_functional_gff
+        File ko_tsv = fi.final_ko_tsv
+        File ec_tsv = fi.final_ec_tsv
+        File lineage_tsv = fi.final_lineage_tsv
+        File stats_tsv = fi.final_stats_tsv
+        File cog_gff = fi.final_cog_gff
+        File pfam_gff = fi.final_pfam_gff
+        File tigrfam_gff = fi.final_tigrfam_gff
+        File smart_gff = fi.final_smart_gff
+        File supfam_gff = fi.final_supfam_gff
+        File cath_funfam_gff = fi.final_cath_funfam_gff
+        File crt_gff = fi.final_crt_gff
+        File genemark_gff = fi.final_genemark_gff
+        File prodigal_gff = fi.final_prodigal_gff
+        File trna_gff = fi.final_trna_gff
+        File final_rfam_gff = fi.final_rfam_gff
+        File product_names_tsv = fi.final_product_names_tsv
+        File crt_crisprs = fi.final_crt_crisprs
+        File imgap_version = fi.final_imgap_version
+        File renamed_fasta = fi.final_renamed_fasta
+        File map_file = fi.final_map_file
         # metaT_ReadCounts
-        File count_table = rc.count_table
-        File? count_ig = rc.count_ig
-        File? count_log = rc.count_log
-        File readcount_info = rc.info_file
+        File count_table = fi.final_count_table
+        File? count_ig = fi.final_count_ig
+        File? count_log = fi.final_count_log
+        File readcount_info = fi.final_readcount_info
         # output tables
-        File gff_json = tj.gff_json
-        File rc_json = tj.rc_json
-        File gff_rc_json = tj.gff_rc_json
-		File cds_json = tj.cds_json
-		File sense_json = tj.sense_json
-		File anti_json = tj.anti_json
-        File top100_json = tj.top100_json
-		File sorted_json = tj.sorted_json
-        File sorted_tsv = tj.sorted_tsv
+        File gff_json = fi.final_gff_json
+        File rc_json = fi.final_rc_json
+        File gff_rc_json = fi.final_gff_rc_json
+		File cds_json = fi.final_cds_json
+		File sense_json = fi.final_sense_json
+		File anti_json = fi.final_anti_json
+        File top100_json = fi.final_top100_json
+		File sorted_json = fi.final_sorted_json
+        File sorted_tsv = fi.final_sorted_tsv
     }
 
     parameter_meta {
         project_id: "Project ID string.  This will be appended to the gene ids"
         input_files: "File path(s) to raw fastq, can be interleaved or not"
-        out_dir: "Out directory"
-        strand_type: "RNA strandedness, either 'aRNA' or 'non_stranded_RNA'"
+        strand_type: "RNA strandedness, optional, can be left out / blank, 'aRNA', or 'non_stranded_RNA'"
     }
     
 }
