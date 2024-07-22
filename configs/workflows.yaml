@@ -274,7 +274,7 @@ Workflows:
         name: Annotation statistics report
       - output: map_file
         data_object_type: Contig Mapping File
-        description: Conging mappings file for {id}
+        description: Contig mappings file for {id}
         name: Contig mappings between contigs and scaffolds
       - output: imgap_version
         data_object_type: Annotation Info File
