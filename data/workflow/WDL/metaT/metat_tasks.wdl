@@ -33,14 +33,14 @@ task stage {
 
 task make_interleaved {
    input{
-      File input1
-      File input2
+      File fastq1
+      File fastq2
       String pref
       String container
    }
    command <<<
       set -eou pipefail
-      reformat.sh in1=~{input1} in2=~{input2} out="~{pref}.fastq.gz"
+      reformat.sh in1=~{fastq1} in2=~{fastq2} out="~{pref}.fastq.gz"
    >>>
 
    output{
