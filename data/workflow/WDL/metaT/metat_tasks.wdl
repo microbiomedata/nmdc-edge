@@ -33,8 +33,8 @@ task stage {
 
 task make_interleaved {
    input{
-      File fastq1
-      File fastq2
+      File? fastq1
+      File? fastq2
       String pref
       String container
    }

@@ -1,8 +1,8 @@
 # metaT workflow wrapper
 version 1.0
 
-import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadsQC/v0.0.1/rqcfilter.wdl" as readsqc
-import "https://raw.githubusercontent.com/microbiomedata/metaT_Assembly/main/metaT_assembly.wdl" as assembly
+import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadsQC/v0.0.3/rqcfilter.wdl" as readsqc
+import "https://raw.githubusercontent.com/microbiomedata/metaT_Assembly/v0.0.1/metaT_assembly.wdl" as assembly
 import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/v1.1.1/annotation_full.wdl" as annotation
 import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadCounts/v0.0.1/readcount.wdl" as readcounts
 import "./metat_tasks.wdl" as tasks
@@ -25,7 +25,7 @@ workflow nmdc_metaT {
     }
 
      if (!input_interleaved) {
-         call mt.make_interleaved as int  {
+         call tasks.make_interleaved as int  {
             input:
             fastq1 = input_fq1,
 	        fastq2 = input_fq2,
@@ -37,7 +37,7 @@ workflow nmdc_metaT {
     call readsqc.metaTReadsQC as qc {
         input:
         proj = project_id,
-        input_files = if (input_interleaved) then [input_file] else [int.out_fastq],
+        input_files = if (input_interleaved) then [input_file] else [int.out_fastq]
     }
 
     call assembly.metatranscriptome_assy as asse{
