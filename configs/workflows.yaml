@@ -168,7 +168,7 @@ Workflows:
     Type: nmdc:MetagenomeAnnotationActivity
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
-    Version: v1.0.4
+    Version: v1.1.0
     WDL: annotation_full.wdl
     Collection: metagenome_annotation_activity_set
     Predecessors:
@@ -272,14 +272,19 @@ Workflows:
         data_object_type: Annotation Statistics
         description: Annotation Stats for {id}
         name: Annotation statistics report
-      - output: contig_mapping
+      - output: map_file
         data_object_type: Contig Mapping File
-        description: Conging mappings file for {id}
+        description: Contig mappings file for {id}
         name: Contig mappings between contigs and scaffolds
       - output: imgap_version
         data_object_type: Annotation Info File
         description: Annotation info for {id}
         name: File containing annotation info
+      - output: renamed_fasta
+        data_object_type: Assembly Contigs
+        description: Assembly contigs (remapped) for {id}
+        name: File containing contigs with annotation headers
+
 
   - Name: MAGs
     Type: nmdc:MagsAnalysisActivity
