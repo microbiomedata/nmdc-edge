@@ -1,0 +1,6115 @@
+{
+    "update": "read_qc_analysis_activity_set",
+    "updates": [
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gdvrvd40.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gdvrvd40.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gdvrvd40.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gdvrvd40.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gdvrvd40.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gdvrvd40.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-x193vx97.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-x193vx97.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-x193vx97.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-x193vx97.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-x193vx97.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-x193vx97.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-t64yrz89.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-t64yrz89.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-t64yrz89.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-t64yrz89.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-z3fzcc68.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-z3fzcc68.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-z3fzcc68.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-z3fzcc68.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-dg35v431.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-dg35v431.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-dg35v431.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-dg35v431.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vydrkb12.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vydrkb12.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vydrkb12.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vydrkb12.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-yw926m76.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-yw926m76.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-yw926m76.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-yw926m76.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-c4bha567.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-c4bha567.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-c4bha567.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-c4bha567.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ezt4ea73.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ezt4ea73.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ezt4ea73.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ezt4ea73.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ehjswc88.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ehjswc88.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ehjswc88.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ehjswc88.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-z82mhz36.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-z82mhz36.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-z82mhz36.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-z82mhz36.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-mwedhm67.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-mwedhm67.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-mwedhm67.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-mwedhm67.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3h7evp15.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3h7evp15.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3h7evp15.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3h7evp15.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-4xz85e38.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-4xz85e38.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-4xz85e38.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-4xz85e38.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3by6jd60.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3by6jd60.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3by6jd60.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3by6jd60.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fpgxe725.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fpgxe725.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fpgxe725.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fpgxe725.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-y5g8s266.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-y5g8s266.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-y5g8s266.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-y5g8s266.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7edgm346.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7edgm346.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7edgm346.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7edgm346.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-69750b89.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-69750b89.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-69750b89.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-69750b89.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1s5w5146.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1s5w5146.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1s5w5146.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1s5w5146.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-t30nkn52.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-t30nkn52.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-t30nkn52.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-t30nkn52.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-bn3rwt84.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-bn3rwt84.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-bn3rwt84.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-bn3rwt84.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1g93yh86.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1g93yh86.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1g93yh86.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1g93yh86.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-t3ngp898.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-t3ngp898.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-t3ngp898.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-t3ngp898.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-219bm853.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-219bm853.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-219bm853.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-219bm853.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ktdnpt92.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ktdnpt92.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ktdnpt92.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ktdnpt92.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-h8ggck29.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-h8ggck29.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-h8ggck29.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-h8ggck29.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-2pd02515.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-2pd02515.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-2pd02515.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-2pd02515.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fwcdk864.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fwcdk864.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fwcdk864.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fwcdk864.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7a92fz44.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7a92fz44.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7a92fz44.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7a92fz44.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-81eeq579.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-81eeq579.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-81eeq579.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-81eeq579.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7va96w16.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7va96w16.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7va96w16.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7va96w16.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xtned817.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xtned817.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xtned817.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xtned817.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-rc8rfn14.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-rc8rfn14.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-rc8rfn14.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-rc8rfn14.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-v3053g30.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-v3053g30.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-v3053g30.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-v3053g30.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9tqve155.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9tqve155.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9tqve155.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9tqve155.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-937rsg57.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-937rsg57.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-937rsg57.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-937rsg57.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0mbern62.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0mbern62.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0mbern62.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0mbern62.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-mwnx1a98.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-mwnx1a98.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-mwnx1a98.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-mwnx1a98.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vb1jsp69.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vb1jsp69.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vb1jsp69.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vb1jsp69.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-hka4ca23.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-hka4ca23.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-hka4ca23.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-hka4ca23.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3pa06k15.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3pa06k15.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3pa06k15.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3pa06k15.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9es0dk42.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9es0dk42.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9es0dk42.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9es0dk42.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gf3cdj41.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gf3cdj41.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gf3cdj41.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gf3cdj41.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-axkmh931.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-axkmh931.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-axkmh931.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-axkmh931.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-y2ar1484.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-y2ar1484.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-y2ar1484.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-y2ar1484.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-q8v5jr07.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-q8v5jr07.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-q8v5jr07.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-q8v5jr07.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-r0af8979.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-r0af8979.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-r0af8979.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-r0af8979.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-sy4wmv80.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-sy4wmv80.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-sy4wmv80.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-sy4wmv80.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9t2kh514.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9t2kh514.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9t2kh514.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9t2kh514.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-8emfgd73.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-8emfgd73.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-8emfgd73.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-8emfgd73.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-81zm8m62.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-81zm8m62.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-81zm8m62.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-81zm8m62.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-73v5k850.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-73v5k850.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-73v5k850.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-73v5k850.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-bjnpzf15.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-bjnpzf15.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-bjnpzf15.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-bjnpzf15.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-hae3ew26.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-hae3ew26.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-hae3ew26.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-hae3ew26.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-p5evc123.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-p5evc123.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-p5evc123.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-p5evc123.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zddhh246.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zddhh246.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zddhh246.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zddhh246.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k2vn5b47.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k2vn5b47.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k2vn5b47.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k2vn5b47.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xyvfqd05.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xyvfqd05.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xyvfqd05.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xyvfqd05.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-5kqpx015.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-5kqpx015.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-5kqpx015.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-5kqpx015.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jcndpf62.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jcndpf62.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jcndpf62.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jcndpf62.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-yfbjaw37.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-yfbjaw37.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-yfbjaw37.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-yfbjaw37.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-f3hzpz33.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-f3hzpz33.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-f3hzpz33.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-f3hzpz33.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3yfsm721.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3yfsm721.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3yfsm721.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3yfsm721.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0hv1g425.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0hv1g425.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0hv1g425.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0hv1g425.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-r4tz4v64.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-r4tz4v64.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-r4tz4v64.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-r4tz4v64.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-pxcwnx22.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-pxcwnx22.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-pxcwnx22.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-pxcwnx22.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0fj8z602.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0fj8z602.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0fj8z602.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0fj8z602.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fkp8p148.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fkp8p148.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fkp8p148.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fkp8p148.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7crt6991.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7crt6991.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7crt6991.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7crt6991.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-de09zz53.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-de09zz53.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-de09zz53.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-de09zz53.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-70drpv96.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-70drpv96.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-70drpv96.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-70drpv96.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-wsefs883.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-wsefs883.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-wsefs883.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-wsefs883.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7wzgcf43.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7wzgcf43.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7wzgcf43.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7wzgcf43.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gejspt09.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gejspt09.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gejspt09.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gejspt09.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-cg6k5m80.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-cg6k5m80.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-cg6k5m80.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-cg6k5m80.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xykg2205.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xykg2205.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xykg2205.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xykg2205.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-qjxcxw61.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-qjxcxw61.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-qjxcxw61.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-qjxcxw61.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-z42gkx85.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-z42gkx85.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-z42gkx85.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-z42gkx85.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-2nyfnw23.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-2nyfnw23.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-2nyfnw23.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-2nyfnw23.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-kqc44k36.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-kqc44k36.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-kqc44k36.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-kqc44k36.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ffvs4t65.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ffvs4t65.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ffvs4t65.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ffvs4t65.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-94z2te56.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-94z2te56.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-94z2te56.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-94z2te56.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-v1cttp33.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-v1cttp33.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-v1cttp33.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-v1cttp33.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-rbqpfj11.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-rbqpfj11.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-rbqpfj11.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-rbqpfj11.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-z1gmdd95.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-z1gmdd95.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-z1gmdd95.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-z1gmdd95.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6h4c9j92.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6h4c9j92.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6h4c9j92.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6h4c9j92.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-06tt3774.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-06tt3774.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-06tt3774.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-06tt3774.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1ytfxf74.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1ytfxf74.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1ytfxf74.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1ytfxf74.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gpy26033.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gpy26033.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gpy26033.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gpy26033.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-veb6z243.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-veb6z243.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-veb6z243.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-veb6z243.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-wsrpa953.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-wsrpa953.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6ar5e454.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6ar5e454.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fjas1n75.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fjas1n75.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-r9qgvn52.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-r9qgvn52.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k9jvj061.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k9jvj061.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fa4ydp64.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fa4ydp64.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9kw81k67.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9kw81k67.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1j4mgt89.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1j4mgt89.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1da57n29.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1da57n29.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-w3tay123.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-w3tay123.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-kp8z3s04.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-kp8z3s04.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vxdp6k26.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vxdp6k26.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-cscn3849.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-cscn3849.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-31r8k602.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-31r8k602.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-c0297r16.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-c0297r16.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9rb36513.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9rb36513.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-n86r2b74.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-n86r2b74.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-450qpn48.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-450qpn48.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-kc2dp639.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-kc2dp639.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-246v3f20.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-246v3f20.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-agbydh28.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-agbydh28.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jzt9zr38.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jzt9zr38.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-eewamc97.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-eewamc97.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-eewamc97.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-eewamc97.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-eewamc97.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-eewamc97.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-f3hcbe47.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-f3hcbe47.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-f3hcbe47.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-f3hcbe47.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-f3hcbe47.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-f3hcbe47.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6nm5rc14.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6nm5rc14.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6nm5rc14.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6nm5rc14.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-cm451c54.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-cm451c54.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-cm451c54.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-cm451c54.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-e478zg48.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-e478zg48.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-e478zg48.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-e478zg48.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-h27ts138.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-h27ts138.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-h27ts138.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-h27ts138.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0twyfq11.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0twyfq11.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0twyfq11.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0twyfq11.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-pbxpdr12.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-pbxpdr12.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-pbxpdr12.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-pbxpdr12.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-8bepc353.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-8bepc353.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-m8hgtr03.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-m8hgtr03.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ysm9at61.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ysm9at61.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ysm9at61.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ysm9at61.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-n8fmb765.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-n8fmb765.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-n8fmb765.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-n8fmb765.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-13kvq120.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-13kvq120.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-13kvq120.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-13kvq120.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-q1xhpa89.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-q1xhpa89.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-q1xhpa89.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-q1xhpa89.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-4vxt6k43.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-4vxt6k43.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ejcnaq52.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ejcnaq52.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ejcnaq52.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ejcnaq52.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7f8yxp61.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7f8yxp61.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jjmz9411.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jjmz9411.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jjmz9411.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jjmz9411.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gmadf320.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gmadf320.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-rczj4j92.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-rczj4j92.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-rczj4j92.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-rczj4j92.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fg41ck06.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fg41ck06.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fg41ck06.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fg41ck06.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-a70j1512.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-a70j1512.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-a70j1512.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-a70j1512.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-wr7arn08.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-wr7arn08.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-wr7arn08.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-wr7arn08.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-49sbz723.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-49sbz723.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-49sbz723.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-49sbz723.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gca19d35.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gca19d35.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gca19d35.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gca19d35.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fzvvxh87.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fzvvxh87.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fzvvxh87.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fzvvxh87.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-p9pcd004.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-p9pcd004.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-p9pcd004.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-p9pcd004.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-z9evn793.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-z9evn793.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-z9evn793.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-z9evn793.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xa853y15.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xa853y15.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xa853y15.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xa853y15.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-sw2k0k15.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-sw2k0k15.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-sw2k0k15.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-sw2k0k15.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jrvs5w13.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jrvs5w13.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jrvs5w13.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jrvs5w13.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-v6fv8n25.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-v6fv8n25.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-v6fv8n25.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-v6fv8n25.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-g9gq4d45.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-g9gq4d45.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-g9gq4d45.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-g9gq4d45.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-qnvzjw11.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-qnvzjw11.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-qnvzjw11.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-qnvzjw11.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6f5wg076.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6f5wg076.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6f5wg076.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6f5wg076.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vsq39t12.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vsq39t12.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vsq39t12.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vsq39t12.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xarcd524.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xarcd524.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xarcd524.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xarcd524.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-8sywqs26.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-8sywqs26.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-8sywqs26.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-8sywqs26.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-qf2wjk58.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-qf2wjk58.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-qf2wjk58.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-qf2wjk58.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k5qycf60.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k5qycf60.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k5qycf60.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k5qycf60.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-q511yx78.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-q511yx78.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-q511yx78.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-q511yx78.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-tkkvdb36.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-tkkvdb36.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-tkkvdb36.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-tkkvdb36.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0kn7a639.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0kn7a639.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0kn7a639.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0kn7a639.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-c6nqb294.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-c6nqb294.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-c6nqb294.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-c6nqb294.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-2bzc3z37.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-2bzc3z37.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-2bzc3z37.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-2bzc3z37.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-hcjx5725.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-hcjx5725.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-hcjx5725.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-hcjx5725.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jhnds893.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jhnds893.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jhnds893.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jhnds893.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-g6qt1512.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-g6qt1512.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-g6qt1512.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-g6qt1512.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-927cef71.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-927cef71.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-927cef71.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-927cef71.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-rkv8p278.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-rkv8p278.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-rkv8p278.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-rkv8p278.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-365way27.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-365way27.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-365way27.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-365way27.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-pq2kcn93.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-pq2kcn93.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-pq2kcn93.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-pq2kcn93.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vegq8937.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vegq8937.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vegq8937.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vegq8937.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ghckk775.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ghckk775.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ghckk775.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ghckk775.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-8mjejp91.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-8mjejp91.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-8mjejp91.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-8mjejp91.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-33ewqt10.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-33ewqt10.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-33ewqt10.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-33ewqt10.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-cq9mkf80.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-cq9mkf80.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-cq9mkf80.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-cq9mkf80.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zk122741.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zk122741.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zk122741.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zk122741.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-y3njq405.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-y3njq405.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-y3njq405.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-y3njq405.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-19qsz463.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-19qsz463.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-19qsz463.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-19qsz463.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7qkynk27.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7qkynk27.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7qkynk27.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7qkynk27.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-v1mycy70.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-v1mycy70.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-v1mycy70.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-v1mycy70.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k7zbrt21.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k7zbrt21.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k7zbrt21.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k7zbrt21.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-s403ws31.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-s403ws31.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-s403ws31.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-s403ws31.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-scvm0d54.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-scvm0d54.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-scvm0d54.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-scvm0d54.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6dqtca16.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6dqtca16.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6dqtca16.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6dqtca16.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-j17j3175.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-j17j3175.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-j17j3175.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-j17j3175.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-tj7t6r07.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-tj7t6r07.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-tj7t6r07.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-tj7t6r07.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-r3ywxe72.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-r3ywxe72.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-r3ywxe72.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-r3ywxe72.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-427gb114.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-427gb114.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-427gb114.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-427gb114.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-41rj7s65.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-41rj7s65.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-41rj7s65.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-41rj7s65.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-8345mm40.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-8345mm40.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-8345mm40.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-8345mm40.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-qty50481.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-qty50481.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-qty50481.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-qty50481.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1zet8e33.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1zet8e33.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1zet8e33.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1zet8e33.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7dymtg10.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7dymtg10.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7dymtg10.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7dymtg10.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-49yd1c21.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-49yd1c21.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-49yd1c21.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-49yd1c21.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-pbjykd04.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-pbjykd04.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-pbjykd04.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-pbjykd04.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-014wn728.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-014wn728.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-014wn728.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-014wn728.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k8vbs933.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k8vbs933.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k8vbs933.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k8vbs933.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-wj20a642.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-wj20a642.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-wj20a642.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-wj20a642.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vj4eyy55.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vj4eyy55.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vj4eyy55.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vj4eyy55.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-trdd9g28.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-trdd9g28.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-trdd9g28.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-trdd9g28.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9dj67y29.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9dj67y29.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9dj67y29.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9dj67y29.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-j1t5p416.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-j1t5p416.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-j1t5p416.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-j1t5p416.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zbyqeq59.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zbyqeq59.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zbyqeq59.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zbyqeq59.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ks4axh82.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ks4axh82.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ks4axh82.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ks4axh82.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ry2p1127.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ry2p1127.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ry2p1127.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ry2p1127.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-5tmx6b89.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-5tmx6b89.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-5tmx6b89.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-5tmx6b89.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vb25vw79.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vb25vw79.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vb25vw79.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vb25vw79.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-tevf9q37.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-tevf9q37.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-tevf9q37.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-tevf9q37.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-hcnchw77.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-hcnchw77.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-hcnchw77.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-hcnchw77.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-5ytm0d41.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-5ytm0d41.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-5ytm0d41.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-5ytm0d41.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xgtfc910.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xgtfc910.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xgtfc910.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xgtfc910.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3kt8db56.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3kt8db56.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3kt8db56.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3kt8db56.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k6ad3d54.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k6ad3d54.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k6ad3d54.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k6ad3d54.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7mfd6624.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7mfd6624.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7mfd6624.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7mfd6624.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-032gnn40.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-032gnn40.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-032gnn40.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-032gnn40.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7hhvm084.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7hhvm084.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7hhvm084.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7hhvm084.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0nvksg17.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0nvksg17.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0nvksg17.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0nvksg17.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-yh8trj42.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-yh8trj42.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-yh8trj42.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-yh8trj42.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-cqm1wz27.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-cqm1wz27.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-20z6n251.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-20z6n251.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-20z6n251.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-20z6n251.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3hdezv37.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3hdezv37.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3hdezv37.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3hdezv37.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-paqhap34.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-paqhap34.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-paqhap34.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-paqhap34.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-mz31h259.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-mz31h259.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-mz31h259.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-mz31h259.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-tva59671.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-tva59671.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-tva59671.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-tva59671.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-s8vaqs84.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-s8vaqs84.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-s8vaqs84.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-s8vaqs84.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-bf0m4247.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-bf0m4247.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-m36jmq45.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-m36jmq45.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-m36jmq45.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-m36jmq45.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-21x8c956.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-21x8c956.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-21x8c956.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-21x8c956.1.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-bgbdz820.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-bgbdz820.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-js34e157.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-js34e157.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-m90jhf22.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-m90jhf22.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1yxman68.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1yxman68.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9zr71q76.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9zr71q76.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-qshfm913.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-qshfm913.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-sm0mb248.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-sm0mb248.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-cvts7634.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-cvts7634.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-z66qav98.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-z66qav98.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-53qeh520.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-53qeh520.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-pex5sx90.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-pex5sx90.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-kfqbxb77.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-kfqbxb77.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-z1vs6396.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-z1vs6396.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ch7pxv21.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ch7pxv21.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-qb1ffd63.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-qb1ffd63.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-b46j5h73.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-b46j5h73.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-b10dj192.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-b10dj192.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-sbgmk506.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-sbgmk506.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vfr0av51.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vfr0av51.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gpdad736.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gpdad736.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1cd9sm67.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1cd9sm67.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-yb360w59.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-yb360w59.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-dw65hn13.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-dw65hn13.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0ph9k733.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0ph9k733.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-v1g7v484.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-v1g7v484.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9wtp6889.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9wtp6889.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-qv11vv73.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-qv11vv73.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zp8fcn70.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zp8fcn70.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ha83c851.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ha83c851.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gtgn7p39.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gtgn7p39.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9whrtm39.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9whrtm39.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zqv19108.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zqv19108.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-tj61ec70.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-tj61ec70.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0323p949.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0323p949.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1kvamr33.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1kvamr33.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-wsa3dn14.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-wsa3dn14.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-kdpf0676.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-kdpf0676.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-v10gvz09.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-v10gvz09.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vr4nv743.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vr4nv743.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-cj32kh40.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-cj32kh40.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6eqgen35.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6eqgen35.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ak9h8e36.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ak9h8e36.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-p1qcwk63.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-p1qcwk63.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-22ngb664.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-22ngb664.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0qn3r938.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0qn3r938.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-wnbbp468.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-wnbbp468.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-kjrsxy80.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-kjrsxy80.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-p5bfzc45.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-p5bfzc45.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0t0ggn95.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0t0ggn95.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k1m7bg06.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k1m7bg06.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vcjh7791.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vcjh7791.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-f6vqqn03.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-f6vqqn03.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ypq4pw26.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ypq4pw26.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-97z2db95.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-97z2db95.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vbe3a633.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vbe3a633.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-w45keb83.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-w45keb83.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-2c0a4412.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-2c0a4412.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-tz5nx085.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-tz5nx085.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-91v5zq65.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-91v5zq65.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-kjttc196.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-kjttc196.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-mfzhrw69.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-mfzhrw69.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zswvva73.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zswvva73.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-5bxje049.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-5bxje049.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-85dkey29.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-85dkey29.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-2v057664.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-2v057664.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-mph58e90.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-mph58e90.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-kvaq8y47.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-kvaq8y47.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-e7xyrj30.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-e7xyrj30.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-4akhh462.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-4akhh462.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-qsmkc225.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-qsmkc225.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fsm7mt14.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fsm7mt14.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-fnvzj435.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-fnvzj435.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jcvnv692.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jcvnv692.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-krqwm386.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-krqwm386.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jm9tn991.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jm9tn991.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9km3zp78.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9km3zp78.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-m2er9p97.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-m2er9p97.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1sqqch41.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1sqqch41.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k9r0h878.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k9r0h878.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-r6t8db28.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-r6t8db28.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zh7njm16.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zh7njm16.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-rxh9rz81.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-rxh9rz81.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1fa30k25.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1fa30k25.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6ejn6077.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6ejn6077.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-a83j6b46.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-a83j6b46.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-037bzq57.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-037bzq57.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-a9f5wm61.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-a9f5wm61.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-t9f8aw17.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-t9f8aw17.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zs816886.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zs816886.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k7h9ny59.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k7h9ny59.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-kmvm6q44.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-kmvm6q44.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xwez4647.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xwez4647.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-h6tg5m13.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-h6tg5m13.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-z0qhq638.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-z0qhq638.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-wqmfc260.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-wqmfc260.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-529kjq68.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-529kjq68.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vcc4re26.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vcc4re26.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-69n2cr43.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-69n2cr43.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-m3qpmm33.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-m3qpmm33.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-a0je2z32.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-a0je2z32.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-e7d4d026.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-e7d4d026.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-dhrevy96.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-dhrevy96.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-bmyxfw52.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-bmyxfw52.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zd6j0562.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zd6j0562.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-48fbn967.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-48fbn967.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-cf5qda16.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-cf5qda16.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9vea4z71.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9vea4z71.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-8qhb8d98.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-8qhb8d98.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6x5z7s30.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6x5z7s30.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6yswbf60.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6yswbf60.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-dxn40g92.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-dxn40g92.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-dn0sv237.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-dn0sv237.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-q05dcs83.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-q05dcs83.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-4180wr07.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-4180wr07.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-r5tchc78.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-r5tchc78.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-7029bg14.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-7029bg14.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-bt98cm02.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-bt98cm02.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gsh10c76.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gsh10c76.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-5g1g1407.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-5g1g1407.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-taks9745.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-taks9745.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-tmzmcs11.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-tmzmcs11.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vctdb905.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vctdb905.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6dcg9n36.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6dcg9n36.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-rf2ecd16.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-rf2ecd16.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-9atsk255.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-9atsk255.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-80akps77.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-80akps77.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-n71kzw28.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-n71kzw28.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3h7exq14.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3h7exq14.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6gp71m35.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6gp71m35.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-y2myc645.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-y2myc645.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3f87dr55.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3f87dr55.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gk1kyw72.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gk1kyw72.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-y52g3b02.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-y52g3b02.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-kd2acf82.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-kd2acf82.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vedak467.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vedak467.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-dykmt746.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-dykmt746.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-x0zsgw59.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-x0zsgw59.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6sps9w45.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6sps9w45.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-b0a9rh92.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-b0a9rh92.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0ka2mb56.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0ka2mb56.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-215nhq12.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-215nhq12.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zq4t6342.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zq4t6342.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-v3ps5b32.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-v3ps5b32.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-cr694y70.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-cr694y70.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-n7s21737.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-n7s21737.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0cxqvr05.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0cxqvr05.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ch1r2t28.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ch1r2t28.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jgjndx33.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jgjndx33.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-zq4zf123.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-zq4zf123.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-72am8c92.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-72am8c92.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-x0cssm36.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-x0cssm36.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1ar09j11.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1ar09j11.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jxrhv969.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jxrhv969.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-dze6kr28.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-dze6kr28.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-6kn1av14.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-6kn1av14.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-emknyg47.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-emknyg47.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-2tcgdg88.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-2tcgdg88.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-p6dv3h88.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-p6dv3h88.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-3cdkeg12.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-3cdkeg12.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-t0ds9989.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-t0ds9989.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-cnv9c386.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-cnv9c386.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-aqcjnt38.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-aqcjnt38.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-v27f3w31.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-v27f3w31.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-wr61mm53.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-wr61mm53.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-t56t1q88.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-t56t1q88.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-h3g38t66.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-h3g38t66.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-xvbwg807.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-xvbwg807.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-vekgt602.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-vekgt602.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-hp6e4871.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-hp6e4871.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-qx4y8z29.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-qx4y8z29.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ye7w8144.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ye7w8144.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-1kr9m008.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-1kr9m008.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-eyp5gr61.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-eyp5gr61.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-0nhd8a62.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-0nhd8a62.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-w36zzw20.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-w36zzw20.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-k6yyex89.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-k6yyex89.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-p76xg208.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-p76xg208.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-dk03e914.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-dk03e914.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-ww2emg96.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-ww2emg96.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-c6q3eq84.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-c6q3eq84.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-4wat0e75.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-4wat0e75.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-t37fkj53.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-t37fkj53.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-jg9qfq19.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-jg9qfq19.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-bjr9bm17.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-bjr9bm17.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-js1szx69.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-js1szx69.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-btymtp73.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-btymtp73.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-dsqd2x38.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-dsqd2x38.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-gh64eb30.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-gh64eb30.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-hhbdnx62.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-hhbdnx62.1.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrqc-11-c6bt9333.1"
+            },
+            "u": {
+                "$addToSet": {
+                    "alternative_identifiers": "nmdc:wfrqc-11-c6bt9333.1.1"
+                }
+            }
+        }
+    ]
+}

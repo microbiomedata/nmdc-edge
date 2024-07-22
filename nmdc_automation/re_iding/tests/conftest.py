@@ -1,3 +1,7 @@
+import os
+import shutil
+import tempfile
+
 import pytest
 from pathlib import Path
 import json
@@ -60,3 +64,27 @@ def nom_activity_record_ndmc():
     with open(TEST_DATA_DIR / "nom_activity_record_ndmc.json", "r") as f:
         return json.load(f)
 
+
+@pytest.fixture
+def sample_bam():
+    # Path to the input BAM file in the test_data directory
+    input_bam_path = "test_data/input.bam"
+
+    # Create a temporary directory
+    temp_dir = tempfile.mkdtemp()
+
+    # Copy the input BAM file to the temporary directory
+    copied_bam_path = os.path.join(temp_dir, "input.bam")
+    shutil.copy(input_bam_path, copied_bam_path)
+
+    # Yield the path to the copied BAM file
+    yield copied_bam_path
+
+    # Teardown: Remove the temporary directory and its contents
+    shutil.rmtree(temp_dir)
+
+@pytest.fixture
+def data_dir(tmp_path):
+    omics_dir = tmp_path / "results"
+    omics_dir.mkdir(parents=True)
+    return tmp_path

@@ -1,12 +1,14 @@
 Workflows:
   - Name: Sequencing Noninterleaved
     Collection: omics_processing_set
+    Enabled: True
     Filter Output Objects:
     - Metagenome Raw Read 1
     - Metagenome Raw Read 2
 
   - Name: Sequencing Interleaved
     Collection: omics_processing_set
+    Enabled: True
     Filter Output Objects:
     - Metagenome Raw Reads
 
@@ -188,6 +190,7 @@ Workflows:
       input_file: do:Assembly Contigs
       imgap_project_id: "scaffold"
       proj: "{activity_id}"
+      assembly_id: "{predecessor_activity_id}"
     Activity:
       name: "Metagenome Annotation Analysis Activity for {id}"
       type: nmdc:MetagenomeAnnotationActivity
@@ -297,11 +300,12 @@ Workflows:
         description: Annotation Stats for {id}
         name: Annotation statistics report
         suffix: _stats.tsv
-      # - output: contig_mapping
-      #   data_object_type: Contig Mapping File
-      #   description: Contig mappings file for {id}
-      #   name: Contig mappings between contigs and scaffolds
-      #   suffix: _contig_names_mapping.tsv
+      - output: contig_mapping
+        data_object_type: Contig Mapping File
+        description: Contig mappings file for {id}
+        name: Contig mappings between contigs and scaffolds
+        suffix: _contig_names_mapping.tsv
+        optional: True
       - output: imgap_version
         data_object_type: Annotation Info File
         description: Annotation info for {id}
@@ -336,6 +340,9 @@ Workflows:
       proteins_file: do:Annotation Amino Acid FASTA
       gene_phylogeny_file: do:Gene Phylogeny tsv
       proj: "{activity_id}"
+      map_file: do:Annotation Mapping File
+    Optional Inputs:
+    - map_file
     Activity:
       name: "Metagenome Assembled Genomes Analysis Activity for {id}"
       type: nmdc:MagsAnalysisActivity

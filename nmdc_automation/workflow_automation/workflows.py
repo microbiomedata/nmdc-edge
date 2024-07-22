@@ -44,6 +44,7 @@ class Workflow:
         "Filter Input Objects",
         "Filter Output Objects",
         "Outputs",
+        "Optional Inputs"
     ]
 
     def __init__(self, wf: dict):
@@ -59,6 +60,8 @@ class Workflow:
             setattr(self, attr_name, wf.get(f))
         if not self.inputs:
             self.inputs = {}
+        if not self.optional_inputs:
+            self.optional_inputs = []
         for _, inp_param in self.inputs.items():
             if inp_param.startswith("do:"):
                 self.do_types.append(inp_param[3:])

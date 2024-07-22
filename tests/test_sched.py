@@ -73,13 +73,16 @@ def init_test(db):
         load(db, fn, reset=True)
 
 
-def mock_progress(db, wf):
+def mock_progress(db, wf, version=None, flush=True):
     s = wf.collection
     data = read_json("%s.json" % (s))[0]
     if 'version' not in data:
         data['git_url'] = wf.git_repo
         data['version'] = wf.version
-    db[s].delete_many({})
+    if version:
+        data['version'] = version
+    if flush:
+        db[s].delete_many({})
     db[s].insert_one(data)
 
 
@@ -100,7 +103,6 @@ def test_submit(db, mock_api):
     assert len(resp) == 1
 
     # The job should now be in a submitted state
-    # make this pass
     resp = jm.cycle()
     assert len(resp) == 0
 
@@ -129,9 +131,17 @@ def test_progress(db, mock_api):
     assert len(resp) == 0
 
     wf = workflow_by_name['Metagenome Assembly']
-    mock_progress(db, wf)
+    # Lets override the version to simulate an older run
+    # for this workflow that is stil within range of the
+    # current workflow
+    mock_progress(db, wf, version="v1.0.2")
     resp = jm.cycle()
+    assert "assembly_id" in resp[0]["config"]["inputs"]
     assert len(resp) == 1
+    omap = {}
+    for o in resp[0]["config"]["outputs"]:
+        omap[o["output"]] = o
+    assert omap["contig_mapping"]["optional"] is True
 
     wf = workflow_by_name['Metagenome Annotation']
     mock_progress(db, wf)
@@ -187,3 +197,28 @@ def test_multiple_versions(db, mock_api):
     db.jobs.delete_many({})
     resp = jm.cycle()
     assert len(resp) == 4
+
+
+def test_out_of_range(db, mock_api):
+    init_test(db)
+    reset_db(db)
+    db.jobs.delete_many({})
+    load(db, "data_object_set.json")
+    load(db, "omics_processing_set.json")
+    jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
+                   site_conf="./tests/site_configuration_test.toml")
+    workflow_by_name = dict()
+    for wf in jm.workflows:
+        workflow_by_name[wf.name] = wf
+
+    # Let's create two RQC records.  One will be in range
+    # and the other will not.  We should only get new jobs
+    # for the one in range.
+    wf = workflow_by_name['Reads QC']
+    mock_progress(db, wf)
+    mock_progress(db, wf, version="v0.0.1", flush=False)
+
+    resp = jm.cycle()
+    assert len(resp) == 2
+    resp = jm.cycle()
+    assert len(resp) == 0

@@ -1,7 +1,5 @@
 import pysam
 import pytest
-import shutil
-import tempfile
 import os
 from unittest import mock
 from pathlib import Path
@@ -10,26 +8,9 @@ from nmdc_automation.re_iding.file_utils import (
     rewrite_bam,
     replace_and_write_bam,
     md5_sum,
-    link_data_file_paths
+    link_data_file_paths,
+    get_corresponding_data_file_path_for_url,
 )
-
-@pytest.fixture
-def sample_bam():
-    # Path to the input BAM file in the test_data directory
-    input_bam_path = "test_data/input.bam"
-
-    # Create a temporary directory
-    temp_dir = tempfile.mkdtemp()
-
-    # Copy the input BAM file to the temporary directory
-    copied_bam_path = os.path.join(temp_dir, "input.bam")
-    shutil.copy(input_bam_path, copied_bam_path)
-
-    # Yield the path to the copied BAM file
-    yield copied_bam_path
-
-    # Teardown: Remove the temporary directory and its contents
-    shutil.rmtree(temp_dir)
 
 
 def test_sample_bam(sample_bam):
@@ -159,3 +140,36 @@ def test_unexpected_error(tmp_path):
             mock_link.assert_called_once_with(old_file, new_path)
             mock_log_error.assert_any_call(f"Unexpected error while linking the file from {old_file} to {new_path}: unexpected error")
 
+def test_get_corresponding_data_file_for_url(data_dir):
+    file_path = data_dir / "nmdc:omprc-11-wmzpa354" / "nmdc:wfmgas-11-y43zyn66.1" / "nmdc_wfmgas-11-y43zyn66.1_contigs.fna"
+    file_path.parent.mkdir(parents=True)
+    file_path.touch()
+
+    url = "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfmgas-11-y43zyn66.1/nmdc_wfmgas-11-y43zyn66.1_contigs.fna"
+    result = get_corresponding_data_file_path_for_url(url, data_dir)
+    assert result == file_path
+
+def test_get_corresponding_data_file_for_url_nearest_match(data_dir):
+    file_path = data_dir / "nmdc:omprc-11-wmzpa354" / "nmdc:wfmgas-11-y43zyn66.1" / "nmdc_wfmgas-11-y43zyn66.1.1_contigs.fna"
+    file_path.parent.mkdir(parents=True)
+    file_path.touch()
+
+    url = "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfmgas-11-y43zyn66.1/nmdc_wfmgas-11-y43zyn66.1_contigs.fna"
+    result = get_corresponding_data_file_path_for_url(url, data_dir)
+    assert result == file_path
+
+def test_get_corresponding_data_file_for_url_invalid_url(data_dir):
+    url = "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfmgas-11-y43zyn66.1/nmdc_wfmgas-11-y43zyn66.1_contigs.fna"
+    result = get_corresponding_data_file_path_for_url(url, data_dir)
+    assert result is None
+
+def test_get_corresponding_data_file_for_url_multiple_files_raises_exception(data_dir):
+    file_path = data_dir / "nmdc:omprc-11-wmzpa354" / "nmdc:wfmgas-11-y43zyn66.1" / "nmdc_wfmgas-11-y43zyn66.1.1.1_contigs.fna"
+    file_path.parent.mkdir(parents=True)
+    file_path.touch()
+    file_path_2 = data_dir / "nmdc:omprc-11-wmzpa354" / "nmdc:wfmgas-11-y43zyn66.1" / "nmdc_wfmgas-11-y43zyn66.1.1_contigs.fna"
+    file_path_2.touch()
+
+    url = "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfmgas-11-y43zyn66.1/nmdc_wfmgas-11-y43zyn66.1_contigs.fna"
+    with pytest.raises(ValueError) as e:
+        get_corresponding_data_file_path_for_url(url, data_dir)

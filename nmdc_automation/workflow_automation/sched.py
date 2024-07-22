@@ -39,7 +39,7 @@ def within_range(wf1: Workflow, wf2: Workflow, force=False) -> bool:
     """
 
     def get_version(wf):
-        v_string = wf1.version.lstrip("b").lstrip("v")
+        v_string = wf.version.lstrip("b").lstrip("v")
         return Version.parse(v_string)
 
     # Apples and oranges
@@ -48,7 +48,7 @@ def within_range(wf1: Workflow, wf2: Workflow, force=False) -> bool:
     v1 = get_version(wf1)
     v2 = get_version(wf2)
     if force:
-        return v1==v2
+        return v1 == v2
     if v1.major == v2.major and v1.minor == v2.minor:
         return True
     return False
@@ -122,11 +122,14 @@ class Scheduler:
         activity_id = f"{base_id}.{iteration}"
         inp_objects = []
         inp = dict()
+        optional_inputs = wf.optional_inputs
         for k, v in job.workflow.inputs.items():
             if v.startswith("do:"):
                 do_type = v[3:]
                 dobj = do_by_type.get(do_type)
                 if not dobj:
+                    if k in optional_inputs:
+                        continue
                     raise ValueError(f"Unable to resolve {do_type}")
                 inp_objects.append(dobj)
                 v = dobj["url"]
@@ -135,6 +138,8 @@ class Scheduler:
                 v = job.informed_by
             elif v == "{activity_id}":
                 v = activity_id
+            elif v == "{predecessor_activity_id}":
+                v = job.trigger_act.id
 
             inp[k] = v
 
@@ -262,24 +267,29 @@ class Scheduler:
 
         return new_jobs
 
-    def cycle(self, dryrun: bool = False, skiplist: set = set(), allowlist = None) -> list:
+    def cycle(self, dryrun: bool = False, skiplist: set = set(),
+              allowlist=None) -> list:
         """
         This function does a single cycle of looking for new jobs
         """
-        acts = load_activities(self.db, self.workflows)
+        filt = {}
+        if allowlist:
+            filt = {"was_informed_by": {"$in": list(allowlist)}}
+        acts = load_activities(self.db, self.workflows, filter=filt)
         self.get_existing_jobs.cache_clear()
         job_recs = []
         for act in acts:
             if act.was_informed_by in skiplist:
                 logging.debug(f"Skipping: {act.was_informed_by}")
                 continue
-            if allowlist and act.was_informed_by not in allowlist:
+            if not act.workflow.enabled:
+                logging.debug(f"Skipping: {act.id}, workflow disabled.")
                 continue
             jobs = self.find_new_jobs(act)
             for job in jobs:
                 if dryrun:
                     msg = f"new job: informed_by: {job.informed_by} trigger: {job.trigger_id} "
-                    msg += f"wf: {job.workflow.name}"
+                    msg += f"wf: {job.workflow.name} ver: {job.workflow.version}"
                     logging.info(msg)
                     continue
                 try:
@@ -314,6 +324,8 @@ def main():  # pragma: no cover
                 allowlist.add(line.rstrip())
     while True:
         sched.cycle(dryrun=dryrun, skiplist=skiplist, allowlist=allowlist)
+        if dryrun:
+            break
         _sleep(_POLL_INTERVAL)
 
 

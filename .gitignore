@@ -9,3 +9,6 @@ attic
 .local/
 configs/.local_*
 attic/data/dryrun_data/
+
+# Ignore `coverage.xml` file in this directory.
+/coverage.xml
