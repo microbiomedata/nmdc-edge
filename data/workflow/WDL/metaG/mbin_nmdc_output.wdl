@@ -68,11 +68,14 @@ task pdf_to_png {
     mkdir -p ${outdir}
 
     python <<CODE
+    import os
     from pathlib import Path
     import fitz 
     files_string= "${sep=' ' pdf_files}"
     pdfs = files_string.split()
     for pdf in pdfs :
+        if os.stat(pdf).st_size == 0:
+            contiune
         prefix = Path(pdf).stem
         output = "${outdir}/%s.png" % prefix
         print(output)
