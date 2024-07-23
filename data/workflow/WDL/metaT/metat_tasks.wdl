@@ -571,12 +571,12 @@ task finish_metat {
       cp ~{crt_crisprs} ~{annodir}/~{prefix}_crt.crisprs
       cp ~{imgap_version} ~{annodir}/~{prefix}_anno.info
       cp ~{renamed_fasta} ~{annodir}/~{prefix}_renamed_contigs.fna
-      cp ~{map_file} ~{annodir}/~{prefix}_map.fna
+      cp ~{map_file} ~{annodir}/~{prefix}_contig_names_mapping.tsv
 
       # move readcount objects
-      cp ~{count_table} ~{readmap}/~{prefix}.readcount
-      cp ~{count_ig} ~{readmap}/~{prefix}.readcount.intergenic
-      cp ~{count_log} ~{readmap}/~{prefix}.readcount.Stats.log
+      cp ~{count_table} ~{readmap}/~{prefix}.rnaseq_gea.txt
+      cp ~{count_ig} ~{readmap}/~{prefix}.rnaseq_gea.intergenic.txt
+      cp ~{count_log} ~{readmap}/~{prefix}.readcount.stats.log
       cp ~{readcount_info} ~{readmap}/~{prefix}_readcount.info
 
       #move metat tables
@@ -638,12 +638,12 @@ task finish_metat {
          File final_crt_crisprs = "~{annodir}/~{prefix}_crt.crisprs"
          File final_imgap_version = "~{annodir}/~{prefix}_anno.info"
          File final_renamed_fasta = "~{annodir}/~{prefix}_renamed_contigs.fna"
-         File final_map_file = "~{annodir}/~{prefix}_map.fna"
+         File final_map_file = "~{annodir}/~{prefix}_contig_names_mapping.tsv"
 
          # metaT_ReadCounts
-         File final_count_table = "~{readmap}/~{prefix}.readcount"
-         File? final_count_ig = "~{readmap}/~{prefix}.readcount.intergenic"
-         File? final_count_log = "~{readmap}/~{prefix}.readcount.Stats.log"
+         File final_count_table = "~{readmap}/~{prefix}.rnaseq_gea.txt"
+         File? final_count_ig = "~{readmap}/~{prefix}.rnaseq_gea.intergenic.txt"
+         File? final_count_log = "~{readmap}/~{prefix}.readcount.stats.log"
          File final_readcount_info = "~{readmap}/~{prefix}_readcount.info"
 
          # re-id metat objects
