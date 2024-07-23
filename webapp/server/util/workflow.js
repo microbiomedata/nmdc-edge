@@ -186,11 +186,41 @@ const generateWorkflowResult = function (proj) {
             }
         });
     } else if (workflowConf.workflow.name === 'Metatranscriptome') {
-        result['top_features'] = JSON.parse(fs.readFileSync(outdir + "/metat_output/top100_features.json"));
-        const features_tsv = outdir + "/metat_output/rpkm_sorted_features.tsv";
-        if (fs.existsSync(features_tsv)) {
-            result['features_tsv'] = "output/Metatranscriptomics/metat_output/rpkm_sorted_features.tsv";
-        }
+        const dirs = fs.readdirSync(outdir);
+        dirs.forEach(function (dir) {
+            if (dir === 'qa') {
+                const files = fs.readdirSync(outdir + "/qa");
+                files.forEach(function (file) {
+                    if (file.endsWith("_stats.json")) {
+                        result['readsQC-stats'] = JSON.parse(fs.readFileSync(outdir + "/qa/" + file));
+                    }
+                });
+            }
+            else if (dir === 'assembly') {
+                const files = fs.readdirSync(outdir + "/assembly");
+                files.forEach(function (file) {
+                    if (file === "stats.json") {
+                        result['assembly-stats'] = JSON.parse(fs.readFileSync(outdir + "/assembly/" + file));
+                    }
+                });
+            }
+            else if (dir === 'annotation') {
+                const files = fs.readdirSync(outdir + "/annotation");
+                files.forEach(function (file) {
+                    if (file.endsWith("_stats.json")) {
+                        result['annotation-stats'] = JSON.parse(fs.readFileSync(outdir + "/annotation/" + file));
+                    }
+                });
+            }
+            else if (dir === 'metat_output') {
+                const files = fs.readdirSync(outdir + "/metat_output");
+                files.forEach(function (file) {
+                    if (file.endsWith("_sorted_features.tsv")) {
+                        result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/metat_output/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                    }
+                });
+            }
+        });
     } else if (workflowConf.workflow.name === 'EnviroMS') {
         let stats = {};
         const dirs = fs.readdirSync(outdir);
@@ -210,13 +240,10 @@ const generateWorkflowResult = function (proj) {
                 pngs.forEach(function (png) {
                     stats[dir]['pngs'][png] = workflowlist[workflowConf.workflow.name].outdir + "/" + dir + "/" + png;
                 });
-                //get molecules
-                let top_molecules = outdir + "/" + dir + "/top100_molecules.json";
-                if (fs.existsSync(top_molecules))
-                    stats[dir]['top_molecules'] = JSON.parse(fs.readFileSync(top_molecules));
                 const molecules_tsv = outdir + "/" + dir + "/enviroms_sorted_molecules.tsv";
                 if (fs.existsSync(molecules_tsv)) {
-                    stats[dir]['molecules_tsv'] = "output/NOM/" + dir + "/enviroms_sorted_molecules.tsv";
+                    //stats[dir]['molecules_tsv'] = "output/NOM/" + dir + "/enviroms_sorted_molecules.tsv";
+                    stats[dir]['molecules_json'] = Papa.parse(fs.readFileSync(molecules_tsv).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
                 }
             }
         });
@@ -255,10 +282,12 @@ const generateWorkflowResult = function (proj) {
     } else if (workflowConf.workflow.name === 'sra2fastq') {
         //use relative path 
         //const sraDataDir = config.IO.SRA_DATA_BASE_DIR;
-        const accessions = workflowConf.workflow.accessions.toUpperCase().split(/\s*(?:,|$)\s*/);;
+        const accessions = workflowConf.workflow.accessions.toUpperCase().split(/\s*(?:,|$)\s*/);
         accessions.forEach((accession) => {
             // link sra downloads to project output
-            fs.symlinkSync("../../../../sra/" + accession, outdir + "/" + accession)
+            if (!fs.existsSync(outdir + "/" + accession)) {
+                fs.symlinkSync("../../../../sra/" + accession, outdir + "/" + accession);
+            }
 
         })
     }

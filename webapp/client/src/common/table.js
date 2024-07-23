@@ -89,3 +89,45 @@ export const userTypeNames= {
     'user': 'User',
     'admin': 'Admin',
 };
+
+export const handleTableNumberFilter = (term, dataIn) => {
+    const data = Number(dataIn);
+    //remove spaces
+    term = term.replace(/\s+/, '');
+    if (term.match(/^>\d/)) {
+        const value = Number(term.replace(/^>/, ''));
+        return data > value
+            ? true
+            : false;
+    }
+    if (term.match(/^>=\d/)) {
+        const value = Number(term.replace(/^>=/, ''));
+        console.log(term, value, data)
+        return data >= value
+            ? true
+            : false;
+    }
+    if (term.match(/^<\d/)) {
+        const value = Number(term.replace(/^</, ''));
+        return data < value
+            ? true
+            : false;
+    }
+    if (term.match(/^<=\d/)) {
+        const value = Number(term.replace(/^<=/, ''));
+        return data <= value
+            ? true
+            : false;
+    }
+    if (term.match(/^=\d/)) {
+        const value = Number(term.replace(/^=/, ''));
+        return data === value
+            ? true
+            : false;
+    }
+
+    return dataIn.toLowerCase().includes(term.toLowerCase())
+        ? true
+        : false;
+
+};

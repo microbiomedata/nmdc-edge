@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { Col, Row, Card, CardBody, Collapse } from 'reactstrap';
 import ReactJson from 'react-json-view';
 import { Header } from '../../../Common/Results/CardHeader';
-import TopMolecules from './TopMolecules';
+import Molecules from './Molecules';
 import config from "../../../../config";
 
 function EnviroMS(props) {
@@ -65,7 +65,7 @@ function EnviroMS(props) {
                             <ReactJson src={props.result.stats[input]['conf']} name={'workflow metadata'} enableClipboard={false} displayDataTypes={false}
                                 displayObjectSize={false} collapsed={true} />
                             <br></br>
-                            
+
                             {props.result.stats[input]['molecules_tsv'] &&
                                 <>
                                     <h4 className="pt-3">Molecules</h4>
@@ -73,8 +73,11 @@ function EnviroMS(props) {
                                     <br></br><br></br>
                                 </>
                             }
-                            {props.result.stats[input]['top_molecules'] &&
-                                <TopMolecules result={props.result.stats[input]} />
+                            {props.result.stats[input]['molecules_json'] &&
+                                <>
+                                    <h4 className="pt-3">Molecules</h4>
+                                    <Molecules result={props.result.stats[input]} />
+                                </>
                             }
                         </>
                     }
