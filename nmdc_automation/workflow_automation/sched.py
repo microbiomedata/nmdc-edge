@@ -113,6 +113,9 @@ class Scheduler:
         do_by_type = dict()
         while next_act:
             for do_type, val in next_act.data_objects_by_type.items():
+                if do_type in do_by_type:
+                    logging.debug(f"Ignoring Duplicate type: {do_type} {val.id} {next_act.id}")
+                    continue
                 do_by_type[do_type] = val.__dict__
             # do_by_type.update(next_act.data_objects_by_type.__dict__)
             next_act = next_act.parent

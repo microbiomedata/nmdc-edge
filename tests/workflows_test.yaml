@@ -311,6 +311,10 @@ Workflows:
         description: Annotation info for {id}
         name: File containing annotation info
         suffix: _imgap.info
+      - output: renamed_fasta
+        data_object_type: Assembly Contigs
+        description: Assembly contigs (remapped) for {id}
+        name: File containing contigs with annotation headers
 
   - Name: MAGs
     Type: nmdc:MagsAnalysisActivity
