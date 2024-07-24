@@ -12,7 +12,7 @@ from nmdc_automation.re_iding.file_utils import assembly_file_operations
 
 PROD_DATAFILE_DIR = Path("/global/cfs/cdirs/m3408/results")
 LOCAL_DATAFILE_DIR = Path.home().joinpath("Documents/data/results")
-REPO_DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
+REPO_DATA_DIR = Path(__file__).parent.absolute().joinpath("data/bug_fix")
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -23,7 +23,7 @@ def cli():
 
 @click.command()
 @click.option('--expected-paths-file', type=click.Path(exists=True), required=False,
-              default=REPO_DATA_DIR.joinpath("malformed_assembly_paths", "expected_paths.txt"))
+              default=REPO_DATA_DIR.joinpath("213_malformed_assembly_paths", "expected_paths.txt"))
 @click.option("--production", is_flag=True, default=False,
               help="Use the Production data file directory, default is a local data file directory.")
 @click.option("--update-files", is_flag=True, default=False, help="Update the files with the fixed paths.")
