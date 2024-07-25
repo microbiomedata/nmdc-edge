@@ -183,6 +183,8 @@ const config = {
         BASE_DIR: process.env.PROJECTS_BASE_DIR || path.join(IO_BASE_DIR, "projects"),
         // Number of days for which the system will preserve a project after a user opts to delete it.
         PROJECT_DELETION_GRACE_PERIOD_DAYS: makeIntIfDefined(process.env.PROJECT_DELETION_GRACE_PERIOD_DAYS) || 7,
+        // nmdc-server url for pushing metadata to submission portal
+        NMDC_SERVER_URL: process.env.NMDC_SERVER_URL || "https://data-dev.microbiomedata.org",
     },
     WORKFLOWS: {
         // Directory of the workflow WDL files.

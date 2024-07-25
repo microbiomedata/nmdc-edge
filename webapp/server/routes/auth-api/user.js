@@ -142,7 +142,7 @@ router.post("/update", (req, res) => {
 //for share/unshare
 router.get("/list", (req, res) => {
     logger.debug("/auth-api/user/list: " + req.user.email);
-    User.find({ 'status': 'active', 'email' : { $regex: "@orcid.org", $options: 'i' } }, { firstname: 1, lastname: 1, email: 1 }).sort([['firstname', 1], ['lastname', 1]]).then(function (users) {
+    User.find({ 'status': 'active', 'email': { $regex: "@orcid.org", $options: 'i' } }, { firstname: 1, lastname: 1, email: 1 }).sort([['firstname', 1], ['lastname', 1]]).then(function (users) {
         return res.send(users);
     }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
 
@@ -797,15 +797,15 @@ router.post("/import-old-data", async (req, res) => {
                 });
                 await newOrcidUser.save();
                 // update orcid account
-                if(!req.user.mailto) {
+                if (!req.user.mailto) {
                     console.log('update mailto')
-                    await User.updateOne({'email': req.user.email}, {'mailto': req.body.email });
+                    await User.updateOne({ 'email': req.user.email }, { 'mailto': req.body.email });
                 }
                 // return success
                 logger.info('import projects: ' + projects.n + ', uploads: ' + uploads.n);
-                return res.send({projects: projects.n, uploads: uploads.n});
+                return res.send({ projects: projects.n, uploads: uploads.n });
             } else {
-                return res.status(400).json({'old projects': 0, 'old uploads': 0, message: 'Nothing to import'});
+                return res.status(400).json({ 'old projects': 0, 'old uploads': 0, message: 'Nothing to import' });
             }
         } else {
             logger.error("login: Password incorrect." + email)
@@ -813,5 +813,43 @@ router.post("/import-old-data", async (req, res) => {
         }
     } catch (err) { logger.error(err); return res.status(500).json(sysError); };
 });
+
+// submit metadata to nmdc
+
+// @route POST auth-api/user/project/update
+// @desc update project 
+// @access Private
+router.post("/project/submit2nmdc", async (req, res) => {
+    logger.debug("/auth-api/user/project/submit2nmdc: " + JSON.stringify(req.body));
+    //assume project code is provided
+    let { errors, isValid } = validateUpdateprojectInput(req.body);
+
+    // Check validation
+    if (!isValid) {
+        logger.error(errors);
+        return res.status(400).json(errors);
+    }
+    const code = req.body.code;
+
+    try {
+        // Find user by email
+        const user = await User.findOne({ email: req.user.email });
+        // Find project
+        const code = req.body.code;
+        const proj = await Project.findOne({ code: dbsanitize(req.body.code), 'status': { $ne: 'delete' }, 'owner': dbsanitize(req.user.email) });
+        // get nmdc access token
+
+        const url = `${config.PROJECTS.NMDC_SERVER_URL}/auth/oidc-login`;
+        common.postData(url, {id_token: user.orcid_token}, {
+            headers: { "Content-Type": "application/json" },
+        }).then(response => {
+            logger.debug(JSON.stringify(response));
+        }).catch(error => {
+            logger.debug(error);
+            return res.status(400).json({ nmdcapi: "Faile to get nmdc token" });
+        });
+    } catch (err) { logger.error(err); return res.status(500).json(sysError); };
+});
+
 
 module.exports = router;

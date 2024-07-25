@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 import { socialLogin, cleanupMessages } from "../../../redux/actions/userActions";
 import { LoaderDialog, MessageDialog } from '../../Dialogs';
 import config from "../../../config";
+import { postData } from "../../util";
 
 const queryString = require('query-string');
 
@@ -32,7 +33,7 @@ function OrcidLogin(props) {
         //open ORCiD login page
         window.open(url, "_self")
     }
-    const HandleMessages = (message) => {
+    const HandleMessages = (message, token) => {
         // Do stuff
         //console.log("got mes", message)
         const data = message;
@@ -41,7 +42,8 @@ function OrcidLogin(props) {
             lastname: data.family_name,
             email: data.sub + "@orcid.org",
             socialtype: 'orcid',
-            password: data.sub
+            password: data.sub,
+            orcid_token: token
         };
 
         //clean up error messages
@@ -67,7 +69,7 @@ function OrcidLogin(props) {
             //console.log("parsed", parsed.id_token)
             if (parsed.id_token) {
                 const decoded = jwt_decode(parsed.id_token);
-                HandleMessages(decoded);
+                HandleMessages(decoded, parsed.id_token);
             }
         } else {
             getORCID();

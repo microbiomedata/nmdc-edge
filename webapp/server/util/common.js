@@ -2,6 +2,7 @@ const axios = require("axios");
 const fs = require('fs');
 const logger = require('./logger');
 const Upload = require("../models/Upload");
+const config = require("../config");
 
 async function getRealName(dir) {
     let name = dir;
@@ -18,7 +19,7 @@ async function getRealName(dir) {
 //append message to a log
 const write2log = (log, msg) => {
     fs.appendFile(log, msg + "\n", function (err) {
-        if(err) logger.error("Failed to write to " + log + ": " + err);
+        if (err) logger.error("Failed to write to " + log + ": " + err);
     });
 };
 
@@ -61,5 +62,10 @@ const getData = (url) => {
 
     });
 };
+
+// nmdc api
+const nmdcAPI = axios.create({
+    baseURL: config.PROJECTS.NMDC_SERVER_URL,
+});
 
 module.exports = { getRealName, write2log, postData, getData };

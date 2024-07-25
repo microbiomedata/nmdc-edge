@@ -151,6 +151,11 @@ function ProjectResult(props) {
             });;
     }
 
+    function submit2nmdc() {
+        console.log('submit2nmdc');
+        
+    }
+
     function onLogChange(data) {
         setLog_file_content(data);
     }
@@ -178,6 +183,16 @@ function ProjectResult(props) {
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
                                     <Button type="button" size="sm" color="primary" onClick={viewLogFile} >View Log</Button>
+                                </Col>
+                            </Row>
+                            <br></br>
+                        </>
+                    }
+                    {(project && project.status === 'complete' && props.type === 'user') &&
+                        <>
+                            <Row className="justify-content-center">
+                                <Col xs="12" md="10">
+                                    <Button type="button" size="sm" color="primary" onClick={submit2nmdc} >Submit to NMDC</Button>
                                 </Col>
                             </Row>
                             <br></br>
