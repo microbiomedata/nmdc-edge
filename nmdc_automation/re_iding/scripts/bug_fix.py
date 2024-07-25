@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 def cli():
     pass
 
-@click.command()
+@cli.command()
 @click.option('--expected-paths-file', type=click.Path(exists=True), required=False,
               default=REPO_DATA_DIR.joinpath("213_malformed_assembly_paths", "expected_paths.txt"))
 @click.option("--production", is_flag=True, default=False,
@@ -186,6 +186,35 @@ def fix_malformed_assembly_paths(expected_paths_file, production, update_files, 
         f.write(changesheet_header + "\n")
         for change in data_object_changes:
             f.write("\t".join(change) + "\n")
+
+
+@cli.command()
+@click.option(
+    "--input-file", type=click.Path(exists=True), required=False,
+    default=REPO_DATA_DIR.joinpath("201_blade_mismatch", "asm_blade_not_in_mongo.txt")
+    )
+@click.option(
+    "--production", is_flag=True, default=False,
+    help="Use the Production data file directory. Default is a local data file directory."
+    )
+@click.option("--update-files", is_flag=True, default=False, help="Update the files with the fixed paths.")
+def fix_blade_mismatch(input_file, production, update_files):
+    """ Fix blade mismatch in data paths. """
+    start_time = time.time()
+
+    if production:
+        datafile_dir = PROD_DATAFILE_DIR
+    else:
+        datafile_dir = LOCAL_DATAFILE_DIR
+
+    logger.info(f"Input file: {input_file}")
+    logger.info(f"Production: {production}")
+    logger.info(f"Update files: {update_files}")
+
+    with open(input_file) as f:
+        for line in f:
+            line = line.strip()
+            logger.info(f"line: {line}")
 
 
 
