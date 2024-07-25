@@ -1,0 +1,365 @@
+{"data_object_set": [
+{
+"id": "nmdc:dobj-11-4kwfhk83",
+"name": "Froze_Core_2015_N1_0_10_13_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-r0hzrh88",
+"file_size_bytes": 469561956,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N1_0_10_13_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "09AE0E20B6D36FA892E05EBF997146BE",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014279"]
+}
+,
+{
+"id": "nmdc:dobj-11-zd25ft61",
+"name": "Froze_Core_2015_N1_10_20_21_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-6ygpws48",
+"file_size_bytes": 491691487,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N1_10_20_21_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "9B066C298C1BAE71F44490EF116F6D2C",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014017"]
+}
+,
+{
+"id": "nmdc:dobj-11-xvmb4058",
+"name": "Froze_Core_2015_N1_20_30_20_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-qn780a74",
+"file_size_bytes": 458409658,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N1_20_30_20_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "6AC03CC1B58B1D2864A2E8445673F78F",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014277"]
+}
+,
+{
+"id": "nmdc:dobj-11-76xdx588",
+"name": "Froze_Core_2015_N1_30_40_25_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-793vc240",
+"file_size_bytes": 491903285,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N1_30_40_25_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "A299402910F80EAEDFC0F2D7259E5271",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014020"]
+}
+,
+{
+"id": "nmdc:dobj-11-ms76kj12",
+"name": "Froze_Core_2015_N1_40_50_16_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-87bntc15",
+"file_size_bytes": 415932852,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N1_40_50_16_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "E56E17DFCDDB2F5E1BC831D4854F58BA",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014278"]
+}
+,
+{
+"id": "nmdc:dobj-11-wtsjqv17",
+"name": "Froze_Core_2015_N2_0_30_8_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-dhmqjx65",
+"file_size_bytes": 521241675,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N2_0_30_8_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "8070E97488A61B4BB77B98E197F6A47C",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1015245"]
+}
+,
+{
+"id": "nmdc:dobj-11-mz0d0076",
+"name": "Froze_Core_2015_N2_30_40_10_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-6vefsz40",
+"file_size_bytes": 417876216,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N2_30_40_10_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "47EEC7C577F43FFC729BE227EED22972",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1015250"]
+}
+,
+{
+"id": "nmdc:dobj-11-5bdpnq27",
+"name": "Froze_Core_2015_N2_40_50_1_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-3a8sb985",
+"file_size_bytes": 488038885,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N2_40_50_1_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "8ECC701A4F9DD8BEFFAC57BF3EF3212E",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1016244"]
+}
+,
+{
+"id": "nmdc:dobj-11-ap9bg907",
+"name": "Froze_Core_2015_N2_50_60_34_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-3wsn0s07",
+"file_size_bytes": 474004465,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N2_50_60_34_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "AC9FDA6F8E19646DA35DEA29FC928C2E",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1013979"]
+}
+,
+{
+"id": "nmdc:dobj-11-6n49rm30",
+"name": "Froze_Core_2015_N3_0_10_27_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-1zw3ez08",
+"file_size_bytes": 513403664,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N3_0_10_27_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "CA647644A704593B30F8B45F69222402",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014016"]
+}
+,
+{
+"id": "nmdc:dobj-11-d4qdbq55",
+"name": "Froze_Core_2015_N3_10_20_30_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-07jg9980",
+"file_size_bytes": 488492359,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N3_10_20_30_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "9341891B0CB8216DA2E9CA46BF11EC12",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1013986"]
+}
+,
+{
+"id": "nmdc:dobj-11-k9e5nm54",
+"name": "Froze_Core_2015_N3_20_30_32_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-av32k402",
+"file_size_bytes": 483364970,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N3_20_30_32_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "3D1C4D9A7A85B7D7B22EC966311780AE",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1013980"]
+}
+,
+{
+"id": "nmdc:dobj-11-35xc2b05",
+"name": "Froze_Core_2015_N3_30_40_9_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-w693w477",
+"file_size_bytes": 509306321,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N3_30_40_9_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "44ABB719EAEAE2D65078C82439B8903B",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1015244"]
+}
+,
+{
+"id": "nmdc:dobj-11-hp2vmj63",
+"name": "Froze_Core_2015_N3_40_50_6_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-mkam5c55",
+"file_size_bytes": 508005235,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N3_40_50_6_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "5327D691938CA52BF0A9603713C43D95",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1015253"]
+}
+,
+{
+"id": "nmdc:dobj-11-wgqh5s45",
+"name": "Froze_Core_2015_N3_50_60_28_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-bnrw2r65",
+"file_size_bytes": 462990641,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_N3_50_60_28_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "971588CAC3F4484F260E2D9DB4343998",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014014"]
+}
+,
+{
+"id": "nmdc:dobj-11-steksn39",
+"name": "Froze_Core_2015_S1_0_10_18_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-z841e208",
+"file_size_bytes": 449814814,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S1_0_10_18_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "1D3E282709CEE7F39968BCDF8D81D64E",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014280"]
+}
+,
+{
+"id": "nmdc:dobj-11-tgsasn46",
+"name": "Froze_Core_2015_S1_10_20_33_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-5yj1dd81",
+"file_size_bytes": 551266668,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S1_10_20_33_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "04DE46BA25F83EA4562E64753B1C95E6",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1013992"]
+}
+,
+{
+"id": "nmdc:dobj-11-rqssmk98",
+"name": "Froze_Core_2015_S1_20_30_19_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-qxt63828",
+"file_size_bytes": 502018549,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S1_20_30_19_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "A6EFC04A4F8C213929953ED14F8CCB72",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014275"]
+}
+,
+{
+"id": "nmdc:dobj-11-mzxj8743",
+"name": "Froze_Core_2015_S1_30_40_3_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-evnx4a83",
+"file_size_bytes": 448727423,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S1_30_40_3_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "ED2BA6CD95CE5D86D8D29A8DD548F48F",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1016236"]
+}
+,
+{
+"id": "nmdc:dobj-11-xy4hz717",
+"name": "Froze_Core_2015_S1_40_50_17_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-m926kb51",
+"file_size_bytes": 484756350,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S1_40_50_17_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "7976A1C3E8F9AD3D4DEED9356E9C7997",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014288"]
+}
+,
+{
+"id": "nmdc:dobj-11-vs45wb84",
+"name": "Froze_Core_2015_S1_50_60_23_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-4a8d5j62",
+"file_size_bytes": 507441869,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S1_50_60_23_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "EE7CA151909F2B182392E0D2CCC2CE03",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014025"]
+}
+,
+{
+"id": "nmdc:dobj-11-32dr2y07",
+"name": "Froze_Core_2015_S2_0_10_7_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-sqhqwq89",
+"file_size_bytes": 465301355,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S2_0_10_7_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "B7AB5006C039194AB46E924D3835E8A6",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1015254"]
+}
+,
+{
+"id": "nmdc:dobj-11-r03nbg69",
+"name": "Froze_Core_2015_S2_10_20_24_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-3mbk2q18",
+"file_size_bytes": 533205105,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S2_10_20_24_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "7870C81AE262A978DBAB4470C3E8A538",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1013977"]
+}
+,
+{
+"id": "nmdc:dobj-11-rrmg7w64",
+"name": "Froze_Core_2015_S2_20_30_31_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-cty5ax47",
+"file_size_bytes": 479983718,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S2_20_30_31_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "07AE3FBBC998CE7F735F4AC0EF00EAF9",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014000"]
+}
+,
+{
+"id": "nmdc:dobj-11-tezmee57",
+"name": "Froze_Core_2015_S2_30_40_15_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-a45ncw83",
+"file_size_bytes": 448430706,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S2_30_40_15_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "73B0A8C31DB77087202538BA22F0CBAA",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014287"]
+}
+,
+{
+"id": "nmdc:dobj-11-erc74h90",
+"name": "Froze_Core_2015_S2_40_50_29_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-eft0mp09",
+"file_size_bytes": 507502602,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S2_40_50_29_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "BDB242530FC5277C2BF07472DF601BBF",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014005"]
+}
+,
+{
+"id": "nmdc:dobj-11-fn371w16",
+"name": "Froze_Core_2015_S2_50_60_2_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-shwfms36",
+"file_size_bytes": 454126325,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S2_50_60_2_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "F926AAB98FF0D3EC7F16F9C02B2DAB40",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1016225"]
+}
+,
+{
+"id": "nmdc:dobj-11-t07ryb39",
+"name": "Froze_Core_2015_S3_0_10_22_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-4xyj5b22",
+"file_size_bytes": 516379014,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S3_0_10_22_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "6970FE345E0E66C39B45139D93CF6932",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1013990"]
+}
+,
+{
+"id": "nmdc:dobj-11-xmvv4977",
+"name": "Froze_Core_2015_S3_10_20_5_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-gp3et725",
+"file_size_bytes": 552771856,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S3_10_20_5_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "CA4A1870CBA4123F1B79971408549E3C",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1015248"]
+}
+,
+{
+"id": "nmdc:dobj-11-e2309414",
+"name": "Froze_Core_2015_S3_20_30_14_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-hs4k0380",
+"file_size_bytes": 439528698,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S3_20_30_14_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "636BD0522BA233701888F06684BDF38E",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1014276"]
+}
+,
+{
+"id": "nmdc:dobj-11-zv2mke38",
+"name": "Froze_Core_2015_S3_30_40_12_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-970xc869",
+"file_size_bytes": 457404153,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S3_30_40_12_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "79408C58DCB56BF7D8E3ED7059C1590E",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1015242"]
+}
+,
+{
+"id": "nmdc:dobj-11-qtxceg35",
+"name": "Froze_Core_2015_S3_40_50_26_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-yx0zqm32",
+"file_size_bytes": 478458433,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S3_40_50_26_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "1E9391888D39F2A017A69E2181B9B422",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1013987"]
+}
+,
+{
+"id": "nmdc:dobj-11-agsd2f41",
+"name": "Froze_Core_2015_S3_50_60_4_QE_26May16_Pippin_16-03-39.raw",
+"description": "raw instrument file for nmdc:omprc-11-5svnja50",
+"file_size_bytes": 460731472,
+"url": "https://nmdcdemo.emsl.pnnl.gov/proteomics/raw/Froze_Core_2015_S3_50_60_4_QE_26May16_Pippin_16-03-39.raw",
+"md5_checksum": "AE18836DC16203E15D5433FE5CA21959",
+"data_object_type": "LC-DDA-MS/MS Raw Data",
+"alternative_identifiers": ["my_emsl:1015246"]
+}
+]
+}
