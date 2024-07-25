@@ -222,6 +222,13 @@ def fix_blade_mismatch(input_file, production, update_files):
             if row["collection_name"] == "data_object_set":
                 data_object_id_map[row["new_id"]] = row["legacy_id"]
 
+    # Create a dict of legacy_id: {data_object} for all data_object_set entries in the legacy_records_file .json file
+    legacy_data_objects = {}
+    with open(legacy_records_file) as f:
+        records = json.load(f)
+        for record in records:
+            for data_object in record["data_object_set"]:
+                legacy_data_objects[data_object["id"]] = data_object
 
 
     if production:
@@ -234,39 +241,69 @@ def fix_blade_mismatch(input_file, production, update_files):
     logger.info(f"Update files: {update_files}")
 
 
-
+    lines = []
     with open(input_file) as f:
         for line in f:
             line = line.strip()
-            # logger.info(f"line: {line}")
+            lines.append(line)
 
-            # Parse out the components of the path from the input file
-            _data_dir, omics_dirname, workflow_id, filename = line.rsplit("/", maxsplit=3)
-            # remove does not exist or any other trailing text
-            filename = filename.split(" ")[0]
-            logger.info(f"omics_id: {omics_dirname}, workflow_id: {workflow_id}, filename: {filename}")
+    for line in lines:
+        # Parse out the components of the path from the input file
+        _data_dir, omics_dirname, workflow_id, filename = line.rsplit("/", maxsplit=3)
+        # remove does not exist or any other trailing text
+        filename = filename.split(" ")[0]
+        logger.info(f"Expected: omics_id: {omics_dirname}, workflow_id: {workflow_id}, filename: {filename}")
 
-            # Get the metagenome_assembly_set record
-            url = "https://api.microbiomedata.org/nmdcschema/metagenome_assembly_set"
-            params = {
-                "filter": f'{{"id": "{workflow_id}"}}',
-                "max_page_size": 20
-            }
-            response = requests.get(url, params=params)
-            response.raise_for_status()
-            workflow_record = response.json()["resources"][0]
+        # Get the metagenome_assembly_set record
+        url = "https://api.microbiomedata.org/nmdcschema/metagenome_assembly_set"
+        params = {
+            "filter": f'{{"id": "{workflow_id}"}}',
+            "max_page_size": 20
+        }
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        workflow_record = response.json()["resources"][0]
 
-            data_object_ids = workflow_record.get("has_output", [])
-            if not data_object_ids:
-                logger.error(f"No data objects found for: {workflow_id}")
+        data_object_ids = workflow_record.get("has_output", [])
+        if not data_object_ids:
+            logger.error(f"No data objects found for: {workflow_id}")
+            continue
+        logger.info(f"Found {len(data_object_ids)} data objects for: {workflow_id}")
+        for do_id in data_object_ids:
+            legacy_id = data_object_id_map.get(do_id)
+            if not legacy_id:
+                logger.error(f"Legacy ID not found for: {do_id}")
                 continue
-            logger.info(f"Found {len(data_object_ids)} data objects for: {workflow_id}")
-            for do_id in data_object_ids:
-                legacy_id = data_object_id_map.get(do_id)
-                if not legacy_id:
-                    logger.error(f"Legacy ID not found for: {do_id}")
+            data_object = legacy_data_objects.get(legacy_id)
+            if not data_object:
+                logger.error(f"Data Object not found for: {legacy_id}")
+                continue
+            logger.info(f"Legacy Data Object: {data_object['id']} {data_object['name']}")
+            leg_url = data_object["url"]
+            leg_md5 = data_object["md5_checksum"]
+            leg_size = data_object["file_size_bytes"]
+
+            # parse url https://data.microbiomedata.org/data/nmdc:mga0szsj83/annotation/nmdc_mga0szsj83_cath_funfam.gff
+            # get everything after data/
+            _data_part = leg_url.split("data/")[1]
+            leg_dir, leg_filename = _data_part.rsplit("/", maxsplit=1)
+
+            # See if we can find the legacy file on prod - don't expect it locally
+            legacy_file_path = datafile_dir.joinpath(leg_dir, leg_filename)
+            if production:
+                pass
+            else:
+                if not legacy_file_path.exists():
+                    would_look_here = PROD_DATAFILE_DIR.joinpath(leg_dir, leg_filename)
+                    logger.info(f"--production not set. Would look here: {would_look_here}")
                     continue
-                logger.info(f"Legacy ID: {legacy_id}")
+                else:
+                    logger.info(f"Found local path: {legacy_file_path}")
+
+
+
+
+
 
 
 
