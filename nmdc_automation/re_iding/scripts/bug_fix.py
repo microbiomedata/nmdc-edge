@@ -2,6 +2,8 @@
 """ bug_fix.py - a Click script with commands to fix bugs in data path names and file names. """
 
 import click
+import csv
+import json
 import logging
 from pathlib import Path
 import requests
@@ -12,7 +14,8 @@ from nmdc_automation.re_iding.file_utils import assembly_file_operations
 
 PROD_DATAFILE_DIR = Path("/global/cfs/cdirs/m3408/results")
 LOCAL_DATAFILE_DIR = Path.home().joinpath("Documents/data/results")
-REPO_DATA_DIR = Path(__file__).parent.absolute().joinpath("data/bug_fix")
+REPO_DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
+BUG_FIX_DATA_DIR = REPO_DATA_DIR.joinpath("bug_fix")
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -23,7 +26,7 @@ def cli():
 
 @cli.command()
 @click.option('--expected-paths-file', type=click.Path(exists=True), required=False,
-              default=REPO_DATA_DIR.joinpath("213_malformed_assembly_paths", "expected_paths.txt"))
+              default=BUG_FIX_DATA_DIR.joinpath("213_malformed_assembly_paths", "expected_paths.txt"))
 @click.option("--production", is_flag=True, default=False,
               help="Use the Production data file directory, default is a local data file directory.")
 @click.option("--update-files", is_flag=True, default=False, help="Update the files with the fixed paths.")
@@ -191,7 +194,7 @@ def fix_malformed_assembly_paths(expected_paths_file, production, update_files, 
 @cli.command()
 @click.option(
     "--input-file", type=click.Path(exists=True), required=False,
-    default=REPO_DATA_DIR.joinpath("201_blade_mismatch", "asm_blade_not_in_mongo.txt")
+    default=BUG_FIX_DATA_DIR.joinpath("201_blade_mismatch", "asm_blade_not_in_mongo.txt")
     )
 @click.option(
     "--production", is_flag=True, default=False,
@@ -199,8 +202,27 @@ def fix_malformed_assembly_paths(expected_paths_file, production, update_files, 
     )
 @click.option("--update-files", is_flag=True, default=False, help="Update the files with the fixed paths.")
 def fix_blade_mismatch(input_file, production, update_files):
-    """ Fix blade mismatch in data paths. """
+    """
+    Fix blade mismatch in data paths. Only study nmdc:sty-11-547rwq94 (EMP500) is affected, and only
+    metagenome_assembly_set records are affected.
+    https://github.com/microbiomedata/nmdc_automation/issues/201
+    """
+    STUDY_ID = "nmdc:sty-11-547rwq94"
     start_time = time.time()
+
+    # Paths to the data files from re-IDing
+    updated_identifiers_file = REPO_DATA_DIR.joinpath(STUDY_ID, "nmdc:sty-11-547rwq94_updated_record_identifiers.tsv")
+    legacy_records_file = REPO_DATA_DIR.joinpath(STUDY_ID, "nmdc:sty-11-547rwq94_associated_record_dump.json")
+
+    # Create a dict of legacy_id: new_id for data_object_set entries in the updated_identifiers_file .tsv file
+    data_object_id_map = {}
+    with open(updated_identifiers_file) as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        for row in reader:
+            if row["collection_name"] == "data_object_set":
+                data_object_id_map[row["new_id"]] = row["legacy_id"]
+
+
 
     if production:
         datafile_dir = PROD_DATAFILE_DIR
@@ -211,10 +233,43 @@ def fix_blade_mismatch(input_file, production, update_files):
     logger.info(f"Production: {production}")
     logger.info(f"Update files: {update_files}")
 
+
+
     with open(input_file) as f:
         for line in f:
             line = line.strip()
-            logger.info(f"line: {line}")
+            # logger.info(f"line: {line}")
+
+            # Parse out the components of the path from the input file
+            _data_dir, omics_dirname, workflow_id, filename = line.rsplit("/", maxsplit=3)
+            # remove does not exist or any other trailing text
+            filename = filename.split(" ")[0]
+            logger.info(f"omics_id: {omics_dirname}, workflow_id: {workflow_id}, filename: {filename}")
+
+            # Get the metagenome_assembly_set record
+            url = "https://api.microbiomedata.org/nmdcschema/metagenome_assembly_set"
+            params = {
+                "filter": f'{{"id": "{workflow_id}"}}',
+                "max_page_size": 20
+            }
+            response = requests.get(url, params=params)
+            response.raise_for_status()
+            workflow_record = response.json()["resources"][0]
+
+            data_object_ids = workflow_record.get("has_output", [])
+            if not data_object_ids:
+                logger.error(f"No data objects found for: {workflow_id}")
+                continue
+            logger.info(f"Found {len(data_object_ids)} data objects for: {workflow_id}")
+            for do_id in data_object_ids:
+                legacy_id = data_object_id_map.get(do_id)
+                if not legacy_id:
+                    logger.error(f"Legacy ID not found for: {do_id}")
+                    continue
+                logger.info(f"Legacy ID: {legacy_id}")
+
+
+
 
 
 
@@ -237,7 +292,7 @@ def _infer_data_object_type_from_name(name: str) -> str:
 
 
 
-cli.add_command(fix_malformed_assembly_paths)
+
 
 if __name__ == '__main__':
     cli()
