@@ -41,6 +41,10 @@ const UserSchema = new Schema({
         type: String,
         required: false
     },
+    orcidtoken: {
+        type: String,
+        required: false
+    },
     code: {
         type: String,
         required: true,

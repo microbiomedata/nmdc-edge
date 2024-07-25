@@ -366,7 +366,7 @@ router.post("/sociallogin", (req, res) => {
                     email: req.body.email,
                     status: req.body.status,
                     code: code,
-                    orcid_token: req.body.orcid_token
+                    orcidtoken: req.body.orcid_token
                 });
 
                 newUser.password = hash;
@@ -441,7 +441,7 @@ router.post("/sociallogin", (req, res) => {
                     update = true;
                 }
                 if (req.body.orcid_token) {
-                    user.orcid_token = req.body.orcid_token;
+                    user.orcidtoken = req.body.orcid_token;
                     update = true;
                 }
                 if (update === true) {

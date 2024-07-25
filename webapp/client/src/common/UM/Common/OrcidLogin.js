@@ -4,7 +4,6 @@ import jwt_decode from "jwt-decode";
 import { socialLogin, cleanupMessages } from "../../../redux/actions/userActions";
 import { LoaderDialog, MessageDialog } from '../../Dialogs';
 import config from "../../../config";
-import { postData } from "../../util";
 
 const queryString = require('query-string');
 
@@ -74,7 +73,7 @@ function OrcidLogin(props) {
         } else {
             getORCID();
         }
-    }, [props]);
+    }, [props]);// eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
