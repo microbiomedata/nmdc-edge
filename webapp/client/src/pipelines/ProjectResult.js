@@ -152,8 +152,19 @@ function ProjectResult(props) {
     }
 
     function submit2nmdc() {
-        console.log('submit2nmdc');
-        
+        const userData = {
+            code: project.code,
+        };
+
+        let url = "/auth-api/user/project/submit2nmdc";
+        //project files
+        postData(url, userData)
+            .then(data => {
+                console.log(data)
+                alert("Connected")
+            }).catch(error => {
+                alert("Failed to connect to Submission Portal");
+            });
     }
 
     function onLogChange(data) {
@@ -192,7 +203,7 @@ function ProjectResult(props) {
                         <>
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
-                                    <Button type="button" size="sm" color="primary" onClick={submit2nmdc} >Submit to NMDC</Button>
+                                    <Button type="button" size="sm" color="primary" onClick={submit2nmdc} >Add/Update Metadata on Submission Portal</Button>
                                 </Col>
                             </Row>
                             <br></br>

@@ -27,6 +27,7 @@ const validateLoginInput = require("../../validation/user/login");
 
 const common = require("../common");
 const logger = require('../../util/logger');
+const utilCommon = require("../../util/common");
 
 const sysError = "API server error";
 
@@ -840,14 +841,7 @@ router.post("/project/submit2nmdc", async (req, res) => {
         // get nmdc access token
 
         const url = `${config.PROJECTS.NMDC_SERVER_URL}/auth/oidc-login`;
-        common.postData(url, {id_token: user.orcid_token}, {
-            headers: { "Content-Type": "application/json" },
-        }).then(response => {
-            logger.debug(JSON.stringify(response));
-        }).catch(error => {
-            logger.debug(error);
-            return res.status(400).json({ nmdcapi: "Faile to get nmdc token" });
-        });
+        const tokenData = await utilCommon.postData(url, {id_token: user.orcidtoken}, { "Content-Type": "application/json" })
     } catch (err) { logger.error(err); return res.status(500).json(sysError); };
 });
 
