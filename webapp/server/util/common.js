@@ -51,12 +51,12 @@ const getData = (url, header) => {
         axios
             .get(url, header)
             .then(response => {
-                console.log("post response: ", response);
+                console.log("get response: ", response);
                 const data = response.data;
                 resolve(data);
             })
             .catch(err => {
-                console.log("post err: ", err);
+                console.log("get err: ", err);
                 if (err.response) {
                     reject(err.response);
                 } else {

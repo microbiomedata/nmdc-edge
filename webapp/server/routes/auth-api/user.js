@@ -843,7 +843,7 @@ router.post("/project/submit2nmdc", async (req, res) => {
         const tokenData = await utilCommon.postData(url, {id_token: user.orcidtoken}, { "Content-Type": "application/json" });
         console.log(tokenData);
         // get metadata submissions
-        url = `${config.PROJECTS.NMDC_SERVER_URL}/api/metadata_submisson?offset=0&limit=10000`;
+        url = `${config.PROJECTS.NMDC_SERVER_URL}/api/metadata_submission?offset=0&limit=10000`;
         const submissionData = await utilCommon.getData(url, {"Authorization" : `Bearer ${tokenData.access_token}`});
         console.log(submissionData);
         return res.send({ message: 'Succeeded' });
