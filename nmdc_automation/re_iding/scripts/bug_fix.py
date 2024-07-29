@@ -17,8 +17,6 @@ LOCAL_DATAFILE_DIR = Path.home().joinpath("Documents/data/results")
 REPO_DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
 BUG_FIX_DATA_DIR = REPO_DATA_DIR.joinpath("bug_fix")
 
-# Set up logging
-logger = logging.getLogger(__name__)
 
 @click.group()
 def cli():
@@ -38,6 +36,7 @@ def fix_malformed_assembly_paths(expected_paths_file, production, update_files, 
         logging.basicConfig(level=logging.DEBUG)
     else:
         logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
 
     if production:
         datafile_dir = PROD_DATAFILE_DIR
@@ -201,12 +200,20 @@ def fix_malformed_assembly_paths(expected_paths_file, production, update_files, 
     help="Use the Production data file directory. Default is a local data file directory."
     )
 @click.option("--update-files", is_flag=True, default=False, help="Update the files with the fixed paths.")
-def fix_blade_mismatch(input_file, production, update_files):
+@click.option("--debug", is_flag=True, help="Enable debug logging.")
+def fix_blade_mismatch(input_file, production, update_files, debug):
     """
     Fix blade mismatch in data paths. Only study nmdc:sty-11-547rwq94 (EMP500) is affected, and only
     metagenome_assembly_set records are affected.
     https://github.com/microbiomedata/nmdc_automation/issues/201
     """
+    if debug:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
+
+
     STUDY_ID = "nmdc:sty-11-547rwq94"
     start_time = time.time()
 
@@ -295,7 +302,7 @@ def fix_blade_mismatch(input_file, production, update_files):
             else:
                 if not legacy_file_path.exists():
                     would_look_here = PROD_DATAFILE_DIR.joinpath(leg_dir, leg_filename)
-                    logger.info(f"--production not set. Would look here: {would_look_here}")
+                    logger.debug(f"--production not set. Would look here: {would_look_here}")
                     continue
                 else:
                     logger.info(f"Found local path: {legacy_file_path}")
@@ -324,7 +331,7 @@ def _infer_data_object_type_from_name(name: str) -> str:
     elif name.endswith("mapping_stats.txt") or name.endswith("_covstats.txt"):
         data_type = "Assembly Coverage Stats"
     else:
-        logger.error(f"Unknown data file type: {name}")
+        logging.error(f"Unknown data file type: {name}")
     return data_type
 
 
