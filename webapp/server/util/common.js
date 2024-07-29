@@ -29,12 +29,12 @@ const postData = (url, params, header) => {
         axios
             .post(url, params, header)
             .then(response => {
-                console.log("post response: ", response);
+                //console.log("post response: ", response);
                 const data = response.data;
                 resolve(data);
             })
             .catch(err => {
-                console.log("post err: ", err);
+                //console.log("post err: ", err);
                 if (err.response) {
                     reject(err.response);
                 } else {
@@ -46,10 +46,10 @@ const postData = (url, params, header) => {
 };
 
 //get data
-const getData = (url) => {
+const getData = (url, header) => {
     return new Promise(function (resolve, reject) {
         axios
-            .get(url)
+            .get(url, header)
             .then(response => {
                 const data = response.data;
                 resolve(data);
