@@ -840,11 +840,11 @@ router.post("/project/submit2nmdc", async (req, res) => {
         const proj = await Project.findOne({ code: dbsanitize(req.body.code), 'status': { $ne: 'delete' }, 'owner': dbsanitize(req.user.email) });
         // get nmdc access token
         let url = `${config.PROJECTS.NMDC_SERVER_URL}/auth/oidc-login`;
-        const tokenData = await utilCommon.postData(url, {id_token: user.orcidtoken}, { "Content-Type": "application/json" });
+        const tokenData = await utilCommon.postData(url, {id_token: user.orcidtoken}, { headers:{ "Content-Type": "application/json" }});
         console.log(tokenData);
         // get metadata submissions
         url = `${config.PROJECTS.NMDC_SERVER_URL}/api/metadata_submission?offset=0&limit=10000`;
-        const submissionData = await utilCommon.getData(url, {"Authorization" : `Bearer ${tokenData.access_token}`});
+        const submissionData = await utilCommon.getData(url, { headers:{"Authorization" : `Bearer ${tokenData.access_token}`}});
         console.log(submissionData);
         return res.send({ message: 'Succeeded' });
     } catch (err) { logger.error(err); return res.status(500).json(sysError); };
