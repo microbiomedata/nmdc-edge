@@ -134,6 +134,8 @@ function ProjectResult(props) {
             if (project.status === 'complete' || (project.type === 'Metagenome Pipeline' && project.status === 'failed')) {
                 getProjectResult();
                 getProjectOutputs();
+            } else {
+                setLoading(false);
             }
 
         }
