@@ -29,10 +29,12 @@ const postData = (url, params, header) => {
         axios
             .post(url, params, header)
             .then(response => {
+                console.log("post response: ", response);
                 const data = response.data;
                 resolve(data);
             })
             .catch(err => {
+                console.log("post err: ", err);
                 if (err.response) {
                     reject(err.response);
                 } else {
