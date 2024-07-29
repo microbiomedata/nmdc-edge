@@ -4,6 +4,7 @@
 import click
 import logging
 from pathlib import Path
+import re
 import requests
 import time
 
@@ -21,7 +22,7 @@ logger = logging.getLogger(__name__)
 def cli():
     pass
 
-@click.command()
+@cli.command()
 @click.option('--expected-paths-file', type=click.Path(exists=True), required=False,
               default=REPO_DATA_DIR.joinpath("malformed_assembly_paths", "expected_paths.txt"))
 @click.option("--production", is_flag=True, default=False,
@@ -188,6 +189,55 @@ def fix_malformed_assembly_paths(expected_paths_file, production, update_files, 
             f.write("\t".join(change) + "\n")
 
 
+@cli.command()
+@click.argument("log_filename", type=click.Path(exists=True), default=REPO_DATA_DIR.joinpath("213_prod.log"))
+def parse_log_file(log_filename):
+    # Define the regex patterns to capture required data
+    block_start_pattern = r"Examining:"
+    data_object_id_pattern = r"DataObject ID:\s*(\S+)"
+    size_mismatch_pattern = r"WARNING - Size mismatch:\s*(\d+)"
+    md5_mismatch_pattern = r"WARNING - MD5 mismatch:\s*([a-fA-F0-9]+)"
+
+    # Initialize variables to store parsed information
+    data_object_id = None
+    new_size = None
+    new_md5 = None
+
+    # Open the log file and iterate over each line
+    with open(log_filename, 'r') as log_file:
+        for line in log_file:
+            # Check for start of new block
+            if block_start_pattern in line:
+                # Print previously collected data before moving to the next block
+                if data_object_id and new_size and new_md5:
+                    print(f"{data_object_id}\tupdate\tfile_size_bytes\t{new_size}")
+                    print(f"{data_object_id}\tupdate\tmd5_checksum\t{new_md5}")
+                # Reset variables for new block
+                data_object_id = None
+                new_size = None
+                new_md5 = None
+
+            # Extract DataObject ID
+            match_data_object_id = re.search(data_object_id_pattern, line)
+            if match_data_object_id:
+                data_object_id = match_data_object_id.group(1)
+
+            # Extract new size
+            match_size_mismatch = re.search(size_mismatch_pattern, line)
+            if match_size_mismatch:
+                new_size = match_size_mismatch.group(1)
+
+            # Extract new MD5
+            match_md5_mismatch = re.search(md5_mismatch_pattern, line)
+            if match_md5_mismatch:
+                new_md5 = match_md5_mismatch.group(1)
+
+        # Print the final collected data after the loop
+        if data_object_id and new_size and new_md5:
+            print(f"{data_object_id}\tupdate\tfile_size_bytes\t{new_size}")
+            print(f"{data_object_id}\tupdate\tmd5_checksum\t{new_md5}")
+
+
 
 def _infer_data_object_type_from_name(name: str) -> str:
     # Infer the data type from the data file name and extension
@@ -207,8 +257,6 @@ def _infer_data_object_type_from_name(name: str) -> str:
     return data_type
 
 
-
-cli.add_command(fix_malformed_assembly_paths)
 
 if __name__ == '__main__':
     cli()
