@@ -5,6 +5,7 @@ from nmdc_automation.workflow_automation.sched import Scheduler
 from pytest import fixture
 from pathlib import Path
 from time import time
+import logging
 
 
 TEST_DIR = os.path.dirname(__file__)
@@ -57,7 +58,7 @@ def load(db, fn, col=None, reset=False):
     if reset:
         db[col].delete_many({})
     data = read_json(fn)
-    print("Loading %d recs into %s" % (len(data), col))
+    logging.debug("Loading %d recs into %s" % (len(data), col))
     if len(data) > 0:
         db[col].insert_many(data)
 
@@ -222,3 +223,33 @@ def test_out_of_range(db, mock_api):
     assert len(resp) == 2
     resp = jm.cycle()
     assert len(resp) == 0
+
+def test_type_resolving(db, mock_api):
+    """
+    This tests the handling when the same type is used for
+    different activity types.  The desired behavior is to
+    use the first match.
+    """
+
+    init_test(db)
+    reset_db(db)
+    db.jobs.delete_many({})
+    load(db, "data_object_set.json")
+    load(db, "omics_processing_set.json")
+    load(db, "read_qc_analysis_activity_set.json")
+
+    jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
+                   site_conf="./tests/site_configuration_test.toml")
+    workflow_by_name = dict()
+    for wf in jm.workflows:
+        workflow_by_name[wf.name] = wf
+
+    wf = workflow_by_name['Metagenome Assembly']
+    mock_progress(db, wf)
+    wf = workflow_by_name['Metagenome Annotation']
+    mock_progress(db, wf)
+
+    resp = jm.cycle()
+    assert len(resp) == 2
+    assert 'annotation' in resp[1]['config']['inputs']['contig_file']
+    
