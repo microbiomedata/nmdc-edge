@@ -3,6 +3,7 @@
 
 import click
 import logging
+import json
 from pathlib import Path
 import re
 import requests
@@ -190,8 +191,16 @@ def fix_malformed_assembly_paths(expected_paths_file, production, update_files, 
 
 
 @cli.command()
-@click.argument("log_filename", type=click.Path(exists=True), default=REPO_DATA_DIR.joinpath("213_prod.log"))
+@click.argument("log_filename", type=click.Path(exists=True),
+                default=REPO_DATA_DIR.joinpath("malformed_assembly_paths","213_prod.log"))
 def parse_log_file(log_filename):
+
+    outfile = log_filename.with_suffix(".json")
+    logger.info(f"Output file: {outfile}")
+    updates = {
+        "update": "data_object_set",
+        "updates": []
+    }
     # Define the regex patterns to capture required data
     block_start_pattern = r"Examining:"
     data_object_id_pattern = r"DataObject ID:\s*(\S+)"
@@ -210,8 +219,19 @@ def parse_log_file(log_filename):
             if block_start_pattern in line:
                 # Print previously collected data before moving to the next block
                 if data_object_id and new_size and new_md5:
-                    print(f"{data_object_id}\tupdate\tfile_size_bytes\t{new_size}")
-                    print(f"{data_object_id}\tupdate\tmd5_checksum\t{new_md5}")
+                    updates["updates"].append({
+                        "q": {
+                            "id": data_object_id
+                        },
+                        "u": {
+                            "$set": {
+                                "file_size_bytes": int(new_size),
+                                "md5_checksum": new_md5
+                            }
+                        }
+                    })
+                    # print(f"{data_object_id}\tupdate\tfile_size_bytes\t{new_size}")
+                    # print(f"{data_object_id}\tupdate\tmd5_checksum\t{new_md5}")
                 # Reset variables for new block
                 data_object_id = None
                 new_size = None
@@ -234,8 +254,23 @@ def parse_log_file(log_filename):
 
         # Print the final collected data after the loop
         if data_object_id and new_size and new_md5:
-            print(f"{data_object_id}\tupdate\tfile_size_bytes\t{new_size}")
-            print(f"{data_object_id}\tupdate\tmd5_checksum\t{new_md5}")
+            updates["updates"].append({
+                "q": {
+                    "id": data_object_id
+                },
+                "u": {
+                    "$set": {
+                        "file_size_bytes": int(new_size),
+                        "md5_checksum": new_md5
+                    }
+                }
+            })
+            # print(f"{data_object_id}\tupdate\tfile_size_bytes\t{new_size}")
+            # print(f"{data_object_id}\tupdate\tmd5_checksum\t{new_md5}")
+
+    # Write the updates to a JSON file
+    with open(outfile, "w") as f:
+        json.dump(updates, f, indent=4)
 
 
 
