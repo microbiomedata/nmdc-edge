@@ -189,6 +189,14 @@ const generateWorkflowResult = function (proj) {
     } else if (workflowConf.workflow.name === 'Metatranscriptome') {
         const dirs = fs.readdirSync(outdir);
         dirs.forEach(function (dir) {
+            if (dir === 'qa') {
+                const files = fs.readdirSync(outdir + "/qa");
+                files.forEach(function (file) {
+                    if (file.endsWith("_stats.json")) {
+                        result['readsQC-stats'] = JSON.parse(fs.readFileSync(outdir + "/qa/" + file));
+                    }
+                });
+            }
             if (dir === 'readsQC') {
                 const files = fs.readdirSync(outdir + "/readsQC");
                 files.forEach(function (file) {
@@ -210,6 +218,21 @@ const generateWorkflowResult = function (proj) {
                 files.forEach(function (file) {
                     if (file.endsWith("_stats.json")) {
                         result['annotation-stats'] = JSON.parse(fs.readFileSync(outdir + "/annotation/" + file));
+                    }
+                });
+            }
+            else if (dir === 'metat_output') {
+                const files = fs.readdirSync(outdir + "/metat_output");
+                files.forEach(function (file) {
+                    if (file.endsWith("_sorted_features.tsv")) {
+                        var rows = parseInt(execSync("wc -l < " + outdir + "/metat_output/" + file).toString().trim());
+                        if (rows > config.IO.MAX_DATATABLE_ROWS) {
+                            result['readMapping-features-too-large'] = true;
+                            result['readMapping-features'] = "output/Metatranscriptomics/metat_output/" + file;
+                        } else {
+                            result['readMapping-features-too-large'] = false;
+                            result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/metat_output/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                        }
                     }
                 });
             }
