@@ -14,6 +14,7 @@ workflow nmdc_metat {
     String  feature_types_container = "mbabinski17/rpkm_sort:0.0.5"
     File functional_gff
     File map_bam
+    File assem_fna_file
     String  outdir 
     String  database  
     Int threads = 64
@@ -57,7 +58,7 @@ workflow nmdc_metat {
 		}
         call tj.convtojson as tdc{
 		input:gff_file_path = dcg.cln_gff_fl,
-		fasta_file_name = asm.assem_fna_file,
+		fasta_file_name = assem_fna_file,
 		rd_count_fn = featurecount.ct_tbl,
 		pkm_sc_fn = cal_scores.sc_tbl,
 		name_of_feat = feat,
