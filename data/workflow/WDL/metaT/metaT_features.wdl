@@ -16,12 +16,41 @@ workflow nmdc_metat {
     File map_bam
     File assem_fna_file
     File covstats
+    File stats_tsv
+    File stats_json
+    File proteins_faa
+    File functional_gff
+    File structural_gff
+    File ko_tsv
+    File ec_tsv
+    File cog_gff
+    File pfam_gff
+    File tigrfam_gff
+    File smart_gff
+    File supfam_gff
+    File cath_funfam_gff
+    File ko_ec_gff
+    File gene_phylogeny_tsv
+    File proteins_cog_domtblout
+    File proteins_pfam_domtblout
+    File proteins_tigrfam_domtblout
+    File proteins_smart_domtblout
+    File proteins_supfam_domtblout
+    File proteins_cath_funfam_domtblout
+    File product_names_tsv
+    File crt_crisprs
+    File crt_gff
+    File genemark_gff
+    File prodigal_gff
+    File trna_gff
+    File misc_bind_misc_feature_regulatory_gff
+    File rrna_gff
+    File ncrna_tmrna_gff
     String  outdir 
     String  database  
     Int threads = 64
     File metat_folder
 
-	
     call fc.parse_intergenic as pint {
 		input: annotation_gff = functional_gff,
 		DOCKER = feature_types_container
