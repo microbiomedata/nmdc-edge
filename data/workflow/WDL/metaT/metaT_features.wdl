@@ -15,6 +15,7 @@ workflow nmdc_metat {
     File functional_gff
     File map_bam
     File assem_fna_file
+    File covstats
     String  outdir 
     String  database  
     Int threads = 64
@@ -113,7 +114,7 @@ workflow nmdc_metat {
 	   filtered_stats2 = qc.stats2[0],
            fasta=assem_fna_file,
            bbm_bam=map_bam,
-	   covstats=bbm.covstats,
+	   covstats=covstats,
            out_json=aft.filtered_sense_json,
 	   out_json2=aft.filtered_antisense_json,
 	   sorted_features=aft.full_features_tsv,
