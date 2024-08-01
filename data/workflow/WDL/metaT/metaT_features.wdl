@@ -46,7 +46,7 @@ workflow nmdc_metat {
 		input: no_of_cpu = threads,
 		project_name = sub(proj, ":", "_"),
 		gff_file_path = dcg.cln_gff_fl,
-		bam_file_path = bbm.map_bam,
+		bam_file_path = map_bam,
 		name_of_feat = feat,
 		DOCKER = featcounts_container
 		}
@@ -74,7 +74,7 @@ workflow nmdc_metat {
                 }
         call tj.convtojson as tdc2{
                 input:gff_file_path = dcg.cln_gff_fl,
-                fasta_file_name = asm.assem_fna_file,
+                fasta_file_name = assem_fna_file,
                 rd_count_fn = featurecount.ct_tbl2,
                 pkm_sc_fn = cs2.sc_tbl,
                 name_of_feat = feat,
@@ -111,8 +111,8 @@ workflow nmdc_metat {
            filtered = qc.filtered[0],
            filtered_stats = qc.stats[0],
 	   filtered_stats2 = qc.stats2[0],
-           fasta=asm.assem_fna_file,
-           bbm_bam=bbm.map_bam,
+           fasta=assem_fna_file,
+           bbm_bam=map_bam,
 	   covstats=bbm.covstats,
            out_json=aft.filtered_sense_json,
 	   out_json2=aft.filtered_antisense_json,
