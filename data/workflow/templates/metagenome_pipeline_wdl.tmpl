@@ -89,15 +89,10 @@ workflow main_workflow {
 	String db_kraken2 = "/refdata/Kraken2"
 	String db_centrifuge = "/refdata/Centrifuge/hpv"
     
-	call readbasedanalysis_preprocess.preprocess as readbased_preprocess {
-	input:
-		input_files=readbasedAnalysis_reads,
-		paired=readbasedAnalysis_paired
-	}
 
     call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
         input:
-            input_file=readbased_preprocess.input_file_gz,
+            input_file=readsqc_preprocess.input_files_gz,
             cpu=readbasedAnalysis_cpu,
             proj=readbasedAnalysis_prefix,
             paired=readbasedAnalysis_paired,
