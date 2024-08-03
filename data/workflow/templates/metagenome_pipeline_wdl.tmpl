@@ -67,7 +67,7 @@ workflow main_workflow {
 	call readsqc_output.fastqc_report as fastqc_report {
 		input:
 		  outdir=readsQC_outdir,
-		  input_files_prefix = readsqc_preprocess.input_files_prefix,
+		  input_files_prefix = nmdc_rqcfilter_call.filtered_final,
 		  filtered=nmdc_rqcfilter_call.filtered_final,
 		  filtered_stats2_final=nmdc_rqcfilter_call.filtered_stats2_final,
 		  container=readsQC_vis_container
