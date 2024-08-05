@@ -213,7 +213,7 @@ def assembly_file_operations(
     """
     if new_file_path.exists():
         logging.info(f"File already exists at {new_file_path}. Skipping processing.")
-        return
+        return None, None
 
     logging.info(f"Processing {data_object_type} for {new_workflow_id}")
     logging.info(f"Destination: {new_file_path}")
