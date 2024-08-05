@@ -125,10 +125,17 @@ const db = `mongodb://${config.DATABASE.SERVER_HOST}:${config.DATABASE.SERVER_PO
 mongoose
   .connect(
     db,
-    { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true }
+    {
+      authSource: "admin",
+      user: config.DATABASE.USERNAME,
+      pass: config.DATABASE.PASSWORD,
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
   )
   .then(() => logger.info("MongoDB successfully connected"))
-  .catch(err => logger.error(err));
+  .catch(err => logger.error("Failed to connect to MongoDB server:", err));
 
 // Passport middleware
 app.use(passport.initialize());

@@ -12,6 +12,8 @@ version: "3"
 #    $ export JWT_SECRET='...'
 #    $ export OAUTH_SECRET='...'
 #    $ export EMAIL_SHARED_SECRET='...'
+#    $ export DATABASE_USERNAME='...'
+#    $ export DATABASE_PASSWORD='...'
 #
 #    # (Optional) Override default values:
 #    $ export APP_IMAGE='...'
@@ -59,6 +61,8 @@ services:
       - ${IO_BASE_DIR_ON_HOST:-/media/volume/nmdc-edge-web-app-io-data}:/project/io
     environment:
       DATABASE_HOST: mongo
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       CROMWELL_API_BASE_URL: ${CROMWELL_API_BASE_URL}
       APP_EXTERNAL_BASE_URL: https://${APP_EXTERNAL_HOSTNAME:-edge-dev.microbiomedata.org}
       # Set `IO_BASE_DIR` to the path at which the persistent volume is mounted (see `volumes` above).
@@ -77,6 +81,9 @@ services:
   mongo:
     image: mongo:6.0.4
     restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DATABASE_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_PASSWORD}
     ports:
       - "27017:27017"
     # Map a persistent volume to `/data/db` within the container.
