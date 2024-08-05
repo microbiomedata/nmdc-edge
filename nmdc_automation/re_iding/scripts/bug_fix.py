@@ -213,6 +213,14 @@ def fix_blade_mismatch(input_file, production, update_files, debug):
         logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
+    if production:
+        datafile_dir = PROD_DATAFILE_DIR
+    else:
+        datafile_dir = LOCAL_DATAFILE_DIR
+
+    logger.info(f"Input file: {input_file}")
+    logger.info(f"Production: {production}")
+    logger.info(f"Update files: {update_files}")
 
     STUDY_ID = "nmdc:sty-11-547rwq94"
     start_time = time.time()
@@ -237,17 +245,6 @@ def fix_blade_mismatch(input_file, production, update_files, debug):
             for data_object in record["data_object_set"]:
                 legacy_data_objects[data_object["id"]] = data_object
 
-
-    if production:
-        datafile_dir = PROD_DATAFILE_DIR
-    else:
-        datafile_dir = LOCAL_DATAFILE_DIR
-
-    logger.info(f"Input file: {input_file}")
-    logger.info(f"Production: {production}")
-    logger.info(f"Update files: {update_files}")
-
-
     lines = []
     with open(input_file) as f:
         for line in f:
@@ -270,6 +267,7 @@ def fix_blade_mismatch(input_file, production, update_files, debug):
         response = requests.get(url, params=params)
         response.raise_for_status()
         workflow_record = response.json()["resources"][0]
+
 
         data_object_ids = workflow_record.get("has_output", [])
         if not data_object_ids:
@@ -297,8 +295,18 @@ def fix_blade_mismatch(input_file, production, update_files, debug):
 
             # See if we can find the legacy file on prod - don't expect it locally
             legacy_file_path = datafile_dir.joinpath(leg_dir, leg_filename)
+            new_file_path = datafile_dir.joinpath(omics_dirname, workflow_id, filename)
             if production:
-                pass
+                if not legacy_file_path.exists():
+                    logger.error(f"Legacy file not found: {legacy_file_path}")
+                    continue
+                if update_files:
+                    logger.info(f"Updating: {legacy_file_path}")
+                    logger.info(f"New path: {new_file_path}")
+                    # Update the file
+                else:
+                    logger.info(f"Would update: {legacy_file_path}")
+                    logger.info(f"Would update to: {new_file_path}")
             else:
                 if not legacy_file_path.exists():
                     would_look_here = PROD_DATAFILE_DIR.joinpath(leg_dir, leg_filename)
@@ -306,15 +314,6 @@ def fix_blade_mismatch(input_file, production, update_files, debug):
                     continue
                 else:
                     logger.info(f"Found local path: {legacy_file_path}")
-
-
-
-
-
-
-
-
-
 
 
 def _infer_data_object_type_from_name(name: str) -> str:
@@ -333,9 +332,6 @@ def _infer_data_object_type_from_name(name: str) -> str:
     else:
         logging.error(f"Unknown data file type: {name}")
     return data_type
-
-
-
 
 
 if __name__ == '__main__':
