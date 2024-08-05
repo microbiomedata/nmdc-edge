@@ -251,6 +251,7 @@ def fix_blade_mismatch(input_file, production, update_files, debug):
             line = line.strip()
             lines.append(line)
 
+    data_object_changes = set()
     for line in lines:
         # Parse out the components of the path from the input file
         _data_dir, omics_dirname, workflow_id, filename = line.rsplit("/", maxsplit=3)
@@ -291,30 +292,53 @@ def fix_blade_mismatch(input_file, production, update_files, debug):
             # parse url https://data.microbiomedata.org/data/nmdc:mga0szsj83/annotation/nmdc_mga0szsj83_cath_funfam.gff
             # get everything after data/
             _data_part = leg_url.split("data/")[1]
-            leg_dir, leg_filename = _data_part.rsplit("/", maxsplit=1)
+            leg_wf_dir, leg_subdir, leg_filename = _data_part.rsplit("/", maxsplit=2)
 
             # See if we can find the legacy file on prod - don't expect it locally
-            legacy_file_path = datafile_dir.joinpath(leg_dir, leg_filename)
+            legacy_file_path = datafile_dir.joinpath(leg_wf_dir, leg_subdir, leg_filename)
             new_file_path = datafile_dir.joinpath(omics_dirname, workflow_id, filename)
             if production:
                 if not legacy_file_path.exists():
                     logger.error(f"Legacy file not found: {legacy_file_path}")
                     continue
-                if update_files:
-                    logger.info(f"Updating: {legacy_file_path}")
-                    logger.info(f"New path: {new_file_path}")
-                    # Update the file
                 else:
                     logger.info(f"Would update: {legacy_file_path}")
-                    logger.info(f"Would update to: {new_file_path}")
             else:
                 if not legacy_file_path.exists():
-                    would_look_here = PROD_DATAFILE_DIR.joinpath(leg_dir, leg_filename)
+                    would_look_here = PROD_DATAFILE_DIR.joinpath(leg_wf_dir, leg_subdir, leg_filename)
                     logger.debug(f"--production not set. Would look here: {would_look_here}")
                     continue
                 else:
                     logger.info(f"Found local path: {legacy_file_path}")
 
+            data_object_type = _infer_data_object_type_from_name(leg_filename)
+            if not data_object_type:
+                logger.error(f"Do not know how to update with no data object type: {leg_filename}")
+                continue
+            logger.info(f"Processing: {data_object_type}: {legacy_file_path}")
+            if not update_files:
+                logger.info("--update-files not set.")
+                logger.info(f"Would update to {new_file_path}")
+                continue
+            else:
+                logger.info(f"New path: {new_file_path}")
+                md5, size = assembly_file_operations(
+                    workflow_id, workflow_id, data_object_type, legacy_file_path, new_file_path)
+                logger.info(f"MD5: {md5}, Size: {size}")
+                # Check size and md5
+                if size != leg_size:
+                    logger.warning(f"Size mismatch: {size} != {leg_size}")
+                    change = (do_id, "update", "file_size_bytes", str(size))
+                    data_object_changes.add(change)
+                if md5 != leg_md5:
+                    logger.warning(f"MD5 mismatch: {md5} != {leg_md5}")
+                    change = (do_id, "update", "md5_checksum", md5)
+                    data_object_changes.add(change)
+
+                # Remove the old file
+                # legacy_file_path.unlink()
+
+    
 
 def _infer_data_object_type_from_name(name: str) -> str:
     # Infer the data type from the data file name and extension
