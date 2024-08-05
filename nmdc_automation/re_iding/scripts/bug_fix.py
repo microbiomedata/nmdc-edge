@@ -202,17 +202,16 @@ def fix_malformed_assembly_paths(expected_paths_file, production, update_files, 
     help="Use the Production data file directory. Default is a local data file directory."
     )
 @click.option("--update-files", is_flag=True, default=False, help="Update the files with the fixed paths.")
-@click.option("--debug", is_flag=True, help="Enable debug logging.")
-def fix_blade_mismatch(input_file, production, update_files, debug):
+def fix_blade_mismatch(input_file, production, update_files):
     """
     Fix blade mismatch in data paths. Only study nmdc:sty-11-547rwq94 (EMP500) is affected, and only
     metagenome_assembly_set records are affected.
     https://github.com/microbiomedata/nmdc_automation/issues/201
     """
-    if debug:
-        logging.basicConfig(level=logging.DEBUG)
-    else:
-        logging.basicConfig(level=logging.INFO)
+    # These data need to be on the local file system for testing
+    legacy_wfs_for_testing = ["nmdc:mga0rv2r54", "nmdc:mga0szsj83"]
+
+    logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
     if production:
@@ -244,8 +243,8 @@ def fix_blade_mismatch(input_file, production, update_files, debug):
     with open(legacy_records_file) as f:
         records = json.load(f)
         for record in records:
-            for data_object in record["data_object_set"]:
-                legacy_data_objects[data_object["id"]] = data_object
+            for leg_data_object in record["data_object_set"]:
+                legacy_data_objects[leg_data_object["id"]] = leg_data_object
 
     lines = []
     with open(input_file) as f:
@@ -253,7 +252,10 @@ def fix_blade_mismatch(input_file, production, update_files, debug):
             line = line.strip()
             lines.append(line)
 
-    data_object_changes = set()
+    data_object_updates = {
+        "update": "data_object_set",
+        "updates": []
+    }
     for line in lines:
         # Parse out the components of the path from the input file
         _data_dir, omics_dirname, workflow_id, filename = line.rsplit("/", maxsplit=3)
@@ -270,75 +272,98 @@ def fix_blade_mismatch(input_file, production, update_files, debug):
         response = requests.get(url, params=params)
         response.raise_for_status()
         workflow_record = response.json()["resources"][0]
-
-
+        # Get current and legacy data objects for the workflow
         data_object_ids = workflow_record.get("has_output", [])
         if not data_object_ids:
             logger.error(f"No data objects found for: {workflow_id}")
             continue
         logger.info(f"Found {len(data_object_ids)} data objects for: {workflow_id}")
         for do_id in data_object_ids:
+            # Get the current data object
+            url = f"https://api.microbiomedata.org/data_objects/{do_id}"
+            response = requests.get(url)
+            response.raise_for_status()
+            data_object = response.json()
+            logger.info(f"Data Object: {data_object['id']} {data_object['name']}")
+            # parse the url
+            data_path = data_object["url"].split("data/")[1]
+            omics_id, wf_id, filename = data_path.rsplit("/", maxsplit=2)
+            # Legacy data object
             legacy_id = data_object_id_map.get(do_id)
             if not legacy_id:
                 logger.error(f"Legacy ID not found for: {do_id}")
                 continue
-            data_object = legacy_data_objects.get(legacy_id)
-            if not data_object:
+            leg_data_object = legacy_data_objects.get(legacy_id)
+            if not leg_data_object:
                 logger.error(f"Data Object not found for: {legacy_id}")
                 continue
-            logger.info(f"Legacy Data Object: {data_object['id']} {data_object['name']}")
-            leg_url = data_object["url"]
-            leg_md5 = data_object["md5_checksum"]
-            leg_size = data_object["file_size_bytes"]
+            logger.info(f"Legacy Data Object: {leg_data_object['id']} {leg_data_object['name']}")
+            leg_url = leg_data_object["url"]
+            leg_data_path = leg_url.split("data/")[1]
+            leg_wf_id, leg_subdir, leg_filename = leg_data_path.rsplit("/", maxsplit=2)
 
-            # parse url https://data.microbiomedata.org/data/nmdc:mga0szsj83/annotation/nmdc_mga0szsj83_cath_funfam.gff
-            # get everything after data/
-            _data_part = leg_url.split("data/")[1]
-            leg_wf_dir, leg_subdir, leg_filename = _data_part.rsplit("/", maxsplit=2)
+            data_object_type = _infer_data_object_type_from_name(filename)
+            logger.info(f"Old/New Workflow ID: {leg_wf_id}/{wf_id} Type: {data_object_type}")
+            logger.info(f"Old File Path: {leg_data_path}")
+            logger.info(f"New File Path: {data_path}")
 
-            # See if we can find the legacy file on prod - don't expect it locally
-            legacy_file_path = datafile_dir.joinpath(leg_wf_dir, leg_subdir, leg_filename)
-            new_file_path = datafile_dir.joinpath(omics_dirname, workflow_id, filename)
-            if production:
-                if not legacy_file_path.exists():
-                    logger.error(f"Legacy file not found: {legacy_file_path}")
+            if not production:
+                if not leg_wf_id in legacy_wfs_for_testing:
                     continue
-                else:
-                    logger.info(f"Would update: {legacy_file_path}")
-            else:
-                if not legacy_file_path.exists():
-                    would_look_here = PROD_DATAFILE_DIR.joinpath(leg_wf_dir, leg_subdir, leg_filename)
-                    logger.debug(f"--production not set. Would look here: {would_look_here}")
-                    continue
-                else:
-                    logger.info(f"Found local path: {legacy_file_path}")
+            logger.info(f"Searching For: {data_object_type}: {leg_data_path}")
+            leg_file_file = datafile_dir.joinpath(leg_data_path)
+            if not leg_file_file.exists():
+                logger.error(f"Legacy file not found: {leg_file_file}")
+                continue
 
-            data_object_type = _infer_data_object_type_from_name(leg_filename)
-            if not data_object_type:
-                logger.error(f"Do not know how to update with no data object type: {leg_filename}")
-                continue
-            logger.info(f"Processing: {data_object_type}: {legacy_file_path}")
-            if not update_files:
-                logger.info("--update-files not set.")
-                logger.info(f"Would update to {new_file_path}")
-                continue
-            else:
-                logger.info(f"New path: {new_file_path}")
-                md5, size = assembly_file_operations(
-                    workflow_id, workflow_id, data_object_type, legacy_file_path, new_file_path)
-                logger.info(f"MD5: {md5}, Size: {size}")
-                # Check size and md5
+            if update_files:
+                # Create new workflow dir if it does not exist
+                new_workflow_dir = datafile_dir.joinpath(omics_dirname, workflow_id)
+                if not new_workflow_dir.exists():
+                    new_workflow_dir.mkdir(parents=True)
+                leg_md5 = leg_data_object["md5_checksum"]
+                leg_size = leg_data_object["file_size_bytes"]
+                new_file_path = datafile_dir.joinpath(new_workflow_dir, filename)
+
+                logger.info(f"Processing: {data_object_type}: {leg_file_file}")
+                md5, size = assembly_file_operations(leg_wf_id, wf_id, data_object_type, leg_file_file, new_file_path)
                 if size != leg_size:
                     logger.warning(f"Size mismatch: {size} != {leg_size}")
-                    change = (do_id, "update", "file_size_bytes", str(size))
-                    data_object_changes.add(change)
+                    data_object_updates["updates"].append({
+                        "q": {
+                            "id": do_id
+                        },
+                        "u": {
+                            "$set": {
+                                "file_size_bytes": int(size)
+                            }
+                        }
+                    })
                 if md5 != leg_md5:
                     logger.warning(f"MD5 mismatch: {md5} != {leg_md5}")
-                    change = (do_id, "update", "md5_checksum", md5)
-                    data_object_changes.add(change)
+                    data_object_updates["updates"].append({
+                        "q": {
+                            "id": do_id
+                        },
+                        "u": {
+                            "$set": {
+                                "md5_checksum": md5
+                            }
+                        }
+                    })
 
-                # Remove the old file
-                # legacy_file_path.unlink()
+            else:
+                logger.info("--update-files not set.")
+                logger.info(f"Would update to {data_path}")
+
+    # Write the updates to a JSON file if update_files is set
+    if update_files:
+        outfile_path = BUG_FIX_DATA_DIR.joinpath("201_blade_mismatch" "blade_mismatch_updates.json")
+        with open(outfile_path, "w") as f:
+            json.dump(data_object_updates, f, indent=4)
+
+    logger.info(f"Processed {len(lines)} files in {time.time() - start_time} seconds.")
+
 
 @click.argument("log_filename", type=click.Path(exists=True),
                 default=REPO_DATA_DIR.joinpath("malformed_assembly_paths","213_prod.log"))
