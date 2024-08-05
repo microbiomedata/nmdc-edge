@@ -59,7 +59,7 @@ This is still a prototype implementation.  The plan
 is to migrate this fucntion into Dagster.
 """
 
-
+# TODO: Change the name of this to distinguish it from the database Job object
 class Job:
     """
     Class to hold information for new jobs
@@ -230,6 +230,9 @@ class Scheduler:
             root_id = ".".join(last_id.split(".")[0:-1])
             return root_id, ct + 1
 
+    # TODO: Rename this to reflect what it does - it returns a list of the trigger activity IDs
+    #      from the jobs collection for a given workflow. Also activity should be execution to conform
+    #      to the new schema.
     @lru_cache(maxsize=128)
     def get_existing_jobs(self, wf: Workflow):
         existing_jobs = set()
@@ -237,6 +240,8 @@ class Scheduler:
         # Find all existing jobs for this workflow
         q = {"config.git_repo": wf.git_repo, "config.release": wf.version}
         for j in self.db.jobs.find(q):
+            # the assumption is that a job in any state has been triggered by an activity
+            # that was the result of an existing (completed) job
             act = j["config"]["trigger_activity"]
             existing_jobs.add(act)
         return existing_jobs
@@ -278,6 +283,8 @@ class Scheduler:
         filt = {}
         if allowlist:
             filt = {"was_informed_by": {"$in": list(allowlist)}}
+        # TODO: Quite a lot happens under the hood here. This function should be broken down into smaller
+        #      functions to improve readability and maintainability.
         acts = load_activities(self.db, self.workflows, filter=filt)
         self.get_existing_jobs.cache_clear()
         job_recs = []

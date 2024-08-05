@@ -23,6 +23,7 @@ class Watcher:
         self.config = Config(site_configuration_file)
         self.client_id = self.config.client_id
         self.client_secret = self.config.client_secret
+        # TODO: Is there some reason to rename this variable?
         self.cromurl = self.config.cromwell_url
         self.state_file = self.config.agent_state
         self.stage_dir = self.config.stage_dir
@@ -50,6 +51,7 @@ class Watcher:
     def _find_jobs(self, data: dict, nocheck: bool):
         new_job_list = []
         seen = {}
+        # TODO: Be explicit about the type of the data["jobs"] list
         for job in data["jobs"]:
             job_id = job["nmdc_jobid"]
             if job_id in seen:

@@ -242,7 +242,8 @@ class WorkflowJob:
                 file.close()
                 os.unlink(file.name)
 
-
+# TODO: Rename this class to something more descriptive
+# and to avoid confusion with the the schema class of the same name
 class NmdcSchema:
     def __init__(self):
         self.nmdc_db = nmdc.Database()
