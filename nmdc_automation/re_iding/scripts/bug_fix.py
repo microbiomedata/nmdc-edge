@@ -5,7 +5,9 @@ import click
 import csv
 import json
 import logging
+import json
 from pathlib import Path
+import re
 import requests
 import time
 
@@ -338,7 +340,88 @@ def fix_blade_mismatch(input_file, production, update_files, debug):
                 # Remove the old file
                 # legacy_file_path.unlink()
 
-    
+@click.argument("log_filename", type=click.Path(exists=True),
+                default=REPO_DATA_DIR.joinpath("malformed_assembly_paths","213_prod.log"))
+def parse_log_file(log_filename):
+    logger = logging.getLogger(__name__)
+
+    outfile = log_filename.with_suffix(".json")
+    logger.info(f"Output file: {outfile}")
+    updates = {
+        "update": "data_object_set",
+        "updates": []
+    }
+    # Define the regex patterns to capture required data
+    block_start_pattern = r"Examining:"
+    data_object_id_pattern = r"DataObject ID:\s*(\S+)"
+    size_mismatch_pattern = r"WARNING - Size mismatch:\s*(\d+)"
+    md5_mismatch_pattern = r"WARNING - MD5 mismatch:\s*([a-fA-F0-9]+)"
+
+    # Initialize variables to store parsed information
+    data_object_id = None
+    new_size = None
+    new_md5 = None
+
+    # Open the log file and iterate over each line
+    with open(log_filename, 'r') as log_file:
+        for line in log_file:
+            # Check for start of new block
+            if block_start_pattern in line:
+                # Print previously collected data before moving to the next block
+                if data_object_id and new_size and new_md5:
+                    updates["updates"].append({
+                        "q": {
+                            "id": data_object_id
+                        },
+                        "u": {
+                            "$set": {
+                                "file_size_bytes": int(new_size),
+                                "md5_checksum": new_md5
+                            }
+                        }
+                    })
+                    # print(f"{data_object_id}\tupdate\tfile_size_bytes\t{new_size}")
+                    # print(f"{data_object_id}\tupdate\tmd5_checksum\t{new_md5}")
+                # Reset variables for new block
+                data_object_id = None
+                new_size = None
+                new_md5 = None
+
+            # Extract DataObject ID
+            match_data_object_id = re.search(data_object_id_pattern, line)
+            if match_data_object_id:
+                data_object_id = match_data_object_id.group(1)
+
+            # Extract new size
+            match_size_mismatch = re.search(size_mismatch_pattern, line)
+            if match_size_mismatch:
+                new_size = match_size_mismatch.group(1)
+
+            # Extract new MD5
+            match_md5_mismatch = re.search(md5_mismatch_pattern, line)
+            if match_md5_mismatch:
+                new_md5 = match_md5_mismatch.group(1)
+
+        # Print the final collected data after the loop
+        if data_object_id and new_size and new_md5:
+            updates["updates"].append({
+                "q": {
+                    "id": data_object_id
+                },
+                "u": {
+                    "$set": {
+                        "file_size_bytes": int(new_size),
+                        "md5_checksum": new_md5
+                    }
+                }
+            })
+            # print(f"{data_object_id}\tupdate\tfile_size_bytes\t{new_size}")
+            # print(f"{data_object_id}\tupdate\tmd5_checksum\t{new_md5}")
+
+    # Write the updates to a JSON file
+    with open(outfile, "w") as f:
+        json.dump(updates, f, indent=4)
+
 
 def _infer_data_object_type_from_name(name: str) -> str:
     # Infer the data type from the data file name and extension
