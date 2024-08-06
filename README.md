@@ -60,7 +60,7 @@ To submit a process that will spawn a daemon that will claim, process, and submi
 and run `python run_workflows.py watcher --config ../../configs/site_configuration_nersc.toml daemon`, this will watch for omics processing records that have not been claimed and processed. 
 
 #### Run Workflow import for data processed by non NMDC workflows
-`nmdc_automation/run_process/run_worklfows.py` is designed to take in data files avilable on disk, transform them into NMDC analysis records, and submit them back to the central data store via runtime-api. Currently this process is only suitable for data processed at JGI, but with collaboration, data from other processing centers could be transformed and ingested into NMDC. 
+`nmdc_automation/run_process/run_workflows.py` is designed to take in data files avilable on disk, transform them into NMDC analysis records, and submit them back to the central data store via runtime-api. Currently this process is only suitable for data processed at JGI, but with collaboration, data from other processing centers could be transformed and ingested into NMDC. 
 To submit the import process, `cd` in `nmdc_automation/run_process` and run `python run_import.py project-import import.tsv ../../configs/import.yaml`, where import.tsv expects the follow format:
 
 
