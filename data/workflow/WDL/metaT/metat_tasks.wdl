@@ -462,6 +462,7 @@ task finish_metat {
       File filtered 
       File filtered_stats
       File filtered_stats2
+      File filtered_ribo
       File rqc_info
       # metaT_Assembly
       File tar_bam 
@@ -470,6 +471,8 @@ task finish_metat {
       File readlen 
       File sam 
       File bam 
+      File bamidx
+      File cov
       File asmstats 
       File asse_info  
       File asse_log
@@ -529,6 +532,7 @@ task finish_metat {
       cp ~{filtered} ~{qcdir}/~{prefix}_filtered.fastq.gz
       cp ~{filtered_stats} ~{qcdir}/~{prefix}_filterStats.txt
       cp ~{filtered_stats2} ~{qcdir}/~{prefix}_filterStats2.txt	
+      cp ~{filtered_ribo} ~{qcdir}/~{prefix}_rRNA.fastq.gz
       cp ~{rqc_info} ~{qcdir}/~{prefix}_rqc.info	
       # Generate QC objects
       /scripts/rqcstats.py ~{filtered_stats} > stats.json
@@ -540,7 +544,9 @@ task finish_metat {
       cp ~{scaffolds} ~{assemdir}/~{prefix}_scaffolds.fna
       cp ~{readlen} ~{assemdir}/~{prefix}_readlen.txt
       cp ~{sam} ~{assemdir}/~{prefix}_pairedMapped.sam.gz
-      cp ~{bam} ~{assemdir}/~{prefix}_pairedMapped.bam.gz
+      cp ~{bam} ~{assemdir}/~{prefix}_pairedMapped.bam
+      cp ~{bamidx} ~{assemdir}/~{prefix}_pairedMapped_sorted.bam.bai
+      cp ~{cov} ~{assemdir}/~{prefix}_pairedMapped_sorted.bam.cov
       cp ~{asmstats} ~{assemdir}/~{prefix}_scaffold_stats.json 
       cp ~{asse_info} ~{assemdir}/~{prefix}_assy.info 
       cp ~{asse_log} ~{assemdir}/~{prefix}_spades.log
@@ -575,8 +581,8 @@ task finish_metat {
 
       # move readcount objects
       cp ~{count_table} ~{readmap}/~{prefix}.rnaseq_gea.txt
-      cp ~{count_ig} ~{readmap}/~{prefix}.rnaseq_gea.intergenic.txt
-      cp ~{count_log} ~{readmap}/~{prefix}.readcount.stats.log
+      ~{if defined(count_ig) then "cp ~{count_ig} ~{readmap}/~{prefix}.rnaseq_gea.intergenic.txt" else ""}
+      ~{if defined(count_log) then "cp ~{count_log} ~{readmap}/~{prefix}.readcount.stats.log" else ""}
       cp ~{readcount_info} ~{readmap}/~{prefix}_readcount.info
 
       #move metat tables
@@ -598,6 +604,7 @@ task finish_metat {
          File final_filtered = "~{qcdir}/~{prefix}_filtered.fastq.gz"
          File final_filtered_stats= "~{qcdir}/~{prefix}_filterStats.txt"
          File final_filtered_stats2 = "~{qcdir}/~{prefix}_filterStats2.txt"
+         File final_filtered_ribo = "~{qcdir}/~{prefix}_rRNA.fastq.gz"
          File final_rqc_info = "~{qcdir}/~{prefix}_rqc.info"
          File final_rqc_stats = "~{qcdir}/~{prefix}_qc_stats.json"
 
@@ -607,7 +614,9 @@ task finish_metat {
          File final_scaffolds = "~{assemdir}/~{prefix}_scaffolds.fna"
          File final_readlen = "~{assemdir}/~{prefix}_readlen.txt"
          File final_sam = "~{assemdir}/~{prefix}_pairedMapped.sam.gz"
-         File final_bam = "~{assemdir}/~{prefix}_pairedMapped.bam.gz"
+         File final_bam = "~{assemdir}/~{prefix}_pairedMapped.bam"
+         File final_bamidx = "~{assemdir}/~{prefix}_pairedMapped_sorted.bam.bai"
+         File final_cov = "~{assemdir}/~{prefix}_pairedMapped_sorted.bam.cov"
          File final_asmstats = "~{assemdir}/~{prefix}_scaffold_stats.json"
          File final_asm_info = "~{assemdir}/~{prefix}_assy.info"
          File final_asm_log = "~{assemdir}/~{prefix}_spades.log"
