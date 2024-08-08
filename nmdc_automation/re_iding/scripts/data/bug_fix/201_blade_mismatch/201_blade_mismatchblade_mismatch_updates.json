@@ -1,0 +1,7905 @@
+{
+    "update": "data_object_set",
+    "updates": [
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mbnnyt32"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 39409209
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mbnnyt32"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "2e622f44dee3c75d987be3c102fd8479"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-g7g8mr69"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 39217797
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-g7g8mr69"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "480dfa3561a97bebf28ad3750b444ecf"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2jr39p54"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5390552
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2jr39p54"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4e16cacb94df2c854a3e1a9d91e94e86"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kx5rsb41"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5411304
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kx5rsb41"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0c962a25fc44273b77732340d8282542"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1d0h1n61"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 379672686
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1d0h1n61"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "cabdf3a610d31584c3fec3a76b15809b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-3t0aaa45"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 13655675
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-3t0aaa45"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "25ff80c5eb19125ea049b2be304a9ffe"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-awpr6v80"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 13607324
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-awpr6v80"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "470b6981d6b5706f79242ee7e06c70a1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-3jb54r90"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1364903
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-3jb54r90"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "cbdcac826793df95f520894427ecdca8"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-3hvwj145"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1355144
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-3hvwj145"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "bf679100ae908e58ee03f70befca76f0"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hf445r13"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 212242193
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hf445r13"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "7ff1b055ee36cec46c2b0e4967f2b40a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9ra9vd51"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 24303
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9ra9vd51"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "c2e52eab39eda92cc91430fae259b20e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0mkpbz28"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 24138
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0mkpbz28"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "27213cb66fcf70d4567fd651fbe8377b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nzkt2e29"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 4590
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nzkt2e29"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "41bc55e76e6f7a3b6063b651d4329013"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-f73ar277"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 4329
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-f73ar277"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "aa8d5acb94b3fa68435eb90a7c0ddd72"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2bhgqq35"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 11736396
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2bhgqq35"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "f168d0e62fe8c7df8f2ab70b01c2ce0a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-az1bsg80"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 40031852
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-az1bsg80"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "6d3e8a67cc3e4b1d42141c3c32dc7f3b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-jrp2bc31"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 39811013
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-jrp2bc31"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "8a45cdd5884b6262005c149da0fb1421"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-c7q25676"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 6238804
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-c7q25676"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "8fd1eef247754aff5652cab6c9815840"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cgsbz936"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 6244207
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cgsbz936"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "95fb2f331e95247b583cac186b7d342b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-46kr1h12"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 793304690
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-46kr1h12"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "8949dcbc787d62683b64efd8fdf64946"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-23hdxk04"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 33779578
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-23hdxk04"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e307ecaa6032319803f5970e6d14bdb2"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j8cab362"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 33560344
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j8cab362"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "603ffba763d7647ac67e06939d1b438c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hm7fwn81"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 6178167
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hm7fwn81"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0997d4277e62ba211fd7b6fd554a5b4d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9xzg8t97"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 6193570
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9xzg8t97"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "05dcc3929650be192ce64186958049f8"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-8v57yb54"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 585816103
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-8v57yb54"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "88782dc6ce3ad1ea1c0569c2547b4cac"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4jmtkv96"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 14483158
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4jmtkv96"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "12aeac0f063fe8e18546564ceef7dfc8"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ewtnys60"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 14372623
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ewtnys60"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "8f1a35b9c0c900ab7deff9d67def9b03"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2dse5j73"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3109607
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2dse5j73"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1b0c0cb7bf3cbd22fcbc647256c3ce21"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ba2mta49"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3109673
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ba2mta49"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4a423dc27e09b8455c5f1d8bd9d0929e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pxavr942"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 781360681
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pxavr942"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9723f5ce9bb5b34ec95f210cce56b049"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vc0p1h19"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 7629294
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vc0p1h19"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ebfe099d558c215db4abbb11e425efa4"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-emdj2714"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 7577877
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-emdj2714"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4b44133116173ef475a61394fedf46fc"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-v7bqpw44"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1436834
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-v7bqpw44"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "951dc62140d0df2549d1cba057b0d0e4"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-z856s142"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1435217
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-z856s142"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "7f8afa955105b1b2c298e1b74d57c60c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-a13rkp53"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 434777723
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-a13rkp53"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "63c4faff1e16b0d0d21549639e761c7d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tye5t559"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 4586171
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tye5t559"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "5c4d90f32351e84c30688afc420f1fb5"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yfspeg88"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 4551869
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yfspeg88"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "dd5dceaa592c2f65600e73898baf6215"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hwj28p92"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 952562
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hwj28p92"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0897738b2bf1d16c34e75b33db4ebc8e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pntnq011"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 949852
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pntnq011"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "881d973487487fd223eaec5a69e90258"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-r3e7nn59"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 532133773
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-r3e7nn59"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3d0062e218fd28da23327db5d68eb5d1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-jwdk3b12"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3567529
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-jwdk3b12"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "223ced4f37ffa5e8cc8a1b723bc6d032"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0qfyfs36"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3540796
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0qfyfs36"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b96c3e25e8186753ad68e7525df6ed85"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ayak1p22"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 743812
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ayak1p22"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0656a4b9850eb8c329d3dac8b9776322"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6jxa4y58"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 737485
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6jxa4y58"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "36401434ca0d313b00982e9d782eee9e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xe1c8q09"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 353182842
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xe1c8q09"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1280ab8ec78d08859f0187621e87ee57"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-a6bjkp09"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 50386
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-a6bjkp09"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3804f32591d3b5e07a6b14c493413ad1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9302k763"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 50107
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9302k763"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ee437ffb3b79c5705cc15aa2fa614604"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6pyh9f23"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 7895
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6pyh9f23"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "44827ea593e7c7846cb19489d370ad43"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gb4grm09"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 7343
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gb4grm09"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "bbca1d37db1bed7e7ade5696a69b0bb5"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9yeq4g90"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 24152475
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9yeq4g90"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a710f9d4c0f2f6c50160853c41319827"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h523nw57"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 14095225
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h523nw57"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ed186cc9f2d4bc0ce89200b25c82f92d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1xdg9q57"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 14008324
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1xdg9q57"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "bf3d014fa8d316d64b77fa93340812fe"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ax728j32"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2433772
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ax728j32"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "6cd5d21dbb8f0053ca7b990948840cea"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4dznxn66"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2442239
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4dznxn66"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "211d27d94d16ec1f02ee4289d67ef85c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-387gdb66"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 520465060
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-387gdb66"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3a276834c0cd6a9c27ea8ff1eea10b27"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ym08za78"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 31950268
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ym08za78"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "2968f830f8c9eda2c82851acd28a422d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-me065s88"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 31745380
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-me065s88"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0aad979055ab0253dc452b761a8c825d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mdn55m59"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5784196
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mdn55m59"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "cfbd1a5e9fe3599a01748b1910347bd0"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9reem168"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5786620
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9reem168"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3e77c9d6060ec172c0fe76fb51c1e85a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vjr64070"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 471992789
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vjr64070"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "813371386dfb2eb8f8c5ccd136cef083"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7206cf69"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 891
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7206cf69"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4dde1e096c47664faad209d13a2eee98"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-r7zfzj16"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 885
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-r7zfzj16"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "84d3c383cf9c6b1902e4946bb0af8f7d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pecg0c35"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 268
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pecg0c35"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3daabae10cf6f290786b405dee4729ab"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1j51jn37"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 154
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1j51jn37"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "87f8f8d4c1d54627cfd750738aa8c4c0"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0gmdcp88"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3929228
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0gmdcp88"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ad23e08883922601b50fd3c98bc33362"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-wy1x0n63"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 29844776
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-wy1x0n63"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a23a4e682498453af3e94c3b43b22d57"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-f1v7nr55"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 29649509
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-f1v7nr55"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9176c171326afa23851205cd053b24d7"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zmtxxf09"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5488323
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zmtxxf09"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "5013f4f2b8a8ae234c500d89bae3db1a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-8dgkt731"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5512649
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-8dgkt731"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "6c4ffc754d48c0d299eb96a8b3d41d6d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vzew4v16"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 823758363
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vzew4v16"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "2c8ae8c4d7fa566cd818b3ced732dc7c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nazk3b65"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 19379858
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nazk3b65"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a24d9dbdd9072c30fdcbb307e205bfae"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-wgm4c131"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 19262660
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-wgm4c131"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "c55e733243860c544760a6af68c6fe27"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-m7ehje10"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3286835
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-m7ehje10"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "49d675ae7af841a511bf21691b67c90d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gnqtaj03"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3302080
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gnqtaj03"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1e4e35eeb5d1e92163336d7b5eb3c9b3"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h6bp6911"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 433679992
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h6bp6911"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "7799282f718660bb722d7e45a026a018"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-srhje063"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1740
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-srhje063"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "2100248b86f811362780e7cdca256c30"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zrejym87"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1725
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zrejym87"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "62aaf7ab82cfb1f278cd0349b000c71d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kmsknz89"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 512
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kmsknz89"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "64a8030e41532a0224ee0b59932573b6"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-80kwpa23"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 385
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-80kwpa23"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "98b6d41e6bbca90249996cae49f90158"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0rzh8x59"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 16625264
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0rzh8x59"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ea5b489b073a902749e55a8058046cf7"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-76x93q74"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 45599705
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-76x93q74"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3296ba263a95d6c7090ad4a1aeff9871"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-a3vfjz27"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 45333179
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-a3vfjz27"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "c1b27bc0c3a10e302bf82561b3d8a788"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zbh2tq55"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 7511571
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zbh2tq55"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "03ddcf94d624b89bf38446bba039b682"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pbyxfa43"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 7536666
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pbyxfa43"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "62394217efa3a970b6f250cc7577dbff"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b1ntgm31"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 583843632
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b1ntgm31"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9fd0b621aeb7c91d125c3f7152061b8d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-amd80756"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 30408894
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-amd80756"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1ceaa8f877c8a6b80d3b60401f30ff38"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h7nkgt08"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 30305709
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h7nkgt08"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "29ce53c04dccb4181b114428c48bfdd9"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ctyx0989"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2901489
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ctyx0989"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4111faefc113fb1bb4802133924af0ce"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5rsqnz61"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2908965
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5rsqnz61"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a42f521c9848827f975ae5b2a516c217"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-fayagj67"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 208877475
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-fayagj67"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "f368d660523dd6450a78448a69d6d1ae"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-erw6a397"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3926025
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-erw6a397"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "cb67fd0c36c2be6a3bed255d2e44b4c9"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5b8pnr45"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3898431
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5b8pnr45"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0842379ccb1ba2a644831a97b798d552"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kqgwze92"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 773917
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kqgwze92"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "f0a06359d64a0970165f220cb933e9c1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6r3x4t39"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 761396
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6r3x4t39"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "da2a99880f004ff7fc38bfc5e8203e59"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mzbe7903"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 467619967
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mzbe7903"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "048a6f49156feeb41990f1e8a9ffe3a0"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tshvca16"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 46256071
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tshvca16"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3164704f7feccec5faaaabf853cbc79b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1bb18443"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 46072396
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1bb18443"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4b5cd2d593d1143bb86f87f26ca4ebc6"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-c7rkaz22"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5189469
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-c7rkaz22"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "cd5ea82c42130ebe5e37f0370b56bef9"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zg1dz497"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5199255
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zg1dz497"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "67751037b43da9ca01ac7ca5e4eb57e2"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-10q3q883"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 299657246
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-10q3q883"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0d0019e8d113e94d51c9ca76cae0147a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rak5jx15"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 64482844
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rak5jx15"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "d50987d75826a0b7153f580d509b21e6"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zk5vq032"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 64145794
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zk5vq032"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "eb9f721b3e37edd10e4a8262b8d0c466"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j99atg52"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 9524362
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j99atg52"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0ef82285330ae3effbd99ff2e77bbaec"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-aktrbd20"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 9569050
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-aktrbd20"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a3d21d621a4728caf74f7f7c36488ddc"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-g54gsz85"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 496167391
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-g54gsz85"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "7ce71033892727473568f0f28e2318dd"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-m9mjxw08"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 645461
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-m9mjxw08"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e7da541d82a325b14019185dd694a4b1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ce5fd875"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 640730
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ce5fd875"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "52b889f1b765d1d74257e5acb4d6134c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9narz046"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 130374
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9narz046"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "d6e3e0e5674901ac39cb133b19820869"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zrrxgn89"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 128715
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zrrxgn89"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9ca131969d2e2208f73f569c772e74cc"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9ssgst56"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 175265194
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9ssgst56"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0745a5f7183b2967e45b39a11b3d97ea"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-eyhzjv34"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5605790
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-eyhzjv34"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4415caea49e74aed712b5692b5592456"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ajrr8m03"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5570897
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ajrr8m03"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "d099a83ede3c5a6c9e0f41bd34aae849"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rnd4bc87"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 979227
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rnd4bc87"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "26cae2189b1227279fba7e76fcaeacbf"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-935qvw77"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 967169
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-935qvw77"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9e0889e450a204b020e0b49960f13cd5"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xde66022"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 555448209
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xde66022"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "2143680aa3c5ac72d24dcdcc71a17b77"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6kpxy968"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 630588
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6kpxy968"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "6d0df0e985af34f373f9741d2f21bde3"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-whx8fa21"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 626133
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-whx8fa21"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "090226051045b73446ff5a3a99fe5b36"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6r8wrc48"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 122339
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6r8wrc48"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e601d6ebbd34a05a5a42d24e566ef985"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-z7bq2132"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 121057
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-z7bq2132"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "5d47f7f1179694e4c213f49b3db47ebb"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-8jhxby37"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5777962
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-8jhxby37"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ac1725669a28cf1f0d004371cb35fabe"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9x9vj513"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1152719
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9x9vj513"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "76415b776ab5aecd506e39be88b29792"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ey9fda09"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1144001
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ey9fda09"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0de1d7bd567079c66d519ddf204d3e36"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-whj2z930"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 240711
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-whj2z930"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "49fc73ed21f3d91db29f01994bfd891d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rbz0ra63"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 238998
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rbz0ra63"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "5cd3c94e76f9bef3cba800530077698a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-13jqw234"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 347582437
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-13jqw234"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9c8db19f6a42513f1a3dd71f0f0ec5ca"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-r2154133"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 56343245
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-r2154133"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "7c14df316c12aeb370b6295ac2941d57"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b91z6g36"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 55965257
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b91z6g36"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "84a38bea8764ec77ea5a41e44a09ab8a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j9pe2227"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 10642878
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j9pe2227"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "139b3752e45fa6291a65186228da68a7"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-y3s2xn52"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 10743216
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-y3s2xn52"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0c3f5bf4c27e06a3ce27961ca7cdddd9"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-whvmm429"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1164738775
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-whvmm429"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "037467567c415d87f87f470750fe9104"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9dpy9426"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 325
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9dpy9426"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "5fce3f4e04d67e220f234492a0b3bb81"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7ttqvy03"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 322
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7ttqvy03"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "10c210b9ac96ec2f0bf4b046fd227606"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4hshzw08"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 188
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4hshzw08"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e60dc5a0681d73cce8feef4a8d76b110"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-z16hk474"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 77
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-z16hk474"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "fba0625343cd38e39e71dc6d3bd63795"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ga6hwh83"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1114530
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ga6hwh83"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "2bce75dd0362a37772074b2e5c848062"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7g6qcv67"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1102150
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7g6qcv67"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "7140741f1e1fd7ebedcd158e2f88afa9"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j9bmy338"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1093651
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j9bmy338"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3e190ddf6f97d9314a2056473a339750"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-t688ne37"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 234833
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-t688ne37"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b572a31c56118cbfff9447239b457f1c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-f0gmev73"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 232945
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-f0gmev73"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "f376c3a794a07fba79e6c54096dcaeaf"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-s0e00m71"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 456752682
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-s0e00m71"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9f1a755dd6f60cade7f1c33865c0485a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nb7c9991"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3148264
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nb7c9991"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "f59faf7ca8b4ea1660b34121a2c4e8b5"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b82r5z32"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3127330
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b82r5z32"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1def589614a83b94b054a58aeec88361"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7wrkak38"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 580298
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7wrkak38"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "16c858294c63a8e9b053dba8c9e3a68c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kx5a6t14"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 577244
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kx5a6t14"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1f50be30e224c004b4f5d7dd1bffece8"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-a2ez3r55"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 143257369
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-a2ez3r55"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "36bc14e83c8cd0c2e5a95c1e02a3c720"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0z4s2b40"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5188014
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0z4s2b40"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "c1ff289cdb4747baf72594c9ff199899"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zq7p8087"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5150847
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zq7p8087"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1e9d770eb3cc497df8184e667cbe8e15"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-84cvy258"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1032974
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-84cvy258"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "017dae7f258ee536fe8ffe42842c18eb"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-awpven08"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1031075
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-awpven08"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4316bf6c8fbe9250aecee317d765a0db"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-z48dt407"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 395664876
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-z48dt407"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "09db13bc98e8061148e1c2f88b222104"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h2xshb89"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 735172
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h2xshb89"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e3618ff4ffe1c21bad648b4b7b2dc8a1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-81fhv927"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 729874
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-81fhv927"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "6c1c413b0fc4b1ef19dfc7e70897fe5d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-k3wgpd31"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 145945
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-k3wgpd31"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "acf35ed641a0d8ffc2817abc7d8b6084"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-net2n394"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 144418
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-net2n394"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "d8c98174926c7187b8cb823f907c2be5"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tfevad23"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 171216127
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tfevad23"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4d951514340310c7564c8950cd85f9c3"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ak4e7f54"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 391621
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ak4e7f54"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "93e19aaa3c236db079fddbf5b760bd6b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-g5jznw65"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 388552
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-g5jznw65"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "f48c4ae0b46bf99f683195a9906e3246"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gt0n3a80"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 84124
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gt0n3a80"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "5acb7aba93107f7423e20ddc006ac111"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4aksts70"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 82705
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4aksts70"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "216ba1f64d5573a972c59c73410cde70"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gzd6sz74"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 259840405
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gzd6sz74"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "76b74c38a498fd0ce5debb0587310322"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-012p4n57"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 498184
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-012p4n57"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "929ab8fa970b3a4ba1f7aec35d9c226c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6d657j46"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 494674
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6d657j46"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "5d3e9d2789f222b9497b5ebde044d15d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ga6qbp49"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 96553
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ga6qbp49"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a0cd896abd926a980b09089b76c7b11d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ekgz0x57"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 94924
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ekgz0x57"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "324396355ac856029124ec1f2529a62e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vqb4w014"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 124726463
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vqb4w014"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "014445de4b7f72da239cc5fc1dd26d86"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-m6fdka64"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 97149
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-m6fdka64"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "16c6911f8f76b1444bdea8d9a8bfa991"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gjaawk22"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 96357
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gjaawk22"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9215225169e57ddba1649fabca0e862f"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4r29rj56"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 21657
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4r29rj56"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1acf04af77f8909b037dd39fff03327f"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nzy25j40"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 21168
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nzy25j40"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "d961159a001ddfc0fc57c1998c210f01"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mqbsvc25"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 53530053
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mqbsvc25"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3770d99565e3cf227741dfddcf9f191f"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b74n9k05"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 154706
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b74n9k05"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "08c793ccc450b4fda7072436ac1f0586"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7dq73b81"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 153509
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7dq73b81"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "00ce82b99c2a5844222ce209b3699c5c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-c0bdr913"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 32821
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-c0bdr913"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "47be7e5c43a2b1ecadb13e1e293256fa"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zjw7qn07"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 32107
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zjw7qn07"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "7a79da9a03c37852758141d71593ed82"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-43dqwn16"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 158779362
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-43dqwn16"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "bd686a03edcb06a0fd30c3e010edcd17"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-c24x1c79"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2318929
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-c24x1c79"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3dd08ce87438164c96edf71b8ca660b9"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cqkbkr14"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2300707
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cqkbkr14"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "fd74518bfbb62d3598461d9e5f117c7b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-q5f6xb77"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 509363
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-q5f6xb77"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "57e73bc449ed3396a90a0c238fd5cb5b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-141ehk09"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 501932
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-141ehk09"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "2b85153da03275ef019d5f516ad4e0ef"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zd3fm324"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 261656822
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zd3fm324"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3dcefef8753308f0a6c73836b20a0418"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-299pb858"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1342968
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-299pb858"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "c6df61f13be3406811f6f15c38824df6"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vvwtv205"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1333149
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vvwtv205"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4a04c04e5f817a4a5151a3ea71ad50c6"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-54m2a337"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 271260
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-54m2a337"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "dbcc035e8240114155d7319c404b85b0"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-erbcmc33"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 269507
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-erbcmc33"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e512398ce9a6e69df6c1c4736c79d123"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mp5g0k62"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 183664305
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mp5g0k62"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9f53798ae840659558f676f8bdb61b31"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mp4yh045"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 11028843
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mp4yh045"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1dd19dd0a7650ba7f6e11ad6ce70b5e0"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-knpcn651"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 10951557
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-knpcn651"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "33b92ad87b969ff8295d6ad24275c130"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-th422618"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2158163
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-th422618"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "385432d2b31ae5f811a6600275dcbf97"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-3b10qh41"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2168060
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-3b10qh41"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0814416e8f282fa67e7c6d9732d91d59"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-g5a93n96"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 577980443
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-g5a93n96"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1ddb4cabc0bdf3e61a7d9a155ac08747"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vvkj3603"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 656
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vvkj3603"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ccc32e17238cc761c5c90879636714d2"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pfwfga95"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 650
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pfwfga95"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "43af62840be42bf6a1aa7cdd843192b9"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9xtbrc16"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 268
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9xtbrc16"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e214131afde6b2b5d69c1543f0c6b63a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ntxser27"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 154
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ntxser27"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "25ba980e2820d7586e7dd94be460a207"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tx5ezp27"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1972227
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tx5ezp27"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "678908b405f8e9799c160f6c9c424cd0"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-abtg9y49"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 953823
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-abtg9y49"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "23725adf372147b644441b09cd876c08"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mxpqgh33"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 946785
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mxpqgh33"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "fa30f9bb08112aed50af8074380f179e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7s7gxg76"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 194768
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7s7gxg76"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9d865f1750c566ae0cfcccb10fb121da"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2hegcd75"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 192564
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2hegcd75"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "39ceb170a1372f3c172355117305e7f5"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1h2pr731"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 171414609
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1h2pr731"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ed04a045b5b794da7554c00531adf5a0"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-020ry957"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 86551
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-020ry957"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "5fdd3cf6a7ae5683213df1c365d9735e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ezv0p328"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 85894
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ezv0p328"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "94ee659bc2f2e9a76134664c44f33ba6"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cdd8k428"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 17973
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cdd8k428"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "07d5f7ea165a3cb87e5c3cf35c50f287"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-dq9vrg21"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 17525
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-dq9vrg21"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "c48cb48b7041a768c343b474fb42572b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h9nctm67"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 32624811
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h9nctm67"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0372930e38b64d7eae5fdd6c476eb62e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zqn8g888"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 578992000
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zqn8g888"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "f867fe3fbb4995422b15672b7a29e65a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ee13m488"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 575891800
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ee13m488"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "057b5300b9ddcb197403f1fea16c8dd0"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-twzx6030"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 89324089
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-twzx6030"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "399c10021d66aca57921eab47fc8762e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2h02dq06"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 89889294
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2h02dq06"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "85e684737f6597b8029df11b2f757cfb"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hzncnw30"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 5366232489
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hzncnw30"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4166555ec1270241ec57932d8f7022d1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2zk90s15"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 39127
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2zk90s15"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "48b2868965f94b3e60d3dc6860f5e477"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-v9bqx002"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 38806
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-v9bqx002"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "2ddfb88ce0d99e282c8f5ffd31577013"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-y9vpp748"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 8797
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-y9vpp748"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3ffe15ba163d4d9caa4fdf800540edc3"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rpt2n947"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 8451
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rpt2n947"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ce7d4a710e898d6b85ee746e90c7212c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4sh2z491"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 20566294
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4sh2z491"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "147c66c24b54f31e44684d0df10ff732"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yd4yr371"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 219942
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yd4yr371"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3e8cebe0c4fb9d5e08f62a360812377f"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gjyy3t47"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 218562
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gjyy3t47"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "684fc759965caa4e4987704798d1b38c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1nq9tv37"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 38987
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1nq9tv37"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "12476876bc4b3ce7573fdf026bb8c200"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6rch0h67"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 37072
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6rch0h67"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "cd9121590910ae0aa865886e30cf3ef4"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ctp4xe35"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 33171625
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ctp4xe35"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3de857e69c2cb8519ecb2465be9cd4ba"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-trvw0s64"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 832196
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-trvw0s64"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4c19e8f1d48976fbe88412bf65d39f57"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sj0g4a22"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 826139
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sj0g4a22"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9b48291ca5e1661f47383945dd3ce96c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-dwfbym28"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 167020
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-dwfbym28"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "56730c0411b81d0f90dad3e065ed15f9"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-w7nt1b37"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 165411
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-w7nt1b37"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a845fe8b1497a696e0dddb9f19a790eb"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-w2k6b877"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 162913653
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-w2k6b877"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "8a4d01e8b6d0f13ac55f9109d36b0262"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-jtvgpx91"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3749510
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-jtvgpx91"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "20258c0dcc78d33039ee7f548aa63cf2"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-jv3ykz89"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3720944
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-jv3ykz89"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4b2fdf0d75b3056e7edcbcd6ced79706"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rrd4wx96"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 801447
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rrd4wx96"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9e8adf3f78687facdbead91e509f3ad3"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zqbesh13"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 788142
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zqbesh13"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "27b68f0c129b15b8b9b1dc4fd5221555"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nzap7529"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 506591775
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nzap7529"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "c8d11c96a78d6e73c54169c6a45aa220"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-szzhcc41"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3530726
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-szzhcc41"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "604e9ced18ab596959fd7e3f483437c9"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xz2wnv76"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3503669
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xz2wnv76"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "d1fd91be0ffbc944ff0bf2591bda4fc6"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-755tp592"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 749749
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-755tp592"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1fe412a7727c4ab1115b583240f90e07"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-s7v7vv04"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 746421
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-s7v7vv04"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "44558905cebd7ac2c59c34a9e11071c7"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ejrsg321"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 598993634
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ejrsg321"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b2678a4acc633150021f4f1aad4cdcb0"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hqrghk02"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 41110954
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hqrghk02"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "bcc0ddb53b2297b2236941150d562935"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0f356156"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 40843336
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0f356156"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "50b04f2a9a4925fabf7eecd2e9cabed9"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-jxagst04"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 7517374
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-jxagst04"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1747f9e6d550670cbd0a72b723287ae3"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zr46ea50"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 7564232
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zr46ea50"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "dc3ee32e3dfc41e49e13b2648d1f1865"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xgmb8842"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 614305242
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xgmb8842"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a4616bef0b571d095e126d0b197be153"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hmxkwh51"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 83107399
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hmxkwh51"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "52ae6a44b2adb6964003a81a7891cc9b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-r3541m42"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 82705039
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-r3541m42"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "030c1ca5deee21f05ebec2f463ee2064"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yfgx9g15"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 11369102
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yfgx9g15"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "089b467dfa7cc0a67126c76635365e00"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ckkgjw39"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 11466858
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ckkgjw39"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e9968a51153503688010b631594179d8"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-eyz1hx17"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 656582835
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-eyz1hx17"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a893ff899f89b77f3dedba6112bb3984"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cxax0z53"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 86322303
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cxax0z53"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "81d89c76ddf25723bdff5ce11c47ff03"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sjw3ns23"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 85846620
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sjw3ns23"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "f049c9f1822769a1b4ac40f51e00d51d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mmmxvc14"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 13492967
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mmmxvc14"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "da0dc8d7fad1348e8b4fb0de0ce61e03"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zkth3k90"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 13591329
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zkth3k90"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "917c2e8b64bce4738850e5b33e2ecdcf"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-17q60f09"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1109641778
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-17q60f09"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "44fb55e79a1b4c9bef88bcf373185258"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hmjzvh34"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 10717350
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hmjzvh34"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9f10c65c68faea8ccd35025394904962"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4ffst324"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 10644054
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4ffst324"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "bff932d9d47270a206df08340cd86c70"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-thqkca34"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2054589
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-thqkca34"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "906ee1d9f5d56632be46056850c31b5d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vdn9eb71"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2055056
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-vdn9eb71"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "2babce715dc2353596d5bd2a9c23289d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-brpm3k51"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 505724491
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-brpm3k51"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "407742616bce836c4faad6fab0d2eb83"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-15te0m60"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1017
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-15te0m60"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "2142b175db34daa5e7bb69b690ebe9df"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rrcrzh42"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1008
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rrcrzh42"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "d685c34ea711df316539497007b0ffb2"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5e3tqa87"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 348
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5e3tqa87"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "febd78cecbb212081c48d3151bfbe91e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ttzf5n39"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 231
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ttzf5n39"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "c5d0007f934cc90df6f20d3df0ecbb1a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2ft47h67"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 461886
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2ft47h67"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b71274b55b1578e353fdd81e36f13391"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-derc1e11"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 21917405
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-derc1e11"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0b8fb208746c8150c962a4b945b85a19"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-8735ae19"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 21799109
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-8735ae19"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "f5ba7fd62a335fd7dee5966233964ee6"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7fqh0y14"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3337413
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7fqh0y14"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3d3b099c5349d584a437e8cb1343f480"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h99hdf66"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3334464
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h99hdf66"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a9497d6cedd08511e8d7da39f10b998d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-m38gmp92"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 223241427
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-m38gmp92"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "73149c94c51c7738f016d6d099d72022"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mdhs1054"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 564305
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mdhs1054"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b3b15a271a20f03cb37ca8e66df8690d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ndk5tv54"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 559733
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ndk5tv54"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3c165cda130496c61d5a3b7a05782bde"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7802tw02"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 125629
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7802tw02"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "6b5c2c5c9b60e355d655a3bb51726f35"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rbgfy642"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 124278
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rbgfy642"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "df21ab26186d1324fcc4f5bf4a6a14c2"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4ptft860"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 73006735
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4ptft860"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a904fad3799e617809ae180019da46e9"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ckyhgs90"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 24619664
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ckyhgs90"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "8a049679feae1d535299cee7404c9b25"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9vrev661"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 24457106
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9vrev661"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "d4dbac04785cc4b268c5af2947b12fa7"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-k9g17z84"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 4564030
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-k9g17z84"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "6357b379c66c3f8e2258671399e48778"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gqstpa14"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 4585360
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gqstpa14"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "27fbf1c37c623274f70cde02c488dbf3"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-d09stw46"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1231541100
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-d09stw46"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ca715a3b22c60fda0977cddfadd9a6a6"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b8ay6168"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 18125142
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b8ay6168"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4b3024fbab06f2e62224697b5b56d126"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rhkbk169"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 18002118
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rhkbk169"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a582208731c1c8bab7812bcb4a98d10f"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-t835ca26"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3447037
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-t835ca26"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3c23c06d9ada00bd372ea02b7a60bc62"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1tqpmj93"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3464352
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-1tqpmj93"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "f47b9a1fba68b06f9e25e9dbd360f2be"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-m2fkmm08"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 638687044
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-m2fkmm08"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "f8c678e703236d82f15c7e0ab114946d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ezecnc70"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 429358
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ezecnc70"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "d37fc104ccadd34b0d54eeefb91f461a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zgcpzz25"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 426166
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zgcpzz25"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "543d35cf97a368b3688122a779e622f3"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xmn8bz56"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 87638
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xmn8bz56"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "5a1f5de26a846a80ce3f769ba48d31c1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-szsgge71"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 86128
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-szsgge71"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e99b664639d798f625ea2b9aca05fd71"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ezpz7841"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 169255353
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ezpz7841"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e94de00e13f5021cf8d50b67d4378407"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j4tfk970"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 8990722
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j4tfk970"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "debeaa0dc6752375bf2bcbddbdc7a271"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-018we743"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 8922997
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-018we743"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "bafd2247a6671090bde52b8645c2997b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ebyqfh73"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1900887
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ebyqfh73"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "78caa5b2da3242b990d17ec7eef9f55b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b8bbzx37"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1896825
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-b8bbzx37"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "122b0ee330610a260379e84af73cb816"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-y9v6ez38"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 584054378
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-y9v6ez38"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "8c181ed7ef2f3325f0aa66763360905f"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-scb8ny37"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 158854
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-scb8ny37"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ce9b4acf51369c4602429860c1dc2062"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-aj63q762"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 157675
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-aj63q762"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "441dfa2c563ae45de9639231635a5872"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0ay7az30"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 32385
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0ay7az30"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9ae90cfb04684059e100db806374c042"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sd7c0j43"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 31625
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sd7c0j43"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4ce5e4315148939246a0bf7bb853b474"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nmtfvn63"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 89679620
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nmtfvn63"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "5c29931610ef42af157b05aee676375f"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0cn8r714"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 21662
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0cn8r714"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "46ec212f44b3859bec22543fc8c38d84"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-md94zt66"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 21506
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-md94zt66"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "bcf5d85b216926a36049a62909484c27"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mh4vrq74"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 4320
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mh4vrq74"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "aa0014bc1458b1ac5becdc4cbb460b0f"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hm1k3w33"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 4090
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-hm1k3w33"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "846c9ab2ef1a0dafe9e66c4c454babf5"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-333mbp33"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 53181624
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-333mbp33"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "6c6a0cc202edff0e5cc55f389dc5794d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-896d7p83"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 374279
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-896d7p83"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "31435611a782afda97b139a2e229109f"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-wmc2mg08"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 371243
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-wmc2mg08"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b37df49ef777e4f6e2e21d9a9362c7e9"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-k5j92414"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 83384
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-k5j92414"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "73828d91636299bfab0e112bc310468e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pf9bzg05"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 81792
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pf9bzg05"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "db7790163925c295ec4bdd782f77642a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5wc24h95"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 403667526
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5wc24h95"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "5e064b223fe727ff2c7edf6bbb6aabf0"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-c697yr51"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 339
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-c697yr51"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "89060669b8d745f42ff2bfc01ec5a653"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5t9bay30"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 336
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5t9bay30"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "7978c4e856a286d70d5128c1a0e0e32e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2zq35g71"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 188
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2zq35g71"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "16d89b92d555b884f736cf2611fbc602"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5mfxtk20"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 77
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5mfxtk20"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "fb8dce42aa7f00b7ce357e4c0ae11fc1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gzrkr691"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3713186
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-gzrkr691"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "5fa423622ec8d57f483cf1a0fc21e55f"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cmsh6k04"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2776
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cmsh6k04"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ab2f7972c05c1bad81ec9da5794186cc"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4ef2ja53"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2752
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4ef2ja53"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "336445326a4bb2c8dc91f0b48ca62182"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h6dz5h91"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 749
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h6dz5h91"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b8e3affb27bdafa7259fff8f9fd1789e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kyscy757"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 616
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kyscy757"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a8ef68d02aff842283aa0278148f906b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9e66hd06"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 15066565
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-9e66hd06"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "991def403787c5ad55214c2c91addf7f"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j02eag45"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 66010091
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j02eag45"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "6addac3b29cb46054c5b5b2d3d79c1da"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-f5v4r059"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 65607116
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-f5v4r059"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "547a891e8f8c30f135368a04b04fd0a4"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cfcwyt38"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 11407941
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cfcwyt38"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "186733fbf97bf970a1cde305de5268d9"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-fqf9a688"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 11473725
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-fqf9a688"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "dedf4746e8dc2b0a5dd22bfec27a562d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-e1r2qp26"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1447673618
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-e1r2qp26"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b0956b2c70050adabbeac88bbc54e527"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-727f7p30"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1175408
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-727f7p30"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0bd6f396eaf45bd3a3a3fbd152cef3cf"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xs0b4h30"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1166195
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xs0b4h30"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "c920967584c4d62316277413eb879707"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4911wf29"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 254759
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4911wf29"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "fc945608265d4db853ac1756b78ea7f3"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-freshs90"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 252691
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-freshs90"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "49660d600822ef0ce10978c287f88f0a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yjgxxv45"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 158805916
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yjgxxv45"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e89ebb2b9ea4753737832c20fc80cd82"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ab63f492"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 267751115
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ab63f492"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "7271ad8e404cf14c4666e63409d9e057"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nfdh6d03"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 266306072
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nfdh6d03"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b84c492b00ac68c71e5c56f375b6105b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-dmfwaq08"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 41288352
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-dmfwaq08"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b266cb818a386369ae1d6f8df83d6a05"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-p90cj276"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 41734841
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-p90cj276"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4f594b3bf1cfbceb966aa606c05f5e41"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xjmjea36"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3232075844
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-xjmjea36"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b8c354b39d459910bcfb5ecf10c6ce37"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-29w7b628"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3805
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-29w7b628"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b919250941170c695583408d7f1e3fff"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0afsy782"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3772
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0afsy782"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "cfcd718396848cf02680fa754f810a4f"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0j7asp43"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 990
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0j7asp43"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e7352c7064df8c668dbf4b50b6ee257b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pcw18d72"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 851
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-pcw18d72"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b86fd7175cafa9962405b42b7d23684e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-127vy564"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 8269484
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-127vy564"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "559eb2d8c1c9a52dc2d9f39ccca0b626"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-76ztg129"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 80967
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-76ztg129"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e86cfc2d3029995c26de9ed205fb95cf"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-qdfw1739"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 80319
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-qdfw1739"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "75df21f2eb00188859067bf2d0dcea8a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tfca4665"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 17760
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tfca4665"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "6aa80799770e87d2b4446312a9d89757"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4nh2f159"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 17280
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4nh2f159"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "c80511651df3efa76ff1120af54d27c6"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7fnsdk14"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 100824810
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7fnsdk14"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1faf82f6c5ddce4830329db9a378b198"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mzkyvm61"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2092543
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-mzkyvm61"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "18d9ffd7721cf0342eeba6be798daea7"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7a3nv239"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2075839
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7a3nv239"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "7cc0cfcbc143af4a1e0fe8dfae39d07c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rzrms481"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 462406
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rzrms481"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "2593692fc6ed850d398574a106d77313"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-wv0rk179"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 459966
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-wv0rk179"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "66b51eef45dae68d006965b7bb7a4427"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-3tf99y83"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 427510173
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-3tf99y83"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "159e5adc512706c1fa3b7b6e0c109084"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cmgbx182"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 332
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-cmgbx182"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b6d571e4439e6ec99a065c0d94063ca0"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5jkmdb92"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 329
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5jkmdb92"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "6dedebdd862807076e6a9c8a04fa02d3"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sqx8qr55"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 188
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sqx8qr55"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "96a1e4130b8eafb3b6d1acd808894444"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-8nxbze26"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 77
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-8nxbze26"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "662097b26ab320f2b18029281d489941"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-av0vrv91"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3016173
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-av0vrv91"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ff72ef8c09e734fd76ec886241581dd5"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-t44wjz55"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 14324
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-t44wjz55"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "cdb4030e6a653f6d720b5f860d7e67c0"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4acmxk38"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 14207
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4acmxk38"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "da934ac7127247d0d0ae9f7da0b5c628"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6kb60578"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3270
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-6kb60578"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "67ec665cd77987c82d58c60959ba4fff"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7cgb0170"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 3063
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7cgb0170"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "79182c6e9e05e4d8301502ff01b3cbf6"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-x1pegg15"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 14078611
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-x1pegg15"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "8c25ab11456703c884543746518c7b57"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-8dzkz770"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 108087591
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-8dzkz770"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "04062339a168c549fe36269f2fc19813"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tbr86v78"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 107493906
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tbr86v78"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "e6744548b671d9dc95fe23fcd4374feb"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ey0j4n62"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 16891745
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ey0j4n62"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "994cd19bc1d1aded2744477191e60123"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7yb8em16"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 17018785
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7yb8em16"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "852a45ad65298300b9dad9d458c762ac"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-z8f4pc94"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1526337845
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-z8f4pc94"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b8b72256bbf9835f2cdfb51c059155fb"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j31dxj15"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 7419019
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-j31dxj15"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "8814c58c2e455376c5c920f3c6c3596b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tmknem91"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 7364002
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-tmknem91"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "d61ab395397e4201b033e8d5577aae9a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yb8kjs93"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1540865
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yb8kjs93"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "a3e7363957d809ab7366f0fc30ca598e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zcs6em12"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1536759
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-zcs6em12"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "6f84a9834271b6f4dc720cf1bbba59f2"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kh4mhr28"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 427347643
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kh4mhr28"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1c1f7bf01ebccebf5b10ccc00f26c097"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5qar1x63"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2101372
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-5qar1x63"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "369ceb25ade0fa355917dd5f356dd787"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7rhj0232"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2085403
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-7rhj0232"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "18dc6e697a003be1b022f0bb1ddbb98c"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-253x6y56"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 442069
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-253x6y56"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4e3712bbf98b2e3755fcb03c04b67d4b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2re5qt54"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 439677
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2re5qt54"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ccb9c1fcbdda1ebbf2d3ad6d24476138"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nb3xff19"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 430634507
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nb3xff19"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "2db82382e787e2e466459048543bb37b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ex1k1y39"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 77287
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ex1k1y39"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "375ddd25fe8b2176100abdd515ddc547"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-g9zkwm51"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 76780
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-g9zkwm51"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "fbb85a1138523dd2500969d58a1321dc"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rt7a2280"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 13970
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-rt7a2280"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "c64ca10b20e57af98b6480069e12fde4"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-84mzxk81"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 13483
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-84mzxk81"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "cf7bb639db5fce246a9e8645cf65ec90"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nnpsbc63"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 71498532
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-nnpsbc63"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "b49876f4a480ff3ef09a327749dac7ce"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sknbhf06"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 356457
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sknbhf06"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3290ce241a1294d2e733821fd6177296"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-qhk2g163"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 353709
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-qhk2g163"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "67f8789cb12b12798d594cf23233a018"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h4athb29"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 75165
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-h4athb29"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "c7ff02daebdaadd793689fd718f00c17"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ftmzah05"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 73988
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-ftmzah05"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "5894f359776daa7c177bdde26bb419f8"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-v54xm267"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 40156644
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-v54xm267"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "51baaf9f2f0a10bdcd2ce4322f4a83e6"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2k8dpf11"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 315325
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2k8dpf11"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4456f653fae28f5350d4e53940824b1b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-76tksy39"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 313183
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-76tksy39"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "916851e991bb1966bc5d9dfb44fa6130"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-wjz6xs16"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 59138
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-wjz6xs16"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "80e402b91b88b4ba2c161435aa05eda8"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4vd0a930"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 57652
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-4vd0a930"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "4ae3cab0cc6b6bbf4c4db59bd59c378a"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-da3wge58"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 165369900
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-da3wge58"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "ceeb03bd0f71b4bf7a78ef08eab383bd"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0p8fn829"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 12369498
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-0p8fn829"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "c02b49b156b8afce4193ea8827516564"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-n49b4g73"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 12306189
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-n49b4g73"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "fef1cfe56366cac309b0174b01e57a4e"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kk7c8737"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1779032
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-kk7c8737"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9d30a99ebdebf33e66dd0dd8eb1a2f2b"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-80fk0f64"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 1775321
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-80fk0f64"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "265d57a95e28b5f595ee26e6095c862d"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-d9tcft90"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 163110728
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-d9tcft90"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "80f149cc3d7116f49ad2f3a22b1e8bf7"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sv15zh53"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 12638767
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-sv15zh53"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "225536adb32fcd9abf68217dab5c1197"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yj00s852"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 12551272
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-yj00s852"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "9da4420e28db40c809fb0d262cc30241"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-bxk8ap92"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2454775
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-bxk8ap92"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "0c015b20ac9359bcd1e680b7ae2d6b1f"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-qsc5dw38"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 2457333
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-qsc5dw38"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "1e53e373e26397ea2faf9c5ee81db206"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2a2mc690"
+            },
+            "u": {
+                "$set": {
+                    "file_size_bytes": 550242357
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:dobj-11-2a2mc690"
+            },
+            "u": {
+                "$set": {
+                    "md5_checksum": "3cfdd0fbe5fb06c0e92ba1fbaf747943"
+                }
+            }
+        }
+    ]
+}
