@@ -3,6 +3,13 @@ from typing import List
 from .workflows import Workflow
 from semver.version import Version
 
+# TODO: Berkley refactoring:
+#   The load_activities method will need to be modified to handle DataGeneration objects
+#   instead of OmicsProcessing objects, with the difference being the DataGeneration objects can be part_of other
+#   DataGeneration objects. This will require a change in the way the parent/child relationships are resolved.
+#   Need to add logic to find the correct parent DataGeneration to use for constructing the Activity graph and
+#   correctly setting the was_informed_by field.
+#   Add unit tests to cover the new behavior, mocking the MongoDB database and the Berkley style DataGeneration objects.
 
 warned_objects = set()
 
@@ -77,7 +84,11 @@ def _filter_skip(wf, rec, data_objs):
                        data_objs)
     return not (match_in and match_out)
 
-
+# TODO: Activity does not exist in the Berkeley Schema. WorkflowExecution is the analogous class.
+#   Functions and classes should be renamed to reflect the Berkeley Schema.
+# TODO: The Berkeley Schema replaces OmicsProcessing with DataGeneration.
+#  Slots for has_input and has_output are the same.
+#  Special handling for OmicsProcessing needs to be extended to DataGeneration.
 def _read_acitivites(db, workflows: List[Workflow],
                      data_objects: dict, filter: dict):
     """
@@ -102,6 +113,7 @@ def _read_acitivites(db, workflows: List[Workflow],
     return activities
 
 
+# TODO: Make public, give a better name, add type hints and unit tests.
 def _resolve_relationships(activities, data_obj_act):
     """
     Find the parents and children relationships
@@ -179,7 +191,9 @@ def _find_data_object_activities(activities, data_objs_by_id):
                 data_obj_act[do_id] = act
     return data_obj_act
 
-
+# TODO: Give a better name, add unit tests.
+#   This function builds up the graph of related parent / child Execution objects and is
+#   key to the behavior of workflow automation.
 def load_activities(db, workflows: list[Workflow], filter: dict = {}):
     """
     This reads the activities from Mongo.  It also
@@ -209,7 +223,7 @@ def load_activities(db, workflows: list[Workflow], filter: dict = {}):
     _resolve_relationships(activities, data_obj_act)
     return activities
 
-
+# TODO: Why are we not importing and using the existing nmdc_schema.DataObject class?
 class DataObject(object):
     """
     Data Object Class
@@ -229,7 +243,8 @@ class DataObject(object):
         for f in self._FIELDS:
             setattr(self, f, rec.get(f))
 
-
+# TODO: Give a better 'Execution' based name, expand docstring, and make sure it is covered by unit tests.
+#   This class represents a network of related WorkflowExecution objects and their associated DataObject objects.
 class Activity(object):
     """
     Activity Object Class
@@ -253,6 +268,7 @@ class Activity(object):
         self.workflow = wf
         for f in self._FIELDS:
             setattr(self, f, activity_rec.get(f))
+        # TODO the analogous Berkeley Schema type will be nmdc:DataGeneration
         if self.type == "nmdc:OmicsProcessing":
             self.was_informed_by = self.id
 

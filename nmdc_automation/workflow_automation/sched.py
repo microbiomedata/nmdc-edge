@@ -16,7 +16,13 @@ from semver.version import Version
 _POLL_INTERVAL = 60
 _WF_YAML_ENV = "NMDC_WORKFLOW_YAML_FILE"
 
-
+# TODO: Berkley refactoring:
+#   The Scheduler interacts with the API to mint new IDs for activities and jobs.
+#   The Scheduler pulls WorkflowExecution and DataObject records from the MongoDB database - need to ensure these
+#   the handling of these records is compatible with the Berkley schema.
+#   The Scheduler looks for new jobs to create by examining the 'Activity' object graph that is constructed from
+#   the retrieved WorkflowExecution and DataObject records. This data structure will be somewhat different in the
+#   Berkley schema, so the find_new_jobs method will need to be updated to handle this.
 @lru_cache
 def get_mongo_db() -> MongoDatabase:
     for k in ["HOST", "USERNAME", "PASSWORD", "DBNAME"]:
@@ -102,6 +108,7 @@ class Scheduler:
             self.cycle()
             await asyncio.sleep(_POLL_INTERVAL)
 
+    # TODO:
     def add_job_rec(self, job: Job):
         """
         This takes a job and using the workflow definition,
@@ -246,6 +253,7 @@ class Scheduler:
             existing_jobs.add(act)
         return existing_jobs
 
+    # TODO: Rename this to reflect what it does and add unit tests
     def find_new_jobs(self, act: Activity) -> list[Job]:
         """
         For a given activity see if there are any new jobs
