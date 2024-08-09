@@ -3,11 +3,10 @@ version 1.0
 
 import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadsQC/v0.0.6/rqcfilter.wdl" as readsqc
 import "https://raw.githubusercontent.com/microbiomedata/metaT_Assembly/v0.0.2/metaT_assembly.wdl" as assembly
-# import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/v1.1.4/annotation_full.wdl" as annotation
+import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/v1.1.4/annotation_full.wdl" as annotation
 import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadCounts/v0.0.2/readcount.wdl" as readcounts
 import "./metat_tasks.wdl" as tasks
 
-import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/rfam_mem/annotation_full.wdl" as annotation
 
 workflow nmdc_metaT {
 
