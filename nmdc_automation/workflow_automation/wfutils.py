@@ -11,7 +11,17 @@ import pytz
 import hashlib
 from linkml_runtime.dumpers import json_dumper
 
+# TODO: Berkley refactoring:
+#  The NmdcSchema class - responsible for creating workflow and data object records
+#  to be inserted into the NMDC database will need to be updated to generate Berkley-compatible
+#  Datageneration and WorkflowExecution records.
 
+# TODO: Rename this class to something more descriptive - it runs and monitors workflows running in Cromwell
+#   via the Cromwell REST API.
+#   Consider renaming to CromwellWorkflowRunner.
+#   Consider generalizing the class to be able to submit and monitor workflows to other workflow engines e.g. JAWS.
+# TODO: Add type hints to all methods, add docstrings to all methods.
+# TODO: Rename the package to something more descriptive - it is responsible for running and monitoring workflows.
 class WorkflowJob:
     DEFAULT_STATUS = "Unsubmitted"
     SUCCESS_STATUS = "Succeeded"
@@ -51,11 +61,14 @@ class WorkflowJob:
             self.check_status()
 
     def set_config_attributes(self):
+        # TODO: Why are we not using the config object directly? This is a code smell.
+        #   Consider wrapping with @property decorators to make this more explicit.
         self.cromurl = self.config.cromwell_url
         self.data_dir = self.config.data_dir
         self.resource = self.config.resource
         self.url_root = self.config.url_root
 
+    # TODO: These could be @property decorators
     def load_workflow_config(self):
         self.outputs = self.workflow_config.get("outputs")
         self.activity_templ = self.workflow_config.get("activity")
@@ -126,6 +139,7 @@ class WorkflowJob:
             return self.last_status
 
         data = resp.json()
+        # TODO: Why not name this variable 'status'?
         state = data.get("status", "Unknown")
         self.last_status = state
 
@@ -242,7 +256,10 @@ class WorkflowJob:
                 file.close()
                 os.unlink(file.name)
 
-
+# TODO: Rename this class to something descriptive - it is responsible for creating NMDC database objects -
+#    the existing name is already taken by the NMDC schema module.
+#    Consider renaming to NMDCDatabaseObjectCreator.
+#    Add type hints to all methods, add docstrings to all methods.
 class NmdcSchema:
     def __init__(self):
         self.nmdc_db = nmdc.Database()

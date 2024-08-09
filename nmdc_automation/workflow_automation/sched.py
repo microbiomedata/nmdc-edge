@@ -16,7 +16,13 @@ from semver.version import Version
 _POLL_INTERVAL = 60
 _WF_YAML_ENV = "NMDC_WORKFLOW_YAML_FILE"
 
-
+# TODO: Berkley refactoring:
+#   The Scheduler interacts with the API to mint new IDs for activities and jobs.
+#   The Scheduler pulls WorkflowExecution and DataObject records from the MongoDB database - need to ensure these
+#   the handling of these records is compatible with the Berkley schema.
+#   The Scheduler looks for new jobs to create by examining the 'Activity' object graph that is constructed from
+#   the retrieved WorkflowExecution and DataObject records. This data structure will be somewhat different in the
+#   Berkley schema, so the find_new_jobs method will need to be updated to handle this.
 @lru_cache
 def get_mongo_db() -> MongoDatabase:
     for k in ["HOST", "USERNAME", "PASSWORD", "DBNAME"]:
@@ -59,7 +65,7 @@ This is still a prototype implementation.  The plan
 is to migrate this fucntion into Dagster.
 """
 
-
+# TODO: Change the name of this to distinguish it from the database Job object
 class Job:
     """
     Class to hold information for new jobs
@@ -102,6 +108,7 @@ class Scheduler:
             self.cycle()
             await asyncio.sleep(_POLL_INTERVAL)
 
+    # TODO:
     def add_job_rec(self, job: Job):
         """
         This takes a job and using the workflow definition,
@@ -230,6 +237,9 @@ class Scheduler:
             root_id = ".".join(last_id.split(".")[0:-1])
             return root_id, ct + 1
 
+    # TODO: Rename this to reflect what it does - it returns a list of the trigger activity IDs
+    #      from the jobs collection for a given workflow. Also activity should be execution to conform
+    #      to the new schema.
     @lru_cache(maxsize=128)
     def get_existing_jobs(self, wf: Workflow):
         existing_jobs = set()
@@ -237,10 +247,13 @@ class Scheduler:
         # Find all existing jobs for this workflow
         q = {"config.git_repo": wf.git_repo, "config.release": wf.version}
         for j in self.db.jobs.find(q):
+            # the assumption is that a job in any state has been triggered by an activity
+            # that was the result of an existing (completed) job
             act = j["config"]["trigger_activity"]
             existing_jobs.add(act)
         return existing_jobs
 
+    # TODO: Rename this to reflect what it does and add unit tests
     def find_new_jobs(self, act: Activity) -> list[Job]:
         """
         For a given activity see if there are any new jobs
@@ -278,6 +291,8 @@ class Scheduler:
         filt = {}
         if allowlist:
             filt = {"was_informed_by": {"$in": list(allowlist)}}
+        # TODO: Quite a lot happens under the hood here. This function should be broken down into smaller
+        #      functions to improve readability and maintainability.
         acts = load_activities(self.db, self.workflows, filter=filt)
         self.get_existing_jobs.cache_clear()
         job_recs = []
