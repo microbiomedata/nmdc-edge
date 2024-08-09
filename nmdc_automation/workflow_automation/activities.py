@@ -10,6 +10,7 @@ from semver.version import Version
 #   Need to add logic to find the correct parent DataGeneration to use for constructing the Activity graph and
 #   correctly setting the was_informed_by field.
 #   Add unit tests to cover the new behavior, mocking the MongoDB database and the Berkley style DataGeneration objects.
+#   DataGeneration is an abstract class, include specific tests for subclasses NucleotideSequencing or MassSpectrometry
 
 warned_objects = set()
 
