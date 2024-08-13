@@ -161,6 +161,7 @@ Data Objects:
       import_suffix: .[A-Z]+-[A-Z]+.fastq.gz
       nmdc_suffix: .fastq.gz
       input_to: [nmdc:ReadQcAnalysisActivity]
+      output_of: nmdc:OmicsProcessing
       mulitple: false
       action: none
     - data_object_type: CheckM Statistics
