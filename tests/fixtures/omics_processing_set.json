@@ -1,6 +1,6 @@
 [
   {
-    "id" : "nmdc:omprc-11-test001",
+    "id" : "nmdc:omprc-11-test-metag1",
     "name" : "Test Metagenome Processing",
     "designated_class" : "nmdc:OmicsProcessing",
     "has_input" : [
@@ -25,14 +25,15 @@
     "type" : "nmdc:OmicsProcessing"
 },
   {
-    "id" : "nmdc:omprc-11-test002",
+    "id" : "nmdc:omprc-11-test-metat1",
     "name" : "Test Metatranscriptome Processing",
     "description" : "Metatranscriptome description",
     "has_input" : [
         "nmdc:bsm-11-cnc9ww90"
     ],
     "has_output" : [
-        "nmdc:dobj-11-test003"
+        "nmdc:dobj-11-raw-reads3",
+        "nmdc:dobj-11-raw-reads4"
     ],
     "part_of" : [
         "nmdc:sty-11-test002"

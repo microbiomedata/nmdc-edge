@@ -4,7 +4,7 @@
       "nmdc:dobj-11-filtered-reads"
     ],
     "part_of": [
-      "nmdc:omprc-11-test001"
+      "nmdc:omprc-11-test-metag1"
     ],
     "scaf_N50": 302542,
     "ctg_logsum": 5909271,
@@ -23,7 +23,7 @@
       "nmdc:dobj-11-scaffolds"
     ],
     "asm_score": 11.297,
-    "was_informed_by": "nmdc:omprc-11-test001",
+    "was_informed_by": "nmdc:omprc-11-test-metag1",
     "ctg_powsum": 727370,
     "scaf_max": 517431,
     "id": "nmdc:wfmgas-11-test001.1",
