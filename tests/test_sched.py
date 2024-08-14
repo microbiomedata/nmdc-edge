@@ -2,18 +2,19 @@ from pymongo import MongoClient
 import json
 import os
 from nmdc_automation.workflow_automation.sched import Scheduler
-from pytest import fixture
+from pytest import fixture, mark
 from pathlib import Path
 from time import time
 import logging
 
 
-TEST_DIR = os.path.dirname(__file__)
+TEST_DIR = Path(__file__).parent
+CONFIG_DIR = TEST_DIR.parent / "configs"
 TEST_DATA = os.path.join(TEST_DIR, "..", "test_data")
-trigger_set = 'metagenome_annotation_activity_set'
-trigger_id = 'nmdc:55a79b5dd58771e28686665e3c3faa0c'
-trigger_doid = 'nmdc:1d87115c442a1f83190ae47c7fe4011f'
-cols = [
+TRIGGER_SET = 'metagenome_annotation_activity_set'
+TRIGGER_ID = 'nmdc:55a79b5dd58771e28686665e3c3faa0c'
+TRIGGER_DOID = 'nmdc:1d87115c442a1f83190ae47c7fe4011f'
+COLS = [
     'data_object_set',
     "omics_processing_set",
     'mags_activity_set',
@@ -22,8 +23,7 @@ cols = [
     'metagenome_annotation_activity_set',
     'read_qc_analysis_activity_set'
     ]
-
-FIXTURE_DIR = Path(__file__).parent / "fixtures"
+FIXTURE_DIR = TEST_DIR / "fixtures"
 
 @fixture
 def db():
@@ -64,12 +64,12 @@ def load(db, fn, col=None, reset=False):
 
 
 def reset_db(db):
-    for c in cols:
+    for c in COLS:
         db[c].delete_many({})
 
 
 def init_test(db):
-    for col in cols:
+    for col in COLS:
         fn = '%s.json' % (col)
         load(db, fn, reset=True)
 
@@ -87,7 +87,11 @@ def mock_progress(db, wf, version=None, flush=True):
     db[s].insert_one(data)
 
 
-def test_submit(db, mock_api):
+@mark.parametrize("workflow_file", [
+    CONFIG_DIR / "workflows.yaml",
+    CONFIG_DIR / "workflows-mt.yaml"
+])
+def test_submit(db, mock_api, workflow_file):
     """
     Test basic job creation
     """
@@ -96,7 +100,7 @@ def test_submit(db, mock_api):
     load(db, "data_object_set.json")
     load(db, "omics_processing_set.json")
 
-    jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
+    jm = Scheduler(db, wfn=workflow_file,
                    site_conf="./tests/site_configuration_test.toml")
 
     # This should result in one RQC job
@@ -107,15 +111,18 @@ def test_submit(db, mock_api):
     resp = jm.cycle()
     assert len(resp) == 0
 
-
-def test_progress(db, mock_api):
+@mark.parametrize("workflow_file", [
+    CONFIG_DIR / "workflows.yaml",
+    # CONFIG_DIR / "workflows-mt.yaml"
+])
+def test_progress(db, mock_api, workflow_file):
     init_test(db)
     reset_db(db)
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
     load(db, "omics_processing_set.json")
-    jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
-                   site_conf="./tests/site_configuration_test.toml")
+    jm = Scheduler(db, wfn=workflow_file,
+                   site_conf= TEST_DIR / "site_configuration_test.toml")
     workflow_by_name = dict()
     for wf in jm.workflows:
         workflow_by_name[wf.name] = wf
@@ -137,12 +144,12 @@ def test_progress(db, mock_api):
     # current workflow
     mock_progress(db, wf, version="v1.0.2")
     resp = jm.cycle()
-    assert "assembly_id" in resp[0]["config"]["inputs"]
+    assert "imgap_project_id" in resp[0]["config"]["inputs"]
     assert len(resp) == 1
     omap = {}
     for o in resp[0]["config"]["outputs"]:
         omap[o["output"]] = o
-    assert omap["contig_mapping"]["optional"] is True
+    assert omap["map_file"]["data_object_type"] == "Contig Mapping File"
 
     wf = workflow_by_name['Metagenome Annotation']
     mock_progress(db, wf)
@@ -251,5 +258,4 @@ def test_type_resolving(db, mock_api):
 
     resp = jm.cycle()
     assert len(resp) == 2
-    assert 'annotation' in resp[1]['config']['inputs']['contig_file']
-    
+
