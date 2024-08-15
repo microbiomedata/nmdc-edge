@@ -213,8 +213,8 @@ def test_out_of_range(db, mock_api):
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
     load(db, "omics_processing_set.json")
-    jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
-                   site_conf="./tests/site_configuration_test.toml")
+    jm = Scheduler(db, wfn=CONFIG_DIR / "workflows.yaml",
+                   site_conf=TEST_DIR / "site_configuration_test.toml")
     workflow_by_name = dict()
     for wf in jm.workflows:
         workflow_by_name[wf.name] = wf
@@ -245,8 +245,8 @@ def test_type_resolving(db, mock_api):
     load(db, "omics_processing_set.json")
     load(db, "read_qc_analysis_activity_set.json")
 
-    jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
-                   site_conf="./tests/site_configuration_test.toml")
+    jm = Scheduler(db, wfn=CONFIG_DIR / "workflows.yaml",
+                   site_conf=TEST_DIR / "site_configuration_test.toml")
     workflow_by_name = dict()
     for wf in jm.workflows:
         workflow_by_name[wf.name] = wf
