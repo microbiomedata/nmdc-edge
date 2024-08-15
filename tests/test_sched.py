@@ -1,29 +1,15 @@
-from pymongo import MongoClient
-import json
-import os
 from nmdc_automation.workflow_automation.sched import Scheduler
 from pytest import fixture, mark
 from pathlib import Path
 from time import time
-import logging
 
+from tests.fixtures.db_utils import init_test, load, read_json, reset_db
 
 TEST_DIR = Path(__file__).parent
 CONFIG_DIR = TEST_DIR.parent / "configs"
 TRIGGER_SET = 'metagenome_annotation_activity_set'
 TRIGGER_ID = 'nmdc:55a79b5dd58771e28686665e3c3faa0c'
 TRIGGER_DOID = 'nmdc:1d87115c442a1f83190ae47c7fe4011f'
-COLS = [
-    'data_object_set',
-    "omics_processing_set",
-    'mags_activity_set',
-    'metagenome_assembly_set',
-    'jobs',
-    'metagenome_annotation_activity_set',
-    'read_qc_analysis_activity_set'
-    ]
-FIXTURE_DIR = TEST_DIR / "fixtures"
-
 
 @fixture
 def mock_api(monkeypatch, requests_mock):
@@ -38,34 +24,6 @@ def mock_api(monkeypatch, requests_mock):
     requests_mock.post("http://localhost/pids/mint", json=resp)
     resp = ["nmdc:abcd"]
     requests_mock.post("http://localhost/pids/bind", json=resp)
-
-
-def read_json(fn):
-    fp = os.path.join(FIXTURE_DIR, fn)
-    data = json.load(open(fp))
-    return data
-
-
-def load(test_db, fn, col=None, reset=False):
-    if not col:
-        col = fn.split("/")[-1].split(".")[0]
-    if reset:
-        test_db[col].delete_many({})
-    data = read_json(fn)
-    logging.debug("Loading %d recs into %s" % (len(data), col))
-    if len(data) > 0:
-        test_db[col].insert_many(data)
-
-
-def reset_db(test_db):
-    for c in COLS:
-        test_db[c].delete_many({})
-
-
-def init_test(test_db):
-    for col in COLS:
-        fn = '%s.json' % (col)
-        load(test_db, fn, reset=True)
 
 
 def mock_progress(test_db, wf, version=None, flush=True, idx=0):
