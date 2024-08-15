@@ -147,37 +147,37 @@ def test_progress_metagenome(db, mock_api, workflow_file):
 
     resp = jm.cycle()
     assert len(resp) == 2
-    # resp = jm.cycle()
-    # assert len(resp) == 0
+    resp = jm.cycle()
+    assert len(resp) == 0
 
-    # wf = workflow_by_name['Metagenome Assembly']
-    # # Lets override the version to simulate an older run
-    # # for this workflow that is stil within range of the
-    # # current workflow
-    # mock_progress(db, wf, version="v1.0.2")
-    # resp = jm.cycle()
-    # assert "imgap_project_id" in resp[0]["config"]["inputs"]
-    # assert len(resp) == 1
-    # omap = {}
-    # for o in resp[0]["config"]["outputs"]:
-    #     omap[o["output"]] = o
-    # assert omap["map_file"]["data_object_type"] == "Contig Mapping File"
-    #
-    # wf = workflow_by_name['Metagenome Annotation']
-    # mock_progress(db, wf)
-    # resp = jm.cycle()
-    # assert len(resp) == 1
-    #
-    # # We should have job records for everything now
-    # resp = jm.cycle()
-    # assert len(resp) == 0
-    #
-    # # Let's remove the job records.
-    # # Since we don't have activity records for
-    # # MAGS or RBA, we should see two new jobs
-    # db.jobs.delete_many({})
-    # resp = jm.cycle()
-    # assert len(resp) == 2
+    wf = workflow_by_name['Metagenome Assembly']
+    # Lets override the version to simulate an older run
+    # for this workflow that is stil within range of the
+    # current workflow
+    mock_progress(db, wf, version="v1.0.2")
+    resp = jm.cycle()
+    assert "imgap_project_id" in resp[0]["config"]["inputs"]
+    assert len(resp) == 1
+    omap = {}
+    for o in resp[0]["config"]["outputs"]:
+        omap[o["output"]] = o
+    assert omap["map_file"]["data_object_type"] == "Contig Mapping File"
+
+    wf = workflow_by_name['Metagenome Annotation']
+    mock_progress(db, wf)
+    resp = jm.cycle()
+    assert len(resp) == 1
+
+    # We should have job records for everything now
+    resp = jm.cycle()
+    assert len(resp) == 0
+
+    # Let's remove the job records.
+    # Since we don't have activity records for
+    # MAGS or RBA, we should see two new jobs
+    db.jobs.delete_many({})
+    resp = jm.cycle()
+    assert len(resp) == 2
 
 
 def test_multiple_versions(db, mock_api):
