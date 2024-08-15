@@ -17,13 +17,6 @@ cols = [
     'read_qc_analysis_activity_set'
     ]
 
-
-@fixture
-def db():
-    conn_str = os.environ.get("MONGO_URL","mongodb://localhost:27017")
-    return MongoClient(conn_str).test
-
-
 def read_json(fn):
     fp = os.path.join(test_data, fn)
     if os.path.exists(fp):
@@ -33,26 +26,26 @@ def read_json(fn):
         return None
 
 
-def load(db, fn, col=None, reset=False):
+def load(test_db, fn, col=None, reset=False):
     if not col:
         col = fn.split("/")[-1].split(".")[0]
     if reset:
-        db[col].delete_many({})
+        test_db[col].delete_many({})
     data = read_json(fn)
     if not data:
         return
     if len(data) > 0:
-        db[col].insert_many(data)
+        test_db[col].insert_many(data)
 
 
-def reset_db(db):
-    cols = db.list_collection_names()
+def reset_test_db(test_db):
+    cols = test_db.list_collection_names()
     for c in cols:
         if c in cols:
-            db[c].delete_many({})
+            test_db[c].delete_many({})
 
 
-def fix_versions(db, wf):
+def fix_versions(test_db, wf):
     s = wf.collection
     resp = read_json("%s.json" % (s))
     if not resp:
@@ -61,23 +54,23 @@ def fix_versions(db, wf):
     data = resp[0]
     data['git_url'] = wf.git_repo
     data['version'] = wf.version
-    db[s].delete_many({})
-    db[s].insert_one(data)
+    test_db[s].delete_many({})
+    test_db[s].insert_one(data)
 
 
-def test_activies(db):
+def test_activies(test_db):
     """
     Test basic job creation
     """
     # init_test(db)
-    reset_db(db)
+    reset_test_db(test_db)
     wfs = load_workflows("./tests/workflows_test.yaml")
-    load(db, "data_object_set.json", reset=True)
+    load(test_db, "data_object_set.json", reset=True)
     for wf in wfs:
         if wf.name in ["Sequencing", "ReadsQC Interleave"]:
             continue
-        fix_versions(db, wf)
-    acts = load_activities(db, wfs)
+        fix_versions(test_db, wf)
+    acts = load_activities(test_db, wfs)
     assert acts is not None
     # TODO find out why this fails - len(acts) = 4
     # assert len(acts) == 5

@@ -1,6 +1,13 @@
+import os
+from pymongo import MongoClient
 from pytest import fixture
 from time import time
 
+
+@fixture
+def test_db():
+    conn_str = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
+    return MongoClient(conn_str).test
 
 @fixture(autouse=True)
 def mock_api(monkeypatch, requests_mock):

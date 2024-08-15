@@ -24,11 +24,6 @@ COLS = [
     ]
 FIXTURE_DIR = TEST_DIR / "fixtures"
 
-@fixture
-def db():
-    conn_str = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
-    return MongoClient(conn_str).test
-
 
 @fixture
 def mock_api(monkeypatch, requests_mock):
@@ -51,29 +46,29 @@ def read_json(fn):
     return data
 
 
-def load(db, fn, col=None, reset=False):
+def load(test_db, fn, col=None, reset=False):
     if not col:
         col = fn.split("/")[-1].split(".")[0]
     if reset:
-        db[col].delete_many({})
+        test_db[col].delete_many({})
     data = read_json(fn)
     logging.debug("Loading %d recs into %s" % (len(data), col))
     if len(data) > 0:
-        db[col].insert_many(data)
+        test_db[col].insert_many(data)
 
 
-def reset_db(db):
+def reset_db(test_db):
     for c in COLS:
-        db[c].delete_many({})
+        test_db[c].delete_many({})
 
 
-def init_test(db):
+def init_test(test_db):
     for col in COLS:
         fn = '%s.json' % (col)
-        load(db, fn, reset=True)
+        load(test_db, fn, reset=True)
 
 
-def mock_progress(db, wf, version=None, flush=True, idx=0):
+def mock_progress(test_db, wf, version=None, flush=True, idx=0):
     """
     This function will mock the progress of a workflow. It reads
     from a fixture file and inserts one record into the database.
@@ -89,24 +84,24 @@ def mock_progress(db, wf, version=None, flush=True, idx=0):
     if version:
         data['version'] = version
     if flush:
-        db[s].delete_many({})
-    db[s].insert_one(data)
+        test_db[s].delete_many({})
+    test_db[s].insert_one(data)
 
 
 @mark.parametrize("workflow_file", [
     CONFIG_DIR / "workflows.yaml",
     CONFIG_DIR / "workflows-mt.yaml"
 ])
-def test_submit(db, mock_api, workflow_file):
+def test_submit(test_db, mock_api, workflow_file):
     """
     Test basic job creation
     """
-    init_test(db)
-    reset_db(db)
-    load(db, "data_object_set.json")
-    load(db, "omics_processing_set.json")
+    init_test(test_db)
+    reset_db(test_db)
+    load(test_db, "data_object_set.json")
+    load(test_db, "omics_processing_set.json")
 
-    jm = Scheduler(db, wfn=workflow_file,
+    jm = Scheduler(test_db, wfn=workflow_file,
                    site_conf=TEST_DIR / "site_configuration_test.toml")
 
     # This should result in one RQC job
@@ -121,13 +116,13 @@ def test_submit(db, mock_api, workflow_file):
     CONFIG_DIR / "workflows.yaml",
     # CONFIG_DIR / "workflows-mt.yaml"
 ])
-def test_progress_metagenome(db, mock_api, workflow_file):
-    init_test(db)
-    reset_db(db)
-    db.jobs.delete_many({})
-    load(db, "data_object_set.json")
-    load(db, "omics_processing_set.json")
-    jm = Scheduler(db, wfn=workflow_file,
+def test_progress_metagenome(test_db, mock_api, workflow_file):
+    init_test(test_db)
+    reset_db(test_db)
+    test_db.jobs.delete_many({})
+    load(test_db, "data_object_set.json")
+    load(test_db, "omics_processing_set.json")
+    jm = Scheduler(test_db, wfn=workflow_file,
                    site_conf= TEST_DIR / "site_configuration_test.toml")
     workflow_by_name = dict()
     for wf in jm.workflows:
@@ -140,10 +135,10 @@ def test_progress_metagenome(db, mock_api, workflow_file):
     if workflow_file.name == "workflows-mt.yaml":
         # The job should now be in a submitted state
         wf = workflow_by_name['Metatranscriptome Reads QC Interleave']
-        mock_progress(db, wf, idx=1)
+        mock_progress(test_db, wf, idx=1)
     else:
         wf = workflow_by_name['Reads QC Interleave']
-        mock_progress(db, wf)
+        mock_progress(test_db, wf)
 
     resp = jm.cycle()
     assert len(resp) == 2
@@ -154,7 +149,7 @@ def test_progress_metagenome(db, mock_api, workflow_file):
     # Lets override the version to simulate an older run
     # for this workflow that is stil within range of the
     # current workflow
-    mock_progress(db, wf, version="v1.0.2")
+    mock_progress(test_db, wf, version="v1.0.2")
     resp = jm.cycle()
     assert "imgap_project_id" in resp[0]["config"]["inputs"]
     assert len(resp) == 1
@@ -164,7 +159,7 @@ def test_progress_metagenome(db, mock_api, workflow_file):
     assert omap["map_file"]["data_object_type"] == "Contig Mapping File"
 
     wf = workflow_by_name['Metagenome Annotation']
-    mock_progress(db, wf)
+    mock_progress(test_db, wf)
     resp = jm.cycle()
     assert len(resp) == 1
 
@@ -175,18 +170,18 @@ def test_progress_metagenome(db, mock_api, workflow_file):
     # Let's remove the job records.
     # Since we don't have activity records for
     # MAGS or RBA, we should see two new jobs
-    db.jobs.delete_many({})
+    test_db.jobs.delete_many({})
     resp = jm.cycle()
     assert len(resp) == 2
 
 
-def test_multiple_versions(db, mock_api):
-    init_test(db)
-    reset_db(db)
-    db.jobs.delete_many({})
-    load(db, "data_object_set.json")
-    load(db, "omics_processing_set.json")
-    jm = Scheduler(db, wfn=CONFIG_DIR/"workflows.yaml",
+def test_multiple_versions(test_db, mock_api):
+    init_test(test_db)
+    reset_db(test_db)
+    test_db.jobs.delete_many({})
+    load(test_db, "data_object_set.json")
+    load(test_db, "omics_processing_set.json")
+    jm = Scheduler(test_db, wfn=CONFIG_DIR / "workflows.yaml",
                    site_conf=TEST_DIR/"site_configuration_test.toml")
     workflow_by_name = dict()
     for wf in jm.workflows:
@@ -201,15 +196,15 @@ def test_multiple_versions(db, mock_api):
 
     # We simulate one of the jobs finishing
     wf = workflow_by_name['Reads QC']
-    mock_progress(db, wf)
+    mock_progress(test_db, wf)
     resp = jm.cycle()
     # We should see one asm and one rba job
     assert len(resp) == 2
     resp = jm.cycle()
     assert len(resp) == 0
     # Now simulate one of the other jobs finishing
-    load(db, "data_object_set2.json", col="data_object_set")
-    load(db, "read_qc_analysis_activity_set2.json",
+    load(test_db, "data_object_set2.json", col="data_object_set")
+    load(test_db, "read_qc_analysis_activity_set2.json",
          col="read_qc_analysis_activity_set")
     resp = jm.cycle()
     # We should see one asm and one rba job
@@ -217,18 +212,18 @@ def test_multiple_versions(db, mock_api):
     resp = jm.cycle()
 
     # Empty the job queue.  We should see 4 jobs
-    db.jobs.delete_many({})
+    test_db.jobs.delete_many({})
     resp = jm.cycle()
     assert len(resp) == 4
 
 
-def test_out_of_range(db, mock_api):
-    init_test(db)
-    reset_db(db)
-    db.jobs.delete_many({})
-    load(db, "data_object_set.json")
-    load(db, "omics_processing_set.json")
-    jm = Scheduler(db, wfn=CONFIG_DIR / "workflows.yaml",
+def test_out_of_range(test_db, mock_api):
+    init_test(test_db)
+    reset_db(test_db)
+    test_db.jobs.delete_many({})
+    load(test_db, "data_object_set.json")
+    load(test_db, "omics_processing_set.json")
+    jm = Scheduler(test_db, wfn=CONFIG_DIR / "workflows.yaml",
                    site_conf=TEST_DIR / "site_configuration_test.toml")
     workflow_by_name = dict()
     for wf in jm.workflows:
@@ -238,38 +233,38 @@ def test_out_of_range(db, mock_api):
     # and the other will not.  We should only get new jobs
     # for the one in range.
     wf = workflow_by_name['Reads QC']
-    mock_progress(db, wf)
-    mock_progress(db, wf, version="v0.0.1", flush=False)
+    mock_progress(test_db, wf)
+    mock_progress(test_db, wf, version="v0.0.1", flush=False)
 
     resp = jm.cycle()
     assert len(resp) == 2
     resp = jm.cycle()
     assert len(resp) == 0
 
-def test_type_resolving(db, mock_api):
+def test_type_resolving(test_db, mock_api):
     """
     This tests the handling when the same type is used for
     different activity types.  The desired behavior is to
     use the first match.
     """
 
-    init_test(db)
-    reset_db(db)
-    db.jobs.delete_many({})
-    load(db, "data_object_set.json")
-    load(db, "omics_processing_set.json")
-    load(db, "read_qc_analysis_activity_set.json")
+    init_test(test_db)
+    reset_db(test_db)
+    test_db.jobs.delete_many({})
+    load(test_db, "data_object_set.json")
+    load(test_db, "omics_processing_set.json")
+    load(test_db, "read_qc_analysis_activity_set.json")
 
-    jm = Scheduler(db, wfn=CONFIG_DIR / "workflows.yaml",
+    jm = Scheduler(test_db, wfn=CONFIG_DIR / "workflows.yaml",
                    site_conf=TEST_DIR / "site_configuration_test.toml")
     workflow_by_name = dict()
     for wf in jm.workflows:
         workflow_by_name[wf.name] = wf
 
     wf = workflow_by_name['Metagenome Assembly']
-    mock_progress(db, wf)
+    mock_progress(test_db, wf)
     wf = workflow_by_name['Metagenome Annotation']
-    mock_progress(db, wf)
+    mock_progress(test_db, wf)
 
     resp = jm.cycle()
     assert len(resp) == 2
