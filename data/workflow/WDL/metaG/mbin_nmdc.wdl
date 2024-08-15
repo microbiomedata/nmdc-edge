@@ -24,7 +24,7 @@ workflow nmdc_mags {
     String gtdbtk_db="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
     String checkm_db="/refdata/checkM_DB/checkm_data_2015_01_16"
     String eukcc2_db="/refdata/EUKCC2_DB/eukcc2_db_ver_1.2"
-    String package_container = "microbiomedata/nmdc_mbin_vis:0.5.0"
+    String package_container = "microbiomedata/nmdc_mbin_vis:0.2.0"
     String container = "microbiomedata/nmdc_mbin@sha256:57930406fb5cc364bacfc904066519de6cdc2d0ceda9db0eebf2336df3ef5349"
 
     call stage {
@@ -179,7 +179,7 @@ task mbin_nmdc {
             echo "mbin.sdb exists."
         else
             mkdir -p gtdbtk-output
-            echo "Mbin Sdb Could not be created for ${name}" && touch mbin.sdb
+            echo "Mbin Sdb Could not be created for ${name}" > mbin.sdb
         fi
 
         if [ -f eukcc_output/eukcc.csv.final ]; then
@@ -337,14 +337,10 @@ task package{
                      ${sep=" " bins}
 
         if [ -f ${prefix}_heatmap.pdf ]; then
-            if [ -f ${prefix}_barplot.pdf ]; then
-                echo "KO analysis plot exists."
-            else
-                echo "There are no modules above 80% completeness. No barplot will be generated." && touch ${prefix}_barplot.pdf
-            fi
+            echo "KO analysis plot exists."
         else
-            echo "No KO analysis result for ${proj}" && touch ${prefix}_heatmap.pdf
-            echo "No KO analysis result for ${proj}" && touch ${prefix}_barplot.pdf
+            echo "No KO analysis result for ${proj}" > ${prefix}_heatmap.pdf
+            echo "No KO analysis result for ${proj}" > ${prefix}_barplot.pdf
             echo "No KO analysis result for ${proj}" > ${prefix}_ko_krona.html
             echo "No KO analysis result for ${proj}" > ${prefix}_module_completeness.tab
         fi
@@ -408,7 +404,6 @@ task finish_mags {
         ln ${heatmap} ${prefix}_heatmap.pdf
         ln ${kronaplot} ${prefix}_kronaplot.html
         ln ${ko_matrix} ${prefix}_ko_matrix.txt
-        ln ${eukcc_file} ${prefix}_eukcc.csv
 
         # cp all tarfiles, zip them under prefix, if empty touch no_mags.txt
         mkdir -p hqmq
@@ -419,18 +414,18 @@ task finish_mags {
         else
             (cd hqmq && touch no_hqmq_mags.txt)
             (cd hqmq && cp ${mbin_sdb} .)
-            (cd hqmq && zip -j ../${prefix}_hqmq_bin.zip *.txt mbin.sdb)
+            (cd hqmq && zip ../${prefix}_hqmq_bin.zip *.txt mbin.sdb)
         fi
 
         mkdir -p lq
         if [ ${n_lq} -gt 0 ] ; then
             (cd lq && cp ${sep=" " lq_bin_tarfiles} .)
             (cd lq && cp ${mbin_sdb} .)
-            (cd lq && zip -j ../${prefix}_lq_bin.zip *tar.gz mbin.sdb ${prefix}_eukcc.csv ../*pdf ../*kronaplot.html ../*ko_matrix.txt)
+            (cd lq && zip -j ../${prefix}_lq_bin.zip *tar.gz mbin.sdb ../*pdf ../*kronaplot.html ../*ko_matrix.txt)
         else
             (cd lq && touch no_lq_mags.txt)
             (cd lq && cp ${mbin_sdb} .)
-            (cd lq && zip -j ../${prefix}_lq_bin.zip *.txt mbin.sdb ${prefix}_eukcc.csv)
+            (cd lq && zip ../${prefix}_lq_bin.zip *.txt mbin.sdb)
         fi
 
         # Fix up attribute name

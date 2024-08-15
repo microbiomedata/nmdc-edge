@@ -20,10 +20,10 @@
     Int <WORKFLOW>_cpu=16
     Int <WORKFLOW>_threads=1
     Int <WORKFLOW>_pthreads=1
-    String <WORKFLOW>_gtdbtk_db="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
+    String <WORKFLOW>_gtdbtk_db="/refdata/GTDBTK_DB"
     String <WORKFLOW>_checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
     String <WORKFLOW>_eukcc2_db="/refdata/eukcc2_db_ver_1.2"
-    String metaMAGsVis_container = "microbiomedata/nmdc_mbin_vis:0.5.0"
+    String metaMAGsVis_container = "microbiomedata/nmdc_mbin_vis:0.4.0"
 
 
     call <WORKFLOW>.nmdc_mags  as <ALIAS> {
@@ -40,8 +40,8 @@
 
     call mbin_nmdc_output.pdf_to_png as metaMAGs_vis {
 		input:
-			outdir = <WORKFLOW>_outdir,
-    		container = metaMAGsVis_container,
+			outdir = <WORKFLOW>_outdir
+    		container = metaMAGsVis_container
     		pdf_files = [<ALIAS>.barplot,<ALIAS>.heatmap]
 	}
 
