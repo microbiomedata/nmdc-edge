@@ -69,7 +69,7 @@ workflowlist = {
         options_json: 'metaG_options.tmpl',
         outdir: 'output/Metatranscriptomics',
         cromwell_calls: ['main_workflow.nmdc_metat'],
-        wdl_version: 'draft-2'
+        wdl_version: '1.0'
     },
     EnviroMS: {
         wdl: 'enviroMS.wdl',
