@@ -1,11 +1,13 @@
 # metaT workflow wrapper
 version 1.0
 
-import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadsQC/v0.0.6/rqcfilter.wdl" as readsqc
+# import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadsQC/v0.0.7/rqcfilter.wdl" as readsqc
 import "https://raw.githubusercontent.com/microbiomedata/metaT_Assembly/v0.0.2/metaT_assembly.wdl" as assembly
 import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/v1.1.4/annotation_full.wdl" as annotation
 import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadCounts/v0.0.2/readcount.wdl" as readcounts
 import "./metat_tasks.wdl" as tasks
+
+import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadsQC/7-readqc-not-always-specifying-the-correct-output-file/rqcfilter.wdl" as readsqc
 
 
 workflow nmdc_metaT {
@@ -24,7 +26,7 @@ workflow nmdc_metaT {
         String  fi_container="scanon/nmdc-meta:v0.0.1"
         Int     rqc_mem = 180
         Int     rqc_thr = 64
-        Int     anno_mem = 180
+        Int     anno_mem = 120
         Int     anno_thr = 16
     }
 
