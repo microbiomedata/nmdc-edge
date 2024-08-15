@@ -10,7 +10,7 @@ import "./metat_tasks.wdl" as tasks
 import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadsQC/7-readqc-not-always-specifying-the-correct-output-file/rqcfilter.wdl" as readsqc
 
 
-workflow nmdc_metaT {
+workflow nmdc_metat {
 
     input {
         String  project_id
