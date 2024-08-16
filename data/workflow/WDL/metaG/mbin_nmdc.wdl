@@ -15,7 +15,7 @@ workflow nmdc_mags {
     String product_names_file
     String gene_phylogeny_file
     String lineage_file
-    File? map_file
+    String? map_file
     File? domain_file
     String? scratch_dir
     Int cpu=32
@@ -24,7 +24,7 @@ workflow nmdc_mags {
     String gtdbtk_db="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
     String checkm_db="/refdata/checkM_DB/checkm_data_2015_01_16"
     String eukcc2_db="/refdata/EUKCC2_DB/eukcc2_db_ver_1.2"
-    String package_container = "microbiomedata/nmdc_mbin_vis:0.5.0"
+    String package_container = "microbiomedata/nmdc_mbin_vis:0.6.0"
     String container = "microbiomedata/nmdc_mbin@sha256:57930406fb5cc364bacfc904066519de6cdc2d0ceda9db0eebf2336df3ef5349"
 
     call stage {
@@ -44,7 +44,8 @@ workflow nmdc_mags {
             supfam_file=supfam_file,
             product_names_file=product_names_file,
             gene_phylogeny_file=gene_phylogeny_file,
-            lineage_file=lineage_file
+            lineage_file=lineage_file,
+            map_file=map_file
     }
 
     call mbin_nmdc {
@@ -59,7 +60,7 @@ workflow nmdc_mags {
                 gtdbtk_env = gtdbtk_db,
                 checkm_env = checkm_db,
                 eukcc2_env = eukcc2_db,
-                map_file = map_file,
+                map_file = stage.map_tsv,
                 mbin_container = container
     }
     call package {
@@ -149,7 +150,7 @@ task mbin_nmdc {
         set -euo pipefail
         export GTDBTK_DATA_PATH=${gtdbtk_env}
         export CHECKM_DATA_PATH=${checkm_env}
-        mbin.py ${"--threads " + threads} ${"--pthreads " + pthreads} --fna ${fna} --gff ${gff} --aln ${aln} --lintsv ${lineage}
+        mbin.py ${"--threads " + threads} ${"--pthreads " + pthreads} ${"--map " + map_file} {"--eukccdb " + eukcc2_env} --fna ${fna} --gff ${gff} --aln ${aln} --lintsv ${lineage}
         mbin_stats.py $PWD
         mbin_versions.py > mbin_nmdc_versions.log
         touch MAGs_stats.tsv
@@ -232,6 +233,7 @@ task stage {
     String product_names_file
     String gene_phylogeny_file
     String lineage_file
+    String? map_file
     String contigs_out="contigs.fasta"
     String bam_out="pairedMapped_sorted.bam"
     String gff_out="functional_annotation.gff"
@@ -247,6 +249,7 @@ task stage {
     String products_out="products.tsv"
     String gene_phylogeny_out="gene_phylogeny.tsv"
     String lineage_out="lineage.tsv"
+    String map_out="map_file.tsv"
 
    command<<<
 
@@ -262,21 +265,22 @@ task stage {
             fi
         }
 
-        stage ${contig_file} ${contigs_out}
-        stage ${sam_file} ${bam_out}
-        stage ${gff_file} ${gff_out}
-        stage ${proteins_file} ${proteins_out}
-        stage ${cog_file} ${cog_out}
-        stage ${ec_file} ${ec_out}
-        stage ${ko_file} ${ko_out}
-        stage ${pfam_file} ${pfam_out}
-        stage ${tigrfam_file} ${tigrfam_out}
-        stage ${cath_funfam_file} ${cath_funfam_out}
-        stage ${smart_file} ${smart_out}
-        stage ${supfam_file} ${supfam_out}
-        stage ${product_names_file} ${products_out}
-        stage ${gene_phylogeny_file} ${gene_phylogeny_out}
+        stage ${contig_file} ${contigs_out} &
+        stage ${sam_file} ${bam_out} &
+        stage ${gff_file} ${gff_out} &
+        stage ${proteins_file} ${proteins_out} &
+        stage ${cog_file} ${cog_out} &
+        stage ${ec_file} ${ec_out} &
+        stage ${ko_file} ${ko_out} &
+        stage ${pfam_file} ${pfam_out} &
+        stage ${tigrfam_file} ${tigrfam_out} &
+        stage ${cath_funfam_file} ${cath_funfam_out} &
+        stage ${smart_file} ${smart_out} &
+        stage ${supfam_file} ${supfam_out} &
+        stage ${product_names_file} ${products_out} &
+        stage ${gene_phylogeny_file} ${gene_phylogeny_out} &
         stage ${lineage_file} ${lineage_out}
+        ${"stage " + map_file + " " + map_out}
 
        date --iso-8601=seconds > start.txt
 
@@ -298,6 +302,7 @@ task stage {
         File product_names = "products.tsv"
         File gene_phylogeny = "gene_phylogeny.tsv"
         File lineage_tsv = "lineage.tsv"
+        File? map_tsv = map_out
         String start = read_string("start.txt")
    }
    runtime {
@@ -426,11 +431,11 @@ task finish_mags {
         if [ ${n_lq} -gt 0 ] ; then
             (cd lq && cp ${sep=" " lq_bin_tarfiles} .)
             (cd lq && cp ${mbin_sdb} .)
-            (cd lq && zip -j ../${prefix}_lq_bin.zip *tar.gz mbin.sdb ${prefix}_eukcc.csv ../*pdf ../*kronaplot.html ../*ko_matrix.txt)
+            (cd lq && zip -j ../${prefix}_lq_bin.zip *tar.gz mbin.sdb ../${prefix}_eukcc.csv ../*pdf ../*kronaplot.html ../*ko_matrix.txt)
         else
             (cd lq && touch no_lq_mags.txt)
             (cd lq && cp ${mbin_sdb} .)
-            (cd lq && zip -j ../${prefix}_lq_bin.zip *.txt mbin.sdb ${prefix}_eukcc.csv)
+            (cd lq && zip -j ../${prefix}_lq_bin.zip *.txt mbin.sdb ../${prefix}_eukcc.csv)
         fi
 
         # Fix up attribute name
