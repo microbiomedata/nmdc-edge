@@ -75,7 +75,7 @@ task pdf_to_png {
     pdfs = files_string.split()
     for pdf in pdfs :
         if os.stat(pdf).st_size == 0:
-            contiune
+            continue
         prefix = Path(pdf).stem
         output = "${outdir}/%s.png" % prefix
         print(output)
