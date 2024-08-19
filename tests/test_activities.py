@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from nmdc_automation.workflow_automation.activities import load_activities
 from nmdc_automation.workflow_automation.workflows import load_workflows
-from tests.fixtures.db_utils import load, read_json, reset_db
+from tests.fixtures.db_utils import load_fixture, read_json, reset_db
 
 
 TEST_DIR = Path(__file__).parent
@@ -34,7 +34,7 @@ def test_activies(test_db):
     # init_test(db)
     reset_db(test_db)
     wfs = load_workflows(CONFIG_DIR / "workflows.yaml")
-    load(test_db, "data_object_set.json", reset=True)
+    load_fixture(test_db, "data_object_set.json", reset=True)
     for wf in wfs:
         if wf.name in ["Sequencing", "ReadsQC Interleave"]:
             continue

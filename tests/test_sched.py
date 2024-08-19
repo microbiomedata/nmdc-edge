@@ -3,7 +3,7 @@ from pytest import fixture, mark
 from pathlib import Path
 from time import time
 
-from tests.fixtures.db_utils import init_test, load, read_json, reset_db
+from tests.fixtures.db_utils import init_test, load_fixture, read_json, reset_db
 
 TEST_DIR = Path(__file__).parent
 CONFIG_DIR = TEST_DIR.parent / "configs"
@@ -56,8 +56,8 @@ def test_submit(test_db, mock_api, workflow_file):
     """
     init_test(test_db)
     reset_db(test_db)
-    load(test_db, "data_object_set.json")
-    load(test_db, "omics_processing_set.json")
+    load_fixture(test_db, "data_object_set.json")
+    load_fixture(test_db, "omics_processing_set.json")
 
     jm = Scheduler(test_db, wfn=workflow_file,
                    site_conf=TEST_DIR / "site_configuration_test.toml")
@@ -78,8 +78,8 @@ def test_progress_metagenome(test_db, mock_api, workflow_file):
     init_test(test_db)
     reset_db(test_db)
     test_db.jobs.delete_many({})
-    load(test_db, "data_object_set.json")
-    load(test_db, "omics_processing_set.json")
+    load_fixture(test_db, "data_object_set.json")
+    load_fixture(test_db, "omics_processing_set.json")
     jm = Scheduler(test_db, wfn=workflow_file,
                    site_conf= TEST_DIR / "site_configuration_test.toml")
     workflow_by_name = dict()
@@ -137,8 +137,8 @@ def test_multiple_versions(test_db, mock_api):
     init_test(test_db)
     reset_db(test_db)
     test_db.jobs.delete_many({})
-    load(test_db, "data_object_set.json")
-    load(test_db, "omics_processing_set.json")
+    load_fixture(test_db, "data_object_set.json")
+    load_fixture(test_db, "omics_processing_set.json")
     jm = Scheduler(test_db, wfn=CONFIG_DIR / "workflows.yaml",
                    site_conf=TEST_DIR/"site_configuration_test.toml")
     workflow_by_name = dict()
@@ -161,9 +161,9 @@ def test_multiple_versions(test_db, mock_api):
     resp = jm.cycle()
     assert len(resp) == 0
     # Now simulate one of the other jobs finishing
-    load(test_db, "data_object_set2.json", col="data_object_set")
-    load(test_db, "read_qc_analysis_activity_set2.json",
-         col="read_qc_analysis_activity_set")
+    load_fixture(test_db, "data_object_set2.json", col="data_object_set")
+    load_fixture(test_db, "read_qc_analysis_activity_set2.json",
+                 col="read_qc_analysis_activity_set")
     resp = jm.cycle()
     # We should see one asm and one rba job
     assert len(resp) == 2
@@ -179,8 +179,8 @@ def test_out_of_range(test_db, mock_api):
     init_test(test_db)
     reset_db(test_db)
     test_db.jobs.delete_many({})
-    load(test_db, "data_object_set.json")
-    load(test_db, "omics_processing_set.json")
+    load_fixture(test_db, "data_object_set.json")
+    load_fixture(test_db, "omics_processing_set.json")
     jm = Scheduler(test_db, wfn=CONFIG_DIR / "workflows.yaml",
                    site_conf=TEST_DIR / "site_configuration_test.toml")
     workflow_by_name = dict()
@@ -209,9 +209,9 @@ def test_type_resolving(test_db, mock_api):
     init_test(test_db)
     reset_db(test_db)
     test_db.jobs.delete_many({})
-    load(test_db, "data_object_set.json")
-    load(test_db, "omics_processing_set.json")
-    load(test_db, "read_qc_analysis_activity_set.json")
+    load_fixture(test_db, "data_object_set.json")
+    load_fixture(test_db, "omics_processing_set.json")
+    load_fixture(test_db, "read_qc_analysis_activity_set.json")
 
     jm = Scheduler(test_db, wfn=CONFIG_DIR / "workflows.yaml",
                    site_conf=TEST_DIR / "site_configuration_test.toml")

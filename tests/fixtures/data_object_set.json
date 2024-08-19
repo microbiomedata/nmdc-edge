@@ -1,8 +1,8 @@
 [
   {
     "id": "nmdc:dobj-11-raw-reads2",
-    "name": "MOAB-BTM_R2_001.fastq.gz",
-    "description": "Sequencing results for MOAB-BTM_R2",
+    "name": "metaG_R2_001.fastq.gz",
+    "description": "Sequencing results for MetaG_R2",
     "md5_checksum": "4c7f1be37f805836162b49da4ed9c7e5",
     "data_object_type": "Metagenome Raw Read 2",
     "type": "nmdc:DataObject",
@@ -10,8 +10,8 @@
   },
   {
     "id": "nmdc:dobj-11-raw-reads1",
-    "name": "MOAB-BTM_R1_001.fastq.gz",
-    "description": "Sequencing results for MOAB-BTM_R1",
+    "name": "metaG_R1_001.fastq.gz",
+    "description": "Sequencing results for metaG_R1",
     "md5_checksum": "ed9467e690babb683b024ed47dd97b85",
     "data_object_type": "Metagenome Raw Read 1",
     "type": "nmdc:DataObject",
@@ -19,7 +19,7 @@
   },
   {
     "id": "nmdc:dobj-11-qc-stats",
-    "name": "nmdc_wfrqc-11-test001.1_filterStats.txt",
+    "name": "nmdc_wfrqc-11-metag.1_filterStats.txt",
     "description": "Reads QC summary for nmdc:wfrqc-11-test-metag1.1",
     "file_size_bytes": 123456,
     "md5_checksum": "7172cd332a734e002c88b35827acd991",
@@ -29,7 +29,7 @@
   },
   {
     "id": "nmdc:dobj-11-qc-info",
-    "name": "nmdc_wfrqc-11-test001.1_readsQC.info",
+    "name": "nmdc_wfrqc-11-metag.1_readsQC.info",
     "description": "Read filtering info for nmdc:wfrqc-11-test-metag1.1",
     "file_size_bytes": 123456,
     "md5_checksum": "d3812377eb0a57c9f2bdea5692d157fb",
@@ -39,7 +39,7 @@
   },
   {
     "id": "nmdc:dobj-11-filtered-reads",
-    "name": "nmdc_wfrqc-11-test001.1_filtered.fastq.gz",
+    "name": "nmdc_wfrqc-11-metag.1_filtered.fastq.gz",
     "description": "Reads QC for nmdc:wfrqc-11-test-metag1.1",
     "file_size_bytes": 123456,
     "md5_checksum": "fafb41665d8e00654ac0fbf80adc1b87",
@@ -49,7 +49,7 @@
   },
   {
     "id": "nmdc:dobj-11-contigs",
-    "name": "nmdc_wfrqc-11-test001.1_contigs.fna",
+    "name": "nmdc_wfrqc-11-metag.1_contigs.fna",
     "description": "Assembled contigs fasta for nmdc:omprc-11-test-metag1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
@@ -59,7 +59,7 @@
   },
   {
     "id": "nmdc:dobj-11-cover-stats",
-    "name": "nmdc_wfrqc-11-test001.1_covstats.txt",
+    "name": "nmdc_wfrqc-11-metag.1_covstats.txt",
     "description": "Assembly coverage stats for nmdc:omprc-11-test-metag1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
@@ -69,7 +69,7 @@
   },
   {
     "id": "nmdc:dobj-11-cover-bam",
-    "name": "nmdc_wfrqc-11-test001.1_pairedMapped_sorted.bam",
+    "name": "nmdc_wfrqc-11-metag.1_pairedMapped_sorted.bam",
     "description": "Paired reads mapping for nmdc:omprc-11-test-metag1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
@@ -79,7 +79,7 @@
   },
   {
     "id": "nmdc:dobj-11-assembly-agp",
-    "name": "nmdc_wfrqc-11-test001.1_assembly.agp",
+    "name": "nmdc_wfrqc-11-metag.1_assembly.agp",
     "description": "Assembly AGP file for nmdc:omprc-11-test-metag1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
@@ -89,7 +89,7 @@
   },
   {
     "id": "nmdc:dobj-11-scaffolds",
-    "name": "nmdc_wfrqc-11-test001.1_scaffolds.fna",
+    "name": "nmdc_wfrqc-11-metag.1_scaffolds.fna",
     "description": "Assembly scaffolds fasta for nmdc:omprc-11-test-metag1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
@@ -112,7 +112,7 @@
   {
     "id": "nmdc:dobj-11-proteins-faa",
     "name": "FASTA amino acid file for annotated proteins",
-    "description": "FASTA Amino Acid File for nmdc:wfmgan-11-test001.1",
+    "description": "FASTA Amino Acid File for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [],
     "file_size_bytes": 123456,
     "md5_checksum": "a8c59594447d0bb75a8076f40a82d7ee",
@@ -123,7 +123,7 @@
   {
     "id": "nmdc:dobj-11-tigrfam",
     "name": "GFF3 format file with TIGRfam",
-    "description": "TIGRFam for nmdc:wfmgan-11-test001.1",
+    "description": "TIGRFam for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -135,7 +135,7 @@
   {
     "id": "nmdc:dobj-11-funfam",
     "name": "GFF3 format file with CATH FunFams",
-    "description": "CATH FunFams for nmdc:wfmgan-11-test001.1",
+    "description": "CATH FunFams for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -147,7 +147,7 @@
   {
     "id": "nmdc:dobj-11-functional",
     "name": "GFF3 format file with functional annotations",
-    "description": "Functional Annotation for nmdc:wfmgan-11-test001.1",
+    "description": "Functional Annotation for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -159,7 +159,7 @@
   {
     "id": "nmdc:dobj-11-supfam",
     "name": "GFF3 format file with SUPERFam",
-    "description": "SUPERFam Annotations for nmdc:wfmgan-11-test001.1",
+    "description": "SUPERFam Annotations for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -171,7 +171,7 @@
   {
     "id": "nmdc:dobj-11-gene-phylo",
     "name": "Gene Phylogeny tsv",
-    "description": "Gene Phylogeny tsv for nmdc:wfmgan-11-test001.1",
+    "description": "Gene Phylogeny tsv for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -183,7 +183,7 @@
   {
     "id": "nmdc:dobj-11-rfam",
     "name": "GFF3 format file with RFAM",
-    "description": "RFAM Annotations for nmdc:wfmgan-11-test001.1",
+    "description": "RFAM Annotations for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -195,7 +195,7 @@
   {
     "id": "nmdc:dobj-11-trna",
     "name": "GFF3 format file with TRNA",
-    "description": "TRNA Annotations for nmdc:wfmgan-11-test001.1",
+    "description": "TRNA Annotations for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -207,7 +207,7 @@
   {
     "id": "nmdc:dobj-11-crt",
     "name": "GFF3 format file with CRT",
-    "description": "CRT Annotations for nmdc:wfmgan-11-test001.1",
+    "description": "CRT Annotations for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -219,7 +219,7 @@
   {
     "id": "nmdc:dobj-11-prodigal",
     "name": "GFF3 format file with Prodigal",
-    "description": "Prodigal Annotations for nmdc:wfmgan-11-test001.1",
+    "description": "Prodigal Annotations for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -231,7 +231,7 @@
   {
     "id": "nmdc:dobj-11-smart",
     "name": "GFF3 format file with SMART",
-    "description": "SMART Annotations for nmdc:wfmgan-11-test001.1",
+    "description": "SMART Annotations for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -243,7 +243,7 @@
   {
     "id": "nmdc:dobj-11-genemark",
     "name": "GFF3 format file with Genemark",
-    "description": "Genemark Annotations for nmdc:wfmgan-11-test001.1",
+    "description": "Genemark Annotations for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -255,7 +255,7 @@
   {
     "id": "nmdc:dobj-11-structural",
     "name": "GFF3 format file with structural annotations",
-    "description": "Structural Annotation for nmdc:wfmgan-11-test001.1",
+    "description": "Structural Annotation for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -267,7 +267,7 @@
   {
     "id": "nmdc:dobj-11-cogs",
     "name": "GFF3 format file with COGs",
-    "description": "COGs for nmdc:wfmgan-11-test001.1",
+    "description": "COGs for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -279,7 +279,7 @@
   {
     "id": "nmdc:dobj-11-crispr",
     "name": "Crispr Terms",
-    "description": "Crispr Terms for nmdc:wfmgan-11-test001.1",
+    "description": "Crispr Terms for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -291,7 +291,7 @@
   {
     "id": "nmdc:dobj-11-ec",
     "name": "Tab delimited file for EC annotation",
-    "description": "EC Annotations for nmdc:wfmgan-11-test001.1",
+    "description": "EC Annotations for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -303,7 +303,7 @@
   {
     "id": "nmdc:dobj-11-ko-ec",
     "name": "GFF3 format file with KO_EC",
-    "description": "KO_EC Annotations for nmdc:wfmgan-11-test001.1",
+    "description": "KO_EC Annotations for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -315,7 +315,7 @@
   {
     "id": "nmdc:dobj-11-kegg",
     "name": "Tab delimited file for KO annotation",
-    "description": "KEGG Orthology for nmdc:wfmgan-11-test001.1",
+    "description": "KEGG Orthology for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -327,7 +327,7 @@
   {
     "id": "nmdc:dobj-11-pfam",
     "name": "GFF3 format file with Pfam",
-    "description": "Pfam Annotation for nmdc:wfmgan-11-test001.1",
+    "description": "Pfam Annotation for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -339,7 +339,7 @@
   {
     "id": "nmdc:dobj-11-product-names",
     "name": "Product names file",
-    "description": "Product names for nmdc:wfmgan-11-test001.1",
+    "description": "Product names for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -351,7 +351,7 @@
   {
     "id": "nmdc:dobj-11-misc-gff",
     "name": "GFF3 format file with Misc",
-    "description": "Misc Annotations for nmdc:wfmgan-11-test001.1",
+    "description": "Misc Annotations for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -363,7 +363,7 @@
   {
     "id": "nmdc:dobj-11-annotation-info",
     "name": "File containing annotation info",
-    "description": "Annotation Info File for nmdc:wfmgan-11-test001.1",
+    "description": "Annotation Info File for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -375,7 +375,7 @@
   {
     "id": "nmdc:dobj-11-annotation-stats",
     "name": "Annotation statistics report",
-    "description": "Annotation Stats for nmdc:wfmgan-11-test001.1",
+    "description": "Annotation Stats for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -387,7 +387,7 @@
   {
     "id": "nmdc:dobj-11-tmrna",
     "name": "GFF3 format file with TMRNA",
-    "description": "TMRNA Annotations for nmdc:wfmgan-11-test001.1",
+    "description": "TMRNA Annotations for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -399,7 +399,7 @@
   {
     "id": "nmdc:dobj-11-contig-mapping",
     "name": "Contig mappings between contigs and scaffolds",
-    "description": "Contig Mapping File for nmdc:wfmgan-11-test001.1",
+    "description": "Contig Mapping File for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -410,8 +410,8 @@
   },
   {
     "id": "nmdc:dobj-11-bac-summary",
-    "name": "nmdc_wfmag-11-test001.1_gtdbtk.bac122.summary.tsv",
-    "description": "Bacterial Summary for nmdc:wfmag-11-test001.1",
+    "name": "nmdc_wfmag-11-metag.1_gtdbtk.bac122.summary.tsv",
+    "description": "Bacterial Summary for nmdc:wfmag-11-metag.1",
     "file_size_bytes": 123456,
     "md5_checksum": "712b640cb28d7a6a79621f8081827e11",
     "data_object_type": "GTDBTK Bacterial Summary",
@@ -430,8 +430,8 @@
   },
   {
     "id": "nmdc:dobj-11-hqmq-bin",
-    "name": "nmdc_wfmag-11-test001.1_hqmq_bin.zip",
-    "description": "Metagenome HQMQ Bins for nmdc:wfmag-11-test001.1",
+    "name": "nmdc_wfmag-11-metag.1_hqmq_bin.zip",
+    "description": "Metagenome HQMQ Bins for nmdc:wfmag-11-metag.1",
     "file_size_bytes": 123456,
     "md5_checksum": "d628d78633d2c21e25f75fb9ac641bbd",
     "data_object_type": "Metagenome HQMQ Bins Compression File",
@@ -440,8 +440,8 @@
   },
   {
     "id": "nmdc:dobj-11-ar-summary",
-    "name": "nmdc_wfmag-11-test001.1_gtdbtk.ar122.summary.tsv",
-    "description": "Archaeal Summary for nmdc:wfmag-11-test001.1",
+    "name": "nmdc_wfmag-11-metag.1_gtdbtk.ar122.summary.tsv",
+    "description": "Archaeal Summary for nmdc:wfmag-11-metag.1",
     "file_size_bytes": 123456,
     "md5_checksum": "8c1e8dafc6d37a1d612ad162d4313162",
     "data_object_type": "GTDBTK Archaeal Summary",
@@ -450,7 +450,7 @@
   },
   {
     "id": "nmdc:dobj-11-checkm",
-    "name": "nmdc_wfmag-11-test001.1_checkm_qa.out",
+    "name": "nmdc_wfmag-11-metag.1_checkm_qa.out",
     "description": "CheckM for nmdc:wfmag-11-h9brmy69.2",
     "file_size_bytes": 123456,
     "md5_checksum": "da0e9f82acf55ba26ea59bfba9d45f0b",
@@ -460,8 +460,8 @@
   },
   {
     "id": "nmdc:dobj-11-bin-info",
-    "name": "nmdc_wfmag-11-test001.1_bin.info",
-    "description": "Metagenome Bins Info File for nmdc:wfmag-11-test001.1",
+    "name": "nmdc_wfmag-11-metag.1_bin.info",
+    "description": "Metagenome Bins Info File for nmdc:wfmag-11-metag.1",
     "file_size_bytes": 123456,
     "md5_checksum": "f9be1550554363f2e009d1551856d2e4",
     "data_object_type": "Metagenome Bins Info File",
@@ -470,8 +470,8 @@
   },
   {
     "id": "nmdc:dobj-11-heatmap",
-    "name": "nmdc_wfmag-11-test001.1_heatmap.pdf",
-    "description": "Metagenome heatmap for nmdc:wfmag-11-test001.1",
+    "name": "nmdc_wfmag-11-metag.1_heatmap.pdf",
+    "description": "Metagenome heatmap for nmdc:wfmag-11-metag.1",
     "file_size_bytes": 123456,
     "md5_checksum": "b9b29b28838ea6dff7d473fc498b6d12",
     "data_object_type": "Metagenome Bins Heatmap",
@@ -480,8 +480,8 @@
   },
   {
     "id": "nmdc:dobj-11-krona",
-    "name": "nmdc_wfmag-11-test001.1_kronaplot.html",
-    "description": "Metagenome Bins Krona Plot for nmdc:wfmag-11-test001.1",
+    "name": "nmdc_wfmag-11-metag.1_kronaplot.html",
+    "description": "Metagenome Bins Krona Plot for nmdc:wfmag-11-metag.1",
     "file_size_bytes": 123456,
     "md5_checksum": "b9b29b28838ea6dff7d473fc498b6d12",
     "data_object_type": "Metagenome Bins Krona Plot",
@@ -490,8 +490,8 @@
   },
   {
     "id": "nmdc:dobj-11-bin-barplot",
-    "name": "nmdc_wfmag-11-test001.1_barplot.pdf",
-    "description": "Metagenome barplot for nmdc:wfmag-11-test001.1",
+    "name": "nmdc_wfmag-11-metag.1_barplot.pdf",
+    "description": "Metagenome barplot for nmdc:wfmag-11-metag.1",
     "file_size_bytes": 123456,
     "md5_checksum": "b9b29b28838ea6dff7d473fc498b6d12",
     "data_object_type": "Metagenome Bins Barplot",
@@ -500,8 +500,8 @@
   },
   {
     "id": "nmdc:dobj-11-raw-reads3",
-    "name": "MOAB-BTM_R3_001.fastq.gz",
-    "description": "Sequencing results for MOAB-BTM_R3",
+    "name": "metaT_R1.fastq.gz",
+    "description": "Sequencing results for metaT_R1",
     "file_size_bytes": 123456,
     "md5_checksum": "4c7f1be37f805836162b49da4ed9c7e5",
     "data_object_type": "Metatranscriptome Raw Read 1",
@@ -510,8 +510,8 @@
   },
   {
     "id": "nmdc:dobj-11-raw-reads4",
-    "name": "MOAB-BTM_R4_001.fastq.gz",
-    "description": "Sequencing results for MOAB-BTM_R4",
+    "name": "metaT_R2.fastq.gz",
+    "description": "Sequencing results for metaT_R2",
     "file_size_bytes": 123456,
     "md5_checksum": "4c7f1be37f805836162b49da4ed9c7e5",
     "data_object_type": "Metatranscriptome Raw Read 2",
@@ -555,6 +555,55 @@
     "file_size_bytes":123456,
     "md5_checksum": "d3812377eb0a57c9f2bdea5692d157fb",
     "data_object_type": "rRNA Filtered Sequencing Reads",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-contigst1",
+    "name": "nmdc_wfmtas-11-metat1.1_contigs.fna",
+    "description": "Assembled contigs fasta for nmdc:omprc-11-test-metat1",
+    "file_size_bytes": 123456,
+    "md5_checksum": "f63c857b3011dec61a08044d518291f2",
+    "data_object_type": "Assembly Contigs",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-cover-statst1",
+    "name": "nmdc_wfrqc-11-metat1.1_covstats.txt",
+    "description": "Assembly coverage stats for nmdc:omprc-11-test-metat1",
+    "file_size_bytes": 123456,
+    "md5_checksum": "f63c857b3011dec61a08044d518291f2",
+    "data_object_type": "Assembly Coverage Stats",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },{
+    "id": "nmdc:dobj-11-cover-bamt1",
+    "name": "nmdc_wfrqc-11-metat1.1_pairedMapped_sorted.bam",
+    "description": "Paired reads mapping for nmdc:omprc-11-test-meta11",
+    "file_size_bytes": 123456,
+    "md5_checksum": "f63c857b3011dec61a08044d518291f2",
+    "data_object_type": "Assembly Coverage BAM",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-assembly-infot1",
+    "name": "nmdc_wfrqc-11-metat1.1_AssemblyInfo.txt",
+    "description": "Assembly info for nmdc:omprc-11-test-metat1",
+    "file_size_bytes": 123456,
+    "md5_checksum": "f63c857b3011dec61a08044d518291f2",
+    "data_object_type": "Assembly Info File",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-bam-idxt1",
+    "name": "nmdc_wfrqc-11-metat1.1_Indexed.bam",
+    "description": "Alignment index file for nmdc:omprc-11-test-metat1",
+    "file_size_bytes": 123456,
+    "md5_checksum": "f63c857b3011dec61a08044d518291f2",
+    "data_object_type": "BAI File",
     "url": "https://data.microbiomedata.org",
     "type": "nmdc:DataObject"
   }

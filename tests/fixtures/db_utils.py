@@ -23,7 +23,7 @@ def read_json(fn):
     return data
 
 
-def load(test_db, fn, col=None, reset=False):
+def load_fixture(test_db, fn, col=None, reset=False):
     if not col:
         col = fn.split("/")[-1].split(".")[0]
     if reset:
@@ -42,4 +42,4 @@ def reset_db(test_db):
 def init_test(test_db):
     for col in COLS:
         fn = '%s.json' % (col)
-        load(test_db, fn, reset=True)
+        load_fixture(test_db, fn, reset=True)
