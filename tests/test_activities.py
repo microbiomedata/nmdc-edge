@@ -12,11 +12,7 @@ test_data = os.path.join(test_dir, "..", "test_data")
 #is cols_used? if so, update collection set for berkeley
 cols = [
     'data_object_set',
-    'metagenome_sequencing_activity_set',
-    'mags_activity_set',
-    'metagenome_assembly_set',
-    'metagenome_annotation_activity_set',
-    'read_qc_analysis_activity_set'
+    'workflow_execution_set'
     ]
 
 

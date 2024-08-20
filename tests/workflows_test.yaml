@@ -1,32 +1,32 @@
 Workflows:
   - Name: Sequencing Noninterleaved
-    Collection: omics_processing_set
+    Collection: data_generation_set
     Enabled: True
     Filter Output Objects:
     - Metagenome Raw Read 1
     - Metagenome Raw Read 2
 
   - Name: Sequencing Interleaved
-    Collection: omics_processing_set
+    Collection: data_generation_set
     Enabled: True
     Filter Output Objects:
     - Metagenome Raw Reads
 
   - Name: Sequencing
-    Type: nmdc:MetagenomeSequencingActivity
+    Type: nmdc:MetagenomeSequencing
     Enabled: False
     Git_repo: https://github.com/microbiomedata/RawSequencingData
     Version: v1.0.0
-    Collection: metagenome_sequencing_activity_set
+    Collection: workflow_execution_set
     Outputs: []
 
   - Name: Reads QC
-    Type: nmdc:ReadQcAnalysisActivity
+    Type: nmdc:ReadQcAnalysis
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
     Version: v1.0.7
     WDL: rqcfilter.wdl
-    Collection: read_qc_analysis_activity_set
+    Collection: workflow_execution_set
     Filter Input Objects:
     - Metagenome Raw Reads
     Predecessors:
@@ -36,13 +36,13 @@ Workflows:
     Inputs:
       input_files: do:Metagenome Raw Reads
       proj: "{activity_id}"
-    Activity:
-      name: "Read QC Activity for {id}"
+    WorkflowExecution:
+      name: "Read QC for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
       input_read_count: "{outputs.stats.input_read_count}"
       output_read_bases: "{outputs.stats.output_read_bases}"
       output_read_count: "{outputs.stats.output_read_count}"
-      type: nmdc:ReadQcAnalysisActivity
+      type: nmdc:ReadQcAnalysis
     Outputs:
       - output: filtered_final
         name: Reads QC result fastq (clean data)
@@ -61,11 +61,11 @@ Workflows:
         description: "Read filtering info for {id}"
 
   - Name: Reads QC Interleave
-    Type: nmdc:ReadQcAnalysisActivity
+    Type: nmdc:ReadQcAnalysis
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadsQC
     Version: v1.0.7
-    Collection: read_qc_analysis_activity_set
+    Collection: workflow_execution_set
     WDL: interleave_rqcfilter.wdl
     Input_prefix: nmdc_rqcfilter
     Inputs:
@@ -77,13 +77,13 @@ Workflows:
     - Metagenome Raw Read 2
     Predecessors:
     - Sequencing Noninterleaved
-    Activity:
-      name: "Read QC Activity for {id}"
+    WorkflowExecution:
+      name: "Read QC for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
       input_read_count: "{outputs.stats.input_read_count}"
       output_read_bases: "{outputs.stats.output_read_bases}"
       output_read_count: "{outputs.stats.output_read_count}"
-      type: nmdc:ReadQcAnalysisActivity
+      type: nmdc:ReadQcAnalysis
     Outputs:
       - output: filtered_final
         name: Reads QC result fastq (clean data)
@@ -107,7 +107,7 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/metaAssembly
     Version: v1.0.3
     WDL: jgi_assembly.wdl
-    Collection: metagenome_assembly_set
+    Collection: workflow_execution_set
     Predecessors:
     - Reads QC
     - Reads QC Interleave
@@ -116,8 +116,8 @@ Workflows:
       input_file: do:Filtered Sequencing Reads
       rename_contig_prefix: "{activity_id}"
       proj: "{activity_id}"
-    Activity:
-      name: "Metagenome Assembly Activity for {id}"
+    WorkflowExecution:
+      name: "Metagenome Assembly  for {id}"
       type: nmdc:MetagenomeAssembly
       asm_score: "{outputs.stats.asm_score}"
       contig_bp: "{outputs.stats.contig_bp}"
@@ -177,12 +177,12 @@ Workflows:
         description: "Assembly info for {id}"
 
   - Name: Metagenome Annotation
-    Type: nmdc:MetagenomeAnnotationActivity
+    Type: nmdc:MetagenomeAnnotation
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Version: v1.0.4
     WDL: annotation_full.wdl
-    Collection: metagenome_annotation_activity_set
+    Collection: workflow_execution_set
     Predecessors:
     - Metagenome Assembly
     Input_prefix: annotation
@@ -191,9 +191,9 @@ Workflows:
       imgap_project_id: "scaffold"
       proj: "{activity_id}"
       assembly_id: "{predecessor_activity_id}"
-    Activity:
-      name: "Metagenome Annotation Analysis Activity for {id}"
-      type: nmdc:MetagenomeAnnotationActivity
+    WorkflowExecution:
+      name: "Metagenome Annotation Analysis for {id}"
+      type: nmdc:MetagenomeAnnotation
     Outputs:
       - output: proteins_faa
         data_object_type: Annotation Amino Acid FASTA
@@ -317,13 +317,12 @@ Workflows:
         name: File containing contigs with annotation headers
 
   - Name: MAGs
-    Type: nmdc:MagsAnalysisActivity
+    Type: nmdc:MagsAnalysis
     Enabled: True
-    Git_repo: https://github.com/microbiomedata/mg_annotation
     Git_repo: https://github.com/microbiomedata/metaMAGs
     Version: v1.0.6
     WDL: mbin_nmdc.wdl
-    Collection: mags_activity_set
+    Collection: workflow_execution_set
     Predecessors:
     - Metagenome Annotation
     Input_prefix: nmdc_mags
@@ -347,9 +346,9 @@ Workflows:
       map_file: do:Annotation Mapping File
     Optional Inputs:
     - map_file
-    Activity:
-      name: "Metagenome Assembled Genomes Analysis Activity for {id}"
-      type: nmdc:MagsAnalysisActivity
+    WorkflowExecution:
+      name: "Metagenome Assembled Genomes Analysis for {id}"
+      type: nmdc:MagsAnalysis
     Outputs:
     - output: final_checkm
       data_object_type: CheckM Statistics
@@ -378,12 +377,12 @@ Workflows:
       suffix: _bin.info
 
   - Name: Readbased Analysis
-    Type: nmdc:ReadBasedTaxonomyAnalysisActivity
+    Type: nmdc:ReadBasedTaxonomyAnalysis
     Enabled: True
     Git_repo: https://github.com/microbiomedata/ReadbasedAnalysis
     Version: v1.0.5
     WDL: ReadbasedAnalysis.wdl
-    Collection: read_based_taxonomy_analysis_activity_set
+    Collection: workflow_execution_set
     Predecessors:
     - Reads QC
     - Reads QC Interleave
@@ -391,9 +390,9 @@ Workflows:
     Inputs:
       input_file: do:Filtered Sequencing Reads
       proj: "{activity_id}"
-    Activity:
-      name: "Readbased Taxonomy Analysis Activity for {id}"
-      type: nmdc:ReadBasedTaxonomyAnalysisActivity
+    WorkflowExecution:
+      name: "Readbased Taxonomy Analysis  for {id}"
+      type: nmdc:ReadBasedTaxonomyAnalysis
     Outputs:
     - output: final_gottcha2_report_tsv
       data_object_type: GOTTCHA2 Classification Report

@@ -10,17 +10,14 @@ import logging
 
 TEST_DIR = os.path.dirname(__file__)
 TEST_DATA = os.path.join(TEST_DIR, "..", "test_data")
-trigger_set = 'metagenome_annotation_activity_set'
+trigger_set = 'workflow_execution_set'
 trigger_id = 'nmdc:55a79b5dd58771e28686665e3c3faa0c'
 trigger_doid = 'nmdc:1d87115c442a1f83190ae47c7fe4011f'
 cols = [
     'data_object_set',
-    "omics_processing_set",
-    'mags_activity_set',
-    'metagenome_assembly_set',
-    'jobs',
-    'metagenome_annotation_activity_set',
-    'read_qc_analysis_activity_set'
+    "data_generation_set",
+    "workflow_execution_set",
+    'jobs'
     ]
 
 FIXTURE_DIR = Path(__file__).parent / "fixtures"
@@ -94,7 +91,7 @@ def test_submit(db, mock_api):
     init_test(db)
     reset_db(db)
     load(db, "data_object_set.json")
-    load(db, "omics_processing_set.json")
+    load(db, "data_generation_set.json")
 
     jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
                    site_conf="./tests/site_configuration_test.toml")
@@ -113,7 +110,7 @@ def test_progress(db, mock_api):
     reset_db(db)
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
-    load(db, "omics_processing_set.json")
+    load(db, "data_generation_set.json")
     jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
                    site_conf="./tests/site_configuration_test.toml")
     workflow_by_name = dict()
@@ -166,7 +163,7 @@ def test_multiple_versions(db, mock_api):
     reset_db(db)
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
-    load(db, "omics_processing_set.json")
+    load(db, "data_generation_set.json")
     jm = Scheduler(db, wfn="./tests/workflows_test2.yaml",
                    site_conf="./tests/site_configuration_test.toml")
     workflow_by_name = dict()
@@ -205,7 +202,7 @@ def test_out_of_range(db, mock_api):
     reset_db(db)
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
-    load(db, "omics_processing_set.json")
+    load(db, "data_generation_set.json")
     jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
                    site_conf="./tests/site_configuration_test.toml")
     workflow_by_name = dict()
@@ -235,7 +232,7 @@ def test_type_resolving(db, mock_api):
     reset_db(db)
     db.jobs.delete_many({})
     load(db, "data_object_set.json")
-    load(db, "omics_processing_set.json")
+    load(db, "data_generation_set.json")
     load(db, "read_qc_analysis_activity_set.json")
 
     jm = Scheduler(db, wfn="./tests/workflows_test.yaml",
