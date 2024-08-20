@@ -6,7 +6,7 @@ import pytz
 import json
 import yaml
 from typing import List, Dict, Callable, Tuple
-import nmdc_schema.nmdc as nmdc
+import nmdc_schema as nmdc
 from linkml_runtime.dumpers import json_dumper
 from nmdc_automation.api import NmdcRuntimeApi
 from .utils import object_action, file_link, get_md5, filter_import_by_type
