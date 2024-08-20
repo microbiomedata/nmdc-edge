@@ -207,13 +207,13 @@ class GoldMapper:
             # Lookup the nmdc database class
             database_activity_set = getattr(self.nmdc_db, workflow["Collection"])
             # Lookup the nmdc schema range class
-            database_activity_range = getattr(nmdc, workflow["ActivityRange"])
+            database_activity_range = getattr(nmdc, workflow["WorkflowExecutionRange"])
             # Mint an ID
             activity_id = self.get_activity_id(workflow["Type"])
             database_activity_set.append(
                 database_activity_range(
                     id=activity_id,
-                    name=workflow["Activity"]["name"].replace("{id}", activity_id),
+                    name=workflow["Workflow_Execution"]["name"].replace("{id}", activity_id),
                     git_url=workflow["Git_repo"],
                     version=workflow["Version"],
                     part_of=[self.omics_id],

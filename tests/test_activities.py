@@ -8,6 +8,8 @@ from nmdc_automation.workflow_automation.workflows import load_workflows
 
 test_dir = os.path.dirname(__file__)
 test_data = os.path.join(test_dir, "..", "test_data")
+#TODO
+#is cols_used? if so, update collection set for berkeley
 cols = [
     'data_object_set',
     'metagenome_sequencing_activity_set',
