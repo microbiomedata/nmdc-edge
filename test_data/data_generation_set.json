@@ -10,12 +10,9 @@
     ],
     "add_date": "2020-01-27T00:00:00",
     "mod_date": "2020-01-27T00:00:00",
-    "instrument_name": "Illumina HiSeq",
     "ncbi_project_name": "Core terrestrial soil microbial communities from Talladega National Forest, Ozarks Complex, AL, USA - TALL_002-O-10-34-20140708-GEN-DNA1",
-    "omics_type": {
-      "has_raw_value": "Metagenome"
-    },
-    "part_of": [
+    "analyte_category": "metagenome",
+    "associated_studies": [
       "nmdc:sty-11-34xj1150"
     ],
     "principal_investigator": {
@@ -23,7 +20,7 @@
       "email": "lstanish@gmail.com",
       "name": "Lee Stanish"
     },
-    "type": "nmdc:OmicsProcessing",
+    "type": "nmdc:NucleotideSequencing",
     "gold_sequencing_project_identifiers": [
       "GOLD:Gp0477109"
     ]
