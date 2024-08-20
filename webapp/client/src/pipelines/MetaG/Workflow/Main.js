@@ -97,14 +97,11 @@ function Main(props) {
             myWorkflow.ko_file = selectedWorkflows[workflow].ko_file;
             myWorkflow.pfam_file = selectedWorkflows[workflow].pfam_file;
             myWorkflow.tigrfam_file = selectedWorkflows[workflow].tigrfam_file;
-            myWorkflow.cath_funfam_file = selectedWorkflows[workflow].cath_funfam_file;
-            myWorkflow.smart_file = selectedWorkflows[workflow].smart_file;
-            myWorkflow.supfam_file = selectedWorkflows[workflow].supfam_file;
+            myWorkflow.crispr_file = selectedWorkflows[workflow].crispr_file;
             myWorkflow.product_names_file = selectedWorkflows[workflow].product_names_file;
             myWorkflow.gene_phylogeny_file = selectedWorkflows[workflow].gene_phylogeny_file;
             myWorkflow.lineage_file = selectedWorkflows[workflow].lineage_file;
             myWorkflow.map_file = selectedWorkflows[workflow].map_file;
-            myWorkflow.domain_file = selectedWorkflows[workflow].domain_file;
 
             inputDisplay.input['sam/bam file'] = selectedWorkflows[workflow].sam_file_display;
             inputDisplay.input['contig file'] = selectedWorkflows[workflow].contig_file_display;
@@ -115,14 +112,11 @@ function Main(props) {
             inputDisplay.input['ko file'] = selectedWorkflows[workflow].ko_file_display;
             inputDisplay.input['pfam file'] = selectedWorkflows[workflow].pfam_file_display;
             inputDisplay.input['tigrfam file'] = selectedWorkflows[workflow].tigrfam_file_display;
-            inputDisplay.input['cath_funfam file'] = selectedWorkflows[workflow].cath_funfam_file_display;
-            inputDisplay.input['smart file'] = selectedWorkflows[workflow].smart_file_display;
-            inputDisplay.input['supfam file'] = selectedWorkflows[workflow].supfam_file_display;
+            inputDisplay.input['crispr file'] = selectedWorkflows[workflow].crispr_file_display;
             inputDisplay.input['product_names file'] = selectedWorkflows[workflow].product_names_file_display;
             inputDisplay.input['gene_phylogeny file'] = selectedWorkflows[workflow].gene_phylogeny_file_display;
             inputDisplay.input['lineage file'] = selectedWorkflows[workflow].lineage_file_display;
             inputDisplay.input['map file'] = selectedWorkflows[workflow].map_file_display;
-            inputDisplay.input['domain file'] = selectedWorkflows[workflow].domain_file_display;
 
         } else if (workflow === 'MetaAssembly' || workflow === 'ReadsQC') {
             let myInputs = {};
