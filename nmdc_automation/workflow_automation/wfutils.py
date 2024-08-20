@@ -326,7 +326,6 @@ class NmdcSchema:
                 name=activity_name,
                 git_url=workflow["git_repo"],
                 version=workflow["release"],
-                part_of=[omic_id],
                 execution_resource=resource,
                 started_at_time=start_time,
                 has_input=has_inputs_list,

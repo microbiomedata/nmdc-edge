@@ -216,7 +216,6 @@ class GoldMapper:
                     name=workflow["Workflow_Execution"]["name"].replace("{id}", activity_id),
                     git_url=workflow["Git_repo"],
                     version=workflow["Version"],
-                    part_of=[self.omics_id],
                     execution_resource=self.import_data["Workflow Metadata"][
                         "Execution Resource"
                     ],
