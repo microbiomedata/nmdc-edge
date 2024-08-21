@@ -9,7 +9,7 @@ data_dir = "/tmp"
 raw_dir = "/path/to/raw/data/files"
 
 [site]
-resource = "Resource Name"
+resource = "NERSC-Perlmutter"
 site = "Processing Site"
 
 [nmdc]

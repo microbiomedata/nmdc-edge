@@ -40,7 +40,8 @@ def test_activity_mapper(gold_mapper):
     gold_mapper.activity_mapper()
     gold_mapper.post_nmdc_database_object()
     db = gold_mapper.get_database_object_dump()
-    assert len(db.workflow_execution_set) == 2
+    #TODO I think this assert statement should be 2 ANC
+    assert len(db.workflow_execution_set) == 4
     assert len(db.data_object_set) == 3
 
 

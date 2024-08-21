@@ -343,29 +343,30 @@ class NmdcSchema:
         """
 
         activity_store_dict = {
+            #TODO deprecate MetagenomeSequencing
             "nmdc:MetagenomeSequencing": (
-                self.nmdc_db.metagenome_sequencing_activity_set,
-                nmdc.MetagenomeSequencingActivity,
+                self.nmdc_db.workflow_execution_set,
+                nmdc.MetagenomeSequencing,
             ),
-            "nmdc:ReadQcAnalysisActivity": (
-                self.nmdc_db.read_qc_analysis_activity_set,
-                nmdc.ReadQcAnalysisActivity,
+            "nmdc:ReadQcAnalysis": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.ReadQcAnalysis,
             ),
-            "nmdc:ReadBasedTaxonomyAnalysisActivity": (
-                self.nmdc_db.read_based_taxonomy_analysis_activity_set,
-                nmdc.ReadBasedTaxonomyAnalysisActivity,
+            "nmdc:ReadBasedTaxonomyAnalysis": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.ReadBasedTaxonomyAnalysis,
             ),
             "nmdc:MetagenomeAssembly": (
-                self.nmdc_db.metagenome_assembly_set,
+                self.nmdc_db.workflow_execution_set,
                 nmdc.MetagenomeAssembly,
             ),
-            "nmdc:MetagenomeAnnotationActivity": (
-                self.nmdc_db.metagenome_annotation_activity_set,
-                nmdc.MetagenomeAnnotationActivity,
+            "nmdc:MetagenomeAnnotation": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.MetagenomeAnnotation,
             ),
-            "nmdc:MagsAnalysisActivity": (
-                self.nmdc_db.mags_activity_set,
-                nmdc.MagsAnalysisActivity,
+            "nmdc:MagsAnalysis": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.MagsAnalysis,
             ),
         }
 
