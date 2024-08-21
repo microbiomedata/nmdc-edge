@@ -208,6 +208,7 @@ export const initialMetaMAGs = {
         cath_funfam_file: '_cath_funfam.gff',
         smart_file: '_smart.gff',
         supfam_file: '_supfam.gff',
+        crispr_file: '_crt.crisprs',
         product_names_file: '_product_names.tsv',
         gene_phylogeny_file: '_gene_phylogeny.tsv',
         lineage_file: '_scaffold_lineage.tsv',
