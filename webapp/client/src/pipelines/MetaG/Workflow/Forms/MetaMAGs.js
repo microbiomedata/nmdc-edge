@@ -326,7 +326,7 @@ export function MetaMAGs(props) {
                                 validFile={form.crispr_file_validInput}
                                 dataSources={['project', 'upload', 'public']}
                                 projectTypes={['Metagenome Annotation']}
-                                fileTypes={['gff']} fieldname={'crispr_file'} viewFile={false} />
+                                fileTypes={['tsv','crisprs']} fieldname={'crispr_file'} viewFile={false} />
                         </Col>
                     </Row>
                     <br></br>
