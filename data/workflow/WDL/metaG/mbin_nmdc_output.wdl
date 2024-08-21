@@ -41,7 +41,7 @@ workflow mbin_nmdc_output {
     }
 
   call make_output {
-            input: container="microbiomedata/nmdc_mbin_vis:0.4.0",
+            input: container="microbiomedata/nmdc_mbin_vis:0.7.0",
                    activity_json=generate_objects.activity_json,
                    object_json=generate_objects.data_object_json,
                    short=short,
@@ -60,7 +60,7 @@ workflow mbin_nmdc_output {
 
 task pdf_to_png {
     String? outdir
-    String container =  "microbiomedata/nmdc_mbin_vis:0.4.0"
+    String container =  "microbiomedata/nmdc_mbin_vis:0.7.0"
     Array[File] pdf_files
 
     command<<<

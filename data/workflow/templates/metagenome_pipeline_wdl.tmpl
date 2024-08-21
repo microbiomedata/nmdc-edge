@@ -213,8 +213,6 @@ workflow main_workflow {
 	String metaMAGs_database="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
     String checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
 	String eukcc2_db="/refdata/EUKCC2_DB/eukcc2_db_ver_1.2"
-	String metaMAGsVis_container = "microbiomedata/nmdc_mbin_vis:0.7.0"
-    String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:57930406fb5cc364bacfc904066519de6cdc2d0ceda9db0eebf2336df3ef5349"
 	
 
     call metaMAGs.nmdc_mags as metaMAGs_call {
@@ -240,14 +238,11 @@ workflow main_workflow {
             gtdbtk_db=metaMAGs_database,
             checkm_db=checkm_db,
 			eukcc2_db=eukcc2_db,
-            scratch_dir=metaMAGs_outdir,
-			package_container=metaMAGsVis_container,
-            container=metaMAGs_container
+            scratch_dir=metaMAGs_outdir
     }
 	call metaMAGsOutput.pdf_to_png as metaMAGs_vis {
 		input:
 			outdir = metaMAGs_outdir,
-    		container = metaMAGsVis_container,
     		pdf_files = [metaMAGs_call.barplot,metaMAGs_call.heatmap]
 	}
 
