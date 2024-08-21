@@ -151,7 +151,7 @@ function generateWDL(proj_home, workflow) {
         imports += 'import "readsqc_output.wdl" as ReadsQC_output' + "\n";
         imports += 'import "readsqc_preprocess.wdl" as readsqc_preprocess' + "\n";
     }
-    if(workflowname === 'metaMAGs') {
+    if(workflowname === 'MetaMAGs') {
         imports += 'import "mbin_nmdc_preprocess.wdl" as mbin_nmdc_preprocess' + "\n";
         imports += 'import "mbin_nmdc_output.wdl" as mbin_nmdc_output' + "\n";
     }
@@ -387,9 +387,7 @@ async function generateInputs(proj_home, workflow, proj) {
         templInputs = templInputs.replace(/<PRODUCT_NAMES_FILE>/, '"' + workflow['product_names_file'] + '"');
         templInputs = templInputs.replace(/<GENE_PHYLOGENY_FILE>/, '"' + workflow['gene_phylogeny_file'] + '"');
         templInputs = templInputs.replace(/<LINEAGE_FILE>/, '"' + workflow['lineage_file'] + '"');
-
         templInputs = templInputs.replace(/<MAP_FILE>/, '"' + workflow['map_file'] + '"');
-        templInputs = templInputs.replace(/<DOMAIN_FILE>/, '"' + workflow['domain_file'] + '"');
 
         templInputs = templInputs.replace(/<PROJ_NAME>/, '"' + proj.name + '"');
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
