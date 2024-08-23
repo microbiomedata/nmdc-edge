@@ -129,7 +129,7 @@ workflow nmdc_metat {
         count_table = rc.count_table,
         count_ig = rc.count_ig,
         count_log = rc.count_log,
-        readcount_info = rc.info_file,
+        readcount_info = rc.readcount_info,
         gff_json = tj.gff_json,
         rc_json = tj.rc_json,
         gff_rc_json = tj.gff_rc_json,
