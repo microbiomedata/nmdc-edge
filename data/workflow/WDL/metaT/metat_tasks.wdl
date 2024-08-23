@@ -453,11 +453,11 @@ task finish_metat {
       String container
       String proj
       String prefix=sub(proj, ":", "_")
-      String outdir = "Metatranscriptomics/"
-      String qcdir="~{outdir}/readsQC/"
-      String assemdir="~{outdir}/assembly/"
-      String annodir="~{outdir}/annotation/"
-      String readmap="~{outdir}/readMapping/"
+      # String outdir = "Metatranscriptomics/"
+      String qcdir="readsQC/"
+      String assemdir="assembly/"
+      String annodir="annotation/"
+      String readmap="readMapping/"
       # metaT_ReadsQC
       File filtered 
       File filtered_stats
