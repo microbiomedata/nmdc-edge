@@ -12,7 +12,7 @@ workflow nmdc_metat {
 
     input {
         String  project_id
-	File?   input_file 
+	    File?   input_file 
         File?   input_fq1
         File?   input_fq2
         Boolean input_interleaved = false
