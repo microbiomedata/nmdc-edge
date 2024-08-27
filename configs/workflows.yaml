@@ -289,7 +289,7 @@ Workflows:
     Enabled: True
     Analyte Category: Metagenome
     Git_repo: https://github.com/microbiomedata/metaMAGs
-    Version: v1.3.8
+    Version: v1.3.10
     WDL: mbin_nmdc.wdl
     Collection: mags_activity_set
     Predecessors:
