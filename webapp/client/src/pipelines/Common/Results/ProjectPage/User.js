@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Col, Row, } from 'reactstrap';
+import queryString from 'query-string';
 import ProjectSummary from '../ProjectSummary';
 import ProjectResult from '../../../ProjectResult';
 import { LoaderDialog } from "../../../../common/Dialogs";
 import { postData } from '../../../../common/util';
-
-const queryString = require('query-string');
 
 function User(props) {
     const [code, setCode] = useState();
