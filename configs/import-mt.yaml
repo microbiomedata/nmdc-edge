@@ -1,22 +1,9 @@
 Workflows:
-  - Name: Sequencing
-    Import: true
-    Type: nmdc:MetagenomeSequencingActivity
-    Git_repo: https://github.com/microbiomedata/RawSequencingData
-    Version: v1.0.0
-    Collection: metagenome_sequencing_activity_set
-    ActivityRange: MetagenomeSequencingActivity
-    Activity:
-      name: "Metagenome Sequencing Activity for {id}"
-      type: nmdc:MetagenomeSequencingActivity
-    Outputs:
-      - Metagenome Raw Reads
-
   - Name: Metatranscriptome Reads QC
     Import: true
     Type: nmdc:ReadQcAnalysisActivity
     Git_repo: https://github.com/microbiomedata/metaT_ReadsQC
-    Version: v0.0.3
+    Version: v0.0.7
     Collection: read_qc_analysis_activity_set
     ActivityRange: ReadQcAnalysisActivity
     Inputs:
@@ -38,7 +25,7 @@ Workflows:
     Import: false
     Type: nmdc:MetatranscriptomeAssembly
     Git_repo: https://github.com/microbiomedata/metaT_Assembly
-    Version: v0.0.1
+    Version: v0.0.2
     Collection: metatranscriptome_assembly_set
     ActivityRange: MetatranscriptomeAssembly
     Inputs:
@@ -82,7 +69,7 @@ Workflows:
     Import: false
     Type: nmdc:MetatranscriptomeAnnotationActivity
     Git_repo: https://github.com/microbiomedata/mg_annotation
-    Version: v1.1.0
+    Version: v1.1.4
     Collection: metatranscriptome_annotation_set
     ActivityRange: MetatranscriptomeAnnotationActivity
     Inputs:
@@ -122,7 +109,7 @@ Workflows:
     Import: false
     Type: nmdc:MetatranscriptomeExpressionAnalysis
     Git_repo: https://github.com/microbiomedata/metaT_ReadCounts
-    Version: v0.0.1
+    Version: v0.0.5
     Collection: metatranscriptome_expression_analysis_set
     ActivityRange: MetatranscriptomeExpressionAnalysis
     Inputs:
