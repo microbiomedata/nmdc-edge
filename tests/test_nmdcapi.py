@@ -39,7 +39,7 @@ def test_objects(mock_api, requests_mock):
 
     resp = n.create_object("./test_data/afile", "desc", "http://localhost/")
     # assert "checksums" in resp
-    url = "http://localhost/workflows/activities"
+    url = "http://localhost/workflows/workflow_executions"
     requests_mock.post(url, json={"a": "b"})
     resp = n.post_objects({"a": "b"})
     assert "a" in resp
