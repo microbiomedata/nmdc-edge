@@ -2,6 +2,7 @@ import logging
 from typing import List
 from .workflows import Workflow
 from semver.version import Version
+from functools import lru_cache
 
 # TODO: Berkley refactoring:
 #   The load_activities method will need to be modified to handle DataGeneration objects
@@ -38,6 +39,7 @@ def _load_data_objects(db, workflows: List[Workflow]):
     return data_objs_by_id
 
 
+@lru_cache
 def _within_range(ver1: str, ver2: str) -> bool:
     """
     Determine if two workflows are within a major and minor
@@ -91,15 +93,19 @@ def _filter_skip(wf, rec, data_objs):
 #  Slots for has_input and has_output are the same.
 #  Special handling for OmicsProcessing needs to be extended to DataGeneration.
 def _read_acitivites(db, workflows: List[Workflow],
-                     data_objects: dict, filter: dict):
+                     data_objects: dict, allowlist: set):
     """
     Read in all the activities for the defined workflows.
     """
     activities = []
     for wf in workflows:
         logging.debug(f"Checking {wf.name}:{wf.version}")
-        q = filter
-        q["git_url"] = wf.git_repo
+        q = {"git_url": wf.git_repo}
+        if allowlist and len(allowlist) > 0:
+            if wf.collection == "omics_processing_set":
+                q['id'] = {"$in": list(allowlist)}
+            else:
+                q["was_informed_by"] = {"$in": list(allowlist)}
         for rec in db[wf.collection].find(q):
             if wf.version and not _within_range(rec["version"], wf.version):
                 logging.debug(f"Skipping {wf.name} {wf.version} {rec['version']}")
@@ -163,7 +169,9 @@ def _resolve_relationships(activities, data_obj_act):
                               f" {parent_act.name}")
                 break
         if len(act.workflow.parents) > 0 and not act.parent:
-            logging.warning(f"Didn't find a parent for {act.id}")
+            if act.id not in warned_objects:
+                logging.warning(f"Didn't find a parent for {act.id}")
+                warned_objects.add(act.id)
     # Now all the activities have their parent
     return activities
 
@@ -195,7 +203,7 @@ def _find_data_object_activities(activities, data_objs_by_id):
 # TODO: Give a better name, add unit tests.
 #   This function builds up the graph of related parent / child Execution objects and is
 #   key to the behavior of workflow automation.
-def load_activities(db, workflows: list[Workflow], filter: dict = {}):
+def load_activities(db, workflows: list[Workflow], allowlist: set = set()):
     """
     This reads the activities from Mongo.  It also
     finds the parent and child relationships between
@@ -216,7 +224,7 @@ def load_activities(db, workflows: list[Workflow], filter: dict = {}):
 
     # Build up a set of relevant activities and a map from
     # the output objects to the activity that generated them.
-    activities = _read_acitivites(db, workflows, data_objs_by_id, filter)
+    activities = _read_acitivites(db, workflows, data_objs_by_id, allowlist)
     data_obj_act = _find_data_object_activities(activities, data_objs_by_id)
 
     # Now populate the parent and children values for the
