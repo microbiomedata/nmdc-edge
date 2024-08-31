@@ -314,6 +314,9 @@ Workflows:
       map_file: do:Contig Mapping File
       gene_phylogeny_file: do:Gene Phylogeny tsv
       proj: "{activity_id}"
+      map_file: do:Contig Mapping File
+    Optional Inputs:
+    - map_file
     Activity:
       name: "Metagenome Assembled Genomes Analysis Activity for {id}"
       type: nmdc:MagsAnalysisActivity

@@ -288,20 +288,14 @@ class Scheduler:
         """
         This function does a single cycle of looking for new jobs
         """
-        filt = {}
-        if allowlist:
-            filt = {"was_informed_by": {"$in": list(allowlist)}}
         # TODO: Quite a lot happens under the hood here. This function should be broken down into smaller
         #      functions to improve readability and maintainability.
-        acts = load_activities(self.db, self.workflows, filter=filt)
+        acts = load_activities(self.db, self.workflows, allowlist=allowlist)
         self.get_existing_jobs.cache_clear()
         job_recs = []
         for act in acts:
             if act.was_informed_by in skiplist:
                 logging.debug(f"Skipping: {act.was_informed_by}")
-                continue
-            if not act.workflow.enabled:
-                logging.debug(f"Skipping: {act.id}, workflow disabled.")
                 continue
             jobs = self.find_new_jobs(act)
             for job in jobs:

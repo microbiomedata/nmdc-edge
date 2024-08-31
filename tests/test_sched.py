@@ -25,6 +25,7 @@ cols = [
 
 FIXTURE_DIR = Path(__file__).parent / "fixtures"
 
+
 @fixture
 def db():
     conn_str = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
