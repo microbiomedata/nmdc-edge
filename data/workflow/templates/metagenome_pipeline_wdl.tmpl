@@ -24,7 +24,7 @@ workflow main_workflow {
         String      readsQC_database="/refdata"
         String      proj = "metagenome_workflow" 
         String      readsQC_vis_container="microbiomedata/fastqc_vis:1.0"
-        File        rqcfiltered_reads = nmdc_rqcfilter_call.filtered_final
+        Array[File]        rqcfiltered_reads = nmdc_rqcfilter_call.filtered_final
         # ReadbasedAnalysis
         Int    readbasedAnalysis_cpu = 4
         String readbasedAnalysis_prefix
@@ -128,13 +128,19 @@ workflow main_workflow {
           vis_container=readsQC_vis_container
     }
 
+    call readbasedanalysis_preprocess.preprocess as readbased_preprocess {
+	input:
+		input_files=rqcfiltered_reads,
+		paired=input_interleaved
+	}
+
     call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
         input:
             db_gottcha2=db_gottcha2, 
             db_kraken2=db_kraken2, 
             db_centrifuge=db_centrifuge,
             cpu=readbasedAnalysis_cpu,
-            input_file=rqcfiltered_reads,
+            input_file= select_first([readbased_preprocess.input_file_gz, [""]]),
             proj=readbasedAnalysis_prefix,
             paired=input_interleaved,
             bbtools_container=readsQC_bbtools_container,
@@ -159,7 +165,7 @@ workflow main_workflow {
         input:
             memory=metaAssembly_memory,
             threads=metaAssembly_threads,
-            input_file=rqcfiltered_reads,
+            input_file=readbased_preprocess.input_file_gz,
             proj=proj,
             bbtools_container=metaAssembly_bbtools_container
     }
