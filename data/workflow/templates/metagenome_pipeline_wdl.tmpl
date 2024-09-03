@@ -1,48 +1,112 @@
-import "rqcfilter.wdl" as readsQC
+version 1.0
+
+import "https://raw.githubusercontent.com/microbiomedata/ReadsQC/v1.0.11/shortReadsqc.wdl" as readsQC
 import "readsqc_preprocess.wdl" as readsqc_preprocess
 import "readsqc_output.wdl" as readsqc_output
-import "ReadbasedAnalysis.wdl" as readbasedAnalysis
+import "https://raw.githubusercontent.com/microbiomedata/ReadbasedAnalysis/v1.0.8/ReadbasedAnalysis.wdl" as readbasedAnalysis
 import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output
-import "nmdcEDGE_assembly.wdl" as metaAssembly
-import "annotation_full.wdl" as metaAnnotation
+import "https://raw.githubusercontent.com/microbiomedata/metaAssembly/v1.0.5/shortReads_assembly.wdl" as metaAssembly
+import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/v1.1.4/annotation_full.wdl" as metaAnnotation
 import "annotation_output.wdl" as metaAnnotationOutput
-import "mbin_nmdc.wdl" as metaMAGs
+import "https://raw.githubusercontent.com/microbiomedata/metaMAGs/v1.3.6/mbin_nmdc.wdl" as metaMAGs
 import "viral-plasmid_wf.wdl" as viralPlasmid
 import "mbin_nmdc_output.wdl" as metaMAGsOutput
 
 workflow main_workflow {
-	# Workflow Booleans
-
-	Boolean input_interleaved = true
-	String? proj = "metagenome_workflow" 
-    String? activity_id = "${proj}"  # "nmdc:GpXXXXXXXx"
-    String? informed_by = "gold:GpXXXXXXX"
-    String resource = "SDSC - Expanse"
+    input {
+        # ReadsQC
+        Array[File] input_files
+        String      readsQC_outdir
+        Boolean     input_interleaved = true
+        Array[File] input_fq1=[]
+        Array[File] input_fq2=[]
+        String      readsQC_database="/refdata"
+        String      proj = "metagenome_workflow" 
+        String      readsQC_vis_container="microbiomedata/fastqc_vis:1.0"
+        File        rqcfiltered_reads = nmdc_rqcfilter_call.filtered_final
+        # ReadbasedAnalysis
+        Int    readbasedAnalysis_cpu = 4
+        String readbasedAnalysis_prefix
+        String readbasedAnalysis_outdir
+        String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.5"
+        String readsQC_bbtools_container="microbiomedata/bbtools:38.96"
+        String db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
+        String db_kraken2 = "/refdata/Kraken2"
+        String db_centrifuge = "/refdata/Centrifuge/hpv"
+        # MetaAssembly
+        String? metaAssembly_outdir
+        String  metaAssembly_rename_contig_prefix="scaffold"
+        Float   metaAssembly_uniquekmer=1000
+        String  metaAssembly_bbtools_container="microbiomedata/bbtools:38.96"
+        String  metaAssembly_spades_container="microbiomedata/spades:3.15.0"
+        String  metaAssembly_quast_container="staphb/quast:5.2.0-slim"
+        String  metaAssembly_memory="100g"
+        String  metaAssembly_threads="4"
+        # ViralPlasmid
+        File  metaAssembly_contig = metaAssembly_call.contig
+        Map[String, Boolean] virusPlasmid_options = {
+            "default": true,
+            "relaxed": false,
+            "conservative": false,
+            "custom": false
+        }
+        String virusPlasmid_outdir
+        Int    virusPlasmid_cpu=8
+        String virusPlasmid_database_location="/refdata"
+        # MetaAnnotation
+        String  metaAnnotation_imgap_project_id
+        Int     metaAnnotation_additional_threads=8
+        String  metaAnnotation_database_location="/refdata/img/"
+        String  metaAnnotation_outdir
+        String  metaAnnotation_opaver_web_path="/expanse/projects/nmdc/edge_app/nmdc-edge/io/opaver_web/data"
+        # metaMAGS
+        String  metaMAGs_proj
+        File    metaMAGs_sam_file = metaAssembly_call.bam
+        File    metaMAGs_gff_file = metaAnnotation_call.functional_gff
+        File    metaMAGs_proteins_file = metaAnnotation_call.proteins_faa
+        File    metaMAGs_cog_file = metaAnnotation_call.cog_gff
+        File    metaMAGs_ec_file = metaAnnotation_call.ec_tsv
+        File    metaMAGs_ko_file = metaAnnotation_call.ko_tsv
+        File    metaMAGs_pfam_file = metaAnnotation_call.pfam_gff
+        File    metaMAGs_tigrfam_file = metaAnnotation_call.tigrfam_gff
+        File    metaMAGs_cath_funfam_file = metaAnnotation_call.cath_funfam_gff
+        File    metaMAGs_smart_file = metaAnnotation_call.smart_gff
+        File    metaMAGs_supfam_file = metaAnnotation_call.supfam_gff
+        File    metaMAGs_product_names_file = metaAnnotation_call.product_names_tsv
+        File    metaMAGs_gene_phylogeny_file = metaAnnotation_call.gene_phylogeny_tsv
+        File    metaMAGs_lineage_file = metaAnnotation_call.lineage_tsv
+        File?   metaMAGs_map_file
+        File?   metaMAGs_domain_file
+        Int     metaMAGs_cpu=16
+        Int     metaMAGs_threads=64
+        Int     metaMAGs_pthreads=1
+        String  metaMAGs_database="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
+        String  checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
+        String  eukcc2_db="/refdata/EUKCC2_DB/eukcc2_db_ver_1.2"
+        String? metaMAGs_outdir
+        String  metaMAGsVis_container = "microbiomedata/nmdc_mbin_vis:0.4.0"
+        String  metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:57930406fb5cc364bacfc904066519de6cdc2d0ceda9db0eebf2336df3ef5349"
+        # finish
+        String informed_by = "gold:GpXXXXXXX"
+        String resource = "SDSC - Expanse"
+        String url_root = "https://nmdc-edge.org/projects/"
+        String url_base = url_root + sub(proj, "[^A-Za-z0-9]", "_") + "/output/"
+        String git_url = "https://gitlab.com/edge-lanl/nmdc-edge"
+    }
     
-    # https://nmdc-edge.org/projects/pCxA9JY0P0SckQQR/output/ReadbasedAnalysis/Readsbased_NMDC_test.json
-    String url_root = "https://nmdc-edge.org/projects/"
-    String url_base = url_root + sub(proj, "[^A-Za-z0-9]", "_") + "/output/"
-    String git_url = "https://gitlab.com/edge-lanl/nmdc-edge"
-	
-	## Fastq input files
-	Array[File] input_files
-	
-	call start {
-		input: container="microbiomedata/workflowmeta:1.0.5.1"
-	}
+    call start {
+        input: container="microbiomedata/workflowmeta:1.0.5.1"
+    }
 
-
-	## QC workflow
-	String? readsQC_outdir
-	String readsQC_bbtools_container="microbiomedata/bbtools:38.96"
-	String readsQC_vis_container="microbiomedata/fastqc_vis:1.0"
-	String readsQC_database="/refdata"
-	String readsQC_memory="60g"
-	String readsQC_threads="4"
-	Array[File] input_fq1=[]
-	Array[File] input_fq2=[]
-	Boolean readsQC_chastityfilter_flag=false
+    call readsQC.ShortReadsQC  as nmdc_rqcfilter_call {
+        input:
+            input_files=input_files,
+            input_fq1=input_fq1,
+            input_fq2=input_fq2,
+            proj=proj,
+            interleaved=input_interleaved,
+    }
 
     call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input:
@@ -51,179 +115,86 @@ workflow main_workflow {
             input_interleaved=input_interleaved,
             input_fq1=input_fq1,
             input_fq2=input_fq2
-        }
-    scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
-
-        call readsQC.nmdc_rqcfilter  as nmdc_rqcfilter_call {
-            input:
-                input_files=file,
-                database=readsQC_database,
-                proj=proj,
-                chastityfilter_flag=readsqc_preprocess.isIllumina
-		}
-
     }
 
-	call readsqc_output.fastqc_report as fastqc_report {
-		input:
-		  outdir=readsQC_outdir,
-		  input_files_prefix = readsqc_preprocess.input_files_prefix,
-		  filtered=nmdc_rqcfilter_call.filtered_final,
-		  filtered_stats2_final=nmdc_rqcfilter_call.filtered_stats2_final,
-		  container=readsQC_vis_container
-	}
-
-	## ReadbasedAnalysis workflow
-	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
-		"gottcha2": true,
-		"kraken2": true,
-		"centrifuge": true
-	}
-    Array[File] readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final
-	String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.5"
-	Int readbasedAnalysis_cpu = 4
-	String readbasedAnalysis_prefix
-	String readbasedAnalysis_outdir
-	Boolean? readbasedAnalysis_paired = false
-	String db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
-	String db_kraken2 = "/refdata/Kraken2"
-	String db_centrifuge = "/refdata/Centrifuge/hpv"
-    
-	call readbasedanalysis_preprocess.preprocess as readbased_preprocess {
-	input:
-		input_files=readbasedAnalysis_reads,
-		paired=readbasedAnalysis_paired
-	}
+    call readsqc_output.readsqc_output as readsqc_output {
+        input:
+          input_files = input_files,
+          input_files_prefix = select_first([readsqc_preprocess.input_files_prefix, [""]]),
+          filtered_stats_final = nmdc_rqcfilter_call.filtered_stats_final,
+          filtered_stats2_final = nmdc_rqcfilter_call.filtered_stats2_final,
+          rqc_info = nmdc_rqcfilter_call.rqc_info, 
+          outdir=readsQC_outdir,
+          vis_container=readsQC_vis_container
+    }
 
     call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
         input:
-            input_file=readbased_preprocess.input_file_gz,
+            db_gottcha2=db_gottcha2, 
+            db_kraken2=db_kraken2, 
+            db_centrifuge=db_centrifuge,
             cpu=readbasedAnalysis_cpu,
+            input_file=rqcfiltered_reads,
             proj=readbasedAnalysis_prefix,
-            paired=readbasedAnalysis_paired,
-            docker=ReadbasedAnalysis_container,
+            paired=input_interleaved,
             bbtools_container=readsQC_bbtools_container,
-            db_gottcha2=db_gottcha2, db_kraken2=db_kraken2, db_centrifuge=db_centrifuge
+            docker=ReadbasedAnalysis_container
     }
 
-     call readbasedAnalysis_output.readbasedAnalysis_output as readbasedAnalysis_output {
-        input: gottcha2_report_tsv=ReadbasedAnalysis_call.final_gottcha2_report_tsv, gottcha2_full_tsv=ReadbasedAnalysis_call.final_gottcha2_full_tsv,
-        gottcha2_krona_html=ReadbasedAnalysis_call.final_gottcha2_krona_html, kraken2_report_tsv=ReadbasedAnalysis_call.final_kraken2_report_tsv,
-        kraken2_classification_tsv=ReadbasedAnalysis_call.final_kraken2_classification_tsv, kraken2_krona_html=ReadbasedAnalysis_call.final_kraken2_krona_html,
-        centrifuge_report_tsv=ReadbasedAnalysis_call.final_centrifuge_report_tsv,
-        centrifuge_classification_tsv=ReadbasedAnalysis_call.final_centrifuge_classification_tsv,
-        centrifuge_krona_html=ReadbasedAnalysis_call.final_centrifuge_krona_html, PREFIX=readbasedAnalysis_prefix
-
+     call readbasedAnalysis_output.readbasedAnalysis_output as ReadbasedAnalysis_output {
+        input: 
+            gottcha2_report_tsv=ReadbasedAnalysis_call.final_gottcha2_report_tsv, 
+            gottcha2_full_tsv=ReadbasedAnalysis_call.final_gottcha2_full_tsv,
+            gottcha2_krona_html=ReadbasedAnalysis_call.final_gottcha2_krona_html, 
+            kraken2_report_tsv=ReadbasedAnalysis_call.final_kraken2_report_tsv,
+            kraken2_classification_tsv=ReadbasedAnalysis_call.final_kraken2_classification_tsv, 
+            kraken2_krona_html=ReadbasedAnalysis_call.final_kraken2_krona_html,
+            centrifuge_report_tsv=ReadbasedAnalysis_call.final_centrifuge_report_tsv,
+            centrifuge_classification_tsv=ReadbasedAnalysis_call.final_centrifuge_classification_tsv,
+            centrifuge_krona_html=ReadbasedAnalysis_call.final_centrifuge_krona_html, 
+            PREFIX=readbasedAnalysis_prefix
     }
-	## Assembly workflow
-	Array[File] metaAssembly_input_file = nmdc_rqcfilter_call.filtered_final
-	String? metaAssembly_outdir
-	String metaAssembly_rename_contig_prefix="scaffold"
-	Float metaAssembly_uniquekmer=1000
-	String metaAssembly_bbtools_container="microbiomedata/bbtools:38.96"
-	String metaAssembly_spades_container="microbiomedata/spades:3.15.0"
-	String metaAssembly_quast_container="staphb/quast:5.2.0-slim"
-	String metaAssembly_memory="100g"
-	String metaAssembly_threads="4"
-	Array[File] metaAssembly_input_fq1=[]
-	Array[File] metaAssembly_input_fq2=[]
 
-
-    call metaAssembly.nmdc_edge_assembly as metaAssembly_call {
+    call metaAssembly.jgi_metaASM as metaAssembly_call {
         input:
-            proj=proj,
-            input_file=metaAssembly_input_file,
-            outdir=metaAssembly_outdir,
-            rename_contig_prefix=metaAssembly_rename_contig_prefix,
-            uniquekmer=metaAssembly_uniquekmer,
-            bbtools_container=metaAssembly_bbtools_container,
-            spades_container=metaAssembly_spades_container,
-			quast_container=metaAssembly_quast_container,
             memory=metaAssembly_memory,
-            threads=metaAssembly_threads
+            threads=metaAssembly_threads,
+            input_file=rqcfiltered_reads,
+            proj=proj,
+            bbtools_container=metaAssembly_bbtools_container
     }
-	##Viral Plasmid Workflow
-	File?   virusPlasmid_input =  metaAssembly_call.contig
-	Map[String, Boolean] virusPlasmid_options = {
-		"default": true,
-		"relaxed": false,
-		"conservative": false,
-		"custom": false
-	  }
-	String  virusPlasmid_outdir
-	Int     virusPlasmid_cpu=8
-	String  virusPlasmid_database_location="/refdata"
-	call viralPlasmid.viral as viralPlasmid_call {
-			input:
-				fasta=virusPlasmid_input,
-				outdir=virusPlasmid_outdir,
-				option=virusPlasmid_options,
-				cpu=virusPlasmid_cpu,
-				database=virusPlasmid_database_location
-		}
 
-
-	## Annotation workflow
-	File?  metaAnnotation_imgap_input_fasta =  metaAssembly_call.contig
-	String  metaAnnotation_imgap_project_id
-	String  metaAnnotation_outdir
-	Int     metaAnnotation_additional_threads=8
-	String  metaAnnotation_database_location="/refdata/img/"
-	String  metaAnnotation_opaver_web_path="/expanse/projects/nmdc/edge_app/nmdc-edge/io/opaver_web/data"
-
+    call viralPlasmid.viral as viralPlasmid_call {
+        input:
+            fasta=metaAssembly_contig,
+            outdir=virusPlasmid_outdir,
+            option=virusPlasmid_options,
+            cpu=virusPlasmid_cpu,
+            database=virusPlasmid_database_location
+    }
 
     call metaAnnotation.annotation as metaAnnotation_call {
         input:
-            input_file=metaAnnotation_imgap_input_fasta,
             proj=metaAnnotation_imgap_project_id,
+            input_file=metaAssembly_contig,
             imgap_project_id=metaAnnotation_imgap_project_id,
             additional_threads=metaAnnotation_additional_threads,
             database_location=metaAnnotation_database_location
     }
-    call metaAnnotationOutput.annotation_output as annotation_output {
-      input:
-          imgap_project_type=metaAnnotation_imgap_project_id,
-          outdir=metaAnnotation_outdir,
-          final_stats_tsv=metaAnnotation_call.stats_tsv,
-          functional_gff=metaAnnotation_call.functional_gff,
-		  opaver_web_path=metaAnnotation_opaver_web_path
-  }
 
-	
-	## MAGs workflow
-	String? metaMAGs_outdir
-	String  metaMAGs_proj
-	File? metaMAGs_contig_file =  metaAssembly_call.contig
-	File? metaMAGs_sam_file =metaAssembly_call.bam
-	File? metaMAGs_gff_file = metaAnnotation_call.functional_gff
-	File? metaMAGs_proteins_file = metaAnnotation_call.proteins_faa
-    File? metaMAGs_cog_file = metaAnnotation_call.cog_gff
-    File? metaMAGs_ec_file = metaAnnotation_call.ec_tsv
-    File? metaMAGs_ko_file = metaAnnotation_call.ko_tsv
-    File? metaMAGs_pfam_file = metaAnnotation_call.pfam_gff
-    File? metaMAGs_tigrfam_file = metaAnnotation_call.tigrfam_gff
-    File? metaMAGs_cath_funfam_file = metaAnnotation_call.cath_funfam_gff
-    File? metaMAGs_smart_file = metaAnnotation_call.smart_gff
-    File? metaMAGs_supfam_file = metaAnnotation_call.supfam_gff
-    File? metaMAGs_product_names_file = metaAnnotation_call.product_names_tsv
-    File? metaMAGs_gene_phylogeny_file = metaAnnotation_call.gene_phylogeny_tsv
-    File? metaMAGs_lineage_file = metaAnnotation_call.lineage_tsv
-	File? metaMAGs_map_file
-	File? metaMAGs_domain_file
-	Int metaMAGs_cpu=16
-	Int metaMAGs_threads=64
-	Int metaMAGs_pthreads=1
-	String metaMAGs_database="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
-    String checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
-	String eukcc2_db="/refdata/EUKCC2_DB/eukcc2_db_ver_1.2"
-	String metaMAGsVis_container = "microbiomedata/nmdc_mbin_vis:0.4.0"
-    String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:57930406fb5cc364bacfc904066519de6cdc2d0ceda9db0eebf2336df3ef5349"
-	
+    call metaAnnotationOutput.annotation_output as annotation_output {
+        input:
+            imgap_project_type=metaAnnotation_imgap_project_id,
+            outdir=metaAnnotation_outdir,
+            final_stats_tsv=metaAnnotation_call.stats_tsv,
+            functional_gff=metaAnnotation_call.functional_gff,
+            opaver_web_path=metaAnnotation_opaver_web_path
+  }
 
     call metaMAGs.nmdc_mags as metaMAGs_call {
         input:
             proj=metaMAGs_proj,
-            contig_file=metaMAGs_contig_file,
+            contig_file=metaAssembly_contig,
             sam_file=metaMAGs_sam_file,
             gff_file=metaMAGs_gff_file,
             proteins_file=metaMAGs_proteins_file,
@@ -239,371 +210,301 @@ workflow main_workflow {
             gene_phylogeny_file=metaMAGs_gene_phylogeny_file,
             lineage_file=metaMAGs_lineage_file,
             map_file=metaMAGs_map_file,
-            domain_file=metaMAGs_domain_file,
+            scratch_dir=metaMAGs_outdir,
             cpu=metaMAGs_cpu,
             threads=metaMAGs_threads,
             pthreads=metaMAGs_pthreads,
             gtdbtk_db=metaMAGs_database,
             checkm_db=checkm_db,
-			eukcc2_db=eukcc2_db,
-            scratch_dir=metaMAGs_outdir,
-			package_container=metaMAGsVis_container,
+            eukcc2_db=eukcc2_db,
+            package_container=metaMAGsVis_container,
             container=metaMAGs_container
     }
-	call metaMAGsOutput.pdf_to_png as metaMAGs_vis {
-		input:
-			outdir = metaMAGs_outdir,
-    		container = metaMAGsVis_container,
-    		pdf_files = [metaMAGs_call.barplot,metaMAGs_call.heatmap]
-	}
+    call metaMAGsOutput.pdf_to_png as metaMAGs_vis {
+        input:
+            outdir = metaMAGs_outdir,
+            container = metaMAGsVis_container,
+            pdf_files = [metaMAGs_call.barplot,metaMAGs_call.heatmap]
+    }
 
-	call finish {
-		input: container="microbiomedata/workflowmeta:1.0.5.1",
-			proj= metaAssembly_rename_contig_prefix,
-			start=start.start,
-			resource=resource,
-			url_base=url_base,
-			git_url=git_url,
-			informed_by=informed_by,
-			input_files_prefix = readsqc_preprocess.input_files_prefix,
-			read = if (input_interleaved) then input_files else flatten([input_fq1,input_fq2]),
-			filtered = nmdc_rqcfilter_call.filtered_final,
-			filtered_stats = nmdc_rqcfilter_call.filtered_stats_final,
-			filtered_stats2 = nmdc_rqcfilter_call.filtered_stats2_final,
-			filtered_stats_json = nmdc_rqcfilter_call.filtered_stats_json_final,
-			fasta=metaAssembly_call.contig,
-			scaffold=metaAssembly_call.scaffold,
-			agp=metaAssembly_call.agp,
-			bam=metaAssembly_call.bam,
-			covstats=metaAssembly_call.covstats,
-			asmstats=metaAssembly_call.asmstats,
-			proteins_faa=metaAnnotation_call.proteins_faa,
-			functional_gff=metaAnnotation_call.functional_gff,
-			structural_gff=metaAnnotation_call.structural_gff,
-			ko_tsv=metaAnnotation_call.ko_tsv,
-			ec_tsv=metaAnnotation_call.ec_tsv,
-			cog_gff=metaAnnotation_call.cog_gff,
-			pfam_gff=metaAnnotation_call.pfam_gff,
-			tigrfam_gff=metaAnnotation_call.tigrfam_gff,
-			smart_gff=metaAnnotation_call.smart_gff,
-			supfam_gff=metaAnnotation_call.supfam_gff,
-			cath_funfam_gff=metaAnnotation_call.cath_funfam_gff,
-			crt_gff=metaAnnotation_call.crt_gff,
-			genemark_gff=metaAnnotation_call.genemark_gff,
-			prodigal_gff=metaAnnotation_call.prodigal_gff,
-			trna_gff=metaAnnotation_call.trna_gff,
-			crt_crisprs=metaAnnotation_call.crt_crisprs,
-			product_names_tsv=metaAnnotation_call.product_names_tsv,
-			gene_phylogeny_tsv=metaAnnotation_call.gene_phylogeny_tsv,
-			ko_ec_gff=metaAnnotation_call.ko_ec_gff,
-			stats_tsv=metaAnnotation_call.stats_tsv,
-			# stats_json=metaAnnotation_call.stats_json,
-			gottcha2_report_tsv = ReadbasedAnalysis_call.final_gottcha2_report_tsv,
-			gottcha2_full_tsv = ReadbasedAnalysis_call.final_gottcha2_full_tsv,
-			gottcha2_krona_html = ReadbasedAnalysis_call.final_gottcha2_krona_html,
-			centrifuge_classification_tsv = ReadbasedAnalysis_call.final_centrifuge_classification_tsv,
-			centrifuge_report_tsv = ReadbasedAnalysis_call.final_centrifuge_report_tsv,
-			centrifuge_krona_html = ReadbasedAnalysis_call.final_centrifuge_krona_html,
-			kraken2_classification_tsv = ReadbasedAnalysis_call.final_kraken2_classification_tsv,
-			kraken2_report_tsv = ReadbasedAnalysis_call.final_kraken2_report_tsv,
-			kraken2_krona_html = ReadbasedAnalysis_call.final_kraken2_krona_html,
-			summary_json = readbasedAnalysis_output.summary_json,
-			final_hqmq_bins_zip = metaMAGs_call.final_hqmq_bins_zip,
-			final_lq_bins_zip = metaMAGs_call.final_lq_bins_zip,
-			final_lq_bins_zip = metaMAGs_call.final_lq_bins_zip,
-			final_gtdbtk_ar_summary = metaMAGs_call.final_gtdbtk_ar_summary,
-			short=metaMAGs_call.short,
-			low =metaMAGs_call.low,
-			final_unbinned_fa=metaMAGs_call.final_unbinned_fa,
-			final_checkm=metaMAGs_call.final_checkm,
-			mags_version=metaMAGs_call.mags_version,
-			final_stats_json=metaMAGs_call.final_stats_json,
-			barplot=metaMAGs_call.barplot,
-			heatmap=metaMAGs_call.heatmap,
-			kronaplot=metaMAGs_call.kronaplot,
-			qadir=readsQC_outdir,
-			assemdir=metaAssembly_outdir,
-			annodir=metaAnnotation_outdir,
-			magsdir=metaMAGs_outdir,
-			rbadir=readbasedAnalysis_outdir
-	}
-}
-
-task split_interleaved_fastq{
-	Array[File] reads
-	String container
-	String? memory = "4G"
-	String output1 = "input.left.fastq.gz"
-	String output2 = "input.right.fastq.gz"
-
-	runtime {
-		docker: container
-		mem: "4 GiB"
-		cpu:  1	 
-	}
-	command {
-		 cat ${sep=" " reads} > infile.fastq.gz	
-		 reformat.sh -Xmx${default="10G" memory} in=infile.fastq.gz out1=${output1} out2=${output2}
-	}
-	
-	output {
-		Array[File] outFastq = [output1, output2]
-	}
-}
-
-task interleave_reads{
-
-	Array[File] input_files
-	String output_file = "interleaved.fastq.gz"
-	String container
-	
-	command <<<
-		if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then 
-			paste <(gunzip -c ${input_files[0]} | paste - - - -) <(gunzip -c ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}
-			echo ${output_file}
-		else
-			if [[ "${output_file}" == *.gz ]]; then
-				paste <(cat ${input_files[0]} | paste - - - -) <(cat ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}
-				echo ${output_file}
-			else
-				paste <(cat ${input_files[0]} | paste - - - -) <(cat ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}.gz
-				echo ${output_file}.gz
-			fi
-		fi
-	>>>
-	
-	runtime {
-		docker: container
-		memory: "1 GiB"
-		cpu:  1
-	}
-	
-	output {
-		File out_fastq = read_string(stdout())
-	}
+    call finish {
+        input: 
+            container="microbiomedata/workflowmeta:1.0.5.1",
+            proj= metaAssembly_rename_contig_prefix,
+            start=start.start,
+            resource=resource,
+            url_base=url_base,
+            git_url=git_url,
+            informed_by=informed_by,
+            read = if (input_interleaved) then input_files else flatten([input_fq1,input_fq2]),
+            filtered = nmdc_rqcfilter_call.filtered_final,
+            filtered_stats = nmdc_rqcfilter_call.filtered_stats_final,
+            filtered_stats2 = nmdc_rqcfilter_call.filtered_stats2_final,
+            fasta=metaAssembly_contig,
+            scaffold=metaAssembly_call.scaffold,
+            agp=metaAssembly_call.agp,
+            bam=metaAssembly_call.bam,
+            covstats=metaAssembly_call.covstats,
+            asmstats=metaAssembly_call.asmstats,
+            proteins_faa=metaAnnotation_call.proteins_faa,
+            functional_gff=metaAnnotation_call.functional_gff,
+            structural_gff=metaAnnotation_call.structural_gff,
+            ko_tsv=metaAnnotation_call.ko_tsv,
+            ec_tsv=metaAnnotation_call.ec_tsv,
+            cog_gff=metaAnnotation_call.cog_gff,
+            pfam_gff=metaAnnotation_call.pfam_gff,
+            tigrfam_gff=metaAnnotation_call.tigrfam_gff,
+            smart_gff=metaAnnotation_call.smart_gff,
+            supfam_gff=metaAnnotation_call.supfam_gff,
+            cath_funfam_gff=metaAnnotation_call.cath_funfam_gff,
+            crt_gff=metaAnnotation_call.crt_gff,
+            genemark_gff=metaAnnotation_call.genemark_gff,
+            prodigal_gff=metaAnnotation_call.prodigal_gff,
+            trna_gff=metaAnnotation_call.trna_gff,
+            crt_crisprs=metaAnnotation_call.crt_crisprs,
+            product_names_tsv=metaAnnotation_call.product_names_tsv,
+            gene_phylogeny_tsv=metaAnnotation_call.gene_phylogeny_tsv,
+            ko_ec_gff=metaAnnotation_call.ko_ec_gff,
+            stats_tsv=metaAnnotation_call.stats_tsv,
+            # stats_json=metaAnnotation_call.stats_json,
+            gottcha2_report_tsv = ReadbasedAnalysis_call.final_gottcha2_report_tsv,
+            gottcha2_full_tsv = ReadbasedAnalysis_call.final_gottcha2_full_tsv,
+            gottcha2_krona_html = ReadbasedAnalysis_call.final_gottcha2_krona_html,
+            centrifuge_classification_tsv = ReadbasedAnalysis_call.final_centrifuge_classification_tsv,
+            centrifuge_report_tsv = ReadbasedAnalysis_call.final_centrifuge_report_tsv,
+            centrifuge_krona_html = ReadbasedAnalysis_call.final_centrifuge_krona_html,
+            kraken2_classification_tsv = ReadbasedAnalysis_call.final_kraken2_classification_tsv,
+            kraken2_report_tsv = ReadbasedAnalysis_call.final_kraken2_report_tsv,
+            kraken2_krona_html = ReadbasedAnalysis_call.final_kraken2_krona_html,
+            summary_json = ReadbasedAnalysis_output.summary_json,
+            final_hqmq_bins_zip = metaMAGs_call.final_hqmq_bins_zip,
+            final_lq_bins_zip = metaMAGs_call.final_lq_bins_zip,
+            final_lq_bins_zip = metaMAGs_call.final_lq_bins_zip,
+            final_gtdbtk_ar_summary = metaMAGs_call.final_gtdbtk_ar_summary,
+            short=metaMAGs_call.short,
+            low =metaMAGs_call.low,
+            final_unbinned_fa=metaMAGs_call.final_unbinned_fa,
+            final_checkm=metaMAGs_call.final_checkm,
+            mags_version=metaMAGs_call.mags_version,
+            final_stats_json=metaMAGs_call.final_stats_json,
+            barplot=metaMAGs_call.barplot,
+            heatmap=metaMAGs_call.heatmap,
+            kronaplot=metaMAGs_call.kronaplot,
+            qadir=readsQC_outdir,
+            assemdir=metaAssembly_outdir,
+            annodir=metaAnnotation_outdir,
+            magsdir=metaMAGs_outdir,
+            rbadir=readbasedAnalysis_outdir
+    }
 }
 
 task start {
-	String container
-	command <<<
-		set -e
-		# Capture the start time
-		date --iso-8601=seconds > start.txt
-	>>>
-	output{
-		String start = read_string("start.txt")
-		File start_file = "start.txt"
-	}
-	runtime {
-		memory: "1 GiB"
-		cpu:  1
-		maxRetries: 1
-		docker: container
-	}
+    input {
+        String container
+    }
+
+    command <<<
+        set -euo pipefail
+        # Capture the start time
+        date --iso-8601=seconds > start.txt
+    >>>
+
+    output{
+        String start = read_string("start.txt")
+        File start_file = "start.txt"
+    }
+
+    runtime {
+        memory: "1 GiB"
+        cpu:  1
+        maxRetries: 1
+        docker: container
+    }
 }
 
-
 task finish {
-	String container
-	String proj
-	String prefix=sub(proj, ":", "_")
-	String start
-	String informed_by
-	String resource
-	String url_base
-	String git_url
-	Array[File] read
-	Array[String] input_files_prefix
-	Int file_num = length(input_files_prefix)
-	Array[File?] filtered
-	Array[File?] filtered_stats
-	Array[File?] filtered_stats2
-	Array[File?] filtered_stats_json
-	File? fasta
-	File? scaffold
-	File? agp
-	File? bam
-	File? covstats
-	File? asmstats
-	File? proteins_faa
-	File? structural_gff
-	File? functional_gff
-	File? ko_tsv
-	File? ec_tsv
-	File? cog_gff
-	File? pfam_gff
-	File? tigrfam_gff
-	File? smart_gff
-	File? supfam_gff
-	File? cath_funfam_gff
-	File? crt_gff
-	File? genemark_gff
-	File? prodigal_gff
-	File? trna_gff
-	File? rrna_gff
-	File? ncrna_tmrna_gff
-	File? ko_ec_gff
-	File? stats_tsv
-	File? stats_json
-	File? gene_phylogeny_tsv
-	File? product_names_tsv
-	File? crt_crisprs
-	File? final_hqmq_bins_zip
-	File? final_lq_bins_zip
-	File? final_gtdbtk_bac_summary
-	File? final_gtdbtk_ar_summary
-	File? short
-	File? low
-	File? final_unbinned_fa
-	File? final_checkm
-	File? mags_version
-	File? final_stats_json
-	File? barplot
-	File? heatmap
-	File? kronaplot
-	File? gottcha2_report_tsv
-	File? gottcha2_full_tsv
-	File? gottcha2_krona_html
-	File? centrifuge_classification_tsv
-	File? centrifuge_report_tsv
-	File? centrifuge_krona_html
-	File? kraken2_classification_tsv
-	File? kraken2_report_tsv
-	File? kraken2_krona_html
-	File? summary_json
-	String qadir="ReadsQC/"
-	String assemdir="MetagenomeAssembly/"
-	String annodir="MetagenomeAnnotation/"
-	String magsdir="MetagenomeMAGs/"
-	String rbadir="ReadbasedAnalysis/"
-	String sed_bin="s/bins./${prefix}_/g"
-	String dollar ="$"
+    input {
+        String container
+        String proj
+        String prefix=sub(proj, ":", "_")
+        String start
+        String informed_by
+        String resource
+        String url_base
+        String git_url
+        Array[File] read
+        File filtered
+        File filtered_stats
+        File filtered_stats2
+        File? fasta
+        File? scaffold
+        File? agp
+        File? bam
+        File? covstats
+        File? asmstats
+        File? proteins_faa
+        File? structural_gff
+        File? functional_gff
+        File? ko_tsv
+        File? ec_tsv
+        File? cog_gff
+        File? pfam_gff
+        File? tigrfam_gff
+        File? smart_gff
+        File? supfam_gff
+        File? cath_funfam_gff
+        File? crt_gff
+        File? genemark_gff
+        File? prodigal_gff
+        File? trna_gff
+        File? rrna_gff
+        File? ncrna_tmrna_gff
+        File? ko_ec_gff
+        File? stats_tsv
+        File? stats_json
+        File? gene_phylogeny_tsv
+        File? product_names_tsv
+        File? crt_crisprs
+        File? final_hqmq_bins_zip
+        File? final_lq_bins_zip
+        File? final_gtdbtk_bac_summary
+        File? final_gtdbtk_ar_summary
+        File? short
+        File? low
+        File? final_unbinned_fa
+        File? final_checkm
+        File? mags_version
+        File? final_stats_json
+        File? barplot
+        File? heatmap
+        File? kronaplot
+        File? gottcha2_report_tsv
+        File? gottcha2_full_tsv
+        File? gottcha2_krona_html
+        File? centrifuge_classification_tsv
+        File? centrifuge_report_tsv
+        File? centrifuge_krona_html
+        File? kraken2_classification_tsv
+        File? kraken2_report_tsv
+        File? kraken2_krona_html
+        File? summary_json
+        String qadir="ReadsQC/"
+        String assemdir="MetagenomeAssembly/"
+        String annodir="MetagenomeAnnotation/"
+        String magsdir="MetagenomeMAGs/"
+        String rbadir="ReadbasedAnalysis/"
+        String sed_bin="s/bins./~{prefix}_/g"
+        String dollar ="$"
+    }
 
-	command <<<
-		set -e
-		mkdir -p ${annodir}
-		mkdir -p ${assemdir}
-		mkdir -p ${qadir}
-		mkdir -p ${annodir}
-		mkdir -p ${rbadir}
-		mkdir -p ${magsdir}
-		end=`date --iso-8601=seconds`
-	
+    command <<<
+        set -euo pipefail
+        mkdir -p ~{annodir}
+        mkdir -p ~{assemdir}
+        mkdir -p ~{qadir}
+        mkdir -p ~{annodir}
+        mkdir -p ~{rbadir}
+        mkdir -p ~{magsdir}
+        end=`date --iso-8601=seconds`
+    
+        # Generate QA objects
+            /scripts/rqcstats.py ~{filtered_stats} > stats.json
+            /scripts/generate_objects.py --type "qa" --id ~{informed_by} \
+                --name "Read QC Activity for ~{proj}" --part ~{proj} \
+                --start ~{start} --end $end \
+                --resource '~{resource}' --url ~{url_base} --giturl ~{git_url} \
+                --extra stats.json \
+                --inputs ~{sep=' ' read} \
+                --outputs \
+                ~{filtered} 'Filtered Reads' \
+                ~{filtered_stats} 'Filtered Stats'
+            cp activity.json data_objects.json ~{qadir}/
 
-		# Generate QA objects
-			/scripts/rqcstats.py ${select_first(filtered_stats)} > stats.json
-			/scripts/generate_objects.py --type "qa" --id ${informed_by} \
-				--name "Read QC Activity for ${proj}" --part ${proj} \
-				--start ${start} --end $end \
-				--resource '${resource}' --url ${url_base} --giturl ${git_url} \
-				--extra stats.json \
-				--inputs ${sep=' ' read} \
-				--outputs \
-				${select_first(filtered)} 'Filtered Reads' \
-				${select_first(filtered_stats)} 'Filtered Stats'
-			cp activity.json data_objects.json ${qadir}/
-			ARRAYPrefix=(${sep=" " input_files_prefix})
-			ARRAYFastq=(${sep=" " filtered})
-			for (( i = 0; i < ${file_num}; i++ ))
-			do
-				f=${dollar}(basename ${dollar}{ARRAYPrefix[$i]})
-				dir=${dollar}(dirname ${dollar}{ARRAYFastq[$i]})
-				prefix=${dollar}{ARRAYPrefix[$i]}
-				mkdir -p ${qadir}/$prefix
-				cp -f ${dollar}{ARRAYFastq[$i]} ${qadir}/$prefix/$prefix.filtered.fastq.gz
-				cp -f $dir/*filterStats.txt  ${qadir}/$prefix/filterStats.txt
-				cp -f $dir/*filterStats2.txt  ${qadir}/$prefix/filterStats2.txt
-				cp -f $dir/*qa_stats.json ${qadir}/$prefix/filterStats.json
-			done
+            # Generate assembly objects
+            /scripts/generate_objects.py --type "assembly" --id ~{informed_by} \
+                --name "Assembly Activity for ~{proj}" --part ~{proj} \
+                --start ~{start} --end $end \
+                --resource '~{resource}' --url ~{url_base} --giturl ~{git_url} \
+                --inputs ~{sep=" " filtered} \
+                --outputs \
+                ~{covstats} 'Metagenome Contig Coverage Stats' \
+                ~{fasta} 'Assembled contigs fasta' \
+                ~{scaffold} 'Assembled scaffold fasta' \
+                ~{agp} 'Assembled AGP file' \
+                ~{bam} 'Metagenome Alignment BAM file'
+            cp ~{fasta} ~{scaffold} ~{agp} ~{bam} ~{covstats} ~{asmstats} activity.json data_objects.json ~{assemdir}/
 
-			# Generate assembly objects
-			/scripts/generate_objects.py --type "assembly" --id ${informed_by} \
-				--name "Assembly Activity for ${proj}" --part ${proj} \
-				--start ${start} --end $end \
-				--resource '${resource}' --url ${url_base} --giturl ${git_url} \
-				--inputs ${sep=" " filtered} \
-				--outputs \
-				${covstats} 'Metagenome Contig Coverage Stats' \
-				${fasta} 'Assembled contigs fasta' \
-				${scaffold} 'Assembled scaffold fasta' \
-				${agp} 'Assembled AGP file' \
-				${bam} 'Metagenome Alignment BAM file'
-			cp ${fasta} ${scaffold} ${agp} ${bam} ${covstats} ${asmstats} activity.json data_objects.json ${assemdir}/
+            # Generate annotation objects
+            nmdc gff2json ~{functional_gff} -of features.json -oa annotations.json -ai ~{informed_by}
 
+            /scripts/generate_objects.py --type "annotation" --id ~{informed_by} \
+                --name "Annotation Activity for ~{proj}" --part ~{proj} \
+                --start ~{start} --end $end \
+                --resource '~{resource}' --url ~{url_base} --giturl ~{git_url} \
+                --inputs ~{fasta} \
+                --outputs \
+                ~{proteins_faa} 'Protein FAA' \
+                ~{structural_gff} 'Structural annotation GFF file' \
+                ~{functional_gff} 'Functional annotation GFF file' \
+                ~{ko_tsv} 'KO TSV file' \
+                ~{ec_tsv} 'EC TSV file' \
+                ~{cog_gff} 'COG GFF file' \
+                ~{pfam_gff} 'PFAM GFF file' \
+                ~{tigrfam_gff} 'TigrFam GFF file' \
+                ~{smart_gff} 'SMART GFF file' \
+                ~{supfam_gff} 'SuperFam GFF file' \
+                ~{cath_funfam_gff} 'Cath FunFam GFF file' \
+                ~{crt_gff} 'CRT GFF file' \
+                ~{genemark_gff} 'Genemark GFF file' \
+                ~{prodigal_gff} 'Prodigal GFF file' \
+                ~{trna_gff} 'tRNA GFF File' \
+                ~{crt_crisprs} 'CRISPRS file' \
+                ~{product_names_tsv} 'Product Names tsv' \
+                ~{gene_phylogeny_tsv} 'Gene Phylogeny tsv' \
+                ~{ko_ec_gff} 'KO_EC GFF file'
 
+            #cp ~{proteins_faa} ~{structural_gff} ~{functional_gff} \
+            #	~{ko_tsv} ~{ec_tsv} ~{cog_gff} ~{pfam_gff} ~{tigrfam_gff} \
+            #	~{smart_gff} ~{supfam_gff} ~{cath_funfam_gff} ~{ko_ec_gff} \
+            #	~{stats_tsv} ~{stats_json} \
+            #	~{annodir}/
+            cp features.json annotations.json activity.json data_objects.json ~{annodir}/
 
-			# Generate annotation objects
-			nmdc gff2json ${functional_gff} -of features.json -oa annotations.json -ai ${informed_by}
+            cp activity.json data_objects.json ~{final_hqmq_bins_zip} \
+            ~{final_lq_bins_zip} ~{final_gtdbtk_bac_summary} ~{final_gtdbtk_ar_summary} ~{short} ~{low} \
+            ~{final_unbinned_fa} ~{final_checkm} ~{mags_version} ~{final_stats_json} ~{barplot} ~{heatmap} \
+            ~{kronaplot} ~{magsdir}/
 
-			/scripts/generate_objects.py --type "annotation" --id ${informed_by} \
-				--name "Annotation Activity for ${proj}" --part ${proj} \
-				--start ${start} --end $end \
-				--resource '${resource}' --url ${url_base} --giturl ${git_url} \
-				--inputs ${fasta} \
-				--outputs \
-				${proteins_faa} 'Protein FAA' \
-				${structural_gff} 'Structural annotation GFF file' \
-				${functional_gff} 'Functional annotation GFF file' \
-				${ko_tsv} 'KO TSV file' \
-				${ec_tsv} 'EC TSV file' \
-				${cog_gff} 'COG GFF file' \
-				${pfam_gff} 'PFAM GFF file' \
-				${tigrfam_gff} 'TigrFam GFF file' \
-				${smart_gff} 'SMART GFF file' \
-				${supfam_gff} 'SuperFam GFF file' \
-				${cath_funfam_gff} 'Cath FunFam GFF file' \
-				${crt_gff} 'CRT GFF file' \
-				${genemark_gff} 'Genemark GFF file' \
-				${prodigal_gff} 'Prodigal GFF file' \
-				${trna_gff} 'tRNA GFF File' \
-				${crt_crisprs} 'CRISPRS file' \
-				${product_names_tsv} 'Product Names tsv' \
-				${gene_phylogeny_tsv} 'Gene Phylogeny tsv' \
-				${ko_ec_gff} 'KO_EC GFF file'
+            mkdir -p ~{rbadir}/gottcha2/
+            mkdir -p ~{rbadir}/centrifuge/
+            mkdir -p ~{rbadir}/kraken2/
+            /scripts/generate_objects.py --type "ReadbasedAnalysis" --id ~{informed_by} \
+                --name "ReadBased Analysis Activity for ~{proj}" --part ~{proj} \
+                --start ~{start} --end $end \
+                --resource '~{resource}' --url ~{url_base} --giturl ~{git_url} \
+                --inputs ~{sep=" " filtered} \
+                --outputs \
+                ~{gottcha2_report_tsv} "Gottcha2 TSV report" \
+                ~{gottcha2_full_tsv} "Gottcha2 full TSV report" \
+                ~{gottcha2_krona_html} "Gottcha2 Krona HTML report" \
+                ~{centrifuge_classification_tsv} "Centrifuge classification TSV report" \
+                ~{centrifuge_report_tsv} "Centrifuge TSV report" \
+                ~{centrifuge_krona_html} "Centrifuge Krona HTML report" \
+                ~{kraken2_classification_tsv} "Kraken classification TSV report" \
+                ~{kraken2_report_tsv} "Kraken2 TSV report" \
+                ~{kraken2_krona_html} "Kraken2 Krona HTML report"
 
-			#cp ${proteins_faa} ${structural_gff} ${functional_gff} \
-			#	${ko_tsv} ${ec_tsv} ${cog_gff} ${pfam_gff} ${tigrfam_gff} \
-			#	${smart_gff} ${supfam_gff} ${cath_funfam_gff} ${ko_ec_gff} \
-			#	${stats_tsv} ${stats_json} \
-			#	${annodir}/
-			cp features.json annotations.json activity.json data_objects.json ${annodir}/
+            cp activity.json data_objects.json ~{summary_json} ~{rbadir}/
+            cp ~{gottcha2_report_tsv} ~{gottcha2_full_tsv} ~{gottcha2_krona_html} ~{rbadir}/gottcha2/
+            cp ~{centrifuge_classification_tsv} ~{centrifuge_report_tsv} ~{centrifuge_krona_html} ~{rbadir}/centrifuge/
+            cp ~{kraken2_classification_tsv} ~{kraken2_report_tsv} ~{kraken2_krona_html} ~{rbadir}/kraken2/
 
+    >>>
 
-			cp activity.json data_objects.json ${final_hqmq_bins_zip} \
-			${final_lq_bins_zip} ${final_gtdbtk_bac_summary} ${final_gtdbtk_ar_summary} ${short} ${low} \
-			${final_unbinned_fa} ${final_checkm} ${mags_version} ${final_stats_json} ${barplot} ${heatmap} \
-			${kronaplot} ${magsdir}/
-
-		    mkdir -p ${rbadir}/gottcha2/
-		    mkdir -p ${rbadir}/centrifuge/
-		    mkdir -p ${rbadir}/kraken2/
-			/scripts/generate_objects.py --type "ReadbasedAnalysis" --id ${informed_by} \
-				--name "ReadBased Analysis Activity for ${proj}" --part ${proj} \
-				--start ${start} --end $end \
-				--resource '${resource}' --url ${url_base} --giturl ${git_url} \
-				--inputs ${sep=" " filtered} \
-				--outputs \
-				${gottcha2_report_tsv} "Gottcha2 TSV report" \
-				${gottcha2_full_tsv} "Gottcha2 full TSV report" \
-				${gottcha2_krona_html} "Gottcha2 Krona HTML report" \
-				${centrifuge_classification_tsv} "Centrifuge classification TSV report" \
-				${centrifuge_report_tsv} "Centrifuge TSV report" \
-				${centrifuge_krona_html} "Centrifuge Krona HTML report" \
-				${kraken2_classification_tsv} "Kraken classification TSV report" \
-				${kraken2_report_tsv} "Kraken2 TSV report" \
-				${kraken2_krona_html} "Kraken2 Krona HTML report"
-
-			cp activity.json data_objects.json ${summary_json} ${rbadir}/
-			cp ${gottcha2_report_tsv} ${gottcha2_full_tsv} ${gottcha2_krona_html} ${rbadir}/gottcha2/
-			cp ${centrifuge_classification_tsv} ${centrifuge_report_tsv} ${centrifuge_krona_html} ${rbadir}/centrifuge/
-			cp ${kraken2_classification_tsv} ${kraken2_report_tsv} ${kraken2_krona_html} ${rbadir}/kraken2/
-
-	>>>
-
-	runtime {
-		memory: "60 GiB"
-		cpu:  4
-		maxRetries: 1
-		docker: container
-	}
+    runtime {
+        memory: "60 GiB"
+        cpu:  4
+        maxRetries: 1
+        docker: container
+    }
 }

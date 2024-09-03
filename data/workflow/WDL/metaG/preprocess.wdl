@@ -1,10 +1,14 @@
+version 1.0
+
 workflow preprocess {
-    Array[File] input_files
-    Array[File] input_fq1
-    Array[File] input_fq2
-    String  container="bfoster1/img-omics:0.1.9"
-    String outdir
-    Boolean input_interleaved
+    input {
+        Array[File] input_files
+        Array[File] input_fq1
+        Array[File] input_fq2
+        String  container="bfoster1/img-omics:0.1.9"
+        String outdir
+        Boolean input_interleaved
+    }
 
     if (input_interleaved) {
         call gzip_input_int as gzip_int {
@@ -40,19 +44,23 @@ workflow preprocess {
 }
 
 task gzip_input_int{
- 	Array[File?] input_files
-	String container
-	String outdir
-	String filename = "output_fastq.gz"
+    input {
+ 	    Array[File?] input_files
+	    String container
+	    String outdir
+	    String filename = "output_fastq.gz"
+    }
 
  	command<<<
-        mkdir -p ${outdir}
-        if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then
-            cat ${sep=" " input_files} > output_fastq.gz
+
+        mkdir -p ~{outdir}
+        if file --mime -b ~{input_files[0]} | grep gzip > /dev/null ; then
+            cat ~{sep=" " input_files} > output_fastq.gz
         else
-            cat ${sep=" " input_files} > input_files.fastq
+            cat ~{sep=" " input_files} > input_files.fastq
             gzip -f input_files.fastq > output_fastq.gz
         fi
+
  	>>>
 	runtime {
             docker: container
@@ -65,26 +73,29 @@ task gzip_input_int{
 }
 
 
-task interleave_reads{
-
-    Array[File] input_files
-    String output_file = "interleaved.fastq.gz"
-	String container
+task interleave_reads {
+    input {
+        Array[File] input_files
+        String output_file = "interleaved.fastq.gz"
+	    String container
+    }
 
     command <<<
-        if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then
-        cat ${sep=" " input_files} > infile.fastq
-            paste <(gunzip -c ${input_files[0]} | paste - - - -) <(gunzip -c ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}
-    echo ${output_file}
+
+        if file --mime -b ~{input_files[0]} | grep gzip > /dev/null ; then
+        cat ~{sep=" " input_files} > infile.fastq
+            paste <(gunzip -c ~{input_files[0]} | paste - - - -) <(gunzip -c ~{input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ~{output_file}
+    echo ~{output_file}
         else
-            if [[ "${output_file}" == *.gz ]]; then
-                paste <(cat ${input_files[0]} | paste - - - -) <(cat ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}
-        echo ${output_file}
+            if [[ "~{output_file}" == *.gz ]]; then
+                paste <(cat ~{input_files[0]} | paste - - - -) <(cat ~{input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ~{output_file}
+        echo ~{output_file}
             else
-                paste <(cat ${input_files[0]} | paste - - - -) <(cat ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}.gz
-                echo ${output_file}.gz
+                paste <(cat ~{input_files[0]} | paste - - - -) <(cat ~{input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ~{output_file}.gz
+                echo ~{output_file}.gz
             fi
         fi
+
     >>>
 
     runtime {

@@ -1,26 +1,30 @@
+version 1.0
+
 import "trnascan.wdl" as trnascan
 import "rfam.wdl" as rfam
 import "crt.wdl" as crt
 import "cds_prediction.wdl" as cds_prediction
 
 workflow s_annotate {
-  String  cmzscore
-  File    imgap_input_fasta
-  String  imgap_project_id
-  String  imgap_project_type
-  Int     additional_threads
-  Int? imgap_structural_annotation_translation_table
-  Boolean pre_qc_execute=false
-  Boolean trnascan_se_execute=true
-  Boolean rfam_execute=true
-  Boolean crt_execute=true
-  Boolean cds_prediction_execute=true
-  Boolean prodigal_execute=true
-  Boolean genemark_execute=true
-  Boolean gff_and_fasta_stats_execute=true
-  String  database_location
-  String  container
-  String? gm_license
+  input {
+    String  cmzscore
+    File    imgap_input_fasta
+    String  imgap_project_id
+    String  imgap_project_type
+    Int     additional_threads
+    Int?    imgap_structural_annotation_translation_table
+    Boolean pre_qc_execute=false
+    Boolean trnascan_se_execute=true
+    Boolean rfam_execute=true
+    Boolean crt_execute=true
+    Boolean cds_prediction_execute=true
+    Boolean prodigal_execute=true
+    Boolean genemark_execute=true
+    Boolean gff_and_fasta_stats_execute=true
+    String  database_location
+    String  container
+    String  gm_license
+  }
 
   if(pre_qc_execute) {
     call pre_qc {
@@ -134,8 +138,8 @@ workflow s_annotate {
     File? prodigal_genes = cds_prediction.prodigal_genes
     File? prodigal_proteins = cds_prediction.prodigal_proteins
     File? cds_gff = cds_prediction.gff
-    File? cds_proteins = cds_prediction.proteins
-    File? cds_genes = cds_prediction.genes
+    File cds_proteins = cds_prediction.proteins
+    File cds_genes = cds_prediction.genes
     File? trna_gff = trnascan.gff
     File? trna_bacterial_out = trnascan.bacterial_out
     File? trna_archaeal_out = trnascan.archaeal_out
@@ -148,6 +152,7 @@ workflow s_annotate {
 }
 
 task pre_qc {
+  input {
   String bin="/opt/omics/bin/qc/pre-annotation/fasta_sanity.py"
   String project_type
   File   input_fasta
@@ -157,23 +162,25 @@ task pre_qc {
   Int    seqs_per_million_bp_cutoff = 500
   Int    min_seq_length = 150
   String container
+  }
 
   command <<<
+
     set -euo pipefail
-    tmp_fasta="${input_fasta}.tmp"
-    qced_fasta="${project_id}_contigs.fna"
-    grep -v '^\s*$' ${input_fasta} | tr -d '\r' | \
+    tmp_fasta="~{input_fasta}.tmp"
+    qced_fasta="~{project_id}_contigs.fna"
+    grep -v '^\s*$' ~{input_fasta} | tr -d '\r' | \
     sed 's/^>[[:blank:]]*/>/g' > $tmp_fasta
     acgt_count=`grep -v '^>' $tmp_fasta | grep -o [acgtACGT] | wc -l`
     n_count=`grep -v '^>' $tmp_fasta | grep -o '[^acgtACGT]' | wc -l`
     n_ratio=`echo $n_count $acgt_count | awk '{printf "%f", $1 / $2}'`
-    if (( $(echo "$n_ratio >= ${n_ratio_cutoff}" | bc) ))
+    if (( $(echo "$n_ratio >= ~{n_ratio_cutoff}" | bc) ))
     then
         rm $tmp_fasta
         exit 1
     fi
 
-    if [[ ${project_type} == "isolate" ]]
+    if [[ ~{project_type} == "isolate" ]]
     then
         seq_count=`grep -c '^>' $tmp_fasta`
         bp_count=`grep -v '^>' $tmp_fasta | tr -d '\n' | wc -m`
@@ -184,21 +191,22 @@ task pre_qc {
             seqs_per_million_bp=$(echo $seq_count $divisor | \
                                   awk '{printf "%.2f", $1 / $2}')
         fi
-        if (( $(echo "$seqs_per_million_bp > ${seqs_per_million_bp_cutoff}" | bc) ))
+        if (( $(echo "$seqs_per_million_bp > ~{seqs_per_million_bp_cutoff}" | bc) ))
         then
             rm $tmp_fasta
             exit 1
         fi
     fi
 
-    fasta_sanity_cmd="${bin} $tmp_fasta $qced_fasta"
-    if [[ ${rename} == "yes" ]]
+    fasta_sanity_cmd="~{bin} $tmp_fasta $qced_fasta"
+    if [[ ~{rename} == "yes" ]]
     then
-        fasta_sanity_cmd="$fasta_sanity_cmd -p ${project_id}"
+        fasta_sanity_cmd="$fasta_sanity_cmd -p ~{project_id}"
     fi
-    fasta_sanity_cmd="$fasta_sanity_cmd -l ${min_seq_length}"
+    fasta_sanity_cmd="$fasta_sanity_cmd -l ~{min_seq_length}"
     $fasta_sanity_cmd
     rm $tmp_fasta
+
   >>>
 
   runtime {
@@ -208,63 +216,64 @@ task pre_qc {
   }
     
   output {
-    File fasta = "${project_id}_contigs.fna"
+    File fasta = "~{project_id}_contigs.fna"
   }
 }
 
 task gff_merge {
-
-  String bin="/opt/omics/bin/structural_annotation/gff_files_merger.py"
-  File   input_fasta
-  String project_id
-  File?  rrna_gff
-  File?  trna_gff
-  File?  rfam_gff
-  File?  crt_gff
-  File?  cds_gff 
-  Boolean prodigal_execute
-  Boolean genemark_execute
-  Boolean crt_execute
-  Boolean rfam_execute
-  Boolean trnascan_se_execute
-  String container
-  command {
+  input {
+    String  bin="/opt/omics/bin/structural_annotation/gff_files_merger.py"
+    File    input_fasta
+    String  project_id
+    File?   rrna_gff
+    File?   trna_gff
+    File?   rfam_gff
+    File?   crt_gff
+    File?   cds_gff 
+    Boolean prodigal_execute
+    Boolean genemark_execute
+    Boolean crt_execute
+    Boolean rfam_execute
+    Boolean trnascan_se_execute
+    String  container
+  }
+  command <<<
+  
     set -euo pipefail
     # set cromwell booleans as bash variables
-    prodigal_execute=${prodigal_execute}  
-    genemark_execute=${genemark_execute}
-    crt_execute=${crt_execute}
-    rfam_execute=${rfam_execute}
-    trnascan_se_execute=${trnascan_se_execute}
+    prodigal_execute=~{prodigal_execute}  
+    genemark_execute=~{genemark_execute}
+    crt_execute=~{crt_execute}
+    rfam_execute=~{rfam_execute}
+    trnascan_se_execute=~{trnascan_se_execute}
 
     #construct arguments for gff_files_merger.py
-    merger_args="--contigs_fasta ${input_fasta}"
+    merger_args="--contigs_fasta ~{input_fasta}"
 
     if [[ "$prodigal_execute" = true ]] || [[ "$genemark_execute" = true ]] ; then
-       merger_args="$merger_args --cds_gff ${cds_gff}"
+       merger_args="$merger_args --cds_gff ~{cds_gff}"
     fi
 
     if [[ "$crt_execute" = true ]] ; then
-       merger_args="$merger_args --crt_gff ${crt_gff}"
+       merger_args="$merger_args --crt_gff ~{crt_gff}"
     fi
 
     if [[ ("$prodigal_execute" = true || "$genemark_execute" = true) ]] && [[ "$crt_execute" = true ]] ; then
-       merger_args="$merger_args --log_file ${project_id}_gff_merge.log"
+       merger_args="$merger_args --log_file ~{project_id}_gff_merge.log"
     fi
 
     if [[ "$rfam_execute" = true ]] ; then
-       merger_args="$merger_args ${rfam_gff}"
+       merger_args="$merger_args ~{rfam_gff}"
     fi
 
     if [[ "$trnascan_se_execute" = true ]] ; then
-       merger_args="$merger_args ${trna_gff}"
+       merger_args="$merger_args ~{trna_gff}"
     fi
 
     #excute gff_files_merger.py
-    ${bin} $merger_args 1> ${project_id}_structural_annotation.gff
+    ~{bin} $merger_args 1> ~{project_id}_structural_annotation.gff
 
-
-  }
+  >>>
 
   runtime {
     time: "1:00:00"
@@ -273,28 +282,31 @@ task gff_merge {
   }
 
   output {
-    File final_gff = "${project_id}_structural_annotation.gff"
+    File final_gff = "~{project_id}_structural_annotation.gff"
   }
 }
 
 task fasta_merge {
-
-  String bin="/opt/omics/bin/structural_annotation/finalize_fasta_files.py"
-  String project_id
-  File   final_gff
-  File cds_genes
-  File cds_proteins
-  String genes_filename = basename(cds_genes)
-  String proteins_filename = basename(cds_proteins)
-  String container
-
-  command {
-   set -euo pipefail
-   cp ${final_gff} .
-   cp ${cds_genes} .
-   cp ${cds_proteins} .
-   ${bin} ${final_gff} ${genes_filename} ${proteins_filename}
+  input {
+    String bin="/opt/omics/bin/structural_annotation/finalize_fasta_files.py"
+    String project_id
+    File   final_gff
+    File   cds_genes
+    File   cds_proteins
+    String genes_filename = basename(cds_genes)
+    String proteins_filename = basename(cds_proteins)
+    String container
   }
+
+  command <<<
+
+   set -euo pipefail
+   cp ~{final_gff} .
+   cp ~{cds_genes} .
+   cp ~{cds_proteins} .
+   ~{bin} ~{final_gff} ~{genes_filename} ~{proteins_filename}
+  
+  >>>
 
   runtime {
     time: "2:00:00"
@@ -303,22 +315,26 @@ task fasta_merge {
   }
     
   output {
-    File final_genes = "${project_id}_genes.fna"
-    File final_proteins = "${project_id}_proteins.faa"
+    File final_genes = "~{project_id}_genes.fna"
+    File final_proteins = "~{project_id}_proteins.faa"
   }
 }
 
 task gff_and_fasta_stats {
-
-  String bin="/opt/omics/bin/structural_annotation/gff_and_final_fasta_stats.py"
-  File   input_fasta
-  String project_id
-  File   final_gff
-  String container
-
-  command {
-    ${bin} ${input_fasta} ${final_gff}
+  input {
+    String bin="/opt/omics/bin/structural_annotation/gff_and_final_fasta_stats.py"
+    File   input_fasta
+    String project_id
+    File   final_gff
+    String container
   }
+
+  command <<<
+
+    set -euo pipefail
+    ~{bin} ~{input_fasta} ~{final_gff}
+  
+  >>>
 
   runtime {
     time: "1:00:00"
@@ -329,15 +345,18 @@ task gff_and_fasta_stats {
 }
 
 task post_qc {
-
-  String qc_bin="/opt/omics/bin/qc/post-annotation/genome_structural_annotation_sanity.py"
-  File   input_fasta
-  String project_id
-  String container
-
-  command {
-    ${qc_bin} ${input_fasta} "${project_id}_structural_annotation.gff"
+  input {
+    String qc_bin="/opt/omics/bin/qc/post-annotation/genome_structural_annotation_sanity.py"
+    File   input_fasta
+    String project_id
+    String container
   }
+
+  command <<<
+    set -euo pipefail
+    ~{qc_bin} ~{input_fasta} "~{project_id}_structural_annotation.gff"
+  
+  >>>
 
   runtime {
     time: "1:00:00"
@@ -346,6 +365,6 @@ task post_qc {
   }
     
   output {
-    File out = "${project_id}_structural_annotation.gff"
+    File out = "~{project_id}_structural_annotation.gff"
   }
 }

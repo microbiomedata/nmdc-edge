@@ -1,3 +1,5 @@
+version 1.0
+
 import "jgi_assembly.wdl" as jgi_asm
 import "preprocess.wdl" as MetaAssembly_preprocess
 

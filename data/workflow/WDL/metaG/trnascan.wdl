@@ -1,10 +1,13 @@
-workflow trnascan {
-  String imgap_input_fasta
-  String imgap_project_id
-  String imgap_project_type
-  Int    additional_threads
-  String container = "microbiomedata/img-omics@sha256:d5f4306bf36a97d55a3710280b940b89d7d4aca76a343e75b0e250734bc82b71"
+version 1.0
 
+workflow trnascan {
+  input{
+    String imgap_input_fasta
+    String imgap_project_id
+    String imgap_project_type
+    Int    additional_threads
+    String container = "microbiomedata/img-omics@sha256:d5f4306bf36a97d55a3710280b940b89d7d4aca76a343e75b0e250734bc82b71"
+  }
   call trnascan_ba {
     input:
       input_fasta = imgap_input_fasta,
@@ -25,17 +28,19 @@ workflow trnascan {
 }
 
 task trnascan_ba {
-
-  String bin="/opt/omics/bin/tRNAscan-SE"
-  File input_fasta
-  String project_id
-  Int    threads
-  String container
-
+  input{
+    String bin="/opt/omics/bin/tRNAscan-SE"
+    File input_fasta
+    String project_id
+    Int    threads
+    String container
+  }
   command <<<
+
      set -euo pipefail
-     cp ${input_fasta} ./${project_id}_contigs.fna
-     /opt/omics/bin/structural_annotation/trnascan-se_trnas.sh ${project_id}_contigs.fna ${threads}
+     cp ~{input_fasta} ./~{project_id}_contigs.fna
+     /opt/omics/bin/structural_annotation/trnascan-se_trnas.sh ~{project_id}_contigs.fna ~{threads}
+     
   >>>
 
   runtime {
@@ -46,8 +51,8 @@ task trnascan_ba {
   }
 
   output {
-    File bacterial_out = "${project_id}_trnascan_bacterial.out"
-    File archaeal_out  = "${project_id}_trnascan_archaeal.out"
-    File gff = "${project_id}_trna.gff"
+    File bacterial_out = "~{project_id}_trnascan_bacterial.out"
+    File archaeal_out  = "~{project_id}_trnascan_archaeal.out"
+    File gff = "~{project_id}_trna.gff"
   }
 }
