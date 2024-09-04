@@ -102,10 +102,10 @@ workflow main_workflow {
     call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input:
             input_files=input_files,
-            outdir=readsQC_outdir,
-            input_interleaved=input_interleaved,
             input_fq1=input_fq1,
-            input_fq2=input_fq2
+            input_fq2=input_fq2,
+            outdir=readsQC_outdir,
+            input_interleaved=input_interleaved
     }
 
     call readsQC.ShortReadsQC  as nmdc_rqcfilter_call {
