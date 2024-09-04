@@ -1,3 +1,4 @@
+input {
 Array[File] <WORKFLOW>_input_files
 String? <WORKFLOW>_outdir
 String <WORKFLOW>_bbtools_container="microbiomedata/bbtools:38.92"
@@ -8,6 +9,7 @@ Boolean <WORKFLOW>_input_interleaved=true
 Array[File] <WORKFLOW>_input_fq1
 Array[File] <WORKFLOW>_input_fq2
 String? <WORKFLOW>_prefix
+}
 
 call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
     input:
