@@ -24,7 +24,7 @@ workflow main_workflow {
         String      readsQC_database="/refdata"
         String      proj = "metagenome_workflow" 
         String      readsQC_vis_container="microbiomedata/fastqc_vis:1.0"
-        Array[File]        rqcfiltered_reads = nmdc_rqcfilter_call.filtered_final
+        Array[File] rqcfiltered_reads = nmdc_rqcfilter_call.filtered_final
         # ReadbasedAnalysis
         Int    readbasedAnalysis_cpu = 4
         String readbasedAnalysis_prefix
@@ -99,15 +99,6 @@ workflow main_workflow {
         input: container="microbiomedata/workflowmeta:1.0.5.1"
     }
 
-    call readsQC.ShortReadsQC  as nmdc_rqcfilter_call {
-        input:
-            input_files=input_files,
-            input_fq1=input_fq1,
-            input_fq2=input_fq2,
-            proj=proj,
-            interleaved=input_interleaved,
-    }
-
     call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input:
             input_files=input_files,
@@ -115,6 +106,15 @@ workflow main_workflow {
             input_interleaved=input_interleaved,
             input_fq1=input_fq1,
             input_fq2=input_fq2
+    }
+
+    call readsQC.ShortReadsQC  as nmdc_rqcfilter_call {
+        input:
+            input_files=input_files,
+            input_fq1=input_fq1,
+            input_fq2=input_fq2,
+            proj=proj,
+            interleaved=input_interleaved,
     }
 
     call readsqc_output.readsqc_output as readsqc_output {
