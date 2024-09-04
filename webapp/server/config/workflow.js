@@ -21,7 +21,7 @@ workflowlist = {
         options_json: 'metaG_options.tmpl',
         outdir: 'output/ReadsQC',
         cromwell_calls: ['main_workflow.jgi_rqcfilter'],
-        wdl_version: 'draft-2'
+        wdl_version: '1.0'
     },
     MetaAnnotation: {
         wdl: 'annotation_full.wdl',
@@ -129,7 +129,7 @@ pipelinelist = {
         wdl_tmpl: 'metagenome_pipeline_wdl.tmpl',
         inputs_tmpl: 'metagenome_pipeline_inputs.tmpl',
         options_json: 'metagenome_pipeline_options.json',
-        wdl_version: 'draft-2',
+        wdl_version: '1.0',
         outdir: 'output',
         workflows: {
             ReadsQC: {
