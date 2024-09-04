@@ -23,7 +23,7 @@ workflow viral {
         String outdir
         String docker = "mbabinski17/genomad:1.7.1"
         String checkV_docker = "mbabinski17/checkv:1.0.1"
-        }
+    }
 
     call tasks.geNomad_full as gn {
         input: 
@@ -43,7 +43,7 @@ workflow viral {
             OUTDIR = outdir,
             CPU = cpu,
             DOCKER = docker
-        }
+    }
 
     call tasks.checkV {
         input: 
@@ -51,7 +51,8 @@ workflow viral {
             CHECKV_DB = checkv_db,
             OUTDIR = outdir,
             DOCKER = checkV_docker
-        }
+    }
+    
     output {
         #geNomad_full
         File plasmids_fasta = gn.plasmids_fasta 

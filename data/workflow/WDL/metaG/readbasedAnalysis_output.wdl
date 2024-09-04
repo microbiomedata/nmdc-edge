@@ -27,10 +27,11 @@ workflow readbasedAnalysis_output {
                kraken2_krona_html = kraken2_krona_html,
                PREFIX = PREFIX,
                DOCKER = docker
-        }
-        output {
-                File summary_json = generateSummaryJson.summary_json
-        }
+    }
+    
+    output {
+            File summary_json = generateSummaryJson.summary_json
+    }
 
 }
 task generateSummaryJson {

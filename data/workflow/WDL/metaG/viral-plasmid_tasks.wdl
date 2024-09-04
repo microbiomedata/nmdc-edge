@@ -106,7 +106,6 @@ task checkV {
         Int CPU = 16
     }
 
-
     command <<<
         if [[ ! -s ~{VIRUS_FASTA} ]]; then
             mkdir -p ~{OUTDIR_v}
