@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Col, Row } from 'reactstrap';
+import queryString from 'query-string';
 import ProjectSummary from '../ProjectSummary';
 import ProjectResult from '../../../ProjectResult';
-import { Col, Row } from 'reactstrap';
 import { postData } from '../../../../common/util';
 
 import { LoaderDialog } from "../../../../common/Dialogs";
-
-const queryString = require('query-string');
 
 function Public(props) {
     const [code, setCode] = useState();
