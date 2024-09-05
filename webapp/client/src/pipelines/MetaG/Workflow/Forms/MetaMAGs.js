@@ -130,8 +130,14 @@ export function MetaMAGs(props) {
         if (!form.tigrfam_file_validInput) {
             errMessage += "Invalid tigrfam input<br />";
         }
-        if (!form.crispr_file_validInput) {
-            errMessage += "Invalid crispr input<br />";
+        if (!form.cath_funfam_file_validInput) {
+            errMessage += "Invalid cath_funfam input<br />";
+        }
+        if (!form.smart_file_validInput) {
+            errMessage += "Invalid smart input<br />";
+        }
+        if (!form.supfam_file_validInput) {
+            errMessage += "Invalid supfam input<br />";
         }
         if (!form.product_names_file_validInput) {
             errMessage += "Invalid product_names input<br />";
@@ -144,6 +150,9 @@ export function MetaMAGs(props) {
         }
         if (!form.map_file_validInput) {
             errMessage += "Invalid map input<br />";
+        }
+        if (!form.domain_file_validInput) {
+            errMessage += "Invalid domain input<br />";
         }
 
         if (errMessage !== '') {
@@ -316,17 +325,51 @@ export function MetaMAGs(props) {
 
                     <Row>
                         <Col md="3">
-                            <MyTooltip id='MetaMAGs-crispr_file' text="crispr file" tooltip={workflowInputTips['MetaMAGs']['crispr_file']} showTooltip={false} place="right" />
+                            <MyTooltip id='MetaMAGs-cath_funfam_file' text="cath_funfam file" tooltip={workflowInputTips['MetaMAGs']['cath_funfam_file']} showTooltip={false} place="right" />
                         </Col>
                         <Col xs="12" md="9">
                             <FileSelector onChange={handleFileSelection}
-                                file={{ path: form['crispr_file'], key: form['crispr_file_display'], autoFill: form['crispr_file_autoFill'] }}
+                                file={{ path: form['cath_funfam_file'], key: form['cath_funfam_file_display'], autoFill: form['cath_funfam_file_autoFill'] }}
                                 enableInput={true}
                                 placeholder={'Select a file or enter a file http(s) url'}
-                                validFile={form.crispr_file_validInput}
+                                validFile={form.cath_funfam_file_validInput}
                                 dataSources={['project', 'upload', 'public']}
                                 projectTypes={['Metagenome Annotation']}
-                                fileTypes={['tsv','crisprs']} fieldname={'crispr_file'} viewFile={false} />
+                                fileTypes={['gff']} fieldname={'cath_funfam_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-smart_file' text="smart file" tooltip={workflowInputTips['MetaMAGs']['smart_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['smart_file'], key: form['smart_file_display'], autoFill: form['smart_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.smart_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['gff']} fieldname={'smart_file'} viewFile={false} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-supfam_file' text="supfam file" tooltip={workflowInputTips['MetaMAGs']['supfam_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleFileSelection}
+                                file={{ path: form['supfam_file'], key: form['supfam_file_display'], autoFill: form['supfam_file_autoFill'] }}
+                                enableInput={true}
+                                placeholder={'Select a file or enter a file http(s) url'}
+                                validFile={form.supfam_file_validInput}
+                                dataSources={['project', 'upload', 'public']}
+                                projectTypes={['Metagenome Annotation']}
+                                fileTypes={['gff']} fieldname={'supfam_file'} viewFile={false} />
                         </Col>
                     </Row>
                     <br></br>
@@ -393,6 +436,22 @@ export function MetaMAGs(props) {
                                 validFile={form.map_file_validInput}
                                 dataSources={['upload', 'public']}
                                 fileTypes={['txt', 'tsv']} fieldname={'map_file'} viewFile={false}
+                                isOptional={true} cleanupInput={true} />
+                        </Col>
+                    </Row>
+                    <br></br>
+
+                    <Row>
+                        <Col md="3">
+                            <MyTooltip id='MetaMAGs-domain_file' text="domain file" tooltip={workflowInputTips['MetaMAGs']['domain_file']} showTooltip={false} place="right" />
+                        </Col>
+                        <Col xs="12" md="9">
+                            <FileSelector onChange={handleOptionalFileSelection}
+                                enableInput={true}
+                                placeholder={'(Optional) Select a file or enter a file http(s) url'}
+                                validFile={form.domain_file_validInput}
+                                dataSources={['upload', 'public']}
+                                fileTypes={['txt', 'tsv']} fieldname={'domain_file'} viewFile={false}
                                 isOptional={true} cleanupInput={true} />
                         </Col>
                     </Row>

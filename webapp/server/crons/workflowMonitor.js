@@ -151,7 +151,7 @@ function generateWDL(proj_home, workflow) {
         imports += 'import "readsqc_output.wdl" as ReadsQC_output' + "\n";
         imports += 'import "readsqc_preprocess.wdl" as readsqc_preprocess' + "\n";
     }
-    if(workflowname === 'MetaMAGs') {
+    if(workflowname === 'metaMAGs') {
         imports += 'import "mbin_nmdc_preprocess.wdl" as mbin_nmdc_preprocess' + "\n";
         imports += 'import "mbin_nmdc_output.wdl" as mbin_nmdc_output' + "\n";
     }
@@ -358,8 +358,16 @@ async function generateInputs(proj_home, workflow, proj) {
             common.write2log(proj_home + "/log.txt", 'Input tigrfam file not found.');
             fileErr = true;
         }
-        if (!fs.existsSync(workflow['crispr_file'])) {
-            common.write2log(proj_home + "/log.txt", 'Input crispr file not found.');
+        if (!fs.existsSync(workflow['cath_funfam_file'])) {
+            common.write2log(proj_home + "/log.txt", 'Input cath_funfam file not found.');
+            fileErr = true;
+        }
+        if (!fs.existsSync(workflow['smart_file'])) {
+            common.write2log(proj_home + "/log.txt", 'Input smart file not found.');
+            fileErr = true;
+        }
+        if (!fs.existsSync(workflow['supfam_file'])) {
+            common.write2log(proj_home + "/log.txt", 'Input supfam file not found.');
             fileErr = true;
         }
         if (!fs.existsSync(workflow['product_names_file'])) {
@@ -383,11 +391,15 @@ async function generateInputs(proj_home, workflow, proj) {
         templInputs = templInputs.replace(/<KO_FILE>/, '"' + workflow['ko_file'] + '"');
         templInputs = templInputs.replace(/<PFAM_FILE>/, '"' + workflow['pfam_file'] + '"');
         templInputs = templInputs.replace(/<TIGRFAM_FILE>/, '"' + workflow['tigrfam_file'] + '"');
-        templInputs = templInputs.replace(/<CRISPR_FILE>/, '"' + workflow['crispr_file'] + '"');
+        templInputs = templInputs.replace(/<CATH_FUNFAM_FILE>/, '"' + workflow['cath_funfam_file'] + '"');
+        templInputs = templInputs.replace(/<SMART_FILE>/, '"' + workflow['smart_file'] + '"');
+        templInputs = templInputs.replace(/<SUPFAM_FILE>/, '"' + workflow['supfam_file'] + '"');
         templInputs = templInputs.replace(/<PRODUCT_NAMES_FILE>/, '"' + workflow['product_names_file'] + '"');
         templInputs = templInputs.replace(/<GENE_PHYLOGENY_FILE>/, '"' + workflow['gene_phylogeny_file'] + '"');
         templInputs = templInputs.replace(/<LINEAGE_FILE>/, '"' + workflow['lineage_file'] + '"');
+
         templInputs = templInputs.replace(/<MAP_FILE>/, '"' + workflow['map_file'] + '"');
+        templInputs = templInputs.replace(/<DOMAIN_FILE>/, '"' + workflow['domain_file'] + '"');
 
         templInputs = templInputs.replace(/<PROJ_NAME>/, '"' + proj.name + '"');
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');

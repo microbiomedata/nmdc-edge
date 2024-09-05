@@ -35,10 +35,6 @@ function ReadMapping(props) {
               <br></br>
               <a href={url + props.features} target="_blank" rel="noreferrer" >[ Export the result as TSV ]</a>
               <br></br><br></br>
-              Top 100 features
-              <br></br>
-              <FeaturesTable data={props.topFeatures} />
-              <br></br>
             </>
             : <>
               <FeaturesTable data={props.features} />

@@ -186,17 +186,22 @@ workflow main_workflow {
     File? metaMAGs_ko_file = metaAnnotation_call.ko_tsv
     File? metaMAGs_pfam_file = metaAnnotation_call.pfam_gff
     File? metaMAGs_tigrfam_file = metaAnnotation_call.tigrfam_gff
-    File? metaMAGs_crispr_file = metaAnnotation_call.crt_crisprs
+    File? metaMAGs_cath_funfam_file = metaAnnotation_call.cath_funfam_gff
+    File? metaMAGs_smart_file = metaAnnotation_call.smart_gff
+    File? metaMAGs_supfam_file = metaAnnotation_call.supfam_gff
     File? metaMAGs_product_names_file = metaAnnotation_call.product_names_tsv
     File? metaMAGs_gene_phylogeny_file = metaAnnotation_call.gene_phylogeny_tsv
     File? metaMAGs_lineage_file = metaAnnotation_call.lineage_tsv
 	File? metaMAGs_map_file
+	File? metaMAGs_domain_file
 	Int metaMAGs_cpu=16
 	Int metaMAGs_threads=64
 	Int metaMAGs_pthreads=1
 	String metaMAGs_database="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
     String checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
 	String eukcc2_db="/refdata/EUKCC2_DB/eukcc2_db_ver_1.2"
+	String metaMAGsVis_container = "microbiomedata/nmdc_mbin_vis:0.4.0"
+    String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:57930406fb5cc364bacfc904066519de6cdc2d0ceda9db0eebf2336df3ef5349"
 	
 
     call metaMAGs.nmdc_mags as metaMAGs_call {
@@ -211,22 +216,28 @@ workflow main_workflow {
             ko_file=metaMAGs_ko_file,
             pfam_file=metaMAGs_pfam_file,
             tigrfam_file=metaMAGs_tigrfam_file,
-            crispr_file=metaMAGs_crispr_file,
+            cath_funfam_file=metaMAGs_cath_funfam_file,
+            smart_file=metaMAGs_smart_file,
+            supfam_file=metaMAGs_supfam_file,
             product_names_file=metaMAGs_product_names_file,
             gene_phylogeny_file=metaMAGs_gene_phylogeny_file,
             lineage_file=metaMAGs_lineage_file,
             map_file=metaMAGs_map_file,
+            domain_file=metaMAGs_domain_file,
             cpu=metaMAGs_cpu,
             threads=metaMAGs_threads,
             pthreads=metaMAGs_pthreads,
             gtdbtk_db=metaMAGs_database,
             checkm_db=checkm_db,
 			eukcc2_db=eukcc2_db,
-            scratch_dir=metaMAGs_outdir
+            scratch_dir=metaMAGs_outdir,
+			package_container=metaMAGsVis_container,
+            container=metaMAGs_container
     }
 	call metaMAGsOutput.pdf_to_png as metaMAGs_vis {
 		input:
 			outdir = metaMAGs_outdir,
+    		container = metaMAGsVis_container,
     		pdf_files = [metaMAGs_call.barplot,metaMAGs_call.heatmap]
 	}
 

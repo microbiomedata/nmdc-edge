@@ -189,18 +189,26 @@ const generateWorkflowResult = function (proj) {
     } else if (workflowConf.workflow.name === 'Metatranscriptome') {
         const dirs = fs.readdirSync(outdir);
         dirs.forEach(function (dir) {
-            if (dir === 'qa' || dir === 'readsQC') {
-                const files = fs.readdirSync(outdir + "/" + dir);
+            if (dir === 'qa') {
+                const files = fs.readdirSync(outdir + "/qa");
                 files.forEach(function (file) {
                     if (file.endsWith("_stats.json")) {
-                        result['readsQC-stats'] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/" + file));
+                        result['readsQC-stats'] = JSON.parse(fs.readFileSync(outdir + "/qa/" + file));
+                    }
+                });
+            }
+            if (dir === 'readsQC') {
+                const files = fs.readdirSync(outdir + "/readsQC");
+                files.forEach(function (file) {
+                    if (file.endsWith("_stats.json")) {
+                        result['readsQC-stats'] = JSON.parse(fs.readFileSync(outdir + "/readsQC/" + file));
                     }
                 });
             }
             else if (dir === 'assembly') {
                 const files = fs.readdirSync(outdir + "/assembly");
                 files.forEach(function (file) {
-                    if (file.endsWith("stats.json")) {
+                    if (file.endsWith("_stats.json")) {
                         result['assembly-stats'] = JSON.parse(fs.readFileSync(outdir + "/assembly/" + file));
                     }
                 });
@@ -213,27 +221,32 @@ const generateWorkflowResult = function (proj) {
                     }
                 });
             }
-            else if (dir === 'metat_output' || dir === 'readMapping') {
-                const files = fs.readdirSync(outdir + "/" + dir);
+            else if (dir === 'metat_output') {
+                const files = fs.readdirSync(outdir + "/metat_output");
                 files.forEach(function (file) {
-                    if (file.endsWith("sorted_features.tsv")) {
-                        const jsonFile = file.replace('.tsv', '.json');
-                        let topFeatures = "top100_features.json";
-                        if (!fs.existsSync(outdir + "/" + dir + "/" + topFeatures)) {
-                            topFeatures = file.replace('_sorted_features.tsv', '_top100_features.json');
-                        }
-                        var rows = parseInt(execSync("wc -l < " + outdir + "/" + dir + "/" + file).toString().trim());
+                    if (file.endsWith("_sorted_features.tsv")) {
+                        var rows = parseInt(execSync("wc -l < " + outdir + "/metat_output/" + file).toString().trim());
                         if (rows > config.IO.MAX_DATATABLE_ROWS) {
                             result['readMapping-features-too-large'] = true;
-                            result['readMapping-features'] = "output/Metatranscriptomics/" + dir + "/" + file;
-                            result['readMapping-top_features'] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/" + topFeatures));
+                            result['readMapping-features'] = "output/Metatranscriptomics/metat_output/" + file;
                         } else {
                             result['readMapping-features-too-large'] = false;
-                            if (fs.existsSync(outdir + "/" + dir + "/" + jsonFile)) {
-                                result['readMapping-features'] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/" + jsonFile));
-                            } else {
-                                result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
-                            }
+                            result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/metat_output/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                        }
+                    }
+                });
+            }
+            else if (dir === 'readMapping') {
+                const files = fs.readdirSync(outdir + "/readMapping");
+                files.forEach(function (file) {
+                    if (file.endsWith("_sorted_features.tsv")) {
+                        var rows = parseInt(execSync("wc -l < " + outdir + "/readMapping/" + file).toString().trim());
+                        if (rows > config.IO.MAX_DATATABLE_ROWS) {
+                            result['readMapping-features-too-large'] = true;
+                            result['readMapping-features'] = "output/Metatranscriptomics/readMapping/" + file;
+                        } else {
+                            result['readMapping-features-too-large'] = false;
+                            result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/readMapping/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
                         }
                     }
                 });

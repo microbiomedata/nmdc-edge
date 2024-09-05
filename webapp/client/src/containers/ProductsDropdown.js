@@ -19,9 +19,6 @@ const ProductsDropdown = (props) => {
           <a title="Field Notes Mobile App" href="https://microbiomedata.org/field-notes/">
             Field Notes Mobile App
           </a>
-          <a title="Data API" href="https://api.microbiomedata.org/docs">
-            Data API
-          </a>
         </div>
       </div>
     </>

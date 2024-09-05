@@ -1,7 +1,9 @@
 import React from 'react'
-import TheContent from './TheContent'
-import TheSidebar from './TheSidebar'
-import NMDCHeader from './NMDCHeader'
+import {
+  TheContent,
+  TheSidebar,
+  NMDCHeader
+} from './index'
 
 const TheLayout = (props) => {
 

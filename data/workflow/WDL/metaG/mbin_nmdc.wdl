@@ -9,11 +9,14 @@ workflow nmdc_mags {
     String ko_file
     String pfam_file
     String tigrfam_file
-    String crispr_file
+    String cath_funfam_file
+    String smart_file
+    String supfam_file
     String product_names_file
     String gene_phylogeny_file
     String lineage_file
-    String? map_file
+    File? map_file
+    File? domain_file
     String? scratch_dir
     Int cpu=32
     Int threads=64
@@ -21,9 +24,8 @@ workflow nmdc_mags {
     String gtdbtk_db="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
     String checkm_db="/refdata/checkM_DB/checkm_data_2015_01_16"
     String eukcc2_db="/refdata/EUKCC2_DB/eukcc2_db_ver_1.2"
-    String package_container = "microbiomedata/nmdc_mbin_vis:0.7.0"
-    String container = "microbiomedata/nmdc_mbin@sha256:f3b154718474d2e21b53dbf4c1c35a1d3190eba3fe6b8f3fda105fcde22d9639"
-
+    String package_container = "microbiomedata/nmdc_mbin_vis:0.2.0"
+    String container = "microbiomedata/nmdc_mbin@sha256:57930406fb5cc364bacfc904066519de6cdc2d0ceda9db0eebf2336df3ef5349"
 
     call stage {
         input:
@@ -37,24 +39,18 @@ workflow nmdc_mags {
             ko_file=ko_file,
             pfam_file=pfam_file,
             tigrfam_file=tigrfam_file,
-            crispr_file=crispr_file,
+            cath_funfam_file=cath_funfam_file,
+            smart_file=smart_file,
+            supfam_file=supfam_file,
             product_names_file=product_names_file,
             gene_phylogeny_file=gene_phylogeny_file,
-            lineage_file=lineage_file,
-            map_file=map_file
-    }
-
-    call check_id_map {
-        input:
-            container=container,
-            contig_file=stage.contig,
-            proteins_file=stage.proteins
+            lineage_file=lineage_file
     }
 
     call mbin_nmdc {
         input:
                 name=proj,
-                fna = check_id_map.contig,
+                fna = stage.contig,
                 aln = stage.sam,
                 gff = stage.gff,
                 lineage=stage.lineage_tsv,
@@ -63,7 +59,7 @@ workflow nmdc_mags {
                 gtdbtk_env = gtdbtk_db,
                 checkm_env = checkm_db,
                 eukcc2_env = eukcc2_db,
-                map_file = stage.map_tsv,
+                map_file = map_file,
                 mbin_container = container
     }
     call package {
@@ -77,8 +73,9 @@ workflow nmdc_mags {
                  ko_file=stage.ko,
                  pfam_file=stage.pfam,
                  tigrfam_file=stage.tigrfam,
-                 crispr_file=stage.crispr,
-                 gene_phylogeny_file=stage.gene_phylogeny,
+                 cath_funfam_file=stage.cath_funfam,
+                 smart_file=stage.smart,
+                 supfam_file=stage.supfam,
                  product_names_file=stage.product_names,
                  container=package_container
     }
@@ -86,7 +83,12 @@ workflow nmdc_mags {
     call finish_mags {
         input:
         container="microbiomedata/workflowmeta:1.1.1",
+        contigs=stage.contig,
+        anno_gff=stage.gff,
+        sorted_bam=stage.sam,
         proj=proj,
+        start=stage.start,
+        checkm = mbin_nmdc.checkm,
         bacsum= mbin_nmdc.bacsum,
         arcsum = mbin_nmdc.arcsum,
         short = mbin_nmdc.short,
@@ -95,8 +97,10 @@ workflow nmdc_mags {
         checkm = mbin_nmdc.checkm,
         mbin_sdb = mbin_nmdc.mbin_sdb,
         mbin_version = mbin_nmdc.mbin_version,
-        stats_json = package.stats_json,
+        stats_json = mbin_nmdc.stats_json,
         stats_tsv = mbin_nmdc.stats_tsv,
+        hqmq_bin_fasta_files = mbin_nmdc.hqmq_bin_fasta_files,
+        bin_fasta_files = mbin_nmdc.lq_bin_fasta_files,
         hqmq_bin_tarfiles = package.hqmq_bin_tarfiles,
         lq_bin_tarfiles = package.lq_bin_tarfiles,
         barplot = package.barplot,
@@ -145,7 +149,7 @@ task mbin_nmdc {
         set -euo pipefail
         export GTDBTK_DATA_PATH=${gtdbtk_env}
         export CHECKM_DATA_PATH=${checkm_env}
-        mbin.py ${"--threads " + threads} ${"--pthreads " + pthreads} ${"--map " + map_file} ${"--eukccdb " + eukcc2_env} --fna ${fna} --gff ${gff} --aln ${aln} --lintsv ${lineage}
+        mbin.py ${"--threads " + threads} ${"--pthreads " + pthreads} --fna ${fna} --gff ${gff} --aln ${aln} --lintsv ${lineage}
         mbin_stats.py $PWD
         mbin_versions.py > mbin_nmdc_versions.log
         touch MAGs_stats.tsv
@@ -222,11 +226,12 @@ task stage {
     String ko_file
     String pfam_file
     String tigrfam_file
-    String crispr_file
+    String cath_funfam_file
+    String smart_file
+    String supfam_file
     String product_names_file
     String gene_phylogeny_file
     String lineage_file
-    String? map_file
     String contigs_out="contigs.fasta"
     String bam_out="pairedMapped_sorted.bam"
     String gff_out="functional_annotation.gff"
@@ -236,11 +241,12 @@ task stage {
     String ko_out="ko.tsv"
     String pfam_out="pfam.gff"
     String tigrfam_out="tigrfam.gff"
-    String crispr_out="crispr.tsv"
+    String cath_funfam_out="cath_funfam.gff"
+    String smart_out="smart.gff"
+    String supfam_out="supfam.gff"
     String products_out="products.tsv"
     String gene_phylogeny_out="gene_phylogeny.tsv"
     String lineage_out="lineage.tsv"
-    String map_out="map_file.tsv"
 
    command<<<
 
@@ -256,40 +262,42 @@ task stage {
             fi
         }
 
-        stage ${contig_file} ${contigs_out} &
-        stage ${sam_file} ${bam_out} &
-        stage ${gff_file} ${gff_out} &
-        stage ${proteins_file} ${proteins_out} &
-        stage ${cog_file} ${cog_out} &
-        stage ${ec_file} ${ec_out} &
-        stage ${ko_file} ${ko_out} &
-        stage ${pfam_file} ${pfam_out} &
-        stage ${tigrfam_file} ${tigrfam_out} &
-        stage ${crispr_file} ${crispr_out} &
-        stage ${product_names_file} ${products_out} &
-        stage ${gene_phylogeny_file} ${gene_phylogeny_out} &
+        stage ${contig_file} ${contigs_out}
+        stage ${sam_file} ${bam_out}
+        stage ${gff_file} ${gff_out}
+        stage ${proteins_file} ${proteins_out}
+        stage ${cog_file} ${cog_out}
+        stage ${ec_file} ${ec_out}
+        stage ${ko_file} ${ko_out}
+        stage ${pfam_file} ${pfam_out}
+        stage ${tigrfam_file} ${tigrfam_out}
+        stage ${cath_funfam_file} ${cath_funfam_out}
+        stage ${smart_file} ${smart_out}
+        stage ${supfam_file} ${supfam_out}
+        stage ${product_names_file} ${products_out}
+        stage ${gene_phylogeny_file} ${gene_phylogeny_out}
         stage ${lineage_file} ${lineage_out}
-        ${"stage " + map_file + " " + map_out}
 
        date --iso-8601=seconds > start.txt
 
     >>>
 
    output{
-        File contig = contigs_out
-        File sam = bam_out
-        File gff = gff_out
-        File proteins = proteins_out
-        File cog = cog_out
-        File ec = ec_out
-        File ko = ko_out
-        File pfam = pfam_out
-        File tigrfam = tigrfam_out
-        File crispr = crispr_out
-        File product_names = products_out
-        File gene_phylogeny = gene_phylogeny_out
-        File lineage_tsv = lineage_out
-        File? map_tsv = map_out
+        File contig = "contigs.fasta"
+        File sam = "pairedMapped_sorted.bam"
+        File gff = "functional_annotation.gff"
+        File proteins = "proteins.faa"
+        File cog = "cog.gff"
+        File ec = "ec.tsv"
+        File ko = "ko.tsv"
+        File pfam = "pfam.gff"
+        File tigrfam = "tigrfam.gff"
+        File cath_funfam = "cath_funfam.gff"
+        File smart = "smart.gff"
+        File supfam = "supfam.gff"
+        File product_names = "products.tsv"
+        File gene_phylogeny = "gene_phylogeny.tsv"
+        File lineage_tsv = "lineage.tsv"
         String start = read_string("start.txt")
    }
    runtime {
@@ -300,44 +308,6 @@ task stage {
    }
 }
 
-task check_id_map{
-    
-    String container
-    File contig_file
-    File proteins_file
-    String contig_file_name=basename(contig_file)
-
-    command<<<
-    set -euo pipefail 
-
-    python <<CODE
-    import sys
-    contigIDs={}
-    with open("${contig_file}","r") as c_file:
-        for line in c_file:
-            if line.startswith(">"):
-                seq_id = line[1:].rstrip().split()[0] # nmdc:wfmgan-12-gbysvd76.1_0000001
-                contigIDs[seq_id]=1
-    with open("${proteins_file}","r") as p_file:
-        for line in p_file:
-            if line.startswith(">"):
-                seq_id = line[1:].rstrip().split()[0]  # nmdc:wfmgan-12-gbysvd76.1_0000001_1_225
-                contig_id = "_".join(seq_id.split("_")[0:-2]) # nmdc:wfmgan-12-gbysvd76.1_0000001
-                if contig_id not in contigIDs:
-                    print(f"{contig_id} is not in ${contig_file_name}.", file=sys.stderr)
-                    sys.exit(1)
-    CODE
-    >>>
-
-    output{
-        File contig = contig_file
-    }
-    runtime {
-        memory: "1 GiB"
-        cpu:  1
-        docker: container
-   }
-}
 
 task package{
      String proj
@@ -351,8 +321,9 @@ task package{
      File ko_file
      File pfam_file
      File tigrfam_file
-     File crispr_file
-     File gene_phylogeny_file
+     File cath_funfam_file
+     File smart_file
+     File supfam_file
      File product_names_file
      String container
 
@@ -361,7 +332,7 @@ task package{
          create_tarfiles.py ${prefix} \
                      ${json_stats} ${gff_file} ${proteins_file} ${cog_file} \
                      ${ec_file} ${ko_file} ${pfam_file} ${tigrfam_file} \
-                     ${crispr_file} ${gene_phylogeny_file} \
+                     ${cath_funfam_file} ${smart_file} ${supfam_file} \
                      ${product_names_file} \
                      ${sep=" " bins}
 
@@ -381,7 +352,6 @@ task package{
          File heatmap = prefix + "_heatmap.pdf"
          File kronaplot = prefix + "_ko_krona.html"
          File ko_matrix = prefix + "_module_completeness.tab"
-         File stats_json = prefix + "_stats.json"
      }
      runtime {
          docker: container
@@ -392,16 +362,22 @@ task package{
 
 task finish_mags {
     String container
+    File contigs
+    File anno_gff
+    File sorted_bam
     File mbin_sdb
     File mbin_version
     String proj
     String prefix=sub(proj, ":", "_")
+    String start
     File bacsum
     File arcsum
     File? short
     File? low
     File? unbinned
     File? checkm
+    Array[File] hqmq_bin_fasta_files
+    Array[File] bin_fasta_files
     Array[File] hqmq_bin_tarfiles
     Array[File] lq_bin_tarfiles
     File stats_json
@@ -445,11 +421,11 @@ task finish_mags {
         if [ ${n_lq} -gt 0 ] ; then
             (cd lq && cp ${sep=" " lq_bin_tarfiles} .)
             (cd lq && cp ${mbin_sdb} .)
-            (cd lq && zip -j ../${prefix}_lq_bin.zip *tar.gz mbin.sdb ../${prefix}_eukcc.csv ../*pdf ../*kronaplot.html ../*ko_matrix.txt)
+            (cd lq && zip -j ../${prefix}_lq_bin.zip *tar.gz mbin.sdb ../*pdf ../*kronaplot.html ../*ko_matrix.txt)
         else
             (cd lq && touch no_lq_mags.txt)
             (cd lq && cp ${mbin_sdb} .)
-            (cd lq && zip -j ../${prefix}_lq_bin.zip *.txt mbin.sdb ../${prefix}_eukcc.csv)
+            (cd lq && zip ../${prefix}_lq_bin.zip *.txt mbin.sdb)
         fi
 
         # Fix up attribute name

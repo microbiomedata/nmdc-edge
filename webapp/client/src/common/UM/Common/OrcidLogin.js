@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import jwt_decode from "jwt-decode";
-import queryString from 'query-string';
 import { socialLogin, cleanupMessages } from "../../../redux/actions/userActions";
 import { LoaderDialog, MessageDialog } from '../../Dialogs';
 import config from "../../../config";
+
+const queryString = require('query-string');
 
 function OrcidLogin(props) {
     const dispatch = useDispatch();
