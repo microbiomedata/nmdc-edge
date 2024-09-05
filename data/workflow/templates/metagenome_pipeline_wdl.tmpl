@@ -26,14 +26,15 @@ workflow main_workflow {
         String      readsQC_vis_container="microbiomedata/fastqc_vis:1.0"
         Array[File] rqcfiltered_reads = nmdc_rqcfilter_call.filtered_final
         # ReadbasedAnalysis
-        Int    readbasedAnalysis_cpu = 4
-        String readbasedAnalysis_prefix
-        String readbasedAnalysis_outdir
-        String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.5"
-        String readsQC_bbtools_container="microbiomedata/bbtools:38.96"
-        String db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
-        String db_kraken2 = "/refdata/Kraken2"
-        String db_centrifuge = "/refdata/Centrifuge/hpv"
+        Int      readbasedAnalysis_cpu = 4
+        String   readbasedAnalysis_prefix
+        String   readbasedAnalysis_outdir
+        Boolean? readbasedAnalysis_paired = false
+        String   ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.5"
+        String   readsQC_bbtools_container="microbiomedata/bbtools:38.96"
+        String   db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
+        String   db_kraken2 = "/refdata/Kraken2"
+        String   db_centrifuge = "/refdata/Centrifuge/hpv"
         # MetaAssembly
         String? metaAssembly_outdir
         String  metaAssembly_rename_contig_prefix="scaffold"
@@ -131,7 +132,7 @@ workflow main_workflow {
     call readbasedanalysis_preprocess.preprocess as readbased_preprocess {
 	input:
 		input_files=rqcfiltered_reads,
-		paired=input_interleaved
+		paired=readbasedAnalysis_paired
 	}
 
     call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
@@ -142,7 +143,7 @@ workflow main_workflow {
             cpu=readbasedAnalysis_cpu,
             input_file= select_first([readbased_preprocess.input_file_gz, [""]]),
             proj=readbasedAnalysis_prefix,
-            paired=input_interleaved,
+            paired=readbasedAnalysis_paired,
             bbtools_container=readsQC_bbtools_container,
             docker=ReadbasedAnalysis_container
     }
