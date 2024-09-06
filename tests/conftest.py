@@ -4,6 +4,8 @@ from pathlib import Path
 from pytest import fixture
 from time import time
 
+from nmdc_automation.config import Config
+
 
 @fixture
 def test_db():
@@ -39,3 +41,7 @@ def config_dir(base_test_dir):
 @fixture(scope="session")
 def site_config(base_test_dir):
     return base_test_dir / "site_configuration_test.toml"
+
+@fixture(scope="session")
+def job_config(site_config):
+    return Config(site_config)
