@@ -504,7 +504,7 @@
     "description": "Sequencing results for metaT_R1",
     "file_size_bytes": 123456,
     "md5_checksum": "4c7f1be37f805836162b49da4ed9c7e5",
-    "data_object_type": "Metatranscriptome Raw Read 1",
+    "data_object_type": "Metagenome Raw Read 1",
     "type": "nmdc:DataObject",
     "url": "https://portal.nersc.gov"
   },
@@ -514,7 +514,7 @@
     "description": "Sequencing results for metaT_R2",
     "file_size_bytes": 123456,
     "md5_checksum": "4c7f1be37f805836162b49da4ed9c7e5",
-    "data_object_type": "Metatranscriptome Raw Read 2",
+    "data_object_type": "Metagenome Raw Read 2",
     "type": "nmdc:DataObject",
     "url": "https://portal.nersc.gov"
   },
@@ -577,10 +577,11 @@
     "data_object_type": "Assembly Coverage Stats",
     "url": "https://data.microbiomedata.org",
     "type": "nmdc:DataObject"
-  },{
+  },
+  {
     "id": "nmdc:dobj-11-cover-bamt1",
     "name": "nmdc_wfrqc-11-metat1.1_pairedMapped_sorted.bam",
-    "description": "Paired reads mapping for nmdc:omprc-11-test-meta11",
+    "description": "Paired reads mapping for nmdc:omprc-11-test-metat1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
     "data_object_type": "Assembly Coverage BAM",
@@ -604,6 +605,66 @@
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
     "data_object_type": "BAI File",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-proteinst1-faa",
+    "name": "FASTA amino acid file for annotated proteins",
+    "description": "FASTA Amino Acid File for nmdc:wfmgan-11-metat.1",
+    "alternative_identifiers": [],
+    "file_size_bytes": 123456,
+    "md5_checksum": "a8c59594447d0bb75a8076f40a82d7ee",
+    "data_object_type": "Annotation Amino Acid FASTA",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+    {
+    "id": "nmdc:dobj-11-tigrfamt1",
+    "name": "GFF3 format file with TIGRfam",
+    "description": "TIGRFam for nmdc:wfmgan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "1ca1300284ed3cc067f01453e3ad0283",
+    "data_object_type": "TIGRFam Annotation GFF",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-funfamt1",
+    "name": "GFF3 format file with CATH FunFams",
+    "description": "CATH FunFams for nmdc:wfmgan-11-meta1.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "9b50f4199051c5ea157ec14ceca13ca3",
+    "data_object_type": "CATH FunFams (Functional Families) Annotation GFF",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-structuralt1",
+    "name": "GFF3 format file with structural annotations",
+    "description": "Structural Annotation for nmdc:wfmgan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "cf0048b0dc658c665d95b9e2607407e2",
+    "data_object_type": "Structural Annotation GFF",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-functionalt1",
+    "name": "GFF3 format file with functional annotations",
+    "description": "Functional Annotation for nmdc:wfmgan-11-metat.1",
+
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "7b357f155d7239fc5deee7fe97bd45e9",
+    "data_object_type": "Functional Annotation GFF",
     "url": "https://data.microbiomedata.org",
     "type": "nmdc:DataObject"
   }

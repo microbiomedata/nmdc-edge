@@ -14,7 +14,8 @@
     "scaf_logsum": 5934400,
     "scaf_pct_gt50K": 1.7355337,
     "gap_pct": 0.00334,
-    "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+    "git_url": "https://github.com/microbiomedata/metaAssembly",
+    "version": "v1.0.3",
     "has_output": [
       "nmdc:dobj-11-contigs",
       "nmdc:dobj-11-cover-stats",
@@ -62,7 +63,8 @@
     "scaf_logsum": 5934400,
     "scaf_pct_gt50K": 1.7355337,
     "gap_pct": 0.00334,
-    "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+    "git_url": "https://github.com/microbiomedata/metaT_Assembly",
+    "version": "v0.0.1",
     "has_output": [
       "nmdc:dobj-11-contigst1",
       "nmdc:dobj-11-cover-statst1",
