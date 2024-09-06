@@ -574,7 +574,7 @@ Data Objects:
       mulitple: false
       action: rename
   Multiples:
-    - data_object_type: Metagenome Bins
+    - data_object_type: Metagenome HQMQ Bins Compression File
       description: Metagenome Bins for {id}
       name: Metagenome bin tarfiles archive
       import_suffix: _[0-9]+.tar.gz
