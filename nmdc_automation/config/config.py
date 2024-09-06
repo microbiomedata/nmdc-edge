@@ -1,4 +1,6 @@
+from pathlib import Path
 import tomli
+from typing import Union
 import yaml
 
 class UserConfig:
@@ -19,7 +21,7 @@ class UserConfig:
         return self.config_data["api"]["password"]
 
 class Config:
-    def __init__(self, path):
+    def __init__(self, path: Union[str, Path]):
         with open(path, "rb") as file:
             self.config_data = tomli.load(file)
 

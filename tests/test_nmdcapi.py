@@ -16,8 +16,8 @@ def mock_api(monkeypatch, requests_mock):
     requests_mock.post("http://localhost/token", json=resp)
 
 
-def test_basics(mock_api, requests_mock):
-    n = nmdcapi("./tests/site_configuration_test.toml")
+def test_basics(mock_api, requests_mock, site_config):
+    n = nmdcapi(site_config)
 
     # Add decode description
     resp = {'description': '{"a": "b"}'}
