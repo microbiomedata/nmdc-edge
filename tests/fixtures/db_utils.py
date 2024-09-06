@@ -13,6 +13,8 @@ COLS = [
     'metagenome_assembly_set',
     'jobs',
     'metagenome_annotation_activity_set',
+    'metatranscriptome_annotation_set',
+    'metatranscriptome_expression_analysis_set',
     'read_qc_analysis_activity_set'
     ]
 
@@ -43,3 +45,17 @@ def init_test(test_db):
     for col in COLS:
         fn = '%s.json' % (col)
         load_fixture(test_db, fn, reset=True)
+
+def update_test_db_with_workflow_versions(test_db, workflows):
+    """
+    This function will update the loaded fixtures with the workflow versions
+    and git urls from the workflow objects.  This is needed for the tests
+    to work correctly.
+    """
+    for wf in workflows:
+        db_records = test_db[wf.collection].find({"type": wf.type})
+        for rec in db_records:
+            rec["git_url"] = wf.git_repo
+            rec["version"] = wf.version
+            test_db[wf.collection].replace_one({"id": rec["id"]}, rec)
+    return
