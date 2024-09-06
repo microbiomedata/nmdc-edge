@@ -1,0 +1,31 @@
+[
+  {
+    "id" : "nmdc:omprc-11-test-metat1",
+    "name" : "Test Metatranscriptome Processing",
+    "description" : "Metatranscriptome description",
+    "has_input" : [
+        "nmdc:bsm-11-cnc9ww90"
+    ],
+    "has_output" : [
+        "nmdc:dobj-11-raw-reads3",
+        "nmdc:dobj-11-raw-reads4"
+    ],
+    "part_of" : [
+        "nmdc:sty-11-test002"
+    ],
+    "add_date" : "2018-07-12",
+    "mod_date" : "2021-06-18",
+    "ncbi_project_name" : "NCBI Project Name",
+    "omics_type" : {
+        "has_raw_value" : "Metatranscriptome"
+    },
+    "principal_investigator" : {
+        "has_raw_value" : "Another PI Name"
+    },
+    "processing_institution" : "JGI",
+    "type" : "nmdc:OmicsProcessing",
+    "gold_sequencing_project_identifiers" : [
+        "gold:Gp0324008"
+    ]
+}
+]

@@ -1,0 +1,45 @@
+[
+  {
+    "has_input": [
+      "nmdc:dobj-11-contigst1"
+    ],
+    "part_of": [
+      "nmdc:omprc-11-test-metat1"
+    ],
+    "git_url": "https://github.com/microbiomedata/mg_annotation",
+    "version": "v1.1.0",
+    "has_output": [
+      "nmdc:dobj-11-proteinst1-faa",
+        "nmdc:dobj-11-structuralt1",
+        "nmdc:dobj-11-functionalt1",
+        "nmdc:dobj-11-kegg",
+        "nmdc:dobj-11-ec",
+        "nmdc:dobj-11-scaffold-lineage",
+        "nmdc:dobj-11-cogs",
+        "nmdc:dobj-11-pfam",
+        "nmdc:dobj-11-tigrfam",
+        "nmdc:dobj-11-smart",
+        "nmdc:dobj-11-supfam",
+        "nmdc:dobj-11-funfam",
+        "nmdc:dobj-11-crt",
+        "nmdc:dobj-11-genemark",
+        "nmdc:dobj-11-prodigal",
+        "nmdc:dobj-11-trna",
+        "nmdc:dobj-11-rfam",
+        "nmdc:dobj-11-ko-ec",
+        "nmdc:dobj-11-product-names",
+        "nmdc:dobj-11-gene-phylo",
+        "nmdc:dobj-11-crispr",
+        "nmdc:dobj-11-annotation-stats",
+        "nmdc:dobj-11-contig-mapping",
+        "nmdc:dobj-11-annotation-info"
+    ],
+    "was_informed_by": "nmdc:omprc-11-test-metat1",
+    "id": "nmdc:wfmtan-11-test001.1",
+    "execution_resource": "NERSC-Cori",
+    "name": "Annotation Activity for nmdc:omprc-11-test-metat1",
+    "started_at_time": "2021-08-05T14:48:51+00:00",
+    "type": "nmdc:MetatranscriptomeAnnotationActivity",
+    "ended_at_time": "2021-09-15T10:13:20+00:00"
+  }
+]
