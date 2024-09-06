@@ -8,6 +8,7 @@ task megahit_assembly{
 
 #  parameter from https://www.nature.com/articles/s41597-019-0132-4
 	command <<<
+		set -euo pipefail
 		megahit --12 ${rqc_clean_reads[0]}  -t ${no_of_cpus} -o out/ --out-prefix mh --k-list 23,43,63,83,103,123
         mkdir -p ${assem_out_fdr}
 		cat out/mh.contigs.fa |sed 's/>.*_/>${assem_out_prefix}_/'|sed 's/ .*//' > ${assem_out_fdr}/${assem_out_prefix}.contigs.fa
@@ -20,6 +21,7 @@ task megahit_assembly{
 	runtime {
 		docker: DOCKER
 		cpu: no_of_cpus
+		memory: "120 GiB"
 	}
 
 	output{
