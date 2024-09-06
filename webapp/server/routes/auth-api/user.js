@@ -512,9 +512,8 @@ router.post("/upload/add", (req, res) => {
                     const file = req.files.file;
                     file.mv(`${upload_home}`, errorObject => {
                         if (errorObject) {
-                            // Propagate this exception to the outer scope,
-                            // so it gets handled in a standard way.
-                            throw errorObject;
+                            logger.error(JSON.stringify(errorObject));
+                            return res.status(500).json(sysError);
                         }
                         logger.debug("upload:" + `${upload_home}`);
                         return res.json({
