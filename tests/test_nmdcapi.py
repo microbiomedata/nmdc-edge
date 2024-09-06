@@ -27,8 +27,8 @@ def test_basics(mock_api, requests_mock, site_config):
     assert "metadata" in resp
 
 
-def test_objects(mock_api, requests_mock):
-    n = nmdcapi("./tests/site_configuration_test.toml")
+def test_objects(mock_api, requests_mock, site_config):
+    n = nmdcapi(site_config)
 
     requests_mock.post("http://localhost/objects", json={})
     fn = "./test_data/afile.sha256"
@@ -52,8 +52,8 @@ def test_objects(mock_api, requests_mock):
     assert "a" in resp
 
 
-def test_list_funcs(mock_api, requests_mock):
-    n = nmdcapi("./tests/site_configuration_test.toml")
+def test_list_funcs(mock_api, requests_mock, site_config):
+    n = nmdcapi(site_config)
     mock_resp = json.load(open("./test_data/mock_jobs.json"))
 
     # TODO: ccheck the full url
@@ -70,8 +70,8 @@ def test_list_funcs(mock_api, requests_mock):
     assert resp is not None
 
 
-def test_update_op(mock_api, requests_mock):
-    n = nmdcapi("./tests/site_configuration_test.toml")
+def test_update_op(mock_api, requests_mock, site_config):
+    n = nmdcapi(site_config)
 
     mock_resp = {'metadata': {"b": "c"}}
 
@@ -84,8 +84,8 @@ def test_update_op(mock_api, requests_mock):
     assert "b" in resp["metadata"]
 
 
-def test_jobs(mock_api, requests_mock):
-    n = nmdcapi("./tests/site_configuration_test.toml")
+def test_jobs(mock_api, requests_mock, site_config):
+    n = nmdcapi(site_config)
 
     requests_mock.get("http://localhost/jobs/abc", json="jobs/")
     resp = n.get_job("abc")
