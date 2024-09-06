@@ -22,10 +22,10 @@ workflow nmdc_metat {
         String  container = "microbiomedata/bbtools:38.96"
         String  tj_container =  "microbiomedata/meta_t@sha256:f18ff86c78909f70c7b6b8aa3a2d5c521800e10e0e270a9aa7fce6f383c224ba"
         String  fi_container="scanon/nmdc-meta:v0.0.1"
-        Int     rqc_mem = 180
+        Int     rqc_mem = 240
         Int     rqc_thr = 64
-        Int     anno_mem = 120
-        Int     anno_thr = 16
+        Int     anno_mem = 200
+        Int     anno_thr = 32
     }
 
      if (!input_interleaved) {
