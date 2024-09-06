@@ -9,13 +9,11 @@ import { FaUserCircle } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import logo from '../assets/img/NMDC_logo_long.jpeg';
 
-import {
-  AboutDropdown,
-  ProductsDropdown,
-  ResourcesDropdown,
-  PartnerDropdown,
-  NewsDropdown
-} from './index'
+import AboutDropdown from './AboutDropdown'
+import ProductsDropdown from './ProductsDropdown'
+import ResourcesDropdown from './ResourcesDropdown'
+import PartnerDropdown from './PartnerDropdown'
+import NewsDropdown from './NewsDropdown'
 import OrcidLoginHelp from '../common/UM/Common/OrcidLoginHelp';
 import { setSidebar, logout } from "../redux/actions/userActions";
 

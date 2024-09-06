@@ -17,7 +17,7 @@ function Metatranscriptome(props) {
                 <Annotation title={'Annotation Result'} result={props.result['annotation-stats']} userType={props.type} allExpand={props.allExpand} allClosed={props.allClosed} />
             }
             {props.result['readMapping-features'] &&
-                <ReadMapping title={'Read Mapping Result'} project={props.project} tooLarge={props.result['readMapping-features-too-large']} features={props.result['readMapping-features']} userType={props.type} allExpand={props.allExpand} allClosed={props.allClosed} />
+                <ReadMapping title={'Read Mapping Result'} project={props.project} tooLarge={props.result['readMapping-features-too-large']} features={props.result['readMapping-features']} topFeatures={props.result['readMapping-top_features']} userType={props.type} allExpand={props.allExpand} allClosed={props.allClosed} />
             }
         </>
     );

@@ -1,5 +1,6 @@
 import "rqcfilter.wdl" as readsQC
 import "readsqc_preprocess.wdl" as readsqc_preprocess
+import "readsqc_output.wdl" as readsqc_output
 import "ReadbasedAnalysis.wdl" as readbasedAnalysis
 import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output
@@ -35,6 +36,7 @@ workflow main_workflow {
 	## QC workflow
 	String? readsQC_outdir
 	String readsQC_bbtools_container="microbiomedata/bbtools:38.96"
+	String readsQC_vis_container="microbiomedata/fastqc_vis:1.0"
 	String readsQC_database="/refdata"
 	String readsQC_memory="60g"
 	String readsQC_threads="4"
@@ -58,9 +60,18 @@ workflow main_workflow {
                 database=readsQC_database,
                 proj=proj,
                 chastityfilter_flag=readsqc_preprocess.isIllumina
-       }
+		}
 
     }
+
+	call readsqc_output.fastqc_report as fastqc_report {
+		input:
+		  outdir=readsQC_outdir,
+		  input_files_prefix = readsqc_preprocess.input_files_prefix,
+		  filtered=nmdc_rqcfilter_call.filtered_final,
+		  filtered_stats2_final=nmdc_rqcfilter_call.filtered_stats2_final,
+		  container=readsQC_vis_container
+	}
 
 	## ReadbasedAnalysis workflow
 	Map[String, Boolean] readbasedAnalysis_enabled_tools = {
@@ -68,20 +79,25 @@ workflow main_workflow {
 		"kraken2": true,
 		"centrifuge": true
 	}
-    File readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final[0]
+    Array[File] readbasedAnalysis_reads = nmdc_rqcfilter_call.filtered_final
 	String ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.5"
 	Int readbasedAnalysis_cpu = 4
 	String readbasedAnalysis_prefix
 	String readbasedAnalysis_outdir
-	Boolean? readbasedAnalysis_paired = true
+	Boolean? readbasedAnalysis_paired = false
 	String db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
 	String db_kraken2 = "/refdata/Kraken2"
 	String db_centrifuge = "/refdata/Centrifuge/hpv"
-
+    
+	call readbasedanalysis_preprocess.preprocess as readbased_preprocess {
+	input:
+		input_files=readbasedAnalysis_reads,
+		paired=readbasedAnalysis_paired
+	}
 
     call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
         input:
-            input_file=readbasedAnalysis_reads,
+            input_file=readbased_preprocess.input_file_gz,
             cpu=readbasedAnalysis_cpu,
             proj=readbasedAnalysis_prefix,
             paired=readbasedAnalysis_paired,
@@ -186,22 +202,17 @@ workflow main_workflow {
     File? metaMAGs_ko_file = metaAnnotation_call.ko_tsv
     File? metaMAGs_pfam_file = metaAnnotation_call.pfam_gff
     File? metaMAGs_tigrfam_file = metaAnnotation_call.tigrfam_gff
-    File? metaMAGs_cath_funfam_file = metaAnnotation_call.cath_funfam_gff
-    File? metaMAGs_smart_file = metaAnnotation_call.smart_gff
-    File? metaMAGs_supfam_file = metaAnnotation_call.supfam_gff
+    File? metaMAGs_crispr_file = metaAnnotation_call.crt_crisprs
     File? metaMAGs_product_names_file = metaAnnotation_call.product_names_tsv
     File? metaMAGs_gene_phylogeny_file = metaAnnotation_call.gene_phylogeny_tsv
     File? metaMAGs_lineage_file = metaAnnotation_call.lineage_tsv
 	File? metaMAGs_map_file
-	File? metaMAGs_domain_file
 	Int metaMAGs_cpu=16
 	Int metaMAGs_threads=64
 	Int metaMAGs_pthreads=1
 	String metaMAGs_database="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
     String checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
 	String eukcc2_db="/refdata/EUKCC2_DB/eukcc2_db_ver_1.2"
-	String metaMAGsVis_container = "microbiomedata/nmdc_mbin_vis:0.4.0"
-    String metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:57930406fb5cc364bacfc904066519de6cdc2d0ceda9db0eebf2336df3ef5349"
 	
 
     call metaMAGs.nmdc_mags as metaMAGs_call {
@@ -216,28 +227,22 @@ workflow main_workflow {
             ko_file=metaMAGs_ko_file,
             pfam_file=metaMAGs_pfam_file,
             tigrfam_file=metaMAGs_tigrfam_file,
-            cath_funfam_file=metaMAGs_cath_funfam_file,
-            smart_file=metaMAGs_smart_file,
-            supfam_file=metaMAGs_supfam_file,
+            crispr_file=metaMAGs_crispr_file,
             product_names_file=metaMAGs_product_names_file,
             gene_phylogeny_file=metaMAGs_gene_phylogeny_file,
             lineage_file=metaMAGs_lineage_file,
             map_file=metaMAGs_map_file,
-            domain_file=metaMAGs_domain_file,
             cpu=metaMAGs_cpu,
             threads=metaMAGs_threads,
             pthreads=metaMAGs_pthreads,
             gtdbtk_db=metaMAGs_database,
             checkm_db=checkm_db,
 			eukcc2_db=eukcc2_db,
-            scratch_dir=metaMAGs_outdir,
-			package_container=metaMAGsVis_container,
-            container=metaMAGs_container
+            scratch_dir=metaMAGs_outdir
     }
 	call metaMAGsOutput.pdf_to_png as metaMAGs_vis {
 		input:
 			outdir = metaMAGs_outdir,
-    		container = metaMAGsVis_container,
     		pdf_files = [metaMAGs_call.barplot,metaMAGs_call.heatmap]
 	}
 
@@ -249,6 +254,7 @@ workflow main_workflow {
 			url_base=url_base,
 			git_url=git_url,
 			informed_by=informed_by,
+			input_files_prefix = readsqc_preprocess.input_files_prefix,
 			read = if (input_interleaved) then input_files else flatten([input_fq1,input_fq2]),
 			filtered = nmdc_rqcfilter_call.filtered_final,
 			filtered_stats = nmdc_rqcfilter_call.filtered_stats_final,
@@ -396,6 +402,8 @@ task finish {
 	String url_base
 	String git_url
 	Array[File] read
+	Array[String] input_files_prefix
+	Int file_num = length(input_files_prefix)
 	Array[File?] filtered
 	Array[File?] filtered_stats
 	Array[File?] filtered_stats2
@@ -483,20 +491,19 @@ task finish {
 				${select_first(filtered)} 'Filtered Reads' \
 				${select_first(filtered_stats)} 'Filtered Stats'
 			cp activity.json data_objects.json ${qadir}/
-            for i in ${sep=' ' filtered}
+			ARRAYPrefix=(${sep=" " input_files_prefix})
+			ARRAYFastq=(${sep=" " filtered})
+			for (( i = 0; i < ${file_num}; i++ ))
 			do
-				f=${dollar}(basename $i)
-				dir=${dollar}(dirname $i)
-				prefix=${dollar}{f%_filtered.fastq.gz}
+				f=${dollar}(basename ${dollar}{ARRAYPrefix[$i]})
+				dir=${dollar}(dirname ${dollar}{ARRAYFastq[$i]})
+				prefix=${dollar}{ARRAYPrefix[$i]}
 				mkdir -p ${qadir}/$prefix
-                cp -f $i ${qadir}/$prefix
-                cp -f $dir/${dollar}{prefix}_filterStats.txt  ${qadir}/$prefix/filterStats.txt
-                cp -f $dir/${dollar}{prefix}_filterStats2.txt  ${qadir}/$prefix/filterStats2.txt
-                cp -f $dir/${dollar}{prefix}_qa_stats.json ${qadir}/$prefix/filterStats.json
-
-            done
-
-		
+				cp -f ${dollar}{ARRAYFastq[$i]} ${qadir}/$prefix/$prefix.filtered.fastq.gz
+				cp -f $dir/*filterStats.txt  ${qadir}/$prefix/filterStats.txt
+				cp -f $dir/*filterStats2.txt  ${qadir}/$prefix/filterStats2.txt
+				cp -f $dir/*qa_stats.json ${qadir}/$prefix/filterStats.json
+			done
 
 			# Generate assembly objects
 			/scripts/generate_objects.py --type "assembly" --id ${informed_by} \

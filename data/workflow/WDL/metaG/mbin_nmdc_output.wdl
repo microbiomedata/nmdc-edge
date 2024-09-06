@@ -41,7 +41,7 @@ workflow mbin_nmdc_output {
     }
 
   call make_output {
-            input: container="microbiomedata/nmdc_mbin_vis:0.4.0",
+            input: container="microbiomedata/nmdc_mbin_vis:0.7.0",
                    activity_json=generate_objects.activity_json,
                    object_json=generate_objects.data_object_json,
                    short=short,
@@ -60,7 +60,7 @@ workflow mbin_nmdc_output {
 
 task pdf_to_png {
     String? outdir
-    String container =  "microbiomedata/nmdc_mbin_vis:0.4.0"
+    String container =  "microbiomedata/nmdc_mbin_vis:0.7.0"
     Array[File] pdf_files
 
     command<<<
@@ -68,17 +68,20 @@ task pdf_to_png {
     mkdir -p ${outdir}
 
     python <<CODE
+    import os
     from pathlib import Path
     import fitz 
     files_string= "${sep=' ' pdf_files}"
     pdfs = files_string.split()
     for pdf in pdfs :
+        if os.stat(pdf).st_size == 0:
+            continue
         prefix = Path(pdf).stem
         output = "${outdir}/%s.png" % prefix
         print(output)
         with open(pdf,'rb') as f:
             first_line = str(f.read(1024))
-            if "No KO analysis" not in first_line:
+            if "No KO analysis" not in first_line and "no modules" not in first_line:
                 doc = fitz.open(pdf)  # open document
                 mat = fitz.Matrix(2, 2)   # zoom factor 2 in each dimension
                 for page in doc:  # iterate through the pages
