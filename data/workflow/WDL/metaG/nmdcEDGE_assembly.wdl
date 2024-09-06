@@ -74,11 +74,16 @@ task assembly_vis{
     Int minContig = 500
 
     command<<<
+        set -euo pipefail
         metaquast.py --version > version.txt
         metaquast.py -o ${outdir} -m ${minContig} --no-icarus --max-ref-number 0 ${contigs} 
-        sed -e 's/.top-panel {/.top-panel {\n display:none;/' ${outdir}/report.html > ${outdir}/${prefix}_report.html
-        mv ${outdir}/report.txt ${outdir}/${prefix}_report.txt
-
+        if [ -f ${outdir}/report.html ]; then
+            sed -e 's/.top-panel {/.top-panel {\n display:none;/' ${outdir}/report.html > ${outdir}/${prefix}_report.html
+            mv ${outdir}/report.txt ${outdir}/${prefix}_report.txt
+        else
+            echo "None of the assembly files contains correct contigs. contigs should >= 500 bp for the report" > ${outdir}/${prefix}_report.html
+            echo "None of the assembly files contains correct contigs. contigs should >= 500 bp for the report" > ${outdir}/${prefix}_report.txt
+        fi
     >>>
 
     runtime {
