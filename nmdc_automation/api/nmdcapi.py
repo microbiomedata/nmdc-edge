@@ -182,7 +182,7 @@ class NmdcRuntimeApi:
 
     @refresh_token
     def post_objects(self, obj_data):
-        url = self._base_url + "workflows/activities"
+        url = self._base_url + "workflows/workflow_executions"
 
         resp = requests.post(url, headers=self.header, data=json.dumps(obj_data))
         return resp.json()
