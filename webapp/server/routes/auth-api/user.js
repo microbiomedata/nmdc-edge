@@ -474,14 +474,16 @@ router.post("/upload/add", (req, res) => {
     // Form validation
     const { errors, isValid } = validateAdduploadInput(req.body);
     if (!isValid) {
-        logger.error(errors);
+        logger.error(JSON.stringify(errors));
         return res.status(400).json(errors);
     }
 
     //check storage size
     getUploadedSize(req.user.email, function (size) {
         if (isNaN(size)) {
-            return res.status(500).json(sysError);
+            const summary = "Failed to determine the size of the uploaded file.";
+            console.error(`${summary} Details: ${sysError}`);
+            return res.status(500).json({ message: summary });
         } else {
             let newSize = Number(size) + Number(req.body.size);
             if (newSize > config.FILE_UPLOADS.MAX_STORAGE_SIZE_BYTES) {
@@ -508,10 +510,11 @@ router.post("/upload/add", (req, res) => {
                 .then(upload => {
                     //save uploaded file
                     const file = req.files.file;
-                    file.mv(`${upload_home}`, err => {
-                        if (err) {
-                            logger.error(err);
-                            return res.status(500).json(sysError);
+                    file.mv(`${upload_home}`, errorObject => {
+                        if (errorObject) {
+                            // Propagate this exception to the outer scope,
+                            // so it gets handled in a standard way.
+                            throw errorObject;
                         }
                         logger.debug("upload:" + `${upload_home}`);
                         return res.json({
@@ -519,9 +522,10 @@ router.post("/upload/add", (req, res) => {
                         });
                     })
                 })
-                .catch(err => {
-                    logger.error(err);
-                    return res.status(500).json(sysError);
+                .catch(errorObject => {
+                    const summary = "Failed to save the uploaded file.";
+                    logger.error(`${summary} Details: ${JSON.stringify(errorObject)}`);
+                    return res.status(500).json({ message: summary });
                 });
         }
     });
