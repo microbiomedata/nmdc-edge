@@ -1,5 +1,6 @@
 import os
 from pymongo import MongoClient
+from pathlib import Path
 from pytest import fixture
 from time import time
 
@@ -19,3 +20,22 @@ def mock_api(monkeypatch, requests_mock):
             }
     requests_mock.post("http://localhost/token", json=resp)
 
+@fixture(scope="session")
+def base_test_dir():
+    return Path(__file__).parent
+
+@fixture(scope="session")
+def fixtures_dir(base_test_dir):
+    return base_test_dir / "fixtures"
+
+@fixture(scope="session")
+def test_data_dir(base_test_dir):
+    return base_test_dir / "test_data"
+
+@fixture(scope="session")
+def config_dir(base_test_dir):
+    return base_test_dir.parent / "configs"
+
+@fixture(scope="session")
+def site_config(base_test_dir):
+    return base_test_dir / "site_configuration_test.toml"
