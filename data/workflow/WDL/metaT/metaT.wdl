@@ -1,213 +1,218 @@
-import "metat_tasks.wdl" as mt
-import "rqcfilter.wdl" as rqc
-import "additional_qc.wdl" as aq
-import "metat_assembly.wdl" as ma
-import "map_bbmap.wdl" as bb
-import "annotation_full.wdl" as awf
-import "feature_counts.wdl" as fc
-import "calc_scores.wdl" as cs
-import "to_json.wdl" as tj
+# metaT workflow wrapper
+version 1.0
+
+import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadsQC/v0.0.7/rqcfilter.wdl" as readsqc
+import "https://raw.githubusercontent.com/microbiomedata/metaT_Assembly/v0.0.2/metaT_assembly.wdl" as assembly
+import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/v1.1.4/annotation_full.wdl" as annotation
+import "https://raw.githubusercontent.com/microbiomedata/metaT_ReadCounts/v0.0.5/readcount.wdl" as readcounts
+import "./metat_tasks.wdl" as tasks
+
 
 workflow nmdc_metat {
-    String  metat_container = "migun/meta_t2:latest"
-    String  featcounts_container = "mbabinski17/featcounts:dev"
-    String  feature_types_container = "mbabinski17/rpkm_sort:0.0.5"
-    String  proj
-    String informed_by
-    String activity_id
-    String git_url = "https://data.microbiomedata.org/data/"
-    String url_root = "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1"
-    String resource
-    File    input_file
-    String  outdir 
-    String  database  
-    Int threads = 64
-    File metat_folder 
-    Boolean input_interleaved = false
-    File? input_fq1
-    File? input_fq2
 
-    if (!input_interleaved) {
-         call mt.make_interleaved as int  {
+    input {
+        String  project_id
+	    File?   input_file 
+        File?   input_fq1
+        File?   input_fq2
+        Boolean input_interleaved = false
+        # Array[String] input_files
+        String  strand_type = " "
+        String  prefix = sub(project_id, ":", "_")
+        String  container = "microbiomedata/bbtools:38.96"
+        String  tj_container =  "microbiomedata/meta_t@sha256:f18ff86c78909f70c7b6b8aa3a2d5c521800e10e0e270a9aa7fce6f383c224ba"
+        String  fi_container="scanon/nmdc-meta:v0.0.1"
+        Int     rqc_mem = 240
+        Int     rqc_thr = 64
+        Int     anno_mem = 200
+        Int     anno_thr = 32
+    }
+
+     if (!input_interleaved) {
+         call tasks.make_interleaved as int  {
             input:
-            input1 = input_fq1,
-	    input2 = input_fq2,
-            pref = activity_id,
-	    container="microbiomedata/bbtools:38.96"
+            fastq1 = input_fq1,
+	        fastq2 = input_fq2,
+            pref = prefix,
+	        container=container
            } 
     }
 
-    call mt.stage as stage {
-    input: input_file=if input_interleaved then input_file else int.out_fastq,
-           proj=proj,
-           container=metat_container
-   }
-
-
-    
-    call rqc.jgi_rqcfilter as qc {
-    input: input_files=[stage.read],
-           outdir="${outdir}/qa/",
-           threads=threads,
-           memory="64G",
-           database=database
+    call readsqc.metaTReadsQC as qc {
+        input:
+        proj = project_id,
+        input_files = if (input_interleaved) then [input_file] else [int.out_fastq],
+        rqc_mem = rqc_mem,
+        rqc_thr = rqc_thr
     }
 
-    call ma.megahit_assembly as asm {
-    input: rqc_clean_reads = qc.filtered,
-           assem_out_fdr = "${outdir}/assembly/",
-           assem_out_prefix = sub(proj, ":", "_"),
-           no_of_cpus = threads,
-           DOCKER = metat_container
+    call assembly.metatranscriptome_assy as asse{
+        input:
+        # single file to array of files
+        input_files = [qc.filtered_final],
+        proj_id = project_id
+    }
+
+    call annotation.annotation as anno{
+        input:
+        proj = project_id,
+        input_file = asse.final_contigs,
+        imgap_project_id = project_id,
+        additional_memory = anno_mem,
+        additional_threads = anno_thr
+    }
+
+    call readcounts.readcount as rc{
+        input:
+        bam = asse.final_bam,
+        gff = anno.functional_gff,
+        map = anno.map_file,
+        rna_type = strand_type,
+        proj_id = project_id
+
+    }
+
+    call tasks.rctojson as tj{
+        input:
+        readcount = rc.count_table,
+        gff = anno.functional_gff,
+        prefix = prefix,
+        container = tj_container
+    }
+
+    call tasks.finish_metat as fi {
+        input: 
+        container=fi_container,
+        proj = project_id, 
+        filtered = qc.filtered_final,
+        filtered_stats = qc.filtered_stats_final,
+        filtered_stats2 = qc.filtered_stats2_final,
+        filtered_ribo = qc.filtered_ribo_final,
+        rqc_info = qc.rqc_info,
+        tar_bam = asse.final_tar_bam,
+        contigs = asse.final_contigs,
+        scaffolds = asse.final_scaffolds,
+        asse_log = asse.final_log,
+	    readlen = asse.final_readlen,
+        sam = asse.final_sam,
+        bam = asse.final_bam,
+        bamidx = asse.final_bamidx,
+        cov = asse.final_cov,
+        asmstats = asse.asmstats,
+        asse_info  = asse.info_file,
+        proteins_faa = anno.proteins_faa,
+        structural_gff = anno.structural_gff,
+        ko_ec_gff = anno.ko_ec_gff,
+        gene_phylogeny_tsv = anno.gene_phylogeny_tsv,
+        functional_gff = anno.functional_gff,
+        ko_tsv = anno.ko_tsv,
+        ec_tsv = anno.ec_tsv,
+        lineage_tsv = anno.lineage_tsv,
+        stats_tsv = anno.stats_tsv,
+        stats_json = anno.stats_json,
+        cog_gff = anno.cog_gff,
+        pfam_gff = anno.pfam_gff,
+        tigrfam_gff = anno.tigrfam_gff,
+        smart_gff = anno.smart_gff,
+        supfam_gff = anno.supfam_gff,
+        cath_funfam_gff = anno.cath_funfam_gff,
+        crt_gff = anno.crt_gff,
+        genemark_gff = anno.genemark_gff,
+        prodigal_gff = anno.prodigal_gff,
+        trna_gff = anno.trna_gff,
+        rfam_gff = anno.final_rfam_gff,
+        product_names_tsv = anno.product_names_tsv,
+        crt_crisprs = anno.crt_crisprs,
+        imgap_version = anno.imgap_version,
+        renamed_fasta = anno.renamed_fasta,
+        map_file = anno.map_file,
+        count_table = rc.count_table,
+        count_ig = rc.count_ig,
+        count_log = rc.count_log,
+        readcount_info = rc.readcount_info,
+        gff_json = tj.gff_json,
+        rc_json = tj.rc_json,
+        gff_rc_json = tj.gff_rc_json,
+		cds_json = tj.cds_json,
+		sense_json = tj.sense_json,
+		anti_json = tj.anti_json,
+        top100_json = tj.top100_json,
+		sorted_json = tj.sorted_json,
+        sorted_tsv = tj.sorted_tsv
+ 
   }
 
-    call bb.bbmap_mapping as bbm{
-        input:rna_clean_reads = qc.filtered,
-        no_of_cpus = 16,
-        assembly_fna = asm.assem_fna_file
+    output{ 
+        # metaT_ReadsQC
+        File filtered_final = fi.final_filtered
+        File filtered_stats_final = fi.final_filtered_stats
+        File filtered_stats2_final = fi.final_filtered_stats2
+        File rqc_info = fi.final_rqc_info
+        File rqc_stats = fi.final_rqc_stats
+        File filtered_ribo_final = fi.final_filtered_ribo
+        # metaT_Assembly
+        File final_tar_bam = fi.final_tar_bam
+        File final_contigs = fi.final_contigs
+        File final_scaffolds = fi.final_scaffolds
+        File final_asse_log = fi.final_asm_log
+	    File final_readlen = fi.final_readlen
+        File final_sam = fi.final_sam
+        File final_bam = fi.final_bam
+        File final_bamidx = fi.final_bamidx
+        File final_cov = fi.final_cov
+        File final_asmstats = fi.final_asmstats
+        File asse_info  = fi.final_asm_info
+        # mg_annotation
+        File proteins_faa = fi.final_proteins_faa
+        File structural_gff = fi.final_structural_gff
+        File ko_ec_gff = fi.final_ko_ec_gff
+        File gene_phylogeny_tsv = fi.final_gene_phylogeny_tsv
+        File functional_gff = fi.final_functional_gff
+        File ko_tsv = fi.final_ko_tsv
+        File ec_tsv = fi.final_ec_tsv
+        File lineage_tsv = fi.final_lineage_tsv
+        File stats_tsv = fi.final_stats_tsv
+        File stats_json = fi.final_stats_json
+        File cog_gff = fi.final_cog_gff
+        File pfam_gff = fi.final_pfam_gff
+        File tigrfam_gff = fi.final_tigrfam_gff
+        File smart_gff = fi.final_smart_gff
+        File supfam_gff = fi.final_supfam_gff
+        File cath_funfam_gff = fi.final_cath_funfam_gff
+        File crt_gff = fi.final_crt_gff
+        File genemark_gff = fi.final_genemark_gff
+        File prodigal_gff = fi.final_prodigal_gff
+        File trna_gff = fi.final_trna_gff
+        File final_rfam_gff = fi.final_rfam_gff
+        File product_names_tsv = fi.final_product_names_tsv
+        File crt_crisprs = fi.final_crt_crisprs
+        File imgap_version = fi.final_imgap_version
+        File renamed_fasta = fi.final_renamed_fasta
+        File map_file = fi.final_map_file
+        # metaT_ReadCounts
+        File count_table = fi.final_count_table
+        File? count_ig = fi.final_count_ig
+        File? count_log = fi.final_count_log
+        File readcount_info = fi.final_readcount_info
+        # output tables
+        File gff_json = fi.final_gff_json
+        File rc_json = fi.final_rc_json
+        File gff_rc_json = fi.final_gff_rc_json
+		File cds_json = fi.final_cds_json
+		File sense_json = fi.final_sense_json
+		File anti_json = fi.final_anti_json
+        File top100_json = fi.final_top100_json
+		File sorted_json = fi.final_sorted_json
+        File sorted_tsv = fi.final_sorted_tsv
     }
-    call awf.annotation as iap {
-    input: imgap_project_id=stage.pref,
-           imgap_input_fasta=asm.assem_fna_file,
-           database_location="/refdata/img/",
-           #additional_threads=threads
 
+    parameter_meta {
+        project_id: "Project ID string.  This will be appended to the gene ids"
+        input_file: "File path to raw fastq, must be interleaved and gzipped."
+        strand_type: "RNA strandedness, optional, can be left out / blank, 'aRNA', or 'non_stranded_RNA'"
+        input_interleaved: "Optional boolean to specify whether input files are interleaved. Default false."
+        input_fq1: "Optional input file path if files need to be interleaved (same as 'input_file')."
+        input_fq2: "Optional second input file path if files need to be interleaved"
     }
-	
-    call fc.parse_intergenic as pint {
-		input: annotation_gff = iap.functional_gff, 
-		DOCKER = feature_types_container
-	}
-    call mt.clean_gff as dcg{
-		input:gff_file_path = pint.filtered_intergenic_gff,
-		DOCKER = metat_container
-
-	}
-
-    call mt.extract_feats as ef {
-		input:gff_file_path = dcg.cln_gff_fl,
-		DOCKER = metat_container
-	}
-
-    call mt.create_gffdb{
-		input:gff_file_path = dcg.cln_gff_fl,
-		DOCKER = metat_container
-	}
     
-    scatter (feat in ef.feats_in_gff) {
-		call fc.featurecount{
-		input: no_of_cpu = threads,
-		project_name = sub(proj, ":", "_"),
-		gff_file_path = dcg.cln_gff_fl,
-		bam_file_path = bbm.map_bam,
-		name_of_feat = feat,
-		DOCKER = featcounts_container
-		}
-		call cs.cal_scores{
-		input: project_name = sub(proj, ":", "_"),
-		name_of_feat = feat,
-		fc_file = featurecount.ct_tbl,
-		DOCKER = metat_container
-		}
-        call tj.convtojson as tdc{
-		input:gff_file_path = dcg.cln_gff_fl,
-		fasta_file_name = asm.assem_fna_file,
-		rd_count_fn = featurecount.ct_tbl,
-		pkm_sc_fn = cal_scores.sc_tbl,
-		name_of_feat = feat,
-		gff_db_fn = create_gffdb.gff_db_fn,
-		DOCKER = metat_container
-		}
-	
-                call cs.cal_scores as cs2{
-                input: project_name = sub(proj, ":", "_"),
-                name_of_feat = feat,
-                fc_file = featurecount.ct_tbl2,
-                DOCKER = metat_container
-                }
-        call tj.convtojson as tdc2{
-                input:gff_file_path = dcg.cln_gff_fl,
-                fasta_file_name = asm.assem_fna_file,
-                rd_count_fn = featurecount.ct_tbl2,
-                pkm_sc_fn = cs2.sc_tbl,
-                name_of_feat = feat,
-                gff_db_fn = create_gffdb.gff_db_fn,
-                DOCKER = metat_container
-                }
-        }
-    call mt.collect_output as mdo {
-		input: out_files = tdc.out_json_file,
-        prefix=sub(proj, ":", "_"),
-		DOCKER = metat_container
-	}
-
-    call mt.collect_output2 as mdo2 {
-                input: out_files = tdc2.out_json_file,
-        prefix=sub(proj, ":", "_"),
-                DOCKER = metat_container
-        }
-    call fc.add_feature_types as aft{
-	input: sense = mdo.out_json_file,
-	       antisense = mdo2.out_json_file2,
-	       proj = sub(proj, ":", "_"),
-	       DOCKER =  feature_types_container
-	}
-    call mt.finish_metat as mfm {
-    input: container="microbiomedata/workflowmeta:1.0.5.1",
-           start=stage.start,
-           resource=resource,
-           proj=proj,
-	   informed_by=informed_by,
-           url_root=url_root,
-           git_url=git_url,
-           read = stage.read,
-           filtered = qc.filtered[0],
-           filtered_stats = qc.stats[0],
-	   filtered_stats2 = qc.stats2[0],
-           fasta=asm.assem_fna_file,
-           bbm_bam=bbm.map_bam,
-	   covstats=bbm.covstats,
-           out_json=aft.filtered_sense_json,
-	   out_json2=aft.filtered_antisense_json,
-	   sorted_features=aft.full_features_tsv,
-           top100=aft.top100,
-	   stats_tsv=iap.stats_tsv,
-           stats_json=iap.stats_json,
-           proteins_faa=iap.proteins_faa,
-           functional_gff=iap.functional_gff,
-           structural_gff=iap.structural_gff,
-           ko_tsv=iap.ko_tsv,
-           ec_tsv=iap.ec_tsv,
-           cog_gff=iap.cog_gff,
-           pfam_gff=iap.pfam_gff,
-           tigrfam_gff=iap.tigrfam_gff,
-           smart_gff=iap.smart_gff,
-           supfam_gff=iap.supfam_gff,
-           cath_funfam_gff=iap.cath_funfam_gff,
-           ko_ec_gff=iap.ko_ec_gff,
-           gene_phylogeny_tsv=iap.gene_phylogeny_tsv,
-	   cog_domtblout=iap.proteins_cog_domtblout,
- 	   pfam_domtblout=iap.proteins_pfam_domtblout,
- 	   tigrfam_domtblout=iap.proteins_tigrfam_domtblout,
- 	   smart_domtblout=iap.proteins_smart_domtblout,
- 	   supfam_domtblout=iap.proteins_supfam_domtblout,
- 	   cath_funfam_domtblout=iap.proteins_cath_funfam_domtblout,
- 	   product_names_tsv=iap.product_names_tsv,
- 	   crt_crisprs=iap.crt_crisprs,
- 	   crt_gff=iap.crt_gff,
- 	   genemark_gff=iap.genemark_gff,
- 	   prodigal_gff=iap.prodigal_gff,
- 	   trna_gff=iap.trna_gff,
- 	   misc_bind_misc_feature_regulatory_gff=iap.misc_bind_misc_feature_regulatory_gff,
- 	   rrna_gff=iap.rrna_gff,
-  	   ncrna_tmrna_gff=iap.ncrna_tmrna_gff,
-           outdir=outdir
-  }
-
-    meta {
-        author: "Migun Shakya, B10, LANL"
-        email: "migun@lanl.gov"
-        version: "0.0.3"
-    }
-
 }
