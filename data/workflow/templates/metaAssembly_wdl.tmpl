@@ -1,3 +1,4 @@
+input {
     Array[File] <WORKFLOW>_input_files
     String? <WORKFLOW>_outdir
     String <WORKFLOW>_rename_contig_prefix="scaffold"
@@ -11,33 +12,34 @@
     Array[File] <WORKFLOW>_input_fq1
     Array[File] <WORKFLOW>_input_fq2
     String <WORKFLOW>_prefix
+}
 
-    call <WORKFLOW>.nmdc_edge_assembly as <ALIAS> {
-        input: 
-		input_file=<WORKFLOW>_input_files, 
-		outdir=<WORKFLOW>_outdir, 
-		rename_contig_prefix=<WORKFLOW>_rename_contig_prefix, 
-		uniquekmer=<WORKFLOW>_uniquekmer, 
-		bbtools_container=<WORKFLOW>_bbtools_container, 
-		spades_container=<WORKFLOW>_spades_container, 
-                quast_container=<WORKFLOW>_squast_container,
-		memory=<WORKFLOW>_memory, 
-		threads=<WORKFLOW>_threads,
-		input_interleaved=<WORKFLOW>_input_interleaved, 
-		input_fq1=<WORKFLOW>_input_fq1, 
-		input_fq2=<WORKFLOW>_input_fq2,
-                proj=<WORKFLOW>_prefix
-    }
+call <WORKFLOW>.nmdc_edge_assembly as <ALIAS> {
+    input: 
+    input_file=<WORKFLOW>_input_files, 
+    outdir=<WORKFLOW>_outdir, 
+    rename_contig_prefix=<WORKFLOW>_rename_contig_prefix, 
+    uniquekmer=<WORKFLOW>_uniquekmer, 
+    bbtools_container=<WORKFLOW>_bbtools_container, 
+    spades_container=<WORKFLOW>_spades_container, 
+    quast_container=<WORKFLOW>_squast_container,
+    memory=<WORKFLOW>_memory, 
+    threads=<WORKFLOW>_threads,
+    input_interleaved=<WORKFLOW>_input_interleaved, 
+    input_fq1=<WORKFLOW>_input_fq1, 
+    input_fq2=<WORKFLOW>_input_fq2,
+    proj=<WORKFLOW>_prefix
+}
 
-    output {
-        File contig=<ALIAS>.contig
-        File scaffold=<ALIAS>.scaffold
-        File agp=<ALIAS>.agp
-        File bam=<ALIAS>.bam
-        File samgz=<ALIAS>.samgz
-        File covstats=<ALIAS>.covstats
-        File asmstats=<ALIAS>.asmstats
-	File asminfo=<ALIAS>.asminfo
-        File asmreportHtml=<ALIAS>.report_html
-        File asmreportTxt=<ALIAS>.report_txt
-    }
+output {
+    File contig=<ALIAS>.contig
+    File scaffold=<ALIAS>.scaffold
+    File agp=<ALIAS>.agp
+    File bam=<ALIAS>.bam
+    File samgz=<ALIAS>.samgz
+    File covstats=<ALIAS>.covstats
+    File asmstats=<ALIAS>.asmstats
+    File asminfo=<ALIAS>.asminfo
+    File asmreportHtml=<ALIAS>.report_html
+    File asmreportTxt=<ALIAS>.report_txt
+}
