@@ -1,17 +1,4 @@
 Workflows:
-  - Name: Sequencing
-    Import: true
-    Type: nmdc:MetagenomeSequencingActivity
-    Git_repo: https://github.com/microbiomedata/RawSequencingData
-    Version: v1.0.0
-    Collection: metagenome_sequencing_activity_set
-    ActivityRange: MetagenomeSequencingActivity
-    Activity:
-      name: "Metagenome Sequencing Activity for {id}"
-      type: nmdc:MetagenomeSequencingActivity
-    Outputs:
-      - Metagenome Raw Reads
-
   - Name: Reads QC
     Import: true
     Type: nmdc:ReadQcAnalysisActivity
@@ -174,7 +161,7 @@ Data Objects:
       import_suffix: .[A-Z]+-[A-Z]+.fastq.gz
       nmdc_suffix: .fastq.gz
       input_to: [nmdc:ReadQcAnalysisActivity]
-      output_of: nmdc:MetagenomeSequencingActivity
+      output_of: nmdc:OmicsProcessing
       mulitple: false
       action: none
     - data_object_type: CheckM Statistics
