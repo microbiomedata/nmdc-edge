@@ -23,6 +23,7 @@ You can learn more about the NMDC EDGE platform by reading the [NMDC EDGE tutori
   * [Deployment](#deployment)
     * [Building and publishing a container image](#building-and-publishing-a-container-image)
     * [Instantiating the container image](#instantiating-the-container-image)
+  * [Appendix](#appendix)
 <!-- TOC -->
 
 ## Architecture
@@ -189,3 +190,16 @@ and then running `$ docker compose up`, using the production Docker Compose file
 [`./docs/docker-compose.prod.yml`](https://github.com/microbiomedata/nmdc-edge/blob/main/docs/docker-compose.prod.yml).
 You can learn more about the environment variables by reading the comments within the production
 Docker Compose file.
+
+## Appendix
+
+### Admin users
+
+Here's how you can make yourself into an admin user (e.g. in order to access admin-only content):
+
+1. Sign into NMDC EDGE via ORCID at least once
+2. Use a MongoDB client to connect to the application's MongoDB server
+3. Connect to the application's database, by running: `use nmdcedge;`
+4. Find the document corresponding to your ORCID account, by running: `db.users.find({ email: "..." });` (replace `...` with your email address). Note that document's `_id` value.
+5. Make that user into an admin, by running: `db.users.updateOne({ _id: ... }, { $set: { type: "admin" }});` (replace `...` with the value from the previous step, including the outer `ObjectId()` part).
+6. Confirm that user is an admin, by running: `db.users.find({ type: "admin" });`
