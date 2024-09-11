@@ -1,10 +1,10 @@
 [
   {
     "has_input": [
-      "nmdc:dobj-11-filtered-reads"
+      "nmdc:dobj-11-filteredreads"
     ],
     "part_of": [
-      "nmdc:omprc-11-test-metag1"
+      "nmdc:omprc-11-testmetag1"
     ],
     "scaf_N50": 302542,
     "ctg_logsum": 5909271,
@@ -18,13 +18,13 @@
     "version": "v1.0.3",
     "has_output": [
       "nmdc:dobj-11-contigs",
-      "nmdc:dobj-11-cover-stats",
-      "nmdc:dobj-11-cover-bam",
-      "nmdc:dobj-11-assembly-agp",
+      "nmdc:dobj-11-coverstats",
+      "nmdc:dobj-11-coverbam",
+      "nmdc:dobj-11-assemblyagp",
       "nmdc:dobj-11-scaffolds"
     ],
     "asm_score": 11.297,
-    "was_informed_by": "nmdc:omprc-11-test-metag1",
+    "was_informed_by": "nmdc:omprc-11-testmetag1",
     "ctg_powsum": 727370,
     "scaf_max": 517431,
     "id": "nmdc:wfmgas-11-test001.1",
@@ -50,10 +50,10 @@
   },
   {
     "has_input": [
-      "nmdc:dobj-11-filtered-reads1"
+      "nmdc:dobj-11-filteredreads1"
     ],
     "part_of": [
-      "nmdc:omprc-11-test-metat1"
+      "nmdc:omprc-11-testmetat1"
     ],
     "scaf_N50": 302542,
     "ctg_logsum": 5909271,
@@ -67,13 +67,13 @@
     "version": "v0.0.1",
     "has_output": [
       "nmdc:dobj-11-contigst1",
-      "nmdc:dobj-11-cover-statst1",
-      "nmdc:dobj-11-cover-bamt1",
-      "nmdc:dobj-11-assembly-infot1",
-      "nmdc:dobj-11-bam-idxt1"
+      "nmdc:dobj-11-coverstatst1",
+      "nmdc:dobj-11-coverbamt1",
+      "nmdc:dobj-11-assemblyinfot1",
+      "nmdc:dobj-11-bamidxt1"
     ],
     "asm_score": 11.297,
-    "was_informed_by": "nmdc:omprc-11-test-metat1",
+    "was_informed_by": "nmdc:omprc-11-testmetat1",
     "ctg_powsum": 727370,
     "scaf_max": 517431,
     "id": "nmdc:wfmtas-11-test001.1",

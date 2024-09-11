@@ -1,24 +1,24 @@
 [
 {
-    "id" : "nmdc:wfrqc-11-test-metag1.2",
+    "id" : "nmdc:wfrqc-11-testmetag12",
     "name" : "Read QC Activity for nmdc:wfrqc-11-test-metag1.2",
     "started_at_time" : "2024-04-11T20:51:15.535533+00:00",
     "ended_at_time" : "2024-04-11T23:39:28.659534+00:00",
-    "was_informed_by" : "nmdc:omprc-11-test-metag1",
+    "was_informed_by" : "nmdc:omprc-11-testmetag1",
     "execution_resource" : "NERSC-Perlmutter",
     "git_url" : "https://github.com/microbiomedata/ReadsQC",
     "has_input" : [
-        "nmdc:dobj-11-raw-reads1",
-        "nmdc:dobj-11-raw-reads2"
+        "nmdc:dobj-11-rawreads1",
+        "nmdc:dobj-11-rawreads2"
     ],
     "type" : "nmdc:ReadQcAnalysisActivity",
     "has_output" : [
-        "nmdc:dobj-11-qc-stats2",
-        "nmdc:dobj-11-qc-info2",
-        "nmdc:dobj-11-filtered-reads2"
+        "nmdc:dobj-11-qcstats2",
+        "nmdc:dobj-11-qcinfo2",
+        "nmdc:dobj-11-filteredreads2"
     ],
     "part_of" : [
-        "nmdc:omprc-11-test-metag1"
+        "nmdc:omprc-11-testmetag1"
     ],
     "version" : "v1.0.8"
 }

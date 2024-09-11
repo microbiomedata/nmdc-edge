@@ -1,6 +1,6 @@
 [
   {
-    "id": "nmdc:dobj-11-raw-reads2",
+    "id": "nmdc:dobj-11-rawreads2",
     "name": "metaG_R2_001.fastq.gz",
     "description": "Sequencing results for MetaG_R2",
     "md5_checksum": "4c7f1be37f805836162b49da4ed9c7e5",
@@ -9,7 +9,7 @@
     "url": "https://portal.nersc.gov"
   },
   {
-    "id": "nmdc:dobj-11-raw-reads1",
+    "id": "nmdc:dobj-11-rawreads1",
     "name": "metaG_R1_001.fastq.gz",
     "description": "Sequencing results for metaG_R1",
     "md5_checksum": "ed9467e690babb683b024ed47dd97b85",
@@ -18,7 +18,7 @@
     "url": "https://portal.nersc.gov"
   },
   {
-    "id": "nmdc:dobj-11-qc-stats",
+    "id": "nmdc:dobj-11-qcstats",
     "name": "nmdc_wfrqc-11-metag.1_filterStats.txt",
     "description": "Reads QC summary for nmdc:wfrqc-11-test-metag1.1",
     "file_size_bytes": 123456,
@@ -28,7 +28,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-qc-info",
+    "id": "nmdc:dobj-11-qcinfo",
     "name": "nmdc_wfrqc-11-metag.1_readsQC.info",
     "description": "Read filtering info for nmdc:wfrqc-11-test-metag1.1",
     "file_size_bytes": 123456,
@@ -38,7 +38,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-filtered-reads",
+    "id": "nmdc:dobj-11-filteredreads",
     "name": "nmdc_wfrqc-11-metag.1_filtered.fastq.gz",
     "description": "Reads QC for nmdc:wfrqc-11-test-metag1.1",
     "file_size_bytes": 123456,
@@ -58,7 +58,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-cover-stats",
+    "id": "nmdc:dobj-11-coverstats",
     "name": "nmdc_wfrqc-11-metag.1_covstats.txt",
     "description": "Assembly coverage stats for nmdc:omprc-11-test-metag1",
     "file_size_bytes": 123456,
@@ -68,7 +68,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-cover-bam",
+    "id": "nmdc:dobj-11-coverbam",
     "name": "nmdc_wfrqc-11-metag.1_pairedMapped_sorted.bam",
     "description": "Paired reads mapping for nmdc:omprc-11-test-metag1",
     "file_size_bytes": 123456,
@@ -78,7 +78,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-assembly-agp",
+    "id": "nmdc:dobj-11-assemblyagp",
     "name": "nmdc_wfrqc-11-metag.1_assembly.agp",
     "description": "Assembly AGP file for nmdc:omprc-11-test-metag1",
     "file_size_bytes": 123456,
@@ -98,7 +98,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-scaffold-lineage",
+    "id": "nmdc:dobj-11-scaffoldlineage",
     "name": "nmdc_wfmgan-11-wdx72h27.1_scaffold_lineage.tsv",
     "description": "Scaffold Lineage tsv for nmdc:wfmgan-11-wdx72h27.1",
     "alternative_identifiers": [
@@ -110,7 +110,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-proteins-faa",
+    "id": "nmdc:dobj-11-proteinsfaa",
     "name": "FASTA amino acid file for annotated proteins",
     "description": "FASTA Amino Acid File for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [],
@@ -169,7 +169,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-gene-phylo",
+    "id": "nmdc:dobj-11-genephylo",
     "name": "Gene Phylogeny tsv",
     "description": "Gene Phylogeny tsv for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
@@ -301,7 +301,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-ko-ec",
+    "id": "nmdc:dobj-11-koec",
     "name": "GFF3 format file with KO_EC",
     "description": "KO_EC Annotations for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
@@ -337,7 +337,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-product-names",
+    "id": "nmdc:dobj-11-productnames",
     "name": "Product names file",
     "description": "Product names for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
@@ -349,7 +349,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-misc-gff",
+    "id": "nmdc:dobj-11-miscgff",
     "name": "GFF3 format file with Misc",
     "description": "Misc Annotations for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
@@ -361,7 +361,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-annotation-info",
+    "id": "nmdc:dobj-11-annotationinfo",
     "name": "File containing annotation info",
     "description": "Annotation Info File for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
@@ -373,7 +373,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-annotation-stats",
+    "id": "nmdc:dobj-11-annotationstats",
     "name": "Annotation statistics report",
     "description": "Annotation Stats for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
@@ -397,7 +397,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-contig-mapping",
+    "id": "nmdc:dobj-11-contigmapping",
     "name": "Contig mappings between contigs and scaffolds",
     "description": "Contig Mapping File for nmdc:wfmgan-11-metag.1",
     "alternative_identifiers": [
@@ -409,7 +409,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-bac-summary",
+    "id": "nmdc:dobj-11-bacsummary",
     "name": "nmdc_wfmag-11-metag.1_gtdbtk.bac122.summary.tsv",
     "description": "Bacterial Summary for nmdc:wfmag-11-metag.1",
     "file_size_bytes": 123456,
@@ -419,7 +419,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-lq-bin",
+    "id": "nmdc:dobj-11-lqbin",
     "name": "nmdc_wfmag-11-h9brmy69.2_lq_bin.zip",
     "description": "Metagenome LQ Bins for nmdc:wfmag-11-h9brmy69.2",
     "file_size_bytes": 123456,
@@ -429,7 +429,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-hqmq-bin",
+    "id": "nmdc:dobj-11-hqmqbin",
     "name": "nmdc_wfmag-11-metag.1_hqmq_bin.zip",
     "description": "Metagenome HQMQ Bins for nmdc:wfmag-11-metag.1",
     "file_size_bytes": 123456,
@@ -439,7 +439,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-ar-summary",
+    "id": "nmdc:dobj-11-arsummary",
     "name": "nmdc_wfmag-11-metag.1_gtdbtk.ar122.summary.tsv",
     "description": "Archaeal Summary for nmdc:wfmag-11-metag.1",
     "file_size_bytes": 123456,
@@ -459,7 +459,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-bin-info",
+    "id": "nmdc:dobj-11-bininfo",
     "name": "nmdc_wfmag-11-metag.1_bin.info",
     "description": "Metagenome Bins Info File for nmdc:wfmag-11-metag.1",
     "file_size_bytes": 123456,
@@ -489,7 +489,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-bin-barplot",
+    "id": "nmdc:dobj-11-binbarplot",
     "name": "nmdc_wfmag-11-metag.1_barplot.pdf",
     "description": "Metagenome barplot for nmdc:wfmag-11-metag.1",
     "file_size_bytes": 123456,
@@ -499,7 +499,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-raw-reads3",
+    "id": "nmdc:dobj-11-rawreads3",
     "name": "metaT_R1.fastq.gz",
     "description": "Sequencing results for metaT_R1",
     "file_size_bytes": 123456,
@@ -509,7 +509,7 @@
     "url": "https://portal.nersc.gov"
   },
   {
-    "id": "nmdc:dobj-11-raw-reads4",
+    "id": "nmdc:dobj-11-rawreads4",
     "name": "metaT_R2.fastq.gz",
     "description": "Sequencing results for metaT_R2",
     "file_size_bytes": 123456,
@@ -519,7 +519,7 @@
     "url": "https://portal.nersc.gov"
   },
   {
-    "id": "nmdc:dobj-11-filtered-reads1",
+    "id": "nmdc:dobj-11-filteredreads1",
     "name": "nmdc_wfrqc-11-metat1.1_filtered.fastq.gz",
     "description": "Reads QC for nmdc:wfrqc-11-test-metat1.1",
     "file_size_bytes": 123456,
@@ -529,7 +529,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-qc-stats1",
+    "id": "nmdc:dobj-11-qcstats1",
     "name": "nmdc_wfrqc-11-metat1.1_filterStats.txt",
     "description": "Reads QC summary for nmdc:wfrqc-11-test-metat1.1",
     "file_size_bytes": 123456,
@@ -539,7 +539,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-qc-info1",
+    "id": "nmdc:dobj-11-qcinfo1",
     "name": "nmdc_wfrqc-11-metat1.1_readsQC.info",
     "description": "Read filtering info for nmdc:wfrqc-11-test-metat1.1",
     "file_size_bytes": 123456,
@@ -549,7 +549,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-rrna-fastq",
+    "id": "nmdc:dobj-11-rrnafastq",
     "name": "rRNA Nucleic Acid File for nmdc:wfrqc-11-test-metat1.1",
     "description": "rRNA",
     "file_size_bytes":123456,
@@ -569,7 +569,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-cover-statst1",
+    "id": "nmdc:dobj-11-coverstatst1",
     "name": "nmdc_wfrqc-11-metat1.1_covstats.txt",
     "description": "Assembly coverage stats for nmdc:omprc-11-test-metat1",
     "file_size_bytes": 123456,
@@ -579,7 +579,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-cover-bamt1",
+    "id": "nmdc:dobj-11-coverbamt1",
     "name": "nmdc_wfrqc-11-metat1.1_pairedMapped_sorted.bam",
     "description": "Paired reads mapping for nmdc:omprc-11-test-metat1",
     "file_size_bytes": 123456,
@@ -589,7 +589,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-assembly-infot1",
+    "id": "nmdc:dobj-11-assemblyinfot1",
     "name": "nmdc_wfrqc-11-metat1.1_AssemblyInfo.txt",
     "description": "Assembly info for nmdc:omprc-11-test-metat1",
     "file_size_bytes": 123456,
@@ -599,7 +599,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-bam-idxt1",
+    "id": "nmdc:dobj-11-bamidxt1",
     "name": "nmdc_wfrqc-11-metat1.1_Indexed.bam",
     "description": "Alignment index file for nmdc:omprc-11-test-metat1",
     "file_size_bytes": 123456,
@@ -609,7 +609,7 @@
     "type": "nmdc:DataObject"
   },
   {
-    "id": "nmdc:dobj-11-proteinst1-faa",
+    "id": "nmdc:dobj-11-proteinst1faa",
     "name": "FASTA amino acid file for annotated proteins",
     "description": "FASTA Amino Acid File for nmdc:wfmgan-11-metat.1",
     "alternative_identifiers": [],

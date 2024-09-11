@@ -1,6 +1,6 @@
 [
     {
-    "id" : "nmdc:dobj-11-qc-stats2",
+    "id" : "nmdc:dobj-11-qcstats2",
     "name" : "nmdc_wfrqc-11-test001.2_filterStats.txt",
     "description" : "Reads QC summary for nmdc:wfrqc-11-test-metag1.2",
     "file_size_bytes" : 123456,
@@ -10,7 +10,7 @@
     "type" : "nmdc:DataObject"
 },
 {
-    "id" : "nmdc:dobj-11-qc-info2",
+    "id" : "nmdc:dobj-11-qcinfo2",
     "name" : "nmdc_wfrqc-11-test001.2_readsQC.info",
     "description" : "Read filtering info for nmdc:wfrqc-11-test-metag1.2",
     "file_size_bytes" : 123456,
@@ -20,7 +20,7 @@
     "type" : "nmdc:DataObject"
 },
 {
-    "id" : "nmdc:dobj-11-filtered-reads2",
+    "id" : "nmdc:dobj-11-filteredreads2",
     "name" : "nmdc_wfrqc-11-test001.2_filtered.fastq.gz",
     "description" : "Reads QC for nmdc:wfrqc-11-test-metag1.2",
     "file_size_bytes" : 123456,

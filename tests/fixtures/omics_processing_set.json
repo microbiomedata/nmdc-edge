@@ -1,13 +1,13 @@
 [
   {
-    "id" : "nmdc:omprc-11-test-metag1",
+    "id" : "nmdc:omprc-11-testmetag1",
     "name" : "Test Metagenome Processing",
     "has_input" : [
         "nmdc:bsm-11-qezc0h51"
     ],
     "has_output" : [
-        "nmdc:dobj-11-raw-reads1",
-        "nmdc:dobj-11-raw-reads2"
+        "nmdc:dobj-11-rawreads1",
+        "nmdc:dobj-11-rawreads2"
     ],
     "instrument_name" : "Illumina NovaSeq",
     "omics_type" : {

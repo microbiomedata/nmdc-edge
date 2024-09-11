@@ -1,21 +1,21 @@
 [
   {
-    "id": "nmdc:wfrqc-11-test-metag1.1",
+    "id": "nmdc:wfrqc-11-testmetag1.1",
     "name": "Read QC Activity for nmdc:wfrqc-11-test-metag1.1",
     "started_at_time": "2024-04-11T20:51:15.535533+00:00",
     "ended_at_time": "2024-04-11T23:39:28.659534+00:00",
-    "was_informed_by": "nmdc:omprc-11-test-metag1",
+    "was_informed_by": "nmdc:omprc-11-testmetag1",
     "execution_resource": "NERSC-Perlmutter",
     "git_url": "https://github.com/microbiomedata/ReadsQC",
     "has_input": [
-      "nmdc:dobj-11-raw-reads1",
-      "nmdc:dobj-11-raw-reads2"
+      "nmdc:dobj-11-rawreads1",
+      "nmdc:dobj-11-rawreads2"
     ],
     "type": "nmdc:ReadQcAnalysisActivity",
     "has_output": [
-      "nmdc:dobj-11-qc-stats",
-      "nmdc:dobj-11-qc-info",
-      "nmdc:dobj-11-filtered-reads"
+      "nmdc:dobj-11-qcstats",
+      "nmdc:dobj-11-qcinfo",
+      "nmdc:dobj-11-filteredreads"
     ],
     "part_of": [
       "nmdc:omprc-11-test-metag1"
@@ -23,26 +23,26 @@
     "version": "v1.0.8"
   },
   {
-    "id": "nmdc:wfrqc-11-test-metat1.1",
+    "id": "nmdc:wfrqc-11-testmetat1.1",
     "name": "Read QC Activity for nmdc:wfrqc-11-test-metat1.1",
     "started_at_time": "2024-04-11T20:51:15.535533+00:00",
     "ended_at_time": "2024-04-11T23:39:28.659534+00:00",
-    "was_informed_by": "nmdc:omprc-11-test-metat1",
+    "was_informed_by": "nmdc:omprc-11-testmetat1",
     "execution_resource": "NERSC-Perlmutter",
     "git_url": "https://github.com/microbiomedata/ReadsQC",
     "has_input": [
-      "nmdc:dobj-11-raw-reads3",
-      "nmdc:dobj-11-raw-reads4"
+      "nmdc:dobj-11-rawreads3",
+      "nmdc:dobj-11-rawreads4"
     ],
     "type": "nmdc:ReadQcAnalysisActivity",
     "has_output": [
-      "nmdc:dobj-11-qc-stats1",
-      "nmdc:dobj-11-qc-info1",
-      "nmdc:dobj-11-filtered-reads1",
-      "nmdc:dobj-11-rrna-fastq"
+      "nmdc:dobj-11-qcstats1",
+      "nmdc:dobj-11-qcinfo1",
+      "nmdc:dobj-11-filteredreads1",
+      "nmdc:dobj-11-rrnafastq"
     ],
     "part_of": [
-      "nmdc:omprc-11-test-metat1"
+      "nmdc:omprc-11-testmetat1"
     ],
     "version": "v1.0.8"
   }

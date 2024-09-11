@@ -1,14 +1,14 @@
 [
   {
-    "id" : "nmdc:omprc-11-test-metat1",
+    "id" : "nmdc:omprc-11-testmetat1",
     "name" : "Test Metatranscriptome Processing",
     "description" : "Metatranscriptome description",
     "has_input" : [
         "nmdc:bsm-11-cnc9ww90"
     ],
     "has_output" : [
-        "nmdc:dobj-11-raw-reads3",
-        "nmdc:dobj-11-raw-reads4"
+        "nmdc:dobj-11-rawreads3",
+        "nmdc:dobj-11-rawreads4"
     ],
     "part_of" : [
         "nmdc:sty-11-test002"
