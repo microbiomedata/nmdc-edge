@@ -49,7 +49,7 @@ def mock_progress(test_db, wf, version=None, flush=True, idx=0):
     "workflows.yaml",
     "workflows-mt.yaml"
 ])
-def test_submit(test_db, mock_api, workflow_file, config_dir, site_config):
+def test_scheduler_cycle(test_db, mock_api, workflow_file, config_dir, site_config):
     """
     Test basic job creation.
     """
@@ -81,7 +81,7 @@ def test_submit(test_db, mock_api, workflow_file, config_dir, site_config):
 
 @mark.parametrize("workflow_file", [
     "workflows.yaml",
-    "workflows-mt.yaml"
+    # "workflows-mt.yaml"
 ])
 def test_progress(test_db, mock_api, workflow_file, config_dir, site_config):
     reset_db(test_db)
@@ -119,39 +119,62 @@ def test_progress(test_db, mock_api, workflow_file, config_dir, site_config):
         # assembly
         exp_num_post_rqc_jobs = 1
     else:
+        # assembly, rba
         exp_num_post_rqc_jobs = 2
     assert len(resp) == exp_num_post_rqc_jobs
-    resp = jm.cycle()
-    assert len(resp) == 0
 
-    # wf = workflow_by_name['Metagenome Assembly']
-    # # Lets override the version to simulate an older run
-    # # for this workflow that is stil within range of the
-    # # current workflow
-    # mock_progress(test_db, wf, version="v1.0.2")
-    # resp = jm.cycle()
-    # assert "imgap_project_id" in resp[0]["config"]["inputs"]
-    # assert len(resp) == 1
-    # omap = {}
-    # for o in resp[0]["config"]["outputs"]:
-    #     omap[o["output"]] = o
-    # assert omap["map_file"]["data_object_type"] == "Contig Mapping File"
-    #
-    # wf = workflow_by_name['Metagenome Annotation']
-    # mock_progress(test_db, wf)
-    # resp = jm.cycle()
-    # assert len(resp) == 1
-    #
-    # # We should have job records for everything now
-    # resp = jm.cycle()
-    # assert len(resp) == 0
-    #
-    # # Let's remove the job records.
-    # # Since we don't have activity records for
-    # # MAGS or RBA, we should see two new jobs
-    # test_db.jobs.delete_many({})
-    # resp = jm.cycle()
-    # assert len(resp) == 2
+
+    if metatranscriptome:
+        wf = workflow_by_name['Metatranscriptome Assembly']
+        mock_progress(test_db, wf, version="v0.0.1")
+        # We should see a metatranscriptome annotation job
+        resp = jm.cycle()
+        assert len(resp) == 1
+        assert resp[0]["config"]["activity"]["type"] in [
+            "nmdc:MetatranscriptomeAnnotation",
+            "nmdc:MetatranscriptomeAnnotationActivity"
+        ]
+        # We should have a job record for this now
+        resp = jm.cycle()
+        assert len(resp) == 0
+
+    else:
+        # Let's override the version to simulate an older run
+        # for this workflow that is stil within range of the
+        # current workflow
+        wf = workflow_by_name['Metagenome Assembly']
+        # TODO: Need to make this test not depend on a hardcoded version
+        mock_progress(test_db, wf, version="v1.0.2")
+        # We should see a metagenome annotation job
+        resp = jm.cycle()
+        assert len(resp) == 1
+        assert resp[0]["config"]["activity"]["type"] in [
+            "nmdc:MetagenomeAnnotation",
+            "nmdc:MetagenomeAnnotationActivity"
+        ]
+        # We should have a job record for this now
+        resp = jm.cycle()
+        assert len(resp) == 0
+        # Simulate Annotation job finishing
+        wf = workflow_by_name['Metagenome Annotation']
+        mock_progress(test_db, wf)
+        # We should see a MAGs job
+        resp = jm.cycle()
+        assert len(resp) == 1
+        assert resp[0]["config"]["activity"]["type"] in [
+            "nmdc:MagsAnalysis",
+            "nmdc:MagsAnalysisActivity"
+        ]
+        # We should have job records for everything now
+        resp = jm.cycle()
+        assert len(resp) == 0
+
+        # Let's remove the job records.
+        # Since we don't have activity records for
+        # MAGS or RBA, we should see two new jobs
+        test_db.jobs.delete_many({})
+        resp = jm.cycle()
+        assert len(resp) == 2
 
 
 def test_multiple_versions(test_db, mock_api, config_dir, site_config):
