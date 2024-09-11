@@ -9,20 +9,6 @@ TRIGGER_SET = 'metagenome_annotation_activity_set'
 TRIGGER_ID = 'nmdc:55a79b5dd58771e28686665e3c3faa0c'
 TRIGGER_DOID = 'nmdc:1d87115c442a1f83190ae47c7fe4011f'
 
-@fixture
-def mock_api(monkeypatch, requests_mock):
-    monkeypatch.setenv("NMDC_API_URL", "http://localhost")
-    monkeypatch.setenv("NMDC_CLIENT_ID", "anid")
-    monkeypatch.setenv("NMDC_CLIENT_SECRET", "asecret")
-    resp = {"expires": {"minutes": time()+60},
-            "access_token": "abcd"
-            }
-    requests_mock.post("http://localhost/token", json=resp)
-    resp = ["nmdc:abcd"]
-    requests_mock.post("http://localhost/pids/mint", json=resp)
-    resp = ["nmdc:abcd"]
-    requests_mock.post("http://localhost/pids/bind", json=resp)
-
 
 def mock_progress(test_db, wf, version=None, flush=True, idx=0):
     """
