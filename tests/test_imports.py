@@ -6,19 +6,7 @@ from time import time
 
 
 @fixture
-def nmdc_api(requests_mock):
-    requests_mock.real_http = True
-    data = {"expires": {"minutes": time()+60},
-            "access_token": "abcd"
-            }
-    requests_mock.post("http://localhost/token", json=data)
-    requests_mock.post("http://localhost/pids/mint", json=["nmdc:abcd"])
-    requests_mock.post("http://localhost/workflows/activities",
-                       json=["nmdc:abcd"])
-
-
-@fixture
-def gold_mapper(nmdc_api, base_test_dir, test_data_dir):
+def gold_mapper(mock_api, base_test_dir, test_data_dir):
     yaml_file = base_test_dir / "import_test.yaml"
     test_files = [test_data_dir / "test_pfam.gff",
                   test_data_dir / "test_cog.gff",
