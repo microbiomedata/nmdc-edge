@@ -296,7 +296,7 @@ class Scheduler:
             filt = {"was_informed_by": {"$in": list(allowlist)}}
         # TODO: Quite a lot happens under the hood here. This function should be broken down into smaller
         #      functions to improve readability and maintainability.
-        acts = load_activities(self.db, self.workflows, filter=filt)
+        acts = load_activities(self.db, self.workflows, allowlist)
 
         self.get_existing_jobs.cache_clear()
         job_recs = []
