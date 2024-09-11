@@ -1,19 +1,6 @@
 from nmdc_automation.api.nmdcapi import NmdcRuntimeApi as nmdcapi
-import pytest
 import json
 import os
-from time import time
-
-
-@pytest.fixture
-def mock_api(monkeypatch, requests_mock):
-    monkeypatch.setenv("NMDC_API_URL", "http://localhost")
-    monkeypatch.setenv("NMDC_CLIENT_ID", "anid")
-    monkeypatch.setenv("NMDC_CLIENT_SECRET", "asecret")
-    resp = {"expires": {"minutes": time()+60},
-            "access_token": "abcd"
-            }
-    requests_mock.post("http://localhost/token", json=resp)
 
 
 def test_basics(mock_api, requests_mock, site_config):
