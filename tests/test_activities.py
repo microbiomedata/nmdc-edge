@@ -88,15 +88,44 @@ def test_activies(test_db, workflow_file, config_dir, fixtures_dir):
     assert len(omics.children) == 1
     assert omics.children[0].type.lower() == "nmdc:ReadQCAnalysisActivity".lower()
 
-
-def test_workflows(config_dir):
+@mark.parametrize(
+    "workflow_file", ["workflows.yaml", "workflows-mt.yaml"]
+    )
+def test_workflows(config_dir, workflow_file):
     """
     Test Workflow object creation
     """
-    wfs = load_workflows(config_dir / "workflows.yaml")
+    metatranscriptome = False
+    exp_num_wfs = 8
+    exp_wf_names = ["Reads QC", "Reads QC Interleave", "Metagenome Assembly",
+                            "Metagenome Annotation", "MAGs", "Readbased Analysis",]
+    if workflow_file == "workflows-mt.yaml":
+        metatranscriptome = True
+        exp_num_wfs = 9
+        exp_wf_names = ["Metatranscriptome Reads QC",
+                                      "Metatranscriptome Reads QC Interleave",
+                                      "Metatranscriptome Assembly",
+                                      "Metatranscriptome Annotation",
+                                      "Expression Analysis Antisense",
+                                      "Expression Analysis Sense",
+                                      "Expression Analysis Nonstranded",
+                                      ]
+
+
+    wfs = load_workflows(config_dir / workflow_file)
     assert wfs is not None
     wfm = {}
-    assert len(wfs) == 8
+    assert len(wfs) == exp_num_wfs
     for wf in wfs:
         wfm[wf.name] = wf
-    assert "MAGs" in wfm
+    for wf_name in exp_wf_names:
+        assert wf_name in wfm
+        wf = wfm[wf_name]
+        assert wf is not None
+        assert wf.type is not None
+        assert wf.name is not None
+        assert wf.collection is not None
+        assert wf.git_repo is not None
+        assert wf.version is not None
+
+

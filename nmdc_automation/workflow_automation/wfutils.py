@@ -96,6 +96,7 @@ class WorkflowJob:
 
     def set_default_state(self, activity_id, typ, nmdc_jobid, opid):
         self.activity_id = activity_id
+        # TODO why?
         self.type = typ
         self.nmdc_jobid = nmdc_jobid
         self.opid = opid
