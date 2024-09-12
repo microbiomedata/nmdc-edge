@@ -38,8 +38,8 @@ def mock_cromwell(requests_mock):
     cromwell_url = "http://localhost:8088/api/workflows/v1"
     requests_mock.post(cromwell_url, json=data)
     metadata = {'outputs': {
-          "nmdc_rqcfilter.filtered_final": "./test_data/afile",
-          "nmdc_rqcfilter.filtered_stats_final": "./test_data/bfile",
+          "nmdc_rqcfilter.filtered_final": "test_data/afile",
+          "nmdc_rqcfilter.filtered_stats_final": "test_data/bfile",
           "nmdc_rqcfilter.stats": {
             "input_read_count": 11431762,
             "input_read_bases": 1726196062,

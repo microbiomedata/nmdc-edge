@@ -14,18 +14,17 @@ def test_basics(mock_api, requests_mock, site_config):
     assert "metadata" in resp
 
 
-def test_objects(mock_api, requests_mock, site_config):
+def test_objects(mock_api, requests_mock, site_config, test_data_dir):
     n = nmdcapi(site_config)
 
     requests_mock.post("http://localhost/objects", json={})
     fn = "./test_data/afile.sha256"
     if os.path.exists(fn):
         os.remove(fn)
-    resp = n.create_object("./test_data/afile", "desc", "http://localhost/")
+    afile = test_data_dir / "afile"
+    resp = n.create_object(str(afile), "desc", "http://localhost/")
     # assert "checksums" in resp
 
-    resp = n.create_object("./test_data/afile", "desc", "http://localhost/")
-    # assert "checksums" in resp
     url = "http://localhost/workflows/activities"
     requests_mock.post(url, json={"a": "b"})
     resp = n.post_objects({"a": "b"})
@@ -39,9 +38,9 @@ def test_objects(mock_api, requests_mock, site_config):
     assert "a" in resp
 
 
-def test_list_funcs(mock_api, requests_mock, site_config):
+def test_list_funcs(mock_api, requests_mock, site_config, test_data_dir):
     n = nmdcapi(site_config)
-    mock_resp = json.load(open("./test_data/mock_jobs.json"))
+    mock_resp = json.load(open(test_data_dir / "mock_jobs.json"))
 
     # TODO: ccheck the full url
     requests_mock.get("http://localhost/jobs", json=mock_resp)
