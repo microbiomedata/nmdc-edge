@@ -106,7 +106,7 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/metaT_Assembly
     Version: v0.0.2
     WDL: metaT_assembly.wdl
-    Collection: metagenome_assembly_set
+    Collection: metatranscriptome_assembly_set
     Predecessors:
     - Metatranscriptome Reads QC
     - Metatranscriptome Reads QC Interleave
