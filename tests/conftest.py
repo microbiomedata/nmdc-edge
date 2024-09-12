@@ -42,8 +42,8 @@ def test_data_dir(base_test_dir):
     return base_test_dir / "test_data"
 
 @fixture(scope="session")
-def config_dir(base_test_dir):
-    return base_test_dir.parent / "configs"
+def workflows_config_dir(base_test_dir):
+    return base_test_dir.parent / "nmdc_automation/config/workflows"
 
 @fixture(scope="session")
 def site_config(base_test_dir):

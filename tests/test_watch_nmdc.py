@@ -32,14 +32,16 @@ def mock_nmdc_api(requests_mock, test_data_dir):
 
 
 @fixture(autouse=True)
-def mock_cromwell(requests_mock):
+def mock_cromwell(requests_mock, test_data_dir):
     requests_mock.real_http = True
     data = {"id": "1234"}
     cromwell_url = "http://localhost:8088/api/workflows/v1"
     requests_mock.post(cromwell_url, json=data)
+    afile_path = test_data_dir / "afile"
+    bfile_path = test_data_dir / "bfile"
     metadata = {'outputs': {
-          "nmdc_rqcfilter.filtered_final": "test_data/afile",
-          "nmdc_rqcfilter.filtered_stats_final": "test_data/bfile",
+          "nmdc_rqcfilter.filtered_final": str(afile_path),
+          "nmdc_rqcfilter.filtered_stats_final": str(bfile_path),
           "nmdc_rqcfilter.stats": {
             "input_read_count": 11431762,
             "input_read_bases": 1726196062,

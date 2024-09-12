@@ -35,7 +35,7 @@ def mock_progress(test_db, wf, version=None, flush=True, idx=0):
     "workflows.yaml",
     "workflows-mt.yaml"
 ])
-def test_scheduler_cycle(test_db, mock_api, workflow_file, config_dir, site_config):
+def test_scheduler_cycle(test_db, mock_api, workflow_file, workflows_config_dir, site_config):
     """
     Test basic job creation.
     """
@@ -54,7 +54,7 @@ def test_scheduler_cycle(test_db, mock_api, workflow_file, config_dir, site_conf
     # we expect 1 job for each omics_processing_set record in the db
     exp_num_rqc_jobs = test_db.omics_processing_set.count_documents({})
 
-    jm = Scheduler(test_db, wfn=config_dir / workflow_file,
+    jm = Scheduler(test_db, wfn=workflows_config_dir / workflow_file,
                    site_conf=site_config)
 
     # There should be 1 RQC job for each omics_processing_set record
@@ -69,7 +69,7 @@ def test_scheduler_cycle(test_db, mock_api, workflow_file, config_dir, site_conf
     "workflows.yaml",
     # "workflows-mt.yaml"
 ])
-def test_progress(test_db, mock_api, workflow_file, config_dir, site_config):
+def test_progress(test_db, mock_api, workflow_file, workflows_config_dir, site_config):
     reset_db(test_db)
     metatranscriptome = False
     if workflow_file == "workflows-mt.yaml":
@@ -83,7 +83,7 @@ def test_progress(test_db, mock_api, workflow_file, config_dir, site_config):
     # sanity check
     assert exp_num_rqc_jobs == 1
 
-    jm = Scheduler(test_db, wfn=config_dir / workflow_file,
+    jm = Scheduler(test_db, wfn=workflows_config_dir / workflow_file,
                    site_conf= site_config)
     workflow_by_name = dict()
     for wf in jm.workflows:
@@ -163,7 +163,7 @@ def test_progress(test_db, mock_api, workflow_file, config_dir, site_config):
         assert len(resp) == 2
 
 
-def test_multiple_versions(test_db, mock_api, config_dir, site_config):
+def test_multiple_versions(test_db, mock_api, workflows_config_dir, site_config):
     init_test(test_db)
     reset_db(test_db)
     test_db.jobs.delete_many({})
@@ -172,7 +172,7 @@ def test_multiple_versions(test_db, mock_api, config_dir, site_config):
     load_fixture(test_db, "omics_processing_set.json")
     exp_num_rqc_jobs = test_db.omics_processing_set.count_documents({})
 
-    jm = Scheduler(test_db, wfn=config_dir / "workflows.yaml",
+    jm = Scheduler(test_db, wfn=workflows_config_dir / "workflows.yaml",
                    site_conf=site_config)
     workflow_by_name = dict()
     for wf in jm.workflows:
@@ -208,13 +208,13 @@ def test_multiple_versions(test_db, mock_api, config_dir, site_config):
     assert len(resp) == 4
 
 
-def test_out_of_range(test_db, mock_api, config_dir, site_config):
+def test_out_of_range(test_db, mock_api, workflows_config_dir, site_config):
     init_test(test_db)
     reset_db(test_db)
     test_db.jobs.delete_many({})
     load_fixture(test_db, "data_object_set.json")
     load_fixture(test_db, "omics_processing_set.json")
-    jm = Scheduler(test_db, wfn=config_dir / "workflows.yaml",
+    jm = Scheduler(test_db, wfn=workflows_config_dir / "workflows.yaml",
                    site_conf=site_config)
     workflow_by_name = dict()
     for wf in jm.workflows:
@@ -233,7 +233,7 @@ def test_out_of_range(test_db, mock_api, config_dir, site_config):
     resp = jm.cycle()
     assert len(resp) == 0
 
-def test_type_resolving(test_db, mock_api, config_dir, site_config):
+def test_type_resolving(test_db, mock_api, workflows_config_dir, site_config):
     """
     This tests the handling when the same type is used for
     different activity types.  The desired behavior is to
@@ -247,7 +247,7 @@ def test_type_resolving(test_db, mock_api, config_dir, site_config):
     load_fixture(test_db, "omics_processing_set.json")
     load_fixture(test_db, "read_qc_analysis_activity_set.json")
 
-    jm = Scheduler(test_db, wfn=config_dir / "workflows.yaml",
+    jm = Scheduler(test_db, wfn=workflows_config_dir / "workflows.yaml",
                    site_conf=site_config)
     workflow_by_name = dict()
     for wf in jm.workflows:

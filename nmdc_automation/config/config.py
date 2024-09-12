@@ -2,6 +2,10 @@ from pathlib import Path
 import tomli
 from typing import Union
 import yaml
+import os
+from pathlib import Path
+
+WORKFLOWS_DIR = Path(__file__).parent / "workflows"
 
 class UserConfig:
     def __init__(self, path):
@@ -92,8 +96,10 @@ class Config:
     @property
     def allowed_workflows(self):
         """Generate a list of allowed workflows."""
-        workflows_config_path = self.config_data["workflows"]["workflows_config"]
-        with open(workflows_config_path, "r") as stream:
+        workflows_config_file = self.config_data["workflows"]["workflows_config"]
+        # print current working directory
+        print(os.getcwd())
+        with open(WORKFLOWS_DIR / workflows_config_file, "r") as stream:
             workflows = yaml.safe_load(stream)
 
         # Initialize an empty list to store the results

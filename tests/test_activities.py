@@ -48,7 +48,7 @@ def get_updated_fixture(wf, fixtures_dir):
 @mark.parametrize(
     "workflow_file", ["workflows.yaml", "workflows-mt.yaml"]
     )
-def test_activies(test_db, workflow_file, config_dir, fixtures_dir):
+def test_activies(test_db, workflow_file, workflows_config_dir, fixtures_dir):
     """
     Test basic job creation
     """
@@ -63,7 +63,7 @@ def test_activies(test_db, workflow_file, config_dir, fixtures_dir):
     else:
         load_fixture(test_db, "omics_processing_set.json")
 
-    wfs = load_workflows(config_dir / workflow_file)
+    wfs = load_workflows(workflows_config_dir / workflow_file)
     for wf in wfs:
         if not wf.type:
             continue
@@ -91,7 +91,7 @@ def test_activies(test_db, workflow_file, config_dir, fixtures_dir):
 @mark.parametrize(
     "workflow_file", ["workflows.yaml", "workflows-mt.yaml"]
     )
-def test_workflows(config_dir, workflow_file):
+def test_workflows(workflows_config_dir, workflow_file):
     """
     Test Workflow object creation
     """
@@ -112,7 +112,7 @@ def test_workflows(config_dir, workflow_file):
                                       ]
 
 
-    wfs = load_workflows(config_dir / workflow_file)
+    wfs = load_workflows(workflows_config_dir / workflow_file)
     assert wfs is not None
     wfm = {}
     assert len(wfs) == exp_num_wfs
