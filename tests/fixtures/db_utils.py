@@ -5,6 +5,7 @@ import json
 import logging
 from pathlib import Path
 
+# this file lives in tests/fixtures
 FIXTURE_DIR = Path(__file__).parent
 COLS = [
     'data_object_set',

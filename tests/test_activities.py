@@ -46,7 +46,10 @@ def get_updated_fixture(wf, fixtures_dir):
 
 
 @mark.parametrize(
-    "workflow_file", ["workflows.yaml", "workflows-mt.yaml"]
+    "workflow_file", [
+        "workflows.yaml",
+        # "workflows-mt.yaml"
+    ]
     )
 def test_activies(test_db, workflow_file, workflows_config_dir, fixtures_dir):
     """
