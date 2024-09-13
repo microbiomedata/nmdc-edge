@@ -48,7 +48,7 @@ def get_updated_fixture(wf, fixtures_dir):
 @mark.parametrize(
     "workflow_file", [
         "workflows.yaml",
-        # "workflows-mt.yaml"
+        "workflows-mt.yaml"
     ]
     )
 def test_activies(test_db, workflow_file, workflows_config_dir, fixtures_dir):
@@ -61,10 +61,7 @@ def test_activies(test_db, workflow_file, workflows_config_dir, fixtures_dir):
 
     reset_db(test_db)
     load_fixture(test_db, "data_object_set.json")
-    if metatranscriptome:
-        load_fixture(test_db, "omics_processing_set_mt.json", col="omics_processing_set")
-    else:
-        load_fixture(test_db, "omics_processing_set.json")
+    load_fixture(test_db, "omics_processing_set.json")
 
     wfs = load_workflows(workflows_config_dir / workflow_file)
     for wf in wfs:
