@@ -296,24 +296,21 @@ Workflows:
     - Metagenome Annotation
     Input_prefix: nmdc_mags
     Inputs:
+      proj: "{activity_id}"
       contig_file: do:Assembly Contigs
+      sam_file: do:Assembly Coverage BAM
       gff_file: do:Functional Annotation GFF
-      cath_funfam_file: do:CATH FunFams (Functional Families) Annotation GFF
-      supfam_file: do:SUPERFam Annotation GFF
+      proteins_file: do:Annotation Amino Acid FASTA
       cog_file: do:Clusters of Orthologous Groups (COG) Annotation GFF
-      proj_name: "{activity_id}"
-      pfam_file: do:Pfam Annotation GFF
-      product_names_file: do:Product Names
-      tigrfam_file: do:TIGRFam Annotation GFF
       ec_file: do:Annotation Enzyme Commission
       ko_file: do:Annotation KEGG Orthology
-      lineage_file: do:Scaffold Lineage tsv
-      sam_file: do:Assembly Coverage BAM
-      smart_file: do:SMART Annotation GFF
-      proteins_file: do:Annotation Amino Acid FASTA
-      map_file: do:Contig Mapping File
+      pfam_file: do:Pfam Annotation GFF
+      tigrfam_file: do:TIGRFam Annotation GFF
+      crispr_file: do:Crispr Terms
+      product_names_file: do:Product Names
       gene_phylogeny_file: do:Gene Phylogeny tsv
-      proj: "{activity_id}"
+      lineage_file: do:Scaffold Lineage tsv
+      map_file: do:Contig Mapping File
     Optional Inputs:
     - map_file
     Activity:
