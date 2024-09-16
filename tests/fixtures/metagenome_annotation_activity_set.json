@@ -34,7 +34,7 @@
         "nmdc:dobj-11-contigmapping",
         "nmdc:dobj-11-annotationinfo"
     ],
-    "was_informed_by": "nmdc:omprc-11-testmetag1",
+    "was_informed_by": "nmdc:omprc-11-metag1",
     "id": "nmdc:wfmgan-11-test001.1",
     "execution_resource": "NERSC-Cori",
     "name": "Annotation Activity for nmdc:mga0vx38",

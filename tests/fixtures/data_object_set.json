@@ -20,7 +20,7 @@
   {
     "id": "nmdc:dobj-11-qcstats",
     "name": "nmdc_wfrqc-11-metag.1_filterStats.txt",
-    "description": "Reads QC summary for nmdc:wfrqc-11-test-metag1.1",
+    "description": "Reads QC summary for nmdc:wfrqc-11-metag1.1",
     "file_size_bytes": 123456,
     "md5_checksum": "7172cd332a734e002c88b35827acd991",
     "data_object_type": "QC Statistics",
@@ -30,7 +30,7 @@
   {
     "id": "nmdc:dobj-11-qcinfo",
     "name": "nmdc_wfrqc-11-metag.1_readsQC.info",
-    "description": "Read filtering info for nmdc:wfrqc-11-test-metag1.1",
+    "description": "Read filtering info for nmdc:wfrqc-11-metag1.1",
     "file_size_bytes": 123456,
     "md5_checksum": "d3812377eb0a57c9f2bdea5692d157fb",
     "data_object_type": "Read Filtering Info File",
@@ -40,7 +40,7 @@
   {
     "id": "nmdc:dobj-11-filteredreads",
     "name": "nmdc_wfrqc-11-metag.1_filtered.fastq.gz",
-    "description": "Reads QC for nmdc:wfrqc-11-test-metag1.1",
+    "description": "Reads QC for nmdc:wfrqc-11-metag1.1",
     "file_size_bytes": 123456,
     "md5_checksum": "fafb41665d8e00654ac0fbf80adc1b87",
     "data_object_type": "Filtered Sequencing Reads",
@@ -50,7 +50,7 @@
   {
     "id": "nmdc:dobj-11-contigs",
     "name": "nmdc_wfrqc-11-metag.1_contigs.fna",
-    "description": "Assembled contigs fasta for nmdc:omprc-11-test-metag1",
+    "description": "Assembled contigs fasta for nmdc:omprc-11-metag1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
     "data_object_type": "Assembly Contigs",
@@ -60,7 +60,7 @@
   {
     "id": "nmdc:dobj-11-coverstats",
     "name": "nmdc_wfrqc-11-metag.1_covstats.txt",
-    "description": "Assembly coverage stats for nmdc:omprc-11-test-metag1",
+    "description": "Assembly coverage stats for nmdc:omprc-11-metag1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
     "data_object_type": "Assembly Coverage Stats",
@@ -70,7 +70,7 @@
   {
     "id": "nmdc:dobj-11-coverbam",
     "name": "nmdc_wfrqc-11-metag.1_pairedMapped_sorted.bam",
-    "description": "Paired reads mapping for nmdc:omprc-11-test-metag1",
+    "description": "Paired reads mapping for nmdc:omprc-11-metag1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
     "data_object_type": "Assembly Coverage BAM",
@@ -80,7 +80,7 @@
   {
     "id": "nmdc:dobj-11-assemblyagp",
     "name": "nmdc_wfrqc-11-metag.1_assembly.agp",
-    "description": "Assembly AGP file for nmdc:omprc-11-test-metag1",
+    "description": "Assembly AGP file for nmdc:omprc-11-metag1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
     "data_object_type": "Assembly AGP",
@@ -90,7 +90,7 @@
   {
     "id": "nmdc:dobj-11-scaffolds",
     "name": "nmdc_wfrqc-11-metag.1_scaffolds.fna",
-    "description": "Assembly scaffolds fasta for nmdc:omprc-11-test-metag1",
+    "description": "Assembly scaffolds fasta for nmdc:omprc-11-metag1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
     "data_object_type": "Assembly Scaffolds",
@@ -521,7 +521,7 @@
   {
     "id": "nmdc:dobj-11-filteredreads1",
     "name": "nmdc_wfrqc-11-metat1.1_filtered.fastq.gz",
-    "description": "Reads QC for nmdc:wfrqc-11-test-metat1.1",
+    "description": "Reads QC for nmdc:wfrqc-11-metat1.1",
     "file_size_bytes": 123456,
     "md5_checksum": "fafb41665d8e00654ac0fbf80adc1b87",
     "data_object_type": "Filtered Sequencing Reads",
@@ -531,7 +531,7 @@
   {
     "id": "nmdc:dobj-11-qcstats1",
     "name": "nmdc_wfrqc-11-metat1.1_filterStats.txt",
-    "description": "Reads QC summary for nmdc:wfrqc-11-test-metat1.1",
+    "description": "Reads QC summary for nmdc:wfrqc-11-metat1.1",
     "file_size_bytes": 123456,
     "md5_checksum": "7172cd332a734e002c88b35827acd991",
     "data_object_type": "QC Statistics",
@@ -541,7 +541,7 @@
   {
     "id": "nmdc:dobj-11-qcinfo1",
     "name": "nmdc_wfrqc-11-metat1.1_readsQC.info",
-    "description": "Read filtering info for nmdc:wfrqc-11-test-metat1.1",
+    "description": "Read filtering info for nmdc:wfrqc-11-metat1.1",
     "file_size_bytes": 123456,
     "md5_checksum": "d3812377eb0a57c9f2bdea5692d157fb",
     "data_object_type": "Read Filtering Info File",
@@ -550,7 +550,7 @@
   },
   {
     "id": "nmdc:dobj-11-rrnafastq",
-    "name": "rRNA Nucleic Acid File for nmdc:wfrqc-11-test-metat1.1",
+    "name": "rRNA Nucleic Acid File for nmdc:wfrqc-11-metat1.1",
     "description": "rRNA",
     "file_size_bytes":123456,
     "md5_checksum": "d3812377eb0a57c9f2bdea5692d157fb",
@@ -561,7 +561,7 @@
   {
     "id": "nmdc:dobj-11-contigst1",
     "name": "nmdc_wfmtas-11-metat1.1_contigs.fna",
-    "description": "Assembled contigs fasta for nmdc:omprc-11-test-metat1",
+    "description": "Assembled contigs fasta for nmdc:omprc-11-metat1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
     "data_object_type": "Assembly Contigs",
@@ -571,7 +571,7 @@
   {
     "id": "nmdc:dobj-11-coverstatst1",
     "name": "nmdc_wfrqc-11-metat1.1_covstats.txt",
-    "description": "Assembly coverage stats for nmdc:omprc-11-test-metat1",
+    "description": "Assembly coverage stats for nmdc:omprc-11-metat1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
     "data_object_type": "Assembly Coverage Stats",
@@ -581,7 +581,7 @@
   {
     "id": "nmdc:dobj-11-coverbamt1",
     "name": "nmdc_wfrqc-11-metat1.1_pairedMapped_sorted.bam",
-    "description": "Paired reads mapping for nmdc:omprc-11-test-metat1",
+    "description": "Paired reads mapping for nmdc:omprc-11-metat1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
     "data_object_type": "Assembly Coverage BAM",
@@ -591,7 +591,7 @@
   {
     "id": "nmdc:dobj-11-assemblyinfot1",
     "name": "nmdc_wfrqc-11-metat1.1_AssemblyInfo.txt",
-    "description": "Assembly info for nmdc:omprc-11-test-metat1",
+    "description": "Assembly info for nmdc:omprc-11-metat1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
     "data_object_type": "Assembly Info File",
@@ -601,7 +601,7 @@
   {
     "id": "nmdc:dobj-11-bamidxt1",
     "name": "nmdc_wfrqc-11-metat1.1_Indexed.bam",
-    "description": "Alignment index file for nmdc:omprc-11-test-metat1",
+    "description": "Alignment index file for nmdc:omprc-11-metat1",
     "file_size_bytes": 123456,
     "md5_checksum": "f63c857b3011dec61a08044d518291f2",
     "data_object_type": "BAI File",
@@ -611,7 +611,7 @@
   {
     "id": "nmdc:dobj-11-proteinst1faa",
     "name": "FASTA amino acid file for annotated proteins",
-    "description": "FASTA Amino Acid File for nmdc:wfmgan-11-metat.1",
+    "description": "FASTA Amino Acid File for nmdc:wfmtan-11-metat.1",
     "alternative_identifiers": [],
     "file_size_bytes": 123456,
     "md5_checksum": "a8c59594447d0bb75a8076f40a82d7ee",
@@ -622,7 +622,7 @@
     {
     "id": "nmdc:dobj-11-tigrfamt1",
     "name": "GFF3 format file with TIGRfam",
-    "description": "TIGRFam for nmdc:wfmgan-11-metat.1",
+    "description": "TIGRFam for nmdc:wfmtan-11-metat.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -634,7 +634,7 @@
   {
     "id": "nmdc:dobj-11-funfamt1",
     "name": "GFF3 format file with CATH FunFams",
-    "description": "CATH FunFams for nmdc:wfmgan-11-meta1.1",
+    "description": "CATH FunFams for nmdc:wfmtan-11-metat.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -646,7 +646,7 @@
   {
     "id": "nmdc:dobj-11-structuralt1",
     "name": "GFF3 format file with structural annotations",
-    "description": "Structural Annotation for nmdc:wfmgan-11-metat.1",
+    "description": "Structural Annotation for nmdc:wfmtan-11-metat.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -658,8 +658,7 @@
   {
     "id": "nmdc:dobj-11-functionalt1",
     "name": "GFF3 format file with functional annotations",
-    "description": "Functional Annotation for nmdc:wfmgan-11-metat.1",
-
+    "description": "Functional Annotation for nmdc:wfmtan-11-metat.1",
     "alternative_identifiers": [
     ],
     "file_size_bytes": 123456,
@@ -667,7 +666,256 @@
     "data_object_type": "Functional Annotation GFF",
     "url": "https://data.microbiomedata.org",
     "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-keggt1",
+    "name": "Tab delimited file for KO annotation",
+    "description": "KEGG Orthology for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "bc6bd72d77bd2cefcbe122bdb23ebd74",
+    "data_object_type": "Annotation KEGG Orthology",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-ect1",
+    "name": "Tab delimited file for EC annotation",
+    "description": "EC Annotations for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "b3ca20a42a9a084ccf04a3a55e59cbe4",
+    "data_object_type": "Annotation Enzyme Commission",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-scaffoldlineaget1",
+    "name": "nmdc_wfmtan-11-metat.1_scaffold_lineage.tsv",
+    "description": "Scaffold Lineage tsv for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "784b9fb9bc77c00107a51131362f04f9",
+    "data_object_type": "Scaffold Lineage tsv",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-cogst1",
+    "name": "GFF3 format file with COGs",
+    "description": "COGs for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "c0835e4fe7defa74a94e5a4c07807171",
+    "data_object_type": "Clusters of Orthologous Groups (COG) Annotation GFF",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-pfamt1",
+    "name": "GFF3 format file with Pfam",
+    "description": "Pfam Annotation for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "b556ca8e495b58ed4e445a24108226cc",
+    "data_object_type": "Pfam Annotation GFF",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-smartt1",
+    "name": "GFF3 format file with SMART",
+    "description": "SMART Annotations for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "701b5315d13264788fd732cf4e143c25",
+    "data_object_type": "SMART Annotation GFF",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-supfamt1",
+    "name": "GFF3 format file with SUPERFam",
+    "description": "SUPERFam Annotations for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "f77441258769e8ed8e2525349ee66975",
+    "data_object_type": "SUPERFam Annotation GFF",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-crtt1",
+    "name": "GFF3 format file with CRT",
+    "description": "CRT Annotations for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "7c1dad9e6aec2abb8c11e0e76cf9f8b0",
+    "data_object_type": "CRT Annotation GFF",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-genemarkt1",
+    "name": "GFF3 format file with Genemark",
+    "description": "Genemark Annotations for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "34949f6cdd1a70b6fda9c3d3ed258eb3",
+    "data_object_type": "Genemark Annotation GFF",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-prodigalt1",
+    "name": "GFF3 format file with Prodigal",
+    "description": "Prodigal Annotations for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "318fc98aca68b8cee8296a04016eccf6",
+    "data_object_type": "Prodigal Annotation GFF",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },{
+    "id": "nmdc:dobj-11-trnat1",
+    "name": "GFF3 format file with TRNA",
+    "description": "TRNA Annotations for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "44d16feb83187a9088c5b807148b9418",
+    "data_object_type": "TRNA Annotation GFF",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-rfamt1",
+    "name": "GFF3 format file with RFAM",
+    "description": "RFAM Annotations for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "3792dacaa08a4cd60b87989c0d3bffb1",
+    "data_object_type": "RFAM Annotation GFF",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-koect1",
+    "name": "GFF3 format file with KO_EC",
+    "description": "KO_EC Annotations for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "0df311e3e813d8c491f95df41fa3f0f2",
+    "data_object_type": "KO_EC Annotation GFF",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-productnamest1",
+    "name": "Product names file",
+    "description": "Product names for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "846de5ba7a51d263718712a1a8a734b4",
+    "data_object_type": "Product Names",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-genephylot1",
+    "name": "Gene Phylogeny tsv",
+    "description": "Gene Phylogeny tsv for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "d91ae0035d24b15f6a043abaaa4bf446",
+    "data_object_type": "Gene Phylogeny tsv",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-crisprt1",
+    "name": "Crispr Terms",
+    "description": "Crispr Terms for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "5e08898f9297e60e64ba87883a36e085",
+    "data_object_type": "Crispr Terms",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-annotationstatst1",
+    "name": "Annotation statistics report",
+    "description": "Annotation Stats for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "dc58fb1e9b8f689ec9c22b8548110197",
+    "data_object_type": "Annotation Statistics",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-contigmappingt1",
+    "name": "Contig mappings between contigs and scaffolds",
+    "description": "Contig Mapping File for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "3e3464e36c331ab26d17930b5965b25f",
+    "data_object_type": "Contig Mapping File",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-annotationinfot1",
+    "name": "File containing annotation info",
+    "description": "Annotation Info File for nmdc:wfmtan-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "01927890b19c724820024e147677dff3",
+    "data_object_type": "Annotation Info File",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-expcountst1",
+    "name": "Metatranscriptome expression table",
+    "description": "Expression counts for for nmdc:wfmtex-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "01927890b19c724820024e147677dff3",
+    "data_object_type": "Metatranscriptome Expression",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  },
+  {
+    "id": "nmdc:dobj-11-expinfot1",
+    "name": "Metatranscriptome expression table",
+    "description": "Expression info for for nmdc:wfmtex-11-metat.1",
+    "alternative_identifiers": [
+    ],
+    "file_size_bytes": 123456,
+    "md5_checksum": "01927890b19c724820024e147677dff3",
+    "data_object_type": "Metatranscriptome Expression Info File",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
   }
-
-
 ]

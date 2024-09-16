@@ -60,3 +60,41 @@ def update_test_db_with_workflow_versions(test_db, workflows):
             rec["version"] = wf.version
             test_db[wf.collection].replace_one({"id": rec["id"]}, rec)
     return
+
+
+def fix_versions(test_db, wf, fixtures_dir):
+    s = wf.collection
+    # resp = read_json("%s.json" % (s))
+    fixture_file = f"{s}.json"
+    try:
+        with open(fixtures_dir / fixture_file) as f:
+            resp = json.load(f)
+    except FileNotFoundError:
+        return
+
+    data = resp[0]
+    data['git_url'] = wf.git_repo
+    data['version'] = wf.version
+    test_db[s].delete_many({})
+    test_db[s].insert_one(data)
+
+
+def get_updated_fixture(wf):
+    """
+    Read the fixture file and update the version and git_url for the
+    fixtures that of the same workflow type.
+    """
+    updated_fixtures = []
+    fixture_file = f"{wf.collection}.json"
+    try:
+        with open(FIXTURE_DIR / fixture_file) as f:
+            fixtures = json.load(f)
+    except FileNotFoundError as e:
+        return []
+    for fix in fixtures:
+        if fix['type'].lower() != wf.type.lower():
+            continue
+        fix['git_url'] = wf.git_repo
+        fix['version'] = wf.version
+        updated_fixtures.append(fix)
+    return updated_fixtures

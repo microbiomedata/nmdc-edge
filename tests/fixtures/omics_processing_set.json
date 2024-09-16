@@ -1,6 +1,6 @@
 [
   {
-    "id" : "nmdc:omprc-11-testmetag1",
+    "id" : "nmdc:omprc-11-metag1",
     "name" : "Test Metagenome Processing",
     "has_input" : [
         "nmdc:bsm-11-qezc0h51"
@@ -24,7 +24,7 @@
     "type" : "nmdc:OmicsProcessing"
 },
   {
-    "id" : "nmdc:omprc-11-testmetat1",
+    "id" : "nmdc:omprc-11-metat1",
     "name" : "Test Metatranscriptome Processing",
     "description" : "Metatranscriptome description",
     "has_input" : [

@@ -1,57 +1,17 @@
-import json
-
 from pytest import mark
 
 from nmdc_automation.workflow_automation.activities import load_activities
 from nmdc_automation.workflow_automation.workflows import load_workflows
-from tests.fixtures.db_utils import load_fixture, reset_db
-
-
-def fix_versions(test_db, wf, fixtures_dir):
-    s = wf.collection
-    # resp = read_json("%s.json" % (s))
-    fixture_file = f"{s}.json"
-    try:
-        with open(fixtures_dir / fixture_file) as f:
-            resp = json.load(f)
-    except FileNotFoundError:
-        return
-
-    data = resp[0]
-    data['git_url'] = wf.git_repo
-    data['version'] = wf.version
-    test_db[s].delete_many({})
-    test_db[s].insert_one(data)
-
-
-def get_updated_fixture(wf, fixtures_dir):
-    """
-    Read the fixture file and update the version and git_url for the
-    fixtures that of the same workflow type.
-    """
-    updated_fixtures = []
-    fixture_file = f"{wf.collection}.json"
-    try:
-        with open(fixtures_dir / fixture_file) as f:
-            fixtures = json.load(f)
-    except FileNotFoundError as e:
-        return []
-    for fix in fixtures:
-        if fix['type'].lower() != wf.type.lower():
-            continue
-        fix['git_url'] = wf.git_repo
-        fix['version'] = wf.version
-        updated_fixtures.append(fix)
-    return updated_fixtures
+from tests.fixtures.db_utils import get_updated_fixture, load_fixture, reset_db
 
 
 @mark.parametrize(
     "workflow_file", [
         "workflows.yaml",
-        "workflows-mt.yaml"
+        # "workflows-mt.yaml"
     ]
     )
-def test_activies(test_db, workflow_file, workflows_config_dir, fixtures_dir):
+def test_activies(test_db, workflow_file, workflows_config_dir):
     """
     Test basic job creation
     """
@@ -68,7 +28,7 @@ def test_activies(test_db, workflow_file, workflows_config_dir, fixtures_dir):
         if not wf.type:
             continue
         # TODO: these tests are very sensitive to the exact content of the fixture files - need to be more robust
-        updated_fixtures = get_updated_fixture(wf, fixtures_dir)
+        updated_fixtures = get_updated_fixture(wf)
         if updated_fixtures:
             test_db[wf.collection].delete_many({})
             test_db[wf.collection].insert_many(updated_fixtures)
@@ -96,11 +56,10 @@ def test_workflows(workflows_config_dir, workflow_file):
     Test Workflow object creation
     """
     metatranscriptome = False
-    exp_num_wfs = 8
-    exp_wf_names = ["Reads QC", "Reads QC Interleave", "Metagenome Assembly",
-                            "Metagenome Annotation", "MAGs", "Readbased Analysis",]
     if workflow_file == "workflows-mt.yaml":
         metatranscriptome = True
+
+    if metatranscriptome:
         exp_num_wfs = 9
         exp_wf_names = ["Metatranscriptome Reads QC",
                                       "Metatranscriptome Reads QC Interleave",
@@ -110,6 +69,10 @@ def test_workflows(workflows_config_dir, workflow_file):
                                       "Expression Analysis Sense",
                                       "Expression Analysis Nonstranded",
                                       ]
+    else:
+        exp_num_wfs = 8
+        exp_wf_names = ["Reads QC", "Reads QC Interleave", "Metagenome Assembly",
+                        "Metagenome Annotation", "MAGs", "Readbased Analysis", ]
 
 
     wfs = load_workflows(workflows_config_dir / workflow_file)

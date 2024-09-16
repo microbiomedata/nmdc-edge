@@ -4,7 +4,7 @@
       "nmdc:dobj-11-contigst1"
     ],
     "part_of": [
-      "nmdc:omprc-11-test-metat1"
+      "nmdc:omprc-11-metat1"
     ],
     "git_url": "https://github.com/microbiomedata/mg_annotation",
     "version": "v1.1.0",
@@ -34,10 +34,10 @@
         "nmdc:dobj-11-contigmapping",
         "nmdc:dobj-11-annotationinfo"
     ],
-    "was_informed_by": "nmdc:omprc-11-testmetat1",
-    "id": "nmdc:wfmtan-11-test001.1",
+    "was_informed_by": "nmdc:omprc-11-metat1",
+    "id": "nmdc:wfmtan-11-metat.1",
     "execution_resource": "NERSC-Cori",
-    "name": "Annotation Activity for nmdc:omprc-11-test-metat1",
+    "name": "Annotation Activity for nmdc:omprc-11-metat1",
     "started_at_time": "2021-08-05T14:48:51+00:00",
     "type": "nmdc:MetatranscriptomeAnnotationActivity",
     "ended_at_time": "2021-09-15T10:13:20+00:00"

@@ -19,7 +19,7 @@
       "nmdc:dobj-11-genephylo"
     ],
     "part_of": [
-      "nmdc:omprc-11-test-metag1"
+      "nmdc:omprc-11-metag1"
     ],
     "git_url": "https://github.com/microbiomedata/metaMAGs",
     "version": "v1.1.0",
@@ -34,10 +34,10 @@
       "nmdc:dobj-11-krona",
       "nmdc:dobj-11-barplot"
     ],
-    "was_informed_by": "nmdc:omprc-11-testmetag1",
-    "id": "nmdc:wfmags-11-test-metag1.1",
+    "was_informed_by": "nmdc:omprc-11-metag1",
+    "id": "nmdc:wfmags-11-metag1.1",
     "execution_resource": "NERSC-Cori",
-    "name": "MAGs Analysis Activity for nmdc:omprc-11-test-metag1",
+    "name": "MAGs Analysis Activity for nmdc:omprc-11-metag1",
     "started_at_time": "2021-08-05T14:48:51+00:00",
     "type": "nmdc:MAGsAnalysisActivity",
     "ended_at_time": "2021-09-15T10:13:20+00:00"

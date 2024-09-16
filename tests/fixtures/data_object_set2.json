@@ -2,7 +2,7 @@
     {
     "id" : "nmdc:dobj-11-qcstats2",
     "name" : "nmdc_wfrqc-11-test001.2_filterStats.txt",
-    "description" : "Reads QC summary for nmdc:wfrqc-11-test-metag1.2",
+    "description" : "Reads QC summary for nmdc:wfrqc-11-metag1.2",
     "file_size_bytes" : 123456,
     "md5_checksum" : "7172cd332a734e002c88b35827acd991",
     "data_object_type" : "QC Statistics",
@@ -12,7 +12,7 @@
 {
     "id" : "nmdc:dobj-11-qcinfo2",
     "name" : "nmdc_wfrqc-11-test001.2_readsQC.info",
-    "description" : "Read filtering info for nmdc:wfrqc-11-test-metag1.2",
+    "description" : "Read filtering info for nmdc:wfrqc-11-metag1.2",
     "file_size_bytes" : 123456,
     "md5_checksum" : "d3812377eb0a57c9f2bdea5692d157fb",
     "data_object_type" : "Read Filtering Info File",
@@ -22,7 +22,7 @@
 {
     "id" : "nmdc:dobj-11-filteredreads2",
     "name" : "nmdc_wfrqc-11-test001.2_filtered.fastq.gz",
-    "description" : "Reads QC for nmdc:wfrqc-11-test-metag1.2",
+    "description" : "Reads QC for nmdc:wfrqc-11-metag1.2",
     "file_size_bytes" : 123456,
     "md5_checksum" : "fafb41665d8e00654ac0fbf80adc1b87",
     "data_object_type" : "Filtered Sequencing Reads",
