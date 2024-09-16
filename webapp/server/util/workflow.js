@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require("path");
+const execSync = require('child_process').execSync;
 const ufs = require("url-file-size");
 const moment = require('moment');
 const FormData = require('form-data');
@@ -196,10 +197,18 @@ const generateWorkflowResult = function (proj) {
                     }
                 });
             }
+            if (dir === 'readsQC') {
+                const files = fs.readdirSync(outdir + "/readsQC");
+                files.forEach(function (file) {
+                    if (file.endsWith("_stats.json")) {
+                        result['readsQC-stats'] = JSON.parse(fs.readFileSync(outdir + "/readsQC/" + file));
+                    }
+                });
+            }
             else if (dir === 'assembly') {
                 const files = fs.readdirSync(outdir + "/assembly");
                 files.forEach(function (file) {
-                    if (file === "stats.json") {
+                    if (file.endsWith("_stats.json")) {
                         result['assembly-stats'] = JSON.parse(fs.readFileSync(outdir + "/assembly/" + file));
                     }
                 });
@@ -216,7 +225,29 @@ const generateWorkflowResult = function (proj) {
                 const files = fs.readdirSync(outdir + "/metat_output");
                 files.forEach(function (file) {
                     if (file.endsWith("_sorted_features.tsv")) {
-                        result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/metat_output/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                        var rows = parseInt(execSync("wc -l < " + outdir + "/metat_output/" + file).toString().trim());
+                        if (rows > config.IO.MAX_DATATABLE_ROWS) {
+                            result['readMapping-features-too-large'] = true;
+                            result['readMapping-features'] = "output/Metatranscriptomics/metat_output/" + file;
+                        } else {
+                            result['readMapping-features-too-large'] = false;
+                            result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/metat_output/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                        }
+                    }
+                });
+            }
+            else if (dir === 'readMapping') {
+                const files = fs.readdirSync(outdir + "/readMapping");
+                files.forEach(function (file) {
+                    if (file.endsWith("_sorted_features.tsv")) {
+                        var rows = parseInt(execSync("wc -l < " + outdir + "/readMapping/" + file).toString().trim());
+                        if (rows > config.IO.MAX_DATATABLE_ROWS) {
+                            result['readMapping-features-too-large'] = true;
+                            result['readMapping-features'] = "output/Metatranscriptomics/readMapping/" + file;
+                        } else {
+                            result['readMapping-features-too-large'] = false;
+                            result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/readMapping/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                        }
                     }
                 });
             }

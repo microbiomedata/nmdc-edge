@@ -75,6 +75,7 @@ workflow main_workflow {
         File    metaMAGs_ec_file = metaAnnotation_call.ec_tsv
         File    metaMAGs_ko_file = metaAnnotation_call.ko_tsv
         File    metaMAGs_pfam_file = metaAnnotation_call.pfam_gff
+        File    metaMAGs_crispr_file = metaAnnotation_call.crt_crisprs
         File    metaMAGs_tigrfam_file = metaAnnotation_call.tigrfam_gff
         File    metaMAGs_cath_funfam_file = metaAnnotation_call.cath_funfam_gff
         File    metaMAGs_smart_file = metaAnnotation_call.smart_gff
@@ -215,9 +216,7 @@ workflow main_workflow {
             ko_file=metaMAGs_ko_file,
             pfam_file=metaMAGs_pfam_file,
             tigrfam_file=metaMAGs_tigrfam_file,
-            cath_funfam_file=metaMAGs_cath_funfam_file,
-            smart_file=metaMAGs_smart_file,
-            supfam_file=metaMAGs_supfam_file,
+            crispr_file=metaMAGs_crispr_file,
             product_names_file=metaMAGs_product_names_file,
             gene_phylogeny_file=metaMAGs_gene_phylogeny_file,
             lineage_file=metaMAGs_lineage_file,
