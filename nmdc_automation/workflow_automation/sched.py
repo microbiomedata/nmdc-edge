@@ -16,7 +16,13 @@ from semver.version import Version
 _POLL_INTERVAL = 60
 _WF_YAML_ENV = "NMDC_WORKFLOW_YAML_FILE"
 
-
+# TODO: Berkley refactoring:
+#   The Scheduler interacts with the API to mint new IDs for activities and jobs.
+#   The Scheduler pulls WorkflowExecution and DataObject records from the MongoDB database - need to ensure these
+#   the handling of these records is compatible with the Berkley schema.
+#   The Scheduler looks for new jobs to create by examining the 'Activity' object graph that is constructed from
+#   the retrieved WorkflowExecution and DataObject records. This data structure will be somewhat different in the
+#   Berkley schema, so the find_new_jobs method will need to be updated to handle this.
 @lru_cache
 def get_mongo_db() -> MongoDatabase:
     for k in ["HOST", "USERNAME", "PASSWORD", "DBNAME"]:
@@ -39,7 +45,7 @@ def within_range(wf1: Workflow, wf2: Workflow, force=False) -> bool:
     """
 
     def get_version(wf):
-        v_string = wf1.version.lstrip("b").lstrip("v")
+        v_string = wf.version.lstrip("b").lstrip("v")
         return Version.parse(v_string)
 
     # Apples and oranges
@@ -48,7 +54,7 @@ def within_range(wf1: Workflow, wf2: Workflow, force=False) -> bool:
     v1 = get_version(wf1)
     v2 = get_version(wf2)
     if force:
-        return v1==v2
+        return v1 == v2
     if v1.major == v2.major and v1.minor == v2.minor:
         return True
     return False
@@ -59,7 +65,7 @@ This is still a prototype implementation.  The plan
 is to migrate this fucntion into Dagster.
 """
 
-
+# TODO: Change the name of this to distinguish it from the database Job object
 class Job:
     """
     Class to hold information for new jobs
@@ -102,6 +108,7 @@ class Scheduler:
             self.cycle()
             await asyncio.sleep(_POLL_INTERVAL)
 
+    # TODO:
     def add_job_rec(self, job: Job):
         """
         This takes a job and using the workflow definition,
@@ -113,6 +120,9 @@ class Scheduler:
         do_by_type = dict()
         while next_act:
             for do_type, val in next_act.data_objects_by_type.items():
+                if do_type in do_by_type:
+                    logging.debug(f"Ignoring Duplicate type: {do_type} {val.id} {next_act.id}")
+                    continue
                 do_by_type[do_type] = val.__dict__
             # do_by_type.update(next_act.data_objects_by_type.__dict__)
             next_act = next_act.parent
@@ -122,11 +132,14 @@ class Scheduler:
         activity_id = f"{base_id}.{iteration}"
         inp_objects = []
         inp = dict()
+        optional_inputs = wf.optional_inputs
         for k, v in job.workflow.inputs.items():
             if v.startswith("do:"):
                 do_type = v[3:]
                 dobj = do_by_type.get(do_type)
                 if not dobj:
+                    if k in optional_inputs:
+                        continue
                     raise ValueError(f"Unable to resolve {do_type}")
                 inp_objects.append(dobj)
                 v = dobj["url"]
@@ -135,6 +148,8 @@ class Scheduler:
                 v = job.informed_by
             elif v == "{activity_id}":
                 v = activity_id
+            elif v == "{predecessor_activity_id}":
+                v = job.trigger_act.id
 
             inp[k] = v
 
@@ -222,6 +237,9 @@ class Scheduler:
             root_id = ".".join(last_id.split(".")[0:-1])
             return root_id, ct + 1
 
+    # TODO: Rename this to reflect what it does - it returns a list of the trigger activity IDs
+    #      from the jobs collection for a given workflow. Also activity should be execution to conform
+    #      to the new schema.
     @lru_cache(maxsize=128)
     def get_existing_jobs(self, wf: Workflow):
         existing_jobs = set()
@@ -229,10 +247,13 @@ class Scheduler:
         # Find all existing jobs for this workflow
         q = {"config.git_repo": wf.git_repo, "config.release": wf.version}
         for j in self.db.jobs.find(q):
+            # the assumption is that a job in any state has been triggered by an activity
+            # that was the result of an existing (completed) job
             act = j["config"]["trigger_activity"]
             existing_jobs.add(act)
         return existing_jobs
 
+    # TODO: Rename this to reflect what it does and add unit tests
     def find_new_jobs(self, act: Activity) -> list[Job]:
         """
         For a given activity see if there are any new jobs
@@ -262,24 +283,25 @@ class Scheduler:
 
         return new_jobs
 
-    def cycle(self, dryrun: bool = False, skiplist: set = set(), allowlist = None) -> list:
+    def cycle(self, dryrun: bool = False, skiplist: set = set(),
+              allowlist=None) -> list:
         """
         This function does a single cycle of looking for new jobs
         """
-        acts = load_activities(self.db, self.workflows)
+        # TODO: Quite a lot happens under the hood here. This function should be broken down into smaller
+        #      functions to improve readability and maintainability.
+        acts = load_activities(self.db, self.workflows, allowlist=allowlist)
         self.get_existing_jobs.cache_clear()
         job_recs = []
         for act in acts:
             if act.was_informed_by in skiplist:
                 logging.debug(f"Skipping: {act.was_informed_by}")
                 continue
-            if allowlist and act.was_informed_by not in allowlist:
-                continue
             jobs = self.find_new_jobs(act)
             for job in jobs:
                 if dryrun:
                     msg = f"new job: informed_by: {job.informed_by} trigger: {job.trigger_id} "
-                    msg += f"wf: {job.workflow.name}"
+                    msg += f"wf: {job.workflow.name} ver: {job.workflow.version}"
                     logging.info(msg)
                     continue
                 try:
@@ -314,6 +336,8 @@ def main():  # pragma: no cover
                 allowlist.add(line.rstrip())
     while True:
         sched.cycle(dryrun=dryrun, skiplist=skiplist, allowlist=allowlist)
+        if dryrun:
+            break
         _sleep(_POLL_INTERVAL)
 
 

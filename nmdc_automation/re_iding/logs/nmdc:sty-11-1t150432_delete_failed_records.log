@@ -1,0 +1,67 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:34: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Deleting old objects found in : ./data/nmdc:sty-11-1t150432_failed_record_dump.json
+INFO:root:Using: https://api-napa.microbiomedata.org/
+INFO:root:Deleting mags_activity_set records: ['nmdc:b4313fb63035cc1d33ae5acd6d0cbe5b']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:08c7f5ee5a353f7b2dc03485cef90a01']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:0078a0f981ad3f92693c2bc3b6470791']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:bd9c7af45ffd236da7ee62565964dc31']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:207223a2e9af46d2070a833f3017c09c']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:9685d8542a26f826fbc424361d70f2bb']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting data_object_set records: ['nmdc:139d391feafff35827e3a31bcf0c0eb7']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:4417090e8ce0e96ff2867b85823d4b26']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:5d7894c44886ede12718eccf168c8553']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:03ebd9f056b5904b934f5780f21c1c2c']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:6e77e3e327847b98399b4339b2acb423']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:bbdb4aa6d5f45a90e11cad6cc68a6aa5']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:8ad8c1621a57b0812a47395374cd84d7']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:3cfa951b21024974d73ec49832191c1c']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:2529e655fc49579735213bf4504a0a8f']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:429243d3c711135d70fc46e4c6a7e385']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:c85cf27a0f69a5bb11c680a0f4ad07e4']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:c34a42798da948b00cfe5d5c731d82d6']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:8db41328d20ba6f12afbbb68383de2a6']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:da554ccf8a07fa043ac24139d5440f7f']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:4cb3680bc13a177defff2553a1f4e739']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:ee5e7229794dd2f1e8bf021abd768460']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:a57ecfc4dee4e6938a5517ad0961dcd8']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:3e0d8aae3b16d5bba2b3faec04391929']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:972f93fb2a2c415d3fba3e9fccd4e5f5']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:f503e4f48f3b5bedac30de21f235f827']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:7c39a154978ad4db104f2aad4fc2a85c']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:f08cd8792d49734a79531fb35b780883']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:b3c14fcdc969c51f079823be6ae1ac2c']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting mags_activity_set records: ['nmdc:0a213d8f9930976c95b06b56e3f79a11']
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Deleting functional annotation agg records: []
+INFO:root:Deleting query posted with response: {'ok': 1, 'n': 0}
+INFO:root:Elapsed time: 108.03618359565735

@@ -1,7 +1,14 @@
 [JDP]
+# set proxies = '' if no proxy
 proxies = {'http_proxy': 'http://proxyout.lanl.gov:8080', 'https_proxy': 'http://proxyout.lanl.gov:8080'}
+
+# limit for the total size of files that can be restored at one time (in bytes)
 max_restore_request = 1e13
+
+# files that will be removed from restore reques
 remove_files = ['img_nr.last.blasttab', 'domtblout']
+
+# delay between requests (in seconds)
 delay = 1.0
 
 [GLOBUS]

@@ -1,6 +1,22 @@
 import tomli
 import yaml
 
+class UserConfig:
+    def __init__(self, path):
+        with open(path, "rb") as file:
+            self.config_data = tomli.load(file)
+
+    @property
+    def base_url(self):
+        return self.config_data["api"]["base_url"]
+
+    @property
+    def username(self):
+        return self.config_data["api"]["username"]
+
+    @property
+    def password(self):
+        return self.config_data["api"]["password"]
 
 class Config:
     def __init__(self, path):
@@ -46,17 +62,6 @@ class Config:
     @property
     def api_url(self):
         return self.config_data["nmdc"]["api_url"]
-
-    @property
-    def napa_base_url(self):
-        return self.config_data["napa"]["base_url"]
-    @property
-    def napa_username(self):
-        return self.config_data["napa"]["username"]
-
-    @property
-    def napa_password(self):
-        return self.config_data["napa"]["password"]
 
     @property
     def watch_state(self):

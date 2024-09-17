@@ -1,12 +1,28 @@
 import logging
 from typing import List
 from .workflows import Workflow
+from semver.version import Version
+from functools import lru_cache
+
+# TODO: Berkley refactoring:
+#   The load_activities method will need to be modified to handle DataGeneration objects
+#   instead of OmicsProcessing objects, with the difference being the DataGeneration objects can be part_of other
+#   DataGeneration objects. This will require a change in the way the parent/child relationships are resolved.
+#   Need to add logic to find the correct parent DataGeneration to use for constructing the Activity graph and
+#   correctly setting the was_informed_by field.
+#   Add unit tests to cover the new behavior, mocking the MongoDB database and the Berkley style DataGeneration objects.
+#   DataGeneration is an abstract class, include specific tests for subclasses NucleotideSequencing or MassSpectrometry
+
+warned_objects = set()
 
 
 def _load_data_objects(db, workflows: List[Workflow]):
     """
     Read all of the data objects and generate
     a map by ID
+
+    TODO: In the future this will probably need to be redone
+    since the number of data objects could get very large.
     """
 
     # Build up a filter of what types are used
@@ -23,7 +39,29 @@ def _load_data_objects(db, workflows: List[Workflow]):
     return data_objs_by_id
 
 
+@lru_cache
+def _within_range(ver1: str, ver2: str) -> bool:
+    """
+    Determine if two workflows are within a major and minor
+    version of each other.
+    """
+
+    def get_version(version):
+        v_string = version.lstrip("b").lstrip("v").rstrip("-beta")
+        return Version.parse(v_string)
+
+    v1 = get_version(ver1)
+    v2 = get_version(ver2)
+    if v1.major == v2.major and v1.minor == v2.minor:
+        return True
+    return False
+
+
 def _check(match_types, data_object_ids, data_objs):
+    """
+    This iterates through a list of data objects and
+    checks the type against the match types.
+    """
     if not data_object_ids:
         return False
     if not match_types or len(match_types) == 0:
@@ -37,6 +75,10 @@ def _check(match_types, data_object_ids, data_objs):
 
 
 def _filter_skip(wf, rec, data_objs):
+    """
+    Some workflows require specific inputs or outputs.  This
+    implements the filtering for those.
+    """
     match_in = _check(wf.filter_input_objects,
                       rec.get("has_input"),
                       data_objs)
@@ -45,19 +87,29 @@ def _filter_skip(wf, rec, data_objs):
                        data_objs)
     return not (match_in and match_out)
 
-
+# TODO: Activity does not exist in the Berkeley Schema. WorkflowExecution is the analogous class.
+#   Functions and classes should be renamed to reflect the Berkeley Schema.
+# TODO: The Berkeley Schema replaces OmicsProcessing with DataGeneration.
+#  Slots for has_input and has_output are the same.
+#  Special handling for OmicsProcessing needs to be extended to DataGeneration.
 def _read_acitivites(db, workflows: List[Workflow],
-                     data_objects: dict, filter: dict):
+                     data_objects: dict, allowlist: set):
     """
     Read in all the activities for the defined workflows.
     """
     activities = []
     for wf in workflows:
         logging.debug(f"Checking {wf.name}:{wf.version}")
-        q = filter
-        q["git_url"] = wf.git_repo
-        q["version"] = wf.version
+        q = {"git_url": wf.git_repo}
+        if allowlist and len(allowlist) > 0:
+            if wf.collection == "omics_processing_set":
+                q['id'] = {"$in": list(allowlist)}
+            else:
+                q["was_informed_by"] = {"$in": list(allowlist)}
         for rec in db[wf.collection].find(q):
+            if wf.version and not _within_range(rec["version"], wf.version):
+                logging.debug(f"Skipping {wf.name} {wf.version} {rec['version']}")
+                continue
             if wf.collection == "omics_processing_set" and \
                rec["id"].startswith("gold"):
                 continue
@@ -68,6 +120,7 @@ def _read_acitivites(db, workflows: List[Workflow],
     return activities
 
 
+# TODO: Make public, give a better name, add type hints and unit tests.
 def _resolve_relationships(activities, data_obj_act):
     """
     Find the parents and children relationships
@@ -87,7 +140,9 @@ def _resolve_relationships(activities, data_obj_act):
         for do_id in act.has_input:
             if do_id not in data_obj_act:
                 # This really shouldn't happen
-                logging.warning(f"Missing data object {do_id}")
+                if do_id not in warned_objects:
+                    logging.warning(f"Missing data object {do_id}")
+                    warned_objects.add(do_id)
                 continue
             parent_act = data_obj_act[do_id]
             # This is to cover the case where it was a duplicate.
@@ -99,7 +154,9 @@ def _resolve_relationships(activities, data_obj_act):
             # This is just a safeguard
             if act.was_informed_by != parent_act.was_informed_by:
                 logging.warning("Mismatched informed by for "
-                                f"{do_id} in {act.id}")
+                                f"{do_id} in {act.id} "
+                                f"{act.was_informed_by} != "
+                                f"{parent_act.was_informed_by}")
                 continue
             # We only want to use it as a parent if it is the right
             # parent workflow. Some inputs may come from ancestors
@@ -112,7 +169,9 @@ def _resolve_relationships(activities, data_obj_act):
                               f" {parent_act.name}")
                 break
         if len(act.workflow.parents) > 0 and not act.parent:
-            logging.warning(f"Didn't find a parent for {act.id}")
+            if act.id not in warned_objects:
+                logging.warning(f"Didn't find a parent for {act.id}")
+                warned_objects.add(act.id)
     # Now all the activities have their parent
     return activities
 
@@ -133,14 +192,18 @@ def _find_data_object_activities(activities, data_objs_by_id):
             # Once we re-id the data objects this
             # shouldn't happen
             if do_id in data_obj_act:
-                logging.warning(f"Duplicate output object {do_id}")
+                if do_id not in warned_objects:
+                    logging.warning(f"Duplicate output object {do_id}")
+                    warned_objects.add(do_id)
                 data_obj_act[do_id] = None
             else:
                 data_obj_act[do_id] = act
     return data_obj_act
 
-
-def load_activities(db, workflows: list[Workflow], filter: dict = {}):
+# TODO: Give a better name, add unit tests.
+#   This function builds up the graph of related parent / child Execution objects and is
+#   key to the behavior of workflow automation.
+def load_activities(db, workflows: list[Workflow], allowlist: set = set()):
     """
     This reads the activities from Mongo.  It also
     finds the parent and child relationships between
@@ -161,7 +224,7 @@ def load_activities(db, workflows: list[Workflow], filter: dict = {}):
 
     # Build up a set of relevant activities and a map from
     # the output objects to the activity that generated them.
-    activities = _read_acitivites(db, workflows, data_objs_by_id, filter)
+    activities = _read_acitivites(db, workflows, data_objs_by_id, allowlist)
     data_obj_act = _find_data_object_activities(activities, data_objs_by_id)
 
     # Now populate the parent and children values for the
@@ -169,7 +232,7 @@ def load_activities(db, workflows: list[Workflow], filter: dict = {}):
     _resolve_relationships(activities, data_obj_act)
     return activities
 
-
+# TODO: Why are we not importing and using the existing nmdc_schema.DataObject class?
 class DataObject(object):
     """
     Data Object Class
@@ -189,7 +252,8 @@ class DataObject(object):
         for f in self._FIELDS:
             setattr(self, f, rec.get(f))
 
-
+# TODO: Give a better 'Execution' based name, expand docstring, and make sure it is covered by unit tests.
+#   This class represents a network of related WorkflowExecution objects and their associated DataObject objects.
 class Activity(object):
     """
     Activity Object Class
@@ -213,6 +277,7 @@ class Activity(object):
         self.workflow = wf
         for f in self._FIELDS:
             setattr(self, f, activity_rec.get(f))
+        # TODO the analogous Berkeley Schema type will be nmdc:DataGeneration
         if self.type == "nmdc:OmicsProcessing":
             self.was_informed_by = self.id
 

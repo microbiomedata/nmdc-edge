@@ -14,7 +14,17 @@ from .wfutils import NmdcSchema, _md5
 
 logger = logging.getLogger(__name__)
 
+# TODO: Berkley refactoring:
+#   The watcher interacts with the NMDC runtime API to find / claim jobs and to post the resulting
+#   data objects back to the NMDC database.  It interacts with the operations endpoint to update the status
+#   after job completion.
+#   Ensure that these calls to the Berkeley API are compatible.
 
+# TODO: Rename to distinguish between WorkflowJob instances and not other types such as the Job class in sched.py and
+#  the jobs API endpoint and DB collection.
+# TODO: Add type hints to all methods.
+# TODO: Add docstrings to all public methods.
+# TODO: This has a "Long Method Chain" code smell and Deep Nesting code smell. Refactor to reduce complexity.
 class Watcher:
     def __init__(self, site_configuration_file):
         self._POLL = 20
@@ -23,18 +33,22 @@ class Watcher:
         self.config = Config(site_configuration_file)
         self.client_id = self.config.client_id
         self.client_secret = self.config.client_secret
+        # TODO: Is there some reason to rename this variable? Also it doesn't seem to be used.
         self.cromurl = self.config.cromwell_url
         self.state_file = self.config.agent_state
         self.stage_dir = self.config.stage_dir
         self.raw_dir = self.config.raw_dir
+        # TODO: make it clear that this is a list of WorkflowJob instances
         self.jobs = []
         self.runtime_api = NmdcRuntimeApi(site_configuration_file)
         self._ALLOWED = self.config.allowed_workflows
 
+    # TODO: Why not name this method "restore_from_checkpoint"?
     def restore(self, nocheck: bool = False):
         """
         Restore from checkpoint
         """
+        # TODO: Give a better name to the variable - data is too generic
         data = self._load_state_file()
         if not data:
             return
@@ -47,9 +61,11 @@ class Watcher:
         with open(self.state_file, "r") as f:
             return loads(f.read())
 
+    # TODO: 'job' is too generic
     def _find_jobs(self, data: dict, nocheck: bool):
         new_job_list = []
         seen = {}
+        # TODO: Be explicit about the type of the data["jobs"] list
         for job in data["jobs"]:
             job_id = job["nmdc_jobid"]
             if job_id in seen:
@@ -127,6 +143,7 @@ class Watcher:
         known = set(job.nmdc_jobid for job in self.jobs)
         return [job for job in jobs if job["id"] not in known]
 
+    # TODO: Pull the 'for job' logic up into the caller.
     def claim_jobs(self):
         for job in self.refresh_remote_jobs():
             job_id = job["id"]
@@ -193,6 +210,10 @@ class Watcher:
 
         for product_record in job.outputs:
             outkey = f"{prefix}.{product_record['output']}"
+            if outkey not in job_outs and product_record.get("optional"):
+                logging.debug(f"Ignoring optional missing output {outkey}")
+                continue
+
             full_name = job_outs[outkey]
             file_name = os.path.basename(full_name)
             new_path = os.path.join(outdir, file_name)
@@ -251,6 +272,7 @@ class Watcher:
 
         self.job_checkpoint()
 
+    # TODO: DRY up both of these methods into a single method that takes a status argument.
     def process_successful_job(self, job):
         self.post_job_done(job)
 

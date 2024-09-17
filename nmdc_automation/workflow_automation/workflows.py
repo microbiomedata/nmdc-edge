@@ -7,7 +7,8 @@ except ImportError:
     from yaml import Loader
 import sys
 
-
+# TODO: Berkley refactoring:
+#   Ensure that the Workflow class and load_workflows methods are compatible with the MetaTranscriptomics workflow.
 def load_workflows(yaml_file) -> list[Workflow]:
     workflows = []
     data = load(open(yaml_file), Loader)
@@ -44,6 +45,7 @@ class Workflow:
         "Filter Input Objects",
         "Filter Output Objects",
         "Outputs",
+        "Optional Inputs"
     ]
 
     def __init__(self, wf: dict):
@@ -59,6 +61,8 @@ class Workflow:
             setattr(self, attr_name, wf.get(f))
         if not self.inputs:
             self.inputs = {}
+        if not self.optional_inputs:
+            self.optional_inputs = []
         for _, inp_param in self.inputs.items():
             if inp_param.startswith("do:"):
                 self.do_types.append(inp_param[3:])

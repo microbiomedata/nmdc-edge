@@ -10,7 +10,7 @@ import hashlib
 import mimetypes
 from time import time
 from datetime import datetime, timedelta, timezone
-from nmdc_automation.config import Config
+from nmdc_automation.config import Config, UserConfig
 import logging
 
 
@@ -96,7 +96,8 @@ class NmdcRuntimeApi:
         data = {"schema_class": {"id": id_type}, "how_many": 1}
         resp = requests.post(url, data=json.dumps(data), headers=self.header)
         if not resp.ok:
-            raise ValueError(f"Failed to mint ID of type {id_type}")
+            logging.error(f"Response failed for: url: {url}, data: {data}, header: {self.header}")
+            raise ValueError(f"Failed to mint ID of type {id_type} HTTP status: {resp.status_code} / ({resp.reason})")
         id = resp.json()[0]
         if informed_by:
             url = f"{self._base_url}pids/bind"
@@ -318,12 +319,11 @@ class NmdcRuntimeUserApi:
     Basic Runtime API Client with user/password authentication.
     """
     def __init__(self, site_configuration):
-        self.config = Config(site_configuration)
+        self.config = UserConfig(site_configuration)
 
-        # TODO: remove hard-coded values here
-        self.username = self.config.napa_username
-        self.password = self.config.napa_password
-        self.base_url = self.config.napa_base_url
+        self.username = self.config.username
+        self.password = self.config.password
+        self.base_url = self.config.base_url
         self.headers = {}
         self.token_response = None
         self.refresh_token_after = None

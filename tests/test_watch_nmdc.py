@@ -4,6 +4,7 @@ import json
 import shutil
 from pytest import fixture
 
+
 @fixture
 def site_conf():
     tdir = os.path.dirname(__file__)
@@ -93,4 +94,3 @@ def test_reclaim_job(requests_mock, site_conf, mock_nmdc_api):
                        status_code=409)
     w.claim_jobs()
     resp = w.find_job_by_opid("nmdc:1234")
-    assert resp

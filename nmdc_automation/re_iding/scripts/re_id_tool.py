@@ -4,43 +4,74 @@
 re_id_tool.py: Provides command-line tools to extract and re-ID NMDC metagenome
 workflow records.
 """
+from copy import deepcopy
+import csv
 import logging
+import sys
 import time
 from pathlib import Path
 import json
+
 import click
-import requests
 from linkml_runtime.dumpers import json_dumper
 import pymongo
 
 from nmdc_automation.api import NmdcRuntimeApi, NmdcRuntimeUserApi
 from nmdc_automation.nmdc_common.client import NmdcApi
 import nmdc_schema.nmdc as nmdc
-from nmdc_automation.re_iding.base import ReIdTool
-from nmdc_automation.re_iding.changesheets import Changesheet, ChangesheetLineItem
-from nmdc_automation.re_iding.db_utils import get_omics_processing_id, ANALYSIS_ACTIVITIES
+from nmdc_automation.config import UserConfig
+from nmdc_automation.re_iding.base import (
+    ReIdTool,
+    _get_biosample_legacy_id,
+    write_updated_record_identifiers, compare_models,
+    get_updates_for_metabolomics_or_nom, update_biosample,
+    update_omics_processing
+)
+from nmdc_automation.re_iding.db_utils import (
+    get_omics_processing_id,
+    ANALYSIS_ACTIVITIES,
+    get_collection_name_from_workflow_id,
+    fix_malformed_workflow_id_version,
+    fix_malformed_data_object_name,
+    fix_malformed_data_object_url,
+    check_if_data_object_record_has_malformed_version,
+)
+from nmdc_automation.re_iding.file_utils import (
+    get_corresponding_data_file_path_for_url,
+)
 
 # Defaults
-GOLD_STUDY_ID = "gold:Gs0114663"
-STUDY_ID = "nmdc:sty-11-aygzgv51"
-NAPA_CONFIG = Path("../../../configs/.local_napa_config.toml")
+NAPA_CONFIG = Path("../../../configs/.local_napa_user_config.toml")
+PROD_CONFIG = Path("../../../configs/.local_prod_user_config.toml")
 NAPA_BASE_URL = "https://api-napa.microbiomedata.org/"
-NAPA_MONGODB = "mongo-loadbalancer.nmdc-napa.production.svc.spin.nersc.org:27017"
-
-STUDIES = {
+RE_ID = {
     "Stegen": ("nmdc:sty-11-aygzgv51", "gold:Gs0114663"),
     "SPRUCE": ("nmdc:sty-11-33fbta56", "gold:Gs0110138"),
     "EMP": ("nmdc:sty-11-547rwq94", "gold:Gs0154244"),
     "Luquillo": ("nmdc:sty-11-076c9980", "gold:Gs0128850"),
     "CrestedButte": ("nmdc:sty-11-dcqce727", "gold:Gs0135149"),
+    "Populus": ("nmdc:sty-11-1t150432", "gold:Gs0103573"),
+    "Angelo": ("nmdc:sty-11-zs2syx06", "gold:Gs0110119"),
+    "Shale": ("nmdc:sty-11-8fb6t785", "gold:Gs0114675"),
 }
-
-
-BASE_DATAFILE_DIR = "/global/cfs/cdirs/m3408/results"
-
-DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
-DRYRUN_DATAFILE_DIR = DATA_DIR.joinpath("dryrun_data/results")
-LOG_PATH = DATA_DIR.joinpath("re_id_tool.log")
+CONSORTIA = (
+    "nmdc:sty-11-33fbta56",
+    "nmdc:sty-11-547rwq94"
+)
+STUDIES = (
+    "nmdc:sty-11-aygzgv51",
+    "nmdc:sty-11-076c9980",
+    "nmdc:sty-11-dcqce727",
+    "nmdc:sty-11-1t150432",
+    "nmdc:sty-11-zs2syx06",
+    "nmdc:sty-11-8fb6t785",
+)
+REPO_DATA_DIR = Path(__file__).parent.absolute().joinpath("data")
+PROD_DATAFILE_DIR = Path("/global/cfs/cdirs/m3408/results")
+# assuming Mac: /Users/username/Documents/data/results
+LOCAL_DATAFILE_DIR = Path.home().joinpath("Documents/data/results")
+DRYRUN_DATAFILE_DIR = REPO_DATA_DIR.joinpath("dryrun_data/results")
+LOG_PATH = REPO_DATA_DIR.joinpath("re_id_tool.log")
 
 logging.basicConfig(
     level=logging.INFO,
@@ -49,26 +80,223 @@ logging.basicConfig(
 
 
 @click.group()
-@click.option(
-    "--site-config",
-    type=click.Path(exists=True),
-    default=NAPA_CONFIG,
-)
 @click.pass_context
-def cli(ctx, site_config):
+def cli(ctx):
     """
     NMDC re-ID tool
     """
     ctx.ensure_object(dict)
+    site_config = NAPA_CONFIG
     ctx.obj["site_config"] = site_config
+    ctx.obj["database_name"] = "nmdc"
+    ctx.obj["is_direct_connection"] = True
+
+
+@cli.command()
+@click.argument("legacy_study_id", type=str, required=True)
+@click.argument("nmdc_study_id", type=str, required=True)
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
+@click.option("--identifiers-file", type=click.Path(exists=True), required=False)
+@click.option("--no-update", is_flag=True, default=False, help="Do not update the database")
+@click.pass_context
+def update_study(ctx, legacy_study_id, nmdc_study_id,  mongo_uri, identifiers_file=None, no_update=False):
+    """
+    Update the NMDC study with the given legacy ID by re-IDing the study, biosample, and omics processing records
+    and updating the MongoDB database with the new records.
+
+    If an identifiers file is provided, the script will use the identifiers in the file rather than minting new IDs.
+
+    If the --no-update flag is set, the script will not update the database, but will log the records that would be updated.
+    """
+    start_time = time.time()
+    logging.info(f"Updating NMDC study with legacy ID: {legacy_study_id}")
+    logging.info(f"Updating NMDC study with ID: {nmdc_study_id}")
+    # Make sure we are using a valid nmdc_study_id
+    valid_study_ids = CONSORTIA + STUDIES
+    assert nmdc_study_id in valid_study_ids, f"Invalid nmdc_study_id: {nmdc_study_id}"
+
+    # Read the identifiers file if provided as a .tsv file with columns: collection_name, legacy_id, new_id
+    if identifiers_file:
+        with open(identifiers_file, "r") as f:
+            reader = csv.DictReader(f, delimiter="\t")
+            identifiers = list(reader)
+            logging.info(f"Using {len(identifiers)} identifiers from {identifiers_file}")
+        # convert the identifiers to a mapping of (collection_name, legacy_id) -> new_id
+        identifiers_map = {(record["collection_name"], record["legacy_id"]): record["new_id"] for record in identifiers}
+    else:
+        identifiers_map = None
+
+    # Connect to the MongoDB server and check the database name
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    database_name = ctx.obj["database_name"]
+    client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
+    with pymongo.timeout(5):
+        assert (database_name in client.list_database_names()), f"Database {database_name} not found"
+    db_client = client[database_name]
+    # start a session
+    session = client.start_session()
+
+    # API client for minting new IDs
+    config = ctx.obj["site_config"]
+    api_client = NmdcRuntimeApi(config)
+
+    # Keep track of the updated record identifiers as (collection_name, legacy_id, new_id)
+    updated_record_identifiers = set()
+
+    #====== Study Update ======
+    # Look up the study record, first by legacy ID then by NMDC ID
+    study_record = db_client["study_set"].find_one({"id": legacy_study_id})
+    if not study_record:
+        study_record = db_client["study_set"].find_one({"id": nmdc_study_id})
+    assert study_record, f"Study record not found for legacy ID: {legacy_study_id} or NMDC ID: {nmdc_study_id}"
+    updated_record_identifiers.add(("study_set", legacy_study_id, nmdc_study_id))
+
+    # Keep track of what updates we are going to make as a dict of {collection_name: {_id: update}}
+    updates = {
+        "study_set": {},
+        "biosample_set": {},
+        "omics_processing_set": {},
+        "data_object_set": {},
+        "metabolomics_analysis_activity_set": {},
+        "nom_analysis_activity_set": {}
+    }
+    # Keep track of records that we will be deleting as a dict of {collection_name: [record]}
+    deletions = {
+        "omics_processing_set": [],
+        "data_object_set": [],
+    }
+
+    study__id = study_record.pop("_id")
+    # TODO work out why we have to strip off part_of, study_category, and associated_dois
+    study_record.pop("part_of", None)
+    study_record.pop("study_category", None)
+    study_record.pop("associated_dois", None)
+    study_record.pop("homepage_website", None)
+    study = nmdc.Study(**study_record)
+    updated_study = _update_study(study, legacy_study_id, nmdc_study_id)
+    study_update = compare_models(study, updated_study)
+    if study_update:
+        updates["study_set"][study__id] = (study, study_update)
+
+    #====== Biosample Update ======
+    # Find all biosample records associated with the study by either study ID
+    biosample_query = {
+        "$or": [
+            {"part_of": legacy_study_id},
+            {"part_of": nmdc_study_id}
+        ]
+    }
+    biosample_records = db_client["biosample_set"].find(biosample_query)
+    # Iterate over the biosample records and update them and their related omics processing records
+    for biosample_record in biosample_records:
+        biosample__id = biosample_record.pop("_id")
+        biosample = nmdc.Biosample(**biosample_record)
+        legacy_biosample_id = _get_biosample_legacy_id(biosample)
+        updated_biosample = update_biosample(biosample, nmdc_study_id, api_client, identifiers_map)
+        if legacy_biosample_id != updated_biosample.id:
+            updated_record_identifiers.add(("biosample_set", legacy_biosample_id, updated_biosample.id))
+        biosample_update = compare_models(biosample, updated_biosample)
+        if biosample_update:
+            updates["biosample_set"][biosample__id] = (biosample, biosample_update)
+
+        #====== OmicsProcessing Update ======
+        # Find all OmicsProcessing records part_of either study and has_input either biosample
+        study_ids = [legacy_study_id, nmdc_study_id]
+        biosample_ids = [legacy_biosample_id, biosample.id]
+        omics_processing_query = {
+            "$and": [
+                {"part_of": {"$in": study_ids}},
+                {"has_input": {"$in": biosample_ids}}
+            ]
+        }
+        omics_processing_records = db_client["omics_processing_set"].find(omics_processing_query)
+        num_omics_processing_records = len(list(omics_processing_records.clone()))
+        logging.info(f"Found {num_omics_processing_records} OmicsProcessing records for biosample {biosample.id}")
+
+        # Iterate over the omics processing records and update them
+        for omics_processing_record in omics_processing_records:
+
+            # Special Case: Lipidomics OmicsProcessing and its has_output data object(s) get deleted
+            if omics_processing_record["omics_type"]["has_raw_value"] == "Lipidomics":
+                deletions["omics_processing_set"].append(omics_processing_record)
+                omics_processing_output_ids = omics_processing_record.get("has_output", [])
+                for omics_processing_output_id in omics_processing_output_ids:
+                    data_object_record = db_client["data_object_set"].find_one({"id": omics_processing_output_id})
+                    if data_object_record:
+                        deletions["data_object_set"].append(data_object_record)
+                logging.info(f"Adding Lipidomics record to Delete list: {omics_processing_record['id']}")
+                continue
+
+            # Update the OmicsProcessing record
+            omics_processing_id = omics_processing_record.pop("_id")
+            omics_processing = nmdc.OmicsProcessing(**omics_processing_record)
+            updated_omics_processing = update_omics_processing(
+                omics_processing, nmdc_study_id, updated_biosample.id, api_client, identifiers_map)
+
+            # ===== Additional updates for Metabolomics and Organic Matter Characterization =====
+            ANALYSIS_ACTIVITIES = ("Metabolomics", "Organic Matter Characterization")
+            if updated_omics_processing.omics_type.has_raw_value in ANALYSIS_ACTIVITIES:
+                updated_omics_processing, updated_record_identifiers, updates = get_updates_for_metabolomics_or_nom(
+                    omics_processing, updated_omics_processing, api_client, db_client, identifiers_map,
+                    updated_record_identifiers, updates
+                )
+
+            if omics_processing.id != updated_omics_processing.id:
+                updated_record_identifiers.add(("omics_processing_set", omics_processing.id, updated_omics_processing.id))
+            omics_processing_update = compare_models(omics_processing, updated_omics_processing)
+            if omics_processing_update:
+                updates["omics_processing_set"][omics_processing_id] = (omics_processing, omics_processing_update)
+
+    if no_update:
+        # Log the updates that would be made
+        logging.info("No update flag set - Not updating the database")
+    else:
+        # Update the records in the database
+        logging.info("Updating the database")
+        with session.start_transaction():
+            try:
+                update_count_by_collection = {}
+                for collection_name, record_updates in updates.items():
+                    update_count_by_collection[collection_name] = 0
+                    for _id, (model, update) in record_updates.items():
+                        # update the record
+                        filter_criteria = {"_id": _id}
+                        update_criteria = {"$set": update}
+                        result = db_client[collection_name].update_one(filter_criteria, update_criteria)
+                        update_count_by_collection[collection_name] += result.modified_count
+                session.commit_transaction()
+                logging.info("Database update successful")
+                for collection_name, count in update_count_by_collection.items():
+                    logging.info(f"Updated {count} records in {collection_name}")
+
+                # Delete the records that need to be deleted if any
+                for collection_name, records in deletions.items():
+                    delete_count = 0
+                    for record in records:
+                        result = db_client[collection_name].delete_one({"_id": record["_id"]})
+                        delete_count += result.deleted_count
+                    logging.info(f"Deleted {delete_count} records in {collection_name}")
+                session.commit_transaction()
+
+            except Exception as e:
+                logging.error(f"An error occurred - aborting transaction")
+                session.abort_transaction()
+                logging.exception(f"An error occurred while updating records: {e}")
+                sys.exit(1)
+
+    logging.info("Writing updates and updated record identifiers to files")
+    _write_updates(updates, nmdc_study_id)
+    write_updated_record_identifiers(updated_record_identifiers, nmdc_study_id)
+    if deletions:
+        _write_deletions(deletions, nmdc_study_id)
+    logging.info(f"Elapsed time: {time.time() - start_time}")
+    sys.exit()
 
 
 @cli.command()
 @click.argument("study_id", type=str)
-@click.option("--api-base-url", default=NAPA_BASE_URL,
-              help=f"Optional base URL for the NMDC API. Default: {NAPA_BASE_URL}")
 @click.pass_context
-def extract_records(ctx, study_id, api_base_url):
+def extract_records(ctx, study_id):
     """
     Extract metagenome workflow activities and their data object records
     that are informed_by the legacy ID (GOLD Study ID) for a re-ID-ed Study/
@@ -80,9 +308,8 @@ def extract_records(ctx, study_id, api_base_url):
     logging.info(f"Extracting workflow records for study_id: {study_id}")
     logging.info(f"study_id: {study_id}")
 
-    config = ctx.obj["site_config"]
-    # api_client = NmdcRuntimeUserApi(config)
-    api_client = NmdcApi(api_base_url)
+    config = UserConfig(ctx.obj["site_config"])
+    api_client = NmdcApi(config.base_url)
 
     # 1. Retrieve all OmicsProcessing records for the updated NMDC study ID
     omics_processing_records = (
@@ -261,6 +488,7 @@ def extract_records(ctx, study_id, api_base_url):
                 if failing_data_objects:
                     logging.error(f"failing_data_objects: {len(failing_data_objects)}")
                     db_failed.data_object_set.extend(failing_data_objects)
+                    is_failed_data = True
 
                 # if ReadsQC was failed for missing Data Objects or OmicsProcessing failed has_output, every other
                 # workflow record is failed as well
@@ -275,6 +503,7 @@ def extract_records(ctx, study_id, api_base_url):
                     logging.error(f"WorkflowActivityMissingDataObjects: {workflow_record['id']},"
                                     f" {workflow_record['name']}")
                     failing_records.append(workflow_record)
+                    is_failed_data = True
                 else:
                     passing_records.append(workflow_record)
 
@@ -294,7 +523,7 @@ def extract_records(ctx, study_id, api_base_url):
             retrieved_databases.append(db)
 
     json_data = json.loads(json_dumper.dumps(retrieved_databases, inject_type=False))
-    db_outfile = DATA_DIR.joinpath(f"{study_id}_associated_record_dump.json")
+    db_outfile = REPO_DATA_DIR.joinpath(f"{study_id}_associated_record_dump.json")
     logging.info(f"Writing {len(retrieved_databases)} records to {db_outfile}")
     logging.info(f"Elapsed time: {time.time() - start_time}")
     with open(db_outfile, "w") as f:
@@ -302,7 +531,7 @@ def extract_records(ctx, study_id, api_base_url):
 
     # write failed records to a separate file if they exist
     if retrieved_failed_databases:
-        db_failed_outfile = DATA_DIR.joinpath(f"{study_id}_failed_record_dump.json")
+        db_failed_outfile = REPO_DATA_DIR.joinpath(f"{study_id}_failed_record_dump.json")
         logging.info(f"Writing {len(retrieved_failed_databases)} failed records to {db_failed_outfile}")
         logging.info(f"Found {omics_level_failure_count} omics processing records with missing has_output")
         logging.info(f"Found {read_qc_level_failure_count} read qc records with missing data objects")
@@ -315,12 +544,13 @@ def extract_records(ctx, study_id, api_base_url):
 @click.argument("study_id", type=str)
 @click.option(
     "--data-dir",
-    default=BASE_DATAFILE_DIR,
-    help=f"Optional base datafile directory. Default: {BASE_DATAFILE_DIR}",
+    default=PROD_DATAFILE_DIR,
+    help=f"Optional base datafile directory. Default: {PROD_DATAFILE_DIR}",
 )
 @click.option("--update-links", is_flag=True, default=False)
+@click.option("--identifiers-file", type=click.Path(exists=True), required=False)
 @click.pass_context
-def process_records(ctx, study_id, data_dir, update_links=False):
+def process_records(ctx, study_id, data_dir, update_links=False, identifiers_file=None):
     """
     Read the JSON file of extracted workflow records and their data objects and
     re-ID the records with newly-minted NMDC IDs, update data file headers.
@@ -338,8 +568,19 @@ def process_records(ctx, study_id, data_dir, update_links=False):
     db_infile, db_outfile = _get_database_paths(study_id)
     logging.info(f"Using data_dir: {data_dir}")
 
+    # Read the identifiers file if provided as a .tsv file with columns: collection_name, legacy_id, new_id
+    if identifiers_file:
+        with open(identifiers_file, "r") as f:
+            reader = csv.DictReader(f, delimiter="\t")
+            identifiers = list(reader)
+            logging.info(f"Using {len(identifiers)} identifiers from {identifiers_file}")
+        # convert the identifiers to a mapping of (collection_name, legacy_id) -> new_id
+        identifiers_map = {(record["collection_name"], record["legacy_id"]): record["new_id"] for record in identifiers}
+    else:
+        identifiers_map = None
+
     # Initialize re-ID tool
-    reid_tool = ReIdTool(api_client, data_dir)
+    reid_tool = ReIdTool(api_client, data_dir, identifiers_map=identifiers_map)
 
     # Read extracted DB records
     logging.info(f"Using db_infile: {db_infile}")
@@ -355,11 +596,8 @@ def process_records(ctx, study_id, data_dir, update_links=False):
         new_db = nmdc.Database()
         # update OmicsProcessing has_output and related DataObject records
         new_db = reid_tool.update_omics_processing_has_output(db_record, new_db)
-        # update ReadsQC:
-        # db records
+        # update Read QC Analysis Activity
         new_db = reid_tool.update_reads_qc_analysis_activity_set(db_record, new_db, update_links)
-        # files
-        # TODO - update reads qc files
         # update Metagenome Assembly
         new_db = reid_tool.update_metagenome_assembly_set(db_record, new_db, update_links)
         # update Read Based Taxonomy Analysis
@@ -371,6 +609,8 @@ def process_records(ctx, study_id, data_dir, update_links=False):
 
         re_ided_db_records.append(new_db)
 
+    write_updated_record_identifiers(reid_tool.updated_record_identifiers, study_id)
+
     logging.info(f"Writing {len(re_ided_db_records)} records to {db_outfile}")
     logging.info(f"Elapsed time: {time.time() - start_time}")
     json_data = json.loads(json_dumper.dumps(re_ided_db_records, inject_type=False))
@@ -379,33 +619,419 @@ def process_records(ctx, study_id, data_dir, update_links=False):
 
 
 @cli.command()
-@click.argument("reid_records_file", type=click.Path(exists=True))
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
 @click.option(
-    "--changesheet-only",
-    is_flag=True,
-    default=False,
+    "--production", is_flag=True, default=False,
+    help="Use the data file directory for production, default is local"
 )
-@click.option("--mongo-uri",required=False, default="mongodb://localhost:37020",)
-@click.option(
-    "--is-direct-connection",
-    type=bool,
-    required=False,
-    default=True,
-    show_default=True,
-    help=f"Whether you want the script to set the `directConnection` flag when connecting to the MongoDB server. "
-         f"That is required by some MongoDB servers that belong to a replica set. ",
-)
-@click.option(
-    "--database-name",
-    type=str,
-    required=False,
-    default="nmdc",
-    show_default=True,
-    help=f"MongoDB database name",
-)
+@click.option("--write-to-file", is_flag=True, default=False)
 @click.pass_context
-def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri,
-                   is_direct_connection=True, database_name="nmdc"):
+def find_affected_workflows(ctx, mongo_uri=None, production=False, write_to_file=False):
+    """
+    Search for workflow records with incorrectly versioned NMDC IDs. Incorrectly
+    versioned IDs have more than one decimal point in the version number. These can
+    exist in the database and/or in the data file directory. This command builds a map
+    of omics_processing records and their associated workflow records and data paths.
+    It then prunes the map to only include records with incorrectly versioned workflow IDs
+    and/or data paths. The pruned map is then used to identify the affected records.
+
+    Example of an incorrectly versioned NMDC ID:
+        Incorrect: nmdc:wfrqc-11-zbyqeq59.1.1
+        Correct: nmdc:wfrqc-11-zbyqeq59.1
+    """
+    start_time = time.time()
+    local_test_omics_processing_ids = ["nmdc:omprc-11-gqbhbd17", "nmdc:omprc-11-wmzpa354", "nmdc:omprc-11-0nftn704"]
+    # local_test_omics_processing_ids = ["nmdc:omprc-11-0nftn704",]
+    if production:
+        data_dir = PROD_DATAFILE_DIR
+    else:
+        data_dir = LOCAL_DATAFILE_DIR
+
+    # connect to db
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    database_name = ctx.obj["database_name"]
+    client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
+    with pymongo.timeout(5):
+        assert (database_name in client.list_database_names()), f"Database {database_name} not found"
+    logging.info(f"Connected to MongoDB server at {mongo_uri}")
+    db_client = client[database_name]
+
+    # database collections to check
+    workflow_collections = [
+        "read_based_taxonomy_analysis_activity_set",
+        "read_qc_analysis_activity_set",
+    ]
+    # directory structure is based on omics_processing_id so
+    # we map omics_processing_id, workflow_id, and data_path
+    # example_map = {
+    #     "nmdc:ompcrc-11-1t150432": [
+    #         {"workflow_id": "nmdc:wfrqc-11-zbyqeq59.1.1",
+    #         "type": "nmdc:ReadQCAnalysisActivity",
+    #         "data_objects": [
+    #           {
+    #               "id": "nmdc:dobj-11-1tfde585",
+    #               "name": ""nmdc_wfrqc-11-pbxpdr12.1.1_filtered.fastq.gz"",
+    #               "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1.1/nmdc_wfrqc-11-pbxpdr12.1.1_filtered.fastq.gz"
+    #            }
+    #         ],
+    #         "data_paths":
+    #           [
+    #               "nmdc:omdcrc-11-1t150432/nmdc:wfrqc-11-zbyqeq59.1.1",
+    #               "nmdc:omdcrc-11-1t150432/nmdc:wfrqc-11-zbyqeq59.1.1.1",
+    #           ]
+    #         },
+    #     ]
+    # }
+    omics_processing_workflows_map = {}
+
+    # We will scan all omics_processing records for both malformed workflow IDs and malformed data paths
+    # since they can exist independently of each other
+
+    # first get all omics_processing IDs from the database and use them to initialize the map
+    logging.info("Initializing omics_processing_workflows_map")
+    omics_processing_records = db_client["omics_processing_set"].find({})
+    for omics_processing_record in omics_processing_records:
+        omics_processing_id = omics_processing_record["id"]
+        if production:
+            omics_processing_workflows_map[omics_processing_id] = []
+        else:
+            # for local testing, only initialize the map for the local test omics_processing_id
+            if omics_processing_id in local_test_omics_processing_ids:
+                omics_processing_workflows_map[omics_processing_id] = []
+            else:
+                continue
+
+    logging.info(f"Initialized map for {len(omics_processing_workflows_map)} omics_processing records")
+
+    # For each omics_processing_id, find all the workflow records that are informed_by it and add them to the map
+    logging.info("Adding workflow records to the map")
+    for omics_processing_id in omics_processing_workflows_map.keys():
+        for collection_name in workflow_collections:
+            workflow_records = db_client[collection_name].find({"was_informed_by": omics_processing_id})
+            for workflow_record in workflow_records:
+                workflow_id = workflow_record["id"]
+                # type code from id, e.g. nmdc:wfmgas-11-y43zyn66.1 -> wfmgas
+                workflow_type_code = workflow_id.split("-")[0].split(":")[1]
+
+                data_objects = []
+                for data_object_id in workflow_record.get("has_output", []):
+                    data_object_record = db_client["data_object_set"].find_one({"id": data_object_id})
+                    if data_object_record:
+                        data_objects.append(
+                            {
+                                "id": data_object_record["id"],
+                                "name": data_object_record.get("name"),
+                                "url": data_object_record.get("url"),
+                                "data_object_type": data_object_record.get("data_object_type"),
+                                "file_size_bytes": data_object_record.get("file_size_bytes"),
+                                "md5_checksum": data_object_record.get("md5_checksum"),
+                            }
+                        )
+                if not data_objects:
+                    logging.warning(f"No data objects found for workflow: {workflow_id}")
+
+                # Look on the filesystem for data file dir path(s) that contain the workflow ID root (non-versioned e.g.
+                # nmdc:wfrqc-11-zbyqeq59. These may be different from the workflow ID in the database)
+                omics_processing_dir = data_dir.joinpath(omics_processing_id)
+                if not omics_processing_dir.exists():
+                    logging.warning(f"Directory not found: {omics_processing_dir}")
+                    continue
+                workflow_dirs = []
+                data_files = []
+                for workflow_dir in omics_processing_dir.iterdir():
+                    # get every data path with an nmdc: namespace that is not a symlink
+                    if workflow_type_code in workflow_dir.name and not workflow_dir.is_symlink():
+                        workflow_dirs.append(workflow_dir)
+                        # find the data paths for each workflow directory
+                        for data_file in workflow_dir.iterdir():
+                            if data_file.is_file() and workflow_type_code in data_file.name:
+                                data_files.append(data_file.name)
+
+                omics_processing_workflows_map[omics_processing_id].append(
+                    {
+                        "_id": str(workflow_record["_id"]),
+                        "workflow_id": workflow_id,
+                        "type": workflow_record["type"],
+                        "data_objects": data_objects,
+                        "workflow_dirs": [str(workflow_dir) for workflow_dir in workflow_dirs],
+                        "data_files": [str(data_file) for data_file in data_files]
+                    }
+                )
+
+    total_workflow_records = sum([len(records) for records in omics_processing_workflows_map.values()])
+    logging.info(f"Added {total_workflow_records} workflow records to the map")
+
+    # Iterate over the map to get  records with malformed workflow IDs and/or data paths
+    # anything other that a single decimal point in the workflow ID is considered malformed
+    # example incorrect workflow ID: nmdc:wfrqc-11-zbyqeq59.1.1
+    # example correct workflow ID: nmdc:wfrqc-11-zbyqeq59.1
+    logging.info("Pruning the map to only include records with malformed workflow IDs and/or data paths")
+    pruned_map = {}
+    for omics_processing_id, workflow_records in omics_processing_workflows_map.items():
+        for record in workflow_records:
+            workflow_id = record["workflow_id"]
+            wf_blade = workflow_id.split("-")[-1].split(".")[0]
+            wf_dict = {
+                "_id": record["_id"],
+                "workflow_id": workflow_id,
+                "type": record["type"],
+                "data_objects": [],
+                "workflow_dirs": [],
+                "misidentified_workflow_dirs": [],
+                "data_files": [],
+                "misidentified_data_files": [],
+            }
+            # Check for malformed data objects where name and/or url are malformed
+            data_objects = record["data_objects"]
+            malformed_data_objects = []
+            for data_object in data_objects:
+                if check_if_data_object_record_has_malformed_version(data_object, workflow_id):
+                    malformed_data_objects.append(data_object)
+            if malformed_data_objects:
+                logging.info(f"Found malformed data objects for workflow ID: {workflow_id}")
+                wf_dict["data_objects"] = malformed_data_objects
+
+            # Check for malformed workflow directories
+            workflow_dirs = record["workflow_dirs"]
+            malformed_workflow_dirs = []
+            misidentified_workflow_dirs = []
+            for workflow_dir in workflow_dirs:
+                if wf_blade not in workflow_dir:
+                    logging.info(f"Workflow directory is misidentified: {workflow_dir} should contain {wf_blade}")
+                    misidentified_workflow_dirs.append(workflow_dir)
+                    continue
+                workflow_dir_name = workflow_dir.split("/")[-1]
+                fixed_workflow_dir_name = fix_malformed_workflow_id_version(workflow_dir_name)
+                if fixed_workflow_dir_name != workflow_dir_name:
+                    logging.info(f"Workflow directory is malformed: {workflow_dir} should be {fixed_workflow_dir_name}")
+                    malformed_workflow_dirs.append(workflow_dir)
+                else:
+                    logging.info(f"Workflow directory is correct: {workflow_dir}")
+            if malformed_workflow_dirs:
+                logging.info(f"Found malformed workflow directories for workflow ID: {workflow_id}")
+                wf_dict["workflow_dirs"] = malformed_workflow_dirs
+            if misidentified_workflow_dirs:
+                logging.info(f"Found misidentified workflow directories for workflow ID: {workflow_id}")
+                wf_dict["misidentified_workflow_dirs"] = misidentified_workflow_dirs
+
+            #  Check for malformed data file names and/or paths
+            data_files = record["data_files"]
+            malformed_data_files = []
+            misidentified_data_files = []
+            for data_file in data_files:
+                do_name = data_file.split("/")[-1]
+                if wf_blade not in do_name:
+                    logging.info(f"Data file name is misidentified: {do_name} should contain {wf_blade}")
+                    misidentified_data_files.append(data_file)
+                    continue
+                fixed_do_name = fix_malformed_data_object_name(do_name)
+                if fixed_do_name != do_name:
+                    logging.info(f"Data Object name is malformed: {do_name} should be {fixed_do_name}")
+                    malformed_data_files.append(data_file)
+
+            if malformed_data_files:
+                logging.info(f"Found malformed data paths for workflow ID: {workflow_id}")
+                wf_dict["data_files"] = malformed_data_files
+            if misidentified_data_files:
+                logging.info(f"Found misidentified data paths for workflow ID: {workflow_id}")
+                wf_dict["misidentified_data_files"] = misidentified_data_files
+
+            # add the wf_dict to the pruned map if it is not already there if it has any data objects or data paths
+            # For now, we are only interested in records with malformed data objects or data paths
+            # TODO handle misidentified workflow directories and data files
+            if wf_dict["data_objects"] or wf_dict["workflow_dirs"] or wf_dict["data_files"]:
+                pruned_map.setdefault(omics_processing_id, []).append(wf_dict)
+            # also check for malformed workflow IDs
+            fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
+            if fixed_workflow_id != workflow_id:
+                logging.warning(f"Workflow ID in the database is malformed: {workflow_id} should be {fixed_workflow_id}")
+                # add the wf_dict to the pruned map if it is not already there
+                if wf_dict not in pruned_map.get(omics_processing_id, []):
+                    pruned_map.setdefault(omics_processing_id, []).append(wf_dict)
+
+    total_pruned_records = sum([len(records) for records in pruned_map.values()])
+    logging.info(f"Pruned map contains {total_pruned_records} records")
+    # Serialize the map for writing to a file or displaying
+    serialized_map = json.dumps(pruned_map, indent=4)
+    if write_to_file:
+        if production:
+            map_outfile = Path.joinpath(REPO_DATA_DIR, Path("affected_workflow_records_prod.json"))
+        else:
+            map_outfile = Path.joinpath(REPO_DATA_DIR, Path("affected_workflow_records_local.json"))
+        logging.info(f"Writing affected workflow records to {map_outfile}")
+        with open(map_outfile, "w") as f:
+            f.write(serialized_map)
+    else:
+        logging.info(serialized_map)
+
+
+@cli.command()
+@click.option("--production", is_flag=True, default=False)
+@click.option("--update-files", is_flag=True, default=False)
+@click.pass_context
+def process_affected_workflows(ctx, production=False, update_files=False):
+    """
+    Read the JSON file of affected workflow records and their data paths and
+    fix occurrences of incorrectly versioned workflow IDs in the database and/or
+    in the data file directory.
+
+    Data file and directory updates are applied to the filesystem if the --update-files
+    flag is set, otherwise the changes are only written to the log.
+
+    Database updates are written to a JSON files, one per collection.
+    """
+    start_time = time.time()
+    if production:
+        datafile_dir = PROD_DATAFILE_DIR
+        affected_records_file = Path.joinpath(REPO_DATA_DIR, Path("affected_workflow_records_prod.json"))
+    else:
+        datafile_dir = LOCAL_DATAFILE_DIR
+        affected_records_file = Path.joinpath(REPO_DATA_DIR, Path("affected_workflow_records_local.json"))
+
+    logging.info(f"Reading affected workflow records from {affected_records_file}")
+    with open(affected_records_file, "r") as f:
+        affected_records = json.load(f)
+
+    # Iterate over the affected records and fix the malformed workflow IDs and/or data paths and output the changes
+    # to a JSON file
+
+    updates_map = {}
+
+    for omics_processing_id, records in affected_records.items():
+        logging.info(f"Processing affected records for omics_processing_id: {omics_processing_id}")
+        for record in records:
+
+            # Check the workflow ID extracted from the database and fix it if it is malformed
+            # It is possible that the workflow ID from the database is correct but related data paths are incorrect
+            # record_id = record["_id"]
+            workflow_id = record["workflow_id"]
+            wf_blade = workflow_id.split("-")[-1].split(".")[0]
+            collection_name = get_collection_name_from_workflow_id(workflow_id)
+            collection_alt_ids = f"{collection_name}_alt_ids"
+            fixed_workflow_id = fix_malformed_workflow_id_version(workflow_id)
+            if fixed_workflow_id != workflow_id:
+                logging.warning(f"Workflow ID in the database is malformed: {workflow_id} should be"
+                                f" {fixed_workflow_id}")
+                updates_map.setdefault(collection_name, []).append({
+                    "q": {"id": workflow_id},
+                    "u": {"$set": {"id": fixed_workflow_id}}
+                })
+                # add the old ID to alternative_identifiers to be applied after the update so we use the correct ID
+                updates_map.setdefault(collection_alt_ids, []).append({
+                    "q": {"id": fixed_workflow_id},
+                    "u": {"$addToSet": {"alternative_identifiers": workflow_id}}
+                })
+            else:
+                logging.info(f"Workflow ID in the database is correct: {workflow_id}")
+
+            # Data Objects and corresponding Data File Paths
+            for data_object in record["data_objects"]:
+                data_object_id = data_object["id"]
+                data_object_url = data_object["url"]
+                data_object_name = data_object["name"]
+                data_object_type = data_object.get("data_object_type")
+                # check the name and url and add to the updates_map if they are malformed
+                fixed_data_object_name = fix_malformed_data_object_name(data_object_name)
+                fixed_data_object_url = fix_malformed_data_object_url(data_object_url)
+                if fixed_data_object_name != data_object_name:
+                    logging.warning(f"Data Object name is malformed: {data_object_name}")
+                    updates_map.setdefault("data_object_set", []).append({
+                        "q": {"id": data_object_id},
+                        "u": {"$set": {"name": fixed_data_object_name}}
+                    })
+                if fixed_data_object_url != data_object_url:
+                    logging.warning(f"Data Object URL is malformed: {data_object_url}")
+                    logging.info(f"Fixed URL: {fixed_data_object_url}")
+                    updates_map.setdefault("data_object_set", []).append({
+                        "q": {"id": data_object_id},
+                        "u": {"$set": {"url": fixed_data_object_url}}
+                    })
+
+            # Workflow directories: check for malformed directory names and fix them. Add the old ID to alternative_identifiers
+            # and create a symbolic link to the new directory
+            for workflow_dir in record["workflow_dirs"]:
+                workflow_dir_name = workflow_dir.split("/")[-1]
+                omics_dir_name = workflow_dir.split("/")[-2]
+                fixed_workflow_dir_name = fix_malformed_workflow_id_version(workflow_dir_name)
+                # get the actual data file path depending on the environment
+                workflow_dir_path = datafile_dir.joinpath(omics_dir_name, workflow_dir_name)
+                if fixed_workflow_dir_name != workflow_dir_name:
+                    logging.warning(f"Workflow Directory directory name is malformed: {workflow_dir_name}")
+                    # add the old ID to workflow alternative_identifier
+                    updates_map.setdefault(collection_alt_ids, []).append({
+                        "q": {"id": fixed_workflow_id},
+                        "u": {"$addToSet": {"alternative_identifiers": workflow_dir_name}}
+                    })
+                    # rename the directory if it has not already been renamed and create a symbolic link
+                    if update_files:
+                        fixed_workflow_dir_path = datafile_dir.joinpath(omics_dir_name, fixed_workflow_dir_name)
+                        logging.info(f"Updating Data Path: {workflow_dir_path} -> {fixed_workflow_dir_path}")
+                        # rename the directory if it has not already been renamed
+                        if not fixed_workflow_dir_path.exists():
+                            workflow_dir_path.rename(fixed_workflow_dir_path)
+                        else:
+                            logging.info(f"Data Path already renamed: {fixed_workflow_dir_path}")
+                        # create a relative symbolic link in the omics_processing directory to the new directory
+                        link_path = datafile_dir.joinpath(omics_dir_name, workflow_dir_name)
+                        if not link_path.exists():
+                            link_path.symlink_to(fixed_workflow_dir_name)
+                        else:
+                            logging.info(f"Data Path link already exists: {link_path}")
+                    else:
+                        logging.info(f"--update-files not selected. Would do: {workflow_dir_path} ->"
+                                     f" {fixed_workflow_dir_name}")
+                else:
+                    logging.info(f"Workflow Directory Path is correct: {workflow_dir_name}")
+
+            # Data Files: check for malformed data file names and fix them. Look in the real (not symlinked) directory
+            # and create a symbolic link to the new file
+            # Assume that omics_processing_id/fixed_workflow_dir_name exists
+
+            wf_dir_path = datafile_dir.joinpath(omics_processing_id, fixed_workflow_id)
+            for data_file_name in record["data_files"]:
+                data_file_path = wf_dir_path.joinpath(data_file_name)
+                fixed_data_file_name = fix_malformed_data_object_name(data_file_name)
+                if fixed_data_file_name != data_file_name:
+                    logging.warning(f"Data File name is malformed: {data_file_name}")
+                    # rename the file if it has not already been renamed and create a symbolic link
+                    if update_files:
+                        fixed_data_file_path = wf_dir_path.joinpath(fixed_data_file_name)
+                        logging.info(f"Updating Data Path: {data_file_path} -> {fixed_data_file_path}")
+                        if not fixed_data_file_path.exists():
+                            data_file_path.rename(fixed_data_file_path)
+                        else:
+                            logging.info(f"Data Path already renamed: {fixed_data_file_path}")
+                        # create a relative symbolic link in the workflow directory to the new file
+                        link_path = wf_dir_path.joinpath(data_file_name)
+                        if not link_path.exists():
+                            link_path.symlink_to(fixed_data_file_name)
+                        else:
+                            logging.info(f"Data Path link already exists: {link_path}")
+                    else:
+                        logging.info(f"--update-files not selected. Would do: {data_file_path} -> {fixed_data_file_name}")
+
+                else:
+                    logging.info(f"Data File Path is correct: {data_file_name}")
+
+    # Write the database updates to a JSON files, one per collection
+    for collection_name, updates in updates_map.items():
+        updates_file = Path.joinpath(REPO_DATA_DIR, Path(f"{collection_name}_updates.json"))
+        logging.info(f"Writing updates for {collection_name} to {updates_file}")
+        updates_out = {
+            "update": collection_name,
+            "updates": updates
+        }
+        with open(updates_file, "w") as f:
+            f.write(json.dumps(updates_out, indent=4))
+    elapsed_time = time.time() - start_time
+    logging.info(f"Elapsed time: {elapsed_time}")
+
+
+@cli.command()
+@click.argument("reid_records_file", type=click.Path(exists=True))
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
+@click.pass_context
+def ingest_records(ctx, reid_records_file, mongo_uri):
     """
     Read in json dump of re_id'd records and:
     - validate the records against the /metadata/json:validate endpoint
@@ -419,135 +1045,120 @@ def ingest_records(ctx, reid_records_file, changesheet_only, mongo_uri,
 
     # Get API client(s)
     config = ctx.obj["site_config"]
-    # api_client = NmdcRuntimeApi(config)
     api_user_client = NmdcRuntimeUserApi(config)
-
-    # TODO - need to get mongo_uri credentials for the Napa DB instance in the config file. Meanwhile, we can test
-    #  with a local MongoDB instance
-
+    logging.info(f"Using: {api_user_client.base_url}")
     logging.info(f"Using MongoDB URI: {mongo_uri}")
 
     # Connect to the MongoDB server and check the database name
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    database_name = ctx.obj["database_name"]
     client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
     with pymongo.timeout(5):
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
     logging.info(f"Connected to MongoDB server at {mongo_uri}")
     db_client = client[database_name]
+    session = client.start_session()
 
 
     with open(reid_records_file, "r") as f:
         db_records = json.load(f)
+    with session.start_transaction():
+        try:
+            _ingest_records(db_records, db_client, api_user_client)
+            session.commit_transaction()
+        except Exception as e:
+            logging.error(f"An error occurred - aborting transaction")
+            session.abort_transaction()
+            logging.exception(f"An error occurred while ingesting records: {e}")
 
-    changesheet = Changesheet(name=f"{reid_base_name}_changesheet")
-    for record in db_records:
-        # remove the omics_processing_set and use it to generate
-        # changes to omics_processing has_output
-        omics_processing_set = record.pop("omics_processing_set")
-        for omics_processing_record in omics_processing_set:
-            omics_processing_id = omics_processing_record["id"]
-            logging.info(f"omics_processing_id: {omics_processing_id}")
-            # Update the omics_processing_record with the new has_output via PyMongo
-            filter_criteria = {"id": omics_processing_id}
-            update_criteria = {"$set": {"has_output": omics_processing_record["has_output"]}}
-            result = db_client["omics_processing_set"].update_one(filter_criteria, update_criteria)
-            logging.info(f"Updated {result.modified_count} omics_processing_set records")
-
-        # submit the record to the workflows endpoint
-        if not changesheet_only:
-            # validate the record
-            if api_user_client.validate_record(record):
-                logging.info("DB Record validated - submitting to API")
-                # json:submit endpoint does not work on the Napa API
-                # submission_response = api_user_client.submit_record(record)
-                # logging.info(f"Record submission response: {submission_response}")
-
-                # submit the record documents directly via the MongoDB client
-                # this isa workaround for the json:submit endpoint not working
-                for collection_name, collection in record.items():
-                    # collection shouldn't be empty but check just in case
-                    if not collection:
-                        logging.warning(f"Empty collection: {collection_name}")
-                        continue
-                    logging.info(f"Inserting {len(collection)} records into {collection_name}")
-
-                    insertion_result = db_client[collection_name].insert_many(collection)
-                    logging.info(f"Inserted {len(insertion_result.inserted_ids)} records into {collection_name}")
-            else:
-                logging.error("Workflow Record validation failed")
-        else:
-            logging.info(f"changesheet-only is True, skipping Workflow and Data Object ingest")
 
     logging.info(f"Elapsed time: {time.time() - start_time}")
 
 
 @cli.command()
 @click.argument("old_records_file", type=click.Path(exists=True))
+@click.option("--mongo-uri",required=False, default="mongodb://localhost:27017",)
 @click.pass_context
-def delete_old_records(ctx, old_records_file):
+def delete_old_records(ctx, old_records_file, mongo_uri):
     """
     Read in json dump of old records and:
     delete them using
     /queries/run endpoint
+
+    Outputs a tsv file with the (collection_name, optional(type), id) of the deleted records
     """
     start_time = time.time()
     logging.info(f"Deleting old objects found in : {old_records_file}")
     old_records_filename = Path(old_records_file).name
     old_base_name = old_records_filename.split("_")[0]
+    deleted_record_identifiers = []
 
-    # Get API client(s)
-    config = ctx.obj["site_config"]
-    api_user_client = NmdcRuntimeUserApi(config)
-    logging.info(f"Using: {api_user_client.base_url}")
+    # Get PyMongo client
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    database_name = ctx.obj["database_name"]
+    client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
+    with pymongo.timeout(5):
+        assert (database_name in client.list_database_names()), f"Database {database_name} not found"
+    db = client[database_name]
+    session = client.start_session()
 
     # get old db records
     with open(old_records_file, "r") as f:
         old_db_records = json.load(f)
 
     # set list to capture annotation genes for agg set
-    annotation_ids = []
-    for record in old_db_records:
-        for set_name, object_record in record.items():
-            if set_name == "omics_processing_set":
-                continue
-            delete_ids = []
-            if isinstance(object_record, list):
-                for item in object_record:
-                    delete_ids.append(item["id"])
-                    if set_name == "metagenome_annotation_activity_set":
-                        annotation_ids.append(item["id"])
-                delete_query = {
-                    "delete": set_name,
-                    "deletes": [{"q": {"id": {"$in": delete_ids}}, "limit": len(delete_ids)}],
-                }
-                try:
-                    logging.info(f"Deleting {set_name} records: {delete_ids}")
-                    run_query_response = api_user_client.run_query(delete_query)
-                    logging.info(f"Deleting query posted with response: {run_query_response}")
-                except requests.exceptions.RequestException as e:
-                    logging.error(f"An error occured while running: {delete_query}, response retutrned: {e}")
+    annotation_ids = set()
+    with session.start_transaction():
+        try:
+            for record_identifier in old_db_records:
+                for set_name, object_record in record_identifier.items():
+                    # we don't want to delete the omics_processing_set
+                    if set_name == "omics_processing_set":
+                        continue
+                    delete_ids = []
+                    if isinstance(object_record, list):
+                        for item in object_record:
+                            delete_ids.append(item["id"])
+                            deleted_record_identifiers.append((set_name, item.get("type", ""), item["id"]))
+                            if set_name in ["metagenome_annotation_activity_set", "metatranscriptome_activity_set"]:
+                                annotation_ids.add(item["id"])
 
-    # delete functional annotation agg records
-    delete_annotation_query = {
-        "delete": "functional_annotation_agg",
-        "deletes": [{"q": {"metagenome_annotation_id": {"$in": annotation_ids}}, "limit": len(annotation_ids)}],
-    }
-    try:
-        logging.info(f"Deleting functional annotation agg records: {annotation_ids}")
-        run_query_response = api_user_client.run_query(delete_annotation_query)
-        logging.info(f"Deleting query posted with response: {run_query_response}")
-    except requests.exceptions.RequestException as e:
-        logging.error(f"An error occured while running: {delete_annotation_query}, response retutrned: {e}")
+                    # Construct filter query
+                    filter_query = {"id": {"$in": delete_ids}}
+                    logging.info(f"Deleting {len(delete_ids)} records from {set_name}")
+                    # Delete the records
+                    try:
+                        delete_result = db[set_name].delete_many(filter_query)
+                        logging.info(f"Deleted {delete_result.deleted_count} records from {set_name}")
+                    except Exception as e:
+                        logging.exception(f"An error occurred while deleting {set_name} records: {e}")
+
+            # delete functional annotation agg records
+            if annotation_ids:
+                logging.info(f"Searching for functional annotations for {len(annotation_ids)} annotation activities")
+                filter_query = {"metagenome_annotation_id": {"$in": list(annotation_ids)}}
+                try:
+                    delete_result = db["functional_annotation_agg"].delete_many(filter_query)
+                    logging.info(f"Deleted {delete_result.deleted_count} functional annotation records")
+                except Exception as e:
+                    logging.exception(f"An error occurred while deleting functional annotation records: {e}")
+            session.commit_transaction()
+        except Exception as e:
+            logging.error(f"An error occurred - dumping deleted record identifiers")
+            _write_deleted_record_identifiers(deleted_record_identifiers, old_base_name)
+            logging.exception(f"An error occurred while deleting records: {e}")
+            session.abort_transaction()
+
+    _write_deleted_record_identifiers(deleted_record_identifiers, old_base_name)
 
     logging.info(f"Elapsed time: {time.time() - start_time}")
 
 
 @cli.command()
 @click.argument("mongo_uri", type=str)
-@click.argument("database_name", type=str, default="nmdc")
-@click.option("--direct-connection", is_flag=True, default=True)
 @click.option("--no-delete", is_flag=True, default=False)
 @click.pass_context
-def delete_old_binning_data(ctx, mongo_uri, database_name, direct_connection, no_delete=False):
+def delete_old_binning_data(ctx, mongo_uri, no_delete=False):
     """
     Delete old binning data with non-comforming IDs from the MongoDB database.
 
@@ -560,10 +1171,12 @@ def delete_old_binning_data(ctx, mongo_uri, database_name, direct_connection, no
     deleted.
     """
     start_time = time.time()
+    database_name = ctx.obj["database_name"]
     logging.info(f"Deleting old binning data from {database_name} database at {mongo_uri}")
 
     # Connect to the MongoDB server and check the database name
-    client = pymongo.MongoClient(mongo_uri, directConnection=direct_connection)
+    is_direct_connection = ctx.obj["is_direct_connection"]
+    client = pymongo.MongoClient(mongo_uri, directConnection=is_direct_connection)
     with pymongo.timeout(5):
         assert (database_name in client.list_database_names()), f"Database {database_name} not found"
     logging.info(f"Connected to MongoDB server at {mongo_uri}")
@@ -653,7 +1266,7 @@ def delete_old_binning_data(ctx, mongo_uri, database_name, direct_connection, no
               help=f"Optional base URL for the NMDC API. Default: {NAPA_BASE_URL}")
 @click.option("--untyped-data-objects", is_flag=True, default=False)
 @click.pass_context
-def orphan_data_objects(ctx, study_id, api_base_url, untyped_data_objects=False):
+def find_missing_data_objects(ctx, study_id, api_base_url, untyped_data_objects=False):
     """
     Scan project data directories, read in the data object records from 'data_objects.json'
     and find data objects that:
@@ -678,7 +1291,7 @@ def orphan_data_objects(ctx, study_id, api_base_url, untyped_data_objects=False)
         api_client.get_omics_processing_records_part_of_study(
             study_id
         ))
-    orphan_data_object_ids = set()
+    missing_data_object_ids = set()
     untyped_data_objects = []
     # 2. For each OmicsProcessing record, find the legacy identifier:
     for omics_processing_record in omics_processing_records:
@@ -705,7 +1318,7 @@ def orphan_data_objects(ctx, study_id, api_base_url, untyped_data_objects=False)
                     if not data_object_record:
                         logging.warning(f"{informed_by_id} : {workflow_record['id']} "
                                        f"{workflow_record['name']} missing: {data_object_id}")
-                        orphan_data_object_ids.add(data_object_id)
+                        missing_data_object_ids.add(data_object_id)
                         continue
 
     logging.info(f"Elapsed time: {time.time() - start_time}")
@@ -714,18 +1327,18 @@ def orphan_data_objects(ctx, study_id, api_base_url, untyped_data_objects=False)
         with open(f"{study_id}_untyped_data_objects.json", "w") as f:
             f.write(json.dumps(untyped_data_objects, indent=4))
     else:
-        logging.info(f"Found {len(orphan_data_object_ids)} missing data objects")
-        # get orphaned data objects from the data_objects_by_id if present
-        orphaned_data_objects = []
-        for data_object_id in orphan_data_object_ids:
+        logging.info(f"Found {len(missing_data_object_ids)} missing data objects")
+        # get missing data objects from the data_objects_by_id if present
+        missing_data_objects = []
+        for data_object_id in missing_data_object_ids:
             if data_object_id in data_objects_by_id:
-                orphaned_data_objects.append(data_objects_by_id[data_object_id])
+                missing_data_objects.append(data_objects_by_id[data_object_id])
             else:
-                logging.warning(f"orphaned data object {data_object_id} not found in data_objects.json")
-        logging.info(f"Writing {len(orphaned_data_objects)} orphaned data objects to orphaned_data_objects.json")
-        if orphaned_data_objects:
-            with open(f"{study_id}_orphaned_data_objects.json", "w") as f:
-                f.write(json.dumps(orphaned_data_objects, indent=4))
+                logging.warning(f"Missing data object {data_object_id} not found in data_objects.json")
+        logging.info(f"Writing {len(missing_data_objects)} missing data objects to missing_data_objects.json")
+        if missing_data_objects:
+            with open(f"{study_id}_missing_data_objects.json", "w") as f:
+                f.write(json.dumps(missing_data_objects, indent=4))
 
 
 @cli.command()
@@ -754,8 +1367,8 @@ def _get_database_paths(study_id):
     """
     db_infile_suffix = "_associated_record_dump.json"
     db_outfile_suffix = "_re_ided_record_dump.json"
-    db_infile = DATA_DIR.joinpath(f"{study_id}{db_infile_suffix}")
-    db_outfile = DATA_DIR.joinpath(f"{study_id}{db_outfile_suffix}")
+    db_infile = REPO_DATA_DIR.joinpath(study_id, f"{study_id}{db_infile_suffix}")
+    db_outfile = REPO_DATA_DIR.joinpath(study_id, f"{study_id}{db_outfile_suffix}")
     return db_infile, db_outfile
 
 
@@ -783,6 +1396,7 @@ def _get_legacy_id(omics_processing_record: dict) -> str:
         legacy_id = legacy_ids[0]
     return legacy_id
 
+
 def _get_has_input_from_read_qc(api_client, legacy_id):
     """
     Get the has_input data objects for the given legacy ID
@@ -796,5 +1410,126 @@ def _get_has_input_from_read_qc(api_client, legacy_id):
     return list(has_input_data_objects)
 
 
+def _update_study(study: nmdc.Study, legacy_study_id: str, nmdc_study_id: str) -> nmdc.Study:
+    """
+    Update the study record.
+     - Update the ID
+        - Add the legacy ID to gold_study_identifiers if it is not already there
+    """
+    updated_study = deepcopy(study)
+    updated_study.id = nmdc_study_id
+    if legacy_study_id.startswith("gold:"):
+        updated_study.gold_study_identifiers = list(set(updated_study.gold_study_identifiers + [legacy_study_id]))
+    return updated_study
+
+
+def _log_updates(updates):
+    for collection_name, record_updates in updates.items():
+        logging.info(f"{len(record_updates)} updates for collection: {collection_name}")
+        for _id, (model, update) in record_updates.items():
+            logging.info(f"Updating {_id} / {model.id} in {collection_name} with {len(update)} changes")
+            for attr, updated_value in update.items():
+                # original_value = getattr(model, attr)
+                logging.info(f"  {attr}: {updated_value}")
+
+
+def _write_updates(updates, nmdc_study_id):
+    # Create a directory for the study if it doesn't exist
+    study_dir = REPO_DATA_DIR.joinpath(nmdc_study_id)
+    study_dir.mkdir(parents=True, exist_ok=True)
+
+    # Write the updated records to a tsv file using csv writer in data_dir/study_id/study_id_updates.tsv
+    updates_file = study_dir.joinpath(f"{nmdc_study_id}_updates.tsv")
+    logging.info(f"Writing {len(updates)} updates to {updates_file}")
+    # see if the file already exists - if so, append to it
+    if updates_file.exists():
+        logging.info(f"Appending to existing file: {updates_file}")
+        mode = "a"
+    else:
+        logging.info(f"Creating new file: {updates_file}")
+        mode = "w"
+    with open(updates_file, mode) as f:
+        writer = csv.writer(f, delimiter="\t")
+        if mode == "w":
+            writer.writerow(["collection_name", "id", "_id", "update"])
+        for collection_name, record_updates in updates.items():
+            for _id, (model, update) in record_updates.items():
+                updated_fields = ", ".join(update.keys())
+                writer.writerow([collection_name, model.id, _id, update])
+
+
+def _write_deletions(deletions, nmdc_study_id):
+    # Create a directory for the study if it doesn't exist
+    study_dir = REPO_DATA_DIR.joinpath(nmdc_study_id)
+    study_dir.mkdir(parents=True, exist_ok=True)
+
+    # Write the deleted records to a tsv file using csv writer in data_dir/study_id/study_id_deletions.tsv
+    deletions_file = study_dir.joinpath(f"{nmdc_study_id}_deletions.tsv")
+    logging.info(f"Writing {len(deletions)} deletions to {deletions_file}")
+    # see if the file already exists - if so, append to it
+    if deletions_file.exists():
+        logging.info(f"Appending to existing file: {deletions_file}")
+        mode = "a"
+    else:
+        logging.info(f"Creating new file: {deletions_file}")
+        mode = "w"
+    with open(deletions_file, mode) as f:
+        writer = csv.writer(f, delimiter="\t")
+        if mode == "w":
+            writer.writerow(["collection_name", "id", "_id"])
+        for collection_name, records in deletions.items():
+            for record in records:
+                writer.writerow([collection_name, record["id"], record["_id"]])
+
+
+def _ingest_records(db_records, db_client, api_user_client):
+    for record in db_records:
+        # remove the omics_processing_set and use it to generate
+        # changes to omics_processing has_output
+        omics_processing_set = record.pop("omics_processing_set")
+        for omics_processing_record in omics_processing_set:
+            omics_processing_id = omics_processing_record["id"]
+            logging.info(f"omics_processing_id: {omics_processing_id}")
+            # Update the omics_processing_record with the new has_output via PyMongo
+            filter_criteria = {"id": omics_processing_id}
+            update_criteria = {"$set": {"has_output": omics_processing_record["has_output"]}}
+            result = db_client["omics_processing_set"].update_one(filter_criteria, update_criteria)
+            logging.info(f"Updated {result.modified_count} omics_processing_set records")
+
+        # validate the record
+        if api_user_client.validate_record(record):
+            logging.info("DB Record validated - submitting to API")
+            # json:submit endpoint does not work on the Napa API
+            # submission_response = api_user_client.submit_record(record)
+            # logging.info(f"Record submission response: {submission_response}")
+
+            # submit the record documents directly via the MongoDB client
+            # this isa workaround for the json:submit endpoint not working
+            for collection_name, collection in record.items():
+                # collection shouldn't be empty but check just in case
+                if not collection:
+                    logging.warning(f"Empty collection: {collection_name}")
+                    continue
+                logging.info(f"Inserting {len(collection)} records into {collection_name}")
+
+                insertion_result = db_client[collection_name].insert_many(collection, ordered=False)
+                logging.info(f"Inserted {len(insertion_result.inserted_ids)} records into {collection_name}")
+        else:
+            logging.error("Workflow Record validation failed")
+
+
+def _write_deleted_record_identifiers(deleted_record_identifiers, old_base_name):
+    # write the deleted records to a tsv file
+    deleted_record_identifiers_file = REPO_DATA_DIR.joinpath(f"{old_base_name}_deleted_record_identifiers.tsv")
+    logging.info(
+        f"Writing {len(deleted_record_identifiers)} deleted record identifiers to {deleted_record_identifiers_file}"
+        )
+    with open(deleted_record_identifiers_file, "w") as f:
+        f.write("collection_name\ttype\tid\n")
+        for record_identifier in deleted_record_identifiers:
+            f.write("\t".join(record_identifier) + "\n")
+
+
 if __name__ == "__main__":
     cli(obj={})
+

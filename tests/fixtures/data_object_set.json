@@ -9,6 +9,15 @@
     "data_object_type": "Assembly Contigs"
   },
   {
+    "description": "Renamed Assembled contigs fasta for gold:Gp0213371",
+    "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/annotation/nmdc_mga0vx38_contigs.fna",
+    "md5_checksum": "37573bca240f88091720ae61ae5c9452",
+    "file_size_bytes": 1232092144,
+    "id": "nmdc:37573bca240f88091720ae61ae5c9454",
+    "name": "gold:Gp0213371_Assembled contigs fasta",
+    "data_object_type": "Assembly Contigs"
+  },
+  {
     "description": "Protein FAA for gold:Gp0213371",
     "url": "https://data.microbiomedata.org/data/nmdc:mga0vx38/annotation/nmdc_mga0vx38_proteins.faa",
     "md5_checksum": "7336ecf1f0b47e6161b52aec01d56ab8",

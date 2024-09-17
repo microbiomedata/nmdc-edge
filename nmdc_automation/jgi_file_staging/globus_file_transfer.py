@@ -1,8 +1,8 @@
 import configparser
 import sys
+import os
 from datetime import datetime
 import pandas as pd
-import os
 import logging
 
 from mongo import get_mongo_db
@@ -16,12 +16,20 @@ logging.basicConfig(
     datefmt="%Y-%m-%d,%H:%M:%S",
     level=logging.DEBUG,
 )
+"""
+This script will download JGI data files using the Globus API 
+1) run "globus login"
+2) set values in config.ini
+3) call get_globus_manifest() and copy the manifests to a local directory. Globus can only transfer files between 
+Globus endpoints
+4) call submit_globus_batch_file() 
+5) call update_globus_statuses() when files have finished transferring
+"""
 
 
 def get_globus_manifest(request_id, config_file=None, config=None):
     """
     This gets the Globus file manifest with the list of Globus paths for each requested file
-    This function requires installation of the Globus CLI
     :return:
     """
     if config_file:
@@ -63,7 +71,7 @@ def get_globus_manifest(request_id, config_file=None, config=None):
 
 def create_globus_dataframe(manifests_dir, config, request_id_list):
     globus_manifest_files = [
-        get_globus_manifest(config, int(request_id)) for request_id in request_id_list
+        f'Globus_Download_{request_id}_File_Manifest.csv' for request_id in request_id_list
     ]
 
     globus_df = pd.DataFrame()
@@ -98,6 +106,15 @@ def create_globus_batch_file(project, config):
     globus_analysis_df = pd.merge(
         samples_df, globus_df, left_on="jdp_file_id", right_on="file_id"
     )
+    globus_batch_filename = (f"{project}_{samples_df['request_id'].unique()[0]}_"
+                             f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_globus_batch_file.txt")
+    write_globus_batch_file(globus_analysis_df, dest_root_dir, root_dir, globus_batch_filename)
+
+    return globus_batch_filename, globus_analysis_df
+
+
+def write_globus_batch_file(globus_analysis_df: pd.DataFrame, dest_root_dir: str, root_dir,
+                            globus_batch_filename) -> None:
     write_list = []
     for idx, row in globus_analysis_df.iterrows():
         filepath = os.path.join(
@@ -105,10 +122,9 @@ def create_globus_batch_file(project, config):
         )
         dest_file_path = os.path.join(dest_root_dir, row.apGoldId, row.filename)
         write_list.append(f"{filepath} {dest_file_path}")
-    globus_batch_filename = f"{project}_{samples_df['request_id'].unique()[0]}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_globus_batch_file.txt"
+
     with open(globus_batch_filename, "w") as f:
         f.write("\n".join(write_list))
-    return globus_batch_filename, globus_analysis_df
 
 
 def submit_globus_batch_file(project, config_file):

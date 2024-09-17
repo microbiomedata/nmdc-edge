@@ -20,7 +20,7 @@ cols = [
 
 @fixture
 def db():
-    conn_str = os.environ.get("MONGO_URL","mongodb://localhost:27017")
+    conn_str = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
     return MongoClient(conn_str).test
 
 
@@ -79,7 +79,28 @@ def test_activies(db):
         fix_versions(db, wf)
     acts = load_activities(db, wfs)
     assert acts is not None
-    # TODO find out why this fails - len(acts) = 4
-    # assert len(acts) == 5
-    # assert len(acts[0].children) == 1
-    # assert acts[0].children[0] == acts[1]
+    assert len(acts) == 5
+    assert len(acts[0].children) == 1
+    assert acts[0].children[0] == acts[1]
+
+    allowlist = set(["foo"])
+    acts = load_activities(db, wfs, allowlist=allowlist)
+    assert len(acts) == 0
+
+    allowlist = set(["nmdc:omprc-11-nhy4pz43"])
+    acts = load_activities(db, wfs, allowlist=allowlist)
+    assert len(acts) == 5
+
+
+def test_workflows():
+    """
+    Test Workflow object creation
+    """
+    wfs = load_workflows("./tests/workflows_test.yaml")
+    assert wfs is not None
+    wfm = {}
+    assert len(wfs) == 9
+    for wf in wfs:
+        wfm[wf.name] = wf
+    assert "MAGs" in wfm
+    assert len(wfm["MAGs"].optional_inputs) == 1

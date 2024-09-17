@@ -54,6 +54,15 @@
         "suffix": "_filterStats.txt",
         "data_object_type": "QC Statistics",
         "description": "Reads QC summary for {id}"
+      },
+      {
+        "id": "nmdc:dobj-11-zzzz",
+        "output": "optional_file",
+        "name": "Some Optional File",
+        "suffix": "_opt.txt",
+        "data_object_type": "Optional File",
+        "description": "Optional File for {id}",
+        "optional": true
       }
     ]
   },
