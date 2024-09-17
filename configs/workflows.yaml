@@ -328,9 +328,9 @@ Workflows:
       description: CheckM for {id}
       name: CheckM statistics report
     - output: final_hqmq_bins_zip
-      data_object_type: Metagenome Bins
-      description: Metagenome Bins for {id}
-      name: Metagenome bin tarfiles archive
+      data_object_type: Metagenome HQMQ Bins Compression File
+      description: Metagenome HQMQ Bins for {id}
+      name: Metagenome hqmq bin zip archive
     - output: final_gtdbtk_bac_summary
       data_object_type: GTDBTK Bacterial Summary
       description: Bacterial Summary for {id}
@@ -344,6 +344,24 @@ Workflows:
       data_object_type: Metagenome Bins Info File
       description: Metagenome Bins Info File for {id}
       name: Metagenome Bins Info File
+    - output: final_lq_bins_zip
+      data_object_type: Metagenome LQ Bins Compression File
+      description: Metagenome LQ Bins for {id}
+      name: Metagenome lq bin zip archive
+    - output: heatmap
+      data_object_type: Metagenome Bins Heatmap
+      description: Metagenome heatmap for {id}
+      name: Metagenome Heatmap File
+    - output: barplot
+      data_object_type: Metagenome Bins Barplot
+      description: Metagenome barplot for {id}
+      name: Metagenome Barplot File
+    - output: kronaplot
+      data_object_type: Metagenome Bins Krona Plot
+      description: Metagenome Bins Krona Plot for {id}
+      name: Metagenome Krona Bins Plot File
+  
+
 
   - Name: Readbased Analysis
     Type: nmdc:ReadBasedTaxonomyAnalysisActivity
