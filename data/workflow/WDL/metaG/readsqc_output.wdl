@@ -4,9 +4,9 @@ workflow readsqc_output {
     input {
         Array[File] input_files
         Array[String] input_files_prefix
-        File filtered_stats_final
-        File filtered_stats2_final
-        File rqc_info
+        Array[File] filtered_stats_final
+        Array[File] filtered_stats2_final
+        Array[File] rqc_info
         String? outdir
         String bbtools_container="microbiomedata/bbtools:38.96"
         String vis_container="microbiomedata/fastqc_vis:1.0"
@@ -42,7 +42,7 @@ task fastqc_report{
         String? outdir
         Array[String] input_files_prefix
         Array[File] input_files
-        File filtered_stats2_final
+        Array[File] filtered_stats2_final
         Int file_num = length(input_files_prefix) 
         String container
         String dollar ="$"
@@ -85,9 +85,9 @@ task make_output{
         String? outdir
         Array[String] input_files_prefix
         Array[File] input_files
-        File filtered_stats_final
-        File filtered_stats2_final
-        File rqc_info
+        Array[File] filtered_stats_final
+        Array[File] filtered_stats2_final
+        Array[File] rqc_info
         Int file_num = length(input_files_prefix)
         String dollar ="$"
         String container

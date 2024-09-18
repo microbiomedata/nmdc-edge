@@ -115,13 +115,15 @@ workflow main_workflow {
             input_interleaved=input_interleaved
     }
 
-    call readsQC.ShortReadsQC  as nmdc_rqcfilter_call {
-        input:
-            input_files=input_files,
-            input_fq1=input_fq1,
-            input_fq2=input_fq2,
-            proj=proj,
-            interleaved=input_interleaved,
+    scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
+        call readsQC.ShortReadsQC  as nmdc_rqcfilter_call {
+            input:
+                input_files=input_files,
+                input_fq1=input_fq1,
+                input_fq2=input_fq2,
+                proj=proj,
+                interleaved=input_interleaved
+        }
     }
 
     call readsqc_output.readsqc_output as readsqc_output {
@@ -344,9 +346,9 @@ task finish {
         String url_base
         String git_url
         Array[File] read
-        File filtered
-        File filtered_stats
-        File filtered_stats2
+        Array[File?] filtered
+	    Array[File?] filtered_stats
+	    Array[File?] filtered_stats2
         File? fasta
         File? scaffold
         File? agp
