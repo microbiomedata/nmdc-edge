@@ -1,14 +1,14 @@
 # metaT workflow wrapper
 version 1.0
 
-import "https://raw.githubusercontent.com/microbiomedata/metaT/nmdc-import/metaT.wdl" as metaT
+import "https://raw.githubusercontent.com/microbiomedata/metaT/v0.0.7/metaT.wdl" as metaT
 
 
 workflow nmdc_metat {
 
     input {
         String  project_id
-	    File?   input_file 
+        File?   input_file 
         File?   input_fq1
         File?   input_fq2
         Boolean input_interleaved = false
