@@ -111,13 +111,17 @@ def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, a
 
     # Berkley
     # workflow_execution_records = db["data_generation_set].find({"analyte_category": analyte_category})
-    workflow_execution_records = db["omics_processing_set"].find(
-        {"omics_type.has_raw_value": {"$regex": analyte_category, "$options": "i"}}
-    )
+    # default query
+    q = {"omics_type.has_raw_value": {"$regex": analyte_category, "$options": "i"}}
+    # override query with allowlist
+    if allowlist:
+        q["id"] = {"$in": list(allowlist)}
+    dg_execution_records = db["omics_processing_set"].find(q)
     # change from cursor to list
-    workflow_execution_records = list(workflow_execution_records)
+    dg_execution_records = list(dg_execution_records)
+
     for wf in dg_workflows:
-        for rec in workflow_execution_records:
+        for rec in dg_execution_records:
             if _is_missing_required_input_output(wf, rec, data_objects):
                 continue
             data_generation_ids.add(rec["id"])
@@ -128,8 +132,10 @@ def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, a
         q = {}
         if wf.git_repo:
             q = {"git_url": wf.git_repo}
-        # if allowlist and len(allowlist) > 0:
-        #     q["was_informed_by"] = {"$in": list(allowlist)}
+        # override query with allowlist
+        if allowlist:
+            q = {"was_informed_by": {"$in": list(allowlist)}}
+
         records = db[wf.collection].find(q)
         for rec in records:
             if wf.version and not _within_range(rec["version"], wf.version):
