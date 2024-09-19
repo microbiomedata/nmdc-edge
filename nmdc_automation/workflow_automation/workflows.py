@@ -37,6 +37,7 @@ class Workflow:
         "Git_repo",
         "Version",
         "WDL",
+        "Analyte Category",
         "Collection",
         "Predecessors",
         "Input_prefix",

@@ -39,35 +39,32 @@ def test_scheduler_cycle(test_db, mock_api, workflow_file, workflows_config_dir,
     """
     Test basic job creation.
     """
+    exp_rqc_git_repos = [
+        "https://github.com/microbiomedata/ReadsQC",
+        "https://github.com/microbiomedata/metaT_ReadsQC"
+    ]
     # init_test(test_db)
     reset_db(test_db)
-    metatranscriptome = False
-    if workflow_file == "workflows-mt.yaml":
-        metatranscriptome = True
 
     load_fixture(test_db, "data_object_set.json")
-    if metatranscriptome:
-        load_fixture(test_db, "omics_processing_set_mt.json", col="omics_processing_set")
-    else:
-        load_fixture(test_db, "omics_processing_set.json")
+    load_fixture(test_db, "omics_processing_set.json")
 
-    # we expect 1 job for each omics_processing_set record in the db
-    exp_num_rqc_jobs = test_db.omics_processing_set.count_documents({})
-
+    # Scheduler will find one job to create
+    exp_num_jobs_initial = 1
+    exp_num_jobs_cycle_1 = 0
     jm = Scheduler(test_db, wfn=workflows_config_dir / workflow_file,
                    site_conf=site_config)
-
-    # There should be 1 RQC job for each omics_processing_set record
     resp = jm.cycle()
-    assert len(resp) == exp_num_rqc_jobs
+    assert len(resp) == exp_num_jobs_initial
+    assert resp[0]["config"]["git_repo"] in exp_rqc_git_repos
 
     # All jobs should now be in a submitted state
     resp = jm.cycle()
-    assert len(resp) == 0
+    assert len(resp) == exp_num_jobs_cycle_1
 
 @mark.parametrize("workflow_file", [
     "workflows.yaml",
-    # "workflows-mt.yaml"
+    "workflows-mt.yaml"
 ])
 def test_progress(test_db, mock_api, workflow_file, workflows_config_dir, site_config):
     reset_db(test_db)
@@ -75,13 +72,8 @@ def test_progress(test_db, mock_api, workflow_file, workflows_config_dir, site_c
     if workflow_file == "workflows-mt.yaml":
         metatranscriptome = True
     load_fixture(test_db, "data_object_set.json")
-    if metatranscriptome:
-        load_fixture(test_db, "omics_processing_set_mt.json", col="omics_processing_set")
-    else:
-        load_fixture(test_db, "omics_processing_set.json")
-    exp_num_rqc_jobs = test_db.omics_processing_set.count_documents({})
-    # sanity check
-    assert exp_num_rqc_jobs == 1
+    load_fixture(test_db, "omics_processing_set.json")
+
 
     jm = Scheduler(test_db, wfn=workflows_config_dir / workflow_file,
                    site_conf= site_config)
@@ -91,7 +83,7 @@ def test_progress(test_db, mock_api, workflow_file, workflows_config_dir, site_c
 
     # There should be 1 RQC job for each omics_processing_set record
     resp = jm.cycle()
-    assert len(resp) == exp_num_rqc_jobs
+    assert len(resp) == 1
 
     if metatranscriptome:
         wf = workflow_by_name['Metatranscriptome Reads QC Interleave']
@@ -170,7 +162,6 @@ def test_multiple_versions(test_db, mock_api, workflows_config_dir, site_config)
 
     load_fixture(test_db, "data_object_set.json")
     load_fixture(test_db, "omics_processing_set.json")
-    exp_num_rqc_jobs = test_db.omics_processing_set.count_documents({})
 
     jm = Scheduler(test_db, wfn=workflows_config_dir / "workflows.yaml",
                    site_conf=site_config)
@@ -179,7 +170,7 @@ def test_multiple_versions(test_db, mock_api, workflows_config_dir, site_config)
         workflow_by_name[wf.name] = wf
 
     resp = jm.cycle()
-    assert len(resp) == exp_num_rqc_jobs
+    assert len(resp) == 1
     #
 
     # We simulate one of the jobs finishing

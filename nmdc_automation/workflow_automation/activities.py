@@ -4,6 +4,7 @@ from .workflows import Workflow
 from semver.version import Version
 from functools import lru_cache
 
+
 # TODO: Berkley refactoring:
 #   The load_activities method will need to be modified to handle DataGeneration objects
 #   instead of OmicsProcessing objects, with the difference being the DataGeneration objects can be part_of other
@@ -16,10 +17,10 @@ from functools import lru_cache
 warned_objects = set()
 
 
-def _load_data_objects(db, workflows: List[Workflow]):
+def get_required_data_objects_map(db, workflows: List[Workflow]) -> dict:
     """
-    Read all of the data objects and generate
-    a map by ID
+     Search for all the data objects that are required data object types for the workflows,
+        and return a dictionary of data objects by ID.
 
     TODO: In the future this will probably need to be redone
     since the number of data objects could get very large.
@@ -30,13 +31,17 @@ def _load_data_objects(db, workflows: List[Workflow]):
     for wf in workflows:
         required_types.update(set(wf.do_types))
 
-    data_objs_by_id = dict()
+    required_data_objs_by_id = dict()
     for rec in db.data_object_set.find():
         do = DataObject(rec)
         if do.data_object_type not in required_types:
             continue
-        data_objs_by_id[do.id] = do
-    return data_objs_by_id
+        required_data_objs_by_id[do.id] = do
+    return required_data_objs_by_id
+
+
+
+
 
 
 @lru_cache
@@ -74,7 +79,7 @@ def _check(match_types, data_object_ids, data_objs):
     return match_set.issubset(do_types)
 
 
-def _filter_skip(wf, rec, data_objs):
+def _is_missing_required_input_output(wf, rec, data_objs):
     """
     Some workflows require specific inputs or outputs.  This
     implements the filtering for those.
@@ -87,37 +92,78 @@ def _filter_skip(wf, rec, data_objs):
                        data_objs)
     return not (match_in and match_out)
 
-# TODO: Activity does not exist in the Berkeley Schema. WorkflowExecution is the analogous class.
-#   Functions and classes should be renamed to reflect the Berkeley Schema.
-# TODO: The Berkeley Schema replaces OmicsProcessing with DataGeneration.
-#  Slots for has_input and has_output are the same.
-#  Special handling for OmicsProcessing needs to be extended to DataGeneration.
-def _read_acitivites(db, workflows: List[Workflow],
-                     data_objects: dict, allowlist: set):
+
+def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, allowlist: set):
     """
-    Read in all the activities for the defined workflows.
+    Fetch the relevant workflow executions from the database for the given workflows.
+        1. Get the Data Generation (formerly Omics Processing) objects for the workflows by analyte category.
+        2. Get the remaining Workflow Execution objects that was_informed_by the Data Generation objects.
+        3. Filter Workflow Execution objects by:
+            - version (within range)
+            - required input and output data objects
+    Return the list of Workflow Execution objects.
     """
-    activities = []
-    for wf in workflows:
-        logging.debug(f"Checking {wf.name}:{wf.version}")
-        q = {"git_url": wf.git_repo}
-        if allowlist and len(allowlist) > 0:
-            if wf.collection == "omics_processing_set":
-                q['id'] = {"$in": list(allowlist)}
-            else:
-                q["was_informed_by"] = {"$in": list(allowlist)}
-        for rec in db[wf.collection].find(q):
-            if wf.version and not _within_range(rec["version"], wf.version):
-                logging.debug(f"Skipping {wf.name} {wf.version} {rec['version']}")
+    workflow_executions = []
+    analyte_category = _determine_analyte_category(workflows)
+
+    # We handle the data generation and data processing workflows separately. Data generation workflow executions have an
+    # analyte category field, while data processing workflow executions do not, so we filter by the was_informed_by field.
+    data_generation_ids = set()
+    dg_workflows = [wf for wf in workflows if wf.collection in ["omics_processing_set", "data_generation_set"]]
+    dp_workflows = [wf for wf in workflows if not wf.collection in ["omics_processing_set", "data_generation_set"]]
+
+    # Berkley
+    # workflow_execution_records = db["data_generation_set].find({"analyte_category": analyte_category})
+    workflow_execution_records = db["omics_processing_set"].find(
+        {"omics_type.has_raw_value": {"$regex": analyte_category, "$options": "i"}}
+        )
+    # change from cursor to list
+    workflow_execution_records = list(workflow_execution_records)
+    for wf in dg_workflows:
+        for rec in workflow_execution_records:
+            if _is_missing_required_input_output(wf, rec, data_objects):
                 continue
-            if wf.collection == "omics_processing_set" and \
-               rec["id"].startswith("gold"):
-                continue
-            if _filter_skip(wf, rec, data_objects):
-                continue
+            data_generation_ids.add(rec["id"])
             act = Activity(rec, wf)
-            activities.append(act)
-    return activities
+            workflow_executions.append(act)
+
+    for wf in dp_workflows:
+        q = {}
+        if wf.git_repo:
+            q = {"git_url": wf.git_repo}
+        # if allowlist and len(allowlist) > 0:
+        #     q["was_informed_by"] = {"$in": list(allowlist)}
+        records = db[wf.collection].find(q)
+        for rec in records:
+            if wf.version and not _within_range(rec["version"], wf.version):
+                continue
+            if _is_missing_required_input_output(wf, rec, data_objects):
+                continue
+            if rec["was_informed_by"] in data_generation_ids:
+                act = Activity(rec, wf)
+                workflow_executions.append(act)
+
+    return workflow_executions
+
+
+
+
+
+
+
+
+
+def _determine_analyte_category(workflows: List[Workflow]) -> str:
+    analyte_categories = set([wf.analyte_category for wf in workflows])
+    if len(analyte_categories) > 1:
+        raise ValueError("Multiple analyte categories not supported")
+    elif len(analyte_categories) == 0:
+        raise ValueError("No analyte category found")
+    analyte_category = analyte_categories.pop()
+    return analyte_category
+
+
+
 
 
 # TODO: Make public, give a better name, add type hints and unit tests.
@@ -220,19 +266,22 @@ def load_activities(db, workflows: list[Workflow], allowlist: set = set()):
 
     # This is map from the data object ID to the activity
     # that created it.
-    data_objs_by_id = _load_data_objects(db, workflows)
+    data_objs_by_id = get_required_data_objects_map(db, workflows)
 
     # Build up a set of relevant activities and a map from
     # the output objects to the activity that generated them.
-    activities = _read_acitivites(db, workflows, data_objs_by_id, allowlist)
-    data_obj_act = _find_data_object_activities(activities, data_objs_by_id)
+    workflow_executions = get_workflow_executions(db, workflows, data_objs_by_id, allowlist)
+
+    data_obj_act = _find_data_object_activities(workflow_executions, data_objs_by_id)
 
     # Now populate the parent and children values for the
     # activities
-    _resolve_relationships(activities, data_obj_act)
-    return activities
+    _resolve_relationships(workflow_executions, data_obj_act)
+    return workflow_executions
 
 # TODO: Why are we not importing and using the existing nmdc_schema.DataObject class?
+#   nmdc_schema.DataObject is stricter and using it currently causes tests / fixtures to fail.
+#   We should fix the tests and fixtures to use the stricter class and remove this class.
 class DataObject(object):
     """
     Data Object Class

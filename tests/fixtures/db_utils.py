@@ -12,6 +12,7 @@ COLS = [
     "omics_processing_set",
     'mags_activity_set',
     'metagenome_assembly_set',
+    'metatranscriptome_assembly_set',
     'jobs',
     'metagenome_annotation_activity_set',
     'metatranscriptome_annotation_set',
