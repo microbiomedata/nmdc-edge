@@ -2,14 +2,14 @@ version 1.0
 
 workflow readsqc_output {
     input {
-        Array[File] input_files
+        Array[File]   input_files
         Array[String] input_files_prefix
-        Array[File] filtered_stats_final
-        Array[File] filtered_stats2_final
-        Array[File] rqc_info
-        String? outdir
-        String bbtools_container="microbiomedata/bbtools:38.96"
-        String vis_container="microbiomedata/fastqc_vis:1.0"
+        Array[File]   filtered_stats_final
+        Array[File]   filtered_stats2_final
+        Array[File]   rqc_info
+        String?       outdir
+        String        bbtools_container="microbiomedata/bbtools:38.96"
+        String        vis_container="microbiomedata/fastqc_vis:1.0"
     }
 
     call make_output {
@@ -39,13 +39,13 @@ workflow readsqc_output {
 
 task fastqc_report{
     input{
-        String? outdir
+        String?       outdir
         Array[String] input_files_prefix
-        Array[File] input_files
-        Array[File] filtered_stats2_final
-        Int file_num = length(input_files_prefix) 
-        String container
-        String dollar ="$"
+        Array[File]   input_files
+        Array[File]   filtered_stats2_final
+        Int           file_num = length(input_files_prefix) 
+        String        container
+        String        dollar ="$"
     }
 
     command<<<
@@ -54,6 +54,7 @@ task fastqc_report{
         mkdir -p output
         ARRAY=(~{sep=" " input_files_prefix})
         ARRAYFastq=(~{sep=" " input_files})
+        ARRAYStats2=(~{sep=" " filtered_stats2_final})
         for (( i = 0; i < ~{file_num}; i++ ))
         do
             f=~{dollar}(basename ~{dollar}{ARRAY[$i]})
@@ -62,7 +63,7 @@ task fastqc_report{
             ln ~{dollar}{ARRAYFastq[$i]} $prefix.fastq.gz
             fastqc -q -o output --dir $PWD $prefix.fastq.gz
             mkdir -p ~{outdir}/$prefix
-            qc_summary.py --input $dir/*filterStats2.txt  --output ~{outdir}/$prefix/qc_summary.html
+            qc_summary.py --input ~{dollar}{ARRAYStats2[$i]}  --output ~{outdir}/$prefix/qc_summary.html
         done
 
         multiqc -z -o output output
@@ -82,15 +83,15 @@ task fastqc_report{
 
 task make_output{
     input{
-        String? outdir
+        String?       outdir
         Array[String] input_files_prefix
-        Array[File] input_files
-        Array[File] filtered_stats_final
-        Array[File] filtered_stats2_final
-        Array[File] rqc_info
-        Int file_num = length(input_files_prefix)
-        String dollar ="$"
-        String container
+        Array[File]   input_files
+        Array[File]   filtered_stats_final
+        Array[File]   filtered_stats2_final
+        Array[File]   rqc_info
+        String        dollar ="$"
+        Int           file_num = length(input_files_prefix)
+        String        container
     }
 
  	command <<<
