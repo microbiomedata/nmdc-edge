@@ -99,6 +99,8 @@ task make_output{
         mkdir -p ~{outdir}
         ARRAY=(~{sep=" " input_files_prefix})
         ARRAYFastq=(~{sep=" " input_files})
+        ARRAYStats=(~{sep=" " filtered_stats_final})
+        ARRAYStats2=(~{sep=" " filtered_stats2_final})
         for (( i = 0; i < ~{file_num}; i++ ))
         do
             f=~{dollar}(basename ~{dollar}{ARRAY[$i]})
@@ -106,8 +108,8 @@ task make_output{
             prefix=~{dollar}{ARRAY[$i]}
             mkdir -p ~{outdir}/$prefix
             cp -f ~{dollar}{ARRAYFastq[$i]} ~{outdir}/$prefix/$prefix.filtered.gz
-            cp -f $dir/*filterStats.txt  ~{outdir}/$prefix/filterStats.txt
-            cp -f $dir/*filterStats2.txt  ~{outdir}/$prefix/filterStats2.txt
+            cp -f ~{dollar}{ARRAYStats[$i]}  ~{outdir}/$prefix/filterStats.txt
+            cp -f ~{dollar}{ARRAYStats2[$i]}  ~{outdir}/$prefix/filterStats2.txt
         done
  	>>>
 
