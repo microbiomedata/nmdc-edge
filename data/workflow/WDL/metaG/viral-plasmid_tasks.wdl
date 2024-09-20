@@ -99,14 +99,19 @@ task checkV {
     input {
         File VIRUS_FASTA
         String CHECKV_DB
-        String OUTDIR
-        String OUTDIR_v = OUTDIR + '/checkv'
-        String OUTDIR_tmp = OUTDIR_v + '/tmp'
+        String? OUTDIR
+        # String OUTDIR_v = OUTDIR + '/checkv'
+        # String OUTDIR_tmp = OUTDIR_v + '/tmp'
         String DOCKER
         Int CPU = 16
     }
 
+    String OUTDIR_resolved = select_first([OUTDIR, ""])  # Use select_first to default to an empty string if OUTDIR is not provided
+    String OUTDIR_v = OUTDIR_resolved + "/checkv"  # Append '/checkv' to OUTDIR
+    String OUTDIR_tmp = OUTDIR_v + "/tmp"  # Append '/tmp' to OUTDIR_v
+
     command <<<
+
         if [[ ! -s ~{VIRUS_FASTA} ]]; then
             mkdir -p ~{OUTDIR_v}
             echo "none found" > "~{OUTDIR_v}/quality_summary.tsv"
