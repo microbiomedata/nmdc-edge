@@ -4,11 +4,11 @@
 # at `installation/install.sh`.                                               #
 ###############################################################################
 
-FROM node:16-alpine
+FROM node:20-alpine
 
 # Add metadata to the Docker image.
 # Reference: https://docs.docker.com/engine/reference/builder/#label
-LABEL org.opencontainers.image.description="NMDC EDGE Web App (Node v16)"
+LABEL org.opencontainers.image.description="NMDC EDGE Web App"
 LABEL org.opencontainers.image.source="https://github.com/microbiomedata/nmdc-edge"
 
 # Create an environment variable that contains the web app version identifier.
@@ -41,6 +41,9 @@ ARG GROUP_NAME=webuser
 #
 RUN apk update && apk add \
   zip
+
+# Update npm, itself, to the latest version.
+RUN npm install -g npm@latest
 
 # Install the latest version of PM2 globally (https://github.com/Unitech/pm2).
 RUN npm install -g pm2@latest
@@ -86,7 +89,10 @@ RUN cd webapp/client && npm ci --legacy-peer-deps
 #
 # Build the web app client (i.e. React app).
 #
-RUN cd webapp/client && npm run build
+# Note: Prefix the `npm run build` command with `NODE_OPTIONS=--openssl-legacy-provider`
+#       in order to work around https://github.com/microbiomedata/nmdc-edge/issues/15.
+#
+RUN cd webapp/client && NODE_OPTIONS=--openssl-legacy-provider npm run build
 #
 # Build the web app server (e.g. Express app).
 #
