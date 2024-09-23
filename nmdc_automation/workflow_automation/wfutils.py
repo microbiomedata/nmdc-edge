@@ -361,9 +361,21 @@ class NmdcSchema:
                 self.nmdc_db.metagenome_assembly_set,
                 nmdc.MetagenomeAssembly,
             ),
+            "nmdc:MetatranscriptomeAssembly": (
+                self.nmdc_db.metatranscriptome_assembly_set,
+                nmdc.MetatranscriptomeAssembly,
+            ),
             "nmdc:MetagenomeAnnotationActivity": (
                 self.nmdc_db.metagenome_annotation_activity_set,
                 nmdc.MetagenomeAnnotationActivity,
+            ),
+            "nmdc:MetatranscriptomeAnnotationActivity": (
+                self.nmdc_db.metatranscriptome_annotation_set,
+                nmdc.MetatranscriptomeAnnotationActivity,
+            ),
+            "nmdc:MetatranscriptomeExpressionAnalysis": (
+                self.nmdc_db.metatranscriptome_expression_analysis_set,
+                nmdc.MetatranscriptomeExpressionAnalysis,
             ),
             "nmdc:MagsAnalysisActivity": (
                 self.nmdc_db.mags_activity_set,
