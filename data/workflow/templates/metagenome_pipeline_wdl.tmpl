@@ -68,7 +68,7 @@ workflow main_workflow {
         String  metaAnnotation_opaver_web_path="/expanse/projects/nmdc/edge_app/nmdc-edge/io/opaver_web/data"
         # metaMAGS
         String  metaMAGs_proj
-        File    metaMAGs_contig_file =  metaAssembly_call.contig
+        File    metaMAGs_contig_file = metaAnnotation_call.renamed_fasta
         File    metaMAGs_sam_file = metaAssembly_call.bam
         File    metaMAGs_gff_file = metaAnnotation_call.functional_gff
         File    metaMAGs_proteins_file = metaAnnotation_call.proteins_faa
