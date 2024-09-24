@@ -6,31 +6,19 @@ from time import time
 
 
 @fixture
-def nmdc_api(requests_mock):
-    requests_mock.real_http = True
-    data = {"expires": {"minutes": time()+60},
-            "access_token": "abcd"
-            }
-    requests_mock.post("http://localhost/token", json=data)
-    requests_mock.post("http://localhost/pids/mint", json=["nmdc:abcd"])
-    requests_mock.post("http://localhost/workflows/activities",
-                       json=["nmdc:abcd"])
-
-
-@fixture
-def gold_mapper(nmdc_api):
-    yaml_file = os.path.abspath("./tests/import_test.yaml")
-    test_files = [os.path.abspath("./test_data/test_pfam.gff"),
-                  os.path.abspath("./test_data/test_cog.gff"),
-                  os.path.abspath("./test_data/test_2.tar.gz"),
-                  os.path.abspath("./test_data/test_72.tar.gz")]
-    proj_dir = os.path.abspath("./test_data")
-    site_conf = os.path.abspath("./tests/site_configuration_test.toml")
+def gold_mapper(mock_api, base_test_dir, test_data_dir):
+    yaml_file = base_test_dir / "import_test.yaml"
+    test_files = [test_data_dir / "test_pfam.gff",
+                  test_data_dir / "test_cog.gff",
+                  test_data_dir / "test_2.tar.gz",
+                  test_data_dir / "test_72.tar.gz"]
+    # proj_dir = os.path.abspath("./test_data")
+    site_conf = base_test_dir / "site_configuration_test.toml"
     omics_id = "nmdc:omprc-11-importT"
     root_dir = f"/tmp/{omics_id}"
     if os.path.exists(root_dir):
         shutil.rmtree(root_dir)
-    gm = GoldMapper("1", test_files, omics_id, yaml_file, proj_dir, site_conf)
+    gm = GoldMapper("1", test_files, omics_id, yaml_file, test_data_dir, site_conf)
     gm.root_dir = root_dir
     return gm
 

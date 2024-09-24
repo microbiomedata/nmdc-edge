@@ -23,6 +23,9 @@ _WF_YAML_ENV = "NMDC_WORKFLOW_YAML_FILE"
 #   The Scheduler looks for new jobs to create by examining the 'Activity' object graph that is constructed from
 #   the retrieved WorkflowExecution and DataObject records. This data structure will be somewhat different in the
 #   Berkley schema, so the find_new_jobs method will need to be updated to handle this.
+# configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 @lru_cache
 def get_mongo_db() -> MongoDatabase:
     for k in ["HOST", "USERNAME", "PASSWORD", "DBNAME"]:
@@ -140,7 +143,7 @@ class Scheduler:
                 if not dobj:
                     if k in optional_inputs:
                         continue
-                    raise ValueError(f"Unable to resolve {do_type}")
+                    raise ValueError(f"Unable to find {do_type} in {do_by_type}")
                 inp_objects.append(dobj)
                 v = dobj["url"]
             # TODO: Make this smarter
@@ -288,14 +291,21 @@ class Scheduler:
         """
         This function does a single cycle of looking for new jobs
         """
+        filt = {}
+        if allowlist:
+            filt = {"was_informed_by": {"$in": list(allowlist)}}
         # TODO: Quite a lot happens under the hood here. This function should be broken down into smaller
         #      functions to improve readability and maintainability.
-        acts = load_activities(self.db, self.workflows, allowlist=allowlist)
+        acts = load_activities(self.db, self.workflows, allowlist)
+
         self.get_existing_jobs.cache_clear()
         job_recs = []
         for act in acts:
             if act.was_informed_by in skiplist:
                 logging.debug(f"Skipping: {act.was_informed_by}")
+                continue
+            if not act.workflow.enabled:
+                logging.debug(f"Skipping: {act.id}, workflow disabled.")
                 continue
             jobs = self.find_new_jobs(act)
             for job in jobs:

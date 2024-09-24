@@ -1,27 +1,49 @@
 [
   {
+    "id": "nmdc:wfrqc-11-testmetag1.1",
+    "name": "Read QC Activity for nmdc:wfrqc-11-metag1.1",
+    "started_at_time": "2024-04-11T20:51:15.535533+00:00",
+    "ended_at_time": "2024-04-11T23:39:28.659534+00:00",
+    "was_informed_by": "nmdc:omprc-11-metag1",
+    "execution_resource": "NERSC-Perlmutter",
+    "git_url": "https://github.com/microbiomedata/ReadsQC",
     "has_input": [
-      "nmdc:22afa3d49b73eaec2e9787a6b88fbdc3"
+      "nmdc:dobj-11-rawreads1",
+      "nmdc:dobj-11-rawreads2"
+    ],
+    "type": "nmdc:ReadQcAnalysisActivity",
+    "has_output": [
+      "nmdc:dobj-11-qcstats",
+      "nmdc:dobj-11-qcinfo",
+      "nmdc:dobj-11-filteredreads"
     ],
     "part_of": [
-      "nmdc:mga0vx38"
+      "nmdc:omprc-11-metag1"
     ],
+    "version": "v1.0.8"
+  },
+  {
+    "id": "nmdc:wfrqc-11-testmetat1.1",
+    "name": "Read QC Activity for nmdc:wfrqc-11-metat1.1",
+    "started_at_time": "2024-04-11T20:51:15.535533+00:00",
+    "ended_at_time": "2024-04-11T23:39:28.659534+00:00",
+    "was_informed_by": "nmdc:omprc-11-metat1",
+    "execution_resource": "NERSC-Perlmutter",
     "git_url": "https://github.com/microbiomedata/ReadsQC",
-    "version": "v1.0.7",
-    "has_output": [
-      "nmdc:f107af0a000ec0b90e157fc09473c337",
-      "nmdc:71528f677698dd6657ea7ddcc3105184"
+    "has_input": [
+      "nmdc:dobj-11-rawreads3",
+      "nmdc:dobj-11-rawreads4"
     ],
-    "was_informed_by": "nmdc:omprc-11-nhy4pz43",
-    "input_read_count": 102766230,
-    "output_read_bases": 15235297055,
-    "id": "nmdc:fdefb3fa15098906cf788f5cadf17bb3",
-    "execution_resource": "NERSC-Cori",
-    "input_read_bases": 15517700730,
-    "name": "Read QC Activity for nmdc:mga0vx38",
-    "output_read_count": 101660590,
-    "started_at_time": "2021-08-05T14:48:51+00:00",
-    "type": "nmdc:ReadQCAnalysisActivity",
-    "ended_at_time": "2021-09-15T10:13:20+00:00"
+    "type": "nmdc:ReadQcAnalysisActivity",
+    "has_output": [
+      "nmdc:dobj-11-qcstats1",
+      "nmdc:dobj-11-qcinfo1",
+      "nmdc:dobj-11-filteredreads1",
+      "nmdc:dobj-11-rrnafastq"
+    ],
+    "part_of": [
+      "nmdc:omprc-11-metat1"
+    ],
+    "version": "v1.0.8"
   }
 ]
