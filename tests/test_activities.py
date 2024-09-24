@@ -1,21 +1,17 @@
 from pytest import mark
 
-from nmdc_automation.workflow_automation.activities import (
-    load_activities,
-    get_required_data_objects_map
-)
+from nmdc_automation.workflow_automation.activities import (get_required_data_objects_map, get_workflow_executions,
+                                                            load_activities)
 from nmdc_automation.workflow_automation.workflows import load_workflows
 from tests.fixtures.db_utils import get_updated_fixture, load_fixture, reset_db
 
 
-
 @mark.parametrize(
-    "workflow_file", [
-        "workflows.yaml",
-        "workflows-mt.yaml"])
-def test_activies(test_db, workflow_file, workflows_config_dir):
+    "workflow_file", ["workflows.yaml", "workflows-mt.yaml"]
+)
+def test_load_activies(test_db, workflow_file, workflows_config_dir):
     """
-    Test basic job creation
+    Test
     """
     metatranscriptome = False
     if workflow_file == "workflows-mt.yaml":
@@ -23,36 +19,35 @@ def test_activies(test_db, workflow_file, workflows_config_dir):
 
     reset_db(test_db)
     load_fixture(test_db, "data_object_set.json")
-    load_fixture(test_db, "omics_processing_set.json")
-    load_fixture(test_db, "read_qc_analysis_activity_set.json")
+    load_fixture(test_db, "data_generation_set.json")
+    load_fixture(test_db, "read_qc_analysis.json", "workflow_execution_set")
 
     wfs = load_workflows(workflows_config_dir / workflow_file)
-    for wf in wfs:
-        if not wf.type:
-            continue
-        # TODO: these tests are very sensitive to the exact content of the fixture files - need to be more robust
-        updated_fixtures = get_updated_fixture(wf)
-        if updated_fixtures:
-            test_db[wf.collection].delete_many({})
-            test_db[wf.collection].insert_many(updated_fixtures)
+
+    # these are called by load_activities
+    data_objs_by_id = get_required_data_objects_map(test_db, wfs)
+    wf_execs = get_workflow_executions(test_db, wfs, data_objs_by_id)
+    assert wf_execs
+    assert len(wf_execs) == 2
 
     acts = load_activities(test_db, wfs)
     # sanity check
     assert acts
+    assert len(acts) == 2
 
     # Omics and RQC share data_object_type for metagenome and metatranscriptome
     # they can be distinguished by analyte category so we expect 1 of each
     # for metagenome and metatranscriptome
-    omics = acts[0]
-    assert omics.type == "nmdc:OmicsProcessing"
-    assert len(omics.children) == 1
-    assert omics.children[0].type.lower() == "nmdc:ReadQCAnalysisActivity".lower()
-    rqc = acts[1]
-    assert rqc.type == "nmdc:ReadQcAnalysisActivity"
+    data_gen = [act for act in acts if act.type == "nmdc:NucleotideSequencing"][0]
+    assert data_gen
+    assert data_gen.children
+    assert len(data_gen.children) == 1
+    assert data_gen.children[0].type == "nmdc:ReadQcAnalysis"
+
 
 @mark.parametrize(
     "workflow_file", ["workflows.yaml", "workflows-mt.yaml"]
-    )
+)
 def test_load_workflows(workflows_config_dir, workflow_file):
     """
     Test Workflow object creation
@@ -64,19 +59,13 @@ def test_load_workflows(workflows_config_dir, workflow_file):
     shared_wf_names = ["Sequencing Noninterleaved", "Sequencing Interleaved"]
     if metatranscriptome:
         exp_num_wfs = 9
-        exp_wf_names = ["Metatranscriptome Reads QC",
-                                      "Metatranscriptome Reads QC Interleave",
-                                      "Metatranscriptome Assembly",
-                                      "Metatranscriptome Annotation",
-                                      "Expression Analysis Antisense",
-                                      "Expression Analysis Sense",
-                                      "Expression Analysis Nonstranded",
-                                      ]
+        exp_wf_names = ["Metatranscriptome Reads QC", "Metatranscriptome Reads QC Interleave",
+                        "Metatranscriptome Assembly", "Metatranscriptome Annotation", "Expression Analysis Antisense",
+                        "Expression Analysis Sense", "Expression Analysis Nonstranded", ]
     else:
         exp_num_wfs = 8
-        exp_wf_names = ["Reads QC", "Reads QC Interleave", "Metagenome Assembly",
-                        "Metagenome Annotation", "MAGs", "Readbased Analysis", ]
-
+        exp_wf_names = ["Reads QC", "Reads QC Interleave", "Metagenome Assembly", "Metagenome Annotation", "MAGs",
+                        "Readbased Analysis", ]
 
     wfs = load_workflows(workflows_config_dir / workflow_file)
     assert wfs
@@ -95,26 +84,17 @@ def test_load_workflows(workflows_config_dir, workflow_file):
         assert wf.version is not None
         assert wf.analyte_category is not None
 
+
 @mark.parametrize(
-    "workflow_file", [
-        "workflows.yaml",
-        "workflows-mt.yaml"
-    ]
-    )
+    "workflow_file", ["workflows.yaml", "workflows-mt.yaml"]
+)
 def test_get_required_data_objects_by_id(test_db, workflows_config_dir, workflow_file):
     """
     Test get_required_data_objects_by_id
     """
-    metatranscriptome = False
-    if workflow_file == "workflows-mt.yaml":
-        metatranscriptome = True
-
     # non-comprehensive list of expected data object types
-    exp_do_types = [
-        "Metagenome Raw Read 1", "Metagenome Raw Read 2", "Filtered Sequencing Reads"
-    ]
+    exp_do_types = ["Metagenome Raw Read 1", "Metagenome Raw Read 2", "Filtered Sequencing Reads"]
     # TODO: add workflow specific data objects
-
     reset_db(test_db)
     load_fixture(test_db, "data_object_set.json")
 

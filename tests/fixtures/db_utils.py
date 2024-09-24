@@ -9,15 +9,8 @@ from pathlib import Path
 FIXTURE_DIR = Path(__file__).parent
 COLS = [
     'data_object_set',
-    "omics_processing_set",
-    'mags_activity_set',
-    'metagenome_assembly_set',
-    'metatranscriptome_assembly_set',
-    'jobs',
-    'metagenome_annotation_activity_set',
-    'metatranscriptome_annotation_set',
-    'metatranscriptome_expression_analysis_set',
-    'read_qc_analysis_activity_set'
+    'data_generation_set',
+    'workflow_execution_set',
     ]
 
 

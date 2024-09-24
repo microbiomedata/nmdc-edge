@@ -1,6 +1,6 @@
 import logging
 from functools import lru_cache
-from typing import List
+from typing import List, Optional
 
 from semver.version import Version
 
@@ -90,7 +90,7 @@ def _is_missing_required_input_output(wf, rec, data_objs):
     return not (match_in and match_out)
 
 
-def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, allowlist: set):
+def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, allowlist: Optional[set] = None):
     """
     Fetch the relevant workflow executions from the database for the given workflows.
         1. Get the Data Generation (formerly Omics Processing) objects for the workflows by analyte category.
@@ -100,7 +100,7 @@ def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, a
             - required input and output data objects
     Return the list of Workflow Execution objects.
     """
-    workflow_executions = []
+    workflow_executions = set()
     analyte_category = _determine_analyte_category(workflows)
 
     # We handle the data generation and data processing workflows separately. Data generation workflow executions have an
@@ -109,14 +109,12 @@ def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, a
     dg_workflows = [wf for wf in workflows if wf.collection in ["omics_processing_set", "data_generation_set"]]
     dp_workflows = [wf for wf in workflows if not wf.collection in ["omics_processing_set", "data_generation_set"]]
 
-    # Berkley
-    # workflow_execution_records = db["data_generation_set].find({"analyte_category": analyte_category})
     # default query
-    q = {"omics_type.has_raw_value": {"$regex": analyte_category, "$options": "i"}}
+    q = {"analyte_category": analyte_category}
     # override query with allowlist
     if allowlist:
         q["id"] = {"$in": list(allowlist)}
-    dg_execution_records = db["omics_processing_set"].find(q)
+    dg_execution_records = db["data_generation_set"].find(q)
     # change from cursor to list
     dg_execution_records = list(dg_execution_records)
 
@@ -126,7 +124,8 @@ def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, a
                 continue
             data_generation_ids.add(rec["id"])
             act = Activity(rec, wf)
-            workflow_executions.append(act)
+            act.was_informed_by = rec["id"]
+            workflow_executions.add(act)
 
     for wf in dp_workflows:
         q = {}
@@ -144,9 +143,9 @@ def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, a
                 continue
             if rec["was_informed_by"] in data_generation_ids:
                 act = Activity(rec, wf)
-                workflow_executions.append(act)
+                workflow_executions.add(act)
 
-    return workflow_executions
+    return list(workflow_executions)
 
 
 def _determine_analyte_category(workflows: List[Workflow]) -> str:
@@ -156,7 +155,7 @@ def _determine_analyte_category(workflows: List[Workflow]) -> str:
     elif len(analyte_categories) == 0:
         raise ValueError("No analyte category found")
     analyte_category = analyte_categories.pop()
-    return analyte_category
+    return analyte_category.lower()
 
 
 # TODO: Make public, give a better name, add type hints and unit tests.
