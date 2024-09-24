@@ -92,7 +92,6 @@ Workflows:
     Version: v1.0.7
     Collection: workflow_execution_set
     WDL: make_interleave_reads.wdl
-    Input_prefix: make_interleaved_reads
     Inputs:
       proj: "{activity_id}"
       input_file_1: do:Metagenome Raw Read 1
@@ -296,7 +295,6 @@ Workflows:
     Type: nmdc:MAGsAnalysis
     Enabled: True
     Git_repo: https://github.com/microbiomedata/mg_annotation
-    Git_repo: https://github.com/microbiomedata/metaMAGs
     Version: v1.0.6
     WDL: mbin_nmdc.wdl
     Collection: workflow_execution_set

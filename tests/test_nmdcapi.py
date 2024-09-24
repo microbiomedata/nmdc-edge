@@ -1,23 +1,10 @@
 from nmdc_automation.api.nmdcapi import NmdcRuntimeApi as nmdcapi
-import pytest
 import json
 import os
-from time import time
 
 
-@pytest.fixture
-def mock_api(monkeypatch, requests_mock):
-    monkeypatch.setenv("NMDC_API_URL", "http://localhost")
-    monkeypatch.setenv("NMDC_CLIENT_ID", "anid")
-    monkeypatch.setenv("NMDC_CLIENT_SECRET", "asecret")
-    resp = {"expires": {"minutes": time()+60},
-            "access_token": "abcd"
-            }
-    requests_mock.post("http://localhost/token", json=resp)
-
-
-def test_basics(mock_api, requests_mock):
-    n = nmdcapi("./tests/site_configuration_test.toml")
+def test_basics(mock_api, requests_mock, site_config):
+    n = nmdcapi(site_config)
 
     # Add decode description
     resp = {'description': '{"a": "b"}'}
@@ -27,19 +14,19 @@ def test_basics(mock_api, requests_mock):
     assert "metadata" in resp
 
 
-def test_objects(mock_api, requests_mock):
-    n = nmdcapi("./tests/site_configuration_test.toml")
+def test_objects(mock_api, requests_mock, site_config, test_data_dir):
+    n = nmdcapi(site_config)
 
     requests_mock.post("http://localhost/objects", json={})
     fn = "./test_data/afile.sha256"
     if os.path.exists(fn):
         os.remove(fn)
+    afile = test_data_dir / "afile"
+    resp = n.create_object(str(afile), "desc", "http://localhost/")
+    # assert "checksums" in resp
     resp = n.create_object("./test_data/afile", "desc", "http://localhost/")
     # assert "checksums" in resp
-
-    resp = n.create_object("./test_data/afile", "desc", "http://localhost/")
-    # assert "checksums" in resp
-    url = "http://localhost/workflows/activities"
+    url = "http://localhost/workflows/workflow_executions"
     requests_mock.post(url, json={"a": "b"})
     resp = n.post_objects({"a": "b"})
     assert "a" in resp
@@ -52,9 +39,9 @@ def test_objects(mock_api, requests_mock):
     assert "a" in resp
 
 
-def test_list_funcs(mock_api, requests_mock):
-    n = nmdcapi("./tests/site_configuration_test.toml")
-    mock_resp = json.load(open("./test_data/mock_jobs.json"))
+def test_list_funcs(mock_api, requests_mock, site_config, test_data_dir):
+    n = nmdcapi(site_config)
+    mock_resp = json.load(open(test_data_dir / "mock_jobs.json"))
 
     # TODO: ccheck the full url
     requests_mock.get("http://localhost/jobs", json=mock_resp)
@@ -70,8 +57,8 @@ def test_list_funcs(mock_api, requests_mock):
     assert resp is not None
 
 
-def test_update_op(mock_api, requests_mock):
-    n = nmdcapi("./tests/site_configuration_test.toml")
+def test_update_op(mock_api, requests_mock, site_config):
+    n = nmdcapi(site_config)
 
     mock_resp = {'metadata': {"b": "c"}}
 
@@ -84,8 +71,8 @@ def test_update_op(mock_api, requests_mock):
     assert "b" in resp["metadata"]
 
 
-def test_jobs(mock_api, requests_mock):
-    n = nmdcapi("./tests/site_configuration_test.toml")
+def test_jobs(mock_api, requests_mock, site_config):
+    n = nmdcapi(site_config)
 
     requests_mock.get("http://localhost/jobs/abc", json="jobs/")
     resp = n.get_job("abc")

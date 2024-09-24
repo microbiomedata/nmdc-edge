@@ -1,12 +1,16 @@
 import os
+from pathlib import Path
 import re
 import logging
 import datetime
 import pytz
 import json
 import yaml
-from typing import List, Dict, Callable, Tuple
+
+from typing import List, Dict, Union, Tuple
 from nmdc_schema import nmdc
+
+
 from linkml_runtime.dumpers import json_dumper
 from nmdc_automation.api import NmdcRuntimeApi
 from .utils import object_action, file_link, get_md5, filter_import_by_type
@@ -18,11 +22,11 @@ class GoldMapper:
     def __init__(
         self,
         iteration,
-        file_list: List[str],
+        file_list: List[Union[str, Path]],
         omics_id: str,
-        yaml_file: str,
-        project_directory: str,
-        site_config_file: str,
+        yaml_file: Union[str, Path],
+        project_directory: Union[str, Path],
+        site_config_file: Union[str, Path],
     ):
         """
         Initialize the GoldMapper object.
@@ -70,6 +74,7 @@ class GoldMapper:
             ):
                 continue
             for file in self.file_list:
+                file = str(file)
                 if data_object_dict is None:
                     continue
                 elif "import_suffix" not in data_object_dict:
@@ -129,6 +134,7 @@ class GoldMapper:
 
         for data_object_dict in self.import_data["Data Objects"]["Multiples"]:
             for file in self.file_list:
+                file = str(file)
                 if re.search(data_object_dict["import_suffix"], file):
                     multiple_objects_list.append(file)
 
