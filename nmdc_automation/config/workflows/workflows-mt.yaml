@@ -1,6 +1,6 @@
 Workflows:
   - Name: Sequencing Noninterleaved
-    Collection: omics_processing_set
+    Collection: data_generation_set
     Enabled: True
     Analyte Category: Metatranscriptome
     Filter Output Objects:
@@ -8,20 +8,20 @@ Workflows:
     - Metagenome Raw Read 2
 
   - Name: Sequencing Interleaved
-    Collection: omics_processing_set
+    Collection: data_generation_set
     Enabled: True
     Analyte Category: Metatranscriptome
     Filter Output Objects:
     - Metagenome Raw Reads
 
   - Name: Metatranscriptome Reads QC
-    Type: nmdc:ReadQcAnalysisActivity
+    Type: nmdc:ReadQcAnalysis
     Enabled: True
     Analyte Category: Metatranscriptome
     Git_repo: https://github.com/microbiomedata/metaT_ReadsQC
     Version: v0.0.7
     WDL: rqcfilter.wdl
-    Collection: read_qc_analysis_activity_set
+    Collection: workflow_execution_set
     Filter Input Objects:
     - Metagenome Raw Reads
     Predecessors:
@@ -30,14 +30,14 @@ Workflows:
     Input_prefix: nmdc_rqcfilter
     Inputs:
       input_files: do:Metagenome Raw Reads
-      proj: "{activity_id}"
-    Activity:
-      name: "Read QC Activity for {id}"
+      proj: "{workflow_execution_id}"
+    Workflow_Execution:
+      name: "Read QC for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
       input_read_count: "{outputs.stats.input_read_count}"
       output_read_bases: "{outputs.stats.output_read_bases}"
       output_read_count: "{outputs.stats.output_read_count}"
-      type: nmdc:ReadQcAnalysisActivity
+      type: nmdc:ReadQcAnalysis
     Outputs:
       - output: filtered_final
         name: Reads QC result fastq (clean data)
@@ -57,16 +57,16 @@ Workflows:
         description: "rRNA fastq for {id}"
 
   - Name: Metatranscriptome Reads QC Interleave
-    Type: nmdc:ReadQcAnalysisActivity
+    Type: nmdc:ReadQcAnalysis
     Enabled: True
     Analyte Category: Metatranscriptome
     Git_repo: https://github.com/microbiomedata/metaT_ReadsQC
-    Version: v0.0.7
-    Collection: read_qc_analysis_activity_set
+    Version: v0.0.3
+    Collection: workflow_execution_set
     WDL: interleave_rqcfilter.wdl
     Input_prefix: nmdc_rqcfilter
     Inputs:
-      proj: "{activity_id}"
+      proj: "{workflow_execution_id}"
       input_fastq1: do:Metagenome Raw Read 1
       input_fastq2: do:Metagenome Raw Read 2
     Filter Input Objects:
@@ -74,13 +74,13 @@ Workflows:
     - Metagenome Raw Read 2
     Predecessors:
     - Sequencing Noninterleaved
-    Activity:
-      name: "Read QC Activity for {id}"
+    Workflow_Execution:
+      name: "Read QC for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
       input_read_count: "{outputs.stats.input_read_count}"
       output_read_bases: "{outputs.stats.output_read_bases}"
       output_read_count: "{outputs.stats.output_read_count}"
-      type: nmdc:ReadQcAnalysisActivity
+      type: nmdc:ReadQcAnalysis
     Outputs:
       - output: filtered_final
         name: Reads QC result fastq (clean data)
@@ -113,9 +113,9 @@ Workflows:
     Input_prefix: jgi_metaASM
     Inputs:
       input_files: do:Filtered Sequencing Reads
-      proj: "{activity_id}"
-    Activity:
-      name: "Metatranscriptome Assembly Activity for {id}"
+      proj: "{workflow_execution_id}"
+    Workflow_Execution:
+      name: "Metatranscriptome Assembly for {id}"
       type: nmdc:MetatranscriptomeAssembly
       asm_score: "{outputs.stats.asm_score}"
       contig_bp: "{outputs.stats.contig_bp}"
@@ -153,23 +153,23 @@ Workflows:
         description: "Alignment index file for {id}" 
 
   - Name: Metatranscriptome Annotation
-    Type: nmdc:MetatranscriptomeAnnotationActivity
+    Type: nmdc:MetatranscriptomeAnnotation
     Enabled: True
     Analyte Category: Metatranscriptome
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Version: v1.1.4
     WDL: annotation_full.wdl
-    Collection: metatranscriptome_annotation_set
+    Collection: workflow_execution_set
     Predecessors:
     - Metatranscriptome Assembly
     Input_prefix: annotation
     Inputs:
       input_file: do:Assembly Contigs
       imgap_project_id: "scaffold"
-      proj: "{activity_id}"
-    Activity:
-      name: "Metatranscriptome Annotation Analysis Activity for {id}"
-      type: nmdc:MetatranscriptomeAnnotationActivity
+      proj: "{workflow_execution_id}"
+    Workflow_Execution:
+      name: "Metatranscriptome Annotation Analysis for {id}"
+      type: nmdc:MetatranscriptomeAnnotation
     Outputs:
       - output: proteins_faa
         data_object_type: Annotation Amino Acid FASTA
@@ -282,7 +282,7 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/metaT_ReadCounts
     Version: v0.0.5
     WDL: readcount.wdl
-    Collection: metatranscriptome_expression_analysis_set
+    Collection: workflow_execution_set
     Predecessors:
     - Metatranscriptome Annotation
     Input_prefix: nmdc_expression
@@ -291,8 +291,8 @@ Workflows:
       map: do:Contig Mapping File
       bam: do:Assembly Coverage BAM
       rna_type: "aRNA"
-      proj: "{activity_id}"
-    Activity:
+      proj: "{workflow_execution_id}"
+    Workflow_Execution:
       name: "Metatranscriptome Expression Analysis for {id}"
       type: nmdc:MetatranscriptomeExpressionAnalysis
     Outputs:
@@ -312,7 +312,7 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/metaT_ReadCounts
     Version: v0.0.5
     WDL: readcount.wdl
-    Collection: metatranscriptome_expression_analysis_set
+    Collection: workflow_execution_set
     Predecessors:
     - Metatranscriptome Annotation
     Input_prefix: nmdc_expression
@@ -320,8 +320,8 @@ Workflows:
       gff_file: do:Functional Annotation GFF
       map: do:Contig Mapping File
       bam: do:Assembly Coverage BAM
-      proj: "{activity_id}"
-    Activity:
+      proj: "{workflow_execution_id}"
+    Workflow_Execution:
       name: "Metatranscriptome Expression Analysis for {id}"
       type: nmdc:MetatranscriptomeExpressionAnalysis
     Outputs:
@@ -341,7 +341,7 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/metaT_ReadCounts
     Version: v0.0.5
     WDL: readcount.wdl
-    Collection: metatranscriptome_expression_analysis_set
+    Collection: workflow_execution_set
     Predecessors:
     - Metatranscriptome Annotation
     Input_prefix: nmdc_expression
@@ -350,8 +350,8 @@ Workflows:
       map: do:Contig Mapping File
       bam: do:Assembly Coverage BAM
       rna_type: "non_stranded_RNA"
-      proj: "{activity_id}"
-    Activity:
+      proj: "{workflow_execution_id}"
+    Workflow_Execution:
       name: "Metatranscriptome Expression Analysis for {id}"
       type: nmdc:MetatranscriptomeExpressionAnalysis
     Outputs:

@@ -2,12 +2,72 @@ from nmdc_automation.workflow_automation.sched import Scheduler
 from pytest import fixture, mark
 from pathlib import Path
 from time import time
+import os
+import json
+import logging
 
 from tests.fixtures.db_utils import init_test, load_fixture, read_json, reset_db
 
 TRIGGER_SET = 'metagenome_annotation_activity_set'
 TRIGGER_ID = 'nmdc:55a79b5dd58771e28686665e3c3faa0c'
 TRIGGER_DOID = 'nmdc:1d87115c442a1f83190ae47c7fe4011f'
+trigger_set = 'metagenome_annotation_activity_set'
+trigger_id = 'nmdc:55a79b5dd58771e28686665e3c3faa0c'
+trigger_doid = 'nmdc:1d87115c442a1f83190ae47c7fe4011f'
+cols = [
+    'data_object_set',
+    "data_generation_set",
+    'mags_activity_set',
+    'metagenome_assembly_set',
+    'jobs',
+    'metagenome_annotation_activity_set',
+    'read_qc_analysis_activity_set'
+    ]
+
+FIXTURE_DIR = Path(__file__).parent / "fixtures"
+
+
+@fixture
+def mock_api(monkeypatch, requests_mock):
+    monkeypatch.setenv("NMDC_API_URL", "http://localhost")
+    monkeypatch.setenv("NMDC_CLIENT_ID", "anid")
+    monkeypatch.setenv("NMDC_CLIENT_SECRET", "asecret")
+    resp = {"expires": {"minutes": time()+60},
+            "access_token": "abcd"
+            }
+    requests_mock.post("http://localhost/token", json=resp)
+    resp = ["nmdc:abcd"]
+    requests_mock.post("http://localhost/pids/mint", json=resp)
+    resp = ["nmdc:abcd"]
+    requests_mock.post("http://localhost/pids/bind", json=resp)
+
+
+def read_json(fn):
+    fp = os.path.join(FIXTURE_DIR, fn)
+    data = json.load(open(fp))
+    return data
+
+
+def load(db, fn, col=None, reset=False):
+    if not col:
+        col = fn.split("/")[-1].split(".")[0]
+    if reset:
+        db[col].delete_many({})
+    data = read_json(fn)
+    logging.debug("Loading %d recs into %s" % (len(data), col))
+    if len(data) > 0:
+        db[col].insert_many(data)
+
+
+def reset_db(db):
+    for c in cols:
+        db[c].delete_many({})
+
+
+def init_test(db):
+    for col in cols:
+        fn = '%s.json' % (col)
+        load(db, fn, reset=True)
 
 
 def mock_progress(test_db, wf, version=None, flush=True, idx=0):
@@ -75,6 +135,7 @@ def test_progress(test_db, mock_api, workflow_file, workflows_config_dir, site_c
     load_fixture(test_db, "omics_processing_set.json")
 
 
+
     jm = Scheduler(test_db, wfn=workflows_config_dir / workflow_file,
                    site_conf= site_config)
     workflow_by_name = dict()
@@ -100,7 +161,6 @@ def test_progress(test_db, mock_api, workflow_file, workflows_config_dir, site_c
         # assembly, rba
         exp_num_post_rqc_jobs = 2
     assert len(resp) == exp_num_post_rqc_jobs
-
 
     if metatranscriptome:
         wf = workflow_by_name['Metatranscriptome Assembly']
@@ -230,7 +290,6 @@ def test_type_resolving(test_db, mock_api, workflows_config_dir, site_config):
     different activity types.  The desired behavior is to
     use the first match.
     """
-
     init_test(test_db)
     reset_db(test_db)
     test_db.jobs.delete_many({})
@@ -250,11 +309,6 @@ def test_type_resolving(test_db, mock_api, workflows_config_dir, site_config):
     mock_progress(test_db, wf)
 
     resp = jm.cycle()
-    # TODO: This is retruning 4 instead of 2.  Need to investigate
-    #   Returns:
-    #       Readbased Analysis v1.0.5 for metagenome
-    #       Readbased Analysis v1.0.5 for metatranscriptome
-    #       Metagenome Assembly for metatranscriptome
-    #       MAGs Analysis for metagenome
-    # assert len(resp) == 2
 
+    assert len(resp) == 2
+    assert 'annotation' in resp[1]['config']['inputs']['contig_file']

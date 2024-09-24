@@ -3,9 +3,6 @@
     "has_input": [
       "nmdc:dobj-11-filteredreads"
     ],
-    "part_of": [
-      "nmdc:omprc-11-metag1"
-    ],
     "scaf_N50": 302542,
     "ctg_logsum": 5909271,
     "ctg_N90": 1315235,

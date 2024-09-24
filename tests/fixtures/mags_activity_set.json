@@ -1,45 +1,25 @@
 [
   {
     "has_input": [
-      "nmdc:dobj-11-contigs",
-      "nmdc:dobj-11-functional",
-      "nmdc:dobj-11-funfam",
-      "nmdc:dobj-11-superfam",
-      "nmdc:dobj-11-cogs",
-      "nmdc:dobj-11-pfam",
-      "nmdc:dobj-11-productnames",
-      "nmdc:dobj-11-tigrfam",
-      "nmdc:dobj-11-ec",
-      "nmdc:dobj-11-kegg",
-      "nmdc:dobj-11-scaffoldlineage",
-      "nmdc:dobj-11-coverbam",
-      "nmdc:dobj-11-smart",
-      "nmdc:dobj-11-proteinsfaa",
-      "nmdc:dobj-11-contigmapping",
-      "nmdc:dobj-11-genephylo"
+      "nmdc:37573bca240f88091720ae61ae5c9452",
+      "nmdc:da186671c5a581af0a7d195bd857c871",
+      "nmdc:4d41794368ed796500bb6d2c82a6787a"
     ],
-    "part_of": [
-      "nmdc:omprc-11-metag1"
-    ],
-    "git_url": "https://github.com/microbiomedata/metaMAGs",
-    "version": "v1.1.0",
+    "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
     "has_output": [
-      "nmdc:dobj-11-bacsummary",
-      "nmdc:dobj-11-lqbin",
-      "nmdc:dobj-11-hqmqbin",
-      "nmdc:dobj-11-arsummary",
-      "nmdc:dobj-11-checkm",
-      "nmdc:dobj-11-bininfo",
-      "nmdc:dobj-11-heatmap",
-      "nmdc:dobj-11-krona",
-      "nmdc:dobj-11-barplot"
+      "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+      "nmdc:38f5521b558377503f6e9a635998dd37",
+      "nmdc:cf96331e23aa34224990105374272877",
+      "nmdc:4d12e1cab7ee7e72ea48151dfc0354c6",
+      "nmdc:52309bf9398a5b0c401e1e23f5e414df",
+      "nmdc:77b1712067645b362aee53aad59000e2"
     ],
-    "was_informed_by": "nmdc:omprc-11-metag1",
-    "id": "nmdc:wfmags-11-metag1.1",
+    "was_informed_by": "nmdc:omprc-11-nhy4pz43",
+    "id": "nmdc:fdefb3fa15098906cf788f5cadf17bb3",
     "execution_resource": "NERSC-Cori",
-    "name": "MAGs Analysis Activity for nmdc:omprc-11-metag1",
+    "name": "MAGs Analysis Activity for nmdc:mga0vx38",
     "started_at_time": "2021-08-05T14:48:51+00:00",
-    "type": "nmdc:MAGsAnalysisActivity",
+    "type": "nmdc:MAGsAnalysis",
     "ended_at_time": "2021-09-15T10:13:20+00:00"
   }
 ]

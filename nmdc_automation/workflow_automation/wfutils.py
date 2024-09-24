@@ -327,7 +327,6 @@ class NmdcSchema:
                 name=activity_name,
                 git_url=workflow["git_repo"],
                 version=workflow["release"],
-                part_of=[omic_id],
                 execution_resource=resource,
                 started_at_time=start_time,
                 has_input=has_inputs_list,
@@ -345,41 +344,30 @@ class NmdcSchema:
         """
 
         activity_store_dict = {
+            #TODO deprecate MetagenomeSequencing
             "nmdc:MetagenomeSequencing": (
-                self.nmdc_db.metagenome_sequencing_activity_set,
-                nmdc.MetagenomeSequencingActivity,
+                self.nmdc_db.workflow_execution_set,
+                nmdc.MetagenomeSequencing,
             ),
-            "nmdc:ReadQcAnalysisActivity": (
-                self.nmdc_db.read_qc_analysis_activity_set,
-                nmdc.ReadQcAnalysisActivity,
+            "nmdc:ReadQcAnalysis": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.ReadQcAnalysis,
             ),
-            "nmdc:ReadBasedTaxonomyAnalysisActivity": (
-                self.nmdc_db.read_based_taxonomy_analysis_activity_set,
-                nmdc.ReadBasedTaxonomyAnalysisActivity,
+            "nmdc:ReadBasedTaxonomyAnalysis": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.ReadBasedTaxonomyAnalysis,
             ),
             "nmdc:MetagenomeAssembly": (
-                self.nmdc_db.metagenome_assembly_set,
+                self.nmdc_db.workflow_execution_set,
                 nmdc.MetagenomeAssembly,
             ),
-            "nmdc:MetatranscriptomeAssembly": (
-                self.nmdc_db.metatranscriptome_assembly_set,
-                nmdc.MetatranscriptomeAssembly,
+            "nmdc:MetagenomeAnnotation": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.MetagenomeAnnotation,
             ),
-            "nmdc:MetagenomeAnnotationActivity": (
-                self.nmdc_db.metagenome_annotation_activity_set,
-                nmdc.MetagenomeAnnotationActivity,
-            ),
-            "nmdc:MetatranscriptomeAnnotationActivity": (
-                self.nmdc_db.metatranscriptome_annotation_set,
-                nmdc.MetatranscriptomeAnnotationActivity,
-            ),
-            "nmdc:MetatranscriptomeExpressionAnalysis": (
-                self.nmdc_db.metatranscriptome_expression_analysis_set,
-                nmdc.MetatranscriptomeExpressionAnalysis,
-            ),
-            "nmdc:MagsAnalysisActivity": (
-                self.nmdc_db.mags_activity_set,
-                nmdc.MagsAnalysisActivity,
+            "nmdc:MagsAnalysis": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.MagsAnalysis,
             ),
         }
 

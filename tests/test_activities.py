@@ -8,12 +8,11 @@ from nmdc_automation.workflow_automation.workflows import load_workflows
 from tests.fixtures.db_utils import get_updated_fixture, load_fixture, reset_db
 
 
+
 @mark.parametrize(
     "workflow_file", [
         "workflows.yaml",
-        "workflows-mt.yaml"
-    ]
-    )
+        "workflows-mt.yaml"])
 def test_activies(test_db, workflow_file, workflows_config_dir):
     """
     Test basic job creation
@@ -130,4 +129,3 @@ def test_get_required_data_objects_by_id(test_db, workflows_config_dir, workflow
     # check that the expected data object types are present
     for do_type in exp_do_types:
         assert do_type in do_types
-

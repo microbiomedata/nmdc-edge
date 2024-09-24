@@ -5,9 +5,6 @@
       "nmdc:da186671c5a581af0a7d195bd857c871",
       "nmdc:4d41794368ed796500bb6d2c82a6787a"
     ],
-    "part_of": [
-      "nmdc:mga0vx38"
-    ],
     "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
     "has_output": [
       "nmdc:d41d8cd98f00b204e9800998ecf8427e",
@@ -22,7 +19,7 @@
     "execution_resource": "NERSC-Cori",
     "name": "MAGs Analysis Activity for nmdc:mga0vx38",
     "started_at_time": "2021-08-05T14:48:51+00:00",
-    "type": "nmdc:MAGsAnalysisActivity",
+    "type": "nmdc:MAGsAnalysis",
     "ended_at_time": "2021-09-15T10:13:20+00:00"
   }
 ]
