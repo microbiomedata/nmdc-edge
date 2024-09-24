@@ -101,8 +101,6 @@
     "id": "nmdc:dobj-11-scaffoldlineage",
     "name": "nmdc_wfmgan-11-wdx72h27.1_scaffold_lineage.tsv",
     "description": "Scaffold Lineage tsv for nmdc:wfmgan-11-wdx72h27.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "784b9fb9bc77c00107a51131362f04f9",
     "data_object_type": "Scaffold Lineage tsv",
@@ -113,7 +111,6 @@
     "id": "nmdc:dobj-11-proteinsfaa",
     "name": "FASTA amino acid file for annotated proteins",
     "description": "FASTA Amino Acid File for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [],
     "file_size_bytes": 123456,
     "md5_checksum": "a8c59594447d0bb75a8076f40a82d7ee",
     "data_object_type": "Annotation Amino Acid FASTA",
@@ -124,8 +121,6 @@
     "id": "nmdc:dobj-11-tigrfam",
     "name": "GFF3 format file with TIGRfam",
     "description": "TIGRFam for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "1ca1300284ed3cc067f01453e3ad0283",
     "data_object_type": "TIGRFam Annotation GFF",
@@ -136,8 +131,6 @@
     "id": "nmdc:dobj-11-funfam",
     "name": "GFF3 format file with CATH FunFams",
     "description": "CATH FunFams for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "9b50f4199051c5ea157ec14ceca13ca3",
     "data_object_type": "CATH FunFams (Functional Families) Annotation GFF",
@@ -148,8 +141,6 @@
     "id": "nmdc:dobj-11-functional",
     "name": "GFF3 format file with functional annotations",
     "description": "Functional Annotation for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "7b357f155d7239fc5deee7fe97bd45e9",
     "data_object_type": "Functional Annotation GFF",
@@ -160,8 +151,6 @@
     "id": "nmdc:dobj-11-supfam",
     "name": "GFF3 format file with SUPERFam",
     "description": "SUPERFam Annotations for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "f77441258769e8ed8e2525349ee66975",
     "data_object_type": "SUPERFam Annotation GFF",
@@ -172,8 +161,6 @@
     "id": "nmdc:dobj-11-genephylo",
     "name": "Gene Phylogeny tsv",
     "description": "Gene Phylogeny tsv for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "d91ae0035d24b15f6a043abaaa4bf446",
     "data_object_type": "Gene Phylogeny tsv",
@@ -184,8 +171,6 @@
     "id": "nmdc:dobj-11-rfam",
     "name": "GFF3 format file with RFAM",
     "description": "RFAM Annotations for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "3792dacaa08a4cd60b87989c0d3bffb1",
     "data_object_type": "RFAM Annotation GFF",
@@ -196,8 +181,6 @@
     "id": "nmdc:dobj-11-trna",
     "name": "GFF3 format file with TRNA",
     "description": "TRNA Annotations for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "44d16feb83187a9088c5b807148b9418",
     "data_object_type": "TRNA Annotation GFF",
@@ -208,8 +191,6 @@
     "id": "nmdc:dobj-11-crt",
     "name": "GFF3 format file with CRT",
     "description": "CRT Annotations for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "7c1dad9e6aec2abb8c11e0e76cf9f8b0",
     "data_object_type": "CRT Annotation GFF",
@@ -220,8 +201,6 @@
     "id": "nmdc:dobj-11-prodigal",
     "name": "GFF3 format file with Prodigal",
     "description": "Prodigal Annotations for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "318fc98aca68b8cee8296a04016eccf6",
     "data_object_type": "Prodigal Annotation GFF",
@@ -232,8 +211,6 @@
     "id": "nmdc:dobj-11-smart",
     "name": "GFF3 format file with SMART",
     "description": "SMART Annotations for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "701b5315d13264788fd732cf4e143c25",
     "data_object_type": "SMART Annotation GFF",
@@ -244,8 +221,6 @@
     "id": "nmdc:dobj-11-genemark",
     "name": "GFF3 format file with Genemark",
     "description": "Genemark Annotations for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "34949f6cdd1a70b6fda9c3d3ed258eb3",
     "data_object_type": "Genemark Annotation GFF",
@@ -256,8 +231,6 @@
     "id": "nmdc:dobj-11-structural",
     "name": "GFF3 format file with structural annotations",
     "description": "Structural Annotation for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "cf0048b0dc658c665d95b9e2607407e2",
     "data_object_type": "Structural Annotation GFF",
@@ -268,8 +241,6 @@
     "id": "nmdc:dobj-11-cogs",
     "name": "GFF3 format file with COGs",
     "description": "COGs for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "c0835e4fe7defa74a94e5a4c07807171",
     "data_object_type": "Clusters of Orthologous Groups (COG) Annotation GFF",
@@ -280,8 +251,6 @@
     "id": "nmdc:dobj-11-crispr",
     "name": "Crispr Terms",
     "description": "Crispr Terms for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "5e08898f9297e60e64ba87883a36e085",
     "data_object_type": "Crispr Terms",
@@ -292,8 +261,6 @@
     "id": "nmdc:dobj-11-ec",
     "name": "Tab delimited file for EC annotation",
     "description": "EC Annotations for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "b3ca20a42a9a084ccf04a3a55e59cbe4",
     "data_object_type": "Annotation Enzyme Commission",
@@ -304,8 +271,6 @@
     "id": "nmdc:dobj-11-koec",
     "name": "GFF3 format file with KO_EC",
     "description": "KO_EC Annotations for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "0df311e3e813d8c491f95df41fa3f0f2",
     "data_object_type": "KO_EC Annotation GFF",
@@ -316,8 +281,6 @@
     "id": "nmdc:dobj-11-kegg",
     "name": "Tab delimited file for KO annotation",
     "description": "KEGG Orthology for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "bc6bd72d77bd2cefcbe122bdb23ebd74",
     "data_object_type": "Annotation KEGG Orthology",
@@ -328,8 +291,6 @@
     "id": "nmdc:dobj-11-pfam",
     "name": "GFF3 format file with Pfam",
     "description": "Pfam Annotation for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "b556ca8e495b58ed4e445a24108226cc",
     "data_object_type": "Pfam Annotation GFF",
@@ -340,8 +301,6 @@
     "id": "nmdc:dobj-11-productnames",
     "name": "Product names file",
     "description": "Product names for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "846de5ba7a51d263718712a1a8a734b4",
     "data_object_type": "Product Names",
@@ -352,8 +311,6 @@
     "id": "nmdc:dobj-11-miscgff",
     "name": "GFF3 format file with Misc",
     "description": "Misc Annotations for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "ef10a172d2b03ad799406c50493bb224",
     "data_object_type": "Misc Annotation GFF",
@@ -364,8 +321,6 @@
     "id": "nmdc:dobj-11-annotationinfo",
     "name": "File containing annotation info",
     "description": "Annotation Info File for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "01927890b19c724820024e147677dff3",
     "data_object_type": "Annotation Info File",
@@ -376,8 +331,6 @@
     "id": "nmdc:dobj-11-annotationstats",
     "name": "Annotation statistics report",
     "description": "Annotation Stats for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "dc58fb1e9b8f689ec9c22b8548110197",
     "data_object_type": "Annotation Statistics",
@@ -388,8 +341,6 @@
     "id": "nmdc:dobj-11-tmrna",
     "name": "GFF3 format file with TMRNA",
     "description": "TMRNA Annotations for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "64d8daa393cee5541bc22f17f3032200",
     "data_object_type": "TMRNA Annotation GFF",
@@ -400,8 +351,6 @@
     "id": "nmdc:dobj-11-contigmapping",
     "name": "Contig mappings between contigs and scaffolds",
     "description": "Contig Mapping File for nmdc:wfmgan-11-metag.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "3e3464e36c331ab26d17930b5965b25f",
     "data_object_type": "Contig Mapping File",
@@ -612,7 +561,6 @@
     "id": "nmdc:dobj-11-proteinst1faa",
     "name": "FASTA amino acid file for annotated proteins",
     "description": "FASTA Amino Acid File for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [],
     "file_size_bytes": 123456,
     "md5_checksum": "a8c59594447d0bb75a8076f40a82d7ee",
     "data_object_type": "Annotation Amino Acid FASTA",
@@ -623,8 +571,6 @@
     "id": "nmdc:dobj-11-tigrfamt1",
     "name": "GFF3 format file with TIGRfam",
     "description": "TIGRFam for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "1ca1300284ed3cc067f01453e3ad0283",
     "data_object_type": "TIGRFam Annotation GFF",
@@ -635,8 +581,6 @@
     "id": "nmdc:dobj-11-funfamt1",
     "name": "GFF3 format file with CATH FunFams",
     "description": "CATH FunFams for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "9b50f4199051c5ea157ec14ceca13ca3",
     "data_object_type": "CATH FunFams (Functional Families) Annotation GFF",
@@ -647,8 +591,6 @@
     "id": "nmdc:dobj-11-structuralt1",
     "name": "GFF3 format file with structural annotations",
     "description": "Structural Annotation for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "cf0048b0dc658c665d95b9e2607407e2",
     "data_object_type": "Structural Annotation GFF",
@@ -659,8 +601,6 @@
     "id": "nmdc:dobj-11-functionalt1",
     "name": "GFF3 format file with functional annotations",
     "description": "Functional Annotation for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "7b357f155d7239fc5deee7fe97bd45e9",
     "data_object_type": "Functional Annotation GFF",
@@ -671,8 +611,6 @@
     "id": "nmdc:dobj-11-keggt1",
     "name": "Tab delimited file for KO annotation",
     "description": "KEGG Orthology for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "bc6bd72d77bd2cefcbe122bdb23ebd74",
     "data_object_type": "Annotation KEGG Orthology",
@@ -683,8 +621,6 @@
     "id": "nmdc:dobj-11-ect1",
     "name": "Tab delimited file for EC annotation",
     "description": "EC Annotations for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "b3ca20a42a9a084ccf04a3a55e59cbe4",
     "data_object_type": "Annotation Enzyme Commission",
@@ -695,8 +631,6 @@
     "id": "nmdc:dobj-11-scaffoldlineaget1",
     "name": "nmdc_wfmtan-11-metat.1_scaffold_lineage.tsv",
     "description": "Scaffold Lineage tsv for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "784b9fb9bc77c00107a51131362f04f9",
     "data_object_type": "Scaffold Lineage tsv",
@@ -707,8 +641,6 @@
     "id": "nmdc:dobj-11-cogst1",
     "name": "GFF3 format file with COGs",
     "description": "COGs for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "c0835e4fe7defa74a94e5a4c07807171",
     "data_object_type": "Clusters of Orthologous Groups (COG) Annotation GFF",
@@ -719,8 +651,6 @@
     "id": "nmdc:dobj-11-pfamt1",
     "name": "GFF3 format file with Pfam",
     "description": "Pfam Annotation for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "b556ca8e495b58ed4e445a24108226cc",
     "data_object_type": "Pfam Annotation GFF",
@@ -731,8 +661,6 @@
     "id": "nmdc:dobj-11-smartt1",
     "name": "GFF3 format file with SMART",
     "description": "SMART Annotations for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "701b5315d13264788fd732cf4e143c25",
     "data_object_type": "SMART Annotation GFF",
@@ -743,8 +671,6 @@
     "id": "nmdc:dobj-11-supfamt1",
     "name": "GFF3 format file with SUPERFam",
     "description": "SUPERFam Annotations for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "f77441258769e8ed8e2525349ee66975",
     "data_object_type": "SUPERFam Annotation GFF",
@@ -755,8 +681,6 @@
     "id": "nmdc:dobj-11-crtt1",
     "name": "GFF3 format file with CRT",
     "description": "CRT Annotations for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "7c1dad9e6aec2abb8c11e0e76cf9f8b0",
     "data_object_type": "CRT Annotation GFF",
@@ -767,8 +691,6 @@
     "id": "nmdc:dobj-11-genemarkt1",
     "name": "GFF3 format file with Genemark",
     "description": "Genemark Annotations for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "34949f6cdd1a70b6fda9c3d3ed258eb3",
     "data_object_type": "Genemark Annotation GFF",
@@ -779,8 +701,6 @@
     "id": "nmdc:dobj-11-prodigalt1",
     "name": "GFF3 format file with Prodigal",
     "description": "Prodigal Annotations for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "318fc98aca68b8cee8296a04016eccf6",
     "data_object_type": "Prodigal Annotation GFF",
@@ -790,8 +710,6 @@
     "id": "nmdc:dobj-11-trnat1",
     "name": "GFF3 format file with TRNA",
     "description": "TRNA Annotations for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "44d16feb83187a9088c5b807148b9418",
     "data_object_type": "TRNA Annotation GFF",
@@ -802,8 +720,6 @@
     "id": "nmdc:dobj-11-rfamt1",
     "name": "GFF3 format file with RFAM",
     "description": "RFAM Annotations for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "3792dacaa08a4cd60b87989c0d3bffb1",
     "data_object_type": "RFAM Annotation GFF",
@@ -814,8 +730,6 @@
     "id": "nmdc:dobj-11-koect1",
     "name": "GFF3 format file with KO_EC",
     "description": "KO_EC Annotations for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "0df311e3e813d8c491f95df41fa3f0f2",
     "data_object_type": "KO_EC Annotation GFF",
@@ -826,8 +740,6 @@
     "id": "nmdc:dobj-11-productnamest1",
     "name": "Product names file",
     "description": "Product names for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "846de5ba7a51d263718712a1a8a734b4",
     "data_object_type": "Product Names",
@@ -838,8 +750,6 @@
     "id": "nmdc:dobj-11-genephylot1",
     "name": "Gene Phylogeny tsv",
     "description": "Gene Phylogeny tsv for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "d91ae0035d24b15f6a043abaaa4bf446",
     "data_object_type": "Gene Phylogeny tsv",
@@ -850,8 +760,6 @@
     "id": "nmdc:dobj-11-crisprt1",
     "name": "Crispr Terms",
     "description": "Crispr Terms for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "5e08898f9297e60e64ba87883a36e085",
     "data_object_type": "Crispr Terms",
@@ -862,8 +770,6 @@
     "id": "nmdc:dobj-11-annotationstatst1",
     "name": "Annotation statistics report",
     "description": "Annotation Stats for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "dc58fb1e9b8f689ec9c22b8548110197",
     "data_object_type": "Annotation Statistics",
@@ -874,8 +780,6 @@
     "id": "nmdc:dobj-11-contigmappingt1",
     "name": "Contig mappings between contigs and scaffolds",
     "description": "Contig Mapping File for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "3e3464e36c331ab26d17930b5965b25f",
     "data_object_type": "Contig Mapping File",
@@ -886,8 +790,6 @@
     "id": "nmdc:dobj-11-annotationinfot1",
     "name": "File containing annotation info",
     "description": "Annotation Info File for nmdc:wfmtan-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "01927890b19c724820024e147677dff3",
     "data_object_type": "Annotation Info File",
@@ -898,8 +800,6 @@
     "id": "nmdc:dobj-11-expcountst1",
     "name": "Metatranscriptome expression table",
     "description": "Expression counts for for nmdc:wfmtex-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "01927890b19c724820024e147677dff3",
     "data_object_type": "Metatranscriptome Expression",
@@ -910,8 +810,6 @@
     "id": "nmdc:dobj-11-expinfot1",
     "name": "Metatranscriptome expression table",
     "description": "Expression info for for nmdc:wfmtex-11-metat.1",
-    "alternative_identifiers": [
-    ],
     "file_size_bytes": 123456,
     "md5_checksum": "01927890b19c724820024e147677dff3",
     "data_object_type": "Metatranscriptome Expression Info File",
