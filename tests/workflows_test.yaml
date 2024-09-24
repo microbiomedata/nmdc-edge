@@ -1,14 +1,12 @@
 Workflows:
   - Name: Sequencing Noninterleaved
     Collection: omics_processing_set
-    Enabled: True
     Filter Output Objects:
     - Metagenome Raw Read 1
     - Metagenome Raw Read 2
 
   - Name: Sequencing Interleaved
     Collection: omics_processing_set
-    Enabled: True
     Filter Output Objects:
     - Metagenome Raw Reads
 

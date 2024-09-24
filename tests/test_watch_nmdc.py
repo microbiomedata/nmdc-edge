@@ -4,12 +4,6 @@ import json
 import shutil
 from pytest import fixture
 
-@fixture
-def site_conf():
-    tdir = os.path.dirname(__file__)
-    return os.path.join(tdir, "..", "tests",
-                        "site_configuration_test.toml")
-
 
 @fixture(autouse=True)
 def cleanup():
@@ -25,9 +19,9 @@ def cleanup():
 
 
 @fixture
-def mock_nmdc_api(requests_mock):
-    tdir = os.path.dirname(__file__)
-    rqcf = os.path.join(tdir, "..", "test_data", "rqc_response2.json")
+def mock_nmdc_api(requests_mock, test_data_dir):
+
+    rqcf = test_data_dir / "rqc_response2.json"
     rqc = json.load(open(rqcf))
     resp = {"resources": [rqc]}
     requests_mock.get("http://localhost/jobs", json=resp)
@@ -38,14 +32,16 @@ def mock_nmdc_api(requests_mock):
 
 
 @fixture(autouse=True)
-def mock_cromwell(requests_mock):
+def mock_cromwell(requests_mock, test_data_dir):
     requests_mock.real_http = True
     data = {"id": "1234"}
     cromwell_url = "http://localhost:8088/api/workflows/v1"
     requests_mock.post(cromwell_url, json=data)
+    afile_path = test_data_dir / "afile"
+    bfile_path = test_data_dir / "bfile"
     metadata = {'outputs': {
-          "nmdc_rqcfilter.filtered_final": "./test_data/afile",
-          "nmdc_rqcfilter.filtered_stats_final": "./test_data/bfile",
+          "nmdc_rqcfilter.filtered_final": str(afile_path),
+          "nmdc_rqcfilter.filtered_stats_final": str(bfile_path),
           "nmdc_rqcfilter.stats": {
             "input_read_count": 11431762,
             "input_read_bases": 1726196062,
@@ -58,16 +54,16 @@ def mock_cromwell(requests_mock):
     requests_mock.get(f"{cromwell_url}/1234/status", json=data)
 
 
-def test_watcher(site_conf):
-    w = Watcher(site_conf)
+def test_watcher(site_config):
+    w = Watcher(site_config)
     w.restore()
     w.job_checkpoint()
     w.restore()
 
 
-def test_claim_jobs(requests_mock, site_conf, mock_nmdc_api):
+def test_claim_jobs(requests_mock, site_config, mock_nmdc_api):
     requests_mock.real_http = True
-    w = Watcher(site_conf)
+    w = Watcher(site_config)
     job_id = "nmdc:b7eb8cda-a6aa-11ed-b1cf-acde48001122"
     resp = {
             'id': 'nmdc:1234',
@@ -80,10 +76,10 @@ def test_claim_jobs(requests_mock, site_conf, mock_nmdc_api):
     assert resp
 
 
-def test_reclaim_job(requests_mock, site_conf, mock_nmdc_api):
+def test_reclaim_job(requests_mock, site_config, mock_nmdc_api):
     requests_mock.real_http = True
 
-    w = Watcher(site_conf)
+    w = Watcher(site_config)
     job_id = "nmdc:b7eb8cda-a6aa-11ed-b1cf-acde48001122"
     resp = {
             'id': 'nmdc:1234',

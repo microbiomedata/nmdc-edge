@@ -8,7 +8,9 @@ from pydantic import BaseModel
 import requests
 import hashlib
 import mimetypes
+from pathlib import Path
 from time import time
+from typing import Union
 from datetime import datetime, timedelta, timezone
 from nmdc_automation.config import Config, UserConfig
 import logging
@@ -44,7 +46,7 @@ class NmdcRuntimeApi:
     client_id = None
     client_secret = None
 
-    def __init__(self, site_configuration):
+    def __init__(self, site_configuration: Union[str, Path]):
         self.config = Config(site_configuration)
         self._base_url = self.config.api_url
         self.client_id = self.config.client_id

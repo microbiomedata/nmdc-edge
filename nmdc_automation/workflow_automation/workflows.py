@@ -10,6 +10,11 @@ import sys
 # TODO: Berkley refactoring:
 #   Ensure that the Workflow class and load_workflows methods are compatible with the MetaTranscriptomics workflow.
 def load_workflows(yaml_file) -> list[Workflow]:
+    """
+    Load all workflow definitions from a yaml file, populate
+    parent-child relationships and return a list of Workflow
+    objects.
+    """
     workflows = []
     data = load(open(yaml_file), Loader)
     for wf in data["Workflows"]:
@@ -37,6 +42,7 @@ class Workflow:
         "Git_repo",
         "Version",
         "WDL",
+        "Analyte Category",
         "Collection",
         "Predecessors",
         "Input_prefix",

@@ -19,7 +19,7 @@ Workflows:
     Enabled: True
     Analyte Category: Metatranscriptome
     Git_repo: https://github.com/microbiomedata/metaT_ReadsQC
-    Version: v0.0.3
+    Version: v0.0.7
     WDL: rqcfilter.wdl
     Collection: read_qc_analysis_activity_set
     Filter Input Objects:
@@ -61,7 +61,7 @@ Workflows:
     Enabled: True
     Analyte Category: Metatranscriptome
     Git_repo: https://github.com/microbiomedata/metaT_ReadsQC
-    Version: v0.0.3
+    Version: v0.0.7
     Collection: read_qc_analysis_activity_set
     WDL: interleave_rqcfilter.wdl
     Input_prefix: nmdc_rqcfilter
@@ -104,9 +104,9 @@ Workflows:
     Enabled: True
     Analyte Category: Metatranscriptome
     Git_repo: https://github.com/microbiomedata/metaT_Assembly
-    Version: v0.0.1
+    Version: v0.0.2
     WDL: metaT_assembly.wdl
-    Collection: metagenome_assembly_set
+    Collection: metatranscriptome_assembly_set
     Predecessors:
     - Metatranscriptome Reads QC
     - Metatranscriptome Reads QC Interleave
@@ -157,7 +157,7 @@ Workflows:
     Enabled: True
     Analyte Category: Metatranscriptome
     Git_repo: https://github.com/microbiomedata/mg_annotation
-    Version: v1.1.0
+    Version: v1.1.4
     WDL: annotation_full.wdl
     Collection: metatranscriptome_annotation_set
     Predecessors:
@@ -277,10 +277,10 @@ Workflows:
 
   - Name: Expression Analysis Antisense
     Type: nmdc:MetatranscriptomeExpressionAnalysis
-    Enabled: True
+    Enabled: False
     Analyte Category: Metatranscriptome
     Git_repo: https://github.com/microbiomedata/metaT_ReadCounts
-    Version: v0.0.1
+    Version: v0.0.5
     WDL: readcount.wdl
     Collection: metatranscriptome_expression_analysis_set
     Predecessors:
@@ -300,11 +300,6 @@ Workflows:
       data_object_type: Metatranscriptome Expression 
       description: Expression counts for {id}
       name: Metatranscriptome expression table
-    - output: count_ig
-      data_object_type: Metatranscriptome Expression Intergenic
-      description: Metatranscriptome expression intergenic regions for {id}
-      name: Metatranscriptome expression intergenic table
-      optional: true
     - output: info_file
       data_object_type: Metatranscriptome Expression Info File
       description: Expression info for {id}
@@ -315,7 +310,7 @@ Workflows:
     Enabled: True
     Analyte Category: Metatranscriptome
     Git_repo: https://github.com/microbiomedata/metaT_ReadCounts
-    Version: v0.0.1
+    Version: v0.0.5
     WDL: readcount.wdl
     Collection: metatranscriptome_expression_analysis_set
     Predecessors:
@@ -334,11 +329,6 @@ Workflows:
       data_object_type: Metatranscriptome Expression
       description: Expression counts for {id}
       name: Metatranscriptome expression table
-    - output: count_ig
-      data_object_type: Metatranscriptome Expression Intergenic
-      description: Metatranscriptome expression intergenic regions for {id}
-      name: Metatranscriptome expression intergenic table
-      optional: true
     - output: info_file
       data_object_type: Metatranscriptome Expression Info File
       description: Expression info for {id}
@@ -346,10 +336,10 @@ Workflows:
 
   - Name: Expression Analysis Nonstranded
     Type: nmdc:MetatranscriptomeExpressionAnalysis
-    Enabled: True
+    Enabled: False
     Analyte Category: Metatranscriptome
     Git_repo: https://github.com/microbiomedata/metaT_ReadCounts
-    Version: v0.0.1
+    Version: v0.0.5
     WDL: readcount.wdl
     Collection: metatranscriptome_expression_analysis_set
     Predecessors:
@@ -369,11 +359,6 @@ Workflows:
       data_object_type: Metatranscriptome Expression
       description: Expression counts for {id}
       name: Metatranscriptome expression table
-    - output: count_ig
-      data_object_type: Metatranscriptome Expression Intergenic
-      description: Metatranscriptome expression intergenic regions for {id}
-      name: Metatranscriptome expression intergenic table
-      optional: true
     - output: info_file
       data_object_type: Metatranscriptome Expression Info File
       description: Expression info for {id}

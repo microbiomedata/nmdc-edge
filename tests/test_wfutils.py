@@ -1,24 +1,15 @@
 from nmdc_automation.workflow_automation.wfutils import WorkflowJob as job
-import os
 import json
-from pytest import fixture
-from nmdc_automation.config.config import Config as config
 
 
-@fixture
-def site_conf():
-    return config("./tests/site_configuration_test.toml")
 
-
-def test_job(site_conf, requests_mock):
+def test_job(job_config, requests_mock, test_data_dir):
     requests_mock.real_http = True
     data = {"id": "123"}
     requests_mock.post("http://localhost:8088/api/workflows/v1", json=data)
-    tdir = os.path.dirname(__file__)
-    tdata = os.path.join(tdir, "..", "test_data")
-    rqcf = os.path.join(tdata, "rqc_response.json")
+    rqcf = test_data_dir / "rqc_response.json"
     rqc = json.load(open(rqcf))
-    ajob = job(site_conf, workflow_config=rqc['config'])
+    ajob = job(job_config, workflow_config=rqc['config'])
     ajob.debug = True
     ajob.dryrun = False
     assert ajob.get_state()
@@ -28,19 +19,19 @@ def test_job(site_conf, requests_mock):
     assert last.url == "http://localhost:8088/api/workflows/v1"
 
 
-def test_log(site_conf):
-    ajob = job(site_conf, workflow_config={})
+def test_log(job_config):
+    ajob = job(job_config, workflow_config={})
     # ajob = job("example", "jobid", conf={})
     ajob.debug = True
     ajob.json_log({"a": "b"}, title="Test")
 
 
-def test_check_meta(site_conf, requests_mock):
+def test_check_meta(job_config, requests_mock):
     url = "http://localhost:8088/api/workflows/v1/1234/status"
     requests_mock.get(url, json={"status": "Submitted"})
     url = "http://localhost:8088/api/workflows/v1/1234/metadata"
     requests_mock.get(url, json={"status": "Submitted"})
-    ajob = job(site_conf, workflow_config={})
+    ajob = job(job_config, workflow_config={})
     ajob.jobid = "1234"
     resp = ajob.check_status()
     assert resp
@@ -48,9 +39,9 @@ def test_check_meta(site_conf, requests_mock):
     assert resp
 
 
-def test_set_state(site_conf):
-    ajob = job(site_conf, workflow_config={})
+def test_set_state(job_config):
+    ajob = job(job_config, workflow_config={})
     state = ajob.get_state()
     assert state
-    bjob = job(site_conf, state=state)
+    bjob = job(job_config, state=state)
     assert bjob.activity_id == state['activity_id']

@@ -1,7 +1,10 @@
 import logging
+from functools import lru_cache
 from typing import List
-from .workflows import Workflow
+
 from semver.version import Version
+
+from .workflows import Workflow
 
 # TODO: Berkley refactoring:
 #   The load_activities method will need to be modified to handle DataGeneration objects
@@ -15,10 +18,10 @@ from semver.version import Version
 warned_objects = set()
 
 
-def _load_data_objects(db, workflows: List[Workflow]):
+def get_required_data_objects_map(db, workflows: List[Workflow]) -> dict:
     """
-    Read all of the data objects and generate
-    a map by ID
+     Search for all the data objects that are required data object types for the workflows,
+        and return a dictionary of data objects by ID.
 
     TODO: In the future this will probably need to be redone
     since the number of data objects could get very large.
@@ -29,15 +32,16 @@ def _load_data_objects(db, workflows: List[Workflow]):
     for wf in workflows:
         required_types.update(set(wf.do_types))
 
-    data_objs_by_id = dict()
+    required_data_objs_by_id = dict()
     for rec in db.data_object_set.find():
         do = DataObject(rec)
         if do.data_object_type not in required_types:
             continue
-        data_objs_by_id[do.id] = do
-    return data_objs_by_id
+        required_data_objs_by_id[do.id] = do
+    return required_data_objs_by_id
 
 
+@lru_cache
 def _within_range(ver1: str, ver2: str) -> bool:
     """
     Determine if two workflows are within a major and minor
@@ -72,46 +76,87 @@ def _check(match_types, data_object_ids, data_objs):
     return match_set.issubset(do_types)
 
 
-def _filter_skip(wf, rec, data_objs):
+def _is_missing_required_input_output(wf, rec, data_objs):
     """
     Some workflows require specific inputs or outputs.  This
     implements the filtering for those.
     """
-    match_in = _check(wf.filter_input_objects,
-                      rec.get("has_input"),
-                      data_objs)
-    match_out = _check(wf.filter_output_objects,
-                       rec.get("has_output"),
-                       data_objs)
+    match_in = _check(
+        wf.filter_input_objects, rec.get("has_input"), data_objs
+    )
+    match_out = _check(
+        wf.filter_output_objects, rec.get("has_output"), data_objs
+    )
     return not (match_in and match_out)
 
-# TODO: Activity does not exist in the Berkeley Schema. WorkflowExecution is the analogous class.
-#   Functions and classes should be renamed to reflect the Berkeley Schema.
-# TODO: The Berkeley Schema replaces OmicsProcessing with DataGeneration.
-#  Slots for has_input and has_output are the same.
-#  Special handling for OmicsProcessing needs to be extended to DataGeneration.
-def _read_acitivites(db, workflows: List[Workflow],
-                     data_objects: dict, filter: dict):
+
+def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, allowlist: set):
     """
-    Read in all the activities for the defined workflows.
+    Fetch the relevant workflow executions from the database for the given workflows.
+        1. Get the Data Generation (formerly Omics Processing) objects for the workflows by analyte category.
+        2. Get the remaining Workflow Execution objects that was_informed_by the Data Generation objects.
+        3. Filter Workflow Execution objects by:
+            - version (within range)
+            - required input and output data objects
+    Return the list of Workflow Execution objects.
     """
-    activities = []
-    for wf in workflows:
-        logging.debug(f"Checking {wf.name}:{wf.version}")
-        q = filter
-        q["git_url"] = wf.git_repo
-        for rec in db[wf.collection].find(q):
-            if wf.version and not _within_range(rec["version"], wf.version):
-                logging.debug(f"Skipping {wf.name} {wf.version} {rec['version']}")
+    workflow_executions = []
+    analyte_category = _determine_analyte_category(workflows)
+
+    # We handle the data generation and data processing workflows separately. Data generation workflow executions have an
+    # analyte category field, while data processing workflow executions do not, so we filter by the was_informed_by field.
+    data_generation_ids = set()
+    dg_workflows = [wf for wf in workflows if wf.collection in ["omics_processing_set", "data_generation_set"]]
+    dp_workflows = [wf for wf in workflows if not wf.collection in ["omics_processing_set", "data_generation_set"]]
+
+    # Berkley
+    # workflow_execution_records = db["data_generation_set].find({"analyte_category": analyte_category})
+    # default query
+    q = {"omics_type.has_raw_value": {"$regex": analyte_category, "$options": "i"}}
+    # override query with allowlist
+    if allowlist:
+        q["id"] = {"$in": list(allowlist)}
+    dg_execution_records = db["omics_processing_set"].find(q)
+    # change from cursor to list
+    dg_execution_records = list(dg_execution_records)
+
+    for wf in dg_workflows:
+        for rec in dg_execution_records:
+            if _is_missing_required_input_output(wf, rec, data_objects):
                 continue
-            if wf.collection == "omics_processing_set" and \
-               rec["id"].startswith("gold"):
-                continue
-            if _filter_skip(wf, rec, data_objects):
-                continue
+            data_generation_ids.add(rec["id"])
             act = Activity(rec, wf)
-            activities.append(act)
-    return activities
+            workflow_executions.append(act)
+
+    for wf in dp_workflows:
+        q = {}
+        if wf.git_repo:
+            q = {"git_url": wf.git_repo}
+        # override query with allowlist
+        if allowlist:
+            q = {"was_informed_by": {"$in": list(allowlist)}}
+
+        records = db[wf.collection].find(q)
+        for rec in records:
+            if wf.version and not _within_range(rec["version"], wf.version):
+                continue
+            if _is_missing_required_input_output(wf, rec, data_objects):
+                continue
+            if rec["was_informed_by"] in data_generation_ids:
+                act = Activity(rec, wf)
+                workflow_executions.append(act)
+
+    return workflow_executions
+
+
+def _determine_analyte_category(workflows: List[Workflow]) -> str:
+    analyte_categories = set([wf.analyte_category for wf in workflows])
+    if len(analyte_categories) > 1:
+        raise ValueError("Multiple analyte categories not supported")
+    elif len(analyte_categories) == 0:
+        raise ValueError("No analyte category found")
+    analyte_category = analyte_categories.pop()
+    return analyte_category
 
 
 # TODO: Make public, give a better name, add type hints and unit tests.
@@ -147,10 +192,12 @@ def _resolve_relationships(activities, data_obj_act):
             # Let's make sure these came from the same source
             # This is just a safeguard
             if act.was_informed_by != parent_act.was_informed_by:
-                logging.warning("Mismatched informed by for "
-                                f"{do_id} in {act.id} "
-                                f"{act.was_informed_by} != "
-                                f"{parent_act.was_informed_by}")
+                logging.warning(
+                    "Mismatched informed by for "
+                    f"{do_id} in {act.id} "
+                    f"{act.was_informed_by} != "
+                    f"{parent_act.was_informed_by}"
+                )
                 continue
             # We only want to use it as a parent if it is the right
             # parent workflow. Some inputs may come from ancestors
@@ -159,11 +206,15 @@ def _resolve_relationships(activities, data_obj_act):
                 # This is the one
                 act.parent = parent_act
                 parent_act.children.append(act)
-                logging.debug(f"Found parent: {parent_act.id}"
-                              f" {parent_act.name}")
+                logging.debug(
+                    f"Found parent: {parent_act.id}"
+                    f" {parent_act.name}"
+                )
                 break
         if len(act.workflow.parents) > 0 and not act.parent:
-            logging.warning(f"Didn't find a parent for {act.id}")
+            if act.id not in warned_objects:
+                logging.warning(f"Didn't find a parent for {act.id}")
+                warned_objects.add(act.id)
     # Now all the activities have their parent
     return activities
 
@@ -192,10 +243,11 @@ def _find_data_object_activities(activities, data_objs_by_id):
                 data_obj_act[do_id] = act
     return data_obj_act
 
+
 # TODO: Give a better name, add unit tests.
 #   This function builds up the graph of related parent / child Execution objects and is
 #   key to the behavior of workflow automation.
-def load_activities(db, workflows: list[Workflow], filter: dict = {}):
+def load_activities(db, workflows: list[Workflow], allowlist: set = set()):
     """
     This reads the activities from Mongo.  It also
     finds the parent and child relationships between
@@ -212,37 +264,34 @@ def load_activities(db, workflows: list[Workflow], filter: dict = {}):
 
     # This is map from the data object ID to the activity
     # that created it.
-    data_objs_by_id = _load_data_objects(db, workflows)
+    data_objs_by_id = get_required_data_objects_map(db, workflows)
 
     # Build up a set of relevant activities and a map from
     # the output objects to the activity that generated them.
-    activities = _read_acitivites(db, workflows, data_objs_by_id, filter)
-    data_obj_act = _find_data_object_activities(activities, data_objs_by_id)
+    workflow_executions = get_workflow_executions(db, workflows, data_objs_by_id, allowlist)
+
+    data_obj_act = _find_data_object_activities(workflow_executions, data_objs_by_id)
 
     # Now populate the parent and children values for the
     # activities
-    _resolve_relationships(activities, data_obj_act)
-    return activities
+    _resolve_relationships(workflow_executions, data_obj_act)
+    return workflow_executions
+
 
 # TODO: Why are we not importing and using the existing nmdc_schema.DataObject class?
+#   nmdc_schema.DataObject is stricter and using it currently causes tests / fixtures to fail.
+#   We should fix the tests and fixtures to use the stricter class and remove this class.
 class DataObject(object):
     """
     Data Object Class
     """
 
-    _FIELDS = [
-        "id",
-        "name",
-        "description",
-        "url",
-        "md5_checksum",
-        "file_size_bytes",
-        "data_object_type",
-    ]
+    _FIELDS = ["id", "name", "description", "url", "md5_checksum", "file_size_bytes", "data_object_type", ]
 
     def __init__(self, rec: dict):
         for f in self._FIELDS:
             setattr(self, f, rec.get(f))
+
 
 # TODO: Give a better 'Execution' based name, expand docstring, and make sure it is covered by unit tests.
 #   This class represents a network of related WorkflowExecution objects and their associated DataObject objects.
@@ -251,16 +300,7 @@ class Activity(object):
     Activity Object Class
     """
 
-    _FIELDS = [
-        "id",
-        "name",
-        "git_url",
-        "version",
-        "has_input",
-        "has_output",
-        "was_informed_by",
-        "type",
-    ]
+    _FIELDS = ["id", "name", "git_url", "version", "has_input", "has_output", "was_informed_by", "type", ]
 
     def __init__(self, activity_rec: dict, wf: Workflow):
         self.parent = None

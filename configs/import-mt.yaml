@@ -1,9 +1,9 @@
 Workflows:
-  - Name: Reads QC
+  - Name: Metatranscriptome Reads QC
     Import: true
     Type: nmdc:ReadQcAnalysisActivity
-    Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: v1.0.8
+    Git_repo: https://github.com/microbiomedata/metaT_ReadsQC
+    Version: v0.0.7
     Collection: read_qc_analysis_activity_set
     ActivityRange: ReadQcAnalysisActivity
     Inputs:
@@ -18,42 +18,21 @@ Workflows:
     Outputs:
       - Filtered Sequencing Reads
       - QC Statistics
+      - rRNA Filtered Sequencing Reads
+      - Read Filtering Info File
 
-  - Name: Readbased Taxonomy
+  - Name: Metatranscriptome Assembly
     Import: false
-    Type: nmdc:ReadBasedTaxonomyAnalysisActivity
-    Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: v1.0.5
-    Collection: read_based_taxonomy_analysis_activity_set
-    ActivityRange: ReadBasedTaxonomyAnalysisActivity
-    Inputs:
-      - Filtered Sequencing Reads
-    Activity:
-      name: Readbased Taxonomy Analysis Activity for {id}
-      type: nmdc:ReadBasedTaxonomyAnalysisActivity
-    Outputs:
-      - GOTTCHA2 Classification Report
-      - GOTTCHA2 Report Full
-      - GOTTCHA2 Krona Plot
-      - Centrifuge Taxonomic Classification
-      - Centrifuge Classification Report
-      - Centrifuge Krona Plot
-      - Kraken2 Taxonomic Classification
-      - Kraken2 Classification Report
-      - Kraken2 Krona Plot
-
-  - Name: Metagenome Assembly
-    Import: true
-    Type: nmdc:MetagenomeAssembly
-    Git_repo: https://github.com/microbiomedata/metaAssembly
-    Version: v1.0.3
-    Collection: metagenome_assembly_set
-    ActivityRange: MetagenomeAssembly
+    Type: nmdc:MetatranscriptomeAssembly
+    Git_repo: https://github.com/microbiomedata/metaT_Assembly
+    Version: v0.0.2
+    Collection: metatranscriptome_assembly_set
+    ActivityRange: MetatranscriptomeAssembly
     Inputs:
       - Filtered Sequencing Reads
     Activity:
       name: "Metagenome Assembly Activity for {id}"
-      type: nmdc:MetagenomeAssembly
+      type: nmdc:MetatranscriptomeAssembly
       asm_score: "{outputs.stats.asm_score}"
       contig_bp: "{outputs.stats.contig_bp}"
       contigs: "{outputs.stats.contigs}"
@@ -81,29 +60,30 @@ Workflows:
       scaffolds: "{outputs.stats.scaffolds}"
     Outputs:
       - Assembly Contigs
-      - Assembly Scaffolds
       - Assembly Coverage Stats
-      - Assembly AGP
       - Assembly Coverage BAM
+      - Assembly Info File
+      - BAI File
 
-  - Name: Metagenome Annotation
+  - Name: Metatranscriptome Annotation
     Import: false
-    Type: nmdc:MetagenomeAnnotationActivity
+    Type: nmdc:MetatranscriptomeAnnotationActivity
     Git_repo: https://github.com/microbiomedata/mg_annotation
-    Version: v1.0.4
-    Collection: metagenome_annotation_activity_set
-    ActivityRange: MetagenomeAnnotationActivity
+    Version: v1.1.4
+    Collection: metatranscriptome_annotation_set
+    ActivityRange: MetatranscriptomeAnnotationActivity
     Inputs:
       - Assembly Contigs
     Activity:
-      name: "Metagenome Annotation Analysis Activity for {id}"
-      type: nmdc:MetagenomeAnnotationActivity
+      name: "Metatranscriptome Annotation Analysis Activity for {id}"
+      type: nmdc:MetatranscriptomeAnnotationActivity
     Outputs:
       - Annotation Amino Acid FASTA
       - Structural Annotation GFF
       - Functional Annotation GFF
       - Annotation KEGG Orthology
       - Annotation Enzyme Commission
+      - Scaffold Lineage tsv
       - Clusters of Orthologous Groups (COG) Annotation GFF
       - Pfam Annotation GFF
       - TIGRFam Annotation GFF
@@ -120,38 +100,28 @@ Workflows:
       - Gene Phylogeny tsv
       - Crisprt Terms
       - Annotation Statistics
-
-
-  - Name: MAGs
-    Import: false
-    Type: nmdc:MagsAnalysisActivity
-    Git_repo: https://github.com/microbiomedata/metaMAGs
-    Version: v1.0.6
-    Collection: mags_activity_set
-    ActivityRange: MagsAnalysisActivity
-    Inputs:
+      - Contig Mapping File
+      - Annotation Info File
       - Assembly Contigs
+
+
+  - Name: Expression Analysis Generic
+    Import: false
+    Type: nmdc:MetatranscriptomeExpressionAnalysis
+    Git_repo: https://github.com/microbiomedata/metaT_ReadCounts
+    Version: v0.0.5
+    Collection: metatranscriptome_expression_analysis_set
+    ActivityRange: MetatranscriptomeExpressionAnalysis
+    Inputs:
       - Functional Annotation GFF
-      - CATH FunFams (Functional Families) Annotation GFF
-      - SUPERFam Annotation GFF
-      - Clusters of Orthologous Groups (COG) Annotation GFF
-      - Pfam Annotation GFF
-      - Product Names
-      - TIGRFam Annotation GFF
-      - Annotation Enzyme Commission
-      - Annotation KEGG Orthology
+      - Contig Mapping File
       - Assembly Coverage BAM
-      - SMART Annotation GFF
-      - Annotation Amino Acid FASTA
-      - Gene Phylogeny tsv
     Activity:
-      name: "Metagenome Assembled Genomes Analysis Activity for {id}"
-      type: nmdc:MagsAnalysisActivity
+      name: "Metatranscriptome Expression Analysis for {id}"
+      type: nmdc:MetatranscriptomeExpressionAnalysis
     Outputs:
-      - CheckM Statistics
-      - Metagenome Bins
-      - GTDBTK Bacterial Summary 
-      - GTDBTK Archaeal Summary
+      - Metatranscriptome Expression 
+      - Metatranscriptome Expression Intergenic
 
 Data Objects:
   Unique:
@@ -164,49 +134,22 @@ Data Objects:
       output_of: nmdc:OmicsProcessing
       mulitple: false
       action: none
-    - data_object_type: CheckM Statistics
-      description: CheckM for {id}
-      name: CheckM statistics report
-      import_suffix: _checkm_qa.out
-      nmdc_suffix: _checkm_qa.out
-      input_to: []
-      output_of:  nmdc:MagsAnalysisActivity
-      mulitple: false
-      action: rename
-    - data_object_type: GTDBTK Bacterial Summary
-      description: Bacterial Summary for {id}
-      name: GTDBTK bacterial summary
-      import_suffix: _gtdbtk.bac122.summary.tsv
-      nmdc_suffix: _gtdbtk.bac122.summary.tsv
-      input_to: []
-      output_of:  nmdc:MagsAnalysisActivity
-      mulitple: false
-      action: rename
-    - data_object_type: GTDBTK Archaeal Summary
-      description: Archaeal Summary for {id}
-      name: GTDBTK archaeal summary
-      import_suffix: _gtdbtk.ar122.summary.tsv
-      nmdc_suffix: _gtdbtk.ar122.summary.tsv
-      input_to: []
-      output_of:  nmdc:MagsAnalysisActivity
-      mulitple: false
-      action: rename
     - data_object_type: Annotation Amino Acid FASTA
       description: FASTA Amino Acid File for {id}
       name: FASTA amino acid file for annotated proteins
       import_suffix: _proteins.faa
       nmdc_suffix: _proteins.faa
-      input_to: [nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAnnotationActivity
+      input_to: []
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: Contig Mapping File
       description: Contig mapping file for {id}
-      name: Contig mappings between contigs and scaffolds
+      name: Contig mappings between old and new contig names
       import_suffix: _contig_names_mapping.tsv
       nmdc_suffix: _contig_names_mapping.tsv
       input_to: []
-      output_of: nmdc:MetagenomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: Structural Annotation GFF
@@ -215,7 +158,7 @@ Data Objects:
       import_suffix: _structural_annotation.gff
       nmdc_suffix: _structural_annotation.gff
       input_to: []
-      output_of: nmdc:MetagenomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: Functional Annotation GFF
@@ -223,8 +166,8 @@ Data Objects:
       name: GFF3 format file with functional annotations
       import_suffix: _functional_annotation.gff
       nmdc_suffix: _functional_annotation.gff
-      input_to: [nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAnnotationActivity
+      input_to: [nmdc:MetatranscriptomeExpressionAnalysis]
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: Annotation KEGG Orthology
@@ -232,8 +175,8 @@ Data Objects:
       name: Tab delimited file for KO annotation
       import_suffix: _ko.tsv
       nmdc_suffix: _ko.tsv
-      input_to: [nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAnnotationActivity
+      input_to: []
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: Annotation Enzyme Commission
@@ -241,17 +184,25 @@ Data Objects:
       name: Tab delimited file for EC annotation
       import_suffix: _ec.tsv
       nmdc_suffix: _ec.tsv
-      input_to: [nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAnnotationActivity
+      input_to: []
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
+    - data_object_type Scaffold Lineage tsv
+      description: Scaffold Lineage tsv for {id}
+      name: Phylogeny at the scaffold level
+      import_suffix: _scaffold_lineage.tsv
+      nmdc_suffix: _scaffold_lineage.tsv
+      input_to: []
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      mulitple: false
     - data_object_type: Clusters of Orthologous Groups (COG) Annotation GFF
       description: COGs for {id}
       name: GFF3 format file with COGs
       import_suffix: _cog.gff
       nmdc_suffix: _cog.gff
-      input_to: [nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAnnotationActivity
+      input_to: []
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: Pfam Annotation GFF
@@ -259,8 +210,8 @@ Data Objects:
       name: GFF3 format file with Pfam
       import_suffix: _pfam.gff
       nmdc_suffix: _pfam.gff
-      input_to: [nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAnnotationActivity
+      input_to: []
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: TIGRFam Annotation GFF
@@ -268,8 +219,8 @@ Data Objects:
       name: GFF3 format file with TIGRfam
       import_suffix: _tigrfam.gff
       nmdc_suffix: _tigrfam.gff
-      input_to: [nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAnnotationActivity
+      input_to: []
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: SMART Annotation GFF
@@ -277,8 +228,8 @@ Data Objects:
       name: GFF3 format file with SMART
       import_suffix: _smart.gff
       nmdc_suffix: _smart.gff
-      input_to: [nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAnnotationActivity
+      input_to: []
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: SUPERFam Annotation GFF
@@ -286,8 +237,8 @@ Data Objects:
       name: GFF3 format file with SUPERFam
       import_suffix: _supfam.gff
       nmdc_suffix: _supfam.gff
-      input_to: [nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAnnotationActivity
+      input_to: []
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: CATH FunFams (Functional Families) Annotation GFF
@@ -295,8 +246,8 @@ Data Objects:
       name: GFF3 format file with CATH FunFams
       import_suffix: _cath_funfam.gff
       nmdc_suffix: _cath_funfam.gff
-      input_to: [nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAnnotationActivity
+      input_to: []
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: CRT Annotation GFF
@@ -305,7 +256,7 @@ Data Objects:
       import_suffix: _crt.gff
       nmdc_suffix: _crt.gff
       input_to: []
-      output_of: nmdc:MetagenomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: Genemark Annotation GFF
@@ -314,7 +265,7 @@ Data Objects:
       import_suffix: _genemark.gff
       nmdc_suffix: _genemark.gff
       input_to: []
-      output_of: nmdc:MetagenomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: Prodigal Annotation GFF
@@ -323,7 +274,7 @@ Data Objects:
       import_suffix: _prodigal.gff
       nmdc_suffix: _prodigal.gff
       input_to: []
-      output_of: nmdc:MetagenomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: TRNA Annotation GFF
@@ -332,7 +283,7 @@ Data Objects:
       import_suffix: _trna.gff
       nmdc_suffix: _trna.gff
       input_to: []
-      output_of: nmdc:MetagenomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: RFAM Annotation GFF
@@ -341,7 +292,7 @@ Data Objects:
       import_suffix: _rfam.gff
       nmdc_suffix: _rfam.gff
       input_to: []
-      output_of: nmdc:MetagenomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: KO_EC Annotation GFF
@@ -350,7 +301,7 @@ Data Objects:
       import_suffix: _ko_ec.gff
       nmdc_suffix: _ko_ec.gff
       input_to: []
-      output_of: nmdc:MetagenomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: Product Names
@@ -358,8 +309,8 @@ Data Objects:
       name: Product names file
       import_suffix: _product_names.tsv
       nmdc_suffix: _product_names.tsv
-      input_to: [nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAnnotationActivity
+      input_to: []
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: Gene Phylogeny tsv
@@ -367,8 +318,8 @@ Data Objects:
       name: Gene Phylogeny file
       import_suffix: _gene_phylogeny.tsv
       nmdc_suffix: _gene_phylogeny.tsv
-      input_to: [nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAnnotationActivity
+      input_to: []
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: Crispr Terms
@@ -377,7 +328,7 @@ Data Objects:
       import_suffix: _crt.crisprs
       nmdc_suffix: _crt.crisprs
       input_to: []
-      output_of: nmdc:MetagenomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: Annotation Statistics
@@ -386,7 +337,7 @@ Data Objects:
       import_suffix: _stats.tsv
       nmdc_suffix: _stats.tsv
       input_to: []
-      output_of: nmdc:MetagenomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
     - data_object_type: Annotation Info File
@@ -395,15 +346,31 @@ Data Objects:
       import_suffix: _imgap.info
       nmdc_suffix: _imgap.info
       input_to: []
-      output_of: nmdc:MetagenomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
       mulitple: false
       action: rename
+    - data_object_type: Assembly Contigs
+      description: Assembly contigs (remapped) for {id}
+      import_suffix: _contigs.fna 
+      nmdc_suffix: _renamed_contigs.fna
+      input_to: []
+      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      mulitple: false 
     - data_object_type: Filtered Sequencing Reads
       description: Reads QC for {id}
       name: Reads QC result fastq (clean data)
-      import_suffix: filter-METAGENOME.fastq.gz
+      import_suffix: filter-MTF.fastq.gz
       nmdc_suffix: _filtered.fastq.gz
-      input_to: [nmdc:ReadBasedTaxonomyAnalysisActivity,nmdc:MetagenomeAssembly]
+      input_to: [nmdc:MetatranscriptomeAssembly]
+      output_of: nmdc:ReadQcAnalysisActivity
+      mulitple: false
+      action: rename
+    - data_object_type: rRNA Filtered Sequencing Reads
+      description: Reads QC rRNA reads file for {id}
+      name: Reads QC rRNA reads  result fastq (clean data)
+      import_suffix: .rRNA.fastq.gz
+      nmdc_suffix: _rRNA.fastq.gz
+      input_to: []
       output_of: nmdc:ReadQcAnalysisActivity
       mulitple: false
       action: rename
@@ -419,7 +386,7 @@ Data Objects:
     - data_object_type: Read Filtering Info File 
       description: Read Filtering Info File for {id}
       name: File containing read filtering information
-      import_suffix: _readsQC.info
+      import_suffix: .filter_cmd-MTF.sh
       nmdc_suffix: _readsQC.info
       input_to: []
       output_of: nmdc:ReadQcAnalysisActivity
@@ -430,17 +397,8 @@ Data Objects:
       name: Final assembly contigs fasta
       import_suffix: assembly.contigs.fasta
       nmdc_suffix: _contigs.fna
-      input_to: [nmdc:MetagenomeAnnotationActivity,nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAssembly
-      mulitple: false
-      action: rename
-    - data_object_type: Assembly Scaffolds
-      description: Assembly scaffolds for {id}
-      name: Final assembly scaffolds fasta
-      import_suffix: _scaffolds.fna
-      nmdc_suffix: _scaffolds.fna
-      input_to: []
-      output_of: nmdc:MetagenomeAssembly
+      input_to: [nmdc:MetatranscriptomeAnnotationActivity]
+      output_of: nmdc:MetatranscriptomeAssembly
       mulitple: false
       action: rename
     - data_object_type: Assembly Info File
@@ -449,7 +407,7 @@ Data Objects:
       import_suffix: README.txt
       nmdc_suffix: _metaAsm.info
       input_to: []
-      output_of: nmdc:MetagenomeAssembly
+      output_of: nmdc:MetatranscriptomeAssembly
       mulitple: false
       action: rename
     - data_object_type: Assembly Coverage Stats
@@ -458,118 +416,46 @@ Data Objects:
       import_suffix: pairedMapped_sorted.bam.cov
       nmdc_suffix: _covstats.txt
       input_to: []
-      output_of: nmdc:MetagenomeAssembly
-      mulitple: false
-      action: rename
-    - data_object_type: Assembly AGP
-      description: AGP for {id}
-      name: An AGP format file that describes the assembly
-      import_suffix: _assembly.agp
-      nmdc_suffix: _assembly.agp
-      input_to: []
-      output_of: nmdc:MetagenomeAssembly
+      output_of: nmdc:MetatranscriptomeAssembly
       mulitple: false
       action: rename
     - data_object_type: Assembly Coverage BAM
       description: Sorted Bam for {id}
       name: Sorted bam file of reads mapping back to the final assembly
-      import_suffix: pairedMapped.sam.gz
-      nmdc_suffix: _pairedMapped_sorted.sam.gz
-      input_to: [nmdc:MagsAnalysisActivity]
-      output_of: nmdc:MetagenomeAssembly
+      import_suffix: pairedMapped.bam.gz
+      nmdc_suffix: _pairedMapped_sorted.bam.gz
+      input_to: [nmdc:MetatranscriptomeExpressionAnalysis]
+      output_of: nmdc:MetatranscriptomeAssembly
       mulitple: false
       action: rename
-    - data_object_type: GOTTCHA2 Report Full
-      description: GOTTCHA2 Full Report for {id}
-      name: GOTTCHA2 report file
-      import_suffix:  _gottcha2_full.tsv
-      nmdc_suffix: _gottcha2_full.tsv
+    - data_object_type: BAI File
+      description: Alignment index file for {id}
+      name: BAM index file
+      import_suffix: _pairedMapped_sorted.bam.bai
+      nmdc_suffix: _pairedMapped_sorted.bam.bai
       input_to: []
-      output_of: nmdc:ReadBasedTaxonomyAnalysisActivity
+      output_of: nmdc:MetatranscriptomeAssembly
       mulitple: false
       action: rename
-    - data_object_type: GOTTCHA2 Classification Report
-      description: GOTTCHA2 Classification for {id}
-      name: GOTTCHA2 classification report file
-      import_suffix: _gottcha2_classification.tsv
-      nmdc_suffix: _gottcha2_classification.tsv
+    - data_object_type: Metatranscriptome Expression
+      description: Expression counts for {id}
+      name: Expression counts file
+      import_suffix: .rnaseq_gea.txt
+      nmdc_suffix: _rnaseq_gea.txt
       input_to: []
-      output_of: nmdc:ReadBasedTaxonomyAnalysisActivity
+      output_of: nmdc:MetatranscriptomeExpressionAnalysis
       mulitple: false
       action: rename
-    - data_object_type: GOTTCHA2 Krona Plot
-      description: GOTTCHA2 Krona for {id}
-      name: GOTTCHA2 krona plot HTML file
-      import_suffix: _gottcha2_krona.html
-      nmdc_suffix: _gottcha2_krona.html
+    - data_object_type: Metatranscriptome Expression Intergenic
+      description: Expression intergenic counts for {id}
+      name: Expression intergenic counts file
+      import_suffix: .rnaseq_gea.intergenic.txt
+      nmdc_suffix: _rnaseq_gea.intergenic.txt
       input_to: []
-      output_of: nmdc:ReadBasedTaxonomyAnalysisActivity
+      output_of: nmdc:MetatranscriptomeExpressionAnalysis
       mulitple: false
       action: rename
-    - data_object_type: Centrifuge Taxonomic Classification
-      description: Centrifuge Report for {id}
-      name: Centrifuge output read classification file
-      import_suffix: _centrifuge_classification.tsv
-      nmdc_suffix: _centrifuge_classification.tsv
-      input_to: []
-      output_of: nmdc:ReadBasedTaxonomyAnalysisActivity
-      mulitple: false
-      action: rename
-    - data_object_type: Centrifuge output report file
-      description: Centrifuge output report file for {id}
-      name: Centrifuge Classification Report
-      import_suffix: _centrifuge_report.tsv
-      nmdc_suffix: _centrifuge_report.tsv
-      input_to: []
-      output_of: nmdc:ReadbasedTaxonomyAnalysisActivity
-      mulitple: false
-      action: rename
-    - data_object_type: Centrifuge Krona Plot
-      description: Centrifuge Krona for {id}
-      name: Centrifuge krona plot HTML file
-      import_suffix: _centrifuge_krona.html
-      nmdc_suffix: _centrifuge_krona.html
-      input_to: []
-      output_of: nmdc:ReadbasedTaxonomyAnalysisActivity
-      mulitple: false
-      action: rename
-    - data_object_type: Kraken2 Classification Report
-      description: Kraken2 report for {id}
-      name: Kraken2 outpur report file
-      import_suffix: _kraken2_report.tsv
-      nmdc_suffix: _kraken2_report.tsv
-      input_to: []
-      output_of: nmdc:ReadbasedTaxonomyAnalysisActivity
-      mulitple: false
-      action: rename
-    - data_object_type: Kraken2 Taxonomic Classification
-      description: Kraken2 classification for {id}
-      name: Kraken2 output read classification file
-      import_suffix: _kraken2_classification.tsv
-      nmdc_suffix: _kraken2_classification.tsv
-      input_to: []
-      output_of: nmdc:ReadbasedTaxonomyAnalysisActivity
-      mulitple: false
-      action: rename
-    - data_object_type: Kraken2 Krona Plot
-      description: Kraken2 Krona plot for {id}
-      name: Kraken2 Krona plot HTML file
-      import_suffix: _kraken2_krona.html
-      nmdc_suffix: _kraken2_krona.html
-      input_to: []
-      output_of: nmdc:ReadbasedTaxonomyAnalysisActivity
-      mulitple: false
-      action: rename
-  Multiples:
-    - data_object_type: Metagenome HQMQ Bins Compression File
-      description: Metagenome Bins for {id}
-      name: Metagenome bin tarfiles archive
-      import_suffix: _[0-9]+.tar.gz
-      nmdc_suffix: _hqmq_bin.zip
-      input_to: []
-      output_of:  nmdc:MagsAnalysisActivity
-      mulitple: true
-      action: zip
+
 
 Workflow Metadata:
   Execution Resource: JGI
