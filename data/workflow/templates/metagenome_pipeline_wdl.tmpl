@@ -416,19 +416,6 @@ task finish {
         mkdir -p ~{rbadir}
         mkdir -p ~{magsdir}
         end=`date --iso-8601=seconds`
-    
-        # Generate QA objects
-            /scripts/rqcstats.py ~{filtered_stats} > stats.json
-            /scripts/generate_objects.py --type "qa" --id ~{informed_by} \
-                --name "Read QC Activity for ~{proj}" --part ~{proj} \
-                --start ~{start} --end $end \
-                --resource '~{resource}' --url ~{url_base} --giturl ~{git_url} \
-                --extra stats.json \
-                --inputs ~{sep=' ' read} \
-                --outputs \
-                ~{filtered} 'Filtered Reads' \
-                ~{filtered_stats} 'Filtered Stats'
-            cp activity.json data_objects.json ~{qadir}/
 
             # Generate assembly objects
             /scripts/generate_objects.py --type "assembly" --id ~{informed_by} \
