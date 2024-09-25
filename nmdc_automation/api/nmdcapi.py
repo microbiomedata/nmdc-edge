@@ -46,8 +46,10 @@ class NmdcRuntimeApi:
     client_id = None
     client_secret = None
 
-    def __init__(self, site_configuration: Union[str, Path]):
-        self.config = Config(site_configuration)
+    def __init__(self, site_configuration: Union[str, Path, Config]):
+        if isinstance(site_configuration, str) or isinstance(site_configuration, Path):
+            site_configuration = Config(site_configuration)
+        self.config = site_configuration
         self._base_url = self.config.api_url
         self.client_id = self.config.client_id
         self.client_secret = self.config.client_secret

@@ -35,7 +35,7 @@ def watcher(ctx, site_configuration_file):
 @click.argument("job_ids", nargs=-1)
 def submit(ctx, job_ids):
     watcher = ctx.obj
-    watcher.restore()
+    watcher.restore_from_checkpoint()
     for job_id in job_ids:
         job = watcher.nmdc.get_job(job_id)
         claims = job["claims"]
@@ -57,7 +57,7 @@ def submit(ctx, job_ids):
 @click.argument("activity_ids", nargs=-1)
 def resubmit(ctx, activity_ids):
     watcher = ctx.obj
-    watcher.restore()
+    watcher.restore_from_checkpoint()
     for act_id in activity_ids:
         job = None
         if act_id.startswith("nmdc:sys"):
@@ -83,7 +83,7 @@ def resubmit(ctx, activity_ids):
 @click.pass_context
 def sync(ctx):
     watcher = ctx.obj
-    watcher.restore()
+    watcher.restore_from_checkpoint()
     watcher.update_op_state_all()
 
 

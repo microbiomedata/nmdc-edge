@@ -63,7 +63,7 @@ class WorkflowJob:
     def set_config_attributes(self):
         # TODO: Why are we not using the config object directly? This is a code smell.
         #   Consider wrapping with @property decorators to make this more explicit.
-        self.cromurl = self.config.cromwell_url
+        self.cromwell_url = self.config.cromwell_url
         self.data_dir = self.config.data_dir
         self.resource = self.config.resource
         self.url_root = self.config.url_root
@@ -129,7 +129,7 @@ class WorkflowJob:
             self.last_status = "Unsubmitted"
             return self.last_status
 
-        url = f"{self.cromurl}/{self.jobid}/status"
+        url = f"{self.cromwell_url}/{self.jobid}/status"
 
         try:
             resp = requests.get(url)
@@ -155,7 +155,7 @@ class WorkflowJob:
         """
         if not self.jobid:
             return self.DEFAULT_STATUS
-        url = f"{self.cromurl}/{self.jobid}{self.METADATA_URL_SUFFIX}"
+        url = f"{self.cromwell_url}/{self.jobid}{self.METADATA_URL_SUFFIX}"
         resp = requests.get(url)
         resp.raise_for_status()
         return resp.json()
@@ -239,8 +239,8 @@ class WorkflowJob:
 
             job_id = "unknown"
             if not self.dryrun:
-                logging.debug(self.cromurl)
-                resp = requests.post(self.cromurl, data={}, files=files)
+                logging.debug(self.cromwell_url)
+                resp = requests.post(self.cromwell_url, data={}, files=files)
                 resp.raise_for_status()
                 data = resp.json()
                 self.json_log(data, title="Response")

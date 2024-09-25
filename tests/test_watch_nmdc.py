@@ -30,9 +30,9 @@ def mock_cromwell(requests_mock, test_data_dir):
 
 def test_watcher(site_config):
     w = Watcher(site_config)
-    w.restore()
-    w.job_checkpoint()
-    w.restore()
+    w.restore_from_checkpoint()
+    w.job_manager.job_checkpoint()
+    w.restore_from_checkpoint()
 
 
 def test_claim_jobs(requests_mock, site_config, mock_api):
@@ -46,7 +46,7 @@ def test_claim_jobs(requests_mock, site_config, mock_api):
     requests_mock.post(f"http://localhost/jobs/{job_id}:claim", json=resp)
     w.claim_jobs()
     w.cycle()
-    resp = w.find_job_by_opid("nmdc:1234")
+    resp = w.job_manager.find_job_by_opid("nmdc:1234")
     assert resp
 
 
@@ -62,5 +62,5 @@ def test_reclaim_job(requests_mock, site_config, mock_api):
     requests_mock.post(f"http://localhost/jobs/{job_id}:claim", json=resp,
                        status_code=409)
     w.claim_jobs()
-    resp = w.find_job_by_opid("nmdc:1234")
+    resp = w.job_manager.find_job_by_opid("nmdc:1234")
     assert resp
