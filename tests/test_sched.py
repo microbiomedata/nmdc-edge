@@ -1,29 +1,8 @@
-from nmdc_automation.workflow_automation.sched import Scheduler
+from nmdc_automation.workflow_automation.sched import Scheduler, Job
 from pytest import mark
 
 
 from tests.fixtures.db_utils import init_test, load_fixture, read_json, reset_db
-
-
-def mock_progress(test_db, wf, version=None, flush=True, idx=0):
-    """
-    This function will mock the progress of a workflow. It reads
-    from a fixture file and inserts one record into the database.
-    By default, the record will be taken from the first record
-    in the fixture.  You can change the record by changing the
-    idx parameter.
-    """
-    s = wf.collection
-    data = read_json("%s.json" % (s))[idx]
-
-    if version:
-        data['version'] = version
-    else:
-        data['version'] = wf.version
-    data['git_url'] = wf.git_repo
-    if flush:
-        test_db[s].delete_many({})
-    test_db[s].insert_one(data)
 
 
 @mark.parametrize("workflow_file", [
@@ -220,3 +199,22 @@ def test_type_resolving(test_db, mock_api, workflows_config_dir, site_config):
 
     assert len(resp) == 2
     # assert 'annotation' in resp[1]['config']['inputs']['contig_file']
+
+
+@mark.parametrize("workflow_file", [
+    "workflows.yaml",
+    "workflows-mt.yaml"
+])
+def test_scheduler_add_job_rec(test_db, mock_api, workflow_file, workflows_config_dir, site_config):
+    """
+    Test basic job creation.
+    """
+    reset_db(test_db)
+    load_fixture(test_db, "data_object_set.json")
+    load_fixture(test_db, "data_generation_set.json")
+
+    jm = Scheduler(test_db, wfn=workflows_config_dir / workflow_file,
+                   site_conf=site_config)
+    # sanity check
+    assert jm
+
