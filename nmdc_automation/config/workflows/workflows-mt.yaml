@@ -31,7 +31,7 @@ Workflows:
     Inputs:
       input_files: do:Metagenome Raw Reads
       proj: "{workflow_execution_id}"
-    Workflow_Execution:
+    Workflow Execution:
       name: "Read QC for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
       input_read_count: "{outputs.stats.input_read_count}"
@@ -74,7 +74,7 @@ Workflows:
     - Metagenome Raw Read 2
     Predecessors:
     - Sequencing Noninterleaved
-    Workflow_Execution:
+    Workflow Execution:
       name: "Read QC for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
       input_read_count: "{outputs.stats.input_read_count}"
@@ -106,7 +106,7 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/metaT_Assembly
     Version: v0.0.2
     WDL: metaT_assembly.wdl
-    Collection: metatranscriptome_assembly_set
+    Collection: workflow_execution_set
     Predecessors:
     - Metatranscriptome Reads QC
     - Metatranscriptome Reads QC Interleave
@@ -114,7 +114,7 @@ Workflows:
     Inputs:
       input_files: do:Filtered Sequencing Reads
       proj: "{workflow_execution_id}"
-    Workflow_Execution:
+    Workflow Execution:
       name: "Metatranscriptome Assembly for {id}"
       type: nmdc:MetatranscriptomeAssembly
       asm_score: "{outputs.stats.asm_score}"
@@ -167,7 +167,7 @@ Workflows:
       input_file: do:Assembly Contigs
       imgap_project_id: "scaffold"
       proj: "{workflow_execution_id}"
-    Workflow_Execution:
+    Workflow Execution:
       name: "Metatranscriptome Annotation Analysis for {id}"
       type: nmdc:MetatranscriptomeAnnotation
     Outputs:
@@ -292,7 +292,7 @@ Workflows:
       bam: do:Assembly Coverage BAM
       rna_type: "aRNA"
       proj: "{workflow_execution_id}"
-    Workflow_Execution:
+    Workflow Execution:
       name: "Metatranscriptome Expression Analysis for {id}"
       type: nmdc:MetatranscriptomeExpressionAnalysis
     Outputs:
@@ -321,7 +321,7 @@ Workflows:
       map: do:Contig Mapping File
       bam: do:Assembly Coverage BAM
       proj: "{workflow_execution_id}"
-    Workflow_Execution:
+    Workflow Execution:
       name: "Metatranscriptome Expression Analysis for {id}"
       type: nmdc:MetatranscriptomeExpressionAnalysis
     Outputs:
@@ -351,7 +351,7 @@ Workflows:
       bam: do:Assembly Coverage BAM
       rna_type: "non_stranded_RNA"
       proj: "{workflow_execution_id}"
-    Workflow_Execution:
+    Workflow Execution:
       name: "Metatranscriptome Expression Analysis for {id}"
       type: nmdc:MetatranscriptomeExpressionAnalysis
     Outputs:

@@ -74,7 +74,7 @@ class Job:
     Class to hold information for new jobs
     """
 
-    def __init__(self, workflow: Workflow, trigger_act: str):
+    def __init__(self, workflow: Workflow, trigger_act: Activity):
         self.workflow = workflow
         self.trigger_act = trigger_act
         self.informed_by = trigger_act.was_informed_by
@@ -82,14 +82,6 @@ class Job:
 
 
 class Scheduler:
-    # TODO: Get this from the config
-    _sets = [
-        "metagenome_annotation_activity_set",
-        "metagenome_assembly_set",
-        "read_qc_analysis_activity_set",
-        "mags_activity_set",
-        "read_based_analysis_activity_set",
-    ]
 
     def __init__(self, db, wfn="workflows.yaml",
                  site_conf="site_configuration.toml"):
@@ -270,6 +262,7 @@ class Scheduler:
             if not wf.enabled:
                 continue
             # See if we already have a job for this
+            existing_jobs = self.get_existing_jobs(wf)
             if act.id in self.get_existing_jobs(wf):
                 continue
             # Look at previously generated derived

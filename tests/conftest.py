@@ -24,7 +24,7 @@ def mock_api(monkeypatch, requests_mock):
     resp = ["nmdc:abcd"]
     requests_mock.post("http://localhost/pids/mint", json=["nmdc:abcd"])
     requests_mock.post(
-        "http://localhost/workflows/activities",
+        "http://localhost/workflows/workflow_executions",
         json=["nmdc:abcd"]
         )
     requests_mock.post("http://localhost/pids/bind", json=resp)

@@ -3,11 +3,8 @@
     "has_input": [
       "nmdc:dobj-11-contigs"
     ],
-    "part_of": [
-      "nmdc:mga0vx38"
-    ],
     "git_url": "https://github.com/microbiomedata/mg_annotation",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "has_output": [
       "nmdc:dobj-11-proteinsfaa",
         "nmdc:dobj-11-structural",
@@ -37,9 +34,9 @@
     "was_informed_by": "nmdc:omprc-11-metag1",
     "id": "nmdc:wfmgan-11-test001.1",
     "execution_resource": "NERSC-Cori",
-    "name": "Annotation Activity for nmdc:mga0vx38",
+    "name": "Annotation Activity for nmdc:omprc-11-metag1",
     "started_at_time": "2021-08-05T14:48:51+00:00",
-    "type": "nmdc:MetagenomeAnnotationActivity",
+    "type": "nmdc:MetagenomeAnnotation",
     "ended_at_time": "2021-09-15T10:13:20+00:00"
   }
 ]

@@ -10,6 +10,7 @@ FIXTURE_DIR = Path(__file__).parent
 COLS = [
     'data_object_set',
     'data_generation_set',
+    'jobs',
     'workflow_execution_set',
     ]
 
@@ -20,7 +21,7 @@ def read_json(fn):
     return data
 
 
-def load_fixture(test_db, fn, col=None, reset=False):
+def load_fixture(test_db, fn, col=None, reset=False, version=None):
     if not col:
         col = fn.split("/")[-1].split(".")[0]
     if reset:
@@ -28,6 +29,9 @@ def load_fixture(test_db, fn, col=None, reset=False):
     data = read_json(fn)
     logging.debug("Loading %d recs into %s" % (len(data), col))
     if len(data) > 0:
+        if version:
+            for d in data:
+                d['version'] = version
         test_db[col].insert_many(data)
 
 

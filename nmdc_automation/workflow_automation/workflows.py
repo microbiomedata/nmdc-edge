@@ -47,7 +47,7 @@ class Workflow:
         "Predecessors",
         "Input_prefix",
         "Inputs",
-        "Activity",
+        "Workflow Execution",
         "Filter Input Objects",
         "Filter Output Objects",
         "Outputs",
@@ -78,6 +78,10 @@ class Workflow:
 
     def add_parent(self, parent: Workflow):
         self.parents.add(parent)
+
+    @property
+    def activity(self):
+        return self.workflow_execution
 
 
 if __name__ == "__main__":

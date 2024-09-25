@@ -31,7 +31,7 @@ Workflows:
     Inputs:
       input_files: do:Metagenome Raw Reads
       proj: "{workflow_execution_id}"
-    Workflow_Execution:
+    Workflow Execution:
       name: "Read QC for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
       input_read_count: "{outputs.stats.input_read_count}"
@@ -70,7 +70,7 @@ Workflows:
     - Metagenome Raw Read 2
     Predecessors:
     - Sequencing Noninterleaved
-    Workflow_Execution:
+    Workflow Execution:
       name: "Read QC for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
       input_read_count: "{outputs.stats.input_read_count}"
@@ -107,7 +107,7 @@ Workflows:
       input_file: do:Filtered Sequencing Reads
       rename_contig_prefix: "{workflow_execution_id}"
       proj: "{workflow_execution_id}"
-    Workflow_Execution:
+    Workflow Execution:
       name: "Metagenome Assembly for {id}"
       type: nmdc:MetagenomeAssembly
       asm_score: "{outputs.stats.asm_score}"
@@ -176,7 +176,7 @@ Workflows:
       input_file: do:Assembly Contigs
       imgap_project_id: "scaffold"
       proj: "{workflow_execution_id}"
-    Workflow_Execution:
+    Workflow Execution:
       name: "Metagenome Annotation Analysis for {id}"
       type: nmdc:MetagenomeAnnotation
     Outputs:
@@ -314,7 +314,7 @@ Workflows:
       map_file: do:Contig Mapping File
       gene_phylogeny_file: do:Gene Phylogeny tsv
       proj: "{workflow_execution_id}"
-    Workflow_Execution:
+    Workflow Execution:
       name: "Metagenome Assembled Genomes Analysis for {id}"
       type: nmdc:MagsAnalysis
     Outputs:
@@ -355,7 +355,7 @@ Workflows:
     Inputs:
       input_file: do:Filtered Sequencing Reads
       proj: "{workflow_execution_id}"
-    Workflow_Execution:
+    Workflow Execution:
       name: "Readbased Taxonomy Analysis for {id}"
       type: nmdc:ReadBasedTaxonomyAnalysis
     Outputs:
