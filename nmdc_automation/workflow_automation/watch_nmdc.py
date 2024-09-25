@@ -225,8 +225,6 @@ class Watcher:
         self.file_handler = FileHandler(self.config.agent_state)
         self.api_handler = RuntimeApiHandler(self.config)
         self.job_manager = JobManager(self.config, self.file_handler, self.api_handler)
-
-        # TODO: make it clear that this is a list of WorkflowJob instances
         self.jobs = []
         self._ALLOWED = self.config.allowed_workflows
 

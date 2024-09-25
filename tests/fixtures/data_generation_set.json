@@ -13,6 +13,7 @@
     "associated_studies" : [
         "nmdc:sty-11-test001"
     ],
+    "execution_resource": "NERSC-Cori",
     "principal_investigator" : {
         "has_raw_value" : "PI Name",
         "email" : "pi_name@example.com",
@@ -37,6 +38,7 @@
     "mod_date" : "2021-06-18",
     "ncbi_project_name" : "NCBI Project Name",
     "analyte_category": "metatranscriptome",
+    "execution_resource": "NERSC-Cori",
     "principal_investigator" : {
         "has_raw_value" : "Another PI Name"
     },

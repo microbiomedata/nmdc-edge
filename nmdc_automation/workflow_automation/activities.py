@@ -4,7 +4,8 @@ from typing import List, Optional
 
 from semver.version import Version
 
-from .workflows import Workflow
+from nmdc_automation.workflow_automation.workflows import Workflow
+from nmdc_schema.nmdc import WorkflowExecution
 
 # TODO: Berkley refactoring:
 #   The load_activities method will need to be modified to handle DataGeneration objects
@@ -96,8 +97,8 @@ def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, a
         1. Get the Data Generation (formerly Omics Processing) objects for the workflows by analyte category.
         2. Get the remaining Workflow Execution objects that was_informed_by the Data Generation objects.
         3. Filter Workflow Execution objects by:
-            - version (within range)
-            - required input and output data objects
+            - version (within range) if specified in the workflow
+            - input and output data objects required by the workflow
     Return the list of Workflow Execution objects.
     """
     workflow_executions = set()
@@ -119,11 +120,13 @@ def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, a
     dg_execution_records = list(dg_execution_records)
 
     for wf in dg_workflows:
+        # Sequencing workflows don't have a git repo
+        default_git_url = "https://github.com/microbiomedata"
         for rec in dg_execution_records:
             if _is_missing_required_input_output(wf, rec, data_objects):
                 continue
             data_generation_ids.add(rec["id"])
-            act = Activity(rec, wf)
+            act = WorkflowExecutionNode(rec, wf)
             act.was_informed_by = rec["id"]
             workflow_executions.add(act)
 
@@ -142,7 +145,7 @@ def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, a
             if _is_missing_required_input_output(wf, rec, data_objects):
                 continue
             if rec["was_informed_by"] in data_generation_ids:
-                act = Activity(rec, wf)
+                act = WorkflowExecutionNode(rec, wf)
                 workflow_executions.add(act)
 
     return list(workflow_executions)
@@ -308,9 +311,46 @@ class Activity(object):
         self.workflow = wf
         for f in self._FIELDS:
             setattr(self, f, activity_rec.get(f))
-        # TODO the analogous Berkeley Schema type will be nmdc:DataGeneration
-        if self.type == "nmdc:OmicsProcessing":
+        if self.type == "nmdc:NucleotideSequencing":
             self.was_informed_by = self.id
+
+    def add_data_object(self, do: DataObject):
+        self.data_objects_by_type[do.data_object_type] = do
+
+
+class WorkflowExecutionNode(WorkflowExecution):
+    """
+    Data class that extends the NMDC WorkflowExecution class.
+    The WorkflowExecutionNode class is used to represent a network of related workflow execution and
+    data generation events and their associated DataObject objects.
+    """
+
+    def __init__(self, record: dict, wf: Workflow):
+        """
+        Initialize the WorkflowExecutionNode object with the given record and workflow.
+        The record may be for a DataGeneration or WorkflowExecution object.
+        In the case of a DataGeneration object, the was_informed_by field is set to the id of the DataGeneration object,
+        and the record is massaged to look like a WorkflowExecution object.
+        """
+        record.pop("_id", None)
+        if not record.get("git_url"):
+            record["git_url"] = "http://github.com/microbiomedata"
+        if not record.get("started_at_time"):
+            record["started_at_time"] = record.get("add_date", "2024-01-01T00:00:00Z")
+        analyte_category = None
+        if record["type"] == "nmdc:NucleotideSequencing":
+            record["was_informed_by"] = record["id"]
+            analyte_category = record.pop("analyte_category")
+            record.pop("associated_studies")
+            record.pop("principal_investigator")
+
+        super().__init__(**record)
+        self.parent = None
+        self.children = []
+        self.data_objects_by_type = dict()
+        self.workflow = wf
+        self.analyte_category = analyte_category
+
 
     def add_data_object(self, do: DataObject):
         self.data_objects_by_type[do.data_object_type] = do
