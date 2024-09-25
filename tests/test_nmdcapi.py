@@ -23,9 +23,7 @@ def test_objects(mock_api, requests_mock, site_config, test_data_dir):
         os.remove(fn)
     afile = test_data_dir / "afile"
     resp = n.create_object(str(afile), "desc", "http://localhost/")
-    # assert "checksums" in resp
     resp = n.create_object("./test_data/afile", "desc", "http://localhost/")
-    # assert "checksums" in resp
     url = "http://localhost/workflows/workflow_executions"
     requests_mock.post(url, json={"a": "b"})
     resp = n.post_objects({"a": "b"})
