@@ -1,3 +1,4 @@
+import json
 import os
 from pymongo import MongoClient
 from pathlib import Path
@@ -13,21 +14,30 @@ def test_db():
     return MongoClient(conn_str).test
 
 @fixture(autouse=True)
-def mock_api(monkeypatch, requests_mock):
+def mock_api(monkeypatch, requests_mock, test_data_dir):
     monkeypatch.setenv("NMDC_API_URL", "http://localhost")
     monkeypatch.setenv("NMDC_CLIENT_ID", "anid")
     monkeypatch.setenv("NMDC_CLIENT_SECRET", "asecret")
-    resp = {"expires": {"minutes": time()+60},
+    token_resp = {"expires": {"minutes": time()+60},
             "access_token": "abcd"
             }
-    requests_mock.post("http://localhost/token", json=resp)
+    requests_mock.post("http://localhost/token", json=token_resp)
     resp = ["nmdc:abcd"]
-    requests_mock.post("http://localhost/pids/mint", json=["nmdc:abcd"])
+    requests_mock.post("http://localhost/pids/mint", json=resp)
     requests_mock.post(
         "http://localhost/workflows/workflow_executions",
-        json=["nmdc:abcd"]
+        json=resp
         )
     requests_mock.post("http://localhost/pids/bind", json=resp)
+
+    rqcf = test_data_dir / "rqc_response2.json"
+    rqc = json.load(open(rqcf))
+    rqc_resp = {"resources": [rqc]}
+    requests_mock.get("http://localhost/jobs", json=rqc_resp)
+
+    requests_mock.patch("http://localhost/operations/nmdc:1234", json={})
+    requests_mock.get("http://localhost/operations/nmdc:1234", json={'metadata': {}})
+
 
 @fixture(scope="session")
 def base_test_dir():
