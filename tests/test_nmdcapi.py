@@ -18,12 +18,12 @@ def test_objects(mock_api, requests_mock, site_config, test_data_dir):
     n = nmdcapi(site_config)
 
     requests_mock.post("http://localhost/objects", json={})
-    fn = "./test_data/afile.sha256"
+    fn = test_data_dir / "afile.sha256"
     if os.path.exists(fn):
         os.remove(fn)
     afile = test_data_dir / "afile"
     resp = n.create_object(str(afile), "desc", "http://localhost/")
-    resp = n.create_object("./test_data/afile", "desc", "http://localhost/")
+    resp = n.create_object(test_data_dir / "afile", "desc", "http://localhost/")
     url = "http://localhost/workflows/workflow_executions"
     requests_mock.post(url, json={"a": "b"})
     resp = n.post_objects({"a": "b"})
