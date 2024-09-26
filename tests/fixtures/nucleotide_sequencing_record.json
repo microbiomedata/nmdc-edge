@@ -1,0 +1,28 @@
+{
+      "id": "nmdc:omprc-11-0011q207",
+      "name": "Root microbial communities from poplar common garden site in Clatskanie, Oregon, USA - BESC-847-CL1_28_5 endosphere",
+      "has_input": [
+        "nmdc:bsm-11-ta8dt754"
+      ],
+      "add_date": "2021-08-20T00:00:00",
+      "mod_date": "2021-08-20T00:00:00",
+      "ncbi_project_name": "Root microbial communities from poplar common garden site in Clatskanie, Oregon, USA - BESC-847-CL1_28_5 endosphere",
+      "principal_investigator": {
+        "has_raw_value": "Mitchel Doktycz",
+        "email": "doktyczmj@ornl.gov",
+        "name": "Mitchel Doktycz",
+        "type": "nmdc:PersonValue"
+      },
+      "processing_institution": "JGI",
+      "type": "nmdc:NucleotideSequencing",
+      "gold_sequencing_project_identifiers": [
+        "gold:Gp0587799"
+      ],
+      "analyte_category": "metagenome",
+      "associated_studies": [
+        "nmdc:sty-11-r2h77870"
+      ],
+      "instrument_used": [
+        "nmdc:inst-14-mr4r2w09"
+      ]
+    }

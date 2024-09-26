@@ -5,7 +5,7 @@ from typing import List, Optional
 from semver.version import Version
 
 from nmdc_automation.workflow_automation.workflows import Workflow
-from nmdc_schema.nmdc import WorkflowExecution
+from nmdc_automation.workflow_automation.models import WorkflowProcessNode
 
 # TODO: Berkley refactoring:
 #   The load_activities method will need to be modified to handle DataGeneration objects
@@ -126,8 +126,7 @@ def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, a
             if _is_missing_required_input_output(wf, rec, data_objects):
                 continue
             data_generation_ids.add(rec["id"])
-            act = WorkflowExecutionNode(rec, wf)
-            act.was_informed_by = rec["id"]
+            act = WorkflowProcessNode(rec, wf)
             workflow_executions.add(act)
 
     for wf in dp_workflows:
@@ -145,7 +144,7 @@ def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, a
             if _is_missing_required_input_output(wf, rec, data_objects):
                 continue
             if rec["was_informed_by"] in data_generation_ids:
-                act = WorkflowExecutionNode(rec, wf)
+                act = WorkflowProcessNode(rec, wf)
                 workflow_executions.add(act)
 
     return list(workflow_executions)
@@ -316,41 +315,41 @@ class Activity(object):
 
     def add_data_object(self, do: DataObject):
         self.data_objects_by_type[do.data_object_type] = do
-
-
-class WorkflowExecutionNode(WorkflowExecution):
-    """
-    Data class that extends the NMDC WorkflowExecution class.
-    The WorkflowExecutionNode class is used to represent a network of related workflow execution and
-    data generation events and their associated DataObject objects.
-    """
-
-    def __init__(self, record: dict, wf: Workflow):
-        """
-        Initialize the WorkflowExecutionNode object with the given record and workflow.
-        The record may be for a DataGeneration or WorkflowExecution object.
-        In the case of a DataGeneration object, the was_informed_by field is set to the id of the DataGeneration object,
-        and the record is massaged to look like a WorkflowExecution object.
-        """
-        record.pop("_id", None)
-        if not record.get("git_url"):
-            record["git_url"] = "http://github.com/microbiomedata"
-        if not record.get("started_at_time"):
-            record["started_at_time"] = record.get("add_date", "2024-01-01T00:00:00Z")
-        analyte_category = None
-        if record["type"] == "nmdc:NucleotideSequencing":
-            record["was_informed_by"] = record["id"]
-            analyte_category = record.pop("analyte_category")
-            record.pop("associated_studies")
-            record.pop("principal_investigator")
-
-        super().__init__(**record)
-        self.parent = None
-        self.children = []
-        self.data_objects_by_type = dict()
-        self.workflow = wf
-        self.analyte_category = analyte_category
-
-
-    def add_data_object(self, do: DataObject):
-        self.data_objects_by_type[do.data_object_type] = do
+#
+#
+# class WorkflowExecutionNode(WorkflowExecution):
+#     """
+#     Data class that extends the NMDC WorkflowExecution class.
+#     The WorkflowExecutionNode class is used to represent a network of related workflow execution and
+#     data generation events and their associated DataObject objects.
+#     """
+#
+#     def __init__(self, record: dict, wf: Workflow):
+#         """
+#         Initialize the WorkflowExecutionNode object with the given record and workflow.
+#         The record may be for a DataGeneration or WorkflowExecution object.
+#         In the case of a DataGeneration object, the was_informed_by field is set to the id of the DataGeneration object,
+#         and the record is massaged to look like a WorkflowExecution object.
+#         """
+#         record.pop("_id", None)
+#         if not record.get("git_url"):
+#             record["git_url"] = "http://github.com/microbiomedata"
+#         if not record.get("started_at_time"):
+#             record["started_at_time"] = record.get("add_date", "2024-01-01T00:00:00Z")
+#         analyte_category = None
+#         if record["type"] == "nmdc:NucleotideSequencing":
+#             record["was_informed_by"] = record["id"]
+#             analyte_category = record.pop("analyte_category")
+#             record.pop("associated_studies")
+#             record.pop("principal_investigator")
+#
+#         super().__init__(**record)
+#         self.parent = None
+#         self.children = []
+#         self.data_objects_by_type = dict()
+#         self.workflow = wf
+#         self.analyte_category = analyte_category
+#
+#
+#     def add_data_object(self, do: DataObject):
+#         self.data_objects_by_type[do.data_object_type] = do
