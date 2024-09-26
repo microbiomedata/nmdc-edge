@@ -5,16 +5,7 @@ from typing import List, Optional
 from semver.version import Version
 
 from nmdc_automation.workflow_automation.workflows import Workflow
-from nmdc_automation.workflow_automation.models import WorkflowProcessNode
-
-# TODO: Berkley refactoring:
-#   The load_activities method will need to be modified to handle DataGeneration objects
-#   instead of OmicsProcessing objects, with the difference being the DataGeneration objects can be part_of other
-#   DataGeneration objects. This will require a change in the way the parent/child relationships are resolved.
-#   Need to add logic to find the correct parent DataGeneration to use for constructing the Activity graph and
-#   correctly setting the was_informed_by field.
-#   Add unit tests to cover the new behavior, mocking the MongoDB database and the Berkley style DataGeneration objects.
-#   DataGeneration is an abstract class, include specific tests for subclasses NucleotideSequencing or MassSpectrometry
+from nmdc_automation.workflow_automation.models import WorkflowProcessNode, DataObject
 
 warned_objects = set()
 
@@ -35,7 +26,7 @@ def get_required_data_objects_map(db, workflows: List[Workflow]) -> dict:
 
     required_data_objs_by_id = dict()
     for rec in db.data_object_set.find():
-        do = DataObject(rec)
+        do = DataObject(**rec)
         if do.data_object_type not in required_types:
             continue
         required_data_objs_by_id[do.id] = do
@@ -277,17 +268,3 @@ def load_workflow_process_nodes(db, workflows: list[Workflow], allowlist: list[s
     wfp_nodes = _resolve_relationships(wfp_nodes, data_obj_act)
     return wfp_nodes
 
-
-# TODO: Why are we not importing and using the existing nmdc_schema.DataObject class?
-#   nmdc_schema.DataObject is stricter and using it currently causes tests / fixtures to fail.
-#   We should fix the tests and fixtures to use the stricter class and remove this class.
-class DataObject(object):
-    """
-    Data Object Class
-    """
-
-    _FIELDS = ["id", "name", "description", "url", "md5_checksum", "file_size_bytes", "data_object_type", ]
-
-    def __init__(self, rec: dict):
-        for f in self._FIELDS:
-            setattr(self, f, rec.get(f))

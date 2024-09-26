@@ -4,8 +4,7 @@ from typing import List, Dict, Any, Optional
 
 from nmdc_automation.workflow_automation.workflows import Workflow
 from nmdc_schema.nmdc import (
-    DataGeneration,
-    WorkflowExecution,
+    FileTypeEnum,
     NucleotideSequencing,
     MagsAnalysis,
     MetagenomeAssembly,
@@ -17,23 +16,26 @@ from nmdc_schema.nmdc import (
     ReadBasedTaxonomyAnalysis,
     ReadQcAnalysis,
 )
-process_types = {
-    "nmdc:MagsAnalysis": MagsAnalysis,
-    "nmdc:MetagenomeAnnotation": MetagenomeAnnotation,
-    "nmdc:MetagenomeAssembly": MetagenomeAssembly,
-    "nmdc:MetatranscriptomeAnnotation": MetatranscriptomeAnnotation,
-    "nmdc:MetatranscriptomeAssembly": MetatranscriptomeAssembly,
-    "nmdc:MetatranscriptomeExpressionAnalysis": MetatranscriptomeExpressionAnalysis,
-    "nmdc:NucleotideSequencing": NucleotideSequencing,
-    "nmdc:ReadBasedTaxonomyAnalysis": ReadBasedTaxonomyAnalysis,
-    "nmdc:ReadQcAnalysis": ReadQcAnalysis,
-}
+from nmdc_schema import nmdc
+
+
 def workflow_process_factory(record: Dict[str, Any]) -> PlannedProcess:
     """
     Factory function to create a PlannedProcess subclass object from a record.
     Subclasses are determined by the "type" field in the record, and can be
     either a WorkflowExecution or DataGeneration object.
     """
+    process_types = {
+        "nmdc:MagsAnalysis": MagsAnalysis,
+        "nmdc:MetagenomeAnnotation": MetagenomeAnnotation,
+        "nmdc:MetagenomeAssembly": MetagenomeAssembly,
+        "nmdc:MetatranscriptomeAnnotation": MetatranscriptomeAnnotation,
+        "nmdc:MetatranscriptomeAssembly": MetatranscriptomeAssembly,
+        "nmdc:MetatranscriptomeExpressionAnalysis": MetatranscriptomeExpressionAnalysis,
+        "nmdc:NucleotideSequencing": NucleotideSequencing,
+        "nmdc:ReadBasedTaxonomyAnalysis": ReadBasedTaxonomyAnalysis,
+        "nmdc:ReadQcAnalysis": ReadQcAnalysis,
+    }
     record.pop("_id", None)
     try:
         cls = process_types[record["type"]]
@@ -107,5 +109,41 @@ class WorkflowProcessNode(object):
         return getattr(self.process, "was_informed_by", self.id)
 
 
+class DataObject(nmdc.DataObject):
+    """
+    Class to represent a data object.
+     - Overrides the data_object_type property to return the type as a string
+    """
+    def __init__(self, **record):
+        record.pop("_id", None)
+        super().__init__(**record)
+
+    def as_dict(self):
+        """ Return the object as a dictionary, excluding None values, empty lists, and data_object_type as a string """
+        return_dict = {}
+        for key, value in self.__dict__.items():
+            if key == "_data_object_type":
+                return_dict['data_object_type'] = self.data_object_type
+                continue
+            if key.startswith("_"):
+                continue
+            if value:
+                return_dict[key] = value
+        return return_dict
+
+    @property
+    def data_object_type(self):
+        """ Return the data object type as a string """
+        if isinstance(self._data_object_type, FileTypeEnum):
+            return self._data_object_type.code.text
+        return str(self._data_object_type)
+
+    @data_object_type.setter
+    def data_object_type(self, value):
+        """ Set the data object type from a string or FileTypeEnum """
+        if isinstance(value, FileTypeEnum):
+            self._data_object_type = value
+        else:
+            self._data_object_type = FileTypeEnum(value)
 
 

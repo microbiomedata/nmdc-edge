@@ -2,6 +2,7 @@
 from bson import ObjectId
 from pytest import mark
 from nmdc_automation.workflow_automation.models import(
+    DataObject,
     WorkflowProcessNode,
     workflow_process_factory,
 )
@@ -69,4 +70,32 @@ def test_workflow_process_node(workflows_config_dir,record_file, record_type):
     assert wfn.process.type == record_type
 
 
+def test_data_object_creation_from_records():
+    """ Test the creation of DataObject objects from records. """
+    records = db_utils.read_json("data_object_set.json")
+    for record in records:
+        data_obj = DataObject(**record)
+        assert data_obj.type == "nmdc:DataObject"
+        assert data_obj.id == record["id"]
+        assert data_obj.name == record["name"]
+        assert data_obj.data_object_type == record["data_object_type"]
 
+        data_obj_dict = data_obj.as_dict()
+        assert data_obj_dict == record
+
+def test_data_object_creation_from_db_records(test_db):
+    db_utils.reset_db(test_db)
+    db_utils.read_json("data_object_set.json")
+
+    db_records = test_db["data_object_set"].find()
+    db_records = list(db_records)
+    for db_record in db_records:
+        data_obj = DataObject(**db_record)
+        assert data_obj.type == "nmdc:DataObject"
+        assert data_obj.id == db_record["id"]
+        assert data_obj.name == db_record["name"]
+        assert data_obj.data_object_type == db_record["data_object_type"]
+        assert data_obj.data_object_format == db_record["data_object_format"]
+
+        data_obj_dict = data_obj.as_dict()
+        assert data_obj_dict == db_record

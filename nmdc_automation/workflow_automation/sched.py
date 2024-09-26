@@ -105,7 +105,7 @@ class Scheduler:
             await asyncio.sleep(_POLL_INTERVAL)
 
     # TODO:
-    def add_job_rec(self, job: Job):
+    def create_job_rec(self, job: Job):
         """
         This takes a job and using the workflow definition,
         resolves all the information needed to create a
@@ -115,11 +115,11 @@ class Scheduler:
         next_act = job.trigger_act
         do_by_type = dict()
         while next_act:
-            for do_type, val in next_act.data_objects_by_type.items():
+            for do_type, data_object in next_act.data_objects_by_type.items():
                 if do_type in do_by_type:
-                    logging.debug(f"Ignoring Duplicate type: {do_type} {val.id} {next_act.id}")
+                    logging.debug(f"Ignoring Duplicate type: {do_type} {data_object.id} {next_act.id}")
                     continue
-                do_by_type[do_type] = val.__dict__
+                do_by_type[do_type] = data_object
             # do_by_type.update(next_act.data_objects_by_type.__dict__)
             next_act = next_act.parent
 
@@ -137,7 +137,7 @@ class Scheduler:
                     if k in optional_inputs:
                         continue
                     raise ValueError(f"Unable to find {do_type} in {do_by_type}")
-                inp_objects.append(dobj)
+                inp_objects.append(dobj.as_dict())
                 v = dobj["url"]
             # TODO: Make this smarter
             elif v == "{was_informed_by}":
@@ -180,7 +180,7 @@ class Scheduler:
             "config": job_config,
             "claims": [],
         }
-        self.db.jobs.insert_one(jr)
+
         logging.info(f'JOB RECORD: {jr["id"]}')
         # This would make the job record
         # print(json.dumps(ji, indent=2))
@@ -309,7 +309,8 @@ class Scheduler:
                     logging.info(msg)
                     continue
                 try:
-                    jr = self.add_job_rec(job)
+                    jr = self.create_job_rec(job)
+                    self.db.jobs.insert_one(jr)
                     if jr:
                         job_recs.append(jr)
                 except Exception as ex:
