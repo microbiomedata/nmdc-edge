@@ -2,7 +2,7 @@ from pytest import mark
 
 from nmdc_automation.workflow_automation.activities import (get_required_data_objects_map, get_current_workflow_process_nodes,
                                                             load_workflow_process_nodes)
-from nmdc_automation.workflow_automation.workflows import load_workflows
+from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from tests.fixtures.db_utils import  load_fixture, reset_db
 
 
@@ -22,7 +22,7 @@ def test_load_activies(test_db, workflow_file, workflows_config_dir):
     load_fixture(test_db, "data_generation_set.json")
     load_fixture(test_db, "read_qc_analysis.json", "workflow_execution_set")
 
-    wfs = load_workflows(workflows_config_dir / workflow_file)
+    wfs = load_workflow_configs(workflows_config_dir / workflow_file)
 
     # these are called by load_activities
     data_objs_by_id = get_required_data_objects_map(test_db, wfs)
@@ -67,7 +67,7 @@ def test_load_workflows(workflows_config_dir, workflow_file):
         exp_wf_names = ["Reads QC", "Reads QC Interleave", "Metagenome Assembly", "Metagenome Annotation", "MAGs",
                         "Readbased Analysis", ]
 
-    wfs = load_workflows(workflows_config_dir / workflow_file)
+    wfs = load_workflow_configs(workflows_config_dir / workflow_file)
     assert wfs
     wfm = {}
     assert len(wfs) == len(exp_wf_names) + len(shared_wf_names)
@@ -98,7 +98,7 @@ def test_get_required_data_objects_by_id(test_db, workflows_config_dir, workflow
     reset_db(test_db)
     load_fixture(test_db, "data_object_set.json")
 
-    wfs = load_workflows(workflows_config_dir / workflow_file)
+    wfs = load_workflow_configs(workflows_config_dir / workflow_file)
 
     required_data_object_map = get_required_data_objects_map(test_db, wfs)
     assert required_data_object_map

@@ -6,7 +6,7 @@ from nmdc_automation.workflow_automation.models import(
     WorkflowProcessNode,
     workflow_process_factory,
 )
-from nmdc_automation.workflow_automation.workflows import load_workflows
+from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from tests.fixtures import db_utils
 
 def test_workflow_process_factory():
@@ -53,8 +53,8 @@ def test_process_factory_with_db_record():
 def test_workflow_process_node(workflows_config_dir,record_file, record_type):
     """ Test the WorkflowProcessNode class. """
     # load all workflows for both metagenome and metatranscriptome
-    wfs = load_workflows(workflows_config_dir / "workflows.yaml")
-    wfs += load_workflows(workflows_config_dir / "workflows-mt.yaml")
+    wfs = load_workflow_configs(workflows_config_dir / "workflows.yaml")
+    wfs += load_workflow_configs(workflows_config_dir / "workflows-mt.yaml")
 
     # NuclotideSequencing workflows have no type
     if record_type == "nmdc:NucleotideSequencing":

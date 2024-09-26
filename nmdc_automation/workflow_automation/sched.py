@@ -5,12 +5,12 @@ import uuid
 import os
 from time import sleep as _sleep
 from nmdc_automation.api.nmdcapi import NmdcRuntimeApi
-from nmdc_automation.workflow_automation.workflows import load_workflows, Workflow
+from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from functools import lru_cache
 from pymongo import MongoClient
 from pymongo.database import Database as MongoDatabase
 from nmdc_automation.workflow_automation.activities import load_workflow_process_nodes
-from nmdc_automation.workflow_automation.models import WorkflowProcessNode
+from nmdc_automation.workflow_automation.models import WorkflowProcessNode, WorkflowConfig
 from semver.version import Version
 
 
@@ -42,7 +42,7 @@ def get_mongo_db() -> MongoDatabase:
     return _client[os.getenv("MONGO_DBNAME")]
 
 
-def within_range(wf1: Workflow, wf2: Workflow, force=False) -> bool:
+def within_range(wf1: WorkflowConfig, wf2: WorkflowConfig, force=False) -> bool:
     """
     Determine if two workflows are within a major and minor
     version of each other.
@@ -75,7 +75,7 @@ class Job:
     Class to hold information for new jobs
     """
 
-    def __init__(self, workflow: Workflow, trigger_act: WorkflowProcessNode):
+    def __init__(self, workflow: WorkflowConfig, trigger_act: WorkflowProcessNode):
         self.workflow = workflow
         self.trigger_act = trigger_act
         self.informed_by = trigger_act.was_informed_by
@@ -89,7 +89,7 @@ class Scheduler:
         logging.info("Initializing Scheduler")
         # Init
         wf_file = os.environ.get(_WF_YAML_ENV, wfn)
-        self.workflows = load_workflows(wf_file)
+        self.workflows = load_workflow_configs(wf_file)
         self.db = db
         self.api = NmdcRuntimeApi(site_conf)
         # TODO: Make force a optional parameter
@@ -163,8 +163,8 @@ class Scheduler:
             "inputs": inp,
             "input_data_objects": inp_objects,
         }
-        if wf.activity:
-            job_config["activity"] = wf.activity
+        if wf.workflow_execution:
+            job_config["activity"] = wf.workflow_execution
         if wf.outputs:
             outputs = []
             for output in wf.outputs:
@@ -209,7 +209,7 @@ class Scheduler:
         }
         return f"nmdc:wf{mapping[id_type]}-11-xxxxxx"
 
-    def get_activity_id(self, wf: Workflow, informed_by: str):
+    def get_activity_id(self, wf: WorkflowConfig, informed_by: str):
         """
         See if anything exist for this and if not
         mint a new id.
@@ -237,7 +237,7 @@ class Scheduler:
     #      from the jobs collection for a given workflow. Also activity should be execution to conform
     #      to the new schema.
     @lru_cache(maxsize=128)
-    def get_existing_jobs(self, wf: Workflow):
+    def get_existing_jobs(self, wf: WorkflowConfig):
         existing_jobs = set()
         # Filter by git_repo and version
         # Find all existing jobs for this workflow

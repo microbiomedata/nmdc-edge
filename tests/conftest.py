@@ -7,7 +7,7 @@ from time import time
 from yaml import load
 
 from nmdc_automation.config import Config
-from nmdc_automation.workflow_automation.workflows import Workflow
+
 
 
 

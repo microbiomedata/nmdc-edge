@@ -1,8 +1,7 @@
 """ Model classes for the workflow automation app. """
 from dataclasses import dataclass, field
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Set
 
-from nmdc_automation.workflow_automation.workflows import Workflow
 from nmdc_schema.nmdc import (
     FileTypeEnum,
     NucleotideSequencing,
@@ -50,7 +49,7 @@ class WorkflowProcessNode(object):
     structure that represents the execution hierarchy of data generation and
     workflow execution objects with their associated data objects.
     """
-    def __init__(self, record: Dict[str, Any], workflow: Workflow):
+    def __init__(self, record: Dict[str, Any], workflow: "WorkflowConfig"):
         self.parent = None
         self.children = []
         self.data_objects_by_type = {}
@@ -143,3 +142,58 @@ class DataObject(nmdc.DataObject):
             self._data_object_type = FileTypeEnum(value)
 
 
+@dataclass
+class WorkflowConfig:
+    """ Configuration for a workflow execution """
+    # Sequencing workflows only have these fields
+    name: str
+    collection: str
+    enabled: bool
+    analyte_category: str
+    filter_output_objects: List[str]
+    # TODO should type be optional?
+    type: Optional[str] = None
+
+    # workflow repository information
+    git_repo: Optional[str] = None
+    version: Optional[str] = None
+    wdl: Optional[str] = None
+    # workflow execution and input / output information
+    filter_output_objects: List[str] = field(default_factory=list)
+    predecessors: List[str] = field(default_factory=list)
+    filter_input_objects: List[str] = field(default_factory=list)
+    input_prefix: str = None
+    inputs: Dict[str, str] = field(default_factory=dict)
+    optional_inputs: List[str] = field(default_factory=list)
+    workflow_execution: Dict[str, Any] = field(default_factory=dict)
+    outputs: List[Dict[str, str]] = field(default_factory=list)
+
+    # populated after initialization
+    children: Set["WorkflowConfig"] = field(default_factory=set)
+    parents: Set["WorkflowConfig"] = field(default_factory=set)
+    data_object_types: List[str] = field(default_factory=list)
+
+    def __post_init__(self):
+        """ Initialize the object """
+        for _, inp_param in self.inputs.items():
+            if inp_param.startswith("do:"):
+                self.data_object_types.append(inp_param[3:])
+        if not self.type:
+            # Infer the type from the name
+            if self.collection == 'data_generation_set' and 'Sequencing' in self.name:
+                self.type = 'nmdc:NucleotideSequencing'
+
+    def __hash__(self):
+        return hash(self.name)
+
+    def __eq__(self, other):
+        return self.name == other.name
+
+
+    def add_child(self, child: "WorkflowConfig"):
+        """ Add a child workflow """
+        self.children.add(child)
+
+    def add_parent(self, parent: "WorkflowConfig"):
+        """ Add a parent workflow """
+        self.parents.add(parent)

@@ -4,13 +4,12 @@ from typing import List, Optional
 
 from semver.version import Version
 
-from nmdc_automation.workflow_automation.workflows import Workflow
-from nmdc_automation.workflow_automation.models import WorkflowProcessNode, DataObject
+from nmdc_automation.workflow_automation.models import WorkflowProcessNode, DataObject, WorkflowConfig
 
 warned_objects = set()
 
 
-def get_required_data_objects_map(db, workflows: List[Workflow]) -> dict:
+def get_required_data_objects_map(db, workflows: List[WorkflowConfig]) -> dict:
     """
      Search for all the data objects that are required data object types for the workflows,
         and return a dictionary of data objects by ID.
@@ -22,7 +21,7 @@ def get_required_data_objects_map(db, workflows: List[Workflow]) -> dict:
     # Build up a filter of what types are used
     required_types = set()
     for wf in workflows:
-        required_types.update(set(wf.do_types))
+        required_types.update(set(wf.data_object_types))
 
     required_data_objs_by_id = dict()
     for rec in db.data_object_set.find():
@@ -83,45 +82,41 @@ def _is_missing_required_input_output(wf, rec, data_objs):
 
 
 def get_current_workflow_process_nodes(
-        db, workflows: List[Workflow], data_objects: dict, allowlist: list = None) -> List[WorkflowProcessNode]:
+        db, workflows: List[WorkflowConfig], data_objects: dict, allowlist: list = None) -> List[WorkflowProcessNode]:
     """
-    Fetch the relevant workflow executions from the database for the given workflows.
-        1. Get the Data Generation (formerly Omics Processing) objects for the workflows by analyte category.
-        2. Get the remaining Workflow Execution objects that was_informed_by the Data Generation objects.
-        3. Filter Workflow Execution objects by:
+    Fetch the relevant workflow process nodes for the given workflows.
+        1. Get the Data Generation (formerly Omics Processing) records for the workflows by analyte category.
+        2. Get the remaining Workflow Execution records that was_informed_by the Data Generation objects.
+        3. Filter Workflow Execution records by:
             - version (within range) if specified in the workflow
             - input and output data objects required by the workflow
-    Return the list of Workflow Execution objects.
+    Returns a list of WorkflowProcessNode objects.
     """
-    workflow_executions = set()
+    workflow_process_nodes = set()
     analyte_category = _determine_analyte_category(workflows)
 
-    # We handle the data generation and data processing workflows separately. Data generation workflow executions have an
-    # analyte category field, while data processing workflow executions do not, so we filter by the was_informed_by field.
     data_generation_ids = set()
-    dg_workflows = [wf for wf in workflows if wf.collection in ["omics_processing_set", "data_generation_set"]]
-    dp_workflows = [wf for wf in workflows if not wf.collection in ["omics_processing_set", "data_generation_set"]]
+    data_generation_workflows = [wf for wf in workflows if wf.collection == "data_generation_set"]
+    workflow_execution_workflows = [wf for wf in workflows if wf.collection == "workflow_execution_set"]
 
-    # default query
+    # default query for data_generation_set records filtered by analyte category
     q = {"analyte_category": analyte_category}
     # override query with allowlist
     if allowlist:
         q["id"] = {"$in": list(allowlist)}
     dg_execution_records = db["data_generation_set"].find(q)
-    # change from cursor to list
     dg_execution_records = list(dg_execution_records)
 
-    for wf in dg_workflows:
+    for wf in data_generation_workflows:
         # Sequencing workflows don't have a git repo
-        default_git_url = "https://github.com/microbiomedata"
         for rec in dg_execution_records:
             if _is_missing_required_input_output(wf, rec, data_objects):
                 continue
             data_generation_ids.add(rec["id"])
-            act = WorkflowProcessNode(rec, wf)
-            workflow_executions.add(act)
+            wfp_node = WorkflowProcessNode(rec, wf)
+            workflow_process_nodes.add(wfp_node)
 
-    for wf in dp_workflows:
+    for wf in workflow_execution_workflows:
         q = {}
         if wf.git_repo:
             q = {"git_url": wf.git_repo}
@@ -136,13 +131,13 @@ def get_current_workflow_process_nodes(
             if _is_missing_required_input_output(wf, rec, data_objects):
                 continue
             if rec["was_informed_by"] in data_generation_ids:
-                act = WorkflowProcessNode(rec, wf)
-                workflow_executions.add(act)
+                wfp_node = WorkflowProcessNode(rec, wf)
+                workflow_process_nodes.add(wfp_node)
 
-    return list(workflow_executions)
+    return list(workflow_process_nodes)
 
 
-def _determine_analyte_category(workflows: List[Workflow]) -> str:
+def _determine_analyte_category(workflows: List[WorkflowConfig]) -> str:
     analyte_categories = set([wf.analyte_category for wf in workflows])
     if len(analyte_categories) > 1:
         raise ValueError("Multiple analyte categories not supported")
@@ -238,7 +233,7 @@ def _find_data_object_activities(activities, data_objs_by_id):
 
 
 
-def load_workflow_process_nodes(db, workflows: list[Workflow], allowlist: list[str] = None) -> List[WorkflowProcessNode]:
+def load_workflow_process_nodes(db, workflows: list[WorkflowConfig], allowlist: list[str] = None) -> List[WorkflowProcessNode]:
     """
     This reads the activities from Mongo.  It also
     finds the parent and child relationships between
