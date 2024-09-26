@@ -1,0 +1,25 @@
+{
+      "id": "nmdc:wfrbt-11-00qkc311.1",
+      "name": "Readbased Taxonomy Analysis Activity for nmdc:wfrbt-11-00qkc311.1",
+      "started_at_time": "2023-03-16T19:32:00.300673+00:00",
+      "ended_at_time": "2023-03-17T15:24:11.217325+00:00",
+      "was_informed_by": "nmdc:omprc-11-rcy9x023",
+      "execution_resource": "NERSC-Cori",
+      "git_url": "https://github.com/microbiomedata/ReadbasedAnalysis",
+      "has_input": [
+        "nmdc:dobj-11-bg80tg92"
+      ],
+      "has_output": [
+        "nmdc:dobj-11-r3fgct86",
+        "nmdc:dobj-11-s71n7k22",
+        "nmdc:dobj-11-z7scy855",
+        "nmdc:dobj-11-et8qjk67",
+        "nmdc:dobj-11-cs5ds528",
+        "nmdc:dobj-11-81g47g12",
+        "nmdc:dobj-11-2gbw5832",
+        "nmdc:dobj-11-vcn8z980",
+        "nmdc:dobj-11-7d3pk791"
+      ],
+      "type": "nmdc:ReadBasedTaxonomyAnalysis",
+      "version": "v1.0.5-beta"
+    }
