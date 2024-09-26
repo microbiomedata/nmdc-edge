@@ -16,20 +16,24 @@ from nmdc_automation.config import Config, UserConfig
 import logging
 
 
-def _get_sha256(fn):
-    hashfn = fn + ".sha256"
-    if os.path.exists(hashfn):
-        with open(hashfn) as f:
+def _get_sha256(fn: Union[str, Path]) -> str:
+    """
+    Helper function to get the sha256 hash of a file if it exists.
+    """
+    shahash = hashlib.sha256()
+    if isinstance(fn, str):
+        fn = Path(fn)
+    hash_fn = fn.with_suffix(".sha256")
+    if hash_fn.exists():
+        with hash_fn.open() as f:
             sha = f.read().rstrip()
     else:
-        logging.info("hashing %s" % (fn))
-        shahash = hashlib.sha256()
-        with open(fn, "rb") as f:
-            # Read and update hash string value in blocks of 4K
+        logging.info(f"hashing {fn}")
+        with fn.open("rb") as f:
             for byte_block in iter(lambda: f.read(1048576), b""):
                 shahash.update(byte_block)
         sha = shahash.hexdigest()
-        with open(hashfn, "w") as f:
+        with hash_fn.open("w") as f:
             f.write(sha)
             f.write("\n")
     return sha

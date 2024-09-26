@@ -9,7 +9,7 @@ from json import loads
 from os.path import exists
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import Config
-from .wfutils import WorkflowJob as wfjob
+from .wfutils import WorkflowJob
 from .wfutils import NmdcSchema, _md5
 
 logger = logging.getLogger(__name__)
@@ -60,7 +60,7 @@ class JobManager:
             job_id = job["nmdc_jobid"]
             if job_id in seen:
                 continue
-            job_record = wfjob(self.config, state=job, nocheck=nocheck)
+            job_record = WorkflowJob(self.config, state=job, nocheck=nocheck)
             new_job_list.append(job_record)
             seen[job_id] = True
         return new_job_list
@@ -84,16 +84,14 @@ class JobManager:
         if "object_id_latest" in new_job["config"]:
             logger.warning("Old record. Skipping.")
             return
-        self.create_or_use_existing_job(new_job, opid, common_workflow_id)
-        self.jobs[-1].cromwell_submit(force=force)
+        wf_job = self.get_or_create_workflow_job(new_job, opid, common_workflow_id)
+        self.jobs.append(wf_job)
+        wf_job.cromwell_submit(force=force)
 
-    def create_or_use_existing_job(self, new_job, opid, common_workflow_id):
-        job = self.find_job_by_opid(opid)
-        if job:
-            logger.debug("Previously cached job")
-            self.jobs.append(job)
-        else:
-            job = wfjob(
+    def get_or_create_workflow_job(self, new_job, opid, common_workflow_id)-> WorkflowJob:
+        wf_job = self.find_job_by_opid(opid)
+        if not wf_job:
+            wf_job = WorkflowJob(
                 site_config=self.config,
                 typ=common_workflow_id,
                 nmdc_jobid=new_job["id"],
@@ -101,7 +99,7 @@ class JobManager:
                 opid=opid,
                 activity_id=new_job["config"]["activity_id"],
             )
-            self.jobs.append(job)
+        return wf_job
 
     def check_job_status(self):
         for job in self.jobs:
@@ -228,7 +226,7 @@ class Watcher:
         self.jobs = []
         self._ALLOWED = self.config.allowed_workflows
 
-    def restore_from_checkpoint(self, nocheck: bool = False):
+    def restore_from_checkpoint(self, nocheck: bool = False)-> None:
         """
         Restore from checkpoint
         """
