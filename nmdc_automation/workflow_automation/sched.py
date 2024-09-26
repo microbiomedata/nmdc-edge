@@ -9,7 +9,7 @@ from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from functools import lru_cache
 from pymongo import MongoClient
 from pymongo.database import Database as MongoDatabase
-from nmdc_automation.workflow_automation.activities import load_workflow_process_nodes
+from nmdc_automation.workflow_automation.workflow_process import load_workflow_process_nodes
 from nmdc_automation.workflow_automation.models import WorkflowProcessNode, WorkflowConfig
 from semver.version import Version
 

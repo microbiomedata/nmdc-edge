@@ -1,7 +1,7 @@
 from pytest import mark
 
-from nmdc_automation.workflow_automation.activities import (get_required_data_objects_map, get_current_workflow_process_nodes,
-                                                            load_workflow_process_nodes)
+from nmdc_automation.workflow_automation.workflow_process import (
+    get_required_data_objects_map, get_current_workflow_process_nodes, load_workflow_process_nodes)
 from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from tests.fixtures.db_utils import  load_fixture, reset_db
 
@@ -9,7 +9,7 @@ from tests.fixtures.db_utils import  load_fixture, reset_db
 @mark.parametrize(
     "workflow_file", ["workflows.yaml", "workflows-mt.yaml"]
 )
-def test_load_activies(test_db, workflow_file, workflows_config_dir):
+def test_load_workflow_process_nodes(test_db, workflow_file, workflows_config_dir):
     """
     Test
     """
