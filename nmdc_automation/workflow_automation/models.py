@@ -111,25 +111,21 @@ class WorkflowProcessNode(object):
 
 class DataObject(nmdc.DataObject):
     """
-    Class to represent a data object.
-     - Overrides the data_object_type property to return the type as a string
+    Extends the NMDC DataObject dataclass with additional methods for serialization.
     """
     def __init__(self, **record):
+        """ Initialize the object from a dictionary """
+        # _id is a MongoDB field that makes the parent class fail to initialize
         record.pop("_id", None)
         super().__init__(**record)
 
     def as_dict(self):
         """ Return the object as a dictionary, excluding None values, empty lists, and data_object_type as a string """
-        return_dict = {}
-        for key, value in self.__dict__.items():
-            if key == "_data_object_type":
-                return_dict['data_object_type'] = self.data_object_type
-                continue
-            if key.startswith("_"):
-                continue
-            if value:
-                return_dict[key] = value
-        return return_dict
+        return {
+            key: value
+            for key, value in self.__dict__.items()
+            if not key.startswith("_") and value
+        } | {"data_object_type": self.data_object_type}
 
     @property
     def data_object_type(self):
