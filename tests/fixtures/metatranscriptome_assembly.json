@@ -1,21 +1,14 @@
 [
   {
+    "id": "nmdc:wfmtas-11-test001.1",
+    "name": "Assembly Activity for metaT",
     "has_input": [
       "nmdc:dobj-11-filteredreads1"
     ],
-    "part_of": [
-      "nmdc:omprc-11-metat1"
-    ],
-    "scaf_N50": 302542,
-    "ctg_logsum": 5909271,
-    "ctg_N90": 1315235,
-    "gc_avg": 0.60257,
-    "scaf_N90": 1312362,
-    "scaf_logsum": 5934400,
-    "scaf_pct_gt50K": 1.7355337,
-    "gap_pct": 0.00334,
     "git_url": "https://github.com/microbiomedata/metaT_Assembly",
     "version": "v0.0.1",
+    "execution_resource": "NERSC-Cori",
+    "was_informed_by": "nmdc:omprc-11-metat1",
     "has_output": [
       "nmdc:dobj-11-contigst1",
       "nmdc:dobj-11-coverstatst1",
@@ -23,29 +16,8 @@
       "nmdc:dobj-11-assemblyinfot1",
       "nmdc:dobj-11-bamidxt1"
     ],
-    "asm_score": 11.297,
-    "was_informed_by": "nmdc:omprc-11-metat1",
-    "ctg_powsum": 727370,
-    "scaf_max": 517431,
-    "id": "nmdc:wfmtas-11-test001.1",
-    "scaf_powsum": 730816,
-    "execution_resource": "NERSC-Cori",
-    "contigs": 1705758,
-    "scaf_n_gt50K": 216,
-    "ctg_N50": 304732,
-    "name": "Assembly Activity for metaT",
-    "ctg_max": 517431,
-    "gc_std": 0.06928,
-    "contig_bp": 1168572354,
-    "ctg_L50": 785,
-    "scaf_l_gt50K": 20281644,
-    "scaf_L90": 322,
     "started_at_time": "2021-08-05T14:48:51+00:00",
-    "ctg_L90": 322,
-    "scaf_bp": 1168611354,
     "type": "nmdc:MetatranscriptomeAssembly",
-    "scaf_L50": 789,
-    "scaffolds": 1702137,
     "ended_at_time": "2021-09-15T10:13:20+00:00"
   }
 ]
