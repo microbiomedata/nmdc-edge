@@ -9,7 +9,8 @@ from nmdc_automation.workflow_automation.workflows import load_workflows, Workfl
 from functools import lru_cache
 from pymongo import MongoClient
 from pymongo.database import Database as MongoDatabase
-from nmdc_automation.workflow_automation.activities import load_activities, Activity
+from nmdc_automation.workflow_automation.activities import load_workflow_process_nodes
+from nmdc_automation.workflow_automation.models import WorkflowProcessNode
 from semver.version import Version
 
 
@@ -74,7 +75,7 @@ class Job:
     Class to hold information for new jobs
     """
 
-    def __init__(self, workflow: Workflow, trigger_act: Activity):
+    def __init__(self, workflow: Workflow, trigger_act: WorkflowProcessNode):
         self.workflow = workflow
         self.trigger_act = trigger_act
         self.informed_by = trigger_act.was_informed_by
@@ -249,7 +250,7 @@ class Scheduler:
         return existing_jobs
 
     # TODO: Rename this to reflect what it does and add unit tests
-    def find_new_jobs(self, act: Activity) -> list[Job]:
+    def find_new_jobs(self, wfp_node: WorkflowProcessNode) -> list[Job]:
         """
         For a given activity see if there are any new jobs
         that should be created.
@@ -257,25 +258,25 @@ class Scheduler:
         new_jobs = []
         # Loop over the derived workflows for this
         # activities' workflow
-        for wf in act.workflow.children:
+        for wf in wfp_node.workflow.children:
             # Ignore disabled workflows
             if not wf.enabled:
                 continue
             # See if we already have a job for this
             existing_jobs = self.get_existing_jobs(wf)
-            if act.id in self.get_existing_jobs(wf):
+            if wfp_node.id in self.get_existing_jobs(wf):
                 continue
             # Look at previously generated derived
             # activities to see if this is already done.
-            for child_act in act.children:
+            for child_act in wfp_node.children:
                 if within_range(child_act.workflow, wf, force=self.force):
                     break
             else:
                 # These means no existing activities were
                 # found that matched this workflow, so we
                 # add a job
-                logging.debug(f"Creating a job {wf.name}:{wf.version} for {act.id}")
-                new_jobs.append(Job(wf, act))
+                logging.debug(f"Creating a job {wf.name}:{wf.version} for {wfp_node.id}")
+                new_jobs.append(Job(wf, wfp_node))
 
         return new_jobs
 
@@ -289,18 +290,18 @@ class Scheduler:
             filt = {"was_informed_by": {"$in": list(allowlist)}}
         # TODO: Quite a lot happens under the hood here. This function should be broken down into smaller
         #      functions to improve readability and maintainability.
-        acts = load_activities(self.db, self.workflows, allowlist)
+        wfp_nodes = load_workflow_process_nodes(self.db, self.workflows, allowlist)
 
         self.get_existing_jobs.cache_clear()
         job_recs = []
-        for act in acts:
-            if act.was_informed_by in skiplist:
-                logging.debug(f"Skipping: {act.was_informed_by}")
+        for wfp_node in wfp_nodes:
+            if wfp_node.was_informed_by in skiplist:
+                logging.debug(f"Skipping: {wfp_node.was_informed_by}")
                 continue
-            if not act.workflow.enabled:
-                logging.debug(f"Skipping: {act.id}, workflow disabled.")
+            if not wfp_node.workflow.enabled:
+                logging.debug(f"Skipping: {wfp_node.id}, workflow disabled.")
                 continue
-            jobs = self.find_new_jobs(act)
+            jobs = self.find_new_jobs(wfp_node)
             for job in jobs:
                 if dryrun:
                     msg = f"new job: informed_by: {job.informed_by} trigger: {job.trigger_id} "

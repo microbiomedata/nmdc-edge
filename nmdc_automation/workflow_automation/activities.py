@@ -91,7 +91,8 @@ def _is_missing_required_input_output(wf, rec, data_objs):
     return not (match_in and match_out)
 
 
-def get_workflow_executions(db, workflows: List[Workflow], data_objects: dict, allowlist: Optional[set] = None):
+def get_current_workflow_process_nodes(
+        db, workflows: List[Workflow], data_objects: dict, allowlist: list = None) -> List[WorkflowProcessNode]:
     """
     Fetch the relevant workflow executions from the database for the given workflows.
         1. Get the Data Generation (formerly Omics Processing) objects for the workflows by analyte category.
@@ -245,17 +246,15 @@ def _find_data_object_activities(activities, data_objs_by_id):
     return data_obj_act
 
 
-# TODO: Give a better name, add unit tests.
-#   This function builds up the graph of related parent / child Execution objects and is
-#   key to the behavior of workflow automation.
-def load_activities(db, workflows: list[Workflow], allowlist: set = set()):
+
+def load_workflow_process_nodes(db, workflows: list[Workflow], allowlist: list[str] = None) -> List[WorkflowProcessNode]:
     """
     This reads the activities from Mongo.  It also
     finds the parent and child relationships between
     the activities using the has_output and has_input
     to connect things.
 
-    Finally it creates a map of data objects by type
+    Finally, it creates a map of data objects by type
     for each activity.
 
     Inputs:
@@ -269,14 +268,14 @@ def load_activities(db, workflows: list[Workflow], allowlist: set = set()):
 
     # Build up a set of relevant activities and a map from
     # the output objects to the activity that generated them.
-    workflow_executions = get_workflow_executions(db, workflows, data_objs_by_id, allowlist)
+    wfp_nodes = get_current_workflow_process_nodes(db, workflows, data_objs_by_id, allowlist)
 
-    data_obj_act = _find_data_object_activities(workflow_executions, data_objs_by_id)
+    data_obj_act = _find_data_object_activities(wfp_nodes, data_objs_by_id)
 
     # Now populate the parent and children values for the
     # activities
-    _resolve_relationships(workflow_executions, data_obj_act)
-    return workflow_executions
+    wfp_nodes = _resolve_relationships(wfp_nodes, data_obj_act)
+    return wfp_nodes
 
 
 # TODO: Why are we not importing and using the existing nmdc_schema.DataObject class?
@@ -292,64 +291,3 @@ class DataObject(object):
     def __init__(self, rec: dict):
         for f in self._FIELDS:
             setattr(self, f, rec.get(f))
-
-
-# TODO: Give a better 'Execution' based name, expand docstring, and make sure it is covered by unit tests.
-#   This class represents a network of related WorkflowExecution objects and their associated DataObject objects.
-class Activity(object):
-    """
-    Activity Object Class
-    """
-
-    _FIELDS = ["id", "name", "git_url", "version", "has_input", "has_output", "was_informed_by", "type", ]
-
-    def __init__(self, activity_rec: dict, wf: Workflow):
-        self.parent = None
-        self.children = []
-        self.data_objects_by_type = dict()
-        self.workflow = wf
-        for f in self._FIELDS:
-            setattr(self, f, activity_rec.get(f))
-        if self.type == "nmdc:NucleotideSequencing":
-            self.was_informed_by = self.id
-
-    def add_data_object(self, do: DataObject):
-        self.data_objects_by_type[do.data_object_type] = do
-#
-#
-# class WorkflowExecutionNode(WorkflowExecution):
-#     """
-#     Data class that extends the NMDC WorkflowExecution class.
-#     The WorkflowExecutionNode class is used to represent a network of related workflow execution and
-#     data generation events and their associated DataObject objects.
-#     """
-#
-#     def __init__(self, record: dict, wf: Workflow):
-#         """
-#         Initialize the WorkflowExecutionNode object with the given record and workflow.
-#         The record may be for a DataGeneration or WorkflowExecution object.
-#         In the case of a DataGeneration object, the was_informed_by field is set to the id of the DataGeneration object,
-#         and the record is massaged to look like a WorkflowExecution object.
-#         """
-#         record.pop("_id", None)
-#         if not record.get("git_url"):
-#             record["git_url"] = "http://github.com/microbiomedata"
-#         if not record.get("started_at_time"):
-#             record["started_at_time"] = record.get("add_date", "2024-01-01T00:00:00Z")
-#         analyte_category = None
-#         if record["type"] == "nmdc:NucleotideSequencing":
-#             record["was_informed_by"] = record["id"]
-#             analyte_category = record.pop("analyte_category")
-#             record.pop("associated_studies")
-#             record.pop("principal_investigator")
-#
-#         super().__init__(**record)
-#         self.parent = None
-#         self.children = []
-#         self.data_objects_by_type = dict()
-#         self.workflow = wf
-#         self.analyte_category = analyte_category
-#
-#
-#     def add_data_object(self, do: DataObject):
-#         self.data_objects_by_type[do.data_object_type] = do

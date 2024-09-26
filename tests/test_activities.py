@@ -1,7 +1,7 @@
 from pytest import mark
 
-from nmdc_automation.workflow_automation.activities import (get_required_data_objects_map, get_workflow_executions,
-                                                            load_activities)
+from nmdc_automation.workflow_automation.activities import (get_required_data_objects_map, get_current_workflow_process_nodes,
+                                                            load_workflow_process_nodes)
 from nmdc_automation.workflow_automation.workflows import load_workflows
 from tests.fixtures.db_utils import get_updated_fixture, load_fixture, reset_db
 
@@ -26,11 +26,11 @@ def test_load_activies(test_db, workflow_file, workflows_config_dir):
 
     # these are called by load_activities
     data_objs_by_id = get_required_data_objects_map(test_db, wfs)
-    wf_execs = get_workflow_executions(test_db, wfs, data_objs_by_id)
+    wf_execs = get_current_workflow_process_nodes(test_db, wfs, data_objs_by_id)
     assert wf_execs
     assert len(wf_execs) == 2
 
-    acts = load_activities(test_db, wfs)
+    acts = load_workflow_process_nodes(test_db, wfs)
     # sanity check
     assert acts
     assert len(acts) == 2
