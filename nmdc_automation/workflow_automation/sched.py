@@ -70,7 +70,7 @@ is to migrate this fucntion into Dagster.
 """
 
 # TODO: Change the name of this to distinguish it from the database Job object
-class Job:
+class SchedulerJob:
     """
     Class to hold information for new jobs
     """
@@ -104,8 +104,7 @@ class Scheduler:
             self.cycle()
             await asyncio.sleep(_POLL_INTERVAL)
 
-    # TODO:
-    def create_job_rec(self, job: Job):
+    def create_job_rec(self, job: SchedulerJob):
         """
         This takes a job and using the workflow definition,
         resolves all the information needed to create a
@@ -250,7 +249,7 @@ class Scheduler:
         return existing_jobs
 
     # TODO: Rename this to reflect what it does and add unit tests
-    def find_new_jobs(self, wfp_node: WorkflowProcessNode) -> list[Job]:
+    def find_new_jobs(self, wfp_node: WorkflowProcessNode) -> list[SchedulerJob]:
         """
         For a given activity see if there are any new jobs
         that should be created.
@@ -276,7 +275,7 @@ class Scheduler:
                 # found that matched this workflow, so we
                 # add a job
                 logging.debug(f"Creating a job {wf.name}:{wf.version} for {wfp_node.id}")
-                new_jobs.append(Job(wf, wfp_node))
+                new_jobs.append(SchedulerJob(wf, wfp_node))
 
         return new_jobs
 
