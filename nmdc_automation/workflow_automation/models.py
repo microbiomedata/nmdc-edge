@@ -1,6 +1,8 @@
 """ Model classes for the workflow automation app. """
 from dataclasses import dataclass, field
-from typing import List, Dict, Any, Optional, Set
+from dateutil import parser
+from datetime import datetime
+from typing import List, Dict, Any, Optional, Set, Union
 
 from nmdc_schema.nmdc import (
     FileTypeEnum,
@@ -14,6 +16,7 @@ from nmdc_schema.nmdc import (
     PlannedProcess,
     ReadBasedTaxonomyAnalysis,
     ReadQcAnalysis,
+    WorkflowExecution
 )
 from nmdc_schema import nmdc
 
@@ -45,8 +48,8 @@ def workflow_process_factory(record: Dict[str, Any]) -> PlannedProcess:
 
 class WorkflowProcessNode(object):
     """
-    Class to represent a workflow execution node. This is a node in a tree
-    structure that represents the execution hierarchy of data generation and
+    Class to represent a workflow processing node. This is a node in a tree
+    structure that represents the tree of data generation and
     workflow execution objects with their associated data objects.
     """
     def __init__(self, record: Dict[str, Any], workflow: "WorkflowConfig"):
@@ -116,6 +119,8 @@ class DataObject(nmdc.DataObject):
         """ Initialize the object from a dictionary """
         # _id is a MongoDB field that makes the parent class fail to initialize
         record.pop("_id", None)
+        if "type" not in record:
+            record["type"] = "nmdc:DataObject"
         super().__init__(**record)
 
     def as_dict(self):
@@ -144,7 +149,7 @@ class DataObject(nmdc.DataObject):
 
 @dataclass
 class WorkflowConfig:
-    """ Configuration for a workflow execution """
+    """ Configuration for a workflow execution. Defined by .yaml files in nmdc_automation/config/workflows """
     # Sequencing workflows only have these fields
     name: str
     collection: str
@@ -197,3 +202,73 @@ class WorkflowConfig:
     def add_parent(self, parent: "WorkflowConfig"):
         """ Add a parent workflow """
         self.parents.add(parent)
+
+@dataclass
+class WorkflowJobState:
+    """ State data for a workflow job """
+    type: str
+    cromwell_job_id: str
+    nmdc_job_id: str
+    type: str
+
+
+@dataclass
+class JobWorkflow:
+    id: str
+
+
+@dataclass
+class JobWorkflow:
+    id: str
+
+@dataclass
+class JobConfig:
+    """ Represents a job configuration from the NMDC API jobs endpoint / MongoDB jobs collection """
+    object_id: str
+
+@dataclass
+class JobClaim:
+    op_id: str
+    site_id: str
+
+@dataclass
+class JobOutput:
+    """ Represents a job output specification. """
+    output: str
+    data_object: DataObject = field(init=False)
+
+    # Raw fields that will map to DataObject fields
+    data_object_type: str
+    description: Optional[str]
+    name: str
+    id: str
+
+    def __post_init__(self):
+        """ Initialize the object """
+        self.data_object = DataObject(
+            id=self.id,
+            name=self.name,
+            data_object_type=self.data_object_type,
+            description=self.description,
+        )
+
+@dataclass
+class Job:
+    """ Represents a job from the NMDC API jobs endpoint / MongoDB jobs collection """
+    id: str
+    workflow: JobWorkflow
+    config: JobConfig
+    created_at: Optional[datetime] = field(default=None)
+    claims: List[JobClaim] = field(default_factory=list)
+    input_data_objects: List[DataObject] = field(default_factory=list)
+    outputs: List[JobOutput] = field(default_factory=list)
+
+    def __post_init__(self):
+        """ If created_at is a string, convert it to a datetime object """
+        if isinstance(self.created_at, str):
+            self.created_at = parser.isoparse(self.created_at)
+
+        if isinstance(self.workflow, dict):
+            self.workflow = JobWorkflow(**self.workflow)
+
+
