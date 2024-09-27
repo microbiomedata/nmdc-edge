@@ -361,13 +361,25 @@ class NmdcSchema:
                 self.nmdc_db.workflow_execution_set,
                 nmdc.MetagenomeAssembly,
             ),
+            "nmdc:MetatranscriptomeAssembly": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.MetatranscriptomeAssembly,
+            ),
             "nmdc:MetagenomeAnnotation": (
                 self.nmdc_db.workflow_execution_set,
                 nmdc.MetagenomeAnnotation,
             ),
+            "nmdc:MetatranscriptomeAnnotation": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.MetatranscriptomeAnnotation,
+            ),
             "nmdc:MagsAnalysis": (
                 self.nmdc_db.workflow_execution_set,
                 nmdc.MagsAnalysis,
+            ),
+            "nmdc:MetatranscriptomeExpressionAnalysis": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.MetatranscriptomeExpressionAnalysis,
             ),
         }
 
