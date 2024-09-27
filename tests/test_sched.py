@@ -1,4 +1,4 @@
-from nmdc_automation.workflow_automation.sched import Scheduler, Job
+from nmdc_automation.workflow_automation.sched import Scheduler, SchedulerJob
 from pytest import mark
 
 

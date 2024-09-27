@@ -3,6 +3,11 @@ from bson import ObjectId
 from pytest import mark
 from nmdc_automation.workflow_automation.models import(
     DataObject,
+    Job,
+    JobClaim,
+    JobConfig,
+    JobOutput,
+    JobWorkflow,
     WorkflowProcessNode,
     workflow_process_factory,
 )
@@ -99,3 +104,30 @@ def test_data_object_creation_from_db_records(test_db):
 
         data_obj_dict = data_obj.as_dict()
         assert data_obj_dict == db_record
+
+
+def test_job_output_creation():
+    outputs = [
+        {
+            "output": "proteins_faa",
+            "data_object_type": "Annotation Amino Acid FASTA",
+            "description": "FASTA Amino Acid File for {id}",
+            "name": "FASTA amino acid file for annotated proteins",
+            "id": "nmdc:dobj-11-tt8ykk73"
+        },
+        {
+            "output": "structural_gff",
+            "data_object_type": "Structural Annotation GFF",
+            "description": "Structural Annotation for {id}",
+            "name": "GFF3 format file with structural annotations",
+            "id": "nmdc:dobj-11-xh82sm39"
+        }
+    ]
+    for output in outputs:
+        job_output = JobOutput(**output)
+
+def test_job_creation():
+    job_record = db_utils.read_json("job_record.json")
+    job = Job(**job_record)
+    assert job.id == job_record["id"]
+    assert isinstance(job.workflow, JobWorkflow)
