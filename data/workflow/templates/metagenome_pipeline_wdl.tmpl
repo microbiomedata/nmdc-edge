@@ -1,6 +1,6 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/microbiomedata/ReadsQC/v1.0.11/shortReadsqc.wdl" as readsQC
+import "https://raw.githubusercontent.com/microbiomedata/ReadsQC/refs/heads/update-outputs/shortReadsqc.wdl" as readsQC
 import "readsqc_preprocess.wdl" as readsqc_preprocess
 import "readsqc_output.wdl" as readsqc_output
 import "https://raw.githubusercontent.com/microbiomedata/ReadbasedAnalysis/v1.0.8/ReadbasedAnalysis.wdl" as readbasedAnalysis
@@ -132,6 +132,7 @@ workflow main_workflow {
           input_files_prefix = select_first([readsqc_preprocess.input_files_prefix, [""]]),
           filtered_stats_final = nmdc_rqcfilter_call.filtered_stats_final,
           filtered_stats2_final = nmdc_rqcfilter_call.filtered_stats2_final,
+          
           rqc_info = nmdc_rqcfilter_call.rqc_info, 
           outdir=readsQC_outdir,
           vis_container=readsQC_vis_container
