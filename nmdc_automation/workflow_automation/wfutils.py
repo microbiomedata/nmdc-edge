@@ -43,7 +43,7 @@ class WorkflowJob:
     def __init__(
         self,
         site_config,
-        typ=None,
+        type=None,
         workflow_config=None,
         nmdc_jobid=None,
         opid=None,
@@ -56,7 +56,7 @@ class WorkflowJob:
         self.set_config_attributes()
         if workflow_config:
             self.load_workflow_config()
-        self.set_initial_state(state, activity_id, typ, nmdc_jobid, opid)
+        self.set_initial_state(state, activity_id, type, nmdc_jobid, opid)
         if self.jobid and not nocheck:
             self.check_status()
 

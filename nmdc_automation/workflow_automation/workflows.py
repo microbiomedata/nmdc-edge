@@ -1,4 +1,4 @@
-from __future__ import annotations
+""" This module reads the workflows yaml file and returns a list of WorkflowConfig objects"""
 from yaml import load
 
 try:
