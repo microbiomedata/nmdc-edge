@@ -61,7 +61,7 @@ Workflows:
     Enabled: True
     Analyte Category: Metatranscriptome
     Git_repo: https://github.com/microbiomedata/metaT_ReadsQC
-    Version: v0.0.3
+    Version: v0.0.7
     Collection: workflow_execution_set
     WDL: interleave_rqcfilter.wdl
     Input_prefix: nmdc_rqcfilter
