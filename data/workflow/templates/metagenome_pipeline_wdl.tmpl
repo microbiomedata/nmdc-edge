@@ -132,7 +132,7 @@ workflow main_workflow {
           input_files_prefix = select_first([readsqc_preprocess.input_files_prefix, [""]]),
           filtered_stats_final = nmdc_rqcfilter_call.filtered_stats_final,
           filtered_stats2_final = nmdc_rqcfilter_call.filtered_stats2_final,
-          
+          filtered_stat_json = nmdc_rqcfilter_call.filter_stat_json,
           rqc_info = nmdc_rqcfilter_call.rqc_info, 
           outdir=readsQC_outdir,
           vis_container=readsQC_vis_container
