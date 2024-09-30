@@ -92,8 +92,7 @@ class WorkflowProcessNode(object):
     @property
     def git_url(self):
         """ workflow executions have a git_url field, data generations do not"""
-        default_url = "http://github.com/microbiomedata"
-        return getattr(self.process, "git_url", default_url)
+        return getattr(self.process, "git_url", None)
 
     @property
     def version(self):
