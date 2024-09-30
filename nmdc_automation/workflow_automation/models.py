@@ -202,18 +202,6 @@ class WorkflowConfig:
         """ Add a parent workflow """
         self.parents.add(parent)
 
-@dataclass
-class WorkflowJobState:
-    """ State data for a workflow job """
-    type: str
-    cromwell_job_id: str
-    nmdc_job_id: str
-    type: str
-
-
-@dataclass
-class JobWorkflow:
-    id: str
 
 
 @dataclass
@@ -223,7 +211,20 @@ class JobWorkflow:
 @dataclass
 class JobConfig:
     """ Represents a job configuration from the NMDC API jobs endpoint / MongoDB jobs collection """
-    object_id: str
+    git_repo: str
+    release: str
+    wdl: str
+    activity_id: str
+    activity_set: str
+    was_informed_by: str
+    trigger_activity: str
+    iteration: int
+    input_prefix: str
+    inputs: Dict[str, str]
+    input_data_objects: List[DataObject]
+    activity: Dict[str, str]
+    outputs: List[Dict[str, str]]
+
 
 @dataclass
 class JobClaim:
@@ -259,8 +260,6 @@ class Job:
     config: JobConfig
     created_at: Optional[datetime] = field(default=None)
     claims: List[JobClaim] = field(default_factory=list)
-    input_data_objects: List[DataObject] = field(default_factory=list)
-    outputs: List[JobOutput] = field(default_factory=list)
 
     def __post_init__(self):
         """ If created_at is a string, convert it to a datetime object """
@@ -270,4 +269,8 @@ class Job:
         if isinstance(self.workflow, dict):
             self.workflow = JobWorkflow(**self.workflow)
 
+        if isinstance(self.config, dict):
+            self.config = JobConfig(**self.config)
 
+        if isinstance(self.claims, list):
+            self.claims = [JobClaim(**claim) for claim in self.claims]
