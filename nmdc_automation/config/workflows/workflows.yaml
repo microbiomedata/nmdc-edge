@@ -296,27 +296,32 @@ Workflows:
     - Metagenome Annotation
     Input_prefix: nmdc_mags
     Inputs:
+      proj: "{workflow_execution_id}"
       contig_file: do:Assembly Contigs
+      sam_file: do:Assembly Coverage BAM
       gff_file: do:Functional Annotation GFF
-      cath_funfam_file: do:CATH FunFams (Functional Families) Annotation GFF
-      supfam_file: do:SUPERFam Annotation GFF
+      proteins_file: do:Annotation Amino Acid FASTA
       cog_file: do:Clusters of Orthologous Groups (COG) Annotation GFF
-      proj_name: "{workflow_execution_id}"
-      pfam_file: do:Pfam Annotation GFF
-      product_names_file: do:Product Names
-      tigrfam_file: do:TIGRFam Annotation GFF
       ec_file: do:Annotation Enzyme Commission
       ko_file: do:Annotation KEGG Orthology
-      lineage_file: do:Scaffold Lineage tsv
-      sam_file: do:Assembly Coverage BAM
-      smart_file: do:SMART Annotation GFF
-      proteins_file: do:Annotation Amino Acid FASTA
-      map_file: do:Contig Mapping File
+      pfam_file: do:Pfam Annotation GFF
+      tigrfam_file: do:TIGRFam Annotation GFF
+      crispr_file: do:Crispr Terms
+      product_names_file: do:Product Names
       gene_phylogeny_file: do:Gene Phylogeny tsv
-      proj: "{workflow_execution_id}"
+      lineage_file: do:Scaffold Lineage tsv
+      map_file: do:Contig Mapping File
+    Optional Inputs:
+      - map_file
     Workflow Execution:
       name: "Metagenome Assembled Genomes Analysis for {id}"
       type: nmdc:MagsAnalysis
+      binned_contig_num: "{outputs.final_stats_json.binned_contig_num}"
+      input_contig_num: "{outputs.final_stats_json.input_contig_num}"
+      low_depth_contig_num: "{outputs.final_stats_json.low_depth_contig_num}"
+      mags_list: "{outputs.final_stats_json.mags_list}"
+      too_short_contig_num: "{outputs.final_stats_json.too_short_contig_num}"
+      unbinned_contig_num: "{outputs.final_stats_json.unbinned_contig_num}"
     Outputs:
     - output: final_checkm
       data_object_type: CheckM Statistics
@@ -339,6 +344,22 @@ Workflows:
       data_object_type: Metagenome Bins Info File
       description: Metagenome Bins Info File for {id}
       name: Metagenome Bins Info File
+    - output: final_lq_bins_zip
+      data_object_type: Metagenome LQ Bins Compression File
+      description: Metagenome LQ Bins for {id}
+      name: Metagenome lq bin zip archive
+    - output: heatmap
+      data_object_type: Metagenome Bins Heatmap
+      description: Metagenome heatmap for {id}
+      name: Metagenome Heatmap File
+    - output: barplot
+      data_object_type: Metagenome Bins Barplot
+      description: Metagenome barplot for {id}
+      name: Metagenome Barplot File
+    - output: kronaplot
+      data_object_type: Metagenome Bins Krona Plot
+      description: Metagenome Bins Krona Plot for {id}
+      name: Metagenome Krona Bins Plot File
 
   - Name: Readbased Analysis
     Type: nmdc:ReadBasedTaxonomyAnalysis
