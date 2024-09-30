@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 class FileHandler:
-    def __init__(self, config):
+    def __init__(self, config: Config):
         self.config = config
         self.state_file = self.config.agent_state
 
