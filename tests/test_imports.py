@@ -29,7 +29,7 @@ def gold_mapper(mock_api, base_test_dir, test_data_dir):
     return gm
 
 
-def test_activity_mapper(gold_mapper):
+def test_workflow_execution_mapper(gold_mapper):
     """
     Test the creation of workflow execution records and data objects that are has_output of those workflow execution subclasses.
     """
