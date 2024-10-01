@@ -21,7 +21,7 @@ def gold_mapper(mock_api, base_test_dir, test_data_dir):
     # proj_dir = os.path.abspath("./test_data")
     site_conf = base_test_dir / "site_configuration_test.toml"
     nucleotide_sequencing_id = "nmdc:omprc-11-importT"
-    root_dir = f"/tmp/{omics_id}"
+    root_dir = f"/tmp/{nucleotide_sequencing_id}"
     if os.path.exists(root_dir):
         shutil.rmtree(root_dir)
     gm = GoldMapper("1", test_files, nucleotide_sequencing_id, yaml_file, test_data_dir, site_conf)
