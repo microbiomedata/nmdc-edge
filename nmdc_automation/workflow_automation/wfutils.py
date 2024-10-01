@@ -71,7 +71,12 @@ class WorkflowJob:
     # TODO: These could be @property decorators
     def load_workflow_config(self):
         self.outputs = self.workflow_config.get("outputs")
-        self.activity_templ = self.workflow_config.get("activity")
+        # for backward compatibility
+        workflow_execution = self.workflow_config.get("workflow_execution", None)
+        if not workflow_execution:
+            workflow_execution = self.workflow_config.get("activity", None)
+
+        self.activity_templ = workflow_execution
         self.input_data_objects = self.workflow_config.get("input_data_objects")
 
     def set_initial_state(self, state, activity_id, typ, nmdc_jobid, opid):
