@@ -328,9 +328,9 @@ Workflows:
       description: CheckM for {id}
       name: CheckM statistics report
     - output: final_hqmq_bins_zip
-      data_object_type: Metagenome Bins
-      description: Metagenome Bins for {id}
-      name: Metagenome bin tarfiles archive
+      data_object_type: Metagenome HQMQ Bins Compression File
+      description: Metagenome HQMQ Bins for {id}
+      name: Metagenome hqmq bin zip archive
     - output: final_gtdbtk_bac_summary
       data_object_type: GTDBTK Bacterial Summary
       description: Bacterial Summary for {id}
