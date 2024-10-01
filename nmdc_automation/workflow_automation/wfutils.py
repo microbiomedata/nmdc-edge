@@ -11,6 +11,7 @@ import pytz
 import hashlib
 from linkml_runtime.dumpers import json_dumper
 
+
 # TODO: Berkley refactoring:
 #  The NmdcSchema class - responsible for creating workflow and data object records
 #  to be inserted into the NMDC database will need to be updated to generate Berkley-compatible
@@ -34,7 +35,7 @@ class WorkflowJob:
     debug = False
     dryrun = False
     options = None
-    activity_templ = None
+    execution_template = None
     outputs = None
     input_data_objects = []
     start = None
@@ -76,7 +77,7 @@ class WorkflowJob:
         if not workflow_execution:
             workflow_execution = self.workflow_config.get("activity", None)
 
-        self.activity_templ = workflow_execution
+        self.execution_template = workflow_execution
         self.input_data_objects = self.workflow_config.get("input_data_objects")
 
     def set_initial_state(self, state, activity_id, typ, nmdc_jobid, opid):
@@ -125,6 +126,20 @@ class WorkflowJob:
             "opid": self.opid,
         }
         return data
+
+    def as_workflow_execution_dict(self):
+        return {
+            "id": self.activity_id,
+            "type": self.type,
+            "name": self.execution_template["name"].replace("{id}", self.activity_id),
+            "git_url": self.workflow_config["git_repo"],
+            "execution_resource": self.config.resource,
+            "was_informed_by": self.workflow_config["was_informed_by"],
+            "has_input": [dobj["id"] for dobj in self.input_data_objects],
+            "started_at_time": self.start,
+            "ended_at_time": self.end,
+            "version": self.workflow_config["release"],
+        }
 
     def check_status(self):
         """
@@ -261,6 +276,9 @@ class WorkflowJob:
             for file in cleanup:
                 file.close()
                 os.unlink(file.name)
+
+
+
 
 # TODO: Rename this class to something descriptive - it is responsible for creating NMDC database objects -
 #    the existing name is already taken by the NMDC schema module.

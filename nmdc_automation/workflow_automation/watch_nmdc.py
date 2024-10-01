@@ -7,8 +7,11 @@ import logging
 import shutil
 from json import loads
 from os.path import exists
-from typing import List, Dict, Any, Optional, Set
+from pathlib import Path
+from typing import List, Dict, Any, Optional, Union
 
+from nmdc_schema.nmdc import WorkflowExecution
+from nmdc_automation.workflow_automation.models import workflow_process_factory, get_base_workflow_execution_keys
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import Config
 from .wfutils import WorkflowJob
@@ -18,9 +21,11 @@ logger = logging.getLogger(__name__)
 
 
 class FileHandler:
-    def __init__(self, config: Config):
+    def __init__(self, config: Config, state_file: Union[str, Path]):
+        """ Initialize the FileHandler, with a Config object and an optional state file path """
         self.config = config
-        self.state_file = self.config.agent_state
+        if not state_file:
+            self.state_file = self.config.agent_state
 
     def load_state_file(self)-> Optional[Dict[str, Any]]:
         if not exists(self.state_file):
@@ -192,8 +197,8 @@ class JobManager:
         return output_ids
 
     def create_activity_record(self, job,  output_ids, schema):
-        activity_type = job.activity_templ["type"]
-        name = job.activity_templ["name"].replace("{id}", job.activity_id)
+        activity_type = job.execution_template["type"]
+        name = job.execution_template["name"].replace("{id}", job.activity_id)
         omic_id = job.workflow_config["was_informed_by"]
         resource = self.config.resource
         schema.create_activity_record(
@@ -208,6 +213,29 @@ class JobManager:
             start_time=job.start,
             end_time=job.end,
         )
+
+
+    def get_workflow_execution_record_for_job(self, job: WorkflowJob, has_output_ids: List[str]) -> Dict[str, Any]:
+        """
+        Create the appropriate subtype of WorkflowExecution object for a completed job.
+        """
+        record = job.as_workflow_execution_dict()
+
+        # get workflow-specific keys
+        prefix = job.workflow_config["input_prefix"]
+        for k, v in job.execution_template.items():
+            if v.startswith('{outputs.'):
+                out_key = f"{prefix}.{v[9:-1]}"
+                if out_key not in job.outputs:
+                    ele = out_key.split(".")
+                    map_name = ".".join(ele[0:-1])
+                    key_name = ele[-1]
+                    record[k] = job.outputs[map_name][key_name]
+                else:
+                    record[k] = job.outputs[out_key]
+
+        record["has_output"] = has_output_ids
+        return record
 
 
 class RuntimeApiHandler:
@@ -234,12 +262,12 @@ class RuntimeApiHandler:
 
 
 class Watcher:
-    def __init__(self, site_configuration_file):
+    def __init__(self, site_configuration_file: Union[str, Path], state_file: Union[str, Path] = None):
         self._POLL = 20
         self._MAX_FAILS = 2
         self.should_skip_claim = False
         self.config = Config(site_configuration_file)
-        self.file_handler = FileHandler(self.config)
+        self.file_handler = FileHandler(self.config, state_file)
         self.api_handler = RuntimeApiHandler(self.config)
         self.job_manager = JobManager(self.config, self.file_handler, self.api_handler)
         self._ALLOWED = self.config.allowed_workflows

@@ -1,8 +1,8 @@
 from nmdc_automation.workflow_automation.watch_nmdc import Watcher
-import os
-import json
-import shutil
+from nmdc_automation.workflow_automation.wfutils import WorkflowJob
 from pytest import fixture
+from unittest.mock import patch
+
 
 
 @fixture(autouse=True)
@@ -64,3 +64,10 @@ def test_reclaim_job(requests_mock, site_config, mock_api):
     w.claim_jobs()
     resp = w.job_manager.find_job_by_opid("nmdc:1234")
     assert resp
+
+
+
+def test_watcher_restore_from_checkpoint(site_config, fixtures_dir):
+    state_file = fixtures_dir / "job_state.json"
+
+

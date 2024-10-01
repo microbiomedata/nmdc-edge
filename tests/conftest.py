@@ -4,9 +4,18 @@ from pymongo import MongoClient
 from pathlib import Path
 from pytest import fixture
 from time import time
-from yaml import load
+from unittest.mock import Mock
 
 from nmdc_automation.config import Config
+from tests.fixtures import db_utils
+from nmdc_automation.workflow_automation.wfutils import WorkflowJob
+
+@fixture
+def mock_job_state():
+    state = db_utils.read_json(
+        "job_state.json"
+    )
+    return state
 
 
 
@@ -57,6 +66,7 @@ def test_data_dir(base_test_dir):
 @fixture(scope="session")
 def workflows_config_dir(base_test_dir):
     return base_test_dir.parent / "nmdc_automation/config/workflows"
+
 
 @fixture(scope="session")
 def site_config(base_test_dir):

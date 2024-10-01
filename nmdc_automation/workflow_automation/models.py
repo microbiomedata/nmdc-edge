@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional, Set, Union
 
 from nmdc_schema.nmdc import (
+    DataGeneration,
     FileTypeEnum,
     NucleotideSequencing,
     MagsAnalysis,
@@ -21,7 +22,7 @@ from nmdc_schema.nmdc import (
 from nmdc_schema import nmdc
 
 
-def workflow_process_factory(record: Dict[str, Any]) -> PlannedProcess:
+def workflow_process_factory(record: Dict[str, Any]) -> Union[DataGeneration, WorkflowExecution]:
     """
     Factory function to create a PlannedProcess subclass object from a record.
     Subclasses are determined by the "type" field in the record, and can be
