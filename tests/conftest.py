@@ -59,6 +59,11 @@ def workflows_config_dir(base_test_dir):
     return base_test_dir.parent / "nmdc_automation/config/workflows"
 
 @fixture(scope="session")
+def import_config_dir(base_test_dir):
+    return base_test_dir.parent / "configs"
+
+
+@fixture(scope="session")
 def site_config(base_test_dir):
     return base_test_dir / "site_configuration_test.toml"
 
