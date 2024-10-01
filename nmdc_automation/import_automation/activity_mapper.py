@@ -82,7 +82,7 @@ class GoldMapper:
                     continue
 
                 elif re.search(data_object_dict["import_suffix"], file):
-                    activity_id = self.get_workflow_execution_id(data_object_dict["output_of"])
+                    workflow_execution_id = self.get_workflow_execution_id(data_object_dict["output_of"])
 
                     file_destination_name = object_action(
                         file,
