@@ -36,6 +36,6 @@ call <WORKFLOW>_output.readsqc_output as readsqc_output {
         filtered_stats2_final = nmdc_rqcfilter_call.filtered_stats2_final,
         filtered_stat_json = nmdc_rqcfilter_call.filter_stat_json,
         rqc_info = nmdc_rqcfilter_call.rqc_info, 
-        outdir=<WORKFLOW>_outdir
+        outdir=<WORKFLOW>_outdir,
         vis_container=<WORKFLOW>_vis_container
 }
