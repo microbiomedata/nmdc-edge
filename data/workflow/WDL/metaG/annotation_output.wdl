@@ -88,15 +88,15 @@ task make_output {
 
         echo ~{OUTPATH}
         mkdir -p ~{OUTPATH}
-        Statspath=`dirname ~{stats}`
+            Statspath=`dirname ~{stats}`
         echo $Statspath
-        GFFPath=`dirname ~{gff}`
+            GFFPath=`dirname ~{gff}`
         echo $GFFPath
-        cp $Statspath/* ~{OUTPATH}/
-        cp ~{OUTPATH}/~{projectName}_stats.json ~{OUTPATH}/~{projectName}_structural_annotation_stats.json
-        cp $GFFPath/* ~{OUTPATH}/
+            cp $Statspath/* ~{OUTPATH}/
+            cp ~{OUTPATH}/~{projectName}_stats.json ~{OUTPATH}/~{projectName}_structural_annotation_stats.json
+            cp $GFFPath/* ~{OUTPATH}/
         ls ~{OUTPATH}
-        chmod 764 -R ~{OUTPATH}
+            chmod 764 -R ~{OUTPATH}
     >>>
 
     runtime {

@@ -29,10 +29,10 @@ workflow nmdc_edge_assembly{
 
     call assembly_vis {
         input:
-            contigs = metaAssembly_call.contig,
-            container = quast_container,
-            outdir = outdir,
-            proj = proj
+            contigs=metaAssembly_call.contig,
+            container=quast_container,
+            outdir=outdir,
+            proj=proj
 
     }
 
