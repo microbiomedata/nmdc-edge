@@ -203,7 +203,8 @@ workflow main_workflow {
             imgap_project_type=metaAnnotation_imgap_project_id,
             final_stats_tsv=metaAnnotation_call.stats_tsv,
             functional_gff=metaAnnotation_call.functional_gff,
-            opaver_web_path=metaAnnotation_opaver_web_path
+            opaver_web_path=metaAnnotation_opaver_web_path,
+            outdir=metaAnnotation_outdir
   }
 
     call metaMAGs.nmdc_mags as metaMAGs_call {
