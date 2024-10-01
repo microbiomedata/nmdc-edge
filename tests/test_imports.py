@@ -7,7 +7,8 @@ from time import time
 
 @fixture
 
-#TODO NOW: update to use real import.yaml file
+#TODO NOW: update to use real import.yaml file. Unclear if this is the right thing to do based on how the tests are set up. 
+#ie we want to test that the binning packaging works even if we have this false by default for older projects where we want to annotate and re-bin.
 #TODO NEXT: add test for import-mt.yaml similar to what is in test_workflow_process.py
 def gold_mapper(mock_api, base_test_dir, test_data_dir):
     """
@@ -38,8 +39,9 @@ def test_workflow_execution_mapper(gold_mapper):
     gold_mapper.workflow_execution_mapper()
     gold_mapper.post_nmdc_database_object()
     db = gold_mapper.get_database_object_dump()
-    #This should return 2 workflow_execution_set records, one nmdc:MetagenomeAnnotation and one nmdc:MagsAnalysis.  
-    assert len(db.workflow_execution_set) == 2
+    #This should return 4 workflow_execution_set records becuase that is the number of records with Import:true in the config file
+    #note that if these records were tested against the actual schema they would fail b/c workflow executions can't have has_output be null.
+    assert len(db.workflow_execution_set) == 4
     # gff files are 1:1 with data objects that are has_output of nmdc:MetagenomeAnnotation
     # *tar.gz files should be combined into a single data object that is has_output of nmdc:MagsAnalysis
     assert len(db.data_object_set) == 3
