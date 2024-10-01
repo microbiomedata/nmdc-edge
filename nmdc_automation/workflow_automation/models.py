@@ -46,6 +46,20 @@ def workflow_process_factory(record: Dict[str, Any]) -> PlannedProcess:
     return cls(**record)
 
 
+def get_base_workflow_execution_keys() -> List[str]:
+    """ Return the keys that are common to all workflow executions """
+    keys = set()
+    for k, v in WorkflowExecution.__annotations__.items():
+        if k.startswith("_") or k.startswith("class_"):
+            continue
+        keys.add(k)
+    return list(keys)
+
+
+
+
+
+
 class WorkflowProcessNode(object):
     """
     Class to represent a workflow processing node. This is a node in a tree

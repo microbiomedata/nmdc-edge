@@ -3,6 +3,7 @@ from bson import ObjectId
 from pytest import mark
 from nmdc_automation.workflow_automation.models import(
     DataObject,
+    get_base_workflow_execution_keys,
     Job,
     JobClaim,
     JobConfig,
@@ -131,3 +132,21 @@ def test_job_creation():
     job = Job(**job_record)
     assert job.id == job_record["id"]
     assert isinstance(job.workflow, JobWorkflow)
+
+
+def test_get_base_workflow_execution_keys():
+    exp_keys = [
+        "id",
+        "type",
+        "execution_resource",
+        "git_url",
+        "started_at_time",
+        "was_informed_by",
+        "has_input",
+        "ended_at_time",
+        "version",
+        "has_output",
+        ]
+
+    keys = get_base_workflow_execution_keys()
+    assert sorted(keys) == sorted(exp_keys)
