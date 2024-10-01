@@ -35,7 +35,7 @@ def test_activity_mapper(gold_mapper):
     """
     gold_mapper.unique_object_mapper()
     gold_mapper.multiple_objects_mapper()
-    gold_mapper.activity_mapper()
+    gold_mapper.workflow_execution_mapper()
     gold_mapper.post_nmdc_database_object()
     db = gold_mapper.get_database_object_dump()
     #This should return 2 workflow_execution_set records, one nmdc:MetagenomeAnnotation and one nmdc:MagsAnalysis.  
