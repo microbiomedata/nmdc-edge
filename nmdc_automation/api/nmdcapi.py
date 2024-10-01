@@ -10,26 +10,30 @@ import hashlib
 import mimetypes
 from pathlib import Path
 from time import time
-from typing import Union
+from typing import Union, List
 from datetime import datetime, timedelta, timezone
 from nmdc_automation.config import Config, UserConfig
 import logging
 
 
-def _get_sha256(fn):
-    hashfn = fn + ".sha256"
-    if os.path.exists(hashfn):
-        with open(hashfn) as f:
+def _get_sha256(fn: Union[str, Path]) -> str:
+    """
+    Helper function to get the sha256 hash of a file if it exists.
+    """
+    shahash = hashlib.sha256()
+    if isinstance(fn, str):
+        fn = Path(fn)
+    hash_fn = fn.with_suffix(".sha256")
+    if hash_fn.exists():
+        with hash_fn.open() as f:
             sha = f.read().rstrip()
     else:
-        logging.info("hashing %s" % (fn))
-        shahash = hashlib.sha256()
-        with open(fn, "rb") as f:
-            # Read and update hash string value in blocks of 4K
+        logging.info(f"hashing {fn}")
+        with fn.open("rb") as f:
             for byte_block in iter(lambda: f.read(1048576), b""):
                 shahash.update(byte_block)
         sha = shahash.hexdigest()
-        with open(hashfn, "w") as f:
+        with hash_fn.open("w") as f:
             f.write(sha)
             f.write("\n")
     return sha
@@ -46,8 +50,10 @@ class NmdcRuntimeApi:
     client_id = None
     client_secret = None
 
-    def __init__(self, site_configuration: Union[str, Path]):
-        self.config = Config(site_configuration)
+    def __init__(self, site_configuration: Union[str, Path, Config]):
+        if isinstance(site_configuration, str) or isinstance(site_configuration, Path):
+            site_configuration = Config(site_configuration)
+        self.config = site_configuration
         self._base_url = self.config.api_url
         self.client_id = self.config.client_id
         self.client_secret = self.config.client_secret
@@ -184,7 +190,7 @@ class NmdcRuntimeApi:
 
     @refresh_token
     def post_objects(self, obj_data):
-        url = self._base_url + "workflows/activities"
+        url = self._base_url + "workflows/workflow_executions"
 
         resp = requests.post(url, headers=self.header, data=json.dumps(obj_data))
         return resp.json()
@@ -206,7 +212,7 @@ class NmdcRuntimeApi:
         return resp.json()
 
     @refresh_token
-    def list_jobs(self, filt=None, max=100):
+    def list_jobs(self, filt=None, max=100) -> List[dict]:
         url = "%sjobs?max_page_size=%s" % (self._base_url, max)
         d = {}
         if filt:
@@ -316,6 +322,7 @@ class NmdcRuntimeApi:
         return resp.json()
 
 
+# TODO - This is deprecated and should be removed along with the re_iding code that uses it
 class NmdcRuntimeUserApi:
     """
     Basic Runtime API Client with user/password authentication.

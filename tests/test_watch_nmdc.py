@@ -6,32 +6,6 @@ from pytest import fixture
 
 
 @fixture(autouse=True)
-def cleanup():
-    tdir = os.path.dirname(__file__)
-    dd = os.path.join(tdir, "..", "test_data", "nmdc:mga0xxx")
-    if os.path.exists(dd):
-        shutil.rmtree(dd)
-    omics_id = "nmdc:omprc-11-nhy4pz43/"
-    if os.path.exists(f"/tmp/{omics_id}"):
-        shutil.rmtree(f"/tmp/{omics_id}")
-    if os.path.exists("/tmp/agent.state"):
-        os.unlink("/tmp/agent.state")
-
-
-@fixture
-def mock_nmdc_api(requests_mock, test_data_dir):
-
-    rqcf = test_data_dir / "rqc_response2.json"
-    rqc = json.load(open(rqcf))
-    resp = {"resources": [rqc]}
-    requests_mock.get("http://localhost/jobs", json=resp)
-    requests_mock.post("http://localhost/workflows/activities", json={})
-    requests_mock.patch("http://localhost/operations/nmdc:1234", json={})
-    requests_mock.get("http://localhost/operations/nmdc:1234",
-                      json={'metadata': {}})
-
-
-@fixture(autouse=True)
 def mock_cromwell(requests_mock, test_data_dir):
     requests_mock.real_http = True
     data = {"id": "1234"}
@@ -56,12 +30,12 @@ def mock_cromwell(requests_mock, test_data_dir):
 
 def test_watcher(site_config):
     w = Watcher(site_config)
-    w.restore()
-    w.job_checkpoint()
-    w.restore()
+    w.restore_from_checkpoint()
+    w.job_manager.job_checkpoint()
+    w.restore_from_checkpoint()
 
 
-def test_claim_jobs(requests_mock, site_config, mock_nmdc_api):
+def test_claim_jobs(requests_mock, site_config, mock_api):
     requests_mock.real_http = True
     w = Watcher(site_config)
     job_id = "nmdc:b7eb8cda-a6aa-11ed-b1cf-acde48001122"
@@ -72,11 +46,11 @@ def test_claim_jobs(requests_mock, site_config, mock_nmdc_api):
     requests_mock.post(f"http://localhost/jobs/{job_id}:claim", json=resp)
     w.claim_jobs()
     w.cycle()
-    resp = w.find_job_by_opid("nmdc:1234")
+    resp = w.job_manager.find_job_by_opid("nmdc:1234")
     assert resp
 
 
-def test_reclaim_job(requests_mock, site_config, mock_nmdc_api):
+def test_reclaim_job(requests_mock, site_config, mock_api):
     requests_mock.real_http = True
 
     w = Watcher(site_config)
@@ -88,5 +62,5 @@ def test_reclaim_job(requests_mock, site_config, mock_nmdc_api):
     requests_mock.post(f"http://localhost/jobs/{job_id}:claim", json=resp,
                        status_code=409)
     w.claim_jobs()
-    resp = w.find_job_by_opid("nmdc:1234")
+    resp = w.job_manager.find_job_by_opid("nmdc:1234")
     assert resp

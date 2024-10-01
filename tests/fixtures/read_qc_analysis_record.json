@@ -1,0 +1,26 @@
+{
+      "id": "nmdc:wfrqc-11-014wn728.1",
+      "name": "Read QC Activity for nmdc:omprc-11-2e3pne24",
+      "started_at_time": "2021-12-01T01:47:43+00:00",
+      "ended_at_time": "2021-12-12T03:08:24+00:00",
+      "was_informed_by": "nmdc:omprc-11-2e3pne24",
+      "execution_resource": "NERSC-Cori",
+      "git_url": "https://github.com/microbiomedata/ReadsQC",
+      "has_input": [
+        "nmdc:dobj-11-w9xah552"
+      ],
+      "has_output": [
+        "nmdc:dobj-11-rdwend10",
+        "nmdc:dobj-11-fk0d5b40"
+      ],
+      "type": "nmdc:ReadQcAnalysis",
+      "version": "1.0.2",
+      "input_read_count": 179238768,
+      "output_read_count": 178701256,
+      "input_read_bases": 27065053968,
+      "output_read_bases": 26698546624,
+      "alternative_identifiers": [
+        "nmdc:wfrqc-11-014wn728.1.1",
+        "nmdc:wfrqc-11-014wn728.1.1.1"
+      ]
+    }

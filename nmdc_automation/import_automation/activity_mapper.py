@@ -6,8 +6,11 @@ import datetime
 import pytz
 import json
 import yaml
-from typing import List, Dict, Callable, Tuple, Union
-import nmdc_schema.nmdc as nmdc
+
+from typing import List, Dict, Union, Tuple
+from nmdc_schema import nmdc
+
+
 from linkml_runtime.dumpers import json_dumper
 from nmdc_automation.api import NmdcRuntimeApi
 from .utils import object_action, file_link, get_md5, filter_import_by_type
@@ -210,16 +213,15 @@ class GoldMapper:
             # Lookup the nmdc database class
             database_activity_set = getattr(self.nmdc_db, workflow["Collection"])
             # Lookup the nmdc schema range class
-            database_activity_range = getattr(nmdc, workflow["ActivityRange"])
+            database_activity_range = getattr(nmdc, workflow["WorkflowExecutionRange"])
             # Mint an ID
             activity_id = self.get_activity_id(workflow["Type"])
             database_activity_set.append(
                 database_activity_range(
                     id=activity_id,
-                    name=workflow["Activity"]["name"].replace("{id}", activity_id),
+                    name=workflow["Workflow_Execution"]["name"].replace("{id}", activity_id),
                     git_url=workflow["Git_repo"],
                     version=workflow["Version"],
-                    part_of=[self.omics_id],
                     execution_resource=self.import_data["Workflow Metadata"][
                         "Execution Resource"
                     ],

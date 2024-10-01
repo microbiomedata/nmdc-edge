@@ -43,7 +43,7 @@ class WorkflowJob:
     def __init__(
         self,
         site_config,
-        typ=None,
+        type=None,
         workflow_config=None,
         nmdc_jobid=None,
         opid=None,
@@ -56,14 +56,14 @@ class WorkflowJob:
         self.set_config_attributes()
         if workflow_config:
             self.load_workflow_config()
-        self.set_initial_state(state, activity_id, typ, nmdc_jobid, opid)
+        self.set_initial_state(state, activity_id, type, nmdc_jobid, opid)
         if self.jobid and not nocheck:
             self.check_status()
 
     def set_config_attributes(self):
         # TODO: Why are we not using the config object directly? This is a code smell.
         #   Consider wrapping with @property decorators to make this more explicit.
-        self.cromurl = self.config.cromwell_url
+        self.cromwell_url = self.config.cromwell_url
         self.data_dir = self.config.data_dir
         self.resource = self.config.resource
         self.url_root = self.config.url_root
@@ -129,7 +129,7 @@ class WorkflowJob:
             self.last_status = "Unsubmitted"
             return self.last_status
 
-        url = f"{self.cromurl}/{self.jobid}/status"
+        url = f"{self.cromwell_url}/{self.jobid}/status"
 
         try:
             resp = requests.get(url)
@@ -155,7 +155,7 @@ class WorkflowJob:
         """
         if not self.jobid:
             return self.DEFAULT_STATUS
-        url = f"{self.cromurl}/{self.jobid}{self.METADATA_URL_SUFFIX}"
+        url = f"{self.cromwell_url}/{self.jobid}{self.METADATA_URL_SUFFIX}"
         resp = requests.get(url)
         resp.raise_for_status()
         return resp.json()
@@ -239,8 +239,8 @@ class WorkflowJob:
 
             job_id = "unknown"
             if not self.dryrun:
-                logging.debug(self.cromurl)
-                resp = requests.post(self.cromurl, data={}, files=files)
+                logging.debug(self.cromwell_url)
+                resp = requests.post(self.cromwell_url, data={}, files=files)
                 resp.raise_for_status()
                 data = resp.json()
                 self.json_log(data, title="Response")
@@ -327,7 +327,6 @@ class NmdcSchema:
                 name=activity_name,
                 git_url=workflow["git_repo"],
                 version=workflow["release"],
-                part_of=[omic_id],
                 execution_resource=resource,
                 started_at_time=start_time,
                 has_input=has_inputs_list,
@@ -345,41 +344,42 @@ class NmdcSchema:
         """
 
         activity_store_dict = {
+            #TODO deprecate MetagenomeSequencing
             "nmdc:MetagenomeSequencing": (
-                self.nmdc_db.metagenome_sequencing_activity_set,
-                nmdc.MetagenomeSequencingActivity,
+                self.nmdc_db.workflow_execution_set,
+                nmdc.MetagenomeSequencing,
             ),
-            "nmdc:ReadQcAnalysisActivity": (
-                self.nmdc_db.read_qc_analysis_activity_set,
-                nmdc.ReadQcAnalysisActivity,
+            "nmdc:ReadQcAnalysis": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.ReadQcAnalysis,
             ),
-            "nmdc:ReadBasedTaxonomyAnalysisActivity": (
-                self.nmdc_db.read_based_taxonomy_analysis_activity_set,
-                nmdc.ReadBasedTaxonomyAnalysisActivity,
+            "nmdc:ReadBasedTaxonomyAnalysis": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.ReadBasedTaxonomyAnalysis,
             ),
             "nmdc:MetagenomeAssembly": (
-                self.nmdc_db.metagenome_assembly_set,
+                self.nmdc_db.workflow_execution_set,
                 nmdc.MetagenomeAssembly,
             ),
             "nmdc:MetatranscriptomeAssembly": (
-                self.nmdc_db.metatranscriptome_assembly_set,
+                self.nmdc_db.workflow_execution_set,
                 nmdc.MetatranscriptomeAssembly,
             ),
-            "nmdc:MetagenomeAnnotationActivity": (
-                self.nmdc_db.metagenome_annotation_activity_set,
-                nmdc.MetagenomeAnnotationActivity,
+            "nmdc:MetagenomeAnnotation": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.MetagenomeAnnotation,
             ),
-            "nmdc:MetatranscriptomeAnnotationActivity": (
-                self.nmdc_db.metatranscriptome_annotation_set,
-                nmdc.MetatranscriptomeAnnotationActivity,
+            "nmdc:MetatranscriptomeAnnotation": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.MetatranscriptomeAnnotation,
+            ),
+            "nmdc:MagsAnalysis": (
+                self.nmdc_db.workflow_execution_set,
+                nmdc.MagsAnalysis,
             ),
             "nmdc:MetatranscriptomeExpressionAnalysis": (
-                self.nmdc_db.metatranscriptome_expression_analysis_set,
+                self.nmdc_db.workflow_execution_set,
                 nmdc.MetatranscriptomeExpressionAnalysis,
-            ),
-            "nmdc:MagsAnalysisActivity": (
-                self.nmdc_db.mags_activity_set,
-                nmdc.MagsAnalysisActivity,
             ),
         }
 

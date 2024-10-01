@@ -1,5 +1,4 @@
-[
-  {
+{
     "workflow" : {
         "id" : "Metagenome Annotation: v1.1.0"
     },
@@ -224,5 +223,3 @@
         }
     ]
 }
-
-]

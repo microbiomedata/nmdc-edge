@@ -1,4 +1,4 @@
-from __future__ import annotations
+""" This module reads the workflows yaml file and returns a list of WorkflowConfig objects"""
 from yaml import load
 
 try:
@@ -7,79 +7,29 @@ except ImportError:
     from yaml import Loader
 import sys
 
-# TODO: Berkley refactoring:
-#   Ensure that the Workflow class and load_workflows methods are compatible with the MetaTranscriptomics workflow.
-def load_workflows(yaml_file) -> list[Workflow]:
+from nmdc_automation.workflow_automation.models import WorkflowConfig
+
+def load_workflow_configs(yaml_file) -> list[WorkflowConfig]:
     """
-    Load all workflow definitions from a yaml file, populate
-    parent-child relationships and return a list of Workflow
-    objects.
+    Read the workflows yaml file and return a list of WorkflowConfig objects
     """
-    workflows = []
+    workflow_configs = []
     data = load(open(yaml_file), Loader)
     for wf in data["Workflows"]:
-        workflows.append(Workflow(wf))
+        # normalize the keys from Key Name to key_name
+        wf = {k.replace(" ", "_").lower(): v for k, v in wf.items()}
+        workflow_configs.append(WorkflowConfig(**wf))
     # Populate workflow dependencies
-    for wf in workflows:
-        for wf2 in workflows:
+    for wf in workflow_configs:
+        for wf2 in workflow_configs:
             if not wf2.predecessors:
                 continue
             if wf.name in wf2.predecessors:
                 wf.add_child(wf2)
                 wf2.add_parent(wf)
-    return workflows
-
-
-class Workflow:
-    """
-    Workflow object class
-    """
-
-    _FIELDS = [
-        "Name",
-        "Type",
-        "Enabled",
-        "Git_repo",
-        "Version",
-        "WDL",
-        "Analyte Category",
-        "Collection",
-        "Predecessors",
-        "Input_prefix",
-        "Inputs",
-        "Activity",
-        "Filter Input Objects",
-        "Filter Output Objects",
-        "Outputs",
-        "Optional Inputs"
-    ]
-
-    def __init__(self, wf: dict):
-        """
-        Create a workflow object from a
-        dictionary
-        """
-        self.children = set()
-        self.parents = set()
-        self.do_types = []
-        for f in self._FIELDS:
-            attr_name = f.lower().replace(" ", "_")
-            setattr(self, attr_name, wf.get(f))
-        if not self.inputs:
-            self.inputs = {}
-        if not self.optional_inputs:
-            self.optional_inputs = []
-        for _, inp_param in self.inputs.items():
-            if inp_param.startswith("do:"):
-                self.do_types.append(inp_param[3:])
-
-    def add_child(self, child: Workflow):
-        self.children.add(child)
-
-    def add_parent(self, parent: Workflow):
-        self.parents.add(parent)
+    return workflow_configs
 
 
 if __name__ == "__main__":
     wff = sys.argv[1]
-    load_workflows(wff)
+    load_workflow_configs(wff)

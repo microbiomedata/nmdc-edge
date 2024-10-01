@@ -7,164 +7,71 @@ import logging
 import shutil
 from json import loads
 from os.path import exists
+from typing import List, Dict, Any, Optional, Set
+
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import Config
-from .wfutils import WorkflowJob as wfjob
+from .wfutils import WorkflowJob
 from .wfutils import NmdcSchema, _md5
 
 logger = logging.getLogger(__name__)
 
-# TODO: Berkley refactoring:
-#   The watcher interacts with the NMDC runtime API to find / claim jobs and to post the resulting
-#   data objects back to the NMDC database.  It interacts with the operations endpoint to update the status
-#   after job completion.
-#   Ensure that these calls to the Berkeley API are compatible.
 
-# TODO: Rename to distinguish between WorkflowJob instances and not other types such as the Job class in sched.py and
-#  the jobs API endpoint and DB collection.
-# TODO: Add type hints to all methods.
-# TODO: Add docstrings to all public methods.
-# TODO: This has a "Long Method Chain" code smell and Deep Nesting code smell. Refactor to reduce complexity.
-class Watcher:
-    def __init__(self, site_configuration_file):
-        self._POLL = 20
-        self._MAX_FAILS = 2
-        self.should_skip_claim = False
-        self.config = Config(site_configuration_file)
-        self.client_id = self.config.client_id
-        self.client_secret = self.config.client_secret
-        # TODO: Is there some reason to rename this variable? Also it doesn't seem to be used.
-        self.cromurl = self.config.cromwell_url
+class FileHandler:
+    def __init__(self, config: Config):
+        self.config = config
         self.state_file = self.config.agent_state
-        self.stage_dir = self.config.stage_dir
-        self.raw_dir = self.config.raw_dir
-        # TODO: make it clear that this is a list of WorkflowJob instances
-        self.jobs = []
-        self.runtime_api = NmdcRuntimeApi(site_configuration_file)
-        self._ALLOWED = self.config.allowed_workflows
 
-    # TODO: Why not name this method "restore_from_checkpoint"?
-    def restore(self, nocheck: bool = False):
-        """
-        Restore from checkpoint
-        """
-        # TODO: Give a better name to the variable - data is too generic
-        data = self._load_state_file()
-        if not data:
-            return
-
-        self.jobs = self._find_jobs(data, nocheck)
-
-    def _load_state_file(self):
+    def load_state_file(self)-> Optional[Dict[str, Any]]:
         if not exists(self.state_file):
-            return
+            return None
         with open(self.state_file, "r") as f:
             return loads(f.read())
 
-    # TODO: 'job' is too generic
-    def _find_jobs(self, data: dict, nocheck: bool):
-        new_job_list = []
-        seen = {}
-        # TODO: Be explicit about the type of the data["jobs"] list
-        for job in data["jobs"]:
-            job_id = job["nmdc_jobid"]
-            if job_id in seen:
-                continue
-            job_record = wfjob(self.config, state=job, nocheck=nocheck)
-            new_job_list.append(job_record)
-            seen[job_id] = True
-
-        return new_job_list
-
-    #################################
-
-    def job_checkpoint(self):
-        jobs = [job.get_state() for job in self.jobs]
-        data = {"jobs": jobs}
+    def save_state_file(self, data):
         with open(self.state_file, "w") as f:
             json.dump(data, f, indent=2)
 
-    def cycle(self):
-        self.restore()
-        if not self.should_skip_claim:
-            self.claim_jobs()
-        self.check_status()
+    def get_output_dir(self, job):
+        data_directory = self.config.data_dir
+        informed_by = job.workflow_config["was_informed_by"]
+        workflow_execution_id  = job.activity_id
+        outdir = os.path.join(data_directory, informed_by, workflow_execution_id)
+        if not os.path.exists(outdir):
+            os.makedirs(outdir)
+        return outdir
 
-    def watch(self):
-        logger.info("Entering polling loop")
-        while True:
-            try:
-                self.cycle()
-            except (IOError, ValueError, TypeError, AttributeError) as e:
-                logger.exception(f"Error occurred during cycle: {e}", exc_info=True)
-            sleep(self._POLL)
+    def write_metadata_if_not_exists(self, job, outdir):
+        metadata_filepath = os.path.join(outdir, "metadata.json")
+        if not os.path.exists(metadata_filepath):
+            with open(metadata_filepath, "w") as f:
+                json.dump(job.get_metadata(), f)
 
-    def find_job_by_opid(self, opid):
-        return next((job for job in self.jobs if job.opid == opid), None)
 
-    def submit(self, new_job, opid, force=False):
-        common_workflow_id = new_job["workflow"]["id"]
-        if "object_id_latest" in new_job["config"]:
-            logger.warning("Old record. Skipping.")
-            return
-        self.create_or_use_existing_job(new_job, opid, common_workflow_id)
-        self.jobs[-1].cromwell_submit(force=force)
+class JobManager:
+    def __init__(self, config, file_handler, api_handler):
+        self.config = config
+        self.file_handler = file_handler
+        self.api_handler = api_handler
+        self.job_cache = []
+        self._MAX_FAILS = 2
 
-    def create_or_use_existing_job(self, new_job, opid, common_workflow_id):
-        job = self.find_job_by_opid(opid)
-        if job:
-            logger.debug("Previously cached job")
-            logger.info(f"Reusing activity {job.activity_id}")
-            self.jobs.append(job)
-        else:
-            logging.debug("NEW JOB")
-            logging.debug(new_job)
-            job = wfjob(
-                site_config=self.config,
-                typ=common_workflow_id,
-                nmdc_jobid=new_job["id"],
-                workflow_config=new_job["config"],
-                opid=opid,
-                activity_id=new_job["config"]["activity_id"],
-            )
-            self.jobs.append(job)
+    def restore_jobs(self, state_data: Dict[str, Any], nocheck=False)-> None:
+        """ Restore jobs from state data """
+        self.job_cache = self._find_jobs(state_data, nocheck)
 
-    def refresh_remote_jobs(self):
-        """
-        Return a filtered list of nmdc jobs.
-        """
-        filt = {
-            "workflow.id": {"$in": self._ALLOWED},
-            "claims": {"$size": 0}
-        }
-        logging.debug("Looking for jobs")
-        jobs = self.runtime_api.list_jobs(filt=filt)
-        logging.debug(f"Found {len(jobs)} jobs")
-        known = set(job.nmdc_jobid for job in self.jobs)
-        return [job for job in jobs if job["id"] not in known]
-
-    # TODO: Pull the 'for job' logic up into the caller.
-    def claim_jobs(self):
-        for job in self.refresh_remote_jobs():
-            job_id = job["id"]
-            if job.get("claims") and len(job.get("claims")) > 0:
+    def _find_jobs(self, state_data: dict, nocheck: bool)-> List[WorkflowJob]:
+        """ Find jobs from state data """
+        new_wf_job_list = []
+        seen = {}
+        for job in state_data["jobs"]:
+            job_id = job["nmdc_jobid"]
+            if job_id in seen:
                 continue
-            logger.debug(f"Trying to claim: {job_id}")
-
-            # Claim job
-            claim = self.runtime_api.claim_job(job_id)
-            if not claim["claimed"]:
-                logger.debug(claim)
-                self.submit_and_checkpoint_job(job, claim["id"])
-            else:
-                # Previously claimed
-                opid = claim["detail"]["id"]
-                logger.info("Previously claimed.")
-                self.submit_and_checkpoint_job(job, opid)
-
-    def submit_and_checkpoint_job(self, job, opid):
-        self.submit(job, opid)
-        self.job_checkpoint()
+            wf_job = WorkflowJob(self.config, state=job, nocheck=nocheck)
+            new_wf_job_list.append(wf_job)
+            seen[job_id] = True
+        return new_wf_job_list
 
     def _get_url(self, informed_by, act_id, fname):
         root = self.config.url_root
@@ -177,36 +84,79 @@ class Watcher:
             os.makedirs(outdir)
         return outdir
 
-    def post_job_done(self, job):
+    def find_job_by_opid(self, opid):
+        return next((job for job in self.job_cache if job.opid == opid), None)
+
+    def submit_job(self, new_job, opid, force=False):
+        common_workflow_id = new_job["workflow"]["id"]
+        if "object_id_latest" in new_job["config"]:
+            logger.warning("Old record. Skipping.")
+            return
+        wf_job = self.get_or_create_workflow_job(new_job, opid, common_workflow_id)
+        self.job_cache.append(wf_job)
+        wf_job.cromwell_submit(force=force)
+
+    def get_or_create_workflow_job(self, new_job, opid, common_workflow_id)-> WorkflowJob:
+        wf_job = self.find_job_by_opid(opid)
+        if not wf_job:
+            wf_job = WorkflowJob(
+                site_config=self.config,
+                type=common_workflow_id,
+                nmdc_jobid=new_job["id"],
+                workflow_config=new_job["config"],
+                opid=opid,
+                activity_id=new_job["config"]["activity_id"],
+            )
+        return wf_job
+
+    def check_job_status(self):
+        for job in self.job_cache:
+            if not job.done:
+                status = job.check_status()
+                if status == "Succeeded" and job.opid:
+                    self.process_successful_job(job)
+                elif status == "Failed" and job.opid:
+                    self.process_failed_job(job)
+
+    def process_successful_job(self, job: WorkflowJob):
         logger.info(f"Running post for op {job.opid}")
-        metadata = job.get_metadata()
-        informed_by = job.workflow_config["was_informed_by"]
-        act_id = job.activity_id
-        outdir = self._get_output_dir(informed_by, act_id)
+
+        outdir = self.file_handler.get_output_dir(job)
         schema = NmdcSchema()
 
-        output_ids = self.generate_data_objects(
-            job, metadata["outputs"], outdir, informed_by, act_id, schema
-        )
-        activity_inputs = [dobj["id"] for dobj in job.input_data_objects]
+        output_ids = self.generate_data_objects(job, outdir, schema)
 
-        self.create_activity_record(job, act_id, activity_inputs, output_ids, schema)
+        self.create_activity_record(job, output_ids, schema)
 
-        self.write_metadata_if_not_exists(metadata, outdir)
+        self.file_handler.write_metadata_if_not_exists(job, outdir)
 
         nmdc_database_obj = schema.get_database_object_dump()
         nmdc_database_obj_dict = json.loads(nmdc_database_obj)
-        resp = self.runtime_api.post_objects(nmdc_database_obj_dict)
+        resp = self.api_handler.post_objects(nmdc_database_obj_dict)
         logger.info(f"Response: {resp}")
-
         job.done = True
-        resp = self.runtime_api.update_op(job.opid, done=True, meta=metadata)
-
+        resp = self.api_handler.update_op(
+            job.opid, done=True, meta=job.get_metadata()
+        )
         return resp
 
-    def generate_data_objects(self, job, job_outs, outdir, informed_by, act_id, schema):
+
+    def process_failed_job(self, job):
+        if job.failed_count < self._MAX_FAILS:
+            job.failed_count += 1
+            job.cromwell_submit()
+
+    def job_checkpoint(self):
+        jobs = [job.get_state() for job in self.job_cache]
+        data = {"jobs": jobs}
+        return data
+
+    def generate_data_objects(self, job, outdir,  schema):
         output_ids = []
         prefix = job.workflow_config["input_prefix"]
+
+        job_outs = job.get_metadata()["outputs"]
+        informed_by = job.workflow_config["was_informed_by"]
 
         for product_record in job.outputs:
             outkey = f"{prefix}.{product_record['output']}"
@@ -220,7 +170,11 @@ class Watcher:
             shutil.copyfile(full_name, new_path)
 
             md5 = _md5(full_name)
-            file_url = self._get_url(informed_by, act_id, file_name)
+            file_url = self._get_url(
+                job.workflow_config["was_informed_by"],
+                job.activity_id,
+                file_name
+            )
             id = product_record["id"]
             schema.make_data_object(
                 name=file_name,
@@ -230,53 +184,94 @@ class Watcher:
                 dobj_id=product_record["id"],
                 md5_sum=md5,
                 description=product_record["description"],
-                omics_id=act_id,
+                omics_id=job.activity_id,
             )
 
             output_ids.append(id)
 
         return output_ids
 
-    def create_activity_record(self, job, act_id, activity_inputs, output_ids, schema):
+    def create_activity_record(self, job,  output_ids, schema):
         activity_type = job.activity_templ["type"]
-        name = job.activity_templ["name"].replace("{id}", act_id)
+        name = job.activity_templ["name"].replace("{id}", job.activity_id)
         omic_id = job.workflow_config["was_informed_by"]
         resource = self.config.resource
         schema.create_activity_record(
             activity_record=activity_type,
             activity_name=name,
             workflow=job.workflow_config,
-            activity_id=act_id,
+            activity_id=job.activity_id,
             resource=resource,
-            has_inputs_list=activity_inputs,
+            has_inputs_list=[dobj["id"] for dobj in job.input_data_objects],
             has_output_list=output_ids,
             omic_id=omic_id,
             start_time=job.start,
             end_time=job.end,
         )
 
-    def write_metadata_if_not_exists(self, metadata, outdir):
-        metadata_filepath = os.path.join(outdir, "metadata.json")
-        if not os.path.exists(metadata_filepath):
-            with open(metadata_filepath, "w") as f:
-                json.dump(metadata, f)
 
-    def check_status(self):
-        for job in self.jobs:
-            if not job.done:
-                status = job.check_status()
-                if status == "Succeeded" and job.opid:
-                    self.process_successful_job(job)
-                elif status == "Failed" and job.opid:
-                    self.process_failed_job(job)
+class RuntimeApiHandler:
+    def __init__(self, config):
+        self.runtime_api = NmdcRuntimeApi(config)
 
-        self.job_checkpoint()
+    def claim_job(self, job_id):
+        return self.runtime_api.claim_job(job_id)
 
-    # TODO: DRY up both of these methods into a single method that takes a status argument.
-    def process_successful_job(self, job):
-        self.post_job_done(job)
+    def list_jobs(self, allowed_workflows)-> List[Dict[str, Any]]:
+        filt = {
+            "workflow.id": {"$in": allowed_workflows},
+            "claims": {"$size": 0}
+        }
+        job_records =  self.runtime_api.list_jobs(filt=filt)
+        return job_records
 
-    def process_failed_job(self, job):
-        if job.failed_count < self._MAX_FAILS:
-            job.failed_count += 1
-            job.cromwell_submit()
+    def post_objects(self, database_obj):
+        return self.runtime_api.post_objects(database_obj)
+
+    def update_op(self, opid, done, meta):
+        return self.runtime_api.update_op(opid, done=done, meta=meta)
+
+
+
+class Watcher:
+    def __init__(self, site_configuration_file):
+        self._POLL = 20
+        self._MAX_FAILS = 2
+        self.should_skip_claim = False
+        self.config = Config(site_configuration_file)
+        self.file_handler = FileHandler(self.config)
+        self.api_handler = RuntimeApiHandler(self.config)
+        self.job_manager = JobManager(self.config, self.file_handler, self.api_handler)
+        self._ALLOWED = self.config.allowed_workflows
+
+    def restore_from_checkpoint(self, nocheck: bool = False)-> None:
+        """
+        Restore from checkpoint
+        """
+        state_data = self.file_handler.load_state_file()
+        if state_data:
+            self.job_manager.restore_jobs(state_data, nocheck=nocheck)
+
+    def cycle(self):
+        self.restore_from_checkpoint()
+        if not self.should_skip_claim:
+            self.claim_jobs()
+        self.job_manager.check_job_status()
+
+    def watch(self):
+        logger.info("Entering polling loop")
+        while True:
+            try:
+                self.cycle()
+            except (IOError, ValueError, TypeError, AttributeError) as e:
+                logger.exception(f"Error occurred during cycle: {e}", exc_info=True)
+            sleep(self._POLL)
+
+
+    def claim_jobs(self):
+        jobs = self.api_handler.list_jobs(self._ALLOWED)
+        for job in jobs:
+            claim = self.api_handler.claim_job(job["id"])
+            opid = claim["detail"]["id"]
+            self.job_manager.submit_job(job, opid)
+        self.file_handler.save_state_file(self.job_manager.job_checkpoint())

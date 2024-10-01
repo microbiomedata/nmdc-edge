@@ -11,14 +11,11 @@
       "nmdc:dobj-11-rawreads1",
       "nmdc:dobj-11-rawreads2"
     ],
-    "type": "nmdc:ReadQcAnalysisActivity",
+    "type": "nmdc:ReadQcAnalysis",
     "has_output": [
       "nmdc:dobj-11-qcstats",
       "nmdc:dobj-11-qcinfo",
       "nmdc:dobj-11-filteredreads"
-    ],
-    "part_of": [
-      "nmdc:omprc-11-metag1"
     ],
     "version": "v1.0.8"
   },
@@ -29,21 +26,18 @@
     "ended_at_time": "2024-04-11T23:39:28.659534+00:00",
     "was_informed_by": "nmdc:omprc-11-metat1",
     "execution_resource": "NERSC-Perlmutter",
-    "git_url": "https://github.com/microbiomedata/ReadsQC",
+    "git_url": "https://github.com/microbiomedata/metaT_ReadsQC",
     "has_input": [
       "nmdc:dobj-11-rawreads3",
       "nmdc:dobj-11-rawreads4"
     ],
-    "type": "nmdc:ReadQcAnalysisActivity",
+    "type": "nmdc:ReadQcAnalysis",
     "has_output": [
       "nmdc:dobj-11-qcstats1",
       "nmdc:dobj-11-qcinfo1",
       "nmdc:dobj-11-filteredreads1",
       "nmdc:dobj-11-rrnafastq"
     ],
-    "part_of": [
-      "nmdc:omprc-11-metat1"
-    ],
-    "version": "v1.0.8"
+    "version": "v0.0.7"
   }
 ]
