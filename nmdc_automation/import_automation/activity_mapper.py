@@ -254,7 +254,7 @@ class GoldMapper:
         self, workflow_execution_type: str
     ) -> Tuple[List[str], List[str]]:
         """
-        Get data objects that inform activity inputs and outputs.
+        Get data objects that inform workflow execution inputs and outputs.
 
         This function iterates through the stored objects, checking if the provided workflow_execution_type
         is in the 'input_to' or 'output_of' fields. If it is, the corresponding object is appended
@@ -274,9 +274,9 @@ class GoldMapper:
         data_object_inputs_to_list = []
 
         for _, data_object_items in self.objects.items():
-            if activity_type in data_object_items[1]:
+            if workflow_execution_type in data_object_items[1]:
                 data_object_outputs_of_list.append(data_object_items[2])
-            elif activity_type in data_object_items[0]:
+            elif workflow_execution_type in data_object_items[0]:
                 data_object_inputs_to_list.append(data_object_items[2])
 
         return data_object_inputs_to_list, data_object_outputs_of_list
