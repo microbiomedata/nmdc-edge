@@ -185,9 +185,9 @@ class GoldMapper:
                 dobj,
             )
 
-    def activity_mapper(self) -> None:
+    def workflow_execution_mapper(self) -> None:
         """
-        Maps activities from the import data to the NMDC database.
+        Maps workflow executions from the import data to the NMDC database.
         The function creates a database workflow execution set for each workflow type in the import data,
         attaching the relevant input and output objects. It also provides other metadata for each workflow execution.
 
@@ -216,7 +216,7 @@ class GoldMapper:
             database_workflow_execution_range = getattr(nmdc, workflow["WorkflowExecutionRange"])
             # Mint an ID
             workflow_execution_id = self.get_workflow_execution_id(workflow["Type"])
-            database_activity_set.append(
+            database_workflow_execution_set.append(
                 database_workflow_execution_range(
                     id=workflow_execution_id,
                     name=workflow["Workflow_Execution"]["name"].replace("{id}", workflow_execution_id),
@@ -235,7 +235,7 @@ class GoldMapper:
             )
 
     def get_workflow_execution_id(self, output_of: str) -> str:
-        """Lookup and returns minted activity id
+        """Lookup and returns minted workflow execution id
 
         Args:
             output_of (str): The workflow execution type the data object is an output of.
