@@ -41,7 +41,7 @@ workflow main_workflow {
         String  db_kraken2 = "/refdata/Kraken2"
         String  db_centrifuge = "/refdata/Centrifuge/hpv"
         # MetaAssembly
-        String? metaAssembly_outdir
+        String  metaAssembly_outdir
         String  metaAssembly_rename_contig_prefix="scaffold"
         Float   metaAssembly_uniquekmer=1000
         String  metaAssembly_bbtools_container="microbiomedata/bbtools:38.96"
@@ -92,7 +92,7 @@ workflow main_workflow {
         String  metaMAGs_database="/refdata/GTDBTK_DB/gtdbtk_release207_v2"
         String  checkm_db="/refdata/CheckM_DB/checkm_data_2015_01_16"
         String  eukcc2_db="/refdata/EUKCC2_DB/eukcc2_db_ver_1.2"
-        String? metaMAGs_outdir
+        String  metaMAGs_outdir
         String  metaMAGs_container = "microbiomedata/nmdc_mbin@sha256:57930406fb5cc364bacfc904066519de6cdc2d0ceda9db0eebf2336df3ef5349"
         # finish
         String informed_by = "gold:GpXXXXXXX"

@@ -45,7 +45,7 @@ workflow preprocess {
 
 task gzip_input_int{
     input {
- 	    Array[File?] input_files
+ 	    Array[File] input_files
 	    String container
 	    String outdir
 	    String filename = "output_fastq.gz"
