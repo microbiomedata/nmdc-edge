@@ -6,7 +6,7 @@ import "preprocess.wdl" as MetaAssembly_preprocess
 
 workflow nmdc_edge_assembly{
     input {
-        String? input_file
+        Array[File] input_file
         String? outdir
         String rename_contig_prefix="scaffold"
         Float  uniquekmer=1000
@@ -31,7 +31,7 @@ workflow nmdc_edge_assembly{
             input_fq2=input_fq2,
     
     }
-    
+
     call jgi_asm.jgi_metaASM as metaAssembly_call {
         input:
             input_file=input_file,

@@ -4,7 +4,7 @@ import "https://raw.githubusercontent.com/microbiomedata/ReadsQC/refs/tags/v1.0.
 import "readsqc_preprocess.wdl" as readsqc_preprocess
 import "readsqc_output.wdl" as readsqc_output
 import "https://raw.githubusercontent.com/microbiomedata/ReadbasedAnalysis/v1.0.8/ReadbasedAnalysis.wdl" as readbasedAnalysis
-import "preprocess.wdl" as readbasedanalysis_preprocess
+import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output
 import "nmdcEDGE_assembly.wdl" as metaAssembly
 import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/refs/tags/v1.1.4/annotation_full.wdl" as metaAnnotation
@@ -140,12 +140,9 @@ workflow main_workflow {
 
     call readbasedanalysis_preprocess.preprocess as readbased_preprocess {
         input:
-            input_files= input_files,
-            outdir=readbasedAnalysis_outdir,
-            input_interleaved=input_interleaved,
-            input_fq1=input_fq1,
-            input_fq2=input_fq2,
-    }
+            input_files=rqcfiltered_reads,
+            paired=readbasedAnalysis_paired
+	}
 
     call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
         input:
