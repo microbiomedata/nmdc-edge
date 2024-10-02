@@ -14,7 +14,7 @@ from nmdc_schema.nmdc import WorkflowExecution, Database, DataObject
 from nmdc_automation.workflow_automation.models import workflow_process_factory, get_base_workflow_execution_keys
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import SiteConfig
-from .wfutils import WorkflowJob
+from .wfutils import WorkflowJobDeprecated
 from .wfutils import NmdcSchema, _md5
 
 logger = logging.getLogger(__name__)
@@ -65,7 +65,7 @@ class JobManager:
         """ Restore jobs from state data """
         self.job_cache = self._find_jobs(state_data, nocheck)
 
-    def _find_jobs(self, state_data: dict, nocheck: bool)-> List[WorkflowJob]:
+    def _find_jobs(self, state_data: dict, nocheck: bool)-> List[WorkflowJobDeprecated]:
         """ Find jobs from state data """
         new_wf_job_list = []
         seen = {}
@@ -73,7 +73,7 @@ class JobManager:
             job_id = job["nmdc_jobid"]
             if job_id in seen:
                 continue
-            wf_job = WorkflowJob(self.config, state=job, nocheck=nocheck)
+            wf_job = WorkflowJobDeprecated(self.config, state=job, nocheck=nocheck)
             new_wf_job_list.append(wf_job)
             seen[job_id] = True
         return new_wf_job_list
@@ -101,10 +101,10 @@ class JobManager:
         self.job_cache.append(wf_job)
         wf_job.cromwell_submit(force=force)
 
-    def get_or_create_workflow_job(self, new_job, opid, common_workflow_id)-> WorkflowJob:
+    def get_or_create_workflow_job(self, new_job, opid, common_workflow_id)-> WorkflowJobDeprecated:
         wf_job = self.find_job_by_opid(opid)
         if not wf_job:
-            wf_job = WorkflowJob(
+            wf_job = WorkflowJobDeprecated(
                 site_config=self.config,
                 type=common_workflow_id,
                 nmdc_jobid=new_job["id"],
@@ -123,7 +123,7 @@ class JobManager:
                 elif status == "Failed" and job.opid:
                     self.process_failed_job(job)
 
-    def process_successful_job(self, job: WorkflowJob):
+    def process_successful_job(self, job: WorkflowJobDeprecated):
         logger.info(f"Running post for op {job.opid}")
 
         outdir = self.file_handler.get_output_dir(job)
@@ -158,7 +158,7 @@ class JobManager:
         return data
 
 
-    def generate_data_objects(self, job: WorkflowJob, outdir: Union[str, Path])-> List[DataObject]:
+    def generate_data_objects(self, job: WorkflowJobDeprecated, outdir: Union[str, Path])-> List[DataObject]:
         data_objects = []
 
 

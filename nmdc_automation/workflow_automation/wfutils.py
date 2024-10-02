@@ -11,10 +11,11 @@ import datetime
 import pytz
 import hashlib
 from linkml_runtime.dumpers import json_dumper
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
+from nmdc_automation.config import SiteConfig
 
-def get_workflow_execution_record_for_job(job: "WorkflowJob", has_output_ids: List[str]) -> Dict[str, Any]:
+def get_workflow_execution_record_for_job(job: "WorkflowJobDeprecated", has_output_ids: List[str]) -> Dict[str, Any]:
     """
     Create the appropriate subtype of WorkflowExecution object for a completed job.
     """
@@ -37,7 +38,7 @@ def get_workflow_execution_record_for_job(job: "WorkflowJob", has_output_ids: Li
     return record
 
 
-class WorkflowJob:
+class WorkflowJobDeprecated:
     DEFAULT_STATUS = "Unsubmitted"
     SUCCESS_STATUS = "Succeeded"
     METADATA_URL_SUFFIX = "/metadata"
@@ -294,7 +295,8 @@ class WorkflowJob:
 
 class JobRunner(ABC):
 
-    def __init__(self, job_metadata: Dict[str, Any] = None):
+    def __init__(self, service_url: str,  job_metadata: Dict[str, Any] = None):
+        self.service_url = service_url
         if job_metadata is None:
             job_metadata = {}
         self.cached_job_metadata = job_metadata
@@ -314,11 +316,15 @@ class JobRunner(ABC):
         """ Get the metadata for a job. """
         pass
 
+    @property
+    def job_metadata(self) -> Dict[str, Any]:
+        return self.cached_job_metadata
+
 
 class CromwellJobRunner(JobRunner):
 
-        def __init__(self, job_metadata: Dict[str, Any] = None):
-            super().__init__(job_metadata)
+        def __init__(self, service_url: str,  job_metadata: Dict[str, Any] = None):
+            super().__init__(service_url, job_metadata)
 
         def submit_job(self) -> str:
             pass
@@ -329,15 +335,37 @@ class CromwellJobRunner(JobRunner):
         def get_job_metadata(self, job_id: str) -> Dict[str, Any]:
             pass
 
-        @property
-        def job_metadata(self) -> Dict[str, Any]:
-            return self.cached_job_metadata
 
 
-# TODO: Rename this class to something descriptive - it is responsible for creating NMDC database objects -
-#    the existing name is already taken by the NMDC schema module.
-#    Consider renaming to NMDCDatabaseObjectCreator.
-#    Add type hints to all methods, add docstrings to all methods.
+
+class StateManager:
+    def __init__(self, state: Dict[str, Any] = None):
+        if state is None:
+            state = {}
+        self.cached_state = state
+
+    def update_state(self, state: Dict[str, Any]):
+        self.cached_state.update(state)
+
+    def get_state(self) -> Dict[str, Any]:
+        return self.cached_state
+
+
+class WorkflowJob:
+    def __init__(self, site_config: SiteConfig, state: Dict[str, Any] = None, job_runner: JobRunner = None):
+        self.site_config = site_config
+        self.state_manager = StateManager(state)
+        self.job_runner = job_runner
+
+    @property
+    def workflow_execution_id(self) -> Optional[str]:
+        # backwards compatibility
+        wfe_id = self.state_manager.get_state().get("activity_id", None)
+        if wfe_id is None:
+            wfe_id = self.state_manager.get_state().get("workflow_execution_id", None)
+        return wfe_id
+
+
 class NmdcSchema:
     def __init__(self):
         self.nmdc_db = nmdc.Database()

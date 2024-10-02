@@ -11,7 +11,7 @@ from yaml import load, Loader
 from nmdc_automation.config import SiteConfig
 from nmdc_automation.workflow_automation.models import WorkflowConfig
 from tests.fixtures import db_utils
-from nmdc_automation.workflow_automation.wfutils import WorkflowJob
+from nmdc_automation.workflow_automation.wfutils import WorkflowJobDeprecated
 
 @fixture
 def mock_job_state():

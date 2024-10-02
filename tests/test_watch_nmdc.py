@@ -1,5 +1,5 @@
 from nmdc_automation.workflow_automation.watch_nmdc import Watcher
-from nmdc_automation.workflow_automation.wfutils import WorkflowJob
+from nmdc_automation.workflow_automation.wfutils import WorkflowJobDeprecated
 from pytest import fixture
 from unittest.mock import patch
 
