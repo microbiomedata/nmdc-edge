@@ -1,15 +1,14 @@
 input {
     # Array[File] rqcfiltered_reads = nmdc_rqcfilter_call.filtered_final
     Array[File] <WORKFLOW>_reads
-    Int <WORKFLOW>_cpu = 4
-    String <WORKFLOW>_prefix
-    String <WORKFLOW>_outdir
-    Boolean? <WORKFLOW>_paired = false
-    String <WORKFLOW>_container = "microbiomedata/nmdc_taxa_profilers:1.0.5"
-    String  readsQC_bbtools_container="microbiomedata/bbtools:38.96"
-    String <WORKFLOW>_db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
-    String <WORKFLOW>_db_kraken2 = "/refdata/Kraken2"
-    String <WORKFLOW>_db_centrifuge = "/refdata/Centrifuge/hpv"
+    Int         <WORKFLOW>_cpu = 4
+    String      <WORKFLOW>_prefix
+    String      <WORKFLOW>_outdir
+    Boolean     <WORKFLOW>_paired = false
+    String      <WORKFLOW>_container = "microbiomedata/nmdc_taxa_profilers:1.0.5"
+    String      <WORKFLOW>_db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
+    String      <WORKFLOW>_db_kraken2 = "/refdata/Kraken2"
+    String      <WORKFLOW>_db_centrifuge = "/refdata/Centrifuge/hpv"
 }
 
 call readbasedanalysis_preprocess.preprocess as preprocess {
