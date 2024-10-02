@@ -158,7 +158,7 @@ class JobManager:
         return data
 
 
-    def generate_data_objects(self, job: WorkflowJobDeprecated, outdir: Union[str, Path])-> List[DataObject]:
+    def make_data_objects(self, job: WorkflowJobDeprecated, outdir: Union[str, Path])-> List[DataObject]:
         data_objects = []
 
 

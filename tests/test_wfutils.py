@@ -4,6 +4,7 @@ from nmdc_automation.workflow_automation.wfutils import (
     CromwellJobRunner,
     WorkflowJob
 )
+from nmdc_automation.workflow_automation.models import get_base_workflow_execution_keys
 import json
 
 
@@ -75,7 +76,7 @@ def test_cromwell_job_runner(site_config, fixtures_dir):
     job_metadata = job_runner.job_metadata
     assert job_metadata['status'] == "Succeeded"
 
-def test_workflow_job(site_config, fixtures_dir):
+def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
     # load cromwell metadata
     cromwell_metadata = json.load(open(fixtures_dir / "cromwell_metadata.json"))
     job_runner = CromwellJobRunner("http://fake.url.org", cromwell_metadata)
@@ -89,6 +90,20 @@ def test_workflow_job(site_config, fixtures_dir):
 
     job_meta = wf_job.job_runner.job_metadata
     assert job_meta['status'] == "Succeeded"
+
+    wfe_dict = wf_job.as_workflow_execution_dict
+    assert wfe_dict['id'] == job_state['activity_id']
+
+    for key in get_base_workflow_execution_keys():
+        # doesn't have has_output yet
+        if key == "has_output":
+            continue
+        assert key in wfe_dict
+
+
+
+
+
 
 
 

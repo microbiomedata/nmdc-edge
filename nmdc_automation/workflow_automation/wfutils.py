@@ -11,9 +11,11 @@ import datetime
 import pytz
 import hashlib
 from linkml_runtime.dumpers import json_dumper
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
+from pathlib import Path
 
 from nmdc_automation.config import SiteConfig
+from nmdc_automation.workflow_automation.models import DataObject
 
 def get_workflow_execution_record_for_job(job: "WorkflowJobDeprecated", has_output_ids: List[str]) -> Dict[str, Any]:
     """
@@ -350,20 +352,89 @@ class StateManager:
     def get_state(self) -> Dict[str, Any]:
         return self.cached_state
 
+    @property
+    def config(self) -> Dict[str, Any]:
+        return self.cached_state.get("conf", {})
+
+    @property
+    def execution_template(self) -> Dict[str, str]:
+        # for backward compatibility we need to check for both keys
+        return self.config.get("workflow_execution", self.config.get("activity", {}))
+
+    @property
+    def workflow_execution_id(self) -> Optional[str]:
+        # for backward compatibility we need to check for both keys
+        return self.config.get("activity_id", self.config.get("workflow_execution_id", None))
+
+    @property
+    def was_informed_by(self) -> Optional[str]:
+        return self.config.get("was_informed_by", None)
+
+    @property
+    def workflow_execution_type(self) -> Optional[str]:
+        return self.execution_template.get("type", None)
+
+    @property
+    def workflow_execution_name(self) -> Optional[str]:
+        name_base = self.execution_template.get("name", None)
+        if name_base:
+            return name_base.replace("{id}", self.workflow_execution_id)
+        return None
+
+
+
+
 
 class WorkflowJob:
     def __init__(self, site_config: SiteConfig, state: Dict[str, Any] = None, job_runner: JobRunner = None):
         self.site_config = site_config
-        self.state_manager = StateManager(state)
+        self.execution_state = StateManager(state)
         self.job_runner = job_runner
 
+    # Properties to access the site confit, job state, and job runner attributes
     @property
     def workflow_execution_id(self) -> Optional[str]:
-        # backwards compatibility
-        wfe_id = self.state_manager.get_state().get("activity_id", None)
-        if wfe_id is None:
-            wfe_id = self.state_manager.get_state().get("workflow_execution_id", None)
-        return wfe_id
+        return self.execution_state.workflow_execution_id
+
+    @property
+    def cromwell_url(self) -> str:
+        return self.site_config.cromwell_url
+
+    @property
+    def data_dir(self) -> str:
+        return self.site_config.data_dir
+
+    @property
+    def execution_resource(self) -> str:
+        return self.site_config.resource
+
+    @property
+    def url_root(self) -> str:
+        return self.site_config.url_root
+
+    @property
+    def was_informed_by(self) -> str:
+        return self.execution_state.was_informed_by
+
+    @property
+    def as_workflow_execution_dict(self) -> Dict[str, Any]:
+        base_dict = {
+            "id": self.workflow_execution_id,
+            "type": self.execution_state.workflow_execution_type,
+            "name": self.execution_state.workflow_execution_name,
+            "git_url": self.execution_state.config["git_repo"],
+            "execution_resource": self.execution_resource,
+            "was_informed_by": self.was_informed_by,
+            "has_input": [dobj["id"] for dobj in self.execution_state.config["input_data_objects"]],
+            "started_at_time": self.execution_state.get_state().get("start"),
+            "ended_at_time": self.execution_state.get_state().get("end"),
+            "version": self.execution_state.config["release"],
+        }
+
+        return base_dict
+
+    def make_data_objects(self, output_dir: Union[str, Path])-> List[DataObject]:
+        job_runner_outputs = self.job_runner.job_metadata.get("outputs", {})
 
 
 class NmdcSchema:

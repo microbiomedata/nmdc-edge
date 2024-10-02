@@ -19,7 +19,7 @@
     "example_workflow.input_file": "/path/to/input.txt"
   },
   "outputs": {
-    "outputs.final_stats_json.binned_contig_num": "./outputs/final_stats.json"
+    "outputs.final_stats_json": "./outputs/final_stats.json"
   },
   "calls": {
     "example_workflow.task1": [
