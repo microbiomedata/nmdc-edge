@@ -1,6 +1,6 @@
 workflowlist = {
     ReadbasedAnalysis: {
-        wdl: 'ReadbasedAnalysis.wdl',
+        wdl: 'https://raw.githubusercontent.com/microbiomedata/ReadbasedAnalysis/v1.0.8/ReadbasedAnalysis.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'ReadbasedAnalysis',
         full_name: 'Read-based Taxonomy Classification',
@@ -24,7 +24,7 @@ workflowlist = {
         wdl_version: '1.0'
     },
     MetaAnnotation: {
-        wdl: 'annotation_full.wdl',
+        wdl: 'https://raw.githubusercontent.com/microbiomedata/mg_annotation/refs/tags/v1.1.4/annotation_full.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'annotation',
         full_name: 'Metagenome Annotation',
@@ -48,7 +48,7 @@ workflowlist = {
         wdl_version: '1.0'
     },
     MetaMAGs: {
-        wdl: 'mbin_nmdc.wdl',
+        wdl: 'https://raw.githubusercontent.com/microbiomedata/metaMAGs/v1.3.10/mbin_nmdc.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'nmdc_mags',
         full_name: 'Metagenome MAGs',
