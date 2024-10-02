@@ -18,7 +18,7 @@ call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
 }
 
 scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
-    call readsQC.ShortReadsQC  as nmdc_rqcfilter_call {
+    call <WORKFLOW>.ShortReadsQC  as nmdc_rqcfilter_call {
         input:
             input_files=<WORKFLOW>_input_files,
             input_fq1=<WORKFLOW>_input_fq1,
