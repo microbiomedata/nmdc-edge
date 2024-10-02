@@ -314,13 +314,17 @@ class JobRunner(ABC):
         pass
 
     @abstractmethod
-    def get_job_metadata(self, job_id: str) -> Dict[str, Any]:
+    def update_job_metadata(self, job_id: str) -> Dict[str, Any]:
         """ Get the metadata for a job. """
         pass
 
     @property
     def job_metadata(self) -> Dict[str, Any]:
         return self.cached_job_metadata
+
+    @property
+    def outputs(self) -> Optional[Dict[str, str]]:
+        return self.job_metadata.get("outputs", {})
 
 
 class CromwellJobRunner(JobRunner):
@@ -334,7 +338,7 @@ class CromwellJobRunner(JobRunner):
         def check_job_status(self) -> str:
             pass
 
-        def get_job_metadata(self, job_id: str) -> Dict[str, Any]:
+        def update_job_metadata(self, job_id: str) -> Dict[str, Any]:
             pass
 
 
@@ -380,6 +384,14 @@ class StateManager:
         if name_base:
             return name_base.replace("{id}", self.workflow_execution_id)
         return None
+
+    @property
+    def data_outputs(self) -> List[Dict[str, str]]:
+        return self.config.get("outputs", [])
+
+    @property
+    def input_prefix(self) -> Optional[str]:
+        return self.config.get("input_prefix", None)
 
 
 
@@ -434,7 +446,25 @@ class WorkflowJob:
         return base_dict
 
     def make_data_objects(self, output_dir: Union[str, Path])-> List[DataObject]:
-        job_runner_outputs = self.job_runner.job_metadata.get("outputs", {})
+
+        data_objects = []
+
+        for dobj_record in self.execution_state.data_outputs:
+            job_output_key = f"{self.execution_state.input_prefix}.{dobj_record['output']}"
+            if job_output_key not in self.job_runner.outputs:
+                if dobj_record.get("optional"):
+                    logging.debug(f"Optional output {job_output_key} not found in job outputs")
+                    continue
+                else:
+                    logging.warning(f"Required output {job_output_key} not found in job outputs")
+                    continue
+
+
+
+
+
+
+
 
 
 class NmdcSchema:

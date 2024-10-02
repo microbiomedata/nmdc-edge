@@ -2,7 +2,8 @@ from nmdc_automation.workflow_automation.wfutils import (
     WorkflowJobDeprecated,
     get_workflow_execution_record_for_job,
     CromwellJobRunner,
-    WorkflowJob
+    WorkflowJob,
+    StateManager
 )
 from nmdc_automation.workflow_automation.models import get_base_workflow_execution_keys
 import json
@@ -99,6 +100,19 @@ def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
         if key == "has_output":
             continue
         assert key in wfe_dict
+
+    # data_objects = wf_job.make_data_objects(output_dir=fixtures_dir)
+    # assert data_objects
+
+
+def test_state_manager(fixtures_dir):
+    mags_job_state = json.load(open(fixtures_dir / "mags_job_state.json"))
+
+    state = StateManager(mags_job_state)
+    assert state.workflow_execution_id == mags_job_state['activity_id']
+    assert state.config == mags_job_state['conf']
+    assert state.execution_template == mags_job_state['conf']['activity']
+    assert state.was_informed_by == mags_job_state['conf']['was_informed_by']
 
 
 
