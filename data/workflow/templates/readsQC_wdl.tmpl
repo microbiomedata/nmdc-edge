@@ -1,10 +1,10 @@
 input {
     Array[File] <WORKFLOW>_input_files
-    String?     <WORKFLOW>_outdir
+    String      <WORKFLOW>_outdir
     Boolean     <WORKFLOW>_input_interleaved=true
     Array[File] <WORKFLOW>_input_fq1
     Array[File] <WORKFLOW>_input_fq2
-    String?     <WORKFLOW>_prefix
+    String      <WORKFLOW>_prefix
     String      <WORKFLOW>_vis_container="microbiomedata/fastqc_vis:1.0"
 }
 
