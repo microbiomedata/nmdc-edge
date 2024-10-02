@@ -3,11 +3,10 @@ version 1.0
 import "https://raw.githubusercontent.com/microbiomedata/metaAssembly/refs/tags/v1.0.5/shortReads_assembly.wdl" as jgi_asm
 import "preprocess.wdl" as MetaAssembly_preprocess
 
-
 workflow nmdc_edge_assembly{
     input {
         Array[File] input_file
-        String? outdir
+        String outdir
         String rename_contig_prefix="scaffold"
         Float  uniquekmer=1000
         String bbtools_container="microbiomedata/bbtools:38.96"
@@ -19,7 +18,6 @@ workflow nmdc_edge_assembly{
         Boolean input_interleaved=true
         Array[File] input_fq1=[]
         Array[File] input_fq2=[]
-        String? proj = "nmdc-edge-metaAsm"
     }
 
     call MetaAssembly_preprocess.preprocess as preprocess {
@@ -34,7 +32,7 @@ workflow nmdc_edge_assembly{
 
     call jgi_asm.jgi_metaASM as metaAssembly_call {
         input:
-            input_file=input_file,
+            input_file=preprocess.input_file_gz,
             proj=proj,
             rename_contig_prefix=rename_contig_prefix,
             bbtools_container=bbtools_container,
@@ -65,9 +63,6 @@ workflow nmdc_edge_assembly{
         File report_txt = assembly_vis.report_txt
     }
 }
-
-
-
 
 task assembly_vis{
     input {
@@ -102,6 +97,5 @@ task assembly_vis{
         File tool_version = "version.txt"
         File report_html = "~{outdir}/~{prefix}_report.html"
         File report_txt = "~{outdir}/~{prefix}_report.txt"
-    }
-    
+    }  
 }
