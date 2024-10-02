@@ -295,7 +295,20 @@ class WorkflowJobDeprecated:
                 os.unlink(file.name)
 
 
-class JobRunner(ABC):
+class JobRunnerABC(ABC):
+    @abstractmethod
+    def submit_job(self) -> str:
+        pass
+
+    @abstractmethod
+    def check_job_status(self) -> str:
+        pass
+
+    @abstractmethod
+    def update_job_metadata(self, job_id: str) -> Dict[str, Any]:
+        pass
+
+class JobRunnerBase(JobRunnerABC):
 
     def __init__(self, service_url: str,  job_metadata: Dict[str, Any] = None):
         self.service_url = service_url
@@ -303,32 +316,16 @@ class JobRunner(ABC):
             job_metadata = {}
         self.cached_job_metadata = job_metadata
 
-    @abstractmethod
-    def submit_job(self) -> str:
-        """ Submit a job and return the job ID. """
-        pass
-
-    @abstractmethod
-    def check_job_status(self)-> str:
-        """ Return the status of a job. """
-        pass
-
-    @abstractmethod
-    def update_job_metadata(self, job_id: str) -> Dict[str, Any]:
-        """ Get the metadata for a job. """
-        pass
-
     @property
     def metadata(self) -> Dict[str, Any]:
         return self.cached_job_metadata
-
 
     @property
     def outputs(self) -> Optional[Dict[str, str]]:
         return self.metadata.get("outputs", {})
 
 
-class CromwellRunner(JobRunner):
+class CromwellRunner(JobRunnerBase):
 
         def __init__(self, service_url: str,  job_metadata: Dict[str, Any] = None):
             super().__init__(service_url, job_metadata)
@@ -399,7 +396,7 @@ class StateManager:
 
 
 class WorkflowJob:
-    def __init__(self, site_config: SiteConfig, state: Dict[str, Any] = None, job_runner: JobRunner = None):
+    def __init__(self, site_config: SiteConfig, state: Dict[str, Any] = None, job_runner: JobRunnerBase = None):
         self.site_config = site_config
         self.execution_state = StateManager(state)
         self.job_runner = job_runner
