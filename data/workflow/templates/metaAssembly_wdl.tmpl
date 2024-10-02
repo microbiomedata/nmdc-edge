@@ -1,17 +1,17 @@
 input {
     Array[File] <WORKFLOW>_input_files
-    String? <WORKFLOW>_outdir
-    String <WORKFLOW>_rename_contig_prefix="scaffold"
-    Float <WORKFLOW>_uniquekmer=1000
-    String <WORKFLOW>_bbtools_container="microbiomedata/bbtools:38.92"
-    String <WORKFLOW>_spades_container="microbiomedata/spades:3.15.0"
-    String <WORKFLOW>_squast_container="staphb/quast:5.2.0-slim"
-    String <WORKFLOW>_memory="100g"
-    String <WORKFLOW>_threads="4"
-    Boolean <WORKFLOW>_input_interleaved=true
+    String?     <WORKFLOW>_outdir
+    String      <WORKFLOW>_rename_contig_prefix="scaffold"
+    Float       <WORKFLOW>_uniquekmer=1000
+    String      <WORKFLOW>_bbtools_container="microbiomedata/bbtools:38.96"
+    String      <WORKFLOW>_spades_container="microbiomedata/spades:3.15.0"
+    String      <WORKFLOW>_squast_container="staphb/quast:5.2.0-slim"
+    String      <WORKFLOW>_memory="100g"
+    String      <WORKFLOW>_threads="4"
+    Boolean     <WORKFLOW>_input_interleaved=true
     Array[File] <WORKFLOW>_input_fq1
     Array[File] <WORKFLOW>_input_fq2
-    String <WORKFLOW>_prefix
+    String      <WORKFLOW>_prefix
 }
 
 call <WORKFLOW>.nmdc_edge_assembly as <ALIAS> {
