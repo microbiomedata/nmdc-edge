@@ -10,7 +10,7 @@ from os.path import exists
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Union
 
-from nmdc_schema.nmdc import WorkflowExecution
+from nmdc_schema.nmdc import WorkflowExecution, Database, DataObject
 from nmdc_automation.workflow_automation.models import workflow_process_factory, get_base_workflow_execution_keys
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import SiteConfig
@@ -50,7 +50,7 @@ class FileHandler:
         metadata_filepath = os.path.join(outdir, "metadata.json")
         if not os.path.exists(metadata_filepath):
             with open(metadata_filepath, "w") as f:
-                json.dump(job.get_metadata(), f)
+                json.dump(job.get_cromwell_metadata(), f)
 
 
 class JobManager:
@@ -128,8 +128,9 @@ class JobManager:
 
         outdir = self.file_handler.get_output_dir(job)
         schema = NmdcSchema()
+        database = Database()
 
-        output_ids = self.generate_data_objects(job, outdir, schema)
+        output_ids = self.generate_data_objects_l(job, outdir, schema)
 
         self.create_activity_record(job, output_ids, schema)
 
@@ -141,7 +142,7 @@ class JobManager:
         logger.info(f"Response: {resp}")
         job.done = True
         resp = self.api_handler.update_op(
-            job.opid, done=True, meta=job.get_metadata()
+            job.opid, done=True, meta=job.get_cromwell_metadata()
         )
         return resp
 
@@ -156,11 +157,16 @@ class JobManager:
         data = {"jobs": jobs}
         return data
 
-    def generate_data_objects(self, job, outdir,  schema):
+
+    def generate_data_objects(self, job: WorkflowJob, outdir: Union[str, Path])-> List[DataObject]:
+        data_objects = []
+
+
+    def generate_data_objects_l(self, job, outdir, schema):
         output_ids = []
         prefix = job.workflow_config["input_prefix"]
 
-        job_outs = job.get_metadata()["outputs"]
+        job_outs = job.get_cromwell_metadata()["outputs"]
         informed_by = job.workflow_config["was_informed_by"]
 
         for product_record in job.outputs:

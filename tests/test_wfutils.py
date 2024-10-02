@@ -35,7 +35,7 @@ def test_check_meta(site_config, requests_mock):
     ajob.jobid = "1234"
     resp = ajob.check_status()
     assert resp
-    resp = ajob.get_metadata()
+    resp = ajob.get_cromwell_metadata()
     assert resp
 
 
@@ -62,7 +62,7 @@ def test_workflow_job(site_config, mock_job_state, requests_mock):
     assert wfdict['id'] == mock_job_state['activity_id']
 
 
-def test_workflow_execution_record_for_job(site_config, mock_job_state, requests_mock):
+def test_get_workflow_execution_record_for_job(site_config, mock_job_state, requests_mock):
     # Mock the Cromwell status request
     job_id = mock_job_state.get('cromwell_jobid', '34b41f4a-fe50-4c00-bb60-444104b4c024')
     mock_url = f"http://localhost:8088/api/workflows/v1/{job_id}/status"
@@ -70,8 +70,14 @@ def test_workflow_execution_record_for_job(site_config, mock_job_state, requests
 
     wf_job = WorkflowJob(site_config, state=mock_job_state)
     assert isinstance(wf_job, WorkflowJob)
+    output_ids = [
+        "nmdc:dobj-1-123",
+        "nmdc:dobj-1-124",
+        "nmdc:dobj-1-125",
+    ]
+    # wfdict = get_workflow_execution_record_for_job(wf_job, output_ids)
 
-    has_output_ids = ['nmdc:abcd']
+
 
 
 

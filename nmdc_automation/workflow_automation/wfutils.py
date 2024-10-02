@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from abc import ABC, abstractmethod
 import os
 import json
 import tempfile
@@ -35,17 +36,7 @@ def get_workflow_execution_record_for_job(job: "WorkflowJob", has_output_ids: Li
     record["has_output"] = has_output_ids
     return record
 
-# TODO: Berkley refactoring:
-#  The NmdcSchema class - responsible for creating workflow and data object records
-#  to be inserted into the NMDC database will need to be updated to generate Berkley-compatible
-#  Datageneration and WorkflowExecution records.
 
-# TODO: Rename this class to something more descriptive - it runs and monitors workflows running in Cromwell
-#   via the Cromwell REST API.
-#   Consider renaming to CromwellWorkflowRunner.
-#   Consider generalizing the class to be able to submit and monitor workflows to other workflow engines e.g. JAWS.
-# TODO: Add type hints to all methods, add docstrings to all methods.
-# TODO: Rename the package to something more descriptive - it is responsible for running and monitoring workflows.
 class WorkflowJob:
     DEFAULT_STATUS = "Unsubmitted"
     SUCCESS_STATUS = "Succeeded"
@@ -192,7 +183,7 @@ class WorkflowJob:
 
         return state
 
-    def get_metadata(self):
+    def get_cromwell_metadata(self):
         """
         Check the status in Cromwell
         """
@@ -301,6 +292,46 @@ class WorkflowJob:
                 os.unlink(file.name)
 
 
+class JobRunner(ABC):
+
+    def __init__(self, job_metadata: Dict[str, Any] = None):
+        if job_metadata is None:
+            job_metadata = {}
+        self.cached_job_metadata = job_metadata
+
+    @abstractmethod
+    def submit_job(self) -> str:
+        """ Submit a job and return the job ID. """
+        pass
+
+    @abstractmethod
+    def check_job_status(self)-> str:
+        """ Return the status of a job. """
+        pass
+
+    @abstractmethod
+    def get_job_metadata(self, job_id: str) -> Dict[str, Any]:
+        """ Get the metadata for a job. """
+        pass
+
+
+class CromwellJobRunner(JobRunner):
+
+        def __init__(self, job_metadata: Dict[str, Any] = None):
+            super().__init__(job_metadata)
+
+        def submit_job(self) -> str:
+            pass
+
+        def check_job_status(self) -> str:
+            pass
+
+        def get_job_metadata(self, job_id: str) -> Dict[str, Any]:
+            pass
+
+        @property
+        def job_metadata(self) -> Dict[str, Any]:
+            return self.cached_job_metadata
 
 
 # TODO: Rename this class to something descriptive - it is responsible for creating NMDC database objects -

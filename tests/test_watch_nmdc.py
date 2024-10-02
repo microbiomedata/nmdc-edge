@@ -68,6 +68,6 @@ def test_reclaim_job(requests_mock, site_config_file, mock_api):
 
 
 def test_watcher_restore_from_checkpoint(site_config_file, fixtures_dir):
-    state_file = fixtures_dir / "job_state.json"
+    state_file = fixtures_dir / "mags_job_state.json"
 
 
