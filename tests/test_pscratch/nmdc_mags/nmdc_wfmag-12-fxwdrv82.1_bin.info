@@ -1,0 +1,16 @@
+mbin.py : 1.0
+metabat2 : 2.15
+checkm-genome : 1.2.1
+gtdb-tk : 2.1.1
+hmmer : 3.3.2
+prodigal : 2.6.3
+pplacer : 1.1.alpha19
+fasttree : 2.1.11
+fastANI : 1.33
+mash : 2.3
+sqlite : 3.39.2
+samtools : 1.6
+EukCC : 2.1.2
+metaeuk : 4.a0f584d
+epa-ng : 0.3.8
+Python : 3.9.12

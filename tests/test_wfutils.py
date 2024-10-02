@@ -1,7 +1,7 @@
 from nmdc_automation.workflow_automation.wfutils import (
     WorkflowJobDeprecated,
     get_workflow_execution_record_for_job,
-    CromwellJobRunner,
+    CromwellRunner,
     WorkflowJob,
     StateManager
 )
@@ -71,16 +71,15 @@ def test_workflow_job(site_config, mock_job_state, requests_mock):
 
 def test_cromwell_job_runner(site_config, fixtures_dir):
     # load cromwell metadata
-    cromwell_metadata = json.load(open(fixtures_dir / "cromwell_metadata.json"))
-    job_runner = CromwellJobRunner("http://fake.url.org", cromwell_metadata)
+    cromwell_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
+    job_runner = CromwellRunner("http://fake.url.org", cromwell_metadata)
 
-    job_metadata = job_runner.job_metadata
-    assert job_metadata['status'] == "Succeeded"
+    assert job_runner.metadata['status'] == "Succeeded"
 
 def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
     # load cromwell metadata
     cromwell_metadata = json.load(open(fixtures_dir / "cromwell_metadata.json"))
-    job_runner = CromwellJobRunner("http://fake.url.org", cromwell_metadata)
+    job_runner = CromwellRunner("http://fake.url.org", cromwell_metadata)
 
     # load job state
     job_state = json.load(open(fixtures_dir / "mags_job_state.json"))
@@ -89,8 +88,8 @@ def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
     wf_job = WorkflowJob(site_config, job_state, job_runner)
     assert wf_job.workflow_execution_id == job_state['activity_id']
 
-    job_meta = wf_job.job_runner.job_metadata
-    assert job_meta['status'] == "Succeeded"
+    assert wf_job.job_runner.metadata["status"] == "Succeeded"
+
 
     wfe_dict = wf_job.as_workflow_execution_dict
     assert wfe_dict['id'] == job_state['activity_id']
@@ -115,17 +114,9 @@ def test_state_manager(fixtures_dir):
     assert state.was_informed_by == mags_job_state['conf']['was_informed_by']
 
 
+def test_cromwell_runner_metadata(fixtures_dir):
+    # load cromwell metadata
+    cromwell_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
+    job_runner = CromwellRunner("http://fake.url.org", cromwell_metadata)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    assert job_runner.metadata['status'] == "Succeeded"

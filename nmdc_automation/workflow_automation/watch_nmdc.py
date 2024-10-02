@@ -221,9 +221,6 @@ class JobManager:
         )
 
 
-
-
-
 class RuntimeApiHandler:
     def __init__(self, config):
         self.runtime_api = NmdcRuntimeApi(config)
@@ -244,7 +241,6 @@ class RuntimeApiHandler:
 
     def update_op(self, opid, done, meta):
         return self.runtime_api.update_op(opid, done=done, meta=meta)
-
 
 
 class Watcher:

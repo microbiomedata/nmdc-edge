@@ -319,15 +319,16 @@ class JobRunner(ABC):
         pass
 
     @property
-    def job_metadata(self) -> Dict[str, Any]:
+    def metadata(self) -> Dict[str, Any]:
         return self.cached_job_metadata
+
 
     @property
     def outputs(self) -> Optional[Dict[str, str]]:
-        return self.job_metadata.get("outputs", {})
+        return self.metadata.get("outputs", {})
 
 
-class CromwellJobRunner(JobRunner):
+class CromwellRunner(JobRunner):
 
         def __init__(self, service_url: str,  job_metadata: Dict[str, Any] = None):
             super().__init__(service_url, job_metadata)
