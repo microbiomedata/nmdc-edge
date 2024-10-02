@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require("path");
+const execSync = require('child_process').execSync;
 const ufs = require("url-file-size");
 const moment = require('moment');
 const FormData = require('form-data');
@@ -188,18 +189,18 @@ const generateWorkflowResult = function (proj) {
     } else if (workflowConf.workflow.name === 'Metatranscriptome') {
         const dirs = fs.readdirSync(outdir);
         dirs.forEach(function (dir) {
-            if (dir === 'qa') {
-                const files = fs.readdirSync(outdir + "/qa");
+            if (dir === 'qa' || dir === 'readsQC') {
+                const files = fs.readdirSync(outdir + "/" + dir);
                 files.forEach(function (file) {
                     if (file.endsWith("_stats.json")) {
-                        result['readsQC-stats'] = JSON.parse(fs.readFileSync(outdir + "/qa/" + file));
+                        result['readsQC-stats'] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/" + file));
                     }
                 });
             }
             else if (dir === 'assembly') {
                 const files = fs.readdirSync(outdir + "/assembly");
                 files.forEach(function (file) {
-                    if (file === "stats.json") {
+                    if (file.endsWith("stats.json")) {
                         result['assembly-stats'] = JSON.parse(fs.readFileSync(outdir + "/assembly/" + file));
                     }
                 });
@@ -212,11 +213,28 @@ const generateWorkflowResult = function (proj) {
                     }
                 });
             }
-            else if (dir === 'metat_output') {
-                const files = fs.readdirSync(outdir + "/metat_output");
+            else if (dir === 'metat_output' || dir === 'readMapping') {
+                const files = fs.readdirSync(outdir + "/" + dir);
                 files.forEach(function (file) {
-                    if (file.endsWith("_sorted_features.tsv")) {
-                        result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/metat_output/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                    if (file.endsWith("sorted_features.tsv")) {
+                        const jsonFile = file.replace('.tsv', '.json');
+                        let topFeatures = "top100_features.json";
+                        if (!fs.existsSync(outdir + "/" + dir + "/" + topFeatures)) {
+                            topFeatures = file.replace('_sorted_features.tsv', '_top100_features.json');
+                        }
+                        var rows = parseInt(execSync("wc -l < " + outdir + "/" + dir + "/" + file).toString().trim());
+                        if (rows > config.IO.MAX_DATATABLE_ROWS) {
+                            result['readMapping-features-too-large'] = true;
+                            result['readMapping-features'] = "output/Metatranscriptomics/" + dir + "/" + file;
+                            result['readMapping-top_features'] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/" + topFeatures));
+                        } else {
+                            result['readMapping-features-too-large'] = false;
+                            if (fs.existsSync(outdir + "/" + dir + "/" + jsonFile)) {
+                                result['readMapping-features'] = JSON.parse(fs.readFileSync(outdir + "/" + dir + "/" + jsonFile));
+                            } else {
+                                result['readMapping-features'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + file).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                            }
+                        }
                     }
                 });
             }

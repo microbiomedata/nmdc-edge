@@ -66,10 +66,10 @@ workflowlist = {
         full_name: 'Metatranscriptomics',
         wdl_tmpl: 'metaT_wdl.tmpl',
         inputs_tmpl: 'metaT_inputs.tmpl',
-        options_json: 'metaT_options.json',
+        options_json: 'metaG_options.tmpl',
         outdir: 'output/Metatranscriptomics',
         cromwell_calls: ['main_workflow.nmdc_metat'],
-        wdl_version: 'draft-2'
+        wdl_version: '1.0'
     },
     EnviroMS: {
         wdl: 'enviroMS.wdl',
@@ -78,7 +78,7 @@ workflowlist = {
         full_name: 'Natural Organic Matter',
         wdl_tmpl: 'enviroMS_wdl.tmpl',
         inputs_tmpl: 'enviroMS_inputs.tmpl',
-        options_json: 'enviroMS_options.json',
+        options_json: 'metaG_options.tmpl',
         outdir: 'output/NOM',
         cromwell_calls: ['main_workflow.enviroMS'],
         wdl_version: 'draft-2'

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardBody, Collapse } from 'reactstrap';
 import { Header } from '../../../Common/Results/CardHeader';
 import FeaturesTable from './FeaturesTable';
+import config from "../../../../config";
 
 function ReadMapping(props) {
   const [collapseCard, setCollapseCard] = useState(true);
+  const url = config.API.BASE_URI + "/projects/" + props.project.code + "/";
 
   const toggleCard = () => {
     setCollapseCard(!collapseCard);
@@ -27,10 +29,21 @@ function ReadMapping(props) {
       <Header toggle={true} toggleParms={toggleCard} title={props.title} collapseParms={collapseCard} />
       <Collapse isOpen={!collapseCard} >
         <CardBody>
-          {props.features && <>
-            <FeaturesTable data={props.features} />
-            <br></br>
-          </>}
+          {props.tooLarge ?
+            <>
+              The result is too large to display.
+              <br></br>
+              <a href={url + props.features} target="_blank" rel="noreferrer" >[ Export the result as TSV ]</a>
+              <br></br><br></br>
+              Top 100 features
+              <br></br>
+              <FeaturesTable data={props.topFeatures} />
+              <br></br>
+            </>
+            : <>
+              <FeaturesTable data={props.features} />
+              <br></br>
+            </>}
         </CardBody>
       </Collapse>
     </Card>

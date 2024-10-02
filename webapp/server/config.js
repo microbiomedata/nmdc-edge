@@ -119,7 +119,12 @@ const config = {
         SERVER_HOST: process.env.DATABASE_HOST || "localhost",
         // Port at which web server can access MongoDB server (on the specified host).
         SERVER_PORT: makeIntIfDefined(process.env.DATABASE_PORT) || 27017,
+        // Credentials with which the web server can authenticate with the MongoDB server.
+        USERNAME: process.env.DATABASE_USERNAME,
+        PASSWORD: process.env.DATABASE_PASSWORD,
         // Name of MongoDB database.
+        // TODO: Update environment variable name to `DATABASE_NAME` to be more similar to other environment variables.
+        //       Note: That will require coordination with the people that manage the various deployments of this app.
         NAME: process.env.DB_NAME || "nmdcedge",
         // Path to directory in which the system will store the database backups it creates.
         BACKUP_DIR: process.env.DATABASE_BACKUP_DIR || path.join(IO_BASE_DIR, "db"),
@@ -167,6 +172,8 @@ const config = {
         UPLOADED_FILES_DIR: process.env.UPLOADED_FILES_DIR || path.join(IO_BASE_DIR, "upload/files"),
         // Directory used by file uploading function.
         UPLOADED_FILES_TEMP_DIR: process.env.UPLOADED_FILES_TEMP_DIR || path.join(IO_BASE_DIR, "upload/tmp"),
+        // Maximum rows to pass to UI data table
+        MAX_DATATABLE_ROWS: process.env.MAX_DATATABLE_ROWS || 300000,
     },
     // Parameters that influence the behavior of `Winston.js`, a logging library.
     // Reference: https://github.com/winstonjs/winston-daily-rotate-file#options
