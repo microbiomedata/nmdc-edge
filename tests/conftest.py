@@ -5,8 +5,11 @@ from pathlib import Path
 from pytest import fixture
 from time import time
 from unittest.mock import Mock
+from yaml import load, Loader
 
-from nmdc_automation.config import Config
+
+from nmdc_automation.config import SiteConfig
+from nmdc_automation.workflow_automation.models import WorkflowConfig
 from tests.fixtures import db_utils
 from nmdc_automation.workflow_automation.wfutils import WorkflowJob
 
@@ -16,6 +19,15 @@ def mock_job_state():
         "job_state.json"
     )
     return state
+
+
+@fixture
+def mags_config(fixtures_dir)->WorkflowConfig:
+    yaml_file = fixtures_dir / "mags_config.yaml"
+    wf = load(open(yaml_file), Loader)
+    # normalize the keys from Key Name to key_name
+    wf = {k.replace(" ", "_").lower(): v for k, v in wf.items()}
+    return WorkflowConfig(**wf)
 
 
 
@@ -69,9 +81,9 @@ def workflows_config_dir(base_test_dir):
 
 
 @fixture(scope="session")
-def site_config(base_test_dir):
+def site_config_file(base_test_dir):
     return base_test_dir / "site_configuration_test.toml"
 
 @fixture(scope="session")
-def job_config(site_config):
-    return Config(site_config)
+def site_config(site_config_file):
+    return SiteConfig(site_config_file)

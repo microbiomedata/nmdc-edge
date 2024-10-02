@@ -13,7 +13,7 @@ from typing import List, Dict, Any, Optional, Union
 from nmdc_schema.nmdc import WorkflowExecution
 from nmdc_automation.workflow_automation.models import workflow_process_factory, get_base_workflow_execution_keys
 from nmdc_automation.api import NmdcRuntimeApi
-from nmdc_automation.config import Config
+from nmdc_automation.config import SiteConfig
 from .wfutils import WorkflowJob
 from .wfutils import NmdcSchema, _md5
 
@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 class FileHandler:
-    def __init__(self, config: Config, state_file: Union[str, Path]):
+    def __init__(self, config: SiteConfig, state_file: Union[str, Path]):
         """ Initialize the FileHandler, with a Config object and an optional state file path """
         self.config = config
         if not state_file:
@@ -215,27 +215,7 @@ class JobManager:
         )
 
 
-    def get_workflow_execution_record_for_job(self, job: WorkflowJob, has_output_ids: List[str]) -> Dict[str, Any]:
-        """
-        Create the appropriate subtype of WorkflowExecution object for a completed job.
-        """
-        record = job.as_workflow_execution_dict()
 
-        # get workflow-specific keys
-        prefix = job.workflow_config["input_prefix"]
-        for k, v in job.execution_template.items():
-            if v.startswith('{outputs.'):
-                out_key = f"{prefix}.{v[9:-1]}"
-                if out_key not in job.outputs:
-                    ele = out_key.split(".")
-                    map_name = ".".join(ele[0:-1])
-                    key_name = ele[-1]
-                    record[k] = job.outputs[map_name][key_name]
-                else:
-                    record[k] = job.outputs[out_key]
-
-        record["has_output"] = has_output_ids
-        return record
 
 
 class RuntimeApiHandler:
@@ -266,7 +246,7 @@ class Watcher:
         self._POLL = 20
         self._MAX_FAILS = 2
         self.should_skip_claim = False
-        self.config = Config(site_configuration_file)
+        self.config = SiteConfig(site_configuration_file)
         self.file_handler = FileHandler(self.config, state_file)
         self.api_handler = RuntimeApiHandler(self.config)
         self.job_manager = JobManager(self.config, self.file_handler, self.api_handler)

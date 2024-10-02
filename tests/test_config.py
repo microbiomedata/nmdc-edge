@@ -1,11 +1,11 @@
 import pytest
 
-from nmdc_automation.config.config import Config
+from nmdc_automation.config.siteconfig import SiteConfig
 
 
 def test_config(monkeypatch, test_data_dir, base_test_dir):
     monkeypatch.setenv("WF_CONFIG_FILE", str(test_data_dir / "wf_config"))
-    conf = Config(base_test_dir / "site_configuration_test.toml")
+    conf = SiteConfig(base_test_dir / "site_configuration_test.toml")
     assert conf.cromwell_api
     assert conf.cromwell_url
     assert conf.stage_dir
@@ -28,4 +28,4 @@ def test_config(monkeypatch, test_data_dir, base_test_dir):
 def test_config_missing(monkeypatch):
     monkeypatch.setenv("WF_CONFIG_FILE", "/bogus")
     with pytest.raises(OSError):
-        Config("/tmp/foo")
+        SiteConfig("/tmp/foo")

@@ -28,16 +28,16 @@ def mock_cromwell(requests_mock, test_data_dir):
     requests_mock.get(f"{cromwell_url}/1234/status", json=data)
 
 
-def test_watcher(site_config):
-    w = Watcher(site_config)
+def test_watcher(site_config_file):
+    w = Watcher(site_config_file)
     w.restore_from_checkpoint()
     w.job_manager.job_checkpoint()
     w.restore_from_checkpoint()
 
 
-def test_claim_jobs(requests_mock, site_config, mock_api):
+def test_claim_jobs(requests_mock, site_config_file, mock_api):
     requests_mock.real_http = True
-    w = Watcher(site_config)
+    w = Watcher(site_config_file)
     job_id = "nmdc:b7eb8cda-a6aa-11ed-b1cf-acde48001122"
     resp = {
             'id': 'nmdc:1234',
@@ -50,10 +50,10 @@ def test_claim_jobs(requests_mock, site_config, mock_api):
     assert resp
 
 
-def test_reclaim_job(requests_mock, site_config, mock_api):
+def test_reclaim_job(requests_mock, site_config_file, mock_api):
     requests_mock.real_http = True
 
-    w = Watcher(site_config)
+    w = Watcher(site_config_file)
     job_id = "nmdc:b7eb8cda-a6aa-11ed-b1cf-acde48001122"
     resp = {
             'id': 'nmdc:1234',
@@ -67,7 +67,7 @@ def test_reclaim_job(requests_mock, site_config, mock_api):
 
 
 
-def test_watcher_restore_from_checkpoint(site_config, fixtures_dir):
+def test_watcher_restore_from_checkpoint(site_config_file, fixtures_dir):
     state_file = fixtures_dir / "job_state.json"
 
 

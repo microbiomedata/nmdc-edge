@@ -24,7 +24,7 @@ class UserConfig:
     def password(self):
         return self.config_data["api"]["password"]
 
-class Config:
+class SiteConfig:
     def __init__(self, path: Union[str, Path]):
         with open(path, "rb") as file:
             self.config_data = tomli.load(file)

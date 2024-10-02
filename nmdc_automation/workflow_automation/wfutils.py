@@ -10,7 +10,30 @@ import datetime
 import pytz
 import hashlib
 from linkml_runtime.dumpers import json_dumper
+from typing import Any, Dict, List
 
+
+def get_workflow_execution_record_for_job(job: "WorkflowJob", has_output_ids: List[str]) -> Dict[str, Any]:
+    """
+    Create the appropriate subtype of WorkflowExecution object for a completed job.
+    """
+    record = job.as_workflow_execution_dict()
+
+    # get workflow-specific keys
+    prefix = job.workflow_config["input_prefix"]
+    for k, v in job.execution_template.items():
+        if v.startswith('{outputs.'):
+            out_key = f"{prefix}.{v[9:-1]}"
+            if out_key not in job.outputs:
+                ele = out_key.split(".")
+                map_name = ".".join(ele[0:-1])
+                key_name = ele[-1]
+                record[k] = job.outputs[map_name][key_name]
+            else:
+                record[k] = job.outputs[out_key]
+
+    record["has_output"] = has_output_ids
+    return record
 
 # TODO: Berkley refactoring:
 #  The NmdcSchema class - responsible for creating workflow and data object records

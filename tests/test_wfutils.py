@@ -1,15 +1,15 @@
-from nmdc_automation.workflow_automation.wfutils import WorkflowJob
+from nmdc_automation.workflow_automation.wfutils import WorkflowJob, get_workflow_execution_record_for_job
 import json
 
 
 
-def test_job(job_config, requests_mock, test_data_dir):
+def test_job(site_config, requests_mock, test_data_dir):
     requests_mock.real_http = True
     data = {"id": "123"}
     requests_mock.post("http://localhost:8088/api/workflows/v1", json=data)
     rqcf = test_data_dir / "rqc_response.json"
     rqc = json.load(open(rqcf))
-    ajob = WorkflowJob(job_config, workflow_config=rqc['config'])
+    ajob = WorkflowJob(site_config, workflow_config=rqc['config'])
     ajob.debug = True
     ajob.dryrun = False
     assert ajob.get_state()
@@ -19,19 +19,19 @@ def test_job(job_config, requests_mock, test_data_dir):
     assert last.url == "http://localhost:8088/api/workflows/v1"
 
 
-def test_log(job_config):
-    ajob = WorkflowJob(job_config, workflow_config={})
+def test_log(site_config):
+    ajob = WorkflowJob(site_config, workflow_config={})
     # ajob = job("example", "jobid", conf={})
     ajob.debug = True
     ajob.json_log({"a": "b"}, title="Test")
 
 
-def test_check_meta(job_config, requests_mock):
+def test_check_meta(site_config, requests_mock):
     url = "http://localhost:8088/api/workflows/v1/1234/status"
     requests_mock.get(url, json={"status": "Submitted"})
     url = "http://localhost:8088/api/workflows/v1/1234/metadata"
     requests_mock.get(url, json={"status": "Submitted"})
-    ajob = WorkflowJob(job_config, workflow_config={})
+    ajob = WorkflowJob(site_config, workflow_config={})
     ajob.jobid = "1234"
     resp = ajob.check_status()
     assert resp
@@ -39,15 +39,15 @@ def test_check_meta(job_config, requests_mock):
     assert resp
 
 
-def test_set_state(job_config):
-    ajob = WorkflowJob(job_config, workflow_config={})
+def test_set_state(site_config):
+    ajob = WorkflowJob(site_config, workflow_config={})
     state = ajob.get_state()
     assert state
-    bjob = WorkflowJob(job_config, state=state)
+    bjob = WorkflowJob(site_config, state=state)
     assert bjob.activity_id == state['activity_id']
 
 
-def test_workflow_job(job_config, mock_job_state, requests_mock):
+def test_workflow_job(site_config, mock_job_state, requests_mock):
     # Mock the Cromwell status request
     job_id = mock_job_state.get('cromwell_jobid', '34b41f4a-fe50-4c00-bb60-444104b4c024')
     mock_url = f"http://localhost:8088/api/workflows/v1/{job_id}/status"
@@ -55,9 +55,27 @@ def test_workflow_job(job_config, mock_job_state, requests_mock):
     # Set the mocked response for the Cromwell status endpoint
     requests_mock.get(mock_url, json={"status": "Succeeded"})
 
-    wf_job = WorkflowJob(job_config, state=mock_job_state)
+    wf_job = WorkflowJob(site_config, state=mock_job_state)
     assert wf_job.activity_id == mock_job_state['activity_id']
 
     wfdict = wf_job.as_workflow_execution_dict()
     assert wfdict['id'] == mock_job_state['activity_id']
+
+
+def test_workflow_execution_record_for_job(site_config, mock_job_state, requests_mock):
+    # Mock the Cromwell status request
+    job_id = mock_job_state.get('cromwell_jobid', '34b41f4a-fe50-4c00-bb60-444104b4c024')
+    mock_url = f"http://localhost:8088/api/workflows/v1/{job_id}/status"
+    requests_mock.get(mock_url, json={"status": "Succeeded"})
+
+    wf_job = WorkflowJob(site_config, state=mock_job_state)
+    assert isinstance(wf_job, WorkflowJob)
+
+    has_output_ids = ['nmdc:abcd']
+
+
+
+
+
+
 
