@@ -12,6 +12,17 @@ from nmdc_automation.workflow_automation.models import(
     WorkflowProcessNode,
     workflow_process_factory,
 )
+from nmdc_schema.nmdc import (
+    MagsAnalysis,
+    MetagenomeAnnotation,
+    MetagenomeAssembly,
+    MetatranscriptomeAnnotation,
+    MetatranscriptomeAssembly,
+    MetatranscriptomeExpressionAnalysis,
+    NucleotideSequencing,
+    ReadBasedTaxonomyAnalysis,
+    ReadQcAnalysis,
+)
 from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from tests.fixtures import db_utils
 
@@ -32,6 +43,12 @@ def test_workflow_process_factory():
         record = db_utils.read_json(record_file)
         wfe = workflow_process_factory(record)
         assert wfe.type == record_type
+
+def test_workflow_process_factory_mags_with_mags_list():
+    record = db_utils.read_json("mags_workflow_record.json")
+    mga = workflow_process_factory(record)
+    assert mga.type == "nmdc:MagsAnalysis"
+
 
 
 def test_process_factory_with_db_record():

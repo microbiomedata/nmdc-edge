@@ -9,6 +9,7 @@ from nmdc_schema.nmdc import (
     FileTypeEnum,
     NucleotideSequencing,
     MagsAnalysis,
+    MagBin,
     MetagenomeAssembly,
     MetagenomeAnnotation,
     MetatranscriptomeAssembly,
@@ -40,11 +41,27 @@ def workflow_process_factory(record: Dict[str, Any]) -> Union[DataGeneration, Wo
         "nmdc:ReadQcAnalysis": ReadQcAnalysis,
     }
     record.pop("_id", None)
+    # for backwards compatibility strip Activity from the end of the type
+    record["type"] = record["type"].replace("Activity", "")
+
+    # add type to Mags Analysis mags_list records
+    if record["type"] == "nmdc:MagsAnalysis" and "mags_list" in record:
+        for mag in record["mags_list"]:
+            if not mag.get("type"):
+                mag["type"] = "nmdc:MagBin"
+            if mag["gene_count"] == 'null':
+                mag["gene_count"] = 0
+
+            if "num_tRNA" in mag:
+                mag["num_t_rna"] = mag.pop("num_tRNA")
+
+
     try:
         cls = process_types[record["type"]]
     except KeyError:
         raise ValueError(f"Invalid workflow execution type: {record['type']}")
-    return cls(**record)
+    wfe = cls(**record)
+    return wfe
 
 
 def get_base_workflow_execution_keys() -> List[str]:

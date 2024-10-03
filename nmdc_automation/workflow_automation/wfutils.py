@@ -433,9 +433,11 @@ class WorkflowJob:
 
     @property
     def as_workflow_execution_dict(self) -> Dict[str, Any]:
+        # for forward compatibility we need to strip Activity from the type
+        normalized_type = self.job.workflow_execution_type.replace("Activity", "")
         base_dict = {
             "id": self.workflow_execution_id,
-            "type": self.job.workflow_execution_type,
+            "type": normalized_type,
             "name": self.job.workflow_execution_name,
             "git_url": self.job.config["git_repo"],
             "execution_resource": self.execution_resource,
