@@ -400,8 +400,8 @@ class JobStateManager:
 
     @property
     def nmdc_job_id(self)-> Optional[str]:
-        # for backward compatibility we need to check for both keys
-        return self.cached_state.get("nmdc_jobid", self.cached_state.get("nmdc_id", None))
+        # different keys in state file vs database record
+        return self.cached_state.get("nmdc_jobid", self.cached_state.get("id", None))
 
 
 
