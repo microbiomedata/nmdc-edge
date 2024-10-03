@@ -4,10 +4,7 @@ from nmdc_automation.workflow_automation.watch_nmdc import (
     FileHandler,
     RuntimeApiHandler,
 )
-from nmdc_automation.workflow_automation.wfutils import WorkflowJobDeprecated
 from pytest import fixture
-from unittest.mock import patch
-
 
 
 @fixture(autouse=True)
@@ -69,7 +66,6 @@ def test_reclaim_job(requests_mock, site_config_file, mock_api):
     w.claim_jobs()
     resp = w.job_manager.find_job_by_opid("nmdc:1234")
     assert resp
-
 
 
 def test_watcher_restore_from_checkpoint(site_config_file, fixtures_dir):

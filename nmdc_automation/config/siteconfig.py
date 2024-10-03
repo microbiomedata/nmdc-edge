@@ -1,14 +1,18 @@
-from pathlib import Path
 import tomli
 from typing import Union
 import yaml
-import os
 from pathlib import Path
+import warnings
 
 WORKFLOWS_DIR = Path(__file__).parent / "workflows"
 
 class UserConfig:
     def __init__(self, path):
+        warnings.warn(
+            "UserConfig is deprecated and will be removed in a future release. Use SiteConfig instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         with open(path, "rb") as file:
             self.config_data = tomli.load(file)
 

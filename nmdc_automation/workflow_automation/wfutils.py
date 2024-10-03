@@ -342,8 +342,6 @@ class CromwellRunner(JobRunnerBase):
             pass
 
 
-
-
 class JobStateManager:
     def __init__(self, state: Dict[str, Any] = None):
         if state is None:
@@ -358,7 +356,8 @@ class JobStateManager:
 
     @property
     def config(self) -> Dict[str, Any]:
-        return self.cached_state.get("conf", {})
+        # for backward compatibility we need to check for both keys
+        return self.cached_state.get("conf", self.cached_state.get("config", {}))
 
     @property
     def execution_template(self) -> Dict[str, str]:
@@ -395,8 +394,6 @@ class JobStateManager:
 
 
 
-
-
 class WorkflowJob:
     def __init__(self, site_config: SiteConfig, state: Dict[str, Any] = None, job_runner: JobRunnerBase = None):
         self.site_config = site_config
@@ -406,7 +403,7 @@ class WorkflowJob:
             job_runner = CromwellRunner(site_config.cromwell_url)
         self.job_runner = job_runner
 
-    # Properties to access the site confit, job state, and job runner attributes
+    # Properties to access the site config, job state, and job runner attributes
     @property
     def workflow_execution_id(self) -> Optional[str]:
         return self.job.workflow_execution_id
@@ -467,6 +464,8 @@ class WorkflowJob:
                     continue
             # get the full path to the output file from the job_runner
             output_file_path = Path(self.job_runner.outputs[output_key])
+
+
             md5_sum = _md5(output_file_path)
             file_url = f"{self.url_root}/{self.was_informed_by}/{self.workflow_execution_id}/{output_file_path.name}"
 
@@ -529,12 +528,6 @@ class WorkflowJob:
                         logging.warning(f"Field {field_name} not found in {data_path}")
 
         return wf_dict
-
-
-
-
-
-
 
 
 class NmdcSchema:

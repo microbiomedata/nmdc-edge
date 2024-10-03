@@ -123,9 +123,8 @@ def test_cromwell_runner_metadata(fixtures_dir):
     assert job_runner.metadata['status'] == "Succeeded"
     assert job_runner.outputs == cromwell_metadata['outputs']
 
-
+# Note: The test working dir must be set to the root of the project for this test to work.
 def test_workflow_job_data_objects(site_config, fixtures_dir, tmp_path):
-    # load cromwell metadata
     job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
     job_runner = CromwellRunner("http://fake.url.org", job_metadata)
 

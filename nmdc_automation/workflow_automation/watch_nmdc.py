@@ -11,10 +11,9 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional, Union
 
 from nmdc_schema.nmdc import WorkflowExecution, Database, DataObject
-from nmdc_automation.workflow_automation.models import workflow_process_factory, get_base_workflow_execution_keys
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import SiteConfig
-from .wfutils import WorkflowJobDeprecated
+from .wfutils import WorkflowJobDeprecated, WorkflowJob
 from .wfutils import NmdcSchema, _md5
 
 logger = logging.getLogger(__name__)
@@ -240,7 +239,7 @@ class RuntimeApiHandler:
 
 
 class Watcher:
-    def __init__(self, site_configuration_file: Union[str, Path], state_file: Union[str, Path] = None):
+    def __init__(self, site_configuration_file: Union[str, Path],  state_file: Union[str, Path] = None):
         self._POLL = 20
         self._MAX_FAILS = 2
         self.should_skip_claim = False
@@ -248,8 +247,7 @@ class Watcher:
         self.file_handler = FileHandler(self.config, state_file)
         self.api_handler = RuntimeApiHandler(self.config)
         self.job_manager = JobManager(self.config, self.file_handler, self.api_handler)
-        self._ALLOWED = self.config.allowed_workflows
-
+        
     def restore_from_checkpoint(self, nocheck: bool = False)-> None:
         """
         Restore from checkpoint
@@ -275,7 +273,7 @@ class Watcher:
 
 
     def claim_jobs(self):
-        jobs = self.api_handler.list_jobs(self._ALLOWED)
+        jobs = self.api_handler.list_jobs(self.config.allowed_workflows)
         for job in jobs:
             claim = self.api_handler.claim_job(job["id"])
             opid = claim["detail"]["id"]
