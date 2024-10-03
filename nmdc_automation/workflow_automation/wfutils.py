@@ -9,13 +9,15 @@ import nmdc_schema.nmdc as nmdc
 import logging
 import datetime
 import pytz
+import re
 import hashlib
 from linkml_runtime.dumpers import json_dumper
 from typing import Any, Dict, List, Optional, Union
 from pathlib import Path
+import shutil
 
 from nmdc_automation.config import SiteConfig
-from nmdc_automation.workflow_automation.models import DataObject
+from nmdc_automation.workflow_automation.models import DataObject, workflow_process_factory
 
 def get_workflow_execution_record_for_job(job: "WorkflowJobDeprecated", has_output_ids: List[str]) -> Dict[str, Any]:
     """
@@ -342,7 +344,7 @@ class CromwellRunner(JobRunnerBase):
 
 
 
-class StateManager:
+class JobStateManager:
     def __init__(self, state: Dict[str, Any] = None):
         if state is None:
             state = {}
@@ -398,13 +400,16 @@ class StateManager:
 class WorkflowJob:
     def __init__(self, site_config: SiteConfig, state: Dict[str, Any] = None, job_runner: JobRunnerBase = None):
         self.site_config = site_config
-        self.execution_state = StateManager(state)
+        self.job = JobStateManager(state)
+        # default to CromwellRunner if no job_runner is provided
+        if job_runner is None:
+            job_runner = CromwellRunner(site_config.cromwell_url)
         self.job_runner = job_runner
 
     # Properties to access the site confit, job state, and job runner attributes
     @property
     def workflow_execution_id(self) -> Optional[str]:
-        return self.execution_state.workflow_execution_id
+        return self.job.workflow_execution_id
 
     @property
     def cromwell_url(self) -> str:
@@ -424,39 +429,104 @@ class WorkflowJob:
 
     @property
     def was_informed_by(self) -> str:
-        return self.execution_state.was_informed_by
+        return self.job.was_informed_by
 
     @property
     def as_workflow_execution_dict(self) -> Dict[str, Any]:
         base_dict = {
             "id": self.workflow_execution_id,
-            "type": self.execution_state.workflow_execution_type,
-            "name": self.execution_state.workflow_execution_name,
-            "git_url": self.execution_state.config["git_repo"],
+            "type": self.job.workflow_execution_type,
+            "name": self.job.workflow_execution_name,
+            "git_url": self.job.config["git_repo"],
             "execution_resource": self.execution_resource,
             "was_informed_by": self.was_informed_by,
-            "has_input": [dobj["id"] for dobj in self.execution_state.config["input_data_objects"]],
-            "started_at_time": self.execution_state.get_state().get("start"),
-            "ended_at_time": self.execution_state.get_state().get("end"),
-            "version": self.execution_state.config["release"],
+            "has_input": [dobj["id"] for dobj in self.job.config["input_data_objects"]],
+            "started_at_time": self.job.get_state().get("start"),
+            "ended_at_time": self.job.get_state().get("end"),
+            "version": self.job.config["release"],
         }
-
         return base_dict
 
-    def make_data_objects(self, output_dir: Union[str, Path])-> List[DataObject]:
+    def make_data_objects(self, output_dir: Union[str, Path] = None)-> List[DataObject]:
+        """
+        Create DataObject objects for each output of the job.
+        """
 
         data_objects = []
 
-        for dobj_record in self.execution_state.data_outputs:
-            job_output_key = f"{self.execution_state.input_prefix}.{dobj_record['output']}"
-            if job_output_key not in self.job_runner.outputs:
-                if dobj_record.get("optional"):
-                    logging.debug(f"Optional output {job_output_key} not found in job outputs")
+        for output_spec in self.job.data_outputs: # specs are defined in the workflow.yaml file under Outputs
+            output_key = f"{self.job.input_prefix}.{output_spec['output']}"
+            if output_key not in self.job_runner.outputs:
+                if output_spec.get("optional"):
+                    logging.debug(f"Optional output {output_key} not found in job outputs")
                     continue
                 else:
-                    logging.warning(f"Required output {job_output_key} not found in job outputs")
+                    logging.warning(f"Required output {output_key} not found in job outputs")
                     continue
+            # get the full path to the output file from the job_runner
+            output_file_path = Path(self.job_runner.outputs[output_key])
+            md5_sum = _md5(output_file_path)
+            file_url = f"{self.url_root}/{self.was_informed_by}/{self.workflow_execution_id}/{output_file_path.name}"
 
+            # copy the file to the output directory if provided
+            new_output_file_path = None
+            if output_dir:
+                new_output_file_path = Path(output_dir) / output_file_path.name
+                # copy the file to the output directory
+                shutil.copy(output_file_path, new_output_file_path)
+            else:
+                logging.warning(f"Output directory not provided, not copying {output_file_path} to output directory")
+
+            # create a DataObject object
+            data_object = DataObject(
+                id = output_spec["id"],
+                name=output_file_path.name,
+                type="nmdc:DataObject",
+                url=file_url,
+                data_object_type=output_spec["data_object_type"],
+                md5_checksum=md5_sum,
+                description=output_spec["description"],
+                was_generated_by=self.workflow_execution_id,
+            )
+
+            data_objects.append(data_object)
+        return data_objects
+
+    def make_workflow_execution_record(self, data_objects: List[DataObject]) -> Dict[str, Any]:
+        """
+        Create a workflow execution record for the job
+        """
+        wf_dict = self.as_workflow_execution_dict
+        wf_dict["has_output"] = [dobj.id for dobj in data_objects]
+
+        # workflow-specific keys
+        logical_names = set()
+        field_names = set()
+        pattern = r'\{outputs\.(\w+)\.(\w+)\}'
+        for attr_key, attr_val in self.job.execution_template.items():
+            if attr_val.startswith("{outputs."):
+                match = re.match(pattern, attr_val)
+                if not match:
+                    logging.warning(f"Invalid output reference {attr_val}")
+                    continue
+                logical_names.add(match.group(1))
+                field_names.add(match.group(2))
+
+        for logical_name in logical_names:
+            output_key = f"{self.job.input_prefix}.{logical_name}"
+            data_path = self.job_runner.outputs.get(output_key)
+            if data_path:
+                # read in as json
+                with open(data_path) as f:
+                    data = json.load(f)
+                for field_name in field_names:
+                    # add to wf_dict if it has a value
+                    if field_name in data:
+                        wf_dict[field_name] = data[field_name]
+                    else:
+                        logging.warning(f"Field {field_name} not found in {data_path}")
+
+        return wf_dict
 
 
 

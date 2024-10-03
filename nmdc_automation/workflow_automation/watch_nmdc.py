@@ -158,10 +158,6 @@ class JobManager:
         return data
 
 
-    def make_data_objects(self, job: WorkflowJobDeprecated, outdir: Union[str, Path])-> List[DataObject]:
-        data_objects = []
-
-
     def generate_data_objects_l(self, job, outdir, schema):
         output_ids = []
         prefix = job.workflow_config["input_prefix"]

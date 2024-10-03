@@ -3,9 +3,9 @@ from nmdc_automation.workflow_automation.wfutils import (
     get_workflow_execution_record_for_job,
     CromwellRunner,
     WorkflowJob,
-    StateManager
+    JobStateManager
 )
-from nmdc_automation.workflow_automation.models import get_base_workflow_execution_keys
+from nmdc_automation.workflow_automation.models import get_base_workflow_execution_keys, DataObject
 import json
 
 
@@ -107,7 +107,7 @@ def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
 def test_state_manager(fixtures_dir):
     mags_job_state = json.load(open(fixtures_dir / "mags_job_state.json"))
 
-    state = StateManager(mags_job_state)
+    state = JobStateManager(mags_job_state)
     assert state.workflow_execution_id == mags_job_state['activity_id']
     assert state.config == mags_job_state['conf']
     assert state.execution_template == mags_job_state['conf']['activity']
@@ -120,3 +120,27 @@ def test_cromwell_runner_metadata(fixtures_dir):
     job_runner = CromwellRunner("http://fake.url.org", cromwell_metadata)
 
     assert job_runner.metadata['status'] == "Succeeded"
+    assert job_runner.outputs == cromwell_metadata['outputs']
+
+
+def test_workflow_job_data_objects(site_config, fixtures_dir, tmp_path):
+    # load cromwell metadata
+    job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
+    job_runner = CromwellRunner("http://fake.url.org", job_metadata)
+
+    # load job state
+    job_state = json.load(open(fixtures_dir / "mags_job_state.json"))
+    job = WorkflowJob(site_config, job_state, job_runner)
+
+    data_objects = job.make_data_objects(output_dir=tmp_path)
+    assert data_objects
+    for data_object in data_objects:
+        assert isinstance(data_object, DataObject)
+
+    wfe_dict = job.make_workflow_execution_record(data_objects)
+    assert wfe_dict
+    assert wfe_dict['id'] == job_state['activity_id']
+
+
+
+
