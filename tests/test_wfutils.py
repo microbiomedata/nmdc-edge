@@ -5,7 +5,7 @@ from nmdc_automation.workflow_automation.wfutils import (
     WorkflowJob,
     JobStateManager
 )
-from nmdc_automation.workflow_automation.models import get_base_workflow_execution_keys, DataObject
+from nmdc_automation.workflow_automation.models import get_base_workflow_execution_keys, DataObject, workflow_process_factory
 from nmdc_schema.nmdc import MagsAnalysis
 import json
 
@@ -140,6 +140,9 @@ def test_workflow_job_data_objects(site_config, fixtures_dir, tmp_path):
 
     wfe_dict = job.make_workflow_execution_record(data_objects)
     assert wfe_dict['id'] == job_state['activity_id']
+
+    wfe = workflow_process_factory(wfe_dict)
+    assert isinstance(wfe, MagsAnalysis)
 
 
 
