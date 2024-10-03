@@ -211,6 +211,7 @@ class NmdcRuntimeApi:
         resp = requests.patch(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
+    # TODO test that this concatenates multi-page results
     @refresh_token
     def list_jobs(self, filt=None, max=100) -> List[dict]:
         url = "%sjobs?max_page_size=%s" % (self._base_url, max)

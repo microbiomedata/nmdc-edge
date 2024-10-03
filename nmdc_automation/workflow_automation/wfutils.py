@@ -343,14 +343,20 @@ class CromwellRunner(JobRunnerBase):
 
 
 class JobStateManager:
-    def __init__(self, state: Dict[str, Any] = None):
+    def __init__(self, state: Dict[str, Any] = None, opid: str = None):
         if state is None:
             state = {}
         self.cached_state = state
+        if opid and "opid" in self.cached_state:
+            raise ValueError("opid already set in job state")
+        if opid:
+            self.cached_state["opid"] = opid
+
 
     def update_state(self, state: Dict[str, Any]):
         self.cached_state.update(state)
 
+    @property
     def get_state(self) -> Dict[str, Any]:
         return self.cached_state
 
@@ -392,18 +398,34 @@ class JobStateManager:
     def input_prefix(self) -> Optional[str]:
         return self.config.get("input_prefix", None)
 
+    @property
+    def nmdc_job_id(self)-> Optional[str]:
+        # for backward compatibility we need to check for both keys
+        return self.cached_state.get("nmdc_jobid", self.cached_state.get("nmdc_id", None))
+
 
 
 class WorkflowJob:
-    def __init__(self, site_config: SiteConfig, state: Dict[str, Any] = None, job_runner: JobRunnerBase = None):
+    def __init__(self, site_config: SiteConfig, state: Dict[str, Any] = None, job_runner: JobRunnerBase = None, opid: str = None):
         self.site_config = site_config
-        self.job = JobStateManager(state)
+        self.job = JobStateManager(state, opid)
         # default to CromwellRunner if no job_runner is provided
         if job_runner is None:
             job_runner = CromwellRunner(site_config.cromwell_url)
         self.job_runner = job_runner
 
     # Properties to access the site config, job state, and job runner attributes
+    # getter and setter props for job state opid
+    def get_opid(self) -> str:
+        return self.job.get_state.get("opid", None)
+
+    def set_opid(self, opid: str, force: bool = False):
+        if self.get_opid() and not force:
+            raise ValueError("opid already set in job state")
+        self.job.update_state({"opid": opid})
+
+
+
     @property
     def workflow_execution_id(self) -> Optional[str]:
         return self.job.workflow_execution_id
@@ -440,8 +462,8 @@ class WorkflowJob:
             "execution_resource": self.execution_resource,
             "was_informed_by": self.was_informed_by,
             "has_input": [dobj["id"] for dobj in self.job.config["input_data_objects"]],
-            "started_at_time": self.job.get_state().get("start"),
-            "ended_at_time": self.job.get_state().get("end"),
+            "started_at_time": self.job.get_state.get("start"),
+            "ended_at_time": self.job.get_state.get("end"),
             "version": self.job.config["release"],
         }
         return base_dict

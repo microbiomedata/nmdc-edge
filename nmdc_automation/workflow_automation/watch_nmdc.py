@@ -6,14 +6,13 @@ import json
 import logging
 import shutil
 from json import loads
-from os.path import exists
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Union
 
-from nmdc_schema.nmdc import WorkflowExecution, Database, DataObject
+from nmdc_schema.nmdc import Database
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import SiteConfig
-from .wfutils import WorkflowJobDeprecated, WorkflowJob
+from .wfutils import WorkflowJob
 from .wfutils import NmdcSchema, _md5
 
 
@@ -33,7 +32,7 @@ class FileHandler:
         self.state_file = state_file
 
     def read_state(self)-> Optional[Dict[str, Any]]:
-        if not exists(self.state_file):
+        if not self.state_file.exists():
             return None
         with open(self.state_file, "r") as f:
             return loads(f.read())
@@ -42,20 +41,16 @@ class FileHandler:
         with open(self.state_file, "w") as f:
             json.dump(data, f, indent=2)
 
-    def get_output_dir(self, job):
-        data_directory = self.config.data_dir
-        informed_by = job.workflow_config["was_informed_by"]
-        workflow_execution_id  = job.activity_id
-        outdir = os.path.join(data_directory, informed_by, workflow_execution_id)
-        if not os.path.exists(outdir):
-            os.makedirs(outdir)
-        return outdir
+    def get_output_path(self, job) -> Path:
+        # construct path from string components
+        output_path = Path(self.config.data_dir) / job.was_informed_by / job.workflow_execution_id
+        return output_path
 
-    def write_metadata_if_not_exists(self, job, outdir):
-        metadata_filepath = os.path.join(outdir, "metadata.json")
-        if not os.path.exists(metadata_filepath):
+    def write_metadata_if_not_exists(self, job: WorkflowJob, output_path: Path):
+        metadata_filepath = output_path / "metadata.json"
+        if not metadata_filepath.exists():
             with open(metadata_filepath, "w") as f:
-                json.dump(job.get_cromwell_metadata(), f)
+                json.dump(job.job_runner.metadata, f)
 
 
 class JobManager:
@@ -70,7 +65,7 @@ class JobManager:
         """ Restore jobs from state data """
         self.job_cache = self._find_jobs(state_data, nocheck)
 
-    def _find_jobs(self, state_data: dict, nocheck: bool)-> List[WorkflowJobDeprecated]:
+    def _find_jobs(self, state_data: dict, nocheck: bool)-> List[WorkflowJob]:
         """ Find jobs from state data """
         new_wf_job_list = []
         seen = {}
@@ -78,7 +73,7 @@ class JobManager:
             job_id = job["nmdc_jobid"]
             if job_id in seen:
                 continue
-            wf_job = WorkflowJobDeprecated(self.config, state=job, nocheck=nocheck)
+            wf_job = WorkflowJob(self.config, state=job)
             new_wf_job_list.append(wf_job)
             seen[job_id] = True
         return new_wf_job_list
@@ -97,26 +92,23 @@ class JobManager:
     def find_job_by_opid(self, opid):
         return next((job for job in self.job_cache if job.opid == opid), None)
 
-    def submit_job(self, new_job, opid, force=False):
-        common_workflow_id = new_job["workflow"]["id"]
-        if "object_id_latest" in new_job["config"]:
+    def submit_job(self, new_job: WorkflowJob, opid: str, force=False):
+
+        if "object_id_latest" in new_job.job.config:
             logger.warning("Old record. Skipping.")
             return
-        wf_job = self.get_or_create_workflow_job(new_job, opid, common_workflow_id)
-        self.job_cache.append(wf_job)
-        wf_job.cromwell_submit(force=force)
+        existing_job = self.find_job_by_opid(opid)
+        if existing_job and not force:
+            logger.info(f"Job with opid {opid} already exists")
+            return
+        new_job.set_opid(opid, force=force)
+        self.job_cache.append(new_job)
+        new_job.job_runner.submit_job()
 
-    def get_or_create_workflow_job(self, new_job, opid, common_workflow_id)-> WorkflowJobDeprecated:
+    def get_or_create_workflow_job(self, new_job, opid, common_workflow_id)-> WorkflowJob:
         wf_job = self.find_job_by_opid(opid)
         if not wf_job:
-            wf_job = WorkflowJobDeprecated(
-                site_config=self.config,
-                type=common_workflow_id,
-                nmdc_jobid=new_job["id"],
-                workflow_config=new_job["config"],
-                opid=opid,
-                activity_id=new_job["config"]["activity_id"],
-            )
+            wf_job = WorkflowJob()
         return wf_job
 
     def check_job_status(self):
@@ -128,18 +120,21 @@ class JobManager:
                 elif status == "Failed" and job.opid:
                     self.process_failed_job(job)
 
-    def process_successful_job(self, job: WorkflowJobDeprecated):
+    def process_successful_job(self, job: WorkflowJob):
         logger.info(f"Running post for op {job.opid}")
 
-        outdir = self.file_handler.get_output_dir(job)
+        output_path = self.file_handler.get_output_path(job)
+        if not output_path.exists():
+            output_path.mkdir(parents=True, exist_ok=True)
+
         schema = NmdcSchema()
         database = Database()
 
-        output_ids = self.generate_data_objects_l(job, outdir, schema)
+        output_ids = self.generate_data_objects_l(job, output_path, schema)
 
         self.create_activity_record(job, output_ids, schema)
 
-        self.file_handler.write_metadata_if_not_exists(job, outdir)
+        self.file_handler.write_metadata_if_not_exists(job, output_path)
 
         nmdc_database_obj = schema.get_database_object_dump()
         nmdc_database_obj_dict = json.loads(nmdc_database_obj)
@@ -158,7 +153,7 @@ class JobManager:
             job.cromwell_submit()
 
     def job_checkpoint(self):
-        jobs = [job.get_state() for job in self.job_cache]
+        jobs = [wfjob.job.get_state for wfjob in self.job_cache]
         data = {"jobs": jobs}
         return data
 
@@ -225,17 +220,23 @@ class JobManager:
 class RuntimeApiHandler:
     def __init__(self, config):
         self.runtime_api = NmdcRuntimeApi(config)
+        self.config = config
 
     def claim_job(self, job_id):
         return self.runtime_api.claim_job(job_id)
 
-    def list_jobs(self, allowed_workflows)-> List[Dict[str, Any]]:
+    def get_unclaimed_jobs(self, allowed_workflows)-> List[WorkflowJob]:
+        jobs = []
         filt = {
             "workflow.id": {"$in": allowed_workflows},
             "claims": {"$size": 0}
         }
         job_records =  self.runtime_api.list_jobs(filt=filt)
-        return job_records
+
+        for job in job_records:
+            jobs.append(WorkflowJob(self.config, job))
+
+        return jobs
 
     def post_objects(self, database_obj):
         return self.runtime_api.post_objects(database_obj)
@@ -279,9 +280,9 @@ class Watcher:
 
 
     def claim_jobs(self):
-        jobs = self.runtime_api_handler.list_jobs(self.config.allowed_workflows)
-        for job in jobs:
-            claim = self.runtime_api_handler.claim_job(job["id"])
+        unclaimed_jobs = self.runtime_api_handler.get_unclaimed_jobs(self.config.allowed_workflows)
+        for job in unclaimed_jobs:
+            claim = self.runtime_api_handler.claim_job(job.job.nmdc_job_id)
             opid = claim["detail"]["id"]
             self.job_manager.submit_job(job, opid)
         self.file_handler.write_state(self.job_manager.job_checkpoint())

@@ -143,6 +143,13 @@ def test_workflow_job_data_objects(site_config, fixtures_dir, tmp_path):
     wfe = workflow_process_factory(wfe_dict)
     assert isinstance(wfe, MagsAnalysis)
 
+def test_workflow_job_from_database_job_record(site_config, fixtures_dir):
+    job_rec = json.load(open(fixtures_dir / "job_record.json"))
+    assert job_rec
+    job = WorkflowJob(site_config, job_rec)
+    assert job
+    assert job.job.nmdc_job_id == job_rec['id']
+
 
 
 
