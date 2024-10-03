@@ -32,6 +32,11 @@ def mock_cromwell(requests_mock, test_data_dir):
 
 def test_watcher(site_config_file):
     w = Watcher(site_config_file)
+    assert w
+    assert w.job_manager
+    assert w.file_handler
+    assert w.runtime_api_handler
+
     w.restore_from_checkpoint()
     w.job_manager.job_checkpoint()
     w.restore_from_checkpoint()

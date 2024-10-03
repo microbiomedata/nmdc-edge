@@ -16,6 +16,8 @@ from nmdc_automation.config import SiteConfig
 from .wfutils import WorkflowJobDeprecated, WorkflowJob
 from .wfutils import NmdcSchema, _md5
 
+
+DEFAULT_STATE_DIR
 logger = logging.getLogger(__name__)
 
 
@@ -245,9 +247,9 @@ class Watcher:
         self.should_skip_claim = False
         self.config = SiteConfig(site_configuration_file)
         self.file_handler = FileHandler(self.config, state_file)
-        self.api_handler = RuntimeApiHandler(self.config)
-        self.job_manager = JobManager(self.config, self.file_handler, self.api_handler)
-        
+        self.runtime_api_handler = RuntimeApiHandler(self.config)
+        self.job_manager = JobManager(self.config, self.file_handler, self.runtime_api_handler)
+
     def restore_from_checkpoint(self, nocheck: bool = False)-> None:
         """
         Restore from checkpoint
@@ -273,9 +275,9 @@ class Watcher:
 
 
     def claim_jobs(self):
-        jobs = self.api_handler.list_jobs(self.config.allowed_workflows)
+        jobs = self.runtime_api_handler.list_jobs(self.config.allowed_workflows)
         for job in jobs:
-            claim = self.api_handler.claim_job(job["id"])
+            claim = self.runtime_api_handler.claim_job(job["id"])
             opid = claim["detail"]["id"]
             self.job_manager.submit_job(job, opid)
         self.file_handler.save_state_file(self.job_manager.job_checkpoint())
