@@ -1,7 +1,7 @@
 ## INSTALLATION PREREQUISITES
 
-### Install Node16
-https://nodejs.org/dist/latest-v16.x/
+### Install Node v20
+https://nodejs.org/en/download/prebuilt-installer
 
 ### Install pm2
 `npm install pm2@latest -g`

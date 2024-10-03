@@ -4,8 +4,6 @@
 
 # We won't benefit from the container image, itself, having access to these files.
 /.dockerignore
-/webapp-node16.Dockerfile
-/webapp-node18.Dockerfile
 /docker-compose.yml
 
 # The container image's copies of these directories will be generated

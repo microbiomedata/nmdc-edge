@@ -125,9 +125,3 @@ echo "1. $ cd ~                        # Go to your home directory"
 echo "2. $ vi .env                     # Create environment variables"
 echo "3. $ docker compose up --detach  # Spin up the Docker Compose stack"
 echo
-echo "Note: If you haven't already updated your DNS server to map your domain "
-echo "      to this VM, you can do that now. After doing that, restart the    "
-echo "      Docker Compose stack so Caddy can register an SSL certificate for "
-echo "      the domain. You can restart the Docker Compose stack by running:  "
-echo "      $ docker compose restart                                          "
-echo
