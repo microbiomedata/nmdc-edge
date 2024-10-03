@@ -11,9 +11,9 @@ from yaml import load, Loader
 from nmdc_automation.config import SiteConfig
 from nmdc_automation.workflow_automation.models import WorkflowConfig
 from tests.fixtures import db_utils
-from nmdc_automation.workflow_automation.wfutils import WorkflowJobDeprecated
+from nmdc_automation.workflow_automation.wfutils import WorkflowJob
 
-@fixture
+@fixture(scope="session")
 def mock_job_state():
     state = db_utils.read_json(
         "mags_job_state.json"
@@ -21,7 +21,7 @@ def mock_job_state():
     return state
 
 
-@fixture
+@fixture(scope="session")
 def mags_config(fixtures_dir)->WorkflowConfig:
     yaml_file = fixtures_dir / "mags_config.yaml"
     wf = load(open(yaml_file), Loader)
@@ -30,9 +30,14 @@ def mags_config(fixtures_dir)->WorkflowConfig:
     return WorkflowConfig(**wf)
 
 
+# @fixture(scope="session")
+# def mags_workflow_job(site_config, mock_job_state):
+#     job_runner = Mock()
+#     job_runner.metadata = {"status": "Succeeded"}
+#     return WorkflowJob(site_config, mock_job_state, job_runner)
+#
 
-
-@fixture
+@fixture(scope="session")
 def test_db():
     conn_str = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
     return MongoClient(conn_str).test

@@ -17,7 +17,7 @@ def test_config(monkeypatch, test_data_dir, base_test_dir):
     assert conf.url_root
     assert conf.api_url
     assert conf.watch_state
-    assert conf.agent_state
+    assert conf.agent_state is None # not in test config
     assert conf.activity_id_state
     assert conf.workflows_config
     assert conf.client_id

@@ -1,10 +1,17 @@
+import copy
+import json
+from pathlib import Path, PosixPath
+from pytest import fixture
+
 from nmdc_automation.workflow_automation.watch_nmdc import (
     Watcher,
     JobManager,
     FileHandler,
     RuntimeApiHandler,
 )
-from pytest import fixture
+from nmdc_automation.workflow_automation.wfutils import WorkflowJob
+from tests.fixtures import db_utils
+
 
 
 @fixture(autouse=True)
@@ -30,11 +37,48 @@ def mock_cromwell(requests_mock, test_data_dir):
     requests_mock.get(f"{cromwell_url}/1234/status", json=data)
 
 
-def test_watcher(site_config_file):
+def test_watcher(site_config_file, site_config, fixtures_dir):
     w = Watcher(site_config_file)
     assert w
-    assert w.job_manager
+
+    # Test FileHandler
     assert w.file_handler
+    assert w.file_handler.state_file
+    assert w.file_handler.state_file.exists()
+    assert w.file_handler.state_file.is_file()
+    assert isinstance(w.file_handler.state_file, PosixPath)
+    # read state
+    start_state = w.file_handler.read_state()
+    assert start_state
+    assert isinstance(start_state, dict)
+    exp_num_jobs = 1
+    assert len(start_state.get("jobs")) == exp_num_jobs
+    # write state
+    new_job = db_utils.read_json("new_state_job.json")
+    assert new_job
+    new_state = copy.deepcopy(start_state)
+    new_state["jobs"].append(new_job)
+    w.file_handler.write_state(new_state)
+    state = w.file_handler.read_state()
+    assert len(state.get("jobs")) == exp_num_jobs + 1
+    # reset state
+    w.file_handler.write_state(start_state)
+    # check reset
+    state = w.file_handler.read_state()
+    assert len(state.get("jobs")) == exp_num_jobs
+
+    # test FileHandler methods that take a WorkflowJob object
+    job_state = db_utils.read_json("mags_job_state.json")
+    job = WorkflowJob(site_config, job_state)
+    assert job
+
+
+
+
+
+
+    assert w.job_manager
+
     assert w.runtime_api_handler
 
     w.restore_from_checkpoint()

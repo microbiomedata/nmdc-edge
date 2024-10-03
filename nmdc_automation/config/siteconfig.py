@@ -79,7 +79,7 @@ class SiteConfig:
 
     @property
     def agent_state(self):
-        return self.config_data["state"]["agent_state"]
+        return self.config_data.get("state", {}).get("agent_state", None)
 
     @property
     def activity_id_state(self):

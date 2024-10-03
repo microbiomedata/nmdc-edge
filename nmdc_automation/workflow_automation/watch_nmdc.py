@@ -17,7 +17,7 @@ from .wfutils import WorkflowJobDeprecated, WorkflowJob
 from .wfutils import NmdcSchema, _md5
 
 
-DEFAULT_STATE_DIR
+DEFAULT_STATE_DIR = Path(__file__).parent / "_state"
 logger = logging.getLogger(__name__)
 
 
@@ -26,15 +26,19 @@ class FileHandler:
         """ Initialize the FileHandler, with a Config object and an optional state file path """
         self.config = config
         if not state_file:
-            self.state_file = self.config.agent_state
+            if self.config.agent_state:
+                state_file = self.config.agent_state
+            else:
+                state_file = DEFAULT_STATE_DIR / "state.json"
+        self.state_file = state_file
 
-    def load_state_file(self)-> Optional[Dict[str, Any]]:
+    def read_state(self)-> Optional[Dict[str, Any]]:
         if not exists(self.state_file):
             return None
         with open(self.state_file, "r") as f:
             return loads(f.read())
 
-    def save_state_file(self, data):
+    def write_state(self, data):
         with open(self.state_file, "w") as f:
             json.dump(data, f, indent=2)
 
@@ -254,7 +258,7 @@ class Watcher:
         """
         Restore from checkpoint
         """
-        state_data = self.file_handler.load_state_file()
+        state_data = self.file_handler.read_state()
         if state_data:
             self.job_manager.restore_jobs(state_data, nocheck=nocheck)
 
@@ -280,4 +284,4 @@ class Watcher:
             claim = self.runtime_api_handler.claim_job(job["id"])
             opid = claim["detail"]["id"]
             self.job_manager.submit_job(job, opid)
-        self.file_handler.save_state_file(self.job_manager.job_checkpoint())
+        self.file_handler.write_state(self.job_manager.job_checkpoint())
