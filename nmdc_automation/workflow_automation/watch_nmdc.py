@@ -24,16 +24,9 @@ class FileHandler:
     def __init__(self, config: SiteConfig, state_file: Union[str, Path]):
         """ Initialize the FileHandler, with a Config object and an optional state file path """
         self.config = config
-        if not state_file:
-            if self.config.agent_state:
-                state_file = self.config.agent_state
-            else:
-                state_file = DEFAULT_STATE_DIR / "state.json"
         self.state_file = state_file
 
     def read_state(self)-> Optional[Dict[str, Any]]:
-        if not self.state_file.exists():
-            return None
         with open(self.state_file, "r") as f:
             return loads(f.read())
 
@@ -260,6 +253,11 @@ class Watcher:
         self._MAX_FAILS = 2
         self.should_skip_claim = False
         self.config = SiteConfig(site_configuration_file)
+        if not state_file:
+            if self.config.agent_state:
+                state_file = self.config.agent_state
+            else:
+                state_file = DEFAULT_STATE_DIR / "state.json"
         self.file_handler = FileHandler(self.config, state_file)
         self.runtime_api_handler = RuntimeApiHandler(self.config)
         self.job_manager = JobManager(self.config, self.file_handler, self.runtime_api_handler)
@@ -275,7 +273,9 @@ class Watcher:
     def cycle(self):
         self.restore_from_checkpoint()
         if not self.should_skip_claim:
-            self.claim_jobs()
+            unclaimed_jobs = self.runtime_api_handler.get_unclaimed_jobs(self.config.allowed_workflows)
+            self.claim_jobs(unclaimed_jobs)
+
         successful_jobs, failed_jobs = self.job_manager.get_finished_jobs()
         for job in successful_jobs:
             self.job_manager.process_successful_job(job)
@@ -292,8 +292,8 @@ class Watcher:
             sleep(self._POLL)
 
 
-    def claim_jobs(self):
-        unclaimed_jobs = self.runtime_api_handler.get_unclaimed_jobs(self.config.allowed_workflows)
+    def claim_jobs(self, unclaimed_jobs: List[WorkflowJob] = None):
+        # unclaimed_jobs = self.runtime_api_handler.get_unclaimed_jobs(self.config.allowed_workflows)
         for job in unclaimed_jobs:
             claim = self.runtime_api_handler.claim_job(job.workflow.nmdc_job_id)
             opid = claim["detail"]["id"]

@@ -216,10 +216,5 @@
             }
         ]
     },
-    "claims" : [
-        {
-            "op_id" : "nmdc:sys0hsm3xt04",
-            "site_id" : "NERSC"
-        }
-    ]
+    "claims" : []
 }

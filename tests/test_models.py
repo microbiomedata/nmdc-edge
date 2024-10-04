@@ -145,7 +145,7 @@ def test_job_output_creation():
         job_output = JobOutput(**output)
 
 def test_job_creation():
-    job_record = db_utils.read_json("job_record.json")
+    job_record = db_utils.read_json("unsubmitted_job_record.json")
     job = Job(**job_record)
     assert job.id == job_record["id"]
     assert isinstance(job.workflow, JobWorkflow)

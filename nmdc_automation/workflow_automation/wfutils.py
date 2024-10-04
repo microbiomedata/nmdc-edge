@@ -4,14 +4,9 @@ from abc import ABC, abstractmethod
 import os
 import json
 import tempfile
-import requests
-import nmdc_schema.nmdc as nmdc
 import logging
-import datetime
-import pytz
 import re
 import hashlib
-from linkml_runtime.dumpers import json_dumper
 from typing import Any, Dict, List, Optional, Union
 from pathlib import Path
 import shutil
@@ -21,6 +16,7 @@ from nmdc_automation.workflow_automation.models import DataObject, workflow_proc
 
 
 class JobRunnerABC(ABC):
+
     @abstractmethod
     def submit_job(self) -> str:
         pass
@@ -29,31 +25,57 @@ class JobRunnerABC(ABC):
     def check_job_status(self) -> str:
         pass
 
+    @property
+    @abstractmethod
+    def job_id(self) -> Optional[str]:
+        pass
+
+    @property
+    @abstractmethod
+    def outputs(self) -> Dict[str, str]:
+        pass
+
+    @property
+    @abstractmethod
+    def metadata(self) -> Dict[str, Any]:
+        pass
+
+
 
 class CromwellRunner(JobRunnerABC):
 
-        def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager", job_metadata: Dict[str, Any] = None):
-            self.config = site_config
-            self.workflow = workflow
-            self.service_url = self.config.cromwell_url
-            if job_metadata is None:
-                job_metadata = {}
-            self.metadata = job_metadata
+    def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager", job_metadata: Dict[str, Any] = None):
+        self.config = site_config
+        self.workflow = workflow
+        self.service_url = self.config.cromwell_url
+        self._metadata = {}
+        if job_metadata:
+            self._metadata = job_metadata
 
 
-        def submit_job(self) -> str:
+    def submit_job(self) -> str:
+            # TODO: implement
             pass
 
-        def check_job_status(self) -> str:
+    def check_job_status(self) -> str:
+            # TODO: implement
             return "Pending"
 
-        @property
-        def job_id(self) -> Optional[str]:
+    @property
+    def job_id(self) -> Optional[str]:
             return self.metadata.get("id", None)
 
-        @property
-        def outputs(self) -> Dict[str, str]:
+    @property
+    def outputs(self) -> Dict[str, str]:
             return self.metadata.get("outputs", {})
+
+    @property
+    def metadata(self) -> Dict[str, Any]:
+            return self._metadata
+
+    @metadata.setter
+    def metadata(self, metadata: Dict[str, Any]):
+            self._metadata = metadata
 
 
 class WorkflowStateManager:
@@ -126,7 +148,6 @@ class WorkflowStateManager:
                 return self.cached_state[job_runner_id]
 
 
-
 class WorkflowJob:
     def __init__(self, site_config: SiteConfig, workflow_state: Dict[str, Any] = None,
                  job_metadata: Dict['str', Any] = None, opid: str = None, job_runner: JobRunnerABC = None
@@ -169,8 +190,6 @@ class WorkflowJob:
             status = self.job.check_job_status()
             self.workflow.update_state({"last_status": status})
             return status
-
-
 
 
     @property
@@ -297,9 +316,6 @@ class WorkflowJob:
                         logging.warning(f"Field {field_name} not found in {data_path}")
 
         return wf_dict
-
-
-
 
 
 def _json_tmp(data):
