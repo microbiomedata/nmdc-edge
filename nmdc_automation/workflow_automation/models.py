@@ -38,9 +38,8 @@ def workflow_process_factory(record: Dict[str, Any]) -> Union[DataGeneration, Wo
         "nmdc:ReadBasedTaxonomyAnalysis": ReadBasedTaxonomyAnalysis,
         "nmdc:ReadQcAnalysis": ReadQcAnalysis,
     }
-    record.pop("_id", None)
-    # for backwards compatibility strip Activity from the end of the type
-    record["type"] = record["type"].replace("Activity", "")
+    record = _normalize_record(record)
+
 
     # add type to Mags Analysis mags_list records
     if record["type"] == "nmdc:MagsAnalysis" and "mags_list" in record:
@@ -61,19 +60,26 @@ def workflow_process_factory(record: Dict[str, Any]) -> Union[DataGeneration, Wo
     wfe = cls(**record)
     return wfe
 
+def _normalize_record(record: Dict[str, Any]) -> Dict[str, Any]:
+    """ Normalize the record by removing the _id field and converting the type field to a string """
+    record.pop("_id", None)
+    # for backwards compatibility strip Activity from the end of the type
+    record["type"] = record["type"].replace("Activity", "")
+    # "null" is a string in the database, convert to None
+    for key, value in record.items():
+        if value == "null":
+            record[key] = None
 
-# def get_base_workflow_execution_keys() -> List[str]:
-#     """ Return the keys that are common to all workflow executions """
-#     keys = set()
-#     for k, v in WorkflowExecution.__annotations__.items():
-#         if k.startswith("_") or k.startswith("class_"):
-#             continue
-#         keys.add(k)
-#     return list(keys)
+    # type-specific normalization
+    # add type to Mags Analysis mags_list records
+    if record["type"] == "nmdc:MagsAnalysis" and "mags_list" in record:
+        for mag in record["mags_list"]:
+            if not mag.get("type"):
+                mag["type"] = "nmdc:MagBin"
+            if "num_tRNA" in mag:
+                mag["num_t_rna"] = mag.pop("num_tRNA")
 
-
-
-
+    return record
 
 
 class WorkflowProcessNode(object):
