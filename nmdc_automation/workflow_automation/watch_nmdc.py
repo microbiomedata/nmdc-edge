@@ -102,19 +102,10 @@ class JobManager:
             seen[job_id] = True
         return new_wf_job_list
 
-    def _get_url(self, informed_by, act_id, fname):
-        root = self.config.url_root
-        return f"{root}/{informed_by}/{act_id}/{fname}"
-
-    def _get_output_dir(self, informed_by, act_id):
-        data_directory = self.config.data_dir
-        outdir = os.path.join(data_directory, informed_by, act_id)
-        if not os.path.exists(outdir):
-            os.makedirs(outdir)
-        return outdir
 
     def find_job_by_opid(self, opid):
         return next((job for job in self.job_cache if job.opid == opid), None)
+
 
     def prepare_and_cache_new_job(self, new_job: WorkflowJob, opid: str, force=False)-> Optional[WorkflowJob]:
 
@@ -132,11 +123,6 @@ class JobManager:
             self.job_cache.append(new_job)
             return new_job
 
-    def get_or_create_workflow_job(self, new_job, opid, common_workflow_id)-> WorkflowJob:
-        wf_job = self.find_job_by_opid(opid)
-        if not wf_job:
-            wf_job = WorkflowJob()
-        return wf_job
 
     def get_finished_jobs(self)->Tuple[List[WorkflowJob], List[WorkflowJob]]:
         successful_jobs = []
@@ -149,6 +135,7 @@ class JobManager:
                 elif status == "Failed" and job.opid:
                     failed_jobs.append(job)
         return (successful_jobs, failed_jobs)
+
 
     def process_successful_job(self, job: WorkflowJob) -> Database:
         logger.info(f"Running post for op {job.opid}")
@@ -165,18 +152,7 @@ class JobManager:
         database.workflow_execution_set = [workflow_execution_record]
 
         self.file_handler.write_metadata_if_not_exists(job, output_path)
-
-        # nmdc_database_obj_dict = json.loads(database.json(exclude_unset=True))
         return database
-
-
-        # resp = self.api_handler.post_objects(nmdc_database_obj_dict)
-        # logger.info(f"Response: {resp}")
-        # job.done = True
-        # resp = self.api_handler.update_op(
-        #     job.opid, done=True, meta=job.job.metadata
-        # )
-        # return resp
 
 
     def process_failed_job(self, job):
@@ -184,69 +160,11 @@ class JobManager:
             job.failed_count += 1
             job.cromwell_submit()
 
+
     def job_checkpoint(self):
         jobs = [wfjob.workflow.state for wfjob in self.job_cache]
         data = {"jobs": jobs}
         return data
-
-
-    def generate_data_objects_l(self, job, outdir, schema):
-        output_ids = []
-        prefix = job.workflow_config["input_prefix"]
-
-        job_outs = job.get_cromwell_metadata()["outputs"]
-        informed_by = job.workflow_config["was_informed_by"]
-
-        for product_record in job.outputs:
-            outkey = f"{prefix}.{product_record['output']}"
-            if outkey not in job_outs and product_record.get("optional"):
-                logging.debug(f"Ignoring optional missing output {outkey}")
-                continue
-
-            full_name = job_outs[outkey]
-            file_name = os.path.basename(full_name)
-            new_path = os.path.join(outdir, file_name)
-            shutil.copyfile(full_name, new_path)
-
-            md5 = _md5(full_name)
-            file_url = self._get_url(
-                job.workflow_config["was_informed_by"],
-                job.activity_id,
-                file_name
-            )
-            id = product_record["id"]
-            schema.make_data_object(
-                name=file_name,
-                full_file_name=full_name,
-                file_url=file_url,
-                data_object_type=product_record["data_object_type"],
-                dobj_id=product_record["id"],
-                md5_sum=md5,
-                description=product_record["description"],
-                omics_id=job.activity_id,
-            )
-
-            output_ids.append(id)
-
-        return output_ids
-
-    def create_activity_record(self, job,  output_ids, schema):
-        activity_type = job.execution_template["type"]
-        name = job.execution_template["name"].replace("{id}", job.activity_id)
-        omic_id = job.workflow_config["was_informed_by"]
-        resource = self.config.resource
-        schema.create_activity_record(
-            activity_record=activity_type,
-            activity_name=name,
-            workflow=job.workflow_config,
-            activity_id=job.activity_id,
-            resource=resource,
-            has_inputs_list=[dobj["id"] for dobj in job.input_data_objects],
-            has_output_list=output_ids,
-            omic_id=omic_id,
-            start_time=job.start,
-            end_time=job.end,
-        )
 
 
 class RuntimeApiHandler:
@@ -312,6 +230,13 @@ class Watcher:
                 logger.error(f"Error posting objects: {resp}")
                 continue
             job.done = True
+            # update the operation record
+            resp = self.runtime_api_handler.update_op(
+                job.opid, done=True, meta=job.job.metadata
+            )
+            if not resp.ok:
+                logger.error(f"Error updating operation: {resp}")
+                continue
 
         for job in failed_jobs:
             self.job_manager.process_failed_job(job)

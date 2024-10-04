@@ -95,6 +95,7 @@ def test_file_handler_read_state(site_config, initial_state_file):
     assert isinstance(state.get("jobs"), list)
     assert len(state.get("jobs")) == 1
 
+
 def test_file_handler_write_state(site_config, initial_state_file, fixtures_dir):
     fh = FileHandler(site_config, initial_state_file)
     state = fh.read_state()
