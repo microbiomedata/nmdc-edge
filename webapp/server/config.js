@@ -190,8 +190,6 @@ const config = {
         BASE_DIR: process.env.PROJECTS_BASE_DIR || path.join(IO_BASE_DIR, "projects"),
         // Number of days for which the system will preserve a project after a user opts to delete it.
         PROJECT_DELETION_GRACE_PERIOD_DAYS: makeIntIfDefined(process.env.PROJECT_DELETION_GRACE_PERIOD_DAYS) || 7,
-        // nmdc-server url for pushing metadata to submission portal
-        NMDC_SERVER_URL: process.env.NMDC_SERVER_URL || "https://data-dev.microbiomedata.org",
     },
     WORKFLOWS: {
         // Directory of the workflow WDL files.
@@ -199,6 +197,12 @@ const config = {
         // Directory of the workflow templates. The Workflow templates are used for creating cromwell inputs.
         TEMPLATE_DIR: process.env.WORKFLOWS_TEMPLATE_DIR || path.join(DATA_BASE_DIR, "workflow/templates"),
     },
+    NMDC: {
+        // nmdc-server url for pushing metadata to submission portal
+        SERVER_URL: process.env.NMDC_SERVER_URL || "https://data-dev.microbiomedata.org",
+        // metadata submission json template
+        METADATA_SUBMISSION_TEMPLATE: process.env.NMDC_METADATA_SUBMISSION_TEMPLATE || path.join(DATA_BASE_DIR, "project/metadata_submission.tmpl"),
+    }
 };
 
 module.exports = config;

@@ -51,12 +51,34 @@ const getData = (url, header) => {
         axios
             .get(url, header)
             .then(response => {
-                console.log("get response: ", response);
+                //console.log("get request response: ", response);
                 const data = response.data;
                 resolve(data);
             })
             .catch(err => {
-                console.log("get err: ", err);
+                //console.log("get request err: ", err);
+                if (err.response) {
+                    reject(err.response);
+                } else {
+                    reject(err);
+                }
+            });
+
+    });
+};
+
+//delete data
+const deleteData = (url, header) => {
+    return new Promise(function (resolve, reject) {
+        axios
+            .delete(url, header)
+            .then(response => {
+                //console.log("delete request response: ", response);
+                const data = response.data;
+                resolve(data);
+            })
+            .catch(err => {
+                //console.log("delete request err: ", err);
                 if (err.response) {
                     reject(err.response);
                 } else {
@@ -72,4 +94,4 @@ const nmdcAPI = axios.create({
     baseURL: config.PROJECTS.NMDC_SERVER_URL,
 });
 
-module.exports = { getRealName, write2log, postData, getData };
+module.exports = { getRealName, write2log, postData, getData, deleteData };

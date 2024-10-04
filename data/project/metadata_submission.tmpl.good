@@ -1,0 +1,61 @@
+{
+  "metadata_submission": {
+    "packageName": "<%= packageName %>",
+    "contextForm": {
+      "datasetDoi": "",
+      "dataGenerated": false,
+      "facilityGenerated": null,
+      "facilities": [],
+      "award": null,
+      "otherAward": ""
+    },
+    "addressForm": {
+      "shipper": {
+        "name": "",
+        "email": "",
+        "phone": "",
+        "line1": "",
+        "line2": "",
+        "city": "",
+        "state": "",
+        "postalCode": ""
+      },
+      "expectedShippingDate": null,
+      "shippingConditions": "",
+      "sample": "",
+      "description": "",
+      "experimentalGoals": "",
+      "randomization": "",
+      "usdaRegulated": null,
+      "permitNumber": "",
+      "biosafetyLevel": "",
+      "irbOrHipaa": null,
+      "comments": ""
+    },
+    "templates": [
+      "soil"
+    ],
+    "studyForm": {
+      "studyName": "<%= studyName %>",
+      "piName": "",
+      "piEmail": "<%= piEmail %>",
+      "piOrcid": "",
+      "fundingSources": [],
+      "linkOutWebpage": [],
+      "studyDate": null,
+      "description": "",
+      "notes": "",
+      "contributors": []
+    },
+    "multiOmicsForm": {
+      "alternativeNames": [],
+      "studyNumber": "",
+      "GOLDStudyId": "",
+      "JGIStudyId": "",
+      "NCBIBioProjectId": "",
+      "omicsProcessingTypes": []
+    },
+    "sampleData": {},
+    "source_client": "nmdc-edge"
+  }
+}
