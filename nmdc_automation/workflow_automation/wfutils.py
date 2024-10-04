@@ -306,43 +306,34 @@ class JobRunnerABC(ABC):
     def check_job_status(self) -> str:
         pass
 
-    @abstractmethod
-    def update_job_metadata(self, job_id: str) -> Dict[str, Any]:
-        pass
 
-class JobRunnerBase(JobRunnerABC):
+class CromwellRunner(JobRunnerABC):
 
-    def __init__(self, service_url: str,  job_metadata: Dict[str, Any] = None):
-        self.service_url = service_url
-        if job_metadata is None:
-            job_metadata = {}
-        self.cached_job_metadata = job_metadata
+        def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager", job_metadata: Dict[str, Any] = None):
+            self.config = site_config
+            self.workflow = workflow
+            self.service_url = self.config.cromwell_url
+            if job_metadata is None:
+                job_metadata = {}
+            self.metadata = job_metadata
 
-    @property
-    def metadata(self) -> Dict[str, Any]:
-        return self.cached_job_metadata
-
-    @property
-    def outputs(self) -> Optional[Dict[str, str]]:
-        return self.metadata.get("outputs", {})
-
-
-class CromwellRunner(JobRunnerBase):
-
-        def __init__(self, service_url: str,  job_metadata: Dict[str, Any] = None):
-            super().__init__(service_url, job_metadata)
 
         def submit_job(self) -> str:
             pass
 
         def check_job_status(self) -> str:
-            pass
+            return "Pending"
 
-        def update_job_metadata(self, job_id: str) -> Dict[str, Any]:
-            pass
+        @property
+        def job_id(self) -> Optional[str]:
+            return self.metadata.get("id", None)
+
+        @property
+        def outputs(self) -> Dict[str, str]:
+            return self.metadata.get("outputs", {})
 
 
-class JobStateManager:
+class WorkflowStateManager:
     def __init__(self, state: Dict[str, Any] = None, opid: str = None):
         if state is None:
             state = {}
@@ -357,7 +348,7 @@ class JobStateManager:
         self.cached_state.update(state)
 
     @property
-    def get_state(self) -> Dict[str, Any]:
+    def state(self) -> Dict[str, Any]:
         return self.cached_state
 
     @property
@@ -403,32 +394,65 @@ class JobStateManager:
         # different keys in state file vs database record
         return self.cached_state.get("nmdc_jobid", self.cached_state.get("id", None))
 
+    @property
+    def job_runner_id(self) -> Optional[str]:
+        # for now we only have cromwell as a job runner
+        job_runner_ids = ["cromwell_jobid", ]
+        for job_runner_id in job_runner_ids:
+            if job_runner_id in self.cached_state:
+                return self.cached_state[job_runner_id]
+
 
 
 class WorkflowJob:
-    def __init__(self, site_config: SiteConfig, state: Dict[str, Any] = None, job_runner: JobRunnerBase = None, opid: str = None):
+    def __init__(self, site_config: SiteConfig, workflow_state: Dict[str, Any] = None,
+                 job_metadata: Dict['str', Any] = None, opid: str = None, job_runner: JobRunnerABC = None
+                 )-> None:
         self.site_config = site_config
-        self.job = JobStateManager(state, opid)
+        self.workflow = WorkflowStateManager(workflow_state, opid)
         # default to CromwellRunner if no job_runner is provided
         if job_runner is None:
-            job_runner = CromwellRunner(site_config.cromwell_url)
-        self.job_runner = job_runner
+            job_runner = CromwellRunner(site_config, self.workflow, job_metadata)
+        self.job = job_runner
 
     # Properties to access the site config, job state, and job runner attributes
     # getter and setter props for job state opid
-    def get_opid(self) -> str:
-        return self.job.get_state.get("opid", None)
+    @property
+    def opid(self) -> str:
+        return self.workflow.state.get("opid", None)
 
     def set_opid(self, opid: str, force: bool = False):
-        if self.get_opid() and not force:
+        if self.opid and not force:
             raise ValueError("opid already set in job state")
-        self.job.update_state({"opid": opid})
+        self.workflow.update_state({"opid": opid})
+
+    @property
+    def done(self) -> Optional[bool]:
+        return self.workflow.state.get("done", None)
+
+    @property
+    def job_status(self) -> str:
+        status = None
+        job_id_keys = ["cromwell_jobid"]
+        # if none of the job id keys are in the workflow state, it is unsubmitted
+        if not any(key in self.workflow.state for key in job_id_keys):
+            status = "Unsubmitted"
+            self.workflow.update_state({"last_status": status})
+            return status
+        elif self.workflow.state.get("last_status") == "Succeeded":
+            status = "Succeeded"
+            return status
+        else:
+            status = self.job.check_job_status()
+            self.workflow.update_state({"last_status": status})
+            return status
+
 
 
 
     @property
     def workflow_execution_id(self) -> Optional[str]:
-        return self.job.workflow_execution_id
+        return self.workflow.workflow_execution_id
 
     @property
     def cromwell_url(self) -> str:
@@ -448,23 +472,23 @@ class WorkflowJob:
 
     @property
     def was_informed_by(self) -> str:
-        return self.job.was_informed_by
+        return self.workflow.was_informed_by
 
     @property
     def as_workflow_execution_dict(self) -> Dict[str, Any]:
         # for forward compatibility we need to strip Activity from the type
-        normalized_type = self.job.workflow_execution_type.replace("Activity", "")
+        normalized_type = self.workflow.workflow_execution_type.replace("Activity", "")
         base_dict = {
             "id": self.workflow_execution_id,
             "type": normalized_type,
-            "name": self.job.workflow_execution_name,
-            "git_url": self.job.config["git_repo"],
+            "name": self.workflow.workflow_execution_name,
+            "git_url": self.workflow.config["git_repo"],
             "execution_resource": self.execution_resource,
             "was_informed_by": self.was_informed_by,
-            "has_input": [dobj["id"] for dobj in self.job.config["input_data_objects"]],
-            "started_at_time": self.job.get_state.get("start"),
-            "ended_at_time": self.job.get_state.get("end"),
-            "version": self.job.config["release"],
+            "has_input": [dobj["id"] for dobj in self.workflow.config["input_data_objects"]],
+            "started_at_time": self.workflow.state.get("start"),
+            "ended_at_time": self.workflow.state.get("end"),
+            "version": self.workflow.config["release"],
         }
         return base_dict
 
@@ -475,9 +499,9 @@ class WorkflowJob:
 
         data_objects = []
 
-        for output_spec in self.job.data_outputs: # specs are defined in the workflow.yaml file under Outputs
-            output_key = f"{self.job.input_prefix}.{output_spec['output']}"
-            if output_key not in self.job_runner.outputs:
+        for output_spec in self.workflow.data_outputs: # specs are defined in the workflow.yaml file under Outputs
+            output_key = f"{self.workflow.input_prefix}.{output_spec['output']}"
+            if output_key not in self.job.outputs:
                 if output_spec.get("optional"):
                     logging.debug(f"Optional output {output_key} not found in job outputs")
                     continue
@@ -485,7 +509,7 @@ class WorkflowJob:
                     logging.warning(f"Required output {output_key} not found in job outputs")
                     continue
             # get the full path to the output file from the job_runner
-            output_file_path = Path(self.job_runner.outputs[output_key])
+            output_file_path = Path(self.job.outputs[output_key])
 
 
             md5_sum = _md5(output_file_path)
@@ -526,7 +550,7 @@ class WorkflowJob:
         logical_names = set()
         field_names = set()
         pattern = r'\{outputs\.(\w+)\.(\w+)\}'
-        for attr_key, attr_val in self.job.execution_template.items():
+        for attr_key, attr_val in self.workflow.execution_template.items():
             if attr_val.startswith("{outputs."):
                 match = re.match(pattern, attr_val)
                 if not match:
@@ -536,8 +560,8 @@ class WorkflowJob:
                 field_names.add(match.group(2))
 
         for logical_name in logical_names:
-            output_key = f"{self.job.input_prefix}.{logical_name}"
-            data_path = self.job_runner.outputs.get(output_key)
+            output_key = f"{self.workflow.input_prefix}.{logical_name}"
+            data_path = self.job.outputs.get(output_key)
             if data_path:
                 # read in as json
                 with open(data_path) as f:
@@ -552,139 +576,7 @@ class WorkflowJob:
         return wf_dict
 
 
-class NmdcSchema:
-    def __init__(self):
-        self.nmdc_db = nmdc.Database()
-        self._data_object_string = "nmdc:DataObject"
-        self.activity_store = self.activity_map()
 
-    def make_data_object(
-        self,
-        name: str,
-        full_file_name: str,
-        file_url: str,
-        data_object_type: str,
-        dobj_id: str,
-        md5_sum: str,
-        description: str,
-        omics_id: str,
-    ) -> None:
-        """Create nmdc database data object
-
-        Args:
-            name (str): name of data object
-            full_file_name (str): full file name
-            file_url (str): url for data object file
-            data_object_type (str): nmdc data object type
-            dobj_id (str): minted data object id
-            md5_sum (str): md5 check sum of data product
-            description (str): description for data object
-            omics_id (str): minted omics id
-        """
-
-        self.nmdc_db.data_object_set.append(
-            nmdc.DataObject(
-                file_size_bytes=os.stat(full_file_name).st_size,
-                name=name,
-                url=file_url,
-                data_object_type=data_object_type,
-                type=self._data_object_string,
-                id=dobj_id,
-                md5_checksum=md5_sum,
-                description=description.replace("{id}", omics_id),
-            )
-        )
-
-    def create_activity_record(
-        self,
-        activity_record,
-        activity_name,
-        workflow,
-        activity_id,
-        resource,
-        has_inputs_list,
-        has_output_list,
-        omic_id,
-        start_time,
-        end_time,
-    ):
-        database_activity_set = self.activity_store[activity_record][0]
-
-        database_activity_range = self.activity_store[activity_record][1]
-
-        database_activity_set.append(
-            database_activity_range(
-                id=activity_id,  # call minter for activity type
-                name=activity_name,
-                git_url=workflow["git_repo"],
-                version=workflow["release"],
-                execution_resource=resource,
-                started_at_time=start_time,
-                has_input=has_inputs_list,
-                has_output=has_output_list,
-                type=activity_record,
-                ended_at_time=end_time,
-                was_informed_by=omic_id,
-            )
-        )
-
-    def activity_map(self):
-        """
-        Inform Object Mapping Process what activies need to be imported and
-        distrubuted across the process
-        """
-
-        activity_store_dict = {
-            #TODO deprecate MetagenomeSequencing
-            "nmdc:MetagenomeSequencing": (
-                self.nmdc_db.workflow_execution_set,
-                nmdc.MetagenomeSequencing,
-            ),
-            "nmdc:ReadQcAnalysis": (
-                self.nmdc_db.workflow_execution_set,
-                nmdc.ReadQcAnalysis,
-            ),
-            "nmdc:ReadBasedTaxonomyAnalysis": (
-                self.nmdc_db.workflow_execution_set,
-                nmdc.ReadBasedTaxonomyAnalysis,
-            ),
-            "nmdc:MetagenomeAssembly": (
-                self.nmdc_db.workflow_execution_set,
-                nmdc.MetagenomeAssembly,
-            ),
-            "nmdc:MetatranscriptomeAssembly": (
-                self.nmdc_db.workflow_execution_set,
-                nmdc.MetatranscriptomeAssembly,
-            ),
-            "nmdc:MetagenomeAnnotation": (
-                self.nmdc_db.workflow_execution_set,
-                nmdc.MetagenomeAnnotation,
-            ),
-            "nmdc:MetatranscriptomeAnnotation": (
-                self.nmdc_db.workflow_execution_set,
-                nmdc.MetatranscriptomeAnnotation,
-            ),
-            "nmdc:MagsAnalysis": (
-                self.nmdc_db.workflow_execution_set,
-                nmdc.MagsAnalysis,
-            ),
-            "nmdc:MetatranscriptomeExpressionAnalysis": (
-                self.nmdc_db.workflow_execution_set,
-                nmdc.MetatranscriptomeExpressionAnalysis,
-            ),
-        }
-
-        return activity_store_dict
-
-    def get_database_object_dump(self):
-        """
-        Get the NMDC database object.
-
-        Returns:
-            nmdc.Database: NMDC database object.
-        """
-        nmdc_database_object = json_dumper.dumps(self.nmdc_db, inject_type=False)
-        return nmdc_database_object
 
 
 def _json_tmp(data):

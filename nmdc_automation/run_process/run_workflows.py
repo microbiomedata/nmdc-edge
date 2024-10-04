@@ -65,7 +65,7 @@ def resubmit(ctx, activity_ids):
         else:
             key = "activity_id"
         for found_job in watcher.jobs:
-            job_record = found_job.get_state()
+            job_record = found_job.state()
             if job_record[key] == act_id:
                 job = found_job
                 break

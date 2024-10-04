@@ -69,7 +69,7 @@ def test_watcher_file_handler(site_config_file, site_config, fixtures_dir, tmp_p
 
     # test FileHandler methods that take a WorkflowJob object
     # get output path
-    job_state = db_utils.read_json("mags_job_state.json")
+    job_state = db_utils.read_json("mags_workflow_state.json")
     job = WorkflowJob(site_config, job_state)
     assert job
     output_dir = w.file_handler.get_output_path(job)
@@ -109,9 +109,9 @@ def test_claim_jobs(requests_mock, site_config_file, mock_api):
             'detail': {'id': 'nmdc:1234'}
             }
     requests_mock.post(f"http://localhost/jobs/{job_id}:claim", json=resp)
-    # w.claim_jobs()
-    # w.cycle()
-    # resp = w.job_manager.find_job_by_opid("nmdc:1234")
+    w.claim_jobs()
+    w.cycle()
+    resp = w.job_manager.find_job_by_opid("nmdc:1234")
     # assert resp
 
 
@@ -132,6 +132,6 @@ def test_reclaim_job(requests_mock, site_config_file, mock_api):
 
 
 def test_watcher_restore_from_checkpoint(site_config_file, fixtures_dir):
-    state_file = fixtures_dir / "mags_job_state.json"
+    state_file = fixtures_dir / "mags_workflow_state.json"
 
 

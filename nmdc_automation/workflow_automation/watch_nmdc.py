@@ -7,13 +7,13 @@ import logging
 import shutil
 from json import loads
 from pathlib import Path
-from typing import List, Dict, Any, Optional, Union
+from typing import List, Dict, Any, Optional, Union, Tuple
 
 from nmdc_schema.nmdc import Database
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import SiteConfig
 from .wfutils import WorkflowJob
-from .wfutils import NmdcSchema, _md5
+from .wfutils import  _md5
 
 
 DEFAULT_STATE_DIR = Path(__file__).parent / "_state"
@@ -38,6 +38,10 @@ class FileHandler:
             return loads(f.read())
 
     def write_state(self, data):
+        # normalize "id" used in database job records to "nmdc_jobid"
+        for job in data["jobs"]:
+            if "id" in job:
+                job["nmdc_jobid"] = job.pop("id")
         with open(self.state_file, "w") as f:
             json.dump(data, f, indent=2)
 
@@ -50,7 +54,7 @@ class FileHandler:
         metadata_filepath = output_path / "metadata.json"
         if not metadata_filepath.exists():
             with open(metadata_filepath, "w") as f:
-                json.dump(job.job_runner.metadata, f)
+                json.dump(job.job.metadata, f)
 
 
 class JobManager:
@@ -73,7 +77,7 @@ class JobManager:
             job_id = job["nmdc_jobid"]
             if job_id in seen:
                 continue
-            wf_job = WorkflowJob(self.config, state=job)
+            wf_job = WorkflowJob(self.config, workflow_state=job)
             new_wf_job_list.append(wf_job)
             seen[job_id] = True
         return new_wf_job_list
@@ -92,18 +96,21 @@ class JobManager:
     def find_job_by_opid(self, opid):
         return next((job for job in self.job_cache if job.opid == opid), None)
 
-    def submit_job(self, new_job: WorkflowJob, opid: str, force=False):
+    def prepare_and_cache_new_job(self, new_job: WorkflowJob, opid: str, force=False)-> Optional[WorkflowJob]:
 
-        if "object_id_latest" in new_job.job.config:
+        if "object_id_latest" in new_job.workflow.config:
             logger.warning("Old record. Skipping.")
             return
         existing_job = self.find_job_by_opid(opid)
-        if existing_job and not force:
-            logger.info(f"Job with opid {opid} already exists")
-            return
-        new_job.set_opid(opid, force=force)
-        self.job_cache.append(new_job)
-        new_job.job_runner.submit_job()
+        if not existing_job:
+            new_job.set_opid(opid, force=force)
+            self.job_cache.append(new_job)
+            return new_job
+        elif force:
+            self.job_cache.remove(existing_job)
+            new_job.set_opid(opid, force=force)
+            self.job_cache.append(new_job)
+            return new_job
 
     def get_or_create_workflow_job(self, new_job, opid, common_workflow_id)-> WorkflowJob:
         wf_job = self.find_job_by_opid(opid)
@@ -111,14 +118,17 @@ class JobManager:
             wf_job = WorkflowJob()
         return wf_job
 
-    def check_job_status(self):
+    def get_finished_jobs(self)->Tuple[List[WorkflowJob], List[WorkflowJob]]:
+        successful_jobs = []
+        failed_jobs = []
         for job in self.job_cache:
             if not job.done:
-                status = job.check_status()
+                status = job.job_status
                 if status == "Succeeded" and job.opid:
-                    self.process_successful_job(job)
+                    successful_jobs.append(job)
                 elif status == "Failed" and job.opid:
-                    self.process_failed_job(job)
+                    failed_jobs.append(job)
+        return (successful_jobs, failed_jobs)
 
     def process_successful_job(self, job: WorkflowJob):
         logger.info(f"Running post for op {job.opid}")
@@ -127,22 +137,21 @@ class JobManager:
         if not output_path.exists():
             output_path.mkdir(parents=True, exist_ok=True)
 
-        schema = NmdcSchema()
         database = Database()
 
-        output_ids = self.generate_data_objects_l(job, output_path, schema)
-
-        self.create_activity_record(job, output_ids, schema)
+        data_objects = job.make_data_objects(output_dir=output_path)
+        database.data_object_set = data_objects
+        workflow_execution_record = job.make_workflow_execution_record(data_objects)
+        database.workflow_execution_set = [workflow_execution_record]
 
         self.file_handler.write_metadata_if_not_exists(job, output_path)
 
-        nmdc_database_obj = schema.get_database_object_dump()
-        nmdc_database_obj_dict = json.loads(nmdc_database_obj)
+        nmdc_database_obj_dict = json.loads(database.json(exclude_unset=True))
         resp = self.api_handler.post_objects(nmdc_database_obj_dict)
         logger.info(f"Response: {resp}")
         job.done = True
         resp = self.api_handler.update_op(
-            job.opid, done=True, meta=job.get_cromwell_metadata()
+            job.opid, done=True, meta=job.job.metadata
         )
         return resp
 
@@ -153,7 +162,7 @@ class JobManager:
             job.cromwell_submit()
 
     def job_checkpoint(self):
-        jobs = [wfjob.job.get_state for wfjob in self.job_cache]
+        jobs = [wfjob.workflow.state for wfjob in self.job_cache]
         data = {"jobs": jobs}
         return data
 
@@ -267,7 +276,11 @@ class Watcher:
         self.restore_from_checkpoint()
         if not self.should_skip_claim:
             self.claim_jobs()
-        self.job_manager.check_job_status()
+        successful_jobs, failed_jobs = self.job_manager.get_finished_jobs()
+        for job in successful_jobs:
+            self.job_manager.process_successful_job(job)
+        for job in failed_jobs:
+            self.job_manager.process_failed_job(job)
 
     def watch(self):
         logger.info("Entering polling loop")
@@ -282,7 +295,9 @@ class Watcher:
     def claim_jobs(self):
         unclaimed_jobs = self.runtime_api_handler.get_unclaimed_jobs(self.config.allowed_workflows)
         for job in unclaimed_jobs:
-            claim = self.runtime_api_handler.claim_job(job.job.nmdc_job_id)
+            claim = self.runtime_api_handler.claim_job(job.workflow.nmdc_job_id)
             opid = claim["detail"]["id"]
-            self.job_manager.submit_job(job, opid)
+            new_job = self.job_manager.prepare_and_cache_new_job(job, opid)
+            if new_job:
+                new_job.job.submit_job()
         self.file_handler.write_state(self.job_manager.job_checkpoint())
