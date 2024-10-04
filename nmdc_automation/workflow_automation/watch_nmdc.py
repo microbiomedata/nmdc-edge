@@ -53,7 +53,8 @@ class FileHandler:
 
     def read_state(self)-> Optional[Dict[str, Any]]:
         with open(self.state_file, "r") as f:
-            return loads(f.read())
+            state = loads(f.read())
+        return state
 
     def write_state(self, data):
         # normalize "id" used in database job records to "nmdc_jobid"
@@ -79,28 +80,48 @@ class FileHandler:
 
 
 class JobManager:
-    def __init__(self, config, file_handler):
+    def __init__(self, config, file_handler, init_cache: bool = True):
         self.config = config
         self.file_handler = file_handler
-        self.job_cache = []
+        self._job_cache = []
         self._MAX_FAILS = 2
+        if init_cache:
+            self.restore_from_state()
 
-    def restore_jobs(self, state_data: Dict[str, Any], nocheck=False)-> None:
+
+    @property
+    def job_cache(self)-> List[WorkflowJob]:
+        return self._job_cache
+
+    @job_cache.setter
+    def job_cache(self, value):
+        self._job_cache = value
+
+    def job_checkpoint(self):
+        jobs = [wfjob.workflow.state for wfjob in self.job_cache]
+        data = {"jobs": jobs}
+        return data
+
+    def save_checkpoint(self):
+        data = self.job_checkpoint()
+        self.file_handler.write_state(data)
+
+    def restore_from_state(self)-> None:
         """ Restore jobs from state data """
-        self.job_cache = self._find_jobs(state_data, nocheck)
+        self.job_cache = self.get_workflow_jobs_from_state()
 
-    def _find_jobs(self, state_data: dict, nocheck: bool)-> List[WorkflowJob]:
+    def get_workflow_jobs_from_state(self)-> List[WorkflowJob]:
         """ Find jobs from state data """
-        new_wf_job_list = []
-        seen = {}
-        for job in state_data["jobs"]:
-            job_id = job["nmdc_jobid"]
-            if job_id in seen:
+        wf_job_list = []
+        job_cache_ids = [job.opid for job in self.job_cache]
+        state = self.file_handler.read_state()
+        for job in state["jobs"]:
+            if job.get("opid") in job_cache_ids:
                 continue
             wf_job = WorkflowJob(self.config, workflow_state=job)
-            new_wf_job_list.append(wf_job)
-            seen[job_id] = True
-        return new_wf_job_list
+            job_cache_ids.append(wf_job.opid)
+            wf_job_list.append(wf_job)
+        return wf_job_list
 
 
     def find_job_by_opid(self, opid):
@@ -161,10 +182,7 @@ class JobManager:
             job.cromwell_submit()
 
 
-    def job_checkpoint(self):
-        jobs = [wfjob.workflow.state for wfjob in self.job_cache]
-        data = {"jobs": jobs}
-        return data
+
 
 
 class RuntimeApiHandler:
@@ -205,13 +223,14 @@ class Watcher:
         self.runtime_api_handler = RuntimeApiHandler(self.config)
         self.job_manager = JobManager(self.config, self.file_handler)
 
-    def restore_from_checkpoint(self, nocheck: bool = False)-> None:
+    def restore_from_checkpoint(self, state_data: Dict[str, Any], nocheck: bool = False)-> None:
         """
         Restore from checkpoint
         """
-        state_data = self.file_handler.read_state()
         if state_data:
-            self.job_manager.restore_jobs(state_data, nocheck=nocheck)
+            self.file_handler.write_state(state_data)
+        self.job_manager.restore_from_state()
+
 
     def cycle(self):
         self.restore_from_checkpoint()
@@ -254,7 +273,7 @@ class Watcher:
     def claim_jobs(self, unclaimed_jobs: List[WorkflowJob] = None):
         # unclaimed_jobs = self.runtime_api_handler.get_unclaimed_jobs(self.config.allowed_workflows)
         for job in unclaimed_jobs:
-            claim = self.runtime_api_handler.claim_job(job.workflow.nmdc_job_id)
+            claim = self.runtime_api_handler.claim_job(job.workflow.nmdc_jobid)
             opid = claim["detail"]["id"]
             new_job = self.job_manager.prepare_and_cache_new_job(job, opid)
             if new_job:

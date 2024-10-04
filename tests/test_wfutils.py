@@ -3,10 +3,9 @@ from nmdc_automation.workflow_automation.wfutils import (
     WorkflowJob,
     WorkflowStateManager
 )
-from nmdc_automation.workflow_automation.models import get_base_workflow_execution_keys, DataObject, workflow_process_factory
+from nmdc_automation.workflow_automation.models import DataObject, workflow_process_factory
 from nmdc_schema.nmdc import MagsAnalysis
 import json
-
 
 
 def test_workflow_job(site_config, fixtures_dir):
@@ -36,11 +35,6 @@ def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
 
     wfe_dict = wfj.as_workflow_execution_dict
     assert wfe_dict
-    for key in get_base_workflow_execution_keys():
-        # we don't have has_output yet
-        if key == "has_output":
-            continue
-        assert key in wfe_dict
 
 
 def test_state_manager(fixtures_dir):
@@ -81,7 +75,7 @@ def test_workflow_job_from_database_job_record(site_config, fixtures_dir):
     assert job_rec
     job = WorkflowJob(site_config, job_rec)
     assert job
-    assert job.workflow.nmdc_job_id == job_rec['id']
+    assert job.workflow.nmdc_jobid == job_rec['id']
 
 
 

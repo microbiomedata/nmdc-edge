@@ -3,25 +3,11 @@ from bson import ObjectId
 from pytest import mark
 from nmdc_automation.workflow_automation.models import(
     DataObject,
-    get_base_workflow_execution_keys,
     Job,
-    JobClaim,
-    JobConfig,
     JobOutput,
     JobWorkflow,
     WorkflowProcessNode,
     workflow_process_factory,
-)
-from nmdc_schema.nmdc import (
-    MagsAnalysis,
-    MetagenomeAnnotation,
-    MetagenomeAssembly,
-    MetatranscriptomeAnnotation,
-    MetatranscriptomeAssembly,
-    MetatranscriptomeExpressionAnalysis,
-    NucleotideSequencing,
-    ReadBasedTaxonomyAnalysis,
-    ReadQcAnalysis,
 )
 from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from tests.fixtures import db_utils
@@ -48,7 +34,6 @@ def test_workflow_process_factory_mags_with_mags_list():
     record = db_utils.read_json("mags_workflow_record.json")
     mga = workflow_process_factory(record)
     assert mga.type == "nmdc:MagsAnalysis"
-
 
 
 def test_process_factory_with_db_record():
@@ -106,6 +91,7 @@ def test_data_object_creation_from_records():
         data_obj_dict = data_obj.as_dict()
         assert data_obj_dict == record
 
+
 def test_data_object_creation_from_db_records(test_db):
     db_utils.reset_db(test_db)
     db_utils.read_json("data_object_set.json")
@@ -144,26 +130,9 @@ def test_job_output_creation():
     for output in outputs:
         job_output = JobOutput(**output)
 
+
 def test_job_creation():
     job_record = db_utils.read_json("unsubmitted_job_record.json")
     job = Job(**job_record)
     assert job.id == job_record["id"]
     assert isinstance(job.workflow, JobWorkflow)
-
-
-def test_get_base_workflow_execution_keys():
-    exp_keys = [
-        "id",
-        "type",
-        "execution_resource",
-        "git_url",
-        "started_at_time",
-        "was_informed_by",
-        "has_input",
-        "ended_at_time",
-        "version",
-        "has_output",
-        ]
-
-    keys = get_base_workflow_execution_keys()
-    assert sorted(keys) == sorted(exp_keys)

@@ -9,13 +9,11 @@ from nmdc_schema.nmdc import (
     FileTypeEnum,
     NucleotideSequencing,
     MagsAnalysis,
-    MagBin,
     MetagenomeAssembly,
     MetagenomeAnnotation,
     MetatranscriptomeAssembly,
     MetatranscriptomeAnnotation,
     MetatranscriptomeExpressionAnalysis,
-    PlannedProcess,
     ReadBasedTaxonomyAnalysis,
     ReadQcAnalysis,
     WorkflowExecution
@@ -64,14 +62,14 @@ def workflow_process_factory(record: Dict[str, Any]) -> Union[DataGeneration, Wo
     return wfe
 
 
-def get_base_workflow_execution_keys() -> List[str]:
-    """ Return the keys that are common to all workflow executions """
-    keys = set()
-    for k, v in WorkflowExecution.__annotations__.items():
-        if k.startswith("_") or k.startswith("class_"):
-            continue
-        keys.add(k)
-    return list(keys)
+# def get_base_workflow_execution_keys() -> List[str]:
+#     """ Return the keys that are common to all workflow executions """
+#     keys = set()
+#     for k, v in WorkflowExecution.__annotations__.items():
+#         if k.startswith("_") or k.startswith("class_"):
+#             continue
+#         keys.add(k)
+#     return list(keys)
 
 
 

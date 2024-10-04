@@ -7,7 +7,8 @@ from unittest.mock import patch, PropertyMock, Mock
 
 from nmdc_automation.workflow_automation.watch_nmdc import (
     Watcher,
-    FileHandler
+    FileHandler,
+    JobManager
 )
 from nmdc_automation.workflow_automation.wfutils import WorkflowJob
 from tests.fixtures import db_utils
@@ -163,60 +164,56 @@ def test_file_handler_write_metadata_if_not_exists(site_config, initial_state_fi
 
 
 
-# def test_watcher_file_handler(site_config_file, site_config, fixtures_dir, tmp_path):
-#     state_file = fixtures_dir / "initial_state.json"
-#     w = Watcher(site_config_file, state_file)
-#     assert w
-#
-#     # Test FileHandler
-#     assert w.file_handler
-#     assert w.file_handler.state_file
-#     assert w.file_handler.state_file.exists()
-#     assert w.file_handler.state_file.is_file()
-#     assert isinstance(w.file_handler.state_file, PosixPath)
-#     # read state
-#     start_state = w.file_handler.read_state()
-#     assert start_state
-#     assert isinstance(start_state, dict)
-#     exp_num_jobs = 1
-#     assert len(start_state.get("jobs")) == exp_num_jobs
-#     # write state
-#     new_job = db_utils.read_json("new_state_job.json")
-#     assert new_job
-#     new_state = copy.deepcopy(start_state)
-#     # add new job - swap nmdc_jobid key to id
-#     new_job["id"] = new_job.pop("nmdc_jobid")
-#     new_state["jobs"].append(new_job)
-#     w.file_handler.write_state(new_state)
-#     state = w.file_handler.read_state()
-#     assert len(state.get("jobs")) == exp_num_jobs + 1
-#     # reset state
-#     w.file_handler.write_state(start_state)
-#     # check reset
-#     state = w.file_handler.read_state()
-#     assert len(state.get("jobs")) == exp_num_jobs
-#
-#     # test FileHandler methods that take a WorkflowJob object
-#     # get output path
-#     job_state = db_utils.read_json("mags_workflow_state.json")
-#     job = WorkflowJob(site_config, job_state)
-#     assert job
-#     output_dir = w.file_handler.get_output_path(job)
-#     assert output_dir
-#     assert isinstance(output_dir, PosixPath)
-#     # write metadata
-#     output_path = tmp_path / "output"
-#     w.file_handler.write_metadata_if_not_exists(job, tmp_path)
-#     # look for metadata file
-#     assert output_path / "metadata.json"
-#
-#     assert w.job_manager
-#
-#     assert w.runtime_api_handler
-#
-#     w.restore_from_checkpoint()
-#     w.job_manager.job_checkpoint()
-#     w.restore_from_checkpoint()
+def test_job_manager_init(site_config, initial_state_file):
+    # Arrange
+    fh = FileHandler(site_config, initial_state_file)
+    jm = JobManager(site_config, fh)
+    assert jm
+    assert jm.file_handler
+    assert jm.file_handler.state_file
+
+
+def test_job_manager_restore_from_state(site_config, initial_state_file):
+    # Arrange
+    fh = FileHandler(site_config, initial_state_file)
+    jm = JobManager(site_config, fh, init_cache=False)
+    # Act
+    jm.restore_from_state()
+    # Assert
+    assert jm.job_cache
+    assert isinstance(jm.job_cache, list)
+    assert len(jm.job_cache) == 1
+    assert isinstance(jm.job_cache[0], WorkflowJob)
+
+
+def test_job_manager_job_checkpoint(site_config, initial_state_file):
+    # Arrange
+    fh = FileHandler(site_config, initial_state_file)
+    jm = JobManager(site_config, fh)
+    # Act
+    data = jm.job_checkpoint()
+    # Assert
+    assert data
+    assert isinstance(data, dict)
+    assert data.get("jobs")
+    assert isinstance(data.get("jobs"), list)
+    assert len(data.get("jobs")) == 1
+
+
+def test_job_manager_save_checkpoint(site_config, initial_state_file):
+    # Arrange
+    fh = FileHandler(site_config, initial_state_file)
+    jm = JobManager(site_config, fh)
+    # Act
+    jm.save_checkpoint()
+    # Assert
+    assert fh.state_file.exists()
+    assert fh.state_file.is_file()
+
+    # cleanup
+    fh.state_file.unlink()
+
+
 
 
 @fixture

@@ -135,7 +135,7 @@ class WorkflowStateManager:
         return self.config.get("input_prefix", None)
 
     @property
-    def nmdc_job_id(self)-> Optional[str]:
+    def nmdc_jobid(self)-> Optional[str]:
         # different keys in state file vs database record
         return self.cached_state.get("nmdc_jobid", self.cached_state.get("id", None))
 
@@ -177,6 +177,7 @@ class WorkflowJob:
     @done.setter
     def done(self, done: bool):
         self.workflow.update_state({"done": done})
+
 
     @property
     def job_status(self) -> str:
