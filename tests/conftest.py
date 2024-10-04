@@ -3,6 +3,7 @@ import os
 from pymongo import MongoClient
 from pathlib import Path
 from pytest import fixture
+import shutil
 from time import time
 from unittest.mock import Mock
 from yaml import load, Loader
@@ -67,7 +68,9 @@ def base_test_dir():
 
 @fixture(scope="session")
 def fixtures_dir(base_test_dir):
-    return base_test_dir / "fixtures"
+    path = base_test_dir / "fixtures"
+    # get the absolute path
+    return path.resolve()
 
 @fixture(scope="session")
 def test_data_dir(base_test_dir):
@@ -85,3 +88,11 @@ def site_config_file(base_test_dir):
 @fixture(scope="session")
 def site_config(site_config_file):
     return SiteConfig(site_config_file)
+
+@fixture
+def initial_state_file(fixtures_dir, tmp_path):
+    state_file = fixtures_dir / "initial_state.json"
+    # make a working copy in tmp_path
+    copied_state_file = tmp_path / "initial_state.json"
+    shutil.copy(state_file, copied_state_file)
+    return copied_state_file

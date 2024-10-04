@@ -174,6 +174,10 @@ class WorkflowJob:
     def done(self) -> Optional[bool]:
         return self.workflow.state.get("done", None)
 
+    @done.setter
+    def done(self, done: bool):
+        self.workflow.update_state({"done": done})
+
     @property
     def job_status(self) -> str:
         status = None

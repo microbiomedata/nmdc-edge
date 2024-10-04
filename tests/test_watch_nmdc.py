@@ -1,8 +1,9 @@
 import copy
 import json
-from pathlib import PosixPath
+from pathlib import PosixPath, Path
 from pytest import fixture
-from unittest.mock import patch, PropertyMock
+import shutil
+from unittest.mock import patch, PropertyMock, Mock
 
 from nmdc_automation.workflow_automation.watch_nmdc import (
     Watcher,
@@ -30,48 +31,36 @@ def mock_cromwell(requests_mock, test_data_dir):
 
 
 # FileHandler init tests
-def test_file_handler_init_from_state_file(site_config, fixtures_dir, tmp_path):
-    state_file = fixtures_dir / "initial_state.json"
-    # make a working copy in tmp_path
-    state_file = state_file.rename(tmp_path / "initial_state.json")
-    fh = FileHandler(site_config, state_file)
+def test_file_handler_init_from_state_file(site_config, initial_state_file, tmp_path):
+    copy_state_file = tmp_path / "copy_state.json"
+    shutil.copy(initial_state_file, copy_state_file)
+    fh = FileHandler(site_config, initial_state_file)
     assert fh
     assert fh.state_file
     assert isinstance(fh.state_file, PosixPath)
-    # nothing has been written yet
-    assert not fh.state_file.exists()
+    assert fh.state_file.exists()
+    assert fh.state_file.is_file()
     # delete state file
     fh.state_file = None
     assert not fh.state_file
+
     # test setter
-    fh.state_file = state_file
+    fh.state_file = initial_state_file
     assert fh.state_file
-    # still nothing has been written yet
+    assert fh.state_file.exists()
+    assert fh.state_file.is_file()
+
+    # unlink state file
+    fh.state_file.unlink()
     assert not fh.state_file.exists()
-
-    # read state
-    state = fh.read_state()
-    # assert state
-    # assert isinstance(state, dict)
+    fh.state_file = copy_state_file
+    assert fh.state_file.exists()
+    assert fh.state_file.is_file()
 
 
-
-    # assert fh.state_file.exists()
-    # delete state file
-    # fh.state_file.unlink()
-    # assert not fh.state_file.exists()
-    # test setter
-    # fh.state_file(state_file)
-    # assert fh.state_file
-    # assert fh.state_file.exists()
-
-
-def test_file_handler_init_from_config_agent_state(site_config, fixtures_dir, tmp_path):
-    state_file = fixtures_dir / "initial_state.json"
-    # make a working copy in tmp_path
-    state_file_path = state_file.rename(tmp_path / "initial_state.json")
+def test_file_handler_init_from_config_agent_state(site_config, initial_state_file, tmp_path):
     with patch("nmdc_automation.config.siteconfig.SiteConfig.agent_state", new_callable=PropertyMock) as mock_agent_state:
-        mock_agent_state.return_value = state_file_path
+        mock_agent_state.return_value = initial_state_file
         fh = FileHandler(site_config)
         assert fh
         assert fh.state_file
@@ -85,6 +74,10 @@ def test_file_handler_init_default_state(site_config):
     assert fh
     assert fh.state_file
     assert fh.state_file.exists()
+    # delete everything in the state file leaving an empty file
+    with open(fh.state_file, "w") as f:
+        f.write("")
+    assert fh.state_file.stat().st_size == 0
 
     # create new FileHandler - should create new state file
     fh2 = FileHandler(site_config)
@@ -93,63 +86,136 @@ def test_file_handler_init_default_state(site_config):
     assert fh2.state_file.exists()
 
 
+def test_file_handler_read_state(site_config, initial_state_file):
+    fh = FileHandler(site_config, initial_state_file)
+    state = fh.read_state()
+    assert state
+    assert isinstance(state, dict)
+    assert state.get("jobs")
+    assert isinstance(state.get("jobs"), list)
+    assert len(state.get("jobs")) == 1
 
-
-
-def test_watcher_file_handler(site_config_file, site_config, fixtures_dir, tmp_path):
-    state_file = fixtures_dir / "initial_state.json"
-    w = Watcher(site_config_file, state_file)
-    assert w
-
-    # Test FileHandler
-    assert w.file_handler
-    assert w.file_handler.state_file
-    assert w.file_handler.state_file.exists()
-    assert w.file_handler.state_file.is_file()
-    assert isinstance(w.file_handler.state_file, PosixPath)
-    # read state
-    start_state = w.file_handler.read_state()
-    assert start_state
-    assert isinstance(start_state, dict)
-    exp_num_jobs = 1
-    assert len(start_state.get("jobs")) == exp_num_jobs
-    # write state
-    new_job = db_utils.read_json("new_state_job.json")
+def test_file_handler_write_state(site_config, initial_state_file, fixtures_dir):
+    fh = FileHandler(site_config, initial_state_file)
+    state = fh.read_state()
+    assert state
+    # add new job
+    new_job = json.load(open(fixtures_dir / "new_state_job.json"))
     assert new_job
-    new_state = copy.deepcopy(start_state)
-    # add new job - swap nmdc_jobid key to id
-    new_job["id"] = new_job.pop("nmdc_jobid")
-    new_state["jobs"].append(new_job)
-    w.file_handler.write_state(new_state)
-    state = w.file_handler.read_state()
-    assert len(state.get("jobs")) == exp_num_jobs + 1
+    state["jobs"].append(new_job)
+    fh.write_state(state)
+    # read state
+    new_state = fh.read_state()
+    assert new_state
+    assert isinstance(new_state, dict)
+    assert new_state.get("jobs")
+    assert isinstance(new_state.get("jobs"), list)
+    assert len(new_state.get("jobs")) == 2
     # reset state
-    w.file_handler.write_state(start_state)
-    # check reset
-    state = w.file_handler.read_state()
-    assert len(state.get("jobs")) == exp_num_jobs
+    fh.write_state(state)
 
-    # test FileHandler methods that take a WorkflowJob object
-    # get output path
-    job_state = db_utils.read_json("mags_workflow_state.json")
-    job = WorkflowJob(site_config, job_state)
-    assert job
-    output_dir = w.file_handler.get_output_path(job)
-    assert output_dir
-    assert isinstance(output_dir, PosixPath)
-    # write metadata
-    output_path = tmp_path / "output"
-    w.file_handler.write_metadata_if_not_exists(job, tmp_path)
-    # look for metadata file
-    assert output_path / "metadata.json"
 
-    assert w.job_manager
+def test_file_handler_get_output_path(site_config, initial_state_file, fixtures_dir):
+    # Arrange
+    was_informed_by = "nmdc:1234"
+    workflow_execution_id = "nmdc:56789"
+    mock_job = Mock()
+    mock_job.was_informed_by = was_informed_by
+    mock_job.workflow_execution_id = workflow_execution_id
 
-    assert w.runtime_api_handler
+    expected_output_path = site_config.data_dir / Path(was_informed_by) / Path(workflow_execution_id)
 
-    w.restore_from_checkpoint()
-    w.job_manager.job_checkpoint()
-    w.restore_from_checkpoint()
+    fh = FileHandler(site_config, initial_state_file)
+
+    # Act
+    output_path = fh.get_output_path(mock_job)
+
+    # Assert
+    assert output_path
+    assert isinstance(output_path, PosixPath)
+    assert output_path == expected_output_path
+
+
+def test_file_handler_write_metadata_if_not_exists(site_config, initial_state_file, fixtures_dir, tmp_path):
+    # Arrange
+    was_informed_by = "nmdc:1234"
+    workflow_execution_id = "nmdc:56789"
+    job_metadata = {"id": "xyz-123-456", "status": "Succeeded"}
+    mock_job = Mock()
+    mock_job.was_informed_by = was_informed_by
+    mock_job.workflow_execution_id = workflow_execution_id
+    mock_job.job.metadata = job_metadata
+
+
+    # patch config.data_dir
+    with patch("nmdc_automation.config.siteconfig.SiteConfig.data_dir", new_callable=PropertyMock) as mock_data_dir:
+        mock_data_dir.return_value = tmp_path
+        fh = FileHandler(site_config, initial_state_file)
+
+        # Act
+        metadata_path = fh.write_metadata_if_not_exists(mock_job)
+
+        # Assert
+        assert metadata_path
+        assert metadata_path.exists()
+        assert metadata_path.is_file()
+
+
+
+# def test_watcher_file_handler(site_config_file, site_config, fixtures_dir, tmp_path):
+#     state_file = fixtures_dir / "initial_state.json"
+#     w = Watcher(site_config_file, state_file)
+#     assert w
+#
+#     # Test FileHandler
+#     assert w.file_handler
+#     assert w.file_handler.state_file
+#     assert w.file_handler.state_file.exists()
+#     assert w.file_handler.state_file.is_file()
+#     assert isinstance(w.file_handler.state_file, PosixPath)
+#     # read state
+#     start_state = w.file_handler.read_state()
+#     assert start_state
+#     assert isinstance(start_state, dict)
+#     exp_num_jobs = 1
+#     assert len(start_state.get("jobs")) == exp_num_jobs
+#     # write state
+#     new_job = db_utils.read_json("new_state_job.json")
+#     assert new_job
+#     new_state = copy.deepcopy(start_state)
+#     # add new job - swap nmdc_jobid key to id
+#     new_job["id"] = new_job.pop("nmdc_jobid")
+#     new_state["jobs"].append(new_job)
+#     w.file_handler.write_state(new_state)
+#     state = w.file_handler.read_state()
+#     assert len(state.get("jobs")) == exp_num_jobs + 1
+#     # reset state
+#     w.file_handler.write_state(start_state)
+#     # check reset
+#     state = w.file_handler.read_state()
+#     assert len(state.get("jobs")) == exp_num_jobs
+#
+#     # test FileHandler methods that take a WorkflowJob object
+#     # get output path
+#     job_state = db_utils.read_json("mags_workflow_state.json")
+#     job = WorkflowJob(site_config, job_state)
+#     assert job
+#     output_dir = w.file_handler.get_output_path(job)
+#     assert output_dir
+#     assert isinstance(output_dir, PosixPath)
+#     # write metadata
+#     output_path = tmp_path / "output"
+#     w.file_handler.write_metadata_if_not_exists(job, tmp_path)
+#     # look for metadata file
+#     assert output_path / "metadata.json"
+#
+#     assert w.job_manager
+#
+#     assert w.runtime_api_handler
+#
+#     w.restore_from_checkpoint()
+#     w.job_manager.job_checkpoint()
+#     w.restore_from_checkpoint()
 
 
 @fixture

@@ -63,23 +63,25 @@ class FileHandler:
         with open(self.state_file, "w") as f:
             json.dump(data, f, indent=2)
 
-    def get_output_path(self, job) -> Path:
+    def get_output_path(self, job: WorkflowJob) -> Path:
         # construct path from string components
         output_path = Path(self.config.data_dir) / job.was_informed_by / job.workflow_execution_id
         return output_path
 
-    def write_metadata_if_not_exists(self, job: WorkflowJob, output_path: Path):
-        metadata_filepath = output_path / "metadata.json"
+    def write_metadata_if_not_exists(self, job: WorkflowJob)->Path:
+        metadata_filepath = self.get_output_path(job) / "metadata.json"
+        # make sure the parent directories exist
+        metadata_filepath.parent.mkdir(parents=True, exist_ok=True)
         if not metadata_filepath.exists():
             with open(metadata_filepath, "w") as f:
                 json.dump(job.job.metadata, f)
+        return metadata_filepath
 
 
 class JobManager:
-    def __init__(self, config, file_handler, api_handler):
+    def __init__(self, config, file_handler):
         self.config = config
         self.file_handler = file_handler
-        self.api_handler = api_handler
         self.job_cache = []
         self._MAX_FAILS = 2
 
@@ -148,7 +150,7 @@ class JobManager:
                     failed_jobs.append(job)
         return (successful_jobs, failed_jobs)
 
-    def process_successful_job(self, job: WorkflowJob):
+    def process_successful_job(self, job: WorkflowJob) -> Database:
         logger.info(f"Running post for op {job.opid}")
 
         output_path = self.file_handler.get_output_path(job)
@@ -164,14 +166,17 @@ class JobManager:
 
         self.file_handler.write_metadata_if_not_exists(job, output_path)
 
-        nmdc_database_obj_dict = json.loads(database.json(exclude_unset=True))
-        resp = self.api_handler.post_objects(nmdc_database_obj_dict)
-        logger.info(f"Response: {resp}")
-        job.done = True
-        resp = self.api_handler.update_op(
-            job.opid, done=True, meta=job.job.metadata
-        )
-        return resp
+        # nmdc_database_obj_dict = json.loads(database.json(exclude_unset=True))
+        return database
+
+
+        # resp = self.api_handler.post_objects(nmdc_database_obj_dict)
+        # logger.info(f"Response: {resp}")
+        # job.done = True
+        # resp = self.api_handler.update_op(
+        #     job.opid, done=True, meta=job.job.metadata
+        # )
+        # return resp
 
 
     def process_failed_job(self, job):
@@ -280,7 +285,7 @@ class Watcher:
         self.config = SiteConfig(site_configuration_file)
         self.file_handler = FileHandler(self.config, state_file)
         self.runtime_api_handler = RuntimeApiHandler(self.config)
-        self.job_manager = JobManager(self.config, self.file_handler, self.runtime_api_handler)
+        self.job_manager = JobManager(self.config, self.file_handler)
 
     def restore_from_checkpoint(self, nocheck: bool = False)-> None:
         """
@@ -298,7 +303,16 @@ class Watcher:
 
         successful_jobs, failed_jobs = self.job_manager.get_finished_jobs()
         for job in successful_jobs:
-            self.job_manager.process_successful_job(job)
+            job_database = self.job_manager.process_successful_job(job)
+            job_dict = json.loads(job_database.json(exclude_unset=True))
+
+            # post workflow execution and data objects to the runtime api
+            resp = self.runtime_api_handler.post_objects(job_dict)
+            if not resp.ok:
+                logger.error(f"Error posting objects: {resp}")
+                continue
+            job.done = True
+
         for job in failed_jobs:
             self.job_manager.process_failed_job(job)
 
