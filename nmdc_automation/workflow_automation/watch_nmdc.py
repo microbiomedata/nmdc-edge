@@ -17,6 +17,8 @@ from .wfutils import  _md5
 
 
 DEFAULT_STATE_DIR = Path(__file__).parent / "_state"
+DEFAULT_STATE_FILE = DEFAULT_STATE_DIR / "state.json"
+INITIAL_STATE = {"jobs": []}
 logger = logging.getLogger(__name__)
 
 
@@ -31,10 +33,16 @@ class FileHandler:
         elif self.config.agent_state:
             self._state_file = Path(self.config.agent_state)
         else:
-            # default state file - create if it doesn't exist
-            self._state_file = DEFAULT_STATE_DIR / "state.json"
-            if not self._state_file.exists():
-                self._state_file.touch()
+            # no state file provided or set in config set up a default
+            # check for a default state directory and create if it doesn't exist
+            DEFAULT_STATE_DIR.mkdir(parents=True, exist_ok=True)
+            DEFAULT_STATE_FILE.touch(exist_ok=True)
+            # if the file is empty write the initial state
+            if DEFAULT_STATE_FILE.stat().st_size == 0:
+                with open(DEFAULT_STATE_FILE, "w") as f:
+                    json.dump(INITIAL_STATE, f, indent=2)
+            self._state_file = DEFAULT_STATE_FILE
+
 
     @property
     def state_file(self):
@@ -271,11 +279,6 @@ class Watcher:
         self._MAX_FAILS = 2
         self.should_skip_claim = False
         self.config = SiteConfig(site_configuration_file)
-        if not state_file:
-            if self.config.agent_state:
-                state_file = self.config.agent_state
-            else:
-                state_file = DEFAULT_STATE_DIR / "state.json"
         self.file_handler = FileHandler(self.config, state_file)
         self.runtime_api_handler = RuntimeApiHandler(self.config)
         self.job_manager = JobManager(self.config, self.file_handler, self.runtime_api_handler)

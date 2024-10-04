@@ -30,7 +30,8 @@ def mock_cromwell(requests_mock, test_data_dir):
 
 
 def test_watcher_file_handler(site_config_file, site_config, fixtures_dir, tmp_path):
-    w = Watcher(site_config_file)
+    state_file = fixtures_dir / "initial_state.json"
+    w = Watcher(site_config_file, state_file)
     assert w
 
     # Test FileHandler
