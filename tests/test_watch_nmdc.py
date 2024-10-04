@@ -2,7 +2,7 @@ import copy
 import json
 from pathlib import PosixPath
 from pytest import fixture
-from unittest.mock import patch
+from unittest.mock import patch, PropertyMock
 
 from nmdc_automation.workflow_automation.watch_nmdc import (
     Watcher,
@@ -27,6 +27,46 @@ def mock_cromwell(requests_mock, test_data_dir):
     requests_mock.get(f"{cromwell_url}/1234/metadata", json=metadata)
     data = {"status": "Succeeded"}
     requests_mock.get(f"{cromwell_url}/1234/status", json=data)
+
+
+# FileHandler init tests
+def test_file_handler_init_from_state_file(site_config, fixtures_dir):
+    state_file = fixtures_dir / "initial_state.json"
+    fh = FileHandler(site_config, state_file)
+    assert fh
+    assert fh.state_file
+    assert fh.state_file.exists()
+
+
+def test_file_handler_init_from_config_agent_state(site_config, fixtures_dir):
+    with patch("nmdc_automation.config.siteconfig.SiteConfig.agent_state", new_callable=PropertyMock) as mock_agent_state:
+        mock_agent_state.return_value = fixtures_dir / "initial_state.json"
+        fh = FileHandler(site_config)
+        assert fh
+        assert fh.state_file
+        assert fh.state_file.exists()
+
+
+def test_file_handler_init_default_state(site_config):
+    # sanity check
+    assert site_config.agent_state is None
+    fh = FileHandler(site_config)
+    assert fh
+    assert fh.state_file
+    assert fh.state_file.exists()
+
+    #delete state file
+    fh.state_file.unlink()
+    assert not fh.state_file.exists()
+
+    # create new FileHandler - should create new state file
+    fh2 = FileHandler(site_config)
+    assert fh2
+    assert fh2.state_file
+    assert fh2.state_file.exists()
+
+
+
 
 
 def test_watcher_file_handler(site_config_file, site_config, fixtures_dir, tmp_path):

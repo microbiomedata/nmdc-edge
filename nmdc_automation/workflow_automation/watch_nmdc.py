@@ -43,7 +43,6 @@ class FileHandler:
                     json.dump(INITIAL_STATE, f, indent=2)
             self._state_file = DEFAULT_STATE_FILE
 
-
     @property
     def state_file(self):
         return self._state_file
