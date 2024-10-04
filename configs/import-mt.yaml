@@ -4,11 +4,11 @@ Workflows:
     Type: nmdc:ReadQcAnalysis
     Git_repo: https://github.com/microbiomedata/metaT_ReadsQC
     Version: v0.0.7
-    Collection: workflow_execution_set/
-    ActivityRange: ReadQcAnalysisActivity
+    Collection: workflow_execution_set
+   WorkflowExecutionRange: ReadQcAnalysis
     Inputs:
       - Metagenome Raw Reads
-    Activity:
+   Workflow_Execution:
       name: "Read QC for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
       input_read_count: "{outputs.stats.input_read_count}"
@@ -26,12 +26,12 @@ Workflows:
     Type: nmdc:MetatranscriptomeAssembly
     Git_repo: https://github.com/microbiomedata/metaT_Assembly
     Version: v0.0.2
-    Collection: workflow_execution_set/
-    ActivityRange: MetatranscriptomeAssembly
+    Collection: workflow_execution_set
+   WorkflowExecutionRange: MetatranscriptomeAssembly
     Inputs:
       - Filtered Sequencing Reads
-    Activity:
-      name: "Metagenome Assembly Activity for {id}"
+   Workflow_Execution:
+      name: "Metagenome Assembly for {id}"
       type: nmdc:MetatranscriptomeAssembly
       asm_score: "{outputs.stats.asm_score}"
       contig_bp: "{outputs.stats.contig_bp}"
@@ -71,11 +71,11 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Version: v1.1.4
     Collection: workflow_execution_set
-    ActivityRange: MetatranscriptomeAnnotation
+   WorkflowExecutionRange: MetatranscriptomeAnnotation
     Inputs:
       - Assembly Contigs
-    Activity:
-      name: "Metatranscriptome Annotation Analysis Activity for {id}"
+   Workflow_Execution:
+      name: "Metatranscriptome Annotation Analysis for {id}"
       type: nmdc:MetatranscriptomeAnnotation
     Outputs:
       - Annotation Amino Acid FASTA
@@ -111,12 +111,12 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/metaT_ReadCounts
     Version: v0.0.5
     Collection: metatranscriptome_expression_analysis_set
-    ActivityRange: MetatranscriptomeExpressionAnalysis
+   WorkflowExecutionRange: MetatranscriptomeExpressionAnalysis
     Inputs:
       - Functional Annotation GFF
       - Contig Mapping File
       - Assembly Coverage BAM
-    Activity:
+   Workflow_Execution:
       name: "Metatranscriptome Expression Analysis for {id}"
       type: nmdc:MetatranscriptomeExpressionAnalysis
     Outputs:
@@ -131,7 +131,7 @@ Data Objects:
       import_suffix: .[A-Z]+-[A-Z]+.fastq.gz
       nmdc_suffix: .fastq.gz
       input_to: [nmdc:ReadQcAnalysis]
-      output_of: nmdc:OmicsProcessing
+      output_of: nmdc:NucleotideSequencing
       mulitple: false
       action: none
     - data_object_type: Annotation Amino Acid FASTA
@@ -362,7 +362,7 @@ Data Objects:
       import_suffix: filter-MTF.fastq.gz
       nmdc_suffix: _filtered.fastq.gz
       input_to: [nmdc:MetatranscriptomeAssembly]
-      output_of: nmdc:ReadQcAnalysisActivity
+      output_of: nmdc:ReadQcAnalysis
       mulitple: false
       action: rename
     - data_object_type: rRNA Filtered Sequencing Reads
@@ -371,7 +371,7 @@ Data Objects:
       import_suffix: .rRNA.fastq.gz
       nmdc_suffix: _rRNA.fastq.gz
       input_to: []
-      output_of: nmdc:ReadQcAnalysisActivity
+      output_of: nmdc:ReadQcAnalysis
       mulitple: false
       action: rename
     - data_object_type: QC Statistics 
@@ -380,7 +380,7 @@ Data Objects:
       import_suffix: .filtered-report.txt
       nmdc_suffix: _filterStats.txt
       input_to: []
-      output_of: nmdc:ReadQcAnalysisActivity
+      output_of: nmdc:ReadQcAnalysis
       mulitple: false
       action: rename
     - data_object_type: Read Filtering Info File 
@@ -389,7 +389,7 @@ Data Objects:
       import_suffix: .filter_cmd-MTF.sh
       nmdc_suffix: _readsQC.info
       input_to: []
-      output_of: nmdc:ReadQcAnalysisActivity
+      output_of: nmdc:ReadQcAnalysis
       mulitple: false
       action: rename
     - data_object_type: Assembly Contigs
