@@ -21,10 +21,28 @@ logger = logging.getLogger(__name__)
 
 
 class FileHandler:
-    def __init__(self, config: SiteConfig, state_file: Union[str, Path]):
+    def __init__(self, config: SiteConfig, state_file: Union[str, Path] = None):
         """ Initialize the FileHandler, with a Config object and an optional state file path """
         self.config = config
-        self.state_file = state_file
+        self._state_file = None
+        # set state file
+        if state_file:
+            self._state_file = Path(state_file)
+        elif self.config.agent_state:
+            self._state_file = Path(self.config.agent_state)
+        else:
+            # default state file - create if it doesn't exist
+            self._state_file = DEFAULT_STATE_DIR / "state.json"
+            if not self._state_file.exists():
+                self._state_file.touch()
+
+    @property
+    def state_file(self):
+        return self._state_file
+
+    @state_file.setter
+    def state_file(self, value):
+        self._state_file = value
 
     def read_state(self)-> Optional[Dict[str, Any]]:
         with open(self.state_file, "r") as f:
