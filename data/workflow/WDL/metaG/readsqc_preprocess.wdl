@@ -1,10 +1,14 @@
+version 1.0
+
 workflow readsqc_preprocess {
-    Array[File] input_files
-    Array[File] input_fq1
-    Array[File] input_fq2
-    String  container="bfoster1/img-omics:0.1.9"
-    String outdir
-    Boolean input_interleaved
+    input {
+        Array[File] input_files
+        Array[File] input_fq1
+        Array[File] input_fq2
+        String  container="bfoster1/img-omics:0.1.9"
+        String outdir
+        Boolean input_interleaved
+    }
 
     if (input_interleaved) {
         call gzip_input_int as gzip_int {
@@ -39,41 +43,45 @@ workflow readsqc_preprocess {
     }
 }
 
-task gzip_input_int{
-    Array[File] input_files
-	String container
-	String outdir
-    String dollar ="$"
+task gzip_input_int {
+    input {
+        Array[File] input_files
+        String container
+        String outdir
+        String dollar ="$"
+    }
 
-    command<<<
+    command <<<
         set -euo pipefail
-        mkdir -p ${outdir}
-        if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then
-            cp ${sep=" " input_files} ${outdir}/
-            header=`zcat ${input_files[0]} | (head -n1; dd status=none of=/dev/null)`
+        mkdir -p ~{outdir}
+        if file --mime -b ~{input_files[0]} | grep gzip > /dev/null ; then
+            cp ~{sep=" " input_files} ~{outdir}/
+            header=`zcat ~{input_files[0]} | (head -n1; dd status=none of=/dev/null)`
         else
-            cp ${sep=" " input_files} ${outdir}/
-            gzip -f ${outdir}/*.fastq
-            header=`cat ${input_files[0]} | (head -n1; dd status=none of=/dev/null)`
+            cp ~{sep=" " input_files} ~{outdir}/
+            gzip -f ~{outdir}/*.fastq
+            header=`cat ~{input_files[0]} | (head -n1; dd status=none of=/dev/null)`
         fi
-
-        for i in ${outdir}/*.gz
+        # prefix array
+        for i in ~{outdir}/*.gz
         do
-            name=${dollar}(basename "$i")
-            prefix=${dollar}{name%%.*}
+            name=~{dollar}(basename "$i")
+            prefix=~{dollar}{name%%.*}
             echo $prefix >> fileprefix.txt
         done    
         # simple format check 
         NumField=`echo $header | cut -d' ' -f2 | awk -F':' "{print NF}"`
         if [ $NumField -eq 4 ]; then echo "true"; else echo "false"; fi
     >>>
+
 	runtime {
-            docker: container
-            memory: "1 GiB"
-            cpu:  1
-        }
+        docker: container
+        memory: "1 GiB"
+        cpu:  1
+    }
+
 	output{
-        Array[File]? input_files_gz = glob("${outdir}/*.gz")
+        Array[File]? input_files_gz = glob("~{outdir}/*.gz")
         Array[String] input_files_prefix = read_lines("fileprefix.txt")
         Boolean isIllumina = read_boolean(stdout())
 	}
@@ -81,23 +89,24 @@ task gzip_input_int{
 
 
 task interleave_reads{
-
-    Array[File] input_files
-    String output_file = "interleaved.fastq.gz"
-	String container
+    input {
+        Array[File] input_files
+        String output_file = "interleaved.fastq.gz"
+        String container
+    }
 
     command <<<
         set -euo pipefail
-        if file --mime -b ${input_files[0]} | grep gzip > /dev/null ; then
-            paste <(gunzip -c ${input_files[0]} | paste - - - -) <(gunzip -c ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}
-            echo ${output_file}
+        if file --mime -b ~{input_files[0]} | grep gzip > /dev/null ; then
+            paste <(gunzip -c ~{input_files[0]} | paste - - - -) <(gunzip -c ~{input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ~{output_file}
+            echo ~{output_file}
         else
-            if [[ "${output_file}" == *.gz ]]; then
-                paste <(cat ${input_files[0]} | paste - - - -) <(cat ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}
-                echo ${output_file}
+            if [[ "~{output_file}" == *.gz ]]; then
+                paste <(cat ~{input_files[0]} | paste - - - -) <(cat ~{input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ~{output_file}
+                echo ~{output_file}
             else
-                paste <(cat ${input_files[0]} | paste - - - -) <(cat ${input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ${output_file}.gz
-                echo ${output_file}.gz
+                paste <(cat ~{input_files[0]} | paste - - - -) <(cat ~{input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ~{output_file}.gz
+                echo ~{output_file}.gz
             fi
         fi
     >>>
