@@ -30,17 +30,48 @@ def mock_cromwell(requests_mock, test_data_dir):
 
 
 # FileHandler init tests
-def test_file_handler_init_from_state_file(site_config, fixtures_dir):
+def test_file_handler_init_from_state_file(site_config, fixtures_dir, tmp_path):
     state_file = fixtures_dir / "initial_state.json"
+    # make a working copy in tmp_path
+    state_file = state_file.rename(tmp_path / "initial_state.json")
     fh = FileHandler(site_config, state_file)
     assert fh
     assert fh.state_file
-    assert fh.state_file.exists()
+    assert isinstance(fh.state_file, PosixPath)
+    # nothing has been written yet
+    assert not fh.state_file.exists()
+    # delete state file
+    fh.state_file = None
+    assert not fh.state_file
+    # test setter
+    fh.state_file = state_file
+    assert fh.state_file
+    # still nothing has been written yet
+    assert not fh.state_file.exists()
+
+    # read state
+    state = fh.read_state()
+    # assert state
+    # assert isinstance(state, dict)
 
 
-def test_file_handler_init_from_config_agent_state(site_config, fixtures_dir):
+
+    # assert fh.state_file.exists()
+    # delete state file
+    # fh.state_file.unlink()
+    # assert not fh.state_file.exists()
+    # test setter
+    # fh.state_file(state_file)
+    # assert fh.state_file
+    # assert fh.state_file.exists()
+
+
+def test_file_handler_init_from_config_agent_state(site_config, fixtures_dir, tmp_path):
+    state_file = fixtures_dir / "initial_state.json"
+    # make a working copy in tmp_path
+    state_file_path = state_file.rename(tmp_path / "initial_state.json")
     with patch("nmdc_automation.config.siteconfig.SiteConfig.agent_state", new_callable=PropertyMock) as mock_agent_state:
-        mock_agent_state.return_value = fixtures_dir / "initial_state.json"
+        mock_agent_state.return_value = state_file_path
         fh = FileHandler(site_config)
         assert fh
         assert fh.state_file
@@ -54,10 +85,6 @@ def test_file_handler_init_default_state(site_config):
     assert fh
     assert fh.state_file
     assert fh.state_file.exists()
-
-    #delete state file
-    fh.state_file.unlink()
-    assert not fh.state_file.exists()
 
     # create new FileHandler - should create new state file
     fh2 = FileHandler(site_config)

@@ -30,13 +30,6 @@ def mags_config(fixtures_dir)->WorkflowConfig:
     return WorkflowConfig(**wf)
 
 
-# @fixture(scope="session")
-# def mags_workflow_job(site_config, mock_job_state):
-#     job_runner = Mock()
-#     job_runner.metadata = {"status": "Succeeded"}
-#     return WorkflowJob(site_config, mock_job_state, job_runner)
-#
-
 @fixture(scope="session")
 def test_db():
     conn_str = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
