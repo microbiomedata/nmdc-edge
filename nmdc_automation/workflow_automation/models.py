@@ -40,19 +40,6 @@ def workflow_process_factory(record: Dict[str, Any]) -> Union[DataGeneration, Wo
     }
     record = _normalize_record(record)
 
-
-    # add type to Mags Analysis mags_list records
-    if record["type"] == "nmdc:MagsAnalysis" and "mags_list" in record:
-        for mag in record["mags_list"]:
-            if not mag.get("type"):
-                mag["type"] = "nmdc:MagBin"
-            if mag["gene_count"] == 'null':
-                mag["gene_count"] = 0
-
-            if "num_tRNA" in mag:
-                mag["num_t_rna"] = mag.pop("num_tRNA")
-
-
     try:
         cls = process_types[record["type"]]
     except KeyError:
@@ -68,6 +55,9 @@ def _normalize_record(record: Dict[str, Any]) -> Dict[str, Any]:
     # "null" is a string in the database, convert to None
     for key, value in record.items():
         if value == "null":
+            record[key] = None
+        # set zero values to None so they don't get serialized
+        if value == 0:
             record[key] = None
 
     # type-specific normalization
