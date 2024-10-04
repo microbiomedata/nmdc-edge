@@ -1,14 +1,25 @@
+input {
     String  <WORKFLOW>_input_file
     String  <WORKFLOW>_imgap_project_id
     String  <WORKFLOW>_outdir
     Int     <WORKFLOW>_additional_threads=42
     String  <WORKFLOW>_database_location="/refdata/img/"
     String  <WORKFLOW>_opaver_web_path="/expanse/projects/nmdc/edge_app/nmdc-edge/io/opaver_web/data"
-
-    call <WORKFLOW>.annotation as <ALIAS> {
-        input: input_file=<WORKFLOW>_input_file, proj=<WORKFLOW>_imgap_project_id,imgap_project_id=<WORKFLOW>_imgap_project_id, additional_threads=<WORKFLOW>_additional_threads, database_location=<WORKFLOW>_database_location
-    }
-    call MetaAnnotationOutput.annotation_output as annotation_output {
-        input:imgap_project_type=<WORKFLOW>_imgap_project_id, outdir=<WORKFLOW>_outdir, final_stats_tsv=<ALIAS>.stats_tsv, functional_gff=<ALIAS>.functional_gff, opaver_web_path=<WORKFLOW>_opaver_web_path
-    }
+}
+call <WORKFLOW>.annotation as <ALIAS> {
+    input: 
+        proj=<WORKFLOW>_imgap_project_id,
+        input_file=<WORKFLOW>_input_file,
+        imgap_project_id=<WORKFLOW>_imgap_project_id, 
+        additional_threads=<WORKFLOW>_additional_threads, 
+        database_location=<WORKFLOW>_database_location
+}
+call MetaAnnotationOutput.annotation_output as annotation_output {
+    input:
+        imgap_project_type=<WORKFLOW>_imgap_project_id, 
+        final_stats_tsv=<ALIAS>.stats_tsv, 
+        functional_gff=<ALIAS>.functional_gff,
+        opaver_web_path=<WORKFLOW>_opaver_web_path,
+        outdir=<WORKFLOW>_outdir
+}
 

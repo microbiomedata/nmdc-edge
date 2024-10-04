@@ -1,6 +1,6 @@
 workflowlist = {
     ReadbasedAnalysis: {
-        wdl: 'ReadbasedAnalysis.wdl',
+        wdl: 'https://raw.githubusercontent.com/microbiomedata/ReadbasedAnalysis/v1.0.8/ReadbasedAnalysis.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'ReadbasedAnalysis',
         full_name: 'Read-based Taxonomy Classification',
@@ -9,10 +9,10 @@ workflowlist = {
         options_json: 'metaG_options.tmpl',
         outdir: 'output/ReadbasedAnalysis',
         cromwell_calls: ['main_workflow.ReadbasedAnalysis'],
-        wdl_version: 'draft-2'
+        wdl_version: '1.0'
     },
     ReadsQC: {
-        wdl: 'rqcfilter.wdl',
+        wdl: 'https://raw.githubusercontent.com/microbiomedata/ReadsQC/refs/tags/v1.0.12/shortReadsqc.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'jgi_rqcfilter',
         full_name: 'ReadsQC',
@@ -21,10 +21,10 @@ workflowlist = {
         options_json: 'metaG_options.tmpl',
         outdir: 'output/ReadsQC',
         cromwell_calls: ['main_workflow.jgi_rqcfilter'],
-        wdl_version: 'draft-2'
+        wdl_version: '1.0'
     },
     MetaAnnotation: {
-        wdl: 'annotation_full.wdl',
+        wdl: 'https://raw.githubusercontent.com/microbiomedata/mg_annotation/refs/tags/v1.1.4/annotation_full.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'annotation',
         full_name: 'Metagenome Annotation',
@@ -33,7 +33,7 @@ workflowlist = {
         options_json: 'metaG_options.tmpl',
         outdir: 'output/MetagenomeAnnotation',
         cromwell_calls: ['main_workflow.annotation'],
-        wdl_version: 'draft-2'
+        wdl_version: '1.0'
     },
     MetaAssembly: {
         wdl: 'nmdcEDGE_assembly.wdl',
@@ -45,10 +45,10 @@ workflowlist = {
         options_json: 'metaG_options.tmpl',
         outdir: 'output/MetagenomeAssembly',
         cromwell_calls: ['main_workflow.jgi_metaASM'],
-        wdl_version: 'draft-2'
+        wdl_version: '1.0'
     },
     MetaMAGs: {
-        wdl: 'mbin_nmdc.wdl',
+        wdl: 'https://raw.githubusercontent.com/microbiomedata/metaMAGs/v1.3.10/mbin_nmdc.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'nmdc_mags',
         full_name: 'Metagenome MAGs',
@@ -57,7 +57,7 @@ workflowlist = {
         options_json: 'metaG_options.tmpl',
         outdir: 'output/MetagenomeMAGs',
         cromwell_calls: ['main_workflow.nmdc_mags'],
-        wdl_version: 'draft-2'
+        wdl_version: '1.0'
     },
     Metatranscriptome: {
         wdl: 'metaT.wdl',
@@ -93,7 +93,7 @@ workflowlist = {
         options_json: 'metaG_options.tmpl',
         outdir: 'output/virus_plasmid',
         cromwell_calls: ['main_workflow.viral'],
-        wdl_version: 'draft-2'
+        wdl_version: '1.0'
     },
     'Metaproteomics': {
         wdl_pipeline: 'metaP/metapro_main.wdl',
@@ -129,7 +129,7 @@ pipelinelist = {
         wdl_tmpl: 'metagenome_pipeline_wdl.tmpl',
         inputs_tmpl: 'metagenome_pipeline_inputs.tmpl',
         options_json: 'metagenome_pipeline_options.json',
-        wdl_version: 'draft-2',
+        wdl_version: '1.0',
         outdir: 'output',
         workflows: {
             ReadsQC: {

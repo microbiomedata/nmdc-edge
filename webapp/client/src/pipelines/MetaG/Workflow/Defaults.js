@@ -194,11 +194,12 @@ export const initialMetaMAGs = {
     gene_phylogeny_file_autoFill: false,
     lineage_file_autoFill: false,
     metaAssemblyOutputFiles: {
-        contig_file: 'assembly_contigs.fna',
+        //contig_file: 'assembly_contigs.fna',
         //sam_file: '_sorted.bam',
     },
     metaAnnotationOutputFiles: {
         //proteins_file:'_proteins.faa',
+        contig_file: '_contigs.fna',
         gff_file: '_functional_annotation.gff',
         cog_file: '_cog.gff',
         ec_file: '_ec.tsv',
@@ -212,6 +213,7 @@ export const initialMetaMAGs = {
         product_names_file: '_product_names.tsv',
         gene_phylogeny_file: '_gene_phylogeny.tsv',
         lineage_file: '_scaffold_lineage.tsv',
+        map_file: '_contig_names_mapping.tsv',
     }
 }
 

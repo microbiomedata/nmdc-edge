@@ -1,20 +1,23 @@
-workflow ReadbasedAnalysis_output {
+version 1.0
 
-    Array[File] reads
-    Int cpu
-    String prefix
-    String outdir
-    File gottcha2_report_tsv
-    File gottcha2_full_tsv
-    File gottcha2_krona_html
-    File centrifuge_classification_tsv
-    File centrifuge_report_tsv
-    File centrifuge_krona_html
-    File kraken2_classification_tsv
-    File kraken2_report_tsv
-    File kraken2_krona_html
-    File summary_json
-    String? docker = "microbiomedata/nmdc_taxa_profilers:1.0.3p1"
+workflow ReadbasedAnalysis_output {
+    input {
+        Array[File] reads
+        Int cpu
+        String prefix
+        String outdir
+        File gottcha2_report_tsv
+        File gottcha2_full_tsv
+        File gottcha2_krona_html
+        File centrifuge_classification_tsv
+        File centrifuge_report_tsv
+        File centrifuge_krona_html
+        File kraken2_classification_tsv
+        File kraken2_report_tsv
+        File kraken2_krona_html
+        File summary_json
+        String? docker = "microbiomedata/nmdc_taxa_profilers:1.0.3p1"
+    }
 
     call make_outputs {
         input: gottcha2_report_tsv = gottcha2_report_tsv,
@@ -31,23 +34,27 @@ workflow ReadbasedAnalysis_output {
                PREFIX = prefix,
                container = docker
     }
+}
 
 task make_outputs{
-    String outdir
-    File? gottcha2_report_tsv
-    File? gottcha2_full_tsv
-    File? gottcha2_krona_html
-    File? centrifuge_classification_tsv
-    File? centrifuge_report_tsv
-    File? centrifuge_krona_html
-    File? kraken2_classification_tsv
-    File? kraken2_report_tsv
-    File? kraken2_krona_html
-    File? summary_json
-    String PREFIX
-    String container
+    input {
+        String outdir
+        File? gottcha2_report_tsv
+        File? gottcha2_full_tsv
+        File? gottcha2_krona_html
+        File? centrifuge_classification_tsv
+        File? centrifuge_report_tsv
+        File? centrifuge_krona_html
+        File? kraken2_classification_tsv
+        File? kraken2_report_tsv
+        File? kraken2_krona_html
+        File? summary_json
+        String PREFIX
+        String? container
+    }
 
     command<<<
+        set -euo pipefail
         mkdir -p ${outdir}/gottcha2
         cp ${gottcha2_report_tsv} ${gottcha2_full_tsv} ${gottcha2_krona_html} \
            ${outdir}/gottcha2

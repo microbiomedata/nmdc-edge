@@ -89,8 +89,8 @@ function Main(props) {
 
         } else if (workflow === 'MetaMAGs') {
             myWorkflow.sam_file= selectedWorkflows[workflow].sam_file;
-            myWorkflow.contig_file = selectedWorkflows[workflow].contig_file;
             myWorkflow.proteins_file = selectedWorkflows[workflow].proteins_file;
+            myWorkflow.contig_file = selectedWorkflows[workflow].contig_file;
             myWorkflow.gff_file = selectedWorkflows[workflow].gff_file;
             myWorkflow.cog_file = selectedWorkflows[workflow].cog_file;
             myWorkflow.ec_file = selectedWorkflows[workflow].ec_file;
@@ -104,8 +104,8 @@ function Main(props) {
             myWorkflow.map_file = selectedWorkflows[workflow].map_file;
 
             inputDisplay.input['sam/bam file'] = selectedWorkflows[workflow].sam_file_display;
-            inputDisplay.input['contig file'] = selectedWorkflows[workflow].contig_file_display;
             inputDisplay.input['proteins file'] = selectedWorkflows[workflow].proteins_file_display;
+            inputDisplay.input['contig file'] = selectedWorkflows[workflow].contig_file_display;
             inputDisplay.input['gff file'] = selectedWorkflows[workflow].gff_file_display;
             inputDisplay.input['cog file'] = selectedWorkflows[workflow].cog_file_display;
             inputDisplay.input['ec file'] = selectedWorkflows[workflow].ec_file_display;
