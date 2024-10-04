@@ -1,20 +1,20 @@
 Workflows:
   - Name: Metatranscriptome Reads QC
     Import: true
-    Type: nmdc:ReadQcAnalysisActivity
+    Type: nmdc:ReadQcAnalysis
     Git_repo: https://github.com/microbiomedata/metaT_ReadsQC
     Version: v0.0.7
-    Collection: read_qc_analysis_activity_set
+    Collection: workflow_execution_set/
     ActivityRange: ReadQcAnalysisActivity
     Inputs:
       - Metagenome Raw Reads
     Activity:
-      name: "Read QC Activity for {id}"
+      name: "Read QC for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
       input_read_count: "{outputs.stats.input_read_count}"
       output_read_bases: "{outputs.stats.output_read_bases}"
       output_read_count: "{outputs.stats.output_read_count}"
-      type: nmdc:ReadQcAnalysisActivity
+      type: nmdc:ReadQcAnalysis
     Outputs:
       - Filtered Sequencing Reads
       - QC Statistics
@@ -26,7 +26,7 @@ Workflows:
     Type: nmdc:MetatranscriptomeAssembly
     Git_repo: https://github.com/microbiomedata/metaT_Assembly
     Version: v0.0.2
-    Collection: metatranscriptome_assembly_set
+    Collection: workflow_execution_set/
     ActivityRange: MetatranscriptomeAssembly
     Inputs:
       - Filtered Sequencing Reads
@@ -67,16 +67,16 @@ Workflows:
 
   - Name: Metatranscriptome Annotation
     Import: false
-    Type: nmdc:MetatranscriptomeAnnotationActivity
+    Type: nmdc:MetatranscriptomeAnnotation
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Version: v1.1.4
-    Collection: metatranscriptome_annotation_set
-    ActivityRange: MetatranscriptomeAnnotationActivity
+    Collection: workflow_execution_set
+    ActivityRange: MetatranscriptomeAnnotation
     Inputs:
       - Assembly Contigs
     Activity:
       name: "Metatranscriptome Annotation Analysis Activity for {id}"
-      type: nmdc:MetatranscriptomeAnnotationActivity
+      type: nmdc:MetatranscriptomeAnnotation
     Outputs:
       - Annotation Amino Acid FASTA
       - Structural Annotation GFF
@@ -130,7 +130,7 @@ Data Objects:
       name: Raw sequencer read data
       import_suffix: .[A-Z]+-[A-Z]+.fastq.gz
       nmdc_suffix: .fastq.gz
-      input_to: [nmdc:ReadQcAnalysisActivity]
+      input_to: [nmdc:ReadQcAnalysis]
       output_of: nmdc:OmicsProcessing
       mulitple: false
       action: none
@@ -140,7 +140,7 @@ Data Objects:
       import_suffix: _proteins.faa
       nmdc_suffix: _proteins.faa
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Contig Mapping File
@@ -149,7 +149,7 @@ Data Objects:
       import_suffix: _contig_names_mapping.tsv
       nmdc_suffix: _contig_names_mapping.tsv
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Structural Annotation GFF
@@ -158,7 +158,7 @@ Data Objects:
       import_suffix: _structural_annotation.gff
       nmdc_suffix: _structural_annotation.gff
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Functional Annotation GFF
@@ -167,7 +167,7 @@ Data Objects:
       import_suffix: _functional_annotation.gff
       nmdc_suffix: _functional_annotation.gff
       input_to: [nmdc:MetatranscriptomeExpressionAnalysis]
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Annotation KEGG Orthology
@@ -176,7 +176,7 @@ Data Objects:
       import_suffix: _ko.tsv
       nmdc_suffix: _ko.tsv
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Annotation Enzyme Commission
@@ -185,7 +185,7 @@ Data Objects:
       import_suffix: _ec.tsv
       nmdc_suffix: _ec.tsv
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type Scaffold Lineage tsv
@@ -194,7 +194,7 @@ Data Objects:
       import_suffix: _scaffold_lineage.tsv
       nmdc_suffix: _scaffold_lineage.tsv
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
     - data_object_type: Clusters of Orthologous Groups (COG) Annotation GFF
       description: COGs for {id}
@@ -202,7 +202,7 @@ Data Objects:
       import_suffix: _cog.gff
       nmdc_suffix: _cog.gff
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Pfam Annotation GFF
@@ -211,7 +211,7 @@ Data Objects:
       import_suffix: _pfam.gff
       nmdc_suffix: _pfam.gff
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: TIGRFam Annotation GFF
@@ -220,7 +220,7 @@ Data Objects:
       import_suffix: _tigrfam.gff
       nmdc_suffix: _tigrfam.gff
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: SMART Annotation GFF
@@ -229,7 +229,7 @@ Data Objects:
       import_suffix: _smart.gff
       nmdc_suffix: _smart.gff
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: SUPERFam Annotation GFF
@@ -238,7 +238,7 @@ Data Objects:
       import_suffix: _supfam.gff
       nmdc_suffix: _supfam.gff
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: CATH FunFams (Functional Families) Annotation GFF
@@ -247,7 +247,7 @@ Data Objects:
       import_suffix: _cath_funfam.gff
       nmdc_suffix: _cath_funfam.gff
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: CRT Annotation GFF
@@ -256,7 +256,7 @@ Data Objects:
       import_suffix: _crt.gff
       nmdc_suffix: _crt.gff
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Genemark Annotation GFF
@@ -265,7 +265,7 @@ Data Objects:
       import_suffix: _genemark.gff
       nmdc_suffix: _genemark.gff
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Prodigal Annotation GFF
@@ -274,7 +274,7 @@ Data Objects:
       import_suffix: _prodigal.gff
       nmdc_suffix: _prodigal.gff
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: TRNA Annotation GFF
@@ -283,7 +283,7 @@ Data Objects:
       import_suffix: _trna.gff
       nmdc_suffix: _trna.gff
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: RFAM Annotation GFF
@@ -292,7 +292,7 @@ Data Objects:
       import_suffix: _rfam.gff
       nmdc_suffix: _rfam.gff
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: KO_EC Annotation GFF
@@ -301,7 +301,7 @@ Data Objects:
       import_suffix: _ko_ec.gff
       nmdc_suffix: _ko_ec.gff
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Product Names
@@ -310,7 +310,7 @@ Data Objects:
       import_suffix: _product_names.tsv
       nmdc_suffix: _product_names.tsv
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Gene Phylogeny tsv
@@ -319,7 +319,7 @@ Data Objects:
       import_suffix: _gene_phylogeny.tsv
       nmdc_suffix: _gene_phylogeny.tsv
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Crispr Terms
@@ -328,7 +328,7 @@ Data Objects:
       import_suffix: _crt.crisprs
       nmdc_suffix: _crt.crisprs
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Annotation Statistics
@@ -337,7 +337,7 @@ Data Objects:
       import_suffix: _stats.tsv
       nmdc_suffix: _stats.tsv
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Annotation Info File
@@ -346,7 +346,7 @@ Data Objects:
       import_suffix: _imgap.info
       nmdc_suffix: _imgap.info
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false
       action: rename
     - data_object_type: Assembly Contigs
@@ -354,7 +354,7 @@ Data Objects:
       import_suffix: _contigs.fna 
       nmdc_suffix: _renamed_contigs.fna
       input_to: []
-      output_of: nmdc:MetatranscriptomeAnnotationActivity
+      output_of: nmdc:MetatranscriptomeAnnotation
       mulitple: false 
     - data_object_type: Filtered Sequencing Reads
       description: Reads QC for {id}
@@ -397,7 +397,7 @@ Data Objects:
       name: Final assembly contigs fasta
       import_suffix: assembly.contigs.fasta
       nmdc_suffix: _contigs.fna
-      input_to: [nmdc:MetatranscriptomeAnnotationActivity]
+      input_to: [nmdc:MetatranscriptomeAnnotation]
       output_of: nmdc:MetatranscriptomeAssembly
       mulitple: false
       action: rename
