@@ -163,7 +163,7 @@ def test_file_handler_write_metadata_if_not_exists(site_config, initial_state_fi
         assert metadata_path.is_file()
 
 
-
+# JobManager tests
 def test_job_manager_init(site_config, initial_state_file):
     # Arrange
     fh = FileHandler(site_config, initial_state_file)
@@ -213,6 +213,36 @@ def test_job_manager_save_checkpoint(site_config, initial_state_file):
     # cleanup
     fh.state_file.unlink()
 
+def test_job_manager_find_job_by_opid(site_config, initial_state_file):
+    # Arrange
+    fh = FileHandler(site_config, initial_state_file)
+    jm = JobManager(site_config, fh)
+    # Act
+    job = jm.find_job_by_opid("nmdc:test-opid")
+    # Assert
+    assert job
+    assert isinstance(job, WorkflowJob)
+    assert job.opid == "nmdc:test-opid"
+    assert not job.done
+
+
+def test_job_manager_prepare_and_cache_new_job(site_config, initial_state_file, fixtures_dir):
+    # Arrange
+    fh = FileHandler(site_config, initial_state_file)
+    jm = JobManager(site_config, fh)
+    new_job_state = json.load(open(fixtures_dir / "new_state_job.json"))
+    assert new_job_state
+    new_job = WorkflowJob(site_config, new_job_state)
+    # Act
+    opid = "nmdc:test-opid-2"
+    job = jm.prepare_and_cache_new_job(new_job, opid)
+    # Assert
+    assert job
+    assert isinstance(job, WorkflowJob)
+    assert job.opid == opid
+    assert not job.done
+    # cleanup
+    jm.job_cache = []
 
 
 
