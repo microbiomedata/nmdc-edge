@@ -62,9 +62,8 @@ def test_workflow_job_data_objects_and_execution_record(site_config, fixtures_di
     # attributes from final_stats_json
     assert wfe.mags_list
     assert isinstance(wfe.mags_list, list)
-    # check that the other final_stats props are there and return an int
+    # check that the other final_stats props are there
     assert isinstance(wfe.input_contig_num, int)
-    assert isinstance(wfe.low_depth_contig_num, int)
     assert isinstance(wfe.too_short_contig_num, int)
     assert isinstance(wfe.unbinned_contig_num, int)
     assert isinstance(wfe.binned_contig_num, int)

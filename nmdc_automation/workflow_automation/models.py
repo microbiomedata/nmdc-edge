@@ -52,25 +52,30 @@ def _normalize_record(record: Dict[str, Any]) -> Dict[str, Any]:
     record.pop("_id", None)
     # for backwards compatibility strip Activity from the end of the type
     record["type"] = record["type"].replace("Activity", "")
-    # "null" is a string in the database, convert to None
-    for key, value in record.items():
-        if value == "null":
-            record[key] = None
-        # set zero values to None so they don't get serialized
-        if value == 0:
-            record[key] = None
+    normalized_record = _strip_empty_values(record)
 
     # type-specific normalization
     # add type to Mags Analysis mags_list records
-    if record["type"] == "nmdc:MagsAnalysis" and "mags_list" in record:
-        for mag in record["mags_list"]:
+    if normalized_record["type"] == "nmdc:MagsAnalysis" and "mags_list" in normalized_record:
+        for i, mag in enumerate(normalized_record.get("mags_list", [])):
             if not mag.get("type"):
-                mag["type"] = "nmdc:MagBin"
+                # Update the original dictionary in the list
+                normalized_record["mags_list"][i]["type"] = "nmdc:MagBin"
             if "num_tRNA" in mag:
-                mag["num_t_rna"] = mag.pop("num_tRNA")
+                normalized_record["mags_list"][i]["num_t_rna"] = mag.pop("num_tRNA")
 
-    return record
+    return normalized_record
 
+def _strip_empty_values(d: Dict[str, Any]) -> Dict[str, Any]:
+    """ Strip empty values from a record """
+    empty_values = [None, "", [], "null", 0]
+    def clean_dict(d):
+        if isinstance(d, dict):
+            return {k: clean_dict(v) for k, v in d.items() if v not in empty_values}
+        elif isinstance(d, list):
+            return [clean_dict(v) for v in d if v not in empty_values]
+        return d
+    return clean_dict(d)
 
 class WorkflowProcessNode(object):
     """
