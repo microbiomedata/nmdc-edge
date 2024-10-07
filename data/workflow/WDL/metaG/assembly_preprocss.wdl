@@ -11,11 +11,10 @@ workflow assembly_preprocess {
     }
 
     call estimate_memory_int {
-        input: {
+        input:
             input_files = input_files,
             container = container,
             outdir = outdir
-        }
     }
 
     output {
