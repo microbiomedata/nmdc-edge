@@ -10,7 +10,20 @@ workflow assembly_preprocess {
         Boolean input_interleaved
     }
 
-    task estimate_memory_int {
+    call estimate_memory_int {
+        input {
+            input_files = input_files,
+            container = container,
+            outdir = outdir
+        }
+    }
+
+    output {
+        String num_kmers=estimate_memory_int.num_kmers
+    }
+}
+
+task estimate_memory_int {
         input {
             Array[File] input_files
             String container
@@ -31,7 +44,6 @@ workflow assembly_preprocess {
         }
 
         output {
-            num_kmers = ${kmers}
+            String num_kmers = "${kmers}"
         }
     }
-}
