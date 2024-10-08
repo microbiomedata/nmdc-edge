@@ -12,7 +12,7 @@ def object_action(
     action: str,
     workflow_execution_id: str,
     nmdc_suffix: str,
-    workflow_execution_dir: Union[str, Path] = None,
+    workflow_execution_dir: str,
     multiple: bool = False,
 ) -> str:
     """
