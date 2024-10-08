@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 
 
 class FileHandler:
+    """ FileHandler class for managing state and metadata files """
     def __init__(self, config: SiteConfig, state_file: Union[str, Path] = None):
         """ Initialize the FileHandler, with a Config object and an optional state file path """
         self.config = config
@@ -44,19 +45,23 @@ class FileHandler:
             self._state_file = DEFAULT_STATE_FILE
 
     @property
-    def state_file(self):
+    def state_file(self) -> Path:
+        """ Get the state file path """
         return self._state_file
 
     @state_file.setter
-    def state_file(self, value):
+    def state_file(self, value) -> None:
+        """ Set the state file path """
         self._state_file = value
 
     def read_state(self)-> Optional[Dict[str, Any]]:
+        """ Read the state file and return the data """
         with open(self.state_file, "r") as f:
             state = loads(f.read())
         return state
 
-    def write_state(self, data):
+    def write_state(self, data) -> None:
+        """ Write data to the state file """
         # normalize "id" used in database job records to "nmdc_jobid"
         for job in data["jobs"]:
             if "id" in job:
@@ -65,11 +70,13 @@ class FileHandler:
             json.dump(data, f, indent=2)
 
     def get_output_path(self, job: WorkflowJob) -> Path:
+        """ Get the output path for a job """
         # construct path from string components
         output_path = Path(self.config.data_dir) / job.was_informed_by / job.workflow_execution_id
         return output_path
 
     def write_metadata_if_not_exists(self, job: WorkflowJob)->Path:
+        """ Write metadata to a file if it doesn't exist """
         metadata_filepath = self.get_output_path(job) / "metadata.json"
         # make sure the parent directories exist
         metadata_filepath.parent.mkdir(parents=True, exist_ok=True)
