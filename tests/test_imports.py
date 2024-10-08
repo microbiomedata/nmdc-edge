@@ -66,3 +66,4 @@ def test_multiple_object_mapper(gold_mapper):
     # Add assertions to check if the method works as expected
     assert len(gold_mapper.nmdc_db.data_object_set) == 1
     assert len(gold_mapper.objects) == 1
+    assert gold_mapper.nmdc_db.data_object_set.url == "https://data.microbiomedata.org/data/nmdc:omprc-11-importT/nmdc:abcd.1/nmdc_abcd.1_hqmq_bin.zip"
