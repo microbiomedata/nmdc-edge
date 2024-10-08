@@ -18,7 +18,8 @@ workflow assembly_preprocess {
     }
 
     output {
-        File num_kmers=estimate_memory_int.num_kmers
+        File kmers_file=estimate_memory_int.kmers_file
+        String num_kmers=estimate_memory_int.num_kmers
     }
 }
 
