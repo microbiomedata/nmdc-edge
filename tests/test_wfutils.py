@@ -27,6 +27,15 @@ def test_cromwell_job_runner(site_config, fixtures_dir):
     assert job_runner
 
 
+def test_cromwell_job_runner_get_job_status(site_config, fixtures_dir):
+    # load cromwell metadata
+    job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
+    job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+
+    job_runner = CromwellRunner(site_config, job_state, job_metadata)
+    status = job_runner.get_job_status()
+    assert status
+
 def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
     workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
     job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))

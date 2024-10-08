@@ -3,6 +3,7 @@ import os
 from pymongo import MongoClient
 from pathlib import Path
 from pytest import fixture
+import requests_mock
 import shutil
 from time import time
 from unittest.mock import Mock
@@ -96,3 +97,41 @@ def initial_state_file(fixtures_dir, tmp_path):
     copied_state_file = tmp_path / "initial_state.json"
     shutil.copy(state_file, copied_state_file)
     return copied_state_file
+
+
+# Sample Cromwell API responses
+CROMWELL_SUCCESS_RESPONSE = {
+    "id": "cromwell-job-id-12345",
+    "status": "Succeeded",
+    "outputs": {
+        "output_file": "/path/to/output.txt"
+    }
+}
+
+CROMWELL_FAIL_RESPONSE = {
+    "id": "cromwell-job-id-54321",
+    "status": "Failed",
+    "failures": [
+        {"message": "Error processing job"}
+    ]
+}
+
+
+@fixture
+def mock_cromwell_api():
+    with requests_mock.Mocker() as m:
+        # Mock the Cromwell submit job endpoint
+        m.post('http://cromwell-server/api/workflows/v1', json=CROMWELL_SUCCESS_RESPONSE, status_code=201)
+
+        # Mock Cromwell status check endpoint
+        m.get(
+            'http://cromwell-server/api/workflows/v1/cromwell-job-id-12345/status', json={
+                "id": "cromwell-job-id-12345",
+                "status": "Succeeded"
+            }
+            )
+
+        # Mock Cromwell failure scenario
+        m.get('http://cromwell-server/api/workflows/v1/cromwell-job-id-54321/status', json=CROMWELL_FAIL_RESPONSE)
+
+        yield m
