@@ -3,6 +3,7 @@ from typing import Union, List
 import logging
 import hashlib
 import os
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
