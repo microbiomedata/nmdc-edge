@@ -44,6 +44,6 @@ task estimate_memory_int {
 
         output {
             File kmers_file = "cardinality.txt"
-            String num_kmers = ~{num_kmers}
+            String num_kmers = read_string(stdout())
         }
     }
