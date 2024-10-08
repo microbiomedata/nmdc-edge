@@ -27,13 +27,12 @@ task estimate_memory_int {
             Array[File] input_files
             String container
             String outdir
-            String dollar ="$"
         }
 
         command <<<
             reformat.sh in=~{input_files[0]} interleaved=t cardinality=true out=stdout.fq 1> /dev/null 2>| cardinality.txt
-            kmers=grep 'Unique' cardinality.txt  | awk -F'\t' '{print $2}'
-            echo $kmers
+            num_kmers=cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}'
+            echo ~{num_kmers}
             >>>
 
         runtime {
@@ -43,6 +42,7 @@ task estimate_memory_int {
         }
 
         output {
-            File num_kmers = "cardinality.txt"
+            File kmers_file = "cardinality.txt"
+            String num_kmers = num_kmers
         }
     }
