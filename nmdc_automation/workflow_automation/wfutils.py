@@ -14,6 +14,7 @@ import shutil
 from nmdc_automation.config import SiteConfig
 from nmdc_automation.workflow_automation.models import DataObject, workflow_process_factory
 
+DEFAULT_MAX_RETRIES = 2
 
 class JobRunnerABC(ABC):
 
@@ -22,7 +23,11 @@ class JobRunnerABC(ABC):
         pass
 
     @abstractmethod
-    def check_job_status(self) -> str:
+    def get_job_status(self) -> str:
+        pass
+
+    @abstractmethod
+    def get_job_metadata(self) -> Dict[str, Any]:
         pass
 
     @property
@@ -40,26 +45,37 @@ class JobRunnerABC(ABC):
     def metadata(self) -> Dict[str, Any]:
         pass
 
+    @property
+    @abstractmethod
+    def max_retries(self) -> int:
+        pass
+
 
 
 class CromwellRunner(JobRunnerABC):
 
-    def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager", job_metadata: Dict[str, Any] = None):
+    def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager", job_metadata: Dict[str,
+    Any] = None, max_retries: int = DEFAULT_MAX_RETRIES):
         self.config = site_config
         self.workflow = workflow
         self.service_url = self.config.cromwell_url
         self._metadata = {}
         if job_metadata:
             self._metadata = job_metadata
+        self._max_retries = max_retries
 
 
     def submit_job(self) -> str:
             # TODO: implement
             pass
 
-    def check_job_status(self) -> str:
+    def get_job_status(self) -> str:
             # TODO: implement
             return "Pending"
+
+    def get_job_metadata(self) -> Dict[str, Any]:
+            raise NotImplementedError
+            # TODO: implement
 
     @property
     def job_id(self) -> Optional[str]:
@@ -76,6 +92,11 @@ class CromwellRunner(JobRunnerABC):
     @metadata.setter
     def metadata(self, metadata: Dict[str, Any]):
             self._metadata = metadata
+
+    @property
+    def max_retries(self) -> int:
+            return self._max_retries
+
 
 
 class WorkflowStateManager:
@@ -183,18 +204,19 @@ class WorkflowJob:
     def job_status(self) -> str:
         status = None
         job_id_keys = ["cromwell_jobid"]
+        failed_count = self.workflow.state.get("failed_count", 0)
         # if none of the job id keys are in the workflow state, it is unsubmitted
         if not any(key in self.workflow.state for key in job_id_keys):
             status = "Unsubmitted"
             self.workflow.update_state({"last_status": status})
-            return status
         elif self.workflow.state.get("last_status") == "Succeeded":
             status = "Succeeded"
-            return status
+        elif self.workflow.state.get("last_status") == "Failed" and failed_count >= self.job.max_retries:
+            status = "Failed"
         else:
-            status = self.job.check_job_status()
+            status = self.job.get_job_status()
             self.workflow.update_state({"last_status": status})
-            return status
+        return status
 
 
     @property

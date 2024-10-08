@@ -245,6 +245,38 @@ def test_job_manager_prepare_and_cache_new_job(site_config, initial_state_file, 
     jm.job_cache = []
 
 
+def test_job_manager_get_finished_jobs(site_config, initial_state_file, fixtures_dir):
+    # Arrange - initial state has 1 failure and is not done
+    fh = FileHandler(site_config, initial_state_file)
+    jm = JobManager(site_config, fh)
+
+    # Add a job to the cache - mags is done and successful
+    new_job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    assert new_job_state
+    new_job = WorkflowJob(site_config, new_job_state)
+    jm.job_cache.append(new_job)
+    # sanity check
+    assert len(jm.job_cache) == 2
+
+    # add a failed job
+    failed_job_state = json.load(open(fixtures_dir / "failed_job_state.json"))
+    assert failed_job_state
+    failed_job = WorkflowJob(site_config, failed_job_state)
+    assert failed_job.job_status == "Failed"
+    jm.job_cache.append(failed_job)
+    # sanity check
+    assert len(jm.job_cache) == 3
+
+
+
+    # Act
+    successful_jobs, failed_jobs = jm.get_finished_jobs()
+    # Assert
+    assert successful_jobs
+    assert failed_jobs
+    # cleanup
+    jm.job_cache = []
+
 
 @fixture
 def mock_runtime_api_handler(site_config, mock_api):

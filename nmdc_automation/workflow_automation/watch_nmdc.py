@@ -149,7 +149,7 @@ class JobManager:
         successful_jobs = []
         failed_jobs = []
         for job in self.job_cache:
-            if not job.done:
+            if job.done:
                 status = job.job_status
                 if status == "Succeeded" and job.opid:
                     successful_jobs.append(job)
