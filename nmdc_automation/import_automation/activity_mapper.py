@@ -168,7 +168,7 @@ class GoldMapper:
                 nmdc.DataObject(
                     file_size_bytes=filemeta.st_size,
                     name=data_object_dict["name"],
-                    url=f"{self.url}/{self.nucelotide_sequencing_id}/{workflow_execution_dir}/{file_destination_name}",
+                    url=f"{self.url}/{self.nucelotide_sequencing_id}/{workflow_execution_id}/{file_destination_name}",
                     data_object_type=data_object_dict["data_object_type"],
                     type=self.data_object_type,
                     id=dobj,
