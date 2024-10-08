@@ -18,7 +18,7 @@ workflow assembly_preprocess {
     }
 
     output {
-        String num_kmers=estimate_memory_int.num_kmers
+        File num_kmers=estimate_memory_int.num_kmers
     }
 }
 
@@ -31,7 +31,7 @@ task estimate_memory_int {
         }
 
         command <<<
-            reformat.sh in=${input_files} interleaved=t cardinality=true out=stdout.fq 1> /dev/null 2>| cardinality.txt
+            reformat.sh in=~{input_files[0]} interleaved=t cardinality=true out=stdout.fq 1> /dev/null 2>| cardinality.txt
             kmers=grep 'Unique' cardinality.txt  | awk -F'\t' '{print $2}'
             echo $kmers
             >>>
@@ -43,6 +43,6 @@ task estimate_memory_int {
         }
 
         output {
-            String num_kmers = "${kmers}"
+            File num_kmers = "cardinality.txt"
         }
     }
