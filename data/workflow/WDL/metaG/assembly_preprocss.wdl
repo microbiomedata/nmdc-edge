@@ -32,7 +32,7 @@ task estimate_memory_int {
 
         command <<<
             reformat.sh in=~{input_files[0]} interleaved=t cardinality=true out=stdout.fq 1> /dev/null 2>| cardinality.txt
-            num_kmers=cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}'
+            num_kmers=`cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}'`
             echo ~{num_kmers}
             >>>
 
@@ -44,6 +44,6 @@ task estimate_memory_int {
 
         output {
             File kmers_file = "cardinality.txt"
-            String num_kmers = num_kmers
+            String num_kmers = ~{num_kmers}
         }
     }
