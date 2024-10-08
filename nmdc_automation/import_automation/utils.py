@@ -23,7 +23,7 @@ def object_action(
         action (str): The action to perform. Possible values are 'none', 'rename', or 'zip'.
         workflow_execution_id (str): The workflow execution subclass ID associated with the object.
         nmdc_suffix (str): The NMDC suffix.
-        workflow_execution_dir (str, optional): The directory where the workflow execution subclass is located. Defaults to None.
+        workflow_execution_dir (str or Path, optional): The directory where the workflow execution subclass is located. Defaults to None.
         multiple (bool, optional): Indicates if multiple files are involved. Defaults to False.
 
     Returns:
