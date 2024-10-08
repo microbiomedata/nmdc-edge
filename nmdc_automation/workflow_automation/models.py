@@ -61,6 +61,7 @@ def _normalize_record(record: Dict[str, Any]) -> Dict[str, Any]:
             if not mag.get("type"):
                 # Update the original dictionary in the list
                 normalized_record["mags_list"][i]["type"] = "nmdc:MagBin"
+            # for backwards compatibility normalize num_tRNA to num_t_rna
             if "num_tRNA" in mag:
                 normalized_record["mags_list"][i]["num_t_rna"] = mag.pop("num_tRNA")
 
