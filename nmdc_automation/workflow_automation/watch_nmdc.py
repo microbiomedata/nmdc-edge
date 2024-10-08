@@ -188,7 +188,7 @@ class JobManager:
         workflow_execution_record = job.make_workflow_execution_record(data_objects)
         database.workflow_execution_set = [workflow_execution_record]
 
-        self.file_handler.write_metadata_if_not_exists(job, output_path)
+        self.file_handler.write_metadata_if_not_exists(job)
         return database
 
 
