@@ -67,4 +67,5 @@ def test_multiple_object_mapper(gold_mapper):
     assert len(gold_mapper.nmdc_db.data_object_set) == 1
     print(gold_mapper.nmdc_db.data_object_set)
     assert len(gold_mapper.objects) == 1
-    assert gold_mapper.nmdc_db.data_object_set.url == "https://data.microbiomedata.org/data/nmdc:omprc-11-importT/nmdc:abcd.1/nmdc_abcd.1_hqmq_bin.zip"
+    #check that the data object url gets made correctly for the multiple object mapper function.
+    assert "https://data.microbiomedata.org/data/nmdc:omprc-11-importT/nmdc:abcd.1/nmdc_abcd.1_hqmq_bin.zip" in (do["url"] for do in gold_mapper.nmdc_db.data_object_set) 
