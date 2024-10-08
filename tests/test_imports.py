@@ -5,7 +5,6 @@ from pytest import fixture
 from time import time
 
 
-@fixture
 
 #TODO NOW: update to use real import.yaml file. Unclear if this is the right thing to do based on how the tests are set up. 
 #ie we want to test that the binning packaging works even if we have this false by default for older projects where we want to annotate and re-bin.
