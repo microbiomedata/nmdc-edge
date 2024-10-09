@@ -17,6 +17,7 @@ from nmdc_automation.workflow_automation.models import DataObject, workflow_proc
 
 DEFAULT_MAX_RETRIES = 2
 
+
 class JobRunnerABC(ABC):
 
     @abstractmethod
@@ -189,7 +190,6 @@ class WorkflowJob:
         self.job = job_runner
 
     # Properties to access the site config, job state, and job runner attributes
-    # getter and setter props for job state opid
     @property
     def opid(self) -> str:
         return self.workflow.state.get("opid", None)

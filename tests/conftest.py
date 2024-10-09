@@ -116,13 +116,16 @@ CROMWELL_FAIL_RESPONSE = {
     ]
 }
 
+JOB_SUBMIT_RESPONSE = {
+    "run_id": "cromwell-job-id-12345"
+}
 
 @fixture
 def mock_cromwell_api(fixtures_dir):
     successful_job_metadata = json.load(open(fixtures_dir / 'cromwell/succeeded_metadata.json'))
     with requests_mock.Mocker() as m:
         # Mock the Cromwell submit job endpoint
-        m.post('http://localhost:8088/api/workflows/v1', json=CROMWELL_SUCCESS_RESPONSE, status_code=201)
+        m.post('http://localhost:8088/api/workflows/v1/runs', json=JOB_SUBMIT_RESPONSE, status_code=201)
 
         # Mock Cromwell status check endpoint
         m.get(

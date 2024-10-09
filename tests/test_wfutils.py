@@ -63,6 +63,19 @@ def test_cromwell_job_runner_get_job_metadata(site_config, fixtures_dir, mock_cr
     assert job_runner.metadata == metadata
 
 
+def test_cromwell_job_runner_submit_job(site_config, fixtures_dir, mock_cromwell_api):
+    # load cromwell metadata
+    job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
+    job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    # successful job from the test fixtures
+    job_state['cromwell_jobid'] = "cromwell-job-id-12345"
+    job_metadata['id'] = "cromwell-job-id-12345"
+
+    job_runner = CromwellRunner(site_config, job_state, job_metadata)
+    job_runner.submit_job()
+
+
+
 def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
     workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
     job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
