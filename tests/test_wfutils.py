@@ -4,7 +4,7 @@ from nmdc_automation.workflow_automation.wfutils import (
     WorkflowStateManager
 )
 from nmdc_automation.workflow_automation.models import DataObject, workflow_process_factory
-from nmdc_schema.nmdc import MagsAnalysis
+from nmdc_schema.nmdc import MagsAnalysis, EukEval
 import json
 
 
@@ -56,7 +56,7 @@ def test_state_manager(fixtures_dir):
     assert state.was_informed_by == mags_job_state['conf']['was_informed_by']
 
 
-def test_workflow_job_data_objects_and_execution_record(site_config, fixtures_dir, tmp_path):
+def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtures_dir, tmp_path):
     # Note: test working dir must be the root of the project for this to work
     job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
     workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
@@ -71,6 +71,14 @@ def test_workflow_job_data_objects_and_execution_record(site_config, fixtures_di
     # attributes from final_stats_json
     assert wfe.mags_list
     assert isinstance(wfe.mags_list, list)
+    # check for eukaryotic evaluation in each mag
+    for mag in wfe.mags_list:
+        assert mag.eukaryotic_evaluation
+        assert isinstance(mag.eukaryotic_evaluation, EukEval)
+        assert mag.eukaryotic_evaluation.completeness
+        assert mag.eukaryotic_evaluation.contamination
+        assert mag.eukaryotic_evaluation.ncbi_lineage
+        assert mag.eukaryotic_evaluation.ncbi_lineage
     # check that the other final_stats props are there
     assert isinstance(wfe.input_contig_num, int)
     assert isinstance(wfe.too_short_contig_num, int)
