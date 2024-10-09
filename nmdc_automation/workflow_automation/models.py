@@ -55,17 +55,25 @@ def _normalize_record(record: Dict[str, Any]) -> Dict[str, Any]:
     normalized_record = _strip_empty_values(record)
 
     # type-specific normalization
-    # add type to Mags Analysis mags_list records
-    if normalized_record["type"] == "nmdc:MagsAnalysis" and "mags_list" in normalized_record:
-        for i, mag in enumerate(normalized_record.get("mags_list", [])):
-            if not mag.get("type"):
-                # Update the original dictionary in the list
-                normalized_record["mags_list"][i]["type"] = "nmdc:MagBin"
-            # for backwards compatibility normalize num_tRNA to num_t_rna
-            if "num_tRNA" in mag:
-                normalized_record["mags_list"][i]["num_t_rna"] = mag.pop("num_tRNA")
+    if normalized_record["type"] == "nmdc:MagsAnalysis":
+        normalized_record = _normalize_mags_record(normalized_record)
 
     return normalized_record
+
+def _normalize_mags_record(record: Dict[str, Any]) -> Dict[str, Any]:
+    """ Normalize the record for a MagsAnalysis object """
+    for i, mag in enumerate(record.get("mags_list", [])):
+        if not mag.get("type"):
+            # Update the original dictionary in the list
+            record["mags_list"][i]["type"] = "nmdc:MagBin"
+        # for backwards compatibility normalize num_tRNA to num_t_rna
+        if "num_tRNA" in mag:
+            record["mags_list"][i]["num_t_rna"] = mag.pop("num_tRNA")
+        # add type to eukaryotic_evaluation if it exists
+        if "eukaryotic_evaluation" in mag:
+            record["mags_list"][i]["eukaryotic_evaluation"]["type"] = "nmdc:EukEval"
+    return record
+
 
 def _strip_empty_values(d: Dict[str, Any]) -> Dict[str, Any]:
     """ Strip empty values from a record """
@@ -77,6 +85,7 @@ def _strip_empty_values(d: Dict[str, Any]) -> Dict[str, Any]:
             return [clean_dict(v) for v in d if v not in empty_values]
         return d
     return clean_dict(d)
+
 
 class WorkflowProcessNode(object):
     """
@@ -233,7 +242,6 @@ class WorkflowConfig:
     def add_parent(self, parent: "WorkflowConfig"):
         """ Add a parent workflow """
         self.parents.add(parent)
-
 
 
 @dataclass
