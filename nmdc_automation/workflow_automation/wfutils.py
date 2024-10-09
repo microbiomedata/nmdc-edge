@@ -77,8 +77,13 @@ class CromwellRunner(JobRunnerABC):
 
 
     def get_job_metadata(self) -> Dict[str, Any]:
-        raise NotImplementedError
-        # TODO: implement
+        metadata_url = f"{self.service_url}/{self.job_id}/metadata"
+        response = requests.get(metadata_url)
+        response.raise_for_status()
+        metadata = response.json()
+        # update cached metadata
+        self.metadata = metadata
+        return metadata
 
     @property
     def job_id(self) -> Optional[str]:
@@ -206,6 +211,7 @@ class WorkflowJob:
     @property
     def job_status(self) -> str:
         status = None
+        # extend this list as needed for other job runners
         job_id_keys = ["cromwell_jobid"]
         failed_count = self.workflow.state.get("failed_count", 0)
         # if none of the job id keys are in the workflow state, it is unsubmitted
