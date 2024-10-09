@@ -18,7 +18,6 @@ workflow assembly_preprocess {
     }
 
     output {
-        File kmers_file=estimate_memory_int.kmers_file
         String num_kmers=estimate_memory_int.num_kmers
     }
 }
@@ -28,11 +27,12 @@ task estimate_memory_int {
             Array[File] input_files
             String container
             String outdir
+            String num_kmers_file="num_kmers.txt"
         }
 
         command <<<
             reformat.sh in=~{input_files[0]} interleaved=t cardinality=true out=stdout.fq 1> /dev/null 2>| cardinality.txt
-            num_kmers=`cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}'`
+            cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}' > ~{num_kmers_file}
             echo ~{num_kmers}
             >>>
 
@@ -43,7 +43,6 @@ task estimate_memory_int {
         }
 
         output {
-            File kmers_file = "cardinality.txt"
-            String num_kmers = read_string(stdout())
+            String? num_kmers = read_string(num_kmers_file)
         }
     }
