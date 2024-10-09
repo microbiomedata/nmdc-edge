@@ -7,6 +7,7 @@ import tempfile
 import logging
 import re
 import hashlib
+import requests
 from typing import Any, Dict, List, Optional, Union
 from pathlib import Path
 import shutil
@@ -51,7 +52,6 @@ class JobRunnerABC(ABC):
         pass
 
 
-
 class CromwellRunner(JobRunnerABC):
 
     def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager", job_metadata: Dict[str,
@@ -66,36 +66,39 @@ class CromwellRunner(JobRunnerABC):
 
 
     def submit_job(self) -> str:
-            # TODO: implement
-            pass
+        # TODO: implement
+        pass
 
     def get_job_status(self) -> str:
-            # TODO: implement
-            return "Pending"
+        status_url = f"{self.service_url}/{self.job_id}/status"
+        response = requests.get(status_url)
+        response.raise_for_status()
+        return response.json().get("status", "Unknown")
+
 
     def get_job_metadata(self) -> Dict[str, Any]:
-            raise NotImplementedError
-            # TODO: implement
+        raise NotImplementedError
+        # TODO: implement
 
     @property
     def job_id(self) -> Optional[str]:
-            return self.metadata.get("id", None)
+        return self.metadata.get("id", None)
 
     @property
     def outputs(self) -> Dict[str, str]:
-            return self.metadata.get("outputs", {})
+        return self.metadata.get("outputs", {})
 
     @property
     def metadata(self) -> Dict[str, Any]:
-            return self._metadata
+        return self._metadata
 
     @metadata.setter
     def metadata(self, metadata: Dict[str, Any]):
-            self._metadata = metadata
+        self._metadata = metadata
 
     @property
     def max_retries(self) -> int:
-            return self._max_retries
+        return self._max_retries
 
 
 

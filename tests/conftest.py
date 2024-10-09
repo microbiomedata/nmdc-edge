@@ -121,17 +121,17 @@ CROMWELL_FAIL_RESPONSE = {
 def mock_cromwell_api():
     with requests_mock.Mocker() as m:
         # Mock the Cromwell submit job endpoint
-        m.post('http://cromwell-server/api/workflows/v1', json=CROMWELL_SUCCESS_RESPONSE, status_code=201)
+        m.post('http://localhost:8088/api/workflows/v1', json=CROMWELL_SUCCESS_RESPONSE, status_code=201)
 
         # Mock Cromwell status check endpoint
         m.get(
-            'http://cromwell-server/api/workflows/v1/cromwell-job-id-12345/status', json={
+            'http://localhost:8088/api/workflows/v1/cromwell-job-id-12345/status', json={
                 "id": "cromwell-job-id-12345",
                 "status": "Succeeded"
             }
             )
 
         # Mock Cromwell failure scenario
-        m.get('http://cromwell-server/api/workflows/v1/cromwell-job-id-54321/status', json=CROMWELL_FAIL_RESPONSE)
+        m.get('http://localhost:8088/api/workflows/v1/cromwell-job-id-54321/status', json=CROMWELL_FAIL_RESPONSE)
 
         yield m

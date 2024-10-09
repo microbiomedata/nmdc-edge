@@ -27,14 +27,26 @@ def test_cromwell_job_runner(site_config, fixtures_dir):
     assert job_runner
 
 
-def test_cromwell_job_runner_get_job_status(site_config, fixtures_dir):
+def test_cromwell_job_runner_get_job_status(site_config, fixtures_dir, mock_cromwell_api):
     # load cromwell metadata
     job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
     job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    # successful job from the test fixtures
+    job_state['cromwell_jobid'] = "cromwell-job-id-12345"
+    job_metadata['id'] = "cromwell-job-id-12345"
 
     job_runner = CromwellRunner(site_config, job_state, job_metadata)
     status = job_runner.get_job_status()
     assert status
+    assert status == "Succeeded"
+
+    # failed job from the test fixtures
+    job_state['cromwell_jobid'] = "cromwell-job-id-54321"
+    job_metadata['id'] = "cromwell-job-id-54321"
+    job_runner = CromwellRunner(site_config, job_state, job_metadata)
+    status = job_runner.get_job_status()
+    assert status
+    assert status == "Failed"
 
 def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
     workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
