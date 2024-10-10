@@ -6,6 +6,12 @@ from nmdc_automation.workflow_automation.wfutils import (
 from nmdc_automation.workflow_automation.models import DataObject, workflow_process_factory
 from nmdc_schema.nmdc import MagsAnalysis, EukEval
 import json
+import os
+import pytest
+import requests
+import tempfile
+from unittest import mock
+
 
 
 def test_workflow_job(site_config, fixtures_dir):
@@ -75,7 +81,6 @@ def test_cromwell_job_runner_submit_job(site_config, fixtures_dir, mock_cromwell
     job_runner.submit_job()
 
 
-
 def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
     workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
     job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
@@ -86,7 +91,7 @@ def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
     assert wfe_dict
 
 
-def test_state_manager(fixtures_dir):
+def test_workflow_state_manager(fixtures_dir):
     mags_job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
 
     state = WorkflowStateManager(mags_job_state)
@@ -94,6 +99,29 @@ def test_state_manager(fixtures_dir):
     assert state.config == mags_job_state['conf']
     assert state.execution_template == mags_job_state['conf']['activity']
     assert state.was_informed_by == mags_job_state['conf']['was_informed_by']
+
+
+# Mock response content
+MOCK_FILE_CONTENT = b"Test file content"
+MOCK_CHUNK_SIZE = 1024  # Assume the CHUNK_SIZE is 1024 in your class
+
+@mock.patch('requests.get')
+def test_workflow_manager_fetch_release_file_success(mock_get, fixtures_dir):
+    # Mock the response
+    mock_get.return_value.iter_content.return_value = [MOCK_FILE_CONTENT]
+    mock_get.return_value.status_code = 200
+
+    # Test the function
+    initial_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    state = WorkflowStateManager(initial_state)
+
+    file_path = state.fetch_release_file("test_file", ".txt")
+    print(f"File path: {file_path}")
+
+    assert file_path
+    # assert os.path.exists(file_path)
+
+
 
 
 def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtures_dir, tmp_path):
@@ -132,9 +160,3 @@ def test_workflow_job_from_database_job_record(site_config, fixtures_dir):
     job = WorkflowJob(site_config, job_rec)
     assert job
     assert job.workflow.nmdc_jobid == job_rec['id']
-
-
-
-
-
-
