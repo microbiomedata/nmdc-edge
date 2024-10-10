@@ -1,3 +1,4 @@
+#TO DO delete this file in favor of using configs/import.yaml
 Workflows:
   - Name: Reads QC
     Import: true
