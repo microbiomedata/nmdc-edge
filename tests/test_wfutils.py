@@ -108,8 +108,13 @@ MOCK_CHUNK_SIZE = 1024  # Assume the CHUNK_SIZE is 1024 in your class
 @mock.patch('requests.get')
 def test_workflow_manager_fetch_release_file_success(mock_get, fixtures_dir):
     # Mock the response
-    mock_get.return_value.iter_content.return_value = [MOCK_FILE_CONTENT]
-    mock_get.return_value.status_code = 200
+    mock_response = mock.Mock()
+    mock_response.iter_content = mock.Mock(
+        return_value=[MOCK_FILE_CONTENT[i:i + MOCK_CHUNK_SIZE]
+                      for i in range(0, len(MOCK_FILE_CONTENT), MOCK_CHUNK_SIZE)]
+        )
+    mock_response.status_code = 200
+    mock_get.return_value = mock_response
 
     # Test the function
     initial_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
@@ -119,7 +124,11 @@ def test_workflow_manager_fetch_release_file_success(mock_get, fixtures_dir):
     print(f"File path: {file_path}")
 
     assert file_path
-    # assert os.path.exists(file_path)
+    assert os.path.exists(file_path), f"File not found at {file_path}"
+    with open(file_path, 'rb') as f:
+        assert f.read() == MOCK_FILE_CONTENT
+
+    os.remove(file_path)
 
 
 

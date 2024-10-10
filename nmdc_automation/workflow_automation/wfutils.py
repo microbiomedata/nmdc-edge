@@ -189,12 +189,15 @@ class WorkflowStateManager:
         url = self._build_release_url(filename)
         logging.debug(f"Fetching release file from URL: {url}")
         # download the file as a stream to handle large files
-        with requests.get(url, stream=True) as response:
+        response = requests.get(url, stream=True)
+        try:
             response.raise_for_status()
             # create a named temporary file
-            with tempfile.NamedTemporaryFile(suffix=suffix) as tmp_file:
+            with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp_file:
                 self._write_stream_to_file(response, tmp_file)
                 return tmp_file.name
+        finally:
+            response.close()
 
 
     def _build_release_url(self, filename: str) -> str:
@@ -210,6 +213,7 @@ class WorkflowStateManager:
             for chunk in response.iter_content(chunk_size=self.CHUNK_SIZE):
                 if chunk:
                     file.write(chunk)
+            file.flush()
         except Exception as e:
             # clean up the temporary file
             Path(file.name).unlink(missing_ok=True)
