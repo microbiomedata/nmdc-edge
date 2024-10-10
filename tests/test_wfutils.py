@@ -127,7 +127,7 @@ def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtur
 
 
 def test_workflow_job_from_database_job_record(site_config, fixtures_dir):
-    job_rec = json.load(open(fixtures_dir / "unsubmitted_job_record.json"))
+    job_rec = json.load(open(fixtures_dir / "nmdc_api/unsubmitted_job.json"))
     assert job_rec
     job = WorkflowJob(site_config, job_rec)
     assert job

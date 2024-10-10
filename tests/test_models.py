@@ -15,10 +15,10 @@ from nmdc_automation.workflow_automation.models import(
 from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from tests.fixtures import db_utils
 
-def test_workflow_process_factory():
+def test_workflow_process_factory(fixtures_dir):
     """ Test the workflow_process_factory function. """
     record_types = {
-        "nmdc:MagsAnalysis": "mags_record.json",
+        "nmdc:MagsAnalysis": "mags_analysis_record.json",
         "nmdc:MetagenomeAnnotation": "metagenome_annotation_record.json",
         "nmdc:MetagenomeAssembly": "metagenome_assembly_record.json",
         "nmdc:MetatranscriptomeAnnotation": "metatranscriptome_annotation_record.json",
@@ -29,12 +29,12 @@ def test_workflow_process_factory():
         "nmdc:ReadQcAnalysis": "read_qc_analysis_record.json",
     }
     for record_type, record_file in record_types.items():
-        record = db_utils.read_json(record_file)
+        record = json.load(open(fixtures_dir / f"models/{record_file}"))
         wfe = workflow_process_factory(record)
         assert wfe.type == record_type
 
-def test_workflow_process_factory_mags_with_mags_list():
-    record = db_utils.read_json("mags_workflow_record.json")
+def test_workflow_process_factory_mags_with_mags_list(fixtures_dir):
+    record = json.load(open(fixtures_dir / "models/mags_analysis_record.json"))
     mga = workflow_process_factory(record)
     assert mga.type == "nmdc:MagsAnalysis"
 
@@ -51,7 +51,7 @@ def test_process_factory_with_db_record():
     assert wfe.type == "nmdc:NucleotideSequencing"
 
 @mark.parametrize("record_file, record_type", [
-    ("mags_record.json", "nmdc:MagsAnalysis"),
+    ("mags_analysis_record.json", "nmdc:MagsAnalysis"),
     ("metagenome_annotation_record.json", "nmdc:MetagenomeAnnotation"),
     ("metagenome_assembly_record.json", "nmdc:MetagenomeAssembly"),
     ("metatranscriptome_annotation_record.json", "nmdc:MetatranscriptomeAnnotation"),
@@ -61,7 +61,7 @@ def test_process_factory_with_db_record():
     ("read_based_taxonomy_analysis_record.json", "nmdc:ReadBasedTaxonomyAnalysis"),
     ("read_qc_analysis_record.json", "nmdc:ReadQcAnalysis"),
 ])
-def test_workflow_process_node(workflows_config_dir,record_file, record_type):
+def test_workflow_process_node(workflows_config_dir,record_file, record_type, fixtures_dir):
     """ Test the WorkflowProcessNode class. """
     # load all workflows for both metagenome and metatranscriptome
     wfs = load_workflow_configs(workflows_config_dir / "workflows.yaml")
@@ -75,7 +75,7 @@ def test_workflow_process_node(workflows_config_dir,record_file, record_type):
     assert wfs_for_type
     wf = wfs_for_type[0]
 
-    record = db_utils.read_json(record_file)
+    record = json.load(open(fixtures_dir / f"models/{record_file}"))
 
     wfn = WorkflowProcessNode(record, wf)
     assert wfn.process.type == record_type
@@ -143,8 +143,8 @@ def test_job_output_creation():
         job_output = JobOutput(**output)
 
 
-def test_job_creation():
-    job_record = db_utils.read_json("unsubmitted_job_record.json")
+def test_job_creation(fixtures_dir):
+    job_record = json.load(open(fixtures_dir / "nmdc_api/unsubmitted_job.json"))
     job = Job(**job_record)
     assert job.id == job_record["id"]
     assert isinstance(job.workflow, JobWorkflow)
