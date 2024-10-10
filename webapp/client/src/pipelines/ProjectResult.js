@@ -190,7 +190,7 @@ function ProjectResult(props) {
 
         const userData = { ...data, code: project.code };
         let url = "/auth-api/user/project/addmetadatasubmission";
-        if(data.study === 'new') {
+        if(data.metadataSubmissionId === 'new') {
             url = "/auth-api/user/project/createmetadatasubmission";
         }
         postData(url, userData)

@@ -74,7 +74,7 @@ const MetadataSubmisssion = (props) => {
           ];
           const submissions = data.metadata_submissions;
           submissions.forEach((submission) => {
-            options.push({ value: submission.metadata_submission.id, label: submission.metadata_submission.study_name });
+            options.push({ value: submission.id, label: submission.study_name });
           });
           setStudyOptions(options);
         })
@@ -85,7 +85,7 @@ const MetadataSubmisssion = (props) => {
     }
     clearErrors();
     getNmdcMetadataSubmissions();
-  }, []);// eslint-disable-line react-hooks/exhaustive-deps
+  }, [props]);// eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Modal isOpen={props.isOpen} centered>
