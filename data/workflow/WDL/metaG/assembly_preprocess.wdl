@@ -29,7 +29,7 @@ workflow assembly_preprocess {
 
 
     output {
-        String memory=if (input_interleaved) then estimate_memory_int.memory else estimate_memory_pe.memory
+        String? memory=if (input_interleaved) then estimate_memory_int.memory else estimate_memory_pe.memory
     }
 }
 
@@ -55,7 +55,7 @@ task estimate_memory_int {
         }
 
         output {
-            String memory = read_string(predicted_memory)
+            String? memory = read_string(predicted_memory)
         }
     }
 task estimate_memory_pe {
@@ -81,6 +81,6 @@ task estimate_memory_pe {
         }
 
         output {
-            String memory = read_string(predicted_memory)
+            String? memory = read_string(predicted_memory)
         }
     }
