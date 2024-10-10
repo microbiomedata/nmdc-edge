@@ -107,7 +107,6 @@ MOCK_CHUNK_SIZE = 1024  # Assume the CHUNK_SIZE is 1024 in your class
 
 @mock.patch('requests.get')
 def test_workflow_manager_fetch_release_file_success(mock_get, fixtures_dir):
-    # Mock the response
     mock_response = mock.Mock()
     mock_response.iter_content = mock.Mock(
         return_value=[MOCK_FILE_CONTENT[i:i + MOCK_CHUNK_SIZE]
@@ -131,10 +130,49 @@ def test_workflow_manager_fetch_release_file_success(mock_get, fixtures_dir):
     os.remove(file_path)
 
 
+@mock.patch('requests.get')
+def test_workflow_manager_fetch_release_file_failed_download(mock_get, fixtures_dir):
+    # Mock a failed request
+    mock_response = mock.Mock()
+    mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError("404 Client Error: Not Found")
+    mock_get.return_value = mock_response
+
+    # Test the function
+    initial_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    state = WorkflowStateManager(initial_state)
+
+    with pytest.raises(requests.exceptions.HTTPError):
+        state.fetch_release_file("test_file", ".txt")
+
+    # Check that the file was not created
+    assert not os.path.exists("test_file.txt")
+
+
+@mock.patch('requests.get')
+def test_workflow_manager_fetch_release_file_failed_write(mock_get, fixtures_dir):
+    # Mock the response
+    mock_response = mock.Mock()
+    mock_response.iter_content = mock.Mock(
+        return_value=[MOCK_FILE_CONTENT[i:i + MOCK_CHUNK_SIZE]
+                      for i in range(0, len(MOCK_FILE_CONTENT), MOCK_CHUNK_SIZE)]
+        )
+    mock_response.status_code = 200
+    mock_get.return_value = mock_response
+
+    # Patch the tempfile.mkstemp function to raise an exception during file creation
+    with mock.patch('tempfile.NamedTemporaryFile', side_effect=OSError("Failed to create file")):
+        # Test the function
+        initial_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+        state = WorkflowStateManager(initial_state)
+
+        with pytest.raises(OSError):
+            state.fetch_release_file("test_file", ".txt")
+
+        # Check that the file was not created
+        assert not os.path.exists("test_file.txt")
 
 
 def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtures_dir, tmp_path):
-    # Note: test working dir must be the root of the project for this to work
     job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
     workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
     job = WorkflowJob(site_config, workflow_state, job_metadata)
@@ -161,6 +199,8 @@ def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtur
     assert isinstance(wfe.too_short_contig_num, int)
     assert isinstance(wfe.unbinned_contig_num, int)
     assert isinstance(wfe.binned_contig_num, int)
+
+
 
 
 def test_workflow_job_from_database_job_record(site_config, fixtures_dir):
