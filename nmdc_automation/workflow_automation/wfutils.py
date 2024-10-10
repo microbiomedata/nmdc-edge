@@ -90,6 +90,10 @@ class CromwellRunner(JobRunnerABC):
     def job_id(self) -> Optional[str]:
         return self.metadata.get("id", None)
 
+    @job_id.setter
+    def job_id(self, job_id: str):
+        self.metadata["id"] = job_id
+
     @property
     def outputs(self) -> Dict[str, str]:
         return self.metadata.get("outputs", {})
