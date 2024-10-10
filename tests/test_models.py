@@ -4,8 +4,6 @@ from pytest import mark
 from nmdc_automation.workflow_automation.models import(
     DataObject,
     Job,
-    JobClaim,
-    JobConfig,
     JobOutput,
     JobWorkflow,
     WorkflowProcessNode,
@@ -31,6 +29,11 @@ def test_workflow_process_factory():
         record = db_utils.read_json(record_file)
         wfe = workflow_process_factory(record)
         assert wfe.type == record_type
+
+def test_workflow_process_factory_mags_with_mags_list():
+    record = db_utils.read_json("mags_workflow_record.json")
+    mga = workflow_process_factory(record)
+    assert mga.type == "nmdc:MagsAnalysis"
 
 
 def test_process_factory_with_db_record():
@@ -88,6 +91,7 @@ def test_data_object_creation_from_records():
         data_obj_dict = data_obj.as_dict()
         assert data_obj_dict == record
 
+
 def test_data_object_creation_from_db_records(test_db):
     db_utils.reset_db(test_db)
     db_utils.read_json("data_object_set.json")
@@ -126,8 +130,9 @@ def test_job_output_creation():
     for output in outputs:
         job_output = JobOutput(**output)
 
+
 def test_job_creation():
-    job_record = db_utils.read_json("job_record.json")
+    job_record = db_utils.read_json("unsubmitted_job_record.json")
     job = Job(**job_record)
     assert job.id == job_record["id"]
     assert isinstance(job.workflow, JobWorkflow)

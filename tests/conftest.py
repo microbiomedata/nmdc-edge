@@ -3,15 +3,35 @@ import os
 from pymongo import MongoClient
 from pathlib import Path
 from pytest import fixture
+import shutil
 from time import time
-from yaml import load
-
-from nmdc_automation.config import Config
-
+from unittest.mock import Mock
+from yaml import load, Loader
 
 
+from nmdc_automation.config import SiteConfig
+from nmdc_automation.workflow_automation.models import WorkflowConfig
+from tests.fixtures import db_utils
+from nmdc_automation.workflow_automation.wfutils import WorkflowJob
 
-@fixture
+@fixture(scope="session")
+def mock_job_state():
+    state = db_utils.read_json(
+        "mags_workflow_state.json"
+    )
+    return state
+
+
+@fixture(scope="session")
+def mags_config(fixtures_dir)->WorkflowConfig:
+    yaml_file = fixtures_dir / "mags_config.yaml"
+    wf = load(open(yaml_file), Loader)
+    # normalize the keys from Key Name to key_name
+    wf = {k.replace(" ", "_").lower(): v for k, v in wf.items()}
+    return WorkflowConfig(**wf)
+
+
+@fixture(scope="session")
 def test_db():
     conn_str = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
     return MongoClient(conn_str).test
@@ -48,7 +68,9 @@ def base_test_dir():
 
 @fixture(scope="session")
 def fixtures_dir(base_test_dir):
-    return base_test_dir / "fixtures"
+    path = base_test_dir / "fixtures"
+    # get the absolute path
+    return path.resolve()
 
 @fixture(scope="session")
 def test_data_dir(base_test_dir):
@@ -58,15 +80,19 @@ def test_data_dir(base_test_dir):
 def workflows_config_dir(base_test_dir):
     return base_test_dir.parent / "nmdc_automation/config/workflows"
 
-@fixture(scope="session")
-def import_config_dir(base_test_dir):
-    return base_test_dir.parent / "configs"
-
 
 @fixture(scope="session")
-def site_config(base_test_dir):
+def site_config_file(base_test_dir):
     return base_test_dir / "site_configuration_test.toml"
 
 @fixture(scope="session")
-def job_config(site_config):
-    return Config(site_config)
+def site_config(site_config_file):
+    return SiteConfig(site_config_file)
+
+@fixture
+def initial_state_file(fixtures_dir, tmp_path):
+    state_file = fixtures_dir / "initial_state.json"
+    # make a working copy in tmp_path
+    copied_state_file = tmp_path / "initial_state.json"
+    shutil.copy(state_file, copied_state_file)
+    return copied_state_file

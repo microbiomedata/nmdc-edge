@@ -12,7 +12,7 @@ from pathlib import Path
 from time import time
 from typing import Union, List
 from datetime import datetime, timedelta, timezone
-from nmdc_automation.config import Config, UserConfig
+from nmdc_automation.config import SiteConfig, UserConfig
 import logging
 
 
@@ -50,9 +50,9 @@ class NmdcRuntimeApi:
     client_id = None
     client_secret = None
 
-    def __init__(self, site_configuration: Union[str, Path, Config]):
+    def __init__(self, site_configuration: Union[str, Path, SiteConfig]):
         if isinstance(site_configuration, str) or isinstance(site_configuration, Path):
-            site_configuration = Config(site_configuration)
+            site_configuration = SiteConfig(site_configuration)
         self.config = site_configuration
         self._base_url = self.config.api_url
         self.client_id = self.config.client_id
@@ -211,6 +211,7 @@ class NmdcRuntimeApi:
         resp = requests.patch(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
+    # TODO test that this concatenates multi-page results
     @refresh_token
     def list_jobs(self, filt=None, max=100) -> List[dict]:
         url = "%sjobs?max_page_size=%s" % (self._base_url, max)

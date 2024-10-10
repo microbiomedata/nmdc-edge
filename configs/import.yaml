@@ -126,7 +126,7 @@ Workflows:
     Import: false
     Type: nmdc:MagsAnalysis
     Git_repo: https://github.com/microbiomedata/metaMAGs
-    Version: v1.0.6
+    Version: v1.3.11
     Collection: workflow_execution_set
     WorkflowExecutionRange: MagsAnalysis
     Inputs:

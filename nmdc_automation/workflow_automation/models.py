@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional, Set, Union
 
 from nmdc_schema.nmdc import (
+    DataGeneration,
     FileTypeEnum,
     NucleotideSequencing,
     MagsAnalysis,
@@ -13,7 +14,6 @@ from nmdc_schema.nmdc import (
     MetatranscriptomeAssembly,
     MetatranscriptomeAnnotation,
     MetatranscriptomeExpressionAnalysis,
-    PlannedProcess,
     ReadBasedTaxonomyAnalysis,
     ReadQcAnalysis,
     WorkflowExecution
@@ -21,7 +21,7 @@ from nmdc_schema.nmdc import (
 from nmdc_schema import nmdc
 
 
-def workflow_process_factory(record: Dict[str, Any]) -> PlannedProcess:
+def workflow_process_factory(record: Dict[str, Any]) -> Union[DataGeneration, WorkflowExecution]:
     """
     Factory function to create a PlannedProcess subclass object from a record.
     Subclasses are determined by the "type" field in the record, and can be
@@ -38,12 +38,53 @@ def workflow_process_factory(record: Dict[str, Any]) -> PlannedProcess:
         "nmdc:ReadBasedTaxonomyAnalysis": ReadBasedTaxonomyAnalysis,
         "nmdc:ReadQcAnalysis": ReadQcAnalysis,
     }
-    record.pop("_id", None)
+    record = _normalize_record(record)
+
     try:
         cls = process_types[record["type"]]
     except KeyError:
         raise ValueError(f"Invalid workflow execution type: {record['type']}")
-    return cls(**record)
+    wfe = cls(**record)
+    return wfe
+
+def _normalize_record(record: Dict[str, Any]) -> Dict[str, Any]:
+    """ Normalize the record by removing the _id field and converting the type field to a string """
+    record.pop("_id", None)
+    # for backwards compatibility strip Activity from the end of the type
+    record["type"] = record["type"].replace("Activity", "")
+    normalized_record = _strip_empty_values(record)
+
+    # type-specific normalization
+    if normalized_record["type"] == "nmdc:MagsAnalysis":
+        normalized_record = _normalize_mags_record(normalized_record)
+
+    return normalized_record
+
+def _normalize_mags_record(record: Dict[str, Any]) -> Dict[str, Any]:
+    """ Normalize the record for a MagsAnalysis object """
+    for i, mag in enumerate(record.get("mags_list", [])):
+        if not mag.get("type"):
+            # Update the original dictionary in the list
+            record["mags_list"][i]["type"] = "nmdc:MagBin"
+        # for backwards compatibility normalize num_tRNA to num_t_rna
+        if "num_tRNA" in mag:
+            record["mags_list"][i]["num_t_rna"] = mag.pop("num_tRNA")
+        # add type to eukaryotic_evaluation if it exists
+        if "eukaryotic_evaluation" in mag:
+            record["mags_list"][i]["eukaryotic_evaluation"]["type"] = "nmdc:EukEval"
+    return record
+
+
+def _strip_empty_values(d: Dict[str, Any]) -> Dict[str, Any]:
+    """ Strip empty values from a record """
+    empty_values = [None, "", [], "null", 0]
+    def clean_dict(d):
+        if isinstance(d, dict):
+            return {k: clean_dict(v) for k, v in d.items() if v not in empty_values}
+        elif isinstance(d, list):
+            return [clean_dict(v) for v in d if v not in empty_values]
+        return d
+    return clean_dict(d)
 
 
 class WorkflowProcessNode(object):
@@ -201,7 +242,6 @@ class WorkflowConfig:
     def add_parent(self, parent: "WorkflowConfig"):
         """ Add a parent workflow """
         self.parents.add(parent)
-
 
 
 @dataclass

@@ -1,13 +1,12 @@
 """ This module reads the workflows yaml file and returns a list of WorkflowConfig objects"""
 from yaml import load
-
 try:
     from yaml import CLoader as Loader
 except ImportError:
     from yaml import Loader
-import sys
 
 from nmdc_automation.workflow_automation.models import WorkflowConfig
+
 
 def load_workflow_configs(yaml_file) -> list[WorkflowConfig]:
     """
@@ -28,8 +27,3 @@ def load_workflow_configs(yaml_file) -> list[WorkflowConfig]:
                 wf.add_child(wf2)
                 wf2.add_parent(wf)
     return workflow_configs
-
-
-if __name__ == "__main__":
-    wff = sys.argv[1]
-    load_workflow_configs(wff)

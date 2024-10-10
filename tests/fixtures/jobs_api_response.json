@@ -1,0 +1,579 @@
+{
+  "resources": [
+    {
+      "workflow": {
+        "id": "Metagenome Annotation: v1.1.0"
+      },
+      "id": "nmdc:0003398c-48a8-11ef-bcec-52b18d4509d1",
+      "created_at": "2024-07-23T03:59:46",
+      "config": {
+        "git_repo": "https://github.com/microbiomedata/mg_annotation",
+        "release": "v1.1.0",
+        "wdl": "annotation_full.wdl",
+        "activity_id": "nmdc:wfmgan-11-fp07wg93.2",
+        "activity_set": "metagenome_annotation_activity_set",
+        "was_informed_by": "nmdc:omprc-11-dfzknb42",
+        "trigger_activity": "nmdc:wfmgas-11-tekfqa46.1",
+        "iteration": 2,
+        "input_prefix": "annotation",
+        "inputs": {
+          "input_file": "https://data.microbiomedata.org/data/nmdc:omprc-11-dfzknb42/nmdc:wfmgas-11-tekfqa46.1/nmdc_wfmgas-11-tekfqa46.1_contigs.fna",
+          "imgap_project_id": "scaffold",
+          "proj": "nmdc:wfmgan-11-fp07wg93.2"
+        },
+        "input_data_objects": [
+          {
+            "id": "nmdc:dobj-11-g7y3gy61",
+            "name": "Final assembly contigs fasta",
+            "description": "Assembly contigs for nmdc:wfmgas-11-tekfqa46.1",
+            "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-dfzknb42/nmdc:wfmgas-11-tekfqa46.1/nmdc_wfmgas-11-tekfqa46.1_contigs.fna",
+            "md5_checksum": "89b0300d904b16e46e9d749cf633a911",
+            "file_size_bytes": 714986508,
+            "data_object_type": "Assembly Contigs"
+          }
+        ],
+        "activity": {
+          "name": "Metagenome Annotation Analysis Activity for {id}",
+          "type": "nmdc:MetagenomeAnnotationActivity"
+        },
+        "outputs": [
+          {
+            "output": "proteins_faa",
+            "data_object_type": "Annotation Amino Acid FASTA",
+            "description": "FASTA Amino Acid File for {id}",
+            "name": "FASTA amino acid file for annotated proteins",
+            "id": "nmdc:dobj-11-4akzce87"
+          },
+          {
+            "output": "structural_gff",
+            "data_object_type": "Structural Annotation GFF",
+            "description": "Structural Annotation for {id}",
+            "name": "GFF3 format file with structural annotations",
+            "id": "nmdc:dobj-11-ek6tfd02"
+          },
+          {
+            "output": "functional_gff",
+            "data_object_type": "Functional Annotation GFF",
+            "description": "Functional Annotation for {id}",
+            "name": "GFF3 format file with functional annotations",
+            "id": "nmdc:dobj-11-bm1qkk71"
+          },
+          {
+            "output": "ko_tsv",
+            "data_object_type": "Annotation KEGG Orthology",
+            "description": "KEGG Orthology for {id}",
+            "name": "Tab delimited file for KO annotation",
+            "id": "nmdc:dobj-11-8h1tb446"
+          },
+          {
+            "output": "ec_tsv",
+            "data_object_type": "Annotation Enzyme Commission",
+            "description": "EC Annotations for {id}",
+            "name": "Tab delimited file for EC annotation",
+            "suffix": "_ec.tsv",
+            "id": "nmdc:dobj-11-b7y5vv18"
+          },
+          {
+            "output": "lineage_tsv",
+            "data_object_type": "Scaffold Lineage tsv",
+            "description": "Scaffold Lineage tsv for {id}",
+            "name": "Phylogeny at the scaffold level",
+            "suffix": "_scaffold_lineage.tsv",
+            "id": "nmdc:dobj-11-fn3ba237"
+          },
+          {
+            "output": "cog_gff",
+            "data_object_type": "Clusters of Orthologous Groups (COG) Annotation GFF",
+            "description": "COGs for {id}",
+            "name": "GFF3 format file with COGs",
+            "id": "nmdc:dobj-11-6q7fh110"
+          },
+          {
+            "output": "pfam_gff",
+            "data_object_type": "Pfam Annotation GFF",
+            "description": "Pfam Annotation for {id}",
+            "name": "GFF3 format file with Pfam",
+            "id": "nmdc:dobj-11-d85sqw71"
+          },
+          {
+            "output": "tigrfam_gff",
+            "data_object_type": "TIGRFam Annotation GFF",
+            "description": "TIGRFam for {id}",
+            "name": "GFF3 format file with TIGRfam",
+            "id": "nmdc:dobj-11-fjq3q643"
+          },
+          {
+            "output": "smart_gff",
+            "data_object_type": "SMART Annotation GFF",
+            "description": "SMART Annotations for {id}",
+            "name": "GFF3 format file with SMART",
+            "id": "nmdc:dobj-11-dhfdb719"
+          },
+          {
+            "output": "supfam_gff",
+            "data_object_type": "SUPERFam Annotation GFF",
+            "description": "SUPERFam Annotations for {id}",
+            "name": "GFF3 format file with SUPERFam",
+            "id": "nmdc:dobj-11-qfmw4879"
+          },
+          {
+            "output": "cath_funfam_gff",
+            "data_object_type": "CATH FunFams (Functional Families) Annotation GFF",
+            "description": "CATH FunFams for {id}",
+            "name": "GFF3 format file with CATH FunFams",
+            "id": "nmdc:dobj-11-ssa39z59"
+          },
+          {
+            "output": "crt_gff",
+            "data_object_type": "CRT Annotation GFF",
+            "description": "CRT Annotations for {id}",
+            "name": "GFF3 format file with CRT",
+            "id": "nmdc:dobj-11-4hsvsv34"
+          },
+          {
+            "output": "genemark_gff",
+            "data_object_type": "Genemark Annotation GFF",
+            "description": "Genemark Annotations for {id}",
+            "name": "GFF3 format file with Genemark",
+            "id": "nmdc:dobj-11-saaeyc80"
+          },
+          {
+            "output": "prodigal_gff",
+            "data_object_type": "Prodigal Annotation GFF",
+            "description": "Prodigal Annotations {id}",
+            "name": "GFF3 format file with Prodigal",
+            "id": "nmdc:dobj-11-2kastj13"
+          },
+          {
+            "output": "trna_gff",
+            "data_object_type": "TRNA Annotation GFF",
+            "description": "TRNA Annotations {id}",
+            "name": "GFF3 format file with TRNA",
+            "id": "nmdc:dobj-11-240tpb83"
+          },
+          {
+            "output": "final_rfam_gff",
+            "data_object_type": "RFAM Annotation GFF",
+            "description": "RFAM Annotations for {id}",
+            "name": "GFF3 format file with RFAM",
+            "id": "nmdc:dobj-11-vn35b118"
+          },
+          {
+            "output": "ko_ec_gff",
+            "data_object_type": "KO_EC Annotation GFF",
+            "description": "KO_EC Annotations for {id}",
+            "name": "GFF3 format file with KO_EC",
+            "id": "nmdc:dobj-11-20eag911"
+          },
+          {
+            "output": "product_names_tsv",
+            "data_object_type": "Product Names",
+            "description": "Product names for {id}",
+            "name": "Product names file",
+            "id": "nmdc:dobj-11-bnjjvh49"
+          },
+          {
+            "output": "gene_phylogeny_tsv",
+            "data_object_type": "Gene Phylogeny tsv",
+            "description": "Gene Phylogeny for {id}",
+            "name": "Gene Phylogeny file",
+            "id": "nmdc:dobj-11-6hgrts53"
+          },
+          {
+            "output": "crt_crisprs",
+            "data_object_type": "Crispr Terms",
+            "description": "Crispr Terms for {id}",
+            "name": "Crispr Terms",
+            "id": "nmdc:dobj-11-mghmgg98"
+          },
+          {
+            "output": "stats_tsv",
+            "data_object_type": "Annotation Statistics",
+            "description": "Annotation Stats for {id}",
+            "name": "Annotation statistics report",
+            "id": "nmdc:dobj-11-x2bvpj13"
+          },
+          {
+            "output": "renamed_fasta",
+            "name": "Renamed assembly contigs fasta",
+            "data_object_type": "Assembly Contigs",
+            "description": "Assembly contigs (remapped) for {id}",
+            "id": "nmdc:dobj-11-hwd2k772"
+          },
+          {
+            "output": "map_file",
+            "data_object_type": "Contig Mapping File",
+            "description": "Contig mappings file for {id}",
+            "name": "Contig mappings between contigs and scaffolds",
+            "suffix": "_contig_names_mapping.tsv",
+            "optional": true,
+            "id": "nmdc:dobj-11-6r54q802"
+          },
+          {
+            "output": "imgap_version",
+            "data_object_type": "Annotation Info File",
+            "description": "Annotation info for {id}",
+            "name": "File containing annotation info",
+            "id": "nmdc:dobj-11-4mr0ae56"
+          }
+        ]
+      },
+      "claims": [
+        {
+          "op_id": "nmdc:sys0egpxjn25",
+          "site_id": "NERSC"
+        }
+      ]
+    },
+    {
+      "workflow": {
+        "id": "Metagenome Assembly: v1.0.3"
+      },
+      "id": "nmdc:00044f52-833c-11ee-bd0f-067aae39013b",
+      "created_at": "2023-11-14T22:20:21",
+      "config": {
+        "git_repo": "https://github.com/microbiomedata/metaAssembly",
+        "release": "v1.0.3",
+        "wdl": "jgi_assembly.wdl",
+        "activity_id": "nmdc:wfmgas-11-wtz4rz76.1",
+        "activity_set": "metagenome_assembly_set",
+        "was_informed_by": "nmdc:omprc-12-5vn1nh02",
+        "trigger_activity": "nmdc:wfrqc-11-4eethb84.1",
+        "iteration": 1,
+        "input_prefix": "jgi_metaASM",
+        "inputs": {
+          "input_file": "https://data.microbiomedata.org/data/nmdc:omprc-12-5vn1nh02/nmdc:wfrqc-11-4eethb84.1/nmdc_wfrqc-11-4eethb84.1_filtered.fastq.gz",
+          "rename_contig_prefix": "nmdc:wfmgas-11-wtz4rz76.1",
+          "proj": "nmdc:wfmgas-11-wtz4rz76.1"
+        },
+        "input_data_objects": [
+          {
+            "id": "nmdc:dobj-11-mh9dma28",
+            "name": "nmdc_wfrqc-11-4eethb84.1_filtered.fastq.gz",
+            "description": "Reads QC for nmdc:wfrqc-11-4eethb84.1",
+            "url": "https://data.microbiomedata.org/data/nmdc:omprc-12-5vn1nh02/nmdc:wfrqc-11-4eethb84.1/nmdc_wfrqc-11-4eethb84.1_filtered.fastq.gz",
+            "md5_checksum": "3e60e2633256727a38a3c3b368a01732",
+            "file_size_bytes": 2218610459,
+            "data_object_type": "Filtered Sequencing Reads"
+          }
+        ],
+        "activity": {
+          "name": "Metagenome Assembly Activity for {id}",
+          "type": "nmdc:MetagenomeAssembly",
+          "asm_score": "{outputs.stats.asm_score}",
+          "contig_bp": "{outputs.stats.contig_bp}",
+          "contigs": "{outputs.stats.contigs}",
+          "ctg_l50": "{outputs.stats.ctg_l50}",
+          "ctg_l90": "{outputs.stats.ctg_l90}",
+          "ctg_logsum": "{outputs.stats.ctg_logsum}",
+          "ctg_max": "{outputs.stats.ctg_max}",
+          "ctg_n50": "{outputs.stats.ctg_n50}",
+          "ctg_n90": "{outputs.stats.ctg_n90}",
+          "ctg_powsum": "{outputs.stats.ctg_powsum}",
+          "gap_pct": "{outputs.stats.gap_pct}",
+          "gc_avg": "{outputs.stats.gc_avg}",
+          "gc_std": "{outputs.stats.gc_std}",
+          "scaf_bp": "{outputs.stats.scaf_bp}",
+          "scaf_l50": "{outputs.stats.scaf_l50}",
+          "scaf_l90": "{outputs.stats.scaf_l90}",
+          "scaf_l_gt50k": "{outputs.stats.scaf_l_gt50k}",
+          "scaf_logsum": "{outputs.stats.scaf_logsum}",
+          "scaf_max": "{outputs.stats.scaf_max}",
+          "scaf_n50": "{outputs.stats.scaf_n50}",
+          "scaf_n90": "{outputs.stats.scaf_n90}",
+          "scaf_n_gt50k": "{outputs.stats.scaf_n_gt50k}",
+          "scaf_pct_gt50k": "{outputs.stats.scaf_pct_gt50k}",
+          "scaf_powsum": "{outputs.stats.scaf_powsum}",
+          "scaffolds": "{outputs.stats.scaffolds}"
+        },
+        "outputs": [
+          {
+            "output": "contig",
+            "name": "Final assembly contigs fasta",
+            "suffix": "_contigs.fna",
+            "data_object_type": "Assembly Contigs",
+            "description": "Assembly contigs for {id}",
+            "id": "nmdc:dobj-11-xgrxb861"
+          },
+          {
+            "output": "scaffold",
+            "name": "Final assembly scaffolds fasta",
+            "suffix": "_scaffolds.fna",
+            "data_object_type": "Assembly Scaffolds",
+            "description": "Assembly scaffolds for {id}",
+            "id": "nmdc:dobj-11-s2dd2t90"
+          },
+          {
+            "output": "covstats",
+            "name": "Assembled contigs coverage information",
+            "suffix": "_covstats.txt",
+            "data_object_type": "Assembly Coverage Stats",
+            "description": "Coverage Stats for {id}",
+            "id": "nmdc:dobj-11-3bkdmw35"
+          },
+          {
+            "output": "agp",
+            "name": "An AGP format file that describes the assembly",
+            "suffix": "_assembly.agp",
+            "data_object_type": "Assembly AGP",
+            "description": "AGP for {id}",
+            "id": "nmdc:dobj-11-pyrthm29"
+          },
+          {
+            "output": "bam",
+            "name": "Sorted bam file of reads mapping back to the final assembly",
+            "suffix": "_pairedMapped_sorted.bam",
+            "data_object_type": "Assembly Coverage BAM",
+            "description": "Sorted Bam for {id}",
+            "id": "nmdc:dobj-11-f5b4wy79"
+          },
+          {
+            "output": "asminfo",
+            "name": "File containing assembly info",
+            "suffix": "_metaAsm.info",
+            "data_object_type": "Assembly Info File",
+            "description": "Assembly info for {id}",
+            "id": "nmdc:dobj-11-z9hckx95"
+          }
+        ]
+      },
+      "claims": [
+        {
+          "op_id": "nmdc:sys0b9ktag76",
+          "site_id": "NERSC"
+        }
+      ]
+    },
+    {
+      "workflow": {
+        "id": "Metagenome Annotation: v1.0.4"
+      },
+      "id": "nmdc:005782ec-4081-11ee-9be4-ee3fb66564cb",
+      "created_at": "2023-08-22T00:15:29",
+      "config": {
+        "git_repo": "https://github.com/microbiomedata/mg_annotation",
+        "release": "v1.0.4",
+        "wdl": "annotation_full.wdl",
+        "activity_id": "nmdc:wfmgan-11-5b6pg295.1",
+        "activity_set": "metagenome_annotation_activity_set",
+        "was_informed_by": "nmdc:omprc-11-dcd0jq29",
+        "trigger_activity": "nmdc:wfmgas-11-hdxbp548.1",
+        "iteration": 1,
+        "input_prefix": "annotation",
+        "inputs": {
+          "input_file": "https://data.microbiomedata.org/data/nmdc:omprc-11-dcd0jq29/nmdc:wfmgas-11-hdxbp548.1/nmdc_wfmgas-11-hdxbp548.1_contigs.fna",
+          "imgap_project_id": "scaffold",
+          "proj": "nmdc:wfmgan-11-5b6pg295.1"
+        },
+        "input_data_objects": [
+          {
+            "id": "nmdc:dobj-11-598qwk38",
+            "name": "nmdc_wfmgas-11-hdxbp548.1_contigs.fna",
+            "description": "Assembly contigs for nmdc:wfmgas-11-hdxbp548.1",
+            "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-dcd0jq29/nmdc:wfmgas-11-hdxbp548.1/nmdc_wfmgas-11-hdxbp548.1_contigs.fna",
+            "md5_checksum": "4e6d4fcc9f330f6a616ddb9595ef9509",
+            "file_size_bytes": 18918050,
+            "data_object_type": "Assembly Contigs"
+          }
+        ],
+        "activity": {
+          "name": "Metagenome Annotation Analysis Activity for {id}",
+          "type": "nmdc:MetagenomeAnnotationActivity"
+        },
+        "outputs": [
+          {
+            "output": "proteins_faa",
+            "data_object_type": "Annotation Amino Acid FASTA",
+            "description": "FASTA Amino Acid File for {id}",
+            "name": "FASTA amino acid file for annotated proteins",
+            "suffix": "_proteins.faa",
+            "id": "nmdc:dobj-11-a1r5a733"
+          },
+          {
+            "output": "structural_gff",
+            "data_object_type": "Structural Annotation GFF",
+            "description": "Structural Annotation for {id}",
+            "name": "GFF3 format file with structural annotations",
+            "suffix": "_structural_annotation.gff",
+            "id": "nmdc:dobj-11-tqtycq13"
+          },
+          {
+            "output": "functional_gff",
+            "data_object_type": "Functional Annotation GFF",
+            "description": "Functional Annotation for {id}",
+            "name": "GFF3 format file with functional annotations",
+            "suffix": "_functional_annotation.gff",
+            "id": "nmdc:dobj-11-f97mze63"
+          },
+          {
+            "output": "ko_tsv",
+            "data_object_type": "Annotation KEGG Orthology",
+            "description": "KEGG Orthology for {id}",
+            "name": "Tab delimited file for KO annotation",
+            "suffix": "_ko.tsv",
+            "id": "nmdc:dobj-11-3tgvxd08"
+          },
+          {
+            "output": "ec_tsv",
+            "data_object_type": "Annotation Enzyme Commission",
+            "description": "EC Annotations for {id}",
+            "name": "Tab delimited file for EC annotation",
+            "suffix": "_ec.tsv",
+            "id": "nmdc:dobj-11-zxcnx432"
+          },
+          {
+            "output": "lineage_tsv",
+            "data_object_type": "Scaffold Lineage tsv",
+            "description": "Scaffold Lineage tsv for {id}",
+            "name": "Phylogeny at the scaffold level",
+            "suffix": "_scaffold_lineage.tsv",
+            "id": "nmdc:dobj-11-zj305709"
+          },
+          {
+            "output": "cog_gff",
+            "data_object_type": "Clusters of Orthologous Groups (COG) Annotation GFF",
+            "description": "COGs for {id}",
+            "name": "GFF3 format file with COGs",
+            "suffix": "_cog.gff",
+            "id": "nmdc:dobj-11-5fxvrv97"
+          },
+          {
+            "output": "pfam_gff",
+            "data_object_type": "Pfam Annotation GFF",
+            "description": "Pfam Annotation for {id}",
+            "name": "GFF3 format file with Pfam",
+            "suffix": "_pfam.gff",
+            "id": "nmdc:dobj-11-9z6ah352"
+          },
+          {
+            "output": "tigrfam_gff",
+            "data_object_type": "TIGRFam Annotation GFF",
+            "description": "TIGRFam for {id}",
+            "name": "GFF3 format file with TIGRfam",
+            "suffix": "_tigrfam.gff",
+            "id": "nmdc:dobj-11-yhfecr06"
+          },
+          {
+            "output": "smart_gff",
+            "data_object_type": "SMART Annotation GFF",
+            "description": "SMART Annotations for {id}",
+            "name": "GFF3 format file with SMART",
+            "suffix": "_smart.gff",
+            "id": "nmdc:dobj-11-9gp4da96"
+          },
+          {
+            "output": "supfam_gff",
+            "data_object_type": "SUPERFam Annotation GFF",
+            "description": "SUPERFam Annotations for {id}",
+            "name": "GFF3 format file with SUPERFam",
+            "suffix": "_supfam.gff",
+            "id": "nmdc:dobj-11-b54ak435"
+          },
+          {
+            "output": "cath_funfam_gff",
+            "data_object_type": "CATH FunFams (Functional Families) Annotation GFF",
+            "description": "CATH FunFams for {id}",
+            "name": "GFF3 format file with CATH FunFams",
+            "suffix": "_cath_funfam.gff",
+            "id": "nmdc:dobj-11-r3b6fh65"
+          },
+          {
+            "output": "crt_gff",
+            "data_object_type": "CRT Annotation GFF",
+            "description": "CRT Annotations for {id}",
+            "name": "GFF3 format file with CRT",
+            "suffix": "_crt.gff",
+            "id": "nmdc:dobj-11-s1770x66"
+          },
+          {
+            "output": "genemark_gff",
+            "data_object_type": "Genemark Annotation GFF",
+            "description": "Genemark Annotations for {id}",
+            "name": "GFF3 format file with Genemark",
+            "suffix": "_genemark.gff",
+            "id": "nmdc:dobj-11-tfskm895"
+          },
+          {
+            "output": "prodigal_gff",
+            "data_object_type": "Prodigal Annotation GFF",
+            "description": "Prodigal Annotations {id}",
+            "name": "GFF3 format file with Prodigal",
+            "suffix": "_prodigal.gff",
+            "id": "nmdc:dobj-11-0vt22n49"
+          },
+          {
+            "output": "trna_gff",
+            "data_object_type": "TRNA Annotation GFF",
+            "description": "TRNA Annotations {id}",
+            "name": "GFF3 format file with TRNA",
+            "suffix": "_trna.gff",
+            "id": "nmdc:dobj-11-g1z3e990"
+          },
+          {
+            "output": "final_rfam_gff",
+            "data_object_type": "RFAM Annotation GFF",
+            "description": "RFAM Annotations for {id}",
+            "name": "GFF3 format file with RFAM",
+            "suffix": "_rfam.gff",
+            "id": "nmdc:dobj-11-dpz65681"
+          },
+          {
+            "output": "ko_ec_gff",
+            "data_object_type": "KO_EC Annotation GFF",
+            "description": "KO_EC Annotations for {id}",
+            "name": "GFF3 format file with KO_EC",
+            "suffix": "_ko_ec.gff",
+            "id": "nmdc:dobj-11-s64gp211"
+          },
+          {
+            "output": "product_names_tsv",
+            "data_object_type": "Product Names",
+            "description": "Product names for {id}",
+            "name": "Product names file",
+            "suffix": "_product_names.tsv",
+            "id": "nmdc:dobj-11-7dfvzs81"
+          },
+          {
+            "output": "gene_phylogeny_tsv",
+            "data_object_type": "Gene Phylogeny tsv",
+            "description": "Gene Phylogeny for {id}",
+            "name": "Gene Phylogeny file",
+            "suffix": "_gene_phylogeny.tsv",
+            "id": "nmdc:dobj-11-hagw0713"
+          },
+          {
+            "output": "crt_crisprs",
+            "data_object_type": "Crispr Terms",
+            "description": "Crispr Terms for {id}",
+            "name": "Crispr Terms",
+            "suffix": "_crt.crisprs",
+            "id": "nmdc:dobj-11-nsnye718"
+          },
+          {
+            "output": "stats_tsv",
+            "data_object_type": "Annotation Statistics",
+            "description": "Annotation Stats for {id}",
+            "name": "Annotation statistics report",
+            "suffix": "_stats.tsv",
+            "id": "nmdc:dobj-11-naqp2149"
+          },
+          {
+            "output": "imgap_version",
+            "data_object_type": "Annotation Info File",
+            "description": "Annotation info for {id}",
+            "name": "File containing annotation info",
+            "suffix": "_imgap.info",
+            "id": "nmdc:dobj-11-z7vpmz16"
+          }
+        ]
+      },
+      "claims": [
+        {
+          "op_id": "nmdc:sys0dxyztg13",
+          "site_id": "NERSC"
+        }
+      ]
+    }
+  ],
+  "next_page_token": "nmdc:sys0c1zcq972"
+}
