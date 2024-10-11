@@ -56,9 +56,10 @@ class JobRunnerABC(ABC):
 class CromwellRunner(JobRunnerABC):
     LABEL_SUBMITTER_VALUE = "nmdcda"
     LABEL_PARAMETERS = ["release", "wdl", "git_repo"]
+    NO_SUBMIT_STATES = ["Failed", "Succeeded", "Aborted", "Aborting"]
 
     def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager", job_metadata: Dict[str,
-    Any] = None, max_retries: int = DEFAULT_MAX_RETRIES):
+    Any] = None, max_retries: int = DEFAULT_MAX_RETRIES, dry_run: bool = False):
         self.config = site_config
         self.workflow = workflow
         self.service_url = self.config.cromwell_url
@@ -66,6 +67,7 @@ class CromwellRunner(JobRunnerABC):
         if job_metadata:
             self._metadata = job_metadata
         self._max_retries = max_retries
+        self.dry_run = dry_run
 
 
     def _generate_workflow_inputs(self) -> Dict[str, str]:
@@ -118,9 +120,12 @@ class CromwellRunner(JobRunnerABC):
             except Exception as e:
                 logging.error(f"Failed to cleanup file: {e}")
 
-    def submit_job(self) -> str:
-        # TODO: implement
-        pass
+    def submit_job(self, force: bool = False) -> Optional[str]:
+        status = self.get_job_status()
+        if status not in self.NO_SUBMIT_STATES and not force:
+            logging.info(f"Job {self.job_id} in state {status}, skipping submission")
+            return
+
 
     def get_job_status(self) -> str:
         status_url = f"{self.service_url}/{self.job_id}/status"

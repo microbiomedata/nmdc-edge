@@ -2,6 +2,7 @@ import copy
 import json
 from pathlib import PosixPath, Path
 from pytest import fixture
+import requests_mock
 import shutil
 from unittest.mock import patch, PropertyMock, Mock
 
@@ -284,14 +285,26 @@ def mock_runtime_api_handler(site_config, mock_api):
     pass
 
 
-def test_claim_jobs(site_config_file, site_config,  fixtures_dir):
+def test_claim_jobs(site_config_file, site_config, fixtures_dir):
     # Arrange
-    with (patch("nmdc_automation.workflow_automation.watch_nmdc.RuntimeApiHandler.claim_job") as mock_claim_job):
+    with patch(
+            "nmdc_automation.workflow_automation.watch_nmdc.RuntimeApiHandler.claim_job"
+            ) as mock_claim_job, requests_mock.Mocker() as m:
         mock_claim_job.return_value = {"id": "nmdc:1234", "detail": {"id": "nmdc:1234"}}
-        job_record = json.load(open(fixtures_dir / "mags_job_metadata.json"))
-        unclaimed_wfj = WorkflowJob(site_config, job_record)
+        job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+        # remove the opid
+        job_state.pop("opid")
+        unclaimed_wfj = WorkflowJob(site_config, workflow_state=job_state)
+
+        # mock the status URL response
+        status_url = f"http://localhost:8088/api/workflows/v1/{unclaimed_wfj.job.job_id}/status"
+        m.get(status_url, json={"id": "nmdc:1234", "status": "Succeeded"})
+
         w = Watcher(site_config_file)
         w.claim_jobs(unclaimed_jobs=[unclaimed_wfj])
+
+        # Assert
+        assert unclaimed_wfj.job_status
 
 
 def test_reclaim_job(requests_mock, site_config_file, mock_api):
