@@ -91,6 +91,32 @@ class CromwellRunner(JobRunnerABC):
         return labels
 
 
+    def generate_submission_files(self) -> Dict[str, Any]:
+        """ Generate the files needed for a Cromwell job submission """
+        files = {}
+        try:
+            wdl_file = self.workflow.fetch_release_file(self.workflow.config["wdl"], suffix=".wdl")
+            bundle_file = self.workflow.fetch_release_file("bundle.zip", suffix=".zip")
+            files = {
+                "workflowSource": open(wdl_file, "rb"),
+                "workflowDependencies": open(bundle_file, "rb"),
+                "workflowInputs": open(_json_tmp(self._generate_workflow_inputs()), "rb"),
+                "labels": open(_json_tmp(self._generate_workflow_labels()), "rb"),
+            }
+        except Exception as e:
+            logging.error(f"Failed to generate submission files: {e}")
+            self._cleanup_files(files)
+            raise e
+        return files
+
+    def _cleanup_files(self, files):
+        """Safely closes and removes files."""
+        for file in files.values():
+            try:
+                file.close()
+                os.unlink(file.name)
+            except Exception as e:
+                logging.error(f"Failed to cleanup file: {e}")
 
     def submit_job(self) -> str:
         # TODO: implement

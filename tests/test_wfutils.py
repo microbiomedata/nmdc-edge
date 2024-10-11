@@ -1,10 +1,12 @@
 from nmdc_automation.workflow_automation.wfutils import (
     CromwellRunner,
     WorkflowJob,
-    WorkflowStateManager
+    WorkflowStateManager,
+    _json_tmp,
 )
 from nmdc_automation.workflow_automation.models import DataObject, workflow_process_factory
 from nmdc_schema.nmdc import MagsAnalysis, EukEval
+import io
 import json
 import os
 import pytest
@@ -189,6 +191,38 @@ def test_cromwell_runner_setup_inputs_and_labels(site_config, fixtures_dir):
     assert labels['git_repo'].startswith("https://github.com/microbiomedata")
     assert labels['pipeline'] == labels['wdl']
 
+# @mock.patch("nmdc_automation.workflow_automation.wfutils._json_tmp", side_effect=lambda x: tempfile.NamedTemporaryFile(delete=False).name)
+@mock.patch("nmdc_automation.workflow_automation.wfutils.WorkflowStateManager.fetch_release_file")
+def test_cromwell_runner_generate_submission_files( mock_fetch_release_file, site_config, fixtures_dir):
+    mock_fetch_release_file.side_effect = [
+        '/tmp/test_workflow.wdl',
+        '/tmp/test_bundle.zip',
+    ]
+    job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    assert job_state
+    workflow = WorkflowStateManager(job_state)
+
+    # Now mock 'open' for the workflow submission files
+    with mock.patch("builtins.open", new_callable=mock.mock_open) as mock_open:
+        mock_open.side_effect = [
+            io.BytesIO(b"mock wdl file content"),  # workflowSource file
+            io.BytesIO(b"mock bundle file content"),  # workflowDependencies file
+            io.BytesIO(b"mock workflow inputs"),  # workflowInputs file
+            io.BytesIO(b"mock labels")  # labels file
+        ]
+        runner = CromwellRunner(site_config, workflow)
+        submission_files = runner.generate_submission_files()
+        assert submission_files
+        assert "workflowSource" in submission_files
+        assert "workflowDependencies" in submission_files
+        assert "workflowInputs" in submission_files
+        assert "labels" in submission_files
+
+        # check that the files were written
+        assert mock_open.call_count == 4
+        mock_open.assert_any_call("/tmp/test_workflow.wdl", 'rb')
+        mock_open.assert_any_call("/tmp/test_bundle.zip", 'rb')
+        
 
 
 def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtures_dir, tmp_path):
