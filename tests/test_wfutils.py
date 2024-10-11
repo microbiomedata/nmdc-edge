@@ -191,7 +191,7 @@ def test_cromwell_runner_setup_inputs_and_labels(site_config, fixtures_dir):
     assert labels['git_repo'].startswith("https://github.com/microbiomedata")
     assert labels['pipeline'] == labels['wdl']
 
-# @mock.patch("nmdc_automation.workflow_automation.wfutils._json_tmp", side_effect=lambda x: tempfile.NamedTemporaryFile(delete=False).name)
+
 @mock.patch("nmdc_automation.workflow_automation.wfutils.WorkflowStateManager.fetch_release_file")
 def test_cromwell_runner_generate_submission_files( mock_fetch_release_file, site_config, fixtures_dir):
     mock_fetch_release_file.side_effect = [
@@ -222,7 +222,35 @@ def test_cromwell_runner_generate_submission_files( mock_fetch_release_file, sit
         assert mock_open.call_count == 4
         mock_open.assert_any_call("/tmp/test_workflow.wdl", 'rb')
         mock_open.assert_any_call("/tmp/test_bundle.zip", 'rb')
-        
+
+
+@mock.patch("nmdc_automation.workflow_automation.wfutils.WorkflowStateManager.fetch_release_file")
+@mock.patch("nmdc_automation.workflow_automation.wfutils.CromwellRunner._cleanup_files")
+def test_cromwell_runner_generate_submission_files_exception(mock_cleanup_files, mock_fetch_release_file,
+                                                             site_config, fixtures_dir):
+    # Mock file fetching
+    mock_fetch_release_file.side_effect = [
+        '/tmp/test_workflow.wdl',  # First file fetch is successful
+        '/tmp/test_bundle.zip',  # Second file fetch is successful
+    ]
+    job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    assert job_state
+    workflow = WorkflowStateManager(job_state)
+
+    # Now mock 'open' for the workflow submission files
+    with mock.patch("builtins.open", new_callable=mock.mock_open) as mock_open:
+        mock_open.side_effect = [
+            io.BytesIO(b"mock wdl file content"),  # workflowSource file
+            io.BytesIO(b"mock bundle file content"),  # workflowDependencies file
+            OSError("Failed to open file"),  # workflowInputs file
+            io.BytesIO(b"mock labels")  # labels file
+        ]
+        runner = CromwellRunner(site_config, workflow)
+        with pytest.raises(OSError):
+            runner.generate_submission_files()
+        # Check that the cleanup function was called
+        mock_cleanup_files.assert_called_once()
+
 
 
 def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtures_dir, tmp_path):
