@@ -54,6 +54,8 @@ class JobRunnerABC(ABC):
 
 
 class CromwellRunner(JobRunnerABC):
+    LABEL_SUBMITTER_VALUE = "nmdcda"
+    LABEL_PARAMETERS = ["release", "wdl", "git_repo"]
 
     def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager", job_metadata: Dict[str,
     Any] = None, max_retries: int = DEFAULT_MAX_RETRIES):
@@ -64,6 +66,30 @@ class CromwellRunner(JobRunnerABC):
         if job_metadata:
             self._metadata = job_metadata
         self._max_retries = max_retries
+
+
+    def _generate_workflow_inputs(self) -> Dict[str, str]:
+        """ Generate inputs for the job runner from the workflow state """
+        inputs = {}
+        prefix = self.workflow.input_prefix
+        for input_key, input_val in self.workflow.inputs.items():
+            # special case for resource
+            if input_val == "{resource}":
+                input_val = self.config.resource
+            inputs[f"{prefix}.{input_key}"] = input_val
+        return inputs
+
+
+    def _generate_workflow_labels(self) -> Dict[str, str]:
+        labels = {param: self.workflow.config[param] for param in self.LABEL_PARAMETERS}
+        labels["submitter"] = self.LABEL_SUBMITTER_VALUE
+        # some Cromwell-specific labels
+        labels["pipeline_version"] = self.workflow.config["release"]
+        labels["pipeline"] = self.workflow.config["wdl"]
+        labels["activity_id"] = self.workflow.workflow_execution_id
+        labels["opid"] = self.workflow.opid
+        return labels
+
 
 
     def submit_job(self) -> str:
@@ -171,6 +197,10 @@ class WorkflowStateManager:
         return self.config.get("input_prefix", None)
 
     @property
+    def inputs(self) -> Dict[str, str]:
+        return self.config.get("inputs", {})
+
+    @property
     def nmdc_jobid(self)-> Optional[str]:
         # different keys in state file vs database record
         return self.cached_state.get("nmdc_jobid", self.cached_state.get("id", None))
@@ -184,8 +214,23 @@ class WorkflowStateManager:
                 return self.cached_state[job_runner_id]
 
 
+    @property
+    def opid(self) -> Optional[str]:
+        return self.cached_state.get("opid", None)
+
+
+    @opid.setter
+    def opid(self, opid: str):
+        if self.opid:
+            raise ValueError("opid already set in job state")
+        self.cached_state["opid"] = opid
+
+
     def fetch_release_file(self, filename: str, suffix: str = None) -> str:
-        """Download a release file from the Git repository and save it as a temporary file."""
+        """
+        Download a release file from the Git repository and save it as a temporary file.
+        Note: the temporary file is not deleted automatically.
+        """
         url = self._build_release_url(filename)
         logging.debug(f"Fetching release file from URL: {url}")
         # download the file as a stream to handle large files

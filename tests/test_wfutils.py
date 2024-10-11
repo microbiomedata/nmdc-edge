@@ -172,6 +172,25 @@ def test_workflow_manager_fetch_release_file_failed_write(mock_get, fixtures_dir
         assert not os.path.exists("test_file.txt")
 
 
+def test_cromwell_runner_setup_inputs_and_labels(site_config, fixtures_dir):
+    job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    workflow = WorkflowStateManager(job_state)
+    runner = CromwellRunner(site_config, workflow)
+    inputs = runner._generate_workflow_inputs()
+    assert inputs
+    # we expect the inputs to be a key-value dict with URLs as values
+    for key, value in inputs.items():
+        if key.endswith("file"):
+            assert value.startswith("http")
+
+    labels = runner._generate_workflow_labels()
+    assert labels
+    assert labels['submitter'] == "nmdcda"
+    assert labels['git_repo'].startswith("https://github.com/microbiomedata")
+    assert labels['pipeline'] == labels['wdl']
+
+
+
 def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtures_dir, tmp_path):
     job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
     workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
