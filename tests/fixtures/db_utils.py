@@ -26,7 +26,8 @@ def load_fixture(test_db, fn, col=None, reset=False, version=None):
         col = fn.split("/")[-1].split(".")[0]
     if reset:
         test_db[col].delete_many({})
-    data = read_json(fn)
+    fixture_path = FIXTURE_DIR / Path('nmdc_db') / Path(fn)
+    data = json.load(open(fixture_path))
     logging.debug("Loading %d recs into %s" % (len(data), col))
     if len(data) > 0:
         if version:

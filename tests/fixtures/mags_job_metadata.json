@@ -942,9 +942,9 @@
     "nmdc_mags.low": "tests/test_pscratch/nmdc_mags/nmdc_wfmag-12-fxwdrv82.1_bins.lowDepth.fa",
     "nmdc_mags.final_stats_json": "tests/test_pscratch/nmdc_mags/nmdc_wfmag-12-fxwdrv82.1_mags_stats.json"
   },
-  "workflowRoot": "/pscratch/sd/n/nmdcda/cromwell-executions/nmdc_mags/29628c3e-8850-4210-927a-1d4258fa35d1",
+  "workflowRoot": "/pscratch/sd/n/nmdcda/cromwell-executions/nmdc_mags/cromwell-000-000-000-000",
   "actualWorkflowLanguage": "WDL",
-  "id": "29628c3e-8850-4210-927a-1d4258fa35d1",
+  "id": "cromwell-000-000-000-000",
   "inputs": {
     "checkm_db": "/refdata/checkM_DB/checkm_data_2015_01_16",
     "map_file": null,

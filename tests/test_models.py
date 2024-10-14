@@ -1,5 +1,8 @@
 """ Test cases for the models module. """
+import json
+
 from bson import ObjectId
+from pathlib import Path
 from pytest import mark
 from nmdc_automation.workflow_automation.models import(
     DataObject,
@@ -12,10 +15,10 @@ from nmdc_automation.workflow_automation.models import(
 from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from tests.fixtures import db_utils
 
-def test_workflow_process_factory():
+def test_workflow_process_factory(fixtures_dir):
     """ Test the workflow_process_factory function. """
     record_types = {
-        "nmdc:MagsAnalysis": "mags_record.json",
+        "nmdc:MagsAnalysis": "mags_analysis_record.json",
         "nmdc:MetagenomeAnnotation": "metagenome_annotation_record.json",
         "nmdc:MetagenomeAssembly": "metagenome_assembly_record.json",
         "nmdc:MetatranscriptomeAnnotation": "metatranscriptome_annotation_record.json",
@@ -26,12 +29,12 @@ def test_workflow_process_factory():
         "nmdc:ReadQcAnalysis": "read_qc_analysis_record.json",
     }
     for record_type, record_file in record_types.items():
-        record = db_utils.read_json(record_file)
+        record = json.load(open(fixtures_dir / f"models/{record_file}"))
         wfe = workflow_process_factory(record)
         assert wfe.type == record_type
 
-def test_workflow_process_factory_mags_with_mags_list():
-    record = db_utils.read_json("mags_workflow_record.json")
+def test_workflow_process_factory_mags_with_mags_list(fixtures_dir):
+    record = json.load(open(fixtures_dir / "models/mags_analysis_record.json"))
     mga = workflow_process_factory(record)
     assert mga.type == "nmdc:MagsAnalysis"
 
@@ -48,7 +51,7 @@ def test_process_factory_with_db_record():
     assert wfe.type == "nmdc:NucleotideSequencing"
 
 @mark.parametrize("record_file, record_type", [
-    ("mags_record.json", "nmdc:MagsAnalysis"),
+    ("mags_analysis_record.json", "nmdc:MagsAnalysis"),
     ("metagenome_annotation_record.json", "nmdc:MetagenomeAnnotation"),
     ("metagenome_assembly_record.json", "nmdc:MetagenomeAssembly"),
     ("metatranscriptome_annotation_record.json", "nmdc:MetatranscriptomeAnnotation"),
@@ -58,7 +61,7 @@ def test_process_factory_with_db_record():
     ("read_based_taxonomy_analysis_record.json", "nmdc:ReadBasedTaxonomyAnalysis"),
     ("read_qc_analysis_record.json", "nmdc:ReadQcAnalysis"),
 ])
-def test_workflow_process_node(workflows_config_dir,record_file, record_type):
+def test_workflow_process_node(workflows_config_dir,record_file, record_type, fixtures_dir):
     """ Test the WorkflowProcessNode class. """
     # load all workflows for both metagenome and metatranscriptome
     wfs = load_workflow_configs(workflows_config_dir / "workflows.yaml")
@@ -72,15 +75,16 @@ def test_workflow_process_node(workflows_config_dir,record_file, record_type):
     assert wfs_for_type
     wf = wfs_for_type[0]
 
-    record = db_utils.read_json(record_file)
+    record = json.load(open(fixtures_dir / f"models/{record_file}"))
 
     wfn = WorkflowProcessNode(record, wf)
     assert wfn.process.type == record_type
 
 
-def test_data_object_creation_from_records():
+def test_data_object_creation_from_records(fixtures_dir):
     """ Test the creation of DataObject objects from records. """
-    records = db_utils.read_json("data_object_set.json")
+    records_path = fixtures_dir / Path('nmdc_db/data_object_set.json')
+    records = json.load(open(records_path))
     for record in records:
         data_obj = DataObject(**record)
         assert data_obj.type == "nmdc:DataObject"
@@ -92,21 +96,29 @@ def test_data_object_creation_from_records():
         assert data_obj_dict == record
 
 
-def test_data_object_creation_from_db_records(test_db):
+def test_data_object_creation_from_db_records(test_db, fixtures_dir):
     db_utils.reset_db(test_db)
-    db_utils.read_json("data_object_set.json")
+    db_utils.load_fixture(test_db, "data_object_set.json")
+    # db_utils.read_json("data_object_set.json")
 
     db_records = test_db["data_object_set"].find()
     db_records = list(db_records)
+    assert db_records
     for db_record in db_records:
         data_obj = DataObject(**db_record)
         assert data_obj.type == "nmdc:DataObject"
         assert data_obj.id == db_record["id"]
         assert data_obj.name == db_record["name"]
         assert data_obj.data_object_type == db_record["data_object_type"]
-        assert data_obj.data_object_format == db_record["data_object_format"]
+        assert data_obj.description == db_record["description"]
+        assert data_obj.url == db_record["url"]
+        assert data_obj.file_size_bytes == db_record.get("file_size_bytes")
+        assert data_obj.md5_checksum == db_record["md5_checksum"]
 
         data_obj_dict = data_obj.as_dict()
+        # The db record will have an _id field that is not in the data object
+        _id = db_record.pop("_id")
+        assert _id
         assert data_obj_dict == db_record
 
 
@@ -131,8 +143,8 @@ def test_job_output_creation():
         job_output = JobOutput(**output)
 
 
-def test_job_creation():
-    job_record = db_utils.read_json("unsubmitted_job_record.json")
+def test_job_creation(fixtures_dir):
+    job_record = json.load(open(fixtures_dir / "nmdc_api/unsubmitted_job.json"))
     job = Job(**job_record)
     assert job.id == job_record["id"]
     assert isinstance(job.workflow, JobWorkflow)

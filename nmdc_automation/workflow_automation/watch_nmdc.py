@@ -150,13 +150,16 @@ class JobManager:
         existing_job = self.find_job_by_opid(opid)
         if not existing_job:
             new_job.set_opid(opid, force=force)
+            new_job.done = False
             self.job_cache.append(new_job)
             return new_job
         elif force:
             self.job_cache.remove(existing_job)
             new_job.set_opid(opid, force=force)
+            new_job.done = False
             self.job_cache.append(new_job)
             return new_job
+
 
 
     def get_finished_jobs(self)->Tuple[List[WorkflowJob], List[WorkflowJob]]:
@@ -192,11 +195,16 @@ class JobManager:
         return database
 
 
-    def process_failed_job(self, job) -> None:
+    def process_failed_job(self, job: WorkflowJob) -> None:
         """ Process a failed job """
-        if job.failed_count < self._MAX_FAILS:
-            job.failed_count += 1
-            job.cromwell_submit()
+        if job.workflow.state.get("failed_count", 0) >= self._MAX_FAILS:
+            logger.error(f"Job {job.opid} failed {self._MAX_FAILS} times. Skipping.")
+            return
+        job.workflow.state["failed_count"] = job.workflow.state.get("failed_count", 0) + 1
+        job.workflow.state["last_status"] = job.job_status
+        self.save_checkpoint()
+        logger.error(f"Job {job.opid} failed {job.workflow.state['failed_count']} times. Retrying.")
+        job.job.submit_job()
 
 
 class RuntimeApiHandler:
@@ -216,7 +224,7 @@ class RuntimeApiHandler:
         job_records =  self.runtime_api.list_jobs(filt=filt)
 
         for job in job_records:
-            jobs.append(WorkflowJob(self.config, job))
+            jobs.append(WorkflowJob(self.config, workflow_state=job))
 
         return jobs
 

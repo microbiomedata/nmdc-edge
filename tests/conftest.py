@@ -3,6 +3,7 @@ import os
 from pymongo import MongoClient
 from pathlib import Path
 from pytest import fixture
+import requests_mock
 import shutil
 from time import time
 from unittest.mock import Mock
@@ -96,3 +97,63 @@ def initial_state_file(fixtures_dir, tmp_path):
     copied_state_file = tmp_path / "initial_state.json"
     shutil.copy(state_file, copied_state_file)
     return copied_state_file
+
+
+# Sample Cromwell API responses
+CROMWELL_SUCCESS_RESPONSE = {
+    "id": "cromwell-job-id-12345",
+    "status": "Succeeded",
+    "outputs": {
+        "output_file": "/path/to/output.txt"
+    }
+}
+
+CROMWELL_FAIL_RESPONSE = {
+    "id": "cromwell-job-id-54321",
+    "status": "Failed",
+    "failures": [
+        {"message": "Error processing job"}
+    ]
+}
+
+JOB_SUBMIT_RESPONSE = {
+    "id": "cromwell-workflow-id",
+  "status": "Submitted",
+  "submission": "2024-10-13T12:34:56.789Z",
+  "workflowName": "workflow_name",
+  "workflowRoot": "gs://path/to/workflow/root",
+  "metadataSource": "Unarchived",
+  "outputs": {},
+  "labels": {
+    "label1": "value1",
+    "label2": "value2"
+  },
+  "parentWorkflowId": None,
+  "rootWorkflowId": "cromwell-root-id"
+}
+
+@fixture
+def mock_cromwell_api(fixtures_dir):
+    successful_job_metadata = json.load(open(fixtures_dir / 'cromwell/succeeded_metadata.json'))
+    with requests_mock.Mocker() as m:
+        # Mock the Cromwell submit job endpoint
+        m.post('http://localhost:8088/api/workflows/v1', json=JOB_SUBMIT_RESPONSE, status_code=201)
+
+        # Mock Cromwell status check endpoint
+        m.get(
+            'http://localhost:8088/api/workflows/v1/cromwell-job-id-12345/status', json={
+                "id": "cromwell-job-id-12345",
+                "status": "Succeeded"
+            }
+            )
+
+        # Mock Cromwell failure scenario
+        m.get('http://localhost:8088/api/workflows/v1/cromwell-job-id-54321/status', json=CROMWELL_FAIL_RESPONSE)
+
+        # Mock Cromwell metadata endpoint
+        m.get(
+            'http://localhost:8088/api/workflows/v1/cromwell-job-id-12345/metadata',
+            json=successful_job_metadata
+            )
+
+        yield m
