@@ -29,7 +29,8 @@ def test_cromwell_job_runner(site_config, fixtures_dir):
     # load cromwell metadata
     job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
     job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
-    job_runner = CromwellRunner(site_config, job_state, job_metadata)
+    state_manager = WorkflowStateManager(job_state)
+    job_runner = CromwellRunner(site_config, state_manager, job_metadata)
     assert job_runner
 
 
@@ -41,7 +42,8 @@ def test_cromwell_job_runner_get_job_status(site_config, fixtures_dir, mock_crom
     job_state['cromwell_jobid'] = "cromwell-job-id-12345"
     job_metadata['id'] = "cromwell-job-id-12345"
 
-    job_runner = CromwellRunner(site_config, job_state, job_metadata)
+    state_manager = WorkflowStateManager(job_state)
+    job_runner = CromwellRunner(site_config, state_manager, job_metadata)
     status = job_runner.get_job_status()
     assert status
     assert status == "Succeeded"
@@ -49,7 +51,8 @@ def test_cromwell_job_runner_get_job_status(site_config, fixtures_dir, mock_crom
     # failed job from the test fixtures
     job_state['cromwell_jobid'] = "cromwell-job-id-54321"
     job_metadata['id'] = "cromwell-job-id-54321"
-    job_runner = CromwellRunner(site_config, job_state, job_metadata)
+    state_manager = WorkflowStateManager(job_state)
+    job_runner = CromwellRunner(site_config, state_manager, job_metadata)
     status = job_runner.get_job_status()
     assert status
     assert status == "Failed"
@@ -63,7 +66,8 @@ def test_cromwell_job_runner_get_job_metadata(site_config, fixtures_dir, mock_cr
     job_state['cromwell_jobid'] = "cromwell-job-id-12345"
     job_metadata['id'] = "cromwell-job-id-12345"
 
-    job_runner = CromwellRunner(site_config, job_state, job_metadata)
+    state_manager = WorkflowStateManager(job_state)
+    job_runner = CromwellRunner(site_config, state_manager, job_metadata)
     metadata = job_runner.get_job_metadata()
     assert metadata
     assert metadata['id'] == "cromwell-job-id-12345"
@@ -71,16 +75,7 @@ def test_cromwell_job_runner_get_job_metadata(site_config, fixtures_dir, mock_cr
     assert job_runner.metadata == metadata
 
 
-def test_cromwell_job_runner_submit_job(site_config, fixtures_dir, mock_cromwell_api):
-    # load cromwell metadata
-    job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
-    job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
-    # successful job from the test fixtures
-    job_state['cromwell_jobid'] = "cromwell-job-id-12345"
-    job_metadata['id'] = "cromwell-job-id-12345"
 
-    job_runner = CromwellRunner(site_config, job_state, job_metadata)
-    job_runner.submit_job()
 
 
 def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
@@ -251,6 +246,25 @@ def test_cromwell_runner_generate_submission_files_exception(mock_cleanup_files,
         # Check that the cleanup function was called
         mock_cleanup_files.assert_called_once()
 
+
+@mock.patch("nmdc_automation.workflow_automation.wfutils.CromwellRunner.generate_submission_files")
+def test_cromwell_job_runner_submit_job_new_job(mock_generate_submission_files, site_config, fixtures_dir, mock_cromwell_api):
+    mock_generate_submission_files.return_value = {
+        "workflowSource": "workflowSource",
+        "workflowDependencies": "workflowDependencies",
+        "workflowInputs": "workflowInputs",
+        "labels": "labels"
+    }
+    # A new workflow job that has not been submitted - it has a workflow state
+    # but no job metadata
+    wf_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    wf_state['last_status'] = None # simulate a job that has not been submitted
+    wf_state['cromwell_jobid'] = None # simulate a job that has not been submitted
+    wf_state['done'] = False # simulate a job that has not been submitted
+
+    wf_state_manager = WorkflowStateManager(wf_state)
+    job_runner = CromwellRunner(site_config, wf_state_manager)
+    job_runner.submit_job()
 
 
 def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtures_dir, tmp_path):

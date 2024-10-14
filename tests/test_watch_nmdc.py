@@ -2,6 +2,7 @@ import copy
 import json
 from pathlib import PosixPath, Path
 from pytest import fixture
+from unittest import mock
 import requests_mock
 import shutil
 from unittest.mock import patch, PropertyMock, Mock
@@ -284,9 +285,10 @@ def test_job_manager_process_successful_job(site_config, initial_state_file, fix
 def mock_runtime_api_handler(site_config, mock_api):
     pass
 
-
-def test_claim_jobs(site_config_file, site_config, fixtures_dir):
+@mock.patch("nmdc_automation.workflow_automation.wfutils.CromwellRunner.submit_job")
+def test_claim_jobs(mock_submit, site_config_file, site_config, fixtures_dir):
     # Arrange
+    mock_submit.return_value = {"id": "nmdc:1234", "detail": {"id": "nmdc:1234"}}
     with patch(
             "nmdc_automation.workflow_automation.watch_nmdc.RuntimeApiHandler.claim_job"
             ) as mock_claim_job, requests_mock.Mocker() as m:

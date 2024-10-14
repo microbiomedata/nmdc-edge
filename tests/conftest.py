@@ -117,7 +117,19 @@ CROMWELL_FAIL_RESPONSE = {
 }
 
 JOB_SUBMIT_RESPONSE = {
-    "run_id": "cromwell-job-id-12345"
+    "id": "cromwell-workflow-id",
+  "status": "Submitted",
+  "submission": "2024-10-13T12:34:56.789Z",
+  "workflowName": "workflow_name",
+  "workflowRoot": "gs://path/to/workflow/root",
+  "metadataSource": "Unarchived",
+  "outputs": {},
+  "labels": {
+    "label1": "value1",
+    "label2": "value2"
+  },
+  "parentWorkflowId": None,
+  "rootWorkflowId": "cromwell-root-id"
 }
 
 @fixture
@@ -125,7 +137,7 @@ def mock_cromwell_api(fixtures_dir):
     successful_job_metadata = json.load(open(fixtures_dir / 'cromwell/succeeded_metadata.json'))
     with requests_mock.Mocker() as m:
         # Mock the Cromwell submit job endpoint
-        m.post('http://localhost:8088/api/workflows/v1/runs', json=JOB_SUBMIT_RESPONSE, status_code=201)
+        m.post('http://localhost:8088/api/workflows/v1', json=JOB_SUBMIT_RESPONSE, status_code=201)
 
         # Mock Cromwell status check endpoint
         m.get(

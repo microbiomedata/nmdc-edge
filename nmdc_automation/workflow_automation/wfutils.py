@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 from abc import ABC, abstractmethod
+from datetime import datetime
+import pytz
 import os
 import json
 import tempfile
@@ -56,11 +58,21 @@ class JobRunnerABC(ABC):
 class CromwellRunner(JobRunnerABC):
     LABEL_SUBMITTER_VALUE = "nmdcda"
     LABEL_PARAMETERS = ["release", "wdl", "git_repo"]
-    NO_SUBMIT_STATES = ["Failed", "Succeeded", "Aborted", "Aborting"]
+    NO_SUBMIT_STATES = [
+        "Submitted",    # job is already submitted but not running
+        "Running",      # job is already running
+        "Failed",       # job failed
+        "Succeeded",    # job succeeded
+        "Aborted",      # job was aborted and did not finish
+        "Aborting"      # job is in the process of being aborted
+        "On Hold",      # job is on hold and not running. It can be manually resumed later
+    ]
 
     def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager", job_metadata: Dict[str,
     Any] = None, max_retries: int = DEFAULT_MAX_RETRIES, dry_run: bool = False):
         self.config = site_config
+        if not isinstance(workflow, WorkflowStateManager):
+            raise ValueError("workflow must be a WorkflowStateManager object")
         self.workflow = workflow
         self.service_url = self.config.cromwell_url
         self._metadata = {}
@@ -107,13 +119,13 @@ class CromwellRunner(JobRunnerABC):
             }
         except Exception as e:
             logging.error(f"Failed to generate submission files: {e}")
-            self._cleanup_files(files)
+            self._cleanup_files(list(files.values()))
             raise e
         return files
 
-    def _cleanup_files(self, files):
+    def _cleanup_files(self, files: List[Union[tempfile.NamedTemporaryFile, tempfile.SpooledTemporaryFile]]):
         """Safely closes and removes files."""
-        for file in files.values():
+        for file in files:
             try:
                 file.close()
                 os.unlink(file.name)
@@ -122,12 +134,41 @@ class CromwellRunner(JobRunnerABC):
 
     def submit_job(self, force: bool = False) -> Optional[str]:
         status = self.get_job_status()
-        if status not in self.NO_SUBMIT_STATES and not force:
+        if status in self.NO_SUBMIT_STATES and not force:
             logging.info(f"Job {self.job_id} in state {status}, skipping submission")
             return
+        cleanup_files = []
+        try:
+            files = self.generate_submission_files()
+            cleanup_files = list(files.values())
+            if not self.dry_run:
+                response = requests.post(self.service_url, files=files)
+                response.raise_for_status()
+                self.metadata = response.json()
+                self.job_id = self.metadata["id"]
+                logging.info(f"Submitted job {self.job_id}")
+            else:
+                logging.info(f"Dry run: skipping job submission")
+                self.job_id = "dry_run"
+
+            logging.info(f"Job {self.job_id} submitted")
+            start_time = datetime.now(pytz.utc).isoformat()
+            # update workflow state
+            self.workflow.done = False
+            self.workflow.update_state({"start": start_time})
+            self.workflow.update_state({"cromwell_jobid": self.job_id})
+            self.workflow.update_state({"last_status": "Submitted"})
+            return self.job_id
+        except Exception as e:
+            logging.error(f"Failed to submit job: {e}")
+            raise e
+        finally:
+            self._cleanup_files(cleanup_files)
 
 
     def get_job_status(self) -> str:
+        if not self.job_id:
+            return "Unknown"
         status_url = f"{self.service_url}/{self.job_id}/status"
         response = requests.get(status_url)
         response.raise_for_status()

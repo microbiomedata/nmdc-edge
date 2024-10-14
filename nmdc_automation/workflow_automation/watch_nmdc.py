@@ -216,7 +216,7 @@ class RuntimeApiHandler:
         job_records =  self.runtime_api.list_jobs(filt=filt)
 
         for job in job_records:
-            jobs.append(WorkflowJob(self.config, job))
+            jobs.append(WorkflowJob(self.config, workflow_state=job))
 
         return jobs
 
