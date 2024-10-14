@@ -2,6 +2,7 @@ version 1.0
 
 import "https://raw.githubusercontent.com/microbiomedata/metaAssembly/refs/tags/v1.0.5/shortReads_assembly.wdl" as jgi_asm
 import "preprocess.wdl" as MetaAssembly_preprocess
+import "assembly_preprocess.wdl" as MetaAssembly_memory_estimate
 
 workflow nmdc_edge_assembly{
     input {
@@ -29,6 +30,14 @@ workflow nmdc_edge_assembly{
             input_fq2=input_fq2,
     
     }
+
+    call MetaAssembly_memory_estimate.assembly_preprocess as assembly_preprocess {
+        input:
+            input_file=preprocess.input_file_gz,
+            outdir=outdir
+
+    }
+
 
     call jgi_asm.jgi_metaASM as metaAssembly_call {
         input:
@@ -61,6 +70,7 @@ workflow nmdc_edge_assembly{
         File asminfo=metaAssembly_call.asminfo
         File report_html = assembly_vis.report_html
         File report_txt = assembly_vis.report_txt
+        String pred_memory = assembly_preprocess.pred_mem
     }
 }
 

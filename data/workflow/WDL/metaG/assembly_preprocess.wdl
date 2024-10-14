@@ -2,50 +2,40 @@ version 1.0
 
 workflow assembly_preprocess {
     input {
-        Array[File] input_files
-        Array[File] input_fq1
-        Array[File] input_fq2
+        input_file=preprocess.input_file_gz
         String  container="microbiomedata/bbtools:38.96"
         String outdir
-        Boolean input_interleaved
     }
-    if (input_interleaved) {
-        call estimate_memory_int {
+
+        call estimate_memory {
             input:
-                input_files = input_files,
+                input_file = input_file,
                 container = container,
                 outdir = outdir
         }
-    }
-    if (!input_interleaved) {
-        call estimate_memory_pe {
-            input:
-                input_fq1 = input_fq1,
-                input_fq2 = input_fq2,
-                container = container,
-                outdir = outdir
-        }
-    }
+
 
 
     output {
-        String? memory=if (input_interleaved) then estimate_memory_int.memory else estimate_memory_pe.memory
+        String memory=estimate_memory.memory
+        String memory=estimate_memory.num_kmers
     }
 }
 
-task estimate_memory_int {
+task estimate_memory {
         input {
-            Array[File] input_files
+            File input_file
             String container
             String outdir
             String predicted_memory="pred_memory.txt"
+            String num_kmers_file="num_kmers.txt"
         }
 
         command <<<
-            reformat.sh in=~{input_files[0]} interleaved=t cardinality=true out=stdout.fq 1> /dev/null 2>| cardinality.txt
+            reformat.sh in=~{input_file} interleaved=t cardinality=true out=stdout.fq 1> /dev/null 2>| cardinality.txt
             num_kmers=`cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}'`
-            pred_mem=`awk 'BEGIN {print (($num_kmers*2.962e-08 + 1.630e+01) * 1.1)}'`
-            pred_mem+="g"> ~{predicted_memory}
+            awk 'BEGIN {print (($num_kmers*2.962e-08 + 1.630e+01) * 1.1)}' > ~{predicted_memory}
+            cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}' > ~{num_kmers_file}
             >>>
 
         runtime {
@@ -55,32 +45,7 @@ task estimate_memory_int {
         }
 
         output {
-            String? memory = read_string(predicted_memory)
-        }
-    }
-task estimate_memory_pe {
-        input {
-            Array[File] input_fq1
-            Array[File] input_fq2
-            String container
-            String outdir
-            String predicted_memory="pred_memory.txt"
-        }
-
-        command <<<
-            reformat.sh in1=~{input_fq1} in2=~{input_fq2} interleaved=t cardinality=true out=stdout.fq 1> /dev/null 2>| cardinality.txt
-            num_kmers=`cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}'`
-            pred_mem=`awk 'BEGIN {print (($num_kmers*2.962e-08 + 1.630e+01) * 1.1)g}'`
-            pred_mem+="g"> ~{predicted_memory}
-            >>>
-
-        runtime {
-            docker: container
-            memory: "1 GiB"
-            cpu:  1
-        }
-
-        output {
-            String? memory = read_string(predicted_memory)
+            String memory = read_string(predicted_memory)
+            String num_kmers = read_string(num_kmers_file)
         }
     }
