@@ -2,7 +2,7 @@ version 1.0
 
 workflow assembly_preprocess {
     input {
-        input_file=preprocess.input_file_gz
+        File input_file
         String  container="microbiomedata/bbtools:38.96"
         String outdir
     }
