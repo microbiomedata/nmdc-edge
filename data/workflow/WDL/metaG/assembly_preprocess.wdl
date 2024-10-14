@@ -2,7 +2,7 @@ version 1.0
 
 workflow assembly_preprocess {
     input {
-        File input_file
+        File? input_file
         String  container="microbiomedata/bbtools:38.96"
         String outdir
     }
@@ -22,7 +22,7 @@ workflow assembly_preprocess {
 
 task estimate_memory {
         input {
-            File input_file
+            File? input_file
             String container
             String outdir
             String predicted_memory="pred_memory.txt"
