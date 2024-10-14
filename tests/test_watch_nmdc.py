@@ -1,6 +1,8 @@
 import copy
 import json
 from pathlib import PosixPath, Path
+
+import pytest
 from pytest import fixture
 from unittest import mock
 import requests_mock
@@ -11,7 +13,8 @@ from nmdc_schema.nmdc import Database
 from nmdc_automation.workflow_automation.watch_nmdc import (
     Watcher,
     FileHandler,
-    JobManager
+    JobManager,
+    RuntimeApiHandler,
 )
 from nmdc_automation.workflow_automation.wfutils import WorkflowJob
 from tests.fixtures import db_utils
@@ -231,6 +234,35 @@ def test_job_manager_prepare_and_cache_new_job(site_config, initial_state_file, 
     jm.job_cache = []
 
 
+def test_job_manager_prepare_and_cache_new_job_force(site_config, initial_state_file, fixtures_dir):
+    # Arrange
+    fh = FileHandler(site_config, initial_state_file)
+    jm = JobManager(site_config, fh)
+    #already has an opid
+    new_job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    assert new_job_state
+    new_job = WorkflowJob(site_config, new_job_state)
+    # Act
+    opid = "nmdc:test-opid-1"
+    job = jm.prepare_and_cache_new_job(new_job, opid, force=True)
+    # Assert
+    assert job
+    assert isinstance(job, WorkflowJob)
+    assert job.opid == opid
+    assert not job.done
+    assert job in jm.job_cache
+    # resubmit the job without force it will return None
+    job2 = jm.prepare_and_cache_new_job(job, opid)
+    assert not job2
+    # try again with force
+    job2 = jm.prepare_and_cache_new_job(job, opid, force=True)
+    assert job2
+    assert isinstance(job2, WorkflowJob)
+    assert job2.opid == opid
+
+
+
+
 def test_job_manager_get_finished_jobs(site_config, initial_state_file, fixtures_dir):
     # Arrange - initial state has 1 failure and is not done
     fh = FileHandler(site_config, initial_state_file)
@@ -281,6 +313,20 @@ def test_job_manager_process_successful_job(site_config, initial_state_file, fix
     jm.job_cache = []
 
 
+def test_job_manager_process_failed_job(site_config, initial_state_file, fixtures_dir):
+    # Arrange
+    fh = FileHandler(site_config, initial_state_file)
+    jm = JobManager(site_config, fh)
+    failed_job_state = json.load(open(fixtures_dir / "failed_job_state.json"))
+    assert failed_job_state
+    failed_job = WorkflowJob(site_config, failed_job_state)
+    jm.job_cache.append(failed_job)
+    # Act
+    jm.process_failed_job(failed_job)
+    # Assert
+    assert failed_job.done
+
+
 @fixture
 def mock_runtime_api_handler(site_config, mock_api):
     pass
@@ -307,6 +353,15 @@ def test_claim_jobs(mock_submit, site_config_file, site_config, fixtures_dir):
 
         # Assert
         assert unclaimed_wfj.job_status
+
+
+def test_runtime_manager_get_unclaimed_jobs(site_config, initial_state_file, fixtures_dir):
+    # Arrange
+    rt = RuntimeApiHandler(site_config)
+    # Act
+    unclaimed_jobs = rt.get_unclaimed_jobs(rt.config.allowed_workflows)
+    # Assert
+    assert unclaimed_jobs
 
 
 def test_reclaim_job(requests_mock, site_config_file, mock_api):

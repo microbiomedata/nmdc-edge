@@ -209,7 +209,6 @@ class CromwellRunner(JobRunnerABC):
         return self._max_retries
 
 
-
 class WorkflowStateManager:
     CHUNK_SIZE = 1000000  # 1 MB
     GIT_RELEASES_PATH = "/releases/download"
@@ -519,10 +518,6 @@ def _json_tmp(data):
     with os.fdopen(fp, "w") as fd:
         fd.write(json.dumps(data))
     return fname
-
-
-def jprint(obj):
-    print(json.dumps(obj, indent=2))
 
 
 def _md5(file):
