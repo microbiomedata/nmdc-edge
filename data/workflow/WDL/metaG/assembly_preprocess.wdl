@@ -7,18 +7,16 @@ workflow assembly_preprocess {
         String outdir
     }
 
-        call estimate_memory {
-            input:
-                input_file = input_file,
-                container = container,
-                outdir = outdir
-        }
-
-
+    call estimate_memory as mem_estimate{
+        input:
+            input_file = input_file,
+            container = container,
+            outdir = outdir
+    }
 
     output {
-        String memory=estimate_memory.memory
-        String memory=estimate_memory.num_kmers
+        String memory = mem_estimate.memory
+        String num_kmers = mem_estimate.num_kmers
     }
 }
 
