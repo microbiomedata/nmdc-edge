@@ -33,8 +33,9 @@ workflow nmdc_edge_assembly{
 
     call MetaAssembly_memory_estimate.assembly_preprocess as assembly_preprocess {
         input:
-            input_file=preprocess.input_file_gz,
-            outdir=outdir
+            input_file = preprocess.input_file_gz,
+            container = bbtools_container,
+            outdir = outdir
 
     }
 
@@ -70,7 +71,8 @@ workflow nmdc_edge_assembly{
         File asminfo=metaAssembly_call.asminfo
         File report_html = assembly_vis.report_html
         File report_txt = assembly_vis.report_txt
-        String pred_memory = assembly_preprocess.pred_mem
+        String predicted_memory = assembly_preprocess.memory
+        String num_kmers = assembly_preprocess.num_kmers
     }
 }
 
