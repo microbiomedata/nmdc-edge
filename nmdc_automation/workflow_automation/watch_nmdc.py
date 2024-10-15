@@ -245,7 +245,7 @@ class Watcher:
         self.runtime_api_handler = RuntimeApiHandler(self.config)
         self.job_manager = JobManager(self.config, self.file_handler)
 
-    def restore_from_checkpoint(self, state_data: Dict[str, Any], nocheck: bool = False)-> None:
+    def restore_from_checkpoint(self, state_data: Dict[str, Any] = None)-> None:
         """
         Restore from checkpoint
         """
