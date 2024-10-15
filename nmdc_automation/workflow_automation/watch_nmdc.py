@@ -130,12 +130,15 @@ class JobManager:
         wf_job_list = []
         job_cache_ids = [job.opid for job in self.job_cache]
         state = self.file_handler.read_state()
-        for job in state["jobs"]:
+        jobs = state.get("jobs", [])
+        logging.info(f"Found {len(jobs)} jobs in state")
+        for job in jobs:
             if job.get("opid") in job_cache_ids:
                 continue
             wf_job = WorkflowJob(self.config, workflow_state=job)
             job_cache_ids.append(wf_job.opid)
             wf_job_list.append(wf_job)
+        logging.info(f"Restored {len(wf_job_list)} jobs from state")
         return wf_job_list
 
 
