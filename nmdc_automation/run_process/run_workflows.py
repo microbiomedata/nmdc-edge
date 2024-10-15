@@ -64,6 +64,8 @@ def resubmit(ctx, workflow_execution_ids):
             key = "opid"
         else:
             key = "activity_id"
+        found_jobs = watcher.job_manager.job_cache
+        logging.info(f"Checking {len(found_jobs)} jobs")
         for found_job in watcher.job_manager.job_cache:
             job_record = found_job.workflow.state
             logging.info(f"Checking {job_record[key]} against {wf_id}")
