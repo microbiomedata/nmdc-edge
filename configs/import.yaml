@@ -23,7 +23,7 @@ Workflows:
     Import: false
     Type: nmdc:ReadBasedTaxonomyAnalysis
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: v1.0.5
+    Version: v1.0.8
     Collection: workflow_execution_set
     WorkflowExecutionRange: ReadBasedTaxonomyAnalysis
     Inputs:
