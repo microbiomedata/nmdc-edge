@@ -1,0 +1,41 @@
+{
+      "id": "nmdc:wfmgan-11-009f3582.1",
+      "name": "Metagenome Annotation Analysis Activity for nmdc:wfmgan-11-009f3582.1",
+      "started_at_time": "2024-09-03T19:24:35.443721+00:00",
+      "ended_at_time": "2024-09-04T20:05:09.774239+00:00",
+      "was_informed_by": "nmdc:omprc-11-24aket55",
+      "execution_resource": "NERSC-Perlmutter",
+      "git_url": "https://github.com/microbiomedata/mg_annotation",
+      "has_input": [
+        "nmdc:dobj-11-mmtw5j72"
+      ],
+      "type": "nmdc:MetagenomeAnnotation",
+      "has_output": [
+        "nmdc:dobj-11-pthb2b31",
+        "nmdc:dobj-11-2fd45p27",
+        "nmdc:dobj-11-ht0ats03",
+        "nmdc:dobj-11-sevdef93",
+        "nmdc:dobj-11-dadfbk65",
+        "nmdc:dobj-11-2r9dh888",
+        "nmdc:dobj-11-hd7fse31",
+        "nmdc:dobj-11-8zbtsn06",
+        "nmdc:dobj-11-sbxx9k71",
+        "nmdc:dobj-11-9snwce53",
+        "nmdc:dobj-11-qb62ef07",
+        "nmdc:dobj-11-9k06j893",
+        "nmdc:dobj-11-6hm85g54",
+        "nmdc:dobj-11-pgp0fr06",
+        "nmdc:dobj-11-a9m5d764",
+        "nmdc:dobj-11-rmypsf52",
+        "nmdc:dobj-11-13mdyw37",
+        "nmdc:dobj-11-0apj5620",
+        "nmdc:dobj-11-kh26pk74",
+        "nmdc:dobj-11-zyh1nx46",
+        "nmdc:dobj-11-d6gdnm48",
+        "nmdc:dobj-11-7j8j6733",
+        "nmdc:dobj-11-s13ejf37",
+        "nmdc:dobj-11-hpn4d109",
+        "nmdc:dobj-11-sfanhn77"
+      ],
+      "version": "v1.1.0"
+    }

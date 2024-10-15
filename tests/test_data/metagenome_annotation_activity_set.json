@@ -3,9 +3,6 @@
     "has_input": [
       "nmdc:37573bca240f88091720ae61ae5c9452"
     ],
-    "part_of": [
-      "nmdc:mga0vx38"
-    ],
     "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
     "has_output": [
       "nmdc:7336ecf1f0b47e6161b52aec01d56ab8",
@@ -34,7 +31,7 @@
     "execution_resource": "NERSC-Cori",
     "name": "Annotation Activity for nmdc:mga0vx38",
     "started_at_time": "2021-08-05T14:48:51+00:00",
-    "type": "nmdc:MetagenomeAnnotationActivity",
+    "type": "nmdc:MetagenomeAnnotation",
     "ended_at_time": "2021-09-15T10:13:20+00:00"
   }
 ]

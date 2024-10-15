@@ -9,15 +9,9 @@ from pathlib import Path
 FIXTURE_DIR = Path(__file__).parent
 COLS = [
     'data_object_set',
-    "omics_processing_set",
-    'mags_activity_set',
-    'metagenome_assembly_set',
-    'metatranscriptome_assembly_set',
+    'data_generation_set',
     'jobs',
-    'metagenome_annotation_activity_set',
-    'metatranscriptome_annotation_set',
-    'metatranscriptome_expression_analysis_set',
-    'read_qc_analysis_activity_set'
+    'workflow_execution_set',
     ]
 
 
@@ -27,14 +21,18 @@ def read_json(fn):
     return data
 
 
-def load_fixture(test_db, fn, col=None, reset=False):
+def load_fixture(test_db, fn, col=None, reset=False, version=None):
     if not col:
         col = fn.split("/")[-1].split(".")[0]
     if reset:
         test_db[col].delete_many({})
-    data = read_json(fn)
+    fixture_path = FIXTURE_DIR / Path('nmdc_db') / Path(fn)
+    data = json.load(open(fixture_path))
     logging.debug("Loading %d recs into %s" % (len(data), col))
     if len(data) > 0:
+        if version:
+            for d in data:
+                d['version'] = version
         test_db[col].insert_many(data)
 
 

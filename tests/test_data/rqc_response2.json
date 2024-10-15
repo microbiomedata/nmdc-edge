@@ -36,7 +36,7 @@
       "input_read_count": "{outputs.stats.input_read_count}",
       "output_read_bases": "{outputs.stats.output_read_bases}",
       "output_read_count": "{outputs.stats.output_read_count}",
-      "type": "nmdc:ReadQcAnalysisActivity"
+      "type": "nmdc:ReadQcAnalysis"
     },
     "outputs": [
       {

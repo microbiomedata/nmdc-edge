@@ -1,14 +1,18 @@
-from pathlib import Path
 import tomli
 from typing import Union
 import yaml
-import os
 from pathlib import Path
+import warnings
 
 WORKFLOWS_DIR = Path(__file__).parent / "workflows"
 
 class UserConfig:
     def __init__(self, path):
+        warnings.warn(
+            "UserConfig is deprecated and will be removed in a future release. Use SiteConfig instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         with open(path, "rb") as file:
             self.config_data = tomli.load(file)
 
@@ -24,7 +28,7 @@ class UserConfig:
     def password(self):
         return self.config_data["api"]["password"]
 
-class Config:
+class SiteConfig:
     def __init__(self, path: Union[str, Path]):
         with open(path, "rb") as file:
             self.config_data = tomli.load(file)
@@ -75,7 +79,7 @@ class Config:
 
     @property
     def agent_state(self):
-        return self.config_data["state"]["agent_state"]
+        return self.config_data.get("state", {}).get("agent_state", None)
 
     @property
     def activity_id_state(self):

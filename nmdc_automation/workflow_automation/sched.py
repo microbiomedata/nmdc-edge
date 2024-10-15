@@ -5,11 +5,12 @@ import uuid
 import os
 from time import sleep as _sleep
 from nmdc_automation.api.nmdcapi import NmdcRuntimeApi
-from nmdc_automation.workflow_automation.workflows import load_workflows, Workflow
+from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from functools import lru_cache
 from pymongo import MongoClient
 from pymongo.database import Database as MongoDatabase
-from nmdc_automation.workflow_automation.activities import load_activities, Activity
+from nmdc_automation.workflow_automation.workflow_process import load_workflow_process_nodes
+from nmdc_automation.workflow_automation.models import WorkflowProcessNode, WorkflowConfig
 from semver.version import Version
 
 
@@ -41,7 +42,7 @@ def get_mongo_db() -> MongoDatabase:
     return _client[os.getenv("MONGO_DBNAME")]
 
 
-def within_range(wf1: Workflow, wf2: Workflow, force=False) -> bool:
+def within_range(wf1: WorkflowConfig, wf2: WorkflowConfig, force=False) -> bool:
     """
     Determine if two workflows are within a major and minor
     version of each other.
@@ -69,12 +70,12 @@ is to migrate this fucntion into Dagster.
 """
 
 # TODO: Change the name of this to distinguish it from the database Job object
-class Job:
+class SchedulerJob:
     """
     Class to hold information for new jobs
     """
 
-    def __init__(self, workflow: Workflow, trigger_act: str):
+    def __init__(self, workflow: WorkflowConfig, trigger_act: WorkflowProcessNode):
         self.workflow = workflow
         self.trigger_act = trigger_act
         self.informed_by = trigger_act.was_informed_by
@@ -82,21 +83,13 @@ class Job:
 
 
 class Scheduler:
-    # TODO: Get this from the config
-    _sets = [
-        "metagenome_annotation_activity_set",
-        "metagenome_assembly_set",
-        "read_qc_analysis_activity_set",
-        "mags_activity_set",
-        "read_based_analysis_activity_set",
-    ]
 
     def __init__(self, db, wfn="workflows.yaml",
                  site_conf="site_configuration.toml"):
         logging.info("Initializing Scheduler")
         # Init
         wf_file = os.environ.get(_WF_YAML_ENV, wfn)
-        self.workflows = load_workflows(wf_file)
+        self.workflows = load_workflow_configs(wf_file)
         self.db = db
         self.api = NmdcRuntimeApi(site_conf)
         # TODO: Make force a optional parameter
@@ -111,8 +104,7 @@ class Scheduler:
             self.cycle()
             await asyncio.sleep(_POLL_INTERVAL)
 
-    # TODO:
-    def add_job_rec(self, job: Job):
+    def create_job_rec(self, job: SchedulerJob):
         """
         This takes a job and using the workflow definition,
         resolves all the information needed to create a
@@ -122,11 +114,11 @@ class Scheduler:
         next_act = job.trigger_act
         do_by_type = dict()
         while next_act:
-            for do_type, val in next_act.data_objects_by_type.items():
+            for do_type, data_object in next_act.data_objects_by_type.items():
                 if do_type in do_by_type:
-                    logging.debug(f"Ignoring Duplicate type: {do_type} {val.id} {next_act.id}")
+                    logging.debug(f"Ignoring Duplicate type: {do_type} {data_object.id} {next_act.id}")
                     continue
-                do_by_type[do_type] = val.__dict__
+                do_by_type[do_type] = data_object
             # do_by_type.update(next_act.data_objects_by_type.__dict__)
             next_act = next_act.parent
 
@@ -144,7 +136,7 @@ class Scheduler:
                     if k in optional_inputs:
                         continue
                     raise ValueError(f"Unable to find {do_type} in {do_by_type}")
-                inp_objects.append(dobj)
+                inp_objects.append(dobj.as_dict())
                 v = dobj["url"]
             # TODO: Make this smarter
             elif v == "{was_informed_by}":
@@ -170,8 +162,8 @@ class Scheduler:
             "inputs": inp,
             "input_data_objects": inp_objects,
         }
-        if wf.activity:
-            job_config["activity"] = wf.activity
+        if wf.workflow_execution:
+            job_config["activity"] = wf.workflow_execution
         if wf.outputs:
             outputs = []
             for output in wf.outputs:
@@ -187,7 +179,7 @@ class Scheduler:
             "config": job_config,
             "claims": [],
         }
-        self.db.jobs.insert_one(jr)
+
         logging.info(f'JOB RECORD: {jr["id"]}')
         # This would make the job record
         # print(json.dumps(ji, indent=2))
@@ -216,7 +208,7 @@ class Scheduler:
         }
         return f"nmdc:wf{mapping[id_type]}-11-xxxxxx"
 
-    def get_activity_id(self, wf: Workflow, informed_by: str):
+    def get_activity_id(self, wf: WorkflowConfig, informed_by: str):
         """
         See if anything exist for this and if not
         mint a new id.
@@ -244,7 +236,7 @@ class Scheduler:
     #      from the jobs collection for a given workflow. Also activity should be execution to conform
     #      to the new schema.
     @lru_cache(maxsize=128)
-    def get_existing_jobs(self, wf: Workflow):
+    def get_existing_jobs(self, wf: WorkflowConfig):
         existing_jobs = set()
         # Filter by git_repo and version
         # Find all existing jobs for this workflow
@@ -257,7 +249,7 @@ class Scheduler:
         return existing_jobs
 
     # TODO: Rename this to reflect what it does and add unit tests
-    def find_new_jobs(self, act: Activity) -> list[Job]:
+    def find_new_jobs(self, wfp_node: WorkflowProcessNode) -> list[SchedulerJob]:
         """
         For a given activity see if there are any new jobs
         that should be created.
@@ -265,24 +257,25 @@ class Scheduler:
         new_jobs = []
         # Loop over the derived workflows for this
         # activities' workflow
-        for wf in act.workflow.children:
+        for wf in wfp_node.workflow.children:
             # Ignore disabled workflows
             if not wf.enabled:
                 continue
             # See if we already have a job for this
-            if act.id in self.get_existing_jobs(wf):
+            existing_jobs = self.get_existing_jobs(wf)
+            if wfp_node.id in self.get_existing_jobs(wf):
                 continue
             # Look at previously generated derived
             # activities to see if this is already done.
-            for child_act in act.children:
+            for child_act in wfp_node.children:
                 if within_range(child_act.workflow, wf, force=self.force):
                     break
             else:
                 # These means no existing activities were
                 # found that matched this workflow, so we
                 # add a job
-                logging.debug(f"Creating a job {wf.name}:{wf.version} for {act.id}")
-                new_jobs.append(Job(wf, act))
+                logging.debug(f"Creating a job {wf.name}:{wf.version} for {wfp_node.id}")
+                new_jobs.append(SchedulerJob(wf, wfp_node))
 
         return new_jobs
 
@@ -296,18 +289,18 @@ class Scheduler:
             filt = {"was_informed_by": {"$in": list(allowlist)}}
         # TODO: Quite a lot happens under the hood here. This function should be broken down into smaller
         #      functions to improve readability and maintainability.
-        acts = load_activities(self.db, self.workflows, allowlist)
+        wfp_nodes = load_workflow_process_nodes(self.db, self.workflows, allowlist)
 
         self.get_existing_jobs.cache_clear()
         job_recs = []
-        for act in acts:
-            if act.was_informed_by in skiplist:
-                logging.debug(f"Skipping: {act.was_informed_by}")
+        for wfp_node in wfp_nodes:
+            if wfp_node.was_informed_by in skiplist:
+                logging.debug(f"Skipping: {wfp_node.was_informed_by}")
                 continue
-            if not act.workflow.enabled:
-                logging.debug(f"Skipping: {act.id}, workflow disabled.")
+            if not wfp_node.workflow.enabled:
+                logging.debug(f"Skipping: {wfp_node.id}, workflow disabled.")
                 continue
-            jobs = self.find_new_jobs(act)
+            jobs = self.find_new_jobs(wfp_node)
             for job in jobs:
                 if dryrun:
                     msg = f"new job: informed_by: {job.informed_by} trigger: {job.trigger_id} "
@@ -315,7 +308,8 @@ class Scheduler:
                     logging.info(msg)
                     continue
                 try:
-                    jr = self.add_job_rec(job)
+                    jr = self.create_job_rec(job)
+                    self.db.jobs.insert_one(jr)
                     if jr:
                         job_recs.append(jr)
                 except Exception as ex:

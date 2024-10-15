@@ -17,9 +17,6 @@
       "nmdc:dobj-11-expcountst1",
       "nmdc:dobj-11-expinfot1"
     ],
-    "part_of": [
-      "nmdc:omprc-11-metat1"
-    ],
     "version": "v1.0.8"
   }
 ]
