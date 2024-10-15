@@ -134,6 +134,7 @@ class JobManager:
         logging.info(f"Found {len(jobs)} jobs in state")
         for job in jobs:
             if job.get("opid") in job_cache_ids:
+                logging.info(f"Skipping job {job.get('opid')}")
                 continue
             wf_job = WorkflowJob(self.config, workflow_state=job)
             job_cache_ids.append(wf_job.opid)
