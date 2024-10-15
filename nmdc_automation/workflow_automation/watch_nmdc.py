@@ -56,6 +56,7 @@ class FileHandler:
 
     def read_state(self)-> Optional[Dict[str, Any]]:
         """ Read the state file and return the data """
+        logging.info(f"Reading state from {self.state_file}")
         with open(self.state_file, "r") as f:
             state = loads(f.read())
         return state
@@ -301,3 +302,4 @@ class Watcher:
             if new_job:
                 new_job.job.submit_job()
         self.file_handler.write_state(self.job_manager.job_checkpoint())
+

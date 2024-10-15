@@ -66,6 +66,7 @@ def resubmit(ctx, workflow_execution_ids):
             key = "activity_id"
         for found_job in watcher.job_manager.job_cache:
             job_record = found_job.workflow.state
+            logging.info(f"Checking {job_record[key]} against {wf_id}")
             if job_record[key] == wf_id:
                 wfj = found_job
                 break
