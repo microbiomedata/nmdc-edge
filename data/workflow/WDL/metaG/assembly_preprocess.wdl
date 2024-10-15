@@ -34,6 +34,8 @@ task estimate_memory {
             num_kmers=`cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}'`
             awk 'BEGIN {print (($num_kmers*2.962e-08 + 1.630e+01) * 1.1)}' > ~{predicted_memory}
             cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}' > ~{num_kmers_file}
+            num_kmers+='g'
+            echo "$num_kmers"
             >>>
 
         runtime {
