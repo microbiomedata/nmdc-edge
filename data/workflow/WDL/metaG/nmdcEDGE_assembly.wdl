@@ -47,7 +47,7 @@ workflow nmdc_edge_assembly{
             rename_contig_prefix=rename_contig_prefix,
             bbtools_container=bbtools_container,
             spades_container=spades_container,
-            memory=memory,
+            memory=assembly_preprocess.memory,
             threads=threads
     }
 
