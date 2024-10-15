@@ -365,7 +365,7 @@ Workflows:
     Enabled: True
     Analyte Category: Metagenome
     Git_repo: https://github.com/microbiomedata/ReadbasedAnalysis
-    Version: v1.0.5
+    Version: v1.0.8
     WDL: ReadbasedAnalysis.wdl
     Collection: workflow_execution_set
     Predecessors:
