@@ -39,9 +39,7 @@ class GoldMapper:
             project_directory: Project directory path.
         """
 
-        with open(yaml_file, "r") as file:
-            self.import_data = yaml.safe_load(file)
-
+        self.import_data = self.load_yaml_file(yaml_file)
         self.nmdc_db = nmdc.Database()
         self.iteration = iteration
         self.file_list = file_list
@@ -54,12 +52,18 @@ class GoldMapper:
         self.data_object_type = "nmdc:DataObject"
         self.objects = {}
         self.workflow_execution_ids = {}
-        self.workflows_by_type = {}
-
+        self.workflows_by_type = self.build_workflows_by_type()
         self.runtime = NmdcRuntimeApi(site_config_file)
 
-        for wf in self.import_data["Workflows"]:
-            self.workflows_by_type[wf["Type"]] = wf
+
+    def load_yaml_file(self, yaml_file: Union[str, Path]) -> Dict:
+        """Utility function to load YAML file."""
+        with open(yaml_file, "r") as file:
+            return yaml.safe_load(file)
+
+    def build_workflows_by_type(self) -> Dict:
+        """Builds a dictionary of workflows by their type."""
+        return {wf["Type"]: wf for wf in self.import_data["Workflows"]}
 
     def unique_object_mapper(self) -> None:
         """

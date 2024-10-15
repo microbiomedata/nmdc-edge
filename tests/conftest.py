@@ -157,3 +157,13 @@ def mock_cromwell_api(fixtures_dir):
             )
 
         yield m
+
+
+@fixture(scope="session")
+def gold_import_dir(fixtures_dir):
+    return fixtures_dir / "gold_import"
+
+@fixture(scope="session")
+def gold_import_files(gold_import_dir):
+    # return the full paths the the files in the gold_import_dir
+    return [str(f) for f in gold_import_dir.iterdir() if f.is_file()]
