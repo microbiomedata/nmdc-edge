@@ -34,16 +34,15 @@ task estimate_memory {
             num_kmers=`cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}'`
             pred_mem=`awk 'BEGIN {print (($num_kmers*2.962e-08 + 1.630e+01) * 1.1)}'`
             if [ "$pred_mem" -lt 30 ]; then
-                pred_mem = 28
-                echo "$pred_mem"
+                pred_mem=28
             elif [ "$pred_mem" -lt 60 ]; then
-                pred_mem = 55
+                pred_mem=55
             elif [ "$pred_mem" -lt 120 ]; then
-                pred_mem = 115
+                pred_mem=115
             elif [ "$pred_mem" -lt 250 ]; then
-                pred_mem = 240
+                pred_mem=240
             else
-                pred_mem = 0
+                pred_mem=0
             fi
             pred_mem+='g'
             echo "$pred_mem" > ~{predicted_memory}
