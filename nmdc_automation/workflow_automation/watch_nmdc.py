@@ -123,6 +123,7 @@ class JobManager:
     def restore_from_state(self)-> None:
         """ Restore jobs from state data """
         logging.info("Restoring job cache from state")
+        logging.info(f"Job cache length: {len(self.job_cache)}")
         self.job_cache = self.get_workflow_jobs_from_state()
 
     def get_workflow_jobs_from_state(self)-> List[WorkflowJob]:
