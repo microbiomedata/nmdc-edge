@@ -5,7 +5,8 @@ from typing import List, Dict
 
 from semver.version import Version
 
-from nmdc_automation.workflow_automation.models import WorkflowProcessNode, DataObject, WorkflowConfig
+from nmdc_automation.models.nmdc import DataObject
+from nmdc_automation.models.workflow import WorkflowConfig, WorkflowProcessNode
 
 warned_objects = set()
 

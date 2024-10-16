@@ -4,7 +4,7 @@ from nmdc_automation.workflow_automation.wfutils import (
     WorkflowStateManager,
     _json_tmp,
 )
-from nmdc_automation.workflow_automation.models import DataObject, workflow_process_factory
+from nmdc_automation.models.nmdc import DataObject, workflow_process_factory
 from nmdc_schema.nmdc import MagsAnalysis, EukEval
 import io
 import json

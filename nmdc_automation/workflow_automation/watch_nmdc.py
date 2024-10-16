@@ -12,8 +12,7 @@ from typing import List, Dict, Any, Optional, Union, Tuple
 from nmdc_schema.nmdc import Database
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import SiteConfig
-from .wfutils import WorkflowJob
-from .wfutils import  _md5
+from nmdc_automation.workflow_automation.wfutils import WorkflowJob
 
 
 DEFAULT_STATE_DIR = Path(__file__).parent / "_state"

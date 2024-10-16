@@ -4,14 +4,8 @@ import json
 from bson import ObjectId
 from pathlib import Path
 from pytest import mark, raises
-from nmdc_automation.workflow_automation.models import(
-    DataObject,
-    Job,
-    JobOutput,
-    JobWorkflow,
-    WorkflowProcessNode,
-    workflow_process_factory,
-)
+from nmdc_automation.models.nmdc import DataObject, workflow_process_factory
+from nmdc_automation.models.workflow import Job, JobOutput, JobWorkflow, WorkflowProcessNode
 from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from tests.fixtures import db_utils
 
