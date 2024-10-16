@@ -33,7 +33,7 @@ task estimate_memory {
             reformat.sh in=~{input_file} interleaved=t cardinality=true out=stdout.fq 1> /dev/null 2>| cardinality.txt
 
             num_kmers=`cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}'`
-            awk -v pred_mem=$num_kmers 'BEGIN {print int(((num_kmers*2.962e-08 + 1.630e+01) * 1.1))"g"}'
+            pred_mem=`awk -v num_kmers=$num_kmers 'BEGIN {print int(((num_kmers*2.962e-08 + 1.630e+01) * 1.1))"g"}'`
 
             echo "$pred_mem" > ~{predicted_memory}
             echo "$num_kmers" > ~{num_kmers_file}
