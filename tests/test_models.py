@@ -33,6 +33,65 @@ def test_workflow_process_factory(fixtures_dir):
         wfe = workflow_process_factory(record)
         assert wfe.type == record_type
 
+
+def test_workflow_process_factory_data_generation_invalid_analyte_category():
+    record = {
+        "id": "nmdc:omprc-11-metag1",
+        "name": "Test Metagenome Processing",
+        "has_input": [
+            "nmdc:bsm-11-qezc0h51"
+        ],
+        "has_output": [
+            "nmdc:dobj-11-rawreads1",
+            "nmdc:dobj-11-rawreads2"
+        ],
+        "analyte_category": "something_invalid",
+        "associated_studies": [
+            "nmdc:sty-11-test001"
+        ],
+        "processing_institution": "JGI",
+        "principal_investigator": {
+            "has_raw_value": "PI Name",
+            "email": "pi_name@example.com",
+            "name": "PI Name",
+            "type": "nmdc:PersonValue"
+        },
+        "type": "nmdc:NucleotideSequencing"
+    }
+
+    with raises(ValueError) as excinfo:
+        wfe = workflow_process_factory(record)
+    assert "Unknown AnalyteCategoryEnum enumeration code" in str(excinfo.value)
+
+
+def test_workflow_process_factory_metagenome_assembly_with_invalid_ececution_resource():
+    record = {
+      "id": "nmdc:wfmgas-11-0080kf19.1",
+      "name": "Metagenome Assembly Activity for nmdc:wfmgas-11-0080kf19.1",
+      "started_at_time": "2023-09-05T18:02:36.755687+00:00",
+      "ended_at_time": "2023-09-05T19:46:42.649106+00:00",
+      "was_informed_by": "nmdc:omprc-11-c82tqn53",
+      "execution_resource": "Something-Not-Valid",
+      "git_url": "https://github.com/microbiomedata/metaAssembly",
+      "has_input": [
+        "nmdc:dobj-11-sgpgmp62"
+      ],
+      "has_output": [
+        "nmdc:dobj-11-dtnyvj29",
+        "nmdc:dobj-11-4hpkwf43",
+        "nmdc:dobj-11-pyhh1b53",
+        "nmdc:dobj-11-3qp71339",
+        "nmdc:dobj-11-0mw8sn13",
+        "nmdc:dobj-11-a898mz04"
+      ],
+      "type": "nmdc:MetagenomeAssembly",
+      "version": "v1.0.3"
+    }
+    with raises(ValueError) as excinfo:
+        wfe = workflow_process_factory(record)
+    assert "Unknown ExecutionResourceEnum enumeration code" in str(excinfo.value)
+
+
 def test_workflow_process_factory_mags_with_mags_list(fixtures_dir):
     record = json.load(open(fixtures_dir / "models/mags_analysis_record.json"))
     mga = workflow_process_factory(record)
@@ -141,6 +200,22 @@ def test_data_object_creation_invalid_data_object_type():
     data_obj = DataObject(**record)
     assert data_obj.data_object_type == "Metagenome Raw Reads"
 
+
+def test_data_object_creation_invalid_data_category():
+    record = {
+        "id": "nmdc:dobj-11-qcstats",
+        "name": "nmdc_wfrqc-11-metag.1_filterStats.txt",
+        "description": "Reads QC summary for nmdc:wfrqc-11-metag1.1",
+        "file_size_bytes": 123456,
+        "md5_checksum": "7172cd332a734e002c88b35827acd991",
+        "data_object_type": "QC Statistics",
+        "data_category": "Something Invalid",
+        "url": "https://data.microbiomedata.org",
+        "type": "nmdc:DataObject"
+    }
+    with raises(ValueError) as excinfo:
+        data_obj = DataObject(**record)
+    assert "Unknown DataCategoryEnum enumeration code" in str(excinfo.value)
 
 def test_job_output_creation():
     outputs = [
