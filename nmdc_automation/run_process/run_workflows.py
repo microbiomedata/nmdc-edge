@@ -26,7 +26,7 @@ def watcher(ctx, site_configuration_file):
         level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
     )
     logger = logging.getLogger(__name__)
-
+    logger.info(f"Config file: {site_configuration_file}")
     ctx.obj = Watcher(site_configuration_file)
 
 
@@ -59,6 +59,7 @@ def resubmit(ctx, workflow_execution_ids):
     watcher = ctx.obj
     watcher.restore_from_checkpoint()
     for wf_id in workflow_execution_ids:
+        logging.info(f"Checking {wf_id}")
         wfj = None
         if wf_id.startswith("nmdc:sys"):
             key = "opid"
