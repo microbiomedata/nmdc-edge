@@ -79,7 +79,7 @@ def resubmit(ctx, workflow_execution_ids):
         if wfj.job_status in ["Running", "Submitted"]:
             print(f"Skipping {wf_id}, {wfj.last_status}")
             continue
-        wfj.job_runner.submit_job(force=True)
+        wfj.job.submit_job(force=True)
         watcher.job_manager.save_checkpoint()
 
 
