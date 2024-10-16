@@ -3,7 +3,7 @@ import json
 
 from bson import ObjectId
 from pathlib import Path
-from pytest import mark
+from pytest import mark, raises
 from nmdc_automation.workflow_automation.models import(
     DataObject,
     Job,
@@ -120,6 +120,26 @@ def test_data_object_creation_from_db_records(test_db, fixtures_dir):
         _id = db_record.pop("_id")
         assert _id
         assert data_obj_dict == db_record
+
+
+def test_data_object_creation_invalid_data_object_type():
+    record = {
+        "id": "nmdc:dobj-11-rawreads1",
+        "name": "metaG_R1_001.fastq.gz",
+        "description": "Sequencing results for metaG_R1",
+        "md5_checksum": "ed9467e690babb683b024ed47dd97b85",
+        "data_object_type": "Something Invalid",
+        "type": "nmdc:DataObject",
+        "url": "https://portal.nersc.gov"
+    }
+    with raises(ValueError) as excinfo:
+        data_obj = DataObject(**record)
+    assert "Unknown FileTypeEnum enumeration code" in str(excinfo.value)
+
+    # Test with a valid data object type
+    record.update({"data_object_type": "Metagenome Raw Reads"})
+    data_obj = DataObject(**record)
+    assert data_obj.data_object_type == "Metagenome Raw Reads"
 
 
 def test_job_output_creation():
