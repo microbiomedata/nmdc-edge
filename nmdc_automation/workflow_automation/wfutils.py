@@ -337,9 +337,12 @@ class WorkflowStateManager:
 
     def _build_release_url(self, filename: str) -> str:
         """Build the URL for a release file in the Git repository."""
+        logging.debug(f"Building release URL for {filename}")
         release = self.config["release"]
+        logging.debug(f"Release: {release}")
         base_url = self.config["git_repo"].rstrip("/")
         url = f"{base_url}{self.GIT_RELEASES_PATH}/{release}/{filename}"
+        return url
 
     def _write_stream_to_file(self, response: requests.Response, file: tempfile.NamedTemporaryFile) -> None:
         """Write a stream from a requests response to a file."""
