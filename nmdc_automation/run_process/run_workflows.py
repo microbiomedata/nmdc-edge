@@ -58,29 +58,29 @@ def submit(ctx, job_ids):
 def resubmit(ctx, workflow_execution_ids):
     watcher = ctx.obj
     watcher.restore_from_checkpoint()
-    for wf_id in workflow_execution_ids:
-        logging.info(f"Checking {wf_id}")
-        wfj = None
-        if wf_id.startswith("nmdc:sys"):
-            key = "opid"
-        else:
-            key = "activity_id"
-        found_jobs = watcher.job_manager.job_cache
-        logging.info(f"Checking {len(found_jobs)} jobs")
-        for found_job in watcher.job_manager.job_cache:
-            job_record = found_job.workflow.state
-            logging.info(f"Checking {job_record[key]} against {wf_id}")
-            if job_record[key] == wf_id:
-                wfj = found_job
-                break
-        if not wfj:
-            print(f"No match found for {wf_id}")
-            continue
-        if wfj.last_status in ["Running", "Submitted"]:
-            print(f"Skipping {wf_id}, {wfj.last_status}")
-            continue
-        wfj.job_runner.submit_job(force=True)
-        watcher.job_manager.save_checkpoint()
+    # for wf_id in workflow_execution_ids:
+    #     logging.info(f"Checking {wf_id}")
+    #     wfj = None
+    #     if wf_id.startswith("nmdc:sys"):
+    #         key = "opid"
+    #     else:
+    #         key = "activity_id"
+    #     found_jobs = watcher.job_manager.job_cache
+    #     logging.info(f"Checking {len(found_jobs)} jobs")
+    #     for found_job in watcher.job_manager.job_cache:
+    #         job_record = found_job.workflow.state
+    #         logging.info(f"Checking {job_record[key]} against {wf_id}")
+    #         if job_record[key] == wf_id:
+    #             wfj = found_job
+    #             break
+    #     if not wfj:
+    #         print(f"No match found for {wf_id}")
+    #         continue
+    #     if wfj.last_status in ["Running", "Submitted"]:
+    #         print(f"Skipping {wf_id}, {wfj.last_status}")
+    #         continue
+    #     wfj.job_runner.submit_job(force=True)
+    #     watcher.job_manager.save_checkpoint()
 
 
 @watcher.command()
