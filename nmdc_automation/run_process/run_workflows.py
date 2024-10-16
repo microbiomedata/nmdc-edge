@@ -76,7 +76,7 @@ def resubmit(ctx, workflow_execution_ids):
         if not wfj:
             print(f"No match found for {wf_id}")
             continue
-        if wfj.last_status in ["Running", "Submitted"]:
+        if wfj.job_status in ["Running", "Submitted"]:
             print(f"Skipping {wf_id}, {wfj.last_status}")
             continue
         wfj.job_runner.submit_job(force=True)
