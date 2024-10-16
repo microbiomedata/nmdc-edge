@@ -35,6 +35,7 @@ task estimate_memory {
             pred_mem=`awk 'BEGIN {print (($num_kmers*2.962e-08 + 1.630e+01) * 1.1)}'`
             if [ "$pred_mem" -lt 30 ]; then
                 pred_mem = 28
+                echo "$pred_mem"
             elif [ "$pred_mem" -lt 60 ]; then
                 pred_mem = 55
             elif [ "$pred_mem" -lt 120 ]; then
