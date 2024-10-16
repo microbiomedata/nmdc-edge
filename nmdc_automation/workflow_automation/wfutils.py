@@ -321,6 +321,7 @@ class WorkflowStateManager:
         Download a release file from the Git repository and save it as a temporary file.
         Note: the temporary file is not deleted automatically.
         """
+        logging.debug(f"Fetching release file: {filename}")
         url = self._build_release_url(filename)
         logging.debug(f"Fetching release file from URL: {url}")
         # download the file as a stream to handle large files
