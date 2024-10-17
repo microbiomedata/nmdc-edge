@@ -13,6 +13,7 @@ from nmdc_schema import nmdc
 
 from linkml_runtime.dumpers import json_dumper
 from nmdc_automation.api import NmdcRuntimeApi
+from nmdc_automation.models.nmdc import DataObject
 from .utils import object_action, file_link, get_md5, filter_import_by_type
 
 logger = logging.getLogger(__name__)
@@ -77,21 +78,48 @@ class GoldMapper:
         sequencing_import_data = [
             d for d in self.import_data["Data Objects"]["Unique"] if d["data_object_type"] in sequencing_types
         ]
+        has_output = []
         for data_object_dict in sequencing_import_data:
             # get the file(s) that match the import suffix
             for file in self.file_list:
                 file = str(file)
                 if re.search(data_object_dict["import_suffix"], file):
-                    # get the workflow execution ID
-                    logging.info(f"Processing {data_object_dict['data_object_type']}")
-
+                    logging.debug(f"Processing {data_object_dict['data_object_type']}")
+                    file_destination_name = object_action(
+                        file,
+                        data_object_dict["action"],
+                        self.nucelotide_sequencing_id,
+                        data_object_dict["nmdc_suffix"],
+                    )
+                    sequencing_dir = os.path.join(self.root_dir, self.nucelotide_sequencing_id)
+                    updated_file = file_link(
+                        self.project_dir, file, sequencing_dir, file_destination_name
+                    )
+                    filemeta = os.stat(updated_file)
+                    md5 = get_md5(updated_file)
+                    data_object_id = self.runtime.minter(self.data_object_type)
+                    do_record = {
+                        "id": data_object_id,
+                        "type": self.data_object_type,
+                        "name": file_destination_name,
+                        "url": f"{self.url}/{self.nucelotide_sequencing_id}/{file_destination_name}",
+                        "file_size_bytes": filemeta.st_size,
+                        "md5_checksum": md5,
+                        "data_object_type": data_object_dict["data_object_type"],
+                        "description": data_object_dict["description"].replace(
+                            "{id}", self.nucelotide_sequencing_id
+                        )
+                    }
+                    db.data_object_set.append(DataObject(**do_record))
+                    has_output.append(data_object_id)
         update = {
             "collection": "data_generation_set",
             "filter": {"id": self.nucelotide_sequencing_id},
+            "update": {"has_output": has_output}
         }
-
-
         return db, update
+
+
 
 
     def unique_object_mapper(self) -> None:

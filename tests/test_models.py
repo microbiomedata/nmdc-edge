@@ -210,7 +210,7 @@ def test_data_object_creation_invalid_data_object_type():
     }
     with raises(ValueError) as excinfo:
         data_obj = DataObject(**record)
-    assert "Unknown FileTypeEnum enumeration code" in str(excinfo.value)
+    assert "Validation error" in str(excinfo.value)
 
     # Test with a valid data object type
     record.update({"data_object_type": "Metagenome Raw Reads"})
@@ -232,7 +232,7 @@ def test_data_object_creation_invalid_data_category():
     }
     with raises(ValueError) as excinfo:
         data_obj = DataObject(**record)
-    assert "Unknown DataCategoryEnum enumeration code" in str(excinfo.value)
+    assert "Validation error" in str(excinfo.value)
 
 def test_job_output_creation():
     outputs = [

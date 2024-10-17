@@ -46,7 +46,7 @@ def mock_api(monkeypatch, requests_mock, test_data_dir):
             "access_token": "abcd"
             }
     requests_mock.post("http://localhost/token", json=token_resp)
-    resp = ["nmdc:abcd"]
+    resp = ["nmdc:dobj-01-abcd1234"]
     requests_mock.post("http://localhost/pids/mint", json=resp)
     requests_mock.post(
         "http://localhost/workflows/workflow_executions",
@@ -165,5 +165,6 @@ def gold_import_dir(fixtures_dir):
 
 @fixture(scope="session")
 def gold_import_files(gold_import_dir):
-    # return the full paths the the files in the gold_import_dir
+    # return the full paths to fixtures that simulate JGI import files. These are used to test the GoldMapper class.
+    # One (1) file is a nucleotide sequencing file. All the other files are RQC, assembly, MAGs, etc.
     return [str(f) for f in gold_import_dir.iterdir() if f.is_file()]

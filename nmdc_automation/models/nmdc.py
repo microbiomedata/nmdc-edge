@@ -106,6 +106,10 @@ class DataObject(nmdc.DataObject):
         record.pop("_id", None)
         if "type" not in record:
             record["type"] = "nmdc:DataObject"
+        validation_report = linkml.validator.validate(record, nmdc_materialized, "DataObject")
+        if validation_report.results:
+            for result in validation_report.results:
+                raise ValueError(f"Validation error: {result.message}")
         super().__init__(**record)
 
     def as_dict(self):
