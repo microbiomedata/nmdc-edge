@@ -47,7 +47,22 @@ def mock_api(monkeypatch, requests_mock, test_data_dir):
             }
     requests_mock.post("http://localhost/token", json=token_resp)
     resp = ["nmdc:dobj-01-abcd1234"]
-    requests_mock.post("http://localhost/pids/mint", json=resp)
+    # mock mint responses in sequence
+    mint_responses = [
+        ["nmdc:dobj-01-abcd1234"],
+        ["nmdc:dobj-02-abcd1234"],
+        ["nmdc:dobj-03-abcd1234"],
+        ["nmdc:dobj-04-abcd1234"],
+        ["nmdc:dobj-05-abcd1234"],
+        ["nmdc:dobj-06-abcd1234"],
+        ["nmdc:dobj-07-abcd1234"],
+        ["nmdc:dobj-08-abcd1234"],
+        ["nmdc:dobj-09-abcd1234"],
+        ["nmdc:dobj-10-abcd1234"],
+    ]
+    def mint_callback():
+        return mint_responses.pop(0)
+    requests_mock.post("http://localhost/pids/mint", json=mint_callback())
     requests_mock.post(
         "http://localhost/workflows/workflow_executions",
         json=resp

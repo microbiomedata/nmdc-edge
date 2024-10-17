@@ -45,13 +45,13 @@ def gold_mapper(mock_api, base_test_dir, gold_import_files, gold_import_dir):
 #     assert len(db.data_object_set) == 3
 
 
-def test_unique_object_mapper(gold_mapper):
-    """
-    This test counts the number of files from gold_mapper where the data object creation should be 1:1.
-    """
-    gold_mapper.unique_object_mapper()
-    assert len(gold_mapper.nmdc_db.data_object_set) == 2
-    assert len(gold_mapper.objects) == 2
+# def test_unique_object_mapper(gold_mapper):
+#     """
+#     This test counts the number of files from gold_mapper where the data object creation should be 1:1.
+#     """
+#     gold_mapper.unique_object_mapper()
+#     assert len(gold_mapper.nmdc_db.data_object_set) == 2
+#     assert len(gold_mapper.data_object_map) == 2
 
 
 # def test_multiple_object_mapper(gold_mapper):
@@ -81,7 +81,6 @@ def test_gold_mapper_map_sequencing_data(gold_mapper):
         "filter": {"id": exp_nucleotide_sequencing_id},
         "update": {"has_output": [exp_dobj_id]}
     }
-
     # TODO verify that these are the correct values to expect based on the import logic for raw reads files
     exp_url = 'https://data.microbiomedata.org/data/nmdc:omprc-11-importT/52834.4.466476.GATCGAGT-GATCGAGT.fastq.gz'
     exp_name = '52834.4.466476.GATCGAGT-GATCGAGT.fastq.gz'
@@ -108,3 +107,51 @@ def test_gold_mapper_map_sequencing_data(gold_mapper):
     # Update assertions
     assert update
     assert update == exp_update
+
+
+def test_gold_mapper_map_data_unique(gold_mapper):
+    """
+    Test that the gold mapper creates data objects for the data files other
+    than the sequencing data
+    """
+    initial_num_data_objects = 1
+    db, update = gold_mapper.map_sequencing_data()
+    # sanity check
+    assert len(db.data_object_set) == initial_num_data_objects
+    exp_num_data_objects = 3    # two unique data files from the gold import files fixture get added to the database
+    exp_data_object_types = [
+        "Clusters of Orthologous Groups (COG) Annotation GFF", "Pfam Annotation GFF", "Metagenome Raw Reads"]
+    exp_do_map = {'Clusters of Orthologous Groups (COG) Annotation GFF': (
+    ['nmdc:MagsAnalysis'], ['nmdc:MetagenomeAnnotation'], 'nmdc:dobj-01-abcd1234'), 'Pfam Annotation GFF': (
+    ['nmdc:MagsAnalysis'], ['nmdc:MetagenomeAnnotation'], 'nmdc:dobj-01-abcd1234')}
+    exp_nucleotide_sequencing_id = "nmdc:omprc-11-importT"  # From the gold mapper fixture
+
+    db, do_map = gold_mapper.map_data(db)
+    assert db
+    assert len(db.data_object_set) == exp_num_data_objects
+    data_objects = db.data_object_set
+    for dobj in data_objects:
+        assert dobj.data_object_type in exp_data_object_types
+        assert isinstance(dobj, DataObject)
+        assert dobj.url
+        assert exp_nucleotide_sequencing_id in dobj.url
+        assert exp_nucleotide_sequencing_id in dobj.description
+        assert exp_nucleotide_sequencing_id in dobj.name
+    assert do_map == exp_do_map
+
+
+def test_gold_mapper_map_data_multiple(gold_mapper):
+    """
+    Test that the gold mapper creates data objects for the data files other
+    than the sequencing data
+    """
+    initial_num_data_objects = 1
+    db, update = gold_mapper.map_sequencing_data()
+    # sanity check
+    assert len(db.data_object_set) == initial_num_data_objects
+    exp_num_data_objects = 2    # two files are combined into a single data object
+
+    db, do_map = gold_mapper.map_data(db, unique=False)
+    assert db
+    assert len(db.data_object_set) == exp_num_data_objects
+

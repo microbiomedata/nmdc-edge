@@ -51,7 +51,7 @@ class GoldMapper:
         self.project_dir = project_directory
         self.url = self.import_data["Workflow Metadata"]["Source URL"]
         self.data_object_type = "nmdc:DataObject"
-        self.objects = {}
+        self.data_object_map = {}
         self.workflow_execution_ids = {}
         self.workflows_by_type = self.build_workflows_by_type()
         self.runtime = NmdcRuntimeApi(site_config_file)
@@ -120,13 +120,89 @@ class GoldMapper:
         return db, update
 
 
+    def map_data(self,db: nmdc.Database, unique: bool = True) -> Tuple[nmdc.Database, Dict]:
+        """
+        Map data objects to the NMDC database.
+        """
+
+        def process_files(files: Union[str, List[str]], data_object_dict: Dict, workflow_execution_id: str,
+                          multiple: bool = False) -> DataObject:
+            """
+            Process import file(s) and return a DataObject instance. Map data object ids to input_to and
+            output_of workflow execution types.
+            """
+            file_destination_name = object_action(
+                files,
+                data_object_dict["action"],
+                workflow_execution_id,
+                data_object_dict["nmdc_suffix"],
+                workflow_execution_dir=os.path.join(self.root_dir, workflow_execution_id),
+                multiple=multiple,
+            )
+            updated_file = file_link(
+                self.project_dir,
+                files,
+                os.path.join(self.root_dir, workflow_execution_id),
+                file_destination_name,
+            )
+            filemeta = os.stat(updated_file)
+            md5 = get_md5(updated_file)
+            data_object_id = self.runtime.minter(self.data_object_type)
+            do_record = {
+                "id": data_object_id,
+                "type": self.data_object_type,
+                "name": file_destination_name,
+                "url": f"{self.url}/{self.nucelotide_sequencing_id}/{workflow_execution_id}/{file_destination_name}",
+                "file_size_bytes": filemeta.st_size,
+                "md5_checksum": md5,
+                "data_object_type": data_object_dict["data_object_type"],
+                "description": data_object_dict["description"].replace(
+                    "{id}", self.nucelotide_sequencing_id
+                )
+            }
+            # update self.objects mapping
+            self.data_object_map[data_object_dict["data_object_type"]] = (
+                data_object_dict["input_to"],
+                [data_object_dict["output_of"]],
+                data_object_id,
+            )
+            return DataObject(**do_record)
+
+        # Select the correct data source (unique or multiple)
+        data_objects_key = "Unique" if unique else "Multiples"
+        data_object_specs = self.import_data["Data Objects"][data_objects_key]
+        for data_object_spec in data_object_specs:
+            if not filter_import_by_type(self.import_data["Workflows"], data_object_spec["output_of"]):
+                continue
+            if not "import_suffix" in data_object_spec:
+                logging.warning("Missing suffix")
+                continue
+
+            # Process unique data objects
+            if unique:
+                for file in map(str, self.file_list):
+                    if re.search(data_object_spec["import_suffix"], file):
+                        workflow_execution_id = self.get_workflow_execution_id(data_object_spec["output_of"])
+                        db.data_object_set.append(process_files(file, data_object_spec, workflow_execution_id))
+
+            # Process multiple data data files into a single data object
+            else:
+                multiple_files = []
+                for file in map(str, self.file_list):
+                    if re.search(data_object_spec["import_suffix"], file):
+                        multiple_files.append(file)
+                if multiple_files:
+                    workflow_execution_id = self.get_workflow_execution_id(data_object_spec["output_of"])
+                    db.data_object_set.append(process_files(multiple_files, data_object_spec, workflow_execution_id, multiple=True))
+
+        return db, self.data_object_map
 
 
     def unique_object_mapper(self) -> None:
         """
         Map unique data objects from the file list based on unique matching import suffix.
         The method relates each object to an workflow execution ID and updates the file with object action.
-        It updates the nmdc database with the DataObject and stores the information in the objects dictionary.
+        It updates the nmdc database with the DataObject and stores the information in self.data_object_map.
         """
 
         for data_object_dict in self.import_data["Data Objects"]["Unique"]:
@@ -178,7 +254,7 @@ class GoldMapper:
                             ),
                         )
                     )
-                    self.objects[data_object_dict["data_object_type"]] = (
+                    self.data_object_map[data_object_dict["data_object_type"]] = (
                         data_object_dict["input_to"],
                         [data_object_dict["output_of"]],
                         dobj,
@@ -240,7 +316,7 @@ class GoldMapper:
                 )
             )
 
-            self.objects[data_object_dict["data_object_type"]] = (
+            self.data_object_map[data_object_dict["data_object_type"]] = (
                 data_object_dict["input_to"],
                 [data_object_dict["output_of"]],
                 dobj,
@@ -334,7 +410,7 @@ class GoldMapper:
 
         data_object_inputs_to_list = []
 
-        for _, data_object_items in self.objects.items():
+        for _, data_object_items in self.data_object_map.items():
             if workflow_execution_type in data_object_items[1]:
                 data_object_outputs_of_list.append(data_object_items[2])
             elif workflow_execution_type in data_object_items[0]:
