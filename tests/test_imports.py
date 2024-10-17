@@ -64,3 +64,12 @@ def test_multiple_object_mapper(gold_mapper):
     assert len(gold_mapper.objects) == 1
     #check that the data object url gets made correctly for the multiple object mapper function.
     assert "https://data.microbiomedata.org/data/nmdc:omprc-11-importT/nmdc:abcd.1/nmdc_abcd.1_hqmq_bin.zip" in (do["url"] for do in gold_mapper.nmdc_db.data_object_set) 
+
+def test_gold_mapper_map_sequencing_data(gold_mapper):
+    """
+    Test that the gold mapper creates data objects for the sequencing data, and
+    provides an update to be applied to the has_output list of the sequencing data generation
+    """
+    db, update = gold_mapper.map_sequencing_data()
+    assert db
+    assert update

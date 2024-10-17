@@ -1,10 +1,19 @@
 """ Factory methods for NMDC models. """
+import importlib.resources
 from typing import Any, Dict, Union
+import linkml_runtime
+import linkml.validator
+
+import yaml
+
+with importlib.resources.open_text("nmdc_schema", "nmdc_materialized_patterns.yaml") as f:
+    nmdc_materialized = yaml.safe_load(f)
+
 
 from nmdc_schema.nmdc import DataGeneration, FileTypeEnum, MagsAnalysis, MetagenomeAnnotation, MetagenomeAssembly, \
     MetatranscriptomeAnnotation, MetatranscriptomeAssembly, MetatranscriptomeExpressionAnalysis, NucleotideSequencing, \
     ReadBasedTaxonomyAnalysis, ReadQcAnalysis, WorkflowExecution
-from nmdc_schema import nmdc
+import nmdc_schema.nmdc as nmdc
 
 
 def workflow_process_factory(record: Dict[str, Any]) -> Union[DataGeneration, WorkflowExecution]:
@@ -25,6 +34,18 @@ def workflow_process_factory(record: Dict[str, Any]) -> Union[DataGeneration, Wo
         "nmdc:ReadQcAnalysis": ReadQcAnalysis,
     }
     record = _normalize_record(record)
+    target_class = record["type"].split(":")[1]
+    validation_report = linkml.validator.validate(record, nmdc_materialized, target_class)
+    if validation_report.results:
+        for result in validation_report.results:
+            # TODO: remove this once the schema is fixed
+            # ignore the members_id error for MagsAnalysis
+            if result.instantiates == 'MagsAnalysis' and "members_id" in result.message:
+                pass
+            else:
+                raise ValueError(f"Validation error: {result.message}")
+
+
 
     try:
         cls = process_types[record["type"]]
@@ -65,7 +86,7 @@ def _normalize_mags_record(record: Dict[str, Any]) -> Dict[str, Any]:
 
 def _strip_empty_values(d: Dict[str, Any]) -> Dict[str, Any]:
     """ Strip empty values from a record """
-    empty_values = [None, "", [], "null", 0]
+    empty_values = [None, "", [], "null",]
     def clean_dict(d):
         if isinstance(d, dict):
             return {k: clean_dict(v) for k, v in d.items() if v not in empty_values}

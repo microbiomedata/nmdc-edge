@@ -65,6 +65,35 @@ class GoldMapper:
         """Builds a dictionary of workflows by their type."""
         return {wf["Type"]: wf for wf in self.import_data["Workflows"]}
 
+    def map_sequencing_data(self) -> Tuple[nmdc.Database, Dict]:
+        """
+        Map sequencing data to an NMDC data object and create an update to be applied to the has_output
+        list of the sequencing data generation.
+        """
+        sequencing_types = ["Metagenome Raw Reads", "Metatranscriptome Raw Reads"]
+        db = nmdc.Database()
+
+        # get the Metagenome Raw Reads import data
+        sequencing_import_data = [
+            d for d in self.import_data["Data Objects"]["Unique"] if d["data_object_type"] in sequencing_types
+        ]
+        for data_object_dict in sequencing_import_data:
+            # get the file(s) that match the import suffix
+            for file in self.file_list:
+                file = str(file)
+                if re.search(data_object_dict["import_suffix"], file):
+                    # get the workflow execution ID
+                    logging.info(f"Processing {data_object_dict['data_object_type']}")
+
+        update = {
+            "collection": "data_generation_set",
+            "filter": {"id": self.nucelotide_sequencing_id},
+        }
+
+
+        return db, update
+
+
     def unique_object_mapper(self) -> None:
         """
         Map unique data objects from the file list based on unique matching import suffix.
