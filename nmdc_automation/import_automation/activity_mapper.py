@@ -348,7 +348,6 @@ class GoldMapper:
             has_inputs_list, has_output_list = self.attach_objects_to_workflow_execution(
                 workflow["Type"]
             )
-                logging.warning("No outputs.  That seems odd.")
             # We can't make a valid workflow execution without inputs and outputs
             if not has_inputs_list or not has_output_list:
                 logging.warning(
