@@ -75,8 +75,28 @@ def import_projects(import_file, import_yaml, site_configuration, iteration):
             logger.error(f"Validation Failed")
             for result in validation_report.results:
                 logger.error(result.message)
+            raise Exception("Validation Failed")
         else:
             logger.info("Validation Passed")
+
+        # apply the update to the sequencing data generation has_output list
+        logger.info("Applying update to sequencing data generation")
+        try:
+            runtime.run_query(data_generation_update)
+        except Exception as e:
+            logger.error(f"Error applying update to sequencing data generation: {e}")
+            raise e
+
+
+        # Post the data to the API
+        logger.info("Posting data to the API")
+        try:
+            runtime.post_objects(db_dict)
+        except Exception as e:
+            logger.error(f"Error posting data to the API: {e}")
+            raise e
+
+
 
 
 @lru_cache(maxsize=None)
