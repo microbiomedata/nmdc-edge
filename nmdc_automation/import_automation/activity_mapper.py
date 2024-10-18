@@ -350,7 +350,7 @@ class GoldMapper:
             )
             # We can't make a valid workflow execution without inputs and outputs
             if not has_inputs_list or not has_output_list:
-                logging.warning(
+                logging.error(
                     f"Skipping {workflow['Name']} due to missing inputs or outputs"
                 )
                 continue
