@@ -81,22 +81,31 @@ class GoldMapper:
         has_output = []
         for data_object_dict in sequencing_import_data:
             # get the file(s) that match the import suffix
-            for file in self.file_list:
-                file = str(file)
-                if re.search(data_object_dict["import_suffix"], file):
+            for import_file in self.file_list:
+                import_file = str(import_file)
+                if re.search(data_object_dict["import_suffix"], import_file):
                     logging.debug(f"Processing {data_object_dict['data_object_type']}")
                     file_destination_name = object_action(
-                        file,
+                        import_file,
                         data_object_dict["action"],
                         self.nucelotide_sequencing_id,
                         data_object_dict["nmdc_suffix"],
                     )
-                    sequencing_dir = os.path.join(self.root_dir, self.nucelotide_sequencing_id)
-                    updated_file = file_link(
-                        self.project_dir, file, sequencing_dir, file_destination_name
-                    )
-                    filemeta = os.stat(updated_file)
-                    md5 = get_md5(updated_file)
+                    # sequencing_dir = os.path.join(self.root_dir, self.nucelotide_sequencing_id)
+                    try:
+                        os.makedirs(self.root_dir)
+                    except FileExistsError:
+                        logger.debug(f"{self.root_dir} already exists")
+
+                    export_file = os.path.join(self.root_dir, file_destination_name)
+
+                    try:
+                        os.link(import_file, export_file)
+                    except FileExistsError:
+                        logger.debug(f"{export_file} already exists")
+
+                    filemeta = os.stat(export_file)
+                    md5 = get_md5(export_file)
                     data_object_id = self.runtime.minter(self.data_object_type)
                     do_record = {
                         "id": data_object_id,
