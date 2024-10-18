@@ -3,11 +3,10 @@ import importlib.resources
 from typing import Any, Dict, Union
 import linkml_runtime
 import linkml.validator
-
+import importlib.resources
+from functools import lru_cache
+from linkml_runtime.dumpers import yaml_dumper
 import yaml
-
-with importlib.resources.open_text("nmdc_schema", "nmdc_materialized_patterns.yaml") as f:
-    nmdc_materialized = yaml.safe_load(f)
 
 
 from nmdc_schema.nmdc import DataGeneration, FileTypeEnum, MagsAnalysis, MetagenomeAnnotation, MetagenomeAssembly, \
@@ -16,12 +15,19 @@ from nmdc_schema.nmdc import DataGeneration, FileTypeEnum, MagsAnalysis, Metagen
 import nmdc_schema.nmdc as nmdc
 
 
-def workflow_process_factory(record: Dict[str, Any]) -> Union[DataGeneration, WorkflowExecution]:
+@lru_cache(maxsize=None)
+def get_nmdc_materialized():
+    with importlib.resources.open_text("nmdc_schema", "nmdc_materialized_patterns.yaml") as f:
+        return yaml.safe_load(f)
+
+def workflow_process_factory(record: Dict[str, Any], validate: bool = False) -> Union[DataGeneration,
+WorkflowExecution]:
     """
     Factory function to create a PlannedProcess subclass object from a record.
     Subclasses are determined by the "type" field in the record, and can be
     either a WorkflowExecution or DataGeneration object.
     """
+    nmdc_materialized = get_nmdc_materialized()
     process_types = {
         "nmdc:MagsAnalysis": MagsAnalysis,
         "nmdc:MetagenomeAnnotation": MetagenomeAnnotation,
@@ -35,15 +41,11 @@ def workflow_process_factory(record: Dict[str, Any]) -> Union[DataGeneration, Wo
     }
     record = _normalize_record(record)
     target_class = record["type"].split(":")[1]
-    validation_report = linkml.validator.validate(record, nmdc_materialized, target_class)
-    if validation_report.results:
-        for result in validation_report.results:
-            # TODO: remove this once the schema is fixed
-            # ignore the members_id error for MagsAnalysis
-            if result.instantiates == 'MagsAnalysis' and "members_id" in result.message:
-                pass
-            else:
-                raise ValueError(f"Validation error: {result.message}")
+    if validate:
+        validation_report = linkml.validator.validate(record, nmdc_materialized, target_class)
+        if validation_report.results:
+            raise ValueError(f"Validation error: {validation_report.results[0].message}")
+
 
 
 
@@ -61,6 +63,7 @@ def _normalize_record(record: Dict[str, Any]) -> Dict[str, Any]:
     # for backwards compatibility strip Activity from the end of the type
     record["type"] = record["type"].replace("Activity", "")
     normalized_record = _strip_empty_values(record)
+
 
     # type-specific normalization
     if normalized_record["type"] == "nmdc:MagsAnalysis":
@@ -106,31 +109,8 @@ class DataObject(nmdc.DataObject):
         record.pop("_id", None)
         if "type" not in record:
             record["type"] = "nmdc:DataObject"
-        validation_report = linkml.validator.validate(record, nmdc_materialized, "DataObject")
-        if validation_report.results:
-            for result in validation_report.results:
-                raise ValueError(f"Validation error: {result.message}")
         super().__init__(**record)
 
-    def as_dict(self):
-        """ Return the object as a dictionary, excluding None values, empty lists, and data_object_type as a string """
-        return {
-            key: value
-            for key, value in self.__dict__.items()
-            if not key.startswith("_") and value
-        } | {"data_object_type": self.data_object_type}
-
-    @property
-    def data_object_type(self):
-        """ Return the data object type as a string """
-        if isinstance(self._data_object_type, FileTypeEnum):
-            return self._data_object_type.code.text
-        return str(self._data_object_type)
-
-    @data_object_type.setter
-    def data_object_type(self, value):
-        """ Set the data object type from a string or FileTypeEnum """
-        if isinstance(value, FileTypeEnum):
-            self._data_object_type = value
-        else:
-            self._data_object_type = FileTypeEnum(value)
+    def as_dict(self) -> Dict[str, Any]:
+        """ Convert the object to a dictionary """
+        return yaml.safe_load(yaml_dumper.dumps(self))

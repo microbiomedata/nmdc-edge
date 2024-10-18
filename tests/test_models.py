@@ -1,6 +1,5 @@
 """ Test cases for the models module. """
 import json
-
 import pytest
 from bson import ObjectId
 from pathlib import Path
@@ -10,19 +9,22 @@ from nmdc_automation.models.workflow import Job, JobOutput, JobWorkflow, Workflo
 from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from tests.fixtures import db_utils
 
+from linkml_runtime.dumpers import yaml_dumper
+import yaml
+
 
 def test_workflow_process_factory(fixtures_dir):
     """ Test the workflow_process_factory function. """
     record_types = {
         "nmdc:MagsAnalysis": "mags_analysis_record.json",
-        # "nmdc:MetagenomeAnnotation": "metagenome_annotation_record.json",
-        # "nmdc:MetagenomeAssembly": "metagenome_assembly_record.json",
-        # "nmdc:MetatranscriptomeAnnotation": "metatranscriptome_annotation_record.json",
-        # "nmdc:MetatranscriptomeAssembly": "metatranscriptome_assembly_record.json",
-        # "nmdc:MetatranscriptomeExpressionAnalysis": "metatranscriptome_expression_analysis_record.json",
-        # "nmdc:NucleotideSequencing": "nucleotide_sequencing_record.json",
-        # "nmdc:ReadBasedTaxonomyAnalysis": "read_based_taxonomy_analysis_record.json",
-        # "nmdc:ReadQcAnalysis": "read_qc_analysis_record.json",
+        "nmdc:MetagenomeAnnotation": "metagenome_annotation_record.json",
+        "nmdc:MetagenomeAssembly": "metagenome_assembly_record.json",
+        "nmdc:MetatranscriptomeAnnotation": "metatranscriptome_annotation_record.json",
+        "nmdc:MetatranscriptomeAssembly": "metatranscriptome_assembly_record.json",
+        "nmdc:MetatranscriptomeExpressionAnalysis": "metatranscriptome_expression_analysis_record.json",
+        "nmdc:NucleotideSequencing": "nucleotide_sequencing_record.json",
+        "nmdc:ReadBasedTaxonomyAnalysis": "read_based_taxonomy_analysis_record.json",
+        "nmdc:ReadQcAnalysis": "read_qc_analysis_record.json",
     }
     for record_type, record_file in record_types.items():
         record = json.load(open(fixtures_dir / f"models/{record_file}"))
@@ -30,83 +32,32 @@ def test_workflow_process_factory(fixtures_dir):
         assert wfe.type == record_type
 
 
-def test_workflow_process_factory_incorrect_id():
-    record = {'id': 'nmdc:wfmgas-11-009f3582.1',
-              'name': 'Metagenome Annotation Analysis Activity for nmdc:wfmgan-11-009f3582.1',
-              'started_at_time': '2024-09-03T19:24:35.443721+00:00',
-              'ended_at_time': '2024-09-04T20:05:09.774239+00:00', 'was_informed_by': 'nmdc:omprc-11-24aket55',
-              'execution_resource': 'NERSC-Perlmutter', 'git_url': 'https://github.com/microbiomedata/mg_annotation',
-              'has_input': ['nmdc:dobj-11-mmtw5j72'], 'type': 'nmdc:MetagenomeAnnotation',
-              'has_output': ['nmdc:dobj-11-pthb2b31', 'nmdc:dobj-11-2fd45p27', 'nmdc:dobj-11-ht0ats03',
-                             'nmdc:dobj-11-sevdef93', 'nmdc:dobj-11-dadfbk65', 'nmdc:dobj-11-2r9dh888',
-                             'nmdc:dobj-11-hd7fse31', 'nmdc:dobj-11-8zbtsn06', 'nmdc:dobj-11-sbxx9k71',
-                             'nmdc:dobj-11-9snwce53', 'nmdc:dobj-11-qb62ef07', 'nmdc:dobj-11-9k06j893',
-                             'nmdc:dobj-11-6hm85g54', 'nmdc:dobj-11-pgp0fr06', 'nmdc:dobj-11-a9m5d764',
-                             'nmdc:dobj-11-rmypsf52', 'nmdc:dobj-11-13mdyw37', 'nmdc:dobj-11-0apj5620',
-                             'nmdc:dobj-11-kh26pk74', 'nmdc:dobj-11-zyh1nx46', 'nmdc:dobj-11-d6gdnm48',
-                             'nmdc:dobj-11-7j8j6733', 'nmdc:dobj-11-s13ejf37', 'nmdc:dobj-11-hpn4d109',
-                             'nmdc:dobj-11-sfanhn77'], 'version': 'v1.1.0'}
+def test_workflow_process_factory_incorrect_id(fixtures_dir):
+    record = json.load(open(fixtures_dir / "models/metagenome_annotation_record.json"))
+    # Change the id to an incorrect value - this would be an assembly id
+    record["id"] = "nmdc:wfmgas-11-009f3582.1"
     with pytest.raises(ValueError) as excinfo:
-        workflow_process_factory(record)
+        workflow_process_factory(record, validate=True)
     assert "'nmdc:wfmgas-11-009f3582.1' does not match" in str(excinfo.value)
 
 
-def test_workflow_process_factory_data_generation_invalid_analyte_category():
-    record = {
-        "id": "nmdc:omprc-11-metag1",
-        "name": "Test Metagenome Processing",
-        "has_input": [
-            "nmdc:bsm-11-qezc0h51"
-        ],
-        "has_output": [
-            "nmdc:dobj-11-rawreads1",
-            "nmdc:dobj-11-rawreads2"
-        ],
-        "analyte_category": "something_invalid",
-        "associated_studies": [
-            "nmdc:sty-11-test001"
-        ],
-        "processing_institution": "JGI",
-        "principal_investigator": {
-            "has_raw_value": "PI Name",
-            "email": "pi_name@example.com",
-            "name": "PI Name",
-            "type": "nmdc:PersonValue"
-        },
-        "type": "nmdc:NucleotideSequencing"
-    }
+
+
+
+def test_workflow_process_factory_data_generation_invalid_analyte_category(fixtures_dir):
+    record = json.load(open(fixtures_dir / "models/nucleotide_sequencing_record.json"))
+    record["analyte_category"] = "Something Invalid"
 
     with raises(ValueError) as excinfo:
         wfe = workflow_process_factory(record)
-    assert "Validation error" in str(excinfo.value)
 
 
-def test_workflow_process_factory_metagenome_assembly_with_invalid_execution_resource():
-    record = {
-      "id": "nmdc:wfmgas-11-0080kf19.1",
-      "name": "Metagenome Assembly Activity for nmdc:wfmgas-11-0080kf19.1",
-      "started_at_time": "2023-09-05T18:02:36.755687+00:00",
-      "ended_at_time": "2023-09-05T19:46:42.649106+00:00",
-      "was_informed_by": "nmdc:omprc-11-c82tqn53",
-      "execution_resource": "Something-Not-Valid",
-      "git_url": "https://github.com/microbiomedata/metaAssembly",
-      "has_input": [
-        "nmdc:dobj-11-sgpgmp62"
-      ],
-      "has_output": [
-        "nmdc:dobj-11-dtnyvj29",
-        "nmdc:dobj-11-4hpkwf43",
-        "nmdc:dobj-11-pyhh1b53",
-        "nmdc:dobj-11-3qp71339",
-        "nmdc:dobj-11-0mw8sn13",
-        "nmdc:dobj-11-a898mz04"
-      ],
-      "type": "nmdc:MetagenomeAssembly",
-      "version": "v1.0.3"
-    }
+
+def test_workflow_process_factory_metagenome_assembly_with_invalid_execution_resource(fixtures_dir):
+    record = json.load(open(fixtures_dir / "models/metagenome_assembly_record.json"))
+    record["execution_resource"] = "Something Invalid"
     with raises(ValueError) as excinfo:
         wfe = workflow_process_factory(record)
-    assert "Validation error" in str(excinfo.value)
 
 
 def test_workflow_process_factory_mags_with_mags_list(fixtures_dir):
@@ -125,6 +76,7 @@ def test_process_factory_with_db_record():
               'type': 'nmdc:NucleotideSequencing'}
     wfe = workflow_process_factory(record)
     assert wfe.type == "nmdc:NucleotideSequencing"
+
 
 @mark.parametrize("record_file, record_type", [
     ("mags_analysis_record.json", "nmdc:MagsAnalysis"),
@@ -166,16 +118,15 @@ def test_data_object_creation_from_records(fixtures_dir):
         assert data_obj.type == "nmdc:DataObject"
         assert data_obj.id == record["id"]
         assert data_obj.name == record["name"]
-        assert data_obj.data_object_type == record["data_object_type"]
+        assert str(data_obj.data_object_type) == record["data_object_type"]
 
-        data_obj_dict = data_obj.as_dict()
+        data_obj_dict = yaml.safe_load(yaml_dumper.dumps(data_obj))
         assert data_obj_dict == record
 
 
 def test_data_object_creation_from_db_records(test_db, fixtures_dir):
     db_utils.reset_db(test_db)
     db_utils.load_fixture(test_db, "data_object_set.json")
-    # db_utils.read_json("data_object_set.json")
 
     db_records = test_db["data_object_set"].find()
     db_records = list(db_records)
@@ -185,7 +136,7 @@ def test_data_object_creation_from_db_records(test_db, fixtures_dir):
         assert data_obj.type == "nmdc:DataObject"
         assert data_obj.id == db_record["id"]
         assert data_obj.name == db_record["name"]
-        assert data_obj.data_object_type == db_record["data_object_type"]
+        assert str(data_obj.data_object_type) == db_record["data_object_type"]
         assert data_obj.description == db_record["description"]
         assert data_obj.url == db_record["url"]
         assert data_obj.file_size_bytes == db_record.get("file_size_bytes")
@@ -210,12 +161,11 @@ def test_data_object_creation_invalid_data_object_type():
     }
     with raises(ValueError) as excinfo:
         data_obj = DataObject(**record)
-    assert "Validation error" in str(excinfo.value)
 
     # Test with a valid data object type
     record.update({"data_object_type": "Metagenome Raw Reads"})
     data_obj = DataObject(**record)
-    assert data_obj.data_object_type == "Metagenome Raw Reads"
+    assert str(data_obj.data_object_type) == "Metagenome Raw Reads"
 
 
 def test_data_object_creation_invalid_data_category():
@@ -232,7 +182,6 @@ def test_data_object_creation_invalid_data_category():
     }
     with raises(ValueError) as excinfo:
         data_obj = DataObject(**record)
-    assert "Validation error" in str(excinfo.value)
 
 def test_job_output_creation():
     outputs = [

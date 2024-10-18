@@ -13,7 +13,7 @@ from nmdc_schema import nmdc
 
 from linkml_runtime.dumpers import json_dumper
 from nmdc_automation.api import NmdcRuntimeApi
-from nmdc_automation.models.nmdc import DataObject
+from nmdc_automation.models.nmdc import DataObject, workflow_process_factory
 from .utils import object_action, file_link, get_md5, filter_import_by_type
 
 logger = logging.getLogger(__name__)
@@ -27,7 +27,7 @@ class GoldMapper:
         nucelotide_sequencing_id: str,
         yaml_file: Union[str, Path],
         project_directory: Union[str, Path],
-        site_config_file: Union[str, Path],
+        runtime: NmdcRuntimeApi,
     ):
         """
         Initialize the GoldMapper object.
@@ -54,7 +54,7 @@ class GoldMapper:
         self.data_object_map = {}
         self.workflow_execution_ids = {}
         self.workflows_by_type = self.build_workflows_by_type()
-        self.runtime = NmdcRuntimeApi(site_config_file)
+        self.runtime = runtime
 
 
     def load_yaml_file(self, yaml_file: Union[str, Path]) -> Dict:
@@ -117,6 +117,12 @@ class GoldMapper:
             "filter": {"id": self.nucelotide_sequencing_id},
             "update": {"has_output": has_output}
         }
+        # update self.data_object_map
+        if len(has_output) > 1:
+            raise ValueError("More than one sequencing data object found")
+        self.data_object_map["Metagenome Raw Reads"] = (
+            ["nmdc:ReadQcAnalysis"], ["nmdc:NucleotideSequencing"], has_output[0]
+        )
         return db, update
 
 
@@ -322,7 +328,7 @@ class GoldMapper:
                 dobj,
             )
 
-    def workflow_execution_mapper(self) -> None:
+    def map_workflow_executions(self, db) -> nmdc.Database:
         """
         Maps workflow executions from the import data to the NMDC database.
         The function creates a database workflow execution set for each workflow type in the import data,
@@ -337,39 +343,46 @@ class GoldMapper:
             if not workflow.get("Import"):
                 continue
             logging.info(f"Processing {workflow['Name']}")
+
+            # Get the input / output lists for the workflow execution type
             has_inputs_list, has_output_list = self.attach_objects_to_workflow_execution(
                 workflow["Type"]
             )
-            # quick fix because nmdc-schema does not support [], even though raw product has none
-            if len(has_output_list) == 0:
                 logging.warning("No outputs.  That seems odd.")
-                has_output_list = ["None"]
-            # input may be none for metagenome sequencing
-            if len(has_inputs_list) == 0:
-                has_inputs_list = ["None"]
-            # Lookup the nmdc database class
-            database_workflow_execution_set = getattr(self.nmdc_db, workflow["Collection"])
-            # Lookup the nmdc schema range class
-            database_workflow_execution_range = getattr(nmdc, workflow["WorkflowExecutionRange"])
-            # Mint an ID
-            workflow_execution_id = self.get_workflow_execution_id(workflow["Type"])
-            database_workflow_execution_set.append(
-                database_workflow_execution_range(
-                    id=workflow_execution_id,
-                    name=workflow["Workflow_Execution"]["name"].replace("{id}", workflow_execution_id),
-                    git_url=workflow["Git_repo"],
-                    version=workflow["Version"],
-                    execution_resource=self.import_data["Workflow Metadata"][
-                        "Execution Resource"
-                    ],
-                    started_at_time=datetime.datetime.now(pytz.utc).isoformat(),
-                    has_input=has_inputs_list,
-                    has_output=has_output_list,
-                    type=workflow["Type"],
-                    ended_at_time=datetime.datetime.now(pytz.utc).isoformat(),
-                    was_informed_by=self.nucelotide_sequencing_id,
+            # We can't make a valid workflow execution without inputs and outputs
+            if not has_inputs_list or not has_output_list:
+                logging.warning(
+                    f"Skipping {workflow['Name']} due to missing inputs or outputs"
                 )
-            )
+                continue
+            # Mint an ID if needed
+            wf_id = self.workflow_execution_ids.get(workflow["Type"], None)
+            if wf_id is None:
+                # mint an ID
+                wf_id = self.runtime.minter(workflow["Type"]) + "." + self.iteration
+                # store the ID
+                self.workflow_execution_ids[workflow["Type"]] = wf_id
+
+
+            # Create the workflow execution object
+            record = {
+                "id": wf_id,
+                "name": workflow["Workflow_Execution"]["name"].replace("{id}", wf_id),
+                "type": workflow["Type"],
+                "has_input": has_inputs_list,
+                "has_output": has_output_list,
+                "git_url": workflow["Git_repo"],
+                "version": workflow["Version"],
+                "execution_resource": self.import_data["Workflow Metadata"]["Execution Resource"],
+                "started_at_time": datetime.datetime.now(pytz.utc).isoformat(),
+                "ended_at_time": datetime.datetime.now(pytz.utc).isoformat(),
+                "was_informed_by": self.nucelotide_sequencing_id
+            }
+            wfe = workflow_process_factory(record)
+            db.workflow_execution_set.append(wfe)
+
+        return db
+
 
     def get_workflow_execution_id(self, output_of: str) -> str:
         """Lookup and returns minted workflow execution id
@@ -406,17 +419,17 @@ class GoldMapper:
             workflow execution type.
         """
 
-        data_object_outputs_of_list = []
-
-        data_object_inputs_to_list = []
+        has_input = []
+        has_output = []
 
         for _, data_object_items in self.data_object_map.items():
-            if workflow_execution_type in data_object_items[1]:
-                data_object_outputs_of_list.append(data_object_items[2])
-            elif workflow_execution_type in data_object_items[0]:
-                data_object_inputs_to_list.append(data_object_items[2])
+            input_types, ouput_types, data_object_id = data_object_items
+            if workflow_execution_type in input_types:
+                has_input.append(data_object_id)
+            if workflow_execution_type in ouput_types:
+                has_output.append(data_object_id)
 
-        return data_object_inputs_to_list, data_object_outputs_of_list
+        return has_input, has_output
 
     def post_nmdc_database_object(self) -> Dict:
         """

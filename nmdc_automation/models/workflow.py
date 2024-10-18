@@ -29,7 +29,7 @@ class WorkflowProcessNode(object):
         return self.id == other.id and self.type == other.type
 
     def add_data_object(self, data_object):
-        self.data_objects_by_type[data_object.data_object_type] = data_object
+        self.data_objects_by_type[data_object.data_object_type.code.text] = data_object
 
     @property
     def id(self):
