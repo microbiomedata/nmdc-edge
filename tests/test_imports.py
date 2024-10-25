@@ -121,8 +121,7 @@ def test_gold_mapper_map_data_unique(gold_mapper):
 
 def test_gold_mapper_map_data_multiple(gold_mapper):
     """
-    Test that the gold mapper creates data objects for the data files other
-    than the sequencing data
+    Test that the mapper is able to combine multiple data files into a single data object.
     """
     initial_num_data_objects = 1
     db, update = gold_mapper.map_sequencing_data()
