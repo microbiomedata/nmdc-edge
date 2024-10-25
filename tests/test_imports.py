@@ -52,7 +52,7 @@ def test_gold_mapper_map_sequencing_data(gold_mapper):
     exp_update = {
         "collection": "data_generation_set",
         "filter": {"id": exp_nucleotide_sequencing_id},
-        "update": {"has_output": [exp_dobj_id]}
+        "update": {"$push": {"has_output": [exp_dobj_id]}}
     }
     # Sequencing data does not get a URL
     exp_url = None

@@ -71,7 +71,7 @@ class GoldMapper:
         Map sequencing data to an NMDC data object and create an update to be applied to the has_output
         list of the sequencing data generation.
         """
-        # Define the sequencing types to look for - currently only Metagenome Raw Reads
+        # Define the sequencing types to look for -
         sequencing_types = ["Metagenome Raw Reads",]
         db = nmdc.Database()
 
@@ -125,7 +125,7 @@ class GoldMapper:
         update = {
             "collection": "data_generation_set",
             "filter": {"id": self.nucelotide_sequencing_id},
-            "update": {"has_output": has_output}
+            "update": {"$push": {"has_output": has_output}}
         }
         # update self.data_object_map
         if len(has_output) > 1:
