@@ -71,7 +71,8 @@ class GoldMapper:
         Map sequencing data to an NMDC data object and create an update to be applied to the has_output
         list of the sequencing data generation.
         """
-        sequencing_types = ["Metagenome Raw Reads", "Metatranscriptome Raw Reads"]
+        # Define the sequencing types to look for - currently only Metagenome Raw Reads
+        sequencing_types = ["Metagenome Raw Reads",]
         db = nmdc.Database()
 
         # get the Metagenome Raw Reads import data
