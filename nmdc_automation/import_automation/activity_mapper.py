@@ -107,11 +107,11 @@ class GoldMapper:
                     filemeta = os.stat(export_file)
                     md5 = get_md5(export_file)
                     data_object_id = self.runtime.minter(self.data_object_type)
+                    # Imported nucleotide sequencing data object does not have a URL
                     do_record = {
                         "id": data_object_id,
                         "type": self.data_object_type,
                         "name": file_destination_name,
-                        "url": f"{self.url}/{self.nucelotide_sequencing_id}/{file_destination_name}",
                         "file_size_bytes": filemeta.st_size,
                         "md5_checksum": md5,
                         "data_object_type": data_object_dict["data_object_type"],

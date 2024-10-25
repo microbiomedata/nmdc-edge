@@ -54,8 +54,8 @@ def test_gold_mapper_map_sequencing_data(gold_mapper):
         "filter": {"id": exp_nucleotide_sequencing_id},
         "update": {"has_output": [exp_dobj_id]}
     }
-    # TODO verify that these are the correct values to expect based on the import logic for raw reads files
-    exp_url = 'https://data.microbiomedata.org/data/nmdc:omprc-11-importT/52834.4.466476.GATCGAGT-GATCGAGT.fastq.gz'
+    # Sequencing data does not get a URL
+    exp_url = None
     exp_name = '52834.4.466476.GATCGAGT-GATCGAGT.fastq.gz'
     exp_description = 'Metagenome Raw Reads for nmdc:omprc-11-importT'
 
@@ -110,10 +110,13 @@ def test_gold_mapper_map_data_unique(gold_mapper):
     for dobj in data_objects:
         assert str(dobj.data_object_type) in exp_data_object_types
         assert isinstance(dobj, DataObject)
-        assert dobj.url
-        assert exp_nucleotide_sequencing_id in dobj.url
-        assert exp_nucleotide_sequencing_id in dobj.description
-
+        # sequencing data object should not have a URL
+        if str(dobj.data_object_type) == "Metagenome Raw Reads":
+            assert not dobj.url
+        else:
+            assert dobj.url
+            assert exp_nucleotide_sequencing_id in dobj.url
+            assert exp_nucleotide_sequencing_id in dobj.description
 
 
 def test_gold_mapper_map_data_multiple(gold_mapper):
