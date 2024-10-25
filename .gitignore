@@ -15,3 +15,4 @@ nmdc_automation/workflow_automation/_state/*.json
 
 # Ignore `coverage.xml` file in this directory.
 /coverage.xml
+prof/
