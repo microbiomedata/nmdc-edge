@@ -84,6 +84,9 @@ def _normalize_mags_record(record: Dict[str, Any]) -> Dict[str, Any]:
         # add type to eukaryotic_evaluation if it exists
         if "eukaryotic_evaluation" in mag:
             record["mags_list"][i]["eukaryotic_evaluation"]["type"] = "nmdc:EukEval"
+        # get rid of "null" gene counts
+        if "gene_count" in mag and mag["gene_count"] == "null":
+            mag.pop("gene_count")
     return record
 
 
