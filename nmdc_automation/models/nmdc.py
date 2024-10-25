@@ -89,7 +89,7 @@ def _normalize_mags_record(record: Dict[str, Any]) -> Dict[str, Any]:
 
 def _strip_empty_values(d: Dict[str, Any]) -> Dict[str, Any]:
     """ Strip empty values from a record """
-    empty_values = [None, "", [], "null",]
+    empty_values = [None, "", []]
     def clean_dict(d):
         if isinstance(d, dict):
             return {k: clean_dict(v) for k, v in d.items() if v not in empty_values}
