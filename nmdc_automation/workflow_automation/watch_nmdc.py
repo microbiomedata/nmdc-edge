@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 
 from time import sleep
-import os
 import json
 import logging
-import shutil
 from json import loads
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Union, Tuple
@@ -13,7 +11,6 @@ from nmdc_schema.nmdc import Database
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import SiteConfig
 from .wfutils import WorkflowJob
-from .wfutils import  _md5
 
 
 DEFAULT_STATE_DIR = Path(__file__).parent / "_state"
@@ -97,7 +94,6 @@ class JobManager:
         if init_cache:
             self.restore_from_state()
 
-
     @property
     def job_cache(self)-> List[WorkflowJob]:
         """ Get the job cache """
@@ -137,11 +133,9 @@ class JobManager:
             wf_job_list.append(wf_job)
         return wf_job_list
 
-
     def find_job_by_opid(self, opid) -> Optional[WorkflowJob]:
         """ Find a job by operation id """
         return next((job for job in self.job_cache if job.opid == opid), None)
-
 
     def prepare_and_cache_new_job(self, new_job: WorkflowJob, opid: str, force=False)-> Optional[WorkflowJob]:
         """ Prepare and cache a new job """
@@ -161,8 +155,6 @@ class JobManager:
             self.job_cache.append(new_job)
             return new_job
 
-
-
     def get_finished_jobs(self)->Tuple[List[WorkflowJob], List[WorkflowJob]]:
         """ Get finished jobs """
         successful_jobs = []
@@ -176,10 +168,9 @@ class JobManager:
                     failed_jobs.append(job)
         return (successful_jobs, failed_jobs)
 
-
     def process_successful_job(self, job: WorkflowJob) -> Database:
         """ Process a successful job """
-        logger.info(f"Running post for op {job.opid}")
+        logger.info(f"Process successful job:  {job.opid}")
 
         output_path = self.file_handler.get_output_path(job)
         if not output_path.exists():
@@ -195,7 +186,6 @@ class JobManager:
         self.file_handler.write_metadata_if_not_exists(job)
         return database
 
-
     def process_failed_job(self, job: WorkflowJob) -> None:
         """ Process a failed job """
         if job.workflow.state.get("failed_count", 0) >= self._MAX_FAILS:
@@ -209,11 +199,13 @@ class JobManager:
 
 
 class RuntimeApiHandler:
+    """ RuntimeApiHandler class for managing API calls to the runtime """
     def __init__(self, config):
         self.runtime_api = NmdcRuntimeApi(config)
         self.config = config
 
     def claim_job(self, job_id):
+        """ Claim a job by its ID """
         return self.runtime_api.claim_job(job_id)
 
     def get_unclaimed_jobs(self, allowed_workflows)-> List[WorkflowJob]:
