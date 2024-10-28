@@ -121,15 +121,16 @@ class JobManager:
 
     def restore_from_state(self)-> None:
         """ Restore jobs from state data """
-        self.job_cache = self.get_workflow_jobs_from_state()
+        self.job_cache.extend(self.get_new_workflow_jobs_from_state())
 
-    def get_workflow_jobs_from_state(self)-> List[WorkflowJob]:
-        """ Find jobs from state data """
+    def get_new_workflow_jobs_from_state(self) -> List[WorkflowJob]:
+        """ Find new jobs from state data that are not already in the job cache """
         wf_job_list = []
         job_cache_ids = [job.opid for job in self.job_cache]
         state = self.file_handler.read_state()
         for job in state["jobs"]:
-            if job.get("opid") in job_cache_ids:
+            if job.get("opid") and job.get("opid") in job_cache_ids:
+                # already in cache
                 continue
             wf_job = WorkflowJob(self.config, workflow_state=job)
             job_cache_ids.append(wf_job.opid)
