@@ -6,12 +6,12 @@ from pytest import fixture
 import requests_mock
 import shutil
 from time import time
-from unittest.mock import Mock
+from unittest.mock import MagicMock
 from yaml import load, Loader
 
 
 from nmdc_automation.config import SiteConfig
-from nmdc_automation.workflow_automation.models import WorkflowConfig
+from nmdc_automation.models.workflow import WorkflowConfig
 from tests.fixtures import db_utils
 from nmdc_automation.workflow_automation.wfutils import WorkflowJob
 
@@ -22,6 +22,36 @@ def mock_job_state():
     )
     return state
 
+@fixture(scope="session")
+def mock_nucleotide_sequencing():
+    return {
+        "id": "nmdc:omprc-11-metag1",
+        "name": "Test Metagenome Processing",
+        "has_input": [
+            "nmdc:bsm-11-qezc0h51"
+        ],
+        "has_output": [
+            "nmdc:dobj-11-rawreads1",
+            "nmdc:dobj-11-rawreads2"
+        ],
+        "analyte_category": "metagenome",
+        "associated_studies": [
+            "nmdc:sty-11-test001"
+        ],
+        "processing_institution": "JGI",
+        "principal_investigator": {
+            "has_raw_value": "PI Name",
+            "email": "pi_name@example.com",
+            "name": "PI Name",
+            "type": "nmdc:PersonValue"
+        },
+        "type": "nmdc:NucleotideSequencing"
+    }
+
+
+@fixture(scope="session")
+def mock_metagenome_assembly():
+    return
 
 @fixture(scope="session")
 def mags_config(fixtures_dir)->WorkflowConfig:
@@ -46,7 +76,9 @@ def mock_api(monkeypatch, requests_mock, test_data_dir):
             "access_token": "abcd"
             }
     requests_mock.post("http://localhost/token", json=token_resp)
-    resp = ["nmdc:abcd"]
+    resp = ["nmdc:dobj-01-abcd4321"]
+    # mock mint responses in sequence
+
     requests_mock.post("http://localhost/pids/mint", json=resp)
     requests_mock.post(
         "http://localhost/workflows/workflow_executions",
@@ -157,3 +189,59 @@ def mock_cromwell_api(fixtures_dir):
             )
 
         yield m
+
+
+@fixture(scope="session")
+def gold_import_dir(fixtures_dir):
+    return fixtures_dir / "gold_import"
+
+@fixture(scope="session")
+def gold_import_files(gold_import_dir):
+    # return the full paths to fixtures that simulate JGI import files. These are used to test the GoldMapper class.
+    # One (1) file is a nucleotide sequencing file. All the other files are RQC, assembly, MAGs, etc.
+    return [str(f) for f in gold_import_dir.iterdir() if f.is_file()]
+
+
+class MockNmdcRuntimeApi:
+    def __init__(self):
+        self.counter = 10
+
+    def minter(self, id_type):
+        type_code_map = {
+            "nmdc:DataObject": "nmdc:dobj",
+            "nmdc:MetagenomeAssembly": "nmdc:wfmgas",
+            "nmdc:MetagenomeAnnotation": "nmdc:wfmgan",
+            "nmdc:MagsAnalysis": "nmdc:wfmag",
+            "nmdc:ReadQcAnalysis": "nmdc:wfrqc",
+            "nmdc:ReadBasedTaxonomyAnalysis": "nmdc:wfrbt",
+        }
+        self.counter += 1
+        prefix = type_code_map[id_type]
+        return f"{prefix}-{self.counter:02d}-abcd1234"
+
+    def get_token(self):
+        return {"expires": {"minutes": time()+60},
+            "access_token": "abcd"
+            }
+
+    def refresh_token(self):
+        return {"expires": {"minutes": time()+60},
+            "access_token": "abcd"
+            }
+
+    def get_object(self, id):
+        return {
+            "id": id,
+            "name": "Test Object",
+            "type": "nmdc:DataObject"
+        }
+
+
+
+
+
+
+
+@fixture(scope="session")
+def mock_nmdc_runtime_api():
+    return MockNmdcRuntimeApi()

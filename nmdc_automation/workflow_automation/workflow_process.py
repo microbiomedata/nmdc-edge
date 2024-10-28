@@ -5,7 +5,8 @@ from typing import List, Dict
 
 from semver.version import Version
 
-from nmdc_automation.workflow_automation.models import WorkflowProcessNode, DataObject, WorkflowConfig
+from nmdc_automation.models.nmdc import DataObject
+from nmdc_automation.models.workflow import WorkflowConfig, WorkflowProcessNode
 
 warned_objects = set()
 
@@ -27,7 +28,7 @@ def get_required_data_objects_map(db, workflows: List[WorkflowConfig]) -> Dict[s
     required_data_objs_by_id = dict()
     for rec in db.data_object_set.find():
         do = DataObject(**rec)
-        if do.data_object_type not in required_types:
+        if do.data_object_type.code.text not in required_types:
             continue
         required_data_objs_by_id[do.id] = do
     return required_data_objs_by_id
@@ -64,7 +65,7 @@ def _check(match_types, data_object_ids, data_objs):
     do_types = set()
     for doid in data_object_ids:
         if doid in data_objs:
-            do_types.add(data_objs[doid].data_object_type)
+            do_types.add(data_objs[doid].data_object_type.code.text)
     return match_set.issubset(do_types)
 
 
