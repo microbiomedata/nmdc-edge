@@ -125,7 +125,7 @@ class GoldMapper:
         update = {
             "collection": "data_generation_set",
             "filter": {"id": self.nucelotide_sequencing_id},
-            "update": {"$push": {"has_output": has_output}}
+            "update": {"$addToSet": {"has_output": has_output}}
         }
         # update self.data_object_map
         if len(has_output) > 1:
