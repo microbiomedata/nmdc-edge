@@ -99,7 +99,7 @@ def daemon(ctx):
 @click.argument("opid")
 def reset(ctx, opid):
     watcher = ctx.obj
-    print(watcher.nmdc.update_op(opid, done=False))
+    print(watcher.nmdc.update_operation(opid, done=False))
 
 
 if __name__ == "__main__":
