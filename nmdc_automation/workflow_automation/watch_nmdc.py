@@ -6,6 +6,8 @@ import logging
 from json import loads
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Union, Tuple
+from linkml_runtime.dumpers import yaml_dumper
+import yaml
 
 from nmdc_schema.nmdc import Database
 from nmdc_automation.api import NmdcRuntimeApi
@@ -286,7 +288,7 @@ class Watcher:
         successful_jobs, failed_jobs = self.job_manager.get_finished_jobs()
         for job in successful_jobs:
             job_database = self.job_manager.process_successful_job(job)
-            job_dict = json.loads(job_database.json(exclude_unset=True))
+            job_dict = yaml.safe_load(yaml_dumper.dumps(job_database))
 
             # post workflow execution and data objects to the runtime api
             resp = self.runtime_api_handler.post_objects(job_dict)
