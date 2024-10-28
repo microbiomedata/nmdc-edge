@@ -105,7 +105,7 @@ def test_get_required_data_objects_by_id(test_db, workflows_config_dir, workflow
     # get a unique list of the data object types
     do_types = set()
     for do in required_data_object_map.values():
-        do_types.add(do.data_object_type)
+        do_types.add(do.data_object_type.code.text)
     # check that the expected data object types are present
     for do_type in exp_do_types:
         assert do_type in do_types

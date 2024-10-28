@@ -1,8 +1,17 @@
 import os
 import shutil
 from nmdc_automation.import_automation.activity_mapper import GoldMapper
+from nmdc_automation.models.nmdc import DataObject
+from nmdc_schema.nmdc import Database
 from pytest import fixture
+import importlib.resources
+import yaml
+from functools import lru_cache
+import linkml.validator
+from linkml_runtime.dumpers import yaml_dumper
+from linkml_runtime.loaders import json_loader
 from time import time
+from unittest.mock import patch
 
 
 
@@ -11,61 +20,150 @@ from time import time
 #TODO NEXT: add test for import-mt.yaml similar to what is in test_workflow_process.py
 
 @fixture
-def gold_mapper(mock_api, base_test_dir, test_data_dir):
+def gold_mapper(mock_nmdc_runtime_api, base_test_dir, gold_import_files, gold_import_dir):
     """
     Base test function for code related to importing JGI records.
     """
     yaml_file = base_test_dir / "import_test.yaml"
-    test_files = [test_data_dir / "test_pfam.gff",
-                  test_data_dir / "test_cog.gff",
-                  test_data_dir / "test_2.tar.gz",
-                  test_data_dir / "test_72.tar.gz"]
-    # proj_dir = os.path.abspath("./test_data")
-    site_conf = base_test_dir / "site_configuration_test.toml"
     nucleotide_sequencing_id = "nmdc:omprc-11-importT"
     root_dir = f"/tmp/{nucleotide_sequencing_id}"
     if os.path.exists(root_dir):
         shutil.rmtree(root_dir)
-    gm = GoldMapper("1", test_files, nucleotide_sequencing_id, yaml_file, test_data_dir, site_conf)
+    gm = GoldMapper("1", gold_import_files, nucleotide_sequencing_id, yaml_file, gold_import_dir, mock_nmdc_runtime_api)
     gm.root_dir = root_dir
     return gm
 
 
-def test_workflow_execution_mapper(gold_mapper):
-    """
-    Test the creation of workflow execution records and data objects that are has_output of those workflow execution subclasses.
-    """
-    gold_mapper.unique_object_mapper()
-    gold_mapper.multiple_objects_mapper()
-    gold_mapper.workflow_execution_mapper()
-    gold_mapper.post_nmdc_database_object()
-    db = gold_mapper.get_database_object_dump()
-    #This should return 4 workflow_execution_set records becuase that is the number of records with Import:true in the config file
-    #note that if these records were tested against the actual schema they would fail b/c workflow executions can't have has_output be null.
-    assert len(db.workflow_execution_set) == 4
-    # gff files are 1:1 with data objects that are has_output of nmdc:MetagenomeAnnotation
-    # *tar.gz files should be combined into a single data object that is has_output of nmdc:MagsAnalysis
-    assert len(db.data_object_set) == 3
+@lru_cache(maxsize=None)
+def get_nmdc_materialized():
+    with importlib.resources.open_text("nmdc_schema", "nmdc_materialized_patterns.yaml") as f:
+        return yaml.safe_load(f)
 
 
-def test_unique_object_mapper(gold_mapper):
+def test_gold_mapper_map_sequencing_data(gold_mapper):
     """
-    This test counts the number of files from gold_mapper where the data object creation should be 1:1.
+    Test that the gold mapper creates data objects for the sequencing data, and
+    provides an update to be applied to the has_output list of the sequencing data generation
     """
-    gold_mapper.unique_object_mapper()
-    assert len(gold_mapper.nmdc_db.data_object_set) == 2
-    assert len(gold_mapper.objects) == 2
+    exp_num_data_objects = 1    # There is only one sequencing data file from the gold import files fixture
+    exp_dobj_id = "nmdc:dobj-11-abcd1234"   # From the mock API minter response
+    exp_dobj_type = "Metagenome Raw Reads"  # From the gold_import_files fixture
+    exp_nucleotide_sequencing_id = "nmdc:omprc-11-importT"  # From the gold mapper fixture
+    exp_update = {
+        "collection": "data_generation_set",
+        "filter": {"id": exp_nucleotide_sequencing_id},
+        "update": {"$addToSet": {"has_output": [exp_dobj_id]}}
+    }
+    # Sequencing data does not get a URL
+    exp_url = None
+    exp_name = '52834.4.466476.GATCGAGT-GATCGAGT.fastq.gz'
+    exp_description = 'Metagenome Raw Reads for nmdc:omprc-11-importT'
+
+    db, update = gold_mapper.map_sequencing_data()
+    # Database assertions
+    assert db
+    assert isinstance(db, Database)
+    assert db.data_object_set
+    data_objects = db.data_object_set
+    assert len(data_objects) == exp_num_data_objects
+    # Data object assertions
+    dobj = data_objects[0]
+    assert isinstance(dobj, DataObject)
+    assert str(dobj.data_object_type) == exp_dobj_type
+    assert dobj.id == exp_dobj_id
+    assert dobj.name == exp_name
+    assert dobj.description == exp_description
+    assert dobj.url == exp_url
+    assert dobj.file_size_bytes
+    assert dobj.md5_checksum
+
+    # Update assertions
+    assert update
+    assert update == exp_update
 
 
-def test_multiple_object_mapper(gold_mapper):
+def test_gold_mapper_map_data_unique(gold_mapper):
     """
-    This test counts the number of files from gold_mapper where the data object creation should be many:1.  JGI stores each binning file 
-    individually whereas NMDC combines all the records into a single tar.gz file.
+    Test that the gold mapper creates data objects for the data files other
+    than the sequencing data
     """
-    gold_mapper.multiple_objects_mapper()
-    # Add assertions to check if the method works as expected
-    assert len(gold_mapper.nmdc_db.data_object_set) == 1
-    print(gold_mapper.nmdc_db.data_object_set)
-    assert len(gold_mapper.objects) == 1
-    #check that the data object url gets made correctly for the multiple object mapper function.
-    assert "https://data.microbiomedata.org/data/nmdc:omprc-11-importT/nmdc:abcd.1/nmdc_abcd.1_hqmq_bin.zip" in (do["url"] for do in gold_mapper.nmdc_db.data_object_set) 
+    initial_num_data_objects = 1
+    db, update = gold_mapper.map_sequencing_data()
+    # sanity check
+    assert len(db.data_object_set) == initial_num_data_objects
+        # two unique data files from the gold import files fixture get added to the database
+    exp_data_object_types = [
+        "Clusters of Orthologous Groups (COG) Annotation GFF",
+        "Pfam Annotation GFF",
+        "Metagenome Raw Reads",
+        "Annotation Amino Acid FASTA",
+        "Filtered Sequencing Reads",
+        "Assembly Contigs",
+    ]
+
+    exp_nucleotide_sequencing_id = "nmdc:omprc-11-importT"  # From the gold mapper fixture
+
+    db, do_map = gold_mapper.map_data(db)
+    assert db
+    assert len(db.data_object_set) == len(exp_data_object_types)
+    data_objects = db.data_object_set
+    for dobj in data_objects:
+        assert str(dobj.data_object_type) in exp_data_object_types
+        assert isinstance(dobj, DataObject)
+        # sequencing data object should not have a URL
+        if str(dobj.data_object_type) == "Metagenome Raw Reads":
+            assert not dobj.url
+        else:
+            assert dobj.url
+            assert exp_nucleotide_sequencing_id in dobj.url
+            assert exp_nucleotide_sequencing_id in dobj.description
+
+
+def test_gold_mapper_map_data_multiple(gold_mapper):
+    """
+    Test that the mapper is able to combine multiple data files into a single data object.
+    """
+    initial_num_data_objects = 1
+    db, update = gold_mapper.map_sequencing_data()
+    # sanity check
+    assert len(db.data_object_set) == initial_num_data_objects
+    exp_num_data_objects = 2    # two files are combined into a single data object
+
+    db, do_map = gold_mapper.map_data(db, unique=False)
+    assert db
+    assert len(db.data_object_set) == exp_num_data_objects
+
+
+def test_gold_mapper_map_workflow_executions(gold_mapper, ):
+    """
+    Test that the gold mapper creates workflow execution records and data objects that are has_output of those workflow execution subclasses.
+    """
+
+    # setup
+    db, update = gold_mapper.map_sequencing_data()
+    db, do_map = gold_mapper.map_data(db)
+    db, do_map = gold_mapper.map_data(db, unique=False)
+
+    # test
+    db = gold_mapper.map_workflow_executions(db)
+    assert db.workflow_execution_set
+
+
+    # test that the db is valid according to the schema
+    nmdc_materialized = get_nmdc_materialized()
+    # db is a schema object, so we need to convert it to a dictionary
+
+    db_dict = yaml.safe_load(yaml_dumper.dumps(db))
+
+    validation_report = linkml.validator.validate(db_dict, nmdc_materialized, "Database")
+
+    assert not validation_report.results, f"Validation error: {validation_report.results[0].message}"
+
+
+
+
+
+
+
+
+

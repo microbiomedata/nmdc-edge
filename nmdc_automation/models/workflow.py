@@ -1,90 +1,11 @@
-""" Model classes for the workflow automation app. """
+""" Data classed for NMDC workflow automation. """
 from dataclasses import dataclass, field
-from dateutil import parser
 from datetime import datetime
-from typing import List, Dict, Any, Optional, Set, Union
+from typing import Any, Dict, List, Optional, Set
 
-from nmdc_schema.nmdc import (
-    DataGeneration,
-    FileTypeEnum,
-    NucleotideSequencing,
-    MagsAnalysis,
-    MetagenomeAssembly,
-    MetagenomeAnnotation,
-    MetatranscriptomeAssembly,
-    MetatranscriptomeAnnotation,
-    MetatranscriptomeExpressionAnalysis,
-    ReadBasedTaxonomyAnalysis,
-    ReadQcAnalysis,
-    WorkflowExecution
-)
-from nmdc_schema import nmdc
+from dateutil import parser
 
-
-def workflow_process_factory(record: Dict[str, Any]) -> Union[DataGeneration, WorkflowExecution]:
-    """
-    Factory function to create a PlannedProcess subclass object from a record.
-    Subclasses are determined by the "type" field in the record, and can be
-    either a WorkflowExecution or DataGeneration object.
-    """
-    process_types = {
-        "nmdc:MagsAnalysis": MagsAnalysis,
-        "nmdc:MetagenomeAnnotation": MetagenomeAnnotation,
-        "nmdc:MetagenomeAssembly": MetagenomeAssembly,
-        "nmdc:MetatranscriptomeAnnotation": MetatranscriptomeAnnotation,
-        "nmdc:MetatranscriptomeAssembly": MetatranscriptomeAssembly,
-        "nmdc:MetatranscriptomeExpressionAnalysis": MetatranscriptomeExpressionAnalysis,
-        "nmdc:NucleotideSequencing": NucleotideSequencing,
-        "nmdc:ReadBasedTaxonomyAnalysis": ReadBasedTaxonomyAnalysis,
-        "nmdc:ReadQcAnalysis": ReadQcAnalysis,
-    }
-    record = _normalize_record(record)
-
-    try:
-        cls = process_types[record["type"]]
-    except KeyError:
-        raise ValueError(f"Invalid workflow execution type: {record['type']}")
-    wfe = cls(**record)
-    return wfe
-
-def _normalize_record(record: Dict[str, Any]) -> Dict[str, Any]:
-    """ Normalize the record by removing the _id field and converting the type field to a string """
-    record.pop("_id", None)
-    # for backwards compatibility strip Activity from the end of the type
-    record["type"] = record["type"].replace("Activity", "")
-    normalized_record = _strip_empty_values(record)
-
-    # type-specific normalization
-    if normalized_record["type"] == "nmdc:MagsAnalysis":
-        normalized_record = _normalize_mags_record(normalized_record)
-
-    return normalized_record
-
-def _normalize_mags_record(record: Dict[str, Any]) -> Dict[str, Any]:
-    """ Normalize the record for a MagsAnalysis object """
-    for i, mag in enumerate(record.get("mags_list", [])):
-        if not mag.get("type"):
-            # Update the original dictionary in the list
-            record["mags_list"][i]["type"] = "nmdc:MagBin"
-        # for backwards compatibility normalize num_tRNA to num_t_rna
-        if "num_tRNA" in mag:
-            record["mags_list"][i]["num_t_rna"] = mag.pop("num_tRNA")
-        # add type to eukaryotic_evaluation if it exists
-        if "eukaryotic_evaluation" in mag:
-            record["mags_list"][i]["eukaryotic_evaluation"]["type"] = "nmdc:EukEval"
-    return record
-
-
-def _strip_empty_values(d: Dict[str, Any]) -> Dict[str, Any]:
-    """ Strip empty values from a record """
-    empty_values = [None, "", [], "null", 0]
-    def clean_dict(d):
-        if isinstance(d, dict):
-            return {k: clean_dict(v) for k, v in d.items() if v not in empty_values}
-        elif isinstance(d, list):
-            return [clean_dict(v) for v in d if v not in empty_values]
-        return d
-    return clean_dict(d)
+from nmdc_automation.models.nmdc import DataObject, workflow_process_factory
 
 
 class WorkflowProcessNode(object):
@@ -108,7 +29,7 @@ class WorkflowProcessNode(object):
         return self.id == other.id and self.type == other.type
 
     def add_data_object(self, data_object):
-        self.data_objects_by_type[data_object.data_object_type] = data_object
+        self.data_objects_by_type[data_object.data_object_type.code.text] = data_object
 
     @property
     def id(self):
@@ -149,42 +70,6 @@ class WorkflowProcessNode(object):
     def was_informed_by(self):
         """ workflow executions have a was_informed_by field, data generations get set to their own id"""
         return getattr(self.process, "was_informed_by", self.id)
-
-
-class DataObject(nmdc.DataObject):
-    """
-    Extends the NMDC DataObject dataclass with additional methods for serialization.
-    """
-    def __init__(self, **record):
-        """ Initialize the object from a dictionary """
-        # _id is a MongoDB field that makes the parent class fail to initialize
-        record.pop("_id", None)
-        if "type" not in record:
-            record["type"] = "nmdc:DataObject"
-        super().__init__(**record)
-
-    def as_dict(self):
-        """ Return the object as a dictionary, excluding None values, empty lists, and data_object_type as a string """
-        return {
-            key: value
-            for key, value in self.__dict__.items()
-            if not key.startswith("_") and value
-        } | {"data_object_type": self.data_object_type}
-
-    @property
-    def data_object_type(self):
-        """ Return the data object type as a string """
-        if isinstance(self._data_object_type, FileTypeEnum):
-            return self._data_object_type.code.text
-        return str(self._data_object_type)
-
-    @data_object_type.setter
-    def data_object_type(self, value):
-        """ Set the data object type from a string or FileTypeEnum """
-        if isinstance(value, FileTypeEnum):
-            self._data_object_type = value
-        else:
-            self._data_object_type = FileTypeEnum(value)
 
 
 @dataclass
@@ -248,6 +133,7 @@ class WorkflowConfig:
 class JobWorkflow:
     id: str
 
+
 @dataclass
 class JobConfig:
     """ Represents a job configuration from the NMDC API jobs endpoint / MongoDB jobs collection """
@@ -271,6 +157,7 @@ class JobClaim:
     op_id: str
     site_id: str
 
+
 @dataclass
 class JobOutput:
     """ Represents a job output specification. """
@@ -291,6 +178,7 @@ class JobOutput:
             data_object_type=self.data_object_type,
             description=self.description,
         )
+
 
 @dataclass
 class Job:

@@ -5,7 +5,7 @@ try:
 except ImportError:
     from yaml import Loader
 
-from nmdc_automation.workflow_automation.models import WorkflowConfig
+from nmdc_automation.models.workflow import WorkflowConfig
 
 
 def load_workflow_configs(yaml_file) -> list[WorkflowConfig]:

@@ -145,7 +145,7 @@ def file_link(
         linked_path = os.path.join(destination_dir, updated_file)
 
         try:
-            os.link(original_path, linked_path)
+            os.link(import_file, linked_path)
         except FileExistsError:
             logger.info(f"{linked_path} already exists")
 

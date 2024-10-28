@@ -16,7 +16,7 @@ import pytz
 import requests
 
 from nmdc_automation.config import SiteConfig
-from nmdc_automation.workflow_automation.models import DataObject
+from nmdc_automation.models.nmdc import DataObject
 
 DEFAULT_MAX_RETRIES = 2
 
