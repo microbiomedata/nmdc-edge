@@ -193,6 +193,8 @@ class NmdcRuntimeApi:
         url = self._base_url + "workflows/workflow_executions"
 
         resp = requests.post(url, headers=self.header, data=json.dumps(obj_data))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
     @refresh_token
@@ -324,6 +326,8 @@ class NmdcRuntimeApi:
     def run_query(self, query):
         url = "%squeries:run" % self._base_url
         resp = requests.post(url, headers=self.header, data=json.dumps(query))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
 

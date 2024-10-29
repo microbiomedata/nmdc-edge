@@ -1,0 +1,136 @@
+{
+  "data_object_set": [
+    {
+      "id": "nmdc:dobj-11-abcd1234",
+      "type": "nmdc:DataObject",
+      "name": "52834.4.466476.GATCGAGT-GATCGAGT.fastq.gz",
+      "description": "Metagenome Raw Reads for nmdc:omprc-11-importT",
+      "data_object_type": "Metagenome Raw Reads",
+      "file_size_bytes": 114,
+      "md5_checksum": "d007b1a06373c7ae7c15e681b41a0fc3",
+      "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-importT/52834.4.466476.GATCGAGT-GATCGAGT.fastq.gz"
+    },
+    {
+      "id": "nmdc:dobj-13-abcd1234",
+      "type": "nmdc:DataObject",
+      "name": "nmdc_wfmgan-12-abcd1234.1_proteins.faa",
+      "description": "FASTA Amino Acid File for nmdc:omprc-11-importT",
+      "data_object_type": "Annotation Amino Acid FASTA",
+      "file_size_bytes": 675,
+      "md5_checksum": "272b6e22c3a418f3e2819e2485f3bf01",
+      "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-importT/nmdc:wfmgan-12-abcd1234.1/nmdc_wfmgan-12-abcd1234.1_proteins.faa"
+    },
+    {
+      "id": "nmdc:dobj-14-abcd1234",
+      "type": "nmdc:DataObject",
+      "name": "nmdc_wfmgan-12-abcd1234.1_cog.gff",
+      "description": "COGs for nmdc:omprc-11-importT",
+      "data_object_type": "Clusters of Orthologous Groups (COG) Annotation GFF",
+      "file_size_bytes": 2618,
+      "md5_checksum": "513be591318b13d46d318bc6bd2c859c",
+      "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-importT/nmdc:wfmgan-12-abcd1234.1/nmdc_wfmgan-12-abcd1234.1_cog.gff"
+    },
+    {
+      "id": "nmdc:dobj-15-abcd1234",
+      "type": "nmdc:DataObject",
+      "name": "nmdc_wfmgan-12-abcd1234.1_pfam.gff",
+      "description": "Pfam Annotation for nmdc:omprc-11-importT",
+      "data_object_type": "Pfam Annotation GFF",
+      "file_size_bytes": 0,
+      "md5_checksum": "d41d8cd98f00b204e9800998ecf8427e",
+      "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-importT/nmdc:wfmgan-12-abcd1234.1/nmdc_wfmgan-12-abcd1234.1_pfam.gff"
+    },
+    {
+      "id": "nmdc:dobj-17-abcd1234",
+      "type": "nmdc:DataObject",
+      "name": "nmdc_wfrqc-16-abcd1234.1_filtered.fastq.gz",
+      "description": "Reads QC for nmdc:omprc-11-importT",
+      "data_object_type": "Filtered Sequencing Reads",
+      "file_size_bytes": 114,
+      "md5_checksum": "d007b1a06373c7ae7c15e681b41a0fc3",
+      "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-importT/nmdc:wfrqc-16-abcd1234.1/nmdc_wfrqc-16-abcd1234.1_filtered.fastq.gz"
+    },
+    {
+      "id": "nmdc:dobj-19-abcd1234",
+      "type": "nmdc:DataObject",
+      "name": "nmdc_wfmgas-18-abcd1234.1_contigs.fna",
+      "description": "Assembly contigs for nmdc:omprc-11-importT",
+      "data_object_type": "Assembly Contigs",
+      "file_size_bytes": 563,
+      "md5_checksum": "a9838d4cb59f6444d63b5d254af9a479",
+      "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-importT/nmdc:wfmgas-18-abcd1234.1/nmdc_wfmgas-18-abcd1234.1_contigs.fna"
+    }
+  ],
+  "workflow_execution_set": [
+    {
+      "id": "nmdc:wfrqc-16-abcd1234.1",
+      "type": "nmdc:ReadQcAnalysis",
+      "name": "Read QC for nmdc:wfrqc-16-abcd1234.1",
+      "has_input": [
+        "nmdc:dobj-11-abcd1234"
+      ],
+      "has_output": [
+        "nmdc:dobj-17-abcd1234"
+      ],
+      "execution_resource": "JGI",
+      "git_url": "https://github.com/microbiomedata/ReadsQC",
+      "started_at_time": "2024-10-18T15:36:13.791386+00:00",
+      "was_informed_by": "nmdc:omprc-11-importT",
+      "ended_at_time": "2024-10-18T15:36:13.791397+00:00",
+      "version": "v1.0.8"
+    },
+    {
+      "id": "nmdc:wfmgas-18-abcd1234.1",
+      "type": "nmdc:MetagenomeAssembly",
+      "name": "Metagenome Assembly for nmdc:wfmgas-18-abcd1234.1",
+      "has_input": [
+        "nmdc:dobj-17-abcd1234"
+      ],
+      "has_output": [
+        "nmdc:dobj-19-abcd1234"
+      ],
+      "execution_resource": "JGI",
+      "git_url": "https://github.com/microbiomedata/metaAssembly",
+      "started_at_time": "2024-10-18T15:36:17.489784+00:00",
+      "was_informed_by": "nmdc:omprc-11-importT",
+      "ended_at_time": "2024-10-18T15:36:17.489798+00:00",
+      "version": "v1.0.3"
+    },
+    {
+      "id": "nmdc:wfmgan-12-abcd1234.1",
+      "type": "nmdc:MetagenomeAnnotation",
+      "name": "Metagenome Annotation Analysis for nmdc:wfmgan-12-abcd1234.1",
+      "has_input": [
+        "nmdc:dobj-19-abcd1234"
+      ],
+      "has_output": [
+        "nmdc:dobj-13-abcd1234",
+        "nmdc:dobj-14-abcd1234",
+        "nmdc:dobj-15-abcd1234"
+      ],
+      "execution_resource": "JGI",
+      "git_url": "https://github.com/microbiomedata/mg_annotation",
+      "started_at_time": "2024-10-18T15:36:17.489960+00:00",
+      "was_informed_by": "nmdc:omprc-11-importT",
+      "ended_at_time": "2024-10-18T15:36:17.489965+00:00",
+      "version": "v1.0.4"
+    },
+    {
+      "id": "nmdc:wfmags-20-abcd1234.1",
+      "type": "nmdc:MagsAnalysis",
+      "name": "Metagenome Assembled Genomes Analysis for nmdc:wfmags-20-abcd1234.1",
+      "has_input": [
+        "nmdc:dobj-13-abcd1234",
+        "nmdc:dobj-14-abcd1234",
+        "nmdc:dobj-15-abcd1234",
+        "nmdc:dobj-19-abcd1234"
+      ],
+      "execution_resource": "JGI",
+      "git_url": "https://github.com/microbiomedata/metaMAGs",
+      "started_at_time": "2024-10-18T15:36:17.490112+00:00",
+      "was_informed_by": "nmdc:omprc-11-importT",
+      "ended_at_time": "2024-10-18T15:36:17.490117+00:00",
+      "version": "v1.0.6"
+    }
+  ]
+}
