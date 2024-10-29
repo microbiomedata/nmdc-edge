@@ -35,7 +35,7 @@ task estimate_memory {
             threshold="250g"
             num_kmers=`cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}'`
             pred_mem=`awk -v num_kmers=$num_kmers 'BEGIN {print int(((num_kmers*2.962e-08 + 1.630e+01) * 1.1))"g"}'`
-            if [ "$pred_memory" \> "$threshold" ]; then echo "over threshold"; return 1; fi
+            if [ "$pred_mem" \> "$threshold" ]; then echo "over threshold"; return 1; fi
             echo "$pred_mem" > ~{predicted_memory}
             echo "$num_kmers" > ~{num_kmers_file}
             >>>
