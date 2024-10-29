@@ -8,6 +8,9 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional, Union, Tuple
 from linkml_runtime.dumpers import yaml_dumper
 import yaml
+import linkml.validator
+import importlib.resources
+from functools import lru_cache
 
 from nmdc_schema.nmdc import Database
 from nmdc_automation.api import NmdcRuntimeApi
@@ -206,6 +209,10 @@ class JobManager:
         database = Database()
 
         data_objects = job.make_data_objects(output_dir=output_path)
+        if not data_objects:
+            logger.error(f"No data objects found for job {job.opid}.")
+            return database
+
         database.data_object_set = data_objects
         workflow_execution_record = job.make_workflow_execution_record(data_objects)
         database.workflow_execution_set = [workflow_execution_record]
@@ -268,6 +275,7 @@ class Watcher:
         self.file_handler = FileHandler(self.config, state_file)
         self.runtime_api_handler = RuntimeApiHandler(self.config)
         self.job_manager = JobManager(self.config, self.file_handler)
+        self.nmdc_materialized = _get_nmdc_materialized()
 
     def restore_from_checkpoint(self, state_data: Dict[str, Any] = None)-> None:
         """
@@ -288,7 +296,19 @@ class Watcher:
         successful_jobs, failed_jobs = self.job_manager.get_finished_jobs()
         for job in successful_jobs:
             job_database = self.job_manager.process_successful_job(job)
+            # sanity checks
+            if not job_database.data_object_set:
+                logger.error(f"No data objects found for job {job.opid}.")
+                continue
+
             job_dict = yaml.safe_load(yaml_dumper.dumps(job_database))
+            # validate the database object against the schema
+            validation_report = linkml.validator.validate(
+                job_dict, self.nmdc_materialized, "Database"
+            )
+            if validation_report.results:
+                logger.error(f"Validation error: {validation_report.results[0].message}")
+                continue
 
             # post workflow execution and data objects to the runtime api
             resp = self.runtime_api_handler.post_objects(job_dict)
@@ -328,3 +348,7 @@ class Watcher:
                 new_job.job.submit_job()
         self.file_handler.write_state(self.job_manager.job_checkpoint())
 
+@lru_cache(maxsize=None)
+def _get_nmdc_materialized():
+    with importlib.resources.open_text("nmdc_schema", "nmdc_materialized_patterns.yaml") as f:
+        return yaml.safe_load(f)
