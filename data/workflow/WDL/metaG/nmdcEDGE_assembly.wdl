@@ -15,6 +15,7 @@ workflow nmdc_edge_assembly{
         String quast_container="staphb/quast:5.2.0-slim"
         String memory="100g"
         String threads="4"
+        String threshold = "250"
         String proj = proj
         Boolean input_interleaved=true
         Array[File] input_fq1=[]

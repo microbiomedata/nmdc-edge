@@ -5,13 +5,15 @@ workflow assembly_preprocess {
         File? input_file
         String  container="microbiomedata/bbtools:38.96"
         String outdir
+        String threshold
     }
 
     call estimate_memory as mem_estimate{
         input:
             input_file = input_file,
             container = container,
-            outdir = outdir
+            outdir = outdir,
+            String = threshold
     }
 
     output {
@@ -27,15 +29,15 @@ task estimate_memory {
             String outdir
             String predicted_memory="pred_memory.txt"
             String num_kmers_file="num_kmers.txt"
+            String threshold
         }
 
         command <<<
             set -euo pipefail
             reformat.sh in=~{input_file} interleaved=t cardinality=true out=stdout.fq 1> /dev/null 2>| cardinality.txt
-            threshold=250
             num_kmers=`cat cardinality.txt|  awk '/Unique 31-mers:/{print $3}'`
             pred_mem=`awk -v num_kmers=$num_kmers 'BEGIN {print int(((num_kmers*2.962e-08 + 1.630e+01) * 1.1))}'`
-            if [ "$pred_mem" -gt "$threshold" ]; then echo "over threshold"; exit 1; fi
+            if [ "$pred_mem" -gt "${threshold}" ]; then echo "over threshold"; exit 1; fi
             echo "${pred_mem}g" > ~{predicted_memory}
             echo "$num_kmers" > ~{num_kmers_file}
             >>>
