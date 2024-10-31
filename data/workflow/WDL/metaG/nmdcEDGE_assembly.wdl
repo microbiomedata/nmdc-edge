@@ -36,7 +36,8 @@ workflow nmdc_edge_assembly{
         input:
             input_file = preprocess.input_file_gz,
             container = bbtools_container,
-            outdir = outdir
+            outdir = outdir,
+            threshold=threshold
 
     }
 

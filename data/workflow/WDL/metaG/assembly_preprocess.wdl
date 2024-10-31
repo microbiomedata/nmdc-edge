@@ -13,7 +13,7 @@ workflow assembly_preprocess {
             input_file = input_file,
             container = container,
             outdir = outdir,
-            String = threshold
+            threshold = threshold
     }
 
     output {
