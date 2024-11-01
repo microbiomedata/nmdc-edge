@@ -40,3 +40,44 @@ call readbasedAnalysis_output.readbasedAnalysis_output as readbasedAnalysis_outp
         centrifuge_krona_html=ReadbasedAnalysis.final_centrifuge_krona_html, 
         PREFIX=ReadbasedAnalysis_prefix
 }
+call finish {
+    input: 
+        gottcha2_report_tsv = ReadbasedAnalysis_call.final_gottcha2_report_tsv,
+        gottcha2_full_tsv = ReadbasedAnalysis_call.final_gottcha2_full_tsv,
+        gottcha2_krona_html = ReadbasedAnalysis_call.final_gottcha2_krona_html,
+        centrifuge_classification_tsv = ReadbasedAnalysis_call.final_centrifuge_classification_tsv,
+        centrifuge_report_tsv = ReadbasedAnalysis_call.final_centrifuge_report_tsv,
+        centrifuge_krona_html = ReadbasedAnalysis_call.final_centrifuge_krona_html,
+        kraken2_classification_tsv = ReadbasedAnalysis_call.final_kraken2_classification_tsv,
+        kraken2_report_tsv = ReadbasedAnalysis_call.final_kraken2_report_tsv,
+        kraken2_krona_html = ReadbasedAnalysis_call.final_kraken2_krona_html,
+        summary_json = ReadbasedAnalysis_output.summary_json
+
+}
+
+task finish {
+    input {
+        gottcha2_report_tsv
+        gottcha2_full_tsv 
+        gottcha2_krona_html
+        centrifuge_classification_tsv
+        centrifuge_report_tsv
+        centrifuge_krona_html
+        kraken2_classification_tsv
+        kraken2_report_tsv
+        kraken2_krona_html
+        summary_json
+    }
+
+    command <<<
+        mkdir -p gottcha2
+        mkdir -p centrifuge
+        mkdir -p kraken2
+
+        cp activity.json data_objects.json ~{summary_json} 
+        cp ~{gottcha2_report_tsv} ~{gottcha2_full_tsv} ~{gottcha2_krona_html} gottcha2
+        cp ~{centrifuge_classification_tsv} ~{centrifuge_report_tsv} ~{centrifuge_krona_html} centrifuge
+        cp ~{kraken2_classification_tsv} ~{kraken2_report_tsv} ~{kraken2_krona_html} kraken2
+
+    >>>
+}
