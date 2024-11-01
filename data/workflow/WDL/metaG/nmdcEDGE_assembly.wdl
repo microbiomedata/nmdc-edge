@@ -11,7 +11,7 @@ workflow nmdc_edge_assembly{
         String rename_contig_prefix="scaffold"
         Float  uniquekmer=1000
         String bbtools_container="microbiomedata/bbtools:38.96"
-        String spades_container="microbiomedata/spades:3.15.0"
+        String spades_container="staphb/spades:4.0.0"
         String quast_container="staphb/quast:5.2.0-slim"
         String memory="100g"
         String threads="4"
