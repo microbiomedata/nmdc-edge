@@ -54,7 +54,7 @@ call finish {
         summary_json = readbasedAnalysis_output.summary_json
 
 }
-
+}
 task finish {
     input {
         File? gottcha2_report_tsv
@@ -80,4 +80,3 @@ task finish {
         cp ~{kraken2_classification_tsv} ~{kraken2_report_tsv} ~{kraken2_krona_html} kraken2
 
     >>>
-}
