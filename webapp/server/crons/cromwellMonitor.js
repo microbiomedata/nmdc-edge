@@ -55,6 +55,7 @@ function updateJobStatus(job, proj) {
                 //generate result.json
                 logger.info("generate workflow result.json");
                 try {
+                    getFlaskAPITasks(job)
                     if (proj.type.match(/Pipeline$/)) {
                         generatePipelineResult(proj);
                     } else {
@@ -72,6 +73,7 @@ function updateJobStatus(job, proj) {
                 }
                 status = 'complete';
             } else if (response.status === 'Failed') {
+                getFlaskAPIErrors(job)
                 status = 'failed';
             } else if (response.status === 'Aborted') {
                 status = 'in queue';
@@ -131,7 +133,35 @@ function abortJob(job) {
         }
     });
 }
+function getFlaskAPITasks(job) {
+    const url = `${config.FLASK.FLASK_API_BASE_URL}/project_tasks/${job.project}`;
+    logger.debug("GET: " + url);
+    common.getData(url).then(response => {
+        logger.debug(JSON.stringify(response));
+    }).catch(error => {
+        let message = error;
+        if (error.message) {
+            message = error.message;
+        }
+        common.write2log(path.join(config.PROJECTS.BASE_DIR, job.project, "log.txt"), message);
+        logger.error(message);
+    });
+}
 
+function getFlaskAPIErrors(job) {
+    const url = `${config.FLASK.FLASK_API_BASE_URL}/project_failures/${job.project}`;
+    logger.debug("GET: " + url);
+    common.getData(url).then(response => {
+        logger.debug(JSON.stringify(response));
+    }).catch(error => {
+        let message = error;
+        if (error.message) {
+            message = error.message;
+        }
+        common.write2log(path.join(config.PROJECTS.BASE_DIR, job.project, "log.txt"), message);
+        logger.error(message);
+    });
+}
 function getJobMetadata(job) {
     //get job metadata through api
     const url = `${config.CROMWELL.API_BASE_URL}/api/workflows/v1/${job.id}/metadata`;

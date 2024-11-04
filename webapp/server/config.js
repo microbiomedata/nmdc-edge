@@ -94,6 +94,10 @@ const config = {
         // The version of the workflow language. Valid versions: 'draft-2', '1.0'.
         WORKFLOW_TYPE_VERSION: process.env.CROMWELL_WORKFLOW_TYPE_VERSION || "draft-2",
     },
+    FLASK:
+        {
+            FLASK_API_BASE_URL: process.env.FLASK_API_BASE_URL || "http://flask.nmdc-edge.org"
+        },
     CRON: {
         // Port number on which the cron web server will listen for HTTP requests.
         SERVER_PORT: makeIntIfDefined(process.env.CRON_SERVER_PORT) || 5555,
