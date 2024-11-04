@@ -300,6 +300,10 @@ class NmdcRuntimeApi:
 
     @refresh_token
     def update_op(self, opid, done=None, results=None, meta=None):
+        """
+        Update an operation with the given ID with the specified parameters.
+        Returns the updated operation.
+        """
         url = "%soperations/%s" % (self._base_url, opid)
         d = dict()
         if done is not None:

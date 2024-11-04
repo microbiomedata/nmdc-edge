@@ -55,9 +55,29 @@ This package is meant to be used on NMDC approvied compute instances with direct
 The main python drivers can be found in the `nmdc_automation/run_process directory` that contians two processes that require configurations to be supplied. 
  
 #### Run NMDC Workflows with corresponding omics processing records
-`nmdc_automation/run_process/run_worklfows.py` will automate job claims, job processing, and analysis record and data object submission via the nmdc runtime-api.
-To submit a process that will spawn a daemon that will claim, process, and submit all jobs that have not been claimed, `cd` in to `nmdc_automation/run_process`
-and run `python run_workflows.py watcher --config ../../configs/site_configuration_nersc.toml daemon`, this will watch for omics processing records that have not been claimed and processed. 
+~~`nmdc_automation/run_process/run_worklfows.py` will automate job claims, job processing, and analysis record and data object submission via the nmdc runtime-api.~~
+~~To submit a process that will spawn a daemon that will claim, process, and submit all jobs that have not been claimed, `cd` in to `nmdc_automation/run_process`
+and run `python run_workflows.py watcher --config ../../configs/site_configuration_nersc.toml daemon`, this will watch for omics processing records that have not been claimed and processed.~~
+
+```text
+Setting up Watcher/Runner on Perlmutter:
+1. After logging into nmdcda on perlmutter do ~/bin/screen.sh prod
+2. /global/cfs/cdirs/m3408/squads/napacompliance
+    a. check workflows.yaml
+3. ./run_prod.sh or ./run.sh - pulling from nmdc and submitting to Cromwell; monitors job to see if it succeeded or failed
+4. start up workers, sbatch ~/workers_perlmutter.sl
+    a. sbatch -N 5 -q regular ./workers_perlmutter.sl
+    b. salloc -N 1 -C cpu -q interactive -t 4:00:00
+5. Cq running -> to see what jobs are still running
+6. Cq meta <string> ->status of string job
+
+Setting up Scheduler on Rancher:
+1. cd /conf
+2. /allow.lst is where the allow list is
+3. /conf/fetch_latest_workflow_yaml.sh - fetches latest workflow from repo
+4. /conf/run.sh in order to reprocess workflows.yaml
+5. 'ps aux' to see what the scheduler is currently running
+```
 
 #### Run Workflow import for data processed by non NMDC workflows
 `nmdc_automation/run_process/run_workflows.py` is designed to take in data files avilable on disk, transform them into NMDC analysis records, and submit them back to the central data store via runtime-api. Currently this process is only suitable for data processed at JGI, but with collaboration, data from other processing centers could be transformed and ingested into NMDC. 

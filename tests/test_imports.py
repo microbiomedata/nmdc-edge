@@ -9,15 +9,7 @@ import yaml
 from functools import lru_cache
 import linkml.validator
 from linkml_runtime.dumpers import yaml_dumper
-from linkml_runtime.loaders import json_loader
-from time import time
-from unittest.mock import patch
 
-
-
-#TODO NOW: update to use real import.yaml file. Unclear if this is the right thing to do based on how the tests are set up. 
-#ie we want to test that the binning packaging works even if we have this false by default for older projects where we want to annotate and re-bin.
-#TODO NEXT: add test for import-mt.yaml similar to what is in test_workflow_process.py
 
 @fixture
 def gold_mapper(mock_nmdc_runtime_api, base_test_dir, gold_import_files, gold_import_dir):
