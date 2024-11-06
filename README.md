@@ -81,7 +81,7 @@ Setting up Scheduler on Rancher:
 
 #### Run Workflow import for data processed by non NMDC workflows
 `nmdc_automation/run_process/run_workflows.py` is designed to take in data files avilable on disk, transform them into NMDC analysis records, and submit them back to the central data store via runtime-api. This process includes minting identifers for workflow execution subclasses and data objects. Currently this process is only suitable for data processed at JGI, but with collaboration, data from other processing centers could be transformed and ingested into NMDC. 
-To submit the import process, log into Perlmutter using the collaboration account. The enviroment should have poetry installed and run `poetry install` in the root repository directory. To run import in the root repository directory run `poetry run python nmdc_automation/run_process/run_import.py import-projects import.tsv configs/import.yaml configs/site_configuration.toml`, where import.tsv expects the follow format:
+To submit the import process, log into Perlmutter using the collaboration account. To run import in the root repository directory run `python nmdc_automation/run_process/run_import.py import-projects import.tsv configs/import.yaml configs/site_configuration.toml`, where import.tsv expects the follow format:
 
 
 | nucleotide_sequencing_id | project_id | project_path |
