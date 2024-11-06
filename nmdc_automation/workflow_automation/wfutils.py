@@ -476,6 +476,10 @@ class WorkflowJob:
 
         for output_spec in self.workflow.data_outputs:  # specs are defined in the workflow.yaml file under Outputs
             output_key = f"{self.workflow.input_prefix}.{output_spec['output']}"
+            logging.debug(f"Processing output {output_key}")
+            # get the full path to the output file from the job_runner
+            output_file_path = Path(self.job.outputs[output_key])
+            logging.debug(f"Output file path: {output_file_path}")
             if output_key not in self.job.outputs:
                 if output_spec.get("optional"):
                     logging.debug(f"Optional output {output_key} not found in job outputs")
@@ -483,8 +487,7 @@ class WorkflowJob:
                 else:
                     logging.warning(f"Required output {output_key} not found in job outputs")
                     continue
-            # get the full path to the output file from the job_runner
-            output_file_path = Path(self.job.outputs[output_key])
+
 
             md5_sum = _md5(output_file_path)
             file_url = f"{self.url_root}/{self.was_informed_by}/{self.workflow_execution_id}/{output_file_path.name}"
