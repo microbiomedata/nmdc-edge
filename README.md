@@ -80,12 +80,14 @@ Setting up Scheduler on Rancher:
 ```
 
 #### Run Workflow import for data processed by non NMDC workflows
-`nmdc_automation/run_process/run_workflows.py` is designed to take in data files avilable on disk, transform them into NMDC analysis records, and submit them back to the central data store via runtime-api. Currently this process is only suitable for data processed at JGI, but with collaboration, data from other processing centers could be transformed and ingested into NMDC. 
-To submit the import process, `cd` in `nmdc_automation/run_process` and run `python run_import.py project-import import.tsv ../../configs/import.yaml`, where import.tsv expects the follow format:
+`nmdc_automation/run_process/run_workflows.py` is designed to take in data files avilable on disk, transform them into NMDC analysis records, and submit them back to the central data store via runtime-api. This process includes minting identifers for workflow execution subclasses and data objects. Currently this process is only suitable for data processed at JGI, but with collaboration, data from other processing centers could be transformed and ingested into NMDC. 
+To submit the import process, log into Perlmutter using the collaboration account. To run import in the root repository directory run `python nmdc_automation/run_process/run_import.py import-projects import.tsv configs/import.yaml configs/site_configuration.toml`, where import.tsv expects the follow format:
 
 
-| omics_id | project_id | directory |
+| nucleotide_sequencing_id | project_id | project_path |
 |----------|------------|-----------|
 |nmdc:omprc-11-q8b9dh63 | Ga0597031  | /path/to/project/Ga0597031 |
+
+The following need to be set in the site_configuration.toml file: `api_url`, `url_root`, `client_id`, `client_secret`.
 
 
