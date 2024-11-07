@@ -30,7 +30,7 @@ call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
 
 call readbasedAnalysis_output.readbasedAnalysis_output as readbasedAnalysis_output {
     input: 
-        outdir=<WORKFLOW>_outdir
+        outdir=<WORKFLOW>_outdir,
         gottcha2_report_tsv=ReadbasedAnalysis.final_gottcha2_report_tsv, 
         gottcha2_full_tsv=ReadbasedAnalysis.final_gottcha2_full_tsv,
         gottcha2_krona_html=ReadbasedAnalysis.final_gottcha2_krona_html, 
