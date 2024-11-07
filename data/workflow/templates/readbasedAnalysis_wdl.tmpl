@@ -1,3 +1,4 @@
+
 input {
     Array[File] <WORKFLOW>_reads
     Int         <WORKFLOW>_cpu = 4
@@ -29,6 +30,7 @@ call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
 
 call readbasedAnalysis_output.readbasedAnalysis_output as readbasedAnalysis_output {
     input: 
+        outdir=<WORKFLOW>_outdir
         gottcha2_report_tsv=ReadbasedAnalysis.final_gottcha2_report_tsv, 
         gottcha2_full_tsv=ReadbasedAnalysis.final_gottcha2_full_tsv,
         gottcha2_krona_html=ReadbasedAnalysis.final_gottcha2_krona_html, 
@@ -40,43 +42,3 @@ call readbasedAnalysis_output.readbasedAnalysis_output as readbasedAnalysis_outp
         centrifuge_krona_html=ReadbasedAnalysis.final_centrifuge_krona_html, 
         PREFIX=ReadbasedAnalysis_prefix
 }
-call finish {
-    input: 
-        gottcha2_report_tsv=ReadbasedAnalysis.final_gottcha2_report_tsv, 
-        gottcha2_full_tsv=ReadbasedAnalysis.final_gottcha2_full_tsv,
-        gottcha2_krona_html=ReadbasedAnalysis.final_gottcha2_krona_html, 
-        kraken2_report_tsv=ReadbasedAnalysis.final_kraken2_report_tsv,
-        kraken2_classification_tsv=ReadbasedAnalysis.final_kraken2_classification_tsv, 
-        kraken2_krona_html=ReadbasedAnalysis.final_kraken2_krona_html,
-        centrifuge_report_tsv=ReadbasedAnalysis.final_centrifuge_report_tsv,
-        centrifuge_classification_tsv=ReadbasedAnalysis.final_centrifuge_classification_tsv,
-        centrifuge_krona_html=ReadbasedAnalysis.final_centrifuge_krona_html, 
-        summary_json = readbasedAnalysis_output.summary_json
-
-}
-}
-task finish {
-    input {
-        File? gottcha2_report_tsv
-        File? gottcha2_full_tsv 
-        File? gottcha2_krona_html
-        File? centrifuge_classification_tsv
-        File? centrifuge_report_tsv
-        File? centrifuge_krona_html
-        File? kraken2_classification_tsv
-        File? kraken2_report_tsv
-        File? kraken2_krona_html
-        File? summary_json
-    }
-
-    command <<<
-        mkdir -p gottcha2
-        mkdir -p centrifuge
-        mkdir -p kraken2
-
-        cp activity.json data_objects.json ~{summary_json} 
-        cp ~{gottcha2_report_tsv} ~{gottcha2_full_tsv} ~{gottcha2_krona_html} gottcha2
-        cp ~{centrifuge_classification_tsv} ~{centrifuge_report_tsv} ~{centrifuge_krona_html} centrifuge
-        cp ~{kraken2_classification_tsv} ~{kraken2_report_tsv} ~{kraken2_krona_html} kraken2
-
-    >>>
