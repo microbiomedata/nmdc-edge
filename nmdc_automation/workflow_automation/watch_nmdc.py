@@ -209,6 +209,13 @@ class JobManager:
 
         database = Database()
 
+        # get job runner metadata if needed
+        if not job.job.metadata:
+            logger.info(f"Getting job runner metadata for job {job.workflow.job_runner_id}")
+            job.job.job_id = job.workflow.job_runner_id
+            metadata = job.job.get_job_metadata()
+            job.job.metadata = metadata
+
         data_objects = job.make_data_objects(output_dir=output_path)
         if not data_objects:
             logger.error(f"No data objects found for job {job.opid}.")
@@ -292,6 +299,7 @@ class Watcher:
         self.restore_from_checkpoint()
         if not self.should_skip_claim:
             unclaimed_jobs = self.runtime_api_handler.get_unclaimed_jobs(self.config.allowed_workflows)
+            logger.info(f"Found {len(unclaimed_jobs)} unclaimed jobs.")
             self.claim_jobs(unclaimed_jobs)
 
         successful_jobs, failed_jobs = self.job_manager.get_finished_jobs()
