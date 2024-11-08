@@ -55,7 +55,6 @@ workflow readbasedAnalysis_output {
             centrifuge_report_tsv=centrifuge_report_tsv,
             centrifuge_classification_tsv=centrifuge_classification_tsv,
             centrifuge_krona_html=centrifuge_krona_html, 
-            summary_json = generateSummaryJson.summary_json,
             container = bbtools_container
     }
     
@@ -106,7 +105,6 @@ task make_output{
         File? kraken2_classification_tsv
         File? kraken2_report_tsv
         File? kraken2_krona_html
-        File? summary_json
         String container
     }
 
@@ -119,7 +117,6 @@ task make_output{
         mkdir -p ~{outdir}/centrifuge/
         mkdir -p ~{outdir}/kraken2/
 
-        cp activity.json data_objects.json ~{summary_json} ~{outdir}/
         cp ~{gottcha2_report_tsv} ~{gottcha2_full_tsv} ~{gottcha2_krona_html} ~{outdir}/gottcha2/
         cp ~{centrifuge_classification_tsv} ~{centrifuge_report_tsv} ~{centrifuge_krona_html} ~{outdir}/centrifuge/
         cp ~{kraken2_classification_tsv} ~{kraken2_report_tsv} ~{kraken2_krona_html} ~{outdir}/kraken2/
