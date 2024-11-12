@@ -117,9 +117,9 @@ task make_output{
         mkdir -p ~{outdir}/centrifuge/
         mkdir -p ~{outdir}/kraken2/
 
-        cp ~{gottcha2_report_tsv} ~{gottcha2_full_tsv} ~{gottcha2_krona_html} ~{outdir}/gottcha2/
-        cp ~{centrifuge_classification_tsv} ~{centrifuge_report_tsv} ~{centrifuge_krona_html} ~{outdir}/centrifuge/
-        cp ~{kraken2_classification_tsv} ~{kraken2_report_tsv} ~{kraken2_krona_html} ~{outdir}/kraken2/
+        mv ~{gottcha2_report_tsv} ~{gottcha2_full_tsv} ~{gottcha2_krona_html} ~{outdir}/gottcha2/
+        mv ~{centrifuge_classification_tsv} ~{centrifuge_report_tsv} ~{centrifuge_krona_html} ~{outdir}/centrifuge/
+        mv ~{kraken2_classification_tsv} ~{kraken2_report_tsv} ~{kraken2_krona_html} ~{outdir}/kraken2/
 
     >>>
 
