@@ -321,9 +321,8 @@ class Watcher:
 
             # post workflow execution and data objects to the runtime api
             resp = self.runtime_api_handler.post_objects(job_dict)
-            if not resp.ok:
-                logger.error(f"Error posting objects: {resp}")
-                continue
+            logger.info(f"Posted objects response: {resp}")
+
             job.done = True
             # update the operation record
             resp = self.runtime_api_handler.update_operation(
