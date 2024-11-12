@@ -313,7 +313,7 @@ class NmdcRuntimeApi:
         if meta:
             # Need to preserve the existing metadata
             cur = self.get_op(opid)
-            if not cur["metadata"]:
+            if not cur.get("metadata"):
                 # this means we messed up the record before.
                 # This can't be fixed so just return
                 return None
