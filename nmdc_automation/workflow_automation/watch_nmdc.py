@@ -215,7 +215,8 @@ class JobManager:
             logger.info(f"Getting job runner metadata for job {job.workflow.job_runner_id}")
             job.job.job_id = job.workflow.job_runner_id
             metadata = job.job.get_job_metadata()
-            logger.debug(f"Job metadata: {metadata}")
+            m_dict = yaml.safe_load(yaml_dumper.dumps(metadata))
+            logger.debug(f"Job runner metadata: {m_dict}")
             job.job.metadata = metadata
 
         data_objects = job.make_data_objects(output_dir=output_path)
