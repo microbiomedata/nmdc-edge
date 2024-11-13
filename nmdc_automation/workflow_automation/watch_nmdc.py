@@ -23,7 +23,7 @@ DEFAULT_STATE_DIR = Path(__file__).parent / "_state"
 DEFAULT_STATE_FILE = DEFAULT_STATE_DIR / "state.json"
 INITIAL_STATE = {"jobs": []}
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+# logger.setLevel(logging.INFO)
 
 
 class FileHandler:
@@ -215,6 +215,7 @@ class JobManager:
             logger.info(f"Getting job runner metadata for job {job.workflow.job_runner_id}")
             job.job.job_id = job.workflow.job_runner_id
             metadata = job.job.get_job_metadata()
+            logger.debug(f"Job metadata: {metadata}")
             job.job.metadata = metadata
 
         data_objects = job.make_data_objects(output_dir=output_path)
