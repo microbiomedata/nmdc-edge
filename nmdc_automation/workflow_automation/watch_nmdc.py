@@ -227,7 +227,8 @@ class JobManager:
         try:
             workflow_execution_record = job.make_workflow_execution_record(data_objects)
         except Exception as e:
-            logger.error(f"Error creating workflow execution record: {e} for job {job}")
+            job_dict = yaml.safe_load(yaml_dumper.dumps(job))
+            logger.error(f"Error creating workflow execution record: {e} for job {job_dict}")
             # exit early if there is an error
             sys.exit(1)
         database.workflow_execution_set = [workflow_execution_record]
