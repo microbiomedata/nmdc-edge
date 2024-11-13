@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import sys
 from time import sleep
 import json
 import logging
@@ -222,8 +222,14 @@ class JobManager:
             logger.error(f"No data objects found for job {job.opid}.")
             return database
 
+        logger.info(f"Found {len(data_objects)} data objects for job {job.opid}")
         database.data_object_set = data_objects
-        workflow_execution_record = job.make_workflow_execution_record(data_objects)
+        try:
+            workflow_execution_record = job.make_workflow_execution_record(data_objects)
+        except Exception as e:
+            logger.error(f"Error creating workflow execution record: {e} for job {job}")
+            # exit early if there is an error
+            sys.exit(1)
         database.workflow_execution_set = [workflow_execution_record]
 
         self.file_handler.write_metadata_if_not_exists(job)
