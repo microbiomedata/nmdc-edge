@@ -11,6 +11,8 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
+from linkml_runtime.dumpers import yaml_dumper
+import yaml
 
 import pytz
 import requests
@@ -452,20 +454,21 @@ class WorkflowJob:
         """ get the was_informed_by ID value """
         return self.workflow.was_informed_by
 
-    @property
-    def as_workflow_execution_dict(self) -> Dict[str, Any]:
-        """
-        Create a dictionary representation of the basic workflow execution attributes for a WorkflowJob.
-        """
+    # @property
+    # def as_workflow_execution_dict(self) -> Dict[str, Any]:
+    #     """
+    #     Create a dictionary representation of the basic workflow execution attributes for a WorkflowJob.
+    #     """
         # for forward compatibility we need to strip Activity from the type
-        normalized_type = self.workflow.workflow_execution_type.replace("Activity", "")
-        base_dict = {"id": self.workflow_execution_id, "type": normalized_type,
-            "name": self.workflow.workflow_execution_name, "git_url": self.workflow.config["git_repo"],
-            "execution_resource": self.execution_resource, "was_informed_by": self.was_informed_by,
-            "has_input": [dobj["id"] for dobj in self.workflow.config["input_data_objects"]],
-            "started_at_time": self.workflow.state.get("start"), "ended_at_time": self.workflow.state.get("end"),
-            "version": self.workflow.config["release"], }
-        return base_dict
+
+        # normalized_type = self.workflow.workflow_execution_type.replace("Activity", "")
+        # base_dict = {"id": self.workflow_execution_id, "type": normalized_type,
+        #     "name": self.workflow.workflow_execution_name, "git_url": self.workflow.config["git_repo"],
+        #     "execution_resource": self.execution_resource, "was_informed_by": self.was_informed_by,
+        #     "has_input": [dobj["id"] for dobj in self.workflow.config["input_data_objects"]],
+        #     "started_at_time": self.workflow.state.get("start"), "ended_at_time": self.workflow.state.get("end"),
+        #     "version": self.workflow.config["release"], }
+        # return base_dict
 
     def make_data_objects(self, output_dir: Union[str, Path] = None) -> List[DataObject]:
         """
@@ -517,7 +520,7 @@ class WorkflowJob:
         workflow execution template and read from a job's output files.
         The data objects are added to the record as a list of IDs in the "has_output" key.
         """
-        wf_dict = self.as_workflow_execution_dict
+        wf_dict = yaml.safe_load(yaml_dumper.dumps(self))
         wf_dict["has_output"] = [dobj.id for dobj in data_objects]
 
         # workflow-specific keys
