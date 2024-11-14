@@ -128,7 +128,7 @@ workflow main_workflow {
 
     call readsqc_output.readsqc_output as readsqc_output {
         input:
-          input_files = input_files,
+          input_files = rqcfiltered_reads,
           input_files_prefix = select_first([readsqc_preprocess.input_files_prefix, [""]]),
           filtered_stats_final = nmdc_rqcfilter_call.filtered_stats_final,
           filtered_stats2_final = nmdc_rqcfilter_call.filtered_stats2_final,
