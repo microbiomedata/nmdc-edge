@@ -327,7 +327,6 @@ class Watcher:
             )
             if validation_report.results:
                 logger.error(f"Validation error: {validation_report.results[0].message}")
-                logger.error(job_dict)
                 continue
 
             # post workflow execution and data objects to the runtime api
