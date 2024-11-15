@@ -556,9 +556,12 @@ def _normalize_workflow_dict(workflow_dict: Dict[str, Any]) -> Dict[str, Any]:
     """
     Traverse the workflow dict and normalize incorrectly formatted values e.g. "16.37" -> 16.37
     """
+    logging.info("Normalizing workflow dict")
     for key, value in workflow_dict.items():
         if isinstance(value, dict):
             workflow_dict[key] = _normalize_workflow_dict(value)
+        elif isinstance(value, list):
+            workflow_dict[key] = [_normalize_value(key, item) for item in value]
         else:
             workflow_dict[key] = _normalize_value(key, value)
     return workflow_dict
@@ -569,6 +572,7 @@ def _normalize_value(key: str, value: Any) -> Any:
     Normalize a value based on the key.
     """
     if key in ["completeness", "contamination"]:
+        logging.info(f"Normalizing {key} value: {value}")
         return float(value)
     return value
 
