@@ -548,16 +548,28 @@ class WorkflowJob:
                     else:
                         logging.warning(f"Field {field_name} not found in {data_path}")
 
+        wf_dict = _normalize_workflow_dict(wf_dict)
         return wf_dict
 
 
-def _normalize_value(field_name,value: Any) -> Any:
-    """ Normalize values and fix common issues """
-    # completeness and contamination need to be converted from string to float
-    if field_name in ["completeness", "contamination"]:
-        logging.info(f"Converting {field_name} to float")
-        return float(value)
+def _normalize_workflow_dict(workflow_dict: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Traverse the workflow dict and normalize incorrectly formatted values e.g. "16.37" -> 16.37
+    """
+    for key, value in workflow_dict.items():
+        if isinstance(value, dict):
+            workflow_dict[key] = _normalize_workflow_dict(value)
+        else:
+            workflow_dict[key] = _normalize_value(key, value)
+    return workflow_dict
 
+
+def _normalize_value(key: str, value: Any) -> Any:
+    """
+    Normalize a value based on the key.
+    """
+    if key in ["completeness", "contamination"]:
+        return float(value)
     return value
 
 def _json_tmp(data):

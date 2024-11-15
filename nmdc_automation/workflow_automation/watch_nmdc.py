@@ -234,6 +234,7 @@ class JobManager:
             # exit early if there is an error
             sys.exit(1)
         database.workflow_execution_set = [workflow_execution_record]
+        logger.info(f"Created workflow execution record for job {job.opid}")
 
         self.file_handler.write_metadata_if_not_exists(job)
         return database
@@ -328,6 +329,8 @@ class Watcher:
             if validation_report.results:
                 logger.error(f"Validation error: {validation_report.results[0].message}")
                 continue
+            else:
+                logger.info(f"Database object validated for job {job.opid}")
 
             # post workflow execution and data objects to the runtime api
             resp = self.runtime_api_handler.post_objects(job_dict)
