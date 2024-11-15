@@ -543,12 +543,20 @@ class WorkflowJob:
                 for field_name in field_names:
                     # add to wf_dict if it has a value
                     if field_name in data:
-                        wf_dict[field_name] = data[field_name]
+                        wf_dict[field_name] = _normalize_value(field_name,data[field_name])
                     else:
                         logging.warning(f"Field {field_name} not found in {data_path}")
 
         return wf_dict
 
+
+def _normalize_value(field_name,value: Any) -> Any:
+    """ Normalize values and fix common issues """
+    # completeness and contamination need to be converted from string to float
+    if field_name in ["completeness", "contamination"]:
+        return float(value)
+
+    return value
 
 def _json_tmp(data):
     fp, fname = tempfile.mkstemp(suffix=".json")
