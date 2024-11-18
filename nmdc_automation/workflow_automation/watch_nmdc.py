@@ -334,6 +334,7 @@ class Watcher:
             )
             if validation_report.results:
                 logger.error(f"Validation error: {validation_report.results[0].message}")
+                logger.error(f"job_dict: {job_dict}")
                 continue
             else:
                 logger.info(f"Database object validated for job {job.opid}")
