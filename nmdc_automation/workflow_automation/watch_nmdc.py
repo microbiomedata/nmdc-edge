@@ -227,22 +227,26 @@ class JobManager:
         logger.info(f"Found {len(data_objects)} data objects for job {job.opid}")
         database.data_object_set = data_objects
         try:
-            workflow_execution_record = job.make_workflow_execution_record(data_objects)
+            workflow_execution = job.make_workflow_execution(data_objects)
         except Exception as e:
-            job_dict = yaml.safe_load(yaml_dumper.dumps(job))
-            logger.error(f"Error creating workflow execution record: {e} for job {job_dict}")
+            # job_dict = yaml.safe_load(yaml_dumper.dumps(job))
+            logger.error(f"Error creating workflow execution record: {e} for job {job.opid}")
             # exit early if there is an error
             sys.exit(1)
-        database.workflow_execution_set = [workflow_execution_record]
+        database.workflow_execution_set = [workflow_execution]
         logger.info(f"Created workflow execution record for job {job.opid}")
 
+        job.done = True
         self.file_handler.write_metadata_if_not_exists(job)
+        self.save_checkpoint()
         return database
 
     def process_failed_job(self, job: WorkflowJob) -> None:
         """ Process a failed job """
         if job.workflow.state.get("failed_count", 0) >= self._MAX_FAILS:
             logger.error(f"Job {job.opid} failed {self._MAX_FAILS} times. Skipping.")
+            job.done = True
+            self.save_checkpoint()
             return
         job.workflow.state["failed_count"] = job.workflow.state.get("failed_count", 0) + 1
         job.workflow.state["last_status"] = job.job_status
@@ -336,7 +340,6 @@ class Watcher:
             resp = self.runtime_api_handler.post_objects(job_dict)
             logger.info(f"Posted objects response: {resp}")
 
-            job.done = True
             # update the operation record
             resp = self.runtime_api_handler.update_operation(
                 job.opid, done=True, meta=job.job.metadata
