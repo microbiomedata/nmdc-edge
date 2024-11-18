@@ -264,11 +264,13 @@ def test_job_manager_prepare_and_cache_new_job_force(site_config, initial_state_
 
 
 def test_job_manager_get_finished_jobs(site_config, initial_state_file, fixtures_dir):
+    # Mock the URL and response
+
     # Arrange - initial state has 1 failure and is not done
     fh = FileHandler(site_config, initial_state_file)
     jm = JobManager(site_config, fh)
 
-    # Add a job to the cache - mags is done and successful
+    # Add a finished job: finished job is not done, but has a last_status of Succeeded
     new_job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
     assert new_job_state
     new_job = WorkflowJob(site_config, new_job_state)
@@ -295,22 +297,29 @@ def test_job_manager_get_finished_jobs(site_config, initial_state_file, fixtures
 
 
 def test_job_manager_process_successful_job(site_config, initial_state_file, fixtures_dir):
-    # Arrange
-    fh = FileHandler(site_config, initial_state_file)
-    jm = JobManager(site_config, fh)
-    new_job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
-    assert new_job_state
-    new_job = WorkflowJob(site_config, new_job_state)
-    jm.job_cache.append(new_job)
-    # Act
-    db = jm.process_successful_job(new_job)
-    # Assert
-    assert db
-    assert isinstance(db, Database)
-    assert new_job.done
-    assert new_job.job_status == "Succeeded"
-    # cleanup
-    jm.job_cache = []
+    # mock job.job.get_job_metadata - use fixture cromwell/succeded_metadata.json
+    job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
+    with patch("nmdc_automation.workflow_automation.wfutils.CromwellRunner.get_job_metadata") as mock_get_metadata:
+        mock_get_metadata.return_value = job_metadata
+
+
+
+        # Arrange
+        fh = FileHandler(site_config, initial_state_file)
+        jm = JobManager(site_config, fh)
+        new_job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+        assert new_job_state
+        new_job = WorkflowJob(site_config, new_job_state)
+        jm.job_cache.append(new_job)
+        # Act
+        db = jm.process_successful_job(new_job)
+        # Assert
+        assert db
+        assert isinstance(db, Database)
+        assert new_job.done
+        assert new_job.job_status == "Succeeded"
+        # cleanup
+        jm.job_cache = []
 
 
 def test_job_manager_process_failed_job(site_config, initial_state_file, fixtures_dir):

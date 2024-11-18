@@ -208,7 +208,7 @@
         },
         "activity_id": "nmdc:wfmag-11-g7msr323.1",
         "last_status": "Failed",
-        "done": true,
+        "done": false,
         "failed_count": 2,
         "start": "2024-09-16T19:33:32.562412+00:00",
         "end": "2024-09-16T21:52:12.873101+00:00",
