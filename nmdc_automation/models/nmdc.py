@@ -46,9 +46,6 @@ WorkflowExecution]:
         if validation_report.results:
             raise ValueError(f"Validation error: {validation_report.results[0].message}")
 
-
-
-
     try:
         cls = process_types[record["type"]]
     except KeyError:
@@ -81,9 +78,17 @@ def _normalize_mags_record(record: Dict[str, Any]) -> Dict[str, Any]:
         # for backwards compatibility normalize num_tRNA to num_t_rna
         if "num_tRNA" in mag:
             record["mags_list"][i]["num_t_rna"] = mag.pop("num_tRNA")
+        # strip output_dir if present
+        if "output_dir" in mag:
+            record["mags_list"][i].pop("output_dir")
         # add type to eukaryotic_evaluation if it exists
         if "eukaryotic_evaluation" in mag:
             record["mags_list"][i]["eukaryotic_evaluation"]["type"] = "nmdc:EukEval"
+            # conpleteness and contamination need to be converted from string to float
+            if "completeness" in mag["eukaryotic_evaluation"]:
+                record["mags_list"][i]["eukaryotic_evaluation"]["completeness"] = float(mag["eukaryotic_evaluation"]["completeness"])
+            if "contamination" in mag["eukaryotic_evaluation"]:
+                record["mags_list"][i]["eukaryotic_evaluation"]["contamination"] = float(mag["eukaryotic_evaluation"]["contamination"])
         # gene count should be a positive integer - remove if 'null'
         if "gene_count" in mag and mag["gene_count"] == "null":
             mag.pop("gene_count")

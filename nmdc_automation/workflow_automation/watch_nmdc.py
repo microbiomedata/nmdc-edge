@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import sys
 from time import sleep
 import json
 import logging
@@ -11,6 +11,7 @@ import yaml
 import linkml.validator
 import importlib.resources
 from functools import lru_cache
+import traceback
 
 from nmdc_schema.nmdc import Database
 from nmdc_automation.api import NmdcRuntimeApi
@@ -23,6 +24,7 @@ DEFAULT_STATE_DIR = Path(__file__).parent / "_state"
 DEFAULT_STATE_FILE = DEFAULT_STATE_DIR / "state.json"
 INITIAL_STATE = {"jobs": []}
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 class FileHandler:
@@ -187,7 +189,7 @@ class JobManager:
         successful_jobs = []
         failed_jobs = []
         for job in self.job_cache:
-            if job.done:
+            if not job.done:
                 status = job.job_status
                 if status == "Succeeded" and job.opid:
                     successful_jobs.append(job)
@@ -209,22 +211,44 @@ class JobManager:
 
         database = Database()
 
+        # get job runner metadata if needed
+        if not job.job.metadata:
+            logger.info(f"Getting job runner metadata for job {job.workflow.job_runner_id}")
+            job.job.job_id = job.workflow.job_runner_id
+            metadata = job.job.get_job_metadata()
+            m_dict = yaml.safe_load(yaml_dumper.dumps(metadata))
+            logger.debug(f"Job runner metadata: {m_dict}")
+            job.job.metadata = metadata
+
         data_objects = job.make_data_objects(output_dir=output_path)
         if not data_objects:
             logger.error(f"No data objects found for job {job.opid}.")
             return database
 
+        logger.info(f"Found {len(data_objects)} data objects for job {job.opid}")
         database.data_object_set = data_objects
-        workflow_execution_record = job.make_workflow_execution_record(data_objects)
-        database.workflow_execution_set = [workflow_execution_record]
+        try:
+            workflow_execution = job.make_workflow_execution(data_objects)
+        except Exception as e:
+            trace = traceback.format_exc()
+            logger.error(f"Error creating workflow execution: {e} for job {job.opid}")
+            logger.error(trace)
+            # exit early if there is an error
+            sys.exit(1)
+        database.workflow_execution_set = [workflow_execution]
+        logger.info(f"Created workflow execution record for job {job.opid}")
 
+        job.done = True
         self.file_handler.write_metadata_if_not_exists(job)
+        self.save_checkpoint()
         return database
 
     def process_failed_job(self, job: WorkflowJob) -> None:
         """ Process a failed job """
         if job.workflow.state.get("failed_count", 0) >= self._MAX_FAILS:
             logger.error(f"Job {job.opid} failed {self._MAX_FAILS} times. Skipping.")
+            job.done = True
+            self.save_checkpoint()
             return
         job.workflow.state["failed_count"] = job.workflow.state.get("failed_count", 0) + 1
         job.workflow.state["last_status"] = job.job_status
@@ -292,6 +316,7 @@ class Watcher:
         self.restore_from_checkpoint()
         if not self.should_skip_claim:
             unclaimed_jobs = self.runtime_api_handler.get_unclaimed_jobs(self.config.allowed_workflows)
+            logger.info(f"Found {len(unclaimed_jobs)} unclaimed jobs.")
             self.claim_jobs(unclaimed_jobs)
 
         successful_jobs, failed_jobs = self.job_manager.get_finished_jobs()
@@ -309,21 +334,20 @@ class Watcher:
             )
             if validation_report.results:
                 logger.error(f"Validation error: {validation_report.results[0].message}")
+                logger.error(f"job_dict: {job_dict}")
                 continue
+            else:
+                logger.info(f"Database object validated for job {job.opid}")
 
             # post workflow execution and data objects to the runtime api
             resp = self.runtime_api_handler.post_objects(job_dict)
-            if not resp.ok:
-                logger.error(f"Error posting objects: {resp}")
-                continue
-            job.done = True
+            logger.info(f"Posted Workflow Execution and Data Objects to database: {job.opid} / {job.workflow_execution_id}")
+
             # update the operation record
             resp = self.runtime_api_handler.update_operation(
                 job.opid, done=True, meta=job.job.metadata
             )
-            if not resp.ok:
-                logger.error(f"Error updating operation: {resp}")
-                continue
+            logging.info(f"Updated operation {job.opid} response id: {resp}")
 
         for job in failed_jobs:
             self.job_manager.process_failed_job(job)

@@ -13,7 +13,17 @@ import pytest
 import requests
 import tempfile
 from unittest import mock
+import importlib.resources
+import yaml
+from functools import lru_cache
+import linkml.validator
+from linkml_runtime.dumpers import yaml_dumper
 
+
+@lru_cache(maxsize=None)
+def get_nmdc_materialized():
+    with importlib.resources.open_text("nmdc_schema", "nmdc_materialized_patterns.yaml") as f:
+        return yaml.safe_load(f)
 
 
 def test_workflow_job(site_config, fixtures_dir):
@@ -73,9 +83,6 @@ def test_cromwell_job_runner_get_job_metadata(site_config, fixtures_dir, mock_cr
     assert metadata['id'] == "cromwell-job-id-12345"
     # check that the metadata is cached
     assert job_runner.metadata == metadata
-
-
-
 
 
 def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
@@ -275,8 +282,7 @@ def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtur
     assert data_objects
     for data_object in data_objects:
         assert isinstance(data_object, DataObject)
-    wfe_dict = job.make_workflow_execution_record(data_objects)
-    wfe = workflow_process_factory(wfe_dict)
+    wfe = job.make_workflow_execution(data_objects)
     assert isinstance(wfe, MagsAnalysis)
     # attributes from final_stats_json
     assert wfe.mags_list
@@ -286,7 +292,9 @@ def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtur
         assert mag.eukaryotic_evaluation
         assert isinstance(mag.eukaryotic_evaluation, EukEval)
         assert mag.eukaryotic_evaluation.completeness
+        assert isinstance(mag.eukaryotic_evaluation.completeness, float)
         assert mag.eukaryotic_evaluation.contamination
+        assert isinstance(mag.eukaryotic_evaluation.contamination, float)
         assert mag.eukaryotic_evaluation.ncbi_lineage
         assert mag.eukaryotic_evaluation.ncbi_lineage
     # check that the other final_stats props are there
