@@ -3,7 +3,7 @@ Workflows:
     Import: true
     Type: nmdc:ReadQcAnalysis
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: v1.0.12
+    Version: v1.0.13
     Collection: workflow_execution_set
     WorkflowExecutionRange: ReadQcAnalysis
     Inputs:
@@ -46,7 +46,7 @@ Workflows:
     Import: true
     Type: nmdc:MetagenomeAssembly
     Git_repo: https://github.com/microbiomedata/metaAssembly
-    Version: v1.0.3
+    Version: v1.0.7
     Collection: workflow_execution_set
     WorkflowExecutionRange: MetagenomeAssembly
     Inputs:
