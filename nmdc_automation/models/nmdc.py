@@ -46,9 +46,6 @@ WorkflowExecution]:
         if validation_report.results:
             raise ValueError(f"Validation error: {validation_report.results[0].message}")
 
-
-
-
     try:
         cls = process_types[record["type"]]
     except KeyError:
