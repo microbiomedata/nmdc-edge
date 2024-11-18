@@ -81,6 +81,9 @@ def _normalize_mags_record(record: Dict[str, Any]) -> Dict[str, Any]:
         # for backwards compatibility normalize num_tRNA to num_t_rna
         if "num_tRNA" in mag:
             record["mags_list"][i]["num_t_rna"] = mag.pop("num_tRNA")
+        # strip output_dir if present
+        if "output_dir" in mag:
+            record["mags_list"][i].pop("output_dir")
         # add type to eukaryotic_evaluation if it exists
         if "eukaryotic_evaluation" in mag:
             record["mags_list"][i]["eukaryotic_evaluation"]["type"] = "nmdc:EukEval"
