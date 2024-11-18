@@ -341,7 +341,7 @@ class Watcher:
 
             # post workflow execution and data objects to the runtime api
             resp = self.runtime_api_handler.post_objects(job_dict)
-            logger.info(f"Posted objects response: {resp}")
+            logger.info(f"Posted Workflow Execution and Data Objects to database: {job.opid} / {job.workflow_execution_id}")
 
             # update the operation record
             resp = self.runtime_api_handler.update_operation(
