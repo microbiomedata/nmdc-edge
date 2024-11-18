@@ -11,6 +11,7 @@ import yaml
 import linkml.validator
 import importlib.resources
 from functools import lru_cache
+import traceback
 
 from nmdc_schema.nmdc import Database
 from nmdc_automation.api import NmdcRuntimeApi
@@ -229,8 +230,9 @@ class JobManager:
         try:
             workflow_execution = job.make_workflow_execution(data_objects)
         except Exception as e:
-            # job_dict = yaml.safe_load(yaml_dumper.dumps(job))
-            logger.error(f"Error creating workflow execution record: {e} for job {job.opid}")
+            trace = traceback.format_exc()
+            logger.error(f"Error creating workflow execution: {e} for job {job.opid}")
+            logger.error(trace)
             # exit early if there is an error
             sys.exit(1)
         database.workflow_execution_set = [workflow_execution]
