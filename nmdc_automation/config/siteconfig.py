@@ -1,3 +1,4 @@
+from functools import lru_cache
 import tomli
 from typing import Union
 import yaml
@@ -98,6 +99,7 @@ class SiteConfig:
         return self.config_data["credentials"]["client_secret"]
 
     @property
+    @lru_cache(maxsize=None)
     def allowed_workflows(self):
         """Generate a list of allowed workflows."""
         workflows_config_file = self.config_data["workflows"]["workflows_config"]
