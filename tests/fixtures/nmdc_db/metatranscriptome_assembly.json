@@ -1,0 +1,23 @@
+[
+  {
+    "id": "nmdc:wfmtas-11-test001.1",
+    "name": "Assembly Activity for metaT",
+    "has_input": [
+      "nmdc:dobj-11-filteredreads1"
+    ],
+    "git_url": "https://github.com/microbiomedata/metaT_Assembly",
+    "version": "v0.0.1",
+    "execution_resource": "NERSC-Cori",
+    "was_informed_by": "nmdc:omprc-11-metat1",
+    "has_output": [
+      "nmdc:dobj-11-contigst1",
+      "nmdc:dobj-11-coverstatst1",
+      "nmdc:dobj-11-coverbamt1",
+      "nmdc:dobj-11-assemblyinfot1",
+      "nmdc:dobj-11-bamidxt1"
+    ],
+    "started_at_time": "2021-08-05T14:48:51+00:00",
+    "type": "nmdc:MetatranscriptomeAssembly",
+    "ended_at_time": "2021-09-15T10:13:20+00:00"
+  }
+]

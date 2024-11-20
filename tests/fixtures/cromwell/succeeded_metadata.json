@@ -1,0 +1,78 @@
+{
+  "id": "cromwell-job-id-12345",
+  "status": "Succeeded",
+  "start": "2023-09-01T10:00:00.000Z",
+  "end": "2023-09-01T12:00:00.000Z",
+  "workflowName": "example_workflow",
+  "submittedFiles": {
+    "workflow": "/path/to/workflow.wdl",
+    "inputs": {
+      "example_workflow.input_file": "/path/to/input.txt"
+    },
+    "options": "/path/to/options.json",
+    "labels": {
+      "project": "example_project",
+      "version": "1.0"
+    }
+  },
+  "inputs": {
+    "example_workflow.input_file": "/path/to/input.txt"
+  },
+  "outputs": {
+    "nmdc_mags.final_checkm": "./outputs/final_checkm.json"
+  },
+  "calls": {
+    "example_workflow.task1": [
+      {
+        "shardIndex": -1,
+        "attempt": 1,
+        "executionStatus": "Done",
+        "start": "2023-09-01T10:10:00.000Z",
+        "end": "2023-09-01T10:20:00.000Z",
+        "stdout": "/path/to/stdout",
+        "stderr": "/path/to/stderr",
+        "backendLogs": {
+          "log": "/path/to/backend_log"
+        },
+        "outputs": {
+          "task1_output": "/path/to/task1_output.txt"
+        },
+        "backendStatus": "Done",
+        "runtimeAttributes": {
+          "cpu": "1",
+          "memory": "2GB",
+          "docker": "example_docker_image"
+        }
+      }
+    ],
+    "example_workflow.task2": [
+      {
+        "shardIndex": -1,
+        "attempt": 1,
+        "executionStatus": "Done",
+        "start": "2023-09-01T10:30:00.000Z",
+        "end": "2023-09-01T10:40:00.000Z",
+        "stdout": "/path/to/stdout",
+        "stderr": "/path/to/stderr",
+        "backendLogs": {
+          "log": "/path/to/backend_log"
+        },
+        "outputs": {
+          "task2_output": "/path/to/task2_output.txt"
+        },
+        "backendStatus": "Done",
+        "runtimeAttributes": {
+          "cpu": "2",
+          "memory": "4GB",
+          "docker": "example_docker_image"
+        }
+      }
+    ]
+  },
+  "workflowRoot": "/path/to/workflow/root",
+  "labels": {
+    "project": "example_project",
+    "version": "1.0"
+  },
+  "submission": "2023-09-01T09:50:00.000Z"
+}

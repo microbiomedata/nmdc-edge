@@ -1,0 +1,22 @@
+{
+      "id": "nmdc:wfmtas-11-0080kf19.1",
+      "name": "Metatranscriptome Assembly Activity for nmdc:wfmas-11-0080kf19.1",
+      "started_at_time": "2023-09-05T18:02:36.755687+00:00",
+      "ended_at_time": "2023-09-05T19:46:42.649106+00:00",
+      "was_informed_by": "nmdc:omprc-11-c82tqn53",
+      "execution_resource": "NERSC-Perlmutter",
+      "git_url": "https://github.com/microbiomedata/metaT_Assembly",
+      "has_input": [
+        "nmdc:dobj-11-sgpgmp62"
+      ],
+      "has_output": [
+        "nmdc:dobj-11-dtnyvj29",
+        "nmdc:dobj-11-4hpkwf43",
+        "nmdc:dobj-11-pyhh1b53",
+        "nmdc:dobj-11-3qp71339",
+        "nmdc:dobj-11-0mw8sn13",
+        "nmdc:dobj-11-a898mz04"
+      ],
+      "type": "nmdc:MetatranscriptomeAssembly",
+      "version": "v0.0.2"
+    }

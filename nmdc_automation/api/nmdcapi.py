@@ -8,26 +8,32 @@ from pydantic import BaseModel
 import requests
 import hashlib
 import mimetypes
+from pathlib import Path
 from time import time
+from typing import Union, List
 from datetime import datetime, timedelta, timezone
-from nmdc_automation.config import Config
+from nmdc_automation.config import SiteConfig, UserConfig
 import logging
 
 
-def _get_sha256(fn):
-    hashfn = fn + ".sha256"
-    if os.path.exists(hashfn):
-        with open(hashfn) as f:
+def _get_sha256(fn: Union[str, Path]) -> str:
+    """
+    Helper function to get the sha256 hash of a file if it exists.
+    """
+    shahash = hashlib.sha256()
+    if isinstance(fn, str):
+        fn = Path(fn)
+    hash_fn = fn.with_suffix(".sha256")
+    if hash_fn.exists():
+        with hash_fn.open() as f:
             sha = f.read().rstrip()
     else:
-        logging.info("hashing %s" % (fn))
-        shahash = hashlib.sha256()
-        with open(fn, "rb") as f:
-            # Read and update hash string value in blocks of 4K
+        logging.info(f"hashing {fn}")
+        with fn.open("rb") as f:
             for byte_block in iter(lambda: f.read(1048576), b""):
                 shahash.update(byte_block)
         sha = shahash.hexdigest()
-        with open(hashfn, "w") as f:
+        with hash_fn.open("w") as f:
             f.write(sha)
             f.write("\n")
     return sha
@@ -44,8 +50,10 @@ class NmdcRuntimeApi:
     client_id = None
     client_secret = None
 
-    def __init__(self, site_configuration):
-        self.config = Config(site_configuration)
+    def __init__(self, site_configuration: Union[str, Path, SiteConfig]):
+        if isinstance(site_configuration, str) or isinstance(site_configuration, Path):
+            site_configuration = SiteConfig(site_configuration)
+        self.config = site_configuration
         self._base_url = self.config.api_url
         self.client_id = self.config.client_id
         self.client_secret = self.config.client_secret
@@ -96,7 +104,8 @@ class NmdcRuntimeApi:
         data = {"schema_class": {"id": id_type}, "how_many": 1}
         resp = requests.post(url, data=json.dumps(data), headers=self.header)
         if not resp.ok:
-            raise ValueError(f"Failed to mint ID of type {id_type}")
+            logging.error(f"Response failed for: url: {url}, data: {data}, header: {self.header}")
+            raise ValueError(f"Failed to mint ID of type {id_type} HTTP status: {resp.status_code} / ({resp.reason})")
         id = resp.json()[0]
         if informed_by:
             url = f"{self._base_url}pids/bind"
@@ -181,9 +190,11 @@ class NmdcRuntimeApi:
 
     @refresh_token
     def post_objects(self, obj_data):
-        url = self._base_url + "workflows/activities"
+        url = self._base_url + "workflows/workflow_executions"
 
         resp = requests.post(url, headers=self.header, data=json.dumps(obj_data))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
     @refresh_token
@@ -202,8 +213,9 @@ class NmdcRuntimeApi:
         resp = requests.patch(url, headers=self.header, data=json.dumps(d))
         return resp.json()
 
+    # TODO test that this concatenates multi-page results
     @refresh_token
-    def list_jobs(self, filt=None, max=100):
+    def list_jobs(self, filt=None, max=100) -> List[dict]:
         url = "%sjobs?max_page_size=%s" % (self._base_url, max)
         d = {}
         if filt:
@@ -288,6 +300,10 @@ class NmdcRuntimeApi:
 
     @refresh_token
     def update_op(self, opid, done=None, results=None, meta=None):
+        """
+        Update an operation with the given ID with the specified parameters.
+        Returns the updated operation.
+        """
         url = "%soperations/%s" % (self._base_url, opid)
         d = dict()
         if done is not None:
@@ -297,7 +313,7 @@ class NmdcRuntimeApi:
         if meta:
             # Need to preserve the existing metadata
             cur = self.get_op(opid)
-            if not cur["metadata"]:
+            if not cur.get("metadata"):
                 # this means we messed up the record before.
                 # This can't be fixed so just return
                 return None
@@ -310,20 +326,22 @@ class NmdcRuntimeApi:
     def run_query(self, query):
         url = "%squeries:run" % self._base_url
         resp = requests.post(url, headers=self.header, data=json.dumps(query))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
 
+# TODO - This is deprecated and should be removed along with the re_iding code that uses it
 class NmdcRuntimeUserApi:
     """
     Basic Runtime API Client with user/password authentication.
     """
     def __init__(self, site_configuration):
-        self.config = Config(site_configuration)
+        self.config = UserConfig(site_configuration)
 
-        # TODO: remove hard-coded values here
-        self.username = self.config.napa_username
-        self.password = self.config.napa_password
-        self.base_url = self.config.napa_base_url
+        self.username = self.config.username
+        self.password = self.config.password
+        self.base_url = self.config.base_url
         self.headers = {}
         self.token_response = None
         self.refresh_token_after = None

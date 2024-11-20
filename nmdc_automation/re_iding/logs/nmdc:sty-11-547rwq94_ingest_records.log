@@ -1,0 +1,243 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:34: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:root:Submitting re id'd records from : ./data/nmdc:sty-11-547rwq94_re_ided_record_dump.json
+INFO:root:Using MongoDB URI: mongodb://mbthornton-napa:wildlife-nutrient-radiator@localhost:37020
+INFO:root:Connected to MongoDB server at mongodb://mbthornton-napa:wildlife-nutrient-radiator@localhost:37020
+INFO:root:omics_processing_id: nmdc:omprc-11-b4hr7x49
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-w9r3hd19
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-00wrjs90
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-3xc6vt92
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-tk58tf31
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-etmn8d77
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-t5fy6291
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-kphcv369
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-x3dfq162
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-5bq15a15
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-jfr88r66
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-c9c08373
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-g9debj72
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-91xvx168
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-5wjf9309
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-j3rye385
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-w9eawn78
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-f1n62c07
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-t8z1cc46
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-75458r71
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-zzzzv091
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-enfb5c62
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-d5yqmn71
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-pt664b55
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-g882jv95
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-nf25mq76
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-t7yc2d58
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-a45knz19
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-rywm8f71
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-jsd04s96
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-34xpn880
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-x55c0448
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-7rcsbx13
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-2y4qrr86
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-1eckyf26
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-nxvgq919
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-17560t71
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-p3ksqp19
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-4k7jyr13
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-2wqcm476
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-49nftm85
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-8qhsnz20
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-gnbmya80
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-azk19n22
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-9wk9qh61
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-3aqzmw69
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-g1xssd06
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-q8cv8x70
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-jzmz6271
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-j8039c34
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-b6sr7v63
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-fsedet70
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-gg86mj11
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-q8rgev87
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-x0n04t71
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-q9secc05
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-491n9d74
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-4rfzth12
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-gkk9ex26
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-8r9aq834
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-xf3qmp78
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-zpn99058
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-7kr2jb76
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-9nac0407
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-0dz0wj57
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-qjk04g21
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-0hzy6t26
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-6z46yd72
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-j6hha503
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-tptb8f25
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-edr8dc22
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-c117p064
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-eb0yq579
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-epwrz448
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-tzpe8m19
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-1r9f1542
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-rjqhxm24
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-zr6p9y23
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:omics_processing_id: nmdc:omprc-11-amsezt94
+INFO:root:Updated 0 omics_processing_set records
+INFO:root:changesheet-only is True, skipping Workflow and Data Object ingest
+INFO:root:Elapsed time: 1.7583539485931396

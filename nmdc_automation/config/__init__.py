@@ -1,1 +1,1 @@
-from .config import Config
+from .siteconfig import SiteConfig, UserConfig

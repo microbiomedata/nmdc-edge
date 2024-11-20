@@ -21,12 +21,12 @@ def cli():
 )
 @click.pass_context
 def watcher(ctx, site_configuration_file):
-    logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
+    logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
     logging.basicConfig(
         level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
     )
     logger = logging.getLogger(__name__)
-
+    logger.info(f"Config file: {site_configuration_file}")
     ctx.obj = Watcher(site_configuration_file)
 
 
@@ -35,7 +35,7 @@ def watcher(ctx, site_configuration_file):
 @click.argument("job_ids", nargs=-1)
 def submit(ctx, job_ids):
     watcher = ctx.obj
-    watcher.restore()
+    watcher.restore_from_checkpoint()
     for job_id in job_ids:
         job = watcher.nmdc.get_job(job_id)
         claims = job["claims"]
@@ -54,36 +54,40 @@ def submit(ctx, job_ids):
 
 @watcher.command()
 @click.pass_context
-@click.argument("activity_ids", nargs=-1)
-def resubmit(ctx, activity_ids):
+@click.argument("workflow_execution_ids", nargs=-1)
+def resubmit(ctx, workflow_execution_ids):
     watcher = ctx.obj
-    watcher.restore()
-    for act_id in activity_ids:
-        job = None
-        if act_id.startswith("nmdc:sys"):
+    # watcher.restore_from_checkpoint()
+    for wf_id in workflow_execution_ids:
+        logging.info(f"Checking {wf_id}")
+        wfj = None
+        if wf_id.startswith("nmdc:sys"):
             key = "opid"
         else:
             key = "activity_id"
-        for found_job in watcher.jobs:
-            job_record = found_job.get_state()
-            if job_record[key] == act_id:
-                job = found_job
+        found_jobs = watcher.job_manager.job_cache
+        logging.info(f"Checking {len(found_jobs)} jobs")
+        for found_job in watcher.job_manager.job_cache:
+            job_record = found_job.workflow.state
+            logging.info(f"Checking {job_record[key]} against {wf_id}")
+            if job_record[key] == wf_id:
+                wfj = found_job
                 break
-        if not job:
-            print(f"No match found for {act_id}")
+        if not wfj:
+            print(f"No match found for {wf_id}")
             continue
-        if job.last_status in ["Running", "Submitted"]:
-            print(f"Skipping {act_id}, {job.last_status}")
+        if wfj.job_status in ["Running", "Submitted"]:
+            print(f"Skipping {wf_id}, {wfj.last_status}")
             continue
-        job.cromwell_submit(force=True)
-        watcher.ckpt()
+        wfj.job.submit_job(force=True)
+        watcher.job_manager.save_checkpoint()
 
 
 @watcher.command()
 @click.pass_context
 def sync(ctx):
     watcher = ctx.obj
-    watcher.restore()
+    watcher.restore_from_checkpoint()
     watcher.update_op_state_all()
 
 
@@ -99,7 +103,7 @@ def daemon(ctx):
 @click.argument("opid")
 def reset(ctx, opid):
     watcher = ctx.obj
-    print(watcher.nmdc.update_op(opid, done=False))
+    print(watcher.nmdc.update_operation(opid, done=False))
 
 
 if __name__ == "__main__":

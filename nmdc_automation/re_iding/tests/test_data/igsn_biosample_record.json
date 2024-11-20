@@ -1,0 +1,53 @@
+{
+  "name": "Soil microbial communities from the East River watershed near Crested Butte, Colorado, United States - ER_134",
+  "description": "Soil microbial communities from the East River watershed near Crested Butte, Colorado, United States",
+  "lat_lon": {
+    "has_raw_value": "38.92028116 -106.9489189",
+    "latitude": 38.92028116,
+    "longitude": -106.9489189
+  },
+  "env_broad_scale": {
+    "has_raw_value": "ENVO:00000108",
+    "term": {
+      "id": "ENVO:00000108"
+    }
+  },
+  "env_local_scale": {
+    "has_raw_value": "ENVO:00000292",
+    "term": {
+      "id": "ENVO:00000292"
+    }
+  },
+  "env_medium": {
+    "has_raw_value": "ENVO:00005802",
+    "term": {
+      "id": "ENVO:00005802"
+    }
+  },
+  "type": "nmdc:Biosample",
+  "ecosystem": "Environmental",
+  "ecosystem_category": "Terrestrial",
+  "ecosystem_type": "Soil",
+  "ecosystem_subtype": "Unclassified",
+  "specific_ecosystem": "Unclassified",
+  "depth": {
+    "has_numeric_value": 5
+  },
+  "ncbi_taxonomy_name": "soil metagenome",
+  "community": "microbial communities",
+  "location": "The East River watershed near Crested Butte, Colorado, USA",
+  "habitat": "soil",
+  "sample_collection_site": "soil",
+  "id": "igsn:IEWFS000A",
+  "collection_date": {
+    "has_raw_value": "2017-05-09"
+  },
+  "geo_loc_name": {
+    "has_raw_value": "USA: Colorado"
+  },
+  "part_of": [
+    "gold:Gs0135149"
+  ],
+  "samp_name": "igsn:IEWFS000A",
+  "gold_biosample_identifiers": []
+}

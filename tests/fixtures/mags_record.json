@@ -1,0 +1,36 @@
+{
+      "id": "nmdc:wfmag-11-00jn7876.1",
+      "name": "Metagenome Assembled Genomes Analysis Activity for nmdc:wfmag-11-00jn7876.1",
+      "started_at_time": "2023-07-30T21:31:56.387227+00:00",
+      "ended_at_time": "2023-07-30T21:34:32.750008+00:00",
+      "was_informed_by": "nmdc:omprc-11-7yj0jg57",
+      "execution_resource": "NERSC-Perlmutter",
+      "git_url": "https://github.com/microbiomedata/metaMAGs",
+      "has_input": [
+        "nmdc:dobj-11-yjp1xw52",
+        "nmdc:dobj-11-3av14y79",
+        "nmdc:dobj-11-wa5pnq42",
+        "nmdc:dobj-11-nexa9703",
+        "nmdc:dobj-11-j13n8739",
+        "nmdc:dobj-11-116fa706",
+        "nmdc:dobj-11-60d0na51",
+        "nmdc:dobj-11-2vbz7538",
+        "nmdc:dobj-11-1t48mn65",
+        "nmdc:dobj-11-1cvwk224",
+        "nmdc:dobj-11-cdna6f90",
+        "nmdc:dobj-11-4vb3ww76",
+        "nmdc:dobj-11-xv4qd072",
+        "nmdc:dobj-11-m7p3sb10",
+        "nmdc:dobj-11-j0t1rv33"
+      ],
+      "has_output": [
+        "nmdc:dobj-11-k5ad4209",
+        "nmdc:dobj-11-bw8nqt30",
+        "nmdc:dobj-11-199t2777",
+        "nmdc:dobj-11-2qfh8476",
+        "nmdc:dobj-11-fcsvq172"
+      ],
+      "type": "nmdc:MagsAnalysis",
+      "version": "v1.0.6",
+      "mags_list": []
+    }

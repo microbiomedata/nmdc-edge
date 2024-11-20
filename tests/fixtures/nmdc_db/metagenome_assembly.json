@@ -1,0 +1,23 @@
+[
+  {
+    "has_input": [
+      "nmdc:dobj-11-filteredreads"
+    ],
+    "git_url": "https://github.com/microbiomedata/metaAssembly",
+    "version": "v1.0.3",
+    "has_output": [
+      "nmdc:dobj-11-contigs",
+      "nmdc:dobj-11-coverstats",
+      "nmdc:dobj-11-coverbam",
+      "nmdc:dobj-11-assemblyagp",
+      "nmdc:dobj-11-scaffolds"
+    ],
+    "was_informed_by": "nmdc:omprc-11-metag1",
+    "id": "nmdc:wfmgas-11-test001.1",
+    "execution_resource": "NERSC-Cori",
+    "name": "Assembly Activity for nmdc:mga0vx38",
+    "started_at_time": "2021-08-05T14:48:51+00:00",
+    "type": "nmdc:MetagenomeAssembly",
+    "ended_at_time": "2021-09-15T10:13:20+00:00"
+  }
+]

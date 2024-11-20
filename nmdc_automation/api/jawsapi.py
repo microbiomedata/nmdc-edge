@@ -2,7 +2,7 @@
 
 import requests
 import uuid
-from nmdc_automation.config import Config
+from nmdc_automation.config import SiteConfig
 
 _base_url = "http://jaws.lbl.gov:5003/api/v2"
 _base_in = "/pscratch/sd/n/nmjaws/nmdc-prod/inputs"
@@ -14,7 +14,7 @@ wdl = "https://github.com/microbiomedata/ReadsQC/releases/download/b1.0.8/rqcfil
 class JawsApi:
     
     def __init__(self, site_configuration):
-        self.config = Config(site_configuration)
+        self.config = SiteConfig(site_configuration)
         self._base_url = self.config.api_url
         self.client_id = self.config.client_id
         self.client_secret = self.config.client_secret

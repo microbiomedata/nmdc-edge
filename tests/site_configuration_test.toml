@@ -9,7 +9,7 @@ data_dir = "/tmp"
 raw_dir = "/path/to/raw/data/files"
 
 [site]
-resource = "Resource Name"
+resource = "NERSC-Perlmutter"
 site = "Processing Site"
 
 [nmdc]
@@ -18,11 +18,11 @@ api_url = "http://localhost"
 
 [state]
 watch_state = "State File"
-agent_state = "/tmp/agent.state"
+#agent_state = "/tmp/agent.state"  Commenting this out will default to _state/agent.state
 activity_id_state = "/Path/to/activity_id_state"
 
 [workflows]
-workflows_config = "./configs/workflows.yaml"
+workflows_config = "workflows.yaml"
 
 [credentials]
 client_id = "sys0wm66"
