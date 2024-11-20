@@ -11,7 +11,7 @@ def get_mongo_db() -> pymongo.database.Database:
         host=os.getenv("MONGO_HOST"),
         username=os.getenv("MONGO_USERNAME"),
         password=os.getenv("MONGO_PASSWORD"),
-        MONGO_DIRECT_CONNECTION=True
+        directConnection=True
 
     )
     return _client[os.getenv("MONGO_DBNAME")]
