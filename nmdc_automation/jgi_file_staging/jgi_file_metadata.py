@@ -55,6 +55,8 @@ def get_samples_data(samples_csv_file: str, proposal_id: int, project: str, conf
     gold_analysis_files_df = remove_unneeded_files(gold_analysis_files_df, eval(config['JDP']['remove_files']))
 
     gold_analysis_files_df['project'] = project
+    logging.debug(f'number of samples to insert: {len(gold_analysis_files_df)}')
+    logging.debug(gold_analysis_files_df.head().to_dict('records'))
     insert_samples_into_mongodb(gold_analysis_files_df.to_dict('records'))
 
 
