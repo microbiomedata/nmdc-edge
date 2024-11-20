@@ -26,7 +26,7 @@ def get_required_data_objects_map(db, workflows: List[WorkflowConfig]) -> Dict[s
         required_types.update(set(wf.data_object_types))
 
     required_data_objs_by_id = dict()
-    for rec in db.data_object_set.find():
+    for rec in db.data_object_set.find({"data_object_type": {"$ne": None}}):
         do = DataObject(**rec)
         if do.data_object_type.code.text not in required_types:
             continue
