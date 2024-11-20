@@ -118,7 +118,9 @@ def test_data_object_creation_from_records(fixtures_dir):
         assert data_obj.type == "nmdc:DataObject"
         assert data_obj.id == record["id"]
         assert data_obj.name == record["name"]
-        assert str(data_obj.data_object_type) == record["data_object_type"]
+        # not all data objects have a data_object_type - e.g. Mass Spectrometry data
+        if "data_object_type" in record:
+            assert str(data_obj.data_object_type) == record["data_object_type"]
 
         data_obj_dict = yaml.safe_load(yaml_dumper.dumps(data_obj))
         assert data_obj_dict == record
@@ -136,9 +138,12 @@ def test_data_object_creation_from_db_records(test_db, fixtures_dir):
         assert data_obj.type == "nmdc:DataObject"
         assert data_obj.id == db_record["id"]
         assert data_obj.name == db_record["name"]
+        # not all data objects have a data_object_type or url - e.g. Mass Spectrometry data
+        if not db_record.get("data_object_type"):
+            continue
         assert str(data_obj.data_object_type) == db_record["data_object_type"]
-        assert data_obj.description == db_record["description"]
         assert data_obj.url == db_record["url"]
+        assert data_obj.description == db_record["description"]
         assert data_obj.file_size_bytes == db_record.get("file_size_bytes")
         assert data_obj.md5_checksum == db_record["md5_checksum"]
 

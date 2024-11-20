@@ -815,5 +815,15 @@
     "data_object_type": "Metatranscriptome Expression Info File",
     "url": "https://data.microbiomedata.org",
     "type": "nmdc:DataObject"
-  }
+  },
+  {
+    "id" : "nmdc:dobj-13-zzzyae97",
+    "name" : "output: SBR_FC_N1_00-10_H2Oext_13Oct15_Leopard_1_01_4404",
+    "description" : "High resolution MS spectra only",
+    "file_size_bytes" : 30539306,
+    "type" : "nmdc:DataObject",
+    "alternative_identifiers" : [
+        "emsl:output_456424"
+    ]
+}
 ]
