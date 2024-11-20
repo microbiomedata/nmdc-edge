@@ -1,0 +1,27 @@
+[
+  {
+    "id" : "nmdc:omprc-11-cegmwy02",
+    "name" : "Terrestrial soil microbial communities - BONA_004-O-20210707-COMP",
+    "has_input" : [
+        "nmdc:procsm-11-d8hkca85"
+    ],
+    "gold_sequencing_project_identifiers" : [
+        "gold:Gp0704890"
+    ],
+    "processing_institution" : "JGI",
+    "type" : "nmdc:NucleotideSequencing",
+    "insdc_bioproject_identifiers" : [
+        "bioproject:PRJNA1029072"
+    ],
+    "analyte_category" : "metagenome",
+    "associated_studies" : [
+        "nmdc:sty-11-34xj1150"
+    ],
+    "instrument_used" : [
+        "nmdc:inst-14-mr4r2w09"
+    ],
+    "has_output" : [
+        "nmdc:dobj-11-hnw52332"
+    ]
+}
+]

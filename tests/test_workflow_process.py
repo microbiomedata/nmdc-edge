@@ -45,6 +45,23 @@ def test_load_workflow_process_nodes(test_db, workflow_file, workflows_config_di
     assert data_gen.children[0].type == "nmdc:ReadQcAnalysis"
 
 
+def test_load_workflow_process_nodes_does_not_load_metagenome_sequencing(test_db, workflows_config_dir):
+    """
+    Test that legacy nmdc:MetagenomeSequencing instances are not loaded
+    """
+    reset_db(test_db)
+    load_fixture(test_db, "data_object_set.json")
+    load_fixture(test_db, "legacy_data_generation.json", "data_generation_set")
+    load_fixture(test_db, "metagenome_sequencing.json", "workflow_execution_set")
+
+    wfs = load_workflow_configs(workflows_config_dir / "workflows.yaml")
+    data_objs_by_id = get_required_data_objects_map(test_db, wfs)
+    wf_execs = get_current_workflow_process_nodes(test_db, wfs, data_objs_by_id, allowlist=["nmdc:omprc-11-cegmwy02",])
+    # there should be no metagenome sequencing instances
+    assert not wf_execs
+
+
+
 @mark.parametrize(
     "workflow_file", ["workflows.yaml", "workflows-mt.yaml"]
 )

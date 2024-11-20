@@ -825,5 +825,18 @@
     "alternative_identifiers" : [
         "emsl:output_456424"
     ]
+},
+  {
+    "id" : "nmdc:dobj-11-hnw52332",
+    "name" : "52832.3.464616.CTATCGCA-CTATCGCA.fastq.gz",
+    "description" : "Metagenome Raw Reads for nmdc:omprc-11-cegmwy02",
+    "alternative_identifiers" : [
+
+    ],
+    "file_size_bytes" : 31068664547,
+    "md5_checksum" : "12f380b91ff3364cd3d228505d3402b5",
+    "data_object_type" : "Metagenome Raw Reads",
+    "url" : "https://data.microbiomedata.org/data/nmdc:omprc-11-cegmwy02/nmdc:wfmsa-11-jc5cmf37.1/52832.3.464616.CTATCGCA-CTATCGCA.fastq.gz",
+    "type" : "nmdc:DataObject"
 }
 ]

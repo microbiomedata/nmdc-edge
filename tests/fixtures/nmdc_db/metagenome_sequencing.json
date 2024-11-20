@@ -1,0 +1,19 @@
+[
+  {
+    "id" : "nmdc:wfmsa-11-jc5cmf37.1",
+    "name" : "Metagenome Sequencing Activity for nmdc:wfmsa-11-jc5cmf37.1",
+    "started_at_time" : "2023-09-13T19:57:49.595727+00:00",
+    "ended_at_time" : "2023-09-13T19:57:49.595743+00:00",
+    "was_informed_by" : "nmdc:omprc-11-cegmwy02",
+    "execution_resource" : "JGI",
+    "git_url" : "https://github.com/microbiomedata/RawSequencingData",
+    "has_input" : [
+        "nmdc:procsm-11-d8hkca85"
+    ],
+    "has_output" : [
+        "nmdc:dobj-11-hnw52332"
+    ],
+    "type" : "nmdc:MetagenomeSequencing",
+    "version" : "v1.0.0"
+}
+]
