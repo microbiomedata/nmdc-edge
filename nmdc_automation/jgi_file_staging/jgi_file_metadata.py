@@ -270,22 +270,19 @@ def remove_duplicate_analysis_files(seq_files_df: pd.DataFrame) -> pd.DataFrame:
 
 def get_seq_unit_names(analysis_files_df, gold_id):
     seq_unit_names = []
-    for seq_unit in analysis_files_df.loc[
-        pd.notna(analysis_files_df.seq_unit_name)
-        & (analysis_files_df.apGoldId == gold_id)
-        & (analysis_files_df.file_name.str.contains("assembly")),
-        "seq_unit_name",
-    ]:
-        if isinstance(seq_unit, list):
-            seq_unit_names.append(*seq_unit)
-        elif "[" in seq_unit:
-            seq_unit_names.append(eval(seq_unit)[0])
-        else:
-            seq_unit_names.append(seq_unit)
-    seq_unit_names_list = list(set(seq_unit_names))
-    seq_unit_names_list = [
-        ".".join(filename.split(".")[:4]) for filename in seq_unit_names_list
-    ]
+    for idx, row in analysis_files_df.loc[pd.notna(analysis_files_df.seq_unit_name)
+                                               & (analysis_files_df.apGoldId == gold_id)
+                                               & (
+                                               analysis_files_df.file_name.str.contains("assembly"))].iterrows():
+        if type(row.seq_unit_name) is str:
+            seq_unit_names.append(row.seq_unit_name)
+        elif type(row.seq_unit_name) is list:
+            seq_unit_names.extend(row.seq_unit_name)
+
+        seq_unit_names_list = list(set(seq_unit_names))
+        seq_unit_names_list = [
+            ".".join(filename.split(".")[:4]) for filename in seq_unit_names_list
+        ]
     return seq_unit_names_list
 
 
