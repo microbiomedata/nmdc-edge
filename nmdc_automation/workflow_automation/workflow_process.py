@@ -100,6 +100,7 @@ def get_current_workflow_process_nodes(
 
     data_generation_ids = set()
     data_generation_workflows = [wf for wf in workflows if wf.collection == "data_generation_set"]
+
     workflow_execution_workflows = [wf for wf in workflows if wf.collection == "workflow_execution_set"]
 
     # default query for data_generation_set records filtered by analyte category
@@ -129,6 +130,9 @@ def get_current_workflow_process_nodes(
 
         records = db[wf.collection].find(q)
         for rec in records:
+            # legacy JGI sequencing records
+            if rec.get("type") == "nmdc:MetagenomeSequencing" or rec["name"].startswith("Metagenome Sequencing"):
+                continue
             if wf.version and not _within_range(rec["version"], wf.version):
                 continue
             if _is_missing_required_input_output(wf, rec, data_objects_by_id):
