@@ -282,11 +282,7 @@ class Scheduler:
         """
         This function does a single cycle of looking for new jobs
         """
-        filt = {}
-        if allowlist:
-            filt = {"was_informed_by": {"$in": list(allowlist)}}
-        # TODO: Quite a lot happens under the hood here. This function should be broken down into smaller
-        #      functions to improve readability and maintainability.
+
         wfp_nodes = load_workflow_process_nodes(self.db, self.workflows, allowlist)
 
         self.get_existing_jobs.cache_clear()

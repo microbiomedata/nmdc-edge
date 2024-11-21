@@ -25,13 +25,13 @@ def get_required_data_objects_map(db, workflows: List[WorkflowConfig]) -> Dict[s
     for wf in workflows:
         required_types.update(set(wf.data_object_types))
 
-    required_data_objs_by_id = dict()
+    required_data_object_map = dict()
     for rec in db.data_object_set.find({"data_object_type": {"$ne": None}}):
-        do = DataObject(**rec)
-        if do.data_object_type.code.text not in required_types:
+        data_object = DataObject(**rec)
+        if data_object.data_object_type.code.text not in required_types:
             continue
-        required_data_objs_by_id[do.id] = do
-    return required_data_objs_by_id
+        required_data_object_map[data_object.id] = data_object
+    return required_data_object_map
 
 
 @lru_cache
@@ -214,29 +214,28 @@ def _resolve_relationships(wfp_nodes: List[WorkflowProcessNode], wfp_nodes_by_da
     return wfp_nodes
 
 
-def _associate_workflow_process_nodes_to_data_objects(wfp_nodes: List[WorkflowProcessNode], data_objs_by_id):
+def _map_nodes_to_data_objects(current_nodes: List[WorkflowProcessNode], required_data_object_map):
     """
     Associate the data objects with workflow process nodes
     """
-    wfp_nodes_by_data_object_id = dict()
-    for wfp_node in wfp_nodes:
-        for do_id in wfp_node.has_output:
-            if do_id in data_objs_by_id:
-                do = data_objs_by_id[do_id]
-                wfp_node.add_data_object(do)
+    node_data_object_map = dict()
+    for node in current_nodes:
+        for data_object_id in node.has_output:
+            if data_object_id in required_data_object_map:
+                do = required_data_object_map[data_object_id]
+                node.add_data_object(do)
             # If its a dupe, set it to none
             # so we can ignore it later.
             # Once we re-id the data objects this
             # Post re-id we would not expect thi
-            if do_id in wfp_nodes_by_data_object_id:
-                if do_id not in warned_objects:
-                    logging.warning(f"Duplicate output object {do_id}")
-                    warned_objects.add(do_id)
-                wfp_nodes_by_data_object_id[do_id] = None
+            if data_object_id in node_data_object_map:
+                if data_object_id not in warned_objects:
+                    logging.warning(f"Duplicate output object {data_object_id}")
+                    warned_objects.add(data_object_id)
+                node_data_object_map[data_object_id] = None
             else:
-                wfp_nodes_by_data_object_id[do_id] = wfp_node
-    return wfp_nodes_by_data_object_id, wfp_nodes
-
+                node_data_object_map[data_object_id] = node
+    return node_data_object_map, current_nodes
 
 
 def load_workflow_process_nodes(db, workflows: list[WorkflowConfig], allowlist: list[str] = None) -> List[WorkflowProcessNode]:
@@ -262,7 +261,7 @@ def load_workflow_process_nodes(db, workflows: list[WorkflowConfig], allowlist: 
     # the output objects to the activity that generated them.
     wfp_nodes = get_current_workflow_process_nodes(db, workflows, data_objs_by_id, allowlist)
 
-    wfp_nodes_by_data_object_id, wfp_nodes = _associate_workflow_process_nodes_to_data_objects(wfp_nodes, data_objs_by_id)
+    wfp_nodes_by_data_object_id, wfp_nodes = _map_nodes_to_data_objects(wfp_nodes, data_objs_by_id)
 
     # Now populate the parent and children values for the
     wfp_nodes = _resolve_relationships(wfp_nodes, wfp_nodes_by_data_object_id)
