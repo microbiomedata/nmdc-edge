@@ -57,11 +57,9 @@ WorkflowExecution]:
 def _normalize_record(record: Dict[str, Any]) -> Dict[str, Any]:
     """ Normalize the record by removing the _id field and converting the type field to a string """
     record.pop("_id", None)
-    # for backwards compatibility strip Activity from the end of the type
-    record["type"] = record["type"].replace("Activity", "")
     normalized_record = _strip_empty_values(record)
-
-
+    if not normalized_record.get("type"):
+        return normalized_record
     # type-specific normalization
     if normalized_record["type"] == "nmdc:MagsAnalysis":
         normalized_record = _normalize_mags_record(normalized_record)
@@ -113,8 +111,7 @@ class DataObject(nmdc.DataObject):
     """
     def __init__(self, **record):
         """ Initialize the object from a dictionary """
-        # _id is a MongoDB field that makes the parent class fail to initialize
-        record.pop("_id", None)
+        normalized_record = _normalize_record(record)
         if "type" not in record:
             record["type"] = "nmdc:DataObject"
         super().__init__(**record)
