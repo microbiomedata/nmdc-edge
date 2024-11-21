@@ -300,14 +300,14 @@ function ProjectResult(props) {
                                 </Col>
                             </Row>
                             <br></br>
-                            <Row className="justify-content-center">
+                            {/* <Row className="justify-content-center">
                                 <Col xs="12" md="10">
                                     <Button outline type="button" size="sm" color="danger" onClick={e => setOpenMetadataDeletion(true)} >
                                         Delete Metadata Submission
                                     </Button>
                                 </Col>
                             </Row>
-                            <br></br>
+                            <br></br> */}
                         </>
                     }
                     {(outputs || result) && !disableExpandClose &&
