@@ -34,8 +34,8 @@ function ProjectSummary(props) {
                             {props.type !== 'public' && <><b>Owner:</b> {props.project.owner}<br></br></>}
                             <b>Submission Time:</b> <Moment>{props.project.created}</Moment><br></br>
                             <b>Status:</b> <Badge color={projectStatusColors[props.project.status]}>{projectStatusNames[props.project.status]}</Badge>
+                            <br></br>
                             {props.project.status === 'failed' && <span className='edge-help-text'>
-                                <br></br>
                                 {props.type === 'user' && props.project.owner === user.profile.email && <>
                                     If you need assistance with this failed project, please contact nmdc-edge@lanl.gov and include the project code '{props.project.code}'.
                                     <br></br>
