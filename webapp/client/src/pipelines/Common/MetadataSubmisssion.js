@@ -54,7 +54,7 @@ const MetadataSubmisssion = (props) => {
     const userData = {
       studyName: data.study_name,
       piEmail: data.email,
-      packageName: packageName, 
+      packageName: packageName,
       metadataSubmissionId: study
     };
     props.handleSuccess(userData);
@@ -84,7 +84,9 @@ const MetadataSubmisssion = (props) => {
         });
     }
     clearErrors();
-    getNmdcMetadataSubmissions();
+    if (props.connect2nmdcserver) {
+      getNmdcMetadataSubmissions();
+    }
   }, [props]);// eslint-disable-line react-hooks/exhaustive-deps
 
   return (

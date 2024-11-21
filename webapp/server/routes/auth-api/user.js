@@ -413,7 +413,7 @@ router.post("/project/result", (req, res) => {
     }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
 });
 
-// @route GET  auth-api/user/project/getmetadatasubmission
+// @route GET  auth-api/user/project/getmetadatasubmissions
 // @access Private
 // use when test on local, need run curl command to get access token. https://data-dev.microbiomedata.org/user
 // const testToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNTczMjE3Mi1jNDU5LTRjNWItYWYxZC05OWRiYzZjYTExYjAiLCJ0eXAiOiJCZWFyZXIiLCJpc3MiOiJodHRwczovL2RhdGEubWljcm9iaW9tZWRhdGEub3JnLyIsImlhdCI6MTcyODU4MDM1NSwiZXhwIjoxNzI4NjY2NzU1fQ.dc14J-DaWwQoSqLmpqqiroQBB4OJ-T9ewk1RnCi4XuU';
@@ -430,10 +430,33 @@ router.get("/project/getmetadatasubmissions", async (req, res) => {
         // console.log(tokenData);
         // get metadata submissions
         url = `${config.NMDC.SERVER_URL}/api/metadata_submission?offset=0&limit=1000`;
-        const submissionData = await utilCommon.getData(url, { headers:{"Authorization" : `Bearer ${tokenData.access_token}`}});
-        
+        const submissionData = await utilCommon.getData(url, { headers: { "Authorization": `Bearer ${tokenData.access_token}` } });
+
         return res.send({ metadata_submissions: submissionData.results });
     } catch (err) { logger.error(nodeUtil.inspect(err)); return res.status(500).json(sysError); };
+});
+
+// @route GET  auth-api/user/project/connect2nmdcserver
+// @access Private
+// use when test on local, need run curl command to get access token. https://data-dev.microbiomedata.org/user
+// const testToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNTczMjE3Mi1jNDU5LTRjNWItYWYxZC05OWRiYzZjYTExYjAiLCJ0eXAiOiJCZWFyZXIiLCJpc3MiOiJodHRwczovL2RhdGEubWljcm9iaW9tZWRhdGEub3JnLyIsImlhdCI6MTcyODU4MDM1NSwiZXhwIjoxNzI4NjY2NzU1fQ.dc14J-DaWwQoSqLmpqqiroQBB4OJ-T9ewk1RnCi4XuU';
+router.get("/project/connect2nmdcserver", async (req, res) => {
+    logger.debug("/auth-api/user/project/connect2nmdcserver");
+    try {
+        // Find user by email
+        const user = await User.findOne({ email: req.user.email });
+        // get nmdc access token
+        let url = `${config.NMDC.SERVER_URL}/auth/oidc-login`;
+        const tokenData = await utilCommon.postData(url, { id_token: user.orcidtoken }, { headers: { "Content-Type": "application/json" } });
+        if (tokenData.access_token) {
+            return res.send({ connect2nmdcserver: true });
+        } else {
+            return res.send({ connect2nmdcserver: false });
+        }
+    } catch (err) {
+        logger.error(nodeUtil.inspect(err));
+        return res.send({ connect2nmdcserver: false });
+    };
 });
 
 // @route POST auth-api/user/project/createmetadatasubmission
@@ -554,13 +577,13 @@ router.post("/project/deletemetadatasubmission", async (req, res) => {
 
         // if no other project associated with this metadata submission, delete it from the submission portal
         const count = await Project.countDocuments({ metadatasubmissionid: proj.metadatasubmissionid });
-        
+
         if (count === 1) {
             // get nmdc access token
             let url = `${config.NMDC.SERVER_URL}/auth/oidc-login`;
             const tokenData = await utilCommon.postData(url, { id_token: user.orcidtoken }, { headers: { "Content-Type": "application/json" } });
             //const tokenData = { "access_token": testToken, "token_type": "bearer", "expires_in": 86400 };
-        
+
             // delete metadata submission by id
             url = `${config.NMDC.SERVER_URL}/api/metadata_submission/${proj.metadatasubmissionid}`;
             await utilCommon.deleteData(url, { headers: { "Authorization": `Bearer ${tokenData.access_token}` } });

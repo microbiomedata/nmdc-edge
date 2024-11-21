@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Button } from 'reactstrap';
 import { LoaderDialog, FileViewerDialog, ConfirmDialog } from '../common/Dialogs';
-import { postData, fetchFile, openLink, notify } from '../common/util';
+import { postData, getData, fetchFile, openLink, notify } from '../common/util';
 import ProjectGeneral from './Common/Results/ProjectGeneral';
 import ProjectOutputs from './Common/Results/ProjectOutputs';
 import MetadataSubmisssion from './Common/MetadataSubmisssion';
@@ -34,8 +34,24 @@ function ProjectResult(props) {
     const [openMetadataSubmission, setOpenMetadataSubmission] = useState(false);
     const [openMetadataDeletion, setOpenMetadataDeletion] = useState(false);
     const [metadataSubmissionUrl, setMetadataSubmissionUrl] = useState(null);
+    const [connect2nmdcserver, setConnect2nmdcserver] = useState(false);
     //disable the expand | close
     const disableExpandClose = false;
+
+    useEffect(() => {
+        if (props.type !== 'user') {
+            return;
+        }
+        let url = "/auth-api/user/project/connect2nmdcserver";
+        getData(url)
+            .then(data => {
+                //console.log(data)
+                setConnect2nmdcserver(data.connect2nmdcserver);
+            })
+            .catch(error => {
+                alert(error);
+            });
+    }, [props.type]);
 
     useEffect(() => {
         setProject(props.project);
@@ -156,7 +172,7 @@ function ProjectResult(props) {
             setLoading(true);
             getProjectConf();
             getProjectRunStats();
-            if (project.status === 'complete' && !notMetadataProjects.includes(project.type)) {
+            if (project.status === 'complete' && !notMetadataProjects.includes(project.type) && connect2nmdcserver) {
                 getProjectMetadataSubmissionUrl(project.code);
             }
             if (project.status === 'complete' || (project.type === 'Metagenome Pipeline' && project.status === 'failed')) {
@@ -167,7 +183,7 @@ function ProjectResult(props) {
             }
 
         }
-    }, [project, type]);
+    }, [project, type, connect2nmdcserver]);
 
     function viewLogFile() {
         let url = "/projects/" + project.code + "/log.txt";
@@ -190,7 +206,7 @@ function ProjectResult(props) {
 
         const userData = { ...data, code: project.code };
         let url = "/auth-api/user/project/addmetadatasubmission";
-        if(data.metadataSubmissionId === 'new') {
+        if (data.metadataSubmissionId === 'new') {
             url = "/auth-api/user/project/createmetadatasubmission";
         }
         postData(url, userData)
@@ -237,6 +253,7 @@ function ProjectResult(props) {
                 isOpen={openMetadataSubmission}
                 handleSuccess={submit2nmdc}
                 handleClickClose={handleMetadataSubmissionClose}
+                connect2nmdcserver={connect2nmdcserver}
             />
             <ConfirmDialog isOpen={openMetadataDeletion} action={'Delete'} title={"Are you sure to delete the metadata submission?"}
                 message={"This action is not undoable."} handleClickYes={deleteMetadata} handleClickClose={handleMetadataDeletionClose} />
@@ -253,7 +270,7 @@ function ProjectResult(props) {
                 </Row>
                 :
                 <>
-                    {(project && project.status === 'failed' && props.type !== 'public') &&
+                    {(connect2nmdcserver && project && project.status === 'failed' && props.type !== 'public') &&
                         <>
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
@@ -263,7 +280,7 @@ function ProjectResult(props) {
                             <br></br>
                         </>
                     }
-                    {(project && project.status === 'complete' && props.type === 'user' && !metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
+                    {(connect2nmdcserver && project && project.status === 'complete' && props.type === 'user' && !metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
                         <>
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
