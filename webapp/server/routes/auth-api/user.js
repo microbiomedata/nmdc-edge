@@ -496,7 +496,7 @@ router.post("/project/createmetadatasubmission", async (req, res) => {
         proj.metadatasubmissionid = submissionResult.id;
         proj.updated = Date.now();
         proj.save();
-        const submissionUrl = config.NMDC.SERVER_URL + '/submission/' + submissionResult.id + "/study";
+        const submissionUrl = config.NMDC.SERVER_URL + '/submission/' + submissionResult.id + "/samples";
         res.json({ metadata_submission_url: submissionUrl });
     } catch (err) { logger.error(nodeUtil.inspect(err)); return res.status(500).json(sysError); };
 });
@@ -514,7 +514,7 @@ router.post("/project/getmetadatasubmission", async (req, res) => {
         if (project === null) {
             return res.status(400).json("Project not found.");
         }
-        let result = project.metadatasubmissionid ? config.NMDC.SERVER_URL + '/submission/' + project.metadatasubmissionid + "/study" : null;
+        let result = project.metadatasubmissionid ? config.NMDC.SERVER_URL + '/submission/' + project.metadatasubmissionid + "/samples" : null;
         // //Could NOT get right message from the api server if a submission not found, so skip this step for now
         // if (project.metadatasubmissionid) {
         //     // check the metadata submission in case user deleted it 
@@ -528,7 +528,7 @@ router.post("/project/getmetadatasubmission", async (req, res) => {
         //     url = `${config.NMDC.SERVER_URL}/api/metadata_submission/${project.metadatasubmissionid}`;
         //     const submissionData = await utilCommon.getData(url, { headers: { "Authorization": `Bearer ${tokenData.access_token}` } });
         //     //console.log(JSON.stringify(submissionData));
-        //     result = config.NMDC.SERVER_URL + '/submission/' + submissionData.id + "/study";
+        //     result = config.NMDC.SERVER_URL + '/submission/' + submissionData.id + "/samples";
         // }
 
         return res.json({ metadata_submission_url: result });
@@ -554,7 +554,7 @@ router.post("/project/addmetadatasubmission", async (req, res) => {
         proj.updated = Date.now();
         proj.save();
 
-        const submissionUrl = config.NMDC.SERVER_URL + '/submission/' + req.body.metadataSubmissionId + "/study";
+        const submissionUrl = config.NMDC.SERVER_URL + '/submission/' + req.body.metadataSubmissionId + "/samples";
         return res.json({ metadata_submission_url: submissionUrl });
     } catch (err) { logger.error(nodeUtil.inspect(err)); return res.status(500).json(sysError); };
 });
