@@ -29,17 +29,15 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 @lru_cache
 def get_mongo_db() -> MongoDatabase:
-    for k in ["HOST", "USERNAME", "PASSWORD", "DBNAME"]:
-        if f"MONGO_{k}" not in os.environ:
-            raise KeyError(f"Missing MONGO_{k}")
     _client = MongoClient(
-        host=os.getenv("MONGO_HOST"),
+        host=os.getenv("MONGO_HOST", "localhost"),
         port=int(os.getenv("MONGO_PORT", "27017")),
-        username=os.getenv("MONGO_USERNAME"),
-        password=os.getenv("MONGO_PASSWORD"),
+        username=os.getenv("MONGO_USERNAME", None),
+        password=os.getenv("MONGO_PASSWORD", None),
         directConnection=True,
-    )
-    return _client[os.getenv("MONGO_DBNAME")]
+    )[os.getenv("MONGO_DBNAME", "nmdc")]
+    return _client
+
 
 
 def within_range(wf1: WorkflowConfig, wf2: WorkflowConfig, force=False) -> bool:
@@ -84,12 +82,12 @@ class SchedulerJob:
 
 class Scheduler:
 
-    def __init__(self, db, wfn="workflows.yaml",
+    def __init__(self, db, workflow_yaml,
                  site_conf="site_configuration.toml"):
         logging.info("Initializing Scheduler")
         # Init
-        wf_file = os.environ.get(_WF_YAML_ENV, wfn)
-        self.workflows = load_workflow_configs(wf_file)
+        # wf_file = os.environ.get(_WF_YAML_ENV, wfn)
+        self.workflows = load_workflow_configs(workflow_yaml)
         self.db = db
         self.api = NmdcRuntimeApi(site_conf)
         # TODO: Make force a optional parameter
@@ -318,17 +316,18 @@ class Scheduler:
         return job_recs
 
 
-def main():  # pragma: no cover
+def main(site_conf, wf_file):  # pragma: no cover
     """
     Main function
     """
-    site_conf = os.environ.get("NMDC_SITE_CONF", "site_configuration.toml")
-    sched = Scheduler(get_mongo_db(), site_conf=site_conf)
+    # site_conf = os.environ.get("NMDC_SITE_CONF", "site_configuration.toml")
+    db = get_mongo_db()
+    sched = Scheduler(db, wf_file, site_conf=site_conf)
     dryrun = False
     if os.environ.get("DRYRUN") == "1":
         dryrun = True
     skiplist = set()
-    allowlist = None
+    # allowlist = None
     if os.environ.get("SKIPLISTFILE"):
         with open(os.environ.get("SKIPLISTFILE")) as f:
             for line in f:
@@ -338,6 +337,8 @@ def main():  # pragma: no cover
         with open(os.environ.get("ALLOWLISTFILE")) as f:
             for line in f:
                 allowlist.add(line.rstrip())
+    # for local testing
+    allowlist = ["nmdc:omprc-11-cegmwy02"]
     while True:
         sched.cycle(dryrun=dryrun, skiplist=skiplist, allowlist=allowlist)
         if dryrun:
@@ -347,4 +348,6 @@ def main():  # pragma: no cover
 
 if __name__ == "__main__":  # pragma: no cover
     logging.basicConfig(level=logging.INFO)
-    main()
+    main("/Users/MBThornton/Documents/code/nmdc_automation/.local/site_conf.toml",
+         "/Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/config/workflows/workflows.yaml"
+         )

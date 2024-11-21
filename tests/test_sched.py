@@ -26,7 +26,7 @@ def test_scheduler_cycle(test_db, mock_api, workflow_file, workflows_config_dir,
     # Scheduler will find one job to create
     exp_num_jobs_initial = 1
     exp_num_jobs_cycle_1 = 0
-    jm = Scheduler(test_db, wfn=workflows_config_dir / workflow_file,
+    jm = Scheduler(test_db, workflow_yaml=workflows_config_dir / workflow_file,
                    site_conf=site_config_file)
     resp = jm.cycle()
     assert len(resp) == exp_num_jobs_initial
@@ -50,7 +50,7 @@ def test_progress(test_db, mock_api, workflow_file, workflows_config_dir, site_c
 
 
 
-    jm = Scheduler(test_db, wfn=workflows_config_dir / workflow_file,
+    jm = Scheduler(test_db, workflow_yaml=workflows_config_dir / workflow_file,
                    site_conf= site_config_file)
     workflow_by_name = dict()
     for wf in jm.workflows:
@@ -127,7 +127,7 @@ def test_multiple_versions(test_db, mock_api, workflows_config_dir, site_config_
     load_fixture(test_db, "data_object_set.json")
     load_fixture(test_db, "data_generation_set.json")
 
-    jm = Scheduler(test_db, wfn=workflows_config_dir / "workflows.yaml",
+    jm = Scheduler(test_db, workflow_yaml=workflows_config_dir / "workflows.yaml",
                    site_conf=site_config_file)
     workflow_by_name = dict()
     for wf in jm.workflows:
@@ -160,7 +160,7 @@ def test_out_of_range(test_db, mock_api, workflows_config_dir, site_config_file)
     test_db.jobs.delete_many({})
     load_fixture(test_db, "data_object_set.json")
     load_fixture(test_db, "data_generation_set.json")
-    jm = Scheduler(test_db, wfn=workflows_config_dir / "workflows.yaml",
+    jm = Scheduler(test_db, workflow_yaml=workflows_config_dir / "workflows.yaml",
                    site_conf=site_config_file)
     # Let's create two RQC records.  One will be in range
     # and the other will not.  We should only get new jobs
@@ -185,7 +185,7 @@ def test_type_resolving(test_db, mock_api, workflows_config_dir, site_config_fil
     load_fixture(test_db, "data_generation_set.json")
     load_fixture(test_db, "read_qc_analysis.json", col="workflow_execution_set")
 
-    jm = Scheduler(test_db, wfn=workflows_config_dir / "workflows.yaml",
+    jm = Scheduler(test_db, workflow_yaml=workflows_config_dir / "workflows.yaml",
                    site_conf=site_config_file)
     workflow_by_name = dict()
     for wf in jm.workflows:
@@ -213,7 +213,7 @@ def test_scheduler_add_job_rec(test_db, mock_api, workflow_file, workflows_confi
     load_fixture(test_db, "data_object_set.json")
     load_fixture(test_db, "data_generation_set.json")
 
-    jm = Scheduler(test_db, wfn=workflows_config_dir / workflow_file,
+    jm = Scheduler(test_db, workflow_yaml=workflows_config_dir / workflow_file,
                    site_conf=site_config_file)
     # sanity check
     assert jm

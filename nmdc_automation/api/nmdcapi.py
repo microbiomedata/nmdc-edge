@@ -330,6 +330,19 @@ class NmdcRuntimeApi:
             resp.raise_for_status()
         return resp.json()
 
+    @refresh_token
+    def get_workflow_executions_for_informed_by(self, informed_by, type):
+        """
+        Get a workflow execution for a given informed_by and type.
+        """
+        url = f"{self._base_url}nmdcschema/workflow_execution_set"
+        filt = {
+            "informed_by": informed_by,
+            "type": type
+        }
+        resp = requests.get(url, headers=self.header, data=json.dumps(filt))
+        return resp.json()
+
 
 # TODO - This is deprecated and should be removed along with the re_iding code that uses it
 class NmdcRuntimeUserApi:
