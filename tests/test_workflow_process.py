@@ -50,6 +50,26 @@ def test_load_workflow_process_nodes(test_db, workflow_file, workflows_config_di
     assert data_generation_nodes.children[0].type == "nmdc:ReadQcAnalysis"
 
 
+def test_load_workflow_process_nodes_multiple_predecessors(test_db, workflows_config_dir):
+    """
+    Test loading workflow process nodes with multiple predecessors
+    """
+    reset_db(test_db)
+    load_fixture(test_db, "data_objects_2.json", "data_object_set")
+    load_fixture(test_db, "data_generation_2.json", "data_generation_set")
+    load_fixture(test_db, "workflow_execution_2.json", "workflow_execution_set")
+
+    workflow_config = load_workflow_configs(workflows_config_dir / "workflows.yaml")
+    data_objs_by_id = get_required_data_objects_map(test_db, workflow_config)
+    current_nodes = get_current_workflow_process_nodes(test_db, workflow_config, data_objs_by_id)
+    assert current_nodes
+
+    workflow_process_nodes = load_workflow_process_nodes(test_db, workflow_config)
+    assert workflow_process_nodes
+
+
+
+
 def test_resolve_relationships(test_db, workflows_config_dir):
     """
     Test that the relationships between workflow process nodes are resolved

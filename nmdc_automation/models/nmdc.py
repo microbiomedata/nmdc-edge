@@ -60,6 +60,8 @@ def _normalize_record(record: Dict[str, Any]) -> Dict[str, Any]:
     normalized_record = _strip_empty_values(record)
     if not normalized_record.get("type"):
         return normalized_record
+    # get rid of any legacy 'Activity' suffixes in the type
+    normalized_record["type"] = normalized_record["type"].replace("Activity", "")
     # type-specific normalization
     if normalized_record["type"] == "nmdc:MagsAnalysis":
         normalized_record = _normalize_mags_record(normalized_record)
