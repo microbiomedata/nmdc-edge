@@ -85,6 +85,7 @@ Workflows:
       - Assembly Coverage Stats
       - Assembly AGP
       - Assembly Coverage BAM
+      - Error Corrected Reads
 
   - Name: Metagenome Annotation
     Import: false
@@ -476,6 +477,15 @@ Data Objects:
       import_suffix: pairedMapped.sam.gz
       nmdc_suffix: _pairedMapped_sorted.sam.gz
       input_to: [nmdc:MagsAnalysis]
+      output_of: nmdc:MetagenomeAssembly
+      mulitple: false
+      action: rename
+    - data_object_type: Error Corrected Reads
+      description: Error correctde reads for {id}
+      name: bbcms error corrected reads
+      import_suffix: input.corr.fastq.gz
+      nmdc_suffix: _input.corr.fastq.gz
+      input_to: []
       output_of: nmdc:MetagenomeAssembly
       mulitple: false
       action: rename
