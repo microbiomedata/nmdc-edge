@@ -85,6 +85,7 @@ def import_projects(import_file, import_yaml, site_configuration, iteration):
             runtime.run_query(data_generation_update)
         except Exception as e:
             logger.error(f"Error applying update to sequencing data generation: {e}")
+            logger.error(data_generation_update)
             raise e
 
 
