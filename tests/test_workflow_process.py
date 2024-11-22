@@ -77,13 +77,30 @@ def test_load_workflow_process_nodes_with_obsolete_versions(test_db, workflows_c
     records = list(records)
     assert len(records) == exp_num_db_workflow_execution_records
 
+    # testing functions that are called by load_workflow_process_nodes
+    # get_current_workflow_process_nodes
     current_nodes = get_current_workflow_process_nodes(test_db, workflow_config, data_objs_by_id)
     assert current_nodes
     assert len(current_nodes) == exp_num_current_nodes
     current_node_types = [node.type for node in current_nodes]
     assert sorted(current_node_types) == sorted(exp_current_node_types)
 
+    # _map_nodes_to_data_objects
+    node_dobj_map, current_nodes = _map_nodes_to_data_objects(current_nodes, data_objs_by_id)
+    # for node in current_nodes:
+    #     assert node.data_objects_by_type
+
+    # _resolve_relationships
+    resolved_nodes = _resolve_relationships(current_nodes, node_dobj_map)
+    assert resolved_nodes
+
     workflow_process_nodes = load_workflow_process_nodes(test_db, workflow_config)
+    # for node in workflow_process_nodes:
+    #     assert node.type in exp_current_node_types
+    #     if node.type == "nmdc:NucleotideSequencing":
+    #         assert node.children
+    #     else:
+    #         assert node.parent
     assert workflow_process_nodes
 
 

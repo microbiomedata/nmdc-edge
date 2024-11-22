@@ -118,6 +118,15 @@ class DataObject(nmdc.DataObject):
             record["type"] = "nmdc:DataObject"
         super().__init__(**record)
 
+    # override the base class data_object_type (FileTypeEnum) to return a string
+    @property
+    def data_object_type_text(self) -> str:
+        return self.data_object_type.code.text
+
+
+
     def as_dict(self) -> Dict[str, Any]:
         """ Convert the object to a dictionary """
         return yaml.safe_load(yaml_dumper.dumps(self))
+
+
