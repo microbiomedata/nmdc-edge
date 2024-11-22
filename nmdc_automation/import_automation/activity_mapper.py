@@ -122,7 +122,7 @@ class GoldMapper:
         update = {
             "update": "data_generation_set",
             "updates": [
-                {"q": {"id": self.nucelotide_sequencing_id}, "u": {"$addToSet": {"has_output": has_output}}}
+                {"q": {"id": self.nucelotide_sequencing_id}, "u": {"$addToSet": {"has_output": has_output[0]}}}
             ]
         }
         # update self.data_object_map
