@@ -50,9 +50,9 @@ def test_load_workflow_process_nodes(test_db, workflow_file, workflows_config_di
     assert data_generation_nodes.children[0].type == "nmdc:ReadQcAnalysis"
 
 
-def test_load_workflow_process_nodes_multiple_predecessors(test_db, workflows_config_dir):
+def test_load_workflow_process_nodes_with_obsolete_versions(test_db, workflows_config_dir):
     """
-    Test loading workflow process nodes with multiple predecessors
+    Test loading workflow process nodes for a case where there are obsolete versions of the same workflow
     """
     reset_db(test_db)
     load_fixture(test_db, "data_objects_2.json", "data_object_set")
@@ -61,8 +61,27 @@ def test_load_workflow_process_nodes_multiple_predecessors(test_db, workflows_co
 
     workflow_config = load_workflow_configs(workflows_config_dir / "workflows.yaml")
     data_objs_by_id = get_required_data_objects_map(test_db, workflow_config)
+
+    # There are 8 workflow executions in the fixture, but only 4 are current
+    # 2 are obsolete  MAGs workflows, 1 is an obsolete Annotation workflow, and 1 is a legacy MetagenomeSequencing
+    # workflow
+    exp_num_db_workflow_execution_records = 8
+    exp_num_current_nodes = 5 # 4 current workflows and 1 data generation
+    exp_current_node_types = [
+        "nmdc:MetagenomeAssembly", "nmdc:MetagenomeAnnotation", "nmdc:ReadQcAnalysis",
+        "nmdc:NucleotideSequencing", "nmdc:ReadBasedTaxonomyAnalysis"]
+
+    # Check that the workflow executions were loaded
+    records = test_db["workflow_execution_set"].find()
+    assert records
+    records = list(records)
+    assert len(records) == exp_num_db_workflow_execution_records
+
     current_nodes = get_current_workflow_process_nodes(test_db, workflow_config, data_objs_by_id)
     assert current_nodes
+    assert len(current_nodes) == exp_num_current_nodes
+    current_node_types = [node.type for node in current_nodes]
+    assert sorted(current_node_types) == sorted(exp_current_node_types)
 
     workflow_process_nodes = load_workflow_process_nodes(test_db, workflow_config)
     assert workflow_process_nodes
