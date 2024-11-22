@@ -42,9 +42,10 @@ def test_gold_mapper_map_sequencing_data(gold_mapper):
     exp_dobj_type = "Metagenome Raw Reads"  # From the gold_import_files fixture
     exp_nucleotide_sequencing_id = "nmdc:omprc-11-importT"  # From the gold mapper fixture
     exp_update = {
-        "collection": "data_generation_set",
-        "filter": {"id": exp_nucleotide_sequencing_id},
-        "update": {"$addToSet": {"has_output": [exp_dobj_id]}}
+        "update": "data_generation_set",
+        "updates": [
+            {"q": {"id": exp_nucleotide_sequencing_id}, "u": {"$addToSet": {"has_output": exp_dobj_id}}}
+        ],
     }
     # Sequencing data does not get a URL
     exp_url = None
