@@ -120,9 +120,10 @@ class GoldMapper:
                     db.data_object_set.append(DataObject(**do_record))
                     has_output.append(data_object_id)
         update = {
-            "collection": "data_generation_set",
-            "filter": {"id": self.nucelotide_sequencing_id},
-            "update": {"$addToSet": {"has_output": has_output}}
+            "update": "data_generation_set",
+            "updates": [
+                {"q": {"id": self.nucelotide_sequencing_id}, "u": {"$addToSet": {"has_output": has_output}}}
+            ]
         }
         # update self.data_object_map
         if len(has_output) > 1:
