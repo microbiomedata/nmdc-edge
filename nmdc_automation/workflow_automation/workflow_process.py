@@ -220,14 +220,11 @@ def _map_nodes_to_data_objects(current_nodes: List[WorkflowProcessNode], require
     """
     node_data_object_map = dict()
     for node in current_nodes:
-        for data_object_id in node.has_output:
+        for data_object_id in node.has_output + node.has_input:
             if data_object_id in required_data_object_map:
                 do = required_data_object_map[data_object_id]
                 node.add_data_object(do)
-            # If its a dupe, set it to none
-            # so we can ignore it later.
-            # Once we re-id the data objects this
-            # Post re-id we would not expect thi
+
             if data_object_id in node_data_object_map:
                 if data_object_id not in warned_objects:
                     logging.warning(f"Duplicate output object {data_object_id}")
