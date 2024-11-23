@@ -62,9 +62,9 @@ def test_load_workflow_process_nodes_with_obsolete_versions(test_db, workflows_c
     workflow_config = load_workflow_configs(workflows_config_dir / "workflows.yaml")
     data_objs_by_id = get_required_data_objects_map(test_db, workflow_config)
 
-    # There are 8 workflow executions in the fixture, but only 4 are current
-    # 2 are obsolete  MAGs workflows, 1 is an obsolete Annotation workflow, and 1 is a legacy MetagenomeSequencing
-    # workflow
+    # There are 8 workflow executions in the fixture, but only 4 are current:
+    # 2 are obsolete  MAGs workflows,
+    # 1 is an obsolete Annotation workflow, and 1 is a legacy MetagenomeSequencing workflow
     exp_num_db_workflow_execution_records = 8
     exp_num_current_nodes = 5 # 4 current workflows and 1 data generation
     exp_current_node_types = [
@@ -88,8 +88,9 @@ def test_load_workflow_process_nodes_with_obsolete_versions(test_db, workflows_c
     # _map_nodes_to_data_objects
     node_dobj_map, current_nodes = _map_nodes_to_data_objects(current_nodes, data_objs_by_id)
     for node in current_nodes:
-        # check that the data objects are mapped to the nodes
-        assert node.data_objects_by_type
+        # check that the data objects are mapped to the nodes - read-based taxonomy analysis has no data objects
+        if node.type != "nmdc:ReadBasedTaxonomyAnalysis":
+            assert node.data_objects_by_type
         # parent / children are not set
         assert node.parent is None
         assert not node.children
@@ -97,12 +98,6 @@ def test_load_workflow_process_nodes_with_obsolete_versions(test_db, workflows_c
     # _resolve_relationships
     resolved_nodes = _resolve_relationships(current_nodes, node_dobj_map)
     assert resolved_nodes
-
-
-
-
-
-
 
 
 def test_resolve_relationships(test_db, workflows_config_dir):
@@ -123,6 +118,11 @@ def test_resolve_relationships(test_db, workflows_config_dir):
     current_nodes_by_data_object_id, current_nodes = _map_nodes_to_data_objects(
         current_nodes, data_objs_by_id)
     assert current_nodes
+    assert current_nodes_by_data_object_id
+    for node in current_nodes:
+        assert node.data_objects_by_type
+        assert node.parent is None
+        assert not node.children
 
     workflow_process_graph = _resolve_relationships(current_nodes, current_nodes_by_data_object_id)
     assert workflow_process_graph
