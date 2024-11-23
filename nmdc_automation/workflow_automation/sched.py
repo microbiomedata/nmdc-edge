@@ -325,7 +325,7 @@ def main(site_conf, wf_file):  # pragma: no cover
     if os.environ.get("DRYRUN") == "1":
         dryrun = True
     skiplist = set()
-    # allowlist = None
+    allowlist = None
     if os.environ.get("SKIPLISTFILE"):
         with open(os.environ.get("SKIPLISTFILE")) as f:
             for line in f:
@@ -336,7 +336,7 @@ def main(site_conf, wf_file):  # pragma: no cover
             for line in f:
                 allowlist.add(line.rstrip())
     # for local testing
-    allowlist = ["nmdc:omprc-11-cegmwy02"]
+    # allowlist = ["nmdc:omprc-11-cegmwy02"]
     while True:
         sched.cycle(dryrun=dryrun, skiplist=skiplist, allowlist=allowlist)
         if dryrun:
@@ -346,6 +346,5 @@ def main(site_conf, wf_file):  # pragma: no cover
 
 if __name__ == "__main__":  # pragma: no cover
     logging.basicConfig(level=logging.INFO)
-    main("/Users/MBThornton/Documents/code/nmdc_automation/.local/site_conf.toml",
-         "/Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/config/workflows/workflows.yaml"
-         )
+    # site_conf and wf_file are passed in as arguments
+    main("site_configuration.toml", "workflows.yaml")
