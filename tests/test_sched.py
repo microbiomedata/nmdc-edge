@@ -1,7 +1,8 @@
 from nmdc_automation.workflow_automation.sched import Scheduler, SchedulerJob
 from pytest import mark
 
-
+from nmdc_automation.workflow_automation.workflow_process import get_required_data_objects_map, load_workflow_process_nodes
+from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from tests.fixtures.db_utils import init_test, load_fixture, read_json, reset_db
 
 
@@ -217,4 +218,36 @@ def test_scheduler_add_job_rec(test_db, mock_api, workflow_file, workflows_confi
                    site_conf=site_config_file)
     # sanity check
     assert jm
+
+
+def test_scheduler_find_new_jobs(test_db, mock_api, workflows_config_dir, site_config_file):
+    """
+    Test finding new jobs for a realisitic scenario:
+    nmdc:omprc-11-cegmwy02 has no version-current MAGsAnalysis results.  The scheduler should find
+    a new job for this.
+    """
+    reset_db(test_db)
+    load_fixture(test_db, "data_objects_2.json", "data_object_set")
+    load_fixture(test_db, "data_generation_2.json", "data_generation_set")
+    load_fixture(test_db, "workflow_execution_2.json", "workflow_execution_set")
+
+    workflow_config = load_workflow_configs(workflows_config_dir / "workflows.yaml")
+
+    workflow_process_nodes = load_workflow_process_nodes(test_db, workflow_config)
+    # sanity check
+    assert workflow_process_nodes
+
+    scheduler = Scheduler(test_db, workflow_yaml=workflows_config_dir / "workflows.yaml", site_conf=site_config_file)
+    assert scheduler
+
+    new_jobs = []
+    for node in workflow_process_nodes:
+        new_jobs.extend(scheduler.find_new_jobs(node))
+    assert new_jobs
+    assert len(new_jobs) == 1
+    new_job = new_jobs[0]
+    assert isinstance(new_job, SchedulerJob)
+    assert new_job.workflow.type == "nmdc:MagsAnalysis"
+    assert new_job.trigger_act.type == "nmdc:MetagenomeAnnotation"
+
 
