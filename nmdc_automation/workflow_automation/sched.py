@@ -282,7 +282,7 @@ class Scheduler:
         """
         This function does a single cycle of looking for new jobs
         """
-
+        logger.info("Starting cycle: polling for new jobs")
         wfp_nodes = load_workflow_process_nodes(self.db, self.workflows, allowlist)
 
         self.get_existing_jobs.cache_clear()
@@ -295,6 +295,8 @@ class Scheduler:
                 logging.debug(f"Skipping: {wfp_node.id}, workflow disabled.")
                 continue
             jobs = self.find_new_jobs(wfp_node)
+            if jobs:
+                logging.info(f"Found {len(jobs)} new jobs for {wfp_node.id}")
             for job in jobs:
                 if dryrun:
                     msg = f"new job: informed_by: {job.informed_by} trigger: {job.trigger_id} "

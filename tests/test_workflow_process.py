@@ -5,7 +5,8 @@ from nmdc_automation.workflow_automation.workflow_process import (
     get_current_workflow_process_nodes,
     load_workflow_process_nodes,
     _resolve_relationships,
-    _map_nodes_to_data_objects
+    _map_nodes_to_data_objects,
+    _within_range
 )
 from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from tests.fixtures.db_utils import  load_fixture, reset_db
@@ -225,3 +226,7 @@ def test_get_required_data_objects_by_id(test_db, workflows_config_dir, workflow
     # check that the expected data object types are present
     for do_type in exp_do_types:
         assert do_type in do_types
+
+def test_within_range():
+    assert _within_range('v1.0.8', 'v1.0.8')
+    assert _within_range('v1.0.8', 'v1.0.9')
