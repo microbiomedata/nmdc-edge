@@ -208,7 +208,7 @@ def _resolve_relationships(current_nodes: List[WorkflowProcessNode], node_data_o
                 break
         if len(node.workflow.parents) > 0 and not node.parent:
             if node.id not in warned_objects:
-                logging.warning(f"Didn't find a parent for {node.id}")
+                logging.info(f"Skipping obsolete WorkflowExecution: {node.id}, {node.type} {node.version}")
                 warned_objects.add(node.id)
     # Now all the activities have their parent
     return current_nodes
