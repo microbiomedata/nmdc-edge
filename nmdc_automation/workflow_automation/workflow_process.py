@@ -130,6 +130,8 @@ def get_current_workflow_process_nodes(
 
         records = db[wf.collection].find(q)
         for rec in records:
+            if rec['type'] != wf.type:
+                continue
             # legacy JGI sequencing records
             if rec.get("type") == "nmdc:MetagenomeSequencing" or rec["name"].startswith("Metagenome Sequencing"):
                 continue
