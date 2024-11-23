@@ -249,5 +249,13 @@ def test_scheduler_find_new_jobs(test_db, mock_api, workflows_config_dir, site_c
     assert isinstance(new_job, SchedulerJob)
     assert new_job.workflow.type == "nmdc:MagsAnalysis"
     assert new_job.trigger_act.type == "nmdc:MetagenomeAnnotation"
+    assert new_job.trigger_act.data_objects_by_type
+
+    job_req = scheduler.create_job_rec(new_job)
+    assert job_req
+    assert job_req["config"]["activity"]["type"] == "nmdc:MagsAnalysis"
+    assert job_req["config"]["was_informed_by"] == "nmdc:omprc-11-cegmwy02"
+    assert job_req["config"]["input_data_objects"]
+
 
 
