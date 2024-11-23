@@ -97,6 +97,11 @@ def test_load_workflow_process_nodes_with_obsolete_versions(test_db, workflows_c
 
     # _resolve_relationships
     resolved_nodes = _resolve_relationships(current_nodes, node_dobj_map)
+    for node in resolved_nodes:
+        if node.type == "nmdc:NucleotideSequencing":
+            assert node.children
+        else:
+            assert node.parent
     assert resolved_nodes
 
 
