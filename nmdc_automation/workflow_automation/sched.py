@@ -123,9 +123,9 @@ class Scheduler:
 
         wf = job.workflow
         base_id, iteration = self.get_activity_id(wf, job.informed_by)
-        activity_id = f"{base_id}.{iteration}"
-        inp_objects = []
-        inp = dict()
+        workflow_execution_id = f"{base_id}.{iteration}"
+        input_data_objects = []
+        inputs = dict()
         optional_inputs = wf.optional_inputs
         for k, v in job.workflow.inputs.items():
             if v.startswith("do:"):
@@ -135,31 +135,31 @@ class Scheduler:
                     if k in optional_inputs:
                         continue
                     raise ValueError(f"Unable to find {do_type} in {do_by_type}")
-                inp_objects.append(dobj.as_dict())
+                input_data_objects.append(dobj.as_dict())
                 v = dobj["url"]
             # TODO: Make this smarter
             elif v == "{was_informed_by}":
                 v = job.informed_by
-            elif v == "{activity_id}":
-                v = activity_id
+            elif v == "{workflow_execution_id}":
+                v = workflow_execution_id
             elif v == "{predecessor_activity_id}":
                 v = job.trigger_act.id
 
-            inp[k] = v
+            inputs[k] = v
 
         # Build the respoonse
         job_config = {
             "git_repo": wf.git_repo,
             "release": wf.version,
             "wdl": wf.wdl,
-            "activity_id": activity_id,
+            "activity_id": workflow_execution_id,
             "activity_set": wf.collection,
             "was_informed_by": job.informed_by,
             "trigger_activity": job.trigger_id,
             "iteration": iteration,
             "input_prefix": wf.input_prefix,
-            "inputs": inp,
-            "input_data_objects": inp_objects,
+            "inputs": inputs,
+            "input_data_objects": input_data_objects,
         }
         if wf.workflow_execution:
             job_config["activity"] = wf.workflow_execution
