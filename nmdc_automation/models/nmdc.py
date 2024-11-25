@@ -57,11 +57,11 @@ WorkflowExecution]:
 def _normalize_record(record: Dict[str, Any]) -> Dict[str, Any]:
     """ Normalize the record by removing the _id field and converting the type field to a string """
     record.pop("_id", None)
-    # for backwards compatibility strip Activity from the end of the type
-    record["type"] = record["type"].replace("Activity", "")
     normalized_record = _strip_empty_values(record)
-
-
+    if not normalized_record.get("type"):
+        return normalized_record
+    # get rid of any legacy 'Activity' suffixes in the type
+    normalized_record["type"] = normalized_record["type"].replace("Activity", "")
     # type-specific normalization
     if normalized_record["type"] == "nmdc:MagsAnalysis":
         normalized_record = _normalize_mags_record(normalized_record)
@@ -113,12 +113,20 @@ class DataObject(nmdc.DataObject):
     """
     def __init__(self, **record):
         """ Initialize the object from a dictionary """
-        # _id is a MongoDB field that makes the parent class fail to initialize
-        record.pop("_id", None)
+        normalized_record = _normalize_record(record)
         if "type" not in record:
             record["type"] = "nmdc:DataObject"
         super().__init__(**record)
 
+    # override the base class data_object_type (FileTypeEnum) to return a string
+    @property
+    def data_object_type_text(self) -> str:
+        return self.data_object_type.code.text
+
+
+
     def as_dict(self) -> Dict[str, Any]:
         """ Convert the object to a dictionary """
         return yaml.safe_load(yaml_dumper.dumps(self))
+
+
