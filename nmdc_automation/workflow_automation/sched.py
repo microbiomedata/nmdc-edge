@@ -12,6 +12,7 @@ from pymongo.database import Database as MongoDatabase
 from nmdc_automation.workflow_automation.workflow_process import load_workflow_process_nodes
 from nmdc_automation.models.workflow import WorkflowConfig, WorkflowProcessNode
 from semver.version import Version
+import sys
 
 
 _POLL_INTERVAL = 60
@@ -282,7 +283,6 @@ class Scheduler:
         """
         This function does a single cycle of looking for new jobs
         """
-        logger.info("Starting cycle: polling for new jobs")
         wfp_nodes = load_workflow_process_nodes(self.db, self.workflows, allowlist)
 
         self.get_existing_jobs.cache_clear()
@@ -336,7 +336,7 @@ def main(site_conf, wf_file):  # pragma: no cover
             for line in f:
                 allowlist.add(line.rstrip())
     # for local testing
-    # allowlist = ["nmdc:omprc-11-cegmwy02"]
+    allowlist = ["nmdc:omprc-11-cegmwy02"]
     while True:
         sched.cycle(dryrun=dryrun, skiplist=skiplist, allowlist=allowlist)
         if dryrun:
@@ -347,4 +347,4 @@ def main(site_conf, wf_file):  # pragma: no cover
 if __name__ == "__main__":  # pragma: no cover
     logging.basicConfig(level=logging.INFO)
     # site_conf and wf_file are passed in as arguments
-    main("site_configuration.toml", "workflows.yaml")
+    main(site_conf=sys.argv[1], wf_file=sys.argv[2])
