@@ -367,7 +367,7 @@ class Watcher:
         for job in unclaimed_jobs:
             logger.info(f"Claiming job {job.workflow.nmdc_jobid}")
             claim = self.runtime_api_handler.claim_job(job.workflow.nmdc_jobid)
-            opid = claim["detail"]["id"]
+            opid = claim["id"]
             new_job = self.job_manager.prepare_and_cache_new_job(job, opid)
             if new_job:
                 new_job.job.submit_job()
