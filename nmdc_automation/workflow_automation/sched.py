@@ -215,7 +215,7 @@ class Scheduler:
         # We need to see if any version exist and
         # if so get its ID
         ct = 0
-        q = {"was_informed_by": informed_by}
+        q = {"was_informed_by": informed_by, "type": wf.type}
         for doc in self.db[wf.collection].find(q):
             ct += 1
             last_id = doc["id"]
@@ -336,7 +336,7 @@ def main(site_conf, wf_file):  # pragma: no cover
             for line in f:
                 allowlist.add(line.rstrip())
     # for local testing
-    allowlist = ["nmdc:omprc-11-cegmwy02"]
+    allowlist = ["nmdc:omprc-13-01jx8727"]
     while True:
         sched.cycle(dryrun=dryrun, skiplist=skiplist, allowlist=allowlist)
         if dryrun:
