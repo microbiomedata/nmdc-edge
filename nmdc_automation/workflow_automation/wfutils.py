@@ -270,6 +270,18 @@ class WorkflowStateManager:
     def last_status(self) -> Optional[str]:
         return self.cached_state.get("last_status", None)
 
+    @last_status.setter
+    def last_status(self, status: str):
+        self.cached_state["last_status"] = status
+
+    @property
+    def failed_count(self) -> int:
+        return self.cached_state.get("failed_count", 0)
+
+    @failed_count.setter
+    def failed_count(self, count: int):
+        self.cached_state["failed_count"] = count
+
     @property
     def nmdc_jobid(self) -> Optional[str]:
         return self.cached_state.get("nmdc_jobid", None)

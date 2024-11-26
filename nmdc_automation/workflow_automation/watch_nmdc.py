@@ -189,11 +189,29 @@ class JobManager:
         failed_jobs = []
         for job in self.job_cache:
             if not job.done:
-                last_status = job.workflow.last_status
-                if last_status == "Succeeded" and job.opid:
+                if job.workflow.last_status == "Succeeded" and job.opid:
+                    job.done = True
                     successful_jobs.append(job)
-                elif last_status == "Failed" and job.opid:
+                    continue
+                if job.workflow.last_status == "Failed" and job.workflow.failed_count >= self._MAX_FAILS:
+                    job.done = True
                     failed_jobs.append(job)
+                    continue
+                # check status
+                status = job.job.get_job_status()
+                if status == "Succeded":
+                    job.workflow.last_status = status
+                    successful_jobs.append(job)
+                    continue
+                elif status == "Failed":
+                    job.workflow.last_status = status
+                    job.workflow.failed_count += 1
+                    failed_jobs.append(job)
+                    continue
+                else:
+                    job.workflow.last_status = status
+        self.save_checkpoint()
+
         if successful_jobs:
             logger.info(f"Found {len(successful_jobs)} successful jobs.")
         if failed_jobs:
@@ -314,10 +332,10 @@ class Watcher:
     def cycle(self):
         """ Perform a cycle of watching for unclaimed jobs, claiming jobs,  and processing finished jobs """
         self.restore_from_checkpoint()
-        if not self.should_skip_claim:
-            unclaimed_jobs = self.runtime_api_handler.get_unclaimed_jobs(self.config.allowed_workflows)
-            logger.info(f"Found {len(unclaimed_jobs)} unclaimed jobs.")
-            self.claim_jobs(unclaimed_jobs)
+        # if not self.should_skip_claim: - is this actually used?
+        unclaimed_jobs = self.runtime_api_handler.get_unclaimed_jobs(self.config.allowed_workflows)
+        logger.info(f"Found {len(unclaimed_jobs)} unclaimed jobs.")
+        self.claim_jobs(unclaimed_jobs)
 
 
         logger.info(f"Checking for finished jobs.")
