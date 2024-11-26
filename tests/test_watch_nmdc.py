@@ -334,18 +334,44 @@ def test_job_manager_process_successful_job(site_config, initial_state_file_1_fa
         jm.job_cache = []
 
 
-def test_job_manager_process_failed_job_1_failure(site_config, initial_state_file_1_failure, fixtures_dir):
+def test_job_manager_get_finished_jobs_1_failure(site_config, initial_state_file_1_failure, fixtures_dir):
     # Arrange
+    with requests_mock.Mocker() as mocker:
+        # Mock the GET request for the workflow status
+        mocker.get(
+            "http://localhost:8088/api/workflows/v1/9492a397-eb30-472b-9d3b-abc123456789/status",
+            json={"status": "Failed"}  # Mocked response body
+        )
+        fh = FileHandler(site_config, initial_state_file_1_failure)
+        jm = JobManager(site_config, fh)
+        # job handler should initialize the job_cache from the state file by default
+        assert jm.job_cache
+        assert isinstance(jm.job_cache, list)
+        assert len(jm.job_cache) == 1
+
+        successful_jobs, failed_jobs = jm.get_finished_jobs()
+        assert not successful_jobs
+        assert failed_jobs
+        failed_job = failed_jobs[0]
+        assert failed_job.job_status == "Failed"
+
+@mock.patch("nmdc_automation.workflow_automation.wfutils.CromwellRunner.generate_submission_files")
+def test_job_manager_process_failed_job_1_failure(
+        mock_generate_submission_files, site_config, initial_state_file_1_failure, mock_cromwell_api):
+    # Arrange
+    mock_generate_submission_files.return_value = {
+        "workflowSource": "workflowSource",
+        "workflowDependencies": "workflowDependencies",
+        "workflowInputs": "workflowInputs",
+        "labels": "labels"
+    }
     fh = FileHandler(site_config, initial_state_file_1_failure)
     jm = JobManager(site_config, fh)
-    # job handler should initialize the job_cache from the state file by default
-    assert jm.job_cache
-    assert isinstance(jm.job_cache, list)
-    assert len(jm.job_cache) == 1
+    failed_job = jm.job_cache[0]
+    # Act
+    jobid = jm.process_failed_job(failed_job)
+    assert jobid
 
-    successful_jobs, failed_jobs = jm.get_finished_jobs()
-    assert not successful_jobs
-    assert failed_jobs
 
 
 def test_job_manager_process_failed_job_2_failures(site_config, initial_state_file_1_failure, fixtures_dir):
