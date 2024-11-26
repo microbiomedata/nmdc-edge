@@ -190,7 +190,6 @@ class JobManager:
         for job in self.job_cache:
             if not job.done:
                 if job.workflow.last_status == "Succeeded" and job.opid:
-                    job.done = True
                     successful_jobs.append(job)
                     continue
                 if job.workflow.last_status == "Failed" and job.workflow.failed_count >= self._MAX_FAILS:
