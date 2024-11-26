@@ -189,6 +189,18 @@ class CromwellRunner(JobRunnerABC):
         if not self.job_id:
             return "Unknown"
         status_url = f"{self.service_url}/{self.job_id}/status"
+        # There can be a delay between submitting a job and it
+        # being available in Cromwell so handle 404 errors
+        try:
+            response = requests.get(status_url)
+            response.raise_for_status()
+            return response.json().get("status", "Unknown")
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                return "Unknown"
+            raise e
+
+
         response = requests.get(status_url)
         response.raise_for_status()
         return response.json().get("status", "Unknown")

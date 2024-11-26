@@ -319,7 +319,10 @@ class Watcher:
             logger.info(f"Found {len(unclaimed_jobs)} unclaimed jobs.")
             self.claim_jobs(unclaimed_jobs)
 
+
+        logger.info(f"Checking for finished jobs.")
         successful_jobs, failed_jobs = self.job_manager.get_finished_jobs()
+        logger.debug(f"Found {len(successful_jobs)} successful jobs and {len(failed_jobs)} failed jobs.")
         for job in successful_jobs:
             job_database = self.job_manager.process_successful_job(job)
             # sanity checks
