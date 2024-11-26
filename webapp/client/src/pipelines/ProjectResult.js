@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Button } from 'reactstrap';
-import { LoaderDialog, FileViewerDialog } from '../common/Dialogs';
-import { postData, fetchFile } from '../common/util';
+import { LoaderDialog, FileViewerDialog, ConfirmDialog } from '../common/Dialogs';
+import { postData, getData, fetchFile, openLink, notify } from '../common/util';
 import ProjectGeneral from './Common/Results/ProjectGeneral';
 import ProjectOutputs from './Common/Results/ProjectOutputs';
+import MetadataSubmisssion from './Common/MetadataSubmisssion';
 import MetaAnnotation from './MetaG/Workflow/Results/MetaAnnotation';
 import MetaAssembly from './MetaG/Workflow/Results/MetaAssembly';
 import MetaMAGs from './MetaG/Workflow/Results/MetaMAGs';
@@ -14,6 +15,8 @@ import Metatranscriptome from './MetaT/Workflow/Results/Metatranscriptome';
 import EnviroMS from './OrganicM/Workflow/Results/EnviroMS';
 import VirusPlasmid from './Virus/Workflow/Results/VirusPlasmid';
 import Metaproteomics from './MetaP/Workflow/Results/Metaproteomics';
+
+const notMetadataProjects = ['Retrieve SRA Data'];
 
 function ProjectResult(props) {
     const [project, setProject] = useState();
@@ -28,8 +31,27 @@ function ProjectResult(props) {
     const [log_file_content, setLog_file_content] = useState('');
     const [allExpand, setAllExpand] = useState(0);
     const [allClosed, setAllClosed] = useState(0);
+    const [openMetadataSubmission, setOpenMetadataSubmission] = useState(false);
+    const [openMetadataDeletion, setOpenMetadataDeletion] = useState(false);
+    const [metadataSubmissionUrl, setMetadataSubmissionUrl] = useState(null);
+    const [connect2nmdcserver, setConnect2nmdcserver] = useState(false);
     //disable the expand | close
     const disableExpandClose = false;
+
+    useEffect(() => {
+        if (props.type !== 'user') {
+            return;
+        }
+        let url = "/auth-api/user/project/connect2nmdcserver";
+        getData(url)
+            .then(data => {
+                //console.log(data)
+                setConnect2nmdcserver(data.connect2nmdcserver);
+            })
+            .catch(error => {
+                alert(error);
+            });
+    }, [props.type]);
 
     useEffect(() => {
         setProject(props.project);
@@ -99,6 +121,25 @@ function ProjectResult(props) {
                     setLoading(false);
                 });
         }
+
+        function getProjectMetadataSubmissionUrl(code) {
+            let projData = {
+                code: code,
+            };
+            if (type !== 'user') {
+                setMetadataSubmissionUrl(null);
+                return;
+            }
+            let url = "/auth-api/user/project/getmetadatasubmission";
+            postData(url, projData)
+                .then(data => {
+                    //console.log(data)
+                    setMetadataSubmissionUrl(data.metadata_submission_url);
+                })
+                .catch(error => {
+                    alert(error);
+                });
+        }
         function isSummaryFile(value) {
             return /^\/virus_plasmid\/(.*)_summary\//.test(value.key) || /^\/virus_plasmid\/checkv\//.test(value.key);
         }
@@ -131,6 +172,9 @@ function ProjectResult(props) {
             setLoading(true);
             getProjectConf();
             getProjectRunStats();
+            if (project.status === 'complete' && !notMetadataProjects.includes(project.type) && connect2nmdcserver) {
+                getProjectMetadataSubmissionUrl(project.code);
+            }
             if (project.status === 'complete' || (project.type === 'Metagenome Pipeline' && project.status === 'failed')) {
                 getProjectResult();
                 getProjectOutputs();
@@ -139,7 +183,7 @@ function ProjectResult(props) {
             }
 
         }
-    }, [project, type]);
+    }, [project, type, connect2nmdcserver]);
 
     function viewLogFile() {
         let url = "/projects/" + project.code + "/log.txt";
@@ -157,11 +201,62 @@ function ProjectResult(props) {
         setLog_file_content(data);
     }
 
+    const submit2nmdc = (data) => {
+        setOpenMetadataSubmission(false);
+
+        const userData = { ...data, code: project.code };
+        let url = "/auth-api/user/project/addmetadatasubmission";
+        if (data.metadataSubmissionId === 'new') {
+            url = "/auth-api/user/project/createmetadatasubmission";
+        }
+        postData(url, userData)
+            .then(data => {
+                //console.log(data)
+                setMetadataSubmissionUrl(data.metadata_submission_url);
+            }).catch(error => {
+                alert("Failed to connect to Submission Portal");
+            });
+    }
+
+    const handleMetadataSubmissionClose = () => {
+        setOpenMetadataSubmission(false);
+    }
+
+    const deleteMetadata = () => {
+        setOpenMetadataDeletion(false);
+        setLoading(true);
+        const userData = { code: project.code };
+        let url = "/auth-api/user/project/deletemetadatasubmission";
+        //project files
+        postData(url, userData)
+            .then(data => {
+                //console.log(data)
+                setLoading(false);
+                setMetadataSubmissionUrl(null);
+                notify("The metadata submission has been deleted successfully!");
+            }).catch(error => {
+                setLoading(false);
+                alert("Failed to connect to Submission Portal");
+            });
+    }
+
+    const handleMetadataDeletionClose = () => {
+        setOpenMetadataDeletion(false);
+    }
+
     return (
         <div className="animated fadeIn">
-            <LoaderDialog loading={loading === true} text="Loading..." />
+            <LoaderDialog loading={loading === true} text="Submitting..." />
             <FileViewerDialog type={'text'} isOpen={view_log_file} toggle={e => setView_log_file(!view_log_file)} title={'log.txt'}
                 src={log_file_content} onChange={onLogChange} />
+            <MetadataSubmisssion
+                isOpen={openMetadataSubmission}
+                handleSuccess={submit2nmdc}
+                handleClickClose={handleMetadataSubmissionClose}
+                connect2nmdcserver={connect2nmdcserver}
+            />
+            <ConfirmDialog isOpen={openMetadataDeletion} action={'Delete'} title={"Are you sure to delete the metadata submission?"}
+                message={"This action is not undoable."} handleClickYes={deleteMetadata} handleClickClose={handleMetadataDeletionClose} />
 
             {error ?
                 <Row className="justify-content-center">
@@ -175,7 +270,7 @@ function ProjectResult(props) {
                 </Row>
                 :
                 <>
-                    {(project && project.status === 'failed' && props.type !== 'public') &&
+                    {(connect2nmdcserver && project && project.status === 'failed' && props.type !== 'public') &&
                         <>
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
@@ -183,6 +278,36 @@ function ProjectResult(props) {
                                 </Col>
                             </Row>
                             <br></br>
+                        </>
+                    }
+                    {(connect2nmdcserver && project && project.status === 'complete' && props.type === 'user' && !metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
+                        <>
+                            <Row className="justify-content-center">
+                                <Col xs="12" md="10">
+                                    <Button type="button" size="sm" color="primary" onClick={e => setOpenMetadataSubmission(true)} >Connect to/Create Metadata Submission</Button>
+                                </Col>
+                            </Row>
+                            <br></br>
+                        </>
+                    }
+                    {(project && project.status === 'complete' && props.type === 'user' && metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
+                        <>
+                            <Row className="justify-content-center">
+                                <Col xs="12" md="10">
+                                    <Button type="button" size="sm" color="primary" onClick={e => openLink(metadataSubmissionUrl)} >
+                                        View/Edit Metadata Submission
+                                    </Button>
+                                </Col>
+                            </Row>
+                            <br></br>
+                            {/* <Row className="justify-content-center">
+                                <Col xs="12" md="10">
+                                    <Button outline type="button" size="sm" color="danger" onClick={e => setOpenMetadataDeletion(true)} >
+                                        Delete Metadata Submission
+                                    </Button>
+                                </Col>
+                            </Row>
+                            <br></br> */}
                         </>
                     }
                     {(outputs || result) && !disableExpandClose &&

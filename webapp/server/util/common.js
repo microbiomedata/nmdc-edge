@@ -2,6 +2,7 @@ const axios = require("axios");
 const fs = require('fs');
 const logger = require('./logger');
 const Upload = require("../models/Upload");
+const config = require("../config");
 
 async function getRealName(dir) {
     let name = dir;
@@ -18,7 +19,7 @@ async function getRealName(dir) {
 //append message to a log
 const write2log = (log, msg) => {
     fs.appendFile(log, msg + "\n", function (err) {
-        if(err) logger.error("Failed to write to " + log + ": " + err);
+        if (err) logger.error("Failed to write to " + log + ": " + err);
     });
 };
 
@@ -28,10 +29,12 @@ const postData = (url, params, header) => {
         axios
             .post(url, params, header)
             .then(response => {
+                //console.log("post response: ", response);
                 const data = response.data;
                 resolve(data);
             })
             .catch(err => {
+                //console.log("post err: ", err);
                 if (err.response) {
                     reject(err.response);
                 } else {
@@ -43,15 +46,17 @@ const postData = (url, params, header) => {
 };
 
 //get data
-const getData = (url) => {
+const getData = (url, header) => {
     return new Promise(function (resolve, reject) {
         axios
-            .get(url)
+            .get(url, header)
             .then(response => {
+                //console.log("get request response: ", response);
                 const data = response.data;
                 resolve(data);
             })
             .catch(err => {
+                //console.log("get request err: ", err);
                 if (err.response) {
                     reject(err.response);
                 } else {
@@ -62,4 +67,31 @@ const getData = (url) => {
     });
 };
 
-module.exports = { getRealName, write2log, postData, getData };
+//delete data
+const deleteData = (url, header) => {
+    return new Promise(function (resolve, reject) {
+        axios
+            .delete(url, header)
+            .then(response => {
+                //console.log("delete request response: ", response);
+                const data = response.data;
+                resolve(data);
+            })
+            .catch(err => {
+                //console.log("delete request err: ", err);
+                if (err.response) {
+                    reject(err.response);
+                } else {
+                    reject(err);
+                }
+            });
+
+    });
+};
+
+// nmdc api
+const nmdcAPI = axios.create({
+    baseURL: config.PROJECTS.NMDC_SERVER_URL,
+});
+
+module.exports = { getRealName, write2log, postData, getData, deleteData };

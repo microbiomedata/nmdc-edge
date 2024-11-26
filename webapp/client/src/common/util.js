@@ -155,4 +155,6 @@ export const validFile = (filename, path) => {
     }
 }
 
+export const openLink = (url) => window.open(url, '_blank')?.focus();
+
 

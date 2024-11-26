@@ -46,7 +46,11 @@ const ProjectSchema = new Schema({
     },
     sharedto: [{
         type: String
-    }]
+    }],
+    metadatasubmissionid: {
+        type: String,
+        required: false
+    }
 });
 
 module.exports = Project = mongoose.model("projects", ProjectSchema);
