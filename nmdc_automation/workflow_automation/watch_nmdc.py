@@ -242,7 +242,7 @@ class JobManager:
         self.save_checkpoint()
         return database
 
-    def process_failed_job(self, job: WorkflowJob) -> None:
+    def process_failed_job(self, job: WorkflowJob) -> Optional[str]:
         """ Process a failed job """
         if job.workflow.state.get("failed_count", 0) >= self._MAX_FAILS:
             logger.error(f"Job {job.opid} failed {self._MAX_FAILS} times. Skipping.")
@@ -253,7 +253,8 @@ class JobManager:
         job.workflow.state["last_status"] = job.job_status
         self.save_checkpoint()
         logger.error(f"Job {job.opid} failed {job.workflow.state['failed_count']} times. Retrying.")
-        job.job.submit_job()
+        jobid = job.job.submit_job()
+        return jobid
 
 
 class RuntimeApiHandler:
@@ -321,7 +322,8 @@ class Watcher:
 
         logger.info(f"Checking for finished jobs.")
         successful_jobs, failed_jobs = self.job_manager.get_finished_jobs()
-        logger.debug(f"Found {len(successful_jobs)} successful jobs and {len(failed_jobs)} failed jobs.")
+        if not successful_jobs and not failed_jobs:
+            logger.info("No finished jobs found.")
         for job in successful_jobs:
             job_database = self.job_manager.process_successful_job(job)
             # sanity checks
