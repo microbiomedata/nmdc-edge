@@ -186,11 +186,12 @@ class CromwellRunner(JobRunnerABC):
 
     def get_job_status(self) -> str:
         """ Get the status of a job from Cromwell """
-        if not self.job_id:
+        if not self.workflow.cromwell_jobid:
             return "Unknown"
-        status_url = f"{self.service_url}/{self.job_id}/status"
+        status_url = f"{self.service_url}/{self.workflow.cromwell_jobid}/status"
         # There can be a delay between submitting a job and it
         # being available in Cromwell so handle 404 errors
+        logging.debug(f"Getting job status from {status_url}")
         try:
             response = requests.get(status_url)
             response.raise_for_status()
@@ -199,11 +200,6 @@ class CromwellRunner(JobRunnerABC):
             if e.response.status_code == 404:
                 return "Unknown"
             raise e
-
-
-        response = requests.get(status_url)
-        response.raise_for_status()
-        return response.json().get("status", "Unknown")
 
     def get_job_metadata(self) -> Dict[str, Any]:
         """ Get metadata for a job from Cromwell """
@@ -269,6 +265,18 @@ class WorkflowStateManager:
     def config(self) -> Dict[str, Any]:
         # for backward compatibility we need to check for both keys
         return self.cached_state.get("conf", self.cached_state.get("config", {}))
+
+    @property
+    def last_status(self) -> Optional[str]:
+        return self.cached_state.get("last_status", None)
+
+    @property
+    def nmdc_jobid(self) -> Optional[str]:
+        return self.cached_state.get("nmdc_jobid", None)
+
+    @property
+    def cromwell_jobid(self) -> Optional[str]:
+        return self.cached_state.get("cromwell_jobid", None)
 
     @property
     def execution_template(self) -> Dict[str, str]:

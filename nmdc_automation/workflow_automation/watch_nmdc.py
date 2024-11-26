@@ -35,7 +35,7 @@ class FileHandler:
         self._state_file = None
         # set state file
         if state_file:
-            logger.info(f"Using state file: {state_file}")
+            logger.info(f"Initializing FileHandler with state file: {state_file}")
             self._state_file = Path(state_file)
         elif self.config.agent_state:
             logger.info(f"Using state file from config: {self.config.agent_state}")
@@ -64,7 +64,6 @@ class FileHandler:
 
     def read_state(self) -> Optional[Dict[str, Any]]:
         """ Read the state file and return the data """
-        logging.info(f"Reading state from {self.state_file}")
         with open(self.state_file, "r") as f:
             state = loads(f.read())
         return state
@@ -137,7 +136,7 @@ class JobManager:
         """ Restore jobs from state data """
         new_jobs = self.get_new_workflow_jobs_from_state()
         if new_jobs:
-            logger.info(f"Restoring {len(new_jobs)} jobs from state.")
+            logger.info(f"Adding {len(new_jobs)} new jobs from state file.")
             self.job_cache.extend(new_jobs)
 
     def get_new_workflow_jobs_from_state(self) -> List[WorkflowJob]:
@@ -151,10 +150,10 @@ class JobManager:
                 # already in cache
                 continue
             wf_job = WorkflowJob(self.config, workflow_state=job)
-            logger.debug(f"New workflow job: {wf_job.opid} from state.")
+            logger.info(f"New Job from State: {wf_job.workflow_execution_id}, {wf_job.workflow.nmdc_jobid}")
+            logger.info(f"Last Status: {wf_job.workflow.last_status}")
             job_cache_ids.append(wf_job.opid)
             wf_job_list.append(wf_job)
-        logging.info(f"Restored {len(wf_job_list)} jobs from state")
         return wf_job_list
 
     def find_job_by_opid(self, opid) -> Optional[WorkflowJob]:
