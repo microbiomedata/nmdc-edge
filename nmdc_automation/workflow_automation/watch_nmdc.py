@@ -189,16 +189,16 @@ class JobManager:
         failed_jobs = []
         for job in self.job_cache:
             if not job.done:
-                status = job.job_status
-                if status == "Succeeded" and job.opid:
+                last_status = job.workflow.last_status
+                if last_status == "Succeeded" and job.opid:
                     successful_jobs.append(job)
-                elif status == "Failed" and job.opid:
+                elif last_status == "Failed" and job.opid:
                     failed_jobs.append(job)
         if successful_jobs:
             logger.info(f"Found {len(successful_jobs)} successful jobs.")
         if failed_jobs:
             logger.info(f"Found {len(failed_jobs)} failed jobs.")
-        return (successful_jobs, failed_jobs)
+        return successful_jobs, failed_jobs
 
     def process_successful_job(self, job: WorkflowJob) -> Database:
         """ Process a successful job and return a Database object """

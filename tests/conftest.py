@@ -123,10 +123,10 @@ def site_config(site_config_file):
     return SiteConfig(site_config_file)
 
 @fixture
-def initial_state_file(fixtures_dir, tmp_path):
-    state_file = fixtures_dir / "initial_state.json"
+def initial_state_file_1_failure(fixtures_dir, tmp_path):
+    state_file = fixtures_dir / "agent_state_1_failure.json"
     # make a working copy in tmp_path
-    copied_state_file = tmp_path / "initial_state.json"
+    copied_state_file = tmp_path / "agent_state_1_failure.json"
     shutil.copy(state_file, copied_state_file)
     return copied_state_file
 

@@ -1,12 +1,12 @@
 {
   "jobs": [
     {
-        "type": "MAGs: v1.3.10",
+        "type": "MAGs: v1.3.12",
         "cromwell_jobid": "9492a397-eb30-472b-9d3b-abc123456789",
         "nmdc_jobid": "nmdc:66cf64b6-7462-11ef-8b84-abc123456789",
         "conf": {
             "git_repo": "https://github.com/microbiomedata/metaMAGs",
-            "release": "v1.3.10",
+            "release": "v1.3.12",
             "wdl": "mbin_nmdc.wdl",
             "activity_id": "nmdc:wfmag-11-g7msr323.1",
             "activity_set": "mags_activity_set",
