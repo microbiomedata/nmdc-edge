@@ -26,7 +26,7 @@ def watcher(ctx, site_configuration_file):
         level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
     )
     logger = logging.getLogger(__name__)
-    logger.info(f"Config file: {site_configuration_file}")
+    logger.info(f"Initializing Watcher: config file: {site_configuration_file}")
     ctx.obj = Watcher(site_configuration_file)
 
 
