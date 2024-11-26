@@ -325,6 +325,7 @@ class Watcher:
         if not successful_jobs and not failed_jobs:
             logger.info("No finished jobs found.")
         for job in successful_jobs:
+            logger.info(f"Processing successful job: {job.opid}, {job.workflow_execution_id}")
             job_database = self.job_manager.process_successful_job(job)
             # sanity checks
             if not job_database.data_object_set:
@@ -354,6 +355,7 @@ class Watcher:
             logging.info(f"Updated operation {job.opid} response id: {resp}")
 
         for job in failed_jobs:
+            logger.info(f"Processing failed job: {job.opid}, {job.workflow_execution_id}")
             self.job_manager.process_failed_job(job)
 
     def watch(self):
