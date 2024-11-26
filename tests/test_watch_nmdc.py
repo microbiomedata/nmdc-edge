@@ -264,7 +264,6 @@ def test_job_manager_prepare_and_cache_new_job_force(site_config, initial_state_
 
 
 def test_job_manager_get_finished_jobs(site_config, initial_state_file, fixtures_dir):
-    # Mock the URL and response
 
     # Arrange - initial state has 1 failure and is not done
     fh = FileHandler(site_config, initial_state_file)
@@ -287,11 +286,24 @@ def test_job_manager_get_finished_jobs(site_config, initial_state_file, fixtures
     # sanity check
     assert len(jm.job_cache) == 3
 
-    # Act
-    successful_jobs, failed_jobs = jm.get_finished_jobs()
-    # Assert
-    assert successful_jobs
-    assert failed_jobs
+    # Mock requests for job status
+    with requests_mock.Mocker() as m:
+        # Mock the successful job status
+        m.get(
+            "http://localhost:8088/api/workflows/v1/9492a397-eb30-472b-9d3b-abc123456789/status",
+            json={"status": "Succeeded"}
+            )
+        # Mock the failed job status
+        m.get(
+            "http://localhost:8088/api/workflows/v1/12345678-abcd-efgh-ijkl-9876543210/status",
+            json={"status": "Failed"}
+            )
+
+        # Act
+        successful_jobs, failed_jobs = jm.get_finished_jobs()
+        # Assert
+        assert successful_jobs
+        assert failed_jobs
     # cleanup
     jm.job_cache = []
 
