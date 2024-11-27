@@ -335,8 +335,6 @@ def main(site_conf, wf_file):  # pragma: no cover
         with open(os.environ.get("ALLOWLISTFILE")) as f:
             for line in f:
                 allowlist.add(line.rstrip())
-    # for local testing
-    allowlist = ["nmdc:omprc-13-01jx8727"]
     while True:
         sched.cycle(dryrun=dryrun, skiplist=skiplist, allowlist=allowlist)
         if dryrun:
