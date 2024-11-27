@@ -205,6 +205,7 @@ class JobManager:
                     continue
                 # check status
                 status = job.job.get_job_status()
+
                 if status == "Succeded":
                     job.workflow.last_status = status
                     successful_jobs.append(job)
@@ -216,6 +217,7 @@ class JobManager:
                     continue
                 else:
                     job.workflow.last_status = status
+                    logger.debug(f"Job {job.opid} status: {status}")
         self.save_checkpoint()
 
         if successful_jobs:
