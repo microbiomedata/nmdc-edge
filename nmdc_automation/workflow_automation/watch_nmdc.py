@@ -379,7 +379,7 @@ class Watcher:
             resp = self.runtime_api_handler.update_operation(
                 job.opid, done=True, meta=job.job.metadata
             )
-            logging.info(f"Updated operation {job.opid} response id: {resp}")
+            logging.info(f"Updated operation {job.opid} response id: {resp['id']}")
 
         for job in failed_jobs:
             logger.info(f"Processing failed job: {job.opid}, {job.workflow_execution_id}")
