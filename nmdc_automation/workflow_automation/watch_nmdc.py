@@ -278,7 +278,7 @@ class JobManager:
         job.workflow.state["failed_count"] = job.workflow.state.get("failed_count", 0) + 1
         job.workflow.state["last_status"] = job.job_status
         self.save_checkpoint()
-        logger.error(f"Job {job.opid} failed {job.workflow.state['failed_count']} times. Retrying.")
+        logger.info(f"Job {job.opid} failed {job.workflow.state['failed_count']} times. Retrying.")
         jobid = job.job.submit_job()
         return jobid
 
