@@ -319,7 +319,7 @@ class RuntimeApiHandler:
 class Watcher:
     """ Watcher class for monitoring and managing jobs """
     def __init__(self, site_configuration_file: Union[str, Path],  state_file: Union[str, Path] = None):
-        self._POLL = 20
+        self._POLL = 60
         self._MAX_FAILS = 2
         self.should_skip_claim = False
         self.config = SiteConfig(site_configuration_file)
@@ -342,14 +342,15 @@ class Watcher:
         self.restore_from_checkpoint()
         # if not self.should_skip_claim: - is this actually used?
         unclaimed_jobs = self.runtime_api_handler.get_unclaimed_jobs(self.config.allowed_workflows)
-        logger.info(f"Found {len(unclaimed_jobs)} unclaimed jobs.")
+        if unclaimed_jobs:
+            logger.info(f"Found {len(unclaimed_jobs)} unclaimed jobs.")
         self.claim_jobs(unclaimed_jobs)
 
 
-        logger.info(f"Checking for finished jobs.")
+        logger.debug(f"Checking for finished jobs.")
         successful_jobs, failed_jobs = self.job_manager.get_finished_jobs()
         if not successful_jobs and not failed_jobs:
-            logger.info("No finished jobs found.")
+            logger.debug("No finished jobs found.")
         for job in successful_jobs:
             logger.info(f"Processing successful job: {job.opid}, {job.workflow_execution_id}")
             job_database = self.job_manager.process_successful_job(job)
@@ -389,6 +390,7 @@ class Watcher:
         logger.info("Entering polling loop")
         while True:
             try:
+                print(".")
                 self.cycle()
             except (IOError, ValueError, TypeError, AttributeError) as e:
                 logger.exception(f"Error occurred during cycle: {e}", exc_info=True)
