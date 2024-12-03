@@ -70,11 +70,11 @@ class CromwellRunner(JobRunnerABC):
     """Job runner for Cromwell"""
     LABEL_SUBMITTER_VALUE = "nmdcda"
     LABEL_PARAMETERS = ["release", "wdl", "git_repo"]
-    NO_SUBMIT_STATES = ["Submitted",  # job is already submitted but not running
+    # States that indicate a job is in some active state and does not need to be submitted
+    NO_SUBMIT_STATES = [
+        "Submitted",  # job is already submitted but not running
         "Running",  # job is already running
-        "Failed",  # job failed
         "Succeeded",  # job succeeded
-        "Aborted",  # job was aborted and did not finish
         "Aborting"  # job is in the process of being aborted
         "On Hold",  # job is on hold and not running. It can be manually resumed later
     ]
@@ -152,7 +152,7 @@ class CromwellRunner(JobRunnerABC):
         :param force: if True, submit the job even if it is in a state that does not require submission
         :return: the job id
         """
-        status = self.get_job_status()
+        status = self.workflow.last_status
         if status in self.NO_SUBMIT_STATES and not force:
             logging.info(f"Job {self.job_id} in state {status}, skipping submission")
             return
@@ -269,6 +269,18 @@ class WorkflowStateManager:
     @property
     def last_status(self) -> Optional[str]:
         return self.cached_state.get("last_status", None)
+
+    @last_status.setter
+    def last_status(self, status: str):
+        self.cached_state["last_status"] = status
+
+    @property
+    def failed_count(self) -> int:
+        return self.cached_state.get("failed_count", 0)
+
+    @failed_count.setter
+    def failed_count(self, count: int):
+        self.cached_state["failed_count"] = count
 
     @property
     def nmdc_jobid(self) -> Optional[str]:
