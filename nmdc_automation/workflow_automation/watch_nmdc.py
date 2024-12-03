@@ -184,21 +184,47 @@ class JobManager:
             return new_job
 
     def get_finished_jobs(self)->Tuple[List[WorkflowJob], List[WorkflowJob]]:
-        """ Get finished jobs """
+        """
+        Get finished jobs
+        Returns a tuple of successful jobs and failed jobs
+        Jobs are considered finished if they have a last status of "Succeeded" or "Failed"
+        or if they have reached the maximum number of failures
+
+        Unfinished jobs are checked for status and updated if needed.
+        A checkpoint is saved after checking for finished jobs.
+        """
         successful_jobs = []
         failed_jobs = []
         for job in self.job_cache:
             if not job.done:
-                status = job.job_status
-                if status == "Succeeded" and job.opid:
+                if job.workflow.last_status == "Succeeded" and job.opid:
                     successful_jobs.append(job)
-                elif status == "Failed" and job.opid:
+                    continue
+                if job.workflow.last_status == "Failed" and job.workflow.failed_count >= self._MAX_FAILS:
                     failed_jobs.append(job)
+                    continue
+                # check status
+                status = job.job.get_job_status()
+
+                if status == "Succeded":
+                    job.workflow.last_status = status
+                    successful_jobs.append(job)
+                    continue
+                elif status == "Failed":
+                    job.workflow.last_status = status
+                    job.workflow.failed_count += 1
+                    failed_jobs.append(job)
+                    continue
+                else:
+                    job.workflow.last_status = status
+                    logger.debug(f"Job {job.opid} status: {status}")
+        self.save_checkpoint()
+
         if successful_jobs:
             logger.info(f"Found {len(successful_jobs)} successful jobs.")
         if failed_jobs:
             logger.info(f"Found {len(failed_jobs)} failed jobs.")
-        return (successful_jobs, failed_jobs)
+        return successful_jobs, failed_jobs
 
     def process_successful_job(self, job: WorkflowJob) -> Database:
         """ Process a successful job and return a Database object """
@@ -242,7 +268,7 @@ class JobManager:
         self.save_checkpoint()
         return database
 
-    def process_failed_job(self, job: WorkflowJob) -> None:
+    def process_failed_job(self, job: WorkflowJob) -> Optional[str]:
         """ Process a failed job """
         if job.workflow.state.get("failed_count", 0) >= self._MAX_FAILS:
             logger.error(f"Job {job.opid} failed {self._MAX_FAILS} times. Skipping.")
@@ -252,8 +278,9 @@ class JobManager:
         job.workflow.state["failed_count"] = job.workflow.state.get("failed_count", 0) + 1
         job.workflow.state["last_status"] = job.job_status
         self.save_checkpoint()
-        logger.error(f"Job {job.opid} failed {job.workflow.state['failed_count']} times. Retrying.")
-        job.job.submit_job()
+        logger.info(f"Job {job.opid} failed {job.workflow.state['failed_count']} times. Retrying.")
+        jobid = job.job.submit_job()
+        return jobid
 
 
 class RuntimeApiHandler:
@@ -292,7 +319,7 @@ class RuntimeApiHandler:
 class Watcher:
     """ Watcher class for monitoring and managing jobs """
     def __init__(self, site_configuration_file: Union[str, Path],  state_file: Union[str, Path] = None):
-        self._POLL = 20
+        self._POLL = 60
         self._MAX_FAILS = 2
         self.should_skip_claim = False
         self.config = SiteConfig(site_configuration_file)
@@ -313,16 +340,19 @@ class Watcher:
     def cycle(self):
         """ Perform a cycle of watching for unclaimed jobs, claiming jobs,  and processing finished jobs """
         self.restore_from_checkpoint()
-        if not self.should_skip_claim:
-            unclaimed_jobs = self.runtime_api_handler.get_unclaimed_jobs(self.config.allowed_workflows)
+        # if not self.should_skip_claim: - is this actually used?
+        unclaimed_jobs = self.runtime_api_handler.get_unclaimed_jobs(self.config.allowed_workflows)
+        if unclaimed_jobs:
             logger.info(f"Found {len(unclaimed_jobs)} unclaimed jobs.")
-            self.claim_jobs(unclaimed_jobs)
+        self.claim_jobs(unclaimed_jobs)
 
 
-        logger.info(f"Checking for finished jobs.")
+        logger.debug(f"Checking for finished jobs.")
         successful_jobs, failed_jobs = self.job_manager.get_finished_jobs()
-        logger.debug(f"Found {len(successful_jobs)} successful jobs and {len(failed_jobs)} failed jobs.")
+        if not successful_jobs and not failed_jobs:
+            logger.debug("No finished jobs found.")
         for job in successful_jobs:
+            logger.info(f"Processing successful job: {job.opid}, {job.workflow_execution_id}")
             job_database = self.job_manager.process_successful_job(job)
             # sanity checks
             if not job_database.data_object_set:
@@ -349,9 +379,10 @@ class Watcher:
             resp = self.runtime_api_handler.update_operation(
                 job.opid, done=True, meta=job.job.metadata
             )
-            logging.info(f"Updated operation {job.opid} response id: {resp}")
+            logging.info(f"Updated operation {job.opid} response id: {resp['id']}")
 
         for job in failed_jobs:
+            logger.info(f"Processing failed job: {job.opid}, {job.workflow_execution_id}")
             self.job_manager.process_failed_job(job)
 
     def watch(self):
@@ -359,6 +390,7 @@ class Watcher:
         logger.info("Entering polling loop")
         while True:
             try:
+                print(".")
                 self.cycle()
             except (IOError, ValueError, TypeError, AttributeError) as e:
                 logger.exception(f"Error occurred during cycle: {e}", exc_info=True)
