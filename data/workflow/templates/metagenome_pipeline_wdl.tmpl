@@ -156,7 +156,7 @@ workflow main_workflow {
             docker=ReadbasedAnalysis_container
     }
 
-     call readbasedAnalysis_output.readbasedAnalysis_output as ReadbasedAnalysis_output {
+     call readbasedAnalysis_output.generateSummaryJson as ReadbasedAnalysis_output {
         input: 
             gottcha2_report_tsv=ReadbasedAnalysis_call.final_gottcha2_report_tsv, 
             gottcha2_full_tsv=ReadbasedAnalysis_call.final_gottcha2_full_tsv,
