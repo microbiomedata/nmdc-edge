@@ -283,6 +283,8 @@ def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtur
     for data_object in data_objects:
         assert isinstance(data_object, DataObject)
     wfe = job.make_workflow_execution(data_objects)
+    assert wfe.started_at_time
+    assert wfe.ended_at_time
     assert isinstance(wfe, MagsAnalysis)
     # attributes from final_stats_json
     assert wfe.mags_list
@@ -303,6 +305,18 @@ def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtur
     assert isinstance(wfe.unbinned_contig_num, int)
     assert isinstance(wfe.binned_contig_num, int)
 
+
+def test_workflow_execution_record_from_workflow_job(site_config, fixtures_dir, tmp_path):
+    job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
+    workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    # remove 'end' from the workflow state to simulate a job that is still running
+    workflow_state.pop('end')
+    job = WorkflowJob(site_config, workflow_state, job_metadata)
+    data_objects = job.make_data_objects(output_dir=tmp_path)
+
+    wfe = job.make_workflow_execution(data_objects)
+    assert wfe.started_at_time
+    assert wfe.ended_at_time
 
 
 
