@@ -278,7 +278,7 @@ class JobManager:
         job.workflow.state["failed_count"] = job.workflow.state.get("failed_count", 0) + 1
         job.workflow.state["last_status"] = job.job_status
         self.save_checkpoint()
-        logger.info(f"Job {job.opid} failed {job.workflow.state['failed_count']} times. Retrying.")
+        logger.warning(f"Job {job.opid} failed {job.workflow.state['failed_count']} times. Retrying.")
         jobid = job.job.submit_job()
         return jobid
 
@@ -319,7 +319,7 @@ class RuntimeApiHandler:
 class Watcher:
     """ Watcher class for monitoring and managing jobs """
     def __init__(self, site_configuration_file: Union[str, Path],  state_file: Union[str, Path] = None):
-        self._POLL = 60
+        self._POLL_INTERVAL_SEC = 60
         self._MAX_FAILS = 2
         self.should_skip_claim = False
         self.config = SiteConfig(site_configuration_file)
@@ -394,7 +394,7 @@ class Watcher:
                 self.cycle()
             except (IOError, ValueError, TypeError, AttributeError) as e:
                 logger.exception(f"Error occurred during cycle: {e}", exc_info=True)
-            sleep(self._POLL)
+            sleep(self._POLL_INTERVAL_SEC)
 
     def claim_jobs(self, unclaimed_jobs: List[WorkflowJob] = None) -> None:
         """ Claim unclaimed jobs, prepare them, and submit them. Write a checkpoint after claiming jobs. """
