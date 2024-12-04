@@ -271,7 +271,8 @@ def test_cromwell_job_runner_submit_job_new_job(mock_generate_submission_files, 
 
     wf_state_manager = WorkflowStateManager(wf_state)
     job_runner = CromwellRunner(site_config, wf_state_manager)
-    job_runner.submit_job()
+    jobid = job_runner.submit_job()
+    assert jobid
 
 
 def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtures_dir, tmp_path):
