@@ -23,7 +23,7 @@ def get_required_data_objects_map(db, workflows: List[WorkflowConfig]) -> Dict[s
     # Build up a filter of what types are used
     required_types = set()
     for wf in workflows:
-        required_types.update(set(wf.data_object_types))
+        required_types.update(set(wf.input_data_object_types))
 
     required_data_objs_by_id = dict()
     for rec in db.data_object_set.find({"data_object_type": {"$ne": None}}):

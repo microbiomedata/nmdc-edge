@@ -129,7 +129,11 @@ class Scheduler:
         inp = dict()
         optional_inputs = wf.optional_inputs
         for k, v in job.workflow.inputs.items():
-            if v.startswith("do:"):
+            # some inputs are booleans and should not be modified
+            if isinstance(v, bool):
+                inp[k] = v
+                continue
+            elif v.startswith("do:"):
                 do_type = v[3:]
                 dobj = do_by_type.get(do_type)
                 if not dobj:
