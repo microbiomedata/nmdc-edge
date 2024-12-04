@@ -223,14 +223,23 @@ class NmdcRuntimeApi:
         orig_url = url
         results = []
         while True:
-            resp = requests.get(url, data=json.dumps(d), headers=self.header).json()
-            if "resources" not in resp:
-                logging.warning(str(resp))
+            resp = requests.get(url, data=json.dumps(d), headers=self.header)
+            if resp.status_code != 200:
+                resp.raise_for_status()
+            try:
+                response_json = resp.json()
+            except Exception as e:
+                logging.error(f"Failed to parse response: {resp.text}")
+                raise e
+
+
+            if "resources" not in response_json:
+                logging.warning(str(response_json))
                 break
-            results.extend(resp["resources"])
-            if "next_page_token" not in resp or not resp["next_page_token"]:
+            results.extend(response_json["resources"])
+            if "next_page_token" not in response_json or not response_json["next_page_token"]:
                 break
-            url = orig_url + "&page_token=%s" % (resp["next_page_token"])
+            url = orig_url + "&page_token=%s" % (response_json["next_page_token"])
         return results
 
     @refresh_token
