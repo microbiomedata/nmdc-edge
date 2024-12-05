@@ -264,6 +264,7 @@ class JobManager:
         logger.info(f"Created workflow execution record for job {job.opid}")
 
         job.done = True
+        job.workflow.state["end"] = workflow_execution.ended_at_time
         self.file_handler.write_metadata_if_not_exists(job)
         self.save_checkpoint()
         return database
