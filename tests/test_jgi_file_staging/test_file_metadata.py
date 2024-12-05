@@ -107,9 +107,6 @@ def test_sample_model_instance_creation(monkeypatch, grow_analysis_df):
     assert sample_model.analysis_project_id == "p1323348"
 
 
-
-# TODO: fix this test.  Data fixtures are raising ValidationError from
-# the pydantic Sample model
 @mongomock.patch(servers=(("localhost", 27017),), on_new="create")
 def test_insert_samples_into_mongodb(monkeypatch, grow_analysis_df):
     monkeypatch.setenv("MONGO_DBNAME", "test_db")
