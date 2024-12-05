@@ -236,14 +236,13 @@ class JobManager:
 
         database = Database()
 
-        # get job runner metadata if needed
-        if not job.job.metadata:
-            logger.info(f"Getting job runner metadata for job {job.workflow.job_runner_id}")
-            job.job.job_id = job.workflow.job_runner_id
-            metadata = job.job.get_job_metadata()
-            m_dict = yaml.safe_load(yaml_dumper.dumps(metadata))
-            logger.debug(f"Job runner metadata: {m_dict}")
-            job.job.metadata = metadata
+        # Upate the job metadata
+        logger.info(f"Getting job runner metadata for job {job.workflow.job_runner_id}")
+        job.job.job_id = job.workflow.job_runner_id
+        metadata = job.job.get_job_metadata()
+        m_dict = yaml.safe_load(yaml_dumper.dumps(metadata))
+        logger.debug(f"Job runner metadata: {m_dict}")
+        job.job.metadata = metadata
 
         data_objects = job.make_data_objects(output_dir=output_path)
         if not data_objects:
