@@ -160,7 +160,9 @@ function Main(props) {
                                     Download Excel <a style={{ color: "blue", textDecoration: "underline" }} rel="noreferrer"
                                         href={config.API.BASE_URI + templates[workflow]} target="_blank">Template</a>
                                     <br></br><br></br>
-                                    <FileUpload setParams={setFileUpload} text="Bulk Excel File" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                                    <FileUpload setParams={setFileUpload} text="Bulk Excel File" 
+                                    upload_tip={workflowlist[workflow]['bulk_file_tip']?workflowlist[workflow]['bulk_file_tip']:'Required'}
+                                    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
                                     <br></br>
                                 </>
                             }

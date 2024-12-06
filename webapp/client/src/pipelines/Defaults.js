@@ -57,15 +57,15 @@ export const workflowlist = {
         inTutorial: true,
         title: 'Metatranscriptomics',
         name: 'Metatranscriptomics Workflow',
-        video:  '/docs/videos/MetaT.mp4', 
-        pdf: '/docs/help/NMDC_EDGE_metaT.pdf', 
+        video: '/docs/videos/MetaT.mp4',
+        pdf: '/docs/help/NMDC_EDGE_metaT.pdf',
         // pdfSpanish: {
         //     'Metatranscriptome': '/docs/help/NMDC_EDGE_metaT_español_INCOMPLETE.pdf',
         // },
         // pdfFrench: {
         //     'Metatranscriptome': '/docs/help/NMDC_EDGE_metaT-French.pdf',
         // },
-        doclink:  'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/6_MetaT_index.html', 
+        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/6_MetaT_index.html',
         bgcolor: '#4F3C80',
         img: '/docs/images/Metatranscriptome.png',
         thumbnail: '/docs/images/Metatranscriptome-thumbnail.png',
@@ -90,10 +90,10 @@ export const workflowlist = {
         inTutorial: true,
         title: 'Natural Organic Matter',
         name: 'Natural Organic Matter Workflow',
-        pdf: '/docs/help/NMDC_EDGE_NOM.pdf', 
-        pdfSpanish:  '/docs/help/NMDC_EDGE_NOM_español.pdf', 
-        pdfFrench:   '/docs/help/NMDC_EDGE_NOM-French.pdf', 
-        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/9_NOM_index.html#', 
+        pdf: '/docs/help/NMDC_EDGE_NOM.pdf',
+        pdfSpanish: '/docs/help/NMDC_EDGE_NOM_español.pdf',
+        pdfFrench: '/docs/help/NMDC_EDGE_NOM-French.pdf',
+        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/9_NOM_index.html#',
         bgcolor: '#4F3C80',
         link: 'https://github.com/microbiomedata/enviroMS',
         info: 'This workflow is for natural organic matter data processing and annotation'
@@ -102,10 +102,10 @@ export const workflowlist = {
         inTutorial: true,
         title: 'Viruses and Plasmids',
         name: 'Viruses and Plasmids Workflow',
-        video:   '/docs/videos/Viruses_plasmids_tutorial_v1.mp4', 
-        pdf: '/docs/help/NMDC_EDGE_geNomad.pdf', 
-        pdfSpanish:  '/docs/help/NMDC_EDGE_geNomad_español.pdf', 
-        pdfFrench:  '/docs/help/NMDC_EDGE_geNomad-French.pdf', 
+        video: '/docs/videos/Viruses_plasmids_tutorial_v1.mp4',
+        pdf: '/docs/help/NMDC_EDGE_geNomad.pdf',
+        pdfSpanish: '/docs/help/NMDC_EDGE_geNomad_español.pdf',
+        pdfFrench: '/docs/help/NMDC_EDGE_geNomad-French.pdf',
         bgcolor: '#4F3C80',
         // img: '/docs/images/virus_plasmid.png',
         // thumbnail: '/docs/images/virus_plasmid-thumbnail.png',
@@ -166,16 +166,17 @@ export const workflowlist = {
         info: 'This workflow is based on IMG’s metagenome assembled genomes (MAGs) pipeline.'
     },
     'sra2fastq': {
-      title: 'Retrieve SRA Data',
-      name: 'Retrieve SRA Data Workflow',
-      // img: '/docs/images/sra2fastq.png',
-      // thumbnail: '/docs/images/sra2fastq-thumbnail.png',
-      link: 'https://github.com/LANL-Bioinformatics/EDGE_workflows/tree/main/sra2fastq',
-      doclink: 'https://github.com/LANL-Bioinformatics/EDGE_workflows/tree/main/sra2fastq',
-      info: 'This tool retrieves sequence project in FASTQ files from  NCBI- SRA / EBI - ENA / DDBJ database. Input accession number supports studies(SRP*/ ERP * /DRP*), experiments (SRX*/ERX * /DRX*), samples(SRS * /ERS*/DRS *), runs(SRR * /ERR*/DRR *), or submissions (SRA * /ERA*/DRA *).'
+        title: 'Retrieve SRA Data',
+        name: 'Retrieve SRA Data Workflow',
+        // img: '/docs/images/sra2fastq.png',
+        // thumbnail: '/docs/images/sra2fastq-thumbnail.png',
+        link: 'https://github.com/LANL-Bioinformatics/EDGE_workflows/tree/main/sra2fastq',
+        doclink: 'https://github.com/LANL-Bioinformatics/EDGE_workflows/tree/main/sra2fastq',
+        info: 'This tool retrieves sequence project in FASTQ files from  NCBI- SRA / EBI - ENA / DDBJ database. Input accession number supports studies(SRP*/ ERP * /DRP*), experiments (SRX*/ERX * /DRX*), samples(SRS * /ERS*/DRS *), runs(SRR * /ERR*/DRR *), or submissions (SRA * /ERA*/DRA *).'
     },
     'Metagenome Pipeline': {
         title: 'Metagenome Pipeline',
-        info: 'Run multiple metagenomics workflows: ReadsQC, Read-based Taxonomy Classification, Metagenome Assembly, Viruses and Plasmids, Metagenome Annotation and Metagemone MAGs.'
+        info: 'Run multiple metagenomics workflows: ReadsQC, Read-based Taxonomy Classification, Metagenome Assembly, Viruses and Plasmids, Metagenome Annotation and Metagemone MAGs.',
+        bulk_file_tip: '(required)<br/>Column headers must be labeled: "Project/Run Name", "Description", "Interleaved FASTQ", "Pair-1 FASTQ", "Pair-2 FASTQ".',
     }
 }

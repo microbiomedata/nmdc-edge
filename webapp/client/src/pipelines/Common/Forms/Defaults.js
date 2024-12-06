@@ -17,7 +17,6 @@ export const initialFileUpload = {
     file: '',
     validForm: false,
     errMessage: 'Excel file is required',
-    upload_tip: '(required)<br/>Column headers must be labeled: "Project/Run Name", "Description", "Interleaved FASTQ", "Pair-1 FASTQ", "Pair-2 FASTQ".',
 }
 
 export const initialConfigFile = {

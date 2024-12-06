@@ -29,7 +29,7 @@ export function FileUpload(props) {
     <>
       <Row>
         <Col md="3">
-          <MyTooltip id='fileupload' text={props.text ? props.text : "Upload File"} tooltip={initialFileUpload.upload_tip} showTooltip={true} place="right" />
+          <MyTooltip id='fileupload' text={props.text ? props.text : "Upload File"} tooltip={props.upload_tip} showTooltip={true} place="right" />
         </Col>
         <Col xs="12" md="9">
           <Input
