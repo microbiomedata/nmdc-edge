@@ -8,8 +8,8 @@ import { LoaderDialog, MessageDialog } from '../../../common/Dialogs';
 import MySelect from '../../../common/MySelect';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import { workflowlist, workflowOptions } from './Defaults';
+import { workflowlist } from '../../Defaults';
+import { workflowOptions } from './Defaults';
 import { Project } from '../../Common/Forms/Project';
 import { ReadsQC } from './Forms/ReadsQC';
 import { ReadbasedAnalysis } from './Forms/ReadbasedAnalysis';

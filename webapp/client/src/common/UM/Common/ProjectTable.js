@@ -8,7 +8,7 @@ import { ConfirmDialog } from '../../Dialogs';
 import startCase from 'lodash.startcase';
 
 import { ToastContainer } from 'react-toastify';
-import { notify, getData } from "../../util";
+import { notify, getData, postData } from "../../util";
 import 'react-toastify/dist/ReactToastify.css';
 
 import MaterialTable, { MTableToolbar } from "material-table";
@@ -69,43 +69,83 @@ function ProjectTable(props) {
     }
 
     const getProjects = () => {
-        let url = "/auth-api/user/project/list";
-        if (props.tableType === 'admin') {
-            url = "/auth-api/admin/project/list";
-        }
-        setIsLoading(true);
-        getData(url)
-            .then(data => {
-                let projects = data.map(obj => {
-                    //console.log(obj)
-                    let rObj = {};
-                    rObj['id'] = obj._id;
-                    rObj['name'] = obj.name;
-                    rObj['owner'] = obj.owner;
-                    rObj['type'] = obj.type;
-                    rObj['status'] = obj.status;
-                    rObj['public'] = obj.public;
-                    rObj['created'] = obj.created;
-                    rObj['updated'] = obj.updated;
-                    rObj['desc'] = obj.desc;
-                    rObj['sharedto'] = obj.sharedto;
-                    rObj['code'] = obj.code;
+        if (props.bulkSubmissionCode) {
+            let url = "/auth-api/user/bulkSubmission/projects";
+            if (props.tableType === 'admin') {
+                url = "/auth-api/admin/bulkSubmission/projects";
+            }
+            setIsLoading(true);
+            postData(url, {code: props.bulkSubmissionCode})
+                .then(data => {
+                    let projects = data.map(obj => {
+                        //console.log(obj)
+                        let rObj = {};
+                        rObj['id'] = obj._id;
+                        rObj['name'] = obj.name;
+                        rObj['owner'] = obj.owner;
+                        rObj['type'] = obj.type;
+                        rObj['status'] = obj.status;
+                        rObj['public'] = obj.public;
+                        rObj['created'] = obj.created;
+                        rObj['updated'] = obj.updated;
+                        rObj['desc'] = obj.desc;
+                        rObj['sharedto'] = obj.sharedto;
+                        rObj['code'] = obj.code;
 
-                    if (obj.sharedto && obj.sharedto.length > 0) {
-                        rObj['shared'] = true;
-                    } else {
-                        rObj['shared'] = false;
-                    }
+                        if (obj.sharedto && obj.sharedto.length > 0) {
+                            rObj['shared'] = true;
+                        } else {
+                            rObj['shared'] = false;
+                        }
 
-                    return rObj;
+                        return rObj;
+                    });
+                    setIsLoading(false);
+                    setTableData(projects);
+                })
+                .catch(err => {
+                    setIsLoading(false);
+                    alert(err);
                 });
-                setIsLoading(false);
-                setTableData(projects);
-            })
-            .catch(err => {
-                setIsLoading(false);
-                alert(err);
-            });
+        } else {
+            let url = "/auth-api/user/project/list";
+            if (props.tableType === 'admin') {
+                url = "/auth-api/admin/project/list";
+            }
+            setIsLoading(true);
+            getData(url)
+                .then(data => {
+                    let projects = data.map(obj => {
+                        //console.log(obj)
+                        let rObj = {};
+                        rObj['id'] = obj._id;
+                        rObj['name'] = obj.name;
+                        rObj['owner'] = obj.owner;
+                        rObj['type'] = obj.type;
+                        rObj['status'] = obj.status;
+                        rObj['public'] = obj.public;
+                        rObj['created'] = obj.created;
+                        rObj['updated'] = obj.updated;
+                        rObj['desc'] = obj.desc;
+                        rObj['sharedto'] = obj.sharedto;
+                        rObj['code'] = obj.code;
+
+                        if (obj.sharedto && obj.sharedto.length > 0) {
+                            rObj['shared'] = true;
+                        } else {
+                            rObj['shared'] = false;
+                        }
+
+                        return rObj;
+                    });
+                    setIsLoading(false);
+                    setTableData(projects);
+                })
+                .catch(err => {
+                    setIsLoading(false);
+                    alert(err);
+                });
+        }
     }
 
     const updateProj = (proj, oldProj) => {

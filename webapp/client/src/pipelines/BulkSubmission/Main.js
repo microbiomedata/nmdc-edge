@@ -3,14 +3,16 @@ import {
     Button, Form, Row, Col
 } from 'reactstrap';
 
-import { getData, postData, notify } from '../../../common/util';
-import { LoaderDialog, MessageDialog } from '../../../common/Dialogs';
+import { getData, postData, notify } from '../../common/util';
+import { LoaderDialog, MessageDialog } from '../../common/Dialogs';
+import MySelect from '../../common/MySelect';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { workflowlist } from '../../Defaults';
-import { Project } from '../../Common/Forms/Project';
-import { Metatranscriptome } from './Forms/Metatranscriptome';
-import { workflowOptions } from './Defaults';
+import { workflowlist } from '../Defaults';
+import { workflowOptions, templates } from './Defaults';
+import { Project } from '../Common/Forms/Project';
+import { FileUpload } from '../Common/Forms/FileUpload';
+import config from '../../config';
 
 function Main(props) {
     const [openDialog, setOpenDialog] = useState(false);
@@ -18,13 +20,11 @@ function Main(props) {
     const [sysMsg, setSysMsg] = useState();
     const [submitting, setSubmitting] = useState(false);
     const [requestSubmit, setRequestSubmit] = useState(false);
-
     const [projectParams, setProjectParams] = useState();
-
-    const [selectedWorkflows, setSelectedWorkflows] = useState({});
+    const [uploadParams, setUploadParams] = useState();
     const [doValidation, setDoValidation] = useState(0);
 
-    const [workflow] = useState(workflowOptions[0].value);
+    const [workflow, setWorkflow] = useState(workflowOptions[0].value);
 
     //callback function for child component
     const setProject = (params) => {
@@ -32,9 +32,10 @@ function Main(props) {
         setProjectParams(params);
         setDoValidation(doValidation + 1);
     }
-    const setWorkflowParams = (params, workflowName) => {
-        //console.log("workflow:", params, workflowName)
-        setSelectedWorkflows({ ...selectedWorkflows, [workflowName]: params });
+    //callback function for child component
+    const setFileUpload = (params) => {
+        //console.log("main fileupload:", params)
+        setUploadParams(params);
         setDoValidation(doValidation + 1);
     }
 
@@ -43,46 +44,30 @@ function Main(props) {
     }
     //submit button clicked
     const onSubmit = () => {
-
         let formData = new FormData();
 
         formData.append('pipeline', workflowlist[workflow].title);
         formData.append('project', JSON.stringify({ name: projectParams.proj_name, desc: projectParams.proj_desc }));
 
         let inputDisplay = {};
-        inputDisplay.workflow = workflowlist[workflow].title;
+        inputDisplay.type = workflowlist[workflow].title;
         inputDisplay.input = {};
-        let myWorkflow = {};
-        myWorkflow.name = workflow;
-        if (workflow === 'Metatranscriptome') {
-            let myInputs = {};
-            if (selectedWorkflows[workflow].interleaved) {
-                myInputs.interleaved = true;
-                myInputs.fastqs = selectedWorkflows[workflow].fastqSingle;
-                inputDisplay.input['Is interleaved'] = true;
-                inputDisplay.input.fastqs = selectedWorkflows[workflow].fastqSingleDisplay;
-            } else {
-                myInputs.interleaved = false;
-                myInputs.fastqs = selectedWorkflows[workflow].fastqPaired;
-                inputDisplay.input['Is interleaved'] = false;
-                inputDisplay.input.fastqs = selectedWorkflows[workflow].fastqPairedDisplay;
-            }
-            myWorkflow.input_fastq = myInputs;
-        } 
+        formData.append('file', uploadParams.file);
+        formData.append('bulkfile', JSON.stringify({ name: uploadParams.file.name }));
+        inputDisplay.input['Bulk Excel File'] = uploadParams.file.name;
 
-        formData.append('workflow', JSON.stringify(myWorkflow));
         formData.append('inputDisplay', JSON.stringify(inputDisplay));
 
-        postData("/auth-api/user/project/add", formData)
+        //console.log("formdata", JSON.stringify(workflowParams))
+        postData("/auth-api/user/bulkSubmission/add", formData)
             .then(data => {
-                notify("success", "Your workflow request was submitted successfully!", 2000);
-                setTimeout(() => props.history.push("/user/projectlist"), 2000);
+                notify("success", "Your bulk submission request was submitted successfully!", 2000);
+                setTimeout(() => props.history.push("/user/bulkSubmission/list"), 2000);
             }
             ).catch(error => {
                 setSubmitting(false);
                 alert(error);
             });
-
     }
 
     useEffect(() => {
@@ -91,8 +76,7 @@ function Main(props) {
         if (projectParams && !projectParams.validForm) {
             setRequestSubmit(false);
         }
-
-        if (!workflow || !selectedWorkflows[workflow] || (selectedWorkflows[workflow] && !selectedWorkflows[workflow].validForm)) {
+        if (uploadParams && !uploadParams.validForm) {
             setRequestSubmit(false);
         }
 
@@ -117,11 +101,11 @@ function Main(props) {
             .catch((err) => {
                 alert(err)
             })
-    }, [props]);
+    }, [props])
 
     return (
         <div className="animated fadeIn" style={disabled ? { pointerEvents: 'none', opacity: '0.4' } : {}}>
-            <span className="edge-workflow-tag pt-3 text-muted edge-text-size-small">Metatranscriptomics | Run Workflow </span>
+            <span className="edge-workflow-tag pt-3 text-muted edge-text-size-small">WORKFLOWS | Bulk Submission</span>
             <Row className="justify-content-center">
                 <Col xs="12" md="10">
                     <ToastContainer />
@@ -135,20 +119,13 @@ function Main(props) {
                     />
                     <Form onSubmit={e => { e.preventDefault(); }}>
                         <div className="clearfix">
-                            <h4 className="pt-3">Run Workflow</h4>
-                            {workflow &&
-                                <>
-                                    {workflowlist[workflow].info} <a target="_blank" href={workflowlist[workflow].doclink} rel="noopener noreferrer">Learn more</a>
-                                    <br></br>
-                                </>
-                            }
+                            <h4 className="pt-3">Bulk Submission</h4>
                             <hr />
-                            <Project setParams={setProject} />
-
+                            <Project setParams={setProject} text="Name" />
                             <br></br>
-                            {/* <b>Workflow</b>
+                            <b>Workflow</b>
                             <MySelect
-                                value={workflowOptions[0]}
+                                defaultValue={workflowOptions[0]}
                                 options={workflowOptions}
                                 onChange={e => {
                                     if (e) {
@@ -160,12 +137,33 @@ function Main(props) {
                                 placeholder="Select a Workflow..."
                                 isClearable={true}
                             />
-                            <br></br> */}
                             <br></br>
-                            {workflow === 'Metatranscriptome' &&
-                                <Metatranscriptome name={workflow} full_name={workflow} setParams={setWorkflowParams} />
+                            {workflow &&
+                                <>
+                                    {workflowlist[workflow] && workflowlist[workflow].info ?
+                                        <>
+                                            {workflowlist[workflow].doclink ? <>
+                                                {workflowlist[workflow].info} &nbsp;
+                                                <a target="_blank" href={workflowlist[workflow].doclink} rel="noopener noreferrer">Learn more</a>
+                                                <br></br><br></br>
+                                            </>
+                                                :
+                                                <>
+                                                    {workflowlist[workflow].info} &nbsp;
+                                                    <br></br><br></br>
+                                                </>
+                                            }
+                                        </>
+                                        :
+                                        <></>
+                                    }
+                                    Download Excel <a style={{ color: "blue", textDecoration: "underline" }} rel="noreferrer"
+                                        href={config.API.BASE_URI + templates[workflow]} target="_blank">Template</a>
+                                    <br></br><br></br>
+                                    <FileUpload setParams={setFileUpload} text="Bulk Excel File" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                                    <br></br>
+                                </>
                             }
-                            <br></br>
                         </div>
 
                         <div className="edge-center">

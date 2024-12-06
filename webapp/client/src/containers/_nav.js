@@ -36,7 +36,12 @@ const _nav = [
     _tag: 'CSidebarNavTitle',
     _children: ['Workflows'],
   },
-
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Bulk Submission',
+    icon: 'cilCursor',
+    to: '/workflow/bulksubmission',
+  },
   {
     _tag: 'CSidebarNavDropdown',
     name: 'Metagenomics',

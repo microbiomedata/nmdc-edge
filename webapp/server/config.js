@@ -188,6 +188,8 @@ const config = {
     PROJECTS: {
         // Directory to store workflow results.
         BASE_DIR: process.env.PROJECTS_BASE_DIR || path.join(IO_BASE_DIR, "projects"),
+        // Directory to store bulk submissions.
+        BULK_DIR: process.env.BULK_SUBMISSION_BASE_DIR || path.join(IO_BASE_DIR, "bulksubmissions"),
         // Number of days for which the system will preserve a project after a user opts to delete it.
         PROJECT_DELETION_GRACE_PERIOD_DAYS: makeIntIfDefined(process.env.PROJECT_DELETION_GRACE_PERIOD_DAYS) || 7,
     },

@@ -22,18 +22,6 @@ export const workflowInputTips = {
     },
 }
 
-export const workflowlist = {
-    'Metaproteomics': {
-        title: 'Metaproteomics',
-        name: 'Metaproteomics Workflow',
-        // img: '/docs/images/Metaproteomics.png',
-        // thumbnail: '/docs/images/Metaproteomics-thumbnail.png',
-        link: 'https://github.com/microbiomedata/metaPro',
-        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/7_Metaproteomics_index.html',
-        info: 'Metaproteomics workflow/pipeline is an end-to-end data processing and analyzing pipeline for studying proteomes i.e studying protein identification and characterization using MS/MS data.'
-    },
-}
-
 export const initialMetaP = {
 
     dataRanges: {

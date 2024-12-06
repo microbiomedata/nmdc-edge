@@ -8,7 +8,8 @@ import { LoaderDialog, MessageDialog } from '../../../common/Dialogs';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { workflowlist, workflowOptions } from './Defaults';
+import { workflowlist } from '../../Defaults';
+import { workflowOptions } from './Defaults';
 import SraDataTable from '../../../common/UM/Common/SraDataTable';
 import { Sra2fastq } from './Forms/Sra2fastq';
 const HtmlToReactParser = require('html-to-react').Parser;

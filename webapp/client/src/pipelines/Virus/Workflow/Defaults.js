@@ -27,18 +27,6 @@ export const workflowInputTips = {
     },
 }
 
-export const workflowlist = {
-    'virus_plasmid': {
-        title: 'Viruses and Plasmids',
-        name: 'Viruses and Plasmids Workflow',
-        // img: '/docs/images/virus_plasmid.png',
-        // thumbnail: '/docs/images/virus_plasmid-thumbnail.png',
-        link: 'https://portal.nersc.gov/genomad/',
-        // doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/6_MetaT_index.html',
-        info: 'This workflow identifies virus and plasmid sequences in assembled scaffolds using <a href="https://github.com/apcamargo/genomad/" target="_blank" rel="noreferrer">geNomad</a> and estimates the quality of viral genomes with <a href="https://bitbucket.org/berkeleylab/checkv/src/master/" target="_blank" rel="noreferrer">CheckV</a>.'
-    },
-}
-
 export const initialVirusPlasmid = {
     runOptions: [
         { value: 'conservative', label: 'conservative' },

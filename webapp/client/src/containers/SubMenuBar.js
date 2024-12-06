@@ -30,19 +30,21 @@ function SubMenuBar(props) {
               handleClickClose={handleDialogClose}
             />
             <div className="submenu" >
-              <span className="nmdc-header-no-min" style={{paddingLeft:'50px'}}></span>
+              <span className="nmdc-header-no-min" style={{ paddingLeft: '50px' }}></span>
               <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-ghost-info" onClick={() => { setOpenDialog(true) }}>Import Old Projects/Uploads with Email/Passsword</CHeaderNavLink>
               <CHeaderNavLink className="btn btn-pill btn-ghost-primary" to="/user/projectlist">My Projects</CHeaderNavLink>
-              <CHeaderNavLink className="btn btn-pill btn-ghost-primary" to="/user/allprojectlist">All Projects Available to Me</CHeaderNavLink>
+              {/* <CHeaderNavLink className="btn btn-pill btn-ghost-primary" to="/user/allprojectlist">All Projects Available to Me</CHeaderNavLink> */}
+              <CHeaderNavLink className="btn btn-pill btn-ghost-primary" to="/user/bulksubmissionlist">My BulkSubmissions</CHeaderNavLink>
               <CHeaderNavLink className="btn btn-pill btn-ghost-primary" to="/user/jobqueue">Job Queue</CHeaderNavLink>
               <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-ghost-primary" to="/user/profile">My Profile</CHeaderNavLink>
               {user.profile.type === 'admin' && <>
                 <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-ghost-danger" to="/admin/projectlist">Admin Projects</CHeaderNavLink>
+                <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-ghost-danger" to="/admin/bulksubmissionlist">Admin BulkSubmissions</CHeaderNavLink>
                 <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-ghost-danger" to="/admin/filelist">Admin Uploads</CHeaderNavLink>
                 <CHeaderNavLink className="nmdc-header-no-min btn btn-pill btn-ghost-danger" to="/admin/userlist">Admin Users</CHeaderNavLink>
               </>}
 
-              <span className="nmdc-header-no-min" style={{paddingRight:'50px'}}></span>
+              <span className="nmdc-header-no-min" style={{ paddingRight: '50px' }}></span>
             </div>
             <hr />
           </div>

@@ -13,6 +13,13 @@ export const initialProject = {
     project_name_tip: '(required, at least 3 but less than 30 characters)<br/>Only alphabets, numbers, dashs, dot and underscore are allowed.',
 }
 
+export const initialFileUpload = {
+    file: '',
+    validForm: false,
+    errMessage: 'Excel file is required',
+    upload_tip: '(required)<br/>Column headers must be labeled: "Project/Run Name", "Description", "Interleaved FASTQ", "Pair-1 FASTQ", "Pair-2 FASTQ".',
+}
+
 export const initialConfigFile = {
     use_conf_file: false,
     conf_file_path: '',

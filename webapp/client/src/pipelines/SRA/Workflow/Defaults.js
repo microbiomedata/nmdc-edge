@@ -19,19 +19,6 @@ export const workflowInputTips = {
   },
 }
 
-export const workflowlist = {
-  'sra2fastq': {
-    title: 'Retrieve SRA Data',
-    name: 'Retrieve SRA Data Workflow',
-    // img: '/docs/images/sra2fastq.png',
-    // thumbnail: '/docs/images/sra2fastq-thumbnail.png',
-    link: 'https://github.com/LANL-Bioinformatics/EDGE_workflows/tree/main/sra2fastq',
-    doclink: 'https://github.com/LANL-Bioinformatics/EDGE_workflows/tree/main/sra2fastq',
-    info: 'This tool retrieves sequence project in FASTQ files from  NCBI- SRA / EBI - ENA / DDBJ database. Input accession number supports studies(SRP*/ ERP * /DRP*), experiments (SRX*/ERX * /DRX*), samples(SRS * /ERS*/DRS *), runs(SRR * /ERR*/DRR *), or submissions (SRA * /ERA*/DRA *).'
-  },
-}
-
-
 export const initialSra2fastq = {
   validForm: false,
   errMessage: '',

@@ -85,6 +85,28 @@ export const updateProjectAdmin = projData => dispatch => {
         });
 };
 
+// Update bulkSubmission
+export const updateBulkSubmissionAdmin = projData => dispatch => {
+    postData("/auth-api/admin/bulkSubmission/update", projData)
+        .then(res => {
+        })
+        .catch(err => {
+            if (typeof err === 'string') {
+                dispatch({
+                    type: ADD_ERRORS,
+                    key: projData.code,
+                    payload: err
+                });
+            } else {
+                dispatch({
+                    type: ADD_ERRORS,
+                    key: projData.code,
+                    payload: err[projData.code]
+                });
+            }
+        });
+};
+
 // Update upload file
 export const updateFileAdmin = fileData => dispatch => {
     postData("/auth-api/admin/upload/update", fileData)
