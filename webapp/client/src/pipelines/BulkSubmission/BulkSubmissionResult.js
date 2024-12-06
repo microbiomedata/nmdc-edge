@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import {
   Col, Row, Button
 } from 'reactstrap';
-import { LoaderDialog, FileViewerDialog } from '../../common/Dialogs';
+import { FileViewerDialog } from '../../common/Dialogs';
 import { fetchFile } from '../../common/util';
 import BulkSubmissionProjects from './Results/BulkSubmissionProjects';
 
 function BulkSubmissionResult(props) {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
   const [view_log_file, setView_log_file] = useState(false);
   const [log_file_content, setLog_file_content] = useState('');
 
