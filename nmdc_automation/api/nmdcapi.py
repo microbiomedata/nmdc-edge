@@ -15,6 +15,10 @@ from datetime import datetime, timedelta, timezone
 from nmdc_automation.config import SiteConfig, UserConfig
 import logging
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+SECONDS_IN_DAY = 86400
 
 def _get_sha256(fn: Union[str, Path]) -> str:
     """
@@ -45,7 +49,7 @@ def expiry_dt_from_now(days=0, hours=0, minutes=0, seconds=0):
 
 class NmdcRuntimeApi:
     token = None
-    expires = 0
+    expires_in_seconds = 0
     _base_url = None
     client_id = None
     client_secret = None
@@ -63,7 +67,7 @@ class NmdcRuntimeApi:
     def refresh_token(func):
         def _get_token(self, *args, **kwargs):
             # If it expires in 60 seconds, refresh
-            if not self.token or self.expires + 60 > time():
+            if not self.token or self.expires_in_seconds + 60 > time():
                 self.get_token()
             return func(self, *args, **kwargs)
 
@@ -84,8 +88,14 @@ class NmdcRuntimeApi:
         }
         url = self._base_url + "token"
         resp = requests.post(url, headers=h, data=data).json()
-        expt = resp["expires"]
-        self.expires = time() + expt["minutes"] * 60
+        expires = resp["expires"]
+
+        # check for day(s) in the expiration time
+        if "days" in expires:
+            self.expires_in_seconds = time() + expires["days"] * SECONDS_IN_DAY
+        else:
+            # assume minutes
+            self.expires_in_seconds = time() + expires["minutes"] * 60
 
         self.token = resp["access_token"]
         self.header = {

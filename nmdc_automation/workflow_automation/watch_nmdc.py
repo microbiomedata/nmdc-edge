@@ -300,7 +300,7 @@ class RuntimeApiHandler:
             "workflow.id": {"$in": allowed_workflows},
             "claims": {"$size": 0}
         }
-        job_records =  self.runtime_api.list_jobs(filt=filt)
+        job_records = self.runtime_api.list_jobs(filt=filt)
 
         for job in job_records:
             jobs.append(WorkflowJob(self.config, workflow_state=job))
