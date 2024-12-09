@@ -6,7 +6,7 @@ from typing import Optional, List
 class Sample(BaseModel):
     apGoldId: str
     studyId: str
-    itsApId: str
+    itsApId: int
     projects: str
     biosample_id: str
     seq_id: str
