@@ -156,8 +156,9 @@ workflow main_workflow {
             docker=ReadbasedAnalysis_container
     }
 
-     call readbasedAnalysis_output.generateSummaryJson as ReadbasedAnalysis_output {
+     call readbasedAnalysis_output.readbasedAnalysis_output as ReadbasedAnalysis_output {
         input: 
+            outdir=readbasedAnalysis_outdir,
             gottcha2_report_tsv=ReadbasedAnalysis_call.final_gottcha2_report_tsv, 
             gottcha2_full_tsv=ReadbasedAnalysis_call.final_gottcha2_full_tsv,
             gottcha2_krona_html=ReadbasedAnalysis_call.final_gottcha2_krona_html, 
@@ -476,29 +477,30 @@ task finish {
             ~{final_unbinned_fa} ~{final_checkm} ~{mags_version} ~{final_stats_json} ~{barplot} ~{heatmap} \
             ~{kronaplot} ~{magsdir}/
 
-            mkdir -p ~{rbadir}/gottcha2/
-            mkdir -p ~{rbadir}/centrifuge/
-            mkdir -p ~{rbadir}/kraken2/
-            /scripts/generate_objects.py --type "ReadbasedAnalysis" --id ~{informed_by} \
-                --name "ReadBased Analysis Activity for ~{proj}" --part ~{proj} \
-                --start ~{start} --end $end \
-                --resource '~{resource}' --url ~{url_base} --giturl ~{git_url} \
-                --inputs ~{sep=" " filtered} \
-                --outputs \
-                ~{gottcha2_report_tsv} "Gottcha2 TSV report" \
-                ~{gottcha2_full_tsv} "Gottcha2 full TSV report" \
-                ~{gottcha2_krona_html} "Gottcha2 Krona HTML report" \
-                ~{centrifuge_classification_tsv} "Centrifuge classification TSV report" \
-                ~{centrifuge_report_tsv} "Centrifuge TSV report" \
-                ~{centrifuge_krona_html} "Centrifuge Krona HTML report" \
-                ~{kraken2_classification_tsv} "Kraken classification TSV report" \
-                ~{kraken2_report_tsv} "Kraken2 TSV report" \
-                ~{kraken2_krona_html} "Kraken2 Krona HTML report"
+            # ReadbasedAnalysis objects
+            # mkdir -p ~{rbadir}/gottcha2/
+            # mkdir -p ~{rbadir}/centrifuge/
+            # mkdir -p ~{rbadir}/kraken2/
+            # /scripts/generate_objects.py --type "ReadbasedAnalysis" --id ~{informed_by} \
+            #    --name "ReadBased Analysis Activity for ~{proj}" --part ~{proj} \
+            #    --start ~{start} --end $end \
+            #    --resource '~{resource}' --url ~{url_base} --giturl ~{git_url} \
+            #    --inputs ~{sep=" " filtered} \
+            #    --outputs \
+            #    ~{gottcha2_report_tsv} "Gottcha2 TSV report" \
+            #    ~{gottcha2_full_tsv} "Gottcha2 full TSV report" \
+            #    ~{gottcha2_krona_html} "Gottcha2 Krona HTML report" \
+            #    ~{centrifuge_classification_tsv} "Centrifuge classification TSV report" \
+            #    ~{centrifuge_report_tsv} "Centrifuge TSV report" \
+            #    ~{centrifuge_krona_html} "Centrifuge Krona HTML report" \
+            #    ~{kraken2_classification_tsv} "Kraken classification TSV report" \
+            #    ~{kraken2_report_tsv} "Kraken2 TSV report" \
+            #    ~{kraken2_krona_html} "Kraken2 Krona HTML report"
 
-            cp activity.json data_objects.json ~{summary_json} ~{rbadir}/
-            cp ~{gottcha2_report_tsv} ~{gottcha2_full_tsv} ~{gottcha2_krona_html} ~{rbadir}/gottcha2/
-            cp ~{centrifuge_classification_tsv} ~{centrifuge_report_tsv} ~{centrifuge_krona_html} ~{rbadir}/centrifuge/
-            cp ~{kraken2_classification_tsv} ~{kraken2_report_tsv} ~{kraken2_krona_html} ~{rbadir}/kraken2/
+            # cp activity.json data_objects.json ~{summary_json} ~{rbadir}/
+            # cp ~{gottcha2_report_tsv} ~{gottcha2_full_tsv} ~{gottcha2_krona_html} ~{rbadir}/gottcha2/
+            # cp ~{centrifuge_classification_tsv} ~{centrifuge_report_tsv} ~{centrifuge_krona_html} ~{rbadir}/centrifuge/
+            # cp ~{kraken2_classification_tsv} ~{kraken2_report_tsv} ~{kraken2_krona_html} ~{rbadir}/kraken2/
 
     >>>
 
