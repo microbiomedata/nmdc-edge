@@ -90,12 +90,18 @@ class NmdcRuntimeApi:
         resp = requests.post(url, headers=h, data=data).json()
         expires = resp["expires"]
 
-        # check for day(s) in the expiration time
-        if "days" in expires:
-            self.expires_in_seconds = time() + expires["days"] * SECONDS_IN_DAY
-        else:
-            # assume minutes
-            self.expires_in_seconds = time() + expires["minutes"] * 60
+        # Expires can be in days, hours, minutes, seconds - sum them up and convert to seconds
+        expires = 0
+        if "days" in resp["expires"]:
+            expires += int(resp["expires"]["days"]) * SECONDS_IN_DAY
+        if "hours" in resp["expires"]:
+            expires += int(resp["expires"]["hours"]) * 3600
+        if "minutes" in resp["expires"]:
+            expires += int(resp["expires"]["minutes"]) * 60
+        if "seconds" in resp["expires"]:
+            expires += int(resp["expires"]["seconds"])
+
+        self.expires_in_seconds = time() + expires
 
         self.token = resp["access_token"]
         self.header = {
