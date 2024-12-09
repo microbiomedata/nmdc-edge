@@ -537,7 +537,8 @@ class WorkflowJob:
             data_object = DataObject(
                 id=output_spec["id"], name=output_file_path.name, type="nmdc:DataObject", url=file_url,
                 data_object_type=output_spec["data_object_type"], md5_checksum=md5_sum,
-                description=output_spec["description"], was_generated_by=self.workflow_execution_id, )
+                description=output_spec["description"].replace('{id}', self.workflow_execution_id),
+                was_generated_by=self.workflow_execution_id, )
 
             data_objects.append(data_object)
         return data_objects
