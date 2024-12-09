@@ -54,12 +54,13 @@ workflow readbasedAnalysis_output {
             kraken2_krona_html=kraken2_krona_html,
             centrifuge_report_tsv=centrifuge_report_tsv,
             centrifuge_classification_tsv=centrifuge_classification_tsv,
-            centrifuge_krona_html=centrifuge_krona_html, 
-            container = bbtools_container
+            centrifuge_krona_html=centrifuge_krona_html,
+            summary_json=generateSummaryJson.summary_json,
+            container=bbtools_container
     }
     
     output {
-            File summary_json = generateSummaryJson.summary_json
+            File summary_json=generateSummaryJson.summary_json
     }
 
 }
@@ -105,6 +106,7 @@ task make_output{
         File? kraken2_classification_tsv
         File? kraken2_report_tsv
         File? kraken2_krona_html
+        File? summary_json
         String container
     }
 
@@ -113,13 +115,15 @@ task make_output{
         set -euo pipefail
         mkdir -p ~{outdir}
 
+        cp ~{summary_json} ~{outdir}/
+
         mkdir -p ~{outdir}/gottcha2/
         mkdir -p ~{outdir}/centrifuge/
         mkdir -p ~{outdir}/kraken2/
 
-        mv ~{gottcha2_report_tsv} ~{gottcha2_full_tsv} ~{gottcha2_krona_html} ~{outdir}/gottcha2/
-        mv ~{centrifuge_classification_tsv} ~{centrifuge_report_tsv} ~{centrifuge_krona_html} ~{outdir}/centrifuge/
-        mv ~{kraken2_classification_tsv} ~{kraken2_report_tsv} ~{kraken2_krona_html} ~{outdir}/kraken2/
+        cp ~{gottcha2_report_tsv} ~{gottcha2_full_tsv} ~{gottcha2_krona_html} ~{outdir}/gottcha2/
+        cp ~{centrifuge_classification_tsv} ~{centrifuge_report_tsv} ~{centrifuge_krona_html} ~{outdir}/centrifuge/
+        cp ~{kraken2_classification_tsv} ~{kraken2_report_tsv} ~{kraken2_krona_html} ~{outdir}/kraken2/
 
     >>>
 
