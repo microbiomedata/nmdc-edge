@@ -100,6 +100,7 @@ def get_sample_files(samples_csv_file: str, ACCESS_TOKEN: str, delay: float) -> 
             logging.exception(f'skipping biosample_id: {biosample_id}')
             continue
         combine_sample_ids_with_agg_ids(sample_files_list, agg_id_list, biosample_id, seq_id, all_files_list)
+    logging.debug(f"all_files_list: {all_files_list}")
     return all_files_list
 
 
