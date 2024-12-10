@@ -18,9 +18,6 @@ const AboutDropdown = (props) => {
           <a title="Advisory" href="https://microbiomedata.org/advisory/">
             Advisory
           </a>
-          <a title="Diversity, Equity, and Inclusion" href="https://microbiomedata.org/idea-action-plan/">
-            Diversity, Equity, and Inclusion
-          </a>
           <a title="Data Use Policy" href="https://microbiomedata.org/nmdc-data-use-policy/">
             Data Use Policy
           </a>

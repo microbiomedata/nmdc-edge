@@ -1,10 +1,13 @@
 import React from 'react';
 import { Col, Row, Badge } from 'reactstrap';
 import Moment from 'react-moment';
+import { useSelector } from 'react-redux';
 
 import { projectStatusColors, projectStatusNames } from '../../../common/table';
 
 function ProjectSummary(props) {
+    const user = useSelector(state => state.user);
+
     return (
         <>
             {!props.project ?
@@ -30,7 +33,14 @@ function ProjectSummary(props) {
                             <b>Description:</b> {props.project.desc}<br></br>
                             {props.type !== 'public' && <><b>Owner:</b> {props.project.owner}<br></br></>}
                             <b>Submission Time:</b> <Moment>{props.project.created}</Moment><br></br>
-                            <b>Status:</b> <Badge color={projectStatusColors[props.project.status]}>{projectStatusNames[props.project.status]}</Badge><br></br>
+                            <b>Status:</b> <Badge color={projectStatusColors[props.project.status]}>{projectStatusNames[props.project.status]}</Badge>
+                            <br></br>
+                            {props.project.status === 'failed' && <span className='edge-help-text'>
+                                {props.type === 'user' && props.project.owner === user.profile.email && <>
+                                    If you need assistance with this failed project, please contact nmdc-edge@lanl.gov and include the project code '{props.project.code}'.
+                                    <br></br>
+                                </>}
+                            </span>}
                             <b>Type:</b> {props.project.type}<br></br>
                         </div>
                     </Col>

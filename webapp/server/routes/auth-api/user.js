@@ -1,5 +1,7 @@
 const express = require("express");
 const path = require("path");
+const nodeUtil = require("util");
+const ejs = require('ejs');
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const randomize = require('randomatic');
@@ -27,6 +29,7 @@ const validateLoginInput = require("../../validation/user/login");
 
 const common = require("../common");
 const logger = require('../../util/logger');
+const utilCommon = require("../../util/common");
 
 const sysError = "API server error";
 
@@ -142,7 +145,7 @@ router.post("/update", (req, res) => {
 //for share/unshare
 router.get("/list", (req, res) => {
     logger.debug("/auth-api/user/list: " + req.user.email);
-    User.find({ 'status': 'active', 'email' : { $regex: "@orcid.org", $options: 'i' } }, { firstname: 1, lastname: 1, email: 1 }).sort([['firstname', 1], ['lastname', 1]]).then(function (users) {
+    User.find({ 'status': 'active', 'email': { $regex: "@orcid.org", $options: 'i' } }, { firstname: 1, lastname: 1, email: 1 }).sort([['firstname', 1], ['lastname', 1]]).then(function (users) {
         return res.send(users);
     }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
 
@@ -410,6 +413,177 @@ router.post("/project/result", (req, res) => {
     }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
 });
 
+// @route GET  auth-api/user/project/connect2nmdcserver
+// @access Private
+router.get("/project/connect2nmdcserver", async (req, res) => {
+    logger.debug("/auth-api/user/project/connect2nmdcserver");
+    try {
+        // Find user by email
+        const user = await User.findOne({ email: req.user.email });
+        // get nmdc access token
+        let url = `${config.NMDC.SERVER_URL}/auth/oidc-login`;
+        const tokenData = await utilCommon.postData(url, { id_token: user.orcidtoken }, { headers: { "Content-Type": "application/json" } });
+        if (tokenData.access_token) {
+            return res.send({ connect2nmdcserver: true });
+        } else {
+            return res.send({ connect2nmdcserver: false });
+        }
+    } catch (err) {
+        logger.error(nodeUtil.inspect(err));
+        return res.send({ connect2nmdcserver: false });
+    };
+});
+
+// @route GET  auth-api/user/project/getmetadatasubmissions
+// @access Private
+router.get("/project/getmetadatasubmissions", async (req, res) => {
+    logger.debug("/auth-api/user/project/getmetadatasubmissions");
+    try {
+        // Find user by email
+        const user = await User.findOne({ email: req.user.email });
+        // get nmdc access token
+        let url = `${config.NMDC.SERVER_URL}/auth/oidc-login`;
+        const tokenData = await utilCommon.postData(url, { id_token: user.orcidtoken }, { headers: { "Content-Type": "application/json" } });
+        url = `${config.NMDC.SERVER_URL}/api/metadata_submission?offset=0&limit=1000`;
+        const submissionData = await utilCommon.getData(url, { headers: { "Authorization": `Bearer ${tokenData.access_token}` } });
+
+        return res.send({ metadata_submissions: submissionData.results });
+    } catch (err) { logger.error(nodeUtil.inspect(err)); return res.status(500).json(sysError); };
+});
+
+// @route POST auth-api/user/project/createmetadatasubmission
+// @desc submit metadata to nmdc
+// @access Private
+router.post("/project/createmetadatasubmission", async (req, res) => {
+    logger.debug("/auth-api/user/project/createmetadatasubmission: " + JSON.stringify(req.body));
+    //assume project code is provided
+    let { errors, isValid } = validateUpdateprojectInput(req.body);
+
+    // Check validation
+    if (!isValid) {
+        logger.error(errors);
+        return res.status(400).json(errors);
+    }
+
+    try {
+        // Find user by email
+        const user = await User.findOne({ email: req.user.email });
+        // Find project
+        const proj = await Project.findOne({ code: dbsanitize(req.body.code), 'status': { $ne: 'delete' }, 'owner': dbsanitize(req.user.email) });
+        // create metadata_submission json
+        const tmpl = config.NMDC.METADATA_SUBMISSION_TEMPLATE;
+        // render template
+        const metadata = ejs.render(String(fs.readFileSync(tmpl)), req.body);
+        // console.log(metadata)
+        // get nmdc access token
+        let url = `${config.NMDC.SERVER_URL}/auth/oidc-login`;
+        const tokenData = await utilCommon.postData(url, { id_token: user.orcidtoken }, { headers: { "Content-Type": "application/json" } });
+        // create metadata submission
+        url = `${config.NMDC.SERVER_URL}/api/metadata_submission`;
+        const submissionResult = await utilCommon.postData(url, metadata, { headers: { "Content-Type": "application/json", Authorization: `Bearer ${tokenData.access_token}` } });
+        //console.log(submissionResult)
+        // add submission id to project
+        proj.metadatasubmissionid = submissionResult.id;
+        proj.updated = Date.now();
+        proj.save();
+        const submissionUrl = config.NMDC.SERVER_URL + '/submission/' + submissionResult.id + "/samples";
+        res.json({ metadata_submission_url: submissionUrl });
+    } catch (err) { logger.error(nodeUtil.inspect(err)); return res.status(500).json(sysError); };
+});
+
+// @route POST  auth-api/user/project/getmetadatasubmission
+// @access Private
+router.post("/project/getmetadatasubmission", async (req, res) => {
+    logger.debug("/auth-api/user/project/getmetadatasubmission: " + JSON.stringify(req.body));
+    if (!req.body.code) {
+        return res.status(400).json("Project code is required.");
+    }
+    try {
+        const project = await Project.findOne({ code: dbsanitize(req.body.code), 'status': { $ne: 'delete' }, 'owner': dbsanitize(req.user.email) });
+
+        if (project === null) {
+            return res.status(400).json("Project not found.");
+        }
+        let result = project.metadatasubmissionid ? config.NMDC.SERVER_URL + '/submission/' + project.metadatasubmissionid + "/samples" : null;
+        // //Could NOT get right message from the api server if a submission not found, so skip this step for now
+        // if (project.metadatasubmissionid) {
+        //     // check the metadata submission in case user deleted it 
+        //     // get nmdc access token
+        //     let url = `${config.NMDC.SERVER_URL}/auth/oidc-login`;
+        //     //const tokenData = await utilCommon.postData(url, { id_token: user.orcidtoken }, { headers: { "Content-Type": "application/json" } });
+        //     const tokenData = { "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5OWMxODE0YS1kMDFiLTQ2YzgtOWY5OC0xMTg3ZWY2YTA4ZTYiLCJ0eXAiOiJCZWFyZXIiLCJpc3MiOiJodHRwczovL2RhdGEtZGV2Lm1pY3JvYmlvbWVkYXRhLm9yZy8iLCJpYXQiOjE3Mjc5MTEzODEsImV4cCI6MTcyNzk5Nzc4MX0.Lov43OCcD_Z8b_DLTiq4G2LjVj2tTQAKMM082TGDX_E", "token_type": "bearer", "expires_in": 86400 };
+        //     // console.log(tokenData);
+
+        //     // get metadata submission by id
+        //     url = `${config.NMDC.SERVER_URL}/api/metadata_submission/${project.metadatasubmissionid}`;
+        //     const submissionData = await utilCommon.getData(url, { headers: { "Authorization": `Bearer ${tokenData.access_token}` } });
+        //     //console.log(JSON.stringify(submissionData));
+        //     result = config.NMDC.SERVER_URL + '/submission/' + submissionData.id + "/samples";
+        // }
+
+        return res.json({ metadata_submission_url: result });
+    } catch (err) { logger.error(nodeUtil.inspect(err)); return res.status(500).json(sysError); };
+});
+
+// @route POST  auth-api/user/project/getmetadatasubmission
+// @access Private
+router.post("/project/addmetadatasubmission", async (req, res) => {
+    logger.debug("/auth-api/user/project/addmetadatasubmission: " + JSON.stringify(req.body));
+    if (!req.body.code) {
+        return res.status(400).json("Project code is required.");
+    }
+    try {
+        const proj = await Project.findOne({ code: dbsanitize(req.body.code), 'status': { $ne: 'delete' }, 'owner': dbsanitize(req.user.email) });
+
+        if (proj === null) {
+            return res.status(400).json("Project not found.");
+        }
+        // add submission id to project
+        proj.metadatasubmissionid = req.body.metadataSubmissionId;
+        proj.updated = Date.now();
+        proj.save();
+
+        const submissionUrl = config.NMDC.SERVER_URL + '/submission/' + req.body.metadataSubmissionId + "/samples";
+        return res.json({ metadata_submission_url: submissionUrl });
+    } catch (err) { logger.error(nodeUtil.inspect(err)); return res.status(500).json(sysError); };
+});
+
+// @route POST  auth-api/user/project/deletemetadatasubmission
+// @access Private
+router.post("/project/deletemetadatasubmission", async (req, res) => {
+    logger.debug("/auth-api/user/project/deletemetadatasubmission: " + JSON.stringify(req.body));
+    if (!req.body.code) {
+        return res.status(400).json("Project code is required.");
+    }
+    try {
+        // Find user by email
+        const user = await User.findOne({ email: req.user.email });
+        // Find project
+        const proj = await Project.findOne({ code: dbsanitize(req.body.code), 'status': { $ne: 'delete' }, 'owner': dbsanitize(req.user.email) });
+
+        if (proj === null || !proj.metadatasubmissionid) {
+            return res.status(400).json("Project metadata not found.");
+        }
+
+        // if no other project associated with this metadata submission, delete it from the submission portal
+        const count = await Project.countDocuments({ metadatasubmissionid: proj.metadatasubmissionid });
+
+        if (count === 1) {
+            // get nmdc access token
+            let url = `${config.NMDC.SERVER_URL}/auth/oidc-login`;
+            const tokenData = await utilCommon.postData(url, { id_token: user.orcidtoken }, { headers: { "Content-Type": "application/json" } });
+            // delete metadata submission by id
+            url = `${config.NMDC.SERVER_URL}/api/metadata_submission/${proj.metadatasubmissionid}`;
+            await utilCommon.deleteData(url, { headers: { "Authorization": `Bearer ${tokenData.access_token}` } });
+        }
+        // update project
+        proj.metadatasubmissionid = null;
+        proj.updated = Date.now();
+        proj.save();
+
+        return res.json({ metadata_submission_url: null });
+    } catch (err) { logger.error(nodeUtil.inspect(err)); return res.status(500).json(sysError); };
+});
 
 //files
 // @route POST auth-api/user/upload/list
@@ -800,15 +974,15 @@ router.post("/import-old-data", async (req, res) => {
                 });
                 await newOrcidUser.save();
                 // update orcid account
-                if(!req.user.mailto) {
+                if (!req.user.mailto) {
                     console.log('update mailto')
-                    await User.updateOne({'email': req.user.email}, {'mailto': req.body.email });
+                    await User.updateOne({ 'email': req.user.email }, { 'mailto': req.body.email });
                 }
                 // return success
                 logger.info('import projects: ' + projects.n + ', uploads: ' + uploads.n);
-                return res.send({projects: projects.n, uploads: uploads.n});
+                return res.send({ projects: projects.n, uploads: uploads.n });
             } else {
-                return res.status(400).json({'old projects': 0, 'old uploads': 0, message: 'Nothing to import'});
+                return res.status(400).json({ 'old projects': 0, 'old uploads': 0, message: 'Nothing to import' });
             }
         } else {
             logger.error("login: Password incorrect." + email)
