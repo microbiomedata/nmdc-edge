@@ -6,7 +6,7 @@ workflowlist = {
         full_name: 'Read-based Taxonomy Classification',
         wdl_tmpl: 'readbasedAnalysis_wdl.tmpl',
         inputs_tmpl: 'readbasedAnalysis_inputs.tmpl',
-        options_json: 'metaG_options.tmpl',
+        // options_json: 'metaG_options.tmpl',
         outdir: 'output/ReadbasedAnalysis',
         cromwell_calls: ['main_workflow.ReadbasedAnalysis'],
         wdl_version: '1.0'
