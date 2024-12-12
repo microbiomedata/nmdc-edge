@@ -157,7 +157,8 @@ def combine_sample_ids_with_agg_ids(sample_files_list, agg_id_list, biosample_id
                 'metadata'].keys() else None
             md5sum = files_dict['md5sum'] if 'md5sum' in files_dict.keys() else None
             all_files_list.append({'biosample_id': biosample_id, 'seq_id': seq_id, 'file_name': files_dict['file_name'],
-                                   'file_status': files_dict['file_status'], 'file_size': files_dict['file_size'],
+                                   'file_status': files_dict['file_status'], 'file_type': files_dict['file_type'],
+                                   'file_size': files_dict['file_size'],
                                    'jdp_file_id': files_dict['_id'], 'md5sum': md5sum,
                                    'file_format': file_format,
                                    'analysis_project_id': agg_id, 'seq_unit_name': seq_unit_name})
@@ -211,8 +212,8 @@ def get_seq_unit_names(analysis_files_df, gold_id):
     seq_unit_names = []
     for idx, row in analysis_files_df.loc[pd.notna(analysis_files_df.seq_unit_name)
                                                & (analysis_files_df.apGoldId == gold_id)
-                                               & (
-                                               analysis_files_df.file_name.str.contains("assembly"))].iterrows():
+                                               & (analysis_files_df.file_type == 'contigs')].iterrows():
+        print(row.seq_unit_name)
         if type(row.seq_unit_name) is str:
             seq_unit_names.append(row.seq_unit_name)
         elif type(row.seq_unit_name) is list:
