@@ -211,8 +211,9 @@ def remove_duplicate_analysis_files(seq_files_df: pd.DataFrame) -> pd.DataFrame:
 def get_seq_unit_names(analysis_files_df, gold_id):
     seq_unit_names = []
     for idx, row in analysis_files_df.loc[pd.notna(analysis_files_df.seq_unit_name)
-                                               & (analysis_files_df.apGoldId == gold_id)
-                                               & (analysis_files_df.file_type == 'contigs')].iterrows():
+                                          & (analysis_files_df.apGoldId == gold_id)
+                                          & ((analysis_files_df.file_type == "['contigs']") |
+                                             (analysis_files_df.file_name.str.contains() == 'assembly'))].iterrows():
         print(row.seq_unit_name)
         if type(row.seq_unit_name) is str:
             seq_unit_names.append(row.seq_unit_name)
