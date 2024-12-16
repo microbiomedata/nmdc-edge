@@ -106,6 +106,7 @@ const config = {
             PIPELINE_MONITOR: process.env.CRON_PIPELINE_MONITOR_SCHEDULE || "0-59/3 * * * *",
             WORKFLOW_MONITOR: process.env.CRON_WORKFLOW_MONITOR_SCHEDULE || "1-59/3 * * * *",
             WORKFLOW_BIG_MEM_MONITOR: process.env.CRON_WORKFLOW_BIG_MEM_MONITOR_SCHEDULE || "0-59/3 * * * *",
+            BULKSUBMISSION_MONITOR: process.env.CRON_WORKFLOW_MONITOR_SCHEDULE || "0-59/3 * * * *",
             CROMWELL_MONITOR: process.env.CRON_CROMWELL_MONITOR_SCHEDULE || "2-59/3 * * * *",
             FILE_UPLOAD_MONITOR: process.env.CRON_FILE_UPLOAD_MONITOR_SCHEDULE || "0 0 * * *",
             PROJECT_STATUS_MONITOR: process.env.CRON_PROJECT_STATUS_MONITOR_SCHEDULE || "*/1 * * * *",

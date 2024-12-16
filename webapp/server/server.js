@@ -19,6 +19,7 @@ const common = require("./util/common");
 const pipelineMonitor = require("./crons/pipelineMonitor");
 const workflowMonitor = require("./crons/workflowMonitor");
 const workflowBigMemMonitor = require("./crons/workflowBigMemMonitor");
+const bulkSubmissionMonitor = require("./crons/bulkSubmissionMonitor");
 const cromwellMonitor = require("./crons/cromwellMonitor");
 const fileUploadMonitor = require("./crons/fileUploadMonitor");
 const projectMonitor = require("./crons/projectMonitor");
@@ -49,7 +50,7 @@ const ensureDirectoryIsUsable = (path) => {
     }
   } catch (error) {
     // Create a directory there to which this process has full access.
-    fs.mkdirSync(path, {recursive: true, mode: 0o700});
+    fs.mkdirSync(path, { recursive: true, mode: 0o700 });
     console.debug("Created directory:", path);
   }
 };
@@ -201,6 +202,10 @@ if (config.NODE_ENV === 'production') {
   // monitor workflow requests on every 3 minutes 
   cron.schedule(config.CRON.SCHEDULES.WORKFLOW_BIG_MEM_MONITOR, function () {
     workflowBigMemMonitor();
+  });
+  // monitor bulk submission requests on every 3 minutes 
+  cron.schedule(config.CRON.SCHEDULES.BULKSUBMISSION_MONITOR, function () {
+    bulkSubmissionMonitor();
   });
   // monitor cromwell jobs on every 3 minutes 
   cron.schedule(config.CRON.SCHEDULES.CROMWELL_MONITOR, function () {
