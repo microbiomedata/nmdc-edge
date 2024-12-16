@@ -22,6 +22,9 @@ const ResourcesDropdown = (props) => {
           <a title="Data Management" href="https://microbiomedata.org/data-management/">
             Data Management
           </a>
+          <a title="Data Integration" href="https://microbiomedata.org/data-integration/">
+            Data Integration
+          </a>
         </div>
       </div>
     </>
