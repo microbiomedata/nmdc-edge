@@ -47,7 +47,6 @@ wdl_dirs=(
   "metaP"
   "metaT"
   "organicMatter"
-  "virusPlasmids"
   "sra"
 )
 
