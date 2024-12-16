@@ -76,7 +76,6 @@ RUN cd /app/data/workflow/WDL/metaG         && zip -r imports.zip *.wdl
 RUN cd /app/data/workflow/WDL/metaP         && zip -r imports.zip *.wdl
 RUN cd /app/data/workflow/WDL/metaT         && zip -r imports.zip *.wdl
 RUN cd /app/data/workflow/WDL/organicMatter && zip -r imports.zip *.wdl
-RUN cd /app/data/workflow/WDL/virusPlasmids && zip -r imports.zip *.wdl
 RUN cd /app/data/workflow/WDL/sra           && zip -r imports.zip *.wdl
 #
 # Install the npm packages upon which the web app client depends.
