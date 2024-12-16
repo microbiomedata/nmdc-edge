@@ -270,7 +270,7 @@ function ProjectResult(props) {
                 </Row>
                 :
                 <>
-                    {(connect2nmdcserver && project && project.status === 'failed' && props.type !== 'public') &&
+                    {(project && project.status === 'failed' && props.type !== 'public') &&
                         <>
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
@@ -290,7 +290,7 @@ function ProjectResult(props) {
                             <br></br>
                         </>
                     }
-                    {(project && project.status === 'complete' && props.type === 'user' && metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
+                    {(connect2nmdcserver && project && project.status === 'complete' && props.type === 'user' && metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
                         <>
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
