@@ -49,7 +49,7 @@ def expiry_dt_from_now(days=0, hours=0, minutes=0, seconds=0):
 
 class NmdcRuntimeApi:
     token = None
-    expires_in_seconds = 0
+    expires_at = 0
     _base_url = None
     client_id = None
     client_secret = None
@@ -67,7 +67,7 @@ class NmdcRuntimeApi:
     def refresh_token(func):
         def _get_token(self, *args, **kwargs):
             # If it expires in 60 seconds, refresh
-            if not self.token or self.expires_in_seconds + 60 > time():
+            if not self.token or self.expires_at + 60 > time():
                 self.get_token()
             return func(self, *args, **kwargs)
 
@@ -87,29 +87,31 @@ class NmdcRuntimeApi:
             "client_secret": self.client_secret,
         }
         url = self._base_url + "token"
-        resp = requests.post(url, headers=h, data=data).json()
-        expires = resp["expires"]
+
+        resp = requests.post(url, headers=h, data=data)
+
+        response_body = resp.json()
 
         # Expires can be in days, hours, minutes, seconds - sum them up and convert to seconds
         expires = 0
-        if "days" in resp["expires"]:
-            expires += int(resp["expires"]["days"]) * SECONDS_IN_DAY
-        if "hours" in resp["expires"]:
-            expires += int(resp["expires"]["hours"]) * 3600
-        if "minutes" in resp["expires"]:
-            expires += int(resp["expires"]["minutes"]) * 60
-        if "seconds" in resp["expires"]:
-            expires += int(resp["expires"]["seconds"])
+        if "days" in response_body["expires"]:
+            expires += int(response_body["expires"]["days"]) * SECONDS_IN_DAY
+        if "hours" in response_body["expires"]:
+            expires += int(response_body["expires"]["hours"]) * 3600
+        if "minutes" in response_body["expires"]:
+            expires += int(response_body["expires"]["minutes"]) * 60
+        if "seconds" in response_body["expires"]:
+            expires += int(response_body["expires"]["seconds"])
 
-        self.expires_in_seconds = time() + expires
+        self.expires_at = time() + expires
 
-        self.token = resp["access_token"]
+        self.token = response_body["access_token"]
         self.header = {
             "accept": "application/json",
             "Content-Type": "application/json",
             "Authorization": "Bearer %s" % (self.token),
         }
-        return resp
+        return response_body
 
     def get_header(self):
         return self.header
