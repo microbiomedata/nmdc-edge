@@ -75,24 +75,26 @@ def mock_api(monkeypatch, requests_mock, test_data_dir):
     token_resp = {"expires": {"minutes": time()+60},
             "access_token": "abcd"
             }
-    requests_mock.post("http://localhost/token", json=token_resp)
+    requests_mock.post("http://localhost:8000/token", json=token_resp)
+
+
     resp = ["nmdc:dobj-01-abcd4321"]
     # mock mint responses in sequence
 
-    requests_mock.post("http://localhost/pids/mint", json=resp)
+    requests_mock.post("http://localhost:8000/pids/mint", json=resp)
     requests_mock.post(
-        "http://localhost/workflows/workflow_executions",
+        "http://localhost:8000/workflows/workflow_executions",
         json=resp
         )
-    requests_mock.post("http://localhost/pids/bind", json=resp)
+    requests_mock.post("http://localhost:8000/pids/bind", json=resp)
 
     rqcf = test_data_dir / "rqc_response2.json"
     rqc = json.load(open(rqcf))
     rqc_resp = {"resources": [rqc]}
-    requests_mock.get("http://localhost/jobs", json=rqc_resp)
+    requests_mock.get("http://localhost:8000/jobs", json=rqc_resp)
 
-    requests_mock.patch("http://localhost/operations/nmdc:1234", json={})
-    requests_mock.get("http://localhost/operations/nmdc:1234", json={'metadata': {}})
+    requests_mock.patch("http://localhost:8000/operations/nmdc:1234", json={})
+    requests_mock.get("http://localhost:8000/operations/nmdc:1234", json={'metadata': {}})
 
 
 @fixture(scope="session")
