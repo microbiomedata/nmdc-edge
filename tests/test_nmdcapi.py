@@ -86,3 +86,27 @@ def test_jobs(requests_mock, site_config_file, mock_api):
     requests_mock.post(url, json={}, status_code=409)
     resp = n.claim_job("abc")
     assert resp["claimed"] is True
+
+
+def test_nmdcapi_get_token_with_retry(requests_mock, site_config_file):
+    n = nmdcapi(site_config_file)
+    token_url = "http://localhost:8000/token"
+
+    requests_mock.post(
+        token_url, [{"status_code": 401, "json": {"error": "Unauthorized"}},
+                    {"status_code": 200, "json": {
+                        "access_token": "mocked_access_token",
+                        "expires": {"days": 1},
+                    }}]
+    )
+    # sanity check
+    assert n.token is None
+    assert n.expires_at == 0
+
+    # Call method under test - should retry and succeed
+    n.get_token()
+
+    # Check that the token was set
+    assert n.token == "mocked_access_token"
+    assert n.expires_at > 0
+

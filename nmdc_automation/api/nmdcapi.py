@@ -75,14 +75,14 @@ class NmdcRuntimeApi:
         return _get_token
 
     @retry(
-        wait=wait_exponential(multiplier=1, min=30, max=240),
-        stop=stop_after_attempt(4),
+        wait=wait_exponential(multiplier=4, min=8, max=120),
+        stop=stop_after_attempt(6),
         reraise=True,
     )
     def get_token(self):
         """
         Get a token using a client id/secret.
-        Retries up to 4 times with exponential backoff.
+        Retries up to 6 times with exponential backoff.
         """
         h = {
             "accept": "application/json",
