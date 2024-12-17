@@ -14,6 +14,7 @@ from typing import Union, List
 from datetime import datetime, timedelta, timezone
 from nmdc_automation.config import SiteConfig, UserConfig
 import logging
+from tenacity import retry, wait_exponential, stop_after_attempt
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -73,9 +74,15 @@ class NmdcRuntimeApi:
 
         return _get_token
 
+    @retry(
+        wait=wait_exponential(multiplier=1, min=30, max=240),
+        stop=stop_after_attempt(4),
+        reraise=True,
+    )
     def get_token(self):
         """
         Get a token using a client id/secret.
+        Retries up to 4 times with exponential backoff.
         """
         h = {
             "accept": "application/json",
@@ -89,7 +96,9 @@ class NmdcRuntimeApi:
         url = self._base_url + "token"
 
         resp = requests.post(url, headers=h, data=data)
-
+        if not resp.ok:
+            logging.error(f"Failed to get token: {resp.text}")
+            resp.raise_for_status()
         response_body = resp.json()
 
         # Expires can be in days, hours, minutes, seconds - sum them up and convert to seconds
@@ -111,6 +120,7 @@ class NmdcRuntimeApi:
             "Content-Type": "application/json",
             "Authorization": "Bearer %s" % (self.token),
         }
+        logging.info(f"New token expires at {self.expires_at}")
         return response_body
 
     def get_header(self):

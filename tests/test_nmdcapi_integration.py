@@ -1,11 +1,11 @@
-""" Integration tests for the NMDC API. """
+""" Integration tests for the NMDC API. These tests require the NMDC API to be running on localhost"""
+
+from time import time
 
 import pytest
 import requests
-from time import time
 
 from nmdc_automation.api.nmdcapi import NmdcRuntimeApi as nmdcapi
-
 
 
 @pytest.mark.integration
@@ -27,7 +27,6 @@ def test_integration_environment():
     assert response_body["id"] == "NERSC"
 
 
-
 @pytest.mark.integration
 def test_nmdcapi_get_token(site_config_file):
     n = nmdcapi(site_config_file)
@@ -35,8 +34,9 @@ def test_nmdcapi_get_token(site_config_file):
     assert n.expires_at == 0
     token_resp = n.get_token()
     assert token_resp["expires"]["days"] == 1
-
-    assert n.expires_at > 0
+    assert token_resp["access_token"] is not None
+    # should be at least an hour in the future
+    assert n.expires_at >= time() + 3600
     assert n.token is not None
 
 
@@ -62,4 +62,3 @@ def test_nmdcapi_list_jobs_refreshes_token(site_config_file):
     assert n.token is not None
     # should be at least an hour in the future again
     assert n.expires_at > time() + 3600
-
