@@ -14,7 +14,12 @@ from typing import Union, List
 from datetime import datetime, timedelta, timezone
 from nmdc_automation.config import SiteConfig, UserConfig
 import logging
+from tenacity import retry, wait_exponential, stop_after_attempt
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+SECONDS_IN_DAY = 86400
 
 def _get_sha256(fn: Union[str, Path]) -> str:
     """
@@ -45,7 +50,7 @@ def expiry_dt_from_now(days=0, hours=0, minutes=0, seconds=0):
 
 class NmdcRuntimeApi:
     token = None
-    expires = 0
+    expires_at = 0
     _base_url = None
     client_id = None
     client_secret = None
@@ -63,15 +68,21 @@ class NmdcRuntimeApi:
     def refresh_token(func):
         def _get_token(self, *args, **kwargs):
             # If it expires in 60 seconds, refresh
-            if not self.token or self.expires + 60 > time():
+            if not self.token or self.expires_at + 60 > time():
                 self.get_token()
             return func(self, *args, **kwargs)
 
         return _get_token
 
+    @retry(
+        wait=wait_exponential(multiplier=4, min=8, max=120),
+        stop=stop_after_attempt(6),
+        reraise=True,
+    )
     def get_token(self):
         """
         Get a token using a client id/secret.
+        Retries up to 6 times with exponential backoff.
         """
         h = {
             "accept": "application/json",
@@ -83,17 +94,34 @@ class NmdcRuntimeApi:
             "client_secret": self.client_secret,
         }
         url = self._base_url + "token"
-        resp = requests.post(url, headers=h, data=data).json()
-        expt = resp["expires"]
-        self.expires = time() + expt["minutes"] * 60
 
-        self.token = resp["access_token"]
+        resp = requests.post(url, headers=h, data=data)
+        if not resp.ok:
+            logging.error(f"Failed to get token: {resp.text}")
+            resp.raise_for_status()
+        response_body = resp.json()
+
+        # Expires can be in days, hours, minutes, seconds - sum them up and convert to seconds
+        expires = 0
+        if "days" in response_body["expires"]:
+            expires += int(response_body["expires"]["days"]) * SECONDS_IN_DAY
+        if "hours" in response_body["expires"]:
+            expires += int(response_body["expires"]["hours"]) * 3600
+        if "minutes" in response_body["expires"]:
+            expires += int(response_body["expires"]["minutes"]) * 60
+        if "seconds" in response_body["expires"]:
+            expires += int(response_body["expires"]["seconds"])
+
+        self.expires_at = time() + expires
+
+        self.token = response_body["access_token"]
         self.header = {
             "accept": "application/json",
             "Content-Type": "application/json",
             "Authorization": "Bearer %s" % (self.token),
         }
-        return resp
+        logging.info(f"New token expires at {self.expires_at}")
+        return response_body
 
     def get_header(self):
         return self.header
