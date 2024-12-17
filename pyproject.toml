@@ -43,3 +43,8 @@ style = "pep440"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: mark test as integration test",
+]

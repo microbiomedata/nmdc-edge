@@ -3,7 +3,7 @@ import json
 import os
 
 
-def test_basics(requests_mock, site_config_file):
+def test_basics(requests_mock, site_config_file, mock_api):
     n = nmdcapi(site_config_file)
 
     # Add decode description
@@ -14,7 +14,7 @@ def test_basics(requests_mock, site_config_file):
     assert "metadata" in resp
 
 
-def test_objects(requests_mock, site_config_file, test_data_dir):
+def test_objects(requests_mock, site_config_file, test_data_dir, mock_api):
     n = nmdcapi(site_config_file)
 
     requests_mock.post("http://localhost/objects", json={})
@@ -37,7 +37,7 @@ def test_objects(requests_mock, site_config_file, test_data_dir):
     assert "a" in resp
 
 
-def test_list_funcs(requests_mock, site_config_file, test_data_dir):
+def test_list_funcs(requests_mock, site_config_file, test_data_dir, mock_api):
     n = nmdcapi(site_config_file)
     mock_resp = json.load(open(test_data_dir / "mock_jobs.json"))
 
@@ -55,7 +55,7 @@ def test_list_funcs(requests_mock, site_config_file, test_data_dir):
     assert resp is not None
 
 
-def test_update_op(requests_mock, site_config_file):
+def test_update_op(requests_mock, site_config_file, mock_api):
     n = nmdcapi(site_config_file)
 
     mock_resp = {'metadata': {"b": "c"}}
@@ -69,7 +69,7 @@ def test_update_op(requests_mock, site_config_file):
     assert "b" in resp["metadata"]
 
 
-def test_jobs(requests_mock, site_config_file):
+def test_jobs(requests_mock, site_config_file, mock_api):
     n = nmdcapi(site_config_file)
 
     requests_mock.get("http://localhost/jobs/abc", json="jobs/")

@@ -67,7 +67,7 @@ def test_db():
     conn_str = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
     return MongoClient(conn_str).test
 
-@fixture(autouse=True)
+@fixture(scope="function")
 def mock_api(monkeypatch, requests_mock, test_data_dir):
     monkeypatch.setenv("NMDC_API_URL", "http://localhost")
     monkeypatch.setenv("NMDC_CLIENT_ID", "anid")

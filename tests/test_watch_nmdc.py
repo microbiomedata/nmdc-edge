@@ -417,7 +417,7 @@ def test_claim_jobs(mock_submit, site_config_file, site_config, fixtures_dir):
         assert unclaimed_wfj.job_status
 
 
-def test_runtime_manager_get_unclaimed_jobs(site_config, initial_state_file_1_failure, fixtures_dir):
+def test_runtime_manager_get_unclaimed_jobs(site_config, initial_state_file_1_failure, fixtures_dir, mock_api):
     # Arrange
     rt = RuntimeApiHandler(site_config)
     # Act
