@@ -368,8 +368,16 @@ class NmdcRuntimeApi:
         return resp.json()
 
     # The find endpoints don't require a token
-    def get_planned_process(self, id: str) -> Optional[dict]:
+    def find_planned_process(self, id: str) -> Optional[dict]:
         url = f"{self._base_url}planned_processes/{id}"
+        resp = requests.get(url)
+        if resp.status_code == 404:
+            return None
+        resp.raise_for_status()
+        return resp.json()
+
+    def find_data_object(self, id: str) -> Optional[dict]:
+        url = f"{self._base_url}data_objects/{id}"
         resp = requests.get(url)
         if resp.status_code == 404:
             return None

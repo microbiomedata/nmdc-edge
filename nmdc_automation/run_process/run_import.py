@@ -59,22 +59,15 @@ def import_projects(import_file, import_yaml, site_configuration, iteration):
 
         # Nucleotide sequencing data
         logger.info(f"Checking for existing nucleotide_sequencing_id: {nucleotide_sequencing_id}")
-        nucleotide_sequencing = runtime.get_planned_process(nucleotide_sequencing_id)
+        nucleotide_sequencing = runtime.find_planned_process(nucleotide_sequencing_id)
         if not nucleotide_sequencing:
-            logger.error(f"nucleotide_sequencing_id {nucleotide_sequencing_id} not found")
-            continue
-        # Check if the nucleotide sequencing has outputs
-        sequence_data = nucleotide_sequencing.get("has_output", [])
-        if sequence_data:
-            logger.info(f"nucleotide_sequencing_id {nucleotide_sequencing_id} has outputs")
-            logger.info(f"Output data objects: {sequence_data}")
-            continue
-        else:
-            logger.info(f"nucleotide_sequencing_id {nucleotide_sequencing_id} has no outputs")
-            # link sequencing data files and create data objects
-            # Initialize the db with the sequencing data object and create an update to be applied
+            raise Exception(f"nucleotide_sequencing_id {nucleotide_sequencing_id} not found")
 
+        if _nucleotide_sequencing_has_output(nucleotide_sequencing, nucleotide_sequencing_id):
+            logger.info(f"nucleotide_sequencing_id {nucleotide_sequencing_id} already has output: {nucleotide_sequencing['has_output']}")
+            continue
 
+        logger.info(f"Mapping sequencing data for nucleotide_sequencing_id: {nucleotide_sequencing_id}")
 
         # Initialize the db with the sequencing data and create an update to be applied
         # to the sequencing data generation has_output list
@@ -127,6 +120,24 @@ def import_projects(import_file, import_yaml, site_configuration, iteration):
         # gc.collect()
 
 
+def _nucleotide_sequencing_has_output(nucleotide_sequencing, nucleotide_sequencing_id) -> bool:
+    """
+    Check if the nucleotide sequencing has an output and if it is an NMDC data object.
+    """
+    seq_has_output = nucleotide_sequencing.get("has_output", [])
+    if seq_has_output:
+        # Raise an exception if there is more than one output or if the output is not an NMDC data object
+        if len(seq_has_output) > 1:
+            raise Exception(f"nucleotide_sequencing_id {nucleotide_sequencing_id} has more than one output")
+        seq_do_id = seq_has_output[0]
+        if not seq_do_id.startswith("nmdc:dobj-"):
+            raise Exception(f"nucleotide_sequencing_id {nucleotide_sequencing_id} has a non-NMDC output")
+
+        logger.info(f"nucleotide_sequencing_id {nucleotide_sequencing_id} has output {seq_do_id}")
+        return True
+    else:
+        logger.info(f"nucleotide_sequencing_id {nucleotide_sequencing_id} has no outputs")
+        return False
 
 
 @lru_cache(maxsize=None)
