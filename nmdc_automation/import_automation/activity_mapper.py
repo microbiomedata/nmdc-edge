@@ -63,6 +63,52 @@ class GoldMapper:
         """Builds a dictionary of workflows by their type."""
         return {wf["Type"]: wf for wf in self.import_data["Workflows"]}
 
+
+    def link_sequencing_data_file(self) -> Dict[str, dict]:
+        """
+        Create a link to the sequencing file if it does not exist.
+        Return a dictionary with the sequencing data object record by md5 checksum.
+        """
+        sequencing_types = ["Metagenome Raw Reads", ]
+        sequencing_import_data = [
+            d for d in self.import_data["Data Objects"]["Unique"] if d["data_object_type"] in sequencing_types
+        ]
+        sequencing_data = {}
+        # make the root directory if it does not exist
+        try:
+            os.makedirs(self.root_dir)
+        except FileExistsError:
+            logger.info(f"{self.root_dir} already exists")
+        for data_object_dict in sequencing_import_data:
+            for import_file in self.file_list:
+                import_file = str(import_file)
+                if re.search(data_object_dict["import_suffix"], import_file):
+                    file_destination_name = object_action(
+                        import_file,
+                        data_object_dict["action"],
+                        self.nucelotide_sequencing_id,
+                        data_object_dict["nmdc_suffix"],
+                    )
+                    export_file = os.path.join(self.root_dir, file_destination_name)
+                    try:
+                        os.link(import_file, export_file)
+                        logger.info(f"Linked {import_file} to {export_file}")
+                    except FileExistsError:
+                        logger.info(f"{export_file} already exists")
+                    md5 = get_md5(export_file)
+                    sequencing_data[md5] = {
+                        "name": file_destination_name,
+                        "file_size_bytes": os.stat(export_file).st_size,
+                        "md5_checksum": md5,
+                        "data_object_type": data_object_dict["data_object_type"],
+                        "description": data_object_dict["description"].replace(
+                            "{id}", self.nucelotide_sequencing_id
+                        )
+                    }
+        return sequencing_data
+
+
+
     def map_sequencing_data(self) -> Tuple[nmdc.Database, Dict]:
         """
         Map sequencing data to an NMDC data object and create an update to be applied to the has_output
