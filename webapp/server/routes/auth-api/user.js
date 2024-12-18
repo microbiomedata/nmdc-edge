@@ -418,7 +418,8 @@ router.get("/project/connect2nmdcserver", async (req, res) => {
             return res.send({ connect2nmdcserver: false });
         }
     } catch (err) {
-        logger.error(nodeUtil.inspect(err));
+        //logger.error(nodeUtil.inspect(err));
+        logger.error("Failed to connect to NMDC server");
         return res.send({ connect2nmdcserver: false });
     };
 });

@@ -2,11 +2,12 @@ import React from 'react';
 import { Col, Row, Badge } from 'reactstrap';
 import Moment from 'react-moment';
 import { useSelector } from 'react-redux';
-
+import { IoMdDownload } from "react-icons/io";
 import { bulkSubmissionStatusColors, bulkSubmissionStatusNames } from '../../../common/table';
 
 function BulkSubmissionSummary(props) {
   const user = useSelector(state => state.user);
+  const fileUrl = process.env.REACT_APP_API_URL + "/bulksubmissions/" + props.bulkSubmission.code + "/" + props.bulkSubmission.filename;
 
   return (
     <>
@@ -42,7 +43,7 @@ function BulkSubmissionSummary(props) {
                 </>}
               </span>}
               <b>Type:</b> {props.bulkSubmission.type}<br></br>
-              <b>File:</b> {props.bulkSubmission.filename}<br></br>
+              <b>File:</b> {props.bulkSubmission.filename} &nbsp;&nbsp;<a href={fileUrl}><IoMdDownload /></a><br></br>
             </div>
           </Col>
         </Row>

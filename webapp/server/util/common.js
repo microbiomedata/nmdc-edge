@@ -4,6 +4,15 @@ const logger = require('./logger');
 const Upload = require("../models/Upload");
 const config = require("../config");
 
+function fileExistsSync(path) {
+    try {
+      fs.lstatSync(path)
+      return true
+    } catch (err) {
+      return false
+    }
+  }
+
 async function getRealName(dir) {
     let name = dir;
     //check if input is a uploaded file
@@ -89,9 +98,4 @@ const deleteData = (url, header) => {
     });
 };
 
-// nmdc api
-const nmdcAPI = axios.create({
-    baseURL: config.PROJECTS.NMDC_SERVER_URL,
-});
-
-module.exports = { getRealName, write2log, postData, getData, deleteData };
+module.exports = { fileExistsSync, getRealName, write2log, postData, getData, deleteData };

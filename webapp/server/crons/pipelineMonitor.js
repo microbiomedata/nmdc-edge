@@ -163,10 +163,10 @@ async function generateInputs(proj_home, conf, proj) {
                 const fileCode = path.basename(fq);
                 let name = await common.getRealName(fileCode);
                 const inputFq = inputDir + "/" + name;
-                if (!fs.existsSync(inputFq)) {
+                if (!common.fileExistsSync(inputFq)) {
                     fs.symlinkSync(fq, inputFq, 'file');
-                    inputs.push(inputFq);
                 }
+                inputs.push(inputFq);
             } else {
                 inputs.push(fq);
             }
@@ -191,10 +191,10 @@ async function generateInputs(proj_home, conf, proj) {
                 const fileCode = path.basename(fq1);
                 let name = await common.getRealName(fileCode);
                 const inputFq = inputDir + "/" + name;
-                if (!fs.existsSync(inputFq)) {
+                if (!common.fileExistsSync(inputFq)) {
                     fs.symlinkSync(fq1, inputFq, 'file');
-                    inputs_fq1.push(inputFq);
                 }
+                inputs_fq1.push(inputFq);
             } else {
                 inputs_fq1.push(fq1);
             }
@@ -208,10 +208,10 @@ async function generateInputs(proj_home, conf, proj) {
                 const fileCode = path.basename(fq2);
                 let name = await common.getRealName(fileCode);
                 const inputFq = inputDir + "/" + name;
-                if (!fs.existsSync(inputFq)) {
+                if (!common.fileExistsSync(inputFq)) {
                     fs.symlinkSync(fq2, inputFq, 'file');
-                    inputs_fq2.push(inputFq);
                 }
+                inputs_fq2.push(inputFq);
             } else {
                 inputs_fq2.push(fq2);
             }

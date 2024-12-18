@@ -107,8 +107,9 @@ app.use(cors());
 
 //Serving static files in Express
 app.use('/projects', express.static(config.PROJECTS.BASE_DIR, { dotfiles: 'allow' }));
+app.use('/bulksubmissions', express.static(config.PROJECTS.BULK_DIR, { dotfiles: 'allow' }));
 app.use('/uploads', express.static(config.IO.UPLOADED_FILES_DIR));
-app.use('/publicdata', express.static(config.IO.PUBLIC_BASE_DIR));
+app.use('/publicdata', express.static(config.IO.PUBLIC_BASE_DIR, { dotfiles: 'allow' }));
 app.use('/docs', express.static(config.APP.DOCS_BASE_DIR, { dotfiles: 'allow' }));
 
 // Bodyparser middleware

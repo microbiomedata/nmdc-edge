@@ -11,7 +11,7 @@ function BulkSubmissionResult(props) {
   const [log_file_content, setLog_file_content] = useState('');
 
   function viewLogFile() {
-    let url = "/bulkSubmissions/" + props.bulkSubmission.code + "/log.txt";
+    let url = "/bulksubmissions/" + props.bulkSubmission.code + "/log.txt";
     fetchFile(url)
       .then(data => {
         setLog_file_content(data);

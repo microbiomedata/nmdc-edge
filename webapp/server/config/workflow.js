@@ -123,6 +123,7 @@ workflowlist = {
 
 pipelinelist = {
     'Metagenome Pipeline': {
+        project_conf_tmpl: 'metagenome_pipeline.tmpl',
         wdl: 'metagenome_pipeline.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'metagenome',
