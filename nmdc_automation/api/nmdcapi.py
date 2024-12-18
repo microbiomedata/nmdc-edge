@@ -10,7 +10,7 @@ import hashlib
 import mimetypes
 from pathlib import Path
 from time import time
-from typing import Union, List
+from typing import Union, List, Optional
 from datetime import datetime, timedelta, timezone
 from nmdc_automation.config import SiteConfig, UserConfig
 import logging
@@ -365,6 +365,15 @@ class NmdcRuntimeApi:
         resp = requests.post(url, headers=self.header, data=json.dumps(query))
         if not resp.ok:
             resp.raise_for_status()
+        return resp.json()
+
+    # The find endpoints don't require a token
+    def get_planned_process(self, id: str) -> Optional[dict]:
+        url = f"{self._base_url}planned_processes/{id}"
+        resp = requests.get(url)
+        if resp.status_code == 404:
+            return None
+        resp.raise_for_status()
         return resp.json()
 
 
