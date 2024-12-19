@@ -14,9 +14,7 @@ const isValidProjectName = (name) => {
   const regexp = new RegExp(/^[a-zA-Z0-9\-_.]{3,30}$/)
   return regexp.test(name.trim())
 }
-const isValidSRAInput = (name) => {
-  const regex = /[\._]/; // Split on dot and _
-  const accession = name.split(regex)[0];
+const isValidSRAInput = (name, accession) => {
   return common.fileExistsSync(`${config.IO.SRA_BASE_DIR}/${accession}/${name}`);
 }
 
@@ -56,6 +54,9 @@ const bulkSubmissionMonitor = async () => {
     let errMsg = '';
     let currRow = 1;
     let submissions = [];
+    const uploadReg = /^upload\//i;
+    const sraReg = /^sra\//i;
+
     for (cols of rows) {
       let submission = {};
       currRow++;
@@ -79,7 +80,8 @@ const bulkSubmissionMonitor = async () => {
           if (fq.toUpperCase().startsWith('HTTP')) {
             fastqs.push(fq);
             fastqs_display.push(fq);
-          } else {
+          } else if (fq.toUpperCase().startsWith('UPLOAD')) {
+            fq = fq.replace(uploadReg, '');
             // it's uploaded file
             const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
             if (!file) {
@@ -89,6 +91,20 @@ const bulkSubmissionMonitor = async () => {
               fastqs.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
               fastqs_display.push(`uploads/${file.owner}/${fq}`);
             }
+          } else if (fq.toUpperCase().startsWith('SRA')) {
+            fq = fq.replace(sraReg, '');
+            const regex = /[\._]/; // Split on dot and _
+            const accession = fq.split(regex)[0];
+            if(isValidSRAInput(fq, accession)) {
+              fastqs.push(`${config.IO.SRA_BASE_DIR}/${accession}/${fq}`);
+              fastqs_display.push(`sradata/${accession}/${fq}`);
+            } else {
+              validInput = false;
+              errMsg += `ERROR: Row ${currRow}: Interleaved FASTQ ${fq} not found.\n`;
+            }
+          } else {
+            validInput = false;
+            errMsg += `ERROR: Row ${currRow}: Interleaved FASTQ ${fq} not valid.\n`;
           }
         }
         submission['input_fastqs'] = fastqs;
@@ -112,7 +128,8 @@ const bulkSubmissionMonitor = async () => {
             if (fq.toUpperCase().startsWith('HTTP')) {
               pairFq1.push(fq);
               pairFq1_display.push(fq);
-            } else {
+            } else if (fq.toUpperCase().startsWith('UPLOAD')) {
+              fq = fq.replace(uploadReg, '');
               // it's uploaded file
               const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
               if (!file) {
@@ -121,8 +138,21 @@ const bulkSubmissionMonitor = async () => {
               } else {
                 pairFq1.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
                 pairFq1_display.push(`uploads/${file.owner}/${fq}`);
-
               }
+            } else if (fq.toUpperCase().startsWith('SRA')) {
+              fq = fq.replace(sraReg, '');
+              const regex = /[\._]/; // Split on dot and _
+              const accession = fq.split(regex)[0];
+              if(isValidSRAInput(fq, accession)) {
+                pairFq1.push(`${config.IO.SRA_BASE_DIR}/${accession}/${fq}`);
+                pairFq1_display.push(`sradata/${accession}/${fq}`);
+              } else {
+                validInput = false;
+                errMsg += `ERROR: Row ${currRow}: Interleaved FASTQ ${fq} not found.\n`;
+              }
+            } else {
+              validInput = false;
+              errMsg += `ERROR: Row ${currRow}: Pair-1 FASTQ ${fq} not valid.\n`;
             }
           };
         }
@@ -137,7 +167,8 @@ const bulkSubmissionMonitor = async () => {
             if (fq.toUpperCase().startsWith('HTTP')) {
               pairFq2.push(fq);
               pairFq1_display.push(fq);
-            } else {
+            } else if (fq.toUpperCase().startsWith('UPLOAD')) {
+              fq = fq.replace(uploadReg, '');
               // it's uploaded file
               const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
               if (!file) {
@@ -147,6 +178,20 @@ const bulkSubmissionMonitor = async () => {
                 pairFq2.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
                 pairFq2_display.push(`uploads/${file.owner}/${fq}`);
               }
+            } else if (fq.toUpperCase().startsWith('SRA')) {
+              fq = fq.replace(sraReg, '');
+              const regex = /[\._]/; // Split on dot and _
+              const accession = fq.split(regex)[0];
+              if(isValidSRAInput(fq, accession)) {
+                pairFq2.push(`${config.IO.SRA_BASE_DIR}/${accession}/${fq}`);
+                pairFq2_display.push(`sradata/${accession}/${fq}`);
+              } else {
+                validInput = false;
+                errMsg += `ERROR: Row ${currRow}: Interleaved FASTQ ${fq} not found.\n`;
+              }
+            } else {
+              validInput = false;
+              errMsg += `ERROR: Row ${currRow}: Pair-2 FASTQ ${fq} not valid.\n`;
             }
           };
         }
