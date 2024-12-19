@@ -37,12 +37,6 @@ const _nav = [
     _children: ['Workflows'],
   },
   {
-    _tag: 'CSidebarNavItem',
-    name: 'Bulk Submission',
-    icon: 'cilCursor',
-    to: '/workflow/bulksubmission',
-  },
-  {
     _tag: 'CSidebarNavDropdown',
     name: 'Metagenomics',
     icon: 'cilLayers',
@@ -56,6 +50,11 @@ const _nav = [
         _tag: 'CSidebarNavItem',
         name: 'Run Multiple Workflows',
         to: '/metag/pipeline',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Bulk Submission',
+        to: '/metag/bulksubmission',
       },
     ],
   },

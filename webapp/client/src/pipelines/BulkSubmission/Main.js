@@ -9,10 +9,12 @@ import MySelect from '../../common/MySelect';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { workflowlist } from '../Defaults';
-import { workflowOptions, templates } from './Defaults';
+import { workflowOptions } from './Defaults';
 import { Project } from '../Common/Forms/Project';
 import { FileUpload } from '../Common/Forms/FileUpload';
 import config from '../../config';
+const HtmlToReactParser = require('html-to-react').Parser;
+let htmlToReactParser = new HtmlToReactParser();
 
 function Main(props) {
     const [openDialog, setOpenDialog] = useState(false);
@@ -143,13 +145,13 @@ function Main(props) {
                                     {workflowlist[workflow] && workflowlist[workflow].info ?
                                         <>
                                             {workflowlist[workflow].doclink ? <>
-                                                {workflowlist[workflow].info} &nbsp;
+                                                {htmlToReactParser.parse(workflowlist[workflow].info)} &nbsp;
                                                 <a target="_blank" href={workflowlist[workflow].doclink} rel="noopener noreferrer">Learn more</a>
                                                 <br></br><br></br>
                                             </>
                                                 :
                                                 <>
-                                                    {workflowlist[workflow].info} &nbsp;
+                                                    {htmlToReactParser.parse(workflowlist[workflow].info)} &nbsp;
                                                     <br></br><br></br>
                                                 </>
                                             }
@@ -158,11 +160,11 @@ function Main(props) {
                                         <></>
                                     }
                                     Download Excel <a style={{ color: "blue", textDecoration: "underline" }} rel="noreferrer"
-                                        href={config.API.BASE_URI + templates[workflow]} target="_blank">Template</a>
+                                        href={config.API.BASE_URI + workflowlist[workflow].bulk_submission_template} target="_blank">Template</a>
                                     <br></br><br></br>
-                                    <FileUpload setParams={setFileUpload} text="Bulk Excel File" 
-                                    upload_tip={workflowlist[workflow]['bulk_file_tip']?workflowlist[workflow]['bulk_file_tip']:'Required'}
-                                    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                                    <FileUpload setParams={setFileUpload} text="Bulk Excel File"
+                                        upload_tip={workflowlist[workflow]['bulk_file_tip'] ? workflowlist[workflow]['bulk_file_tip'] : 'Required'}
+                                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
                                     <br></br>
                                 </>
                             }

@@ -20,6 +20,7 @@ const BulkSubmission = React.lazy(() => import('./pipelines/BulkSubmission/Main'
 
 const MetaGWorkflow = React.lazy(() => import('./pipelines/MetaG/Workflow/Main'));
 const MetaGPipeline = React.lazy(() => import('./pipelines/MetaG/Pipeline/Main'));
+const MetaGBulkSubmission = React.lazy(() => import('./pipelines/MetaG/BulkSubmission/Main'));
 
 const MetaTWorkflow = React.lazy(() => import('./pipelines/MetaT/Workflow/Main'));
 const OrganicMWorkflow = React.lazy(() => import('./pipelines/OrganicM/Workflow/Main'));
@@ -49,6 +50,7 @@ const privateRoutes = [
 
   { path: '/metag/workflow', name: 'MetaGW', component: MetaGWorkflow },
   { path: '/metag/pipeline', name: 'MetaGP', component: MetaGPipeline },
+  { path: '/metag/bulksubmission', name: 'MetaGP', component: MetaGBulkSubmission },
 
   { path: '/metat/workflow', name: 'MetaT', component: MetaTWorkflow },
   { path: '/organicm/workflow', name: 'Organic', component: OrganicMWorkflow },

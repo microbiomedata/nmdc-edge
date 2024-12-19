@@ -1,0 +1,17 @@
+{
+  "pipeline": "ReadsQC",
+  "workflow": {
+    "name": "ReadsQC",
+    "input_fastq": {
+      "interleaved": <%= interleaved %>,
+      "fastqs": <%- JSON.stringify(input_fastqs) %>
+    }
+  },
+  "inputDisplay": {
+    "workflow": "ReadsQC",
+      "input": {
+      "Is interleaved": <%= interleaved %>,
+      "fastqs": <%- JSON.stringify(input_fastqs_display) %>
+    }
+  }
+}

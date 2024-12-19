@@ -109,6 +109,7 @@ export const workflowlist = {
         bgcolor: '#4F3C80',
         // img: '/docs/images/virus_plasmid.png',
         // thumbnail: '/docs/images/virus_plasmid-thumbnail.png',
+        doclink: 'https://portal.nersc.gov/genomad/',
         link: 'https://portal.nersc.gov/genomad/',
         info: 'This workflow identifies virus and plasmid sequences in assembled scaffolds using <a href="https://github.com/apcamargo/genomad/" target="_blank" rel="noreferrer">geNomad</a> and estimates the quality of viral genomes with <a href="https://bitbucket.org/berkeleylab/checkv/src/master/" target="_blank" rel="noreferrer">CheckV</a>.'
     },
@@ -121,7 +122,9 @@ export const workflowlist = {
         pdf: '/docs/help/ReadsQC.pdf',
         link: 'https://github.com/microbiomedata/ReadsQC',
         doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/1_RQC_index.html',
-        info: 'This workflow utilizes the program “rqcfilter2” from BBTools to perform quality control on raw Illumina reads.'
+        info: 'This workflow utilizes the program “rqcfilter2” from BBTools to perform quality control on raw Illumina reads.',
+        bulk_file_tip: '(required)<br/>Column headers must be labeled: "Project/Run Name", "Description", "Interleaved FASTQ", "Pair-1 FASTQ", "Pair-2 FASTQ".',
+        bulk_submission_template: '/docs/bulk-submissions/NMDC-EDGE-Metagenomics-ReadsQC-bulk-submission.xlsx',
     },
     ReadbasedAnalysis: {
         title: 'Read-based Taxonomy Classification',
@@ -178,5 +181,6 @@ export const workflowlist = {
         title: 'Metagenome Pipeline',
         info: 'Run multiple metagenomics workflows: ReadsQC, Read-based Taxonomy Classification, Metagenome Assembly, Viruses and Plasmids, Metagenome Annotation and Metagemone MAGs.',
         bulk_file_tip: '(required)<br/>Column headers must be labeled: "Project/Run Name", "Description", "Interleaved FASTQ", "Pair-1 FASTQ", "Pair-2 FASTQ".',
+        bulk_submission_template: '/docs/bulk-submissions/NMDC-EDGE-Metagenomics-pipeline-bulk-submission.xlsx',
     }
 }

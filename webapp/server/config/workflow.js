@@ -12,6 +12,7 @@ workflowlist = {
         wdl_version: '1.0'
     },
     ReadsQC: {
+        project_conf_tmpl: 'readsQC.tmpl',
         wdl: 'https://raw.githubusercontent.com/microbiomedata/ReadsQC/refs/tags/v1.0.12/shortReadsqc.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'jgi_rqcfilter',
