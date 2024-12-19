@@ -25,7 +25,7 @@ const packageOptions = [
 
 const MetadataSubmisssion = (props) => {
   const [submitting, setSubmitting] = useState(false);
-  const [packageName, setPackageName] = useState(packageOptions[0].value);
+  const [packageNames, setPackageNames] = useState([]);
   const [studyOptions, setStudyOptions] = useState([{ value: 'new', label: 'New Study' }]);
   const [study, setStudy] = useState('new');
 
@@ -54,7 +54,7 @@ const MetadataSubmisssion = (props) => {
     const userData = {
       studyName: data.study_name,
       piEmail: data.email,
-      packageName: packageName,
+      packageNames: packageNames,
       metadataSubmissionId: study
     };
     props.handleSuccess(userData);
@@ -133,20 +133,24 @@ const MetadataSubmisssion = (props) => {
             <br></br>
 
             Environmental Package <a href='https://nmdc-documentation.readthedocs.io/en/latest/howto_guides/submit2nmdc.html#environmental-package' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
+            <br></br>
+            <span className="text-muted edge-text-size-small">
+            (Select the environmental packages that you collected samples from.)
+            </span>
             <MySelect
               name="packageName"
-              defaultValue={packageOptions[0]}
               options={packageOptions}
               onChange={e => {
-                setPackageName(e.value);
+                setPackageNames(e.map(item=>item.value));
               }}
-              isClearable={false}
+              isClearable={true}
+              isMulti={true}
             />
             <br></br>
           </>}
         </ModalBody>
         <ModalFooter className="justify-content-center">
-          <Button color="primary" type="submit">Submit</Button>{' '}
+          <Button color="primary" type="submit" disabled={packageNames.length === 0}>Submit</Button>{' '}
           <Button color="secondary" onClick={props.handleClickClose}>
             Cancel
           </Button>
