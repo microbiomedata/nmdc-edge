@@ -13,7 +13,7 @@ from nmdc_automation.import_automation import GoldMapper
 from nmdc_automation.api import NmdcRuntimeApi
 
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
