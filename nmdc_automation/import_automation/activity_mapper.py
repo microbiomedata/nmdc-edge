@@ -5,6 +5,7 @@ import logging
 import datetime
 import pytz
 import yaml
+from functools import lru_cache
 
 from typing import List, Dict, Union, Tuple
 from nmdc_schema import nmdc
@@ -66,12 +67,10 @@ class GoldMapper:
         return {wf["Type"]: wf for wf in self.import_specifications["Workflows"]}
 
 
-    def link_sequencing_data_file(self) -> Dict[str, dict]:
+    def map_sequencing_data_files(self) -> Dict[str, Tuple[str, str]]:
         """
-        Create a link to the sequencing file if it does not exist.
-        Return a dictionary with the sequencing data object record by md5 checksum.
-
-        Currently only supports a unique sequencing data object of type "Metagenome Raw Reads".
+        Find the sequencing data file (there should only be one), determine the destination name,
+        and the data object type. Return a dictionary of (import file, export file) pairs, by data object type.
         """
         sequencing_import_specifications = [
             d for d in self.import_specifications["Data Objects"]["Unique"] if d["data_object_type"] == self.METAGENOME_RAW_READS
@@ -81,15 +80,8 @@ class GoldMapper:
             raise ValueError("More than one sequencing import specification found")
         import_spec = sequencing_import_specifications[0]
 
-
-        # make the root directory if it does not exist
-        try:
-            os.makedirs(self.root_dir)
-        except FileExistsError:
-            logger.info(f"{self.root_dir} already exists")
-
         # Get the import file that matches the nmdc_suffix given in the data object spec - we can only have one
-        import_files = [str(f) for f in self.file_list if re.search(import_spec["import_suffix"], str(f))]
+        import_files = [str(f) for f in self.file_list if re.search(import_spec['import_suffix'], str(f))]
         if len(import_files) > 1:
             raise ValueError("More than one sequencing data object found")
         if not import_files:
@@ -102,25 +94,10 @@ class GoldMapper:
             self.nucelotide_sequencing_id,
             import_spec["nmdc_suffix"],
         )
+
         export_file = os.path.join(self.root_dir, file_destination_name)
-        try:
-            os.link(import_file, export_file)
-            logger.info(f"Linked {import_file} to {export_file}")
-        except FileExistsError:
-            logger.info(f"{export_file} already exists")
-        md5 = get_md5(export_file)
-        sequencing_data_by_md5 = {
-            md5: {
-                "name": file_destination_name,
-                "file_size_bytes": os.stat(export_file).st_size,
-                "md5_checksum": md5,
-                "data_object_type": import_spec["data_object_type"],
-                "description": import_spec["description"].replace(
-                    "{id}", self.nucelotide_sequencing_id
-                )
-            }
-        }
-        return sequencing_data_by_md5
+        return {import_spec["data_object_type"]: (import_file, export_file)}
+
 
 
 
@@ -374,3 +351,5 @@ class GoldMapper:
                 has_output.append(data_object_id)
 
         return has_input, has_output
+
+
