@@ -116,6 +116,10 @@ class FileMapping:
         self.input_to = input_to
         self.workflow_execution_id = workflow_execution_id
 
+    def __str__(self):
+        return f"FileMapping(data_object_type={self.data_object_type}, file={self.file}, output_of={self.output_of}, " \
+               f"input_to={self.input_to}, workflow_execution_id={self.workflow_execution_id})"
+
 
 
 @lru_cache

@@ -15,8 +15,6 @@ from nmdc_automation.import_automation.import_mapper import ImportMapper
 from nmdc_schema.nmdc import Database
 
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 
 @click.group()
@@ -29,6 +27,11 @@ def cli():
 @click.argument("import_yaml", type=click.Path(exists=True))
 @click.argument("site_configuration", type=click.Path(exists=True))
 def import_projects(import_file, import_yaml, site_configuration):
+    logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+    logging.basicConfig(
+        level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
+    )
+    logger = logging.getLogger(__name__)
 
     logger.info(f"Importing project from {import_file}")
 
@@ -47,11 +50,8 @@ def import_projects(import_file, import_yaml, site_configuration):
         file_mappings = import_mapper.file_mappings     # This will create and cache the file mappings
         logger.info(f"Mapped: {len(file_mappings)} files")
 
-
-
-
-
-
+        for fm in file_mappings:
+            logger.debug(f"Mapping: {fm}")
 
 
 
