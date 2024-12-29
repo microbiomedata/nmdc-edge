@@ -90,12 +90,13 @@ def update_file_statuses(project, config_file):
     mdb = get_mongo_db()
 
     restore_df = pd.DataFrame([sample for sample in mdb.samples.find({'file_status': 'pending', 'project': project})])
-    convert_dict = {'itsApId': str, 'seq_id': str, 'analysis_project_id': str, 'request_id': str}
-    restore_df['request_id'].fillna(0, inplace=True)
-    restore_df['request_id'] = restore_df['request_id'].astype(int)
-    restore_df = restore_df.astype(convert_dict)
+
     logging.debug(f"number of requests to restore: {len(restore_df)}")
     if not restore_df.empty:
+        convert_dict = {'itsApId': str, 'seq_id': str, 'analysis_project_id': str, 'request_id': str}
+        restore_df['request_id'].fillna(0, inplace=True)
+        restore_df['request_id'] = restore_df['request_id'].astype(int)
+        restore_df = restore_df.astype(convert_dict)
         for request_id in restore_df.request_id.unique():
             response = check_restore_status(request_id, config)
             for jdp_file_id in response['file_ids']:
