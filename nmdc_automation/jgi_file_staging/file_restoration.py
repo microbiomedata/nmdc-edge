@@ -101,7 +101,7 @@ def update_file_statuses(project, config_file):
             response = check_restore_status(request_id, config)
             logging.debug(f"response[file_ids[request_id]]: {response['file_ids']}")
             for jdp_file_id in response['file_ids']:
-                logging.debug(f"updating {restore_df.loc[restore_df.jdp_file_id == jdp_file_id, :]}")
+                logging.debug(f"updating {jdp_file_id}, records {restore_df.loc[restore_df.jdp_file_id == jdp_file_id, :]}")
                 update_sample_in_mongodb(restore_df.loc[restore_df.jdp_file_id == jdp_file_id, :].to_dict('records')[0],
                                          {'jdp_file_id': jdp_file_id, 'file_status': response['status']})
 
