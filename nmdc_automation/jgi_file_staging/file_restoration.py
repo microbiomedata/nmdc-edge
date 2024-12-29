@@ -99,7 +99,9 @@ def update_file_statuses(project, config_file):
         restore_df = restore_df.astype(convert_dict)
         for request_id in restore_df.request_id.unique():
             response = check_restore_status(request_id, config)
+            logging.debug(f"response[file_ids[request_id]]: {response['file_ids']}")
             for jdp_file_id in response['file_ids']:
+                logging.debug(f"updating {restore_df.loc[restore_df.jdp_file_id == jdp_file_id, :]}")
                 update_sample_in_mongodb(restore_df.loc[restore_df.jdp_file_id == jdp_file_id, :].to_dict('records')[0],
                                          {'jdp_file_id': jdp_file_id, 'file_status': response['status']})
 
