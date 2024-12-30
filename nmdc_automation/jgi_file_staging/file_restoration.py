@@ -84,7 +84,12 @@ def restore_files(project: str, config_file: str) -> str:
     return f"requested restoration of {count} files"
 
 
-def update_file_statuses(project, config_file):
+def update_file_statuses(project: str, config_file: str):
+    """
+    project: name of the project
+    config_file: config file path
+    updates file statuses of pending file restoration requests
+    """
     config = configparser.ConfigParser()
     config.read(config_file)
     mdb = get_mongo_db()
@@ -93,17 +98,23 @@ def update_file_statuses(project, config_file):
 
     logging.debug(f"number of requests to restore: {len(restore_df)}")
     if not restore_df.empty:
+        # set data types
         convert_dict = {'itsApId': str, 'seq_id': str, 'analysis_project_id': str, 'request_id': str}
         restore_df['request_id'].fillna(0, inplace=True)
         restore_df['request_id'] = restore_df['request_id'].astype(int)
         restore_df = restore_df.astype(convert_dict)
         for request_id in restore_df.request_id.unique():
+            # Check the restore status for the request_id
             response = check_restore_status(request_id, config)
+            file_status_list = [response['status'] for i in range(len(response['file_ids']))]
+            jdp_response_df = pd.DataFrame({'jdp_file_id': response['file_ids'], 'file_status': file_status_list})
+            restore_response_df = pd.merge(restore_df[restore_df.request_id == request_id], jdp_response_df,
+                                           left_on='jdp_file_id', right_on='jdp_file_id')
             logging.debug(f"response[file_ids[request_id]]: {response['file_ids']}")
-            for jdp_file_id in response['file_ids']:
-                logging.debug(f"updating {jdp_file_id}, records {restore_df.loc[restore_df.jdp_file_id == jdp_file_id, :]}")
-                update_sample_in_mongodb(restore_df.loc[restore_df.jdp_file_id == jdp_file_id, :].to_dict('records')[0],
-                                         {'jdp_file_id': jdp_file_id, 'file_status': response['status']})
+            for idx, row in restore_response_df.iterrows():
+                sample = row[row.keys().drop(['file_status_x', 'file_status_y'])].to_dict()
+                update_sample_in_mongodb(sample,
+                                         {'jdp_file_id': row.jdp_file_id, 'file_status': row.file_status_y})
 
 
 def check_restore_status(restore_request_id, config):
