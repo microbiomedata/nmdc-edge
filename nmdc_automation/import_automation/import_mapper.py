@@ -57,8 +57,8 @@ class ImportMapper:
     def import_specs_by_data_object_type(self) -> Dict:
         """Return the import specifications by data object type (unique and multiple)."""
         import_specs = {do['data_object_type']: do for do in self.import_specifications["Data Objects"]["Unique"]}
-        # import_specs.update({do['data_object_type']: do for do in self.import_specifications["Data Objects"][
-        #     "Multiples"]})
+        import_specs.update({do['data_object_type']: do for do in self.import_specifications["Data Objects"][
+            "Multiples"]})
         return import_specs
 
     @property
@@ -67,6 +67,15 @@ class ImportMapper:
         if not self._file_mappings:
             self._file_mappings = self._init_file_mappings()
         return self._file_mappings
+
+    @property
+    def file_mappings_by_data_object_type(self) -> Dict:
+        """Return the file mappings by data object type."""
+        file_mappings = {
+            fm['data_object_type']: fm for fm in self._file_mappings
+        }
+        return file_mappings
+
 
     def _init_file_mappings(self) -> List:
         """Create the initial list of File Mapping based on the import files."""
@@ -85,7 +94,7 @@ class ImportMapper:
         return file_mappings
 
     def _get_file_data_object_type(self, file: str) -> Optional[str]:
-        """Return the data object type based on the file name."""
+        """Return the data object type based on the file name suffix."""
         for _, import_spec in self.import_specs_by_data_object_type.items():
             import_suffix = re.compile(import_spec["import_suffix"])
             if import_suffix.search(file):

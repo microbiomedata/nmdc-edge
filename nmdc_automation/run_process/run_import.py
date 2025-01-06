@@ -3,6 +3,7 @@ import csv
 import gc
 import importlib.resources
 from functools import lru_cache
+import json
 import logging
 import os
 import linkml.validator
@@ -14,29 +15,41 @@ from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.import_automation.import_mapper import ImportMapper
 from nmdc_schema.nmdc import Database
 
-
+MAPPING_FILE = "id_mapping.json"
 
 
 @click.group()
-def cli():
-    pass
+@click.pass_context
+def cli(ctx: click.Context) -> None:
+    log_level_name = os.getenv('NMDC_LOG_LEVEL', 'INFO')
+    # convert to numeric log level
+    log_level = logging.getLevelName(log_level_name)
+    ctx.ensure_object(dict)
+    ctx.obj['log_level'] = log_level
 
 
 @cli.command()
 @click.argument("import_file", type=click.Path(exists=True))
 @click.argument("import_yaml", type=click.Path(exists=True))
 @click.argument("site_configuration", type=click.Path(exists=True))
-def import_projects(import_file, import_yaml, site_configuration):
-    logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
-    logging.basicConfig(
-        level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
-    )
+@click.pass_context
+def import_projects(ctx,  import_file, import_yaml, site_configuration):
+    log_level = int(ctx.obj['log_level'])
+    logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', level=log_level )
     logger = logging.getLogger(__name__)
+    logger.setLevel(log_level)
 
     logger.info(f"Importing project from {import_file}")
+    logger.debug(f"Importing project from {import_yaml}")
 
     runtime = NmdcRuntimeApi(site_configuration)
     nmdc_materialized = _get_nmdc_materialized()
+    # load existing ID mappings
+    if os.path.exists(MAPPING_FILE):
+        with open(MAPPING_FILE, 'r') as f:
+            id_mapping = json.load(f)
+    else:
+        id_mapping = {}
 
     data_imports = _parse_tsv(import_file)
     for data_import in data_imports:
@@ -47,44 +60,42 @@ def import_projects(import_file, import_yaml, site_configuration):
         logger.info(f"Importing project {project_path} into {nucleotide_sequencing_id}")
         import_mapper = ImportMapper(nucleotide_sequencing_id, project_path, import_yaml)
         logger.info(f"Project has {len(import_mapper._import_files)} files")
-        file_mappings = import_mapper.file_mappings     # This will create and cache the file mappings
+        file_mappings = import_mapper.file_mappings  # This will create and cache the file mappings
         logger.info(f"Mapped: {len(file_mappings)} files")
-
         for fm in file_mappings:
-            logger.debug(f"Mapping: {fm}")
+            logger.info(f"Mapping: {fm}")
+        
+        # Data Generation Object
+        # Retrieve it from the Database. Check that there is only 1
+        logger.info(f"Searching for {nucleotide_sequencing_id} in the database")
+        dg_objs = runtime.find_planned_processes(filter_by={'id': nucleotide_sequencing_id})
+        if len(dg_objs) == 0:
+            logger.error(f"Could not find {nucleotide_sequencing_id} in the database - skipping")
+            continue
+        elif len(dg_objs) > 1:
+            logger.error(f"Found multiple {nucleotide_sequencing_id} in the database - skipping")
+            continue
+        dg = dg_objs[0]
+        logger.info(f"Found {nucleotide_sequencing_id} in the database - checking output")
+
+        # Sequencing Output - check for NMDC data object in Data Generation has_output
+        # Mint a new Data Object and Update Data Generation if has_output is empty or has a non-NMDC ID
+        dg_output = dg.get('has_output', [])
+        if len(dg_output) > 1: # We don't know how to handle this case yet
+            logging.error(f"Multiple outputs for {nucleotide_sequencing_id} in the database - skipping")
+            continue
+
+        if len(dg_output) == 0:
+            logger.info(f"{nucleotide_sequencing_id} has no output")
+            logger.info(f"Importing sequencing data for {nucleotide_sequencing_id}")
+        elif dg_output and dg_output[0].startswith('nmdc:dobj'):
+            logger.info(f"Found a non-NMDC data object as sequencing output: {dg_output[0]}")
+            logger.info(f"Importing sequencing data and replacing {dg_output[0]} with NMDC ID")
+        else:
+            logger.info(f"{nucleotide_sequencing_id} has output - skipping sequencing data import")
+            pass
 
 
-
-
-def _get_nucleotide_sequencing(runtime, nucleotide_sequencing_id):
-    """ Get the nucleotide sequencing process from the runtime API. """
-    procs = runtime.find_planned_processes(filter_by={"id": nucleotide_sequencing_id})
-    if not procs:
-        raise Exception(f"nucleotide_sequencing_id {nucleotide_sequencing_id} not found")
-    elif len(procs) > 1:  # This should never happen
-        raise Exception(f"nucleotide_sequencing_id {nucleotide_sequencing_id} has multiple processes")
-    nucleotide_sequencing = procs[0]
-    return nucleotide_sequencing
-
-
-def _nucleotide_sequencing_has_output(nucleotide_sequencing) -> bool:
-    """
-    Check if the nucleotide sequencing has an output and if it is an NMDC data object.
-    """
-    seq_has_output = nucleotide_sequencing.get("has_output", [])
-    if seq_has_output:
-        # Raise an exception if there is more than one output or if the output is not an NMDC data object
-        if len(seq_has_output) > 1:
-            raise Exception(f"nucleotide_sequencing_id {nucleotide_sequencing['id']} has more than one output")
-        seq_do_id = seq_has_output[0]
-        if not seq_do_id.startswith("nmdc:dobj-"):
-            raise Exception(f"nucleotide_sequencing_id {nucleotide_sequencing['id']} has a non-NMDC output")
-
-        logger.info(f"nucleotide_sequencing_id {nucleotide_sequencing['id']} has output {seq_do_id}")
-        return True
-    else:
-        logger.info(f"nucleotide_sequencing_id {nucleotide_sequencing['id']} has no outputs")
-        return False
 
 
 @lru_cache(maxsize=None)
@@ -101,4 +112,5 @@ def _parse_tsv(file):
 
 
 if __name__ == "__main__":
+
     cli()
