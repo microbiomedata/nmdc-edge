@@ -527,6 +527,7 @@ class WorkflowJob:
 
 
             md5_sum = _md5(output_file_path)
+            file_size_bytes = output_file_path.stat().st_size
             file_url = f"{self.url_root}/{self.was_informed_by}/{self.workflow_execution_id}/{output_file_path.name}"
 
             # copy the file to the output directory if provided
@@ -542,6 +543,7 @@ class WorkflowJob:
             data_object = DataObject(
                 id=output_spec["id"], name=output_file_path.name, type="nmdc:DataObject", url=file_url,
                 data_object_type=output_spec["data_object_type"], md5_checksum=md5_sum,
+                file_size_bytes=file_size_bytes,
                 description=output_spec["description"].replace('{id}', self.workflow_execution_id),
                 was_generated_by=self.workflow_execution_id, )
 
