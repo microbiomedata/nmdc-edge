@@ -15,7 +15,7 @@ from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.import_automation.import_mapper import ImportMapper
 from nmdc_schema.nmdc import Database
 
-MAPPING_FILE = "id_mapping.json"
+
 
 
 @click.group()
@@ -44,12 +44,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
 
     runtime = NmdcRuntimeApi(site_configuration)
     nmdc_materialized = _get_nmdc_materialized()
-    # load existing ID mappings
-    if os.path.exists(MAPPING_FILE):
-        with open(MAPPING_FILE, 'r') as f:
-            id_mapping = json.load(f)
-    else:
-        id_mapping = {}
+
 
     data_imports = _parse_tsv(import_file)
     for data_import in data_imports:
@@ -62,9 +57,9 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         logger.info(f"Project has {len(import_mapper._import_files)} files")
         file_mappings = import_mapper.file_mappings  # This will create and cache the file mappings
         logger.info(f"Mapped: {len(file_mappings)} files")
-        for fm in file_mappings:
-            logger.info(f"Mapping: {fm}")
-        
+
+
+
         # Data Generation Object
         # Retrieve it from the Database. Check that there is only 1
         logger.info(f"Searching for {nucleotide_sequencing_id} in the database")
@@ -78,6 +73,10 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         dg = dg_objs[0]
         logger.info(f"Found {nucleotide_sequencing_id} in the database - checking output")
 
+        # init a db to hold workflow executions and their data objects, one per Data Generation
+        db = Database()
+        has_output_update = {}
+
         # Sequencing Output - check for NMDC data object in Data Generation has_output
         # Mint a new Data Object and Update Data Generation if has_output is empty or has a non-NMDC ID
         dg_output = dg.get('has_output', [])
@@ -87,13 +86,22 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
 
         if len(dg_output) == 0:
             logger.info(f"{nucleotide_sequencing_id} has no output")
-            logger.info(f"Importing sequencing data for {nucleotide_sequencing_id}")
+            logger.info(f"Importing sequencing data and creating update for {nucleotide_sequencing_id}")
+            import_mapper.update_file_mappings(import_mapper.METAGENOME_RAW_READS, nucleotide_sequencing_id)
+
         elif dg_output and dg_output[0].startswith('nmdc:dobj'):
-            logger.info(f"Found a non-NMDC data object as sequencing output: {dg_output[0]}")
-            logger.info(f"Importing sequencing data and replacing {dg_output[0]} with NMDC ID")
-        else:
-            logger.info(f"{nucleotide_sequencing_id} has output - skipping sequencing data import")
+            logger.info(f"{nucleotide_sequencing_id} has output: {dg_output[0]} - skipping sequencing data import")
             pass
+        else: # shouldn't really happen
+            logger.info(f"{nucleotide_sequencing_id} has non-NMDC output: {dg_output[0]}")
+            logger.info(f"Importing sequencing data and creating update for {dg_output[0]}")
+            import_mapper.update_file_mappings(import_mapper.METAGENOME_RAW_READS, nucleotide_sequencing_id)
+
+
+
+        for fm in file_mappings:
+            logger.info(f"Mapping: {fm}")
+
 
 
 

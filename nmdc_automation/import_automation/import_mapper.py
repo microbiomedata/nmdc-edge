@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 from typing import Dict, List, Union, Optional
 import yaml
+import json
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -21,6 +22,7 @@ class ImportMapper:
     """
     METAGENOME_RAW_READS = "Metagenome Raw Reads"
     NMDC_DATA_OBJECT_TYPE = "nmdc:DataObject"
+    MAPPING_FILE = "id_mapping.json"
 
     def __init__(self, nucleotide_sequencing_id: str, import_project_dir: str, import_yaml: str):
         self.nucleotide_sequencing_id = nucleotide_sequencing_id
@@ -30,6 +32,11 @@ class ImportMapper:
         self._import_files = [
             f for f in os.listdir(self.import_project_dir) if os.path.isfile(os.path.join(self.import_project_dir, f))
         ]
+        self.id_mappings = {} # old ID -> NMDC ID mapping
+        if os.path.exists(self.MAPPING_FILE):
+            with open(self.MAPPING_FILE, 'r') as f:
+                self.id_mapping = json.load(f)
+
 
     @property
     def import_specifications(self) -> Dict:
@@ -72,9 +79,16 @@ class ImportMapper:
     def file_mappings_by_data_object_type(self) -> Dict:
         """Return the file mappings by data object type."""
         file_mappings = {
-            fm['data_object_type']: fm for fm in self._file_mappings
+            fm.data_object_type: fm for fm in self._file_mappings
         }
         return file_mappings
+
+
+    def update_file_mappings(self, data_object_type: str, workflow_execution_id: str) -> None:
+        for do_type, fm in self.file_mappings_by_data_object_type.items():
+            if do_type.upper() == data_object_type.upper():
+                fm.workflow_execution_id = workflow_execution_id
+
 
 
     def _init_file_mappings(self) -> List:
