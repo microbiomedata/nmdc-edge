@@ -1,13 +1,14 @@
 """ Import Mapper - Map import data to NMDC data objects. """
 
-import os
-from functools import lru_cache
-import logging
-from pathlib import Path
-import re
-from typing import Dict, List, Union, Optional
-import yaml
 import json
+import logging
+import os
+import re
+from functools import lru_cache
+from pathlib import Path
+from typing import Dict, List, Optional, Union
+
+import yaml
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -22,20 +23,28 @@ class ImportMapper:
     """
     METAGENOME_RAW_READS = "Metagenome Raw Reads"
     NMDC_DATA_OBJECT_TYPE = "nmdc:DataObject"
-    MAPPING_FILE = "id_mapping.json"
+
 
     def __init__(self, nucleotide_sequencing_id: str, import_project_dir: str, import_yaml: str):
         self.nucleotide_sequencing_id = nucleotide_sequencing_id
         self.import_project_dir = import_project_dir
         self.import_yaml = import_yaml
         self._file_mappings = []
-        self._import_files = [
-            f for f in os.listdir(self.import_project_dir) if os.path.isfile(os.path.join(self.import_project_dir, f))
-        ]
-        self.id_mappings = {} # old ID -> NMDC ID mapping
-        if os.path.exists(self.MAPPING_FILE):
-            with open(self.MAPPING_FILE, 'r') as f:
-                self.id_mapping = json.load(f)
+        self._import_files = [f for f in os.listdir(self.import_project_dir) if
+            os.path.isfile(os.path.join(self.import_project_dir, f))]
+
+        self.minted_id_file = f"{self.nucleotide_sequencing_id}_minted_ids.json"
+        self.minted_ids = {}
+        if os.path.exists(self.minted_id_file):
+            with open(self.minted_id_file, 'r') as f:
+                ids = json.load(f)
+                self.minted_ids = ids
+
+    def write_minted_id_file(self):
+        with open(self.minted_id_file, 'w') as f:
+            json.dump(self.minted_ids, f)
+
+
 
 
     @property
@@ -64,8 +73,9 @@ class ImportMapper:
     def import_specs_by_data_object_type(self) -> Dict:
         """Return the import specifications by data object type (unique and multiple)."""
         import_specs = {do['data_object_type']: do for do in self.import_specifications["Data Objects"]["Unique"]}
-        import_specs.update({do['data_object_type']: do for do in self.import_specifications["Data Objects"][
-            "Multiples"]})
+        import_specs.update(
+            {do['data_object_type']: do for do in self.import_specifications["Data Objects"]["Multiples"]}
+            )
         return import_specs
 
     @property
@@ -78,18 +88,17 @@ class ImportMapper:
     @property
     def file_mappings_by_data_object_type(self) -> Dict:
         """Return the file mappings by data object type."""
-        file_mappings = {
-            fm.data_object_type: fm for fm in self._file_mappings
-        }
+        file_mappings = {fm.data_object_type: fm for fm in self._file_mappings}
         return file_mappings
 
-
-    def update_file_mappings(self, data_object_type: str, workflow_execution_id: str) -> None:
+    def update_file_mappings(self, data_object_type: str,
+                             data_object_id: str,
+                             workflow_execution_id: str,
+                             ) -> None:
         for do_type, fm in self.file_mappings_by_data_object_type.items():
             if do_type.upper() == data_object_type.upper():
+                fm.data_object_id = data_object_id
                 fm.workflow_execution_id = workflow_execution_id
-
-
 
     def _init_file_mappings(self) -> List:
         """Create the initial list of File Mapping based on the import files."""
@@ -126,22 +135,30 @@ class FileMapping:
     - workflow_execution_id: (Optional) The workflow execution ID that the data object is output of.
     """
 
-    def __init__(self,
-                 data_object_type: str,
-                 import_file: Union[str, Path],
-                 output_of: str,
-                 input_to: List[str],
-                 workflow_execution_id: str = None,
-                 ):
+    def __init__(self, data_object_type: str, import_file: Union[str, Path], output_of: str, input_to: List[str],
+                 data_object_id: Optional[str] = None, workflow_execution_id: str = None):
         self.data_object_type = data_object_type
         self.file = import_file
         self.output_of = output_of
         self.input_to = input_to
+        self.data_object_id = data_object_id
         self.workflow_execution_id = workflow_execution_id
 
+        
+        
     def __str__(self):
-        return f"FileMapping(data_object_type={self.data_object_type}, file={self.file}, output_of={self.output_of}, " \
-               f"input_to={self.input_to}, workflow_execution_id={self.workflow_execution_id})"
+        return (
+            f"FileMapping("
+            f"data_object_type={self.data_object_type}, "
+            f"file={self.file}, "
+            f"output_of={self.output_of}, "
+            f"input_to={self.input_to}, "
+            f"data_object_id={self.data_object_id}, "
+            f"workflow_execution_id={self.workflow_execution_id} "
+            f")"
+        )
+        
+
 
 
 

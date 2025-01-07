@@ -87,20 +87,35 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         if len(dg_output) == 0:
             logger.info(f"{nucleotide_sequencing_id} has no output")
             logger.info(f"Importing sequencing data and creating update for {nucleotide_sequencing_id}")
-            import_mapper.update_file_mappings(import_mapper.METAGENOME_RAW_READS, nucleotide_sequencing_id)
 
+            # mint a new data object ID if needed
+            if  "Metagenome Raw Reads" in import_mapper.minted_ids:
+                seq_data_obj_id = import_mapper.minted_ids["Metagenome Raw Reads"]
+                logger.info(f"Reusing ID {seq_data_obj_id} for {nucleotide_sequencing_id}")
+            else:
+                seq_data_obj_id = runtime.minter('nmdc:DataObject')
+                import_mapper.minted_ids['Metagenome Raw Reads'] = seq_data_obj_id
+                logger.info(f"Adding new {seq_data_obj_id} to minted ids")
+
+            import_mapper.update_file_mappings(
+                import_mapper.METAGENOME_RAW_READS, seq_data_obj_id, nucleotide_sequencing_id)
+
+
+        # Already has nmdc output
         elif dg_output and dg_output[0].startswith('nmdc:dobj'):
             logger.info(f"{nucleotide_sequencing_id} has output: {dg_output[0]} - skipping sequencing data import")
             pass
         else: # shouldn't really happen
-            logger.info(f"{nucleotide_sequencing_id} has non-NMDC output: {dg_output[0]}")
-            logger.info(f"Importing sequencing data and creating update for {dg_output[0]}")
-            import_mapper.update_file_mappings(import_mapper.METAGENOME_RAW_READS, nucleotide_sequencing_id)
+            logger.error(f"{nucleotide_sequencing_id} has non-NMDC output: {dg_output[0]}")
+            continue
 
 
 
         for fm in file_mappings:
             logger.info(f"Mapping: {fm}")
+
+        logger.info("Updating minted IDs")
+        import_mapper.write_minted_id_file()
 
 
 
