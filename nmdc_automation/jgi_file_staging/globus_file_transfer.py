@@ -21,6 +21,7 @@ def get_project_globus_manifests(project_name, config_file):
     config.read(config_file)
     mdb = get_mongo_db()
     samples_df = pd.DataFrame(mdb.samples.find({'project': project_name}))
+    samples_df['request_id'] = samples_df['request_id'].astype(int)
     manifests_list = []
     for request_id in samples_df.request_id.unique():
         manifests_list.append(get_globus_manifest(request_id, config=config))
@@ -75,6 +76,7 @@ def create_globus_dataframe(manifests_dir, config, request_id_list):
 def create_globus_batch_file(project, config):
     mdb = get_mongo_db()
     samples_df = pd.DataFrame(mdb.samples.find({'file_status': 'ready'}))
+    samples_df['request_id'] = samples_df['request_id'].astype(int)
     if samples_df.empty:
         logging.debug(f"no samples ready to transfer")
         sys.exit('no samples ready to transfer')
