@@ -57,7 +57,9 @@ class ImportMapper:
             json.dump(self.minted_ids, f)
 
     def get_or_create_minted_id(self, object_type: str, data_object_type: str = None) -> str:
-        """ Get an ID by object type and data object type if it exists, otherwise mint a new ID. """
+        """
+        Get an ID by object type and data object type if it exists, otherwise mint a new ID and add it to self.minted_ids.
+        """
         if object_type == self.NMDC_DATA_OBJECT_TYPE and not data_object_type:
             raise TypeError("Must specify data_object_type for a Data Object")
 
@@ -130,10 +132,11 @@ class ImportMapper:
                              workflow_execution_id: str,
                              ) -> None:
         """ Update the file mappings."""
-        for do_type, fm in self.file_mappings_by_data_object_type.items():
-            if do_type.upper() == data_object_type.upper():
+        for fm in self._file_mappings:
+            if fm.data_object_type == data_object_type:
                 fm.data_object_id = data_object_id
                 fm.workflow_execution_id = workflow_execution_id
+
 
     def _init_file_mappings(self) -> List:
         """Create the initial list of File Mapping based on the import files."""

@@ -77,7 +77,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         db = Database()
         has_output_update = {}
 
-        # Sequencing Output - check for NMDC data object in Data Generation has_output
+        # Map Sequencing Output - check for NMDC data object in Data Generation has_output
         # Mint a new Data Object and Update Data Generation if has_output is empty or has a non-NMDC ID
         dg_output = dg.get('has_output', [])
         if len(dg_output) > 1: # We don't know how to handle this case yet
@@ -101,12 +101,27 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
             continue
 
 
+        # Go though the file mappings and determine
+        for fm in import_mapper.file_mappings:
+            data_object_id = import_mapper.get_or_create_minted_id(
+                'nmdc:DataObject', fm.data_object_type
+            )
+            if not data_object_id:
+                logger.error(f"Cannot determine an ID for {fm.data_object_type}")
+            workflow_execution_id = import_mapper.get_or_create_minted_id(
+                fm.output_of
+            )
+            if not workflow_execution_id:
+                logger.error(f"Cannot determine an ID for {fm.output_of}")
 
-        for fm in file_mappings:
-            logger.info(f"Mapping: {fm}")
+            import_mapper.update_file_mappings(
+                fm.data_object_type, data_object_id, workflow_execution_id
+            )
 
         logger.info("Updating minted IDs")
         import_mapper.write_minted_id_file()
+        for fm in import_mapper.file_mappings:
+            logger.info(f"Mapped: {fm}")
 
 
 
