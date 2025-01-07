@@ -33,11 +33,12 @@ class ImportMapper:
         self.import_project_dir = import_project_dir
         self.import_yaml = import_yaml
         self.runtime_api = runtime_api
+        # Derived properties
         self._file_mappings = []
         self._import_files = [f for f in os.listdir(self.import_project_dir) if
             os.path.isfile(os.path.join(self.import_project_dir, f))]
 
-        self.minted_id_file = f"{self.nucleotide_sequencing_id}_minted_ids.json"
+        self.minted_id_file = f"{self.import_project_dir}/{self.nucleotide_sequencing_id}_minted_ids.json"
         self.minted_ids = {}
         if os.path.exists(self.minted_id_file):
             logger.info(f"Loading minted IDs from {self.minted_id_file}")
@@ -78,11 +79,6 @@ class ImportMapper:
                 logger.info(f"Minted new ID:  {workflow_obj_id}")
                 self.minted_ids["workflow_execution_ids"][object_type] = workflow_obj_id
                 return workflow_obj_id
-
-
-
-
-
 
 
     @property
@@ -133,6 +129,7 @@ class ImportMapper:
                              data_object_id: str,
                              workflow_execution_id: str,
                              ) -> None:
+        """ Update the file mappings."""
         for do_type, fm in self.file_mappings_by_data_object_type.items():
             if do_type.upper() == data_object_type.upper():
                 fm.data_object_id = data_object_id
