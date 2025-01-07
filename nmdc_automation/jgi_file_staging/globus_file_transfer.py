@@ -20,7 +20,7 @@ def get_project_globus_manifests(project_name, config_file):
         config = configparser.ConfigParser()
         config.read(config_file)
     mdb = get_mongo_db()
-    samples_df = pd.DataFrame(mdb.samples.find({'project_name': project_name}))
+    samples_df = pd.DataFrame(mdb.samples.find({'project': project_name}))
     manifests_list = []
     for request_id in samples_df.request_id.unique():
         manifests_list.append(get_globus_manifest(request_id, project_name, config_file))
