@@ -43,6 +43,7 @@ def get_globus_manifest(request_id, config_file=None, config=None):
     sub_output = subprocess.run(['globus', 'ls', f'{jgi_globus_id}:/{globus_root_dir}/R{request_id}'],
                                 capture_output=True, text=True)
     sub_output_split = sub_output.stdout.split('\n')
+    logging.debug(f"request_id: {request_id} globus ls: {sub_output_split}")
     manifest_file_name = [fn for fn in sub_output_split if 'Globus_Download' in fn][0]
     logging.debug(f"manifest filename {manifest_file_name}")
     if 'Globus_Download' in manifest_file_name:
