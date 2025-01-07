@@ -42,7 +42,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
     logger.info(f"Importing project from {import_file}")
     logger.debug(f"Importing project from {import_yaml}")
 
-    runtime = NmdcRuntimeApi(site_configuration)
+    runtime_api = NmdcRuntimeApi(site_configuration)
     nmdc_materialized = _get_nmdc_materialized()
 
 
@@ -53,7 +53,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
 
         # Initialize the import mapper
         logger.info(f"Importing project {project_path} into {nucleotide_sequencing_id}")
-        import_mapper = ImportMapper(nucleotide_sequencing_id, project_path, import_yaml)
+        import_mapper = ImportMapper(nucleotide_sequencing_id, project_path, import_yaml, runtime_api)
         logger.info(f"Project has {len(import_mapper._import_files)} files")
         file_mappings = import_mapper.file_mappings  # This will create and cache the file mappings
         logger.info(f"Mapped: {len(file_mappings)} files")
@@ -63,7 +63,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         # Data Generation Object
         # Retrieve it from the Database. Check that there is only 1
         logger.info(f"Searching for {nucleotide_sequencing_id} in the database")
-        dg_objs = runtime.find_planned_processes(filter_by={'id': nucleotide_sequencing_id})
+        dg_objs = runtime_api.find_planned_processes(filter_by={'id': nucleotide_sequencing_id})
         if len(dg_objs) == 0:
             logger.error(f"Could not find {nucleotide_sequencing_id} in the database - skipping")
             continue
@@ -83,23 +83,14 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         if len(dg_output) > 1: # We don't know how to handle this case yet
             logging.error(f"Multiple outputs for {nucleotide_sequencing_id} in the database - skipping")
             continue
-
         if len(dg_output) == 0:
             logger.info(f"{nucleotide_sequencing_id} has no output")
             logger.info(f"Importing sequencing data and creating update for {nucleotide_sequencing_id}")
-
             # mint a new data object ID if needed
-            if  "Metagenome Raw Reads" in import_mapper.minted_ids:
-                seq_data_obj_id = import_mapper.minted_ids["Metagenome Raw Reads"]
-                logger.info(f"Reusing ID {seq_data_obj_id} for {nucleotide_sequencing_id}")
-            else:
-                seq_data_obj_id = runtime.minter('nmdc:DataObject')
-                import_mapper.minted_ids['Metagenome Raw Reads'] = seq_data_obj_id
-                logger.info(f"Adding new {seq_data_obj_id} to minted ids")
-
+            seq_data_obj_id = import_mapper.get_or_create_minted_id(
+                'nmdc:DataObject', 'Metagenome Raw Reads')
             import_mapper.update_file_mappings(
                 import_mapper.METAGENOME_RAW_READS, seq_data_obj_id, nucleotide_sequencing_id)
-
 
         # Already has nmdc output
         elif dg_output and dg_output[0].startswith('nmdc:dobj'):

@@ -25,10 +25,14 @@ class ImportMapper:
     NMDC_DATA_OBJECT_TYPE = "nmdc:DataObject"
 
 
-    def __init__(self, nucleotide_sequencing_id: str, import_project_dir: str, import_yaml: str):
+    def __init__(
+            self, nucleotide_sequencing_id: str,
+            import_project_dir: str, import_yaml: str, runtime_api
+    ):
         self.nucleotide_sequencing_id = nucleotide_sequencing_id
         self.import_project_dir = import_project_dir
         self.import_yaml = import_yaml
+        self.runtime_api = runtime_api
         self._file_mappings = []
         self._import_files = [f for f in os.listdir(self.import_project_dir) if
             os.path.isfile(os.path.join(self.import_project_dir, f))]
@@ -36,13 +40,47 @@ class ImportMapper:
         self.minted_id_file = f"{self.nucleotide_sequencing_id}_minted_ids.json"
         self.minted_ids = {}
         if os.path.exists(self.minted_id_file):
+            logger.info(f"Loading minted IDs from {self.minted_id_file}")
             with open(self.minted_id_file, 'r') as f:
                 ids = json.load(f)
                 self.minted_ids = ids
+        else:
+            self.minted_ids = {
+                "data_object_ids": {},
+                "workflow_execution_ids": {}
+            }
 
     def write_minted_id_file(self):
         with open(self.minted_id_file, 'w') as f:
+            logger.info(f"Writing minted IDs to {self.minted_id_file}")
             json.dump(self.minted_ids, f)
+
+    def get_or_create_minted_id(self, object_type: str, data_object_type: str = None) -> str:
+        """ Get an ID by object type and data object type if it exists, otherwise mint a new ID. """
+        if object_type == self.NMDC_DATA_OBJECT_TYPE and not data_object_type:
+            raise TypeError("Must specify data_object_type for a Data Object")
+
+        if object_type == self.NMDC_DATA_OBJECT_TYPE:
+            ids = self.minted_ids["data_object_ids"]
+            if data_object_type in ids:
+                return ids[data_object_type]
+            else:
+                data_obj_id = self.runtime_api.minter(object_type)
+                logger.info(f"Minted new ID:  {data_obj_id}")
+                self.minted_ids["data_object_ids"][data_object_type] = data_obj_id
+                return data_obj_id
+        else:
+            ids = self.minted_ids["workflow_execution_ids"]
+            if object_type in ids:
+                return ids[object_type]
+            else:
+                workflow_obj_id = self.runtime_api.minter(object_type)
+                logger.info(f"Minted new ID:  {workflow_obj_id}")
+                self.minted_ids["workflow_execution_ids"][object_type] = workflow_obj_id
+                return workflow_obj_id
+
+
+
 
 
 
