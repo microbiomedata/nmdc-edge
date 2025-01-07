@@ -45,7 +45,7 @@ def restore_files(project: str, config_file: str) -> str:
     mdb = get_mongo_db()
     restore_df = pd.DataFrame(
         [sample for sample in mdb.samples.find({'file_status':
-                                                {'$in': ['PURGED', 'BACKUP_COMPLETE']}, 'project': project})])
+                                                {'$in': ['PURGED', 'BACKUP_COMPLETE', 'expired']}, 'project': project})])
     if restore_df.empty:
         return 'No samples'
     JDP_TOKEN = os.environ.get('JDP_TOKEN')
@@ -86,37 +86,33 @@ def restore_files(project: str, config_file: str) -> str:
     return f"requested restoration of {count} files"
 
 
+def get_file_statuses(samples_df, config):
+    jdp_response_df = pd.DataFrame()
+    for request_id in samples_df[pd.notna(samples_df.request_id)].request_id.unique():
+        JDP_TOKEN = os.environ.get('JDP_TOKEN')
+        headers = {'Authorization': JDP_TOKEN, "accept": "application/json"}
+        url = f"https://files.jgi.doe.gov/request_archived_files/requests/{request_id}?api_version=1"
+        r = requests.get(url, headers=headers, proxies=eval(config['JDP']['proxies']))
+        response_json = r.json()
+        file_status_list = [response_json['status'] for i in range(len(response_json['file_ids']))]
+        jdp_response_df = pd.concat([jdp_response_df, pd.DataFrame({'jdp_file_id': response_json['file_ids'],
+                                                                    'file_status': file_status_list})])
+    restore_response_df = pd.merge(samples_df, jdp_response_df, left_on='jdp_file_id', right_on='jdp_file_id')
+    return restore_response_df
+
+
 def update_file_statuses(project: str, config_file: str):
-    """
-    project: name of the project
-    config_file: config file path
-    updates file statuses of pending file restoration requests
-    """
     config = configparser.ConfigParser()
     config.read(config_file)
     mdb = get_mongo_db()
-
-    restore_df = pd.DataFrame([sample for sample in mdb.samples.find({'file_status': 'pending', 'project': project})])
-
-    logging.debug(f"number of requests to restore: {len(restore_df)}")
-    if not restore_df.empty:
-        # set data types
-        convert_dict = {'itsApId': str, 'seq_id': str, 'analysis_project_id': str, 'request_id': str}
-        restore_df['request_id'].fillna(0, inplace=True)
-        restore_df['request_id'] = restore_df['request_id'].astype(int)
-        restore_df = restore_df.astype(convert_dict)
-        for request_id in restore_df.request_id.unique():
-            # Check the restore status for the request_id
-            response = check_restore_status(request_id, config)
-            file_status_list = [response['status'] for i in range(len(response['file_ids']))]
-            jdp_response_df = pd.DataFrame({'jdp_file_id': response['file_ids'], 'file_status': file_status_list})
-            restore_response_df = pd.merge(restore_df[restore_df.request_id == request_id], jdp_response_df,
-                                           left_on='jdp_file_id', right_on='jdp_file_id')
-            logging.debug(f"response[file_ids[request_id]]: {response['file_ids']}")
-            for idx, row in restore_response_df.iterrows():
-                sample = row[row.keys().drop(['file_status_x', 'file_status_y'])].to_dict()
-                update_sample_in_mongodb(sample,
-                                         {'jdp_file_id': row.jdp_file_id, 'file_status': row.file_status_y})
+    samples_df = pd.DataFrame([sample for sample in mdb.samples.find({'project': project})])
+    samples_df = samples_df[pd.notna(samples_df.request_id)]
+    samples_df['request_id'] = samples_df['request_id'].astype(int)
+    restore_response_df = get_file_statuses(samples_df, config)
+    for idx, row in restore_response_df.loc[
+                    restore_response_df.file_status_x != restore_response_df.file_status_y, :].iterrows():
+        sample = row[row.keys().drop(['file_status_x', 'file_status_y'])].to_dict()
+        update_sample_in_mongodb(sample, {'jdp_file_id': row.jdp_file_id, 'file_status': row.file_status_y})
 
 
 def check_restore_status(restore_request_id, config):
