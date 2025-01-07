@@ -15,6 +15,17 @@ logging.basicConfig(filename='file_staging.log',
                     datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG)
 
 
+def get_project_globus_manifests(project_name, config_file):
+    if config_file:
+        config = configparser.ConfigParser()
+        config.read(config_file)
+    mdb = get_mongo_db()
+    samples_df = pd.DataFrame(mdb.samples.find({'project_name': project_name}))
+    manifests_list = []
+    for request_id in samples_df.request_id.unique():
+        manifests_list.append(get_globus_manifest(request_id, project_name, config_file))
+
+
 def get_globus_manifest(request_id, config_file=None, config=None):
     """
     This gets the Globus file manifest with the list of Globus paths for each requested file
@@ -136,12 +147,16 @@ if __name__ == '__main__':
     parser.add_argument('project_name')
     parser.add_argument('config_file')
     parser.add_argument('-r', '--request_id', help='Globus request id (from file restoration api)')
-    parser.add_argument('-u', '--update_globus_statuses', action='store_true', help='update globus task statuses',
-                        default=False)
+    parser.add_argument('-u', '--update_globus_statuses', action='store_true',
+                        help='update globus task statuses', default=False)
+    parser.add_argument('-g', '--get_project_manifests', action='store_true',
+                        help='get all globus project manifests', default=False)
 
     args = vars((parser.parse_args()))
 
-    if args['update_globus_statuses']:
+    if args['get_project_manifests']:
+        get_project_globus_manifests(args['project_name'], args['config_file'])
+    elif args['update_globus_statuses']:
         update_globus_statuses()
     elif args['request_id']:
         get_globus_manifest(args['request_id'], config_file=args['config_file'])
