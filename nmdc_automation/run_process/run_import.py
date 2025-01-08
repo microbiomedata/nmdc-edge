@@ -10,7 +10,6 @@ import linkml.validator
 from linkml_runtime.dumpers import yaml_dumper
 import yaml
 
-from nmdc_automation.import_automation import GoldMapper
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.import_automation.import_mapper import ImportMapper
 from nmdc_schema.nmdc import Database
@@ -40,7 +39,8 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
     logger.setLevel(log_level)
 
     logger.info(f"Importing project from {import_file}")
-    logger.debug(f"Importing project from {import_yaml}")
+    logger.info(f"Import Specifications:  from {import_yaml}")
+    logger.info(f"Site Configuration:  from {site_configuration}")
 
     runtime_api = NmdcRuntimeApi(site_configuration)
     nmdc_materialized = _get_nmdc_materialized()
@@ -128,15 +128,17 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
 
         for wfe_type, db_wfe_ids in db_wfe_ids_by_wfe_type.items():
             if len(db_wfe_ids) == 0:
+                # No workflow executions of this type - import data objects and wfe
                 logger.info(f"No workflow executions found for {wfe_type}")
                 mappings = file_mappings_by_wfe_type.get(wfe_type, [])
                 logger.info(f"Found {len(mappings)} file mappings to import")
                 for mapping in mappings:
                     logger.info(f"Importing {mapping}")
                     data_file_path = import_mapper.get_nmdc_data_file_path(mapping)
-                    logger.info(f"Destination:  {data_file_path}")
+                    source_path = os.path.join(import_mapper.import_project_dir, mapping.file)
+                    logger.info(f"Linking Data File: {source_path} to {data_file_path}")
 
-                # No workflow executions of this type - import data objects and wfe
+
 
             else:
                 logger.warning(f"Found one or more workflow executions found for {wfe_type} - skipping")
