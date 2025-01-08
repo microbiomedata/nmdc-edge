@@ -101,27 +101,57 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
             continue
 
 
-        # Go though the file mappings and determine
+        # Go though file and update data object and workflow executions IDs
         for fm in import_mapper.file_mappings:
             data_object_id = import_mapper.get_or_create_minted_id(
                 'nmdc:DataObject', fm.data_object_type
             )
             if not data_object_id:
                 logger.error(f"Cannot determine an ID for {fm.data_object_type}")
+                continue
             workflow_execution_id = import_mapper.get_or_create_minted_id(
                 fm.output_of
             )
             if not workflow_execution_id:
                 logger.error(f"Cannot determine an ID for {fm.output_of}")
+                continue
 
             import_mapper.update_file_mappings(
                 fm.data_object_type, data_object_id, workflow_execution_id
             )
 
+        # Check the Database for any workflow executions that may already exist
+        logger.info(f"Checking for workflow executions informed by {nucleotide_sequencing_id}")
+        file_mappings_by_wfe_type = import_mapper.file_mappings_by_workflow_type
+        db_wfe_ids_by_wfe_type = import_mapper.database_workflow_execution_ids_by_type
+        logger.info(db_wfe_ids_by_wfe_type)
+
+        for wfe_type, db_wfe_ids in db_wfe_ids_by_wfe_type.items():
+            if len(db_wfe_ids) == 0:
+                logger.info(f"No workflow executions found for {wfe_type}")
+                mappings = file_mappings_by_wfe_type.get(wfe_type, [])
+                logger.info(f"Found {len(mappings)} file mappings to import")
+                for mapping in mappings:
+                    logger.info(f"Importing {mapping}")
+                    data_file_path = import_mapper.get_nmdc_data_file_path(mapping)
+                    logger.info(f"Destination:  {data_file_path}")
+
+                # No workflow executions of this type - import data objects and wfe
+
+            else:
+                logger.warning(f"Found one or more workflow executions found for {wfe_type} - skipping")
+                continue
+                # Workflow exists - check it against the mapped id:
+                # Same Workflow ID - Workflow already imported
+                # Different Workflow ID - Workflow exists - check workflow version
+
+
+
+
         logger.info("Updating minted IDs")
         import_mapper.write_minted_id_file()
         for fm in import_mapper.file_mappings:
-            logger.info(f"Mapped: {fm}")
+            logger.debug(f"Mapped: {fm}")
 
 
 

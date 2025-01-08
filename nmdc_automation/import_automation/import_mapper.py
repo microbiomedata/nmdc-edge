@@ -39,17 +39,15 @@ class ImportMapper:
             os.path.isfile(os.path.join(self.import_project_dir, f))]
 
         self.minted_id_file = f"{self.import_project_dir}/{self.nucleotide_sequencing_id}_minted_ids.json"
-        self.minted_ids = {}
+        self.minted_ids = {
+                "data_object_ids": {},
+                "workflow_execution_ids": {}
+            }
         if os.path.exists(self.minted_id_file):
             logger.info(f"Loading minted IDs from {self.minted_id_file}")
             with open(self.minted_id_file, 'r') as f:
                 ids = json.load(f)
                 self.minted_ids = ids
-        else:
-            self.minted_ids = {
-                "data_object_ids": {},
-                "workflow_execution_ids": {}
-            }
 
     def write_minted_id_file(self):
         with open(self.minted_id_file, 'w') as f:
@@ -127,6 +125,42 @@ class ImportMapper:
         file_mappings = {fm.data_object_type: fm for fm in self._file_mappings}
         return file_mappings
 
+    @property
+    def file_mappings_by_workflow_type(self) -> Dict[str, list]:
+        """Return the file mappings by workflow type."""
+        file_mappings = {}
+        for fm in self._file_mappings:
+            if fm.output_of in file_mappings:
+                file_mappings[fm.output_of].append(fm)
+            else:
+                file_mappings[fm.output_of] = [fm]
+        return file_mappings
+
+
+    @property
+    def workflow_execution_ids(self) -> List[str]:
+        """ Return the unique workflow execution IDs."""
+        workflow_execution_ids = {fm.workflow_execution_id for fm in self._file_mappings}
+        return list(workflow_execution_ids)
+
+    @property
+    def workflow_execution_types(self) -> List[str]:
+        """ Return the unique workflow execution types, bases on output_of."""
+        workflow_execution_types = {fm.output_of for fm in self._file_mappings}
+        return list(workflow_execution_types)
+
+    @property
+    def database_workflow_execution_ids_by_type(self) -> Dict:
+        """Return the unique workflow execution IDs by workflow type."""
+        wfe_ids_by_type = {}
+        for wfe_type in self.workflow_execution_types:
+            filt = {"was_informed_by": self.nucleotide_sequencing_id, "type": wfe_type}
+            workflow_executions = self.runtime_api.find_planned_processes(
+                filter_by=filt
+            )
+            wfe_ids_by_type[wfe_type] = [wfe['id'] for wfe in workflow_executions]
+        return wfe_ids_by_type
+
     def update_file_mappings(self, data_object_type: str,
                              data_object_id: str,
                              workflow_execution_id: str,
@@ -136,6 +170,17 @@ class ImportMapper:
             if fm.data_object_type == data_object_type:
                 fm.data_object_id = data_object_id
                 fm.workflow_execution_id = workflow_execution_id
+
+    def get_nmdc_data_file_path(self, file_mapping: "FileMapping") -> str:
+        spec = self.import_specs_by_data_object_type[file_mapping.data_object_type]
+        if spec["action"] == "none":
+            filename =  os.path.basename(file_mapping.file)
+        elif spec["action"] == "rename":
+            wfe_file_id = file_mapping.workflow_execution_id.replace(":", "_")
+            filename =  wfe_file_id + spec["nmdc_suffix"]
+        else:
+            filename = 'not_implemented'
+        return os.path.join(self.root_directory, self.nucleotide_sequencing_id, filename)
 
 
     def _init_file_mappings(self) -> List:
@@ -148,9 +193,8 @@ class ImportMapper:
                 continue
             import_spec = self.import_specs_by_data_object_type[data_object_type]
             output_of = import_spec["output_of"]
-            input_to = import_spec["input_to"]
             file_mappings.append(
-                FileMapping(data_object_type, file, output_of, input_to)
+                FileMapping(data_object_type, file, output_of)
             )
         return file_mappings
 
@@ -173,12 +217,11 @@ class FileMapping:
     - workflow_execution_id: (Optional) The workflow execution ID that the data object is output of.
     """
 
-    def __init__(self, data_object_type: str, import_file: Union[str, Path], output_of: str, input_to: List[str],
+    def __init__(self, data_object_type: str, import_file: Union[str, Path], output_of: str,
                  data_object_id: Optional[str] = None, workflow_execution_id: str = None):
         self.data_object_type = data_object_type
         self.file = import_file
         self.output_of = output_of
-        self.input_to = input_to
         self.data_object_id = data_object_id
         self.workflow_execution_id = workflow_execution_id
 
@@ -190,7 +233,6 @@ class FileMapping:
             f"data_object_type={self.data_object_type}, "
             f"file={self.file}, "
             f"output_of={self.output_of}, "
-            f"input_to={self.input_to}, "
             f"data_object_id={self.data_object_id}, "
             f"workflow_execution_id={self.workflow_execution_id} "
             f")"
