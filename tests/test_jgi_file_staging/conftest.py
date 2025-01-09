@@ -35,6 +35,7 @@ def grow_analysis_df():
             "apGoldId",
             "studyId",
             "itsApId",
+            "projects",
             "biosample_id",
             "seq_id",
             "file_name",
@@ -45,5 +46,5 @@ def grow_analysis_df():
             "analysis_project_id",
         ]
     ]
-    grow_analysis_df["project"] = "test_project"
+    # grow_analysis_df["project"] = "test_project"
     return grow_analysis_df
