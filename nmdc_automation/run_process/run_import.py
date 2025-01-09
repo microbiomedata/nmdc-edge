@@ -1,5 +1,6 @@
 import click
 import csv
+import gc
 import importlib.resources
 from functools import lru_cache
 import logging
@@ -12,7 +13,7 @@ from nmdc_automation.import_automation import GoldMapper
 from nmdc_automation.api import NmdcRuntimeApi
 
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
@@ -70,6 +71,8 @@ def import_projects(import_file, import_yaml, site_configuration, iteration):
         # validate the database
         logger.info("Validating imported data")
         db_dict = yaml.safe_load(yaml_dumper.dumps(db))
+        del db # free up memory
+        del do_mapping # free up memory
         validation_report = linkml.validator.validate(db_dict, nmdc_materialized)
         if validation_report.results:
             logger.error(f"Validation Failed")
@@ -93,9 +96,12 @@ def import_projects(import_file, import_yaml, site_configuration, iteration):
         logger.info("Posting data to the API")
         try:
             runtime.post_objects(db_dict)
+            del db_dict # free up memory
         except Exception as e:
             logger.error(f"Error posting data to the API: {e}")
             raise e
+
+        gc.collect()
 
 
 

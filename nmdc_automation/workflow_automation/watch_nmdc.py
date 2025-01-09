@@ -12,6 +12,7 @@ import linkml.validator
 import importlib.resources
 from functools import lru_cache
 import traceback
+import os
 
 from nmdc_schema.nmdc import Database
 from nmdc_automation.api import NmdcRuntimeApi
@@ -23,8 +24,12 @@ from nmdc_automation.workflow_automation.wfutils import WorkflowJob
 DEFAULT_STATE_DIR = Path(__file__).parent / "_state"
 DEFAULT_STATE_FILE = DEFAULT_STATE_DIR / "state.json"
 INITIAL_STATE = {"jobs": []}
+
+logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+logging.basicConfig(
+    level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
+)
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 
 class FileHandler:
@@ -236,14 +241,13 @@ class JobManager:
 
         database = Database()
 
-        # get job runner metadata if needed
-        if not job.job.metadata:
-            logger.info(f"Getting job runner metadata for job {job.workflow.job_runner_id}")
-            job.job.job_id = job.workflow.job_runner_id
-            metadata = job.job.get_job_metadata()
-            m_dict = yaml.safe_load(yaml_dumper.dumps(metadata))
-            logger.debug(f"Job runner metadata: {m_dict}")
-            job.job.metadata = metadata
+        # Upate the job metadata
+        logger.info(f"Getting job runner metadata for job {job.workflow.job_runner_id}")
+        job.job.job_id = job.workflow.job_runner_id
+        metadata = job.job.get_job_metadata()
+        m_dict = yaml.safe_load(yaml_dumper.dumps(metadata))
+        logger.debug(f"Job runner metadata: {m_dict}")
+        job.job.metadata = metadata
 
         data_objects = job.make_data_objects(output_dir=output_path)
         if not data_objects:
@@ -264,6 +268,7 @@ class JobManager:
         logger.info(f"Created workflow execution record for job {job.opid}")
 
         job.done = True
+        job.workflow.state["end"] = workflow_execution.ended_at_time
         self.file_handler.write_metadata_if_not_exists(job)
         self.save_checkpoint()
         return database
@@ -300,7 +305,7 @@ class RuntimeApiHandler:
             "workflow.id": {"$in": allowed_workflows},
             "claims": {"$size": 0}
         }
-        job_records =  self.runtime_api.list_jobs(filt=filt)
+        job_records = self.runtime_api.list_jobs(filt=filt)
 
         for job in job_records:
             jobs.append(WorkflowJob(self.config, workflow_state=job))
