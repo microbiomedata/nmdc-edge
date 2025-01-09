@@ -71,7 +71,7 @@ class NmdcRuntimeApi:
     def refresh_token(func):
         def _get_token(self, *args, **kwargs):
             # If it expires in 60 seconds, refresh
-            if not self.token or self.expires_at + 60 > time():
+            if not self.token or self.expires_at < time() + 60:
                 self.get_token()
             return func(self, *args, **kwargs)
 
