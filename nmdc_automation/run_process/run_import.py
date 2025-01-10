@@ -12,6 +12,7 @@ import yaml
 
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.import_automation.import_mapper import ImportMapper
+from nmdc_automation.import_automation.utils import get_or_create_md5
 from nmdc_schema.nmdc import Database
 
 
@@ -80,17 +81,17 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         # Map Sequencing Output - check for NMDC data object in Data Generation has_output
         # Mint a new Data Object and Update Data Generation if has_output is empty or has a non-NMDC ID
         dg_output = dg.get('has_output', [])
-        if len(dg_output) > 1: # We don't know how to handle this case yet
+        # We don't know how to handle this case yet
+        if len(dg_output) > 1:
             logging.error(f"Multiple outputs for {nucleotide_sequencing_id} in the database - skipping")
             continue
+        # No output
         if len(dg_output) == 0:
             logger.info(f"{nucleotide_sequencing_id} has no output")
             logger.info(f"Importing sequencing data and creating update for {nucleotide_sequencing_id}")
             # mint a new data object ID if needed
-            seq_data_obj_id = import_mapper.get_or_create_minted_id(
-                'nmdc:DataObject', 'Metagenome Raw Reads')
-            import_mapper.update_file_mappings(
-                import_mapper.METAGENOME_RAW_READS, seq_data_obj_id, nucleotide_sequencing_id)
+            seq_data_obj_id = import_mapper.get_or_create_minted_id('nmdc:DataObject', 'Metagenome Raw Reads')
+            import_mapper.update_file_mappings(import_mapper.METAGENOME_RAW_READS, seq_data_obj_id, nucleotide_sequencing_id)
 
         # Already has nmdc output
         elif dg_output and dg_output[0].startswith('nmdc:dobj'):
@@ -136,10 +137,11 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
 
                 logger.info(f"Importing data objects and workflow execution for {wfe_type}")
                 mappings = file_mappings_by_wfe_type.get(wfe_type, [])
+
+                # Get the workflow ID for these mappings (there can be only 1) and use it to make the output dir
                 wfe_ids = {mapping.workflow_execution_id for mapping in mappings}
                 if len(wfe_ids) != 1:
                     raise Exception(f"Found multiple workflow execution IDs for {wfe_type}")
-
                 wfe_id = wfe_ids.pop()
                 nmdc_wfe_dir = os.path.join(import_mapper.root_directory, wfe_id)
                 try:
@@ -153,14 +155,27 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
 
                     # link files
                     nmdc_data_file_name = import_mapper.get_nmdc_data_file_name(mapping)
-                    export_file_path = os.path.join(nmdc_wfe_dir, nmdc_data_file_name)
-                    import_file_path = os.path.join(import_mapper.import_project_dir, mapping.file)
+                    export_file = os.path.join(nmdc_wfe_dir, nmdc_data_file_name)
+                    import_file = os.path.join(import_mapper.import_project_dir, mapping.file)
                     try:
-                        os.link(import_file_path, export_file_path)
+                        os.link(import_file, export_file)
                     except FileExistsError:
-                        logger.info(f"File {export_file_path} already exists")
+                        logger.info(f"File {export_file} already exists")
 
-
+                    # make a DataObject
+                    filemeta = os.stat(export_file)
+                    md5 = get_or_create_md5(export_file)
+                    do_record = {
+                        'id': mapping.data_object_id,
+                        'type': 'nmdc:DataObject',
+                        "name": nmdc_data_file_name,
+                        "file_size_bytes": filemeta.st_size,
+                        "md5_checksum": md5,
+                        "data_object_type": mapping.data_object_type,
+                        "was_generated_by": mapping.workflow_execution_id,
+                        "url": f"{import_mapper.data_source_url}/{import_mapper.nucleotide_sequencing_id}/{export_file}"
+                    }
+                    logging.info(do_record)
 
             else:
                 logger.warning(f"Found one or more workflow executions found for {wfe_type} - skipping")

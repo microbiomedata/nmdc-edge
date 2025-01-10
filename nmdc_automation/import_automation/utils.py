@@ -152,9 +152,10 @@ def file_link(
         return linked_path
 
 
-def get_md5(fn: str) -> str:
+def get_or_create_md5(fn: str) -> str:
     """
-    Generate md5 for file
+    Generate md5 hash for file, writing to file '.md5' if it doesn't exist.
+    Return hash value.
 
     Args:
         fn (str): file name

@@ -12,7 +12,7 @@ from nmdc_schema import nmdc
 
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.models.nmdc import DataObject, workflow_process_factory
-from .utils import object_action, file_link, get_md5, filter_import_by_type
+from .utils import object_action, file_link, get_or_create_md5, filter_import_by_type
 
 logger = logging.getLogger(__name__)
 
@@ -141,7 +141,7 @@ class GoldMapper:
                         logger.debug(f"{export_file} already exists")
 
                     filemeta = os.stat(export_file)
-                    md5 = get_md5(export_file)
+                    md5 = get_or_create_md5(export_file)
                     data_object_id = self.runtime.minter(self.data_object_type)
                     # Imported nucleotide sequencing data object does not have a URL
                     do_record = {
@@ -198,7 +198,7 @@ class GoldMapper:
                 file_destination_name,
             )
             filemeta = os.stat(updated_file)
-            md5 = get_md5(updated_file)
+            md5 = get_or_create_md5(updated_file)
             data_object_id = self.runtime.minter(self.data_object_type)
             do_record = {
                 "id": data_object_id,
