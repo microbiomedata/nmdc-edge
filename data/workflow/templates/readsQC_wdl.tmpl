@@ -2,6 +2,7 @@ input {
     Array[File] <WORKFLOW>_input_files
     String      <WORKFLOW>_outdir
     Boolean     <WORKFLOW>_input_interleaved=true
+    Boolean     <WORKFLOW>_short_read=true
     Array[File] <WORKFLOW>_input_fq1
     Array[File] <WORKFLOW>_input_fq2
     String      <WORKFLOW>_prefix
@@ -15,16 +16,18 @@ call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input_fq2=<WORKFLOW>_input_fq2,
         outdir=<WORKFLOW>_outdir,
         input_interleaved=<WORKFLOW>_input_interleaved
+        shortRead=<WORKFLOW>_short_read
 }
 
 scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
-    call <WORKFLOW>.ShortReadsQC  as nmdc_rqcfilter_call {
+    call <WORKFLOW>.rqcfilter as nmdc_rqcfilter_call {
         input:
             input_files=<WORKFLOW>_input_files,
             input_fq1=<WORKFLOW>_input_fq1,
             input_fq2=<WORKFLOW>_input_fq2,
             proj=<WORKFLOW>_prefix,
-            interleaved=<WORKFLOW>_input_interleaved
+            interleaved=<WORKFLOW>_input_interleaved,
+            shortRead=<WORKFLOW>_short_read
     }
 }
 
@@ -32,10 +35,11 @@ call <WORKFLOW>_output.readsqc_output as readsqc_output {
     input:
         input_files = <WORKFLOW>_input_files,
         input_files_prefix = select_first([readsqc_preprocess.input_files_prefix, [""]]),
-        filtered_stats_final = nmdc_rqcfilter_call.filtered_stats_final,
-        filtered_stats2_final = nmdc_rqcfilter_call.filtered_stats2_final,
-        filtered_stat_json = nmdc_rqcfilter_call.filter_stat_json,
-        rqc_info = nmdc_rqcfilter_call.rqc_info, 
-        outdir=<WORKFLOW>_outdir,
-        vis_container=<WORKFLOW>_vis_container
+        filtered_stats_final = if (<WORKFLOW>_short_read) then nmdc_rqcfilter_call.filtered_stats_final_srqc else nmdc_rqcfilter_call.filtered_stats_final_lrqc,
+        filtered_stats2_final = if (<WORKFLOW>_short_read) then nmdc_rqcfilter_call.filtered_stats2_final_srqc else nmdc_rqcfilter_call.filtered_stats2_final_lrqc,
+        filtered_stats3_final = if (!<WORKFLOW>_short_read) then nmdc_rqcfilter_call.filtered_stats3_final_lrqc else "",
+        filtered_stat_json = nmdc_rqcfilter_call.stats,
+        rqc_info = nmdc_rqcfilter_call.rqc_info,
+        outdir = <WORKFLOW>_outdir,
+        vis_container = <WORKFLOW>_vis_container
 }

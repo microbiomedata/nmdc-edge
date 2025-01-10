@@ -8,6 +8,7 @@ workflow readsqc_preprocess {
         String  container="bfoster1/img-omics:0.1.9"
         String outdir
         Boolean input_interleaved
+        Boolean shortRead
     }
 
     if (input_interleaved) {

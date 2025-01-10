@@ -1,13 +1,13 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/microbiomedata/metaAssembly/refs/tags/v1.0.5/shortReads_assembly.wdl" as jgi_asm
+import "https://raw.githubusercontent.com/microbiomedata/metaAssembly/refs/tags/v1.0.7/jgi_assembly.wdl" as jgi_asm
+import "https://code.jgi.doe.gov/BFoster/jgi_meta_wdl/-/raw/bc7c4371ea0fa83355bada341ec353b9feb3eff2/metagenome_improved/metaflye.wdl" as lrma
 import "preprocess.wdl" as MetaAssembly_preprocess
 
 workflow nmdc_edge_assembly{
     input {
         Array[File] input_file
         String outdir
-        String rename_contig_prefix="scaffold"
         Float  uniquekmer=1000
         String bbtools_container="microbiomedata/bbtools:38.96"
         String spades_container="microbiomedata/spades:3.15.0"
@@ -16,6 +16,7 @@ workflow nmdc_edge_assembly{
         String threads="4"
         String proj = proj
         Boolean input_interleaved=true
+        Boolean shortRead=true
         Array[File] input_fq1=[]
         Array[File] input_fq2=[]
     }
@@ -30,20 +31,18 @@ workflow nmdc_edge_assembly{
     
     }
 
-    call jgi_asm.jgi_metaASM as metaAssembly_call {
+    call jgi_asm.jgi_metaAssembly as metaAssembly_call {
         input:
-            input_file=preprocess.input_file_gz,
+            input_files=input_file,
             proj=proj,
-            rename_contig_prefix=rename_contig_prefix,
-            bbtools_container=bbtools_container,
-            spades_container=spades_container,
             memory=memory,
-            threads=threads
+            threads=threads,
+            shortRead=shortRead
     }
 
     call assembly_vis {
         input:
-            contigs=metaAssembly_call.contig,
+            contigs=if(shortRead) then metaAssembly_call.sr_contig else metaAssembly_call.lr_contigs,
             container=quast_container,
             outdir=outdir,
             proj=proj
@@ -51,14 +50,14 @@ workflow nmdc_edge_assembly{
     }
 
     output {
-        File contig = metaAssembly_call.contig
-        File scaffold = metaAssembly_call.scaffold
-        File agp=metaAssembly_call.agp
-        File bam=metaAssembly_call.bam
-        File samgz=metaAssembly_call.samgz
-        File covstats=metaAssembly_call.covstats
-        File asmstats=metaAssembly_call.asmstats
-        File asminfo=metaAssembly_call.asminfo
+        File? contig = if(shortRead) then metaAssembly_call.sr_contig else metaAssembly_call.lr_contigs
+        File? scaffold = if(shortRead) then metaAssembly_call.sr_scaffold else metaAssembly_call.lr_scaffolds
+        File? agp= if(shortRead) then metaAssembly_call.sr_agp else metaAssembly_call.lr_agp
+        File? bam= if(shortRead) then metaAssembly_call.sr_bam else metaAssembly_call.lr_bam 
+        File? samgz= if(shortRead) then metaAssembly_call.sr_samgz else metaAssembly_call.lr_sam
+        File? covstats= if(shortRead) then metaAssembly_call.sr_covstats else metaAssembly_call.lr_basecov
+        File? asmstats= metaAssembly_call.stats
+        File? asminfo= if(shortRead) then metaAssembly_call.sr_asminfo else metaAssembly_call.lr_asminfo
         File report_html = assembly_vis.report_html
         File report_txt = assembly_vis.report_txt
     }
@@ -66,7 +65,7 @@ workflow nmdc_edge_assembly{
 
 task assembly_vis{
     input {
-        File contigs
+        File? contigs
         String container
         String? outdir = "report"
         String proj

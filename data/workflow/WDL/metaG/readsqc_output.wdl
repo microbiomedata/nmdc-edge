@@ -6,6 +6,7 @@ workflow readsqc_output {
         Array[String] input_files_prefix
         Array[File]   filtered_stats_final
         Array[File]   filtered_stats2_final
+        Array[File]   filtered_stats3_final
         Array[File]   filtered_stat_json
         Array[File]   rqc_info
         String?       outdir
@@ -20,6 +21,7 @@ workflow readsqc_output {
         input_files_prefix=input_files_prefix,
         filtered_stats_final=filtered_stats_final,
         filtered_stats2_final=filtered_stats2_final,
+        filtered_stats3_final=filtered_stats3_final,
         filtered_stat_json=filtered_stat_json,
         rqc_info=rqc_info,
         container=bbtools_container
@@ -90,6 +92,7 @@ task make_output{
         Array[File]   input_files
         Array[File]   filtered_stats_final
         Array[File]   filtered_stats2_final
+        Array[File]   filtered_stats3_final
         Array[File]   filtered_stat_json
         Array[File]   rqc_info
         String        dollar ="$"
@@ -104,6 +107,7 @@ task make_output{
         ARRAYFastq=(~{sep=" " input_files})
         ARRAYStats=(~{sep=" " filtered_stats_final})
         ARRAYStats2=(~{sep=" " filtered_stats2_final})
+        ARRAYStats3=(~{sep=" " filtered_stats3_final})
         ARRAYStatjson=(~{sep=" " filtered_stat_json})
         for (( i = 0; i < ~{file_num}; i++ ))
         do
@@ -114,6 +118,7 @@ task make_output{
             cp -f ~{dollar}{ARRAYFastq[$i]} ~{outdir}/$prefix/$prefix.filtered.gz
             cp -f ~{dollar}{ARRAYStats[$i]}  ~{outdir}/$prefix/filterStats.txt
             cp -f ~{dollar}{ARRAYStats2[$i]}  ~{outdir}/$prefix/filterStats2.txt
+            cp -f ~{dollar}{ARRAYStats3[$i]}  ~{outdir}/$prefix/filterStats3.txt
             cp -f ~{dollar}{ARRAYStatjson[$i]}  ~{outdir}/$prefix/filterStats.json
         done
  	>>>
