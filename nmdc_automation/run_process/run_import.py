@@ -13,8 +13,7 @@ from nmdc_automation.import_automation import GoldMapper
 from nmdc_automation.api import NmdcRuntimeApi
 
 
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+
 
 
 @click.group()
@@ -28,7 +27,10 @@ def cli():
 @click.argument("site_configuration", type=click.Path(exists=True))
 @click.option("--iteration", default=1, type=str, help="Number of iterations")
 def import_projects(import_file, import_yaml, site_configuration, iteration):
-
+    logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+    logging.basicConfig(level=logging_level, format="%(asctime)s %(levelname)s: %(message)s")
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging_level)
     logger.info(f"Importing project from {import_file}")
 
     runtime = NmdcRuntimeApi(site_configuration)
