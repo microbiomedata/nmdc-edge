@@ -171,7 +171,7 @@ class ImportMapper:
                 fm.data_object_id = data_object_id
                 fm.workflow_execution_id = workflow_execution_id
 
-    def get_nmdc_data_file_path(self, file_mapping: "FileMapping") -> str:
+    def get_nmdc_data_file_name(self, file_mapping: "FileMapping") -> str:
         spec = self.import_specs_by_data_object_type[file_mapping.data_object_type]
         if spec["action"] == "none":
             filename =  os.path.basename(file_mapping.file)
@@ -179,9 +179,8 @@ class ImportMapper:
             wfe_file_id = file_mapping.workflow_execution_id.replace(":", "_")
             filename =  wfe_file_id + spec["nmdc_suffix"]
         else:
-            filename = 'not_implemented'
-        return os.path.join(self.root_directory, self.nucleotide_sequencing_id, filename)
-
+            raise NotImplementedError
+        return filename
 
     def _init_file_mappings(self) -> List:
         """Create the initial list of File Mapping based on the import files."""
@@ -238,9 +237,6 @@ class FileMapping:
             f")"
         )
         
-
-
-
 
 @lru_cache
 def _load_yaml_file(yaml_file: Union[str, Path]) -> Dict:

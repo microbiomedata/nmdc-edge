@@ -126,17 +126,39 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         db_wfe_ids_by_wfe_type = import_mapper.database_workflow_execution_ids_by_type
         logger.info(db_wfe_ids_by_wfe_type)
 
+        try:
+            os.makedirs(import_mapper.root_directory)
+        except FileExistsError:
+            logger.debug(f"Directory {import_mapper.root_directory} already exists")
+
         for wfe_type, db_wfe_ids in db_wfe_ids_by_wfe_type.items():
             if len(db_wfe_ids) == 0:
-                # No workflow executions of this type - import data objects and wfe
-                logger.info(f"No workflow executions found for {wfe_type}")
+
+                logger.info(f"Importing data objects and workflow execution for {wfe_type}")
                 mappings = file_mappings_by_wfe_type.get(wfe_type, [])
-                logger.info(f"Found {len(mappings)} file mappings to import")
+                wfe_ids = {mapping.workflow_execution_id for mapping in mappings}
+                if len(wfe_ids) != 1:
+                    raise Exception(f"Found multiple workflow execution IDs for {wfe_type}")
+
+                wfe_id = wfe_ids.pop()
+                nmdc_wfe_dir = os.path.join(import_mapper.root_directory, wfe_id)
+                try:
+                    os.makedirs(nmdc_wfe_dir)
+                except FileExistsError:
+                    logger.info(f"Directory {nmdc_wfe_dir} already exists")
+
+                logger.info(f"Found {len(mappings)} file mappings to import for {wfe_id}")
                 for mapping in mappings:
                     logger.info(f"Importing {mapping}")
-                    data_file_path = import_mapper.get_nmdc_data_file_path(mapping)
-                    source_path = os.path.join(import_mapper.import_project_dir, mapping.file)
-                    logger.info(f"Linking Data File: {source_path} to {data_file_path}")
+
+                    # link files
+                    nmdc_data_file_name = import_mapper.get_nmdc_data_file_name(mapping)
+                    export_file_path = os.path.join(nmdc_wfe_dir, nmdc_data_file_name)
+                    import_file_path = os.path.join(import_mapper.import_project_dir, mapping.file)
+                    try:
+                        os.link(import_file_path, export_file_path)
+                    except FileExistsError:
+                        logger.info(f"File {export_file_path} already exists")
 
 
 
