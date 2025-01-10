@@ -17,6 +17,9 @@ from nmdc_schema.nmdc import Database
 
 
 
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
 
 @click.group()
 @click.pass_context

@@ -10,12 +10,11 @@ import hashlib
 import mimetypes
 from pathlib import Path
 from time import time
-from typing import Union, List, Optional
+from typing import Union, List
 from datetime import datetime, timedelta, timezone
 from nmdc_automation.config import SiteConfig, UserConfig
 import logging
 from tenacity import retry, wait_exponential, stop_after_attempt
-from urllib.parse import urlencode
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -69,7 +68,7 @@ class NmdcRuntimeApi:
     def refresh_token(func):
         def _get_token(self, *args, **kwargs):
             # If it expires in 60 seconds, refresh
-            if not self.token or self.expires_at < time() - 60:
+            if not self.token or self.expires_at + 60 > time():
                 self.get_token()
             return func(self, *args, **kwargs)
 
@@ -367,35 +366,6 @@ class NmdcRuntimeApi:
         if not resp.ok:
             resp.raise_for_status()
         return resp.json()
-
-
-    @refresh_token
-    def find_planned_processes(self, filter_by=None, max_page_size=40) -> List[dict]:
-        base_url = f"{self._base_url}planned_processes"
-        params = {"max_page_size": max_page_size}
-
-        if filter_by:
-            # Manually format the filter parameter as "key:value"
-            filter_str = ",".join(f"{key}:{value}" for key, value in filter_by.items())
-            params["filter"] = filter_str
-
-        # Use urlencode to construct the query string
-        query_string = urlencode(params)
-        url = f"{base_url}?{query_string}"
-
-        logger.info(f"find_planned_processes: {url}")
-        response = requests.get(url, headers=self.header)
-
-
-        return response.json()["results"]
-
-
-    @refresh_token
-    def find_data_objects(self, filter_by=None, max_page_size=40) -> List[dict]:
-        url = f"{self._base_url}data_objects?max_page_size={max_page_size}"
-        if filter_by:
-            url += "&filter=%s" % (json.dumps(filter_by))
-        return self._page_query(url)
 
 
 # TODO - This is deprecated and should be removed along with the re_iding code that uses it

@@ -12,6 +12,7 @@ import linkml.validator
 import importlib.resources
 from functools import lru_cache
 import traceback
+import os
 
 from nmdc_schema.nmdc import Database
 from nmdc_automation.api import NmdcRuntimeApi
@@ -23,8 +24,12 @@ from nmdc_automation.workflow_automation.wfutils import WorkflowJob
 DEFAULT_STATE_DIR = Path(__file__).parent / "_state"
 DEFAULT_STATE_FILE = DEFAULT_STATE_DIR / "state.json"
 INITIAL_STATE = {"jobs": []}
+
+logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+logging.basicConfig(
+    level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
+)
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 
 class FileHandler:
