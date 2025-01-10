@@ -1,13 +1,18 @@
+import mongomock
 import pandas as pd
 from pathlib import Path
 import pytest
 
+
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     get_access_token,
+    get_mongo_db,
     check_access_token,
     get_sequence_id,
     get_analysis_projects_from_proposal_id,
+    insert_samples_into_mongodb,
 )
+from nmdc_automation.jgi_file_staging.models import Sample
 
 
 FIXTURE_DIR = Path(__file__).parent / "fixtures"
@@ -84,34 +89,31 @@ def test_get_analysis_projects_from_proposal_id(mock_get):
         "projects": "['Gp0503551']",
     }
 
-# TODO: fix this test.  Data fixtures raise ValidationError from Sample model
-# def test_sample_model_instance_creation(monkeypatch, grow_analysis_df):
-#     sample_dict = grow_analysis_df.to_dict("records")[0]
-#     sample_model = Sample(**sample_dict)
-    # assert sample_model.apGoldId == "Ga0499978"
-    # assert sample_model.studyId == "Gs0149396"
-    # assert sample_model.itsApId == 1323348
-    # assert sample_model.projects == "['Gp0587070']"
-    # assert sample_model.biosample_id == "Ga0499978"
-    # assert sample_model.seq_id == "Ga0499978"
-    # assert sample_model.file_name == "Ga0499978.fna.gz"
-    # assert sample_model.file_status == "uploaded"
-    # assert sample_model.file_size == 1000
-    # assert sample_model.jdp_file_id == 123456
-    # assert sample_model.md5sum == "1234567890abcdef"
-    # assert sample_model.analysis_project_id == 123456
-    # assert sample_model.project == "test_project"
+
+def test_sample_model_instance_creation(monkeypatch, grow_analysis_df):
+    sample_dict = grow_analysis_df.to_dict("records")[0]
+    sample_model = Sample(**sample_dict)
+    assert sample_model.apGoldId == "Ga0499978"
+    assert sample_model.studyId == "Gs0149396"
+    assert sample_model.itsApId == 1323348
+    assert sample_model.projects == "['Gp0587070']"
+    assert sample_model.biosample_id == "Gb0305643"
+    assert sample_model.seq_id == "s1323445"
+    assert sample_model.file_name == "52614.1.394702.GCACTAAC-CCAAGACT.filtered-report.txt"
+    assert sample_model.file_status == "RESTORED"
+    assert sample_model.file_size == 3645
+    assert sample_model.jdp_file_id == "6190d7d30de2fc3298da6f7a"
+    assert sample_model.md5sum == "fcd87248b5922a8bd0d530bcb23bffae"
+    assert sample_model.analysis_project_id == "p1323348"
 
 
-# TODO: fix this test.  Data fixtures are raising ValidationError from
-# the pydantic Sample model
-# @mongomock.patch(servers=(("localhost", 27017),), on_new="create")
-# def test_insert_samples_into_mongodb(monkeypatch, grow_analysis_df):
-#     monkeypatch.setenv("MONGO_DBNAME", "test_db")
-#     client = get_mongo_db()
-#     mdb = client["test_db"]
-#
-#     insert_samples_into_mongodb(grow_analysis_df.to_dict("records"), mdb)
-#     mdb = get_mongo_db()
-#     sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
-#     assert sample["studyId"] == "Gs0149396"
+@mongomock.patch(servers=(("localhost", 27017),), on_new="create")
+def test_insert_samples_into_mongodb(monkeypatch, grow_analysis_df):
+    monkeypatch.setenv("MONGO_DBNAME", "test_db")
+    client = get_mongo_db()
+    mdb = client["test_db"]
+
+    insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
+    mdb = get_mongo_db()
+    sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
+    assert sample["studyId"] == "Gs0149396"

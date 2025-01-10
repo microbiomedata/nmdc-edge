@@ -10,14 +10,16 @@ import hashlib
 import mimetypes
 from pathlib import Path
 from time import time
-from typing import Union, List, Optional
+from typing import Union, List
 from datetime import datetime, timedelta, timezone
 from nmdc_automation.config import SiteConfig, UserConfig
 import logging
 from tenacity import retry, wait_exponential, stop_after_attempt
-from urllib.parse import urlencode
 
-logging.basicConfig(level=logging.INFO)
+logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+logging.basicConfig(
+    level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 SECONDS_IN_DAY = 86400
@@ -69,17 +71,13 @@ class NmdcRuntimeApi:
     def refresh_token(func):
         def _get_token(self, *args, **kwargs):
             # If it expires in 60 seconds, refresh
-            if not self.token or self.expires_at < time() - 60:
+            if not self.token or self.expires_at < time() + 60:
                 self.get_token()
             return func(self, *args, **kwargs)
 
         return _get_token
 
-    @retry(
-        wait=wait_exponential(multiplier=4, min=8, max=120),
-        stop=stop_after_attempt(6),
-        reraise=True,
-    )
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     def get_token(self):
         """
         Get a token using a client id/secret.
@@ -121,12 +119,13 @@ class NmdcRuntimeApi:
             "Content-Type": "application/json",
             "Authorization": "Bearer %s" % (self.token),
         }
-        logging.info(f"New token expires at {self.expires_at}")
+        logging.debug(f"New token expires at {self.expires_at}")
         return response_body
 
     def get_header(self):
         return self.header
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def minter(self, id_type, informed_by=None):
         url = f"{self._base_url}pids/mint"
@@ -144,6 +143,7 @@ class NmdcRuntimeApi:
                 raise ValueError("Failed to bind metadata to pid")
         return id
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def mint(self, ns, typ, ct):
         """
@@ -156,8 +156,11 @@ class NmdcRuntimeApi:
         url = self._base_url + "ids/mint"
         d = {"populator": "", "naa": ns, "shoulder": typ, "number": ct}
         resp = requests.post(url, headers=self.header, data=json.dumps(d))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def get_object(self, obj, decode=False):
         """
@@ -165,6 +168,8 @@ class NmdcRuntimeApi:
         """
         url = "%sobjects/%s" % (self._base_url, obj)
         resp = requests.get(url, headers=self.header)
+        if not resp.ok:
+            resp.raise_for_status()
         data = resp.json()
         if decode and "description" in data:
             try:
@@ -174,6 +179,8 @@ class NmdcRuntimeApi:
 
         return data
 
+
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def create_object(self, fn, description, dataurl):
         """
@@ -215,8 +222,11 @@ class NmdcRuntimeApi:
             "self_uri": "todo",
         }
         resp = requests.post(url, headers=self.header, data=json.dumps(d))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def post_objects(self, obj_data):
         url = self._base_url + "workflows/workflow_executions"
@@ -226,23 +236,29 @@ class NmdcRuntimeApi:
             resp.raise_for_status()
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def set_type(self, obj, typ):
         url = "%sobjects/%s/types" % (self._base_url, obj)
         d = [typ]
         resp = requests.put(url, headers=self.header, data=json.dumps(d))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def bump_time(self, obj):
         url = "%sobjects/%s" % (self._base_url, obj)
         now = datetime.today().isoformat()
-
         d = {"created_time": now}
         resp = requests.patch(url, headers=self.header, data=json.dumps(d))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
     # TODO test that this concatenates multi-page results
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def list_jobs(self, filt=None, max=100) -> List[dict]:
         url = "%sjobs?max_page_size=%s" % (self._base_url, max)
@@ -260,8 +276,6 @@ class NmdcRuntimeApi:
             except Exception as e:
                 logging.error(f"Failed to parse response: {resp.text}")
                 raise e
-
-
             if "resources" not in response_json:
                 logging.warning(str(response_json))
                 break
@@ -271,15 +285,19 @@ class NmdcRuntimeApi:
             url = orig_url + "&page_token=%s" % (response_json["next_page_token"])
         return results
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
-    def get_job(self, job):
-        url = "%sjobs/%s" % (self._base_url, job)
+    def get_job(self, job_id: str):
+        url = "%sjobs/%s" % (self._base_url, job_id)
         resp = requests.get(url, headers=self.header)
+        if not resp.ok:
+            resp.raise_for_status
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
-    def claim_job(self, job):
-        url = "%sjobs/%s:claim" % (self._base_url, job)
+    def claim_job(self, job_id: str):
+        url = "%sjobs/%s:claim" % (self._base_url, job_id)
         resp = requests.post(url, headers=self.header)
         if resp.status_code == 409:
             claimed = True
@@ -303,6 +321,7 @@ class NmdcRuntimeApi:
             url = orig_url + "&page_token=%s" % (resp["next_page_token"])
         return results
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def list_objs(self, filt=None, max_page_size=40):
         url = "%sobjects?max_page_size=%d" % (self._base_url, max_page_size)
@@ -311,6 +330,7 @@ class NmdcRuntimeApi:
         results = self._page_query(url)
         return results
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def list_ops(self, filt=None, max_page_size=40):
         url = "%soperations?max_page_size=%d" % (self._base_url, max_page_size)
@@ -330,12 +350,16 @@ class NmdcRuntimeApi:
             url = orig_url + "&page_token=%s" % (resp["next_page_token"])
         return results
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def get_op(self, opid):
         url = "%soperations/%s" % (self._base_url, opid)
         resp = requests.get(url, headers=self.header)
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def update_op(self, opid, done=None, results=None, meta=None):
         """
@@ -358,8 +382,11 @@ class NmdcRuntimeApi:
             d["metadata"] = cur["metadata"]
             d["metadata"]["extra"] = meta
         resp = requests.patch(url, headers=self.header, data=json.dumps(d))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def run_query(self, query):
         url = "%squeries:run" % self._base_url
@@ -368,154 +395,6 @@ class NmdcRuntimeApi:
             resp.raise_for_status()
         return resp.json()
 
-
-    @refresh_token
-    def find_planned_processes(self, filter_by=None, max_page_size=40) -> List[dict]:
-        base_url = f"{self._base_url}planned_processes"
-        params = {"max_page_size": max_page_size}
-
-        if filter_by:
-            # Manually format the filter parameter as "key:value"
-            filter_str = ",".join(f"{key}:{value}" for key, value in filter_by.items())
-            params["filter"] = filter_str
-
-        # Use urlencode to construct the query string
-        query_string = urlencode(params)
-        url = f"{base_url}?{query_string}"
-
-        logger.info(f"find_planned_processes: {url}")
-        response = requests.get(url, headers=self.header)
-
-
-        return response.json()["results"]
-
-
-    @refresh_token
-    def find_data_objects(self, filter_by=None, max_page_size=40) -> List[dict]:
-        url = f"{self._base_url}data_objects?max_page_size={max_page_size}"
-        if filter_by:
-            url += "&filter=%s" % (json.dumps(filter_by))
-        return self._page_query(url)
-
-
-# TODO - This is deprecated and should be removed along with the re_iding code that uses it
-class NmdcRuntimeUserApi:
-    """
-    Basic Runtime API Client with user/password authentication.
-    """
-    def __init__(self, site_configuration):
-        self.config = UserConfig(site_configuration)
-
-        self.username = self.config.username
-        self.password = self.config.password
-        self.base_url = self.config.base_url
-        self.headers = {}
-        self.token_response = None
-        self.refresh_token_after = None
-
-    def ensure_token(self):
-        if (self.refresh_token_after is None or datetime.now(timezone.utc) >
-                self.refresh_token_after):
-            self.get_token()
-    def get_token(self):
-        token_request_body = {
-            "grant_type": "password",
-            "username": self.username,
-            "password": self.password,
-            "scope": '',
-            "client_id": "",
-            "client_secret": "",
-        }
-        headers = {
-            'accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded',
-        }
-        rv = requests.post(
-            self.base_url + "token", data=token_request_body
-            )
-        self.token_response = rv.json()
-        if "access_token" not in self.token_response:
-            raise Exception(f"Getting token failed: {self.token_response}")
-
-        self.headers[
-            "Authorization"] = f'Bearer {self.token_response["access_token"]}'
-        self.refresh_token_after = expiry_dt_from_now(
-            **self.token_response["expires"]
-        ) - timedelta(seconds=5)
-
-    def request(self, method, url_path, params_or_json_data=None):
-        self.ensure_token()
-        kwargs = {"url": self.base_url + url_path, "headers": self.headers}
-        if isinstance(params_or_json_data, BaseModel):
-            params_or_json_data = params_or_json_data.dict(exclude_unset=True)
-        if method.upper() == "GET":
-            kwargs["params"] = params_or_json_data
-        else:
-            kwargs["json"] = params_or_json_data
-        rv = requests.request(method, **kwargs)
-        rv.raise_for_status()
-        return rv
-
-    def run_query(self, query: dict):
-        """
-        Function to run a query using the Microbiome Data API.
-        
-        Parameters:
-        query (dict): The query to be run in JSON format.
-        
-        Returns:
-        dict: The response from the API.
-        """
-        
-        self.ensure_token()
-        url = f"{self.base_url}queries:run"
-      
-        response = requests.post(url, json=query, headers=self.headers)
-        return response.json()
-
-    def validate_record(self, record: dict):
-        """
-        Function to validate a record using the Microbiome Data API.
-
-        Parameters:
-        record (dict): The record to be validated.
-
-        Returns:
-        dict: The response from the API.
-        """
-
-        self.ensure_token()
-        url = f"{self.base_url}metadata/json:validate"
-
-        response = requests.post(url, json=record, headers=self.headers)
-        # check for validation failure
-        if response.status_code == 422:
-            logging.error(f"Validation failed for record: {record}")
-            logging.error(response.json())
-        response.raise_for_status()
-        return response.json()
-
-    def submit_record(self, record: dict):
-        """
-        Function to submit a record using the Microbiome Data API.
-
-        Parameters:
-        record (dict): The record to be submitted.
-
-        Returns:
-        dict: The response from the API.
-        """
-
-        self.ensure_token()
-        url = f"{self.base_url}metadata/json:submit"
-
-        response = requests.post(url, json=record, headers=self.headers)
-        # check if we already have it:
-        if response.status_code == 409:
-            logging.debug(f"Record already exists: {response.json()}")
-            return
-        response.raise_for_status()
-        return response.json()
 
 def jprint(obj):
     print(json.dumps(obj, indent=2))
