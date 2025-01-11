@@ -44,8 +44,7 @@ def restore_files(project: str, config_file: str) -> str:
     update_file_statuses(project, config_file)
     mdb = get_mongo_db()
     restore_df = pd.DataFrame(
-        [sample for sample in mdb.samples.find({'file_status':
-                                                {'$in': ['PURGED', 'BACKUP_COMPLETE', 'expired']}, 'project': project})])
+        [sample for sample in mdb.samples.find({'project': project})])
     if restore_df.empty:
         return 'No samples'
     JDP_TOKEN = os.environ.get('JDP_TOKEN')
