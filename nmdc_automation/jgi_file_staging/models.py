@@ -20,3 +20,8 @@ class Sample(BaseModel):
     update_date: Optional[datetime]
     request_id: Optional[str]
 
+
+class Globus(BaseModel):
+    task_id: str
+    task_status: str
+
