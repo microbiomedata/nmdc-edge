@@ -11,7 +11,7 @@ workflow readsqc_output {
         Array[File]   rqc_info
         String?       outdir
         String        bbtools_container="microbiomedata/bbtools:38.96"
-        String        vis_container="microbiomedata/fastqc_vis:1.0"
+        String        vis_container="microbiomedata/fastqc_vis:1.1"
     }
 
     call make_output {
