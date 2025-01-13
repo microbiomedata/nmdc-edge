@@ -67,14 +67,11 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         # Data Generation Object
         # Retrieve it from the Database. Check that there is only 1
         logger.info(f"Searching for {nucleotide_sequencing_id} in the database")
-        dg_objs = runtime_api.find_planned_processes(filter_by={'id': nucleotide_sequencing_id})
-        if len(dg_objs) == 0:
+        dg = runtime_api.find_planned_processes({"id":nucleotide_sequencing_id})
+        if not dg:
             logger.error(f"Could not find {nucleotide_sequencing_id} in the database - skipping")
             continue
-        elif len(dg_objs) > 1:
-            logger.error(f"Found multiple {nucleotide_sequencing_id} in the database - skipping")
-            continue
-        dg = dg_objs[0]
+
         logger.info(f"Found {nucleotide_sequencing_id} in the database - checking output")
 
         # init a db to hold workflow executions and their data objects, one per Data Generation
@@ -127,9 +124,14 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         # Check the Database for any workflow executions that may already exist
         logger.info(f"Checking for workflow executions informed by {nucleotide_sequencing_id}")
         file_mappings_by_wfe_type = import_mapper.file_mappings_by_workflow_type
-        db_wfe_ids_by_wfe_type = import_mapper.database_workflow_execution_ids_by_type
-        logger.info(db_wfe_ids_by_wfe_type)
 
+
+        db_wfe_ids_by_wfe_type = _database_workflow_execution_ids_by_type(
+            import_mapper, runtime_api
+        )
+        logger.info(f"Found {len(file_mappings_by_wfe_type)} workflow executions in Database")
+
+        # Make root directory for import
         try:
             os.makedirs(import_mapper.root_directory)
         except FileExistsError:
@@ -196,7 +198,14 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
             logger.debug(f"Mapped: {fm}")
 
 
-
+def _database_workflow_execution_ids_by_type(import_mapper, runtime_api) -> dict:
+    """Return the unique workflow execution IDs by workflow type."""
+    wfe_ids_by_type = {}
+    for wfe_type in import_mapper.workflow_execution_types:
+        filt = {"was_informed_by": import_mapper.nucleotide_sequencing_id, "type": wfe_type}
+        workflow_executions = runtime_api.find_planned_processes(filt)['results']
+        wfe_ids_by_type[wfe_type] = [wfe['id'] for wfe in workflow_executions]
+    return wfe_ids_by_type
 
 
 @lru_cache(maxsize=None)

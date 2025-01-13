@@ -149,17 +149,6 @@ class ImportMapper:
         workflow_execution_types = {fm.output_of for fm in self._file_mappings}
         return list(workflow_execution_types)
 
-    @property
-    def database_workflow_execution_ids_by_type(self) -> Dict:
-        """Return the unique workflow execution IDs by workflow type."""
-        wfe_ids_by_type = {}
-        for wfe_type in self.workflow_execution_types:
-            filt = {"was_informed_by": self.nucleotide_sequencing_id, "type": wfe_type}
-            workflow_executions = self.runtime_api.find_planned_processes(
-                filter_by=filt
-            )
-            wfe_ids_by_type[wfe_type] = [wfe['id'] for wfe in workflow_executions]
-        return wfe_ids_by_type
 
     def update_file_mappings(self, data_object_type: str,
                              data_object_id: str,
