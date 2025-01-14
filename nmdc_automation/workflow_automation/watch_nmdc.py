@@ -140,6 +140,14 @@ class JobManager:
     def restore_from_state(self) -> None:
         """ Restore jobs from state data """
         new_jobs = self.get_new_workflow_jobs_from_state()
+        # Summarize wf_job_list by last_status
+        status_count = {}
+        for job in new_jobs:
+            status = job.workflow.last_status
+            status_count[status] = status_count.get(status, 0) + 1
+        for status, count in status_count.items():
+            logger.info(f"Status '{status}': {count} job(s)")
+            
         if new_jobs:
             logger.info(f"Adding {len(new_jobs)} new jobs from state file.")
             self.job_cache.extend(new_jobs)
@@ -159,15 +167,6 @@ class JobManager:
             job_cache_ids.append(wf_job.opid)
             wf_job_list.append(wf_job)
 
-            # Summarize wf_job_list by last_status
-            status_count = {}
-            for wf_job in wf_job_list:
-                status = wf_job.workflow.last_status
-                status_count[status] = status_count.get(status, 0) + 1
-
-            for status, count in status_count.items():
-                logger.info(f"Status '{status}': {count} job(s)")
-        
         return wf_job_list
 
     def find_job_by_opid(self, opid) -> Optional[WorkflowJob]:
