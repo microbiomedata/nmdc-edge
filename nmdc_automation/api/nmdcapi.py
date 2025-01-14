@@ -3,10 +3,8 @@
 import json
 import sys
 import os
-import urllib
 from os.path import join, dirname
 from urllib.parse import urlencode
-
 from pydantic import BaseModel
 import requests
 import hashlib
@@ -18,7 +16,6 @@ from datetime import datetime, timedelta, timezone
 from nmdc_automation.config import SiteConfig, UserConfig
 import logging
 from tenacity import retry, wait_exponential, stop_after_attempt
-
 
 logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
 logging.basicConfig(
@@ -411,7 +408,7 @@ class NmdcRuntimeApi:
             "filter": filter_terms,
             "per_page": 100,
         }
-        encoded_params = urllib.parse.urlencode(params)
+        encoded_params = urlencode(params)
         url = f"{self._base_url}planned_processes?{encoded_params}"
         logger.info(url)
         resp = requests.get(url, headers=self.header)

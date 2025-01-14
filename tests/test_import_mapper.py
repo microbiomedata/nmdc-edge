@@ -83,8 +83,8 @@ def test_get_or_create_minted_id_new_workflow(import_mapper_instance, mock_minte
     result = import_mapper_instance.get_or_create_minted_id(
         object_type="NewWorkflow"
     )
-    assert result == "mocked_id_for_NewWorkflow"
-    assert import_mapper_instance.minted_ids["workflow_execution_ids"]["NewWorkflow"] == "mocked_id_for_NewWorkflow"
+    assert result == "mocked_id_for_NewWorkflow.1"
+    assert import_mapper_instance.minted_ids["workflow_execution_ids"]["NewWorkflow"] == "mocked_id_for_NewWorkflow.1"
 
 
 def test_get_or_create_minted_id_missing_data_object_type(import_mapper_instance):

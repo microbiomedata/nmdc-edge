@@ -150,10 +150,10 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
                 continue
 
             logger.info(f"Importing data objects and workflow execution for {wfe_type}")
-            mappings = file_mappings_by_wfe_type.get(wfe_type, [])
             import_spec_by_do_type = import_mapper.import_specs_by_data_object_type
 
             # Get the workflow ID for these mappings (there can be only 1) and use it to make the output dir
+            mappings = file_mappings_by_wfe_type.get(wfe_type, [])
             wfe_ids = {mapping.workflow_execution_id for mapping in mappings}
             if len(wfe_ids) != 1:
                 raise Exception(f"Found multiple workflow execution IDs for {wfe_type}")
@@ -165,6 +165,8 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
             except FileExistsError:
                 logger.info(f"Directory {nmdc_wfe_dir} already exists")
 
+
+            # Link data files and create Data Objects
             logger.info(f"Found {len(mappings)} file mappings to import for {wfe_id}")
             for mapping in mappings:
                 logger.info(f"Importing {mapping}")
@@ -199,6 +201,8 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
                 }
                 logging.info(do_record)
                 data_objects['data_object_set'].append(do_record)
+
+            # Create Workflow Execution Record
 
         # Validate using the api
         val_result = runtime_api.validate_metadata(data_objects)
