@@ -32,10 +32,9 @@ Config file contains parameters that can change.
 ACCEPT = "application/json"
 
 
-def get_samples_data(samples_csv_file: str, proposal_id: int, project: str, config_file: str) -> None:
+def get_samples_data(proposal_id: int, project: str, config_file: str) -> None:
     """
     Get JGI sample metadata using the gold API and store in a mongodb
-    :param samples_csv_file: CSV file with biosample ID's
     :param proposal_id: JGI proposal ID
     :param project: Name of project (e.g., GROW, Bioscales, NEON)
     :param config_file: Config file with parameters
@@ -45,7 +44,7 @@ def get_samples_data(samples_csv_file: str, proposal_id: int, project: str, conf
     config = configparser.ConfigParser()
     config.read(config_file)
     ACCESS_TOKEN = get_access_token()
-    all_files_list = get_sample_files(samples_csv_file, ACCESS_TOKEN, eval(config['JDP']['delay']))
+    all_files_list = get_sample_files(proposal_id, ACCESS_TOKEN, eval(config['JDP']['delay']))
     files_df = pd.DataFrame(all_files_list)
 
     gold_analysis_data = get_analysis_projects_from_proposal_id(proposal_id, ACCESS_TOKEN)
@@ -80,15 +79,16 @@ def check_access_token(ACCESS_TOKEN: str, delay: float) -> str:
         return get_access_token()
 
 
-def get_sample_files(samples_csv_file: str, ACCESS_TOKEN: str, delay: float) -> List[dict]:
+def get_sample_files(proposal_id: str, ACCESS_TOKEN: str, delay: float) -> List[dict]:
     """
     Get all sample files for a project
-    :param samples_csv_file: csv file with biosample id's
+    :param proposal_id: proposal id
     :param ACCESS_TOKEN: gold api token
+    :param delay: delay between API requests
     :return: list of sample files for each biosample
     """
 
-    samples_df = pd.read_csv(samples_csv_file)
+    samples_df = pd.DataFrame({'Biosample ID': get_biosample_ids(proposal_id, ACCESS_TOKEN)})
     all_files_list = []
     for idx, biosample_id in samples_df.itertuples():
         logging.debug(f"biosample {biosample_id}")
@@ -100,9 +100,18 @@ def get_sample_files(samples_csv_file: str, ACCESS_TOKEN: str, delay: float) -> 
             logging.exception(f'skipping biosample_id: {biosample_id}')
             continue
         combine_sample_ids_with_agg_ids(sample_files_list, agg_id_list, biosample_id, seq_id, all_files_list)
-    pd.DataFrame(all_files_list).to_csv('all_files_list.csv', index=False)
+    # pd.DataFrame(all_files_list).to_csv('all_files_list.csv', index=False)
     # logging.debug(f"all_files_list: {all_files_list}")
     return all_files_list
+
+
+def get_biosample_ids(proposal_id, ACCESS_TOKEN):
+    url = f'https://gold-ws.jgi.doe.gov/api/v1/biosamples?itsProposalId={proposal_id}'
+    headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
+    response = requests.get(url, verify=False, headers=headers)
+    response_json = response.json()
+    biosample_ids = [sample['biosampleGoldId'] for sample in response_json]
+    return biosample_ids
 
 
 def get_sequence_id(gold_id: str, ACCESS_TOKEN: str, delay: float):
@@ -242,10 +251,9 @@ def insert_samples_into_mongodb(sample_list: list) -> None:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('sample_file')
     parser.add_argument('proposal_id')
     parser.add_argument('project_name')
     parser.add_argument('config_file')
     args = vars((parser.parse_args()))
 
-    get_samples_data(args['sample_file'], args['proposal_id'], args['project_name'], args['config_file'])
+    get_samples_data(args['proposal_id'], args['project_name'], args['config_file'])
