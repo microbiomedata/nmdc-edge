@@ -140,6 +140,14 @@ class JobManager:
     def restore_from_state(self) -> None:
         """ Restore jobs from state data """
         new_jobs = self.get_new_workflow_jobs_from_state()
+        # Summarize wf_job_list by last_status
+        status_count = {}
+        for job in new_jobs:
+            status = job.workflow.last_status
+            status_count[status] = status_count.get(status, 0) + 1
+        for status, count in status_count.items():
+            logger.info(f"Status '{status}': {count} job(s)")
+            
         if new_jobs:
             logger.info(f"Adding {len(new_jobs)} new jobs from state file.")
             self.job_cache.extend(new_jobs)
@@ -155,10 +163,10 @@ class JobManager:
                 # already in cache
                 continue
             wf_job = WorkflowJob(self.config, workflow_state=job)
-            logger.info(f"New Job from State: {wf_job.workflow_execution_id}, {wf_job.workflow.nmdc_jobid}")
-            logger.info(f"Last Status: {wf_job.workflow.last_status}")
+            logger.info(f"Job from State: {wf_job.was_informed_by} / {wf_job.workflow_execution_id}, Last Status: {wf_job.workflow.last_status} /{wf_job.opid} / {wf_job.workflow.nmdc_jobid}")
             job_cache_ids.append(wf_job.opid)
             wf_job_list.append(wf_job)
+
         return wf_job_list
 
     def find_job_by_opid(self, opid) -> Optional[WorkflowJob]:
@@ -233,20 +241,16 @@ class JobManager:
 
     def process_successful_job(self, job: WorkflowJob) -> Database:
         """ Process a successful job and return a Database object """
-        logger.info(f"Process successful job:  {job.opid}")
-
         output_path = self.file_handler.get_output_path(job)
         if not output_path.exists():
             output_path.mkdir(parents=True, exist_ok=True)
 
         database = Database()
 
-        # Upate the job metadata
-        logger.info(f"Getting job runner metadata for job {job.workflow.job_runner_id}")
+        # Update the job metadata
+        logger.info(f"Create Data Objects: for {job.was_informed_by} job{job.opid} : {job.workflow.job_runner_id}")
         job.job.job_id = job.workflow.job_runner_id
         metadata = job.job.get_job_metadata()
-        m_dict = yaml.safe_load(yaml_dumper.dumps(metadata))
-        logger.debug(f"Job runner metadata: {m_dict}")
         job.job.metadata = metadata
 
         data_objects = job.make_data_objects(output_dir=output_path)
@@ -357,7 +361,7 @@ class Watcher:
         if not successful_jobs and not failed_jobs:
             logger.debug("No finished jobs found.")
         for job in successful_jobs:
-            logger.info(f"Processing successful job: {job.opid}, {job.workflow_execution_id}")
+            logger.info(f"Processing successful job: {job.opid}, {job.was_informed_by} {job.workflow_execution_id}")
             job_database = self.job_manager.process_successful_job(job)
             # sanity checks
             if not job_database.data_object_set:
@@ -378,7 +382,8 @@ class Watcher:
 
             # post workflow execution and data objects to the runtime api
             resp = self.runtime_api_handler.post_objects(job_dict)
-            logger.info(f"Posted Workflow Execution and Data Objects to database: {job.opid} / {job.workflow_execution_id}")
+            logger.info(f"Posted Workflow Execution and Data Objects to database: {job.was_informed_by} "
+                        f"{job.workflow_execution_id}")
 
             # update the operation record
             resp = self.runtime_api_handler.update_operation(
@@ -395,7 +400,6 @@ class Watcher:
         logger.info("Entering polling loop")
         while True:
             try:
-                print(".")
                 self.cycle()
             except (IOError, ValueError, TypeError, AttributeError) as e:
                 logger.exception(f"Error occurred during cycle: {e}", exc_info=True)
