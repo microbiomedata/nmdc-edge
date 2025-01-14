@@ -419,6 +419,15 @@ class NmdcRuntimeApi:
             resp.raise_for_status()
         return resp.json()
 
+
+    @refresh_token
+    def validate_metadata(self, metadata):
+        url = "%smetadata/json:validate" % self._base_url
+        resp = requests.post(url, headers=self.header, data=json.dumps(metadata))
+        if not resp.ok:
+            resp.raise_for_status()
+        return resp.json()
+
 def jprint(obj):
     print(json.dumps(obj, indent=2))
 

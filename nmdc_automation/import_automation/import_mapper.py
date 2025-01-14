@@ -6,7 +6,7 @@ import os
 import re
 from functools import lru_cache
 from pathlib import Path
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional, Union, Set
 
 import yaml
 
@@ -34,10 +34,10 @@ class ImportMapper:
         self.import_yaml = import_yaml
         self.runtime_api = runtime_api
         # Derived properties
-        self._file_mappings = []
+
         self._import_files = [f for f in os.listdir(self.import_project_dir) if
             os.path.isfile(os.path.join(self.import_project_dir, f))]
-
+        self._file_mappings = self._init_file_mappings()
         self.minted_id_file = f"{self.import_project_dir}/{self.nucleotide_sequencing_id}_minted_ids.json"
         self.minted_ids = {
                 "data_object_ids": {},
@@ -75,7 +75,7 @@ class ImportMapper:
             if object_type in ids:
                 return ids[object_type]
             else:
-                workflow_obj_id = self.runtime_api.minter(object_type)
+                workflow_obj_id = self.runtime_api.minter(object_type) + ".1"
                 logger.info(f"Minted new ID:  {workflow_obj_id}")
                 self.minted_ids["workflow_execution_ids"][object_type] = workflow_obj_id
                 return workflow_obj_id
@@ -115,21 +115,19 @@ class ImportMapper:
     @property
     def file_mappings(self) -> List:
         """Return the file mappings."""
-        if not self._file_mappings:
-            self._file_mappings = self._init_file_mappings()
-        return self._file_mappings
+        return list(self._file_mappings)
 
     @property
     def file_mappings_by_data_object_type(self) -> Dict:
         """Return the file mappings by data object type."""
-        file_mappings = {fm.data_object_type: fm for fm in self._file_mappings}
-        return file_mappings
+        return {fm.data_object_type: fm for fm in self.file_mappings}
+
 
     @property
     def file_mappings_by_workflow_type(self) -> Dict[str, list]:
         """Return the file mappings by workflow type."""
         file_mappings = {}
-        for fm in self._file_mappings:
+        for fm in self.file_mappings:
             if fm.output_of in file_mappings:
                 file_mappings[fm.output_of].append(fm)
             else:
@@ -140,13 +138,13 @@ class ImportMapper:
     @property
     def workflow_execution_ids(self) -> List[str]:
         """ Return the unique workflow execution IDs."""
-        workflow_execution_ids = {fm.workflow_execution_id for fm in self._file_mappings}
+        workflow_execution_ids = {fm.workflow_execution_id for fm in self.file_mappings}
         return list(workflow_execution_ids)
 
     @property
     def workflow_execution_types(self) -> List[str]:
         """ Return the unique workflow execution types, bases on output_of."""
-        workflow_execution_types = {fm.output_of for fm in self._file_mappings}
+        workflow_execution_types = {fm.output_of for fm in self.file_mappings}
         return list(workflow_execution_types)
 
 
@@ -171,9 +169,9 @@ class ImportMapper:
             raise NotImplementedError
         return filename
 
-    def _init_file_mappings(self) -> List:
+    def _init_file_mappings(self) -> Set:
         """Create the initial list of File Mapping based on the import files."""
-        file_mappings = []
+        file_mappings = set()
         for file in self._import_files:
             data_object_type = self._get_file_data_object_type(file)
             if not data_object_type:
@@ -181,8 +179,9 @@ class ImportMapper:
                 continue
             import_spec = self.import_specs_by_data_object_type[data_object_type]
             output_of = import_spec["output_of"]
-            file_mappings.append(
-                FileMapping(data_object_type, file, output_of)
+            input_to = import_spec["input_to"]
+            file_mappings.add(
+                FileMapping(data_object_type, file, output_of, input_to)
             )
         return file_mappings
 
@@ -206,10 +205,11 @@ class FileMapping:
     """
 
     def __init__(self, data_object_type: str, import_file: Union[str, Path], output_of: str,
-                 data_object_id: Optional[str] = None, workflow_execution_id: str = None):
+                 input_to: list , data_object_id: Optional[str] = None, workflow_execution_id: str = None):
         self.data_object_type = data_object_type
         self.file = import_file
         self.output_of = output_of
+        self.input_to = input_to
         self.data_object_id = data_object_id
         self.workflow_execution_id = workflow_execution_id
 
@@ -221,10 +221,25 @@ class FileMapping:
             f"data_object_type={self.data_object_type}, "
             f"file={self.file}, "
             f"output_of={self.output_of}, "
+            f"input_to={self.input_to}, "
             f"data_object_id={self.data_object_id}, "
             f"workflow_execution_id={self.workflow_execution_id} "
             f")"
         )
+
+    def __eq__(self, other):
+        if isinstance(other, FileMapping):
+            return (
+                self.data_object_type == other.data_object_type and
+                self.file == other.file and
+                self.output_of == other.output_of and
+                self.input_to == other.input_to and
+                self.data_object_id == other.data_object_id and
+                self.workflow_execution_id == other.workflow_execution_id
+            )
+
+    def __hash__(self):
+        return hash((self.data_object_type, self.file, self.output_of, self.data_object_id, self.workflow_execution_id))
         
 
 @lru_cache

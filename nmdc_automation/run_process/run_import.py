@@ -110,9 +110,13 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
             if not data_object_id:
                 logger.error(f"Cannot determine an ID for {fm.data_object_type}")
                 continue
-            workflow_execution_id = import_mapper.get_or_create_minted_id(
-                fm.output_of
-            )
+
+            if fm.data_object_type == 'Metagenome Raw Reads':
+                workflow_execution_id = nucleotide_sequencing_id
+            else:
+                workflow_execution_id = import_mapper.get_or_create_minted_id(
+                    fm.output_of
+                )
             if not workflow_execution_id:
                 logger.error(f"Cannot determine an ID for {fm.output_of}")
                 continue
@@ -137,57 +141,70 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         except FileExistsError:
             logger.debug(f"Directory {import_mapper.root_directory} already exists")
 
+        data_objects = {
+            'data_object_set': []
+        }
         for wfe_type, db_wfe_ids in db_wfe_ids_by_wfe_type.items():
-            if len(db_wfe_ids) == 0:
-
-                logger.info(f"Importing data objects and workflow execution for {wfe_type}")
-                mappings = file_mappings_by_wfe_type.get(wfe_type, [])
-
-                # Get the workflow ID for these mappings (there can be only 1) and use it to make the output dir
-                wfe_ids = {mapping.workflow_execution_id for mapping in mappings}
-                if len(wfe_ids) != 1:
-                    raise Exception(f"Found multiple workflow execution IDs for {wfe_type}")
-                wfe_id = wfe_ids.pop()
-                nmdc_wfe_dir = os.path.join(import_mapper.root_directory, wfe_id)
-                try:
-                    os.makedirs(nmdc_wfe_dir)
-                except FileExistsError:
-                    logger.info(f"Directory {nmdc_wfe_dir} already exists")
-
-                logger.info(f"Found {len(mappings)} file mappings to import for {wfe_id}")
-                for mapping in mappings:
-                    logger.info(f"Importing {mapping}")
-
-                    # link files
-                    nmdc_data_file_name = import_mapper.get_nmdc_data_file_name(mapping)
-                    export_file = os.path.join(nmdc_wfe_dir, nmdc_data_file_name)
-                    import_file = os.path.join(import_mapper.import_project_dir, mapping.file)
-                    try:
-                        os.link(import_file, export_file)
-                    except FileExistsError:
-                        logger.info(f"File {export_file} already exists")
-
-                    # make a DataObject
-                    filemeta = os.stat(export_file)
-                    md5 = get_or_create_md5(export_file)
-                    do_record = {
-                        'id': mapping.data_object_id,
-                        'type': 'nmdc:DataObject',
-                        "name": nmdc_data_file_name,
-                        "file_size_bytes": filemeta.st_size,
-                        "md5_checksum": md5,
-                        "data_object_type": mapping.data_object_type,
-                        "was_generated_by": mapping.workflow_execution_id,
-                        "url": f"{import_mapper.data_source_url}/{import_mapper.nucleotide_sequencing_id}/{export_file}"
-                    }
-                    logging.info(do_record)
-
-            else:
-                logger.warning(f"Found one or more workflow executions found for {wfe_type} - skipping")
+            if len(db_wfe_ids) != 0:
+                logger.warning(f"Found {len(db_wfe_ids)} workflow executions for {wfe_type} in database - skipping")
                 continue
-                # Workflow exists - check it against the mapped id:
-                # Same Workflow ID - Workflow already imported
-                # Different Workflow ID - Workflow exists - check workflow version
+
+            logger.info(f"Importing data objects and workflow execution for {wfe_type}")
+            mappings = file_mappings_by_wfe_type.get(wfe_type, [])
+            import_spec_by_do_type = import_mapper.import_specs_by_data_object_type
+
+            # Get the workflow ID for these mappings (there can be only 1) and use it to make the output dir
+            wfe_ids = {mapping.workflow_execution_id for mapping in mappings}
+            if len(wfe_ids) != 1:
+                raise Exception(f"Found multiple workflow execution IDs for {wfe_type}")
+            wfe_id = wfe_ids.pop()
+
+            nmdc_wfe_dir = os.path.join(import_mapper.root_directory, wfe_id)
+            try:
+                os.makedirs(nmdc_wfe_dir)
+            except FileExistsError:
+                logger.info(f"Directory {nmdc_wfe_dir} already exists")
+
+            logger.info(f"Found {len(mappings)} file mappings to import for {wfe_id}")
+            for mapping in mappings:
+                logger.info(f"Importing {mapping}")
+
+                # link files
+                nmdc_data_file_name = import_mapper.get_nmdc_data_file_name(mapping)
+                export_file = os.path.join(nmdc_wfe_dir, nmdc_data_file_name)
+                import_file = os.path.join(import_mapper.import_project_dir, mapping.file)
+                try:
+                    os.link(import_file, export_file)
+                except FileExistsError:
+                    logger.info(f"File {export_file} already exists")
+
+                # make a DataObject
+                filemeta = os.stat(export_file)
+                md5 = get_or_create_md5(export_file)
+                description = import_spec_by_do_type[mapping.data_object_type]['description'].replace(
+                    "{id}", nucleotide_sequencing_id
+                )
+
+                do_record = {
+                    'id': mapping.data_object_id,
+                    'type': 'nmdc:DataObject',
+                    "name": nmdc_data_file_name,
+                    "file_size_bytes": filemeta.st_size,
+                    "md5_checksum": md5,
+                    "data_object_type": mapping.data_object_type,
+                    "was_generated_by": mapping.workflow_execution_id,
+                    "url": f"{import_mapper.data_source_url}/{import_mapper.nucleotide_sequencing_id}/"
+                           f"{export_file}",
+                    "description": description
+                }
+                logging.info(do_record)
+                data_objects['data_object_set'].append(do_record)
+
+        # Validate using the api
+        val_result = runtime_api.validate_metadata(data_objects)
+        logger.info(f"Validation result: {val_result}")
+
+
 
 
 
