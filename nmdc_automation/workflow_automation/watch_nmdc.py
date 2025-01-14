@@ -155,8 +155,7 @@ class JobManager:
                 # already in cache
                 continue
             wf_job = WorkflowJob(self.config, workflow_state=job)
-            logger.info(f"New Job from State: {wf_job.workflow_execution_id}, {wf_job.workflow.nmdc_jobid}")
-            logger.info(f"Last Status: {wf_job.workflow.last_status}")
+            logger.info(f"Job from State: {wf_job.was_informed_by} / {wf_job.workflow_execution_id}, Last Status: {wf_job.workflow.last_status} / {wf_job.workflow.nmdc_jobid}")
             job_cache_ids.append(wf_job.opid)
             wf_job_list.append(wf_job)
         return wf_job_list
