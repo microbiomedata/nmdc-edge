@@ -45,7 +45,7 @@ def restore_files(project: str, config_file: str) -> str:
     mdb = get_mongo_db()
     restore_df = pd.DataFrame(
         [sample for sample in mdb.samples.find({'project': project,
-                                                'file_status': {'$ne': {['in transit', 'transferred']}}})])
+                                                'file_status': {'$ne': ['in transit', 'transferred']}})])
     if restore_df.empty:
         return 'No samples'
     JDP_TOKEN = os.environ.get('JDP_TOKEN')
