@@ -97,6 +97,8 @@ def get_file_statuses(samples_df, config):
         file_status_list = [response_json['status'] for i in range(len(response_json['file_ids']))]
         jdp_response_df = pd.concat([jdp_response_df, pd.DataFrame({'jdp_file_id': response_json['file_ids'],
                                                                     'file_status': file_status_list})])
+        logging.debug(jdp_response_df.jdp_file_id.unique())
+        logging.debug(jdp_response_df[pd.isna(jdp_response_df['jdp_file_id'])])
     restore_response_df = pd.merge(samples_df, jdp_response_df, left_on='jdp_file_id', right_on='jdp_file_id')
     return restore_response_df
 
