@@ -513,10 +513,9 @@ class WorkflowJob:
 
         for output_spec in self.workflow.data_outputs:  # specs are defined in the workflow.yaml file under Outputs
             output_key = f"{self.workflow.input_prefix}.{output_spec['output']}"
-            logger.info(f"Processing output {output_key}")
             # get the full path to the output file from the job_runner
             output_file_path = Path(self.job.outputs[output_key])
-            logger.info(f"Output file path: {output_file_path}")
+            logger.info(f"Create Data Object: {output_key} file path: {output_file_path}")
             if output_key not in self.job.outputs:
                 if output_spec.get("optional"):
                     logger.debug(f"Optional output {output_key} not found in job outputs")
