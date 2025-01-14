@@ -109,6 +109,9 @@ def update_file_statuses(project: str, config_file: str):
     mdb = get_mongo_db()
     samples_df = pd.DataFrame([sample for sample in mdb.samples.find({'project': project})])
     samples_df = samples_df[pd.notna(samples_df.request_id)]
+    if samples_df.empty:
+        logging.debug(f"no samples to update for {project}")
+        return
     samples_df['request_id'] = samples_df['request_id'].astype(int)
     restore_response_df = get_file_statuses(samples_df, config)
     for idx, row in restore_response_df.loc[
