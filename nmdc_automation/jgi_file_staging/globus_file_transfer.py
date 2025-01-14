@@ -25,7 +25,8 @@ def get_project_globus_manifests(project_name: str, config_file: str = None,
         config = configparser.ConfigParser()
         config.read(config_file)
     mdb = get_mongo_db()
-    samples_df = pd.DataFrame(mdb.samples.find({'project': project_name}))
+    samples_df = pd.DataFrame(mdb.samples.find({'project': project_name, 'file_status':
+        {'$ne': ['in transit', 'transferred']}}))
     samples_df = samples_df[pd.notna(samples_df.request_id)]
     samples_df['request_id'] = samples_df['request_id'].astype(int)
     manifests_list = []
@@ -141,7 +142,7 @@ def submit_globus_batch_file(project: str, config_file: str):
                              nersc_globus_id], capture_output=True, text=True)
 
     logging.debug(output.stdout)
-    globus_analysis_df.apply(lambda x: update_sample_in_mongodb(x, {'file_status': 'transferring'}), axis=1)
+    globus_analysis_df.apply(lambda x: update_sample_in_mongodb(x, {'file_status': 'in transit'}), axis=1)
     insert_globus_status_into_mongodb(output.stdout.split('\n')[1].split(':')[1], 'submitted')
     return output.stdout
 
