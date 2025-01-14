@@ -158,6 +158,16 @@ class JobManager:
             logger.info(f"Job from State: {wf_job.was_informed_by} / {wf_job.workflow_execution_id}, Last Status: {wf_job.workflow.last_status} / {wf_job.workflow.nmdc_jobid}")
             job_cache_ids.append(wf_job.opid)
             wf_job_list.append(wf_job)
+
+            # Summarize wf_job_list by last_status
+            status_count = {}
+            for wf_job in wf_job_list:
+                status = wf_job.workflow.last_status
+                status_count[status] = status_count.get(status, 0) + 1
+
+            for status, count in status_count.items():
+                logger.info(f"Status '{status}': {count} job(s)")
+        
         return wf_job_list
 
     def find_job_by_opid(self, opid) -> Optional[WorkflowJob]:
