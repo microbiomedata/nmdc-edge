@@ -233,20 +233,16 @@ class JobManager:
 
     def process_successful_job(self, job: WorkflowJob) -> Database:
         """ Process a successful job and return a Database object """
-        logger.info(f"Process successful job:  {job.opid}")
-
         output_path = self.file_handler.get_output_path(job)
         if not output_path.exists():
             output_path.mkdir(parents=True, exist_ok=True)
 
         database = Database()
 
-        # Upate the job metadata
-        logger.info(f"Getting job runner metadata for job {job.workflow.job_runner_id}")
+        # Update the job metadata
+        logger.info(f"Create Data Objects: for {job.was_informed_by} job{job.opid} : {job.workflow.job_runner_id}")
         job.job.job_id = job.workflow.job_runner_id
         metadata = job.job.get_job_metadata()
-        m_dict = yaml.safe_load(yaml_dumper.dumps(metadata))
-        logger.debug(f"Job runner metadata: {m_dict}")
         job.job.metadata = metadata
 
         data_objects = job.make_data_objects(output_dir=output_path)
@@ -357,7 +353,7 @@ class Watcher:
         if not successful_jobs and not failed_jobs:
             logger.debug("No finished jobs found.")
         for job in successful_jobs:
-            logger.info(f"Processing successful job: {job.opid}, {job.workflow_execution_id}")
+            logger.info(f"Processing successful job: {job.opid}, {job.was_informed_by} {job.workflow_execution_id}")
             job_database = self.job_manager.process_successful_job(job)
             # sanity checks
             if not job_database.data_object_set:
@@ -378,7 +374,8 @@ class Watcher:
 
             # post workflow execution and data objects to the runtime api
             resp = self.runtime_api_handler.post_objects(job_dict)
-            logger.info(f"Posted Workflow Execution and Data Objects to database: {job.opid} / {job.workflow_execution_id}")
+            logger.info(f"Posted Workflow Execution and Data Objects to database: {job.was_informed_by} "
+                        f"{job.workflow_execution_id}")
 
             # update the operation record
             resp = self.runtime_api_handler.update_operation(
@@ -395,7 +392,6 @@ class Watcher:
         logger.info("Entering polling loop")
         while True:
             try:
-                print(".")
                 self.cycle()
             except (IOError, ValueError, TypeError, AttributeError) as e:
                 logger.exception(f"Error occurred during cycle: {e}", exc_info=True)
