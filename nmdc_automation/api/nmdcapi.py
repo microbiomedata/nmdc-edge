@@ -17,7 +17,7 @@ from nmdc_automation.config import SiteConfig, UserConfig
 import logging
 from tenacity import retry, wait_exponential, stop_after_attempt
 
-logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
 logging.basicConfig(
     level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
 )

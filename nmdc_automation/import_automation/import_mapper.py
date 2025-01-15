@@ -213,8 +213,6 @@ class FileMapping:
         self.data_object_id = data_object_id
         self.workflow_execution_id = workflow_execution_id
 
-        
-        
     def __str__(self):
         return (
             f"FileMapping("

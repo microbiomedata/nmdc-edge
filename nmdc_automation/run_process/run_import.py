@@ -17,8 +17,8 @@ from nmdc_schema.nmdc import Database
 
 
 
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+# logging.basicConfig(level=logging.DEBUG)
+# logger = logging.getLogger(__name__)
 
 
 @click.group()
@@ -38,7 +38,7 @@ def cli(ctx: click.Context) -> None:
 @click.pass_context
 def import_projects(ctx,  import_file, import_yaml, site_configuration):
     log_level = int(ctx.obj['log_level'])
-    logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', level=log_level )
+    logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s')
     logger = logging.getLogger(__name__)
     logger.setLevel(log_level)
 
@@ -141,8 +141,9 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         except FileExistsError:
             logger.debug(f"Directory {import_mapper.root_directory} already exists")
 
-        data_objects = {
-            'data_object_set': []
+        db_update = {
+            'data_object_set': [],
+            'workflow_execution_set': []
         }
         for wfe_type, db_wfe_ids in db_wfe_ids_by_wfe_type.items():
             if len(db_wfe_ids) != 0:
@@ -200,12 +201,15 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
                     "description": description
                 }
                 logging.info(do_record)
-                data_objects['data_object_set'].append(do_record)
+                db_update['data_object_set'].append(do_record)
 
             # Create Workflow Execution Record
 
         # Validate using the api
-        val_result = runtime_api.validate_metadata(data_objects)
+        logger.info(
+            f"Validating {len(db_update['data_object_set'])} data objects and {len(db_update['workflow_execution_set'])} workflow executions"
+            )
+        val_result = runtime_api.validate_metadata(db_update)
         logger.info(f"Validation result: {val_result}")
 
 
