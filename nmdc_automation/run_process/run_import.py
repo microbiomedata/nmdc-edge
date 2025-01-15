@@ -1,5 +1,7 @@
 import click
 import csv
+import datetime
+import pytz
 import gc
 import importlib.resources
 from functools import lru_cache
@@ -145,6 +147,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
             'data_object_set': [],
             'workflow_execution_set': []
         }
+        import_spec_by_wfe_type = import_mapper.import_specs_by_workflow_type
         for wfe_type, db_wfe_ids in db_wfe_ids_by_wfe_type.items():
             if len(db_wfe_ids) != 0:
                 logger.warning(f"Found {len(db_wfe_ids)} workflow executions for {wfe_type} in database - skipping")
@@ -203,9 +206,26 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
                 logging.info(do_record)
                 db_update['data_object_set'].append(do_record)
 
-            # Create Workflow Execution Record
+            # Create Workflow Execution Record - we do not do this for sequencing
+            if wfe_type == 'nmdc:NucleotideSequencing':
+                continue
             has_input, has_output = import_mapper.get_has_input_has_output_for_workflow_type(wfe_type)
             logger.info(f"{wfe_type} has {len(has_input)} inputs and {len(has_output)} outputs")
+            import_spec = import_spec_by_wfe_type[wfe_type]
+            wfe_record = {
+                'id': wfe_id,
+                "name": import_spec["Workflow_Execution"]["name"].replace("{id}", wfe_id),
+                "type": import_spec["Type"],
+                "has_input": has_input,
+                "has_output": has_output,
+                "git_url": import_spec["Git_repo"],
+                "version": import_spec["Version"],
+                "execution_resource": import_mapper.import_specifications["Workflow Metadata"]["Execution Resource"],
+                "started_at_time": datetime.datetime.now(pytz.utc).isoformat(),
+                "ended_at_time": datetime.datetime.now(pytz.utc).isoformat(),
+                "was_informed_by": nucleotide_sequencing_id,
+            }
+            db_update['workflow_execution_set'].append(wfe_record)
 
         # Validate using the api
         logger.info(
