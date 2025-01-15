@@ -179,7 +179,12 @@ export function FastqInput(props) {
                             <ButtonGroup className="mr-3" aria-label="First group" size="sm">
                                 <Button color="outline-primary" onClick={() => {
                                     resetFastqInput();
-                                    setNewState2("shortRead", true)
+                                    setNewState2("shortRead", true);
+                                    if (props.singleType) {
+                                        setSingleType(props.singleType);
+                                    } else {
+                                        setSingleType("interleaved");
+                                    }
                                 }}
                                     active={form.shortRead}>Illumina</Button>
                                 <Button color="outline-primary" onClick={() => {
