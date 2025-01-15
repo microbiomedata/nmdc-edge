@@ -216,6 +216,7 @@ async function generateInputs(proj_home, workflow, proj) {
         templInputs = templInputs.replace(/<PROJNAME>/g, '"' + proj.name + '"');
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
         templInputs = templInputs.replace(/<INTERLEAVED>/, interleaved);
+        templInputs = templInputs.replace(/<SHORT_READ>/, workflow['input_fastq']['shortRead']);
         if (interleaved) {
             //inputs 
             let inputs_fq = [];
