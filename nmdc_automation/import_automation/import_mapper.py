@@ -6,7 +6,7 @@ import os
 import re
 from functools import lru_cache
 from pathlib import Path
-from typing import Dict, List, Optional, Union, Set
+from typing import Dict, List, Optional, Union, Set, Tuple
 
 import yaml
 
@@ -169,6 +169,35 @@ class ImportMapper:
             raise NotImplementedError
         return filename
 
+
+    def get_has_input_has_output_for_workflow_type(self, workflow_type: str) -> Tuple[list, list]:
+        """
+        Retrieve input and output data object IDs for a given workflow type.
+
+        Args:
+            workflow_type: The workflow type for which the input and output data
+            objects are to be determined.
+
+        Returns:
+            A tuple containing two lists:
+                - The first list contains IDs of data objects that serve as inputs
+                  to the specified workflow type.
+                - The second list contains IDs of data objects that serve as outputs
+                  of the specified workflow type.
+        """
+        has_input = []
+        has_output = []
+        for fm in self.file_mappings:
+            if fm.output_of == workflow_type:
+                has_output.append(fm.data_object_id)
+            else:
+                for wf_type in fm.input_to:
+                    if wf_type == workflow_type:
+                        has_input.append(fm.data_object_id)
+        return has_input, has_output
+
+
+
     def _init_file_mappings(self) -> Set:
         """Create the initial list of File Mapping based on the import files."""
         file_mappings = set()
@@ -201,6 +230,7 @@ class FileMapping:
     - import_file: The import file name.
     - output_of: The workflow execution type that this data object is an output of.
     - input_to: The workflow execution type(s) that this data object is an input to.
+    - data_object_id: The data object ID.
     - workflow_execution_id: (Optional) The workflow execution ID that the data object is output of.
     """
 

@@ -67,8 +67,8 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         # Data Generation Object
         # Retrieve it from the Database. Check that there is only 1
         logger.info(f"Searching for {nucleotide_sequencing_id} in the database")
-        dg = runtime_api.find_planned_processes({"id":nucleotide_sequencing_id})
-        if not dg:
+        data_generation = runtime_api.find_planned_processes({"id":nucleotide_sequencing_id})
+        if not data_generation:
             logger.error(f"Could not find {nucleotide_sequencing_id} in the database - skipping")
             continue
 
@@ -80,7 +80,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
 
         # Map Sequencing Output - check for NMDC data object in Data Generation has_output
         # Mint a new Data Object and Update Data Generation if has_output is empty or has a non-NMDC ID
-        dg_output = dg.get('has_output', [])
+        dg_output = data_generation.get('has_output', [])
         # We don't know how to handle this case yet
         if len(dg_output) > 1:
             logging.error(f"Multiple outputs for {nucleotide_sequencing_id} in the database - skipping")
@@ -204,6 +204,8 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
                 db_update['data_object_set'].append(do_record)
 
             # Create Workflow Execution Record
+            has_input, has_output = import_mapper.get_has_input_has_output_for_workflow_type(wfe_type)
+            logger.info(f"{wfe_type} has {len(has_input)} inputs and {len(has_output)} outputs")
 
         # Validate using the api
         logger.info(
