@@ -19,10 +19,6 @@ from nmdc_schema.nmdc import Database
 
 
 
-# logging.basicConfig(level=logging.DEBUG)
-# logger = logging.getLogger(__name__)
-
-
 @click.group()
 @click.pass_context
 def cli(ctx: click.Context) -> None:
@@ -64,6 +60,11 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         file_mappings = import_mapper.file_mappings  # This will create and cache the file mappings
         logger.info(f"Mapped: {len(file_mappings)} files")
 
+        # init a db to hold workflow executions and their data objects, one per Data Generation
+        import_db = {
+            'data_object_set': [],
+            'workflow_execution_set': []
+        }
 
 
         # Data Generation Object
@@ -76,13 +77,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         data_generation = dg_results[0]
         logger.info(f"Found {nucleotide_sequencing_id} in the database - checking output")
 
-        # init a db to hold workflow executions and their data objects, one per Data Generation
-        db = Database()
-        has_output_update = {}
-        db_update = {
-            'data_object_set': [],
-            'workflow_execution_set': []
-        }
+
 
         # Map Sequencing Output - check for NMDC data object in Data Generation has_output
         # Mint a new Data Object and Update Data Generation if has_output is empty or has a non-NMDC ID
@@ -98,8 +93,6 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
             # mint a new data object ID if needed
             seq_data_obj_id = import_mapper.get_or_create_minted_id('nmdc:DataObject', 'Metagenome Raw Reads')
             import_mapper.update_file_mappings(import_mapper.METAGENOME_RAW_READS, seq_data_obj_id, nucleotide_sequencing_id)
-
-            # db_update['data_generation_set'].append(data_generation)
 
         # Already has nmdc output
         elif dg_output and dg_output[0].startswith('nmdc:dobj'):
@@ -207,7 +200,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
                     "description": description
                 }
                 logging.info(do_record)
-                db_update['data_object_set'].append(do_record)
+                import_db['data_object_set'].append(do_record)
 
             # Create Workflow Execution Record - we do not do this for sequencing
             if wfe_type == 'nmdc:NucleotideSequencing':
@@ -228,14 +221,14 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
                 "ended_at_time": datetime.datetime.now(pytz.utc).isoformat(),
                 "was_informed_by": nucleotide_sequencing_id,
             }
-            db_update['workflow_execution_set'].append(wfe_record)
+            import_db['workflow_execution_set'].append(wfe_record)
 
         # Validate using the api
-        db_update_json = json.dumps(db_update)
+        db_update_json = json.dumps(import_db)
         logger.info(
-            f"Validating {len(db_update['data_object_set'])} data objects and {len(db_update['workflow_execution_set'])} workflow executions"
+            f"Validating {len(import_db['data_object_set'])} data objects and {len(import_db['workflow_execution_set'])} workflow executions"
             )
-        val_result = runtime_api.validate_metadata(db_update)
+        val_result = runtime_api.validate_metadata(import_db)
         logger.info(f"Validation result: {val_result}")
 
 
