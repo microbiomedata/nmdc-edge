@@ -69,16 +69,20 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         # Data Generation Object
         # Retrieve it from the Database. Check that there is only 1
         logger.info(f"Searching for {nucleotide_sequencing_id} in the database")
-        data_generation = runtime_api.find_planned_processes({"id":nucleotide_sequencing_id})
-        if not data_generation:
+        dg_results = runtime_api.find_planned_processes({"id":nucleotide_sequencing_id})
+        if not dg_results:
             logger.error(f"Could not find {nucleotide_sequencing_id} in the database - skipping")
             continue
-
+        data_generation = dg_results[0]
         logger.info(f"Found {nucleotide_sequencing_id} in the database - checking output")
 
         # init a db to hold workflow executions and their data objects, one per Data Generation
         db = Database()
         has_output_update = {}
+        db_update = {
+            'data_object_set': [],
+            'workflow_execution_set': []
+        }
 
         # Map Sequencing Output - check for NMDC data object in Data Generation has_output
         # Mint a new Data Object and Update Data Generation if has_output is empty or has a non-NMDC ID
@@ -94,6 +98,8 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
             # mint a new data object ID if needed
             seq_data_obj_id = import_mapper.get_or_create_minted_id('nmdc:DataObject', 'Metagenome Raw Reads')
             import_mapper.update_file_mappings(import_mapper.METAGENOME_RAW_READS, seq_data_obj_id, nucleotide_sequencing_id)
+
+            # db_update['data_generation_set'].append(data_generation)
 
         # Already has nmdc output
         elif dg_output and dg_output[0].startswith('nmdc:dobj'):
@@ -143,10 +149,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
         except FileExistsError:
             logger.debug(f"Directory {import_mapper.root_directory} already exists")
 
-        db_update = {
-            'data_object_set': [],
-            'workflow_execution_set': []
-        }
+
         import_spec_by_wfe_type = import_mapper.import_specs_by_workflow_type
         for wfe_type, db_wfe_ids in db_wfe_ids_by_wfe_type.items():
             if len(db_wfe_ids) != 0:
@@ -228,6 +231,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
             db_update['workflow_execution_set'].append(wfe_record)
 
         # Validate using the api
+        db_update_json = json.dumps(db_update)
         logger.info(
             f"Validating {len(db_update['data_object_set'])} data objects and {len(db_update['workflow_execution_set'])} workflow executions"
             )
@@ -250,7 +254,7 @@ def _database_workflow_execution_ids_by_type(import_mapper, runtime_api) -> dict
     wfe_ids_by_type = {}
     for wfe_type in import_mapper.workflow_execution_types:
         filt = {"was_informed_by": import_mapper.nucleotide_sequencing_id, "type": wfe_type}
-        workflow_executions = runtime_api.find_planned_processes(filt)['results']
+        workflow_executions = runtime_api.find_planned_processes(filt)
         wfe_ids_by_type[wfe_type] = [wfe['id'] for wfe in workflow_executions]
     return wfe_ids_by_type
 

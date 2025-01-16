@@ -414,7 +414,7 @@ class NmdcRuntimeApi:
         resp = requests.get(url, headers=self.header)
         if not resp.ok:
             resp.raise_for_status()
-        return resp.json()
+        return resp.json()["results"]
 
 
     @refresh_token
