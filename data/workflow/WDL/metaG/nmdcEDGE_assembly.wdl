@@ -1,12 +1,13 @@
 version 1.0
 
 import "https://raw.githubusercontent.com/microbiomedata/metaAssembly/refs/tags/v1.0.7/jgi_assembly.wdl" as jgi_asm
-import "https://code.jgi.doe.gov/BFoster/jgi_meta_wdl/-/raw/bc7c4371ea0fa83355bada341ec353b9feb3eff2/metagenome_improved/metaflye.wdl" as lrma
-import "preprocess.wdl" as MetaAssembly_preprocess
+import "assembly_preprocess.wdl" as MetaAssembly_preprocess
 
 workflow nmdc_edge_assembly{
     input {
-        Array[File] input_file
+        Array[String] input_file
+        Array[File]   input_fq1=[]
+        Array[File]   input_fq2=[]
         String outdir
         Float  uniquekmer=1000
         String bbtools_container="microbiomedata/bbtools:38.96"
@@ -17,8 +18,6 @@ workflow nmdc_edge_assembly{
         String proj = proj
         Boolean input_interleaved=true
         Boolean shortRead=true
-        Array[File] input_fq1=[]
-        Array[File] input_fq2=[]
     }
 
     call MetaAssembly_preprocess.preprocess as preprocess {
@@ -33,7 +32,7 @@ workflow nmdc_edge_assembly{
 
     call jgi_asm.jgi_metaAssembly as metaAssembly_call {
         input:
-            input_files=input_file,
+            input_files = select_all([preprocess.input_file_gz]),
             proj=proj,
             memory=memory,
             threads=threads,
