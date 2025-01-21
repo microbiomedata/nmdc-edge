@@ -33,8 +33,9 @@ def cli(ctx: click.Context) -> None:
 @click.argument("import_file", type=click.Path(exists=True))
 @click.argument("import_yaml", type=click.Path(exists=True))
 @click.argument("site_configuration", type=click.Path(exists=True))
+@click.option("--update-db", is_flag=True)
 @click.pass_context
-def import_projects(ctx,  import_file, import_yaml, site_configuration):
+def import_projects(ctx,  import_file, import_yaml, site_configuration, update_db):
     log_level = int(ctx.obj['log_level'])
     logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s')
     logger = logging.getLogger(__name__)
@@ -65,6 +66,10 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
             'data_object_set': [],
             'workflow_execution_set': []
         }
+        data_generation_update_query = {
+            "update": "data_generation_set",
+            "updates": []
+        }
 
 
         # Data Generation Object
@@ -93,6 +98,8 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
             # mint a new data object ID if needed
             seq_data_obj_id = import_mapper.get_or_create_minted_id('nmdc:DataObject', 'Metagenome Raw Reads')
             import_mapper.update_file_mappings(import_mapper.METAGENOME_RAW_READS, seq_data_obj_id, nucleotide_sequencing_id)
+            update = {"q": {"id": nucleotide_sequencing_id}, "u": {"addToSet": {"has_output": [seq_data_obj_id]}}}
+            data_generation_update_query['updates'].append(update)
 
         # Already has nmdc output
         elif dg_output and dg_output[0].startswith('nmdc:dobj'):
@@ -128,13 +135,10 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
 
         # Check the Database for any workflow executions that may already exist
         logger.info(f"Checking for workflow executions informed by {nucleotide_sequencing_id}")
-        file_mappings_by_wfe_type = import_mapper.file_mappings_by_workflow_type
-
-
         db_wfe_ids_by_wfe_type = _database_workflow_execution_ids_by_type(
             import_mapper, runtime_api
         )
-        logger.info(f"Found {len(file_mappings_by_wfe_type)} workflow executions in Database")
+        file_mappings_by_wfe_type = import_mapper.file_mappings_by_workflow_type
 
         # Make root directory for import
         try:
@@ -169,7 +173,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
             # Link data files and create Data Objects
             logger.info(f"Found {len(mappings)} file mappings to import for {wfe_id}")
             for mapping in mappings:
-                logger.info(f"Importing {mapping}")
+                logger.debug(f"Importing {mapping}")
 
                 # link files
                 nmdc_data_file_name = import_mapper.get_nmdc_data_file_name(mapping)
@@ -178,7 +182,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
                 try:
                     os.link(import_file, export_file)
                 except FileExistsError:
-                    logger.info(f"File {export_file} already exists")
+                    logger.debug(f"File {export_file} already exists")
 
                 # make a DataObject
                 filemeta = os.stat(export_file)
@@ -199,7 +203,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
                            f"{export_file}",
                     "description": description
                 }
-                logging.info(do_record)
+                logging.debug(f"Data Object: {do_record}")
                 import_db['data_object_set'].append(do_record)
 
             # Create Workflow Execution Record - we do not do this for sequencing
@@ -224,16 +228,24 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration):
             import_db['workflow_execution_set'].append(wfe_record)
 
         # Validate using the api
-        db_update_json = json.dumps(import_db)
+        db_update_json = json.dumps(import_db, indent=4)
         logger.info(
             f"Validating {len(import_db['data_object_set'])} data objects and {len(import_db['workflow_execution_set'])} workflow executions"
             )
         val_result = runtime_api.validate_metadata(import_db)
-        logger.info(f"Validation result: {val_result}")
 
-
-
-
+        if val_result['result'] == "All Okay!":
+            logger.info(f"Validation passed")
+            if update_db:
+                logger.info(f"Updating Database")
+                resp = runtime_api.submit_metadata(import_db)
+                logger.info(f"json:submit response: {resp}")
+            else:
+                logger.info(f"Option --update-db not selected. No changes made")
+                print(db_update_json)
+        else:
+            logger.info(f"Validation failed")
+            logger.info(f"Validation result: {val_result}")
 
 
         logger.info("Updating minted IDs")
