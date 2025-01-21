@@ -1,6 +1,6 @@
 {
   "metadata_submission": {
-    "packageName": "<%= packageName %>",
+    "packageName": <%- JSON.stringify(packageNames) %>,
     "contextForm": {
       "datasetDoi": "",
       "dataGenerated": false,
@@ -32,9 +32,7 @@
       "irbOrHipaa": null,
       "comments": ""
     },
-    "templates": [
-      "soil"
-    ],
+    "templates": <%- JSON.stringify(packageNames) %>,
     "studyForm": {
       "studyName": "<%= studyName %>",
       "piName": "",

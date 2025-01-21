@@ -25,7 +25,7 @@ const TheContent = () => {
     <main className="c-main">
       <CContainer fluid>
         <Suspense fallback={loading}>
-          <AppBanner />
+          {/* <AppBanner /> */}
           <SubMenuBar />
           <Switch>
             {routes.map((route, idx) => {

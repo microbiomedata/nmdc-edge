@@ -85,7 +85,7 @@ workflowlist = {
     },
     'virus_plasmid': {
         wdl: 'viral-plasmid_wf.wdl',
-        wdl_imports: 'virusPlasmids/imports.zip',
+        wdl_imports: 'metaG/imports.zip',
         name: 'viral',
         full_name: 'Viruses and Plasmids',
         wdl_tmpl: 'virus_plasmid_wdl.tmpl',
