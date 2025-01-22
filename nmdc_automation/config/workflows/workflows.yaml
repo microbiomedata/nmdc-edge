@@ -19,7 +19,7 @@ Workflows:
     Enabled: True
     Analyte Category: Metagenome
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: v1.0.13
+    Version: v1.0.14
     WDL: rqcfilter.wdl
     Collection: workflow_execution_set
     Filter Input Objects:
@@ -41,29 +41,29 @@ Workflows:
       - output: filtered_final
         name: Reads QC result fastq (clean data)
         data_object_type: Filtered Sequencing Reads
-        description: "Reads QC for {id}"
+        description: Reads QC for {id}
       - output: filtered_stats_final
         name: Reads QC summary statistics
         data_object_type: QC Statistics
-        description: "Reads QC summary for {id}"
+        description: Reads QC summary for {id}
       - output: rqc_info
         name: File containing read filtering information
         data_object_type: Read Filtering Info File
-        description: "Read filtering info for {id}"
+        description: Read filtering info for {id}
 
   - Name: Reads QC Interleave
     Type: nmdc:ReadQcAnalysis
     Enabled: True
     Analyte Category: Metagenome
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: v1.0.12
+    Version: v1.0.14
     Collection: workflow_execution_set
     WDL: interleave_rqcfilter.wdl
     Input_prefix: nmdc_rqcfilter
     Inputs:
       proj: "{workflow_execution_id}"
-      input_fq1: do:Metagenome Raw Read 1
-      input_fq2: do:Metagenome Raw Read 2
+      input_fastq1: do:Metagenome Raw Read 1
+      input_fastq2: do:Metagenome Raw Read 2
     Filter Input Objects:
     - Metagenome Raw Read 1
     - Metagenome Raw Read 2
@@ -80,15 +80,15 @@ Workflows:
       - output: filtered_final
         name: Reads QC result fastq (clean data)
         data_object_type: Filtered Sequencing Reads
-        description: "Reads QC for {id}"
+        description: Reads QC for {id}
       - output: filtered_stats_final
         name: Reads QC summary statistics
         data_object_type: QC Statistics
-        description: "Reads QC summary for {id}"
+        description: Reads QC summary for {id}
       - output: rqc_info
         name: File containing read filtering information
         data_object_type: Read Filtering Info File
-        description: "Read filtering info for {id}"
+        description: Read filtering info for {id}
 
   - Name: Metagenome Assembly
     Type: nmdc:MetagenomeAssembly

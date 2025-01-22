@@ -3,7 +3,7 @@ Workflows:
     Import: true
     Type: nmdc:ReadQcAnalysis
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: v1.0.13
+    Version: v1.0.14
     Collection: workflow_execution_set
     WorkflowExecutionRange: ReadQcAnalysis
     Inputs:
