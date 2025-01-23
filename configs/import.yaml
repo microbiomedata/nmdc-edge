@@ -150,7 +150,7 @@ Workflows:
     Outputs:
       - CheckM Statistics
       - Metagenome Bins
-      - GTDBTK Bacterial Summary 
+      - GTDBTK Bacterial Summary
       - GTDBTK Archaeal Summary
 
 Data Objects:
