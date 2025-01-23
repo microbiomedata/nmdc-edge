@@ -25,3 +25,9 @@ class Globus(BaseModel):
     task_id: str
     task_status: str
 
+
+class SequencingProject(BaseModel):
+    project: str
+    proposal_id: str
+    nucleotide_sequencing_id: str
+    analysis_projects_dir: str
