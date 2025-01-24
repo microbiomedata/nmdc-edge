@@ -44,7 +44,7 @@ def get_request(url: str, ACCESS_TOKEN: str, delay=1.0) -> dict:
         return None
 
 
-def get_samples_data(proposal_id: int, project: str, config_file: str) -> None:
+def get_samples_data(project: str, config_file: str) -> None:
     """
     Get JGI sample metadata using the gold API and store in a mongodb
     :param proposal_id: JGI proposal ID
@@ -55,18 +55,12 @@ def get_samples_data(proposal_id: int, project: str, config_file: str) -> None:
     # check_restore_status()
     config = configparser.ConfigParser()
     config.read(config_file)
-    verify = eval(os.getenv('VERIFY'))
     ACCESS_TOKEN = get_access_token()
-    # all_files_list = get_sample_files(proposal_id, ACCESS_TOKEN, eval(config['JDP']['delay']), verify=verify)
-    # files_df = pd.DataFrame(all_files_list)
-    files_df = get_files_df_from_proposal_id(proposal_id, ACCESS_TOKEN, eval(config['JDP']['delay']))
-    # gold_analysis_data = get_analysis_projects_from_proposal_id(proposal_id, ACCESS_TOKEN, verify=verify)
-    # gold_analysis_data_df = pd.DataFrame(gold_analysis_data)
-    # gold_analysis_files_df = pd.merge(gold_analysis_data_df, files_df, left_on='itsApId',
-    #                                   right_on='analysis_project_id')
-    # gold_analysis_files_df = remove_unneeded_files(gold_analysis_files_df, eval(config['JDP']['remove_files']))
+    mdb = get_mongo_db()
+    seq_project = mdb.sequencing_projects.find_one({'project_name': project})
+    files_df = get_files_df_from_proposal_id(seq_project['proposal_id'], ACCESS_TOKEN, eval(config['JDP']['delay']))
 
-    gold_analysis_files_df = get_analysis_files_df(proposal_id, files_df, ACCESS_TOKEN,
+    gold_analysis_files_df = get_analysis_files_df(seq_project['proposal_id'], files_df, ACCESS_TOKEN,
                                                    eval(config['JDP']['remove_files']))
     gold_analysis_files_df['project'] = project
     logging.debug(f'number of samples to insert: {len(gold_analysis_files_df)}')
@@ -334,15 +328,19 @@ def get_downloaded_files(project: str) -> List[str]:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('proposal_id')
     parser.add_argument('project_name')
     parser.add_argument('config_file')
     parser.add_argument('-v', '--verify_downloads', action='store_true',
                         help='compare list of downloaded files to expected files',
                         default=False)
+    parser.add_argument('-i', '--insert_project', action='store_true',
+                        help='insert new project into mongodb',
+                        default=False)
     args = vars((parser.parse_args()))
     if args['verify_downloads']:
-        if verify_downloads(args['config_file']):
+        if verify_downloads(args['config_file'], args['project_name']):
             print('Downloads verified')
+    if args['insert_project']:
+        insert_new_project_into_mongodb(args['config_file'])
 
-    get_samples_data(args['proposal_id'], args['project_name'], args['config_file'])
+    get_samples_data(args['project_name'], args['config_file'])
