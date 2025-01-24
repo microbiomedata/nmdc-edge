@@ -184,6 +184,8 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                 except FileExistsError:
                     logger.debug(f"File {export_file} already exists")
 
+                # Check if the Data Object already exists in the DB
+
                 # make a DataObject
                 filemeta = os.stat(export_file)
                 md5 = get_or_create_md5(export_file)
@@ -238,8 +240,8 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
             logger.info(f"Validation passed")
             if update_db:
                 logger.info(f"Updating Database")
-                resp = runtime_api.submit_metadata(import_db)
-                logger.info(f"json:submit response: {resp}")
+                resp = runtime_api.post_objects(import_db)
+                logger.info(f"workflows/workflow_executions response: {resp}")
             else:
                 logger.info(f"Option --update-db not selected. No changes made")
                 print(db_update_json)
