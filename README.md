@@ -88,6 +88,9 @@ Setting up Watcher/Runner on Perlmutter:
     b. salloc -N 1 -C cpu -q interactive -t 4:00:00
 5. Cq running -> to see what jobs are still running
 6. Cq meta <string> ->status of string job
+7. Monitoring the Watcher:
+    a. The Watcher runs on a login node of Perlmutter - the file host-prod.last indicates which node the watcher is running on
+    b. ssh to that node and search for the watcher:  ps aux | grep watcher
 
 Setting up Scheduler on Rancher:
 1. cd /conf
