@@ -61,10 +61,28 @@ and run `python run_workflows.py watcher --config ../../configs/site_configurati
 
 ```text
 Setting up Watcher/Runner on Perlmutter:
-1. After logging into nmdcda on perlmutter do ~/bin/screen.sh prod
-2. /global/cfs/cdirs/m3408/squads/napacompliance
-    a. check workflows.yaml
-3. ./run_prod.sh or ./run.sh - pulling from nmdc and submitting to Cromwell; monitors job to see if it succeeded or failed
+1. Environment
+    a. Ensure the watcher will not be affected when you terminal session closes.
+        1. using screen: ~/bin/screen.sh prod
+        2. using tmux:
+        3. run watcher using nohup
+2. Watcher locations on Perlmutter
+    a. Production Instance:  /global/homes/n/nmdcda/nmdc_automation/prod
+    b. Development Instance: /global/homes/n/nmdcda/nmdc_automation/dev
+3. Updating and Running Watcher
+    a. Automation code is in `nmdc_automation` under git version control - example pulling latest main:
+    
+    b. Initial running environment:
+        1. In the nmdc_automation dir:
+        source .venv/bin/activate
+        poetry update
+        poetry install
+        poetry shell
+        
+    c. Invoke the Watcher:
+        1. in /global/homes/n/nmdcda/nmdc_automation/ dev or prod:
+        export NMDC_LOG_LEVEL=INFO    # The default is DEBUG and is very verbose
+        nohup ./run.sh & or nohup ./run_prod.sh &
 4. start up workers, sbatch ~/workers_perlmutter.sl
     a. sbatch -N 5 -q regular ./workers_perlmutter.sl
     b. salloc -N 1 -C cpu -q interactive -t 4:00:00
