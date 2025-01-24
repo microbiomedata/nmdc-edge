@@ -27,7 +27,7 @@ class Globus(BaseModel):
 
 
 class SequencingProject(BaseModel):
-    project: str
+    project_name: str
     proposal_id: str
-    nucleotide_sequencing_id: str
+    nmdc_study_id: str
     analysis_projects_dir: str
