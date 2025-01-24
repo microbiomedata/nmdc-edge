@@ -322,7 +322,7 @@ def get_downloaded_files(project: str) -> List[str]:
     mdb = get_mongo_db()
     sequencing_project = mdb.sequencing_projects.find_one({'project_name': project})
     analysis_projects_dir = Path(sequencing_project['analysis_projects_dir'])
-    project_files = [str(path.name) for path in analysis_projects_dir.rglob('*')]
+    project_files = [str(path.name) for path in analysis_projects_dir.rglob('*') if not path.is_dir()]
     return project_files
 
 
