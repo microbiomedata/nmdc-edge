@@ -305,7 +305,7 @@ def verify_downloads(config_file: str, project_name: str) -> bool:
     ACCESS_TOKEN = get_access_token()
     mdb = get_mongo_db()
     project = mdb.sequencing_projects.find_one({'project_name': project_name})
-    project_files_df = pd.DataFrame({'downloaded_files', get_downloaded_files(project_name)})
+    project_files_df = pd.DataFrame({'downloaded_files': get_downloaded_files(project_name)})
     files_df = get_files_df_from_proposal_id(project['proposal_id'],
                                              ACCESS_TOKEN, eval(config['JDP']['delay']))
     gold_analysis_files_df = get_analysis_files_df(int(config['PROJECT']['proposal_id']), files_df, ACCESS_TOKEN,
