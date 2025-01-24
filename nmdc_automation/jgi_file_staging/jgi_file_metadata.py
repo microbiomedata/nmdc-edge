@@ -12,7 +12,7 @@ from pathlib import Path
 from itertools import chain
 
 from mongo import get_mongo_db
-from models import Sample
+from models import Sample, SequencingProject
 from typing import List
 from pydantic import ValidationError
 
@@ -33,10 +33,10 @@ Config file contains parameters that can change.
 ACCEPT = "application/json"
 
 
-def get_request(url: str, ACCESS_TOKEN: str, verify, delay=1.0) -> dict:
+def get_request(url: str, ACCESS_TOKEN: str, delay=1.0) -> dict:
     headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
     time.sleep(delay)
-    response = requests.get(url, headers=headers, verify=verify)
+    response = requests.get(url, headers=headers, verify=eval(os.environ.get('VERIFY')))
     if response.status_code == 200:
         return response.json()
     else:
@@ -55,11 +55,11 @@ def get_samples_data(proposal_id: int, project: str, config_file: str) -> None:
     # check_restore_status()
     config = configparser.ConfigParser()
     config.read(config_file)
-    verify = eval(config['JDP']['verify'])
-    ACCESS_TOKEN = get_access_token(verify=verify)
+    verify = eval(os.getenv('VERIFY'))
+    ACCESS_TOKEN = get_access_token()
     # all_files_list = get_sample_files(proposal_id, ACCESS_TOKEN, eval(config['JDP']['delay']), verify=verify)
     # files_df = pd.DataFrame(all_files_list)
-    files_df = get_files_df_from_proposal_id(proposal_id, ACCESS_TOKEN, eval(config['JDP']['delay']), verify=verify)
+    files_df = get_files_df_from_proposal_id(proposal_id, ACCESS_TOKEN, eval(config['JDP']['delay']))
     # gold_analysis_data = get_analysis_projects_from_proposal_id(proposal_id, ACCESS_TOKEN, verify=verify)
     # gold_analysis_data_df = pd.DataFrame(gold_analysis_data)
     # gold_analysis_files_df = pd.merge(gold_analysis_data_df, files_df, left_on='itsApId',
@@ -67,49 +67,49 @@ def get_samples_data(proposal_id: int, project: str, config_file: str) -> None:
     # gold_analysis_files_df = remove_unneeded_files(gold_analysis_files_df, eval(config['JDP']['remove_files']))
 
     gold_analysis_files_df = get_analysis_files_df(proposal_id, files_df, ACCESS_TOKEN,
-                                                   eval(config['JDP']['remove_files']), verify=verify)
+                                                   eval(config['JDP']['remove_files']))
     gold_analysis_files_df['project'] = project
     logging.debug(f'number of samples to insert: {len(gold_analysis_files_df)}')
     logging.debug(gold_analysis_files_df.head().to_dict('records'))
     insert_samples_into_mongodb(gold_analysis_files_df.to_dict('records'))
 
 
-def get_files_df_from_proposal_id(proposal_id: id, ACCESS_TOKEN: str, delay: float, verify=True):
-    all_files_list = get_sample_files(proposal_id, ACCESS_TOKEN, delay, verify=verify)
+def get_files_df_from_proposal_id(proposal_id: id, ACCESS_TOKEN: str, delay: float):
+    all_files_list = get_sample_files(proposal_id, ACCESS_TOKEN, delay)
     files_df = pd.DataFrame(all_files_list)
     return files_df
 
 
-def get_analysis_files_df(proposal_id: int, files_df: pd.DataFrame, ACCESS_TOKEN: str, remove_files: List[str], verify=True) -> pd.DataFrame:
-    gold_analysis_data = get_analysis_projects_from_proposal_id(proposal_id, ACCESS_TOKEN, verify=verify)
+def get_analysis_files_df(proposal_id: int, files_df: pd.DataFrame, ACCESS_TOKEN: str, remove_files: List[str]) -> pd.DataFrame:
+    gold_analysis_data = get_analysis_projects_from_proposal_id(proposal_id, ACCESS_TOKEN)
     gold_analysis_data_df = pd.DataFrame(gold_analysis_data)
     gold_analysis_files_df = pd.merge(gold_analysis_data_df, files_df, left_on='itsApId',
                                       right_on='analysis_project_id')
     gold_analysis_files_df = remove_unneeded_files(gold_analysis_files_df, remove_files)
     return gold_analysis_files_df
 
-def get_access_token(verify: bool = True) -> str:
-    OFFLINE_TOKEN = os.environ.get('OFFLINE_TOKEN')
-    url = f'https://gold-ws.jgi.doe.gov/exchange?offlineToken={OFFLINE_TOKEN}'
-    response = requests.get(url, verify=verify)
+
+def get_access_token() -> str:
+    url = f'https://gold-ws.jgi.doe.gov/exchange?offlineToken={os.environ.get("OFFLINE_TOKEN")}'
+    response = requests.get(url, verify=eval(os.getenv('VERIFY')))
     sys.exit(f"get_access_token: {response.text}") if response.status_code != 200 else None
 
     return response.text
 
 
-def check_access_token(ACCESS_TOKEN: str, delay: float, verify: bool = True) -> str:
+def check_access_token(ACCESS_TOKEN: str, delay: float) -> str:
     url = 'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId=Gb0291582'
     # headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
     # time.sleep(delay)
     # gold_biosample_response = requests.get(gold_biosample_url, headers=headers, verify=verify)
-    gold_biosample_response = get_request(url, ACCESS_TOKEN, verify, delay=delay)
+    gold_biosample_response = get_request(url, ACCESS_TOKEN, delay=delay)
     if gold_biosample_response:
         return ACCESS_TOKEN
     else:
         return get_access_token()
 
 
-def get_sample_files(proposal_id: str, ACCESS_TOKEN: str, delay: float, verify: bool = True) -> List[dict]:
+def get_sample_files(proposal_id: int, ACCESS_TOKEN: str, delay: float) -> List[dict]:
     """
     Get all sample files for a project
     :param proposal_id: proposal id
@@ -119,14 +119,14 @@ def get_sample_files(proposal_id: str, ACCESS_TOKEN: str, delay: float, verify: 
     :return: list of sample files for each biosample
     """
 
-    samples_df = pd.DataFrame({'Biosample ID': get_biosample_ids(proposal_id, ACCESS_TOKEN, verify=verify)})
+    samples_df = pd.DataFrame({'Biosample ID': get_biosample_ids(proposal_id, ACCESS_TOKEN)})
     all_files_list = []
     for idx, biosample_id in samples_df.itertuples():
         logging.debug(f"biosample {biosample_id}")
-        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN, delay, verify=verify)
+        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN, delay)
         try:
-            seq_id = get_sequence_id(biosample_id, ACCESS_TOKEN, delay, verify=verify)
-            sample_files_list, agg_id_list = get_files_and_agg_ids(seq_id, ACCESS_TOKEN, verify=verify)
+            seq_id = get_sequence_id(biosample_id, ACCESS_TOKEN, delay)
+            sample_files_list, agg_id_list = get_files_and_agg_ids(seq_id, ACCESS_TOKEN)
         except IndexError:
             logging.exception(f'skipping biosample_id: {biosample_id}')
             continue
@@ -136,19 +136,19 @@ def get_sample_files(proposal_id: str, ACCESS_TOKEN: str, delay: float, verify: 
     return all_files_list
 
 
-def get_biosample_ids(proposal_id: int, ACCESS_TOKEN: str, verify: bool = True) -> List[str]:
+def get_biosample_ids(proposal_id: int, ACCESS_TOKEN: str) -> List[str]:
     url = f'https://gold-ws.jgi.doe.gov/api/v1/biosamples?itsProposalId={proposal_id}'
     # headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
     # response = requests.get(url, headers=headers, verify=verify)
-    response_json = get_request(url, ACCESS_TOKEN, verify=verify)
+    response_json = get_request(url, ACCESS_TOKEN)
     biosample_ids = [sample['biosampleGoldId'] for sample in response_json]
     return biosample_ids
 
 
-def get_sequence_id(gold_id: str, ACCESS_TOKEN: str, delay: float, verify: bool = True) -> str:
+def get_sequence_id(gold_id: str, ACCESS_TOKEN: str, delay: float) -> str:
     # given a gold biosample id, get the JGI sequencing ID
     gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId={gold_id}'
-    gold_biosample_response = get_request(gold_biosample_url, ACCESS_TOKEN, verify=verify, delay=delay)
+    gold_biosample_response = get_request(gold_biosample_url, ACCESS_TOKEN, delay=delay)
     if gold_biosample_response:
         return gold_biosample_response[0]['itsSpid']
     else:
@@ -156,20 +156,20 @@ def get_sequence_id(gold_id: str, ACCESS_TOKEN: str, delay: float, verify: bool 
         return None
 
 
-def get_analysis_projects_from_proposal_id(proposal_id: int, ACCESS_TOKEN: str, verify: bool = True) -> List[dict]:
+def get_analysis_projects_from_proposal_id(proposal_id: int, ACCESS_TOKEN: str) -> List[dict]:
     gold_analysis_url = f'https://gold-ws.jgi.doe.gov/api/v1/analysis_projects?itsProposalId={proposal_id}'
-    gold_analysis_data = get_request(gold_analysis_url, ACCESS_TOKEN, verify)
+    gold_analysis_data = get_request(gold_analysis_url, ACCESS_TOKEN)
     ap_type_gold_analysis_data = [proj for proj in gold_analysis_data if
                                   proj['apType'] in ["Metagenome Analysis", "Metatranscriptome Analysis"]]
     return ap_type_gold_analysis_data
 
 
-def get_files_and_agg_ids(sequencing_id: str, ACCESS_TOKEN: str, verify: bool = True) -> (List[dict], List[str]):
+def get_files_and_agg_ids(sequencing_id: str, ACCESS_TOKEN: str) -> (List[dict], List[str]):
     # Given a JGI sequencing ID, get the list of files and agg_ids associated with the biosample
     logging.debug(f"sequencing_id {sequencing_id}")
     seqid_url = f"https://files.jgi.doe.gov/search/?q={sequencing_id}&f=project_id&a=false&h=false&d=asc&p=1&x=10&api_version=2"
     headers = {'X-CSRFToken': f'Token {ACCESS_TOKEN}', "accept": ACCEPT}
-    seqid_response = requests.get(seqid_url, headers=headers, verify=verify)
+    seqid_response = requests.get(seqid_url, headers=headers)
     sys.exit(f"{seqid_response.text}") if seqid_response.status_code != 200 else None
     files_data = seqid_response.json()
     files_data_list = []
@@ -275,26 +275,47 @@ def insert_samples_into_mongodb(sample_list: list) -> None:
         return None
 
 
-def insert_new_project_into_mongodb(config_file: str, project_name: str, proposal_id: str, nucleotide_sequencing_id: str) -> None:
+def get_nmdc_study_id(proposal_id: int, ACCESS_TOKEN: str, delay) -> str:
+    """
+    Get NMDC study from proposal id
+    """
+    url = f'https://api.microbiomedata.org/nmdcschema/study_set?filter= \
+    {{"jgi_portal_study_identifiers":"jgi.proposal:{proposal_id}"}}'
+
+    response_json = get_request(url, ACCESS_TOKEN, delay)
+    return response_json['resources'][0]['id']
+
+
+def insert_new_project_into_mongodb(config_file: str) -> None:
     """
     Create a new project in mongodb
     """
-    insert_dict = {'proposal_id': proposal_id, 'project': project_name,
-                   'nucleotide_sequencing_id': nucleotide_sequencing_id, 'analysis_projects_dir': c}
+    config = configparser.ConfigParser()
+    config.read(config_file)
 
-def verify_downloads(proposal_id: int, project: str, config_file: str) -> bool:
+    nmdc_study_id = get_nmdc_study_id(int(config['PROJECT']['proposal_id']), get_access_token(), eval(config['JDP']['delay']))
+
+    insert_dict = {'proposal_id': config['PROJECT']['proposal_id'], 'project_name': config['PROJECT']['name'],
+                   'nmdc_study_id': nmdc_study_id, 'analysis_projects_dir': config['PROJECT']['analysis_projects_dir']}
+    insert_object = SequencingProject(**insert_dict)
+    mdb = get_mongo_db()
+    mdb.sequencing_projects.insert_one(insert_object.dict())
+
+
+def verify_downloads(config_file: str, project_name: str) -> bool:
     """
     Verifies that all files are downloaded
     """
     config = configparser.ConfigParser()
     config.read(config_file)
-    verify = eval(config['JDP']['verify'])
-    ACCESS_TOKEN = get_access_token(verify=verify)
-    project_files_df = pd.DataFrame({'downloaded_files', get_downloaded_files(project)})
-    files_df = get_files_df_from_proposal_id(proposal_id, ACCESS_TOKEN, eval(config['JDP']['delay']), verify=verify)
-    gold_analysis_files_df = get_analysis_files_df(proposal_id, files_df, ACCESS_TOKEN,
-                                                   eval(config['JDP']['remove_files']), verify=verify)
-    gold_analysis_files_df['project'] = project
+    ACCESS_TOKEN = get_access_token()
+    mdb = get_mongo_db()
+    project = mdb.sequencing_projects.find_one({'project_name': project_name})
+    project_files_df = pd.DataFrame({'downloaded_files', get_downloaded_files(project_name)})
+    files_df = get_files_df_from_proposal_id(project['proposal_id'],
+                                             ACCESS_TOKEN, eval(config['JDP']['delay']))
+    gold_analysis_files_df = get_analysis_files_df(int(config['PROJECT']['proposal_id']), files_df, ACCESS_TOKEN,
+                                                   eval(config['JDP']['remove_files']))
     download_gold_df = pd.merge(project_files_df, gold_analysis_files_df, left_on='file_name',
                                 right_on='downloaded_files')
     return len(download_gold_df) == len(gold_analysis_files_df)
@@ -305,7 +326,7 @@ def get_downloaded_files(project: str) -> List[str]:
     Returns list of downloaded files from file system
     """
     mdb = get_mongo_db()
-    sequencing_project = mdb.sequencingprojects.find_one({'project': project})
+    sequencing_project = mdb.sequencing_projects.find_one({'project_name': project})
     analysis_projects_dir = Path(sequencing_project['analysis_projects_dir'])
     project_files = [str(path.name) for path in analysis_projects_dir.rglob('*')]
     return project_files
@@ -321,7 +342,7 @@ if __name__ == '__main__':
                         default=False)
     args = vars((parser.parse_args()))
     if args['verify_downloads']:
-        if verify_downloads(args['proposal_id'], args['project_name'], args['config_file']):
+        if verify_downloads(args['config_file']):
             print('Downloads verified')
 
     get_samples_data(args['proposal_id'], args['project_name'], args['config_file'])
