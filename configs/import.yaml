@@ -111,14 +111,14 @@ Workflows:
       - SUPERFam Annotation GFF
       - CATH FunFams (Functional Families) Annotation GFF
       - CRT Annotation GFF
-      - Genmark Annotation GFF
+      - Genemark Annotation GFF
       - Prodigal Annotation GFF
       - TRNA Annotation GFF
       - RFAM Annotation GFF
       - KO_EC Annotation GFF
       - Product Names
       - Gene Phylogeny tsv
-      - Crisprt Terms
+      - Crispr Terms
       - Annotation Statistics
 
 
@@ -150,7 +150,7 @@ Workflows:
     Outputs:
       - CheckM Statistics
       - Metagenome Bins
-      - GTDBTK Bacterial Summary 
+      - GTDBTK Bacterial Summary
       - GTDBTK Archaeal Summary
 
 Data Objects:
