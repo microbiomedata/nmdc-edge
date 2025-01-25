@@ -312,6 +312,8 @@ def verify_downloads(config_file: str, project_name: str) -> bool:
                                                    eval(config['JDP']['remove_files']))
     download_gold_df = pd.merge(project_files_df, gold_analysis_files_df, left_on='file_name',
                                 right_on='downloaded_files')
+    download_gold_df.to_csv('download_gold_df.csv', index=False)
+    gold_analysis_files_df.to_csv('gold_analysis_files_df.csv', index=False)
     return len(download_gold_df) == len(gold_analysis_files_df)
 
 
