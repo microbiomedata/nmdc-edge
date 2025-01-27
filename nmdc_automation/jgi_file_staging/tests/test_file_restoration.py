@@ -24,11 +24,13 @@ class MyTestCase(unittest.TestCase):
     @patch('jgi_file_metadata.requests.post')
     @mongomock.patch(servers=(('localhost', 27017),))
     def test_restore_files(self, mock_post, mock_update):
+        # mock API call for file restore request
         mock_post.return_value.status_code = 200
         mock_post.return_value.json.return_value = {
             'updated_count': 0, 'restored_count': 4, 'request_id': 220699, 'request_status_url':
                 'https://files.jgi.doe.gov/request_archived_files/requests/220699'}
 
+        # insert samples into database
         grow_analysis_df = pd.read_csv(os.path.join(self.fixtures, 'grow_analysis_projects.csv'))
         grow_analysis_df.columns = ['apGoldId', 'studyId', 'itsApId', 'projects', 'biosample_id', 'seq_id', 'file_name',
                                     'file_status', 'file_size', 'jdp_file_id', 'md5sum', 'analysis_project_id']
