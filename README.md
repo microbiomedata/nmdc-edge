@@ -8,10 +8,39 @@
 
 # nmdc_automation
 
-## Goal
+## Overview
 
-Demonstrate how the various stages of a series of workflows could
-be tracked and triggered by the runtime.
+This is an automation framework for running sequential metagenome analysis jobs and making the outputs
+available as metadata in the NMDC database, and data objects on the microbiomedata.org data portal. The
+primary components in this process are:
+
+Scheduler
+: The scheduler
+
+
+
+Site Config
+: Site-specific configuration if provided by a .toml file and defines some parameters that are used
+across the workflow process.
+
+: 
+
+Workflow Definitions
+: Workflow definitions
+
+
+
+
+
+Workflow Definitions
+
+Scheduler
+
+
+Watcher
+
+
+WorkflowJob
 
 ## Approach
 
@@ -62,7 +91,7 @@ and run `python run_workflows.py watcher --config ../../configs/site_configurati
 ```text
 Setting up Watcher/Runner on Perlmutter:
 1. Environment
-    a. Ensure the watcher will not be affected when you terminal session closes.
+    a. Ensure the watcher will not be affected when you terminal session closes 
         1. using screen: ~/bin/screen.sh prod
         2. using tmux:
         3. run watcher using nohup
