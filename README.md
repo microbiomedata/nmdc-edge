@@ -11,22 +11,42 @@
 ## Overview
 
 This is an automation framework for running sequential metagenome analysis jobs and making the outputs
-available as metadata in the NMDC database, and data objects on the microbiomedata.org data portal. The
+available as metadata in the NMDC database, and data objects on the NMDC data portal. The
 primary components in this process are:
 
 Scheduler
-: The scheduler
+: The Scheduler polls the NMDC database based upon an `Allowlist` of DataGeneration IDs. Based on an allowed 
+data-generation ID, the scheduler examines WorkflowExecutions and DataObjects that `was_informed_by` by the 
+data generation, and builds a graph of `Workflow Process Nodes`. When the scheduler finds a node where:
+: 1. The node has child workflow(s) which are not scheduled or in the NMDC database
+: 2. The required data objects for the child node exist
+: In this case the Scheduler will "schedule" a new job by creating a Job configuration and writing this
+to the `jobs` collection in the NMDC database
 
+Watcher
+: The Watcher "watches" the `jobs` table in the NMDC database looking for unclaimed jobs. If found, the 
+Watcher will create a `WorkflowJob` to manage the analysis job.  The watcher will then periodically poll
+each workflow job for it's status and process successful or failed jobs when they are complete
 
+WorkflowJob
+: A `WorkflowJob` consists of a `WorkflowStateManager` and a `JobRunner` and is responsible for preparing the 
+required inputs for an analysis job, submitting it to the job running service (e.g., J.A.W.S, Cromwell) and 
+for processing the resulting data and metadata when the job completes.  The watcher maintains a record of it's
+current activity in a `State File`
 
 Site Config
 : Site-specific configuration if provided by a .toml file and defines some parameters that are used
-across the workflow process.
-
-: 
+across the workflow process including
+: 1. URL and credentials for NMDC API
+: 2. Staging and Data filesystem locations for the site
+: 3. Job Runner service URLs
+: 4. Path to the state file
 
 Workflow Definitions
-: Workflow definitions
+: Workflow definitions in a .yaml file describing each analysis step, specifying
+: 1. Name, type, version, WDL and git repository for each workflow
+: 2. Inputs, Outputs and Workflow Execution steps
+: 3. Data Object Types, description and name templates for processing workflow output data
 
 
 
