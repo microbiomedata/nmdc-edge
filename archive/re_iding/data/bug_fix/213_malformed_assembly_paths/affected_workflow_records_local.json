@@ -1,0 +1,284 @@
+{
+    "nmdc:omprc-11-wmzpa354": [
+        {
+            "_id": "6647c0ebf34bb863ec2f255e",
+            "workflow_id": "nmdc:wfrbt-11-5azt1x40.1.1",
+            "type": "nmdc:ReadBasedTaxonomyAnalysisActivity",
+            "data_objects": [
+                {
+                    "id": "nmdc:dobj-11-15yt8631",
+                    "name": "nmdc_wfrbt-11-5azt1x40.1.1_gottcha2_report.tsv",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1/nmdc_wfrbt-11-5azt1x40.1.1_gottcha2_report.tsv",
+                    "data_object_type": "GOTTCHA2 Classification Report",
+                    "file_size_bytes": 12367,
+                    "md5_checksum": "a39b5945696b0289a5f3464b3e10be82"
+                },
+                {
+                    "id": "nmdc:dobj-11-hbx5y982",
+                    "name": "nmdc_wfrbt-11-5azt1x40.1.1_gottcha2_report_full.tsv",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1/nmdc_wfrbt-11-5azt1x40.1.1_gottcha2_report_full.tsv",
+                    "data_object_type": "GOTTCHA2 Report Full",
+                    "file_size_bytes": 1148514,
+                    "md5_checksum": "71eb2ab1131c248b2855d330cf983c9d"
+                },
+                {
+                    "id": "nmdc:dobj-11-f27e8v32",
+                    "name": "nmdc_wfrbt-11-5azt1x40.1.1_gottcha2_krona.html",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1/nmdc_wfrbt-11-5azt1x40.1.1_gottcha2_krona.html",
+                    "data_object_type": "GOTTCHA2 Krona Plot",
+                    "file_size_bytes": 267679,
+                    "md5_checksum": "fdd40f15c7a4df4af0265601377a8446"
+                },
+                {
+                    "id": "nmdc:dobj-11-80cfrn71",
+                    "name": "nmdc_wfrbt-11-5azt1x40.1.1_centrifuge_classification.tsv",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1/nmdc_wfrbt-11-5azt1x40.1.1_centrifuge_classification.tsv",
+                    "data_object_type": "Centrifuge Taxonomic Classification",
+                    "file_size_bytes": 15557694517,
+                    "md5_checksum": "37d269c9f646b321b500065e446ad527"
+                },
+                {
+                    "id": "nmdc:dobj-11-zqxsws55",
+                    "name": "nmdc_wfrbt-11-5azt1x40.1.1_centrifuge_report.tsv",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1/nmdc_wfrbt-11-5azt1x40.1.1_centrifuge_report.tsv",
+                    "data_object_type": "Centrifuge Classification Report",
+                    "file_size_bytes": 265532,
+                    "md5_checksum": "845512d6a12b846828b10aaaadd33aa1"
+                },
+                {
+                    "id": "nmdc:dobj-11-z2e2ym68",
+                    "name": "nmdc_wfrbt-11-5azt1x40.1.1_centrifuge_krona.html",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1/nmdc_wfrbt-11-5azt1x40.1.1_centrifuge_krona.html",
+                    "data_object_type": "Centrifuge Krona Plot",
+                    "file_size_bytes": 2353480,
+                    "md5_checksum": "02a52b227f3e0ca62f05fed177a1ab23"
+                },
+                {
+                    "id": "nmdc:dobj-11-sy2wpw68",
+                    "name": "nmdc_wfrbt-11-5azt1x40.1.1_kraken2_classification.tsv",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1/nmdc_wfrbt-11-5azt1x40.1.1_kraken2_classification.tsv",
+                    "data_object_type": "Kraken2 Taxonomic Classification",
+                    "file_size_bytes": 8362783461,
+                    "md5_checksum": "22ffc1e2c47c66c2a7e44064dbf8c4ee"
+                },
+                {
+                    "id": "nmdc:dobj-11-06z99j64",
+                    "name": "nmdc_wfrbt-11-5azt1x40.1.1_kraken2_report.tsv",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1/nmdc_wfrbt-11-5azt1x40.1.1_kraken2_report.tsv",
+                    "data_object_type": "Kraken2 Classification Report",
+                    "file_size_bytes": 612080,
+                    "md5_checksum": "cba12b1c78814777df392ea7ce8d9ca9"
+                },
+                {
+                    "id": "nmdc:dobj-11-9ga0jt53",
+                    "name": "nmdc_wfrbt-11-5azt1x40.1.1_kraken2_krona.html",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrbt-11-5azt1x40.1.1/nmdc_wfrbt-11-5azt1x40.1.1_kraken2_krona.html",
+                    "data_object_type": "Kraken2 Krona Plot",
+                    "file_size_bytes": 3882926,
+                    "md5_checksum": "7d0389379bfe1d89dfa0b5dab83438ea"
+                }
+            ],
+            "workflow_dirs": [],
+            "misidentified_workflow_dirs": [],
+            "data_files": [
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_krona.html",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_krona.html",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_report.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_report.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_report.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_report_full.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_kraken2_classification.tsv",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_gottcha2_krona.html",
+                "nmdc_wfrbt-11-5azt1x40.1.1.1_centrifuge_classification.tsv"
+            ],
+            "misidentified_data_files": []
+        },
+        {
+            "_id": "6647c0ebf34bb863ec2f255d",
+            "workflow_id": "nmdc:wfrqc-11-pbxpdr12.1.1",
+            "type": "nmdc:ReadQcAnalysisActivity",
+            "data_objects": [
+                {
+                    "id": "nmdc:dobj-11-1tfde585",
+                    "name": "nmdc_wfrqc-11-pbxpdr12.1.1_filtered.fastq.gz",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1.1/nmdc_wfrqc-11-pbxpdr12.1.1_filtered.fastq.gz",
+                    "data_object_type": "Filtered Sequencing Reads",
+                    "file_size_bytes": 10209724487,
+                    "md5_checksum": "67fd7b020dbaee74965b945f09d5ce07"
+                },
+                {
+                    "id": "nmdc:dobj-11-xwgbd609",
+                    "name": "nmdc_wfrqc-11-pbxpdr12.1.1_filterStats.txt",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-wmzpa354/nmdc:wfrqc-11-pbxpdr12.1.1/nmdc_wfrqc-11-pbxpdr12.1.1_filterStats.txt",
+                    "data_object_type": "QC Statistics",
+                    "file_size_bytes": 278,
+                    "md5_checksum": "761e757c3afa0ae848f64f685bc28e73"
+                }
+            ],
+            "workflow_dirs": [],
+            "misidentified_workflow_dirs": [],
+            "data_files": [
+                "nmdc_wfrqc-11-pbxpdr12.1.1.1_filtered.fastq.gz",
+                "nmdc_wfrqc-11-pbxpdr12.1.1.1_filterStats.txt"
+            ],
+            "misidentified_data_files": []
+        }
+    ],
+    "nmdc:omprc-11-gqbhbd17": [
+        {
+            "_id": "6647c1b2f34bb863ec2f2a86",
+            "workflow_id": "nmdc:wfrbt-11-gjxsgv37.1.1",
+            "type": "nmdc:ReadBasedTaxonomyAnalysisActivity",
+            "data_objects": [
+                {
+                    "id": "nmdc:dobj-11-2x71h597",
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1.1_gottcha2_report.tsv",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1/nmdc_wfrbt-11-gjxsgv37.1.1_gottcha2_report.tsv",
+                    "data_object_type": "GOTTCHA2 Classification Report",
+                    "file_size_bytes": 11911,
+                    "md5_checksum": "4c4c4cc23c3e10ffb2ac06ad6a91a66a"
+                },
+                {
+                    "id": "nmdc:dobj-11-za47q470",
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1.1_gottcha2_report_full.tsv",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1/nmdc_wfrbt-11-gjxsgv37.1.1_gottcha2_report_full.tsv",
+                    "data_object_type": "GOTTCHA2 Report Full",
+                    "file_size_bytes": 1159462,
+                    "md5_checksum": "54b3454221210fa273418996b4ffecc0"
+                },
+                {
+                    "id": "nmdc:dobj-11-ntfbdq86",
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1.1_gottcha2_krona.html",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1/nmdc_wfrbt-11-gjxsgv37.1.1_gottcha2_krona.html",
+                    "data_object_type": "GOTTCHA2 Krona Plot",
+                    "file_size_bytes": 265827,
+                    "md5_checksum": "811907ae27f58e7f4bb2f1c9d5dd138b"
+                },
+                {
+                    "id": "nmdc:dobj-11-61dg2w84",
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1.1_centrifuge_classification.tsv",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1/nmdc_wfrbt-11-gjxsgv37.1.1_centrifuge_classification.tsv",
+                    "data_object_type": "Centrifuge Taxonomic Classification",
+                    "file_size_bytes": 19459995404,
+                    "md5_checksum": "a513e3ad79493bb7683106cf63d4bb48"
+                },
+                {
+                    "id": "nmdc:dobj-11-b1g4jf44",
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1.1_centrifuge_report.tsv",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1/nmdc_wfrbt-11-gjxsgv37.1.1_centrifuge_report.tsv",
+                    "data_object_type": "Centrifuge Classification Report",
+                    "file_size_bytes": 266348,
+                    "md5_checksum": "f0ede918744dedf62ae49083f16e2dc5"
+                },
+                {
+                    "id": "nmdc:dobj-11-yzk1hd77",
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1.1_centrifuge_krona.html",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1/nmdc_wfrbt-11-gjxsgv37.1.1_centrifuge_krona.html",
+                    "data_object_type": "Centrifuge Krona Plot",
+                    "file_size_bytes": 2354384,
+                    "md5_checksum": "d95aeb2cf7af15588c2f5c2a39843fed"
+                },
+                {
+                    "id": "nmdc:dobj-11-svva8869",
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1.1_kraken2_classification.tsv",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1/nmdc_wfrbt-11-gjxsgv37.1.1_kraken2_classification.tsv",
+                    "data_object_type": "Kraken2 Taxonomic Classification",
+                    "file_size_bytes": 10461184467,
+                    "md5_checksum": "0c00db296fec0a0dbf9f2e1b9f658d23"
+                },
+                {
+                    "id": "nmdc:dobj-11-p0876z23",
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1.1_kraken2_report.tsv",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1/nmdc_wfrbt-11-gjxsgv37.1.1_kraken2_report.tsv",
+                    "data_object_type": "Kraken2 Classification Report",
+                    "file_size_bytes": 614532,
+                    "md5_checksum": "23f112fd8982d39a6dcd836682efed85"
+                },
+                {
+                    "id": "nmdc:dobj-11-khvr5w16",
+                    "name": "nmdc_wfrbt-11-gjxsgv37.1.1_kraken2_krona.html",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrbt-11-gjxsgv37.1.1/nmdc_wfrbt-11-gjxsgv37.1.1_kraken2_krona.html",
+                    "data_object_type": "Kraken2 Krona Plot",
+                    "file_size_bytes": 3881929,
+                    "md5_checksum": "34033bb2103e9044480e6b757e77755d"
+                }
+            ],
+            "workflow_dirs": [],
+            "misidentified_workflow_dirs": [],
+            "data_files": [
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_report.tsv",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_kraken2_krona.html",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_krona.html",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_kraken2_report.tsv",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_centrifuge_classification.tsv",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_centrifuge_report.tsv",
+                "nmdc_wfrbt-11-gjxsgv37.1.1.1_gottcha2_report_full.tsv"
+            ],
+            "misidentified_data_files": []
+        },
+        {
+            "_id": "6647c1b2f34bb863ec2f2a85",
+            "workflow_id": "nmdc:wfrqc-11-k8vbs933.1.1",
+            "type": "nmdc:ReadQcAnalysisActivity",
+            "data_objects": [
+                {
+                    "id": "nmdc:dobj-11-xyyv3473",
+                    "name": "nmdc_wfrqc-11-k8vbs933.1.1_filtered.fastq.gz",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrqc-11-k8vbs933.1.1/nmdc_wfrqc-11-k8vbs933.1.1_filtered.fastq.gz",
+                    "data_object_type": "Filtered Sequencing Reads",
+                    "file_size_bytes": 12236682862,
+                    "md5_checksum": "6f5298a8157870979e6b712b0d2dbcee"
+                },
+                {
+                    "id": "nmdc:dobj-11-kx5m8p57",
+                    "name": "nmdc_wfrqc-11-k8vbs933.1.1_filterStats.txt",
+                    "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-gqbhbd17/nmdc:wfrqc-11-k8vbs933.1.1/nmdc_wfrqc-11-k8vbs933.1.1_filterStats.txt",
+                    "data_object_type": "QC Statistics",
+                    "file_size_bytes": 281,
+                    "md5_checksum": "06f85b06f11ab75325f478057fda5bd5"
+                }
+            ],
+            "workflow_dirs": [],
+            "misidentified_workflow_dirs": [],
+            "data_files": [
+                "nmdc_wfrqc-11-k8vbs933.1.1.1_filtered.fastq.gz",
+                "nmdc_wfrqc-11-k8vbs933.1.1.1_filterStats.txt"
+            ],
+            "misidentified_data_files": []
+        }
+    ],
+    "nmdc:omprc-11-0nftn704": [
+        {
+            "_id": "6647b5a08ca986147c427a4b",
+            "workflow_id": "nmdc:wfrbt-11-0es1zz02.1",
+            "type": "nmdc:ReadBasedTaxonomyAnalysisActivity",
+            "data_objects": [],
+            "workflow_dirs": [],
+            "misidentified_workflow_dirs": [
+                "/Users/MBThornton/Documents/data/results/nmdc:omprc-11-0nftn704/nmdc:wfrbt-11-4tfjax90.1"
+            ],
+            "data_files": [
+                "nmdc_wfrbt-11-0es1zz02.1.1_kraken2_report.tsv",
+                "nmdc_wfrbt-11-0es1zz02.1.1_kraken2_classification.tsv",
+                "nmdc_wfrbt-11-0es1zz02.1.1_kraken2_krona.html",
+                "nmdc_wfrbt-11-0es1zz02.1.1_centrifuge_report.tsv",
+                "nmdc_wfrbt-11-0es1zz02.1.1_gottcha2_krona.html",
+                "nmdc_wfrbt-11-0es1zz02.1.1_gottcha2_report.tsv",
+                "nmdc_wfrbt-11-0es1zz02.1.1_centrifuge_krona.html",
+                "nmdc_wfrbt-11-0es1zz02.1.1_gottcha2_report_full.tsv",
+                "nmdc_wfrbt-11-0es1zz02.1.1_centrifuge_classification.tsv"
+            ],
+            "misidentified_data_files": [
+                "nmdc_wfrbt-11-4tfjax90.1.1_gottcha2_krona.html",
+                "nmdc_wfrbt-11-4tfjax90.1.1_gottcha2_report.tsv",
+                "nmdc_wfrbt-11-4tfjax90.1.1_gottcha2_report_full.tsv",
+                "nmdc_wfrbt-11-4tfjax90.1.1_centrifuge_report.tsv",
+                "nmdc_wfrbt-11-4tfjax90.1.1_centrifuge_krona.html",
+                "nmdc_wfrbt-11-4tfjax90.1.1_kraken2_report.tsv",
+                "nmdc_wfrbt-11-4tfjax90.1.1_centrifuge_classification.tsv",
+                "nmdc_wfrbt-11-4tfjax90.1.1_kraken2_krona.html",
+                "nmdc_wfrbt-11-4tfjax90.1.1_kraken2_classification.tsv"
+            ]
+        }
+    ]
+}

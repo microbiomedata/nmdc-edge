@@ -1,7 +1,18 @@
 __pycache__
-test_data/agent.state
-test_data/data_dir/
-test_data/afile.sha256
+tests/test_data/agent.state
+tests/test_data/data_dir/
+tests/test_data/afile.sha256
 htmlcov/
 .coverage
 attic
+.idea/
+.local/
+private
+configs/.local_*
+attic/data/dryrun_data/
+nmdc_automation/workflow_automation/_state/*.state
+nmdc_automation/workflow_automation/_state/*.json
+
+# Ignore `coverage.xml` file in this directory.
+/coverage.xml
+prof/

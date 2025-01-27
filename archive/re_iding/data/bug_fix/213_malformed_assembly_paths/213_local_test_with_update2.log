@@ -1,0 +1,7 @@
+/Users/MBThornton/Library/Caches/pypoetry/virtualenvs/nmdc-automation-VEpwcKpc-py3.9/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+2024-07-22 09:46:26,431 - __main__ - INFO - Expected paths file: /Users/MBThornton/Documents/code/nmdc_automation/nmdc_automation/re_iding/scripts/data/malformed_assembly_paths/expected_paths.txt
+2024-07-22 09:46:26,431 - __main__ - INFO - Production: False
+2024-07-22 09:46:26,431 - __main__ - INFO - Update files: True
+2024-07-22 09:46:26,432 - __main__ - INFO - Processed 0 files in 0.001664876937866211 seconds.
+2024-07-22 09:46:26,432 - __main__ - INFO - Data Object Changes: set()

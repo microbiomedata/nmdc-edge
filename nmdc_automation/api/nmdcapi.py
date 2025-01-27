@@ -4,65 +4,84 @@ import json
 import sys
 import os
 from os.path import join, dirname
+from pydantic import BaseModel
 import requests
 import hashlib
 import mimetypes
+from pathlib import Path
 from time import time
-from datetime import datetime
-from dotenv import dotenv_values
+from typing import Union, List
+from datetime import datetime, timedelta, timezone
+from nmdc_automation.config import SiteConfig, UserConfig
 import logging
+from tenacity import retry, wait_exponential, stop_after_attempt
 
+logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+logging.basicConfig(
+    level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
+)
+logger = logging.getLogger(__name__)
 
-def _get_sha256(fn):
-    hashfn = fn + ".sha256"
-    if os.path.exists(hashfn):
-        with open(hashfn) as f:
+SECONDS_IN_DAY = 86400
+
+def _get_sha256(fn: Union[str, Path]) -> str:
+    """
+    Helper function to get the sha256 hash of a file if it exists.
+    """
+    shahash = hashlib.sha256()
+    if isinstance(fn, str):
+        fn = Path(fn)
+    hash_fn = fn.with_suffix(".sha256")
+    if hash_fn.exists():
+        with hash_fn.open() as f:
             sha = f.read().rstrip()
     else:
-        logging.info("hashing %s" % (fn))
-        shahash = hashlib.sha256()
-        with open(fn, "rb") as f:
-            # Read and update hash string value in blocks of 4K
+        logging.info(f"hashing {fn}")
+        with fn.open("rb") as f:
             for byte_block in iter(lambda: f.read(1048576), b""):
                 shahash.update(byte_block)
         sha = shahash.hexdigest()
-        with open(hashfn, "w") as f:
+        with hash_fn.open("w") as f:
             f.write(sha)
             f.write("\n")
     return sha
 
+def expiry_dt_from_now(days=0, hours=0, minutes=0, seconds=0):
+    return datetime.now(timezone.utc) + timedelta(days=days, hours=hours,
+                                          minutes=minutes,
+                              seconds=seconds)
 
-class nmdcapi:
+class NmdcRuntimeApi:
     token = None
-    expires = 0
+    expires_at = 0
     _base_url = None
     client_id = None
     client_secret = None
 
-    def __init__(self):
-        dotenv_path = join(dirname(__file__), ".env")
-        if os.path.exists(dotenv_path):
-            src = dotenv_values(dotenv_path)
-        else:
-            src = os.environ
-        self._base_url = src.get("NMDC_API_URL")
-        self.client_id = src.get("NMDC_CLIENT_ID")
-        self.client_secret = src.get("NMDC_CLIENT_SECRET")
+    def __init__(self, site_configuration: Union[str, Path, SiteConfig]):
+        if isinstance(site_configuration, str) or isinstance(site_configuration, Path):
+            site_configuration = SiteConfig(site_configuration)
+        self.config = site_configuration
+        self._base_url = self.config.api_url
+        self.client_id = self.config.client_id
+        self.client_secret = self.config.client_secret
         if self._base_url[-1] != "/":
             self._base_url += "/"
 
     def refresh_token(func):
         def _get_token(self, *args, **kwargs):
             # If it expires in 60 seconds, refresh
-            if not self.token or self.expires + 60 > time():
+            if not self.token or self.expires_at < time() + 60:
                 self.get_token()
             return func(self, *args, **kwargs)
 
         return _get_token
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     def get_token(self):
         """
         Get a token using a client id/secret.
+        Retries up to 6 times with exponential backoff.
         """
         h = {
             "accept": "application/json",
@@ -74,28 +93,47 @@ class nmdcapi:
             "client_secret": self.client_secret,
         }
         url = self._base_url + "token"
-        resp = requests.post(url, headers=h, data=data).json()
-        expt = resp["expires"]
-        self.expires = time() + expt["minutes"] * 60
 
-        self.token = resp["access_token"]
+        resp = requests.post(url, headers=h, data=data)
+        if not resp.ok:
+            logging.error(f"Failed to get token: {resp.text}")
+            resp.raise_for_status()
+        response_body = resp.json()
+
+        # Expires can be in days, hours, minutes, seconds - sum them up and convert to seconds
+        expires = 0
+        if "days" in response_body["expires"]:
+            expires += int(response_body["expires"]["days"]) * SECONDS_IN_DAY
+        if "hours" in response_body["expires"]:
+            expires += int(response_body["expires"]["hours"]) * 3600
+        if "minutes" in response_body["expires"]:
+            expires += int(response_body["expires"]["minutes"]) * 60
+        if "seconds" in response_body["expires"]:
+            expires += int(response_body["expires"]["seconds"])
+
+        self.expires_at = time() + expires
+
+        self.token = response_body["access_token"]
         self.header = {
             "accept": "application/json",
             "Content-Type": "application/json",
             "Authorization": "Bearer %s" % (self.token),
         }
-        return resp
+        logging.debug(f"New token expires at {self.expires_at}")
+        return response_body
 
     def get_header(self):
         return self.header
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def minter(self, id_type, informed_by=None):
         url = f"{self._base_url}pids/mint"
         data = {"schema_class": {"id": id_type}, "how_many": 1}
         resp = requests.post(url, data=json.dumps(data), headers=self.header)
         if not resp.ok:
-            raise ValueError("Failed to mint ID")
+            logging.error(f"Response failed for: url: {url}, data: {data}, header: {self.header}")
+            raise ValueError(f"Failed to mint ID of type {id_type} HTTP status: {resp.status_code} / ({resp.reason})")
         id = resp.json()[0]
         if informed_by:
             url = f"{self._base_url}pids/bind"
@@ -105,6 +143,7 @@ class nmdcapi:
                 raise ValueError("Failed to bind metadata to pid")
         return id
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def mint(self, ns, typ, ct):
         """
@@ -117,8 +156,11 @@ class nmdcapi:
         url = self._base_url + "ids/mint"
         d = {"populator": "", "naa": ns, "shoulder": typ, "number": ct}
         resp = requests.post(url, headers=self.header, data=json.dumps(d))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def get_object(self, obj, decode=False):
         """
@@ -126,6 +168,8 @@ class nmdcapi:
         """
         url = "%sobjects/%s" % (self._base_url, obj)
         resp = requests.get(url, headers=self.header)
+        if not resp.ok:
+            resp.raise_for_status()
         data = resp.json()
         if decode and "description" in data:
             try:
@@ -135,6 +179,8 @@ class nmdcapi:
 
         return data
 
+
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def create_object(self, fn, description, dataurl):
         """
@@ -176,36 +222,45 @@ class nmdcapi:
             "self_uri": "todo",
         }
         resp = requests.post(url, headers=self.header, data=json.dumps(d))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
-    def post_objects(self, obj_data, json_obj=None):
-        url = self._base_url + "v1/workflows/activities"
-
-        # objects_file = open(json_obj)
-        # obj_data = json.load(objects_file)
+    def post_objects(self, obj_data):
+        url = self._base_url + "workflows/workflow_executions"
 
         resp = requests.post(url, headers=self.header, data=json.dumps(obj_data))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def set_type(self, obj, typ):
         url = "%sobjects/%s/types" % (self._base_url, obj)
         d = [typ]
         resp = requests.put(url, headers=self.header, data=json.dumps(d))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def bump_time(self, obj):
         url = "%sobjects/%s" % (self._base_url, obj)
         now = datetime.today().isoformat()
-
         d = {"created_time": now}
         resp = requests.patch(url, headers=self.header, data=json.dumps(d))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
+    # TODO test that this concatenates multi-page results
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
-    def list_jobs(self, filt=None, max=20):
+    def list_jobs(self, filt=None, max=100) -> List[dict]:
         url = "%sjobs?max_page_size=%s" % (self._base_url, max)
         d = {}
         if filt:
@@ -213,25 +268,36 @@ class nmdcapi:
         orig_url = url
         results = []
         while True:
-            resp = requests.get(url, data=json.dumps(d), headers=self.header).json()
-            if "resources" not in resp:
-                logging.warning(str(resp))
+            resp = requests.get(url, data=json.dumps(d), headers=self.header)
+            if resp.status_code != 200:
+                resp.raise_for_status()
+            try:
+                response_json = resp.json()
+            except Exception as e:
+                logging.error(f"Failed to parse response: {resp.text}")
+                raise e
+            if "resources" not in response_json:
+                logging.warning(str(response_json))
                 break
-            results.extend(resp["resources"])
-            if "next_page_token" not in resp or not resp["next_page_token"]:
+            results.extend(response_json["resources"])
+            if "next_page_token" not in response_json or not response_json["next_page_token"]:
                 break
-            url = orig_url + "&page_token=%s" % (resp["next_page_token"])
+            url = orig_url + "&page_token=%s" % (response_json["next_page_token"])
         return results
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
-    def get_job(self, job):
-        url = "%sjobs/%s" % (self._base_url, job)
+    def get_job(self, job_id: str):
+        url = "%sjobs/%s" % (self._base_url, job_id)
         resp = requests.get(url, headers=self.header)
+        if not resp.ok:
+            resp.raise_for_status
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
-    def claim_job(self, job):
-        url = "%sjobs/%s:claim" % (self._base_url, job)
+    def claim_job(self, job_id: str):
+        url = "%sjobs/%s:claim" % (self._base_url, job_id)
         resp = requests.post(url, headers=self.header)
         if resp.status_code == 409:
             claimed = True
@@ -255,6 +321,7 @@ class nmdcapi:
             url = orig_url + "&page_token=%s" % (resp["next_page_token"])
         return results
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def list_objs(self, filt=None, max_page_size=40):
         url = "%sobjects?max_page_size=%d" % (self._base_url, max_page_size)
@@ -263,6 +330,7 @@ class nmdcapi:
         results = self._page_query(url)
         return results
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def list_ops(self, filt=None, max_page_size=40):
         url = "%soperations?max_page_size=%d" % (self._base_url, max_page_size)
@@ -282,14 +350,22 @@ class nmdcapi:
             url = orig_url + "&page_token=%s" % (resp["next_page_token"])
         return results
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def get_op(self, opid):
         url = "%soperations/%s" % (self._base_url, opid)
         resp = requests.get(url, headers=self.header)
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
     def update_op(self, opid, done=None, results=None, meta=None):
+        """
+        Update an operation with the given ID with the specified parameters.
+        Returns the updated operation.
+        """
         url = "%soperations/%s" % (self._base_url, opid)
         d = dict()
         if done is not None:
@@ -299,13 +375,24 @@ class nmdcapi:
         if meta:
             # Need to preserve the existing metadata
             cur = self.get_op(opid)
-            if not cur["metadata"]:
+            if not cur.get("metadata"):
                 # this means we messed up the record before.
                 # This can't be fixed so just return
                 return None
             d["metadata"] = cur["metadata"]
             d["metadata"]["extra"] = meta
         resp = requests.patch(url, headers=self.header, data=json.dumps(d))
+        if not resp.ok:
+            resp.raise_for_status()
+        return resp.json()
+
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
+    @refresh_token
+    def run_query(self, query):
+        url = "%squeries:run" % self._base_url
+        resp = requests.post(url, headers=self.header, data=json.dumps(query))
+        if not resp.ok:
+            resp.raise_for_status()
         return resp.json()
 
 
@@ -315,69 +402,3 @@ def jprint(obj):
 
 def usage():
     print("usage: ....")
-
-
-if __name__ == "__main__":  # pragma: no cover
-    nmdc = nmdcapi()
-    if len(sys.argv) < 2:
-        usage()
-    elif sys.argv[1] == "set_type":
-        obj = sys.argv[2]
-        typ = sys.argv[3]
-        nmdc.set_type(obj, typ)
-    elif sys.argv[1] == "undo":
-        for opid in sys.argv[2:]:
-            resp = nmdc.update_op(opid, done=False)
-            jprint(resp)
-    elif sys.argv[1] == "get_job":
-        obj = sys.argv[2]
-        jprint(nmdc.get_job(obj))
-    elif sys.argv[1] == "list_jobs":
-        filt = None
-        if len(sys.argv) > 2:
-            filt = sys.argv[2]
-            print(filt)
-        jprint(nmdc.list_jobs(filt=filt))
-    elif sys.argv[1] == "list_ops":
-        filt = None
-        if len(sys.argv) > 2:
-            filt = json.loads(sys.argv[2])
-        jprint(nmdc.list_ops(filt=filt))
-    elif sys.argv[1] == "list_objs":
-        filt = None
-        if len(sys.argv) > 2:
-            filt = json.loads(sys.argv[2])
-        jprint(nmdc.list_objs(filt=filt))
-    elif sys.argv[1].startswith("get_obj"):
-        obj = sys.argv[2]
-        d = nmdc.get_object(obj, decode=True)
-        jprint(d)
-    elif sys.argv[1] == "bump_time":
-        obj = sys.argv[2]
-        nmdc.bump_time(obj)
-    elif sys.argv[1].startswith("get_op"):
-        opid = sys.argv[2]
-        jprint(nmdc.get_op(opid))
-    elif sys.argv[1] == "dumpops":
-        site = sys.argv[2]
-        ops = nmdc.list_ops(filt={"metadata.site_id": site})
-        jprint(ops)
-    elif sys.argv[1] == "mint":
-        typ = sys.argv[2]
-        ct = int(sys.argv[3])
-        ids = nmdc.mint("nmdc", typ, ct)
-        jprint(ids)
-    elif sys.argv[1] == "mkobj":
-        fn = sys.argv[2]
-        desc = sys.argv[3]
-        url = sys.argv[4]
-        resp = nmdc.create_object(fn, desc, url)
-        jprint(resp)
-    elif sys.argv[1] == "dumpjobs":
-        filt = None
-        if len(sys.argv) == 4:
-            filt = {sys.argv[2]: sys.argv[3]}
-        ops = nmdc.list_jobs(filt=filt)
-        jprint(ops)
-    else:
-        usage()

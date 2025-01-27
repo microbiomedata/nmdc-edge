@@ -1,0 +1,1515 @@
+{
+    "update": "read_based_taxonomy_analysis_activity_set",
+    "updates": [
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-t0xw3k43.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-t0xw3k43.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-5vz4y795.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-5vz4y795.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-ys9j7606.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-ys9j7606.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-r96c2887.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-r96c2887.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-cpc3bw57.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-cpc3bw57.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-c3wt9z48.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-c3wt9z48.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-y9r7yf69.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-y9r7yf69.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-q7w6wk39.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-q7w6wk39.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-w689bh62.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-w689bh62.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-9v6gjw48.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-9v6gjw48.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-amk4nh49.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-amk4nh49.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-d7dv6w83.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-d7dv6w83.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-krmfef48.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-krmfef48.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-238vfn43.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-238vfn43.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-s4hfm818.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-s4hfm818.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-vm3fgh22.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-vm3fgh22.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-34djeq06.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-34djeq06.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-cq2hsx55.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-cq2hsx55.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-rkkq9798.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-rkkq9798.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-yba43363.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-yba43363.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-x2dg0v11.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-x2dg0v11.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-gef4j704.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-gef4j704.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-g9t23w61.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-g9t23w61.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-3rp4e238.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-3rp4e238.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-ccw1zd35.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-ccw1zd35.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-stz84k08.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-stz84k08.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-6b439354.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-6b439354.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-1ka7pd24.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-1ka7pd24.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-nrwr4k79.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-nrwr4k79.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-2gwxtc21.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-2gwxtc21.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-ngsz0n81.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-ngsz0n81.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-epx8m949.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-epx8m949.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-hhwvh153.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-hhwvh153.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-5gcw5k71.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-5gcw5k71.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-a19v5v56.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-a19v5v56.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-1dhaj641.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-1dhaj641.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-zwer9s74.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-zwer9s74.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-s5n8ke70.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-s5n8ke70.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-rjgvyr52.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-rjgvyr52.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-cd9y2m63.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-cd9y2m63.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-k7tctf12.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-k7tctf12.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-zx6x0k84.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-zx6x0k84.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-qjcvqv08.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-qjcvqv08.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-0227se86.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-0227se86.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-krmkys65.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-krmkys65.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-dv54hp39.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-dv54hp39.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-m0bhjt35.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-m0bhjt35.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-raanr328.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-raanr328.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-thag1807.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-thag1807.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-gg6b9z13.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-gg6b9z13.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-t7n9fh59.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-t7n9fh59.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-egtffm84.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-egtffm84.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-a9ptva73.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-a9ptva73.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-b8b4ak16.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-b8b4ak16.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-6909nf42.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-6909nf42.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-5azt1x40.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-5azt1x40.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-65496e27.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-65496e27.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-8y74s137.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-8y74s137.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-kywvy429.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-kywvy429.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-a6y95w36.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-a6y95w36.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-8skv7z45.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-8skv7z45.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-k4jd3173.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-k4jd3173.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-c0jrkb53.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-c0jrkb53.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-v4cc8y71.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-v4cc8y71.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-zhk1af31.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-zhk1af31.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-qcrw5v02.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-qcrw5v02.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-s4hjex45.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-s4hjex45.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-678j6a22.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-678j6a22.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-ac274f39.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-ac274f39.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-7av50z30.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-7av50z30.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-aeh8f610.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-aeh8f610.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-ntyk2w59.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-ntyk2w59.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-c73hxg52.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-c73hxg52.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-4gpp3r08.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-4gpp3r08.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-3d8we351.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-3d8we351.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-3yrnh009.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-3yrnh009.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-kwdysx47.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-kwdysx47.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-mrj2mg18.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-mrj2mg18.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-8pmvez63.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-8pmvez63.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-n919fm68.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-n919fm68.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-fgn19493.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-fgn19493.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-swjmkr42.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-swjmkr42.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-3n1heh08.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-3n1heh08.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-w1egjz83.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-w1egjz83.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-rhpxt041.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-rhpxt041.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-bb59v745.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-bb59v745.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-kcsrqh49.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-kcsrqh49.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-s8rtxc91.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-s8rtxc91.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-ecszmx10.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-ecszmx10.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-k2hghm11.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-k2hghm11.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-gthy8157.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-gthy8157.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-xac6zr18.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-xac6zr18.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-rh3av542.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-rh3av542.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-jfxgwy12.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-jfxgwy12.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-wwye1z89.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-wwye1z89.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-a8gwc719.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-a8gwc719.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-8t897r42.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-8t897r42.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-vdkjay93.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-vdkjay93.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-rgxw4771.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-rgxw4771.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-rjzh9y18.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-rjzh9y18.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-d2490062.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-d2490062.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-3j4t1356.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-3j4t1356.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-as8t5783.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-as8t5783.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-v5h4x469.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-v5h4x469.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-gzxjsc21.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-gzxjsc21.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-g401cy76.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-g401cy76.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-hnmfdt56.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-hnmfdt56.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-25ptjc82.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-25ptjc82.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-m3s1x993.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-m3s1x993.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-a7a15v43.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-a7a15v43.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-7m3wh273.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-7m3wh273.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-wjpxj427.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-wjpxj427.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-rf1cc810.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-rf1cc810.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-jdp97291.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-jdp97291.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-pzddg709.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-pzddg709.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-bnj8y850.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-bnj8y850.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-gs3b0355.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-gs3b0355.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-3h44mj23.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-3h44mj23.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-4ny5dk25.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-4ny5dk25.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-6p5m9k18.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-6p5m9k18.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-1qdmg175.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-1qdmg175.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-gjxsgv37.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-gjxsgv37.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-ym0vw131.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-ym0vw131.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-0cwxhq39.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-0cwxhq39.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-0zmrb623.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-0zmrb623.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-kr2bd641.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-kr2bd641.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-rk1a6j32.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-rk1a6j32.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-cj6sqm60.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-cj6sqm60.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-504xc702.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-504xc702.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-ve0gvv78.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-ve0gvv78.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-fbxp0m66.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-fbxp0m66.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-htffg359.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-htffg359.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-7v5ewt31.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-7v5ewt31.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-kvtnfz75.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-kvtnfz75.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-rngybm87.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-rngybm87.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-z04bp583.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-z04bp583.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-ktehyc68.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-ktehyc68.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-k0h3cf29.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-k0h3cf29.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-yc78tb10.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-yc78tb10.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-9xege427.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-9xege427.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-9m5m2j68.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-9m5m2j68.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-r63d8n75.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-r63d8n75.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-szfp2h88.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-szfp2h88.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-041r7855.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-041r7855.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-4np37r90.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-4np37r90.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-5ft7f628.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-5ft7f628.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-se6dxw02.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-se6dxw02.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-g1055s72.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-g1055s72.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-v89gpf24.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-v89gpf24.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-6pt18m55.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-6pt18m55.1"
+                }
+            }
+        },
+        {
+            "q": {
+                "id": "nmdc:wfrbt-11-7s4eth38.1.1"
+            },
+            "u": {
+                "$set": {
+                    "id": "nmdc:wfrbt-11-7s4eth38.1"
+                }
+            }
+        }
+    ]
+}

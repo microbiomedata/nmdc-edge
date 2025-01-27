@@ -1,0 +1,1997 @@
+[
+    {
+        "data_object_set": [
+            {
+                "description": "Filtered Reads for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/qa/nmdc_mga0ckxp56_filtered.fastq.gz",
+                "md5_checksum": "91eea91576d2f8c69988dc5970f1015d",
+                "file_size_bytes": 99021268,
+                "id": "nmdc:91eea91576d2f8c69988dc5970f1015d",
+                "name": "gold:Gp0452741_Filtered Reads",
+                "data_object_type": "Filtered Sequencing Reads"
+            },
+            {
+                "description": "Filtered Stats for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/qa/nmdc_mga0ckxp56_filterStats.txt",
+                "md5_checksum": "5fa392254468ece52e1d0c02ba23bebd",
+                "file_size_bytes": 248,
+                "id": "nmdc:5fa392254468ece52e1d0c02ba23bebd",
+                "name": "gold:Gp0452741_Filtered Stats",
+                "data_object_type": "QC Statistics"
+            },
+            {
+                "description": "Filtered Stats for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/qa/nmdc_mga07h8z62_filterStats.txt",
+                "md5_checksum": "b6bbc3b78a47190c5cae22e625475c1f",
+                "file_size_bytes": 253,
+                "id": "nmdc:b6bbc3b78a47190c5cae22e625475c1f",
+                "name": "gold:Gp0452741_Filtered Stats",
+                "data_object_type": "QC Statistics"
+            },
+            {
+                "description": "Filtered Reads for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/qa/nmdc_mga07h8z62_filtered.fastq.gz",
+                "md5_checksum": "a4c89737d1c45b6e157ab41c8deceb7a",
+                "file_size_bytes": 174485435,
+                "id": "nmdc:a4c89737d1c45b6e157ab41c8deceb7a",
+                "name": "gold:Gp0452741_Filtered Reads",
+                "data_object_type": "Filtered Sequencing Reads"
+            },
+            {
+                "description": "Filtered Reads for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/qa/nmdc_mga0s1mr70_filtered.fastq.gz",
+                "md5_checksum": "5c6a6b9b0a07d0530cc3baa4d4af2273",
+                "file_size_bytes": 106739636,
+                "id": "nmdc:5c6a6b9b0a07d0530cc3baa4d4af2273",
+                "name": "gold:Gp0452741_Filtered Reads",
+                "data_object_type": "Filtered Sequencing Reads"
+            },
+            {
+                "description": "Filtered Stats for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/qa/nmdc_mga0s1mr70_filterStats.txt",
+                "md5_checksum": "035f22c1d4caa1a96cb73bbd1bad58d0",
+                "file_size_bytes": 246,
+                "id": "nmdc:035f22c1d4caa1a96cb73bbd1bad58d0",
+                "name": "gold:Gp0452741_Filtered Stats",
+                "data_object_type": "QC Statistics"
+            },
+            {
+                "description": "Centrifuge Krona HTML report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/ReadbasedAnalysis/nmdc_mga07h8z62_centrifuge_krona.html",
+                "md5_checksum": "f583fbdab2db714cdbcc519c147ef5ee",
+                "file_size_bytes": 2198733,
+                "id": "nmdc:f583fbdab2db714cdbcc519c147ef5ee",
+                "name": "gold:Gp0452741_Centrifuge Krona HTML report",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "description": "Kraken2 TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/ReadbasedAnalysis/nmdc_mga07h8z62_kraken2_report.tsv",
+                "md5_checksum": "aa4c18278d7352e3a9415022e85e4135",
+                "file_size_bytes": 413839,
+                "id": "nmdc:aa4c18278d7352e3a9415022e85e4135",
+                "name": "gold:Gp0452741_Kraken2 TSV report",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "description": "Centrifuge TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/ReadbasedAnalysis/nmdc_mga07h8z62_centrifuge_report.tsv",
+                "md5_checksum": "ba2d9a84413ea3c59e1b18264b058ca5",
+                "file_size_bytes": 223053,
+                "id": "nmdc:ba2d9a84413ea3c59e1b18264b058ca5",
+                "name": "gold:Gp0452741_Centrifuge TSV report",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "name": "gold:Gp0452677_Gottcha2 Krona HTML report",
+                "description": "Gottcha2 Krona HTML report for gold:Gp0452677",
+                "data_object_type": "GOTTCHA2 Krona Plot",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0fbpz25/ReadbasedAnalysis/nmdc_mga0fbpz25_gottcha2_krona.html",
+                "md5_checksum": "425873a08e598b0ca2987ff7b9b5da1f",
+                "id": "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                "file_size_bytes": 226638
+            },
+            {
+                "description": "Centrifuge classification TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/ReadbasedAnalysis/nmdc_mga07h8z62_centrifuge_classification.tsv",
+                "md5_checksum": "5ed6a2408b00fa5c917689526e504db3",
+                "file_size_bytes": 191056194,
+                "id": "nmdc:5ed6a2408b00fa5c917689526e504db3",
+                "name": "gold:Gp0452741_Centrifuge classification TSV report",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "description": "Kraken classification TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/ReadbasedAnalysis/nmdc_mga07h8z62_kraken2_classification.tsv",
+                "md5_checksum": "c3403804bd25614131f1c5a372224a7f",
+                "file_size_bytes": 99517976,
+                "id": "nmdc:c3403804bd25614131f1c5a372224a7f",
+                "name": "gold:Gp0452741_Kraken classification TSV report",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "description": "Kraken2 Krona HTML report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/ReadbasedAnalysis/nmdc_mga07h8z62_kraken2_krona.html",
+                "md5_checksum": "46db5d0aca98d1ca9e69847fcb508b62",
+                "file_size_bytes": 2789268,
+                "id": "nmdc:46db5d0aca98d1ca9e69847fcb508b62",
+                "name": "gold:Gp0452741_Kraken2 Krona HTML report",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "name": "gold:Gp0452677_Gottcha2 TSV report",
+                "description": "Gottcha2 TSV report for gold:Gp0452677",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0fbpz25/ReadbasedAnalysis/nmdc_mga0fbpz25_gottcha2_report.tsv",
+                "md5_checksum": "dc2e21becda8d6b010a95897cf97ae90",
+                "id": "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                "file_size_bytes": 109
+            },
+            {
+                "description": "Gottcha2 full TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/ReadbasedAnalysis/nmdc_mga07h8z62_gottcha2_report_full.tsv",
+                "md5_checksum": "94b3f40bc85c3301306bf718465612aa",
+                "file_size_bytes": 144387,
+                "id": "nmdc:94b3f40bc85c3301306bf718465612aa",
+                "name": "gold:Gp0452741_Gottcha2 full TSV report"
+            },
+            {
+                "description": "Gottcha2 full TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/ReadbasedAnalysis/nmdc_mga0ckxp56_gottcha2_report_full.tsv",
+                "md5_checksum": "a642b12c31b33a8968853f6685e920d0",
+                "file_size_bytes": 100038,
+                "id": "nmdc:a642b12c31b33a8968853f6685e920d0",
+                "name": "gold:Gp0452741_Gottcha2 full TSV report"
+            },
+            {
+                "description": "Centrifuge TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/ReadbasedAnalysis/nmdc_mga0ckxp56_centrifuge_report.tsv",
+                "md5_checksum": "3353e8981c71acd91a26a36283b8d3df",
+                "file_size_bytes": 212503,
+                "id": "nmdc:3353e8981c71acd91a26a36283b8d3df",
+                "name": "gold:Gp0452741_Centrifuge TSV report",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "description": "Centrifuge Krona HTML report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/ReadbasedAnalysis/nmdc_mga0ckxp56_centrifuge_krona.html",
+                "md5_checksum": "0129ea142a36dc70859dc866474994b7",
+                "file_size_bytes": 2138628,
+                "id": "nmdc:0129ea142a36dc70859dc866474994b7",
+                "name": "gold:Gp0452741_Centrifuge Krona HTML report",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "description": "Centrifuge classification TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/ReadbasedAnalysis/nmdc_mga0ckxp56_centrifuge_classification.tsv",
+                "md5_checksum": "89b1684c87797aece91045e1d49a531a",
+                "file_size_bytes": 94591313,
+                "id": "nmdc:89b1684c87797aece91045e1d49a531a",
+                "name": "gold:Gp0452741_Centrifuge classification TSV report",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "description": "Kraken classification TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/ReadbasedAnalysis/nmdc_mga0ckxp56_kraken2_classification.tsv",
+                "md5_checksum": "03ece261b52fc38f8a1aa02ba4a573af",
+                "file_size_bytes": 49154872,
+                "id": "nmdc:03ece261b52fc38f8a1aa02ba4a573af",
+                "name": "gold:Gp0452741_Kraken classification TSV report",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "name": "gold:Gp0452677_Gottcha2 Krona HTML report",
+                "description": "Gottcha2 Krona HTML report for gold:Gp0452677",
+                "data_object_type": "GOTTCHA2 Krona Plot",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0fbpz25/ReadbasedAnalysis/nmdc_mga0fbpz25_gottcha2_krona.html",
+                "md5_checksum": "425873a08e598b0ca2987ff7b9b5da1f",
+                "id": "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                "file_size_bytes": 226638
+            },
+            {
+                "description": "Kraken2 Krona HTML report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/ReadbasedAnalysis/nmdc_mga0ckxp56_kraken2_krona.html",
+                "md5_checksum": "ab31d224bd54b8dfb3b23411dc98c28c",
+                "file_size_bytes": 2492623,
+                "id": "nmdc:ab31d224bd54b8dfb3b23411dc98c28c",
+                "name": "gold:Gp0452741_Kraken2 Krona HTML report",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "description": "Kraken2 TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/ReadbasedAnalysis/nmdc_mga0ckxp56_kraken2_report.tsv",
+                "md5_checksum": "2ed12bdab0f98f960be15eb8bb6170b7",
+                "file_size_bytes": 362257,
+                "id": "nmdc:2ed12bdab0f98f960be15eb8bb6170b7",
+                "name": "gold:Gp0452741_Kraken2 TSV report",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "name": "gold:Gp0452677_Gottcha2 TSV report",
+                "description": "Gottcha2 TSV report for gold:Gp0452677",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0fbpz25/ReadbasedAnalysis/nmdc_mga0fbpz25_gottcha2_report.tsv",
+                "md5_checksum": "dc2e21becda8d6b010a95897cf97ae90",
+                "id": "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                "file_size_bytes": 109
+            },
+            {
+                "description": "Kraken2 Krona HTML report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/ReadbasedAnalysis/nmdc_mga0s1mr70_kraken2_krona.html",
+                "md5_checksum": "6f8ee1a9cca364fd14fb664fc054d08a",
+                "file_size_bytes": 2496066,
+                "id": "nmdc:6f8ee1a9cca364fd14fb664fc054d08a",
+                "name": "gold:Gp0452741_Kraken2 Krona HTML report",
+                "data_object_type": "Kraken2 Krona Plot"
+            },
+            {
+                "description": "Centrifuge classification TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/ReadbasedAnalysis/nmdc_mga0s1mr70_centrifuge_classification.tsv",
+                "md5_checksum": "502b3f44de7cfa1cf784cfffef42ecb9",
+                "file_size_bytes": 104562734,
+                "id": "nmdc:502b3f44de7cfa1cf784cfffef42ecb9",
+                "name": "gold:Gp0452741_Centrifuge classification TSV report",
+                "data_object_type": "Centrifuge Taxonomic Classification"
+            },
+            {
+                "description": "Kraken2 TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/ReadbasedAnalysis/nmdc_mga0s1mr70_kraken2_report.tsv",
+                "md5_checksum": "51e6395bdc8094b6f845fbe9f912e3e9",
+                "file_size_bytes": 363166,
+                "id": "nmdc:51e6395bdc8094b6f845fbe9f912e3e9",
+                "name": "gold:Gp0452741_Kraken2 TSV report",
+                "data_object_type": "Kraken2 Classification Report"
+            },
+            {
+                "description": "Gottcha2 full TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/ReadbasedAnalysis/nmdc_mga0s1mr70_gottcha2_report_full.tsv",
+                "md5_checksum": "ab407f9ed54870cd705ba55a78013b66",
+                "file_size_bytes": 104340,
+                "id": "nmdc:ab407f9ed54870cd705ba55a78013b66",
+                "name": "gold:Gp0452741_Gottcha2 full TSV report"
+            },
+            {
+                "name": "gold:Gp0452677_Gottcha2 Krona HTML report",
+                "description": "Gottcha2 Krona HTML report for gold:Gp0452677",
+                "data_object_type": "GOTTCHA2 Krona Plot",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0fbpz25/ReadbasedAnalysis/nmdc_mga0fbpz25_gottcha2_krona.html",
+                "md5_checksum": "425873a08e598b0ca2987ff7b9b5da1f",
+                "id": "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                "file_size_bytes": 226638
+            },
+            {
+                "description": "Centrifuge Krona HTML report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/ReadbasedAnalysis/nmdc_mga0s1mr70_centrifuge_krona.html",
+                "md5_checksum": "fbb988153849cdbe866f49844054bee6",
+                "file_size_bytes": 2135635,
+                "id": "nmdc:fbb988153849cdbe866f49844054bee6",
+                "name": "gold:Gp0452741_Centrifuge Krona HTML report",
+                "data_object_type": "Centrifuge Krona Plot"
+            },
+            {
+                "description": "Kraken classification TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/ReadbasedAnalysis/nmdc_mga0s1mr70_kraken2_classification.tsv",
+                "md5_checksum": "79248ab0557ba0cd5950b3e20cf7bab8",
+                "file_size_bytes": 54308027,
+                "id": "nmdc:79248ab0557ba0cd5950b3e20cf7bab8",
+                "name": "gold:Gp0452741_Kraken classification TSV report",
+                "data_object_type": "Kraken2 Taxonomic Classification"
+            },
+            {
+                "name": "gold:Gp0452677_Gottcha2 TSV report",
+                "description": "Gottcha2 TSV report for gold:Gp0452677",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0fbpz25/ReadbasedAnalysis/nmdc_mga0fbpz25_gottcha2_report.tsv",
+                "md5_checksum": "dc2e21becda8d6b010a95897cf97ae90",
+                "id": "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                "file_size_bytes": 109
+            },
+            {
+                "description": "Centrifuge TSV report for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/ReadbasedAnalysis/nmdc_mga0s1mr70_centrifuge_report.tsv",
+                "md5_checksum": "149c6a5a3f91eff078f2f3bfcf8c4442",
+                "file_size_bytes": 211728,
+                "id": "nmdc:149c6a5a3f91eff078f2f3bfcf8c4442",
+                "name": "gold:Gp0452741_Centrifuge TSV report",
+                "data_object_type": "Centrifuge Classification Report"
+            },
+            {
+                "description": "Assembled AGP file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/assembly/nmdc_mga0ckxp56_assembly.agp",
+                "md5_checksum": "89f4b3bd8673a6c53ae17508fa074a9b",
+                "file_size_bytes": 766614,
+                "id": "nmdc:89f4b3bd8673a6c53ae17508fa074a9b",
+                "name": "gold:Gp0452741_Assembled AGP file",
+                "data_object_type": "Assembly AGP"
+            },
+            {
+                "description": "Metagenome Contig Coverage Stats for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/assembly/nmdc_mga0ckxp56_covstats.txt",
+                "md5_checksum": "fe16753c3eaf274c8817e18759844f9f",
+                "file_size_bytes": 890455,
+                "id": "nmdc:fe16753c3eaf274c8817e18759844f9f",
+                "name": "gold:Gp0452741_Metagenome Contig Coverage Stats"
+            },
+            {
+                "description": "Assembled scaffold fasta for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/assembly/nmdc_mga0ckxp56_scaffolds.fna",
+                "md5_checksum": "b29b40be303bce645ab6cccb287db43e",
+                "file_size_bytes": 5838606,
+                "id": "nmdc:b29b40be303bce645ab6cccb287db43e",
+                "name": "gold:Gp0452741_Assembled scaffold fasta",
+                "data_object_type": "Assembly Scaffolds"
+            },
+            {
+                "description": "Assembled contigs fasta for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/assembly/nmdc_mga0ckxp56_contigs.fna",
+                "md5_checksum": "ff45ce59a0a11d090374726d12306e7a",
+                "file_size_bytes": 5874978,
+                "id": "nmdc:ff45ce59a0a11d090374726d12306e7a",
+                "name": "gold:Gp0452741_Assembled contigs fasta",
+                "data_object_type": "Assembly Contigs"
+            },
+            {
+                "description": "Metagenome Alignment BAM file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/assembly/nmdc_mga0ckxp56_pairedMapped_sorted.bam",
+                "md5_checksum": "ced91dbc16753e1926126fb572e317a2",
+                "file_size_bytes": 106773734,
+                "id": "nmdc:ced91dbc16753e1926126fb572e317a2",
+                "name": "gold:Gp0452741_Metagenome Alignment BAM file",
+                "data_object_type": "Assembly Coverage BAM"
+            },
+            {
+                "description": "Metagenome Contig Coverage Stats for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/assembly/nmdc_mga0s1mr70_covstats.txt",
+                "md5_checksum": "9847afc8c1bdfc6d6b74ad41eee18d6c",
+                "file_size_bytes": 1052489,
+                "id": "nmdc:9847afc8c1bdfc6d6b74ad41eee18d6c",
+                "name": "gold:Gp0452741_Metagenome Contig Coverage Stats"
+            },
+            {
+                "description": "Metagenome Alignment BAM file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/assembly/nmdc_mga0s1mr70_pairedMapped_sorted.bam",
+                "md5_checksum": "f2fea528e8e3070e5c4952c9b8067d3b",
+                "file_size_bytes": 115403425,
+                "id": "nmdc:f2fea528e8e3070e5c4952c9b8067d3b",
+                "name": "gold:Gp0452741_Metagenome Alignment BAM file",
+                "data_object_type": "Assembly Coverage BAM"
+            },
+            {
+                "description": "Assembled contigs fasta for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/assembly/nmdc_mga0s1mr70_contigs.fna",
+                "md5_checksum": "e0ac35cd115a69573b13987b1fcd7e2b",
+                "file_size_bytes": 7099299,
+                "id": "nmdc:e0ac35cd115a69573b13987b1fcd7e2b",
+                "name": "gold:Gp0452741_Assembled contigs fasta",
+                "data_object_type": "Assembly Contigs"
+            },
+            {
+                "description": "Assembled AGP file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/assembly/nmdc_mga0s1mr70_assembly.agp",
+                "md5_checksum": "d5c108188782d9db54137f2df5cdef91",
+                "file_size_bytes": 907973,
+                "id": "nmdc:d5c108188782d9db54137f2df5cdef91",
+                "name": "gold:Gp0452741_Assembled AGP file",
+                "data_object_type": "Assembly AGP"
+            },
+            {
+                "description": "Assembled scaffold fasta for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/assembly/nmdc_mga0s1mr70_scaffolds.fna",
+                "md5_checksum": "14784826f7da9e56db9a700536cec9a6",
+                "file_size_bytes": 7056420,
+                "id": "nmdc:14784826f7da9e56db9a700536cec9a6",
+                "name": "gold:Gp0452741_Assembled scaffold fasta",
+                "data_object_type": "Assembly Scaffolds"
+            },
+            {
+                "description": "Assembled scaffold fasta for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/assembly/nmdc_mga07h8z62_scaffolds.fna",
+                "md5_checksum": "d210bb2b49832e43ad20a98f98ed19f9",
+                "file_size_bytes": 17556867,
+                "id": "nmdc:d210bb2b49832e43ad20a98f98ed19f9",
+                "name": "gold:Gp0452741_Assembled scaffold fasta",
+                "data_object_type": "Assembly Scaffolds"
+            },
+            {
+                "description": "Metagenome Alignment BAM file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/assembly/nmdc_mga07h8z62_pairedMapped_sorted.bam",
+                "md5_checksum": "f9366e2f0add02cd25156f8619ddd706",
+                "file_size_bytes": 192648292,
+                "id": "nmdc:f9366e2f0add02cd25156f8619ddd706",
+                "name": "gold:Gp0452741_Metagenome Alignment BAM file",
+                "data_object_type": "Assembly Coverage BAM"
+            },
+            {
+                "description": "Metagenome Contig Coverage Stats for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/assembly/nmdc_mga07h8z62_covstats.txt",
+                "md5_checksum": "3b3760c5385f042559b62ed702981547",
+                "file_size_bytes": 2660026,
+                "id": "nmdc:3b3760c5385f042559b62ed702981547",
+                "name": "gold:Gp0452741_Metagenome Contig Coverage Stats"
+            },
+            {
+                "description": "Assembled AGP file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/assembly/nmdc_mga07h8z62_assembly.agp",
+                "md5_checksum": "bc88b6c4d28e6b1de52c9ef5813588b7",
+                "file_size_bytes": 2308335,
+                "id": "nmdc:bc88b6c4d28e6b1de52c9ef5813588b7",
+                "name": "gold:Gp0452741_Assembled AGP file",
+                "data_object_type": "Assembly AGP"
+            },
+            {
+                "description": "Assembled contigs fasta for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/assembly/nmdc_mga07h8z62_contigs.fna",
+                "md5_checksum": "fa8014d4c57a62e270adc084a3584a5d",
+                "file_size_bytes": 17664294,
+                "id": "nmdc:fa8014d4c57a62e270adc084a3584a5d",
+                "name": "gold:Gp0452741_Assembled contigs fasta",
+                "data_object_type": "Assembly Contigs"
+            },
+            {
+                "description": "Structural annotation GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_structural_annotation.gff",
+                "md5_checksum": "6cc190c9593b353a9ff3ce0bf06bb725",
+                "file_size_bytes": 2556489,
+                "id": "nmdc:6cc190c9593b353a9ff3ce0bf06bb725",
+                "name": "gold:Gp0452741_Structural annotation GFF file",
+                "data_object_type": "Structural Annotation GFF"
+            },
+            {
+                "description": "Protein FAA for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_proteins.faa",
+                "md5_checksum": "e438379bff1af67d55684ba10e6aa85f",
+                "file_size_bytes": 4131197,
+                "id": "nmdc:e438379bff1af67d55684ba10e6aa85f",
+                "name": "gold:Gp0452741_Protein FAA",
+                "data_object_type": "Annotation Amino Acid FASTA"
+            },
+            {
+                "name": "gold:Gp0452679_metabat2 bin checkm quality assessment result",
+                "description": "metabat2 bin checkm quality assessment result for gold:Gp0452679",
+                "data_object_type": "CheckM Statistics",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0fsjy84/MAGs/nmdc_mga0fsjy84_checkm_qa.out",
+                "md5_checksum": "d41d8cd98f00b204e9800998ecf8427e",
+                "id": "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                "file_size_bytes": 0
+            },
+            {
+                "description": "RFAM misc binding GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_rfam_misc_bind_misc_feature_regulatory.gff",
+                "md5_checksum": "11bcd24500b90ead5b676a0dbab5fc16",
+                "file_size_bytes": 6256,
+                "id": "nmdc:11bcd24500b90ead5b676a0dbab5fc16",
+                "name": "gold:Gp0452741_RFAM misc binding GFF file"
+            },
+            {
+                "description": "Gene Phylogeny tsv for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_gene_phylogeny.tsv",
+                "md5_checksum": "3e0354ab017453efdfc4a1013d5a199e",
+                "file_size_bytes": 2540151,
+                "id": "nmdc:3e0354ab017453efdfc4a1013d5a199e",
+                "name": "gold:Gp0452741_Gene Phylogeny tsv"
+            },
+            {
+                "description": "RFAM rmRNA GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_rfam_ncrna_tmrna.gff",
+                "md5_checksum": "20fb4674afd94388aef880c7ce2771d1",
+                "file_size_bytes": 1637,
+                "id": "nmdc:20fb4674afd94388aef880c7ce2771d1",
+                "name": "gold:Gp0452741_RFAM rmRNA GFF file"
+            },
+            {
+                "description": "Functional annotation GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_functional_annotation.gff",
+                "md5_checksum": "f4cf86d349e8a5caf04e28d4d9aeb4d1",
+                "file_size_bytes": 4633652,
+                "id": "nmdc:f4cf86d349e8a5caf04e28d4d9aeb4d1",
+                "name": "gold:Gp0452741_Functional annotation GFF file",
+                "data_object_type": "Functional Annotation GFF"
+            },
+            {
+                "description": "Genemark GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_genemark.gff",
+                "md5_checksum": "2a33fde698cdf95863551fd2dc39a979",
+                "file_size_bytes": 3876081,
+                "id": "nmdc:2a33fde698cdf95863551fd2dc39a979",
+                "name": "gold:Gp0452741_Genemark GFF file"
+            },
+            {
+                "description": "EC TSV file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_ec.tsv",
+                "md5_checksum": "0f6e05439f285144dc9f4f5f2b66aada",
+                "file_size_bytes": 391575,
+                "id": "nmdc:0f6e05439f285144dc9f4f5f2b66aada",
+                "name": "gold:Gp0452741_EC TSV file",
+                "data_object_type": "Annotation Enzyme Commission"
+            },
+            {
+                "description": "SMART GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_smart.gff",
+                "md5_checksum": "2cb40e5e7373c77f5d16a66d9953b900",
+                "file_size_bytes": 579210,
+                "id": "nmdc:2cb40e5e7373c77f5d16a66d9953b900",
+                "name": "gold:Gp0452741_SMART GFF file"
+            },
+            {
+                "description": "SuperFam GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_supfam.gff",
+                "md5_checksum": "f76d25e60a5c318f84464d2156e3243a",
+                "file_size_bytes": 3529622,
+                "id": "nmdc:f76d25e60a5c318f84464d2156e3243a",
+                "name": "gold:Gp0452741_SuperFam GFF file"
+            },
+            {
+                "description": "TigrFam GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_tigrfam.gff",
+                "md5_checksum": "1d13ca02061dc277ec5da1d9844327a4",
+                "file_size_bytes": 235376,
+                "id": "nmdc:1d13ca02061dc277ec5da1d9844327a4",
+                "name": "gold:Gp0452741_TigrFam GFF file"
+            },
+            {
+                "description": "COG GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_cog.gff",
+                "md5_checksum": "ab1d3854037c87f8b58ba277b5bedb13",
+                "file_size_bytes": 2812626,
+                "id": "nmdc:ab1d3854037c87f8b58ba277b5bedb13",
+                "name": "gold:Gp0452741_COG GFF file"
+            },
+            {
+                "description": "Prodigal GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_prodigal.gff",
+                "md5_checksum": "158d2f6c288c42b823b32a03fdbe3c74",
+                "file_size_bytes": 5409546,
+                "id": "nmdc:158d2f6c288c42b823b32a03fdbe3c74",
+                "name": "gold:Gp0452741_Prodigal GFF file"
+            },
+            {
+                "description": "RFAM rRNA GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_rfam_rrna.gff",
+                "md5_checksum": "1bf4dcf9c2e93645f17d079b84c64f78",
+                "file_size_bytes": 11560,
+                "id": "nmdc:1bf4dcf9c2e93645f17d079b84c64f78",
+                "name": "gold:Gp0452741_RFAM rRNA GFF file"
+            },
+            {
+                "description": "PFAM GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_pfam.gff",
+                "md5_checksum": "41f6a07f063d50606051268338174dbb",
+                "file_size_bytes": 2114550,
+                "id": "nmdc:41f6a07f063d50606051268338174dbb",
+                "name": "gold:Gp0452741_PFAM GFF file"
+            },
+            {
+                "description": "Cath FunFam GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_cath_funfam.gff",
+                "md5_checksum": "cc09514977370be370f865914ae0ae32",
+                "file_size_bytes": 2574655,
+                "id": "nmdc:cc09514977370be370f865914ae0ae32",
+                "name": "gold:Gp0452741_Cath FunFam GFF file"
+            },
+            {
+                "description": "tRNA GFF File for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_trna.gff",
+                "md5_checksum": "ec032acca697d8ae039b679db0a6c7cb",
+                "file_size_bytes": 18661,
+                "id": "nmdc:ec032acca697d8ae039b679db0a6c7cb",
+                "name": "gold:Gp0452741_tRNA GFF File"
+            },
+            {
+                "description": "KO_EC GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_ko_ec.gff",
+                "md5_checksum": "4a1201e02e93e758c8220952189a5965",
+                "file_size_bytes": 1791878,
+                "id": "nmdc:4a1201e02e93e758c8220952189a5965",
+                "name": "gold:Gp0452741_KO_EC GFF file"
+            },
+            {
+                "description": "KO TSV file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_ko.tsv",
+                "md5_checksum": "604f88e67a5b09efa1d89cb793e651b4",
+                "file_size_bytes": 548835,
+                "id": "nmdc:604f88e67a5b09efa1d89cb793e651b4",
+                "name": "gold:Gp0452741_KO TSV file",
+                "data_object_type": "Annotation KEGG Orthology"
+            },
+            {
+                "description": "Product Names tsv for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0s1mr70/annotation/nmdc_mga0s1mr70_product_names.tsv",
+                "md5_checksum": "8fc2279a2e3fd2d5e3a824a3af7b6b21",
+                "file_size_bytes": 1327397,
+                "id": "nmdc:8fc2279a2e3fd2d5e3a824a3af7b6b21",
+                "name": "gold:Gp0452741_Product Names tsv"
+            },
+            {
+                "description": "CRT GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_crt.gff",
+                "md5_checksum": "0a96befe82dc3583a16db1f10c14c412",
+                "file_size_bytes": 1836,
+                "id": "nmdc:0a96befe82dc3583a16db1f10c14c412",
+                "name": "gold:Gp0452741_CRT GFF file"
+            },
+            {
+                "description": "RFAM rmRNA GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_rfam_ncrna_tmrna.gff",
+                "md5_checksum": "0a7c866558f34558a4811953f857d61d",
+                "file_size_bytes": 4314,
+                "id": "nmdc:0a7c866558f34558a4811953f857d61d",
+                "name": "gold:Gp0452741_RFAM rmRNA GFF file"
+            },
+            {
+                "description": "KO_EC GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_ko_ec.gff",
+                "md5_checksum": "0584992573148456ca4652b554bc84e9",
+                "file_size_bytes": 4500844,
+                "id": "nmdc:0584992573148456ca4652b554bc84e9",
+                "name": "gold:Gp0452741_KO_EC GFF file"
+            },
+            {
+                "description": "Functional annotation GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_functional_annotation.gff",
+                "md5_checksum": "6338d4af0c60aa751602ccc2bc49f9ff",
+                "file_size_bytes": 11536168,
+                "id": "nmdc:6338d4af0c60aa751602ccc2bc49f9ff",
+                "name": "gold:Gp0452741_Functional annotation GFF file",
+                "data_object_type": "Functional Annotation GFF"
+            },
+            {
+                "description": "KO TSV file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_ko.tsv",
+                "md5_checksum": "c37d48c67512ac5b5fc5fdccec4093ce",
+                "file_size_bytes": 1386975,
+                "id": "nmdc:c37d48c67512ac5b5fc5fdccec4093ce",
+                "name": "gold:Gp0452741_KO TSV file",
+                "data_object_type": "Annotation KEGG Orthology"
+            },
+            {
+                "description": "EC TSV file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_ec.tsv",
+                "md5_checksum": "d037376ef460a2a65a20978397e6194f",
+                "file_size_bytes": 965212,
+                "id": "nmdc:d037376ef460a2a65a20978397e6194f",
+                "name": "gold:Gp0452741_EC TSV file",
+                "data_object_type": "Annotation Enzyme Commission"
+            },
+            {
+                "description": "TigrFam GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_tigrfam.gff",
+                "md5_checksum": "5961e1cf26b45ee468d915ed160ba35b",
+                "file_size_bytes": 605359,
+                "id": "nmdc:5961e1cf26b45ee468d915ed160ba35b",
+                "name": "gold:Gp0452741_TigrFam GFF file"
+            },
+            {
+                "description": "RFAM misc binding GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_rfam_misc_bind_misc_feature_regulatory.gff",
+                "md5_checksum": "488973b15d1ebe412abe28eb3a960dbe",
+                "file_size_bytes": 14567,
+                "id": "nmdc:488973b15d1ebe412abe28eb3a960dbe",
+                "name": "gold:Gp0452741_RFAM misc binding GFF file"
+            },
+            {
+                "description": "Structural annotation GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_structural_annotation.gff",
+                "md5_checksum": "0ce9fdae0747903e08be1d91371dc120",
+                "file_size_bytes": 6386523,
+                "id": "nmdc:0ce9fdae0747903e08be1d91371dc120",
+                "name": "gold:Gp0452741_Structural annotation GFF file",
+                "data_object_type": "Structural Annotation GFF"
+            },
+            {
+                "description": "Cath FunFam GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_cath_funfam.gff",
+                "md5_checksum": "7db469baf68307ec4d66ff97dbd1de03",
+                "file_size_bytes": 6385555,
+                "id": "nmdc:7db469baf68307ec4d66ff97dbd1de03",
+                "name": "gold:Gp0452741_Cath FunFam GFF file"
+            },
+            {
+                "description": "SMART GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_smart.gff",
+                "md5_checksum": "82ae646835303b5e62a495d67f8ae5fc",
+                "file_size_bytes": 1441194,
+                "id": "nmdc:82ae646835303b5e62a495d67f8ae5fc",
+                "name": "gold:Gp0452741_SMART GFF file"
+            },
+            {
+                "description": "Prodigal GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_prodigal.gff",
+                "md5_checksum": "75c0e2aa510a00109886b2b7832f8761",
+                "file_size_bytes": 13577853,
+                "id": "nmdc:75c0e2aa510a00109886b2b7832f8761",
+                "name": "gold:Gp0452741_Prodigal GFF file"
+            },
+            {
+                "description": "RFAM rRNA GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_rfam_rrna.gff",
+                "md5_checksum": "3912a6d5624806bd44f56ceb65962cab",
+                "file_size_bytes": 30043,
+                "id": "nmdc:3912a6d5624806bd44f56ceb65962cab",
+                "name": "gold:Gp0452741_RFAM rRNA GFF file"
+            },
+            {
+                "description": "Product Names tsv for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_product_names.tsv",
+                "md5_checksum": "386a1e161689ec272d389de7046499f3",
+                "file_size_bytes": 3318873,
+                "id": "nmdc:386a1e161689ec272d389de7046499f3",
+                "name": "gold:Gp0452741_Product Names tsv"
+            },
+            {
+                "description": "COG GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_cog.gff",
+                "md5_checksum": "bd75fd68e7fa22c0e689e26f4afaab0a",
+                "file_size_bytes": 6935839,
+                "id": "nmdc:bd75fd68e7fa22c0e689e26f4afaab0a",
+                "name": "gold:Gp0452741_COG GFF file"
+            },
+            {
+                "description": "Gene Phylogeny tsv for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_gene_phylogeny.tsv",
+                "md5_checksum": "3c10467b81965a4e59136a7219595a33",
+                "file_size_bytes": 6490159,
+                "id": "nmdc:3c10467b81965a4e59136a7219595a33",
+                "name": "gold:Gp0452741_Gene Phylogeny tsv"
+            },
+            {
+                "description": "Genemark GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_genemark.gff",
+                "md5_checksum": "115c40383fb5f8e2e9b447e4745f633e",
+                "file_size_bytes": 9673687,
+                "id": "nmdc:115c40383fb5f8e2e9b447e4745f633e",
+                "name": "gold:Gp0452741_Genemark GFF file"
+            },
+            {
+                "description": "tRNA GFF File for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_trna.gff",
+                "md5_checksum": "c3ba6f293d2ba5c32ace32cf623a68d7",
+                "file_size_bytes": 47058,
+                "id": "nmdc:c3ba6f293d2ba5c32ace32cf623a68d7",
+                "name": "gold:Gp0452741_tRNA GFF File"
+            },
+            {
+                "description": "Protein FAA for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_proteins.faa",
+                "md5_checksum": "4c615c202e4dca37e322611b3c6b6639",
+                "file_size_bytes": 10222542,
+                "id": "nmdc:4c615c202e4dca37e322611b3c6b6639",
+                "name": "gold:Gp0452741_Protein FAA",
+                "data_object_type": "Annotation Amino Acid FASTA"
+            },
+            {
+                "description": "SuperFam GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_supfam.gff",
+                "md5_checksum": "cd7856dedeb80d2038e809ec41c24989",
+                "file_size_bytes": 8658383,
+                "id": "nmdc:cd7856dedeb80d2038e809ec41c24989",
+                "name": "gold:Gp0452741_SuperFam GFF file"
+            },
+            {
+                "description": "CRISPRS file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_crt.crisprs",
+                "md5_checksum": "459e57ff001f7e97d93b9f7d3b227e42",
+                "file_size_bytes": 806,
+                "id": "nmdc:459e57ff001f7e97d93b9f7d3b227e42",
+                "name": "gold:Gp0452741_CRISPRS file"
+            },
+            {
+                "description": "PFAM GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/annotation/nmdc_mga07h8z62_pfam.gff",
+                "md5_checksum": "db4183a0518a6598dd0c250b3e82c7f3",
+                "file_size_bytes": 5242582,
+                "id": "nmdc:db4183a0518a6598dd0c250b3e82c7f3",
+                "name": "gold:Gp0452741_PFAM GFF file"
+            },
+            {
+                "description": "RFAM misc binding GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_rfam_misc_bind_misc_feature_regulatory.gff",
+                "md5_checksum": "75359d7aab8d9826f56f68ee812e3ca8",
+                "file_size_bytes": 6205,
+                "id": "nmdc:75359d7aab8d9826f56f68ee812e3ca8",
+                "name": "gold:Gp0452741_RFAM misc binding GFF file"
+            },
+            {
+                "description": "Prodigal GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_prodigal.gff",
+                "md5_checksum": "151646f0a91169fac5c417307a9f7e6c",
+                "file_size_bytes": 4560994,
+                "id": "nmdc:151646f0a91169fac5c417307a9f7e6c",
+                "name": "gold:Gp0452741_Prodigal GFF file"
+            },
+            {
+                "name": "gold:Gp0452679_metabat2 bin checkm quality assessment result",
+                "description": "metabat2 bin checkm quality assessment result for gold:Gp0452679",
+                "data_object_type": "CheckM Statistics",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0fsjy84/MAGs/nmdc_mga0fsjy84_checkm_qa.out",
+                "md5_checksum": "d41d8cd98f00b204e9800998ecf8427e",
+                "id": "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                "file_size_bytes": 0
+            },
+            {
+                "description": "Gene Phylogeny tsv for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_gene_phylogeny.tsv",
+                "md5_checksum": "9f1fb6d92e354766ba4716bf07a201ee",
+                "file_size_bytes": 2131418,
+                "id": "nmdc:9f1fb6d92e354766ba4716bf07a201ee",
+                "name": "gold:Gp0452741_Gene Phylogeny tsv"
+            },
+            {
+                "description": "KO TSV file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_ko.tsv",
+                "md5_checksum": "b084582d9d4503a8f8d448114cb78280",
+                "file_size_bytes": 466695,
+                "id": "nmdc:b084582d9d4503a8f8d448114cb78280",
+                "name": "gold:Gp0452741_KO TSV file",
+                "data_object_type": "Annotation KEGG Orthology"
+            },
+            {
+                "description": "SMART GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_smart.gff",
+                "md5_checksum": "2e005783970c37e7bdbed83777c3332f",
+                "file_size_bytes": 485357,
+                "id": "nmdc:2e005783970c37e7bdbed83777c3332f",
+                "name": "gold:Gp0452741_SMART GFF file"
+            },
+            {
+                "description": "Product Names tsv for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_product_names.tsv",
+                "md5_checksum": "3db32e220c9d4bbd3ce43bcce53b3ddc",
+                "file_size_bytes": 1114607,
+                "id": "nmdc:3db32e220c9d4bbd3ce43bcce53b3ddc",
+                "name": "gold:Gp0452741_Product Names tsv"
+            },
+            {
+                "description": "tRNA GFF File for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_trna.gff",
+                "md5_checksum": "5693192cb68c5b83de81644088649605",
+                "file_size_bytes": 15474,
+                "id": "nmdc:5693192cb68c5b83de81644088649605",
+                "name": "gold:Gp0452741_tRNA GFF File"
+            },
+            {
+                "description": "Structural annotation GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_structural_annotation.gff",
+                "md5_checksum": "ece26b1e4a77c8f5ab35c2ea6580c167",
+                "file_size_bytes": 2147431,
+                "id": "nmdc:ece26b1e4a77c8f5ab35c2ea6580c167",
+                "name": "gold:Gp0452741_Structural annotation GFF file",
+                "data_object_type": "Structural Annotation GFF"
+            },
+            {
+                "description": "TigrFam GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_tigrfam.gff",
+                "md5_checksum": "61b6ed2b5e466ec90f04a0935ecf9e7c",
+                "file_size_bytes": 206606,
+                "id": "nmdc:61b6ed2b5e466ec90f04a0935ecf9e7c",
+                "name": "gold:Gp0452741_TigrFam GFF file"
+            },
+            {
+                "description": "SuperFam GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_supfam.gff",
+                "md5_checksum": "a6c329caa2a53f9ce6e3e25850d66726",
+                "file_size_bytes": 2965862,
+                "id": "nmdc:a6c329caa2a53f9ce6e3e25850d66726",
+                "name": "gold:Gp0452741_SuperFam GFF file"
+            },
+            {
+                "description": "Functional annotation GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_functional_annotation.gff",
+                "md5_checksum": "4bc120c550cce2bbe81914661985182a",
+                "file_size_bytes": 3896786,
+                "id": "nmdc:4bc120c550cce2bbe81914661985182a",
+                "name": "gold:Gp0452741_Functional annotation GFF file",
+                "data_object_type": "Functional Annotation GFF"
+            },
+            {
+                "description": "RFAM rRNA GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_rfam_rrna.gff",
+                "md5_checksum": "d2088b0b8224c0a2699b230c51135299",
+                "file_size_bytes": 12583,
+                "id": "nmdc:d2088b0b8224c0a2699b230c51135299",
+                "name": "gold:Gp0452741_RFAM rRNA GFF file"
+            },
+            {
+                "description": "KO_EC GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_ko_ec.gff",
+                "md5_checksum": "0460521b62088f801e303be05b39666a",
+                "file_size_bytes": 1519971,
+                "id": "nmdc:0460521b62088f801e303be05b39666a",
+                "name": "gold:Gp0452741_KO_EC GFF file"
+            },
+            {
+                "description": "EC TSV file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_ec.tsv",
+                "md5_checksum": "4b9181b7dd851592e213edb3395aa811",
+                "file_size_bytes": 337463,
+                "id": "nmdc:4b9181b7dd851592e213edb3395aa811",
+                "name": "gold:Gp0452741_EC TSV file",
+                "data_object_type": "Annotation Enzyme Commission"
+            },
+            {
+                "description": "COG GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_cog.gff",
+                "md5_checksum": "a4550f26c724b2cb6b3d49637da1adf7",
+                "file_size_bytes": 2335635,
+                "id": "nmdc:a4550f26c724b2cb6b3d49637da1adf7",
+                "name": "gold:Gp0452741_COG GFF file"
+            },
+            {
+                "description": "Cath FunFam GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_cath_funfam.gff",
+                "md5_checksum": "bf803d8d24b09f9f9cce04bdbbcc82ea",
+                "file_size_bytes": 2160634,
+                "id": "nmdc:bf803d8d24b09f9f9cce04bdbbcc82ea",
+                "name": "gold:Gp0452741_Cath FunFam GFF file"
+            },
+            {
+                "description": "Genemark GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_genemark.gff",
+                "md5_checksum": "fc3c1170db9f60033e7cf085c374d580",
+                "file_size_bytes": 3267398,
+                "id": "nmdc:fc3c1170db9f60033e7cf085c374d580",
+                "name": "gold:Gp0452741_Genemark GFF file"
+            },
+            {
+                "description": "PFAM GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_pfam.gff",
+                "md5_checksum": "d971b144d8b3a5576f4b2646f8edad8a",
+                "file_size_bytes": 1765915,
+                "id": "nmdc:d971b144d8b3a5576f4b2646f8edad8a",
+                "name": "gold:Gp0452741_PFAM GFF file"
+            },
+            {
+                "description": "Protein FAA for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_proteins.faa",
+                "md5_checksum": "a1a368c2e1330eaf9076859db632a4e1",
+                "file_size_bytes": 3443835,
+                "id": "nmdc:a1a368c2e1330eaf9076859db632a4e1",
+                "name": "gold:Gp0452741_Protein FAA",
+                "data_object_type": "Annotation Amino Acid FASTA"
+            },
+            {
+                "description": "RFAM rmRNA GFF file for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0ckxp56/annotation/nmdc_mga0ckxp56_rfam_ncrna_tmrna.gff",
+                "md5_checksum": "5f0132016ffabe2907b885bda0485042",
+                "file_size_bytes": 1033,
+                "id": "nmdc:5f0132016ffabe2907b885bda0485042",
+                "name": "gold:Gp0452741_RFAM rmRNA GFF file"
+            },
+            {
+                "name": "gold:Gp0452679_metabat2 bin checkm quality assessment result",
+                "description": "metabat2 bin checkm quality assessment result for gold:Gp0452679",
+                "data_object_type": "CheckM Statistics",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0fsjy84/MAGs/nmdc_mga0fsjy84_checkm_qa.out",
+                "md5_checksum": "d41d8cd98f00b204e9800998ecf8427e",
+                "id": "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                "file_size_bytes": 0
+            },
+            {
+                "description": "high-quality and medium-quality bins for gold:Gp0452741",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga07h8z62/MAGs/nmdc_mga07h8z62_hqmq_bin.zip",
+                "md5_checksum": "3a1098d4e8c08456c2ca960c5c547f3c",
+                "file_size_bytes": 182,
+                "id": "nmdc:3a1098d4e8c08456c2ca960c5c547f3c",
+                "name": "gold:Gp0452741_high-quality and medium-quality bins",
+                "data_object_type": "Metagenome Bins"
+            },
+            {
+                "name": "gold:Gp0452679_metabat2 bin checkm quality assessment result",
+                "description": "metabat2 bin checkm quality assessment result for gold:Gp0452679",
+                "data_object_type": "CheckM Statistics",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0fsjy84/MAGs/nmdc_mga0fsjy84_checkm_qa.out",
+                "md5_checksum": "d41d8cd98f00b204e9800998ecf8427e",
+                "id": "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                "file_size_bytes": 0
+            },
+            {
+                "description": "high-quality and medium-quality bins for gold:Gp0452691",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga02nm607/MAGs/nmdc_mga02nm607_hqmq_bin.zip",
+                "md5_checksum": "967df797a098888771ad3ea575eac9bf",
+                "file_size_bytes": 182,
+                "id": "nmdc:967df797a098888771ad3ea575eac9bf",
+                "name": "gold:Gp0452691_high-quality and medium-quality bins",
+                "data_object_type": "Metagenome Bins"
+            },
+            {
+                "name": "gold:Gp0452679_metabat2 bin checkm quality assessment result",
+                "description": "metabat2 bin checkm quality assessment result for gold:Gp0452679",
+                "data_object_type": "CheckM Statistics",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0fsjy84/MAGs/nmdc_mga0fsjy84_checkm_qa.out",
+                "md5_checksum": "d41d8cd98f00b204e9800998ecf8427e",
+                "id": "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                "file_size_bytes": 0
+            },
+            {
+                "description": "high-quality and medium-quality bins for gold:Gp0452639",
+                "url": "https://data.microbiomedata.org/data/nmdc:mga0k8t048/MAGs/nmdc_mga0k8t048_hqmq_bin.zip",
+                "md5_checksum": "e4b4bcf168449f645d9eb0329e6c408c",
+                "file_size_bytes": 182,
+                "id": "nmdc:e4b4bcf168449f645d9eb0329e6c408c",
+                "name": "gold:Gp0452639_high-quality and medium-quality bins",
+                "data_object_type": "Metagenome Bins"
+            }
+        ],
+        "mags_activity_set": [
+            {
+                "has_input": [
+                    "nmdc:fa8014d4c57a62e270adc084a3584a5d",
+                    "nmdc:f9366e2f0add02cd25156f8619ddd706",
+                    "nmdc:6338d4af0c60aa751602ccc2bc49f9ff"
+                ],
+                "too_short_contig_num": 34328,
+                "part_of": [
+                    "nmdc:mga07h8z62"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:3a1098d4e8c08456c2ca960c5c547f3c"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "input_contig_num": 35809,
+                "id": "nmdc:c3d8c8dbbb328f6dc9e471a9b6363902",
+                "execution_resource": "NERSC-Cori",
+                "name": "MAGs Analysis Activity for nmdc:mga07h8z62",
+                "unbinned_contig_num": 1481,
+                "started_at_time": "2022-02-16T16:32:22+00:00",
+                "type": "nmdc:MAGsAnalysisActivity",
+                "ended_at_time": "2022-04-11T18:59:41+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:fa8014d4c57a62e270adc084a3584a5d",
+                    "nmdc:f9366e2f0add02cd25156f8619ddd706",
+                    "nmdc:6338d4af0c60aa751602ccc2bc49f9ff"
+                ],
+                "too_short_contig_num": 34328,
+                "part_of": [
+                    "nmdc:mga07h8z62"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:3a1098d4e8c08456c2ca960c5c547f3c"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "input_contig_num": 35809,
+                "id": "nmdc:c3d8c8dbbb328f6dc9e471a9b6363902",
+                "execution_resource": "NERSC-Cori",
+                "name": "MAGs Analysis Activity for nmdc:mga07h8z62",
+                "unbinned_contig_num": 1481,
+                "started_at_time": "2022-02-16T16:32:22+00:00",
+                "type": "nmdc:MAGsAnalysisActivity",
+                "ended_at_time": "2022-04-11T18:59:41+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:ff45ce59a0a11d090374726d12306e7a",
+                    "nmdc:ced91dbc16753e1926126fb572e317a2",
+                    "nmdc:4bc120c550cce2bbe81914661985182a"
+                ],
+                "too_short_contig_num": 11741,
+                "part_of": [
+                    "nmdc:mga0ckxp56"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:967df797a098888771ad3ea575eac9bf"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "input_contig_num": 12124,
+                "id": "nmdc:29fdf5eeec3f230d578cc495d517a0f6",
+                "execution_resource": "NERSC-Cori",
+                "name": "MAGs Analysis Activity for nmdc:mga0ckxp56",
+                "unbinned_contig_num": 383,
+                "started_at_time": "2022-02-16T16:32:15+00:00",
+                "type": "nmdc:MAGsAnalysisActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:ff45ce59a0a11d090374726d12306e7a",
+                    "nmdc:ced91dbc16753e1926126fb572e317a2",
+                    "nmdc:4bc120c550cce2bbe81914661985182a"
+                ],
+                "too_short_contig_num": 11741,
+                "part_of": [
+                    "nmdc:mga0ckxp56"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:967df797a098888771ad3ea575eac9bf"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "input_contig_num": 12124,
+                "id": "nmdc:29fdf5eeec3f230d578cc495d517a0f6",
+                "execution_resource": "NERSC-Cori",
+                "name": "MAGs Analysis Activity for nmdc:mga0ckxp56",
+                "unbinned_contig_num": 383,
+                "started_at_time": "2022-02-16T16:32:15+00:00",
+                "type": "nmdc:MAGsAnalysisActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:e0ac35cd115a69573b13987b1fcd7e2b",
+                    "nmdc:f2fea528e8e3070e5c4952c9b8067d3b",
+                    "nmdc:f4cf86d349e8a5caf04e28d4d9aeb4d1"
+                ],
+                "too_short_contig_num": 13723,
+                "part_of": [
+                    "nmdc:mga0s1mr70"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:e4b4bcf168449f645d9eb0329e6c408c"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "input_contig_num": 14293,
+                "id": "nmdc:1849f5f6f6bd21c60071384b226ab8d2",
+                "execution_resource": "NERSC-Cori",
+                "name": "MAGs Analysis Activity for nmdc:mga0s1mr70",
+                "unbinned_contig_num": 570,
+                "started_at_time": "2022-02-16T16:32:34+00:00",
+                "type": "nmdc:MAGsAnalysisActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:e0ac35cd115a69573b13987b1fcd7e2b",
+                    "nmdc:f2fea528e8e3070e5c4952c9b8067d3b",
+                    "nmdc:f4cf86d349e8a5caf04e28d4d9aeb4d1"
+                ],
+                "too_short_contig_num": 13723,
+                "part_of": [
+                    "nmdc:mga0s1mr70"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:e4b4bcf168449f645d9eb0329e6c408c"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "input_contig_num": 14293,
+                "id": "nmdc:1849f5f6f6bd21c60071384b226ab8d2",
+                "execution_resource": "NERSC-Cori",
+                "name": "MAGs Analysis Activity for nmdc:mga0s1mr70",
+                "unbinned_contig_num": 570,
+                "started_at_time": "2022-02-16T16:32:34+00:00",
+                "type": "nmdc:MAGsAnalysisActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            }
+        ],
+        "metagenome_annotation_activity_set": [
+            {
+                "has_input": [
+                    "nmdc:e0ac35cd115a69573b13987b1fcd7e2b"
+                ],
+                "part_of": [
+                    "nmdc:mga0s1mr70"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:e438379bff1af67d55684ba10e6aa85f",
+                    "nmdc:6cc190c9593b353a9ff3ce0bf06bb725",
+                    "nmdc:f4cf86d349e8a5caf04e28d4d9aeb4d1",
+                    "nmdc:604f88e67a5b09efa1d89cb793e651b4",
+                    "nmdc:0f6e05439f285144dc9f4f5f2b66aada",
+                    "nmdc:ab1d3854037c87f8b58ba277b5bedb13",
+                    "nmdc:41f6a07f063d50606051268338174dbb",
+                    "nmdc:1d13ca02061dc277ec5da1d9844327a4",
+                    "nmdc:2cb40e5e7373c77f5d16a66d9953b900",
+                    "nmdc:f76d25e60a5c318f84464d2156e3243a",
+                    "nmdc:cc09514977370be370f865914ae0ae32",
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:2a33fde698cdf95863551fd2dc39a979",
+                    "nmdc:158d2f6c288c42b823b32a03fdbe3c74",
+                    "nmdc:ec032acca697d8ae039b679db0a6c7cb",
+                    "nmdc:11bcd24500b90ead5b676a0dbab5fc16",
+                    "nmdc:1bf4dcf9c2e93645f17d079b84c64f78",
+                    "nmdc:20fb4674afd94388aef880c7ce2771d1",
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:8fc2279a2e3fd2d5e3a824a3af7b6b21",
+                    "nmdc:3e0354ab017453efdfc4a1013d5a199e",
+                    "nmdc:4a1201e02e93e758c8220952189a5965"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "id": "nmdc:1849f5f6f6bd21c60071384b226ab8d2",
+                "execution_resource": "NERSC-Cori",
+                "name": "Annotation Activity for nmdc:mga0s1mr70",
+                "started_at_time": "2022-02-16T16:32:34+00:00",
+                "type": "nmdc:MetagenomeAnnotationActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:e0ac35cd115a69573b13987b1fcd7e2b"
+                ],
+                "part_of": [
+                    "nmdc:mga0s1mr70"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:e438379bff1af67d55684ba10e6aa85f",
+                    "nmdc:6cc190c9593b353a9ff3ce0bf06bb725",
+                    "nmdc:f4cf86d349e8a5caf04e28d4d9aeb4d1",
+                    "nmdc:604f88e67a5b09efa1d89cb793e651b4",
+                    "nmdc:0f6e05439f285144dc9f4f5f2b66aada",
+                    "nmdc:ab1d3854037c87f8b58ba277b5bedb13",
+                    "nmdc:41f6a07f063d50606051268338174dbb",
+                    "nmdc:1d13ca02061dc277ec5da1d9844327a4",
+                    "nmdc:2cb40e5e7373c77f5d16a66d9953b900",
+                    "nmdc:f76d25e60a5c318f84464d2156e3243a",
+                    "nmdc:cc09514977370be370f865914ae0ae32",
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:2a33fde698cdf95863551fd2dc39a979",
+                    "nmdc:158d2f6c288c42b823b32a03fdbe3c74",
+                    "nmdc:ec032acca697d8ae039b679db0a6c7cb",
+                    "nmdc:11bcd24500b90ead5b676a0dbab5fc16",
+                    "nmdc:1bf4dcf9c2e93645f17d079b84c64f78",
+                    "nmdc:20fb4674afd94388aef880c7ce2771d1",
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:8fc2279a2e3fd2d5e3a824a3af7b6b21",
+                    "nmdc:3e0354ab017453efdfc4a1013d5a199e",
+                    "nmdc:4a1201e02e93e758c8220952189a5965"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "id": "nmdc:1849f5f6f6bd21c60071384b226ab8d2",
+                "execution_resource": "NERSC-Cori",
+                "name": "Annotation Activity for nmdc:mga0s1mr70",
+                "started_at_time": "2022-02-16T16:32:34+00:00",
+                "type": "nmdc:MetagenomeAnnotationActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:fa8014d4c57a62e270adc084a3584a5d"
+                ],
+                "part_of": [
+                    "nmdc:mga07h8z62"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:4c615c202e4dca37e322611b3c6b6639",
+                    "nmdc:0ce9fdae0747903e08be1d91371dc120",
+                    "nmdc:6338d4af0c60aa751602ccc2bc49f9ff",
+                    "nmdc:c37d48c67512ac5b5fc5fdccec4093ce",
+                    "nmdc:d037376ef460a2a65a20978397e6194f",
+                    "nmdc:bd75fd68e7fa22c0e689e26f4afaab0a",
+                    "nmdc:db4183a0518a6598dd0c250b3e82c7f3",
+                    "nmdc:5961e1cf26b45ee468d915ed160ba35b",
+                    "nmdc:82ae646835303b5e62a495d67f8ae5fc",
+                    "nmdc:cd7856dedeb80d2038e809ec41c24989",
+                    "nmdc:7db469baf68307ec4d66ff97dbd1de03",
+                    "nmdc:0a96befe82dc3583a16db1f10c14c412",
+                    "nmdc:115c40383fb5f8e2e9b447e4745f633e",
+                    "nmdc:75c0e2aa510a00109886b2b7832f8761",
+                    "nmdc:c3ba6f293d2ba5c32ace32cf623a68d7",
+                    "nmdc:488973b15d1ebe412abe28eb3a960dbe",
+                    "nmdc:3912a6d5624806bd44f56ceb65962cab",
+                    "nmdc:0a7c866558f34558a4811953f857d61d",
+                    "nmdc:459e57ff001f7e97d93b9f7d3b227e42",
+                    "nmdc:386a1e161689ec272d389de7046499f3",
+                    "nmdc:3c10467b81965a4e59136a7219595a33",
+                    "nmdc:0584992573148456ca4652b554bc84e9"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "id": "nmdc:c3d8c8dbbb328f6dc9e471a9b6363902",
+                "execution_resource": "NERSC-Cori",
+                "name": "Annotation Activity for nmdc:mga07h8z62",
+                "started_at_time": "2022-02-16T16:32:22+00:00",
+                "type": "nmdc:MetagenomeAnnotationActivity",
+                "ended_at_time": "2022-04-11T18:59:41+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:fa8014d4c57a62e270adc084a3584a5d"
+                ],
+                "part_of": [
+                    "nmdc:mga07h8z62"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:4c615c202e4dca37e322611b3c6b6639",
+                    "nmdc:0ce9fdae0747903e08be1d91371dc120",
+                    "nmdc:6338d4af0c60aa751602ccc2bc49f9ff",
+                    "nmdc:c37d48c67512ac5b5fc5fdccec4093ce",
+                    "nmdc:d037376ef460a2a65a20978397e6194f",
+                    "nmdc:bd75fd68e7fa22c0e689e26f4afaab0a",
+                    "nmdc:db4183a0518a6598dd0c250b3e82c7f3",
+                    "nmdc:5961e1cf26b45ee468d915ed160ba35b",
+                    "nmdc:82ae646835303b5e62a495d67f8ae5fc",
+                    "nmdc:cd7856dedeb80d2038e809ec41c24989",
+                    "nmdc:7db469baf68307ec4d66ff97dbd1de03",
+                    "nmdc:0a96befe82dc3583a16db1f10c14c412",
+                    "nmdc:115c40383fb5f8e2e9b447e4745f633e",
+                    "nmdc:75c0e2aa510a00109886b2b7832f8761",
+                    "nmdc:c3ba6f293d2ba5c32ace32cf623a68d7",
+                    "nmdc:488973b15d1ebe412abe28eb3a960dbe",
+                    "nmdc:3912a6d5624806bd44f56ceb65962cab",
+                    "nmdc:0a7c866558f34558a4811953f857d61d",
+                    "nmdc:459e57ff001f7e97d93b9f7d3b227e42",
+                    "nmdc:386a1e161689ec272d389de7046499f3",
+                    "nmdc:3c10467b81965a4e59136a7219595a33",
+                    "nmdc:0584992573148456ca4652b554bc84e9"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "id": "nmdc:c3d8c8dbbb328f6dc9e471a9b6363902",
+                "execution_resource": "NERSC-Cori",
+                "name": "Annotation Activity for nmdc:mga07h8z62",
+                "started_at_time": "2022-02-16T16:32:22+00:00",
+                "type": "nmdc:MetagenomeAnnotationActivity",
+                "ended_at_time": "2022-04-11T18:59:41+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:ff45ce59a0a11d090374726d12306e7a"
+                ],
+                "part_of": [
+                    "nmdc:mga0ckxp56"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:a1a368c2e1330eaf9076859db632a4e1",
+                    "nmdc:ece26b1e4a77c8f5ab35c2ea6580c167",
+                    "nmdc:4bc120c550cce2bbe81914661985182a",
+                    "nmdc:b084582d9d4503a8f8d448114cb78280",
+                    "nmdc:4b9181b7dd851592e213edb3395aa811",
+                    "nmdc:a4550f26c724b2cb6b3d49637da1adf7",
+                    "nmdc:d971b144d8b3a5576f4b2646f8edad8a",
+                    "nmdc:61b6ed2b5e466ec90f04a0935ecf9e7c",
+                    "nmdc:2e005783970c37e7bdbed83777c3332f",
+                    "nmdc:a6c329caa2a53f9ce6e3e25850d66726",
+                    "nmdc:bf803d8d24b09f9f9cce04bdbbcc82ea",
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:fc3c1170db9f60033e7cf085c374d580",
+                    "nmdc:151646f0a91169fac5c417307a9f7e6c",
+                    "nmdc:5693192cb68c5b83de81644088649605",
+                    "nmdc:75359d7aab8d9826f56f68ee812e3ca8",
+                    "nmdc:d2088b0b8224c0a2699b230c51135299",
+                    "nmdc:5f0132016ffabe2907b885bda0485042",
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:3db32e220c9d4bbd3ce43bcce53b3ddc",
+                    "nmdc:9f1fb6d92e354766ba4716bf07a201ee",
+                    "nmdc:0460521b62088f801e303be05b39666a"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "id": "nmdc:29fdf5eeec3f230d578cc495d517a0f6",
+                "execution_resource": "NERSC-Cori",
+                "name": "Annotation Activity for nmdc:mga0ckxp56",
+                "started_at_time": "2022-02-16T16:32:15+00:00",
+                "type": "nmdc:MetagenomeAnnotationActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:ff45ce59a0a11d090374726d12306e7a"
+                ],
+                "part_of": [
+                    "nmdc:mga0ckxp56"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:a1a368c2e1330eaf9076859db632a4e1",
+                    "nmdc:ece26b1e4a77c8f5ab35c2ea6580c167",
+                    "nmdc:4bc120c550cce2bbe81914661985182a",
+                    "nmdc:b084582d9d4503a8f8d448114cb78280",
+                    "nmdc:4b9181b7dd851592e213edb3395aa811",
+                    "nmdc:a4550f26c724b2cb6b3d49637da1adf7",
+                    "nmdc:d971b144d8b3a5576f4b2646f8edad8a",
+                    "nmdc:61b6ed2b5e466ec90f04a0935ecf9e7c",
+                    "nmdc:2e005783970c37e7bdbed83777c3332f",
+                    "nmdc:a6c329caa2a53f9ce6e3e25850d66726",
+                    "nmdc:bf803d8d24b09f9f9cce04bdbbcc82ea",
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:fc3c1170db9f60033e7cf085c374d580",
+                    "nmdc:151646f0a91169fac5c417307a9f7e6c",
+                    "nmdc:5693192cb68c5b83de81644088649605",
+                    "nmdc:75359d7aab8d9826f56f68ee812e3ca8",
+                    "nmdc:d2088b0b8224c0a2699b230c51135299",
+                    "nmdc:5f0132016ffabe2907b885bda0485042",
+                    "nmdc:d41d8cd98f00b204e9800998ecf8427e",
+                    "nmdc:3db32e220c9d4bbd3ce43bcce53b3ddc",
+                    "nmdc:9f1fb6d92e354766ba4716bf07a201ee",
+                    "nmdc:0460521b62088f801e303be05b39666a"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "id": "nmdc:29fdf5eeec3f230d578cc495d517a0f6",
+                "execution_resource": "NERSC-Cori",
+                "name": "Annotation Activity for nmdc:mga0ckxp56",
+                "started_at_time": "2022-02-16T16:32:15+00:00",
+                "type": "nmdc:MetagenomeAnnotationActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            }
+        ],
+        "metagenome_assembly_set": [
+            {
+                "has_input": [
+                    "nmdc:91eea91576d2f8c69988dc5970f1015d"
+                ],
+                "part_of": [
+                    "nmdc:mga0ckxp56"
+                ],
+                "ctg_logsum": 5068.102,
+                "scaf_logsum": 5068.102,
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:ff45ce59a0a11d090374726d12306e7a",
+                    "nmdc:b29b40be303bce645ab6cccb287db43e",
+                    "nmdc:fe16753c3eaf274c8817e18759844f9f",
+                    "nmdc:89f4b3bd8673a6c53ae17508fa074a9b",
+                    "nmdc:ced91dbc16753e1926126fb572e317a2"
+                ],
+                "asm_score": 2.402,
+                "was_informed_by": "gold:Gp0452741",
+                "ctg_powsum": 524.287,
+                "scaf_max": 2767,
+                "id": "nmdc:29fdf5eeec3f230d578cc495d517a0f6",
+                "scaf_powsum": 524.287,
+                "execution_resource": "NERSC-Cori",
+                "contigs": 12124,
+                "name": "Assembly Activity for nmdc:mga0ckxp56",
+                "ctg_max": 2767,
+                "gc_std": 0.06841,
+                "gc_avg": 0.64885,
+                "contig_bp": 5473878,
+                "started_at_time": "2022-02-16T16:32:15+00:00",
+                "scaf_bp": 5473878,
+                "type": "nmdc:MetagenomeAssembly",
+                "scaffolds": 12124,
+                "ended_at_time": "2022-04-11T19:19:18+00:00",
+                "ctg_l50": 448,
+                "ctg_l90": 299,
+                "ctg_n50": 4072,
+                "ctg_n90": 10238,
+                "scaf_l50": 448,
+                "scaf_l90": 299,
+                "scaf_n50": 4072,
+                "scaf_n90": 10238
+            },
+            {
+                "has_input": [
+                    "nmdc:91eea91576d2f8c69988dc5970f1015d"
+                ],
+                "part_of": [
+                    "nmdc:mga0ckxp56"
+                ],
+                "ctg_logsum": 5068.102,
+                "scaf_logsum": 5068.102,
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:ff45ce59a0a11d090374726d12306e7a",
+                    "nmdc:b29b40be303bce645ab6cccb287db43e",
+                    "nmdc:fe16753c3eaf274c8817e18759844f9f",
+                    "nmdc:89f4b3bd8673a6c53ae17508fa074a9b",
+                    "nmdc:ced91dbc16753e1926126fb572e317a2"
+                ],
+                "asm_score": 2.402,
+                "was_informed_by": "gold:Gp0452741",
+                "ctg_powsum": 524.287,
+                "scaf_max": 2767,
+                "id": "nmdc:29fdf5eeec3f230d578cc495d517a0f6",
+                "scaf_powsum": 524.287,
+                "execution_resource": "NERSC-Cori",
+                "contigs": 12124,
+                "name": "Assembly Activity for nmdc:mga0ckxp56",
+                "ctg_max": 2767,
+                "gc_std": 0.06841,
+                "gc_avg": 0.64885,
+                "contig_bp": 5473878,
+                "started_at_time": "2022-02-16T16:32:15+00:00",
+                "scaf_bp": 5473878,
+                "type": "nmdc:MetagenomeAssembly",
+                "scaffolds": 12124,
+                "ended_at_time": "2022-04-11T19:19:18+00:00",
+                "ctg_l50": 448,
+                "ctg_l90": 299,
+                "ctg_n50": 4072,
+                "ctg_n90": 10238,
+                "scaf_l50": 448,
+                "scaf_l90": 299,
+                "scaf_n50": 4072,
+                "scaf_n90": 10238
+            },
+            {
+                "has_input": [
+                    "nmdc:5c6a6b9b0a07d0530cc3baa4d4af2273"
+                ],
+                "part_of": [
+                    "nmdc:mga0s1mr70"
+                ],
+                "ctg_logsum": 7835.17,
+                "scaf_logsum": 7835.17,
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:e0ac35cd115a69573b13987b1fcd7e2b",
+                    "nmdc:14784826f7da9e56db9a700536cec9a6",
+                    "nmdc:9847afc8c1bdfc6d6b74ad41eee18d6c",
+                    "nmdc:d5c108188782d9db54137f2df5cdef91",
+                    "nmdc:f2fea528e8e3070e5c4952c9b8067d3b"
+                ],
+                "asm_score": 2.425,
+                "was_informed_by": "gold:Gp0452741",
+                "ctg_powsum": 813.873,
+                "scaf_max": 3196,
+                "id": "nmdc:1849f5f6f6bd21c60071384b226ab8d2",
+                "scaf_powsum": 813.873,
+                "execution_resource": "NERSC-Cori",
+                "contigs": 14293,
+                "name": "Assembly Activity for nmdc:mga0s1mr70",
+                "ctg_max": 3196,
+                "gc_std": 0.06958,
+                "gc_avg": 0.65128,
+                "contig_bp": 6621660,
+                "started_at_time": "2022-02-16T16:32:34+00:00",
+                "scaf_bp": 6621660,
+                "type": "nmdc:MetagenomeAssembly",
+                "scaffolds": 14293,
+                "ended_at_time": "2022-04-11T19:19:18+00:00",
+                "ctg_l50": 462,
+                "ctg_l90": 299,
+                "ctg_n50": 4668,
+                "ctg_n90": 12022,
+                "scaf_l50": 462,
+                "scaf_l90": 299,
+                "scaf_n50": 4668,
+                "scaf_n90": 12022
+            },
+            {
+                "has_input": [
+                    "nmdc:5c6a6b9b0a07d0530cc3baa4d4af2273"
+                ],
+                "part_of": [
+                    "nmdc:mga0s1mr70"
+                ],
+                "ctg_logsum": 7835.17,
+                "scaf_logsum": 7835.17,
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:e0ac35cd115a69573b13987b1fcd7e2b",
+                    "nmdc:14784826f7da9e56db9a700536cec9a6",
+                    "nmdc:9847afc8c1bdfc6d6b74ad41eee18d6c",
+                    "nmdc:d5c108188782d9db54137f2df5cdef91",
+                    "nmdc:f2fea528e8e3070e5c4952c9b8067d3b"
+                ],
+                "asm_score": 2.425,
+                "was_informed_by": "gold:Gp0452741",
+                "ctg_powsum": 813.873,
+                "scaf_max": 3196,
+                "id": "nmdc:1849f5f6f6bd21c60071384b226ab8d2",
+                "scaf_powsum": 813.873,
+                "execution_resource": "NERSC-Cori",
+                "contigs": 14293,
+                "name": "Assembly Activity for nmdc:mga0s1mr70",
+                "ctg_max": 3196,
+                "gc_std": 0.06958,
+                "gc_avg": 0.65128,
+                "contig_bp": 6621660,
+                "started_at_time": "2022-02-16T16:32:34+00:00",
+                "scaf_bp": 6621660,
+                "type": "nmdc:MetagenomeAssembly",
+                "scaffolds": 14293,
+                "ended_at_time": "2022-04-11T19:19:18+00:00",
+                "ctg_l50": 462,
+                "ctg_l90": 299,
+                "ctg_n50": 4668,
+                "ctg_n90": 12022,
+                "scaf_l50": 462,
+                "scaf_l90": 299,
+                "scaf_n50": 4668,
+                "scaf_n90": 12022
+            },
+            {
+                "has_input": [
+                    "nmdc:a4c89737d1c45b6e157ab41c8deceb7a"
+                ],
+                "part_of": [
+                    "nmdc:mga07h8z62"
+                ],
+                "ctg_logsum": 22169,
+                "scaf_logsum": 22169,
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:fa8014d4c57a62e270adc084a3584a5d",
+                    "nmdc:d210bb2b49832e43ad20a98f98ed19f9",
+                    "nmdc:3b3760c5385f042559b62ed702981547",
+                    "nmdc:bc88b6c4d28e6b1de52c9ef5813588b7",
+                    "nmdc:f9366e2f0add02cd25156f8619ddd706"
+                ],
+                "asm_score": 2.668,
+                "was_informed_by": "gold:Gp0452741",
+                "ctg_powsum": 2329.985,
+                "scaf_max": 5711,
+                "id": "nmdc:c3d8c8dbbb328f6dc9e471a9b6363902",
+                "scaf_powsum": 2329.985,
+                "execution_resource": "NERSC-Cori",
+                "contigs": 35809,
+                "name": "Assembly Activity for nmdc:mga07h8z62",
+                "ctg_max": 5711,
+                "gc_std": 0.0764,
+                "gc_avg": 0.64508,
+                "contig_bp": 16453236,
+                "started_at_time": "2022-02-16T16:32:22+00:00",
+                "scaf_bp": 16453236,
+                "type": "nmdc:MetagenomeAssembly",
+                "scaffolds": 35809,
+                "ended_at_time": "2022-04-11T18:59:41+00:00",
+                "ctg_l50": 447,
+                "ctg_l90": 298,
+                "ctg_n50": 11586,
+                "ctg_n90": 30231,
+                "scaf_l50": 447,
+                "scaf_l90": 298,
+                "scaf_n50": 11586,
+                "scaf_n90": 30231
+            },
+            {
+                "has_input": [
+                    "nmdc:a4c89737d1c45b6e157ab41c8deceb7a"
+                ],
+                "part_of": [
+                    "nmdc:mga07h8z62"
+                ],
+                "ctg_logsum": 22169,
+                "scaf_logsum": 22169,
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:fa8014d4c57a62e270adc084a3584a5d",
+                    "nmdc:d210bb2b49832e43ad20a98f98ed19f9",
+                    "nmdc:3b3760c5385f042559b62ed702981547",
+                    "nmdc:bc88b6c4d28e6b1de52c9ef5813588b7",
+                    "nmdc:f9366e2f0add02cd25156f8619ddd706"
+                ],
+                "asm_score": 2.668,
+                "was_informed_by": "gold:Gp0452741",
+                "ctg_powsum": 2329.985,
+                "scaf_max": 5711,
+                "id": "nmdc:c3d8c8dbbb328f6dc9e471a9b6363902",
+                "scaf_powsum": 2329.985,
+                "execution_resource": "NERSC-Cori",
+                "contigs": 35809,
+                "name": "Assembly Activity for nmdc:mga07h8z62",
+                "ctg_max": 5711,
+                "gc_std": 0.0764,
+                "gc_avg": 0.64508,
+                "contig_bp": 16453236,
+                "started_at_time": "2022-02-16T16:32:22+00:00",
+                "scaf_bp": 16453236,
+                "type": "nmdc:MetagenomeAssembly",
+                "scaffolds": 35809,
+                "ended_at_time": "2022-04-11T18:59:41+00:00",
+                "ctg_l50": 447,
+                "ctg_l90": 298,
+                "ctg_n50": 11586,
+                "ctg_n90": 30231,
+                "scaf_l50": 447,
+                "scaf_l90": 298,
+                "scaf_n50": 11586,
+                "scaf_n90": 30231
+            }
+        ],
+        "omics_processing_set": [
+            {
+                "id": "nmdc:omprc-11-eapvyz51",
+                "name": "Volcanic soil microbial communities from Hawaii, Kilauea Volcano, USA - King27.Edge.1.3.0.2",
+                "has_input": [
+                    "nmdc:bsm-11-zk8a4504"
+                ],
+                "add_date": "2019-09-03T00:00:00",
+                "mod_date": "2022-04-08T00:00:00",
+                "has_output": [
+                    "nmdc:8a9d164e1310e5b838d6ceb492f64a61",
+                    "nmdc:9bd3cf378610c02776b54cc797d8c07a",
+                    "nmdc:9d5f99fba241d6bdd933ccbf405bf872"
+                ],
+                "ncbi_project_name": "Volcanic soil microbial communities from Hawaii, Kilauea Volcano, USA - King27.Edge.1.3.0.2",
+                "omics_type": {
+                    "has_raw_value": "Metagenome"
+                },
+                "part_of": [
+                    "nmdc:sty-11-547rwq94"
+                ],
+                "principal_investigator": {
+                    "has_raw_value": "Janet Jansson",
+                    "email": "janet.jansson@pnnl.gov",
+                    "name": "Janet Jansson"
+                },
+                "processing_institution": "UCSD",
+                "type": "nmdc:OmicsProcessing",
+                "gold_sequencing_project_identifiers": [
+                    "gold:Gp0452741"
+                ]
+            }
+        ],
+        "read_qc_analysis_activity_set": [
+            {
+                "has_input": [
+                    "nmdc:9bd3cf378610c02776b54cc797d8c07a"
+                ],
+                "part_of": [
+                    "nmdc:mga0ckxp56"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:91eea91576d2f8c69988dc5970f1015d",
+                    "nmdc:5fa392254468ece52e1d0c02ba23bebd"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "input_read_count": 1494832,
+                "output_read_bases": 219765764,
+                "id": "nmdc:29fdf5eeec3f230d578cc495d517a0f6",
+                "execution_resource": "NERSC-Cori",
+                "input_read_bases": 222070816,
+                "name": "Read QC Activity for nmdc:mga0ckxp56",
+                "output_read_count": 1494760,
+                "started_at_time": "2022-02-16T16:32:15+00:00",
+                "type": "nmdc:ReadQCAnalysisActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:9bd3cf378610c02776b54cc797d8c07a"
+                ],
+                "part_of": [
+                    "nmdc:mga0ckxp56"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:91eea91576d2f8c69988dc5970f1015d",
+                    "nmdc:5fa392254468ece52e1d0c02ba23bebd"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "input_read_count": 1494832,
+                "output_read_bases": 219765764,
+                "id": "nmdc:29fdf5eeec3f230d578cc495d517a0f6",
+                "execution_resource": "NERSC-Cori",
+                "input_read_bases": 222070816,
+                "name": "Read QC Activity for nmdc:mga0ckxp56",
+                "output_read_count": 1494760,
+                "started_at_time": "2022-02-16T16:32:15+00:00",
+                "type": "nmdc:ReadQCAnalysisActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:8a9d164e1310e5b838d6ceb492f64a61"
+                ],
+                "part_of": [
+                    "nmdc:mga07h8z62"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:a4c89737d1c45b6e157ab41c8deceb7a",
+                    "nmdc:b6bbc3b78a47190c5cae22e625475c1f"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "input_read_count": 2993496,
+                "output_read_bases": 444757892,
+                "id": "nmdc:c3d8c8dbbb328f6dc9e471a9b6363902",
+                "execution_resource": "NERSC-Cori",
+                "input_read_bases": 448339574,
+                "name": "Read QC Activity for nmdc:mga07h8z62",
+                "output_read_count": 2993146,
+                "started_at_time": "2022-02-16T16:32:22+00:00",
+                "type": "nmdc:ReadQCAnalysisActivity",
+                "ended_at_time": "2022-04-11T18:59:41+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:8a9d164e1310e5b838d6ceb492f64a61"
+                ],
+                "part_of": [
+                    "nmdc:mga07h8z62"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:a4c89737d1c45b6e157ab41c8deceb7a",
+                    "nmdc:b6bbc3b78a47190c5cae22e625475c1f"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "input_read_count": 2993496,
+                "output_read_bases": 444757892,
+                "id": "nmdc:c3d8c8dbbb328f6dc9e471a9b6363902",
+                "execution_resource": "NERSC-Cori",
+                "input_read_bases": 448339574,
+                "name": "Read QC Activity for nmdc:mga07h8z62",
+                "output_read_count": 2993146,
+                "started_at_time": "2022-02-16T16:32:22+00:00",
+                "type": "nmdc:ReadQCAnalysisActivity",
+                "ended_at_time": "2022-04-11T18:59:41+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:9d5f99fba241d6bdd933ccbf405bf872"
+                ],
+                "part_of": [
+                    "nmdc:mga0s1mr70"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:5c6a6b9b0a07d0530cc3baa4d4af2273",
+                    "nmdc:035f22c1d4caa1a96cb73bbd1bad58d0"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "input_read_count": 1648800,
+                "output_read_bases": 242504146,
+                "id": "nmdc:1849f5f6f6bd21c60071384b226ab8d2",
+                "execution_resource": "NERSC-Cori",
+                "input_read_bases": 245037912,
+                "name": "Read QC Activity for nmdc:mga0s1mr70",
+                "output_read_count": 1648720,
+                "started_at_time": "2022-02-16T16:32:34+00:00",
+                "type": "nmdc:ReadQCAnalysisActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:9d5f99fba241d6bdd933ccbf405bf872"
+                ],
+                "part_of": [
+                    "nmdc:mga0s1mr70"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:5c6a6b9b0a07d0530cc3baa4d4af2273",
+                    "nmdc:035f22c1d4caa1a96cb73bbd1bad58d0"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "input_read_count": 1648800,
+                "output_read_bases": 242504146,
+                "id": "nmdc:1849f5f6f6bd21c60071384b226ab8d2",
+                "execution_resource": "NERSC-Cori",
+                "input_read_bases": 245037912,
+                "name": "Read QC Activity for nmdc:mga0s1mr70",
+                "output_read_count": 1648720,
+                "started_at_time": "2022-02-16T16:32:34+00:00",
+                "type": "nmdc:ReadQCAnalysisActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            }
+        ],
+        "read_based_taxonomy_analysis_activity_set": [
+            {
+                "has_input": [
+                    "nmdc:a4c89737d1c45b6e157ab41c8deceb7a"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:94b3f40bc85c3301306bf718465612aa",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:5ed6a2408b00fa5c917689526e504db3",
+                    "nmdc:ba2d9a84413ea3c59e1b18264b058ca5",
+                    "nmdc:f583fbdab2db714cdbcc519c147ef5ee",
+                    "nmdc:c3403804bd25614131f1c5a372224a7f",
+                    "nmdc:aa4c18278d7352e3a9415022e85e4135",
+                    "nmdc:46db5d0aca98d1ca9e69847fcb508b62"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "id": "nmdc:c3d8c8dbbb328f6dc9e471a9b6363902",
+                "execution_resource": "NERSC-Cori",
+                "name": "ReadBased Analysis Activity for nmdc:mga07h8z62",
+                "started_at_time": "2022-02-16T16:32:22+00:00",
+                "type": "nmdc:ReadBasedAnalysisActivity",
+                "ended_at_time": "2022-04-11T18:59:41+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:a4c89737d1c45b6e157ab41c8deceb7a"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:94b3f40bc85c3301306bf718465612aa",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:5ed6a2408b00fa5c917689526e504db3",
+                    "nmdc:ba2d9a84413ea3c59e1b18264b058ca5",
+                    "nmdc:f583fbdab2db714cdbcc519c147ef5ee",
+                    "nmdc:c3403804bd25614131f1c5a372224a7f",
+                    "nmdc:aa4c18278d7352e3a9415022e85e4135",
+                    "nmdc:46db5d0aca98d1ca9e69847fcb508b62"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "id": "nmdc:c3d8c8dbbb328f6dc9e471a9b6363902",
+                "execution_resource": "NERSC-Cori",
+                "name": "ReadBased Analysis Activity for nmdc:mga07h8z62",
+                "started_at_time": "2022-02-16T16:32:22+00:00",
+                "type": "nmdc:ReadBasedAnalysisActivity",
+                "ended_at_time": "2022-04-11T18:59:41+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:91eea91576d2f8c69988dc5970f1015d"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:a642b12c31b33a8968853f6685e920d0",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:89b1684c87797aece91045e1d49a531a",
+                    "nmdc:3353e8981c71acd91a26a36283b8d3df",
+                    "nmdc:0129ea142a36dc70859dc866474994b7",
+                    "nmdc:03ece261b52fc38f8a1aa02ba4a573af",
+                    "nmdc:2ed12bdab0f98f960be15eb8bb6170b7",
+                    "nmdc:ab31d224bd54b8dfb3b23411dc98c28c"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "id": "nmdc:29fdf5eeec3f230d578cc495d517a0f6",
+                "execution_resource": "NERSC-Cori",
+                "name": "ReadBased Analysis Activity for nmdc:mga0ckxp56",
+                "started_at_time": "2022-02-16T16:32:15+00:00",
+                "type": "nmdc:ReadBasedAnalysisActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:91eea91576d2f8c69988dc5970f1015d"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:a642b12c31b33a8968853f6685e920d0",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:89b1684c87797aece91045e1d49a531a",
+                    "nmdc:3353e8981c71acd91a26a36283b8d3df",
+                    "nmdc:0129ea142a36dc70859dc866474994b7",
+                    "nmdc:03ece261b52fc38f8a1aa02ba4a573af",
+                    "nmdc:2ed12bdab0f98f960be15eb8bb6170b7",
+                    "nmdc:ab31d224bd54b8dfb3b23411dc98c28c"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "id": "nmdc:29fdf5eeec3f230d578cc495d517a0f6",
+                "execution_resource": "NERSC-Cori",
+                "name": "ReadBased Analysis Activity for nmdc:mga0ckxp56",
+                "started_at_time": "2022-02-16T16:32:15+00:00",
+                "type": "nmdc:ReadBasedAnalysisActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:5c6a6b9b0a07d0530cc3baa4d4af2273"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:ab407f9ed54870cd705ba55a78013b66",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:502b3f44de7cfa1cf784cfffef42ecb9",
+                    "nmdc:149c6a5a3f91eff078f2f3bfcf8c4442",
+                    "nmdc:fbb988153849cdbe866f49844054bee6",
+                    "nmdc:79248ab0557ba0cd5950b3e20cf7bab8",
+                    "nmdc:51e6395bdc8094b6f845fbe9f912e3e9",
+                    "nmdc:6f8ee1a9cca364fd14fb664fc054d08a"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "id": "nmdc:1849f5f6f6bd21c60071384b226ab8d2",
+                "execution_resource": "NERSC-Cori",
+                "name": "ReadBased Analysis Activity for nmdc:mga0s1mr70",
+                "started_at_time": "2022-02-16T16:32:34+00:00",
+                "type": "nmdc:ReadBasedAnalysisActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            },
+            {
+                "has_input": [
+                    "nmdc:5c6a6b9b0a07d0530cc3baa4d4af2273"
+                ],
+                "git_url": "https://github.com/microbiomedata/mg_annotation/releases/tag/0.1",
+                "has_output": [
+                    "nmdc:dc2e21becda8d6b010a95897cf97ae90",
+                    "nmdc:ab407f9ed54870cd705ba55a78013b66",
+                    "nmdc:425873a08e598b0ca2987ff7b9b5da1f",
+                    "nmdc:502b3f44de7cfa1cf784cfffef42ecb9",
+                    "nmdc:149c6a5a3f91eff078f2f3bfcf8c4442",
+                    "nmdc:fbb988153849cdbe866f49844054bee6",
+                    "nmdc:79248ab0557ba0cd5950b3e20cf7bab8",
+                    "nmdc:51e6395bdc8094b6f845fbe9f912e3e9",
+                    "nmdc:6f8ee1a9cca364fd14fb664fc054d08a"
+                ],
+                "was_informed_by": "gold:Gp0452741",
+                "id": "nmdc:1849f5f6f6bd21c60071384b226ab8d2",
+                "execution_resource": "NERSC-Cori",
+                "name": "ReadBased Analysis Activity for nmdc:mga0s1mr70",
+                "started_at_time": "2022-02-16T16:32:34+00:00",
+                "type": "nmdc:ReadBasedAnalysisActivity",
+                "ended_at_time": "2022-04-11T19:19:18+00:00"
+            }
+        ]
+    }
+]

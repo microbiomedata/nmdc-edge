@@ -1,0 +1,21 @@
+{
+      "id": "nmdc:wfmag-20-abcd1234.1",
+      "type": "nmdc:MagsAnalysis",
+      "name": "Metagenome Assembled Genomes Analysis for nmdc:wfmags-20-abcd1234.1",
+      "has_input": [
+        "nmdc:dobj-13-abcd1234",
+        "nmdc:dobj-14-abcd1234",
+        "nmdc:dobj-15-abcd1234",
+        "nmdc:dobj-19-abcd1234"
+      ],
+        "has_output": [
+            "nmdc:dobj-21-abcd1234"
+        ],
+      "execution_resource": "JGI",
+      "git_url": "https://github.com/microbiomedata/metaMAGs",
+      "started_at_time": "2024-10-18T15:36:17.490112+00:00",
+      "was_informed_by": "nmdc:omprc-11-importT",
+      "ended_at_time": "2024-10-18T15:36:17.490117+00:00",
+      "version": "v1.0.6"
+    }
+

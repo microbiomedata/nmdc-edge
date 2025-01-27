@@ -3,6 +3,7 @@ from typing import Union, List
 import logging
 import hashlib
 import os
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
@@ -10,9 +11,9 @@ logger = logging.getLogger(__name__)
 def object_action(
     file_s: Union[str, List[str]],
     action: str,
-    activity_id: str,
+    workflow_execution_id: str,
     nmdc_suffix: str,
-    activity_dir: str = None,
+    workflow_execution_dir: Union[str, Path] = None,
     multiple: bool = False,
 ) -> str:
     """
@@ -21,9 +22,9 @@ def object_action(
     Args:
         file_s (Union[str, List[str]]): The object or list of objects to perform the action on.
         action (str): The action to perform. Possible values are 'none', 'rename', or 'zip'.
-        activity_id (str): The activity ID associated with the object.
+        workflow_execution_id (str): The workflow execution subclass ID associated with the object.
         nmdc_suffix (str): The NMDC suffix.
-        activity_dir (str, optional): The directory where the activity is located. Defaults to None.
+        workflow_execution_dir (str or Path, optional): The directory where the workflow execution subclass is located. Defaults to None.
         multiple (bool, optional): Indicates if multiple files are involved. Defaults to False.
 
     Returns:
@@ -34,12 +35,12 @@ def object_action(
     if action == "none":
         return get_basename(file_s)
     elif action == "rename":
-        return rename(activity_id, nmdc_suffix)
+        return rename(workflow_execution_id, nmdc_suffix)
     elif action == "zip":
         if multiple:
             zip_names = []
             for file in file_s:
-                zip_name = zip_file(activity_id, nmdc_suffix, file, activity_dir)
+                zip_name = zip_file(workflow_execution_id, nmdc_suffix, file, workflow_execution_dir)
                 zip_names.append(zip_name)
             return zip_names[0]
         else:
@@ -62,30 +63,30 @@ def get_basename(file: str) -> str:
     return os.path.basename(file)
 
 
-def rename(activity_id: str, nmdc_suffix: str) -> str:
+def rename(workflow_execution_id: str, nmdc_suffix: str) -> str:
     """
-    Renames file to target nmdc target activity name
+    Renames file to target nmdc target workflow execution name
 
     Args:
-        activity_id (str): activity id for corresponding data object
+        workflow_execution_id (str): workflow execution id for corresponding data object
         nmdc_suffix (str): expected target suffix
 
     Returns:
         str: nmdc file name
     """
 
-    activity_file_id = activity_id.replace(":", "_")
+    workflow_execution_file_id = workflow_execution_id.replace(":", "_")
 
-    nmdc_file_name = activity_file_id + nmdc_suffix
+    nmdc_file_name = workflow_execution_file_id + nmdc_suffix
 
     return nmdc_file_name
 
 
-def zip_file(activity_id: str, nmdc_suffix: str, file: str, project_dir: str):
+def zip_file(workflow_execution_id: str, nmdc_suffix: str, file: str, project_dir: str):
     """Add files of type Multiples to a zip file and represent as one data object
 
     Args:
-        activity_id (str): The activity ID associated with the object.
+        workflow_execution_id (str): The activity ID associated with the object.
         nmdc_suffix (str): The NMDC suffix.
         file (str): The file associated with objects of type Multiples.
         project_dir (str, optional): The directory where the activity is located.
@@ -95,14 +96,12 @@ def zip_file(activity_id: str, nmdc_suffix: str, file: str, project_dir: str):
 
     """
 
-    zip_file_name = rename(activity_id, nmdc_suffix)
+    zip_file_name = rename(workflow_execution_id, nmdc_suffix)
 
     if not os.path.exists(os.path.join(project_dir, zip_file_name)):
-
         if not os.path.exists(project_dir):
             os.makedirs(project_dir)
-        with ZipFile(os.path.join(project_dir, zip_file_name), mode='w') as zipped_file:
-
+        with ZipFile(os.path.join(project_dir, zip_file_name), mode="w") as zipped_file:
             zipped_file.write(file)
     else:
         with ZipFile(os.path.join(project_dir, zip_file_name), mode="a") as zipped_file:
@@ -131,7 +130,9 @@ def file_link(
     """
 
     if type(import_file) == list:
-        logging.info("Object has already been linked in objection specific import action")
+        logging.info(
+            "Object has already been linked in objection specific import action"
+        )
         return os.path.join(destination_dir, updated_file)
 
     elif type(import_file) == str:
@@ -144,7 +145,7 @@ def file_link(
         linked_path = os.path.join(destination_dir, updated_file)
 
         try:
-            os.link(original_path, linked_path)
+            os.link(import_file, linked_path)
         except FileExistsError:
             logger.info(f"{linked_path} already exists")
 
@@ -172,3 +173,20 @@ def get_md5(fn: str) -> str:
             f.write(md5)
             f.write("\n")
     return md5
+
+
+def filter_import_by_type(workflow_data: dict, nmdc_type: str) -> dict:
+    """
+    Filter workflows and check if they should be imported
+
+    Args:
+        workflow_data (dict): Workflows
+        nmdc_type (str): nmdc:xxxxxWorkflowExecution
+
+    Returns:
+        dict: Filtered workflows
+    """
+
+    for workflow in workflow_data:
+        if workflow["Type"] == nmdc_type:
+            return workflow["Import"]
