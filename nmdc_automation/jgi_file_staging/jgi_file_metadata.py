@@ -162,10 +162,7 @@ def get_files_and_agg_ids(sequencing_id: str, ACCESS_TOKEN: str) -> (List[dict],
     # Given a JGI sequencing ID, get the list of files and agg_ids associated with the biosample
     logging.debug(f"sequencing_id {sequencing_id}")
     seqid_url = f"https://files.jgi.doe.gov/search/?q={sequencing_id}&f=project_id&a=false&h=false&d=asc&p=1&x=10&api_version=2"
-    headers = {'X-CSRFToken': f'Token {ACCESS_TOKEN}', "accept": ACCEPT}
-    seqid_response = requests.get(seqid_url, headers=headers)
-    sys.exit(f"{seqid_response.text}") if seqid_response.status_code != 200 else None
-    files_data = seqid_response.json()
+    files_data = get_request(seqid_url, ACCESS_TOKEN)
     files_data_list = []
     agg_id_list = []
     if 'organisms' in files_data.keys():
@@ -313,7 +310,7 @@ def verify_downloads(config_file: str, project_name: str) -> bool:
     download_gold_df = pd.merge(project_files_df, gold_analysis_files_df, right_on='file_name',
                                 left_on='downloaded_files')
     download_gold_df.to_csv('download_gold_df.csv', index=False)
-    gold_analysis_files_df.to_csv('gold_analysis_files_df.csv', index=False)
+    files_df.to_csv('files_df.csv', index=False)
     return len(download_gold_df) == len(gold_analysis_files_df)
 
 
