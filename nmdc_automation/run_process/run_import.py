@@ -46,7 +46,6 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
     logger.info(f"Site Configuration:  from {site_configuration}")
 
     runtime_api = NmdcRuntimeApi(site_configuration)
-    nmdc_materialized = _get_nmdc_materialized()
 
 
     data_imports = _parse_tsv(import_file)
@@ -242,9 +241,15 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                 logger.info(f"Updating Database")
                 resp = runtime_api.post_objects(import_db)
                 logger.info(f"workflows/workflow_executions response: {resp}")
+
+                logger.info(f"Applying update queries")
+                resp = runtime_api.run_query(data_generation_update_query)
+                logger.info(f"queries:run response: {resp}")
             else:
                 logger.info(f"Option --update-db not selected. No changes made")
                 print(db_update_json)
+
+                print(json.dumps(data_generation_update_query, indent=4))
         else:
             logger.info(f"Validation failed")
             logger.info(f"Validation result: {val_result}")
