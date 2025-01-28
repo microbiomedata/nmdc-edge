@@ -58,6 +58,7 @@ Workflow Definitions
 
 ## Instructions (for NERSC / Perlmutter environment)
 
+
 ### Running the Scheduler
 
 The Scheduler is a Dockerized application running on [Rancher](https://rancher2.spin.nersc.gov). 
@@ -82,75 +83,49 @@ To initialize the Scheduler for new DataGeneration IDs, the following steps:
 
 ### Running the Watcher
 
-The watcher is a python application which runs on a login node on Perlmutter
+The watcher is a python application which runs on a login node on Perlmutter. 
+The following instructions all assume the user is logged in as user `nmdcda@perlmutter.nersc.gov`
+
+Watcher code and config files can be found 
+- `/global/homes/n/nmdcda/nmdc_automation/prod`
+- `/global/homes/n/nmdcda/nmdc_automation/dev`
+
+#### Set-Up and Configuration
+
+1. Ensure you have the latest `nmdc_automation` code.
+   1. `cd nmdc_automation`
+   2. `git status` / `git switch main` if not on main branch
+   3. `git fetch origin`
+   4. `git pull`
+2. Start initial virtual environment
+   1. in the nmdc_automation dir: `source .venv/bin/activate`
+   2. if .venv does not exist: `virtualenv .venv`
+3. Install the nmdc_automation project with `poetry install`
+4. `poetry shell` to use the environment
+
+#### Running the Watcher
+
+1. change to the working `prod` or `dir` directory
+2. `export NMDC_LOG_LEVEL=INFO`
+3. `rm nohup.out`
+4. `nohup ./run.sh &` OR `nohup ./run_prod.sh &`
+
+#### Provision Workers
+
+1. `sbatch ~/workers_perlmutter.sl`
+
+#### Monitoring the Watcher
+
+1. The watcher writes a file `host-prod.last` showing which node it is running on
+2. ssh to that node
+3. Search for the Watcher process `ps aux | grep watcher`
+
+#### Monitoring Jobs
+
+- `sqs` Shows the Slurm queue
+- `cq running` Shows which jobs are being run by Condor
 
 
-
-
-
-
-## Install Dependencies
-To install the environment using poetry, there are a few steps to take. 
-If Poetry is no installed, run:
-`pip install poetry`
-
-Once poetry is installed, you can run:
-`poetry install` 
-
-To use the environment, you can shell into the env:
-`poetry shell`
-
-
-## Implementation
-This package is meant to be used on NMDC approvied compute instances with directories that can be accessed via https and are linked to the microbiomedata.org/data endpoint.
-
-The main python drivers can be found in the `nmdc_automation/run_process directory` that contians two processes that require configurations to be supplied. 
- 
-#### Run NMDC Workflows with corresponding omics processing records
-~~`nmdc_automation/run_process/run_worklfows.py` will automate job claims, job processing, and analysis record and data object submission via the nmdc runtime-api.~~
-~~To submit a process that will spawn a daemon that will claim, process, and submit all jobs that have not been claimed, `cd` in to `nmdc_automation/run_process`
-and run `python run_workflows.py watcher --config ../../configs/site_configuration_nersc.toml daemon`, this will watch for omics processing records that have not been claimed and processed.~~
-
-```text
-Setting up Watcher/Runner on Perlmutter:
-1. Environment
-    a. Ensure the watcher will not be affected when you terminal session closes 
-        1. using screen: ~/bin/screen.sh prod
-        2. using tmux:
-        3. run watcher using nohup
-2. Watcher locations on Perlmutter
-    a. Production Instance:  /global/homes/n/nmdcda/nmdc_automation/prod
-    b. Development Instance: /global/homes/n/nmdcda/nmdc_automation/dev
-3. Updating and Running Watcher
-    a. Automation code is in `nmdc_automation` under git version control - example pulling latest main:
-    
-    b. Initial running environment:
-        1. In the nmdc_automation dir:
-        source .venv/bin/activate
-        poetry update
-        poetry install
-        poetry shell
-        
-    c. Invoke the Watcher:
-        1. in /global/homes/n/nmdcda/nmdc_automation/ dev or prod:
-        export NMDC_LOG_LEVEL=INFO    # The default is DEBUG and is very verbose
-        nohup ./run.sh & or nohup ./run_prod.sh &
-4. start up workers, sbatch ~/workers_perlmutter.sl
-    a. sbatch -N 5 -q regular ./workers_perlmutter.sl
-    b. salloc -N 1 -C cpu -q interactive -t 4:00:00
-5. Cq running -> to see what jobs are still running
-6. Cq meta <string> ->status of string job
-7. Monitoring the Watcher:
-    a. The Watcher runs on a login node of Perlmutter - the file host-prod.last indicates which node the watcher is running on
-    b. ssh to that node and search for the watcher:  ps aux | grep watcher
-
-Setting up Scheduler on Rancher:
-1. cd /conf
-2. /allow.lst is where the allow list is
-3. /conf/fetch_latest_workflow_yaml.sh - fetches latest workflow from repo
-4. /conf/run.sh in order to reprocess workflows.yaml
-5. 'ps aux' to see what the scheduler is currently running
-```
 
 #### Run Workflow import for data processed by non NMDC workflows
 `nmdc_automation/run_process/run_workflows.py` is designed to take in data files avilable on disk, transform them into NMDC analysis records, and submit them back to the central data store via runtime-api. This process includes minting identifers for workflow execution subclasses and data objects. Currently this process is only suitable for data processed at JGI, but with collaboration, data from other processing centers could be transformed and ingested into NMDC. 
