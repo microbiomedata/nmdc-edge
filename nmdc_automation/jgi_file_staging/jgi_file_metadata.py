@@ -11,8 +11,8 @@ import argparse
 from pathlib import Path
 from itertools import chain
 
-from mongo import get_mongo_db
-from models import Sample, SequencingProject
+from nmdc_automation.jgi_file_staging.mongo import get_mongo_db
+from nmdc_automation.jgi_file_staging.models import Sample, SequencingProject
 from typing import List
 from pydantic import ValidationError
 
@@ -36,7 +36,7 @@ ACCEPT = "application/json"
 def get_request(url: str, ACCESS_TOKEN: str, delay=1.0) -> dict:
     headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
     time.sleep(delay)
-    response = requests.get(url, headers=headers, verify=eval(os.environ.get('VERIFY')))
+    response = requests.get(url, headers=headers)
     if response.status_code == 200:
         return response.json()
     else:
@@ -85,7 +85,7 @@ def get_analysis_files_df(proposal_id: int, files_df: pd.DataFrame, ACCESS_TOKEN
 
 def get_access_token() -> str:
     url = f'https://gold-ws.jgi.doe.gov/exchange?offlineToken={os.environ.get("OFFLINE_TOKEN")}'
-    response = requests.get(url, verify=eval(os.getenv('VERIFY')))
+    response = requests.get(url)
     sys.exit(f"get_access_token: {response.text}") if response.status_code != 200 else None
 
     return response.text
@@ -146,15 +146,18 @@ def get_sequence_id(gold_id: str, ACCESS_TOKEN: str, delay: float) -> str:
     if gold_biosample_response:
         return gold_biosample_response[0]['itsSpid']
     else:
-        logging.debug(f"gold_biosample_response: {gold_biosample_response.text}")
+        # logging.debug(f"gold_biosample_response: {gold_biosample_response.text}")
         return None
 
 
 def get_analysis_projects_from_proposal_id(proposal_id: int, ACCESS_TOKEN: str) -> List[dict]:
     gold_analysis_url = f'https://gold-ws.jgi.doe.gov/api/v1/analysis_projects?itsProposalId={proposal_id}'
     gold_analysis_data = get_request(gold_analysis_url, ACCESS_TOKEN)
-    ap_type_gold_analysis_data = [proj for proj in gold_analysis_data if
+    if gold_analysis_data:
+        ap_type_gold_analysis_data = [proj for proj in gold_analysis_data if
                                   proj['apType'] in ["Metagenome Analysis", "Metatranscriptome Analysis"]]
+    else:
+        ap_type_gold_analysis_data = []
     return ap_type_gold_analysis_data
 
 

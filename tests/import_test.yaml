@@ -163,7 +163,7 @@ Data Objects:
       nmdc_suffix: .fastq.gz
       input_to: [nmdc:ReadQcAnalysis]
       output_of: nmdc:NucleotideSequencing
-      mulitple: false
+      multiple: false
       action: none
     - data_object_type: CheckM Statistics
       description: CheckM for {id}
@@ -172,7 +172,7 @@ Data Objects:
       nmdc_suffix: _checkm_qa.out
       input_to: []
       output_of:  nmdc:MagsAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: GTDBTK Bacterial Summary
       description: Bacterial Summary for {id}
@@ -181,7 +181,7 @@ Data Objects:
       nmdc_suffix: _gtdbtk.bac122.summary.tsv
       input_to: []
       output_of:  nmdc:MagsAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: GTDBTK Archaeal Summary
       description: Archaeal Summary for {id}
@@ -190,7 +190,7 @@ Data Objects:
       nmdc_suffix: _gtdbtk.ar122.summary.tsv
       input_to: []
       output_of:  nmdc:MagsAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Annotation Amino Acid FASTA
       description: FASTA Amino Acid File for {id}
@@ -199,7 +199,7 @@ Data Objects:
       nmdc_suffix: _proteins.faa
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Contig Mapping File
       description: Contig mapping file for {id}
@@ -208,7 +208,7 @@ Data Objects:
       nmdc_suffix: _contig_names_mapping.tsv
       input_to: []
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Structural Annotation GFF
       description: Structural Annotation for {id}
@@ -217,7 +217,7 @@ Data Objects:
       nmdc_suffix: _structural_annotation.gff
       input_to: []
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Functional Annotation GFF
       description: Functional Annotation for {id}
@@ -226,7 +226,7 @@ Data Objects:
       nmdc_suffix: _functional_annotation.gff
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Annotation KEGG Orthology
       description: KEGG Orthology for {id}
@@ -235,7 +235,7 @@ Data Objects:
       nmdc_suffix: _ko.tsv
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Annotation Enzyme Commission
       description: EC Annotations for {id}
@@ -244,7 +244,7 @@ Data Objects:
       nmdc_suffix: _ec.tsv
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Clusters of Orthologous Groups (COG) Annotation GFF
       description: COGs for {id}
@@ -253,7 +253,7 @@ Data Objects:
       nmdc_suffix: _cog.gff
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Pfam Annotation GFF
       description: Pfam Annotation for {id}
@@ -262,7 +262,7 @@ Data Objects:
       nmdc_suffix: _pfam.gff
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: TIGRFam Annotation GFF
       description: TIGRFam for {id}
@@ -271,7 +271,7 @@ Data Objects:
       nmdc_suffix: _tigrfam.gff
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: SMART Annotation GFF
       description: SMART Annotations for {id}
@@ -280,7 +280,7 @@ Data Objects:
       nmdc_suffix: _smart.gff
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: SUPERFam Annotation GFF
       description: SUPERFam Annotations for {id}
@@ -289,7 +289,7 @@ Data Objects:
       nmdc_suffix: _supfam.gff
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: CATH FunFams (Functional Families) Annotation GFF
       description: CATH FunFams for {id}
@@ -298,7 +298,7 @@ Data Objects:
       nmdc_suffix: _cath_funfam.gff
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: CRT Annotation GFF
       description: CRT Annotations for {id}
@@ -307,7 +307,7 @@ Data Objects:
       nmdc_suffix: _crt.gff
       input_to: []
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Genemark Annotation GFF
       description: Genemark Annotations for {id}
@@ -316,7 +316,7 @@ Data Objects:
       nmdc_suffix: _genemark.gff
       input_to: []
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Prodigal Annotation GFF
       description: Prodigal Annotations {id}
@@ -325,7 +325,7 @@ Data Objects:
       nmdc_suffix: _prodigal.gff
       input_to: []
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: TRNA Annotation GFF
       description: TRNA Annotations {id}
@@ -334,7 +334,7 @@ Data Objects:
       nmdc_suffix: _trna.gff
       input_to: []
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: RFAM Annotation GFF
       description: RFAM Annotations for {id}
@@ -343,7 +343,7 @@ Data Objects:
       nmdc_suffix: _rfam.gff
       input_to: []
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: KO_EC Annotation GFF
       description: KO_EC Annotations for {id}
@@ -352,7 +352,7 @@ Data Objects:
       nmdc_suffix: _ko_ec.gff
       input_to: []
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Product Names
       description: Product names for {id}
@@ -361,7 +361,7 @@ Data Objects:
       nmdc_suffix: _product_names.tsv
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Gene Phylogeny tsv
       description: Gene Phylogeny for {id}
@@ -370,7 +370,7 @@ Data Objects:
       nmdc_suffix: _gene_phylogeny.tsv
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Crispr Terms
       description: Crispr Terms for {id}
@@ -379,7 +379,7 @@ Data Objects:
       nmdc_suffix: _crt.crisprs
       input_to: []
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Annotation Statistics
       description: Annotation Stats for {id}
@@ -388,7 +388,7 @@ Data Objects:
       nmdc_suffix: _stats.tsv
       input_to: []
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Annotation Info File
       description: Annotation Info File for {id}
@@ -397,7 +397,7 @@ Data Objects:
       nmdc_suffix: _imgap.info
       input_to: []
       output_of: nmdc:MetagenomeAnnotation
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Filtered Sequencing Reads
       description: Reads QC for {id}
@@ -406,7 +406,7 @@ Data Objects:
       nmdc_suffix: _filtered.fastq.gz
       input_to: [nmdc:ReadBasedTaxonomyAnalysis,nmdc:MetagenomeAssembly]
       output_of: nmdc:ReadQcAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: QC Statistics 
       description: Reads QC summary for {id} 
@@ -415,7 +415,7 @@ Data Objects:
       nmdc_suffix: _filterStats.txt
       input_to: []
       output_of: nmdc:ReadQcAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Read Filtering Info File 
       description: Read Filtering Info File for {id}
@@ -424,7 +424,7 @@ Data Objects:
       nmdc_suffix: _readsQC.info
       input_to: []
       output_of: nmdc:ReadQcAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Assembly Contigs
       description: Assembly contigs for {id}
@@ -433,7 +433,7 @@ Data Objects:
       nmdc_suffix: _contigs.fna
       input_to: [nmdc:MetagenomeAnnotation,nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAssembly
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Assembly Scaffolds
       description: Assembly scaffolds for {id}
@@ -442,7 +442,7 @@ Data Objects:
       nmdc_suffix: _scaffolds.fna
       input_to: []
       output_of: nmdc:MetagenomeAssembly
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Assembly Info File
       description: Assembly info file for {id}
@@ -451,7 +451,7 @@ Data Objects:
       nmdc_suffix: _metaAsm.info
       input_to: []
       output_of: nmdc:MetagenomeAssembly
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Assembly Coverage Stats
       description: Coverage Stats for {id}
@@ -460,7 +460,7 @@ Data Objects:
       nmdc_suffix: _covstats.txt
       input_to: []
       output_of: nmdc:MetagenomeAssembly
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Assembly AGP
       description: AGP for {id}
@@ -469,7 +469,7 @@ Data Objects:
       nmdc_suffix: _assembly.agp
       input_to: []
       output_of: nmdc:MetagenomeAssembly
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Assembly Coverage BAM
       description: Sorted Bam for {id}
@@ -478,7 +478,7 @@ Data Objects:
       nmdc_suffix: _pairedMapped_sorted.sam.gz
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAssembly
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: GOTTCHA2 Report Full
       description: GOTTCHA2 Full Report for {id}
@@ -487,7 +487,7 @@ Data Objects:
       nmdc_suffix: _gottcha2_full.tsv
       input_to: []
       output_of: nmdc:ReadBasedTaxonomyAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: GOTTCHA2 Classification Report
       description: GOTTCHA2 Classification for {id}
@@ -496,7 +496,7 @@ Data Objects:
       nmdc_suffix: _gottcha2_classification.tsv
       input_to: []
       output_of: nmdc:ReadBasedTaxonomyAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: GOTTCHA2 Krona Plot
       description: GOTTCHA2 Krona for {id}
@@ -505,7 +505,7 @@ Data Objects:
       nmdc_suffix: _gottcha2_krona.html
       input_to: []
       output_of: nmdc:ReadBasedTaxonomyAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Centrifuge Taxonomic Classification
       description: Centrifuge Report for {id}
@@ -514,7 +514,7 @@ Data Objects:
       nmdc_suffix: _centrifuge_classification.tsv
       input_to: []
       output_of: nmdc:ReadBasedTaxonomyAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Centrifuge output report file
       description: Centrifuge output report file for {id}
@@ -523,7 +523,7 @@ Data Objects:
       nmdc_suffix: _centrifuge_report.tsv
       input_to: []
       output_of: nmdc:ReadBasedTaxonomyAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Centrifuge Krona Plot
       description: Centrifuge Krona for {id}
@@ -532,7 +532,7 @@ Data Objects:
       nmdc_suffix: _centrifuge_krona.html
       input_to: []
       output_of: nmdc:ReadBasedTaxonomyAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Kraken2 Classification Report
       description: Kraken2 report for {id}
@@ -541,7 +541,7 @@ Data Objects:
       nmdc_suffix: _kraken2_report.tsv
       input_to: []
       output_of: nmdc:ReadBasedTaxonomyAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Kraken2 Taxonomic Classification
       description: Kraken2 classification for {id}
@@ -550,7 +550,7 @@ Data Objects:
       nmdc_suffix: _kraken2_classification.tsv
       input_to: []
       output_of: nmdc:ReadBasedTaxonomyAnalysis
-      mulitple: false
+      multiple: false
       action: rename
     - data_object_type: Kraken2 Krona Plot
       description: Kraken2 Krona plot for {id}
@@ -559,7 +559,7 @@ Data Objects:
       nmdc_suffix: _kraken2_krona.html
       input_to: []
       output_of: nmdc:ReadBasedTaxonomyAnalysis
-      mulitple: false
+      multiple: false
       action: rename
   Multiples:
     - data_object_type: Metagenome Bins
@@ -569,7 +569,7 @@ Data Objects:
       nmdc_suffix: _hqmq_bin.zip
       input_to: []
       output_of:  nmdc:MagsAnalysis
-      mulitple: true
+      multiple: true
       action: zip
 
 Workflow Metadata:
