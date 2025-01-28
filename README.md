@@ -8,11 +8,13 @@
 
 # nmdc_automation
 
+An automation framework for running sequential metagenome analysis jobs and making the outputs
+available as metadata in the NMDC database, and data objects on the NMDC data portal.
+
 ## Overview
 
-This is an automation framework for running sequential metagenome analysis jobs and making the outputs
-available as metadata in the NMDC database, and data objects on the NMDC data portal. The
-primary components in this process are:
+### System Components
+
 
 Scheduler
 : The Scheduler polls the NMDC database based upon an `Allowlist` of DataGeneration IDs. Based on an allowed 
@@ -34,57 +36,58 @@ required inputs for an analysis job, submitting it to the job running service (e
 for processing the resulting data and metadata when the job completes.  The watcher maintains a record of it's
 current activity in a `State File`
 
+### System Configuration
+
 Site Config
 : Site-specific configuration if provided by a .toml file and defines some parameters that are used
 across the workflow process including
-: 1. URL and credentials for NMDC API
-: 2. Staging and Data filesystem locations for the site
-: 3. Job Runner service URLs
-: 4. Path to the state file
+
+1. URL and credentials for NMDC API
+2. Staging and Data filesystem locations for the site
+3. Job Runner service URLs
+4. Path to the state file
 
 Workflow Definitions
-: Workflow definitions in a .yaml file describing each analysis step, specifying
-: 1. Name, type, version, WDL and git repository for each workflow
-: 2. Inputs, Outputs and Workflow Execution steps
-: 3. Data Object Types, description and name templates for processing workflow output data
+: Workflow definitions in a .yaml file describing each analysis step, specifying:
+
+1. Name, type, version, WDL and git repository for each workflow
+2. Inputs, Outputs and Workflow Execution steps
+3. Data Object Types, description and name templates for processing workflow output data
+
+---
+
+## Instructions (for NERSC / Perlmutter environment)
+
+### Running the Scheduler
+
+The Scheduler is a Dockerized application running on [Rancher](https://rancher2.spin.nersc.gov). 
+To initialize the Scheduler for new DataGeneration IDs, the following steps:
+
+1. On Rancher, go to `Deployments` and find the Scheduler in either `nmdc` or `nmdc-dev`
+2. Click on the Scheduler and select `run shell`
+3. In the shell, `cd /conf`
+4. Update the file `allow.lst` with the Data Generation IDs that you want to schedule
+   1. Copy the list of data-generation IDs to you clipboard
+   2. In the shell, delete the existing allow list `rm allow.lst`
+   3. Replace the file with your copied list:
+      1. `cat >allow.lst`
+      2. Paste your IDs `command-v`
+      3. Ensure a blank line at the end with a `return` 
+      4. Terminate cat `control-d`
+5. Recommended to set the log level to INFO or you get a *very* large log output
+   1. `export NMDC_LOG_LEVEL=INFO`
+6. Restart the scheduler.  In the shell, in /conf:  `./run.sh`
+7. Ensure the scheduler is running by checking `sched.log`
+
+
+### Running the Watcher
+
+The watcher is a python application which runs on a login node on Perlmutter
 
 
 
 
 
-Workflow Definitions
-
-Scheduler
-
-
-Watcher
-
-
-WorkflowJob
-
-## Approach
-
-The workflows are defined in a YAML file.  This describes the
-following for each workflow
-
-* Name
-* Git Repo associated with the workflow
-* Version: The current active version that should be run
-* WDL: The "top-level" WDL that should be run
-* Input Prefix: The string that should be prefixed to all of the inputs.
-                This is a workaround because Mongo doesn't like dots in key names
-* Inputs: The array of inputs for the workflow.  Not it doesn't deal with nested structures yet.
-
-The main scheduling loop does the following:
-
-1. For each workflow, it gathers up all jobs and activities that match the current
-   repo and version.  This basically to figure out what is in-flight or completed that
-   matches the current release.  These records also include the trigger object that
-   initiated the previous jobs.
-2. Using the trigger object type find all objects that could be processed.
-3. See if the trigger object exist in the query from step 1.  Anything missing will 
-   generate a new job.
-4. Generate a job record for each object.  Use the workflow spec to populate the inputs.
 
 ## Install Dependencies
 To install the environment using poetry, there are a few steps to take. 
