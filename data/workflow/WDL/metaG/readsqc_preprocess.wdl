@@ -6,7 +6,7 @@ workflow readsqc_preprocess {
         Array[File] input_fq1
         Array[File] input_fq2
         String  container="bfoster1/img-omics:0.1.9"
-        String outdir
+        String  outdir
         Boolean input_interleaved
         Boolean shortRead
     }
@@ -38,7 +38,7 @@ workflow readsqc_preprocess {
 
     }
     output {
-        Array[File]? input_files_gz = if (input_interleaved) then gzip_int.input_files_gz else gzip_pe.input_files_gz
+        Array[String]? input_files_gz = if (input_interleaved) then gzip_int.input_files_gz else gzip_pe.input_files_gz
         Array[String]? input_files_prefix = if (input_interleaved) then gzip_int.input_files_prefix else gzip_pe.input_files_prefix
         Boolean? isIllumina = if (input_interleaved) then gzip_int.isIllumina else gzip_pe.isIllumina
     }
@@ -82,7 +82,7 @@ task gzip_input_int {
     }
 
 	output{
-        Array[File]? input_files_gz = glob("~{outdir}/*.gz")
+        Array[String] input_files_gz = glob("~{outdir}/*.gz")
         Array[String] input_files_prefix = read_lines("fileprefix.txt")
         Boolean isIllumina = read_boolean(stdout())
 	}
