@@ -91,14 +91,14 @@ Workflows:
       - SUPERFam Annotation GFF
       - CATH FunFams (Functional Families) Annotation GFF
       - CRT Annotation GFF
-      - Genmark Annotation GFF
+      - Genemark Annotation GFF
       - Prodigal Annotation GFF
       - TRNA Annotation GFF
       - RFAM Annotation GFF
       - KO_EC Annotation GFF
       - Product Names
       - Gene Phylogeny tsv
-      - Crisprt Terms
+      - Crispr Terms
       - Annotation Statistics
       - Contig Mapping File
       - Annotation Info File
@@ -120,7 +120,7 @@ Workflows:
       name: "Metatranscriptome Expression Analysis for {id}"
       type: nmdc:MetatranscriptomeExpressionAnalysis
     Outputs:
-      - Metatranscriptome Expression 
+      - Metatranscriptome Expression
       - Metatranscriptome Expression Intergenic
 
 Data Objects:
