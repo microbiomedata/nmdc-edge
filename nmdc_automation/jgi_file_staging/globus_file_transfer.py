@@ -1,206 +1,192 @@
 import configparser
 import sys
-import os
 from datetime import datetime
 import pandas as pd
+import os
 import logging
-
+from pathlib import Path
 from mongo import get_mongo_db
 import subprocess
 import argparse
+from typing import List
 from file_restoration import update_sample_in_mongodb
 
-logging.basicConfig(
-    filename="file_staging.log",
-    format="%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s",
-    datefmt="%Y-%m-%d,%H:%M:%S",
-    level=logging.DEBUG,
-)
-"""
-This script will download JGI data files using the Globus API 
-1) run "globus login"
-2) set values in config.ini
-3) call get_globus_manifest() and copy the manifests to a local directory. Globus can only transfer files between 
-Globus endpoints
-4) call submit_globus_batch_file() 
-5) call update_globus_statuses() when files have finished transferring
-"""
+logging.basicConfig(filename='file_staging.log',
+                    format='%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
+                    datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG)
 
 
-def get_globus_manifest(request_id, config_file=None, config=None):
+def get_project_globus_manifests(project_name: str, config_file: str = None,
+                                 config: configparser.ConfigParser = None) -> List[str]:
+    """
+    Retrieve the globus manifest files for files to be transferred from Globus to MongoDB
+    """
+    if config_file:
+        config = configparser.ConfigParser()
+        config.read(config_file)
+    mdb = get_mongo_db()
+    samples_df = pd.DataFrame(mdb.samples.find({'project': project_name, 'file_status':
+        {'$ne': ['in transit', 'transferred']}}))
+    samples_df = samples_df[pd.notna(samples_df.request_id)]
+    samples_df['request_id'] = samples_df['request_id'].astype(int)
+    manifests_list = []
+    globus_manifest_files = [get_globus_manifest(int(request_id), config=config) for request_id in
+                             samples_df.request_id.unique()]
+
+    return globus_manifest_files
+
+
+def get_globus_manifest(request_id: int, config_file: str = None, config: configparser.ConfigParser = None) -> str:
     """
     This gets the Globus file manifest with the list of Globus paths for each requested file
+    This function requires installation of the Globus CLI
     :return:
     """
     if config_file:
         config = configparser.ConfigParser()
         config.read(config_file)
-    jgi_globus_id = config["GLOBUS"]["jgi_globus_id"]
-    nersc_globus_id = config["GLOBUS"]["nersc_globus_id"]
-    nersc_manifests_directory = config["GLOBUS"]["nersc_manifests_directory"]
-    globus_root_dir = config["GLOBUS"]["globus_root_dir"]
+    jgi_globus_id = config['GLOBUS']['jgi_globus_id']
+    nersc_globus_id = config['GLOBUS']['nersc_globus_id']
+    nersc_manifests_directory = config['GLOBUS']['nersc_manifests_directory']
+    globus_root_dir = config['GLOBUS']['globus_root_dir']
 
-    sub_output = subprocess.run(
-        ["globus", "ls", f"{jgi_globus_id}:/{globus_root_dir}/R{request_id}"],
-        capture_output=True,
-        text=True,
-    )
-    sub_output_split = sub_output.stdout.split("\n")
-    manifest_file_name = [fn for fn in sub_output_split if "Globus_Download" in fn][0]
+    sub_output = subprocess.run(['globus', 'ls', f'{jgi_globus_id}:/{globus_root_dir}/R{request_id}'],
+                                capture_output=True, text=True)
+    sub_output_split = sub_output.stdout.split('\n')
+    logging.debug(f"request_id: {request_id} globus ls: {sub_output_split}")
+    manifest_file_name = [fn for fn in sub_output_split if 'Globus_Download' in fn][0]
     logging.debug(f"manifest filename {manifest_file_name}")
-    if "Globus_Download" in manifest_file_name:
+
+    if 'Globus_Download' in manifest_file_name:
+        if Path(nersc_manifests_directory, manifest_file_name).exists():
+            return manifest_file_name
         logging.debug(f"transferring {manifest_file_name}")
         # Use Globus to transfer manifest file to destination directory
-        manifest_sub_out = subprocess.run(
-            [
-                "globus",
-                "transfer",
-                "--sync-level",
-                "exists",
-                f"{jgi_globus_id}:/{globus_root_dir}/R{request_id}/{manifest_file_name}",
-                f"{nersc_globus_id}:{nersc_manifests_directory}/{manifest_file_name}",
-            ],
-            capture_output=True,
-            text=True,
-        )
+        manifest_sub_out = subprocess.run(['globus', 'transfer', '--sync-level', 'exists',
+                        f"{jgi_globus_id}:/{globus_root_dir}/R{request_id}/{manifest_file_name}",
+                        f"{nersc_globus_id}:{nersc_manifests_directory}/{manifest_file_name}"],
+                                          capture_output=True, text=True)
         logging.debug(f"manifest globus transfer: {manifest_sub_out}")
         return manifest_file_name
     else:
-        return None
+        return ''
 
 
-def create_globus_dataframe(manifests_dir, config, request_id_list):
-    globus_manifest_files = [
-        f'Globus_Download_{request_id}_File_Manifest.csv' for request_id in request_id_list
-    ]
+def create_globus_dataframe(project_name: str, config: configparser.ConfigParser) -> pd.DataFrame:
+
+    globus_manifest_files = get_project_globus_manifests(project_name, config=config)
 
     globus_df = pd.DataFrame()
     for manifest in globus_manifest_files:
-        mani_df = pd.read_csv(os.path.join(manifests_dir, manifest))
+        mani_df = pd.read_csv(os.path.join(config['GLOBUS']['nersc_manifests_directory'], manifest))
         subdir = f"R{manifest.split('_')[2]}"
-        mani_df["subdir"] = subdir
+        mani_df['subdir'] = subdir
         globus_df = pd.concat([globus_df, mani_df], ignore_index=True)
     return globus_df
 
 
-def create_globus_batch_file(project, config):
+def create_globus_batch_file(project: str, config: configparser.ConfigParser) -> (str, pd.DataFrame):
+    """
+    Creates batch file for the globus file transfer
+    :param project: name of project
+    :param config: configparser object with parameters for globus transfers
+    :return: globus batch file name and dataframe with sample files being transferred
+    1) get samples from database that have been restored from tape (file_status: 'ready')
+    2) create a dataframe from the Globus manifests
+    3) write to globus batch file
+    """
     mdb = get_mongo_db()
-    samples_df = pd.DataFrame(mdb.samples.find({"file_status": "ready"}))
+    samples_df = pd.DataFrame(mdb.samples.find({'file_status': 'ready'}))
     if samples_df.empty:
         logging.debug(f"no samples ready to transfer")
-        sys.exit("no samples ready to transfer")
-    logging.debug(f"nan request_ids {samples_df['request_id']}")
-    root_dir = config["GLOBUS"]["globus_root_dir"]
-    dest_root_dir = os.path.join(
-        config["GLOBUS"]["dest_root_dir"], f"{project}_analysis_projects"
-    )
-    globus_df = create_globus_dataframe(
-        config["GLOBUS"]["nersc_manifests_directory"],
-        config,
-        list(samples_df.loc[pd.notna(samples_df["request_id"]), "request_id"].unique()),
-    )
+        sys.exit('no samples ready to transfer')
+    samples_df = samples_df[pd.notna(samples_df.request_id)]
+    samples_df['request_id'] = samples_df['request_id'].astype(int)
+    # logging.debug(f"nan request_ids {samples_df['request_id']}")
+    root_dir = config['GLOBUS']['globus_root_dir']
+    dest_root_dir = os.path.join(config['GLOBUS']['analysis_projects_dir'], f'{project}_analysis_projects')
+    globus_df = create_globus_dataframe(project, config)
 
-    logging.debug(
-        f"samples_df columns {samples_df.columns}, globus_df columns {globus_df.columns}"
-    )
-    globus_analysis_df = pd.merge(
-        samples_df, globus_df, left_on="jdp_file_id", right_on="file_id"
-    )
-    globus_batch_filename = (f"{project}_{samples_df['request_id'].unique()[0]}_"
-                             f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_globus_batch_file.txt")
-    write_globus_batch_file(globus_analysis_df, dest_root_dir, root_dir, globus_batch_filename)
-
+    logging.debug(f"samples_df columns {samples_df.columns}, globus_df columns {globus_df.columns}")
+    globus_analysis_df = pd.merge(samples_df, globus_df, left_on='jdp_file_id', right_on='file_id')
+    write_list = []
+    for idx, row in globus_analysis_df.iterrows():
+        filepath = os.path.join(root_dir, row.subdir, row['directory/path'], row.filename)
+        dest_file_path = os.path.join(dest_root_dir, row.apGoldId, row.filename)
+        write_list.append(f"{filepath} {dest_file_path}")
+    globus_batch_filename = f"{project}_{samples_df['request_id'].unique()[0]}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_globus_batch_file.txt"
+    with open(globus_batch_filename, 'w') as f:
+        f.write('\n'.join(write_list))
     return globus_batch_filename, globus_analysis_df
 
 
-def write_globus_batch_file(globus_analysis_df: pd.DataFrame, dest_root_dir: str, root_dir,
-                            globus_batch_filename) -> None:
-    write_list = []
-    for idx, row in globus_analysis_df.iterrows():
-        filepath = os.path.join(
-            root_dir, row.subdir, row["directory/path"], row.filename
-        )
-        dest_file_path = os.path.join(dest_root_dir, row.apGoldId, row.filename)
-        write_list.append(f"{filepath} {dest_file_path}")
-
-    with open(globus_batch_filename, "w") as f:
-        f.write("\n".join(write_list))
-
-
-def submit_globus_batch_file(project, config_file):
+def submit_globus_batch_file(project: str, config_file: str):
     """
     *Must run globus login first!*
-    get globus manifests
-    create
+    create a globus batch file and submit it to globus
+    :param project: name of project
+    :param config_file: path to configuration file
+    1) create the globus batch file
+    2) submit the globus batch file using the globus CLI
+    3) insert globus task into the database
     """
     config = configparser.ConfigParser()
     config.read(config_file)
-    jgi_globus_id = config["GLOBUS"]["jgi_globus_id"]
-    nersc_globus_id = config["GLOBUS"]["nersc_globus_id"]
+    jgi_globus_id = config['GLOBUS']['jgi_globus_id']
+    nersc_globus_id = config['GLOBUS']['nersc_globus_id']
 
-    batch_file, globus_analysis_df = create_globus_batch_file(project, config)
+    batch_file, globus_analysis_df = create_globus_batch_file(project,
+                                                              config)
 
-    output = subprocess.run(
-        ["globus", "transfer", "--batch", batch_file, jgi_globus_id, nersc_globus_id],
-        capture_output=True,
-        text=True,
-    )
+    output = subprocess.run(['globus', 'transfer', '--batch', batch_file, jgi_globus_id,
+                             nersc_globus_id], capture_output=True, text=True)
 
     logging.debug(output.stdout)
-    globus_analysis_df.apply(
-        lambda x: update_sample_in_mongodb(x, {"file_status": "transferring"}), axis=1
-    )
-    insert_globus_status_into_mongodb(
-        output.stdout.split("\n")[1].split(":")[1], "submitted"
-    )
+    globus_analysis_df.apply(lambda x: update_sample_in_mongodb(x, {'file_status': 'in transit'}), axis=1)
+    insert_globus_status_into_mongodb(output.stdout.split('\n')[1].split(':')[1], 'submitted')
     return output.stdout
 
 
-def insert_globus_status_into_mongodb(task_id, task_status):
+def insert_globus_status_into_mongodb(task_id: str, task_status: str):
     mdb = get_mongo_db()
-    mdb.globus.insert_one({"task_id": task_id, "task_status": task_status})
+    mdb.globus.insert_one({'task_id': task_id, 'task_status': task_status})
 
 
-def get_globus_task_status(task_id):
-    output = subprocess.run(
-        ["globus", "task", "show", task_id], capture_output=True, text=True
-    )
-    return output.stdout.split("\n")[6].split(":")[1].strip()
+def get_globus_task_status(task_id: str):
+    output = subprocess.run(['globus', 'task', 'show', task_id], capture_output=True, text=True)
+    return output.stdout.split('\n')[6].split(':')[1].strip()
 
 
-def update_globus_task_status(task_id, task_status):
+def update_globus_task_status(task_id: str, task_status: str):
     mdb = get_mongo_db()
-    mdb.globus.update_one({"task_id": task_id}, {"$set": {"task_status": task_status}})
+    mdb.globus.update_one({'task_id': task_id}, {'$set': {'task_status': task_status}})
 
 
 def update_globus_statuses():
     mdb = get_mongo_db()
-    tasks = [t for t in mdb.globus.find({"task_status": {"$ne": "SUCCEEDED"}})]
+    tasks = [t for t in mdb.globus.find({'task_status': {'$ne': 'SUCCEEDED'}})]
     for task in tasks:
-        task_status = get_globus_task_status(task["task_id"])
-        update_globus_task_status(task["task_id"], task_status)
+        task_status = get_globus_task_status(task['task_id'])
+        update_globus_task_status(task['task_id'], task_status)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("project_name")
-    parser.add_argument("config_file")
-    parser.add_argument(
-        "-r", "--request_id", help="Globus request id (from file restoration api)"
-    )
-    parser.add_argument(
-        "-u",
-        "--update_globus_statuses",
-        action="store_true",
-        help="update globus task statuses",
-        default=False,
-    )
+    parser.add_argument('project_name')
+    parser.add_argument('config_file')
+    parser.add_argument('-r', '--request_id', help='Globus request id (from file restoration api)')
+    parser.add_argument('-u', '--update_globus_statuses', action='store_true',
+                        help='update globus task statuses', default=False)
+    parser.add_argument('-g', '--get_project_manifests', action='store_true',
+                        help='get all globus project manifests', default=False)
 
     args = vars((parser.parse_args()))
 
-    if args["update_globus_statuses"]:
+    if args['get_project_manifests']:
+        get_project_globus_manifests(args['project_name'], args['config_file'])
+    elif args['update_globus_statuses']:
         update_globus_statuses()
-    elif args["request_id"]:
-        get_globus_manifest(args["request_id"], config_file=args["config_file"])
+    elif args['request_id']:
+        get_globus_manifest(args['request_id'], config_file=args['config_file'])
     else:
-        submit_globus_batch_file(args["project_name"], args["config_file"])
+        submit_globus_batch_file(args['project_name'], args['config_file'])
