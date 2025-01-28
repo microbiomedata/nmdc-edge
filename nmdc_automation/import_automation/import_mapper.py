@@ -209,8 +209,9 @@ class ImportMapper:
             import_spec = self.import_specs_by_data_object_type[data_object_type]
             output_of = import_spec["output_of"]
             input_to = import_spec["input_to"]
+            is_multiple = import_spec["multiple"]
             file_mappings.add(
-                FileMapping(data_object_type, file, output_of, input_to)
+                FileMapping(data_object_type, file, output_of, input_to, is_multiple)
             )
         return file_mappings
 
@@ -235,11 +236,12 @@ class FileMapping:
     """
 
     def __init__(self, data_object_type: str, import_file: Union[str, Path], output_of: str,
-                 input_to: list , data_object_id: Optional[str] = None, workflow_execution_id: str = None):
+                 input_to: list , is_multiple: bool,  data_object_id: Optional[str] = None, workflow_execution_id: str = None):
         self.data_object_type = data_object_type
         self.file = import_file
         self.output_of = output_of
         self.input_to = input_to
+        self.is_multiple = is_multiple
         self.data_object_id = data_object_id
         self.workflow_execution_id = workflow_execution_id
 
@@ -250,6 +252,7 @@ class FileMapping:
             f"file={self.file}, "
             f"output_of={self.output_of}, "
             f"input_to={self.input_to}, "
+            f"is_multiple={self.is_multiple}, "
             f"data_object_id={self.data_object_id}, "
             f"workflow_execution_id={self.workflow_execution_id} "
             f")"
@@ -262,6 +265,7 @@ class FileMapping:
                 self.file == other.file and
                 self.output_of == other.output_of and
                 self.input_to == other.input_to and
+                self.is_multiple == other.is_multiple and
                 self.data_object_id == other.data_object_id and
                 self.workflow_execution_id == other.workflow_execution_id
             )
