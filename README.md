@@ -86,6 +86,9 @@ To initialize the Scheduler for new DataGeneration IDs, the following steps:
 The watcher is a python application which runs on a login node on Perlmutter. 
 The following instructions all assume the user is logged in as user `nmdcda@perlmutter.nersc.gov`
 
+1. Get an ssh key - in your home directory: `./sshproxy.sh -u <your_nersc_username> -c nmdcda`
+2. Log in using the key `ssh -i .ssh/nmdcda nmdcda@perlmutter.nersc.gov`
+
 Watcher code and config files can be found 
 - `/global/homes/n/nmdcda/nmdc_automation/prod`
 - `/global/homes/n/nmdcda/nmdc_automation/dev`
@@ -106,7 +109,8 @@ Watcher code and config files can be found
 #### Running the Watcher
 
 We run the watcher using `nohup` (No Hangup) - this prevents the watcher process from being terminated
-when the user's terminal session ends
+when the user's terminal session ends.  This will cause stdout and stderr to be written to a file
+names `nohup.out` in addition to being written to the `watcher.log` file.  
 
 1. change to the working `prod` or `dir` directory
 2. `export NMDC_LOG_LEVEL=INFO`
