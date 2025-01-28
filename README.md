@@ -100,7 +100,7 @@ Watcher code and config files can be found
    2. `git status` / `git switch main` if not on main branch
    3. `git fetch origin`
    4. `git pull`
-2. Start initial virtual environment
+2. Start initial virtual environment including `poetry`
    1. in the nmdc_automation dir: `source .venv/bin/activate`
    2. if .venv does not exist: `virtualenv .venv`
 3. Install the nmdc_automation project with `poetry install`
