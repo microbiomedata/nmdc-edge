@@ -105,6 +105,9 @@ Watcher code and config files can be found
 
 #### Running the Watcher
 
+We run the watcher using `nohup` (No Hangup) - this prevents the watcher process from being terminated
+when the user's terminal session ends
+
 1. change to the working `prod` or `dir` directory
 2. `export NMDC_LOG_LEVEL=INFO`
 3. `rm nohup.out`
