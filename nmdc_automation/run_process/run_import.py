@@ -2,21 +2,14 @@ import click
 import csv
 import datetime
 import pytz
-import gc
-import importlib.resources
-from functools import lru_cache
 import json
 import logging
 import os
-import linkml.validator
-from linkml_runtime.dumpers import yaml_dumper
-import yaml
+
 
 from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.import_automation.import_mapper import ImportMapper
 from nmdc_automation.import_automation.utils import get_or_create_md5
-from nmdc_schema.nmdc import Database
-
 
 
 @click.group()
@@ -270,11 +263,6 @@ def _database_workflow_execution_ids_by_type(import_mapper, runtime_api) -> dict
         wfe_ids_by_type[wfe_type] = [wfe['id'] for wfe in workflow_executions]
     return wfe_ids_by_type
 
-
-@lru_cache(maxsize=None)
-def _get_nmdc_materialized():
-    with importlib.resources.open_text("nmdc_schema", "nmdc_materialized_patterns.yaml") as f:
-        return yaml.safe_load(f)
 
 def _parse_tsv(file):
     with open(file) as f:
