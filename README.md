@@ -20,9 +20,11 @@ Scheduler
 : The Scheduler polls the NMDC database based upon an `Allowlist` of DataGeneration IDs. Based on an allowed 
 data-generation ID, the scheduler examines WorkflowExecutions and DataObjects that `was_informed_by` by the 
 data generation, and builds a graph of `Workflow Process Nodes`. When the scheduler finds a node where:
-: 1. The node has child workflow(s) which are not scheduled or in the NMDC database
-: 2. The required data objects for the child node exist
-: In this case the Scheduler will "schedule" a new job by creating a Job configuration and writing this
+
+1. The node has child workflow(s) which are not scheduled or in the NMDC database
+2. The required data objects for the child node exist
+
+In this case the Scheduler will "schedule" a new job by creating a Job configuration and writing this
 to the `jobs` collection in the NMDC database
 
 Watcher
@@ -39,7 +41,7 @@ current activity in a `State File`
 ### System Configuration
 
 Site Config
-: Site-specific configuration if provided by a .toml file and defines some parameters that are used
+: Site-specific configuration is provided by a .toml file and defines some parameters that are used
 across the workflow process including
 
 1. URL and credentials for NMDC API
@@ -64,7 +66,7 @@ Workflow Definitions
 The Scheduler is a Dockerized application running on [Rancher](https://rancher2.spin.nersc.gov). 
 To initialize the Scheduler for new DataGeneration IDs, the following steps:
 
-1. On Rancher, go to `Deployments` and find the Scheduler in either `nmdc` or `nmdc-dev`
+1. On Rancher, go to `Deployments`, select `Production` from the clusters list, and find the Scheduler in either `nmdc` or `nmdc-dev`
 2. Click on the Scheduler and select `run shell`
 3. In the shell, `cd /conf`
 4. Update the file `allow.lst` with the Data Generation IDs that you want to schedule
