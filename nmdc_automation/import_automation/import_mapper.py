@@ -165,8 +165,11 @@ class ImportMapper:
         elif spec["action"] == "rename":
             wfe_file_id = file_mapping.workflow_execution_id.replace(":", "_")
             filename =  wfe_file_id + spec["nmdc_suffix"]
+        elif spec["action"] == "zip":
+            wfe_file_id = file_mapping.workflow_execution_id.replace(":", "_")
+            filename = wfe_file_id + spec["nmdc_suffix"]
         else:
-            raise NotImplementedError
+            raise ValueError(f"Unknown action: {spec['action']}")
         return filename
 
 

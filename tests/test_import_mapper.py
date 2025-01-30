@@ -34,7 +34,7 @@ def mock_minted_ids():
 @patch("os.listdir")
 def test_import_files_initialized(mock_listdir, import_mapper_instance):
     mock_listdir.return_value = ["file1.txt", "file2.txt"]
-    assert len(import_mapper_instance.file_mappings) == 22
+    assert len(import_mapper_instance.file_mappings) == 24
 
 
 def test_write_minted_id_file(import_mapper_instance, base_test_dir):
