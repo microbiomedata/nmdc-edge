@@ -5,6 +5,7 @@ import pytz
 import json
 import logging
 import os
+from zipfile import ZipFile
 
 
 from nmdc_automation.api import NmdcRuntimeApi
@@ -110,7 +111,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
             if not data_object_id:
                 logger.error(f"Cannot determine an ID for {fm.data_object_type}")
                 continue
-
+            # We already have an ID for Raw Reads
             if fm.data_object_type == 'Metagenome Raw Reads':
                 workflow_execution_id = nucleotide_sequencing_id
             else:
@@ -171,10 +172,19 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                 nmdc_data_file_name = import_mapper.get_nmdc_data_file_name(mapping)
                 export_file = os.path.join(nmdc_wfe_dir, nmdc_data_file_name)
                 import_file = os.path.join(import_mapper.import_project_dir, mapping.file)
-                try:
-                    os.link(import_file, export_file)
-                except FileExistsError:
-                    logger.debug(f"File {export_file} already exists")
+                # single data files get linked
+                if not mapping.is_multiple:
+                    try:
+                        os.link(import_file, export_file)
+                    except FileExistsError:
+                        logger.debug(f"File {export_file} already exists")
+                else:
+                    if not os.path.exists(export_file):
+                        with ZipFile(export_file, 'w') as zip:
+                            zip.write(import_file)
+                    else:
+                        with ZipFile(export_file, 'a') as zip:
+                            zip.write(import_file)
 
                 # Check if the Data Object already exists in the DB
 
@@ -198,7 +208,12 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                     "description": description
                 }
                 logging.debug(f"Data Object: {do_record}")
-                import_db['data_object_set'].append(do_record)
+
+                existing_do_ids = [do['id'] for do in import_db['data_object_set']]
+                if do_record['id'] in existing_do_ids:
+                    continue
+                else:
+                    import_db['data_object_set'].append(do_record)
 
             # Create Workflow Execution Record - we do not do this for sequencing
             if wfe_type == 'nmdc:NucleotideSequencing':
