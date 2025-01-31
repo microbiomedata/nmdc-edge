@@ -69,9 +69,10 @@ def test_get_sequence_id(mock_get, config):
 
 
 def test_get_analysis_projects_from_proposal_id(mock_get):
-    mock_get.return_value.json.return_value = pd.read_csv(
-        Path.joinpath(FIXTURE_DIR, "grow_gold_analysis_projects.csv")
-    ).to_dict("records")
+    mock_data = pd.read_csv(Path.joinpath(FIXTURE_DIR, "grow_gold_analysis_projects.csv")).to_dict("records")
+    mock_get.return_value.status_code = 200
+    mock_get.return_value.json.return_value = mock_data
+
     gold_analysis_data = get_analysis_projects_from_proposal_id("11111", "ed42ef155670")
     assert gold_analysis_data[0] == {
         "apGoldId": "Ga0499978",
@@ -96,7 +97,7 @@ def test_sample_model_instance_creation(monkeypatch, grow_analysis_df):
     assert sample_model.apGoldId == "Ga0499978"
     assert sample_model.studyId == "Gs0149396"
     assert sample_model.itsApId == 1323348
-    assert sample_model.projects == "['Gp0587070']"
+    assert sample_model.projects == ['Gp0587070']
     assert sample_model.biosample_id == "Gb0305643"
     assert sample_model.seq_id == "s1323445"
     assert sample_model.file_name == "52614.1.394702.GCACTAAC-CCAAGACT.filtered-report.txt"
