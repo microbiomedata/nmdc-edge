@@ -397,7 +397,6 @@ class NmdcRuntimeApi:
         return resp.json()
 
     @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
-    @refresh_token
     def find_planned_processes(self, filter: dict):
         # construct filter params
         filter_parts = []
@@ -417,7 +416,7 @@ class NmdcRuntimeApi:
         return resp.json()["results"]
 
 
-    @refresh_token
+    
     def validate_metadata(self, metadata):
         url = "%smetadata/json:validate" % self._base_url
         resp = requests.post(url, headers=self.header, data=json.dumps(metadata))
