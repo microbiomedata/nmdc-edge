@@ -139,7 +139,7 @@ def test_workflow_execution_types_returns_list(import_mapper_instance):
 
 def test_update_file_mappings(import_mapper_instance):
     for fm in import_mapper_instance.file_mappings:
-        assert fm.workflow_execution_id is None
+        assert fm.nmdc_process_id is None
         assert fm.data_object_id is None
 
     for fm in import_mapper_instance.file_mappings:
@@ -147,7 +147,7 @@ def test_update_file_mappings(import_mapper_instance):
             fm.data_object_type, data_object_id='nmdc:dobj', workflow_execution_id='nmdc:wf'
         )
     for fm in import_mapper_instance.file_mappings:
-        assert fm.workflow_execution_id == 'nmdc:wf'
+        assert fm.nmdc_process_id == 'nmdc:wf'
         assert fm.data_object_id == 'nmdc:dobj'
 
 

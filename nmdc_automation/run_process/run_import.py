@@ -103,7 +103,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
             continue
 
 
-        # Go though file and update data object and workflow executions IDs
+        # Go though file and update data object and NMDC process IDs
         for fm in import_mapper.file_mappings:
             data_object_id = import_mapper.get_or_create_minted_id(
                 'nmdc:DataObject', fm.data_object_type
@@ -113,17 +113,17 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                 continue
             # We already have an ID for Raw Reads
             if fm.data_object_type == 'Metagenome Raw Reads':
-                workflow_execution_id = nucleotide_sequencing_id
+                nmdc_process_id = nucleotide_sequencing_id
             else:
-                workflow_execution_id = import_mapper.get_or_create_minted_id(
+                nmdc_process_id = import_mapper.get_or_create_minted_id(
                     fm.output_of
                 )
-            if not workflow_execution_id:
-                logger.error(f"Cannot determine an ID for {fm.output_of}")
+            if not nmdc_process_id:
+                logger.error(f"Cannot determine a workflow execution or data generation ID for {fm.output_of}")
                 continue
 
             import_mapper.update_file_mappings(
-                fm.data_object_type, data_object_id, workflow_execution_id
+                fm.data_object_type, data_object_id, nmdc_process_id
             )
 
         # Check the Database for any workflow executions that may already exist
@@ -151,7 +151,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
 
             # Get the workflow ID for these mappings (there can be only 1) and use it to make the output dir
             mappings = file_mappings_by_wfe_type.get(wfe_type, [])
-            wfe_ids = {mapping.workflow_execution_id for mapping in mappings}
+            wfe_ids = {mapping.nmdc_process_id for mapping in mappings}
             if len(wfe_ids) != 1:
                 raise Exception(f"Found multiple workflow execution IDs for {wfe_type}")
             wfe_id = wfe_ids.pop()
@@ -202,7 +202,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                     "file_size_bytes": filemeta.st_size,
                     "md5_checksum": md5,
                     "data_object_type": mapping.data_object_type,
-                    "was_generated_by": mapping.workflow_execution_id,
+                    "was_generated_by": mapping.nmdc_process_id,
                     "url": f"{import_mapper.data_source_url}/{import_mapper.nucleotide_sequencing_id}/"
                            f"{export_file}",
                     "description": description

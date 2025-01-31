@@ -138,7 +138,7 @@ class ImportMapper:
     @property
     def workflow_execution_ids(self) -> List[str]:
         """ Return the unique workflow execution IDs."""
-        workflow_execution_ids = {fm.workflow_execution_id for fm in self.file_mappings}
+        workflow_execution_ids = {fm.nmdc_process_id for fm in self.file_mappings}
         return list(workflow_execution_ids)
 
     @property
@@ -156,17 +156,17 @@ class ImportMapper:
         for fm in self._file_mappings:
             if fm.data_object_type == data_object_type:
                 fm.data_object_id = data_object_id
-                fm.workflow_execution_id = workflow_execution_id
+                fm.nmdc_process_id = workflow_execution_id
 
     def get_nmdc_data_file_name(self, file_mapping: "FileMapping") -> str:
         spec = self.import_specs_by_data_object_type[file_mapping.data_object_type]
         if spec["action"] == "none":
             filename =  os.path.basename(file_mapping.file)
         elif spec["action"] == "rename":
-            wfe_file_id = file_mapping.workflow_execution_id.replace(":", "_")
+            wfe_file_id = file_mapping.nmdc_process_id.replace(":", "_")
             filename =  wfe_file_id + spec["nmdc_suffix"]
         elif spec["action"] == "zip":
-            wfe_file_id = file_mapping.workflow_execution_id.replace(":", "_")
+            wfe_file_id = file_mapping.nmdc_process_id.replace(":", "_")
             filename = wfe_file_id + spec["nmdc_suffix"]
         else:
             raise ValueError(f"Unknown action: {spec['action']}")
@@ -235,18 +235,18 @@ class FileMapping:
     - output_of: The workflow execution type that this data object is an output of.
     - input_to: The workflow execution type(s) that this data object is an input to.
     - data_object_id: The data object ID.
-    - workflow_execution_id: (Optional) The workflow execution ID that the data object is output of.
+    - nmdc_process_id: (Optional) The workflow execution or data generation ID that produced this data object.
     """
 
     def __init__(self, data_object_type: str, import_file: Union[str, Path], output_of: str,
-                 input_to: list , is_multiple: bool,  data_object_id: Optional[str] = None, workflow_execution_id: str = None):
+                 input_to: list, is_multiple: bool, data_object_id: Optional[str] = None, nmdc_process_id: str = None):
         self.data_object_type = data_object_type
         self.file = import_file
         self.output_of = output_of
         self.input_to = input_to
         self.is_multiple = is_multiple
         self.data_object_id = data_object_id
-        self.workflow_execution_id = workflow_execution_id
+        self.nmdc_process_id = nmdc_process_id
 
     def __str__(self):
         return (
@@ -257,24 +257,24 @@ class FileMapping:
             f"input_to={self.input_to}, "
             f"is_multiple={self.is_multiple}, "
             f"data_object_id={self.data_object_id}, "
-            f"workflow_execution_id={self.workflow_execution_id} "
+            f"nmdc_process_id={self.nmdc_process_id} "
             f")"
         )
 
     def __eq__(self, other):
         if isinstance(other, FileMapping):
             return (
-                self.data_object_type == other.data_object_type and
-                self.file == other.file and
-                self.output_of == other.output_of and
-                self.input_to == other.input_to and
-                self.is_multiple == other.is_multiple and
-                self.data_object_id == other.data_object_id and
-                self.workflow_execution_id == other.workflow_execution_id
+                    self.data_object_type == other.data_object_type and
+                    self.file == other.file and
+                    self.output_of == other.output_of and
+                    self.input_to == other.input_to and
+                    self.is_multiple == other.is_multiple and
+                    self.data_object_id == other.data_object_id and
+                    self.nmdc_process_id == other.nmdc_process_id
             )
 
     def __hash__(self):
-        return hash((self.data_object_type, self.file, self.output_of, self.data_object_id, self.workflow_execution_id))
+        return hash((self.data_object_type, self.file, self.output_of, self.data_object_id, self.nmdc_process_id))
         
 
 @lru_cache

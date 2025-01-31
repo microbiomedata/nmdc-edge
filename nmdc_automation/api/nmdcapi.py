@@ -66,6 +66,10 @@ class NmdcRuntimeApi:
         self._base_url = self.config.api_url
         self.client_id = self.config.client_id
         self.client_secret = self.config.client_secret
+        self.header = {
+            "accept": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+        }
         if self._base_url[-1] != "/":
             self._base_url += "/"
 
@@ -416,7 +420,7 @@ class NmdcRuntimeApi:
         return resp.json()["results"]
 
 
-    
+    @refresh_token
     def validate_metadata(self, metadata):
         url = "%smetadata/json:validate" % self._base_url
         resp = requests.post(url, headers=self.header, data=json.dumps(metadata))
