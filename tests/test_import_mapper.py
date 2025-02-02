@@ -13,7 +13,6 @@ def mock_runtime_api():
     api.minter = MagicMock(side_effect=lambda obj_type: f"mocked_id_for_{obj_type}")
     return api
 
-
 @pytest.fixture
 def import_mapper_instance(mock_runtime_api, base_test_dir):
     yaml_file = base_test_dir / "import_test.yaml"
@@ -24,18 +23,33 @@ def import_mapper_instance(mock_runtime_api, base_test_dir):
         import_yaml=yaml_file, runtime_api=mock_runtime_api
     )
 
-
 @pytest.fixture
 def mock_minted_ids():
     return {"data_object_ids": {"Metagenome Raw Reads": "existing_data_object_id"},
         "workflow_execution_ids": {"WorkflowA": "existing_workflow_id"}}
 
-
 @patch("os.listdir")
 def test_import_files_initialized(mock_listdir, import_mapper_instance):
     mock_listdir.return_value = ["file1.txt", "file2.txt"]
-    assert len(import_mapper_instance.file_mappings) == 24
-
+    
+    print("\nListing all imported files:")
+    print("---------------------------")
+    all_files = [
+        fm for fm in import_mapper_instance.file_mappings 
+      ]
+    for fm_all in all_files:
+        print(fm_all.file)    
+    
+    print("\nFiltered correct proteins.faa files:")
+    print("-------------------------------------")
+    correct_protein_faa_files = [
+        fm for fm in import_mapper_instance.file_mappings if fm.file.endswith("_proteins.faa")
+        ]
+    for fm_protein in correct_protein_faa_files:
+        print(fm_protein.file)
+        
+    assert len(import_mapper_instance.file_mappings) == 22
+    assert len(correct_protein_faa_files) == 1, "Only one '_proteins.faa' file should be imported."
 
 def test_write_minted_id_file(import_mapper_instance, base_test_dir):
     import_project_dir = base_test_dir / "import_project_dir"
