@@ -1,5 +1,37 @@
 #!/bin/bash
 
+# Find products to ingest
+    # connect to mongodb
+    # iterate thorugh the records
+    # use url suffix to impute nersc based files
+    # access the nersc files
+
+
+# Generate metadata.json
+    # generate metadata section
+        # workflow_execution - impute from filename
+        # workflow_execution_id - curr_dir
+        # data_object_id - query api for filename
+        # was_informed_by - parent_dir
+    # generate outputs section
+        # file - filename
+        # label - impute from: filename => data_object_id => data_object_type => label from template
+        # file_format - impute from filename
+        
+
+# Archive into JAMO     
+## batch processing?
+    # log into perlmutter.nersc.gov
+    # module load jamo/dev
+    # jat import nmdc-shal-test/nmdc-test-template metadata.json
+
+# Logging
+
+
+# ##############################################################################################
+
+# DRAFT
+
 # Base directory
 base_dir="results"
 
