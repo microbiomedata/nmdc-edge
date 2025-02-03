@@ -194,7 +194,7 @@ Data Objects:
     - data_object_type: Annotation Amino Acid FASTA
       description: FASTA Amino Acid File for {id}
       name: FASTA amino acid file for annotated proteins
-      import_suffix: _proteins.faa
+      import_suffix: "^(?!.*_(cds|genemark|prodigal)_proteins\\.faa$).*proteins\\.faa$"
       nmdc_suffix: _proteins.faa
       input_to: [nmdc:MagsAnalysis]
       output_of: nmdc:MetagenomeAnnotation
