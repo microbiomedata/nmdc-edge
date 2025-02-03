@@ -111,6 +111,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
             if not data_object_id:
                 logger.error(f"Cannot determine an ID for {fm.data_object_type}")
                 continue
+            logger.info(f"Importing sequencing data for {fm.data_object_type} ID: {data_object_id}")
             # We already have an ID for Raw Reads
             if fm.data_object_type == 'Metagenome Raw Reads':
                 nmdc_process_id = nucleotide_sequencing_id
