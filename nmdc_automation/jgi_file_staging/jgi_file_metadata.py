@@ -36,12 +36,21 @@ ACCEPT = "application/json"
 def get_request(url: str, ACCESS_TOKEN: str, delay=1.0) -> dict:
     headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
     time.sleep(delay)
-    response = requests.get(url, headers=headers, verify=eval(os.environ.get('VERIFY')))
-    if response.status_code == 200:
-        return response.json()
-    else:
-        logging.error(f"{response.text}")
-        return None
+    try:
+        response = requests.get(url, headers=headers, verify=eval(os.environ.get('VERIFY')))
+        if response.status_code == 404:
+            logging.exception('404 error')
+            return None
+        else:
+            return response.json()
+    except requests.exceptions.HTTPError as errh:
+        logging.exception(f"HTTP Error: {errh}")
+    except requests.exceptions.ConnectionError as errc:
+        logging.exception(f"Error Connecting: {errc}")
+    except requests.exceptions.Timeout as errt:
+        logging.exception(f"Timeout Error: {errt}")
+    except requests.exceptions.RequestException as err:
+        logging.exception(f"Something Else: {err}")
 
 
 def get_samples_data(project: str, config_file: str) -> None:
@@ -93,9 +102,6 @@ def get_access_token() -> str:
 
 def check_access_token(ACCESS_TOKEN: str, delay: float) -> str:
     url = 'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId=Gb0291582'
-    # headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
-    # time.sleep(delay)
-    # gold_biosample_response = requests.get(gold_biosample_url, headers=headers, verify=verify)
     gold_biosample_response = get_request(url, ACCESS_TOKEN, delay=delay)
     if gold_biosample_response:
         return ACCESS_TOKEN
@@ -132,8 +138,6 @@ def get_sample_files(proposal_id: int, ACCESS_TOKEN: str, delay: float) -> List[
 
 def get_biosample_ids(proposal_id: int, ACCESS_TOKEN: str) -> List[str]:
     url = f'https://gold-ws.jgi.doe.gov/api/v1/biosamples?itsProposalId={proposal_id}'
-    # headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
-    # response = requests.get(url, headers=headers, verify=verify)
     response_json = get_request(url, ACCESS_TOKEN)
     biosample_ids = [sample['biosampleGoldId'] for sample in response_json]
     return biosample_ids
