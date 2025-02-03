@@ -261,6 +261,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
         else:
             logger.info(f"Validation failed")
             logger.info(f"Validation result: {val_result}")
+            print(db_update_json)
 
 
         logger.info("Updating minted IDs")
