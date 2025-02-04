@@ -209,8 +209,7 @@ class ImportMapper:
             raise ValueError(f"Found {len(data_generation_recs)} data generation records but expected 1")
         data_generation = data_generation_recs[0]
         data_object_id = data_generation['has_output'][0]
-        filter = {"id": data_object_id}
-        data_object = self.runtime_api.find_data_objects(filter)
+        data_object = self.runtime_api.find_data_objects(data_object_id)
 
         if data_object:
             import_spec = self.import_specs_by_data_object_type[data_object["data_object_type"]]
@@ -219,7 +218,7 @@ class ImportMapper:
                     data_object_type=data_object["data_object_type"],
                     output_of=import_spec['output_of'],
                     input_to=import_spec['input_to'],
-                    is_multiple=import_spec['is_multiple'],
+                    is_multiple=import_spec['multiple'],
                     data_object_id=data_object['id'],
                     nmdc_process_id=data_generation['id'],
                     data_object_in_db=True,
@@ -234,7 +233,7 @@ class ImportMapper:
                     data_object_type=data_object_type,
                     output_of=import_spec['output_of'],
                     input_to=import_spec['input_to'],
-                    is_multiple=import_spec['is_multiple'],
+                    is_multiple=import_spec['multiple'],
                     nmdc_process_id=self.nucleotide_sequencing_id,
                     data_object_in_db=False,
                     process_id_in_db=True
@@ -243,27 +242,30 @@ class ImportMapper:
 
 
     def add_do_mappings_from_workflow_executions(self) -> Set:
-        do_mappings = set()
+
         filter = {'was_informed_by': self.nucleotide_sequencing_id}
         workflow_execution_recs = self.runtime_api.find_planned_processes(filter)
         for workflow_execution in workflow_execution_recs:
             data_object_ids = workflow_execution['has_output']
             for data_object_id in data_object_ids:
                 data_object = self.runtime_api.find_data_objects(data_object_id)
-                import_spec = self.import_specs_by_data_object_type[data_object["data_object_type"]]
-                do_mappings.add(
+                import_spec = self.import_specs_by_data_object_type.get(data_object["data_object_type"])
+                if not import_spec:
+                    logger.warning(f"Cannot find an import specification for data object {data_object_id} / {data_object['data_object_type']}")
+                    continue
+                self.data_object_mappings.add(
                     DataObjectMapping(
                         data_object_type=data_object["data_object_type"],
                         output_of=import_spec['output_of'],
                         input_to=import_spec['input_to'],
-                        is_multiple=import_spec['is_multiple'],
+                        is_multiple=import_spec['multiple'],
                         data_object_id=data_object_id,
                         nmdc_process_id=workflow_execution['id'],
                         data_object_in_db=True,
                         process_id_in_db=True
                     )
                 )
-        return do_mappings
+
 
     def update_do_mappings_from_import_files(self) -> None:
         """Create the initial list of File Mapping based on the import files."""
