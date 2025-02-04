@@ -33,11 +33,12 @@ class ImportMapper:
         self.import_project_dir = import_project_dir
         self.import_yaml = import_yaml
         self.runtime_api = runtime_api
-        # Derived properties
+
+        self.data_object_mappings = set()
 
         self._import_files = [f for f in os.listdir(self.import_project_dir) if
             os.path.isfile(os.path.join(self.import_project_dir, f))]
-        self._file_mappings = self._init_file_mappings()
+        # self._data_object_mappings = self._init_file_mappings()
         self.minted_id_file = f"{self.import_project_dir}/{self.nucleotide_sequencing_id}_minted_ids.json"
         self.minted_ids = {
                 "data_object_ids": {},
@@ -115,7 +116,7 @@ class ImportMapper:
     @property
     def file_mappings(self) -> List:
         """Return the file mappings."""
-        return list(self._file_mappings)
+        return list(self.data_object_mappings)
 
     @property
     def file_mappings_by_data_object_type(self) -> Dict:
@@ -153,15 +154,15 @@ class ImportMapper:
                              workflow_execution_id: str,
                              ) -> None:
         """ Update the file mappings."""
-        for fm in self._file_mappings:
+        for fm in self.data_object_mappings:
             if fm.data_object_type == data_object_type:
                 fm.data_object_id = data_object_id
                 fm.nmdc_process_id = workflow_execution_id
 
-    def get_nmdc_data_file_name(self, file_mapping: "FileMapping") -> str:
+    def get_nmdc_data_file_name(self, file_mapping: "DataObjectMapping") -> str:
         spec = self.import_specs_by_data_object_type[file_mapping.data_object_type]
         if spec["action"] == "none":
-            filename =  os.path.basename(file_mapping.file)
+            filename =  os.path.basename(file_mapping.import_file)
         elif spec["action"] == "rename":
             wfe_file_id = file_mapping.nmdc_process_id.replace(":", "_")
             filename =  wfe_file_id + spec["nmdc_suffix"]
@@ -200,23 +201,94 @@ class ImportMapper:
         return has_input, has_output
 
 
+    def add_do_mappings_from_data_generation(self) -> None:
+        # Find the data generation and it's output data object
+        id_filter = {'id': self.nucleotide_sequencing_id}
+        data_generation_recs = self.runtime_api.find_planned_processes(id_filter)
+        if len(data_generation_recs) != 1:
+            raise ValueError(f"Found {len(data_generation_recs)} data generation records but expected 1")
+        data_generation = data_generation_recs[0]
+        data_object_id = data_generation['has_output'][0]
+        filter = {"id": data_object_id}
+        data_object = self.runtime_api.find_data_objects(filter)
 
-    def _init_file_mappings(self) -> Set:
+        if data_object:
+            import_spec = self.import_specs_by_data_object_type[data_object["data_object_type"]]
+            self.data_object_mappings.add(
+                DataObjectMapping(
+                    data_object_type=data_object["data_object_type"],
+                    output_of=import_spec['output_of'],
+                    input_to=import_spec['input_to'],
+                    is_multiple=import_spec['is_multiple'],
+                    data_object_id=data_object['id'],
+                    nmdc_process_id=data_generation['id'],
+                    data_object_in_db=True,
+                    process_id_in_db=True
+                )
+            )
+        else:
+            data_object_type = "Metagenome Raw Reads"
+            import_spec = self.import_specs_by_data_object_type[data_object_type]
+            self.data_object_mappings.add(
+                DataObjectMapping(
+                    data_object_type=data_object_type,
+                    output_of=import_spec['output_of'],
+                    input_to=import_spec['input_to'],
+                    is_multiple=import_spec['is_multiple'],
+                    nmdc_process_id=self.nucleotide_sequencing_id,
+                    data_object_in_db=False,
+                    process_id_in_db=True
+                )
+            )
+
+
+    def add_do_mappings_from_workflow_executions(self) -> Set:
+        do_mappings = set()
+        filter = {'was_informed_by': self.nucleotide_sequencing_id}
+        workflow_execution_recs = self.runtime_api.find_planned_processes(filter)
+        for workflow_execution in workflow_execution_recs:
+            data_object_ids = workflow_execution['has_output']
+            for data_object_id in data_object_ids:
+                data_object = self.runtime_api.find_data_objects(data_object_id)
+                import_spec = self.import_specs_by_data_object_type[data_object["data_object_type"]]
+                do_mappings.add(
+                    DataObjectMapping(
+                        data_object_type=data_object["data_object_type"],
+                        output_of=import_spec['output_of'],
+                        input_to=import_spec['input_to'],
+                        is_multiple=import_spec['is_multiple'],
+                        data_object_id=data_object_id,
+                        nmdc_process_id=workflow_execution['id'],
+                        data_object_in_db=True,
+                        process_id_in_db=True
+                    )
+                )
+        return do_mappings
+
+    def update_do_mappings_from_import_files(self) -> None:
         """Create the initial list of File Mapping based on the import files."""
-        file_mappings = set()
         for file in self._import_files:
             data_object_type = self._get_file_data_object_type(file)
             if not data_object_type:
                 logger.error(f"No mapping action found for {file}")
                 continue
             import_spec = self.import_specs_by_data_object_type[data_object_type]
-            output_of = import_spec["output_of"]
-            input_to = import_spec["input_to"]
-            is_multiple = import_spec["multiple"]
-            file_mappings.add(
-                FileMapping(data_object_type, file, output_of, input_to, is_multiple)
-            )
-        return file_mappings
+
+            # look for an existing single-data mapping and add the import file
+            existing_mapping = next((m for m in self.data_object_mappings if m.data_object_type == data_object_type), None)
+            if existing_mapping and not import_spec['multiple']:
+                existing_mapping.import_file = file
+            else:
+                self.data_object_mappings.add(
+                    DataObjectMapping(
+                        data_object_type=data_object_type,
+                        output_of=import_spec['output_of'],
+                        input_to=import_spec['input_to'],
+                        is_multiple=import_spec['multiple'],
+                        import_file=file,
+                    )
+                )
+
 
     def _get_file_data_object_type(self, file: str) -> Optional[str]:
         """Return the data object type based on the file name suffix."""
@@ -227,54 +299,63 @@ class ImportMapper:
         return None
 
 
-class FileMapping:
+class DataObjectMapping:
     """
-    Class to represent a data file mapping with:
+    Class to represent a Data Object mapping with:
     - data_object_type: The type of data object.
-    - import_file: The import file name.
     - output_of: The workflow execution type that this data object is an output of.
     - input_to: The workflow execution type(s) that this data object is an input to.
+    - is_multiple: Whether this data object is based on a multipart data file such as binning results.
     - data_object_id: The data object ID.
     - nmdc_process_id: (Optional) The workflow execution or data generation ID that produced this data object.
+    - data_object_in_db: Whether this data object exists in the database or not.
+    - nmdc_process_in_db: Whether this process (workflow execution or data generation) exists in the database or not.
     """
 
-    def __init__(self, data_object_type: str, import_file: Union[str, Path], output_of: str,
-                 input_to: list, is_multiple: bool, data_object_id: Optional[str] = None, nmdc_process_id: str = None):
+    def __init__(self, data_object_type: str, output_of: str, input_to: list, is_multiple: bool,
+                 data_object_id: Optional[str] = None, import_file: Union[str, Path] = None,
+                 nmdc_process_id: str = None, data_object_in_db: bool = False, process_id_in_db: bool = False) -> None:
         self.data_object_type = data_object_type
-        self.file = import_file
+        self.import_file = import_file
         self.output_of = output_of
         self.input_to = input_to
         self.is_multiple = is_multiple
         self.data_object_id = data_object_id
         self.nmdc_process_id = nmdc_process_id
+        self.data_object_in_db = data_object_in_db
+        self.process_id_in_db = process_id_in_db
 
     def __str__(self):
         return (
             f"FileMapping("
             f"data_object_type={self.data_object_type}, "
-            f"file={self.file}, "
+            f"import_file={self.import_file}, "
             f"output_of={self.output_of}, "
             f"input_to={self.input_to}, "
             f"is_multiple={self.is_multiple}, "
             f"data_object_id={self.data_object_id}, "
-            f"nmdc_process_id={self.nmdc_process_id} "
+            f"nmdc_process_id={self.nmdc_process_id}, "
+            f"data_object_in_db={self.data_object_in_db}, "
+            f"process_id_in_db={self.process_id_in_db}, "
             f")"
         )
 
     def __eq__(self, other):
-        if isinstance(other, FileMapping):
+        if isinstance(other, DataObjectMapping):
             return (
                     self.data_object_type == other.data_object_type and
-                    self.file == other.file and
+                    self.import_file == other.import_file and
                     self.output_of == other.output_of and
                     self.input_to == other.input_to and
                     self.is_multiple == other.is_multiple and
                     self.data_object_id == other.data_object_id and
-                    self.nmdc_process_id == other.nmdc_process_id
+                    self.nmdc_process_id == other.nmdc_process_id and
+                    self.data_object_in_db == other.data_object_in_db and
+                    self.process_id_in_db == other.process_id_in_db
             )
 
     def __hash__(self):
-        return hash((self.data_object_type, self.file, self.output_of, self.data_object_id, self.nmdc_process_id))
+        return hash((self.data_object_type, self.import_file, self.output_of, self.data_object_id, self.nmdc_process_id))
         
 
 @lru_cache

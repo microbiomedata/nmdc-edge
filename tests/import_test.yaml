@@ -1,10 +1,9 @@
-#TO DO delete this file in favor of using configs/import.yaml
 Workflows:
   - Name: Reads QC
     Import: true
     Type: nmdc:ReadQcAnalysis
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: v1.0.8
+    Version: v1.0.14
     Collection: workflow_execution_set
     WorkflowExecutionRange: ReadQcAnalysis
     Inputs:
@@ -24,7 +23,7 @@ Workflows:
     Import: false
     Type: nmdc:ReadBasedTaxonomyAnalysis
     Git_repo: https://github.com/microbiomedata/ReadsQC
-    Version: v1.0.5
+    Version: v1.0.9
     Collection: workflow_execution_set
     WorkflowExecutionRange: ReadBasedTaxonomyAnalysis
     Inputs:
@@ -47,7 +46,7 @@ Workflows:
     Import: true
     Type: nmdc:MetagenomeAssembly
     Git_repo: https://github.com/microbiomedata/metaAssembly
-    Version: v1.0.3
+    Version: v1.0.7
     Collection: workflow_execution_set
     WorkflowExecutionRange: MetagenomeAssembly
     Inputs:
@@ -88,7 +87,7 @@ Workflows:
       - Assembly Coverage BAM
 
   - Name: Metagenome Annotation
-    Import: true
+    Import: false
     Type: nmdc:MetagenomeAnnotation
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Version: v1.0.4
@@ -112,22 +111,22 @@ Workflows:
       - SUPERFam Annotation GFF
       - CATH FunFams (Functional Families) Annotation GFF
       - CRT Annotation GFF
-      - Genmark Annotation GFF
+      - Genemark Annotation GFF
       - Prodigal Annotation GFF
       - TRNA Annotation GFF
       - RFAM Annotation GFF
       - KO_EC Annotation GFF
       - Product Names
       - Gene Phylogeny tsv
-      - Crisprt Terms
+      - Crispr Terms
       - Annotation Statistics
 
 
   - Name: MAGs
-    Import: true
+    Import: false
     Type: nmdc:MagsAnalysis
     Git_repo: https://github.com/microbiomedata/metaMAGs
-    Version: v1.0.6
+    Version: v1.3.12
     Collection: workflow_execution_set
     WorkflowExecutionRange: MagsAnalysis
     Inputs:
@@ -151,7 +150,7 @@ Workflows:
     Outputs:
       - CheckM Statistics
       - Metagenome Bins
-      - GTDBTK Bacterial Summary 
+      - GTDBTK Bacterial Summary
       - GTDBTK Archaeal Summary
 
 Data Objects:
@@ -159,7 +158,7 @@ Data Objects:
     - data_object_type: Metagenome Raw Reads
       description: Metagenome Raw Reads for {id}
       name: Raw sequencer read data
-      import_suffix: .[A-Z]+-[A-Z]+.fastq.gz
+      import_suffix: .[a-zA-Z]+-[A,C,G,T]+.fastq.gz
       nmdc_suffix: .fastq.gz
       input_to: [nmdc:ReadQcAnalysis]
       output_of: nmdc:NucleotideSequencing
@@ -408,8 +407,8 @@ Data Objects:
       output_of: nmdc:ReadQcAnalysis
       multiple: false
       action: rename
-    - data_object_type: QC Statistics 
-      description: Reads QC summary for {id} 
+    - data_object_type: QC Statistics
+      description: Reads QC summary for {id}
       name: Reads QC summary statistics
       import_suffix: .filtered-report.txt
       nmdc_suffix: _filterStats.txt
@@ -417,7 +416,7 @@ Data Objects:
       output_of: nmdc:ReadQcAnalysis
       multiple: false
       action: rename
-    - data_object_type: Read Filtering Info File 
+    - data_object_type: Read Filtering Info File
       description: Read Filtering Info File for {id}
       name: File containing read filtering information
       import_suffix: _readsQC.info
@@ -562,7 +561,7 @@ Data Objects:
       multiple: false
       action: rename
   Multiples:
-    - data_object_type: Metagenome Bins
+    - data_object_type: Metagenome HQMQ Bins Compression File
       description: Metagenome Bins for {id}
       name: Metagenome bin tarfiles archive
       import_suffix: _[0-9]+.tar.gz

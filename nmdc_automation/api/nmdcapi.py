@@ -419,6 +419,13 @@ class NmdcRuntimeApi:
             resp.raise_for_status()
         return resp.json()["results"]
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
+    def find_data_objects(self, data_object_id):
+        url = "%sdata_objects/%s" % (self._base_url, data_object_id)
+        resp = requests.get(url, headers=self.header)
+        if not resp.ok:
+            resp.raise_for_status()
+        return resp.json()
 
     @refresh_token
     def validate_metadata(self, metadata):

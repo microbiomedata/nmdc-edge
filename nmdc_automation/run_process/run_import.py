@@ -172,7 +172,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                 # link files
                 nmdc_data_file_name = import_mapper.get_nmdc_data_file_name(mapping)
                 export_file = os.path.join(nmdc_wfe_dir, nmdc_data_file_name)
-                import_file = os.path.join(import_mapper.import_project_dir, mapping.file)
+                import_file = os.path.join(import_mapper.import_project_dir, mapping.import_file)
                 # single data files get linked
                 if not mapping.is_multiple:
                     try:

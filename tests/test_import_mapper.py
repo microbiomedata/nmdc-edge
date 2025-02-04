@@ -14,7 +14,7 @@ def mock_runtime_api():
     return api
 
 @pytest.fixture
-def import_mapper_instance(mock_runtime_api, base_test_dir):
+def import_mapper_instance(mock_runtime_api, base_test_dir, ):
     yaml_file = base_test_dir / "import_test.yaml"
     nucleotide_sequencing_id = "nmdc:omprc-11-importT"
     return ImportMapper(
@@ -28,28 +28,26 @@ def mock_minted_ids():
     return {"data_object_ids": {"Metagenome Raw Reads": "existing_data_object_id"},
         "workflow_execution_ids": {"WorkflowA": "existing_workflow_id"}}
 
-@patch("os.listdir")
-def test_import_files_initialized(mock_listdir, import_mapper_instance):
-    mock_listdir.return_value = ["file1.txt", "file2.txt"]
-    
-    print("\nListing all imported files:")
-    print("---------------------------")
-    all_files = [
-        fm for fm in import_mapper_instance.file_mappings 
-      ]
-    for fm_all in all_files:
-        print(fm_all.file)    
-    
-    print("\nFiltered correct proteins.faa files:")
-    print("-------------------------------------")
-    correct_protein_faa_files = [
-        fm for fm in import_mapper_instance.file_mappings if fm.file.endswith("_proteins.faa")
-        ]
-    for fm_protein in correct_protein_faa_files:
-        print(fm_protein.file)
-        
+
+def test_update_do_mappings_from_import_files(import_mapper_instance):
+    import_mapper_instance.update_do_mappings_from_import_files()
     assert len(import_mapper_instance.file_mappings) == 22
+
+
+def test_update_do_mapping_from_import_files_correct_protein_file_import(import_mapper_instance):
+    import_mapper_instance.update_do_mappings_from_import_files()
+    correct_protein_faa_files = [
+        fm for fm in import_mapper_instance.file_mappings if fm.data_object_type =="Annotation Amino Acid FASTA"
+    ]
     assert len(correct_protein_faa_files) == 1, "Only one '_proteins.faa' file should be imported."
+
+def test_update_do_mapping_from_import_files_correct_binning_mapping(import_mapper_instance):
+    import_mapper_instance.update_do_mappings_from_import_files()
+    binning_files = [
+        fm for fm in import_mapper_instance.file_mappings if fm.data_object_type == "Metagenome HQMQ Bins Compression File"
+    ]
+    assert len(binning_files) == 2, "Multiple files should be imported."
+
 
 def test_write_minted_id_file(import_mapper_instance, base_test_dir):
     import_project_dir = base_test_dir / "import_project_dir"
