@@ -1,8 +1,9 @@
+
 from nmdc_automation.workflow_automation.wfutils import (
     CromwellRunner,
     WorkflowJob,
     WorkflowStateManager,
-    _json_tmp,
+    JawsRunner,
 )
 from nmdc_automation.models.nmdc import DataObject, workflow_process_factory
 from nmdc_schema.nmdc import MagsAnalysis, EukEval
@@ -84,6 +85,12 @@ def test_cromwell_job_runner_get_job_metadata(site_config, fixtures_dir, mock_cr
     # check that the metadata is cached
     assert job_runner.metadata == metadata
 
+
+def test_jaws_job_runner(site_config, fixtures_dir):
+    job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    state_manager = WorkflowStateManager(job_state)
+    job_runner = JawsRunner(site_config, state_manager)
+    assert job_runner
 
 def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
     workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
