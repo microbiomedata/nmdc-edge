@@ -11,14 +11,14 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
-from linkml_runtime.dumpers import yaml_dumper
-import yaml
-
 import pytz
 import requests
 
 from nmdc_automation.config import SiteConfig
 from nmdc_automation.models.nmdc import DataObject, WorkflowExecution, workflow_process_factory
+
+from jaws_client import api
+from jaws_client.config import Configuration
 
 DEFAULT_MAX_RETRIES = 2
 
