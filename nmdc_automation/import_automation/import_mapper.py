@@ -96,7 +96,7 @@ class ImportMapper:
 
     @property
     def data_source_url(self) -> str:
-        """Return the data source URL."""
+        """Return the data source URL specified in the import.yaml file."""
         return self.import_specifications["Workflow Metadata"]["Source URL"]
 
     @property

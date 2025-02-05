@@ -48,9 +48,11 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
         nucleotide_sequencing_id = data_import["nucleotide_sequencing_id"]
 
         # Initialize the import mapper
+        # 1. Add DataGeneration and it's output data object
+        # 2. Add Workflow Executions and their data objects
+        # 3. Scan files in the Import Directory and add or update mappings
         logger.info(f"Importing project {project_path} into {nucleotide_sequencing_id}")
-        import_mapper = ImportMapper(nucleotide_sequencing_id, project_path, import_yaml,
-                                     runtime_api)
+        import_mapper = ImportMapper(nucleotide_sequencing_id, project_path, import_yaml, runtime_api)
         import_mapper.add_do_mappings_from_data_generation()
         import_mapper.add_do_mappings_from_workflow_executions()
         import_mapper.update_do_mappings_from_import_files()
@@ -68,10 +70,15 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
             "updates": []
         }
 
+        # Make root directory for import
+        try:
+            os.makedirs(import_mapper.root_directory)
+        except FileExistsError:
+            logger.debug(f"Directory {import_mapper.root_directory} already exists")
 
 
-
-
+        # Iterate through all mappings, assigning NMDC IDs for
+        # data objects and workflow executions if they don't already exist in the DB
         for fm in import_mapper.file_mappings:
             if fm.data_object_in_db:
                 logger.info(f"Data Object: {fm.data_object_id} / {fm.data_object_type} already exists in DB - skipping")
@@ -95,37 +102,29 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                 continue
             fm.nmdc_process_id = nmdc_process_id
 
-            logger.info(f"{fm}")
+
+        # Iterate through the mappings by Workflow Execution Type and
+        # 1. Make the NMDC data directory based on workflow execution ID if it does not exist
+        # 2. Link the data file and determine file size and MD5 hash
+        # 3. Make DataObject record
+        # 4. Make Workflow Execution record
+        for process_type, mappings in import_mapper.file_mappings_by_workflow_type.items():
+            process_ids = [mapping.nmdc_process_id for mapping in mappings]
+            if len(process_ids) != 1:
+                raise ValueError(f"Cannot determine nmdc_process_id for {process_type}")
+            nmdc_process_id = process_ids[0]
+
+            nmdc_data_directory = os.path.join(import_mapper.root_directory, nmdc_process_id)
+            try:
+                os.makedirs(nmdc_data_directory)
+            except FileExistsError:
+                logger.debug(f"Directory {nmdc_data_directory} already exists")
 
 
-        # # Make root directory for import
-        # try:
-        #     os.makedirs(import_mapper.root_directory)
-        # except FileExistsError:
-        #     logger.debug(f"Directory {import_mapper.root_directory} already exists")
-        #
-        #
-        # import_spec_by_wfe_type = import_mapper.import_specs_by_workflow_type
-        # for wfe_type, db_wfe_ids in db_wfe_ids_by_wfe_type.items():
-        #     if len(db_wfe_ids) != 0:
-        #         logger.warning(f"Found {len(db_wfe_ids)} workflow executions for {wfe_type} in database - skipping")
-        #         continue
-        #
-        #     logger.info(f"Importing data objects and workflow execution for {wfe_type}")
-        #     import_spec_by_do_type = import_mapper.import_specs_by_data_object_type
-        #
-        #     # Get the workflow ID for these mappings (there can be only 1) and use it to make the output dir
-        #     mappings = file_mappings_by_wfe_type.get(wfe_type, [])
-        #     wfe_ids = {mapping.nmdc_process_id for mapping in mappings}
-        #     if len(wfe_ids) != 1:
-        #         raise Exception(f"Found multiple workflow execution IDs for {wfe_type}")
-        #     wfe_id = wfe_ids.pop()
-        #
-        #     nmdc_wfe_dir = os.path.join(import_mapper.root_directory, wfe_id)
-        #     try:
-        #         os.makedirs(nmdc_wfe_dir)
-        #     except FileExistsError:
-        #         logger.info(f"Directory {nmdc_wfe_dir} already exists")
+
+
+
+
 
 
             # # Link data files and create Data Objects
