@@ -238,8 +238,11 @@ class ImportMapper:
             raise ValueError(f"Found {len(data_generation_recs)} data generation records but expected 1")
         data_generation = data_generation_recs[0]
 
-        data_object_id = data_generation['has_output'][0]
-        data_object = self.runtime_api.find_data_objects(data_object_id)
+        if 'has_output' in data_generation and len(data_generation['has_output']) > 0:
+            data_object_id = data_generation['has_output'][0]
+            data_object = self.runtime_api.find_data_objects(data_object_id)
+        else:
+            data_object = None
 
         if data_object:
             import_spec = self.import_specs_by_data_object_type[data_object["data_object_type"]]
