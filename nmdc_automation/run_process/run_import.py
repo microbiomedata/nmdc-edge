@@ -166,6 +166,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                     logger.info(f"Data Object: {mapping.data_object_id} / {mapping.data_object_type} already exists in DB - skipping")
                     continue
 
+                logger.info(f"Linking data file for {mapping.import_file}")
                 nmdc_data_file_name = import_mapper.get_nmdc_data_file_name(mapping)
                 export_file = os.path.join(nmdc_data_directory, nmdc_data_file_name)
                 import_file = os.path.join(import_mapper.import_project_dir, mapping.import_file)
