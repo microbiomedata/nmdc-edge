@@ -67,6 +67,7 @@ class ImportMapper:
                 self.minted_ids = ids
 
     def write_minted_id_file(self):
+        """Write the minted IDs to a file."""
         with open(self.minted_id_file, 'w') as f:
             logger.info(f"Writing minted IDs to {self.minted_id_file}")
             json.dump(self.minted_ids, f)
@@ -171,13 +172,16 @@ class ImportMapper:
                         data_object_id: str,
                         workflow_execution_id: str,
                         ) -> None:
-        """ Update the file mappings."""
+        """ Update the data object mappings."""
         for fm in self.data_object_mappings:
             if fm.data_object_type == data_object_type:
                 fm.data_object_id = data_object_id
                 fm.nmdc_process_id = workflow_execution_id
 
     def get_nmdc_data_file_name(self, file_mapping: "DataObjectMapping") -> str:
+        """
+        Return the NMDC data file name based on the file mapping and import specification.
+        """
         spec = self.import_specs_by_data_object_type[file_mapping.data_object_type]
         if spec["action"] == "none":
             filename =  os.path.basename(file_mapping.import_file)
@@ -225,7 +229,7 @@ class ImportMapper:
         record in the DB.
 
         If the DG has_output is empty we create a mapping for Metagenome Raw Reads with
-        the data generation as the process, but no data object.
+        the data generation ID as the process_id, but no data object.
         """
         # Find the data generation and it's output data object
         id_filter = {'id': self.data_generation_id}
@@ -267,7 +271,11 @@ class ImportMapper:
             )
 
 
-    def add_do_mappings_from_workflow_executions(self) -> Set:
+    def add_do_mappings_from_workflow_executions(self) -> None:
+        """
+        Create the initial list of Data Object Mapping based on workflow executions
+        in the DB.
+        """
 
         filter = {'was_informed_by': self.data_generation_id}
         workflow_execution_recs = self.runtime_api.find_planned_processes(filter)
@@ -294,7 +302,9 @@ class ImportMapper:
 
 
     def update_do_mappings_from_import_files(self) -> None:
-        """Create the initial list of File Mapping based on the import files."""
+        """
+        Update the Data Object Mappings based on the import files.
+        """
         for file in self._import_files:
             data_object_type = self._get_file_data_object_type(file)
             if not data_object_type:
@@ -335,7 +345,7 @@ class DataObjectMapping:
     - output_of: The workflow execution type that this data object is an output of.
     - input_to: The workflow execution type(s) that this data object is an input to.
     - is_multiple: Whether this data object is based on a multipart data file such as binning results.
-    Optional:
+    Optional - these get updated as the data object is processed:
     - data_object_id: The data object ID.
     - nmdc_process_id: The workflow execution or data generation ID that produced this data object.
     - data_object_in_db: Whether this data object exists in the database or not.

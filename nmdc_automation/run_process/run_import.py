@@ -30,6 +30,34 @@ def cli(ctx: click.Context) -> None:
 @click.option("--update-db", is_flag=True)
 @click.pass_context
 def import_projects(ctx,  import_file, import_yaml, site_configuration, update_db):
+    """
+    Import external metagenome sequencing projects into the NMDC database.
+    - import_file: TSV file with columns:
+        'nucleotide_sequencing_id'  'project_id'  'project_path'
+    - import_yaml: YAML file with import specifications
+    - site_configuration: YAML file with site configuration
+    - update_db: Update the database if True, otherwise print the update json
+
+    The import process:
+    1. Parse the import file and import specifications
+    2. Initialize the ImportMapper
+    - Add DataGeneration and its output data object from the DB
+    - Add Workflow Executions and their data objects from the DB
+    - Scan files in the Import Directory and add or update mappings
+    3. Iterate through the mappings and assign NMDC IDs for data objects and workflow executions
+       if they don't already exist in the DB
+    4. Iterate through the mappings by Workflow Execution Type and:
+    - Make the NMDC data directory based on workflow execution ID if it does not exist
+    - Link the data file and determine file size and MD5 hash
+    - Make DataObject record if it doesn't already exist in the DB
+    - Make Workflow Execution record if it doesn't already exist in the DB
+    - Nucleotide Sequencing is a special case:
+      - No Workflow record is created
+      - If the data object is not already in the DB, create an update query
+    5. Validate using the API
+    6. If validation passes, update the database if the --update-db flag is set
+    - Otherwise, print the update json and update query if there are any
+    """
     log_level = int(ctx.obj['log_level'])
     logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s')
     logger = logging.getLogger(__name__)
