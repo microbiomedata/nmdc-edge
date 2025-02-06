@@ -147,85 +147,49 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                     except FileExistsError:
                         logger.debug(f"File {export_file} already exists")
 
+                import_spec = import_mapper.import_specs_by_data_object_type[mapping.data_object_type]
+                filemeta = os.stat(export_file)
+                md5 = get_or_create_md5(export_file)
+                description = import_spec['description'].replace("{id}", nucleotide_sequencing_id)
+                do_record = {
+                    'id': mapping.data_object_id,
+                    'type': 'nmdc:DataObject',
+                    "name": nmdc_data_file_name,
+                    "file_size_bytes": filemeta.st_size,
+                    "md5_checksum": md5,
+                    "data_object_type": mapping.data_object_type,
+                    "was_generated_by": mapping.nmdc_process_id,
+                    "url": f"{import_mapper.data_source_url}/{import_mapper.nucleotide_sequencing_id}/{export_file}",
+                    "description": description
+                }
+                # Add to the import_db if it doesn't already exist
+                existing_do_ids = {do['id'] for do in import_db['data_object_set']}
+                if do_record['id'] in existing_do_ids:
+                    continue
+                else:
+                    import_db['data_object_set'].append(do_record)
 
+            # Create Workflow Execution Record if it doesn't already exist
+            # We do not do this for sequencing
+            if process_type == 'nmdc:NucleotideSequencing':
+                continue
+            has_input, has_output = import_mapper.get_has_input_has_output_for_workflow_type(process_type)
+            import_spec = import_mapper.import_specs_by_workflow_type[process_type]
+            wfe_record = {
+                'id': nmdc_process_id,
+                "name": import_spec["Workflow_Execution"]["name"].replace("{id}", nmdc_process_id),
+                "type": import_spec["Type"],
+                "has_input": has_input,
+                "has_output": has_output,
+                "git_url": import_spec["Git_repo"],
+                "version": import_spec["Version"],
+                "execution_resource": import_mapper.import_specifications["Workflow Metadata"]["Execution Resource"],
+                "started_at_time": datetime.datetime.now(pytz.utc).isoformat(),
+                "ended_at_time": datetime.datetime.now(pytz.utc).isoformat(),
+                "was_informed_by": nucleotide_sequencing_id,
+            }
+            import_db['workflow_execution_set'].append(wfe_record)
 
-
-
-
-
-
-            # # Link data files and create Data Objects
-            # logger.info(f"Found {len(mappings)} file mappings to import for {wfe_id}")
-            # for mapping in mappings:
-            #     logger.debug(f"Importing {mapping}")
-            #
-            #     # link files
-            #     nmdc_data_file_name = import_mapper.get_nmdc_data_file_name(mapping)
-            #     export_file = os.path.join(nmdc_wfe_dir, nmdc_data_file_name)
-            #     import_file = os.path.join(import_mapper.import_project_dir, mapping.import_file)
-            #     # single data files get linked
-            #     if not mapping.is_multiple:
-            #         try:
-            #             os.link(import_file, export_file)
-            #         except FileExistsError:
-            #             logger.debug(f"File {export_file} already exists")
-            #     else:
-            #         if not os.path.exists(export_file):
-            #             with ZipFile(export_file, 'w') as zip:
-            #                 zip.write(import_file)
-            #         else:
-            #             with ZipFile(export_file, 'a') as zip:
-            #                 zip.write(import_file)
-            #
-            #     # Check if the Data Object already exists in the DB
-            #
-            #     # make a DataObject
-            #     filemeta = os.stat(export_file)
-            #     md5 = get_or_create_md5(export_file)
-            #     description = import_spec_by_do_type[mapping.data_object_type]['description'].replace(
-            #         "{id}", nucleotide_sequencing_id
-            #     )
-            #
-            #     do_record = {
-            #         'id': mapping.data_object_id,
-            #         'type': 'nmdc:DataObject',
-            #         "name": nmdc_data_file_name,
-            #         "file_size_bytes": filemeta.st_size,
-            #         "md5_checksum": md5,
-            #         "data_object_type": mapping.data_object_type,
-            #         "was_generated_by": mapping.nmdc_process_id,
-            #         "url": f"{import_mapper.data_source_url}/{import_mapper.nucleotide_sequencing_id}/"
-            #                f"{export_file}",
-            #         "description": description
-            #     }
-            #     logging.debug(f"Data Object: {do_record}")
-            #
-            #     existing_do_ids = [do['id'] for do in import_db['data_object_set']]
-            #     if do_record['id'] in existing_do_ids:
-            #         continue
-            #     else:
-            #         import_db['data_object_set'].append(do_record)
-            #
-            # # Create Workflow Execution Record - we do not do this for sequencing
-            # if wfe_type == 'nmdc:NucleotideSequencing':
-            #     continue
-            # has_input, has_output = import_mapper.get_has_input_has_output_for_workflow_type(wfe_type)
-            # logger.info(f"{wfe_type} has {len(has_input)} inputs and {len(has_output)} outputs")
-            # import_spec = import_spec_by_wfe_type[wfe_type]
-            # wfe_record = {
-            #     'id': wfe_id,
-            #     "name": import_spec["Workflow_Execution"]["name"].replace("{id}", wfe_id),
-            #     "type": import_spec["Type"],
-            #     "has_input": has_input,
-            #     "has_output": has_output,
-            #     "git_url": import_spec["Git_repo"],
-            #     "version": import_spec["Version"],
-            #     "execution_resource": import_mapper.import_specifications["Workflow Metadata"]["Execution Resource"],
-            #     "started_at_time": datetime.datetime.now(pytz.utc).isoformat(),
-            #     "ended_at_time": datetime.datetime.now(pytz.utc).isoformat(),
-            #     "was_informed_by": nucleotide_sequencing_id,
-            # }
-            # import_db['workflow_execution_set'].append(wfe_record)
 
         # Validate using the api
         db_update_json = json.dumps(import_db, indent=4)
@@ -238,7 +202,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
             logger.info(f"Validation passed")
             if update_db:
                 logger.info(f"Updating Database")
-                resp = runtime_api.post_objects(import_db)
+                resp = runtime_api.post_workflow_executions(import_db)
                 logger.info(f"workflows/workflow_executions response: {resp}")
 
                 logger.info(f"Applying update queries")

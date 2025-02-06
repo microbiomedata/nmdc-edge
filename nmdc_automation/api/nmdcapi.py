@@ -233,7 +233,7 @@ class NmdcRuntimeApi:
 
     @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
-    def post_objects(self, obj_data):
+    def post_workflow_executions(self, obj_data):
         url = self._base_url + "workflows/workflow_executions"
 
         resp = requests.post(url, headers=self.header, data=json.dumps(obj_data))
