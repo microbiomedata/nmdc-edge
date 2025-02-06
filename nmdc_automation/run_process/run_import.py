@@ -148,6 +148,11 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
             if len(process_ids) != 1:
                 raise ValueError(f"Cannot determine nmdc_process_id for {process_type}: {process_ids}")
             nmdc_process_id = process_ids.pop()
+            process_id_in_dbs = {mapping.process_id_in_db for mapping in mappings}
+            if len(process_id_in_dbs) != 1:
+                raise ValueError(f"Cannot determine process_id_in_db for {process_type}: {process_id_in_dbs}")
+            process_id_in_db = process_id_in_dbs.pop()
+
 
             nmdc_data_directory = os.path.join(import_mapper.root_directory, nmdc_process_id)
             try:
@@ -225,6 +230,9 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                         }
                     }
                     data_generation_update_query['updates'].append(update)
+                continue
+            elif process_id_in_db:
+                logger.info(f"Workflow Execution {nmdc_process_id} already exists in DB - skipping")
                 continue
             has_input, has_output = import_mapper.get_has_input_has_output_for_workflow_type(process_type)
             import_spec = import_mapper.import_specs_by_workflow_type[process_type]
