@@ -25,10 +25,10 @@ jobs:
 
 
     - name: Pull MongoDB from GHCR
-      run: docker pull ghcr.io/microbiomedata/mongo:6.0.0
+      run: docker pull ghcr.io/channel-mirrors/conda-forge/linux-64/mongodb:6.0.2-h024d9bb_0
 
     - name: Run MongoDB
-      run: docker run -d --name mongo -p 27017:27017 ghcr.io/microbiomedata/mongo:6.0.0
+      run: docker run -d --name mongo -p 27017:27017 ghcr.io/channel-mirrors/conda-forge/linux-64/mongodb:6.0.2-h024d9bb_0
 
     - name: Wait for MongoDB to start
       run: docker exec mongo bash -c 'until mongo --eval "db.adminCommand('ping')"; do sleep 1; done'
