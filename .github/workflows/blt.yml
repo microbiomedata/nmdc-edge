@@ -25,7 +25,7 @@ jobs:
 
 
     - name: Pull MongoDB from GHCR
-      run: docker pull ghcr.io/nmdc-project/mongo:6.0.0
+      run: docker pull ghcr.io/nmdc/mongo:6.0.0
 
     - name: Run MongoDB
       run: docker run -d --name mongo -p 27017:27017 ghcr.io/nmdc/mongo:6.0.0
