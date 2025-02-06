@@ -109,16 +109,43 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
         # 3. Make DataObject record
         # 4. Make Workflow Execution record
         for process_type, mappings in import_mapper.file_mappings_by_workflow_type.items():
-            process_ids = [mapping.nmdc_process_id for mapping in mappings]
+            process_ids = {mapping.nmdc_process_id for mapping in mappings}
             if len(process_ids) != 1:
-                raise ValueError(f"Cannot determine nmdc_process_id for {process_type}")
-            nmdc_process_id = process_ids[0]
+                raise ValueError(f"Cannot determine nmdc_process_id for {process_type}: {process_ids}")
+            nmdc_process_id = process_ids.pop()
 
             nmdc_data_directory = os.path.join(import_mapper.root_directory, nmdc_process_id)
             try:
                 os.makedirs(nmdc_data_directory)
             except FileExistsError:
                 logger.debug(f"Directory {nmdc_data_directory} already exists")
+
+            # Link data files and create Data Objects if they don't already exist
+            for mapping in mappings:
+                if mapping.data_object_in_db:
+                    logger.info(f"Data Object: {mapping.data_object_id} / {mapping.data_object_type} already exists in DB - skipping")
+                    continue
+
+                nmdc_data_file_name = import_mapper.get_nmdc_data_file_name(mapping)
+                export_file = os.path.join(nmdc_data_directory, nmdc_data_file_name)
+                import_file = os.path.join(import_mapper.import_project_dir, mapping.import_file)
+                logger.info(f"Linking data file to {export_file}")
+                if mapping.is_multiple:
+                    if not os.path.exists(export_file):
+                        with ZipFile(export_file, 'w') as zipf:
+                            zipf.write(import_file, arcname=os.path.basename(import_file))
+                    else:
+                        with ZipFile(export_file, 'a') as zipf:
+                            # Check if the file is already in the zip
+                            if os.path.basename(import_file) in zipf.namelist():
+                                logger.debug(f"File {import_file} already in zip")
+                            else:
+                                zipf.write(import_file, arcname=os.path.basename(import_file))
+                else:
+                    try:
+                        os.link(import_file, export_file)
+                    except FileExistsError:
+                        logger.debug(f"File {export_file} already exists")
 
 
 
