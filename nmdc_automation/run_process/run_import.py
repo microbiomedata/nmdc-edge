@@ -159,7 +159,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                     "md5_checksum": md5,
                     "data_object_type": mapping.data_object_type,
                     "was_generated_by": mapping.nmdc_process_id,
-                    "url": f"{import_mapper.data_source_url}/{import_mapper.nucleotide_sequencing_id}/{export_file}",
+                    "url": f"{import_mapper.data_source_url}/{import_mapper.data_generation_id}/{export_file}",
                     "description": description
                 }
                 # Add to the import_db if it doesn't already exist
@@ -170,8 +170,26 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                     import_db['data_object_set'].append(do_record)
 
             # Create Workflow Execution Record if it doesn't already exist
-            # We do not do this for sequencing
+            # Nucleotide Sequencing is a special case:
+            #  - No Workflow record is  created
+            #  - If the data object is not already in the DB, create an update query
             if process_type == 'nmdc:NucleotideSequencing':
+                if len(mappings) != 1:
+                    raise ValueError(f"Expected 1 mapping for NucleotideSequencing, got {len(mappings)}")
+                mapping = mappings[0]
+                if not mapping.data_object_in_db:
+                    logger.info(f"Adding update query for {nucleotide_sequencing_id}")
+                    update = {
+                        "q": {
+                            "id": nucleotide_sequencing_id
+                        },
+                        "u": {
+                            "$set": {
+                                "has_output": [mapping.data_object_id]
+                            }
+                        }
+                    }
+                    data_generation_update_query['updates'].append(update)
                 continue
             has_input, has_output = import_mapper.get_has_input_has_output_for_workflow_type(process_type)
             import_spec = import_mapper.import_specs_by_workflow_type[process_type]
@@ -198,6 +216,8 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
             )
         val_result = runtime_api.validate_metadata(import_db)
 
+        # If validation passes, update the database if the --update-db flag is set
+        # Otherwise, print the update json and update query if there are any
         if val_result['result'] == "All Okay!":
             logger.info(f"Validation passed")
             if update_db:
@@ -206,13 +226,20 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                 logger.info(f"workflows/workflow_executions response: {resp}")
 
                 logger.info(f"Applying update queries")
-                resp = runtime_api.run_query(data_generation_update_query)
-                logger.info(f"queries:run response: {resp}")
+                if data_generation_update_query['updates']:
+                    resp = runtime_api.run_query(data_generation_update_query)
+                    logger.info(f"queries:run response: {resp}")
+                else:
+                    logger.info(f"No updates to apply")
             else:
                 logger.info(f"Option --update-db not selected. No changes made")
                 print(db_update_json)
 
-                print(json.dumps(data_generation_update_query, indent=4))
+                if data_generation_update_query['updates']:
+                    logger.info(f"Update query:")
+                    print(json.dumps(data_generation_update_query, indent=4))
+                else:
+                    logger.info(f"No updates to apply")
         else:
             logger.info(f"Validation failed")
             logger.info(f"Validation result: {val_result}")
@@ -229,7 +256,7 @@ def _database_workflow_execution_ids_by_type(import_mapper, runtime_api) -> dict
     """Return the unique workflow execution IDs by workflow type."""
     wfe_ids_by_type = {}
     for wfe_type in import_mapper.workflow_execution_types:
-        filt = {"was_informed_by": import_mapper.nucleotide_sequencing_id, "type": wfe_type}
+        filt = {"was_informed_by": import_mapper.data_generation_id, "type": wfe_type}
         workflow_executions = runtime_api.find_planned_processes(filt)
         wfe_ids_by_type[wfe_type] = [wfe['id'] for wfe in workflow_executions]
     return wfe_ids_by_type

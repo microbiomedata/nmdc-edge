@@ -38,14 +38,14 @@ class ImportMapper:
     - mappings_by_workflow_type: Return the file mappings by workflow type.
     """
     METAGENOME_RAW_READS = "Metagenome Raw Reads"
-    NMDC_DATA_OBJECT_TYPE = "nmdc:DataObject"
+    NMDC_DATA_OBJECT = "nmdc:DataObject"
 
 
     def __init__(
             self, nucleotide_sequencing_id: str,
             import_project_dir: str, import_yaml: str, runtime_api
     ):
-        self.nucleotide_sequencing_id = nucleotide_sequencing_id
+        self.data_generation_id = nucleotide_sequencing_id # sequencing is a type of data_generation
         self.import_project_dir = import_project_dir
         self.import_yaml = import_yaml
         self.runtime_api = runtime_api
@@ -55,7 +55,7 @@ class ImportMapper:
         self._import_files = [f for f in os.listdir(self.import_project_dir) if
             os.path.isfile(os.path.join(self.import_project_dir, f))]
 
-        self.minted_id_file = f"{self.import_project_dir}/{self.nucleotide_sequencing_id}_minted_ids.json"
+        self.minted_id_file = f"{self.import_project_dir}/{self.data_generation_id}_minted_ids.json"
         self.minted_ids = {
                 "data_object_ids": {},
                 "workflow_execution_ids": {}
@@ -73,12 +73,14 @@ class ImportMapper:
 
     def get_or_create_minted_id(self, object_type: str, data_object_type: str = None) -> str:
         """
-        Get an ID by object type and data object type if it exists, otherwise mint a new ID and add it to self.minted_ids.
+        Get an ID by object type and data object type.
+        If the ID exists in the minted_ids, return it.
+        Otherwise, mint a new ID, add it to minted_ids, and return it.
         """
-        if object_type == self.NMDC_DATA_OBJECT_TYPE and not data_object_type:
+        if object_type == self.NMDC_DATA_OBJECT and not data_object_type:
             raise TypeError("Must specify data_object_type for a Data Object")
 
-        if object_type == self.NMDC_DATA_OBJECT_TYPE:
+        if object_type == self.NMDC_DATA_OBJECT:
             ids = self.minted_ids["data_object_ids"]
             if data_object_type in ids:
                 return ids[data_object_type]
@@ -107,7 +109,7 @@ class ImportMapper:
     def root_directory(self) -> str:
         """Return the root directory path based on nucleotide sequencing ID."""
         return os.path.join(
-            self.import_specifications["Workflow Metadata"]["Root Directory"], self.nucleotide_sequencing_id
+            self.import_specifications["Workflow Metadata"]["Root Directory"], self.data_generation_id
         )
 
     @property
@@ -218,12 +220,20 @@ class ImportMapper:
 
 
     def add_do_mappings_from_data_generation(self) -> None:
+        """
+        Create the initial list of Data Object Mapping based on the data generation
+        record in the DB.
+
+        If the DG has_output is empty we create a mapping for Metagenome Raw Reads with
+        the data generation as the process, but no data object.
+        """
         # Find the data generation and it's output data object
-        id_filter = {'id': self.nucleotide_sequencing_id}
+        id_filter = {'id': self.data_generation_id}
         data_generation_recs = self.runtime_api.find_planned_processes(id_filter)
         if len(data_generation_recs) != 1:
             raise ValueError(f"Found {len(data_generation_recs)} data generation records but expected 1")
         data_generation = data_generation_recs[0]
+
         data_object_id = data_generation['has_output'][0]
         data_object = self.runtime_api.find_data_objects(data_object_id)
 
@@ -250,7 +260,7 @@ class ImportMapper:
                     output_of=import_spec['output_of'],
                     input_to=import_spec['input_to'],
                     is_multiple=import_spec['multiple'],
-                    nmdc_process_id=self.nucleotide_sequencing_id,
+                    nmdc_process_id=self.data_generation_id,
                     data_object_in_db=False,
                     process_id_in_db=True
                 )
@@ -259,7 +269,7 @@ class ImportMapper:
 
     def add_do_mappings_from_workflow_executions(self) -> Set:
 
-        filter = {'was_informed_by': self.nucleotide_sequencing_id}
+        filter = {'was_informed_by': self.data_generation_id}
         workflow_execution_recs = self.runtime_api.find_planned_processes(filter)
         for workflow_execution in workflow_execution_recs:
             data_object_ids = workflow_execution['has_output']

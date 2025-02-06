@@ -62,7 +62,7 @@ def test_write_minted_id_file(import_mapper_instance, base_test_dir):
 def test_get_or_create_minted_id_existing_data_object(import_mapper_instance, mock_minted_ids):
     import_mapper_instance.minted_ids = mock_minted_ids
     result = import_mapper_instance.get_or_create_minted_id(
-        object_type=ImportMapper.NMDC_DATA_OBJECT_TYPE, data_object_type=ImportMapper.METAGENOME_RAW_READS
+        object_type=ImportMapper.NMDC_DATA_OBJECT, data_object_type=ImportMapper.METAGENOME_RAW_READS
     )
     assert result == "existing_data_object_id"
 
@@ -70,7 +70,7 @@ def test_get_or_create_minted_id_existing_data_object(import_mapper_instance, mo
 def test_get_or_create_minted_id_new_data_object(import_mapper_instance, mock_minted_ids, mock_runtime_api):
     import_mapper_instance.minted_ids = mock_minted_ids
     result = import_mapper_instance.get_or_create_minted_id(
-        object_type=ImportMapper.NMDC_DATA_OBJECT_TYPE, data_object_type="NewDataObject"
+        object_type=ImportMapper.NMDC_DATA_OBJECT, data_object_type="NewDataObject"
     )
     assert result == "mocked_id_for_nmdc:DataObject"
     assert import_mapper_instance.minted_ids["data_object_ids"]["NewDataObject"] == "mocked_id_for_nmdc:DataObject"
@@ -95,7 +95,7 @@ def test_get_or_create_minted_id_new_workflow(import_mapper_instance, mock_minte
 
 def test_get_or_create_minted_id_missing_data_object_type(import_mapper_instance):
     with pytest.raises(TypeError, match="Must specify data_object_type for a Data Object"):
-        import_mapper_instance.get_or_create_minted_id(object_type=ImportMapper.NMDC_DATA_OBJECT_TYPE)
+        import_mapper_instance.get_or_create_minted_id(object_type=ImportMapper.NMDC_DATA_OBJECT)
 
 
 def test_import_specifications_returns_dict(import_mapper_instance):
