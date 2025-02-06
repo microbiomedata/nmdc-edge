@@ -264,9 +264,13 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
         if val_result['result'] == "All Okay!":
             logger.info(f"Validation passed")
             if update_db:
-                logger.info(f"Updating Database")
-                resp = runtime_api.post_workflow_executions(import_db)
-                logger.info(f"workflows/workflow_executions response: {resp}")
+                # check if there are any workflow executions or data objects to add
+                if import_db['data_object_set'] or import_db['workflow_execution_set']:
+                    logger.info(f"Updating Database")
+                    resp = runtime_api.post_workflow_executions(import_db)
+                    logger.info(f"workflows/workflow_executions response: {resp}")
+                else:
+                    logger.info(f"No new data objects or workflow executions to add")
 
                 logger.info(f"Applying update queries")
                 if data_generation_update_query['updates']:
@@ -276,7 +280,11 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                     logger.info(f"No updates to apply")
             else:
                 logger.info(f"Option --update-db not selected. No changes made")
-                print(db_update_json)
+                if import_db['data_object_set'] or import_db['workflow_execution_set']:
+                    logger.info(f"Update json:")
+                    print(db_update_json)
+                else:
+                    logger.info(f"No new data objects or workflow executions to add")
 
                 if data_generation_update_query['updates']:
                     logger.info(f"Update query:")
