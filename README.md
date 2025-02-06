@@ -86,18 +86,119 @@ Import automation code and config files can be found
 - `/global/homes/n/nmdcda/nmdc_automation/prod`
 - `/global/homes/n/nmdcda/nmdc_automation/dev`
 
-1. Ensure you have the latest `nmdc_automation` code by running `git pull` in the `nmdc_automation` directory.
+1. Get the appropriate branch latest code from the nmdc_automation repo
+- in prod or dev `nmcd_automation` directory:
+- switch to the branch you want to run the code from - in this case `main`
+```bash
+(nmdc-automation-py3.11) (base) nmdcda@perlmutter:login38:~/nmdc_automation/dev/nmdc_automation> git status
+On branch main
+Your branch is up to date with 'origin/main'.
+```
+- fetch the latest code from the branch
+```bash
+(nmdc-automation-py3.11) (base) nmdcda@perlmutter:login38:~/nmdc_automation/dev/nmdc_automation> git fetch origin
+Unpacking objects: 100% (87/87), 27.19 KiB | 7.00 KiB/s, done.
+From github.com:microbiomedata/nmdc_automation
+   f313647..89b64f0  332-issues-with-rerunning-import-automation         -> origin/332-issues-with-rerunning-import-automation
+(nmdc-automation-py3.11) (base) nmdcda@perlmutter:login38:~/nmdc_automation/dev/nmdc_automation> git pull
+Already up to date.
+```
+2. Activate the nmdcda conda environment
+- logged in as `nmdcda` user. Can be run in nmdcda home directory (or any other directory)
+```bash
+(nersc-python) nmdcda@perlmutter:login16:~> eval "$__conda_setup"
+(base) nmdcda@perlmutter:login16:~>
+```
+3. Run `poetry install` to install the required packages
+- in the `nmdc_automation` directory in the `dev` or `prod` directory
+```bash
+(base) nmdcda@perlmutter:login16:~/nmdc_automation/dev/nmdc_automation> poetry install
+Installing dependencies from lock file
+
+No dependencies to install or update
+
+Installing the current project: nmdc-automation (0.1.0)
+```
+
+4. Run `poetry shell` to activate the poetry environment
+```bash
+(base) nmdcda@perlmutter:login16:~/nmdc_automation/dev/nmdc_automation> poetry shell
+Spawning shell within /global/cfs/cdirs/m3408/nmdc_automation/dev/nmdc_automation/.venv
+. /global/cfs/cdirs/m3408/nmdc_automation/dev/nmdc_automation/.venv/bin/activate
+bash: __add_sys_prefix_to_path: command not found
+bash: __add_sys_prefix_to_path: command not found
+To load conda do: eval "$__conda_setup"
+(base) nmdcda@perlmutter:login16:~/nmdc_automation/dev/nmdc_automation> . /global/cfs/cdirs/m3408/nmdc_automation/dev/nmdc_automation/.venv/bin/activate
+(nmdc-automation-py3.11) (base) nmdcda@perlmutter:login16:~/nmdc_automation/dev/nmdc_automation> 
+```
 
 
+#### Running the Import Process
 
- 
-`python nmdc_automation/run_process/run_import.py import-projects import.tsv configs/import.yaml configs/site_configuration.toml`, 
-where import.tsv expects the follow format:
+ Required files:
+- import.tsv in the following format:
 
 | nucleotide_sequencing_id | project_id | project_path |
 |----------|------------|-----------|
 |nmdc:omprc-11-q8b9dh63 | Ga0597031  | /path/to/project/Ga0597031 |
 
-The following need to be set in the site_configuration.toml file: `api_url`, `url_root`, `client_id`, `client_secret`.
+- import.yaml
+Specifies import parameters for:
+- - Workflows
+```text
+  - Name: Reads QC
+    Import: true
+    Type: nmdc:ReadQcAnalysis
+    Git_repo: https://github.com/microbiomedata/ReadsQC
+    Version: v1.0.14
+    Collection: workflow_execution_set
+    WorkflowExecutionRange: ReadQcAnalysis
+    Inputs:
+      - Metagenome Raw Reads
+    Workflow_Execution:
+      name: "Read QC for {id}"
+      input_read_bases: "{outputs.stats.input_read_bases}"
+      input_read_count: "{outputs.stats.input_read_count}"
+      output_read_bases: "{outputs.stats.output_read_bases}"
+      output_read_count: "{outputs.stats.output_read_count}"
+      type: nmdc:ReadQcAnalysis
+    Outputs:
+      - Filtered Sequencing Reads
+      - QC Statistics
+```
+- - Data Objects
+```text
+    - data_object_type: Clusters of Orthologous Groups (COG) Annotation GFF
+      description: COGs for {id}
+      name: GFF3 format file with COGs
+      import_suffix: _cog.gff
+      nmdc_suffix: _cog.gff
+      input_to: [nmdc:MagsAnalysis]
+      output_of: nmdc:MetagenomeAnnotation
+      multiple: false
+      action: rename
+```
+- - Workflow Metadata
+```text
+Workflow Metadata:
+  Execution Resource: JGI
+  Source URL: https://data.microbiomedata.org/data
+  Root Directory: /global/cfs/cdirs/m3408/ficus/pipeline_products
+```
+
+- site_configuration.toml
+- - Contains the following configurations:
+```text
+[credentials]
+client_id = "sys0wm66"
+client_secret = xxxxx
+```
+```text
+[nmdc]
+url_root = "https://data.microbiomedata.org/data/"
+api_url = "http://localhost:8000"
+```
+
+
 
 
