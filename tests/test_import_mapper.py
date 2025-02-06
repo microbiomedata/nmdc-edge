@@ -31,20 +31,20 @@ def mock_minted_ids():
 
 def test_update_do_mappings_from_import_files(import_mapper_instance):
     import_mapper_instance.update_do_mappings_from_import_files()
-    assert len(import_mapper_instance.file_mappings) == 22
+    assert len(import_mapper_instance.mappings) == 22
 
 
 def test_update_do_mapping_from_import_files_correct_protein_file_import(import_mapper_instance):
     import_mapper_instance.update_do_mappings_from_import_files()
     correct_protein_faa_files = [
-        fm for fm in import_mapper_instance.file_mappings if fm.data_object_type =="Annotation Amino Acid FASTA"
+        fm for fm in import_mapper_instance.mappings if fm.data_object_type == "Annotation Amino Acid FASTA"
     ]
     assert len(correct_protein_faa_files) == 1, "Only one '_proteins.faa' file should be imported."
 
 def test_update_do_mapping_from_import_files_correct_binning_mapping(import_mapper_instance):
     import_mapper_instance.update_do_mappings_from_import_files()
     binning_files = [
-        fm for fm in import_mapper_instance.file_mappings if fm.data_object_type == "Metagenome HQMQ Bins Compression File"
+        fm for fm in import_mapper_instance.mappings if fm.data_object_type == "Metagenome HQMQ Bins Compression File"
     ]
     assert len(binning_files) == 2, "Multiple files should be imported."
 
@@ -130,12 +130,12 @@ def test_import_specs_by_workflow_type_returns_dict(import_mapper_instance):
 
 
 def test_file_mappings_by_data_object_type_returns_dict(import_mapper_instance):
-    import_file_mappings_by_data_object_type = import_mapper_instance.file_mappings_by_data_object_type
+    import_file_mappings_by_data_object_type = import_mapper_instance.mappings_by_data_object_type
     assert isinstance(import_file_mappings_by_data_object_type, dict)
 
 
 def test_file_mappings_by_workflow_type_returns_dict(import_mapper_instance):
-    import_file_mappings_by_workflow_type = import_mapper_instance.file_mappings_by_workflow_type
+    import_file_mappings_by_workflow_type = import_mapper_instance.mappings_by_workflow_type
     assert isinstance(import_file_mappings_by_workflow_type, dict)
 
 
@@ -150,26 +150,26 @@ def test_workflow_execution_types_returns_list(import_mapper_instance):
 
 
 def test_update_file_mappings(import_mapper_instance):
-    for fm in import_mapper_instance.file_mappings:
+    for fm in import_mapper_instance.mappings:
         assert fm.nmdc_process_id is None
         assert fm.data_object_id is None
 
-    for fm in import_mapper_instance.file_mappings:
-        import_mapper_instance.update_file_mappings(
+    for fm in import_mapper_instance.mappings:
+        import_mapper_instance.update_mappings(
             fm.data_object_type, data_object_id='nmdc:dobj', workflow_execution_id='nmdc:wf'
         )
-    for fm in import_mapper_instance.file_mappings:
+    for fm in import_mapper_instance.mappings:
         assert fm.nmdc_process_id == 'nmdc:wf'
         assert fm.data_object_id == 'nmdc:dobj'
 
 
 def test_get_nmdc_file_name(import_mapper_instance):
     # Prepare - assign workflow IDs to file mappings
-    for fm in import_mapper_instance.file_mappings:
-        import_mapper_instance.update_file_mappings(
+    for fm in import_mapper_instance.mappings:
+        import_mapper_instance.update_mappings(
             fm.data_object_type, data_object_id='nmdc:dobj', workflow_execution_id='nmdc:wf'
         )
-    for fm in import_mapper_instance.file_mappings:
+    for fm in import_mapper_instance.mappings:
         nmdc_file_name = import_mapper_instance.get_nmdc_data_file_name(fm)
         assert "nmdc_wf" in nmdc_file_name
 
@@ -193,6 +193,6 @@ def test_data_source_url(import_mapper_instance):
 
 
 def test_file_mapping_equality(import_mapper_instance):
-    for fm in import_mapper_instance.file_mappings:
+    for fm in import_mapper_instance.mappings:
         fm_copy = copy.deepcopy(fm)
         assert fm_copy == fm

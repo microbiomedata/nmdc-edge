@@ -57,7 +57,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
         import_mapper.add_do_mappings_from_workflow_executions()
         import_mapper.update_do_mappings_from_import_files()
         logger.info(f"Project has {len(import_mapper._import_files)} files")
-        file_mappings = import_mapper.file_mappings  # This will create and cache the file mappings
+        file_mappings = import_mapper.mappings  # This will create and cache the file mappings
         logger.info(f"Mapped: {len(file_mappings)} files")
 
         # init a db to hold workflow executions and their data objects, one per Data Generation
@@ -79,7 +79,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
 
         # Iterate through all mappings, assigning NMDC IDs for
         # data objects and workflow executions if they don't already exist in the DB
-        for fm in import_mapper.file_mappings:
+        for fm in import_mapper.mappings:
             if fm.data_object_in_db:
                 logger.info(f"Data Object: {fm.data_object_id} / {fm.data_object_type} already exists in DB - skipping")
                 continue
@@ -108,7 +108,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
         # 2. Link the data file and determine file size and MD5 hash
         # 3. Make DataObject record
         # 4. Make Workflow Execution record
-        for process_type, mappings in import_mapper.file_mappings_by_workflow_type.items():
+        for process_type, mappings in import_mapper.mappings_by_workflow_type.items():
             process_ids = {mapping.nmdc_process_id for mapping in mappings}
             if len(process_ids) != 1:
                 raise ValueError(f"Cannot determine nmdc_process_id for {process_type}: {process_ids}")
@@ -221,7 +221,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
 
         logger.info("Updating minted IDs")
         import_mapper.write_minted_id_file()
-        for fm in import_mapper.file_mappings:
+        for fm in import_mapper.mappings:
             logger.debug(f"Mapped: {fm}")
 
 

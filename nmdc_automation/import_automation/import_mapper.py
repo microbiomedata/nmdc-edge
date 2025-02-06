@@ -16,10 +16,26 @@ logger = logging.getLogger(__name__)
 
 class ImportMapper:
     """
-    Class to represent a data import mapping with:
-    - nucleotide_sequencing_id: The identifier for the omics data.
-    - import_project_dir: The project directory path.
+    Class to manage the mapping of import data to NMDC data objects.:
+    Required:
+    - nucleotide_sequencing_id: The NMDC ID for the Data Generation record that will serve as the root node in the DB.
+    - import_project_dir: The import project directory path.
     - import_yaml: The file path of the yaml file containing import specifications.
+
+    Attributes:
+    - data_object_mappings: A set of DataObjectMapping objects.
+    - minted_id_file: The file path of the minted IDs.
+    - minted_ids: A dictionary of minted IDs.
+
+    Properties:
+    - import_specifications: Return the import specifications.
+    - root_directory: Return the root directory path based on nucleotide sequencing ID.
+    - data_source_url: Return the data source URL specified in the import.yaml file.
+    - import_specs_by_workflow_type: Return the import specifications by workflow type.
+    - import_specs_by_data_object_type: Return the import specifications by data object type (unique and multiple).
+    - mappings: Return the file mappings as a list.
+    - mappings_by_data_object_type: Return the file mappings by data object type.
+    - mappings_by_workflow_type: Return the file mappings by workflow type.
     """
     METAGENOME_RAW_READS = "Metagenome Raw Reads"
     NMDC_DATA_OBJECT_TYPE = "nmdc:DataObject"
@@ -38,7 +54,7 @@ class ImportMapper:
 
         self._import_files = [f for f in os.listdir(self.import_project_dir) if
             os.path.isfile(os.path.join(self.import_project_dir, f))]
-        # self._data_object_mappings = self._init_file_mappings()
+
         self.minted_id_file = f"{self.import_project_dir}/{self.nucleotide_sequencing_id}_minted_ids.json"
         self.minted_ids = {
                 "data_object_ids": {},
@@ -114,21 +130,21 @@ class ImportMapper:
         return import_specs
 
     @property
-    def file_mappings(self) -> List:
+    def mappings(self) -> List:
         """Return the file mappings."""
         return list(self.data_object_mappings)
 
     @property
-    def file_mappings_by_data_object_type(self) -> Dict:
+    def mappings_by_data_object_type(self) -> Dict:
         """Return the file mappings by data object type."""
-        return {fm.data_object_type: fm for fm in self.file_mappings}
+        return {fm.data_object_type: fm for fm in self.mappings}
 
 
     @property
-    def file_mappings_by_workflow_type(self) -> Dict[str, list]:
+    def mappings_by_workflow_type(self) -> Dict[str, list]:
         """Return the file mappings by workflow type."""
         file_mappings = {}
-        for fm in self.file_mappings:
+        for fm in self.mappings:
             if fm.output_of in file_mappings:
                 file_mappings[fm.output_of].append(fm)
             else:
@@ -139,20 +155,20 @@ class ImportMapper:
     @property
     def workflow_execution_ids(self) -> List[str]:
         """ Return the unique workflow execution IDs."""
-        workflow_execution_ids = {fm.nmdc_process_id for fm in self.file_mappings}
+        workflow_execution_ids = {fm.nmdc_process_id for fm in self.mappings}
         return list(workflow_execution_ids)
 
     @property
     def workflow_execution_types(self) -> List[str]:
         """ Return the unique workflow execution types, bases on output_of."""
-        workflow_execution_types = {fm.output_of for fm in self.file_mappings}
+        workflow_execution_types = {fm.output_of for fm in self.mappings}
         return list(workflow_execution_types)
 
 
-    def update_file_mappings(self, data_object_type: str,
-                             data_object_id: str,
-                             workflow_execution_id: str,
-                             ) -> None:
+    def update_mappings(self, data_object_type: str,
+                        data_object_id: str,
+                        workflow_execution_id: str,
+                        ) -> None:
         """ Update the file mappings."""
         for fm in self.data_object_mappings:
             if fm.data_object_type == data_object_type:
@@ -191,7 +207,7 @@ class ImportMapper:
         """
         has_input = []
         has_output = []
-        for fm in self.file_mappings:
+        for fm in self.mappings:
             if fm.output_of == workflow_type:
                 has_output.append(fm.data_object_id)
             else:
@@ -304,12 +320,14 @@ class ImportMapper:
 class DataObjectMapping:
     """
     Class to represent a Data Object mapping with:
+    Required:
     - data_object_type: The type of data object.
     - output_of: The workflow execution type that this data object is an output of.
     - input_to: The workflow execution type(s) that this data object is an input to.
     - is_multiple: Whether this data object is based on a multipart data file such as binning results.
+    Optional:
     - data_object_id: The data object ID.
-    - nmdc_process_id: (Optional) The workflow execution or data generation ID that produced this data object.
+    - nmdc_process_id: The workflow execution or data generation ID that produced this data object.
     - data_object_in_db: Whether this data object exists in the database or not.
     - nmdc_process_in_db: Whether this process (workflow execution or data generation) exists in the database or not.
     """
