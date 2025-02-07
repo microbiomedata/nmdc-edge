@@ -16,8 +16,6 @@ def get_required_data_objects_map(db, workflows: List[WorkflowConfig]) -> Dict[s
      Search for all the data objects that are required data object types for the workflows,
         and return a dictionary of data objects by ID.
 
-    TODO: In the future this will probably need to be redone
-    since the number of data objects could get very large.
     """
 
     # Build up a filter of what types are used
@@ -26,11 +24,10 @@ def get_required_data_objects_map(db, workflows: List[WorkflowConfig]) -> Dict[s
         required_types.update(set(wf.data_object_types))
 
     required_data_object_map = dict()
-    for rec in db.data_object_set.find({"data_object_type": {"$ne": None}}):
-        data_object = DataObject(**rec)
-        if data_object.data_object_type.code.text not in required_types:
-            continue
-        required_data_object_map[data_object.id] = data_object
+    for do_type in required_types:
+        for rec in db.data_object_set.find({"data_object_type": do_type}):
+            data_object = DataObject(**rec)
+            required_data_object_map[data_object.id] = data_object
     return required_data_object_map
 
 

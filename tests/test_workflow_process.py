@@ -51,6 +51,23 @@ def test_load_workflow_process_nodes(test_db, workflow_file, workflows_config_di
     assert data_generation_nodes.children[0].type == "nmdc:ReadQcAnalysis"
 
 
+def test_get_required_data_objects_map(test_db, workflows_config_dir):
+    """
+    Test get_required_data_objects_map
+    """
+    reset_db(test_db)
+    load_fixture(test_db, "data_object_set.json")
+    load_fixture(test_db, "lipidomics_data_objects.json")
+
+    workflow_config = load_workflow_configs(workflows_config_dir / "workflows.yaml")
+    required_data_object_map = get_required_data_objects_map(test_db, workflow_config)
+    assert required_data_object_map
+    for do in required_data_object_map.values():
+        assert do.data_object_type
+        assert do.data_object_type.code.text
+
+
+
 def test_load_workflow_process_nodes_with_obsolete_versions(test_db, workflows_config_dir):
     """
     Test loading workflow process nodes for a case where there are obsolete versions of the same workflow

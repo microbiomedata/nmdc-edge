@@ -1,0 +1,22 @@
+[
+    {
+    "id" : "nmdc:dobj-13-msspectra1",
+    "name" : "output: SBR_FC_N1_00-10_H2Oext_13Oct15_Leopard_1_01_4404",
+    "description" : "High resolution MS spectra only",
+    "file_size_bytes" : 30539306,
+    "type" : "nmdc:DataObject",
+    "alternative_identifiers" : [
+        "emsl:output_456424"
+    ]
+},
+  {
+    "id": "nmdc:dobj-11-lipidomics1",
+    "name": "Lipidomics data",
+    "description": "Lipidomics data for nmdc:wfmtex-11-metat.1",
+    "file_size_bytes": 123456,
+    "md5_checksum": "01927890b19c724820024e147677dff3",
+    "data_object_type": "LC-MS Lipidomics Processed Data",
+    "url": "https://data.microbiomedata.org",
+    "type": "nmdc:DataObject"
+  }
+]
