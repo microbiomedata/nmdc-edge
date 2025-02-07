@@ -51,6 +51,7 @@ def test_load_workflow_process_nodes(test_db, workflow_file, workflows_config_di
     assert data_generation_nodes.children[0].type == "nmdc:ReadQcAnalysis"
 
 
+
 def test_get_required_data_objects_map(test_db, workflows_config_dir):
     """
     Test get_required_data_objects_map
