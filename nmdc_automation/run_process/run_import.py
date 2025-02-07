@@ -144,6 +144,12 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
         # 3. Make DataObject record
         # 4. Make Workflow Execution record
         for process_type, mappings in import_mapper.mappings_by_workflow_type.items():
+
+            import_spec = import_mapper.import_specs_by_workflow_type.get(process_type) # Sequencing is a special case
+            if import_spec and not import_spec['Import']:
+                logger.info(f"Skipping {process_type} - Import set to False")
+                continue
+
             process_ids = {mapping.nmdc_process_id for mapping in mappings}
             if len(process_ids) != 1:
                 raise ValueError(f"Cannot determine nmdc_process_id for {process_type}: {process_ids}")
@@ -215,6 +221,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
             # Nucleotide Sequencing is a special case:
             #  - No Workflow record is  created
             #  - If the data object is not already in the DB, create an update query
+
             if process_type == 'nmdc:NucleotideSequencing':
                 if len(mappings) != 1:
                     raise ValueError(f"Expected 1 mapping for NucleotideSequencing, got {len(mappings)}")
@@ -237,7 +244,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                 logger.info(f"Workflow Execution {nmdc_process_id} already exists in DB - skipping")
                 continue
             has_input, has_output = import_mapper.get_has_input_has_output_for_workflow_type(process_type)
-            import_spec = import_mapper.import_specs_by_workflow_type[process_type]
+
             wfe_record = {
                 'id': nmdc_process_id,
                 "name": import_spec["Workflow_Execution"]["name"].replace("{id}", nmdc_process_id),
