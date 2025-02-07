@@ -24,10 +24,9 @@ def get_required_data_objects_map(db, workflows: List[WorkflowConfig]) -> Dict[s
         required_types.update(set(wf.data_object_types))
 
     required_data_object_map = dict()
-    for do_type in required_types:
-        for rec in db.data_object_set.find({"data_object_type": do_type}):
-            data_object = DataObject(**rec)
-            required_data_object_map[data_object.id] = data_object
+    for rec in db.data_object_set.find({"data_object_type": {"$in": list(required_types)}}):
+        data_object = DataObject(**rec)
+        required_data_object_map[data_object.id] = data_object
     return required_data_object_map
 
 
