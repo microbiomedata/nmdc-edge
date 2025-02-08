@@ -199,6 +199,8 @@ when the user's terminal session ends.  This will cause stdout and stderr to be 
 names `nohup.out` in addition to being written to the `watcher.log` file.  
 
 1. change to the working `prod` or `dir` directory
+- `/global/homes/n/nmdcda/nmdc_automation/prod`
+- `/global/homes/n/nmdcda/nmdc_automation/dev`
 2. `export NMDC_LOG_LEVEL=INFO`
 3. `rm nohup.out`
 4. `nohup ./run.sh &` OR `nohup ./run_prod.sh &`
