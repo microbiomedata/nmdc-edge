@@ -33,6 +33,7 @@ erDiagram
     WorkflowProcessNode ||--|| PlannedProcess: "process"
     PlannedProcess ||-- |{ DataObject: "has_input / has_output"
     WorkflowProcessNode }|--|| WorkflowConfig: "workflow"
+    WorkflowConfig ||--o{ WorkflowConfig: "children"
     WorkflowProcessNode |o--o| WorkflowProcessNode: "parent"
     WorkflowProcessNode |o--o{ WorkflowProcessNode: "children"
 ```
