@@ -19,12 +19,36 @@ available as metadata in the NMDC database, and data objects on the NMDC data po
 Scheduler
 : The Scheduler polls the NMDC database based upon an `Allowlist` of DataGeneration IDs. Based on an allowed 
 data-generation ID, the scheduler examines WorkflowExecutions and DataObjects that `was_informed_by` by the 
-data generation, and builds a graph of `Workflow Process Nodes`. When the scheduler finds a node where:
+data generation, and builds a graph of `Workflow Process Nodes`. 
 
-1. The node has child workflow(s) which are not scheduled or in the NMDC database
-2. The required data objects for the child node exist
+A `Workflow Process Node` is a representation of:
+- `workflow` - the workflow configuration, from workflows.yaml. The "recipe" for the given type of analysis
+- - `workflow.children` - the child workflow recipes that can be run after this workflow
+- `process` - the planned process, from the NMDC database. The "instance" of a workflow execution or data generation from the NMDC database
+- `parent` - the parent workflow process node, if any
+- `children` - the child workflow process nodes, if any
 
-In this case the Scheduler will "schedule" a new job by creating a Job configuration and writing this
+```mermaid
+erDiagram
+    WorkflowProcessNode ||--|| PlannedProcess: "process"
+    PlannedProcess ||-- |{ DataObject: "has_input / has_output"
+    WorkflowProcessNode }|--|| WorkflowConfig: "workflow"
+    WorkflowProcessNode |o--o| WorkflowProcessNode: "parent"
+    WorkflowProcessNode |o--o{ WorkflowProcessNode: "children"
+```
+
+When the scheduler finds a node where:
+
+1. The node has a workflow configuration in node.workflow.children
+2. The node DOES NOT have a child node in node.children
+3. The required inputs for the child workflow are available in node's process outputs
+
+![](/Users/MBThornton/Documents/code/nmdc_automation/docs/wpn_greph.drawio.png)
+
+In this case the Scheduler will "schedule" a new job by creating a Job configuration from:
+- the workflow configuration from node.workflow.children
+- input data from node.data_objects
+and writing this
 to the `jobs` collection in the NMDC database
 
 Watcher
