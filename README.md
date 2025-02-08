@@ -44,7 +44,16 @@ When the scheduler finds a node where:
 2. The node DOES NOT have a child node in node.children
 3. The required inputs for the child workflow are available in node's process outputs
 
-![](/Users/MBThornton/Documents/code/nmdc_automation/docs/wpn_greph.drawio.png)
+```mermaid
+erDiagram
+    WPNode_Sequencing ||--|| WPNode_ReadsQC: "children nodes"
+    WPNode_Sequencing ||--|| WConfig_Sequencing: "workflow"
+    WConfig_Sequencing ||--o{ WConfig_ReadsQC: "children workflows"
+    WPNode_Sequencing ||--|| Process_Sequencing: "process"
+    WPNode_ReadsQC ||--|| Process_ReadsQC: "process"
+    WPNode_ReadsQC ||--|| WConfig_ReadsQC: "workflow"
+    WConfig_ReadsQC ||--o{ WConfig_Assembly: "children workflows"
+```
 
 In this case the Scheduler will "schedule" a new job by creating a Job configuration from:
 - the workflow configuration from node.workflow.children
