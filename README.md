@@ -113,7 +113,7 @@ To initialize the Scheduler for new DataGeneration IDs, the following steps:
       1. `cat >allow.lst`
       2. Paste your IDs `command-v`
       3. Ensure a blank line at the end with a `return` 
-      4. Terminate cat `control-d`
+      4. Terminate the cat command using `control-d`
 5. Recommended to set the log level to INFO or you get a *very* large log output
    1. `export NMDC_LOG_LEVEL=INFO`
 6. Restart the scheduler.  In the shell, in /conf:  `./run.sh`
