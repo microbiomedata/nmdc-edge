@@ -67,7 +67,7 @@ to the `jobs` collection in the NMDC database
 Watcher
 : The Watcher "watches" the `jobs` table in the NMDC database looking for unclaimed jobs. If found, the 
 Watcher will create a `WorkflowJob` to manage the analysis job.  The watcher will then periodically poll
-each workflow job for it's status and process successful or failed jobs when they are complete
+each workflow job for its status and process successful or failed jobs when they are complete
 
 WorkflowJob
 : A `WorkflowJob` consists of a `WorkflowStateManager` and a `JobRunner` and is responsible for preparing the 
