@@ -50,7 +50,10 @@ erDiagram
     WPNode_Sequencing ||--|| WConfig_Sequencing: "workflow"
     WConfig_Sequencing ||--o{ WConfig_ReadsQC: "children workflows"
     WPNode_Sequencing ||--|| Process_Sequencing: "process"
+    Process_Sequencing ||-- |{ SequencingData: "has_output"
     WPNode_ReadsQC ||--|| Process_ReadsQC: "process"
+    Process_Sequencing ||--|{ ReadsQCData: "has_input"
+    Process_ReadsQC ||-- |{ ReadsQCData: "has_output"
     WPNode_ReadsQC ||--|| WConfig_ReadsQC: "workflow"
     WConfig_ReadsQC ||--o{ WConfig_Assembly: "children workflows"
 ```
