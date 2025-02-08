@@ -140,7 +140,7 @@ Watcher code and config files can be found
    3. `git fetch origin`
    4. `git pull`
 2. Setup NMDC automation environment with `conda` and `poetry`. 
-   1. load conda: eval "$__conda_setup"
+   1. load conda: `eval "$__conda_setup"`
    2. in the `nmdc_automation` directory: `poetry update`
    3. Install the nmdc_automation project with `poetry install`
    4. `poetry shell` to use the environment
