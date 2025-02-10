@@ -1,22 +1,23 @@
 import json
 
-with open("valid_data.json") as f:
-	valid_data = json.load(f)
 
-	for record in valid_data:
-		url = record['url']
-	    file = record['name']
-	    data_object_id = record['id']
-	    label = record['data_object_type']
+with open("valid_data.json") as valid_data_file:
+	valid_data = json.load(valid_data_file)
 
-	    prefix = "https://data.microbiomedata.org/data/"
-	    url_suffix = url.removeprefix(prefix)
-	    tokens = url_suffix.split('/')
-	    
-	    was_informed_by = tokens[0]
-	    workflow_execution_id = tokens[1]
-	    workflow_execution = workflow_execution_id.split('-')[0].removeprefix('nmdc_')
-	    file_format = file.split('.')[-1]
+	# for record in valid_data:
+	url = valid_data["url"]
+	file = valid_data["name"]
+	data_object_id = valid_data["id"]
+	label = valid_data["data_object_type"]
+
+	prefix = "https://data.microbiomedata.org/data/"
+	url_suffix = url.removeprefix(prefix)
+	tokens = url_suffix.split('/')
+
+	was_informed_by = tokens[0]
+	workflow_execution_id = tokens[1]
+	workflow_execution = workflow_execution_id.split('-')[0].removeprefix('nmdc:')
+	file_format = file.split('.')[-1]
 
 
 	# create json structure
@@ -40,5 +41,5 @@ with open("valid_data.json") as f:
 	    ]
 	}
 
-	with open('metadata.json', w) as f:
-		json.dump(json_data, f, indent=4)
+	with open('metadata.json', 'w') as metadata_file:
+		json.dump(json_data, metadata_file, indent=4)
