@@ -2,6 +2,7 @@ import json
 
 
 with open("valid_data.json") as valid_data_file:
+	# todo validate json
 	valid_data = json.load(valid_data_file)
 
 	# todo iterate over multiple records, and group them using workflow_execution
@@ -21,6 +22,8 @@ with open("valid_data.json") as valid_data_file:
 
 
 	# create json structure
+
+	# todo error handling
 
 	json_data = {
 	    "metadata": {
@@ -47,3 +50,5 @@ with open("valid_data.json") as valid_data_file:
 
 # todo import into jamo
 # jat import template.yaml metadata.json
+
+# todo logging
