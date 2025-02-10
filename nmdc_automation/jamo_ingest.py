@@ -1,7 +1,5 @@
 import json
 
-valid_data = "valid_data.json"
-
 with open("valid_data.json") as f:
 	valid_data = json.load(f)
 
