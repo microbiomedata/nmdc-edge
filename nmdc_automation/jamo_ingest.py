@@ -1,7 +1,7 @@
 valid_data.json = "/path/to/valid_data.json"
 
 for record in valid_records.json
-	url = record['url']
+    url = record['url']
     file = record['name']
     data_object_id = record['id']
     label = record['data_object_type']
