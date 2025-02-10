@@ -51,6 +51,9 @@ def update_zero_size_files(config_file, update_db):
         "update": "data_object_set",
         "updates": [],
     }
+    num_zero_size_files = 0
+    num_files_not_found = 0
+    num_with_file_size = 0
     for dobj in data_objects:
         # get everything after 'data/' in the url
         file_path = dobj['url'].split('data/')[1]
@@ -65,8 +68,10 @@ def update_zero_size_files(config_file, update_db):
             # There are zero size files on the file system - log a warning and continue
             if file_size == 0:
                 logger.warning(f"Zero size file: {file_path}")
+                num_zero_size_files += 1
                 continue
 
+            num_with_file_size += 1
             update = {
                 "q": {"id": dobj['id']},
                 "u": {"$set": {"file_size_bytes": file_size}},
@@ -74,7 +79,13 @@ def update_zero_size_files(config_file, update_db):
             update_query["updates"].append(update)
         except FileNotFoundError:
             logger.warning(f"File not found: {file_path}")
+            num_files_not_found += 1
             continue
+
+    logger.info(f"Number of zero size files: {num_zero_size_files}")
+    logger.info(f"Number of files not found: {num_files_not_found}")
+    logger.info(f"Number of files with file size: {num_with_file_size}")
+
 
     if update_db:
         response = requests.post(
