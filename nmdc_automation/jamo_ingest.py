@@ -4,7 +4,7 @@ import json
 with open("valid_data.json") as valid_data_file:
 	valid_data = json.load(valid_data_file)
 
-	# for record in valid_data:
+	# todo iterate over multiple records, and group them using workflow_execution
 	url = valid_data["url"]
 	file = valid_data["name"]
 	data_object_id = valid_data["id"]
@@ -43,3 +43,7 @@ with open("valid_data.json") as valid_data_file:
 
 	with open('metadata.json', 'w') as metadata_file:
 		json.dump(json_data, metadata_file, indent=4)
+
+
+# todo import into jamo
+# jat import template.yaml metadata.json
