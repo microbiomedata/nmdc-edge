@@ -25,12 +25,12 @@ def update_zero_size_files(config_file, update_db):
     logger.info(f"Updating zero size files from {config_file}")
 
     site_config = SiteConfig(config_file)
-    client_id = site_config.client_id
-    client_secret = site_config.client_secret
+    username = site_config.username
+    password = site_config.password
 
 
     import requests
-    headers = {'accept': 'application/json', 'Authorization': f'Bearer {client_id} {client_secret}'}
+    headers = {'accept': 'application/json', 'Authorization': f'Basic {username}:{password}'}
 
     params = {
         'filter': '{"$or": [{"file_size_bytes": {"$exists": false}},{"file_size_bytes": null},{"file_size_bytes": 0}],"$and": [{"url": {"$exists": true}},{"url": {"$regex": "^https://data.microbiomedata.org/data/"}}]}',
