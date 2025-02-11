@@ -259,21 +259,24 @@ class Scheduler:
         for wf in wfp_node.workflow.children:
             # Ignore disabled workflows
             if not wf.enabled:
+                logger.info(f"Skipping disabled workflow {wf.name}:{wf.version}")
                 continue
             # See if we already have a job for this
             existing_jobs = self.get_existing_jobs(wf)
             if wfp_node.id in self.get_existing_jobs(wf):
+                logger.info(f"Found existing job for {wf.name}:{wf.version} {wfp_node.id}")
                 continue
             # Look at previously generated derived
             # activities to see if this is already done.
             for child_act in wfp_node.children:
                 if within_range(child_act.workflow, wf, force=self.force):
+                    logger.info(f"Found existing record within range {wf.name}:{wf.version} {wfp_node.id}")
                     break
             else:
                 # These means no existing activities were
                 # found that matched this workflow, so we
                 # add a job
-                logging.debug(f"Creating a job {wf.name}:{wf.version} for {wfp_node.id}")
+                logger.info(f"Creating a job {wf.name}:{wf.version} for {wfp_node.id}")
                 new_jobs.append(SchedulerJob(wf, wfp_node))
 
         return new_jobs
@@ -294,7 +297,7 @@ class Scheduler:
                 logging.debug(f"Skipping: {wfp_node.was_informed_by}")
                 continue
             if not wfp_node.workflow.enabled:
-                logging.debug(f"Skipping: {wfp_node.id}, workflow disabled.")
+                logging.info(f"Skipping: {wfp_node.id}, workflow disabled.")
                 continue
             jobs = self.find_new_jobs(wfp_node)
             if jobs:
@@ -325,7 +328,6 @@ def main(site_conf, wf_file):  # pragma: no cover
     db = get_mongo_db()
     logger.info("Initializing Scheduler")
     sched = Scheduler(db, wf_file, site_conf=site_conf)
-    logger.info()
 
     dryrun = False
     if os.environ.get("DRYRUN") == "1":
