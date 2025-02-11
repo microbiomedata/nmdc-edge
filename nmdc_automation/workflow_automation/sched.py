@@ -262,7 +262,6 @@ class Scheduler:
                 logger.info(f"Skipping disabled workflow {wf.name}:{wf.version}")
                 continue
             # See if we already have a job for this
-            existing_jobs = self.get_existing_jobs(wf)
             if wfp_node.id in self.get_existing_jobs(wf):
                 logger.info(f"Found existing job for {wf.name}:{wf.version} {wfp_node.process.id}")
                 continue
@@ -281,7 +280,7 @@ class Scheduler:
 
         return new_jobs
 
-    def cycle(self, dryrun: bool = False, skiplist: set = set(),
+    def cycle(self, dryrun: bool = False, skiplist: set = None,
               allowlist=None) -> list:
         """
         This function does a single cycle of looking for new jobs
@@ -358,7 +357,7 @@ def main(site_conf, wf_file):  # pragma: no cover
         if dryrun:
             break
         _sleep(_POLL_INTERVAL)
-        if cycle_count % 10 == 0:
+        if cycle_count % 100 == 0:
             logger.info(f"Cycle count: {cycle_count}")
 
 
