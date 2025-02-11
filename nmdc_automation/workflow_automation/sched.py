@@ -85,7 +85,7 @@ class Scheduler:
 
     def __init__(self, db, workflow_yaml,
                  site_conf="site_configuration.toml"):
-        logging.info("Initializing Scheduler")
+
         # Init
         # wf_file = os.environ.get(_WF_YAML_ENV, wfn)
         self.workflows = load_workflow_configs(workflow_yaml)
@@ -284,9 +284,11 @@ class Scheduler:
         This function does a single cycle of looking for new jobs
         """
         wfp_nodes = load_workflow_process_nodes(self.db, self.workflows, allowlist)
+        logger.info(f"Found {len(wfp_nodes)} workflow process nodes")
 
         self.get_existing_jobs.cache_clear()
         job_recs = []
+        logger.info("Scanning for new jobs")
         for wfp_node in wfp_nodes:
             if wfp_node.was_informed_by in skiplist:
                 logging.debug(f"Skipping: {wfp_node.was_informed_by}")
@@ -311,6 +313,7 @@ class Scheduler:
                 except Exception as ex:
                     logging.error(str(ex))
                     raise ex
+        logger.info(f"Created {len(job_recs)} new jobs")
         return job_recs
 
 
@@ -320,7 +323,10 @@ def main(site_conf, wf_file):  # pragma: no cover
     """
     # site_conf = os.environ.get("NMDC_SITE_CONF", "site_configuration.toml")
     db = get_mongo_db()
+    logger.info("Initializing Scheduler")
     sched = Scheduler(db, wf_file, site_conf=site_conf)
+    logger.info()
+
     dryrun = False
     if os.environ.get("DRYRUN") == "1":
         dryrun = True
@@ -330,11 +336,18 @@ def main(site_conf, wf_file):  # pragma: no cover
         with open(os.environ.get("SKIPLISTFILE")) as f:
             for line in f:
                 skiplist.add(line.rstrip())
+
+    logger.info("Reading Allowlist")
     if os.environ.get("ALLOWLISTFILE"):
         allowlist = set()
         with open(os.environ.get("ALLOWLISTFILE")) as f:
             for line in f:
                 allowlist.add(line.rstrip())
+        logger.info(f"Read {len(allowlist)} items")
+        for item in allowlist:
+            logger.info(f"Allowing: {item}")
+
+    logger.info("Starting Scheduler")
     while True:
         sched.cycle(dryrun=dryrun, skiplist=skiplist, allowlist=allowlist)
         if dryrun:
