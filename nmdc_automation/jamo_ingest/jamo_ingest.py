@@ -1,13 +1,17 @@
 import json
 import requests
 import click
+from typing import Dict, List, Optional
 
 
 
-_base_url = "https://api.microbiomedata.org/"
+_BASE_URL = "https://api.microbiomedata.org/"
 
-def query_collection(base_url, collection_name, max_page_size=None, filter_param=None):
-    """
+# API Query Functions
+def query_collection(base_url: str, collection_name: str, 
+                    max_page_size: Optional[int] = None, 
+                    filter_param: Optional[str] = None) -> Dict:
+     """
     Query the metadata from a specific collection.
 
     :param base_url: The base URL of the API
@@ -16,18 +20,17 @@ def query_collection(base_url, collection_name, max_page_size=None, filter_param
     :return: The response from the API call
     """
     url = f"{base_url}nmdcschema/{collection_name}"
+    params = {}
     if max_page_size:
-        url += f"?max_page_size={max_page_size}"
+        params['max_page_size'] = max_page_size
     if filter_param:
-        url += f"&filter={filter_param}"
-    response = requests.get(url)
+        params['filter'] = filter_param
+    
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    return response.json()
 
-    if response.status_code == 200:
-        return response.json()
-    else:
-        response.raise_for_status()
-
-def get_data_object_set(base_api_url, max_page_size):
+def get_data_object_set(base_api_url: str, max_page_size: int) -> Dict:
     """
     Retrieve and print all URLs from the data_object_set collection with a filter.
     """
@@ -42,81 +45,127 @@ def get_data_object_set(base_api_url, max_page_size):
             kv_store[item_id] = item
     return kv_store
 
+
+# Data Processing Functions
+def process_record(record: Dict) -> Dict:
+    """Process a single record and extract relevant information."""
+    url = record["url"]
+    file = record["name"]
+    data_object_id = record["id"]
+    label = record["data_object_type"]
+
+    prefix = "https://data.microbiomedata.org/data/"
+    url_suffix = url.removeprefix(prefix)
+    tokens = url_suffix.split('/')
+
+    was_informed_by = tokens[0]
+    workflow_execution_id = tokens[1]
+    workflow_execution = workflow_execution_id.split('-')[0].removeprefix('nmdc:')
+    file_format = file.split('.')[-1]
+
+    return create_json_structure(
+        workflow_execution, workflow_execution_id, data_object_id,
+        was_informed_by, file, label, file_format
+    )
+
+
+
+def create_json_structure(workflow_execution: str, workflow_execution_id: str,
+                         data_object_id: str, was_informed_by: str,
+                         file: str, label: str, file_format: str) -> Dict:
+    """Create the JSON structure for a record."""
+    return {
+        "metadata": {
+            "workflow_execution": workflow_execution,
+            "workflow_execution_id": workflow_execution_id,
+            "data_object_id": data_object_id,
+            "was_informed_by": was_informed_by
+        },
+        "outputs": [
+            {
+                "file": file,
+                "label": label,
+                "metadata": {
+                    "file_format": file_format
+                }
+            }
+        ]
+    }
+
+
+
+
+# File Operations
+def save_json(data: Dict, filename: str):
+    """Save data to JSON file."""
+    with open(filename, 'w') as f:
+        json.dump(data, f, indent=4)
+
+def load_json(filename: str) -> Dict:
+    """Load data from JSON file."""
+    with open(filename) as f:
+        return json.load(f)
+
+
+# CLI Commands
 @click.command()
 @click.option('--base-api-url', default=_base_url, help='The base URL for the API to query.')
 @click.option('--max-page-size', default=100000, help='Maximum number of records to query per page.', show_default=True)
-def get_workflow_execution_set(base_api_url, max_page_size):
+def get_workflow_execution_set(base_api_url: str, max_page_size: int):
     """
     Retrieve and print all records from the workflow_execution_set collection.
     """
     # TODO: support pagination if records exceed max_page_size
-    workflow_records = query_collection(base_api_url, "workflow_execution_set", max_page_size)
-    click.echo(f"Workflow Executions Set: {len(workflow_records.get('resources', []))} records retrieved.")
+    try:
+        # Get workflow records
+        workflow_records = query_collection(base_api_url, "workflow_execution_set", max_page_size)
+        click.echo(f"Workflow Executions Set: {len(workflow_records.get('resources', []))} records retrieved.")
 
-    data_object_set = get_data_object_set(base_api_url, max_page_size)
-    click.echo(f"Data Object Set: {len(data_object_set)} records retrieved.")
+        # Get data object set
+        data_object_set = get_data_object_set(base_api_url, max_page_size)
+        click.echo(f"Data Object Set: {len(data_object_set)} records retrieved.")
 
-    workflow_output_dict = {}
+        # Process workflows
+        workflow_output_dict = {}
+        for record in workflow_records.get("resources", []):
+            has_output_list = record.get("has_output", [])
+            workflow = record.get("type")
+	        valid_records = []
+	        for output_id in has_output_list:
+	        	# cross-reference workflow_execution_set records against data_object_set collection to ensure they are not invalid
+	            output_record = data_object_set.get(output_id)
+	            if output_record:
+	            	valid_records.append(output_record)
+	        if valid_records:
+	            workflow_output_dict[workflow] = valid_records
 
-    for record in workflow_records.get("resources", []):
-        has_output_list = record.get("has_output", [])
-        workflow = record.get("type")
-        valid_records = []
-        for output_id in has_output_list:
-            output_record = data_object_set.get(output_id)
-            if output_record:
-            	valid_records.append(output_record)
-                # click.echo(output_record)
-        workflow_output_dict[workflow] = valid_records
+	     # Save results
+        save_json(workflow_output_dict, "workflow_outputs.json")
 
+    except requests.RequestException as e:
+        click.echo(f"API request failed: {e}", err=True)
+    except Exception as e:
+        click.echo(f"An error occurred: {e}", err=True)
+
+
+
+
+
+def main():
+    """Main function to run the workflow."""
+    try:
+        get_workflow_execution_set()
+        
+        # Process valid data
+        valid_data = load_json("valid_data.json")
+        processed_data = process_record(valid_data)
+        save_json(processed_data, "metadata.json")
+        
+    except Exception as e:
+        click.echo(f"Error in main execution: {e}", err=True)
 
 if __name__ == "__main__":
-    get_workflow_execution_set()
-    with open("valid_data.json") as valid_data_file:
-	# todo validate json
-	valid_data = json.load(valid_data_file)
-
-	# todo iterate over multiple records, and group them using workflow_execution
-	url = valid_data["url"]
-	file = valid_data["name"]
-	data_object_id = valid_data["id"]
-	label = valid_data["data_object_type"]
-
-	prefix = "https://data.microbiomedata.org/data/"
-	url_suffix = url.removeprefix(prefix)
-	tokens = url_suffix.split('/')
-
-	was_informed_by = tokens[0]
-	workflow_execution_id = tokens[1]
-	workflow_execution = workflow_execution_id.split('-')[0].removeprefix('nmdc:')
-	file_format = file.split('.')[-1]
-
-
-	# create json structure
-
-	# todo error handling
-
-	json_data = {
-	    "metadata": {
-	        "workflow_execution": workflow_execution,
-	        "workflow_execution_id": workflow_execution_id,
-	        "data_object_id": data_object_id,
-	        "was_informed_by": was_informed_by
-	    },
-	    "outputs": [
-	        {
-	            "file": file,
-	            "label": label,
-	            "metadata": {
-	                "file_format": file_format
-	            }
-	        }
-	        
-	    ]
-	}
-
-	with open('metadata.json', 'w') as metadata_file:
-		json.dump(json_data, metadata_file, indent=4)
+    main()
 
 
 # todo import into jamo
