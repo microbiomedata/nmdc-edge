@@ -61,7 +61,7 @@ def get_data_object_set(base_api_url: str, max_page_size: int) -> Dict:
 
 # CLI Commands
 @click.command()
-@click.option('--base-api-url', default=_base_url, help='The base URL for the API to query.')
+@click.option('--base-api-url', default=_BASE_URL, help='The base URL for the API to query.')
 @click.option('--max-page-size', default=100000, help='Maximum number of records to query per page.', show_default=True)
 def get_workflow_execution_set(base_api_url: str, max_page_size: int) -> Dict[str, List[str]]:
     """
@@ -116,22 +116,22 @@ def get_workflow_execution_set(base_api_url: str, max_page_size: int) -> Dict[st
 def create_json_structure(workflow_execution: str, metadata_keys: Dict) -> Dict:
     """Create the JSON structure for all records of type workflow_execution."""
     outputs = []
-    for item in metadata_keys_list:
-    	output = {}
-    	output["file"] = metadata_keys["file"],
-        output["label"] = metadata_keys["label"],
-        output["metadata"] = 
-        		{
-                    "file_format": metadata_keys["file_format"]
-                    "workflow_execution_id": metadata_keys["workflow_execution_id"],
-		            "data_object_id": metadata_keys["data_object_id"],
-		            "was_informed_by": metadata_keys["was_informed_by"]
-                }
+    for metadata_keys in metadata_keys_list:
+        output = {
+            "file": metadata_keys["file"],  # Remove trailing comma
+            "label": metadata_keys["label"],  # Remove trailing comma
+            "metadata": {
+                "file_format": metadata_keys["file_format"],
+                "workflow_execution_id": metadata_keys["workflow_execution_id"],
+                "data_object_id": metadata_keys["data_object_id"],
+                "was_informed_by": metadata_keys["was_informed_by"]
+            }
+        }
         outputs.append(output)
     
     return {
         "metadata": {
-            "workflow_execution": metadata_keys["workflow_execution"],
+            "workflow_execution": workflow_execution,
             
         },
         "outputs": outputs
@@ -140,9 +140,10 @@ def create_json_structure(workflow_execution: str, metadata_keys: Dict) -> Dict:
 
 def generate_metadata_file(workflow_type: str, records: List):
 	metadata_keys_list: List[Dict] = []
-	metadata_keys: Dict = {}
+	
 	for record in records:
 		"""Process a single record and extract relevant information."""
+	    metadata_keys: Dict = {}
 	    metadata_keys["url"] = record["url"]
 	    metadata_keys["file"] = record["name"]
 	    metadata_keys["data_object_id"] = record["id"]
@@ -160,14 +161,13 @@ def generate_metadata_file(workflow_type: str, records: List):
 	    metadata_keys_list.append(metadata_keys)
 
 
-	 save_json(create_json_structure(workflow_type, metadata_keys_list), f"metadata_{workflow_type}".json)
+	 save_json(create_json_structure(workflow_type, metadata_keys_list), f"metadata_{workflow_type}.json")
 
 
-def process_data():
-	valid_data = json.load("valid_data.json")
-
-	for workflow in valid_data:
-		generate_metadata(workflow, valid_data.get(workflow))
+def process_data(valid_data: Dict[str, List[Dict]]):
+    """Process valid data and generate metadata files for each workflow type."""
+    for workflow_type, records in valid_data.items():
+        generate_metadata_file(workflow_type, records)
 
 
 def main():
@@ -176,13 +176,12 @@ def main():
         get_workflow_execution_set()
         
         # Process valid data
-        # Generate metadata_{workflow_type}.json file
         valid_data = load_json("valid_data.json")
-        process_data(valid_data)
+        process_data(valid_data)  # Pass valid_data as argument
         
     except Exception as e:
         click.echo(f"Error in main execution: {e}", err=True)
-
+        
 if __name__ == "__main__":
     main()
 
