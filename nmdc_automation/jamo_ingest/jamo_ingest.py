@@ -46,30 +46,6 @@ def get_data_object_set(base_api_url: str, max_page_size: int) -> Dict:
     return kv_store
 
 
-# Data Processing Functions
-def process_record(record: Dict) -> Dict:
-    """Process a single record and extract relevant information."""
-    url = record["url"]
-    file = record["name"]
-    data_object_id = record["id"]
-    label = record["data_object_type"]
-
-    prefix = "https://data.microbiomedata.org/data/"
-    url_suffix = url.removeprefix(prefix)
-    tokens = url_suffix.split('/')
-
-    was_informed_by = tokens[0]
-    workflow_execution_id = tokens[1]
-    workflow_execution = workflow_execution_id.split('-')[0].removeprefix('nmdc:')
-    file_format = file.split('.')[-1]
-
-    return create_json_structure(
-        workflow_execution, workflow_execution_id, data_object_id,
-        was_informed_by, file, label, file_format
-    )
-
-
-
 def create_json_structure(workflow_execution: str, metadata_keys: Dict) -> Dict:
     """Create the JSON structure for all records of type workflow_execution."""
     outputs = []
@@ -86,7 +62,6 @@ def create_json_structure(workflow_execution: str, metadata_keys: Dict) -> Dict:
                 }
         outputs.append(output)
     
-
     return {
         "metadata": {
             "workflow_execution": metadata_keys["workflow_execution"],
@@ -94,8 +69,6 @@ def create_json_structure(workflow_execution: str, metadata_keys: Dict) -> Dict:
         },
         "outputs": outputs
         }
-
-
 
 
 
@@ -136,16 +109,11 @@ def generate_metadata_file(workflow_type: str, records: List):
 	 save_json(create_json_structure(workflow_type, metadata_keys_list), f"metadata_{workflow_type}".json)
 
 
-
-
-
 def process_records():
 	valid_data = json.load("valid_data.json")
 
 	for workflow in valid_data:
 		generate_metadata(workflow, valid_data.get(workflow))
-
-
 
 
 # CLI Commands
@@ -200,9 +168,6 @@ def get_workflow_execution_set(base_api_url: str, max_page_size: int) -> Dict[st
         click.echo(f"API request failed: {e}", err=True)
     except Exception as e:
         click.echo(f"An error occurred: {e}", err=True)
-
-
-
 
 
 def main():
