@@ -4,8 +4,20 @@ import click
 from typing import Dict, List, Optional
 
 
-
 _BASE_URL = "https://api.microbiomedata.org/"
+
+
+# File Operations
+def save_json(data: Dict, filename: str):
+    """Save data to JSON file."""
+    with open(filename, 'w') as f:
+        json.dump(data, f, indent=4)
+
+def load_json(filename: str) -> Dict:
+    """Load data from JSON file."""
+    with open(filename) as f:
+        return json.load(f)
+
 
 # API Query Functions
 def query_collection(base_url: str, collection_name: str, 
@@ -30,6 +42,7 @@ def query_collection(base_url: str, collection_name: str,
     response.raise_for_status()
     return response.json()
 
+
 def get_data_object_set(base_api_url: str, max_page_size: int) -> Dict:
     """
     Retrieve and print all URLs from the data_object_set collection with a filter.
@@ -44,76 +57,6 @@ def get_data_object_set(base_api_url: str, max_page_size: int) -> Dict:
         if item_id:
             kv_store[item_id] = item
     return kv_store
-
-
-def create_json_structure(workflow_execution: str, metadata_keys: Dict) -> Dict:
-    """Create the JSON structure for all records of type workflow_execution."""
-    outputs = []
-    for item in metadata_keys_list:
-    	output = {}
-    	output["file"] = metadata_keys["file"],
-        output["label"] = metadata_keys["label"],
-        output["metadata"] = 
-        		{
-                    "file_format": metadata_keys["file_format"]
-                    "workflow_execution_id": metadata_keys["workflow_execution_id"],
-		            "data_object_id": metadata_keys["data_object_id"],
-		            "was_informed_by": metadata_keys["was_informed_by"]
-                }
-        outputs.append(output)
-    
-    return {
-        "metadata": {
-            "workflow_execution": metadata_keys["workflow_execution"],
-            
-        },
-        "outputs": outputs
-        }
-
-
-
-# File Operations
-def save_json(data: Dict, filename: str):
-    """Save data to JSON file."""
-    with open(filename, 'w') as f:
-        json.dump(data, f, indent=4)
-
-def load_json(filename: str) -> Dict:
-    """Load data from JSON file."""
-    with open(filename) as f:
-        return json.load(f)
-
-
-def generate_metadata_file(workflow_type: str, records: List):
-	metadata_keys_list: List[Dict] = []
-	metadata_keys: Dict = {}
-	for record in records:
-		"""Process a single record and extract relevant information."""
-	    metadata_keys["url"] = record["url"]
-	    metadata_keys["file"] = record["name"]
-	    metadata_keys["data_object_id"] = record["id"]
-	    metadata_keys["label"] = record["data_object_type"]
-
-	    prefix = "https://data.microbiomedata.org/data/"
-	    url_suffix = url.removeprefix(prefix)
-	    tokens = url_suffix.split('/')
-
-	    metadata_keys["was_informed_by"] = tokens[0]
-	    metadata_keys["workflow_execution_id"] = tokens[1]
-	    metadata_keys["workflow_execution"] = workflow_execution_id.split('-')[0].removeprefix('nmdc:')
-	    metadata_keys["file_format"] = file.split('.')[-1]
-
-	    metadata_keys_list.append(metadata_keys)
-
-
-	 save_json(create_json_structure(workflow_type, metadata_keys_list), f"metadata_{workflow_type}".json)
-
-
-def process_records():
-	valid_data = json.load("valid_data.json")
-
-	for workflow in valid_data:
-		generate_metadata(workflow, valid_data.get(workflow))
 
 
 # CLI Commands
@@ -170,15 +113,72 @@ def get_workflow_execution_set(base_api_url: str, max_page_size: int) -> Dict[st
         click.echo(f"An error occurred: {e}", err=True)
 
 
+def create_json_structure(workflow_execution: str, metadata_keys: Dict) -> Dict:
+    """Create the JSON structure for all records of type workflow_execution."""
+    outputs = []
+    for item in metadata_keys_list:
+    	output = {}
+    	output["file"] = metadata_keys["file"],
+        output["label"] = metadata_keys["label"],
+        output["metadata"] = 
+        		{
+                    "file_format": metadata_keys["file_format"]
+                    "workflow_execution_id": metadata_keys["workflow_execution_id"],
+		            "data_object_id": metadata_keys["data_object_id"],
+		            "was_informed_by": metadata_keys["was_informed_by"]
+                }
+        outputs.append(output)
+    
+    return {
+        "metadata": {
+            "workflow_execution": metadata_keys["workflow_execution"],
+            
+        },
+        "outputs": outputs
+        }
+
+
+def generate_metadata_file(workflow_type: str, records: List):
+	metadata_keys_list: List[Dict] = []
+	metadata_keys: Dict = {}
+	for record in records:
+		"""Process a single record and extract relevant information."""
+	    metadata_keys["url"] = record["url"]
+	    metadata_keys["file"] = record["name"]
+	    metadata_keys["data_object_id"] = record["id"]
+	    metadata_keys["label"] = record["data_object_type"]
+
+	    prefix = "https://data.microbiomedata.org/data/"
+	    url_suffix = url.removeprefix(prefix)
+	    tokens = url_suffix.split('/')
+
+	    metadata_keys["was_informed_by"] = tokens[0]
+	    metadata_keys["workflow_execution_id"] = tokens[1]
+	    metadata_keys["workflow_execution"] = workflow_execution_id.split('-')[0].removeprefix('nmdc:')
+	    metadata_keys["file_format"] = file.split('.')[-1]
+
+	    metadata_keys_list.append(metadata_keys)
+
+
+	 save_json(create_json_structure(workflow_type, metadata_keys_list), f"metadata_{workflow_type}".json)
+
+
+def process_data():
+	valid_data = json.load("valid_data.json")
+
+	for workflow in valid_data:
+		generate_metadata(workflow, valid_data.get(workflow))
+
+
 def main():
     """Main function to run the workflow."""
     try:
         get_workflow_execution_set()
         
         # Process valid data
+        # Generate metadata_{workflow_type}.json file
         valid_data = load_json("valid_data.json")
-        processed_data = process_record(valid_data)
-        save_json(processed_data, "metadata.json")
+        process_data(valid_data)
         
     except Exception as e:
         click.echo(f"Error in main execution: {e}", err=True)
