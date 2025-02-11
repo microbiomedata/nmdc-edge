@@ -22,7 +22,8 @@ def cli():
 @click.argument("config_file", type=click.Path(exists=True))
 @click.option("--update-db", is_flag=True, help="Update the database")
 def update_zero_size_files(config_file, update_db):
-    logger.info(f"Updating zero size files from {config_file}")
+
+    # logger.info(f"Updating zero size files from {config_file}")
 
     site_config = SiteConfig(config_file)
     username = site_config.username
