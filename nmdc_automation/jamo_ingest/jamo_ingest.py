@@ -70,27 +70,31 @@ def process_record(record: Dict) -> Dict:
 
 
 
-def create_json_structure(workflow_execution: str, workflow_execution_id: str,
-                         data_object_id: str, was_informed_by: str,
-                         file: str, label: str, file_format: str) -> Dict:
-    """Create the JSON structure for a record."""
+def create_json_structure(workflow_execution: str, metadata_keys: Dict) -> Dict:
+    """Create the JSON structure for all records of type workflow_execution."""
+    outputs = []
+    for item in metadata_keys_list:
+    	output = {}
+    	output["file"] = metadata_keys["file"],
+        output["label"] = metadata_keys["label"],
+        output["metadata"] = 
+        		{
+                    "file_format": metadata_keys["file_format"]
+                    "workflow_execution_id": metadata_keys["workflow_execution_id"],
+		            "data_object_id": metadata_keys["data_object_id"],
+		            "was_informed_by": metadata_keys["was_informed_by"]
+                }
+        outputs.append(output)
+    
+
     return {
         "metadata": {
-            "workflow_execution": workflow_execution,
-            "workflow_execution_id": workflow_execution_id,
-            "data_object_id": data_object_id,
-            "was_informed_by": was_informed_by
+            "workflow_execution": metadata_keys["workflow_execution"],
+            
         },
-        "outputs": [
-            {
-                "file": file,
-                "label": label,
-                "metadata": {
-                    "file_format": file_format
-                }
-            }
-        ]
-    }
+        "outputs": outputs
+        }
+
 
 
 
@@ -107,13 +111,63 @@ def load_json(filename: str) -> Dict:
         return json.load(f)
 
 
+def generate_metadata_file(workflow_type: str, records: List):
+	metadata_keys_list: List[Dict] = []
+	metadata_keys: Dict = {}
+	for record in records:
+		"""Process a single record and extract relevant information."""
+	    metadata_keys["url"] = record["url"]
+	    metadata_keys["file"] = record["name"]
+	    metadata_keys["data_object_id"] = record["id"]
+	    metadata_keys["label"] = record["data_object_type"]
+
+	    prefix = "https://data.microbiomedata.org/data/"
+	    url_suffix = url.removeprefix(prefix)
+	    tokens = url_suffix.split('/')
+
+	    metadata_keys["was_informed_by"] = tokens[0]
+	    metadata_keys["workflow_execution_id"] = tokens[1]
+	    metadata_keys["workflow_execution"] = workflow_execution_id.split('-')[0].removeprefix('nmdc:')
+	    metadata_keys["file_format"] = file.split('.')[-1]
+
+	    metadata_keys_list.append(metadata_keys)
+
+
+	 save_json(create_json_structure(workflow_type, metadata_keys_list), f"metadata_{workflow_type}".json)
+
+
+
+
+
+def process_records():
+	valid_data = json.load("valid_data.json")
+
+	for workflow in valid_data:
+		generate_metadata(workflow, valid_data.get(workflow))
+
+
+
+
 # CLI Commands
 @click.command()
 @click.option('--base-api-url', default=_base_url, help='The base URL for the API to query.')
 @click.option('--max-page-size', default=100000, help='Maximum number of records to query per page.', show_default=True)
-def get_workflow_execution_set(base_api_url: str, max_page_size: int):
+def get_workflow_execution_set(base_api_url: str, max_page_size: int) -> Dict[str, List[str]]:
     """
-    Retrieve and print all records from the workflow_execution_set collection.
+	Query workflow execution records and organize them by workflow type.
+    
+    Queries the workflow_execution_set collection, validates each record against
+    the data_object_set collection, and groups valid records by their workflow type.
+    Results are saved to a JSON file.
+
+    Args:
+        base_api_url (str): Base URL for the API endpoint
+        max_page_size (int): Maximum number of records to retrieve per query
+
+    Returns:
+        Dict[str, List[dict]]: Dictionary where:
+            - keys are workflow types (str)
+            - values are lists of validated output records (dict)
     """
     # TODO: support pagination if records exceed max_page_size
     try:
@@ -132,7 +186,7 @@ def get_workflow_execution_set(base_api_url: str, max_page_size: int):
             workflow = record.get("type")
 	        valid_records = []
 	        for output_id in has_output_list:
-	        	# cross-reference workflow_execution_set records against data_object_set collection to ensure they are not invalid
+	        	# Cross-reference workflow outputs against data_object_set to filter out invalid/missing records
 	            output_record = data_object_set.get(output_id)
 	            if output_record:
 	            	valid_records.append(output_record)
@@ -140,7 +194,7 @@ def get_workflow_execution_set(base_api_url: str, max_page_size: int):
 	            workflow_output_dict[workflow] = valid_records
 
 	     # Save results
-        save_json(workflow_output_dict, "workflow_outputs.json")
+        save_json(workflow_output_dict, "valid_data.json")
 
     except requests.RequestException as e:
         click.echo(f"API request failed: {e}", err=True)
