@@ -294,7 +294,6 @@ class Scheduler:
 
         for wfp_node in wfp_nodes:
             if skiplist and wfp_node.id in skiplist:
-                logging.info(f"Skipping: {wfp_node.id}, in skiplist.")
                 continue
             if not wfp_node.workflow.enabled:
                 logging.info(f"Skipping: {wfp_node.id}, workflow disabled.")
