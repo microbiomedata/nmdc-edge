@@ -293,7 +293,6 @@ class Scheduler:
             if skiplist and wfp_node.id in skiplist:
                 continue
             if not wfp_node.workflow.enabled:
-                logging.info(f"Skipping: {wfp_node.id}, workflow disabled.")
                 continue
             jobs = self.find_new_jobs(wfp_node)
             if jobs:
