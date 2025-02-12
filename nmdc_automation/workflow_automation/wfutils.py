@@ -136,6 +136,13 @@ class CromwellRunner(JobRunnerABC):
             files = {"workflowSource": open(wdl_file, "rb"), "workflowDependencies": open(bundle_file, "rb"),
                 "workflowInputs": open(_json_tmp(self._generate_workflow_inputs()), "rb"),
                 "labels": open(_json_tmp(self._generate_workflow_labels()), "rb"), }
+
+            # Log details about the files
+            logger.info("Submission files generated:")
+            logger.info("  workflowSource: %s", files["workflowSource"].name)
+            logger.info("  workflowDependencies: %s", files["workflowDependencies"].name)
+            logger.info("  workflowInputs: %s", files["workflowInputs"].name)
+            logger.info("  labels: %s", files["labels"].name)
         except Exception as e:
             logger.error(f"Failed to generate submission files: {e}")
             self._cleanup_files(list(files.values()))
@@ -171,9 +178,7 @@ class CromwellRunner(JobRunnerABC):
                 self.metadata = response.json()
                 self.job_id = self.metadata["id"]
                 logger.info(f"Submitted job {self.job_id}")
-                files_dump = json.dumps(files, indent=2)
-                logger.info("Files:")
-                logger.info(files_dump)
+
                 metadata_dump = json.dumps(self.metadata, indent=2)
                 logger.info("Metadata:")
                 logger.info(metadata_dump)
