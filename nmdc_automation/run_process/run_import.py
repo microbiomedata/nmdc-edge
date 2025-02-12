@@ -243,6 +243,9 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
             elif process_id_in_db:
                 logger.info(f"Workflow Execution {nmdc_process_id} already exists in DB - skipping")
                 continue
+            if 'Workflow_Execution' not in import_spec:
+                logger.warning(f"Missing Workflow_Execution in import specification for {process_type}")
+                continue
             has_input, has_output = import_mapper.get_has_input_has_output_for_workflow_type(process_type)
 
             wfe_record = {
