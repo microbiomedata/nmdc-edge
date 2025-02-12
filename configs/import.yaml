@@ -158,7 +158,7 @@ Data Objects:
     - data_object_type: Metagenome Raw Reads
       description: Metagenome Raw Reads for {id}
       name: Raw sequencer read data
-      import_suffix: .[a-zA-Z]+-[A,C,G,T]+.fastq.gz
+      import_suffix: .[A,C,G,T]+-[A,C,G,T]+.fastq.gz
       nmdc_suffix: .fastq.gz
       input_to: [nmdc:ReadQcAnalysis]
       output_of: nmdc:NucleotideSequencing
