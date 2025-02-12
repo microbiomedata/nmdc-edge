@@ -98,7 +98,7 @@ Workflow Definitions
 ## Instructions (for NERSC / Perlmutter environment)
 
 
-### Running the Scheduler
+### Running the Scheduler on NERSC Rancher2
 
 The Scheduler is a Dockerized application running on [Rancher](https://rancher2.spin.nersc.gov). 
 To initialize the Scheduler for new DataGeneration IDs, the following steps:
@@ -120,7 +120,7 @@ To initialize the Scheduler for new DataGeneration IDs, the following steps:
 7. Ensure the scheduler is running by checking `sched.log`
 
 
-### Running the Watcher
+### Running the Watcher on NERSC Perlmutter
 
 The watcher is a python application which runs on a login node on Perlmutter. 
 The following instructions all assume the user is logged in as user `nmdcda@perlmutter.nersc.gov`
@@ -203,16 +203,34 @@ names `nohup.out` in addition to being written to the `watcher.log` file.
 - `/global/homes/n/nmdcda/nmdc_automation/dev`
 2. `export NMDC_LOG_LEVEL=INFO`
 3. `rm nohup.out`
-4. `nohup ./run.sh &` OR `nohup ./run_prod.sh &`
+4. `nohup ./run.sh &` (for dev) OR `nohup ./run_prod.sh &` (for prod)
 
 #### Provision Workers
 
 1. `sbatch ~/workers_perlmutter.sl`
 
+- `sbatch` is the command to submit a job to the Slurm scheduler
+- `~/workers_perlmutter.sl` is the script that will be run by the scheduler which specifies the number of workers to provision
+
+```bash
+#!/bin/sh
+#SBATCH -N 1
+#SBATCH -q regular
+#SBATCH -t 12:00:00
+#SBATCH -J nmdc_condor_wrk
+#SBATCH -C cpu
+```
+
 #### Monitoring the Watcher
 
-1. The watcher writes a file `host-prod.last` showing which node it is running on
+1. The watcher writes a file `host-prod.last` in `nmdc_automation/prod` or `nmdc_auotmation/dev` showing which node it is running on
 2. ssh to that node
+```shell
+(base) nmdcda@perlmutter:login07:~> cd nmdc_automation/dev
+(base) nmdcda@perlmutter:login07:~/nmdc_automation/dev> cat host-dev.last 
+login24
+(base) nmdcda@perlmutter:login07:~/nmdc_automation/dev> ssh login24
+```
 3. Search for the Watcher process `ps aux | grep watcher`
 
 #### Monitoring Jobs
