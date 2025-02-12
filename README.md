@@ -236,7 +236,17 @@ login24
 #### Monitoring Jobs
 
 - `sqs` Shows the Slurm queue
+```shell
+JOBID            ST USER      NAME          NODES TIME_LIMIT       TIME  SUBMIT_TIME          QOS             START_TIME           FEATURES       NODELIST(REASON
+35153609         PD nmdcda    condor        1     14-00:00:00       0:00  2025-01-23T09:33:27  workflow        N/A                  cron           (Dependency)   
+35153610         R  nmdcda    cromwell      1     4-00:00:00 3-11:09:43  2025-02-08T22:07:23  workflow        2025-02-08T22:08:01  cron           login05        
+30091486         R  nmdcda    condor        1     14-00:00:00 11-11:13:11  2025-01-27T09:09:48  workflow        2025-01-31T22:04:33  cron           login04
+```
+Shows a new job with ID 35153609 in the queue (Pending State), and a running job with ID 35153610
 - `cq running` Shows which jobs are being run by Condor
+```shell
+7d07b3e5-edb2-414f-ba19-c570669f3b5f  f_annotate     65ce4da9-52eb-4d74-82e1-9b2b639e694a  65ce4da9-52eb-4d74-82e1-9b2b639e694a  Running   2024-03-27T00:02:34.316Z
+```
 
 
 
