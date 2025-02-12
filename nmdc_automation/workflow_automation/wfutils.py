@@ -131,18 +131,26 @@ class CromwellRunner(JobRunnerABC):
         """ Generate the files needed for a Cromwell job submission """
         files = {}
         try:
+            # Get file paths
             wdl_file = self.workflow.fetch_release_file(self.workflow.config["wdl"], suffix=".wdl")
             bundle_file = self.workflow.fetch_release_file("bundle.zip", suffix=".zip")
-            files = {"workflowSource": open(wdl_file, "rb"), "workflowDependencies": open(bundle_file, "rb"),
-                "workflowInputs": open(_json_tmp(self._generate_workflow_inputs()), "rb"),
-                "labels": open(_json_tmp(self._generate_workflow_labels()), "rb"), }
+            workflow_inputs_path = _json_tmp(self._generate_workflow_inputs())
+            workflow_labels_path = _json_tmp(self._generate_workflow_labels())
 
-            # Log details about the files
-            logger.info("Submission files generated:")
-            logger.info("  workflowSource: %s", files["workflowSource"].name)
-            logger.info("  workflowDependencies: %s", files["workflowDependencies"].name)
-            logger.info("  workflowInputs: %s", files["workflowInputs"].name)
-            logger.info("  labels: %s", files["labels"].name)
+            # Open files
+            files = {
+                "workflowSource": open(wdl_file, "rb"),
+                "workflowDependencies": open(bundle_file, "rb"),
+                "workflowInputs": open(workflow_inputs_path, "rb"),
+                "labels": open(workflow_labels_path, "rb"),
+            }
+
+            # log file paths
+            logger.info(f"Workflow source file: {wdl_file}")
+            logger.info(f"Workflow dependencies file: {bundle_file}")
+            logger.info(f"Workflow inputs file: {workflow_inputs_path}")
+            logger.info(f"Labels file: {workflow_labels_path}")
+
         except Exception as e:
             logger.error(f"Failed to generate submission files: {e}")
             self._cleanup_files(list(files.values()))
