@@ -195,10 +195,10 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                     except FileExistsError:
                         logger.debug(f"File {export_file} already exists")
 
-                import_spec = import_mapper.import_specs_by_data_object_type[mapping.data_object_type]
+                data_import_spec = import_mapper.import_specs_by_data_object_type[mapping.data_object_type]
                 filemeta = os.stat(export_file)
                 md5 = get_or_create_md5(export_file)
-                description = import_spec['description'].replace("{id}", nucleotide_sequencing_id)
+                description = data_import_spec['description'].replace("{id}", nucleotide_sequencing_id)
                 do_record = {
                     'id': mapping.data_object_id,
                     'type': 'nmdc:DataObject',
