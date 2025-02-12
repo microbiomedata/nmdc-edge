@@ -5,6 +5,7 @@ Handles workflow execution records and their associated data objects.
 """
 
 import json
+import os
 import requests
 import click
 from typing import Dict, List, Optional
@@ -147,7 +148,7 @@ def get_workflow_execution_set(base_api_url: str = _BASE_URL, max_page_size: int
     try:
         save_json(workflow_outputs_dict, "valid_data.json")
     except (IOError, OSError) as e:
-        print(f"error {e}", err=True)
+        click.echo(f"error {e}")
 
     return workflow_outputs_dict
 
