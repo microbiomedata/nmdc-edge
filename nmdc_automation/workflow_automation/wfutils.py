@@ -145,11 +145,18 @@ class CromwellRunner(JobRunnerABC):
                 "labels": open(workflow_labels_path, "rb"),
             }
 
-            # log file paths
-            logger.info(f"Workflow source file: {wdl_file}")
-            logger.info(f"Workflow dependencies file: {bundle_file}")
-            logger.info(f"Workflow inputs file: {workflow_inputs_path}")
-            logger.info(f"Labels file: {workflow_labels_path}")
+            logger.info(f"WDL file: {wdl_file}")
+            logger.info(f"Bundle file: {bundle_file}")
+            # dump the workflow inputs and labels to the log
+            with open(workflow_inputs_path) as f:
+                inputs_dump = json.load(f)
+                logger.info("Workflow inputs:")
+                logger.info(json.dumps(inputs_dump, indent=2))
+
+            with open(workflow_labels_path) as f:
+                labels_dump = json.load(f)
+                logger.info("Workflow labels:")
+                logger.info(json.dumps(labels_dump, indent=2))
 
         except Exception as e:
             logger.error(f"Failed to generate submission files: {e}")
