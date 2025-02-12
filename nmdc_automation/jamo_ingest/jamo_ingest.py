@@ -158,7 +158,7 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
         metadata_keys_list.append(metadata_keys)
 
     json_structure = create_json_structure(workflow_execution_id, workflow_execution, metadata_keys_list)
-    save_json(json_structure, "metadata1.json")
+    save_json(json_structure, f"metadata_{workflow_execution_id}.json")
 
 
 def process_data(valid_data: Dict[str, List]):
@@ -173,10 +173,10 @@ def process_data(valid_data: Dict[str, List]):
 def main():
     """Main function to run the workflow."""
     # Produces valid_data.json
-    workflow_output_dict = get_workflow_execution_set()
+    valid_data = get_workflow_execution_set()
 
     # Process valid data
-    valid_data = load_json("valid_data.json")
+    # valid_data = load_json("valid_data.json")
     process_data(valid_data)  # Pass valid_data as argument
 
 if __name__ == "__main__":
