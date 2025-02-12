@@ -245,7 +245,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                 continue
 
             has_input, has_output = import_mapper.get_has_input_has_output_for_workflow_type(process_type)
-            logger.info(f"Creating Workflow Execution: {nmdc_process_id}")
+            logger.info(f"Creating Workflow Execution: {nmdc_process_id} for import spec {import_spec}")
             wfe_record = {
                 'id': nmdc_process_id,
                 "name": import_spec["Workflow_Execution"]["name"].replace("{id}", nmdc_process_id),
