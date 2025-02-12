@@ -259,17 +259,14 @@ class Scheduler:
         for wf in wfp_node.workflow.children:
             # Ignore disabled workflows
             if not wf.enabled:
-                logger.info(f"Skipping disabled workflow {wf.name}:{wf.version}")
                 continue
             # See if we already have a job for this
             if wfp_node.id in self.get_existing_jobs(wf):
-                logger.info(f"Found existing job for {wf.name}:{wf.version} {wfp_node.process.id}")
                 continue
             # Look at previously generated derived
             # activities to see if this is already done.
             for child_act in wfp_node.children:
                 if within_range(child_act.workflow, wf, force=self.force):
-                    logger.info(f"Found existing record within range {wf.name}:{wf.version} {wfp_node.process.id}")
                     break
             else:
                 # These means no existing activities were
