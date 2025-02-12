@@ -280,7 +280,7 @@ class Scheduler:
 
         return new_jobs
 
-    def cycle(self, dryrun: bool = False, skiplist: set = None,
+    def cycle(self, dryrun: bool = False, skiplist: list[str] = None,
               allowlist=None) -> list:
         """
         This function does a single cycle of looking for new jobs
@@ -293,8 +293,8 @@ class Scheduler:
         job_recs = []
 
         for wfp_node in wfp_nodes:
-            if wfp_node.was_informed_by in skiplist:
-                logging.debug(f"Skipping: {wfp_node.was_informed_by}")
+            if skiplist and wfp_node.id in skiplist:
+                logging.info(f"Skipping: {wfp_node.id}, in skiplist.")
                 continue
             if not wfp_node.workflow.enabled:
                 logging.info(f"Skipping: {wfp_node.id}, workflow disabled.")
