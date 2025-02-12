@@ -171,10 +171,10 @@ class CromwellRunner(JobRunnerABC):
                 self.metadata = response.json()
                 self.job_id = self.metadata["id"]
                 logger.info(f"Submitted job {self.job_id}")
-                files_dump = json.dumps(files, indent=2, cls=yaml_dumper)
+                files_dump = json.dumps(files, indent=2)
                 logger.info("Files:")
                 logger.info(files_dump)
-                metadata_dump = json.dumps(self.metadata, indent=2, cls=yaml_dumper)
+                metadata_dump = json.dumps(self.metadata, indent=2)
                 logger.info("Metadata:")
                 logger.info(metadata_dump)
             else:
