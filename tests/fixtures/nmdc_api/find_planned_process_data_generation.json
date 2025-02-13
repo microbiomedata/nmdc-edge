@@ -1,0 +1,33 @@
+[
+    {
+      "add_date": "2022-03-25",
+      "gold_sequencing_project_identifiers": [
+        "gold:Gp0618275"
+      ],
+      "has_input": [
+        "nmdc:bsm-11-6053t429"
+      ],
+      "id": "nmdc:omprc-12-hgksne68",
+      "mod_date": "2024-01-07",
+      "name": "Soil microbial communities from grassland in Ellensburg, Washington, USA - FTA3_TOP",
+      "ncbi_project_name": "Soil microbial communities from grassland in Ellensburg, Washington, USA - FTA3_TOP",
+      "principal_investigator": {
+        "email": "nancy.hess@pnnl.gov",
+        "has_raw_value": "Nancy Hess",
+        "name": "Nancy Hess",
+        "type": "nmdc:PersonValue"
+      },
+      "processing_institution": "JGI",
+      "type": "nmdc:NucleotideSequencing",
+      "analyte_category": "metagenome",
+      "associated_studies": [
+        "nmdc:sty-11-28tm5d36"
+      ],
+      "instrument_used": [
+        "nmdc:inst-14-xx07be40"
+      ],
+      "has_output": [
+        "nmdc:dobj-11-ngnp0x38"
+      ]
+    }
+  ]

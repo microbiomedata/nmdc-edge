@@ -318,7 +318,7 @@ class RuntimeApiHandler:
 
     def post_objects(self, database_obj):
         """ Post a Database with workflow executions and their data objects to the workflow_executions endpoint """
-        return self.runtime_api.post_objects(database_obj)
+        return self.runtime_api.post_workflow_executions(database_obj)
 
     def update_operation(self, opid, done, meta):
         """ Update the state of an operation with new metadata, results, and done status """
