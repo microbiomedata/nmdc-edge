@@ -99,6 +99,14 @@ class SiteConfig:
         return self.config_data["credentials"]["client_secret"]
 
     @property
+    def username(self):
+        return self.config_data["credentials"].get("username", None)
+
+    @property
+    def password(self):
+        return self.config_data["credentials"].get("password", None)
+
+    @property
     @lru_cache(maxsize=None)
     def allowed_workflows(self):
         """Generate a list of allowed workflows."""
