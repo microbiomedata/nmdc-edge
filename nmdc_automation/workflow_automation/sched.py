@@ -96,6 +96,7 @@ class Scheduler:
         if os.environ.get("FORCE") == "1":
             logging.info("Setting force on")
             self.force = True
+        self._messages = []
 
     async def run(self):
         logging.info("Starting Scheduler")
@@ -259,14 +260,26 @@ class Scheduler:
         for wf in wfp_node.workflow.children:
             # Ignore disabled workflows
             if not wf.enabled:
+                msg = f"Skipping disabled workflow {wf.name}:{wf.version}"
+                if msg not in self._messages:
+                    logging.info(msg)
+                    self._messages.append(msg)
                 continue
             # See if we already have a job for this
             if wfp_node.id in self.get_existing_jobs(wf):
+                msg = f"Skipping existing job for{wfp_node.id} {wf.name}:{wf.version}"
+                if msg not in self._messages:
+                    logging.info(msg)
+                    self._messages.append(msg)
                 continue
             # Look at previously generated derived
             # activities to see if this is already done.
             for child_act in wfp_node.children:
                 if within_range(child_act.workflow, wf, force=self.force):
+                    msg = f"Skipping existing job for {child_act.id} {wf.name}:{wf.version}"
+                    if msg not in self._messages:
+                        logging.info(msg)
+                        self._messages.append(msg)
                     break
             else:
                 # These means no existing activities were
@@ -285,6 +298,11 @@ class Scheduler:
         wfp_nodes = load_workflow_process_nodes(self.db, self.workflows, allowlist)
         if wfp_nodes:
             logger.info(f"Found {len(wfp_nodes)} workflow process nodes")
+        else:
+            msg = f"No workflow process nodes found for {allowlist}"
+            if msg not in self._messages:
+                logging.info(msg)
+                self._messages.append(msg)
 
         self.get_existing_jobs.cache_clear()
         job_recs = []
@@ -352,8 +370,8 @@ def main(site_conf, wf_file):  # pragma: no cover
         if dryrun:
             break
         _sleep(_POLL_INTERVAL)
-        if cycle_count % 100 == 0:
-            logger.info(f"Cycle count: {cycle_count}")
+        if cycle_count % 10 == 0:
+            logger.info(f"Cycles: {cycle_count}")
 
 
 if __name__ == "__main__":  # pragma: no cover
