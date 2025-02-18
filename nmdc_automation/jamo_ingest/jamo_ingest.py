@@ -134,7 +134,7 @@ def get_workflow_execution_set(base_api_url: str = _BASE_URL, max_page_size: int
     workflow_outputs_dict = {}
     for record in workflow_records.get("resources", []):
         has_output_list = record.get("has_output", [])
-        workflow_execution = record.get("type")
+        workflow_execution = record.get("type").removeprefix("nmdc:")
         workflow_execution_id = record.get("id")
         valid_records = []
         for output_id in has_output_list:
@@ -233,7 +233,7 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
 
         file = record["name"]
         metadata_keys["file"] = file
-        metadata_keys["file_format"] = file.split('.')[-1]
+        metadata_keys["file_format"] = "." + file.split('.')[-1] # todo handle files with no extensions
 
         metadata_keys["data_object_id"] = record["id"]
         metadata_keys["label"] = record["data_object_type"]
