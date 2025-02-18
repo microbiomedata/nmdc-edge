@@ -94,12 +94,12 @@ class Scheduler:
         # TODO: Make force a optional parameter
         self.force = False
         if os.environ.get("FORCE") == "1":
-            logging.info("Setting force on")
+            logger.info("Setting force on")
             self.force = True
         self._messages = []
 
     async def run(self):
-        logging.info("Starting Scheduler")
+        logger.info("Starting Scheduler")
         while True:
             self.cycle()
             await asyncio.sleep(_POLL_INTERVAL)
@@ -116,7 +116,7 @@ class Scheduler:
         while next_act:
             for do_type, data_object in next_act.data_objects_by_type.items():
                 if do_type in do_by_type:
-                    logging.debug(f"Ignoring Duplicate type: {do_type} {data_object.id} {next_act.id}")
+                    logger.debug(f"Ignoring Duplicate type: {do_type} {data_object.id} {next_act.id}")
                     continue
                 do_by_type[do_type] = data_object
             # do_by_type.update(next_act.data_objects_by_type.__dict__)
@@ -180,7 +180,7 @@ class Scheduler:
             "claims": [],
         }
 
-        logging.info(f'JOB RECORD: {jr["id"]}')
+        logger.info(f'JOB RECORD: {jr["id"]}')
         # This would make the job record
         # print(json.dumps(ji, indent=2))
         return jr
@@ -262,14 +262,14 @@ class Scheduler:
             if not wf.enabled:
                 msg = f"Skipping disabled workflow {wf.name}:{wf.version}"
                 if msg not in self._messages:
-                    logging.info(msg)
+                    logger.info(msg)
                     self._messages.append(msg)
                 continue
             # See if we already have a job for this
             if wfp_node.id in self.get_existing_jobs(wf):
                 msg = f"Skipping existing job for{wfp_node.id} {wf.name}:{wf.version}"
                 if msg not in self._messages:
-                    logging.info(msg)
+                    logger.info(msg)
                     self._messages.append(msg)
                 continue
             # Look at previously generated derived
@@ -278,14 +278,17 @@ class Scheduler:
                 if within_range(child_act.workflow, wf, force=self.force):
                     msg = f"Skipping existing job for {child_act.id} {wf.name}:{wf.version}"
                     if msg not in self._messages:
-                        logging.info(msg)
+                        logger.info(msg)
                         self._messages.append(msg)
                     break
             else:
                 # These means no existing activities were
                 # found that matched this workflow, so we
                 # add a job
-                logger.info(f"Creating a job {wf.name}:{wf.version} for {wfp_node.process.id}")
+                msg = f"Creating a job {wf.name}:{wf.version} for {wfp_node.process.id}"
+                if msg not in self._messages:
+                    logger.info(msg)
+                    self._messages.append(msg)
                 new_jobs.append(SchedulerJob(wf, wfp_node))
 
         return new_jobs
@@ -297,11 +300,15 @@ class Scheduler:
         """
         wfp_nodes = load_workflow_process_nodes(self.db, self.workflows, allowlist)
         if wfp_nodes:
-            logger.info(f"Found {len(wfp_nodes)} workflow process nodes")
+            for wfp_node in wfp_nodes:
+                msg = f"Found workflow process node {wfp_node.id}"
+                if msg not in self._messages:
+                    logger.info(msg)
+                    self._messages.append(msg)
         else:
             msg = f"No workflow process nodes found for {allowlist}"
             if msg not in self._messages:
-                logging.info(msg)
+                logger.info(msg)
                 self._messages.append(msg)
 
         self.get_existing_jobs.cache_clear()
@@ -314,11 +321,11 @@ class Scheduler:
                 continue
             jobs = self.find_new_jobs(wfp_node)
             if jobs:
-                logging.info(f"Found {len(jobs)} new jobs for {wfp_node.id}")
+                logger.info(f"Found {len(jobs)} new jobs for {wfp_node.id}")
             for job in jobs:
                 msg = f"new job: informed_by: {job.informed_by} trigger: {job.trigger_id} "
                 msg += f"wf: {job.workflow.name} ver: {job.workflow.version}"
-                logging.info(msg)
+                logger.info(msg)
 
                 if dryrun:
                     continue
@@ -328,9 +335,10 @@ class Scheduler:
                     if jr:
                         job_recs.append(jr)
                 except Exception as ex:
-                    logging.error(str(ex))
+                    logger.error(str(ex))
                     raise ex
         return job_recs
+
 
 
 def main(site_conf, wf_file):  # pragma: no cover
@@ -370,11 +378,10 @@ def main(site_conf, wf_file):  # pragma: no cover
         if dryrun:
             break
         _sleep(_POLL_INTERVAL)
-        if cycle_count % 10 == 0:
+        if cycle_count % 100 == 0:
             logger.info(f"Cycles: {cycle_count}")
 
 
 if __name__ == "__main__":  # pragma: no cover
-    logging.basicConfig(level=logging.INFO)
     # site_conf and wf_file are passed in as arguments
     main(site_conf=sys.argv[1], wf_file=sys.argv[2])
