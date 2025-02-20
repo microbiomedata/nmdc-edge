@@ -11,6 +11,40 @@
 An automation framework for running sequential metagenome analysis jobs and making the outputs
 available as metadata in the NMDC database, and data objects on the NMDC data portal.
 
+## Installation
+
+### Requirements
+
+- mongodb-community needs to be installed and running on the local machine
+- Python 3.11 or later
+
+Mongodb installation instructions for Mac can be found [here](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/microbiomedata/nmdc_automation.git
+```
+
+2. Install the required packages
+```bash
+cd nmdc_automation  
+poetry install
+```
+
+3. Activate the poetry environment
+```bash  
+poetry env activate
+```
+
+4. Run the tests
+```bash
+make test
+```
+
+
+
 ## Overview
 
 ### System Components
