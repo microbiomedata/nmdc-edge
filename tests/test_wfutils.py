@@ -5,20 +5,20 @@ from nmdc_automation.workflow_automation.wfutils import (
     WorkflowStateManager,
     JawsRunner,
 )
-from nmdc_automation.models.nmdc import DataObject, workflow_process_factory
+from nmdc_automation.models.nmdc import DataObject
 from nmdc_schema.nmdc import MagsAnalysis, EukEval
 import io
 import json
 import os
 import pytest
 import requests
-import tempfile
 from unittest import mock
 import importlib.resources
 import yaml
 from functools import lru_cache
-import linkml.validator
-from linkml_runtime.dumpers import yaml_dumper
+
+from jaws_client.api import JawsApi
+from jaws_client.config import Configuration
 
 
 @lru_cache(maxsize=None)
@@ -86,11 +86,14 @@ def test_cromwell_job_runner_get_job_metadata(site_config, fixtures_dir, mock_cr
     assert job_runner.metadata == metadata
 
 
-def test_jaws_job_runner(site_config, fixtures_dir):
+def test_jaws_job_runner(site_config, fixtures_dir, jaws_config_file, jaws_token_file):
     job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
     state_manager = WorkflowStateManager(job_state)
-    job_runner = JawsRunner(site_config, state_manager)
+    config = Configuration.from_files(jaws_config_file, jaws_token_file)
+    api = JawsApi(config)
+    job_runner = JawsRunner(site_config, state_manager, api)
     assert job_runner
+
 
 def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
     workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))

@@ -102,6 +102,14 @@ def base_test_dir():
     return Path(__file__).parent
 
 @fixture(scope="session")
+def jaws_token_file(base_test_dir):
+    return base_test_dir / "jaws.conf"
+
+@fixture(scope="session")
+def jaws_config_file(base_test_dir):
+    return base_test_dir / "jaws-test.conf"
+
+@fixture(scope="session")
 def fixtures_dir(base_test_dir):
     path = base_test_dir / "fixtures"
     # get the absolute path

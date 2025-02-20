@@ -31,7 +31,7 @@ pysam = "^0.22.1"
 importlib = "^1.0.4"
 tomli = "^2.0.2"
 tenacity = "^9.0.0"
-jaws-client = {version = "2.4.0", source = "jgi"}
+jaws-client = {version = "2.5.2", source = "jgi"}
 
 [[tool.poetry.source]]
 name = "jgi"

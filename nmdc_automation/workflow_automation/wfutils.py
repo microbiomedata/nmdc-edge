@@ -17,8 +17,8 @@ import requests
 from nmdc_automation.config import SiteConfig
 from nmdc_automation.models.nmdc import DataObject, WorkflowExecution, workflow_process_factory
 
-from jaws_client import api
-from jaws_client.config import Configuration
+from jaws_client import api as jaws_api
+from jaws_client.config import Configuration as jaws_Configuration
 
 DEFAULT_MAX_RETRIES = 2
 
@@ -76,7 +76,10 @@ class JobRunnerABC(ABC):
 
 class JawsRunner(JobRunnerABC):
     """ Job runner for J.A.W.S"""
-    def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager"):
+
+    def __init__(self,
+                 site_config: SiteConfig, workflow: "WorkflowStateManager", jaws_api: jaws_api.JawsApi,
+                 job_metadata: Dict[str, Any] = None,):
         super().__init__(site_config, workflow)
 
     def submit_job(self) -> str:
