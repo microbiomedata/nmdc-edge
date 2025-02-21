@@ -20,6 +20,11 @@ available as metadata in the NMDC database, and data objects on the NMDC data po
 
 Mongodb installation instructions for Mac can be found [here](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
 
+ Ensure that the mongodb service is running:
+```bash
+brew services start mongodb-community
+```
+
 ### Installation
 
 1. Clone the repository
