@@ -392,6 +392,25 @@ router.post("/project/conf", (req, res) => {
         return res.send(result);
     }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
 });
+// @route POST  auth-api/user/project/metadata
+// @access Private
+router.post("/project/metadata", (req, res) => {
+    logger.debug("/auth-api/user/project/metadata: " + JSON.stringify(req.body));
+    if (!req.body.code) {
+        return res.status(400).json("Project code is required.");
+    }
+    // only own project
+    Project.findOne({
+        'status': { $ne: 'delete' }, 'code': dbsanitize(req.body.code), 'owner': dbsanitize(req.user.email)
+    }, { 'sharedto': 0 }).then(function (project) {
+        if (project === null) {
+            return res.status(400).json("Project not found.");
+        }
+
+        let result = common.metadata(project);
+        return res.send(result);
+    }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
+});
 
 // @route POST  auth-api/user/project/result
 // @access Private
@@ -429,7 +448,7 @@ router.get("/project/connect2nmdcserver", async (req, res) => {
             return res.send({ connect2nmdcserver: false });
         }
     } catch (err) {
-        logger.error(nodeUtil.inspect(err));
+        // logger.error(nodeUtil.inspect(err));
         return res.send({ connect2nmdcserver: false });
     };
 });

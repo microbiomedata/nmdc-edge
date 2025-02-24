@@ -3,6 +3,17 @@ import { colors } from '../../../common/Colors';
 export const defaults = {
     inputStyle: { borderRadius: '5px', backgroundColor: 'white' },
     inputStyleWarning: { borderRadius: '5px', borderLeftColor: colors.danger, backgroundColor: 'white' },
+    //onSubmit, onBlur, onChange
+    form_mode: 'onChange',
+}
+
+export const initialMetadata = {
+    studyName: '',
+    piEmail: '',
+    packageNames: [],
+    metadataSubmissionId: 'new',
+    sampleName: '',
+    validForm: false,
 }
 
 export const initialProject = {

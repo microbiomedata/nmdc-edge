@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
 
-const { getResult, getRunStats, getConf } = require("../util/pipeline");
+const { getResult, getRunStats, getConf, getMetadata } = require("../util/pipeline");
 
 const projectResult = function (project) {
     return getResult(project);
@@ -16,6 +16,10 @@ const runStats = function (project) {
 
 const conf = function (project) {
     return getConf(project);
+}
+
+const metadata = function (project) {
+    return getMetadata(project);
 }
 
 const encodePassword = function (password) {
@@ -123,4 +127,4 @@ const sortObject = function (unordered, sortArrays = false) {
     return ordered;
 }
 
-module.exports = { projectResult, runStats, conf, getAllFiles, encodePassword, signToken, sortObject };
+module.exports = { projectResult, runStats, conf, metadata, getAllFiles, encodePassword, signToken, sortObject };

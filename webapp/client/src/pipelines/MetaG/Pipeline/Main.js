@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
     Button, Form, Row, Col
 } from 'reactstrap';
+import { FaInfoCircle } from "react-icons/fa";
 
 import { getData, postData, notify } from '../../../common/util';
 import { LoaderDialog, MessageDialog } from '../../../common/Dialogs';
@@ -9,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Project } from '../../Common/Forms/Project';
+import { Metadata } from '../../Common/Metadata';
 import { ReadbasedAnalysis } from './Forms/ReadbasedAnalysis';
 import { MetaAnnotation } from './Forms/MetaAnnotation';
 import { VirusPlasmid } from './Forms/VirusPlasmid';
@@ -27,6 +29,7 @@ function Main(props) {
     const [requestSubmit, setRequestSubmit] = useState(false);
     const [projectParams, setProjectParams] = useState();
     const [inputsParams, setInputsParams] = useState({ ...initialFastqInput });
+    const [metadataParams, setMetadataParams] = useState();
 
     const [workflows] = useState({
         "ReadsQC": { ...initialReadsQC },
@@ -44,6 +47,12 @@ function Main(props) {
     const setProject = (params) => {
         //console.log("main project:", params)
         setProjectParams(params);
+        setDoValidation(doValidation + 1);
+    }
+    //callback function for child component
+    const setMetadata = (params) => {
+        console.log("setMetadata", params)
+        setMetadataParams(params);
         setDoValidation(doValidation + 1);
     }
     //callback function for child component
@@ -83,6 +92,15 @@ function Main(props) {
 
         formData.append('pipeline', "Metagenome Pipeline");
         formData.append('project', JSON.stringify({ name: projectParams.proj_name, desc: projectParams.proj_desc }));
+        if (metadataParams) {
+            formData.append('metadata', JSON.stringify({
+                studyName: metadataParams.studyName,
+                piEmail: metadataParams.piEmail,
+                packageNames: metadataParams.packageNames,
+                metadataSubmissionId: metadataParams.metadataSubmissionId,
+                sampleName: metadataParams.sampleName
+            }));
+        }
 
         let inputDisplay = {};
         inputDisplay.type = "Metagenome | Run Multiple Workflows";
@@ -160,6 +178,9 @@ function Main(props) {
         if (inputsParams && !inputsParams.validForm) {
             setRequestSubmit(false);
         }
+        if (metadataParams && !metadataParams.validForm) {
+            setRequestSubmit(false);
+        }
 
         let ons = 0;
         Object.keys(workflowlist).forEach((item, index) => {
@@ -215,9 +236,9 @@ function Main(props) {
                             <hr />
                             <Project setParams={setProject} />
                             <br></br>
-                            <b>Input Raw Reads</b>
-                            <br></br>
                             <Input title={"Input"} full_name={"Input"} name={"Input"} setParams={setInputs} />
+                            <br></br>
+                            <Metadata title={"Metadata"} full_name={"Metadata"} name={"Metadata"} setParams={setMetadata} />
                             <br></br>
                             {/* <b>Choose Workflows</b>
                             <p>

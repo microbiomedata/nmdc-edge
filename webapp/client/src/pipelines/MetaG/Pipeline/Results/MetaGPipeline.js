@@ -35,7 +35,7 @@ function MetaGPipeline(props) {
                 } else if (workflow.paramsOn && workflow.name === 'MetaMAGs' && runStats['Metagenome MAGs'] === 'Done') {
                     return <MetaMAGs key={index} result={props.result[workflow.name]} project={props.project} title={workflowlist[workflow.name].title + ' Result'} userType={props.type} allExpand={props.allExpand} allClosed={props.allClosed} />
                 } else {
-                    return <></>;
+                    return <span key={index}></span>;
                 }
             })
             }

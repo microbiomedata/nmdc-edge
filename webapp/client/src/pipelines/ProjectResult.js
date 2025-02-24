@@ -3,6 +3,7 @@ import { Col, Row, Button } from 'reactstrap';
 import { LoaderDialog, FileViewerDialog, ConfirmDialog } from '../common/Dialogs';
 import { postData, getData, fetchFile, openLink, notify } from '../common/util';
 import ProjectGeneral from './Common/Results/ProjectGeneral';
+import Metadata from './Common/Results/Metadata';
 import ProjectOutputs from './Common/Results/ProjectOutputs';
 import MetadataSubmisssion from './Common/MetadataSubmisssion';
 import MetaAnnotation from './MetaG/Workflow/Results/MetaAnnotation';
@@ -23,6 +24,7 @@ function ProjectResult(props) {
     const [type, setType] = useState();
     const [runStats, setRunStats] = useState();
     const [conf, setConf] = useState();
+    const [metadata, setMetadata] = useState();
     const [result, setResult] = useState();
     const [outputs, setOutputs] = useState();
     const [loading, setLoading] = useState(false);
@@ -77,6 +79,23 @@ function ProjectResult(props) {
                 })
                 .catch(error => {
                     alert(error);
+                });
+        }
+        function getProjectMetadata() {
+            if (props.type !== 'user') {
+                setMetadata();
+                return;
+            }
+            let projData = {
+                code: project.code,
+            };
+            postData("/auth-api/user/project/metadata", projData)
+                .then(data => {
+                    //console.log(data)
+                    setMetadata(data);
+                })
+                .catch(error => {
+                    setMetadata();
                 });
         }
         function getProjectRunStats() {
@@ -171,9 +190,11 @@ function ProjectResult(props) {
         if (project && project.code) {
             setLoading(true);
             getProjectConf();
+            getProjectMetadata();
             getProjectRunStats();
             if (project.status === 'complete' && !notMetadataProjects.includes(project.type) && connect2nmdcserver) {
                 getProjectMetadataSubmissionUrl(project.code);
+                //getProjectMetadata();
             }
             if (project.status === 'complete' || (project.type === 'Metagenome Pipeline' && project.status === 'failed')) {
                 getProjectResult();
@@ -183,6 +204,7 @@ function ProjectResult(props) {
             }
 
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [project, type, connect2nmdcserver]);
 
     function viewLogFile() {
@@ -270,7 +292,7 @@ function ProjectResult(props) {
                 </Row>
                 :
                 <>
-                    {(project && project.status === 'failed' && props.type !== 'public') &&
+                    {(project?.status === 'failed' && props.type !== 'public') &&
                         <>
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
@@ -280,34 +302,14 @@ function ProjectResult(props) {
                             <br></br>
                         </>
                     }
-                    {(connect2nmdcserver && project && project.status === 'complete' && props.type === 'user' && !metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
+                    {(connect2nmdcserver && project?.status === 'complete' && props.type === 'user' && !metadataSubmissionUrl && !notMetadataProjects.includes(project?.type)) &&
                         <>
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
-                                    <Button type="button" size="sm" color="primary" onClick={e => setOpenMetadataSubmission(true)} >Connect to/Create Metadata Submission</Button>
+                                    <Button type="button" size="sm" color="primary" onClick={e => setOpenMetadataSubmission(true)} > Create Metadata Submission </Button>
                                 </Col>
                             </Row>
                             <br></br>
-                        </>
-                    }
-                    {(connect2nmdcserver && project && project.status === 'complete' && props.type === 'user' && metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
-                        <>
-                            <Row className="justify-content-center">
-                                <Col xs="12" md="10">
-                                    <Button type="button" size="sm" color="primary" onClick={e => openLink(metadataSubmissionUrl)} >
-                                        View/Edit Metadata Submission
-                                    </Button>
-                                </Col>
-                            </Row>
-                            <br></br>
-                            {/* <Row className="justify-content-center">
-                                <Col xs="12" md="10">
-                                    <Button outline type="button" size="sm" color="danger" onClick={e => setOpenMetadataDeletion(true)} >
-                                        Delete Metadata Submission
-                                    </Button>
-                                </Col>
-                            </Row>
-                            <br></br> */}
                         </>
                     }
                     {(outputs || result) && !disableExpandClose &&
@@ -326,6 +328,13 @@ function ProjectResult(props) {
                             <ProjectGeneral stats={runStats} conf={conf} project={project} title={'General'} userType={type} allExpand={allExpand} allClosed={allClosed} />
                         </Col>
                     </Row>
+                    {metadata &&
+                        <Row className="justify-content-center">
+                            <Col xs="12" md="10">
+                                <Metadata setOpenMetadataDeletion={setOpenMetadataDeletion} metadataSubmissionUrl={metadataSubmissionUrl} data={metadata} project={project} title={'Metadata'} userType={type} allExpand={allExpand} allClosed={allClosed} />
+                            </Col>
+                        </Row>
+                    }
                     {result &&
                         <Row className="justify-content-center">
                             <Col xs="12" md="10">

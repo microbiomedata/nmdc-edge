@@ -39,5 +39,15 @@ const getConf = function (project) {
     return JSON.parse(fs.readFileSync(conf_json));
 }
 
+const getMetadata = function (project) {
+    const proj_home = path.join(config.PROJECTS.BASE_DIR, project.code);
+    const metadata_json = proj_home + "/metadata.json";
+    if(fs.existsSync(metadata_json))  {
+    return JSON.parse(fs.readFileSync(metadata_json));
+    } else {
+        return null;
+    }
+}
 
-module.exports = { getResult, getRunStats, getConf }
+
+module.exports = { getResult, getRunStats, getConf, getMetadata }

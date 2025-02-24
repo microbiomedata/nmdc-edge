@@ -3,7 +3,7 @@ import {
     Col, Row, Input
 } from 'reactstrap';
 import { useForm } from "react-hook-form";
-import {MyTooltip } from '../../../common/MyTooltip';
+import { MyTooltip } from '../../../common/MyTooltip';
 import { defaults, initialProject } from './Defaults';
 
 export function Project(props) {
@@ -75,7 +75,7 @@ export function Project(props) {
                         }}
                         innerRef={projNameReg.ref}
                     />
-
+                    {form.proj_name && errors.proj_name && <p className="edge-form-input-error">{errors.proj_name.message}</p>}
                 </Col>
             </Row>
             <br></br>
