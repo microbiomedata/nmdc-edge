@@ -186,6 +186,8 @@ def test_workflow_manager_fetch_release_file_failed_write(mock_get, fixtures_dir
         assert not os.path.exists("test_file.txt")
 
 
+
+
 def test_cromwell_runner_setup_inputs_and_labels(site_config, fixtures_dir):
     job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
     workflow = WorkflowStateManager(job_state)
