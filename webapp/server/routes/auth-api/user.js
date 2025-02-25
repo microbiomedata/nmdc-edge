@@ -429,7 +429,7 @@ router.get("/project/connect2nmdcserver", async (req, res) => {
             return res.send({ connect2nmdcserver: false });
         }
     } catch (err) {
-        logger.error(nodeUtil.inspect(err));
+        // logger.error(nodeUtil.inspect(err));
         return res.send({ connect2nmdcserver: false });
     };
 });

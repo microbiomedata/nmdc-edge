@@ -29,6 +29,15 @@ module.exports = function pipelineMonitor() {
                 logger.debug("No pipeline request to process");
                 return;
             }
+            //limit the running jobs the current project owner has
+            const runningProjects = await common.getRunningProjects(proj);
+            if(runningProjects > config.CROMWELL.NUM_JOBS_MAX_USER) {
+                logger.debug(proj.owner +" has max running projects.");
+                // set new updated time to move this request to the end of the queue
+                proj.updated = Date.now();
+                proj.save();
+                return;
+            }
             //parse conf.json 
             const proj_home = path.join(config.PROJECTS.BASE_DIR, proj.code);
             const conf_file = proj_home + "/conf.json";
