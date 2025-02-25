@@ -106,7 +106,7 @@ def jaws_token_file(base_test_dir):
     return base_test_dir / "jaws.conf"
 
 @fixture(scope="session")
-def jaws_config_file(base_test_dir):
+def jaws_config_file_test(base_test_dir):
     return base_test_dir / "jaws-test.conf"
 
 @fixture(scope="session")

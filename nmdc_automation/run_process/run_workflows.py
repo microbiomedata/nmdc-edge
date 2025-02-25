@@ -21,7 +21,7 @@ def cli():
 )
 @click.pass_context
 def watcher(ctx, site_configuration_file):
-    logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+    logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
     logging.basicConfig(
         level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
     )
