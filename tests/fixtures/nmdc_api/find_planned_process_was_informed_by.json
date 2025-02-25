@@ -1,0 +1,41 @@
+[
+    {
+      "id": "nmdc:wfrqc-11-0h5tp625.1",
+      "type": "nmdc:ReadQcAnalysis",
+      "name": "Read QC for nmdc:wfrqc-11-0h5tp625.1",
+      "has_input": [
+        "nmdc:dobj-11-ngnp0x38"
+      ],
+      "has_output": [
+        "nmdc:dobj-11-13w34y20",
+        "nmdc:dobj-11-85zb5826"
+      ],
+      "execution_resource": "JGI",
+      "git_url": "https://github.com/microbiomedata/ReadsQC",
+      "started_at_time": "2024-12-10T18:10:31.830482+00:00",
+      "was_informed_by": "nmdc:omprc-12-hgksne68",
+      "ended_at_time": "2024-12-10T18:10:31.830612+00:00",
+      "version": "v1.0.13"
+    },
+    {
+      "id": "nmdc:wfmgas-11-17mp0w29.1",
+      "type": "nmdc:MetagenomeAssembly",
+      "name": "Metagenome Assembly for nmdc:wfmgas-11-17mp0w29.1",
+      "has_input": [
+        "nmdc:dobj-11-13w34y20"
+      ],
+      "has_output": [
+        "nmdc:dobj-11-p2pb3573",
+        "nmdc:dobj-11-z0c1e881",
+        "nmdc:dobj-11-0pj3ws44",
+        "nmdc:dobj-11-mr4wan69",
+        "nmdc:dobj-11-e1xj1y83"
+      ],
+      "execution_resource": "JGI",
+      "git_url": "https://github.com/microbiomedata/metaAssembly",
+      "started_at_time": "2024-12-10T18:10:35.041129+00:00",
+      "was_informed_by": "nmdc:omprc-12-hgksne68",
+      "ended_at_time": "2024-12-10T18:10:35.041151+00:00",
+      "version": "v1.0.7"
+    }
+  ]

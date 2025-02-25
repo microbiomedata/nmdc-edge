@@ -1,6 +1,6 @@
 """ This module contains functions to load workflow process nodes from the database. """
 import logging
-from functools import lru_cache
+from functools import lru_cache, cache
 from typing import List, Dict
 
 from semver.version import Version
@@ -8,29 +8,28 @@ from semver.version import Version
 from nmdc_automation.models.nmdc import DataObject
 from nmdc_automation.models.workflow import WorkflowConfig, WorkflowProcessNode
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
 warned_objects = set()
 
 
 def get_required_data_objects_map(db, workflows: List[WorkflowConfig]) -> Dict[str, DataObject]:
     """
      Search for all the data objects that are required data object types for the workflows,
-        and return a dictionary of data objects by ID.
+        and return a dictionary of data objects by ID. Cache the result.
 
-    TODO: In the future this will probably need to be redone
-    since the number of data objects could get very large.
     """
-
     # Build up a filter of what types are used
-    required_types = set()
-    for wf in workflows:
-        required_types.update(set(wf.data_object_types))
+    required_types = {t for wf in workflows for t in wf.data_object_types}
 
-    required_data_object_map = dict()
-    for rec in db.data_object_set.find({"data_object_type": {"$ne": None}}):
-        data_object = DataObject(**rec)
-        if data_object.data_object_type.code.text not in required_types:
-            continue
-        required_data_object_map[data_object.id] = data_object
+    required_data_object_map = {
+        rec["id"]: DataObject(**rec)
+        for rec in db.data_object_set.find(
+            {"data_object_type": {"$in": list(required_types)}}
+        )
+    }
     return required_data_object_map
 
 

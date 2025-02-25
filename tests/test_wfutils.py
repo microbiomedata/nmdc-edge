@@ -218,12 +218,31 @@ def test_cromwell_runner_generate_submission_files( mock_fetch_release_file, sit
 
     # Now mock 'open' for the workflow submission files
     with mock.patch("builtins.open", new_callable=mock.mock_open) as mock_open:
+        # Create 6 BytesIO objects for each expected open() call.
+        fake_file_1 = io.BytesIO(b"mock wdl file content")  # workflowSource
+        fake_file_2 = io.BytesIO(b"mock bundle file content")  # workflowDependencies
+        fake_file_3 = io.BytesIO(b'{"key": "value"}')  # workflowInputs (binary mode)
+        fake_file_4 = io.BytesIO(b'{"label": "test"}')  # labels (binary mode)
+        fake_file_5 = io.BytesIO(b'{"key": "value"}')  # workflowInputs (text mode read)
+        fake_file_6 = io.BytesIO(b'{"label": "test"}')  # labels (text mode read)
+
+        # Optionally, assign a fake name to each (see next section).
+        fake_file_1.name = "/tmp/test_workflow.wdl"
+        fake_file_2.name = "/tmp/test_bundle.zip"
+        fake_file_3.name = "/tmp/test_workflow_inputs.json"
+        fake_file_4.name = "/tmp/test_workflow_labels.json"
+        fake_file_5.name = "/tmp/test_workflow_inputs.json"
+        fake_file_6.name = "/tmp/test_workflow_labels.json"
+
         mock_open.side_effect = [
-            io.BytesIO(b"mock wdl file content"),  # workflowSource file
-            io.BytesIO(b"mock bundle file content"),  # workflowDependencies file
-            io.BytesIO(b"mock workflow inputs"),  # workflowInputs file
-            io.BytesIO(b"mock labels")  # labels file
+            fake_file_1,
+            fake_file_2,
+            fake_file_3,
+            fake_file_4,
+            fake_file_5,
+            fake_file_6,
         ]
+
         runner = CromwellRunner(site_config, workflow)
         submission_files = runner.generate_submission_files()
         assert submission_files
@@ -233,7 +252,7 @@ def test_cromwell_runner_generate_submission_files( mock_fetch_release_file, sit
         assert "labels" in submission_files
 
         # check that the files were written
-        assert mock_open.call_count == 4
+        assert mock_open.call_count == 6
         mock_open.assert_any_call("/tmp/test_workflow.wdl", 'rb')
         mock_open.assert_any_call("/tmp/test_bundle.zip", 'rb')
 

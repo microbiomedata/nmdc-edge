@@ -1,0 +1,11 @@
+[
+    {
+      "id": "nmdc:dobj-11-ngnp0x38",
+      "type": "nmdc:DataObject",
+      "name": "52710.1.424012.TACACGCT-TACACGCT.fastq.gz",
+      "description": "Metagenome Raw Reads for nmdc:omprc-12-hgksne68",
+      "data_object_type": "Metagenome Raw Reads",
+      "file_size_bytes": 32990463167,
+      "md5_checksum": "076e1ce8b016543dc97f4bdad90a376c"
+    }
+  ]
