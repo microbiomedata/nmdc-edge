@@ -1,6 +1,6 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/microbiomedata/metaAssembly/refs/tags/v1.0.5/shortReads_assembly.wdl" as jgi_asm
+import "https://raw.githubusercontent.com/microbiomedata/metaAssembly/refs/tags/v1.0.7/shortReads_assembly.wdl" as jgi_asm
 import "preprocess.wdl" as MetaAssembly_preprocess
 
 workflow nmdc_edge_assembly{
