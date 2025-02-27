@@ -131,7 +131,7 @@ class Scheduler:
         for k, v in job.workflow.inputs.items():
             # some inputs are booleans and should not be modified
             if isinstance(v, bool):
-                inp[k] = v
+                inputs[k] = v
                 continue
             elif v.startswith("do:"):
                 do_type = v[3:]
