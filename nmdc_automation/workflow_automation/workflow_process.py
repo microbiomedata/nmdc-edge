@@ -22,7 +22,7 @@ def get_required_data_objects_map(db, workflows: List[WorkflowConfig]) -> Dict[s
 
     """
     # Build up a filter of what types are used
-    required_types = {t for wf in workflows for t in wf.data_object_types}
+    required_types = {t for wf in workflows for t in wf.input_data_object_types}
 
     required_data_object_map = {
         rec["id"]: DataObject(**rec)
