@@ -1,4 +1,6 @@
 from nmdc_automation.workflow_automation.sched import Scheduler, SchedulerJob
+from nmdc_automation.workflow_automation.workflows import load_workflow_configs
+from nmdc_automation.models.workflow import WorkflowConfig, WorkflowProcessNode
 from pytest import mark
 
 
@@ -72,6 +74,12 @@ def test_progress(test_db, mock_api, workflow_file, workflows_config_dir, site_c
         # assembly, rba
         exp_num_post_rqc_jobs = 2
         exp_num_post_annotation_jobs = 2
+
+        # Get the assembly job record from resp and check the inputs
+        asm_job = [j for j in resp if j["config"]["activity"]["type"] == "nmdc:MetagenomeAssembly"][0]
+        assert "shortRead" in asm_job["config"]["inputs"]
+        assert isinstance(asm_job["config"]["inputs"]["shortRead"], bool)
+
     assert len(resp) == exp_num_post_rqc_jobs
 
     if metatranscriptome:
