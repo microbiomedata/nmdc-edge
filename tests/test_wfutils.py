@@ -206,12 +206,31 @@ def test_cromwell_runner_generate_submission_files( mock_fetch_release_file, sit
 
     # Now mock 'open' for the workflow submission files
     with mock.patch("builtins.open", new_callable=mock.mock_open) as mock_open:
+        # Create 6 BytesIO objects for each expected open() call.
+        fake_file_1 = io.BytesIO(b"mock wdl file content")  # workflowSource
+        fake_file_2 = io.BytesIO(b"mock bundle file content")  # workflowDependencies
+        fake_file_3 = io.BytesIO(b'{"key": "value"}')  # workflowInputs (binary mode)
+        fake_file_4 = io.BytesIO(b'{"label": "test"}')  # labels (binary mode)
+        fake_file_5 = io.BytesIO(b'{"key": "value"}')  # workflowInputs (text mode read)
+        fake_file_6 = io.BytesIO(b'{"label": "test"}')  # labels (text mode read)
+
+        # Optionally, assign a fake name to each (see next section).
+        fake_file_1.name = "/tmp/test_workflow.wdl"
+        fake_file_2.name = "/tmp/test_bundle.zip"
+        fake_file_3.name = "/tmp/test_workflow_inputs.json"
+        fake_file_4.name = "/tmp/test_workflow_labels.json"
+        fake_file_5.name = "/tmp/test_workflow_inputs.json"
+        fake_file_6.name = "/tmp/test_workflow_labels.json"
+
         mock_open.side_effect = [
-            io.BytesIO(b"mock wdl file content"),  # workflowSource file
-            io.BytesIO(b"mock bundle file content"),  # workflowDependencies file
-            io.BytesIO(b"mock workflow inputs"),  # workflowInputs file
-            io.BytesIO(b"mock labels")  # labels file
+            fake_file_1,
+            fake_file_2,
+            fake_file_3,
+            fake_file_4,
+            fake_file_5,
+            fake_file_6,
         ]
+
         runner = CromwellRunner(site_config, workflow)
         submission_files = runner.generate_submission_files()
         assert submission_files
@@ -221,7 +240,7 @@ def test_cromwell_runner_generate_submission_files( mock_fetch_release_file, sit
         assert "labels" in submission_files
 
         # check that the files were written
-        assert mock_open.call_count == 4
+        assert mock_open.call_count == 6
         mock_open.assert_any_call("/tmp/test_workflow.wdl", 'rb')
         mock_open.assert_any_call("/tmp/test_bundle.zip", 'rb')
 
@@ -271,7 +290,8 @@ def test_cromwell_job_runner_submit_job_new_job(mock_generate_submission_files, 
 
     wf_state_manager = WorkflowStateManager(wf_state)
     job_runner = CromwellRunner(site_config, wf_state_manager)
-    job_runner.submit_job()
+    jobid = job_runner.submit_job()
+    assert jobid
 
 
 def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtures_dir, tmp_path):
@@ -283,6 +303,8 @@ def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtur
     for data_object in data_objects:
         assert isinstance(data_object, DataObject)
     wfe = job.make_workflow_execution(data_objects)
+    assert wfe.started_at_time
+    assert wfe.ended_at_time
     assert isinstance(wfe, MagsAnalysis)
     # attributes from final_stats_json
     assert wfe.mags_list
@@ -303,6 +325,30 @@ def test_workflow_job_data_objects_and_execution_record_mags(site_config, fixtur
     assert isinstance(wfe.unbinned_contig_num, int)
     assert isinstance(wfe.binned_contig_num, int)
 
+
+def test_workflow_execution_record_from_workflow_job(site_config, fixtures_dir, tmp_path):
+    job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
+    workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    # remove 'end' from the workflow state to simulate a job that is still running
+    workflow_state.pop('end')
+    job = WorkflowJob(site_config, workflow_state, job_metadata)
+    data_objects = job.make_data_objects(output_dir=tmp_path)
+
+    wfe = job.make_workflow_execution(data_objects)
+    assert wfe.started_at_time
+    assert wfe.ended_at_time
+
+
+def test_make_data_objects_includes_workflow_execution_id_and_file_size(site_config, fixtures_dir, tmp_path):
+    job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
+    workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    job = WorkflowJob(site_config, workflow_state, job_metadata)
+    data_objects = job.make_data_objects(output_dir=tmp_path)
+    assert data_objects
+    for data_object in data_objects:
+        assert isinstance(data_object, DataObject)
+        assert job.workflow_execution_id in data_object.description
+        assert data_object.file_size_bytes
 
 
 

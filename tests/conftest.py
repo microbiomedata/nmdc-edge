@@ -67,7 +67,7 @@ def test_db():
     conn_str = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
     return MongoClient(conn_str).test
 
-@fixture(autouse=True)
+@fixture(scope="function")
 def mock_api(monkeypatch, requests_mock, test_data_dir):
     monkeypatch.setenv("NMDC_API_URL", "http://localhost")
     monkeypatch.setenv("NMDC_CLIENT_ID", "anid")
@@ -75,24 +75,26 @@ def mock_api(monkeypatch, requests_mock, test_data_dir):
     token_resp = {"expires": {"minutes": time()+60},
             "access_token": "abcd"
             }
-    requests_mock.post("http://localhost/token", json=token_resp)
+    requests_mock.post("http://localhost:8000/token", json=token_resp)
+
+
     resp = ["nmdc:dobj-01-abcd4321"]
     # mock mint responses in sequence
 
-    requests_mock.post("http://localhost/pids/mint", json=resp)
+    requests_mock.post("http://localhost:8000/pids/mint", json=resp)
     requests_mock.post(
-        "http://localhost/workflows/workflow_executions",
+        "http://localhost:8000/workflows/workflow_executions",
         json=resp
         )
-    requests_mock.post("http://localhost/pids/bind", json=resp)
+    requests_mock.post("http://localhost:8000/pids/bind", json=resp)
 
     rqcf = test_data_dir / "rqc_response2.json"
     rqc = json.load(open(rqcf))
     rqc_resp = {"resources": [rqc]}
-    requests_mock.get("http://localhost/jobs", json=rqc_resp)
+    requests_mock.get("http://localhost:8000/jobs", json=rqc_resp)
 
-    requests_mock.patch("http://localhost/operations/nmdc:1234", json={})
-    requests_mock.get("http://localhost/operations/nmdc:1234", json={'metadata': {}})
+    requests_mock.patch("http://localhost:8000/operations/nmdc:1234", json={})
+    requests_mock.get("http://localhost:8000/operations/nmdc:1234", json={'metadata': {}})
 
 
 @fixture(scope="session")
@@ -123,10 +125,10 @@ def site_config(site_config_file):
     return SiteConfig(site_config_file)
 
 @fixture
-def initial_state_file(fixtures_dir, tmp_path):
-    state_file = fixtures_dir / "initial_state.json"
+def initial_state_file_1_failure(fixtures_dir, tmp_path):
+    state_file = fixtures_dir / "agent_state_1_failure.json"
     # make a working copy in tmp_path
-    copied_state_file = tmp_path / "initial_state.json"
+    copied_state_file = tmp_path / "agent_state_1_failure.json"
     shutil.copy(state_file, copied_state_file)
     return copied_state_file
 

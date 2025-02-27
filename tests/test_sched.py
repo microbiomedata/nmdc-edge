@@ -3,7 +3,8 @@ from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from nmdc_automation.models.workflow import WorkflowConfig, WorkflowProcessNode
 from pytest import mark
 
-
+from nmdc_automation.workflow_automation.workflow_process import get_required_data_objects_map, load_workflow_process_nodes
+from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from tests.fixtures.db_utils import init_test, load_fixture, read_json, reset_db
 
 
@@ -28,7 +29,7 @@ def test_scheduler_cycle(test_db, mock_api, workflow_file, workflows_config_dir,
     # Scheduler will find one job to create
     exp_num_jobs_initial = 1
     exp_num_jobs_cycle_1 = 0
-    jm = Scheduler(test_db, wfn=workflows_config_dir / workflow_file,
+    jm = Scheduler(test_db, workflow_yaml=workflows_config_dir / workflow_file,
                    site_conf=site_config_file)
     resp = jm.cycle()
     assert len(resp) == exp_num_jobs_initial
@@ -52,7 +53,7 @@ def test_progress(test_db, mock_api, workflow_file, workflows_config_dir, site_c
 
 
 
-    jm = Scheduler(test_db, wfn=workflows_config_dir / workflow_file,
+    jm = Scheduler(test_db, workflow_yaml=workflows_config_dir / workflow_file,
                    site_conf= site_config_file)
     workflow_by_name = dict()
     for wf in jm.workflows:
@@ -135,7 +136,7 @@ def test_multiple_versions(test_db, mock_api, workflows_config_dir, site_config_
     load_fixture(test_db, "data_object_set.json")
     load_fixture(test_db, "data_generation_set.json")
 
-    jm = Scheduler(test_db, wfn=workflows_config_dir / "workflows.yaml",
+    jm = Scheduler(test_db, workflow_yaml=workflows_config_dir / "workflows.yaml",
                    site_conf=site_config_file)
     workflow_by_name = dict()
     for wf in jm.workflows:
@@ -168,7 +169,7 @@ def test_out_of_range(test_db, mock_api, workflows_config_dir, site_config_file)
     test_db.jobs.delete_many({})
     load_fixture(test_db, "data_object_set.json")
     load_fixture(test_db, "data_generation_set.json")
-    jm = Scheduler(test_db, wfn=workflows_config_dir / "workflows.yaml",
+    jm = Scheduler(test_db, workflow_yaml=workflows_config_dir / "workflows.yaml",
                    site_conf=site_config_file)
     # Let's create two RQC records.  One will be in range
     # and the other will not.  We should only get new jobs
@@ -193,7 +194,7 @@ def test_type_resolving(test_db, mock_api, workflows_config_dir, site_config_fil
     load_fixture(test_db, "data_generation_set.json")
     load_fixture(test_db, "read_qc_analysis.json", col="workflow_execution_set")
 
-    jm = Scheduler(test_db, wfn=workflows_config_dir / "workflows.yaml",
+    jm = Scheduler(test_db, workflow_yaml=workflows_config_dir / "workflows.yaml",
                    site_conf=site_config_file)
     workflow_by_name = dict()
     for wf in jm.workflows:
@@ -221,8 +222,48 @@ def test_scheduler_add_job_rec(test_db, mock_api, workflow_file, workflows_confi
     load_fixture(test_db, "data_object_set.json")
     load_fixture(test_db, "data_generation_set.json")
 
-    jm = Scheduler(test_db, wfn=workflows_config_dir / workflow_file,
+    jm = Scheduler(test_db, workflow_yaml=workflows_config_dir / workflow_file,
                    site_conf=site_config_file)
     # sanity check
     assert jm
+
+
+def test_scheduler_find_new_jobs(test_db, mock_api, workflows_config_dir, site_config_file):
+    """
+    Test finding new jobs for a realisitic scenario:
+    nmdc:omprc-11-cegmwy02 has no version-current MAGsAnalysis results.  The scheduler should find
+    a new job for this.
+    """
+    reset_db(test_db)
+    load_fixture(test_db, "data_objects_2.json", "data_object_set")
+    load_fixture(test_db, "data_generation_2.json", "data_generation_set")
+    load_fixture(test_db, "workflow_execution_2.json", "workflow_execution_set")
+
+    workflow_config = load_workflow_configs(workflows_config_dir / "workflows.yaml")
+
+    workflow_process_nodes = load_workflow_process_nodes(test_db, workflow_config)
+    # sanity check
+    assert workflow_process_nodes
+
+    scheduler = Scheduler(test_db, workflow_yaml=workflows_config_dir / "workflows.yaml", site_conf=site_config_file)
+    assert scheduler
+
+    new_jobs = []
+    for node in workflow_process_nodes:
+        new_jobs.extend(scheduler.find_new_jobs(node))
+    assert new_jobs
+    assert len(new_jobs) == 1
+    new_job = new_jobs[0]
+    assert isinstance(new_job, SchedulerJob)
+    assert new_job.workflow.type == "nmdc:MagsAnalysis"
+    assert new_job.trigger_act.type == "nmdc:MetagenomeAnnotation"
+    assert new_job.trigger_act.data_objects_by_type
+
+    job_req = scheduler.create_job_rec(new_job)
+    assert job_req
+    assert job_req["config"]["activity"]["type"] == "nmdc:MagsAnalysis"
+    assert job_req["config"]["was_informed_by"] == "nmdc:omprc-11-cegmwy02"
+    assert job_req["config"]["input_data_objects"]
+
+
 

@@ -1,0 +1,10 @@
+Ga0597026_0000001_109250_110008		TIGR01830	12	250	348.0	.	.	ID=Ga0597026_0000001_109250_110008_12_250;fake_percent_id=100.00;alignment_length=239;e-value=4.7e-102;model_start=1;model_end=239
+Ga0597026_0000001_110095_111057		TIGR00128	2	297	320.2	.	.	ID=Ga0597026_0000001_110095_111057_2_297;fake_percent_id=99.31;alignment_length=296;e-value=2.2e-93;model_start=2;model_end=289
+Ga0597026_0000001_111271_112509		TIGR03150	5	410	595.9	.	.	ID=Ga0597026_0000001_111271_112509_5_410;fake_percent_id=100.00;alignment_length=406;e-value=5.2e-177;model_start=1;model_end=407
+Ga0597026_0000001_112709_113968		TIGR03150	8	415	538.1	.	.	ID=Ga0597026_0000001_112709_113968_8_415;fake_percent_id=100.00;alignment_length=408;e-value=1.8e-159;model_start=1;model_end=407
+Ga0597026_0000001_114144_114458		TIGR00090	1	94	124.2	.	.	ID=Ga0597026_0000001_114144_114458_1_94;fake_percent_id=93.94;alignment_length=94;e-value=3.1e-34;model_start=7;model_end=99
+Ga0597026_0000001_114854_115573		TIGR01065	28	234	174.3	.	.	ID=Ga0597026_0000001_114854_115573_28_234;fake_percent_id=97.06;alignment_length=207;e-value=3.5e-49;model_start=3;model_end=200
+Ga0597026_0000001_115604_116068		TIGR02605	1	58	37.3	.	.	ID=Ga0597026_0000001_115604_116068_1_58;fake_percent_id=86.54;alignment_length=58;e-value=3.6e-07;model_start=1;model_end=45
+Ga0597026_0000001_117048_119843		TIGR01070	121	927	850.5	.	.	ID=Ga0597026_0000001_117048_119843_121_927;fake_percent_id=88.81;alignment_length=807;e-value=2.5e-253;model_start=94;model_end=839
+Ga0597026_0000001_119959_120429		TIGR01764	77	125	55.7	.	.	ID=Ga0597026_0000001_119959_120429_77_125;fake_percent_id=97.96;alignment_length=49;e-value=7.4e-13;model_start=2;model_end=49
+Ga0597026_0000001_123242_123808		TIGR02937	17	182	89.2	.	.	ID=Ga0597026_0000001_123242_123808_17_182;fake_percent_id=98.18;alignment_length=166;e-value=3.6e-23;model_start=4;model_end=165

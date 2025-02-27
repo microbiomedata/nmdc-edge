@@ -1,0 +1,10 @@
+Ga0597026_0000001	Prodigal v2.6.3_patched	CDS	301	783	59.4	+	0	ID=Ga0597026_0000001_301_783;translation_table=11;start_type=GTG
+Ga0597026_0000001	GeneMark.hmm-2 v1.25_lic	CDS	905	1882	59.83	+	0	ID=Ga0597026_0000001_905_1882;translation_table=11;start_type=ATG
+Ga0597026_0000001	Prodigal v2.6.3_patched	CDS	1887	3365	175.0	+	0	ID=Ga0597026_0000001_1887_3365;translation_table=11;start_type=GTG
+Ga0597026_0000001	Prodigal v2.6.3_patched	CDS	3444	4031	77.9	-	0	ID=Ga0597026_0000001_3444_4031;translation_table=11;start_type=ATG
+Ga0597026_0000001	Prodigal v2.6.3_patched	CDS	4311	4805	59.5	-	0	ID=Ga0597026_0000001_4311_4805;translation_table=11;start_type=ATG
+Ga0597026_0000001	Prodigal v2.6.3_patched	CDS	5147	5629	83.7	+	0	ID=Ga0597026_0000001_5147_5629;translation_table=11;start_type=ATG
+Ga0597026_0000001	Prodigal v2.6.3_patched	CDS	5809	7851	140.0	+	0	ID=Ga0597026_0000001_5809_7851;translation_table=11;start_type=ATG
+Ga0597026_0000001	Prodigal v2.6.3_patched	CDS	7929	8474	37.9	+	0	ID=Ga0597026_0000001_7929_8474;translation_table=11;start_type=ATG
+Ga0597026_0000001	Prodigal v2.6.3_patched	CDS	8709	10085	231.0	+	0	ID=Ga0597026_0000001_8709_10085;translation_table=11;start_type=ATG
+Ga0597026_0000001	Prodigal v2.6.3_patched	CDS	10683	13451	219.1	+	0	ID=Ga0597026_0000001_10683_13451;translation_table=11;start_type=GTG

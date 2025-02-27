@@ -19,10 +19,6 @@ jobs:
       run: |
         sudo mkdir -p /etc/docker
 
-    - name: Set up Docker Hub mirror
-      run: |
-        echo '{"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]}' | sudo tee /etc/docker/daemon.json
-        sudo systemctl restart docker
 
     - name: setup_mongodb
       uses: supercharge/mongodb-github-action@v1.10.0
@@ -45,5 +41,5 @@ jobs:
 
     - name: Test with pytest
       run: |
-        poetry run pytest ./tests --junit-xml=pytest.xml --cov-report=term  \
+        poetry run pytest -m "not integration" ./tests --junit-xml=pytest.xml --cov-report=term  \
         --cov-report=xml --cov=nmdc_automation --local-badge-output-dir badges/

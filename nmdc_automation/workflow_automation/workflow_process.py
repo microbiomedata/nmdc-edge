@@ -1,6 +1,6 @@
 """ This module contains functions to load workflow process nodes from the database. """
 import logging
-from functools import lru_cache
+from functools import lru_cache, cache
 from typing import List, Dict
 
 from semver.version import Version
@@ -8,30 +8,29 @@ from semver.version import Version
 from nmdc_automation.models.nmdc import DataObject
 from nmdc_automation.models.workflow import WorkflowConfig, WorkflowProcessNode
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
 warned_objects = set()
 
 
 def get_required_data_objects_map(db, workflows: List[WorkflowConfig]) -> Dict[str, DataObject]:
     """
      Search for all the data objects that are required data object types for the workflows,
-        and return a dictionary of data objects by ID.
+        and return a dictionary of data objects by ID. Cache the result.
 
-    TODO: In the future this will probably need to be redone
-    since the number of data objects could get very large.
     """
-
     # Build up a filter of what types are used
-    required_types = set()
-    for wf in workflows:
-        required_types.update(set(wf.input_data_object_types))
+    required_types = {t for wf in workflows for t in wf.data_object_types}
 
-    required_data_objs_by_id = dict()
-    for rec in db.data_object_set.find({"data_object_type": {"$ne": None}}):
-        do = DataObject(**rec)
-        if do.data_object_type.code.text not in required_types:
-            continue
-        required_data_objs_by_id[do.id] = do
-    return required_data_objs_by_id
+    required_data_object_map = {
+        rec["id"]: DataObject(**rec)
+        for rec in db.data_object_set.find(
+            {"data_object_type": {"$in": list(required_types)}}
+        )
+    }
+    return required_data_object_map
 
 
 @lru_cache
@@ -130,6 +129,8 @@ def get_current_workflow_process_nodes(
 
         records = db[wf.collection].find(q)
         for rec in records:
+            if rec['type'] != wf.type:
+                continue
             # legacy JGI sequencing records
             if rec.get("type") == "nmdc:MetagenomeSequencing" or rec["name"].startswith("Metagenome Sequencing"):
                 continue
@@ -155,7 +156,7 @@ def _determine_analyte_category(workflows: List[WorkflowConfig]) -> str:
 
 
 # TODO: Make public, give a better name, add type hints and unit tests.
-def _resolve_relationships(wfp_nodes: List[WorkflowProcessNode], wfp_nodes_by_data_object_id: Dict[str, WorkflowProcessNode]) -> List[WorkflowProcessNode]:
+def _resolve_relationships(current_nodes: List[WorkflowProcessNode], node_data_object_map: Dict[str, WorkflowProcessNode]) -> List[WorkflowProcessNode]:
     """
     Find the parents and children relationships
     between the activities
@@ -164,79 +165,75 @@ def _resolve_relationships(wfp_nodes: List[WorkflowProcessNode], wfp_nodes_by_da
     # a map of all of the data objects they generated.
     # Let's use this to find the parent activity
     # for each child activity
-    for wfp_node in wfp_nodes:
-        logging.debug(f"Processing {wfp_node.id} {wfp_node.name} {wfp_node.workflow.name}")
-        wfp_node_predecessors = wfp_node.workflow.parents
-        if not wfp_node_predecessors:
+    for node in current_nodes:
+        logging.debug(f"Processing {node.id} {node.name} {node.workflow.name}")
+        node_predecessors = node.workflow.parents
+        if not node_predecessors:
             logging.debug("- No Predecessors")
             continue
         # Go through its inputs
-        for do_id in wfp_node.has_input:
-            if do_id not in wfp_nodes_by_data_object_id:
+        for data_object_id in node.has_input:
+            if data_object_id not in node_data_object_map:
                 # This really shouldn't happen
-                if do_id not in warned_objects:
-                    logging.warning(f"Missing data object {do_id}")
-                    warned_objects.add(do_id)
+                if data_object_id not in warned_objects:
+                    logging.warning(f"Missing data object {data_object_id}")
+                    warned_objects.add(data_object_id)
                 continue
-            parent_wfp_node = wfp_nodes_by_data_object_id[do_id]
+            parent_node = node_data_object_map[data_object_id]
             # This is to cover the case where it was a duplicate.
             # This shouldn't happen in the future.
-            if not parent_wfp_node:
+            if not parent_node:
                 logging.warning("Parent node is none")
                 continue
             # Let's make sure these came from the same source
             # This is just a safeguard
-            if wfp_node.was_informed_by != parent_wfp_node.was_informed_by:
+            if node.was_informed_by != parent_node.was_informed_by:
                 logging.warning(
                     "Mismatched informed by for "
-                    f"{do_id} in {wfp_node.id} "
-                    f"{wfp_node.was_informed_by} != "
-                    f"{parent_wfp_node.was_informed_by}"
+                    f"{data_object_id} in {node.id} "
+                    f"{node.was_informed_by} != "
+                    f"{parent_node.was_informed_by}"
                 )
                 continue
             # We only want to use it as a parent if it is the right
             # parent workflow. Some inputs may come from ancestors
             # further up
-            if parent_wfp_node.workflow in wfp_node_predecessors:
+            if parent_node.workflow in node_predecessors:
                 # This is the one
-                wfp_node.parent = parent_wfp_node
-                parent_wfp_node.children.append(wfp_node)
+                node.parent = parent_node
+                parent_node.children.append(node)
                 logging.debug(
-                    f"Found parent: {parent_wfp_node.id}"
-                    f" {parent_wfp_node.name}"
+                    f"Found parent: {parent_node.id}"
+                    f" {parent_node.name}"
                 )
                 break
-        if len(wfp_node.workflow.parents) > 0 and not wfp_node.parent:
-            if wfp_node.id not in warned_objects:
-                logging.warning(f"Didn't find a parent for {wfp_node.id}")
-                warned_objects.add(wfp_node.id)
+        if len(node.workflow.parents) > 0 and not node.parent:
+            if node.id not in warned_objects:
+                logging.info(f"Skipping obsolete WorkflowExecution: {node.id}, {node.type} {node.version}")
+                warned_objects.add(node.id)
     # Now all the activities have their parent
-    return wfp_nodes
+    return current_nodes
 
 
-def _associate_workflow_process_nodes_to_data_objects(wfp_nodes: List[WorkflowProcessNode], data_objs_by_id):
+def _map_nodes_to_data_objects(current_nodes: List[WorkflowProcessNode], required_data_object_map):
     """
     Associate the data objects with workflow process nodes
     """
-    wfp_nodes_by_data_object_id = dict()
-    for wfp_node in wfp_nodes:
-        for do_id in wfp_node.has_output:
-            if do_id in data_objs_by_id:
-                do = data_objs_by_id[do_id]
-                wfp_node.add_data_object(do)
-            # If its a dupe, set it to none
-            # so we can ignore it later.
-            # Once we re-id the data objects this
-            # Post re-id we would not expect thi
-            if do_id in wfp_nodes_by_data_object_id:
-                if do_id not in warned_objects:
-                    logging.warning(f"Duplicate output object {do_id}")
-                    warned_objects.add(do_id)
-                wfp_nodes_by_data_object_id[do_id] = None
-            else:
-                wfp_nodes_by_data_object_id[do_id] = wfp_node
-    return wfp_nodes_by_data_object_id, wfp_nodes
+    node_data_object_map = dict()
+    for node in current_nodes:
+        for data_object_id in node.has_output:
+            if data_object_id in required_data_object_map:
+                do = required_data_object_map[data_object_id]
+                node.add_data_object(do)
 
+            if data_object_id in node_data_object_map:
+                if data_object_id not in warned_objects:
+                    logging.warning(f"Duplicate output object {data_object_id}")
+                    warned_objects.add(data_object_id)
+                node_data_object_map[data_object_id] = None
+            else:
+                node_data_object_map[data_object_id] = node
+    return node_data_object_map, current_nodes
 
 
 def load_workflow_process_nodes(db, workflows: list[WorkflowConfig], allowlist: list[str] = None) -> List[WorkflowProcessNode]:
@@ -256,15 +253,15 @@ def load_workflow_process_nodes(db, workflows: list[WorkflowConfig], allowlist: 
 
     # This is map from the data object ID to the activity
     # that created it.
-    data_objs_by_id = get_required_data_objects_map(db, workflows)
+    data_object_map = get_required_data_objects_map(db, workflows)
 
     # Build up a set of relevant activities and a map from
     # the output objects to the activity that generated them.
-    wfp_nodes = get_current_workflow_process_nodes(db, workflows, data_objs_by_id, allowlist)
+    current_nodes = get_current_workflow_process_nodes(db, workflows, data_object_map, allowlist)
 
-    wfp_nodes_by_data_object_id, wfp_nodes = _associate_workflow_process_nodes_to_data_objects(wfp_nodes, data_objs_by_id)
+    node_data_object_map, current_nodes = _map_nodes_to_data_objects(current_nodes, data_object_map)
 
     # Now populate the parent and children values for the
-    wfp_nodes = _resolve_relationships(wfp_nodes, wfp_nodes_by_data_object_id)
-    return wfp_nodes
+    resolved_nodes = _resolve_relationships(current_nodes, node_data_object_map)
+    return resolved_nodes
 

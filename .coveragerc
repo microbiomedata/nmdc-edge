@@ -1,2 +1,13 @@
 [run]
 branch = True
+omit =
+    */site-packages/*
+    */distutils/*
+    */tests/*
+    */test/*
+    */__init__.py
+    */__main__.py
+    */setup.py
+    */re_iding/*
+    */examples/*
+    */nmdc_common/*

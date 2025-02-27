@@ -22,6 +22,11 @@ from nmdc_automation.models.nmdc import DataObject, WorkflowExecution, workflow_
 
 DEFAULT_MAX_RETRIES = 2
 
+logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+logging.basicConfig(
+    level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
+)
+logger = logging.getLogger(__name__)
 
 class JobRunnerABC(ABC):
     """Abstract base class for job runners"""
@@ -70,11 +75,11 @@ class CromwellRunner(JobRunnerABC):
     """Job runner for Cromwell"""
     LABEL_SUBMITTER_VALUE = "nmdcda"
     LABEL_PARAMETERS = ["release", "wdl", "git_repo"]
-    NO_SUBMIT_STATES = ["Submitted",  # job is already submitted but not running
+    # States that indicate a job is in some active state and does not need to be submitted
+    NO_SUBMIT_STATES = [
+        "Submitted",  # job is already submitted but not running
         "Running",  # job is already running
-        "Failed",  # job failed
         "Succeeded",  # job succeeded
-        "Aborted",  # job was aborted and did not finish
         "Aborting"  # job is in the process of being aborted
         "On Hold",  # job is on hold and not running. It can be manually resumed later
     ]
@@ -126,13 +131,35 @@ class CromwellRunner(JobRunnerABC):
         """ Generate the files needed for a Cromwell job submission """
         files = {}
         try:
+            # Get file paths
             wdl_file = self.workflow.fetch_release_file(self.workflow.config["wdl"], suffix=".wdl")
             bundle_file = self.workflow.fetch_release_file("bundle.zip", suffix=".zip")
-            files = {"workflowSource": open(wdl_file, "rb"), "workflowDependencies": open(bundle_file, "rb"),
-                "workflowInputs": open(_json_tmp(self._generate_workflow_inputs()), "rb"),
-                "labels": open(_json_tmp(self._generate_workflow_labels()), "rb"), }
+            workflow_inputs_path = _json_tmp(self._generate_workflow_inputs())
+            workflow_labels_path = _json_tmp(self._generate_workflow_labels())
+
+            # Open files
+            files = {
+                "workflowSource": open(wdl_file, "rb"),
+                "workflowDependencies": open(bundle_file, "rb"),
+                "workflowInputs": open(workflow_inputs_path, "rb"),
+                "labels": open(workflow_labels_path, "rb"),
+            }
+
+            logger.info(f"WDL file: {wdl_file}")
+            logger.info(f"Bundle file: {bundle_file}")
+            # dump the workflow inputs and labels to the log
+            with open(workflow_inputs_path) as f:
+                inputs_dump = json.load(f)
+                logger.info("Workflow inputs:")
+                logger.info(json.dumps(inputs_dump, indent=2))
+
+            with open(workflow_labels_path) as f:
+                labels_dump = json.load(f)
+                logger.info("Workflow labels:")
+                logger.info(json.dumps(labels_dump, indent=2))
+
         except Exception as e:
-            logging.error(f"Failed to generate submission files: {e}")
+            logger.error(f"Failed to generate submission files: {e}")
             self._cleanup_files(list(files.values()))
             raise e
         return files
@@ -144,7 +171,7 @@ class CromwellRunner(JobRunnerABC):
                 file.close()
                 os.unlink(file.name)
             except Exception as e:
-                logging.error(f"Failed to cleanup file: {e}")
+                logger.error(f"Failed to cleanup file: {e}")
 
     def submit_job(self, force: bool = False) -> Optional[str]:
         """
@@ -152,9 +179,9 @@ class CromwellRunner(JobRunnerABC):
         :param force: if True, submit the job even if it is in a state that does not require submission
         :return: the job id
         """
-        status = self.get_job_status()
+        status = self.workflow.last_status
         if status in self.NO_SUBMIT_STATES and not force:
-            logging.info(f"Job {self.job_id} in state {status}, skipping submission")
+            logger.info(f"Job {self.job_id} in state {status}, skipping submission")
             return
         cleanup_files = []
         try:
@@ -165,12 +192,16 @@ class CromwellRunner(JobRunnerABC):
                 response.raise_for_status()
                 self.metadata = response.json()
                 self.job_id = self.metadata["id"]
-                logging.info(f"Submitted job {self.job_id}")
+                logger.info(f"Submitted job {self.job_id}")
+
+                metadata_dump = json.dumps(self.metadata, indent=2)
+                logger.info("Metadata:")
+                logger.info(metadata_dump)
             else:
-                logging.info(f"Dry run: skipping job submission")
+                logger.info(f"Dry run: skipping job submission")
                 self.job_id = "dry_run"
 
-            logging.info(f"Job {self.job_id} submitted")
+            logger.info(f"Job {self.job_id} submitted")
             start_time = datetime.now(pytz.utc).isoformat()
             # update workflow state
             self.workflow.done = False
@@ -179,19 +210,27 @@ class CromwellRunner(JobRunnerABC):
             self.workflow.update_state({"last_status": "Submitted"})
             return self.job_id
         except Exception as e:
-            logging.error(f"Failed to submit job: {e}")
+            logger.error(f"Failed to submit job: {e}")
             raise e
         finally:
             self._cleanup_files(cleanup_files)
 
     def get_job_status(self) -> str:
         """ Get the status of a job from Cromwell """
-        if not self.job_id:
+        if not self.workflow.cromwell_jobid:
             return "Unknown"
-        status_url = f"{self.service_url}/{self.job_id}/status"
-        response = requests.get(status_url)
-        response.raise_for_status()
-        return response.json().get("status", "Unknown")
+        status_url = f"{self.service_url}/{self.workflow.cromwell_jobid}/status"
+        # There can be a delay between submitting a job and it
+        # being available in Cromwell so handle 404 errors
+        logger.debug(f"Getting job status from {status_url}")
+        try:
+            response = requests.get(status_url)
+            response.raise_for_status()
+            return response.json().get("status", "Unknown")
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                return "Unknown"
+            raise e
 
     def get_job_metadata(self) -> Dict[str, Any]:
         """ Get metadata for a job from Cromwell """
@@ -259,6 +298,30 @@ class WorkflowStateManager:
         return self.cached_state.get("conf", self.cached_state.get("config", {}))
 
     @property
+    def last_status(self) -> Optional[str]:
+        return self.cached_state.get("last_status", None)
+
+    @last_status.setter
+    def last_status(self, status: str):
+        self.cached_state["last_status"] = status
+
+    @property
+    def failed_count(self) -> int:
+        return self.cached_state.get("failed_count", 0)
+
+    @failed_count.setter
+    def failed_count(self, count: int):
+        self.cached_state["failed_count"] = count
+
+    @property
+    def nmdc_jobid(self) -> Optional[str]:
+        return self.cached_state.get("nmdc_jobid", None)
+
+    @property
+    def cromwell_jobid(self) -> Optional[str]:
+        return self.cached_state.get("cromwell_jobid", None)
+
+    @property
     def execution_template(self) -> Dict[str, str]:
         # for backward compatibility we need to check for both keys
         return self.config.get("workflow_execution", self.config.get("activity", {}))
@@ -323,9 +386,9 @@ class WorkflowStateManager:
         Download a release file from the Git repository and save it as a temporary file.
         Note: the temporary file is not deleted automatically.
         """
-        logging.debug(f"Fetching release file: {filename}")
+        logger.debug(f"Fetching release file: {filename}")
         url = self._build_release_url(filename)
-        logging.debug(f"Fetching release file from URL: {url}")
+        logger.debug(f"Fetching release file from URL: {url}")
         # download the file as a stream to handle large files
         response = requests.get(url, stream=True)
         try:
@@ -339,9 +402,9 @@ class WorkflowStateManager:
 
     def _build_release_url(self, filename: str) -> str:
         """Build the URL for a release file in the Git repository."""
-        logging.debug(f"Building release URL for {filename}")
+        logger.debug(f"Building release URL for {filename}")
         release = self.config["release"]
-        logging.debug(f"Release: {release}")
+        logger.debug(f"Release: {release}")
         base_url = self.config["git_repo"].rstrip("/")
         url = f"{base_url}{self.GIT_RELEASES_PATH}/{release}/{filename}"
         return url
@@ -356,7 +419,7 @@ class WorkflowStateManager:
         except Exception as e:
             # clean up the temporary file
             Path(file.name).unlink(missing_ok=True)
-            logging.error(f"Error writing stream to file: {e}")
+            logger.error(f"Error writing stream to file: {e}")
             raise e
 
 
@@ -476,20 +539,20 @@ class WorkflowJob:
 
         for output_spec in self.workflow.data_outputs:  # specs are defined in the workflow.yaml file under Outputs
             output_key = f"{self.workflow.input_prefix}.{output_spec['output']}"
-            logging.info(f"Processing output {output_key}")
             # get the full path to the output file from the job_runner
             output_file_path = Path(self.job.outputs[output_key])
-            logging.info(f"Output file path: {output_file_path}")
+            logger.info(f"Create Data Object: {output_key} file path: {output_file_path}")
             if output_key not in self.job.outputs:
                 if output_spec.get("optional"):
-                    logging.debug(f"Optional output {output_key} not found in job outputs")
+                    logger.debug(f"Optional output {output_key} not found in job outputs")
                     continue
                 else:
-                    logging.warning(f"Required output {output_key} not found in job outputs")
+                    logger.warning(f"Required output {output_key} not found in job outputs")
                     continue
 
 
             md5_sum = _md5(output_file_path)
+            file_size_bytes = output_file_path.stat().st_size
             file_url = f"{self.url_root}/{self.was_informed_by}/{self.workflow_execution_id}/{output_file_path.name}"
 
             # copy the file to the output directory if provided
@@ -499,13 +562,15 @@ class WorkflowJob:
                 # copy the file to the output directory
                 shutil.copy(output_file_path, new_output_file_path)
             else:
-                logging.warning(f"Output directory not provided, not copying {output_file_path} to output directory")
+                logger.warning(f"Output directory not provided, not copying {output_file_path} to output directory")
 
             # create a DataObject object
             data_object = DataObject(
                 id=output_spec["id"], name=output_file_path.name, type="nmdc:DataObject", url=file_url,
                 data_object_type=output_spec["data_object_type"], md5_checksum=md5_sum,
-                description=output_spec["description"], was_generated_by=self.workflow_execution_id, )
+                file_size_bytes=file_size_bytes,
+                description=output_spec["description"].replace('{id}', self.workflow_execution_id),
+                was_generated_by=self.workflow_execution_id, )
 
             data_objects.append(data_object)
         return data_objects
@@ -519,6 +584,7 @@ class WorkflowJob:
         """
         wf_dict = self.as_workflow_execution_dict
         wf_dict["has_output"] = [dobj.id for dobj in data_objects]
+        wf_dict["ended_at_time"] = self.job.metadata.get("end")
 
         # workflow-specific keys
         logical_names = set()
@@ -528,7 +594,7 @@ class WorkflowJob:
             if attr_val.startswith("{outputs."):
                 match = re.match(pattern, attr_val)
                 if not match:
-                    logging.warning(f"Invalid output reference {attr_val}")
+                    logger.warning(f"Invalid output reference {attr_val}")
                     continue
                 logical_names.add(match.group(1))
                 field_names.add(match.group(2))
@@ -545,7 +611,7 @@ class WorkflowJob:
                     if field_name in data:
                         wf_dict[field_name] = data[field_name]
                     else:
-                        logging.warning(f"Field {field_name} not found in {data_path}")
+                        logger.warning(f"Field {field_name} not found in {data_path}")
 
         wfe = workflow_process_factory(wf_dict)
         return wfe

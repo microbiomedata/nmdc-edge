@@ -12,6 +12,7 @@ from pymongo.database import Database as MongoDatabase
 from nmdc_automation.workflow_automation.workflow_process import load_workflow_process_nodes
 from nmdc_automation.models.workflow import WorkflowConfig, WorkflowProcessNode
 from semver.version import Version
+import sys
 
 
 _POLL_INTERVAL = 60
@@ -29,17 +30,15 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 @lru_cache
 def get_mongo_db() -> MongoDatabase:
-    for k in ["HOST", "USERNAME", "PASSWORD", "DBNAME"]:
-        if f"MONGO_{k}" not in os.environ:
-            raise KeyError(f"Missing MONGO_{k}")
     _client = MongoClient(
-        host=os.getenv("MONGO_HOST"),
+        host=os.getenv("MONGO_HOST", "localhost"),
         port=int(os.getenv("MONGO_PORT", "27017")),
-        username=os.getenv("MONGO_USERNAME"),
-        password=os.getenv("MONGO_PASSWORD"),
+        username=os.getenv("MONGO_USERNAME", None),
+        password=os.getenv("MONGO_PASSWORD", None),
         directConnection=True,
-    )
-    return _client[os.getenv("MONGO_DBNAME")]
+    )[os.getenv("MONGO_DBNAME", "nmdc")]
+    return _client
+
 
 
 def within_range(wf1: WorkflowConfig, wf2: WorkflowConfig, force=False) -> bool:
@@ -84,22 +83,23 @@ class SchedulerJob:
 
 class Scheduler:
 
-    def __init__(self, db, wfn="workflows.yaml",
+    def __init__(self, db, workflow_yaml,
                  site_conf="site_configuration.toml"):
-        logging.info("Initializing Scheduler")
+
         # Init
-        wf_file = os.environ.get(_WF_YAML_ENV, wfn)
-        self.workflows = load_workflow_configs(wf_file)
+        # wf_file = os.environ.get(_WF_YAML_ENV, wfn)
+        self.workflows = load_workflow_configs(workflow_yaml)
         self.db = db
         self.api = NmdcRuntimeApi(site_conf)
         # TODO: Make force a optional parameter
         self.force = False
         if os.environ.get("FORCE") == "1":
-            logging.info("Setting force on")
+            logger.info("Setting force on")
             self.force = True
+        self._messages = []
 
     async def run(self):
-        logging.info("Starting Scheduler")
+        logger.info("Starting Scheduler")
         while True:
             self.cycle()
             await asyncio.sleep(_POLL_INTERVAL)
@@ -116,7 +116,7 @@ class Scheduler:
         while next_act:
             for do_type, data_object in next_act.data_objects_by_type.items():
                 if do_type in do_by_type:
-                    logging.debug(f"Ignoring Duplicate type: {do_type} {data_object.id} {next_act.id}")
+                    logger.debug(f"Ignoring Duplicate type: {do_type} {data_object.id} {next_act.id}")
                     continue
                 do_by_type[do_type] = data_object
             # do_by_type.update(next_act.data_objects_by_type.__dict__)
@@ -124,9 +124,9 @@ class Scheduler:
 
         wf = job.workflow
         base_id, iteration = self.get_activity_id(wf, job.informed_by)
-        activity_id = f"{base_id}.{iteration}"
-        inp_objects = []
-        inp = dict()
+        workflow_execution_id = f"{base_id}.{iteration}"
+        input_data_objects = []
+        inputs = dict()
         optional_inputs = wf.optional_inputs
         for k, v in job.workflow.inputs.items():
             # some inputs are booleans and should not be modified
@@ -140,31 +140,31 @@ class Scheduler:
                     if k in optional_inputs:
                         continue
                     raise ValueError(f"Unable to find {do_type} in {do_by_type}")
-                inp_objects.append(dobj.as_dict())
+                input_data_objects.append(dobj.as_dict())
                 v = dobj["url"]
             # TODO: Make this smarter
             elif v == "{was_informed_by}":
                 v = job.informed_by
-            elif v == "{activity_id}":
-                v = activity_id
+            elif v == "{workflow_execution_id}":
+                v = workflow_execution_id
             elif v == "{predecessor_activity_id}":
                 v = job.trigger_act.id
 
-            inp[k] = v
+            inputs[k] = v
 
         # Build the respoonse
         job_config = {
             "git_repo": wf.git_repo,
             "release": wf.version,
             "wdl": wf.wdl,
-            "activity_id": activity_id,
+            "activity_id": workflow_execution_id,
             "activity_set": wf.collection,
             "was_informed_by": job.informed_by,
             "trigger_activity": job.trigger_id,
             "iteration": iteration,
             "input_prefix": wf.input_prefix,
-            "inputs": inp,
-            "input_data_objects": inp_objects,
+            "inputs": inputs,
+            "input_data_objects": input_data_objects,
         }
         if wf.workflow_execution:
             job_config["activity"] = wf.workflow_execution
@@ -184,7 +184,7 @@ class Scheduler:
             "claims": [],
         }
 
-        logging.info(f'JOB RECORD: {jr["id"]}')
+        logger.info(f'JOB RECORD: {jr["id"]}')
         # This would make the job record
         # print(json.dumps(ji, indent=2))
         return jr
@@ -220,7 +220,7 @@ class Scheduler:
         # We need to see if any version exist and
         # if so get its ID
         ct = 0
-        q = {"was_informed_by": informed_by}
+        q = {"was_informed_by": informed_by, "type": wf.type}
         for doc in self.db[wf.collection].find(q):
             ct += 1
             last_id = doc["id"]
@@ -264,52 +264,74 @@ class Scheduler:
         for wf in wfp_node.workflow.children:
             # Ignore disabled workflows
             if not wf.enabled:
+                msg = f"Skipping disabled workflow {wf.name}:{wf.version}"
+                if msg not in self._messages:
+                    logger.info(msg)
+                    self._messages.append(msg)
                 continue
             # See if we already have a job for this
-            existing_jobs = self.get_existing_jobs(wf)
             if wfp_node.id in self.get_existing_jobs(wf):
+                msg = f"Skipping existing job for{wfp_node.id} {wf.name}:{wf.version}"
+                if msg not in self._messages:
+                    logger.info(msg)
+                    self._messages.append(msg)
                 continue
             # Look at previously generated derived
             # activities to see if this is already done.
             for child_act in wfp_node.children:
                 if within_range(child_act.workflow, wf, force=self.force):
+                    msg = f"Skipping existing job for {child_act.id} {wf.name}:{wf.version}"
+                    if msg not in self._messages:
+                        logger.info(msg)
+                        self._messages.append(msg)
                     break
             else:
                 # These means no existing activities were
                 # found that matched this workflow, so we
                 # add a job
-                logging.debug(f"Creating a job {wf.name}:{wf.version} for {wfp_node.id}")
+                msg = f"Creating a job {wf.name}:{wf.version} for {wfp_node.process.id}"
+                if msg not in self._messages:
+                    logger.info(msg)
+                    self._messages.append(msg)
                 new_jobs.append(SchedulerJob(wf, wfp_node))
 
         return new_jobs
 
-    def cycle(self, dryrun: bool = False, skiplist: set = set(),
+    def cycle(self, dryrun: bool = False, skiplist: list[str] = None,
               allowlist=None) -> list:
         """
         This function does a single cycle of looking for new jobs
         """
-        filt = {}
-        if allowlist:
-            filt = {"was_informed_by": {"$in": list(allowlist)}}
-        # TODO: Quite a lot happens under the hood here. This function should be broken down into smaller
-        #      functions to improve readability and maintainability.
         wfp_nodes = load_workflow_process_nodes(self.db, self.workflows, allowlist)
+        if wfp_nodes:
+            for wfp_node in wfp_nodes:
+                msg = f"Found workflow process node {wfp_node.id}"
+                if msg not in self._messages:
+                    logger.info(msg)
+                    self._messages.append(msg)
+        else:
+            msg = f"No workflow process nodes found for {allowlist}"
+            if msg not in self._messages:
+                logger.info(msg)
+                self._messages.append(msg)
 
         self.get_existing_jobs.cache_clear()
         job_recs = []
+
         for wfp_node in wfp_nodes:
-            if wfp_node.was_informed_by in skiplist:
-                logging.debug(f"Skipping: {wfp_node.was_informed_by}")
+            if skiplist and wfp_node.id in skiplist:
                 continue
             if not wfp_node.workflow.enabled:
-                logging.debug(f"Skipping: {wfp_node.id}, workflow disabled.")
                 continue
             jobs = self.find_new_jobs(wfp_node)
+            if jobs:
+                logger.info(f"Found {len(jobs)} new jobs for {wfp_node.id}")
             for job in jobs:
+                msg = f"new job: informed_by: {job.informed_by} trigger: {job.trigger_id} "
+                msg += f"wf: {job.workflow.name} ver: {job.workflow.version}"
+                logger.info(msg)
+
                 if dryrun:
-                    msg = f"new job: informed_by: {job.informed_by} trigger: {job.trigger_id} "
-                    msg += f"wf: {job.workflow.name} ver: {job.workflow.version}"
-                    logging.info(msg)
                     continue
                 try:
                     jr = self.create_job_rec(job)
@@ -317,17 +339,21 @@ class Scheduler:
                     if jr:
                         job_recs.append(jr)
                 except Exception as ex:
-                    logging.error(str(ex))
+                    logger.error(str(ex))
                     raise ex
         return job_recs
 
 
-def main():  # pragma: no cover
+
+def main(site_conf, wf_file):  # pragma: no cover
     """
     Main function
     """
-    site_conf = os.environ.get("NMDC_SITE_CONF", "site_configuration.toml")
-    sched = Scheduler(get_mongo_db(), site_conf=site_conf)
+    # site_conf = os.environ.get("NMDC_SITE_CONF", "site_configuration.toml")
+    db = get_mongo_db()
+    logger.info("Initializing Scheduler")
+    sched = Scheduler(db, wf_file, site_conf=site_conf)
+
     dryrun = False
     if os.environ.get("DRYRUN") == "1":
         dryrun = True
@@ -337,18 +363,29 @@ def main():  # pragma: no cover
         with open(os.environ.get("SKIPLISTFILE")) as f:
             for line in f:
                 skiplist.add(line.rstrip())
+
+    logger.info("Reading Allowlist")
     if os.environ.get("ALLOWLISTFILE"):
         allowlist = set()
         with open(os.environ.get("ALLOWLISTFILE")) as f:
             for line in f:
                 allowlist.add(line.rstrip())
+        logger.info(f"Read {len(allowlist)} items")
+        for item in allowlist:
+            logger.info(f"Allowing: {item}")
+
+    logger.info("Starting Scheduler")
+    cycle_count = 0
     while True:
         sched.cycle(dryrun=dryrun, skiplist=skiplist, allowlist=allowlist)
+        cycle_count += 1
         if dryrun:
             break
         _sleep(_POLL_INTERVAL)
+        if cycle_count % 100 == 0:
+            logger.info(f"Cycles: {cycle_count}")
 
 
 if __name__ == "__main__":  # pragma: no cover
-    logging.basicConfig(level=logging.INFO)
-    main()
+    # site_conf and wf_file are passed in as arguments
+    main(site_conf=sys.argv[1], wf_file=sys.argv[2])
