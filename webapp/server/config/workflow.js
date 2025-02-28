@@ -36,7 +36,7 @@ workflowlist = {
         wdl_version: '1.0'
     },
     MetaAssembly: {
-        wdl: 'nmdcEDGE_assembly.wdl',
+        wdl: "https://raw.githubusercontent.com/microbiomedata/metaAssembly/refs/tags/v1.0.5/shortReads_assembly.wdl",
         wdl_imports: 'metaG/imports.zip',
         name: 'jgi_metaASM',
         full_name: 'Metagenome Assembly',
