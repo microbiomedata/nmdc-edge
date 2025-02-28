@@ -10,8 +10,7 @@ input {
     Boolean     <WORKFLOW>_input_interleaved=true
     Array[File] <WORKFLOW>_input_fq1
     Array[File] <WORKFLOW>_input_fq2
-    String      <WORKFLOW>_proj
-    String      <WORKFLOW>_outdir
+    String      <WORKFLOW>_prefix
 }
 call <WORKFLOW>_preprocess.preprocess as preprocess {
         input:
@@ -25,7 +24,7 @@ call <WORKFLOW>_preprocess.preprocess as preprocess {
 call <WORKFLOW>.jgi_metaASM as <ALIAS> {
         input:
             input_file=preprocess.input_file_gz,
-            proj=<WORKFLOW>_proj,
+            proj=<WORKFLOW>_prefix,
             rename_contig_prefix=<WORKFLOW>_rename_contig_prefix,
             bbtools_container=<WORKFLOW>_bbtools_container,
             spades_container=<WORKFLOW>_spades_container,
@@ -38,7 +37,7 @@ call <WORKFLOW>Output.assembly_output as assembly_output{
         contigs=<ALIAS>.contig,
         container=<WORKFLOW>_quast_container,
         outdir=<WORKFLOW>_outdir,
-        proj=<WORKFLOW>_proj
+        proj=<WORKFLOW>_prefix
 
 }
 
