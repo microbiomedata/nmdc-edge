@@ -153,9 +153,10 @@ function generateWDL(proj_home, workflow) {
     if (workflowname === 'MetaAnnotation') {
         imports += 'import "annotation_output.wdl" as MetaAnnotationOutput' + "\n";
     }
-    //if(workflowname === 'MetaAssembly') {
-    //    imports += 'import "preprocess.wdl" as MetaAssembly_preprocess' + "\n";
-    //}
+    if(workflowname === 'MetaAssembly') {
+       imports += 'import "preprocess.wdl" as MetaAssembly_preprocess' + "\n";
+       imports += 'import "assembly_output.wdl" as MetaAssemblyOutput' + "\n";
+    }
     if (workflowname === 'ReadsQC') {
         imports += 'import "readsqc_output.wdl" as ReadsQC_output' + "\n";
         imports += 'import "readsqc_preprocess.wdl" as readsqc_preprocess' + "\n";
