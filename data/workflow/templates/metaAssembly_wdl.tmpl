@@ -11,6 +11,7 @@ input {
     Array[File] <WORKFLOW>_input_fq1
     Array[File] <WORKFLOW>_input_fq2
     String      <WORKFLOW>_prefix
+    String      <WORKFLOW>_outdir
 }
 call <WORKFLOW>_preprocess.preprocess as preprocess {
         input:
