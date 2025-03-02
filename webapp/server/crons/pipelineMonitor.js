@@ -135,11 +135,15 @@ function generateOptions(proj_home, pipeline) {
 
 }
 
-function generateWDL(proj_home, pipeline) {
+function generateWDL(proj_home, pipeline, conf) {
     //build wdl
     const pipelineSettings = pipelinelist[pipeline];
     const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelineSettings['wdl_tmpl']);
     let templWDL = String(fs.readFileSync(tmpl));
+    conf.workflows.forEach(workflow => {
+        const workflowSettings = workflowlist[workflow.name];
+        templWDL += 'import "' + workflowSettings['wdl'] + '" as ' + workflowname + "\n";
+    });
     //write to pipeline.wdl
     fs.writeFileSync(proj_home + '/pipeline.wdl', templWDL);
     return true;
