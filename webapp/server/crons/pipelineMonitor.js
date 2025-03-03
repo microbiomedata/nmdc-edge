@@ -135,15 +135,16 @@ function generateOptions(proj_home, pipeline) {
 
 }
 
-function generateWDL(proj_home, pipeline, conf) {
+function generateWDL(proj_home, pipeline) {
     //build wdl
     const pipelineSettings = pipelinelist[pipeline];
     const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelineSettings['wdl_tmpl']);
     let templWDL = String(fs.readFileSync(tmpl));
-    conf.workflows.forEach(workflow => {
-        const workflowSettings = workflowlist[workflow.name];
-        templWDL += 'import "' + workflowSettings['wdl'] + '" as ' + workflowname + "\n";
-    });
+    templWDL = templWDL.replace(/<READSQC_WDL>/g, workflowlist['ReadsQC']['wdl']);
+    templWDL = templWDL.replace(/<READBASEDANALYSIS_WDL>/g, workflowlist['ReadbasedAnalysis']['wdl']);
+    templWDL = templWDL.replace(/<ANNOTATION_WDL>/g, workflowlist['MetaAnnotation']['wdl']);
+    templWDL = templWDL.replace(/<MAGS_WDL>/g, workflowlist['MetaMAGs']['wdl']);
+    templWDL = templWDL.replace(/<ASSEMBLY_WDL>/g, workflowlist['MetaAssembly']['wdl']);
     //write to pipeline.wdl
     fs.writeFileSync(proj_home + '/pipeline.wdl', templWDL);
     return true;
