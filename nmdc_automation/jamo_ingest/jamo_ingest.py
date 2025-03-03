@@ -28,7 +28,7 @@ def save_json(data: Dict, filename: str):
     # Create directory path if it doesn't exist
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
-    with open(filename, 'w') as f:
+    with open(filename, 'w+') as f:
         json.dump(data, f, indent=4)
 
 
@@ -145,10 +145,9 @@ def get_workflow_execution_set(base_api_url: str = _BASE_URL, max_page_size: int
         workflow_outputs_dict[workflow_execution_id] = [workflow_execution, valid_records]
 
     # Save results
-    try:
-        save_json(workflow_outputs_dict, "valid_data.json")
-    except (IOError, OSError) as e:
-        click.echo(f"error {e}")
+    save_json(workflow_outputs_dict, "valid_data/valid_data.json")
+    # throws an exception due to makedirs in save_json if filename does not contain dir in path
+    # add try except block, and print stack trace using traceback module
 
     return workflow_outputs_dict
 
