@@ -1,41 +1,48 @@
-input {
-    Array[File] <WORKFLOW>_input_files
-    String      <WORKFLOW>_outdir
-    Boolean     <WORKFLOW>_input_interleaved=true
-    Array[File] <WORKFLOW>_input_fq1
-    Array[File] <WORKFLOW>_input_fq2
-    String      <WORKFLOW>_prefix
-    String      <WORKFLOW>_vis_container="microbiomedata/fastqc_vis:1.0"
-}
+version <VERSION>
+import <WDL_IMPORT>
+import "readsqc_output.wdl" as ReadsQC_output
+import "readsqc_preprocess.wdl" as readsqc_preprocess
 
-call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
-    input:
-        input_files=<WORKFLOW>_input_files,
-        input_fq1=<WORKFLOW>_input_fq1,
-        input_fq2=<WORKFLOW>_input_fq2,
-        outdir=<WORKFLOW>_outdir,
-        input_interleaved=<WORKFLOW>_input_interleaved
-}
+workflow main_workflow {
+    input {
+        Array[File] <WORKFLOW>_input_files
+        String      <WORKFLOW>_outdir
+        Boolean     <WORKFLOW>_input_interleaved=true
+        Array[File] <WORKFLOW>_input_fq1
+        Array[File] <WORKFLOW>_input_fq2
+        String      <WORKFLOW>_prefix
+        String      <WORKFLOW>_vis_container="microbiomedata/fastqc_vis:1.0"
+    }
 
-scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
-    call <WORKFLOW>.ShortReadsQC  as nmdc_rqcfilter_call {
+    call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
         input:
             input_files=<WORKFLOW>_input_files,
             input_fq1=<WORKFLOW>_input_fq1,
             input_fq2=<WORKFLOW>_input_fq2,
-            proj=<WORKFLOW>_prefix,
-            interleaved=<WORKFLOW>_input_interleaved
+            outdir=<WORKFLOW>_outdir,
+            input_interleaved=<WORKFLOW>_input_interleaved
     }
-}
 
-call <WORKFLOW>_output.readsqc_output as readsqc_output {
-    input:
-        input_files = nmdc_rqcfilter_call.filtered_final,
-        input_files_prefix = select_first([readsqc_preprocess.input_files_prefix, [""]]),
-        filtered_stats_final = nmdc_rqcfilter_call.filtered_stats_final,
-        filtered_stats2_final = nmdc_rqcfilter_call.filtered_stats2_final,
-        filtered_stat_json = nmdc_rqcfilter_call.filter_stat_json,
-        rqc_info = nmdc_rqcfilter_call.rqc_info, 
-        outdir=<WORKFLOW>_outdir,
-        vis_container=<WORKFLOW>_vis_container
+    scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
+        call <WORKFLOW>.ShortReadsQC  as nmdc_rqcfilter_call {
+            input:
+                input_files=<WORKFLOW>_input_files,
+                input_fq1=<WORKFLOW>_input_fq1,
+                input_fq2=<WORKFLOW>_input_fq2,
+                proj=<WORKFLOW>_prefix,
+                interleaved=<WORKFLOW>_input_interleaved
+        }
+    }
+
+    call <WORKFLOW>_output.readsqc_output as readsqc_output {
+        input:
+            input_files = nmdc_rqcfilter_call.filtered_final,
+            input_files_prefix = select_first([readsqc_preprocess.input_files_prefix, [""]]),
+            filtered_stats_final = nmdc_rqcfilter_call.filtered_stats_final,
+            filtered_stats2_final = nmdc_rqcfilter_call.filtered_stats2_final,
+            filtered_stat_json = nmdc_rqcfilter_call.filter_stat_json,
+            rqc_info = nmdc_rqcfilter_call.rqc_info,
+            outdir=<WORKFLOW>_outdir,
+            vis_container=<WORKFLOW>_vis_container
+    }
 }
