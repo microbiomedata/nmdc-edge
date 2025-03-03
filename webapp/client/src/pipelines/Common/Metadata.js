@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { FaInfoCircle } from "react-icons/fa";
 import {
   Card, CardBody, Collapse,
 } from 'reactstrap';
@@ -32,8 +31,6 @@ export function Metadata(props) {
     <>
       {!connect2nmdcserver &&
         <>
-          <b>NMDC Submission Portal</b> &nbsp;<a href='https://data.microbiomedata.org/submission/home' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
-          <br></br>
           <Card className="workflow-card">
             <Header toggle={true} toggleParms={toggleParms} title={props.title} collapseParms={collapseParms} />
             <Collapse isOpen={!collapseParms} id={"collapseParameters-" + props.name} >

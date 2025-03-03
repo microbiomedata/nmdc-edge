@@ -8,6 +8,7 @@ export const defaults = {
 }
 
 export const initialMetadata = {
+    metadata: true,
     studyName: '',
     piEmail: '',
     packageNames: [],

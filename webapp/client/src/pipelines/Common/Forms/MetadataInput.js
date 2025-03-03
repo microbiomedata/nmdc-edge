@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FaInfoCircle } from "react-icons/fa";
 import {
-  Row, Col, Input,
+  Row, Col, Input, ButtonGroup, Button
 } from 'reactstrap';
 import { useForm } from "react-hook-form";
 import { getData } from '../../../common/util';
@@ -112,6 +112,9 @@ const MetadataInput = (props) => {
       form.validForm = result;
       if (result) {
         form.errMessage = '';
+      } else if (!form.metadata) {
+        form.errMessage = '';
+        form.validForm = true;
       } else {
         let errMessage = '';
         if (study === 'new' && errors.study_name) {
@@ -124,7 +127,7 @@ const MetadataInput = (props) => {
           errMessage += errors.sample_name.message + ". ";
         }
         form.errMessage = errMessage;
-        if(form.errMessage === '') {
+        if (form.errMessage === '') {
           form.validForm = true;
         }
       }
@@ -136,97 +139,115 @@ const MetadataInput = (props) => {
   return (
     <>
       <Row>
-        <Col md="3"> Create New or Select Existing Study  </Col>
+        <Col md="3">Submit to NMDC Submission Portal &nbsp;<a href='https://data.microbiomedata.org/submission/home' target='_blank' rel="noreferrer"><FaInfoCircle /></a></Col>
         <Col xs="12" md="9">
-          <MySelect
-            name="study"
-            defaultValue={studyOptions[0]}
-            options={studyOptions}
-            onChange={e => {
-              setStudy(e.value);
-              setNewState2('metadataSubmissionId', e.value);
+          <ButtonGroup className="mr-3" aria-label="First group" size="sm">
+            <Button color="outline-primary" onClick={() => {
+              setNewState2("metadata", true)
             }}
-            isClearable={false}
-          />
+              active={form.metadata}>Yes</Button>
+            <Button color="outline-primary" onClick={() => {
+              setNewState2("metadata", false)
+            }}
+              active={!form.metadata}>No</Button>
+          </ButtonGroup>
         </Col>
       </Row>
       <br></br>
-      {study === 'new' && <>
+      {form.metadata && <>
         <Row>
-          <Col md="3">
-            Study Name <a href='https://docs.microbiomedata.org/howto_guides/submit2nmdc#study' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
-          </Col>
-          <Col xs="12" md="9">
-            <Input type="text" name="study_name" id="study_name" defaultValue={form.studyName}
-              style={errors.study_name ? defaults.inputStyleWarning : defaults.inputStyle}
-              onChange={(e) => {
-                studyNameReg.onChange(e); // method from hook form register
-                setNewState(e); // your method
-                setNewState2('studyName', e.target.value);
-              }}
-              innerRef={studyNameReg.ref}
-            />
-            {form.studyName && errors.study_name && <p className="edge-form-input-error">{errors.study_name.message}</p>}
-          </Col>
-        </Row>
-        <br></br>
-        <Row>
-          <Col md="3">
-            PI Email <a href='https://docs.microbiomedata.org/howto_guides/submit2nmdc#study' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
-          </Col>
-          <Col xs="12" md="9">
-            <Input type="text" name="email" defaultValue={form.piEmail}
-              style={errors.email ? defaults.inputStyleWarning : defaults.inputStyle}
-              onChange={(e) => {
-                emailReg.onChange(e); // method from hook form register
-                setNewState2('piEmail', e.target.value); // your method
-              }}
-              innerRef={emailReg.ref}
-            />
-            {form.piEmail && errors.email && <p className="edge-form-input-error">{errors.email.message}</p>}
-          </Col>
-        </Row>
-        <br></br>
-        <Row>
-          <Col md="3">
-            Environmental Extensions <a href='https://docs.microbiomedata.org/howto_guides/submit2nmdc#environmental-extension' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
-            <br></br>
-            <span className="text-muted edge-text-size-small">
-              (Choose environmental extensions for your data)
-            </span>
-          </Col>
+          <Col md="3"> Create New or Select Existing Study  </Col>
           <Col xs="12" md="9">
             <MySelect
-              name="packageNames"
-              options={packageOptions}
+              name="study"
+              defaultValue={studyOptions[0]}
+              options={studyOptions}
               onChange={e => {
-                setPackageNames(e.map(item => item.value));
-                setNewState2('packageNames', e.map(item => item.value));
+                setStudy(e.value);
+                setNewState2('metadataSubmissionId', e.value);
               }}
-              isClearable={true}
-              isMulti={true}
+              isClearable={false}
             />
+          </Col>
+        </Row>
+        <br></br>
+        {study === 'new' && <>
+          <Row>
+            <Col md="3">
+              Study Name <a href='https://docs.microbiomedata.org/howto_guides/submit2nmdc#study' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
+            </Col>
+            <Col xs="12" md="9">
+              <Input type="text" name="study_name" id="study_name" defaultValue={form.studyName}
+                style={errors.study_name ? defaults.inputStyleWarning : defaults.inputStyle}
+                onChange={(e) => {
+                  studyNameReg.onChange(e); // method from hook form register
+                  setNewState(e); // your method
+                  setNewState2('studyName', e.target.value);
+                }}
+                innerRef={studyNameReg.ref}
+              />
+              {form.studyName && errors.study_name && <p className="edge-form-input-error">{errors.study_name.message}</p>}
+            </Col>
+          </Row>
+          <br></br>
+          <Row>
+            <Col md="3">
+              PI Email <a href='https://docs.microbiomedata.org/howto_guides/submit2nmdc#study' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
+            </Col>
+            <Col xs="12" md="9">
+              <Input type="text" name="email" defaultValue={form.piEmail}
+                style={errors.email ? defaults.inputStyleWarning : defaults.inputStyle}
+                onChange={(e) => {
+                  emailReg.onChange(e); // method from hook form register
+                  setNewState2('piEmail', e.target.value); // your method
+                }}
+                innerRef={emailReg.ref}
+              />
+              {form.piEmail && errors.email && <p className="edge-form-input-error">{errors.email.message}</p>}
+            </Col>
+          </Row>
+          <br></br>
+          <Row>
+            <Col md="3">
+              Environmental Extensions <a href='https://docs.microbiomedata.org/howto_guides/submit2nmdc#environmental-extension' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
+              <br></br>
+              <span className="text-muted edge-text-size-small">
+                (Choose environmental extensions for your data)
+              </span>
+            </Col>
+            <Col xs="12" md="9">
+              <MySelect
+                name="packageNames"
+                options={packageOptions}
+                onChange={e => {
+                  setPackageNames(e.map(item => item.value));
+                  setNewState2('packageNames', e.map(item => item.value));
+                }}
+                isClearable={true}
+                isMulti={true}
+              />
+            </Col>
+          </Row>
+          <br></br>
+        </>}
+        <Row>
+          <Col md="3">
+            Sample Name <a href='https://docs.microbiomedata.org/howto_guides/submit2nmdc#sample-metadata' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
+          </Col>
+          <Col xs="12" md="9">
+            <Input type="text" name="sample_name" defaultValue={form.sampleName}
+              style={errors.sample_name ? defaults.inputStyleWarning : defaults.inputStyle}
+              onChange={(e) => {
+                sampleNameReg.onChange(e); // method from hook form register
+                setNewState2('sampleName', e.target.value);
+              }}
+              innerRef={sampleNameReg.ref}
+            />
+            {form.sampleName && errors.sample_name && <p className="edge-form-input-error">{errors.sample_name.message}</p>}
           </Col>
         </Row>
         <br></br>
       </>}
-      <Row>
-        <Col md="3">
-          Sample Name <a href='https://docs.microbiomedata.org/howto_guides/submit2nmdc#sample-metadata' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
-        </Col>
-        <Col xs="12" md="9">
-          <Input type="text" name="sample_name" defaultValue={form.sampleName}
-            style={errors.sample_name ? defaults.inputStyleWarning : defaults.inputStyle}
-            onChange={(e) => {
-              sampleNameReg.onChange(e); // method from hook form register
-              setNewState2('sampleName', e.target.value);
-            }}
-            innerRef={sampleNameReg.ref}
-          />
-          {form.sampleName && errors.sample_name && <p className="edge-form-input-error">{errors.sample_name.message}</p>}
-        </Col>
-      </Row>
-      <br></br>
     </>
   )
 }

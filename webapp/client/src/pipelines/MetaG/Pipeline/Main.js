@@ -92,13 +92,14 @@ function Main(props) {
 
         formData.append('pipeline', "Metagenome Pipeline");
         formData.append('project', JSON.stringify({ name: projectParams.proj_name, desc: projectParams.proj_desc }));
-        if (metadataParams) {
+        if (metadataParams && metadataParams.metadata) {
             formData.append('metadata', JSON.stringify({
                 studyName: metadataParams.studyName,
                 piEmail: metadataParams.piEmail,
                 packageNames: metadataParams.packageNames,
                 metadataSubmissionId: metadataParams.metadataSubmissionId,
-                sampleName: metadataParams.sampleName
+                sampleName: metadataParams.sampleName,
+                analysisDataType: 'metagenomics'
             }));
         }
 
