@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html class="ui-mobile"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<title>Greenhouse | Omics Pathway Viewer</title>
+	<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile.min.css" />
+	<link rel="stylesheet" href="css/tooltipster.bundle.min.css" />
+	<link rel="stylesheet" href="css/opaver.css" />
+	<script src="javascript/jquery-2.2.4.min.js"></script>
+	<script src="javascript/jquery.mobile-1.4.5.min.js"></script>
+	<script src="javascript/tooltipster.bundle.min.js"></script>
+	<script src="javascript/jquery.tsv-0.96.min.js"></script>
+	<script src="javascript/opaver_anno.js"></script>
+
+	<script>
+		var data       = GetURLParameter("data")  || "output";
+		var tpdir      = GetURLParameter("tp")    || "default";
+		var mapid      = GetURLParameter("mapid") || "00230";
+		var showicon   = GetURLParameter("showicon");
+		var org        = GetURLParameter("org");
+		var interval;
+		var prev_mapid = [];
+
+		$( document ).ready(function() {
+			addSelector("keggmap", mapid, "data/"+data);
+			drawMap("keggmap", mapid, showicon, org, "data/"+data);
+		});
+	</script>
+</head>
+
+<body>
+<div id="keggmap">
+</div>
+</body>
+</html>
