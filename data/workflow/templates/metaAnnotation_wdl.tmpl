@@ -4,7 +4,7 @@ input {
     String  <WORKFLOW>_outdir
     Int     <WORKFLOW>_additional_threads=42
     String  <WORKFLOW>_database_location="/refdata/img/"
-    String  <WORKFLOW>_opaver_web_path="/expanse/projects/nmdc/edge_app/nmdc-edge/io/opaver_web/data"
+    String  <WORKFLOW>_opaver_web_path
 }
 call <WORKFLOW>.annotation as <ALIAS> {
     input: 
