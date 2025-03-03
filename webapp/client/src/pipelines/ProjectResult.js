@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Button } from 'reactstrap';
+import { FaInfoCircle } from "react-icons/fa";
 import { LoaderDialog, FileViewerDialog, ConfirmDialog } from '../common/Dialogs';
 import { postData, getData, fetchFile, openLink, notify } from '../common/util';
 import ProjectGeneral from './Common/Results/ProjectGeneral';
@@ -204,7 +205,7 @@ function ProjectResult(props) {
             }
 
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [project, type, connect2nmdcserver]);
 
     function viewLogFile() {
@@ -306,7 +307,8 @@ function ProjectResult(props) {
                         <>
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
-                                    <Button type="button" size="sm" color="primary" onClick={e => setOpenMetadataSubmission(true)} > Create Metadata Submission </Button>
+                                    <Button type="button" size="sm" color="primary" onClick={e => setOpenMetadataSubmission(true)} > Submit Metadata to NMDC Submission Portal</Button>
+                                    &nbsp;<a href='https://data.microbiomedata.org/submission/home' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
                                 </Col>
                             </Row>
                             <br></br>
