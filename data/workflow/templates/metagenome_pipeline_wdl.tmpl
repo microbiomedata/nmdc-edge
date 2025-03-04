@@ -174,7 +174,7 @@ workflow main_workflow {
     call metaAssembly_preprocess.preprocess as preprocess {
             input:
                 input_files= rqcfiltered_reads,
-                outdir=outdir,
+                outdir=metaAssembly_outdir,
                 input_interleaved=input_interleaved,
                 input_fq1=input_fq1,
                 input_fq2=input_fq2,
