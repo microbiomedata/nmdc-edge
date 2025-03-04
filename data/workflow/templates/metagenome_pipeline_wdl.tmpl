@@ -175,7 +175,7 @@ workflow main_workflow {
         input:
             memory=metaAssembly_memory,
             threads=metaAssembly_threads,
-            input_file=select_first([rqcfiltered_reads, [""]]),
+            input_file=nmdc_rqcfilter_call.filtered_final,
             proj=proj,
             bbtools_container=metaAssembly_bbtools_container
     }
