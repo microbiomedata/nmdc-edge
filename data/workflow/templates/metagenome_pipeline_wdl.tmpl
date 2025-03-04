@@ -176,10 +176,6 @@ workflow main_workflow {
             memory=metaAssembly_memory,
             threads=metaAssembly_threads,
             input_file=rqcfiltered_reads,
-            input_fq1=input_fq1,
-            input_fq2=input_fq2,
-            input_interleaved = true,
-            outdir=metaAssembly_outdir,
             proj=proj,
             bbtools_container=metaAssembly_bbtools_container
     }
