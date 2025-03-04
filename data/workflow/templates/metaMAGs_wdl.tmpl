@@ -58,21 +58,21 @@ workflow main_workflow {
             outdir = <WORKFLOW>_outdir,
             pdf_files = [<ALIAS>.barplot,<ALIAS>.heatmap]
     }
-}
 
-output {
-    File final_hqmq_bins_zip = <ALIAS>.final_hqmq_bins_zip
-    File final_lq_bins_zip = <ALIAS>.final_lq_bins_zip
-    File final_gtdbtk_bac_summary = <ALIAS>.final_gtdbtk_bac_summary
-    File final_gtdbtk_ar_summary = <ALIAS>.final_gtdbtk_ar_summary
-    File short = <ALIAS>.short
-    File low = <ALIAS>.low
-    File final_unbinned_fa  = <ALIAS>.final_unbinned_fa
-    File final_checkm = <ALIAS>.final_checkm
-    File mags_version = <ALIAS>.mags_version
-    File final_stats_json = <ALIAS>.final_stats_json
-    File barplot = <ALIAS>.barplot
-    File heatmap = <ALIAS>.heatmap
-    File kronaplot = <ALIAS>.kronaplot
-}
 
+    output {
+        File final_hqmq_bins_zip = <ALIAS>.final_hqmq_bins_zip
+        File final_lq_bins_zip = <ALIAS>.final_lq_bins_zip
+        File final_gtdbtk_bac_summary = <ALIAS>.final_gtdbtk_bac_summary
+        File final_gtdbtk_ar_summary = <ALIAS>.final_gtdbtk_ar_summary
+        File short = <ALIAS>.short
+        File low = <ALIAS>.low
+        File final_unbinned_fa  = <ALIAS>.final_unbinned_fa
+        File final_checkm = <ALIAS>.final_checkm
+        File mags_version = <ALIAS>.mags_version
+        File final_stats_json = <ALIAS>.final_stats_json
+        File barplot = <ALIAS>.barplot
+        File heatmap = <ALIAS>.heatmap
+        File kronaplot = <ALIAS>.kronaplot
+    }
+}
