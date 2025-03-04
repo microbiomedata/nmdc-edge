@@ -101,7 +101,7 @@ Workflows:
     Predecessors:
     - Reads QC
     - Reads QC Interleave
-    Input_prefix: jgi_metaASM
+    Input_prefix: jgi_metaAssembly
     Inputs:
       input_files: do:Filtered Sequencing Reads
       proj: "{workflow_execution_id}"
