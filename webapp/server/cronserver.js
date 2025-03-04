@@ -6,7 +6,6 @@ const cron = require("node-cron");
 const logger = require('./util/logger');
 const pipelineMonitor = require("./crons/pipelineMonitor");
 const workflowMonitor = require("./crons/workflowMonitor");
-const workflowBigMemMonitor = require("./crons/workflowBigMemMonitor");
 const cromwellMonitor = require("./crons/cromwellMonitor");
 const fileUploadMonitor = require("./crons/fileUploadMonitor");
 const projectMonitor = require("./crons/projectMonitor");
@@ -47,10 +46,6 @@ cron.schedule(config.CRON.SCHEDULES.PIPELINE_MONITOR, function () {
 // monitor workflow requests on every 3 minutes 
 cron.schedule(config.CRON.SCHEDULES.WORKFLOW_MONITOR, function () {
   workflowMonitor();
-});
-// monitor workflow requests on every 3 minutes 
-cron.schedule(config.CRON.SCHEDULES.WORKFLOW_BIG_MEM_MONITOR, function () {
-  workflowBigMemMonitor();
 });
 // monitor cromwell jobs on every 3 minutes 
 cron.schedule(config.CRON.SCHEDULES.CROMWELL_MONITOR, function () {

@@ -90,7 +90,7 @@ export function ReadbasedAnalysis(props) {
             <Collapse isOpen={!collapseParms} id={"collapseParameters-" + props.name} >
                 <CardBody>
 
-                    <Row>
+                    {/* <Row>
                         <Col md="3">
                             Select Analysis Tool(s)
                             {errors["tool_hidden"] &&
@@ -112,7 +112,7 @@ export function ReadbasedAnalysis(props) {
                                 {...register("tool_hidden", { required: 'At least one analysis tool is required.' })} />
                         </Col>
                     </Row>
-                    <br></br>
+                    <br></br> */}
                     <MyTooltip id='ReadbasedAnalysis' text="Input Raw Reads" tooltip={workflowInputTips['ReadbasedAnalysis']['fastq_tip']} showTooltip={true} place="right" />
                     <FastqInput projectTypes={['ReadsQC','Retrieve SRA Data']} singleType={'single-end or interleaved'} name={props.name} full_name={props.full_name} setParams={updateFastqInputs} collapseParms={true} paired-input-max={form['paired-input-max']} />
                 </CardBody>
