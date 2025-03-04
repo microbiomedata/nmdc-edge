@@ -8,6 +8,7 @@ import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output
 import "<ANNOTATION_WDL>" as metaAnnotation
 import "<ASSEMBLY_WDL>" as  metaAssembly
+import "preprocess.wdl" as metaAssembly_preprocess
 import "annotation_output.wdl" as metaAnnotationOutput
 import "<MAGS_WDL>" as metaMAGs
 import "viral-plasmid_wf.wdl" as viralPlasmid
@@ -170,12 +171,20 @@ workflow main_workflow {
             centrifuge_krona_html=ReadbasedAnalysis_call.final_centrifuge_krona_html, 
             PREFIX=readbasedAnalysis_prefix
     }
+    call metaAssembly_preprocess.preprocess as preprocess {
+            input:
+                input_files= rqcfiltered_reads,
+                outdir=outdir,
+                input_interleaved=input_interleaved,
+                input_fq1=input_fq1,
+                input_fq2=input_fq2,
 
+        }
     call metaAssembly.jgi_metaASM as metaAssembly_call {
         input:
             memory=metaAssembly_memory,
             threads=metaAssembly_threads,
-            input_file=nmdc_rqcfilter_call.filtered_final,
+            input_file=preprocess.input_file_gz,
             proj=proj,
             bbtools_container=metaAssembly_bbtools_container
     }
