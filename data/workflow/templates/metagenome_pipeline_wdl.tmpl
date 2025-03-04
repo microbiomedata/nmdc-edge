@@ -24,7 +24,7 @@ workflow main_workflow {
         String      readsQC_database="/refdata"
         String      proj = "metagenome_workflow"
         String      readsQC_vis_container="microbiomedata/fastqc_vis:1.0"
-        Array[File] rqcfiltered_reads = nmdc_rqcfilter_call.filtered_final
+        File rqcfiltered_reads = nmdc_rqcfilter_call.filtered_final
         # ReadbasedAnalysis
         Map[String, Boolean] readbasedAnalysis_enabled_tools = {
             "gottcha2": true,
