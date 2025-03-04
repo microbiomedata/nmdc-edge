@@ -32,9 +32,9 @@ logger = logging.getLogger(__name__)
 def get_mongo_db() -> MongoDatabase:
     _client = MongoClient(
         host=os.getenv("MONGO_HOST", "localhost"),
-        port=int(os.getenv("MONGO_PORT", "27017")),
-        username=os.getenv("MONGO_USERNAME", None),
-        password=os.getenv("MONGO_PASSWORD", None),
+        port=int(os.getenv("MONGO_PORT", "27018")),
+        username=os.getenv("MONGO_USERNAME", "admin"),
+        password=os.getenv("MONGO_PASSWORD", "root"),
         directConnection=True,
     )[os.getenv("MONGO_DBNAME", "nmdc")]
     return _client
@@ -373,6 +373,10 @@ def main(site_conf, wf_file):  # pragma: no cover
         logger.info(f"Read {len(allowlist)} items")
         for item in allowlist:
             logger.info(f"Allowing: {item}")
+
+    logger.info(f"Adding ID: nmdc:omprc-11-pf500b03 to Allowlist")
+    allowlist = ["nmdc:omprc-11-pf500b03"]
+
 
     logger.info("Starting Scheduler")
     cycle_count = 0

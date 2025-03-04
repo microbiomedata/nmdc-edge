@@ -113,9 +113,11 @@ def get_current_workflow_process_nodes(
     for wf in data_generation_workflows:
         # Sequencing workflows don't have a git repo
         for rec in dg_execution_records:
+            # legacy JGI sequencing records won't have output but we still want to include them
+            # The graph in that case will be rooted at the ReadsQC node
+            data_generation_ids.add(rec["id"])
             if _is_missing_required_input_output(wf, rec, data_objects_by_id):
                 continue
-            data_generation_ids.add(rec["id"])
             wfp_node = WorkflowProcessNode(rec, wf)
             workflow_process_nodes.add(wfp_node)
 
