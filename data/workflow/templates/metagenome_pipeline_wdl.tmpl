@@ -1,15 +1,15 @@
 version 1.0
 
-import <READSQC_WDL> as readsQC
+import "<READSQC_WDL>" as readsQC
 import "readsqc_preprocess.wdl" as readsqc_preprocess
 import "readsqc_output.wdl" as readsqc_output
-import <READBASEDANALYSIS_WDL> as readbasedAnalysis
+import "<READBASEDANALYSIS_WDL>" as readbasedAnalysis
 import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output
-import <ANNOTATION_WDL> as metaAnnotation
-import <ASSEMBLY_WDL> as  metaAssembly
+import "<ANNOTATION_WDL>" as metaAnnotation
+import "<ASSEMBLY_WDL>" as  metaAssembly
 import "annotation_output.wdl" as metaAnnotationOutput
-import <MAGS_WDL> as metaMAGs
+import "<MAGS_WDL>" as metaMAGs
 import "viral-plasmid_wf.wdl" as viralPlasmid
 import "mbin_nmdc_output.wdl" as metaMAGsOutput
 
