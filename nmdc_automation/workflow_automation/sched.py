@@ -374,10 +374,6 @@ def main(site_conf, wf_file):  # pragma: no cover
         for item in allowlist:
             logger.info(f"Allowing: {item}")
 
-    logger.info(f"Adding ID: nmdc:omprc-11-pf500b03 to Allowlist")
-    allowlist = ["nmdc:omprc-11-pf500b03"]
-
-
     logger.info("Starting Scheduler")
     cycle_count = 0
     while True:
