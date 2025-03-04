@@ -171,7 +171,7 @@ workflow main_workflow {
             PREFIX=readbasedAnalysis_prefix
     }
 
-    call metaAssembly.nmdc_edge_assembly as metaAssembly_call {
+    call metaAssembly.jgi_metaASM as metaAssembly_call {
         input:
             memory=metaAssembly_memory,
             threads=metaAssembly_threads,
