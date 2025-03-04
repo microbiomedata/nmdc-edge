@@ -1,6 +1,7 @@
 version <VERSION>
 import "<WDL_IMPORT>" as <WORKFLOW>
-import "preprocess.wdl" as MetaAssembly_preprocess
+import "preprocess.wdl" as <WORKFLOW>_preprocess
+import "assembly_output" as <WORKFLOW>Output
 
 workflow main_workflow {
     input {
