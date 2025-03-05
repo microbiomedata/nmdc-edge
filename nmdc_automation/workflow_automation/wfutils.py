@@ -22,7 +22,7 @@ from nmdc_automation.models.nmdc import DataObject, WorkflowExecution, workflow_
 
 DEFAULT_MAX_RETRIES = 2
 
-logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
 logging.basicConfig(
     level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
 )
