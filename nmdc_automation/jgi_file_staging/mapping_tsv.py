@@ -1,4 +1,6 @@
 import logging
+import pathlib
+
 import pandas as pd
 from pathlib import Path
 from argparse import ArgumentParser
@@ -6,7 +8,16 @@ from argparse import ArgumentParser
 from jgi_file_metadata import get_access_token, get_mongo_db, get_request
 
 
-def create_mapping_tsv(project_name, mapping_file_path, study_id=None):
+def create_mapping_tsv(project_name: str, mapping_file_path: pathlib.Path, study_id=None) -> None:
+    """
+    Creates mapping tsv file for a given project
+    :param project_name: Name of the project
+    :param mapping_file_path: path where to save the mapping tsv file
+    :param study_id: study id of the project that will be used to get the proposal id
+    Not all studies have an associated proposal id
+    1) get gold ids from the data_generation_set API
+    2) for each gold id, get the gold analysis record
+    """
     ACCESS_TOKEN = get_access_token()
     if study_id is None:
         study_id = get_study_id(project_name, ACCESS_TOKEN)
@@ -18,8 +29,8 @@ def create_mapping_tsv(project_name, mapping_file_path, study_id=None):
     metat_study_df = study_df.loc[study_df.ap_type == 'Metatranscriptome Analysis', ['id', 'gold_analysis_project']]
     new_row_list = []
     for idx, row in metat_study_df.iterrows():
-        new_row_list.append({'id': row.id, 'ap_gold_id': row.gold_analysis_project[0]})
-        new_row_list.append({'id': row.id, 'ap_gold_id': row.gold_analysis_project[1]})
+        new_row_list.append({'id': row.id, 'gold_analysis_project': row.gold_analysis_project[0]})
+        new_row_list.append({'id': row.id, 'gold_analysis_project': row.gold_analysis_project[1]})
     metat_study_df = pd.DataFrame(new_row_list)
     metag_study_df = study_df.loc[study_df.ap_type == 'Metagenome Analysis', ['id', 'gold_analysis_project']]
     create_tsv_file(metag_study_df, mapping_file_path, project_name, 'metag')
@@ -101,4 +112,4 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--study_id', default=None)
     parser.add_argument('-f', '--file_path', default='.')
     args = vars((parser.parse_args()))
-    create_mapping_tsv(args['project_name'], args['file_path'], args['study_id'])
+    create_mapping_tsv(args['project_name'], Path(args['file_path']), args['study_id'])
