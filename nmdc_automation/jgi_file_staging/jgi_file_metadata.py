@@ -246,11 +246,11 @@ def get_seq_unit_names(analysis_files_df, gold_id):
                                           & (analysis_files_df.file_type == "['contigs']")].iterrows():
         if gold_id == 'Ga0210394':
             logging.debug(f"seq_unit_name: {row.seq_unit_name}")
-        seq_unit_type = type(eval(row.seq_unit_name))
+        seq_unit_type = type(row.seq_unit_name)
         if seq_unit_type is str:
             seq_unit_names.append(row.seq_unit_name)
         elif seq_unit_type is list:
-            seq_unit_names.extend(eval(row.seq_unit_name))
+            seq_unit_names.extend(row.seq_unit_name)
 
     seq_unit_names_list = list(set(seq_unit_names))
     seq_unit_names_list = [
