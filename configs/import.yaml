@@ -46,7 +46,7 @@ Workflows:
     Import: true
     Type: nmdc:MetagenomeAssembly
     Git_repo: https://github.com/microbiomedata/metaAssembly
-    Version: v1.0.7
+    Version: v1.0.9
     Collection: workflow_execution_set
     WorkflowExecutionRange: MetagenomeAssembly
     Inputs:
