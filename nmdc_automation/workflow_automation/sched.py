@@ -33,8 +33,8 @@ def get_mongo_db() -> MongoDatabase:
     _client = MongoClient(
         host=os.getenv("MONGO_HOST", "localhost"),
         port=int(os.getenv("MONGO_PORT", "27018")),
-        username=os.getenv("MONGO_USERNAME", "admin"),
-        password=os.getenv("MONGO_PASSWORD", "root"),
+        username=os.getenv("MONGO_USERNAME", None),
+        password=os.getenv("MONGO_PASSWORD", None),
         directConnection=True,
     )[os.getenv("MONGO_DBNAME", "nmdc")]
     return _client
