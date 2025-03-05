@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 def get_mongo_db() -> MongoDatabase:
     _client = MongoClient(
         host=os.getenv("MONGO_HOST", "localhost"),
-        port=int(os.getenv("MONGO_PORT", "27017")),
+        port=int(os.getenv("MONGO_PORT", "27018")),
         username=os.getenv("MONGO_USERNAME", None),
         password=os.getenv("MONGO_PASSWORD", None),
         directConnection=True,
