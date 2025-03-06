@@ -104,7 +104,7 @@ def create_globus_batch_file(project: str, config: configparser.ConfigParser) ->
     samples_df['request_id'] = samples_df['request_id'].astype(int)
     # logging.debug(f"nan request_ids {samples_df['request_id']}")
     root_dir = config['GLOBUS']['globus_root_dir']
-    dest_root_dir = os.path.join(config['GLOBUS']['analysis_projects_dir'], f'{project}_analysis_projects')
+    dest_root_dir = os.path.join(config['PROJECT']['analysis_projects_dir'], f'{project}_analysis_projects')
     globus_df = create_globus_dataframe(project, config)
 
     logging.debug(f"samples_df columns {samples_df.columns}, globus_df columns {globus_df.columns}")
