@@ -232,7 +232,7 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
 
         file = record["name"]
         metadata_keys["file"] = file
-        metadata_keys["file_format"] = "." + file.split('.')[-1] # todo handle files with no extensions
+        metadata_keys["file_format"] = file.split('.')[-1] # todo handle files with no extensions
 
         metadata_keys["data_object_id"] = record["id"]
         metadata_keys["label"] = record["data_object_type"]
