@@ -389,10 +389,83 @@ If the list is not empty, the job is being processed by a worker - example:
 This refers to the `operation` and `site` that is processing the job.
 
 
-
-
 ##### Watcher State File
 
+The watcher maintains a state file with job configuration, metadata and status information. The location of the 
+state file is defined in the site configuration file. For dev this location is:
+`/global/cfs/cdirs/m3408/var/dev/agent.state`
+
+Example State File Entry:
+```json
+{
+      "workflow": {
+        "id": "Metagenome Assembly: v1.0.9"
+      },
+      "created_at": "2025-03-06T18:19:43",
+      "config": {
+        "git_repo": "https://github.com/microbiomedata/metaAssembly",
+        "release": "v1.0.9",
+        "wdl": "jgi_assembly.wdl",
+        "activity_id": "nmdc:wfmgas-12-k8dxr170.1",
+        "activity_set": "workflow_execution_set",
+        "was_informed_by": "nmdc:omprc-11-sdyccb57",
+        "trigger_activity": "nmdc:wfrqc-12-dvn15085.1",
+        "iteration": 1,
+        "input_prefix": "jgi_metaAssembly",
+        "inputs": {
+          "input_files": "https://data.microbiomedata.org/data/nmdc:omprc-11-sdyccb57/nmdc:wfrqc-12-dvn15085.1/nmdc_wfrqc-12-dvn15085.1_filtered.fastq.gz",
+          "proj": "nmdc:wfmgas-12-k8dxr170.1",
+          "shortRead": false
+        },
+        "input_data_objects": [],
+        "activity": {},
+        "outputs": []
+      },
+      "claims": [],
+      "opid": "nmdc:sys0z232qf64",
+      "done": true,
+      "start": "2025-03-06T19:24:52.176365+00:00",
+      "cromwell_jobid": "0b138671-824d-496a-b681-24fb6cb207b3",
+      "last_status": "Failed",
+      "nmdc_jobid": "nmdc:9380c834-fab7-11ef-b4bd-0a13321f5970",
+      "failed_count": 3
+    }
+```
+Similar to a `jobs` record, with these additional things to note:
+- `done` is a boolean indicating if the job is complete
+- `cromwell_jobid` is the job ID from the Cromwell service
+- `last_status` is the last known status of the job - this is updated by the watcher
+- `failed_count` is the number of times the job has failed
+
+With the cromwell_jobid, you can query the Cromwell service for the status of the job - the Cromwell service URL is
+defined in the site configuration file.
+
+```shell
+curl --netrc https://nmdc-cromwell.freeddns.org:8443/api/workflows/v1/0b138671-824d-496a-b681-24fb6cb207b3/status
+{"status":"Failed","id":"0b138671-824d-496a-b681-24fb6cb207b3"}
+```
+Job Metadata can be found in the Cromwell service by querying the metadata endpoint
+
+```shell
+curl --netrc https://nmdc-cromwell.freeddns.org:8443/api/workflows/v1/0b138671-824d-496a-b681-24fb6cb207b3/metadata
+```
+This will include the inputs, outputs and logs for the job, as well as failure information if the job failed.
+```json
+{
+     "status": "Failed",
+  "failures": [
+    {
+      "causedBy": [
+        {
+          "causedBy": [],
+          "message": "Failed to evaluate input 'input_files' (reason 1 of 1): No coercion defined from '\"https://data.microbiomedata.org/data/nmdc:omprc-11-sdyccb57/nmdc:wfrqc-12-dvn15085.1/nmdc_wfrqc-12-dvn15085.1_filtered.fastq.gz\"' of type 'spray.json.JsString' to 'Array[File]'."
+        }
+      ],
+      "message": "Workflow input processing failed"
+    }
+  ]
+}
+```
 
 
 
