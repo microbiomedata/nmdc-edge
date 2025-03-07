@@ -29,7 +29,7 @@ def update_sample_in_mongodb(sample: dict, update_dict: dict) -> bool:
         return False
 
 
-def restore_files(project: str, config_file: str) -> str:
+def restore_files(project: str, config_file: str, restore_csv=None) -> str:
     """
     restore files from tape backup on JGI
     1) update file statuses
@@ -37,15 +37,19 @@ def restore_files(project: str, config_file: str) -> str:
     There is a limit of 10TB/day for restore requests
     :param project: name of project (i.e. grow or bioscales)
     :param config_file: config file
+    :param restore_csv: csv file with files to restore
     :return:
     """
     config = configparser.ConfigParser()
     config.read(config_file)
     update_file_statuses(project, config_file)
     mdb = get_mongo_db()
-    restore_df = pd.DataFrame(
-        [sample for sample in mdb.samples.find({'project': project,
-                                                'file_status': {'$ne': ['in transit', 'transferred']}})])
+    if not restore_csv:
+        restore_df = pd.DataFrame(
+            [sample for sample in mdb.samples.find({'project': project,
+                                                    'file_status': {'$ne': ['in transit', 'transferred']}})])
+    else:
+        restore_df = pd.read_csv(restore_csv)
     if restore_df.empty:
         return 'No samples'
     JDP_TOKEN = os.environ.get('JDP_TOKEN')
@@ -145,8 +149,9 @@ if __name__ == '__main__':
     parser.add_argument('config_file')
     parser.add_argument('-u', '--update_file_statuses', action='store_true', help='update status of file restorations',
                         default=False)
+    parser.add_argument('-r', '--restore_csv', default=None,  help='csv with files to restore')
     args = vars((parser.parse_args()))
     if args['update_file_statuses']:
         update_file_statuses(args['project_name'], args['config_file'])
     else:
-        restore_files(args['project_name'], args['config_file'])
+        restore_files(args['project_name'], args['config_file'], args['restore_csv'])
