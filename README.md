@@ -521,52 +521,7 @@ Import automation code and config files can be found
 - `/global/homes/n/nmdcda/nmdc_automation/prod`
 - `/global/homes/n/nmdcda/nmdc_automation/dev`
 
-1. Get the appropriate branch latest code from the nmdc_automation repo
-- in prod or dev `nmcd_automation` directory:
-- switch to the branch you want to run the code from - in this case `main`
-```bash
-(nmdc-automation-py3.11) (base) nmdcda@perlmutter:login38:~/nmdc_automation/dev/nmdc_automation> git status
-On branch main
-Your branch is up to date with 'origin/main'.
-```
-- fetch the latest code from the branch
-```bash
-(nmdc-automation-py3.11) (base) nmdcda@perlmutter:login38:~/nmdc_automation/dev/nmdc_automation> git fetch origin
-Unpacking objects: 100% (87/87), 27.19 KiB | 7.00 KiB/s, done.
-From github.com:microbiomedata/nmdc_automation
-   f313647..89b64f0  332-issues-with-rerunning-import-automation         -> origin/332-issues-with-rerunning-import-automation
-(nmdc-automation-py3.11) (base) nmdcda@perlmutter:login38:~/nmdc_automation/dev/nmdc_automation> git pull
-Already up to date.
-```
-2. Activate the nmdcda conda environment
-- logged in as `nmdcda` user. Can be run in nmdcda home directory (or any other directory)
-```bash
-(nersc-python) nmdcda@perlmutter:login16:~> eval "$__conda_setup"
-(base) nmdcda@perlmutter:login16:~>
-```
-3. Run `poetry install` to install the required packages
-- in the `nmdc_automation` directory in the `dev` or `prod` directory
-```bash
-(base) nmdcda@perlmutter:login16:~/nmdc_automation/dev/nmdc_automation> poetry install
-Installing dependencies from lock file
-
-No dependencies to install or update
-
-Installing the current project: nmdc-automation (0.1.0)
-```
-
-4. Run `poetry shell` to activate the poetry environment
-```bash
-(base) nmdcda@perlmutter:login16:~/nmdc_automation/dev/nmdc_automation> poetry shell
-Spawning shell within /global/cfs/cdirs/m3408/nmdc_automation/dev/nmdc_automation/.venv
-. /global/cfs/cdirs/m3408/nmdc_automation/dev/nmdc_automation/.venv/bin/activate
-bash: __add_sys_prefix_to_path: command not found
-bash: __add_sys_prefix_to_path: command not found
-To load conda do: eval "$__conda_setup"
-(base) nmdcda@perlmutter:login16:~/nmdc_automation/dev/nmdc_automation> . /global/cfs/cdirs/m3408/nmdc_automation/dev/nmdc_automation/.venv/bin/activate
-(nmdc-automation-py3.11) (base) nmdcda@perlmutter:login16:~/nmdc_automation/dev/nmdc_automation> 
-```
-
+[Setup and Configuration](#set-up-and-configuration) is the same as for the Watcher
 
 #### Running the Import Process
 
