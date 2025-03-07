@@ -6,7 +6,7 @@ import pytest
 
 from jaws_client import api
 from jaws_client.config import Configuration
-
+@pytest.mark.integration
 def test_jaws_api_init(jaws_token_file, jaws_config_file_test):
     config = Configuration.from_files(jaws_config_file_test, jaws_token_file)
     jaws = api.JawsApi(config)
