@@ -18,7 +18,18 @@ available as metadata in the NMDC database, and data objects on the NMDC data po
 - mongodb-community needs to be installed and running on the local machine
 - Python 3.11 or later
 
-Mongodb installation instructions for Mac can be found [here](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
+
+### MongoDB Installation
+
+Install MongoDB using Homebrew on MacOS:
+
+```bash
+brew tap mongodb/brew
+brew install mongodb-community
+brew services start mongodb-community
+```
+
+Full Mongodb installation instructions for Mac can be found [here](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
 
  Ensure that the mongodb service is running:
 ```bash
