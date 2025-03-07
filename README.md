@@ -11,12 +11,18 @@
 An automation framework for running sequential metagenome analysis jobs and making the outputs
 available as metadata in the NMDC database, and data objects on the NMDC data portal.
 
+
+
 ## Installation
 
 ### Requirements
 
 - mongodb-community needs to be installed and running on the local machine
 - Python 3.11 or later
+- Poetry 
+
+
+Poetry Installation instructions can be found [Here](https://python-poetry.org/docs/#installing-with-pipx)
 
 
 ### MongoDB Installation
@@ -223,6 +229,8 @@ nmdcda   2044782  0.0  0.0   5504   744 ?        S    Mar06   0:00 tee -a watche
    4. `poetry shell` to use the environment
 
 Example setup:
+<details><summary>Example Setup</summary>
+
 ```bash
 (nersc-python) nmdcda@perlmutter:login38:~> pwd
 /global/homes/n/nmdcda
@@ -264,6 +272,9 @@ Spawning shell within /global/cfs/cdirs/m3408/nmdc_automation/dev/nmdc_automatio
 (base) nmdcda@perlmutter:login38:~/nmdc_automation/dev/nmdc_automation> . /global/cfs/cdirs/m3408/nmdc_automation/dev/nmdc_automation/.venv/bin/activate
 (nmdc-automation-py3.11) (base) nmdcda@perlmutter:login38:~/nmdc_automation/dev/nmdc_automation>
 ```
+</details>
+
+
 The `poetry shell` command will activate the environment for the current shell session. 
 Environment (nmdc-automation-py3.11) will be displayed in the prompt.
 
@@ -548,7 +559,9 @@ To load conda do: eval "$__conda_setup"
 - import.yaml
 Specifies import parameters for:
 - - Workflows
-```text
+<details><summary>Example Workflow</summary>
+
+```yaml
   - Name: Reads QC
     Import: true
     Type: nmdc:ReadQcAnalysis
@@ -569,18 +582,25 @@ Specifies import parameters for:
       - Filtered Sequencing Reads
       - QC Statistics
 ```
+
+</details>
+
 - - Data Objects
-```text
-    - data_object_type: Clusters of Orthologous Groups (COG) Annotation GFF
-      description: COGs for {id}
-      name: GFF3 format file with COGs
-      import_suffix: _cog.gff
-      nmdc_suffix: _cog.gff
-      input_to: [nmdc:MagsAnalysis]
-      output_of: nmdc:MetagenomeAnnotation
-      multiple: false
-      action: rename
+<details><summary>Example Data Object</summary>
+
+```yaml
+  - data_object_type: Clusters of Orthologous Groups (COG) Annotation GFF
+    description: COGs for {id}
+    name: GFF3 format file with COGs
+    import_suffix: _cog.gff
+    nmdc_suffix: _cog.gff
+    input_to: [nmdc:MagsAnalysis]
+    output_of: nmdc:MetagenomeAnnotation
+    multiple: false
+    action: rename
 ```
+</details>
+
 - - Workflow Metadata
 ```text
 Workflow Metadata:
@@ -608,7 +628,10 @@ api_url = "http://localhost:8000"
 (nmdc-automation-py3.11) (base) nmdcda@perlmutter:login16:~/nmdc_automation/dev> python nmdc_automation/nmdc_automation/run_process/run_import.py import-projects import_projects/import.tsv nmdc_automation/configs/import.yaml site_configuration_nersc.toml
 ```
 - Examine the log output to ensure that the import process ran successfully
-```bash
+
+<details><summary>Log Output</summary>
+
+```shell
 2025-02-06 12:25:23,507 INFO: Importing project from import_projects/import.tsv
 2025-02-06 12:25:23,507 INFO: Import Specifications:  from nmdc_automation/configs/import.yaml
 2025-02-06 12:25:23,507 INFO: Site Configuration:  from site_configuration_nersc.toml
@@ -717,8 +740,14 @@ api_url = "http://localhost:8000"
 2025-02-06 12:25:45,873 INFO: Validating 23 data objects and 3 workflow executions
 2025-02-06 12:25:47,037 INFO: Validation passed
 2025-02-06 12:25:47,037 INFO: Option --update-db not selected. No changes made
-- ```
+```
+
+</details>
+
 - Examine the output JSON file to ensure that the expected data was generated
+
+<details><summary>Example Update JSON</summary>
+
 ```json
 {
     "data_object_set": [
@@ -1056,13 +1085,18 @@ api_url = "http://localhost:8000"
         }
     ]
 }
-
 ```
+
+</details>
+
+
 - Run import again with `--update-db` option to update the database with the new data - save the log output
 ```bash
 (nmdc-automation-py3.11) (base) nmdcda@perlmutter:login16:~/nmdc_automation/dev> python nmdc_automation/nmdc_automation/run_process/run_import.py import-projects import_projects/import.tsv nmdc_automation/configs/import.yaml site_configuration_nersc.toml --update-db 2>&1 | tee import.log
 ```
 - Examine the log output to ensure that the expected data was updated in the database
+<details><summary>Log Output</summary>
+
 ```bash
 2025-02-06 12:35:12,835 INFO: Project has 66 files
 2025-02-06 12:35:12,835 INFO: Mapped: 30 files
@@ -1112,4 +1146,6 @@ api_url = "http://localhost:8000"
 2025-02-06 12:35:18,928 INFO: Updating minted IDs
 2025-02-06 12:35:18,928 INFO: Writing minted IDs to /global/cfs/cdirs/m3408/aim2/dev/1000_soils/1000_soils_analysis_projects/Ga0533572/nmdc:omprc-12-hgksne68_minted_ids.json
 ```
+
+</details>
 
