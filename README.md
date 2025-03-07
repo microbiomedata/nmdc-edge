@@ -333,15 +333,8 @@ names `nohup.out` in addition to being written to the `watcher.log` file.
 
 #### Monitoring the Watcher
 
-1. The watcher writes a file `host-prod.last` in `nmdc_automation/prod` or `nmdc_auotmation/dev` showing which node it is running on
-2. ssh to that node
-```shell
-(base) nmdcda@perlmutter:login07:~> cd nmdc_automation/dev
-(base) nmdcda@perlmutter:login07:~/nmdc_automation/dev> cat host-dev.last 
-login24
-(base) nmdcda@perlmutter:login07:~/nmdc_automation/dev> ssh login24
-```
-3. Search for the Watcher process `ps aux | grep watcher`
+Same process as as [Checking the Watcher Status](#check-the-watcher-status)
+
 
 #### Monitoring Jobs
 
@@ -429,6 +422,9 @@ state file is defined in the site configuration file. For dev this location is:
 `/global/cfs/cdirs/m3408/var/dev/agent.state`
 
 Example State File Entry:
+<details
+><summary>Example State File Entry</summary>
+
 ```json
 {
       "workflow": {
@@ -464,7 +460,10 @@ Example State File Entry:
       "failed_count": 3
     }
 ```
-Similar to a `jobs` record, with these additional things to note:
+
+</details>
+
+imilar to a `jobs` record, with these additional things to note:
 - `done` is a boolean indicating if the job is complete
 - `cromwell_jobid` is the job ID from the Cromwell service
 - `last_status` is the last known status of the job - this is updated by the watcher
