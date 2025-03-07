@@ -437,6 +437,8 @@ Similar to a `jobs` record, with these additional things to note:
 - `last_status` is the last known status of the job - this is updated by the watcher
 - `failed_count` is the number of times the job has failed
 
+##### Cromwell Job Status and Metadata
+
 With the cromwell_jobid, you can query the Cromwell service for the status of the job - the Cromwell service URL is
 defined in the site configuration file.
 
@@ -467,6 +469,16 @@ This will include the inputs, outputs and logs for the job, as well as failure i
 }
 ```
 
+#### Handling Failed Jobs
+NOTE: This is currently a manual process and should be used with caution.  We are working on a more automated solution.
+
+Forcing the Scheduler to create a new job for a specific DataGeneration ID can be done by deleting the existing job from the `jobs` collection.
+We would want to do this if the job failed because of a configuration error, and we have fixed the configuration and
+would want to create a new job with the updated configuration.
+
+Forcing the Watcher to re-claim and re-run a job can be done by deleting the operation from the `operations` collection
+and deleting the op_id and site_id from the `claims` array in the job document in the `jobs` collection. We would want
+to do this if the job failed because of a transient error, and we want to re-run the job with the same configuration.
 
 
 
