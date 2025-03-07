@@ -182,6 +182,33 @@ Watcher code and config files can be found
 - `/global/homes/n/nmdcda/nmdc_automation/prod`
 - `/global/homes/n/nmdcda/nmdc_automation/dev`
 
+#### Check the Watcher Status
+
+1. Check the last node the watcher was running on
+```shell
+(base) nmdcda@perlmutter:login07:~> cd nmdc_automation/dev
+(base) nmdcda@perlmutter:login07:~/nmdc_automation/dev> cat host-dev.last
+login24
+```
+2. ssh to that node
+```shell
+(base) nmdcda@perlmutter:login07:~/nmdc_automation/dev> ssh login24
+```
+
+3. Check for the watcher process
+```shell
+(base) nmdcda@perlmutter:login24:~> ps aux | grep watcher
+nmdcda    115825  0.0  0.0   8236   848 pts/94   S+   09:33   0:00 grep watcher
+nmdcda   2044781  0.4  0.0 146420 113668 ?       S    Mar06   5:42 python -m nmdc_automation.run_process.run_workflows watcher --config /global/homes/n/nmdcda/nmdc_automation/prod/site_configuration_nersc_prod.toml daemon
+nmdcda   2044782  0.0  0.0   5504   744 ?        S    Mar06   0:00 tee -a watcher-prod.log
+````
+
+4. **IF** we are going to restart the watcher, we need to kill the existing process
+```shell
+(base) nmdcda@perlmutter:login24:~> kill -9 2044781
+```
+
+
 #### Set-Up and Configuration
 
 1. Ensure you have the latest `nmdc_automation` code.
