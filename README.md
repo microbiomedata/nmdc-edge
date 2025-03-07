@@ -280,7 +280,7 @@ names `nohup.out` in addition to being written to the `watcher.log` file.
 - `/global/homes/n/nmdcda/nmdc_automation/dev`
 2. `export NMDC_LOG_LEVEL=INFO`
 3. `rm nohup.out`
-4. `nohup ./run.sh &` (for dev) OR `nohup ./run_prod.sh &` (for prod)
+4. `nohup ./run_dev.sh &` (for dev) OR `nohup ./run_prod.sh &` (for prod)
 
 #### Provision Workers
 
