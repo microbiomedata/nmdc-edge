@@ -11,14 +11,14 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
-from linkml_runtime.dumpers import yaml_dumper
-import yaml
-
 import pytz
 import requests
 
 from nmdc_automation.config import SiteConfig
 from nmdc_automation.models.nmdc import DataObject, WorkflowExecution, workflow_process_factory
+
+from jaws_client import api as jaws_api
+from jaws_client.config import Configuration as jaws_Configuration
 
 DEFAULT_MAX_RETRIES = 2
 
@@ -30,6 +30,9 @@ logger = logging.getLogger(__name__)
 
 class JobRunnerABC(ABC):
     """Abstract base class for job runners"""
+    def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager"):
+        self.config = site_config
+        self.workflow = workflow
 
     @abstractmethod
     def submit_job(self) -> str:
@@ -71,6 +74,43 @@ class JobRunnerABC(ABC):
         pass
 
 
+class JawsRunner(JobRunnerABC):
+    """ Job runner for J.A.W.S"""
+
+    def __init__(self,
+                 site_config: SiteConfig, workflow: "WorkflowStateManager", jaws_api: jaws_api.JawsApi,
+                 job_metadata: Dict[str, Any] = None,):
+        super().__init__(site_config, workflow)
+
+    def submit_job(self) -> str:
+        """ Submit a job """
+        return "Not implemented"
+
+    def get_job_metadata(self) -> Dict[str, Any]:
+        """ Get metadata for a job """
+        return {}
+
+    def get_job_status(self) -> str:
+        """ Get the status of a job """
+        return "Not implemented"
+
+    def job_id(self) -> Optional[str]:
+        """ Get the job id """
+        return None
+
+    def outputs(self) -> Dict[str, str]:
+        """ Get the outputs """
+        return {}
+
+    def metadata(self) -> Dict[str, Any]:
+        """ Get the metadata """
+        return {}
+
+    def max_retries(self) -> int:
+        """ Get the maximum number of retries """
+        return DEFAULT_MAX_RETRIES
+
+
 class CromwellRunner(JobRunnerABC):
     """Job runner for Cromwell"""
     LABEL_SUBMITTER_VALUE = "nmdcda"
@@ -94,10 +134,7 @@ class CromwellRunner(JobRunnerABC):
         :param max_retries: maximum number of retries for a job
         :param dry_run: if True, do not submit the job
         """
-        self.config = site_config
-        if not isinstance(workflow, WorkflowStateManager):
-            raise ValueError("workflow must be a WorkflowStateManager object")
-        self.workflow = workflow
+        super().__init__(site_config, workflow)
         self.service_url = self.config.cromwell_url
         self._metadata = {}
         if job_metadata:

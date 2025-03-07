@@ -5,14 +5,14 @@ import mongomock
 import pandas as pd
 import configparser
 
-from file_restoration import (
+from nmdc_automation.jgi_file_staging.file_restoration import (
     restore_files,
     update_file_statuses,
     update_sample_in_mongodb,
     check_restore_status, get_keep_files_list, filter_restore_files, check_file_type
 )
-from mongo import get_mongo_db
-from jgi_file_metadata import insert_samples_into_mongodb
+from nmdc_automation.jgi_file_staging.mongo import get_mongo_db
+from nmdc_automation.jgi_file_staging.jgi_file_metadata import insert_samples_into_mongodb
 
 
 class MyTestCase(unittest.TestCase):

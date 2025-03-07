@@ -1,23 +1,24 @@
+
 from nmdc_automation.workflow_automation.wfutils import (
     CromwellRunner,
     WorkflowJob,
     WorkflowStateManager,
-    _json_tmp,
+    JawsRunner,
 )
-from nmdc_automation.models.nmdc import DataObject, workflow_process_factory
+from nmdc_automation.models.nmdc import DataObject
 from nmdc_schema.nmdc import MagsAnalysis, EukEval
 import io
 import json
 import os
 import pytest
 import requests
-import tempfile
 from unittest import mock
 import importlib.resources
 import yaml
 from functools import lru_cache
-import linkml.validator
-from linkml_runtime.dumpers import yaml_dumper
+
+from jaws_client.api import JawsApi
+from jaws_client.config import Configuration
 
 
 @lru_cache(maxsize=None)
@@ -83,6 +84,15 @@ def test_cromwell_job_runner_get_job_metadata(site_config, fixtures_dir, mock_cr
     assert metadata['id'] == "cromwell-job-id-12345"
     # check that the metadata is cached
     assert job_runner.metadata == metadata
+
+
+def test_jaws_job_runner(site_config, fixtures_dir, jaws_config_file_test, jaws_test_token_file):
+    job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    state_manager = WorkflowStateManager(job_state)
+    config = Configuration.from_files(jaws_config_file_test, jaws_test_token_file)
+    api = JawsApi(config)
+    job_runner = JawsRunner(site_config, state_manager, api)
+    assert job_runner
 
 
 def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
@@ -174,6 +184,8 @@ def test_workflow_manager_fetch_release_file_failed_write(mock_get, fixtures_dir
 
         # Check that the file was not created
         assert not os.path.exists("test_file.txt")
+
+
 
 
 def test_cromwell_runner_setup_inputs_and_labels(site_config, fixtures_dir):

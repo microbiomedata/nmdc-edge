@@ -23,10 +23,10 @@ jobs:
     - name: setup_mongodb
       uses: supercharge/mongodb-github-action@v1.10.0
 
-    - name: Set up Python 3.9
+    - name: Set up Python 3.11
       uses: actions/setup-python@v3
       with:
-        python-version: "3.9"
+        python-version: "3.11"
 
     - name: Install Poetry
       uses: snok/install-poetry@v1
@@ -41,5 +41,6 @@ jobs:
 
     - name: Test with pytest
       run: |
-        poetry run pytest -m "not integration" ./tests --junit-xml=pytest.xml --cov-report=term  \
+        poetry run pytest -m "not (integration or integration_local)" ./tests --junit-xml=pytest.xml --cov-report=term  \
         --cov-report=xml --cov=nmdc_automation --local-badge-output-dir badges/
+

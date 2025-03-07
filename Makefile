@@ -1,4 +1,4 @@
 
 test:
-	poetry run pytest -m "not integration" --cov-report term-missing --cov=nmdc_automation ./tests
+	poetry run pytest --cov-report term --cov=nmdc_automation -m "not (integration or integration_local)" ./tests
 
