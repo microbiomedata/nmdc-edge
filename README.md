@@ -312,6 +312,8 @@ login24
 
 #### Monitoring Jobs
 
+##### Slurm and Condor
+
 - `sqs` Shows the Slurm queue
 ```shell
 JOBID            ST USER      NAME          NODES TIME_LIMIT       TIME  SUBMIT_TIME          QOS             START_TIME           FEATURES       NODELIST(REASON
@@ -324,6 +326,74 @@ Shows a new job with ID 35153609 in the queue (Pending State), and a running job
 ```shell
 7d07b3e5-edb2-414f-ba19-c570669f3b5f  f_annotate     65ce4da9-52eb-4d74-82e1-9b2b639e694a  65ce4da9-52eb-4d74-82e1-9b2b639e694a  Running   2024-03-27T00:02:34.316Z
 ```
+
+##### NMDC Database
+
+1. Query the `jobs` table in the NMDC database based on `was_informed_by` a specific DataGeneration ID
+```shell 
+db.getCollection("jobs").find({
+    "config.was_informed_by": "nmdc:omprc-11-sdyccb57"
+})
+```
+
+Similarly, you can query `workflow_executions` to find results based on `was_informed_by` a specific DataGeneration ID
+
+```shell 
+db.getCollection("workflow_execution_set").find({
+    "was_informed_by": "nmdc:omprc-11-sdyccb57"
+})
+``` 
+
+2. Job document example
+```json
+{
+    "workflow" : {
+        "id" : "Metagenome Assembly: v1.0.9"
+    },
+    "id" : "nmdc:9380c834-fab7-11ef-b4bd-0a13321f5970",
+    "created_at" : "2025-03-06T18:19:43.000+0000",
+    "config" : {
+        "git_repo" : "https://github.com/microbiomedata/metaAssembly",
+        "release" : "v1.0.9",
+        "wdl" : "jgi_assembly.wdl",
+        "activity_id" : "nmdc:wfmgas-12-k8dxr170.1",
+        "activity_set" : "workflow_execution_set",
+        "was_informed_by" : "nmdc:omprc-11-sdyccb57",
+        "trigger_activity" : "nmdc:wfrqc-12-dvn15085.1",
+        "iteration" : 1,
+        "input_prefix" : "jgi_metaAssembly",
+        "inputs" : {
+            "input_files" : "https://data.microbiomedata.org/data/nmdc:omprc-11-sdyccb57/nmdc:wfrqc-12-dvn15085.1/nmdc_wfrqc-12-dvn15085.1_filtered.fastq.gz",
+            "proj" : "nmdc:wfmgas-12-k8dxr170.1",
+            "shortRead" : false
+        },
+        "input_data_objects" : [],
+        "activity" : {},
+        "outputs" : []
+    },
+    "claims" : [ ]
+}
+```
+Things to note:
+- `config.was_informed_by` is the DataGeneration ID that is the root of this job
+- `config.trigger_activity` is the WorkflowExecution ID that triggered this job
+- `config.inputs` are the inputs to the job
+- `claims` a list of workers that have claimed the job. If this list is empty, the job is available to be claimed. 
+If the list is not empty, the job is being processed by a worker - example:
+```json
+{
+            "op_id" : "nmdc:sys0z232qf64",
+            "site_id" : "NERSC"
+        }
+```
+This refers to the `operation` and `site` that is processing the job.
+
+
+
+
+##### Watcher State File
+
+
 
 
 
