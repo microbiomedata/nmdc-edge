@@ -86,10 +86,10 @@ def test_cromwell_job_runner_get_job_metadata(site_config, fixtures_dir, mock_cr
     assert job_runner.metadata == metadata
 
 
-def test_jaws_job_runner(site_config, fixtures_dir, jaws_config_file_test, jaws_token_file):
+def test_jaws_job_runner(site_config, fixtures_dir, jaws_config_file_test, jaws_test_token_file):
     job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
     state_manager = WorkflowStateManager(job_state)
-    config = Configuration.from_files(jaws_config_file_test, jaws_token_file)
+    config = Configuration.from_files(jaws_config_file_test, jaws_test_token_file)
     api = JawsApi(config)
     job_runner = JawsRunner(site_config, state_manager, api)
     assert job_runner
