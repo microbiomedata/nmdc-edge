@@ -6,7 +6,7 @@ input {
     String      <WORKFLOW>_outdir
     Boolean     <WORKFLOW>_paired = false
     Boolean     <WORKFLOW>_short_read = true
-    Boolean     ReadbasedAnalysis_long_read = ReadbasedAnalysis_short_read == false
+    Boolean     <WORKFLOW>_long_read = ReadbasedAnalysis_short_read == false
     String      <WORKFLOW>_container = "microbiomedata/nmdc_taxa_profilers:1.0.5"
     String      <WORKFLOW>_db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
     String      <WORKFLOW>_db_kraken2 = "/refdata/Kraken2"
