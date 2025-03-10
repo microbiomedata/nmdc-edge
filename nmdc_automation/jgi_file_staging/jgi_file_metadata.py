@@ -1,6 +1,6 @@
 import configparser
 import sys
-
+from datetime import datetime
 import pandas as pd
 import numpy as np
 import requests
@@ -89,6 +89,10 @@ def get_analysis_files_df(proposal_id: int, files_df: pd.DataFrame, ACCESS_TOKEN
     gold_analysis_files_df = pd.merge(gold_analysis_data_df, files_df, left_on='itsApId',
                                       right_on='analysis_project_id')
     gold_analysis_files_df['file_type'] = gold_analysis_files_df["file_type"].astype(str)
+    gold_analysis_files_df['analysis_project_id'] = gold_analysis_files_df['analysis_project_id'].astype(str)
+    gold_analysis_files_df['seq_id'] = gold_analysis_files_df['seq_id'].astype(str)
+    gold_analysis_files_df['update_date'] = datetime.now()
+    gold_analysis_files_df['request_id'] = None
     gold_analysis_files_df = remove_unneeded_files(gold_analysis_files_df, remove_files)
     return gold_analysis_files_df
 
