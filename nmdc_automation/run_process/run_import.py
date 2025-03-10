@@ -207,7 +207,7 @@ def import_projects(ctx,  import_file, import_yaml, site_configuration, update_d
                     "md5_checksum": md5,
                     "data_object_type": mapping.data_object_type,
                     "was_generated_by": mapping.nmdc_process_id,
-                    "url": f"{import_mapper.data_source_url}/{import_mapper.data_generation_id}/{export_file}",
+                    "url": f"{import_mapper.data_source_url}/{import_mapper.data_generation_id}/{nmdc_process_id}/{nmdc_data_file_name}",
                     "description": description
                 }
                 # Add to the import_db if it doesn't already exist
