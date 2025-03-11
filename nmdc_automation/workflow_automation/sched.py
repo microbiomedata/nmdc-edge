@@ -129,7 +129,12 @@ class Scheduler:
                         continue
                     raise ValueError(f"Unable to find {do_type} in {do_by_type}")
                 input_data_objects.append(dobj.as_dict())
-                v = dobj["url"]
+
+                if k == "input_files":
+                    v = [dobj["url"]]
+                else:
+                    v = dobj["url"]
+                    
             # TODO: Make this smarter
             elif v == "{was_informed_by}":
                 v = job.informed_by
