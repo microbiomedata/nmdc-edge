@@ -144,13 +144,9 @@ class CromwellRunner(JobRunnerABC):
 
     def _generate_workflow_inputs(self) -> Dict[str, str]:
         """ Generate inputs for the job runner from the workflow state """
-        inputs = {}
-        prefix = self.workflow.input_prefix
-        for input_key, input_val in self.workflow.inputs.items():
-            # special case for resource
-            if input_val == "{resource}":
-                input_val = self.config.resource
-            inputs[f"{prefix}.{input_key}"] = input_val
+        inputs = self.workflow.generate_workflow_inputs()
+        # add the resource to the inputs
+        inputs["resource"] = self.config.resource
         return inputs
 
     def _generate_workflow_labels(self) -> Dict[str, str]:
@@ -321,6 +317,14 @@ class WorkflowStateManager:
             raise ValueError("opid already set in job state")
         if opid:
             self.cached_state["opid"] = opid
+
+    def generate_workflow_inputs(self) -> Dict[str, str]:
+        """ Generate inputs for the job runner from the workflow state """
+        inputs = {}
+        prefix = self.input_prefix
+        for input_key, input_val in self.inputs.items():
+            inputs[f"{prefix}.{input_key}"] = input_val
+        return inputs
 
     def update_state(self, state: Dict[str, Any]):
         self.cached_state.update(state)
@@ -652,6 +656,19 @@ class WorkflowJob:
 
         wfe = workflow_process_factory(wf_dict)
         return wfe
+
+    def generate_job_inputs(self) -> Dict[str, str]:
+        """
+        Generate the inputs for a job from the workflow state.
+        """
+        inputs = {}
+        prefix = self.workflow.input_prefix
+        for input_key, input_val in self.workflow.inputs.items():
+            # special case for resource
+            if input_val == "{resource}":
+                input_val = self.site_config.resource
+            inputs[f"{prefix}.{input_key}"] = input_val
+        return inputs
 
 
 
