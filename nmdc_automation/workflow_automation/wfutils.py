@@ -82,6 +82,39 @@ class JawsRunner(JobRunnerABC):
                  job_metadata: Dict[str, Any] = None,):
         super().__init__(site_config, workflow)
 
+    def generate_submission_files(self) -> Dict[str, Any]:
+        """ Generate the files needed for a J.A.W.S job submission """
+        files = {}
+
+        try:
+            # Get file paths
+            wdl_file = self.workflow.fetch_release_file(self.workflow.config["wdl"], suffix=".wdl")
+            bundle_file = self.workflow.fetch_release_file("bundle.zip", suffix=".zip")
+            workflow_inputs_path = _json_tmp(self.workflow.generate_workflow_inputs())
+
+
+            # Open files
+            files = {
+                "workflowSource": open(wdl_file, "rb"),
+                "workflowDependencies": open(bundle_file, "rb"),
+                "workflowInputs": open(workflow_inputs_path, "rb")
+            }
+
+            logger.info(f"WDL file: {wdl_file}")
+            logger.info(f"Bundle file: {bundle_file}")
+            # dump the workflow inputs and labels to the log
+            with open(workflow_inputs_path) as f:
+                inputs_dump = json.load(f)
+                logger.info("Workflow inputs:")
+                logger.info(json.dumps(inputs_dump, indent=2))
+
+        except Exception as e:
+            logger.error(f"Failed to generate submission files: {e}")
+            _cleanup_files(list(files.values()))
+            raise e
+
+        return files
+
     def submit_job(self) -> str:
         """ Submit a job """
         return "Not implemented"
@@ -193,18 +226,10 @@ class CromwellRunner(JobRunnerABC):
 
         except Exception as e:
             logger.error(f"Failed to generate submission files: {e}")
-            self._cleanup_files(list(files.values()))
+            _cleanup_files(list(files.values()))
             raise e
         return files
 
-    def _cleanup_files(self, files: List[Union[tempfile.NamedTemporaryFile, tempfile.SpooledTemporaryFile]]):
-        """Safely closes and removes files."""
-        for file in files:
-            try:
-                file.close()
-                os.unlink(file.name)
-            except Exception as e:
-                logger.error(f"Failed to cleanup file: {e}")
 
     def submit_job(self, force: bool = False) -> Optional[str]:
         """
@@ -246,7 +271,7 @@ class CromwellRunner(JobRunnerABC):
             logger.error(f"Failed to submit job: {e}")
             raise e
         finally:
-            self._cleanup_files(cleanup_files)
+            _cleanup_files(cleanup_files)
 
     def get_job_status(self) -> str:
         """ Get the status of a job from Cromwell """
@@ -681,3 +706,13 @@ def _json_tmp(data):
 
 def _md5(file):
     return hashlib.md5(open(file, "rb").read()).hexdigest()
+
+
+def _cleanup_files(files: List[Union[tempfile.NamedTemporaryFile, tempfile.SpooledTemporaryFile]]):
+    """Safely closes and removes files."""
+    for file in files:
+        try:
+            file.close()
+            os.unlink(file.name)
+        except Exception as e:
+            logger.error(f"Failed to cleanup file: {e}")
