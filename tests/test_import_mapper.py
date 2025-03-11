@@ -31,6 +31,8 @@ def mock_minted_ids():
 
 def test_update_do_mappings_from_import_files(import_mapper_instance):
     import_mapper_instance.update_do_mappings_from_import_files()
+    for fm_all in import_mapper_instance.mappings:
+        print(fm_all, "\n\n")
     assert len(import_mapper_instance.mappings) == 22
 
 
