@@ -1,6 +1,6 @@
 workflowlist = {
     ReadbasedAnalysis: {
-        wdl: 'https://raw.githubusercontent.com/microbiomedata/ReadbasedAnalysis/refs/tags/v1.0.9/ReadbasedAnalysis.wdl',
+        wdl: 'https://raw.githubusercontent.com/microbiomedata/ReadbasedAnalysis/refs/tags/v1.0.10/ReadbasedAnalysis.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'ReadbasedAnalysis',
         full_name: 'Read-based Taxonomy Classification',
