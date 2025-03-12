@@ -205,7 +205,7 @@ async function generateInputs(proj_home, workflow, proj) {
         templInputs = templInputs.replace(/<READS>/, JSON.stringify(reads));
         templInputs = templInputs.replace(/<ENABLED_TOOLS>/, JSON.stringify(workflow['enabled_tools']));
         templInputs = templInputs.replace(/<PAIRED>/, workflow['paired']);
-        templInputs = templInputs.replace(/<SHORT_READ>/, workflow['input_fastq']['shortRead']);
+        templInputs = templInputs.replace(/<SHORT_READ>/, workflow['shortRead']);
         templInputs = templInputs.replace(/<PREFIX>/, '"' + proj.name + '"');
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
 
