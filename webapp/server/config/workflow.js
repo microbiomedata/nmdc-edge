@@ -48,7 +48,7 @@ workflowlist = {
         wdl_version: '1.0'
     },
     MetaMAGs: {
-        wdl: 'https://raw.githubusercontent.com/microbiomedata/metaMAGs/v1.3.14/mbin_nmdc.wdl',
+        wdl: 'https://raw.githubusercontent.com/microbiomedata/metaMAGs/v1.3.16/mbin_nmdc.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'nmdc_mags',
         full_name: 'Metagenome MAGs',
