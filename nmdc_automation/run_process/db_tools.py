@@ -8,6 +8,7 @@ import os
 import click
 
 from nmdc_automation.config import SiteConfig
+from nmdc_automation.api import NmdcRuntimeApi
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -99,6 +100,74 @@ def update_zero_size_files(config_file, update_db):
     else:
         logger.info("Dry run. Database not updated")
         print(json.dumps(update_query, indent=2))
+
+
+
+@cli.command()
+@click.argument("config_file", type=click.Path(exists=True))
+@click.option("--update-db", is_flag=True, help="Update the database")
+def fix_data_object_urls(config_file, update_db):
+
+    site_config = SiteConfig(config_file)
+    username = site_config.username
+    password = site_config.password
+
+    runtime_api = NmdcRuntimeApi(site_config)
+
+    import requests
+    headers = {'accept': 'application/json', 'Authorization': f'Basic {username}:{password}'}
+
+    params = {
+        'filter': '{"url": {"$regex": "/ficus/"}}',
+        'max_page_size': '1000', }
+
+    response = requests.get(
+        'https://api-dev.microbiomedata.org/nmdcschema/data_object_set', params=params, headers=headers
+    )
+    if response.status_code != 200:
+        logger.error(f"Error in response: {response.status_code}")
+        return
+    data_objects = response.json().get("resources", [])
+
+    logger.info(f"Found {len(data_objects)} data objects with incorrect urls")
+
+    data_object_set = []
+
+
+    for dobj in data_objects:
+
+        logger.info(f"Updating {dobj['id']} {dobj['data_object_type']}")
+        # Raw reads don't get a URL
+        if dobj['data_object_type'] == 'Metagenome Raw Reads':
+            # delete the url
+            dobj.delete('url')
+            data_object_set.append(dobj)
+            continue
+
+        # splitting on / and taking the last 3 elements
+        url_parts = dobj['url'].split('/')[-3:]
+        new_url = f"https://data.microbiomedata.org/data/{url_parts[0]}/{url_parts[1]}/{url_parts[2]}"
+        # logger.info(f"New URL: {new_url}")
+        dobj['url'] = new_url
+        data_object_set.append(dobj)
+
+    data_objects_update = {"data_object_set": data_object_set}
+    data_objects_json = json.dumps(data_objects_update, indent=2)
+    print(data_objects_json)
+
+    # check that the json is valid
+    logger.info("Validating metadata")
+    val_result = runtime_api.validate_metadata(data_objects_update)
+    if val_result['result'] == "All Okay!":
+        logger.info("Metadata is valid")
+    else:
+        logger.error("Metadata is not valid")
+        logger.error(val_result)
+        return
+
+
+
+
 
 
 if __name__ == "__main__":
