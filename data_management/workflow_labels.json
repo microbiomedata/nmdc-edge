@@ -17,6 +17,7 @@
     "Annotation KEGG Orthology": "ko_tsv",
     "Annotation Enzyme Commission": "ec_tsv",
     "Scaffold Lineage tsv": "lineage_tsv",
+    "Clusters of Orthologous Groups (COG) Annotation GFF": "cog_gff",
     "Pfam Annotation GFF": "pfam_gff",
     "TIGRFam Annotation GFF": "tigrfam_gff",
     "SMART Annotation GFF": "smart_gff",

@@ -188,21 +188,22 @@ def create_json_structure(workflow_execution_id: str, workflow_execution: str, m
     """
     # contains list of dicts of metadata specific to each file
     outputs = []
-    try:
-        for metadata_keys in metadata_keys_list:
-            # generates metadata specific to each file
+
+    for metadata_keys in metadata_keys_list:
+        # generates metadata specific to each file
+        try:
+            file = metadata_keys["file"]
             output = {
-                "file": metadata_keys["file"],
+                "file": file,
                 "label": metadata_keys["label"],
                 "metadata": {
-                    "file_format": metadata_keys["file_format"],
                     "data_object_id": metadata_keys["data_object_id"],
                     "was_informed_by": metadata_keys["was_informed_by"]
                 }
             }
             outputs.append(output)
-    except KeyError:
-        logging.error(f"ERROR: key not found error: \n stack trace: {traceback.format_exc()}")
+        except KeyError:
+            logging.error(f"ERROR: key not found error: {file} \n stack trace: {traceback.format_exc()}")
 
     return {
         "metadata": {
