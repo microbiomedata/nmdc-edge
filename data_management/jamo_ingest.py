@@ -188,18 +188,21 @@ def create_json_structure(workflow_execution_id: str, workflow_execution: str, m
     """
     # contains list of dicts of metadata specific to each file
     outputs = []
-    for metadata_keys in metadata_keys_list:
-        # generates metadata specific to each file
-        output = {
-            "file": metadata_keys["file"],
-            "label": metadata_keys["label"],
-            "metadata": {
-                "file_format": metadata_keys["file_format"],
-                "data_object_id": metadata_keys["data_object_id"],
-                "was_informed_by": metadata_keys["was_informed_by"]
+    try:
+        for metadata_keys in metadata_keys_list:
+            # generates metadata specific to each file
+            output = {
+                "file": metadata_keys["file"],
+                "label": metadata_keys["label"],
+                "metadata": {
+                    "file_format": metadata_keys["file_format"],
+                    "data_object_id": metadata_keys["data_object_id"],
+                    "was_informed_by": metadata_keys["was_informed_by"]
+                }
             }
-        }
-        outputs.append(output)
+            outputs.append(output)
+    except KeyError:
+        logging.error(f"ERROR: key not found error: \n stack trace: {traceback.format_exc()}")
 
     return {
         "metadata": {
@@ -251,7 +254,6 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
 
         file = record["name"] = url.split('/')[-1] # todo - replace with url **
         metadata_keys["file"] = file
-        metadata_keys["file_format"] = file.split('.')[-1]  # todo match with config data_object_type and suffix; check for compression **
 
         metadata_keys["data_object_id"] = record["id"]
         data_object_type = record["data_object_type"]
