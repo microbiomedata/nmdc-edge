@@ -1,4 +1,7 @@
+version <VERSION>
+import "<WDL_IMPORT>" as <WORKFLOW>
 
+workflow main_workflow {
     input {
         Array[String] <WORKFLOW>_accessions
         Boolean <WORKFLOW>_clean=true
@@ -11,3 +14,4 @@
         clean=<WORKFLOW>_clean,
         outdir=<WORKFLOW>_OUTDIR
     }
+}
