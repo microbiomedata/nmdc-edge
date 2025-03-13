@@ -252,7 +252,6 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
         metadata_keys["file_format"] = file.split('.')[-1]  # todo match with config data_object_type and suffix; check for compression **
 
         metadata_keys["data_object_id"] = record["id"]
-        # metadata_keys["label"]
         data_object_type = record["data_object_type"]
 
         if file.endsWith(data_object_type_suffix_dict[data_object_type]): # check if the file suffix matches what is given in the config file
@@ -261,6 +260,11 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
             metadata_keys["file_format"] = file.split('.')[-1]
         else:
             logging.debug(f"ERROR: mismatch between expected and actual file format or data_object_type {url}")
+
+        with open('workflow_labels.json', 'r') as workflow_labels_file:
+            workflow_labels = json.load(workflow_labels_file)
+            # json structure: {"mags": {data_object_type1, label1},..}
+            metadata_keys["label"] = workflow_labels["workflow_execution"]["data_object_type"]
 
         metadata_keys_list.append(metadata_keys)
 
