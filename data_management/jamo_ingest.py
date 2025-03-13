@@ -11,6 +11,8 @@ import requests
 import click
 from typing import Dict, List, Optional
 import logging
+import traceback
+import argparse
 
 _BASE_URL = "https://api.microbiomedata.org/"
 
@@ -247,24 +249,32 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
         prefix = "https://data.microbiomedata.org/data/"
         metadata_keys["was_informed_by"] = url.removeprefix(prefix).split('/')[0]
 
-        file = record["name"] # todo - replace with url **
+        file = record["name"] = url.split('/')[-1] # todo - replace with url **
         metadata_keys["file"] = file
         metadata_keys["file_format"] = file.split('.')[-1]  # todo match with config data_object_type and suffix; check for compression **
 
         metadata_keys["data_object_id"] = record["id"]
         data_object_type = record["data_object_type"]
 
-        if file.endsWith(data_object_type_suffix_dict[data_object_type]): # check if the file suffix matches what is given in the config file
-            if file.endsWith(".gz") or file.endsWith(".zip"):
-                metadata_keys["compression"] = file.split('.')[-1]
-            metadata_keys["file_format"] = file.split('.')[-1]
-        else:
-            logging.debug(f"ERROR: mismatch between expected and actual file format or data_object_type {url}")
+        # if file.endsWith(data_object_type_suffix_dict[data_object_type]): # check if the file suffix matches what is given in the config file
+            # if file.endsWith(".gz") or file.endsWith(".zip"):
+            #     metadata_keys["compression"] = file.split('.')[-1]
+            # metadata_keys["file_format"] = file.split('.')[-1]
+        # else:
+        try:
+            if file.endswith(data_object_type_suffix_dict[data_object_type]):
+                logging.info("match found")
+                with open('workflow_labels.json', 'r') as workflow_labels_file:
+                    workflow_labels = json.load(workflow_labels_file)
+                    # json structure: {"mags": {data_object_type1, label1},..}
+                    try:
+                        metadata_keys["label"] = workflow_labels[workflow_execution][data_object_type]
+                    except KeyError:
+                        logging.error(f"ERROR: key not found {url}, {workflow_execution}, {data_object_type}  \n Stack trace: {traceback.format_exc()}")
+        except KeyError:
+            logging.error(f"ERROR: mismatch between expected and actual file format or data_object_type {url} \n Stack trace: {traceback.format_exc()}")
 
-        with open('workflow_labels.json', 'r') as workflow_labels_file:
-            workflow_labels = json.load(workflow_labels_file)
-            # json structure: {"mags": {data_object_type1, label1},..}
-            metadata_keys["label"] = workflow_labels["workflow_execution"]["data_object_type"]
+
 
         metadata_keys_list.append(metadata_keys)
 
@@ -292,8 +302,14 @@ def main():
     2. Processes and validates the data
     3. Generates individual metadata files for each workflow execution
     """
-    # Produces valid_data.json
-    valid_data = get_workflow_execution_set()
+    parser = argparse.ArgumentParser(description="Run specific methods based on flags")
+    parser.add_argument("-clean", action="store_true", help="Start a clean run with a fresh pull of NMDC data from the runtime api")
+    args = parser.parse_args()
+    if args.clean:
+        get_workflow_execution_set() # Produces valid_data.json
+
+    with open('valid_data/valid_data.json', 'r') as valid_data_file:
+        valid_data = json.load(valid_data_file)
 
     # Process valid data
     process_data(valid_data)  # Pass valid_data as argument

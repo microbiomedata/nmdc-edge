@@ -1,0 +1,103 @@
+{
+  "MagsAnalysis": {
+    "CheckM Statistics": "MagsAnalysis",
+    "final_hqmq_bins_zip": "Metagenome HQMQ Bins Compression File",
+    "final_gtdbtk_bac_summary": "GTDBTK Bacterial Summary",
+    "final_gtdbtk_ar_summary": "GTDBTK Archaeal Summary",
+    "mags_version": "Metagenome Bins Info File",
+    "final_lq_bins_zip": "Metagenome LQ Bins Compression File",
+    "heatmap": "Metagenome Bins Heatmap",
+    "barplot": "Metagenome Bins Barplot",
+    "kronaplot": "Metagenome Bins Krona Plot"
+  },
+  "MetagenomeAnnotation": {
+    "proteins_faa": "Annotation Amino Acid FASTA",
+    "structural_annotation_gff": "Structural Annotation GFF",
+    "functional_annotation_gff": "Functional Annotation GFF",
+    "ko_tsv": "Annotation KEGG Orthology",
+    "ec_tsv": "Annotation Enzyme Commission",
+    "lineage_tsv": "Scaffold Lineage tsv",
+    "cog_gff": "Scaffold Lineage tsv",
+    "pfam_gff": "Pfam Annotation GFF",
+    "tigrfam_gff": "TIGRFam Annotation GFF",
+    "smart_gff": "SMART Annotation GFF",
+    "supfam_gff": "SUPERFam Annotation GFF",
+    "cath_funfam_gff": "CATH FunFams (Functional Families) Annotation GFF",
+    "crt_gff": "CRT Annotation GFF",
+    "genemark_gff": "Genemark Annotation GFF",
+    "prodigal_gff": "Prodigal Annotation GFF",
+    "trna_gff": "TRNA Annotation GFF",
+    "rfam_gff": "RFAM Annotation GFF",
+    "ko_ec_gff": "KO_EC Annotation GFF",
+    "product_names_tsv": "Product Names",
+    "gene_phylogeny_tsv": "Gene Phylogeny tsv",
+    "crt_crispr": "Crispr Terms",
+    "stats_tsv": "Annotation Statistics",
+    "contig_names_mapping_tsv": "Contig Mapping File",
+    "imgap_info": "Annotation Info File",
+    "renamed_fasta": "Assembly Contigs"
+  },
+  "MetagenomeAssembly": {
+    "contigs": "Assembly Contigs",
+    "scaffolds": "Assembly Scaffolds",
+    "covstats": "Assembly Coverage Stats",
+    "agp": "Assembly AGP",
+    "bam": "Assembly Coverage BAM",
+    "asminfo": "Assembly Info File"
+  },
+  "MetatranscriptomeAnnotation": {
+    "proteins_faa": "Annotation Amino Acid FASTA",
+    "structural_annotation_gff": "Structural Annotation GFF",
+    "functional_annotation_gff": "Functional Annotation GFF",
+    "ko_tsv": "Annotation KEGG Orthology",
+    "ec_tsv": "Annotation Enzyme Commission",
+    "lineage_tsv": "Scaffold Lineage tsv",
+    "cog_gff": "Scaffold Lineage tsv",
+    "pfam_gff": "Pfam Annotation GFF",
+    "tigrfam_gff": "TIGRFam Annotation GFF",
+    "smart_gff": "SMART Annotation GFF",
+    "supfam_gff": "SUPERFam Annotation GFF",
+    "cath_funfam_gff": "CATH FunFams (Functional Families) Annotation GFF",
+    "crt_gff": "CRT Annotation GFF",
+    "genemark_gff": "Genemark Annotation GFF",
+    "prodigal_gff": "Prodigal Annotation GFF",
+    "trna_gff": "TRNA Annotation GFF",
+    "rfam_gff": "RFAM Annotation GFF",
+    "ko_ec_gff": "KO_EC Annotation GFF",
+    "product_names_tsv": "Product Names",
+    "gene_phylogeny_tsv": "Gene Phylogeny tsv",
+    "crt_crispr": "Crispr Terms",
+    "stats_tsv": "Annotation Statistics",
+    "contig_names_mapping_tsv": "Contig Mapping File",
+    "imgap_info": "Annotation Info File",
+    "renamed_fasta": "Assembly Contigs"
+  },
+  "MetatranscriptomeAssembly": {
+    "metatranscriptome_assembly": "Assembly Contigs",
+    "metatranscriptome_assembly_coverage": "Assembly Coverage Stats",
+    "metatranscriptome_alignment": "Assembly Coverage BAM",
+    "metatranscriptome_alignment_index": "BAI File",
+    "rqc_info": "Assembly Info File"
+  },
+  "MetatranscriptomeExpressionAnalysis": {
+    "counts": "Metatranscriptome Expression",
+    "info_file": "Metatranscriptome Expression Info File"
+  },
+  "ReadBasedTaxonomyAnalysis": {
+    "final_gottcha2_report_tsv": "GOTTCHA2 Classification Report",
+    "final_gottcha2_full_tsv": "GOTTCHA2 Report Full",
+    "final_gottcha2_krona_html": "GOTTCHA2 Krona Plot",
+    "final_centrifuge_classification_tsv": "Centrifuge Taxonomic Classification",
+    "final_centrifuge_report_tsv": "Centrifuge output report file",
+    "final_centrifuge_krona_html": "Centrifuge Krona Plot",
+    "final_kraken2_classification_tsv": "Kraken2 Taxonomic Classification",
+    "final_kraken2_report_tsv": "Kraken2 Classification Report",
+    "final_kraken2_krona_html": "Kraken2 Krona Plot",
+    "info_file": "Read Based Analysis Info File"
+  },
+  "ReadsQcAnalysis": {
+    "filtered_fastq": "Filtered Sequencing Reads",
+    "filtered_report": "QC Statistics",
+    "filtered_methods_report": "Read Filtering Info File"
+  }
+}
