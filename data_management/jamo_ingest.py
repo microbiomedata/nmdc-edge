@@ -10,6 +10,7 @@ import os
 import requests
 import click
 from typing import Dict, List, Optional
+import logging
 
 _BASE_URL = "https://api.microbiomedata.org/"
 
@@ -208,7 +209,7 @@ def create_json_structure(workflow_execution_id: str, workflow_execution: str, m
     }
 
 
-def _get_label():
+def _get_file_suffix():
     config_yaml = 'config.yaml'
 
     with open(config_yaml, 'r') as config_file:
@@ -235,6 +236,7 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
         records: List of record dictionaries containing workflow output data
     """
     metadata_keys_list: List[Dict] = []
+    data_object_type_suffix_dict = _get_file_suffix()
 
     for record in records:
         """Process a single record and extract relevant information."""
@@ -245,12 +247,20 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
         prefix = "https://data.microbiomedata.org/data/"
         metadata_keys["was_informed_by"] = url.removeprefix(prefix).split('/')[0]
 
-        file = record["name"]
+        file = record["name"] # todo - replace with url **
         metadata_keys["file"] = file
-        metadata_keys["file_format"] = file.split('.')[-1] # todo handle files with no extensions
+        metadata_keys["file_format"] = file.split('.')[-1]  # todo match with config data_object_type and suffix; check for compression **
 
         metadata_keys["data_object_id"] = record["id"]
-        metadata_keys["label"] = record["data_object_type"]
+        # metadata_keys["label"]
+        data_object_type = record["data_object_type"]
+
+        if file.endsWith(data_object_type_suffix_dict[data_object_type]): # check if the file suffix matches what is given in the config file
+            if file.endsWith(".gz") or file.endsWith(".zip"):
+                metadata_keys["compression"] = file.split('.')[-1]
+            metadata_keys["file_format"] = file.split('.')[-1]
+        else:
+            logging.debug(f"ERROR: mismatch between expected and actual file format or data_object_type {url}")
 
         metadata_keys_list.append(metadata_keys)
 
