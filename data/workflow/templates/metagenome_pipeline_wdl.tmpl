@@ -1,15 +1,15 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/microbiomedata/ReadsQC/refs/tags/v1.0.12/shortReadsqc.wdl" as readsQC
+import "https://raw.githubusercontent.com/microbiomedata/ReadsQC/refs/tags/v1.0.14/rqcfilter.wdl" as readsQC
 import "readsqc_preprocess.wdl" as readsqc_preprocess
 import "readsqc_output.wdl" as readsqc_output
-import "https://raw.githubusercontent.com/microbiomedata/ReadbasedAnalysis/v1.0.8/ReadbasedAnalysis.wdl" as readbasedAnalysis
+import "https://raw.githubusercontent.com/microbiomedata/ReadbasedAnalysis/refs/tags/v1.0.10/ReadbasedAnalysis.wdl" as readbasedAnalysis
 import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output
 import "nmdcEDGE_assembly.wdl" as metaAssembly
 import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/refs/tags/v1.1.4/annotation_full.wdl" as metaAnnotation
 import "annotation_output.wdl" as metaAnnotationOutput
-import "https://raw.githubusercontent.com/microbiomedata/metaMAGs/v1.3.10/mbin_nmdc.wdl" as metaMAGs
+import "https://raw.githubusercontent.com/microbiomedata/metaMAGs/v1.3.11/mbin_nmdc.wdl" as metaMAGs
 import "viral-plasmid_wf.wdl" as viralPlasmid
 import "mbin_nmdc_output.wdl" as metaMAGsOutput
 
@@ -17,26 +17,23 @@ workflow main_workflow {
     input {
         # ReadsQC
         Array[File] input_files
-        String      readsQC_outdir
-        Boolean     input_interleaved = true
         Array[File] input_fq1=[]
         Array[File] input_fq2=[]
-        String      readsQC_database="/refdata"
+        String      readsQC_outdir
+        Boolean     input_interleaved
+        Boolean     short_read
         String      proj = "metagenome_workflow"
-        String      readsQC_vis_container="microbiomedata/fastqc_vis:1.0"
-        Array[File] rqcfiltered_reads = nmdc_rqcfilter_call.filtered_final
+        String      readsQC_vis_container="microbiomedata/fastqc_vis:1.1"
+        Array[File] rqcfiltered_reads = select_all(nmdc_rqcfilter_call.filtered_final)
         # ReadbasedAnalysis
         Map[String, Boolean] readbasedAnalysis_enabled_tools = {
             "gottcha2": true,
             "kraken2": true,
             "centrifuge": true
         }
-        Int     readbasedAnalysis_cpu = 4
         String  readbasedAnalysis_prefix
         String  readbasedAnalysis_outdir
-        Boolean readbasedAnalysis_paired = false
-        String  ReadbasedAnalysis_container = "microbiomedata/nmdc_taxa_profilers:1.0.5"
-        String  readsQC_bbtools_container="microbiomedata/bbtools:38.96"
+        Boolean readbasedAnalysis_paired
         String  db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
         String  db_kraken2 = "/refdata/Kraken2"
         String  db_centrifuge = "/refdata/Centrifuge/hpv"
@@ -112,30 +109,32 @@ workflow main_workflow {
             input_fq1=input_fq1,
             input_fq2=input_fq2,
             outdir=readsQC_outdir,
-            input_interleaved=input_interleaved
+            input_interleaved=input_interleaved,
+            shortRead=short_read
     }
 
     scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
-        call readsQC.ShortReadsQC  as nmdc_rqcfilter_call {
+        call readsQC.rqcfilter as nmdc_rqcfilter_call {
             input:
-                input_files=input_files,
-                input_fq1=input_fq1,
-                input_fq2=input_fq2,
+                input_files=[file],
+                input_fq1=[],
+                input_fq2=[],
                 proj=proj,
-                interleaved=input_interleaved
+                interleaved=true,
+                shortRead=short_read
         }
     }
 
     call readsqc_output.readsqc_output as readsqc_output {
         input:
-          input_files = rqcfiltered_reads,
-          input_files_prefix = select_first([readsqc_preprocess.input_files_prefix, [""]]),
-          filtered_stats_final = nmdc_rqcfilter_call.filtered_stats_final,
-          filtered_stats2_final = nmdc_rqcfilter_call.filtered_stats2_final,
-          filtered_stat_json = nmdc_rqcfilter_call.filter_stat_json,
-          rqc_info = nmdc_rqcfilter_call.rqc_info, 
-          outdir=readsQC_outdir,
-          vis_container=readsQC_vis_container
+            input_files = rqcfiltered_reads,
+            input_files_prefix = select_first([readsqc_preprocess.input_files_prefix, []]),
+            filtered_stats_final = select_all(nmdc_rqcfilter_call.filtered_stats_final),
+            filtered_stats2_final = select_all(nmdc_rqcfilter_call.filtered_stats2_final),
+            filtered_stat_json = select_all(nmdc_rqcfilter_call.stats),
+            rqc_info = select_all(nmdc_rqcfilter_call.rqc_info),
+            outdir=readsQC_outdir,
+            vis_container=readsQC_vis_container
     }
 
     call readbasedanalysis_preprocess.preprocess as readbased_preprocess {
@@ -146,14 +145,13 @@ workflow main_workflow {
 
     call readbasedAnalysis.ReadbasedAnalysis as ReadbasedAnalysis_call {
         input:
-            db_gottcha2=db_gottcha2, 
-            db_kraken2=db_kraken2, 
-            db_centrifuge=db_centrifuge,
             input_file= select_first([readbased_preprocess.input_file_gz, [""]]),
             proj=readbasedAnalysis_prefix,
             paired=readbasedAnalysis_paired,
-            bbtools_container=readsQC_bbtools_container,
-            docker=ReadbasedAnalysis_container
+            long_read=short_read == false,
+            db_gottcha2=db_gottcha2, 
+            db_kraken2=db_kraken2, 
+            db_centrifuge=db_centrifuge
     }
 
      call readbasedAnalysis_output.readbasedAnalysis_output as ReadbasedAnalysis_output {
@@ -173,15 +171,19 @@ workflow main_workflow {
 
     call metaAssembly.nmdc_edge_assembly as metaAssembly_call {
         input:
+            input_file=rqcfiltered_reads,
+            outdir=metaAssembly_outdir,
+            uniquekmer=metaAssembly_uniquekmer,
+            bbtools_container=metaAssembly_bbtools_container,
+            spades_container=metaAssembly_spades_container, 
+            quast_container=metaAssembly_quast_container,
             memory=metaAssembly_memory,
             threads=metaAssembly_threads,
-            input_file=rqcfiltered_reads,
+            input_interleaved = true,
             input_fq1=input_fq1,
             input_fq2=input_fq2,
-            input_interleaved = true,
-            outdir=metaAssembly_outdir,
             proj=proj,
-            bbtools_container=metaAssembly_bbtools_container
+            shortRead=short_read
     }
 
     call viralPlasmid.viral as viralPlasmid_call {
@@ -252,9 +254,9 @@ workflow main_workflow {
             git_url=git_url,
             informed_by=informed_by,
             read = if (input_interleaved) then input_files else flatten([input_fq1,input_fq2]),
-            filtered = nmdc_rqcfilter_call.filtered_final,
-            filtered_stats = nmdc_rqcfilter_call.filtered_stats_final,
-            filtered_stats2 = nmdc_rqcfilter_call.filtered_stats2_final,
+            filtered = select_all(nmdc_rqcfilter_call.filtered_final),
+            filtered_stats = select_all(nmdc_rqcfilter_call.filtered_stats_final),
+            filtered_stats2 = select_all(nmdc_rqcfilter_call.filtered_stats2_final),
             fasta=metaAssembly_contig,
             scaffold=metaAssembly_call.scaffold,
             agp=metaAssembly_call.agp,
