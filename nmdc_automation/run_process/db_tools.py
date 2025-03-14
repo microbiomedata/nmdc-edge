@@ -153,17 +153,30 @@ def fix_data_object_urls(config_file, update_db):
 
     data_objects_update = {"data_object_set": data_object_set}
     data_objects_json = json.dumps(data_objects_update, indent=2)
-    print(data_objects_json)
 
     # check that the json is valid
     logger.info("Validating metadata")
     val_result = runtime_api.validate_metadata(data_objects_update)
     if val_result['result'] == "All Okay!":
         logger.info("Metadata is valid")
+
+        if update_db:
+            logger.info("Updating the database")
+            resp = runtime_api.submit_metadata(data_objects_update)
+            logger.info(resp)
+
+        else:
+            logger.info("Dry run. Database not updated")
+            print(data_objects_json)
+            return
+
     else:
         logger.error("Metadata is not valid")
         logger.error(val_result)
+        print(data_objects_json)
         return
+
+
 
 
 
