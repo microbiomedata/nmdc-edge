@@ -107,7 +107,7 @@ def get_data_object_set(base_api_url: str, max_page_size: int) -> Dict:
     return kv_store
 
 
-def get_workflow_execution_set(base_api_url: str = _BASE_URL, max_page_size: int = 100000) -> Dict[str, List[str]]:
+def get_workflow_execution_set(base_api_url: str = _BASE_URL, max_page_size: int = 200000) -> Dict[str, List[str]]:
     """
     Query workflow execution records and organize them by workflow type.
 
@@ -205,6 +205,7 @@ def create_json_structure(workflow_execution_id: str, workflow_execution: str, w
             outputs.append(output)
         except KeyError:
             logging.error(f"ERROR: key not found error: {file} data_object_id: {data_object_id}\n stack trace: {traceback.format_exc()}")
+            return
 
     return {
         "metadata": {
@@ -243,6 +244,12 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
         workflow_execution: Type/name of the workflow execution
         records: List of record dictionaries containing workflow output data
     """
+    with open('workflow_labels.json', 'r') as workflow_labels_file:
+        workflow_labels = json.load(workflow_labels_file)
+        if workflow_execution not in workflow_labels.keys():
+            logging.warning(f"workflow_execution {workflow_execution} {workflow_execution_id} type not supported")
+            return
+
     metadata_keys_list: List[Dict] = []
     data_object_type_suffix_dict = _get_file_suffix()
 
@@ -253,6 +260,9 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
         url = record["url"]
         metadata_keys["url"] = url
         prefix = "https://data.microbiomedata.org/data/"
+        if not url.startswith(prefix):
+            logging.warning(f"Data {url} outside NERSC")
+            continue
         # was_informed_by = url.removeprefix(prefix).split('/')[0]
         # metadata_keys["was_informed_by"] = was_informed_by
 
@@ -273,13 +283,11 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
         else:
             if file.endswith(".gz") or file.endswith("zip"):
                 metadata_keys["compression"] = file.split('.')[-1]
-            with open('workflow_labels.json', 'r') as workflow_labels_file:
-                workflow_labels = json.load(workflow_labels_file)
-                # json structure: {"mags": {data_object_type1, label1},..}
-                try:
-                    metadata_keys["label"] = workflow_labels[workflow_execution][data_object_type]
-                except KeyError:
-                    logging.error(f"ERROR: label not found for workflow_execution:{workflow_execution}, data_object_type:{data_object_type}, url:{url}, data_object_id:{data_object_id} \n Stack trace: {traceback.format_exc()}")
+            # json structure: {"mags": {data_object_type1, label1},..}
+            try:
+                metadata_keys["label"] = workflow_labels[workflow_execution][data_object_type]
+            except KeyError:
+                logging.error(f"ERROR: label not found for workflow_execution:{workflow_execution}, data_object_type:{data_object_type}, url:{url}, data_object_id:{data_object_id} \n Stack trace: {traceback.format_exc()}")
 
                 # if file.endswith(data_object_type_suffix_dict[data_object_type]): # check if the file suffix matches what is given in the config file
                 #     logging.info("match found")
@@ -298,6 +306,8 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
         metadata_keys_list.append(metadata_keys)
 
     json_structure = create_json_structure(workflow_execution_id, workflow_execution, was_informed_by, metadata_keys_list)
+    if json_structure is None:
+        logging.error(f"Could not generate metadata structure for {workflow_execution} {workflow_execution_id}")
     save_json(json_structure, f"metadata_files/metadata_{was_informed_by}_{workflow_execution_id}.json")
 
 

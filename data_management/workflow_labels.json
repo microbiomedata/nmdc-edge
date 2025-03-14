@@ -2,6 +2,7 @@
   "MagsAnalysis": {
     "CheckM Statistics": "MagsAnalysis",
     "Metagenome HQMQ Bins Compression File": "final_hqmq_bins_zip",
+    "Metagenome Bins": "final_hqmq_bins_zip",
     "GTDBTK Bacterial Summary": "final_gtdbtk_bac_summary",
     "GTDBTK Archaeal Summary": "final_gtdbtk_ar_summary",
     "Metagenome Bins Info File": "mags_version",
@@ -43,7 +44,8 @@
     "Assembly Coverage Stats": "covstats",
     "Assembly AGP": "agp",
     "Assembly Coverage BAM": "bam",
-    "Assembly Info File": "asminfo"
+    "Assembly Info File": "asminfo",
+    "Error Corrected Reads": "sr_bbcms_fq"
   },
   "MetatranscriptomeAnnotation": {
     "Annotation Amino Acid FASTA": "proteins_faa",
@@ -87,6 +89,7 @@
     "GOTTCHA2 Report Full": "final_gottcha2_full_tsv",
     "GOTTCHA2 Krona Plot": "final_gottcha2_krona_html",
     "Centrifuge Taxonomic Classification": "final_centrifuge_classification_tsv",
+    "Centrifuge Classification Report": "final_centrifuge_report_tsv",
     "Centrifuge output report file": "final_centrifuge_report_tsv",
     "Centrifuge Krona Plot": "final_centrifuge_krona_html",
     "Kraken2 Taxonomic Classification": "final_kraken2_classification_tsv",
@@ -94,7 +97,7 @@
     "Kraken2 Krona Plot": "final_kraken2_krona_html",
     "Read Based Analysis Info File": "info_file"
   },
-  "ReadsQcAnalysis": {
+  "ReadQcAnalysis": {
     "Filtered Sequencing Reads": "filtered_fastq",
     "QC Statistics": "filtered_report",
     "Read Filtering Info File": "filtered_methods_report"
