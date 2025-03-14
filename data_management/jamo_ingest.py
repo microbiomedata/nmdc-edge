@@ -107,7 +107,7 @@ def get_data_object_set(base_api_url: str, max_page_size: int) -> Dict:
     return kv_store
 
 
-def get_workflow_execution_set(base_api_url: str = _BASE_URL, max_page_size: int = 200000) -> Dict[str, List[str]]:
+def get_workflow_execution_set(base_api_url: str = _BASE_URL, max_page_size: int = 150000) -> Dict[str, List[str]]:
     """
     Query workflow execution records and organize them by workflow type.
 

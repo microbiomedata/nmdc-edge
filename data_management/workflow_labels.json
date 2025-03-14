@@ -34,6 +34,7 @@
     "Gene Phylogeny tsv": "gene_phylogeny_tsv",
     "Crispr Terms": "crt_crispr",
     "Annotation Statistics": "stats_tsv",
+    "Structural Annotation Stats Json": "stats_json",
     "Contig Mapping File": "contig_names_mapping_tsv",
     "Annotation Info File": "imgap_info",
     "Assembly Contigs": "renamed_fasta"
