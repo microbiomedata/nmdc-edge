@@ -140,13 +140,14 @@ def get_workflow_execution_set(base_api_url: str = _BASE_URL, max_page_size: int
         has_output_list = record.get("has_output", [])
         workflow_execution = record.get("type").removeprefix("nmdc:")
         workflow_execution_id = record.get("id")
+        was_informed_by = record.get("was_informed_by")
         valid_records = []
         for output_id in has_output_list:
             # Cross-reference workflow outputs against data_object_set to filter out invalid/missing records
             output_record = data_object_set.get(output_id)
             if output_record:
                 valid_records.append(output_record)
-        workflow_outputs_dict[workflow_execution_id] = [workflow_execution, valid_records]
+        workflow_outputs_dict[workflow_execution_id] = [workflow_execution, was_informed_by, valid_records]
 
     # Save results
     save_json(workflow_outputs_dict, "valid_data/valid_data.json")
@@ -156,7 +157,7 @@ def get_workflow_execution_set(base_api_url: str = _BASE_URL, max_page_size: int
     return workflow_outputs_dict
 
 
-def create_json_structure(workflow_execution_id: str, workflow_execution: str, metadata_keys_list: List[Dict]) -> Dict:
+def create_json_structure(workflow_execution_id: str, workflow_execution: str, was_informed_by: str, metadata_keys_list: List[Dict]) -> Dict:
     """
     Create a standardized JSON structure for workflow execution metadata.
 
@@ -193,22 +194,23 @@ def create_json_structure(workflow_execution_id: str, workflow_execution: str, m
         # generates metadata specific to each file
         try:
             file = metadata_keys["file"]
+            data_object_id = metadata_keys["data_object_id"]
             output = {
                 "file": file,
                 "label": metadata_keys["label"],
                 "metadata": {
                     "data_object_id": metadata_keys["data_object_id"],
-                    "was_informed_by": metadata_keys["was_informed_by"]
                 }
             }
             outputs.append(output)
         except KeyError:
-            logging.error(f"ERROR: key not found error: {file} \n stack trace: {traceback.format_exc()}")
+            logging.error(f"ERROR: key not found error: {file} data_object_id: {data_object_id}\n stack trace: {traceback.format_exc()}")
 
     return {
         "metadata": {
             "workflow_execution": workflow_execution,
-            "workflow_execution_id": workflow_execution_id
+            "workflow_execution_id": workflow_execution_id,
+            "was_informed_by": was_informed_by
 
         },
         "outputs": outputs
@@ -229,7 +231,7 @@ def _get_file_suffix():
     return data_object_type_suffix_dict
 
 
-def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, records: List):
+def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, was_informed_by: str, records: List):
     """
     Generate and save metadata file for a specific workflow execution.
 
@@ -251,38 +253,52 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
         url = record["url"]
         metadata_keys["url"] = url
         prefix = "https://data.microbiomedata.org/data/"
-        metadata_keys["was_informed_by"] = url.removeprefix(prefix).split('/')[0]
+        # was_informed_by = url.removeprefix(prefix).split('/')[0]
+        # metadata_keys["was_informed_by"] = was_informed_by
 
-        file = record["name"] = url.split('/')[-1] # todo - replace with url **
+        file = record["name"] = url.split('/')[-1]
         metadata_keys["file"] = file
 
-        metadata_keys["data_object_id"] = record["id"]
+        data_object_id = record["id"]
+        metadata_keys["data_object_id"] = data_object_id
         data_object_type = record["data_object_type"]
 
-        # if file.endsWith(data_object_type_suffix_dict[data_object_type]): # check if the file suffix matches what is given in the config file
-            # if file.endsWith(".gz") or file.endsWith(".zip"):
-            #     metadata_keys["compression"] = file.split('.')[-1]
-            # metadata_keys["file_format"] = file.split('.')[-1]
-        # else:
-        try:
-            if file.endswith(data_object_type_suffix_dict[data_object_type]):
-                logging.info("match found")
-                with open('workflow_labels.json', 'r') as workflow_labels_file:
-                    workflow_labels = json.load(workflow_labels_file)
-                    # json structure: {"mags": {data_object_type1, label1},..}
-                    try:
-                        metadata_keys["label"] = workflow_labels[workflow_execution][data_object_type]
-                    except KeyError:
-                        logging.error(f"ERROR: key not found {url}, {workflow_execution}, {data_object_type}  \n Stack trace: {traceback.format_exc()}")
-        except KeyError:
-            logging.error(f"ERROR: mismatch between expected and actual file format or data_object_type {url} \n Stack trace: {traceback.format_exc()}")
+        if file.endswith("scaffold_lineage.tsv"): # hardcoding label for this file format # bug in referenced nmdc config file?
+            metadata_keys["label"] = "lineage_tsv"
+        # elif file.endswith("pairedMapped_sorted.bam"):
+        #     if workflow_execution == "MetagenomeAssembly":
+        #         metadata_keys["label"] = "covstats"
+        #     if workflow_execution == "MetatranscriptomeAssembly":
+        #         metadata_keys["label"] = "metatranscriptome_assembly_coverage"
+        else:
+            if file.endswith(".gz") or file.endswith("zip"):
+                metadata_keys["compression"] = file.split('.')[-1]
+            with open('workflow_labels.json', 'r') as workflow_labels_file:
+                workflow_labels = json.load(workflow_labels_file)
+                # json structure: {"mags": {data_object_type1, label1},..}
+                try:
+                    metadata_keys["label"] = workflow_labels[workflow_execution][data_object_type]
+                except KeyError:
+                    logging.error(f"ERROR: label not found for workflow_execution:{workflow_execution}, data_object_type:{data_object_type}, url:{url}, data_object_id:{data_object_id} \n Stack trace: {traceback.format_exc()}")
+
+                # if file.endswith(data_object_type_suffix_dict[data_object_type]): # check if the file suffix matches what is given in the config file
+                #     logging.info("match found")
+                #     with open('workflow_labels.json', 'r') as workflow_labels_file:
+                #         workflow_labels = json.load(workflow_labels_file)
+                #         # json structure: {"mags": {data_object_type1, label1},..}
+                #         try:
+                #             metadata_keys["label"] = workflow_labels[workflow_execution][data_object_type]
+                #         except KeyError:
+                #             logging.error(f"ERROR: key not found {url}, {data_object_id} {workflow_execution}, {data_object_type}  \n Stack trace: {traceback.format_exc()}")
+            # except KeyError:
+            #     logging.error(f"ERROR: mismatch between expected and actual file format or data_object_type {url} \n Stack trace: {traceback.format_exc()}")
 
 
 
         metadata_keys_list.append(metadata_keys)
 
-    json_structure = create_json_structure(workflow_execution_id, workflow_execution, metadata_keys_list)
-    save_json(json_structure, f"metadata_files/metadata_{workflow_execution_id}.json")
+    json_structure = create_json_structure(workflow_execution_id, workflow_execution, was_informed_by, metadata_keys_list)
+    save_json(json_structure, f"metadata_files/metadata_{was_informed_by}_{workflow_execution_id}.json")
 
 
 def process_data(valid_data: Dict[str, List]):
@@ -294,8 +310,8 @@ def process_data(valid_data: Dict[str, List]):
             - key (str): workflow_execution_id
             - value (List): [workflow_execution_type (str), list_of_records (List[Dict])]
     """
-    for workflow_execution_id, [workflow_execution, records] in valid_data.items():
-        generate_metadata_file(workflow_execution_id, workflow_execution, records)
+    for workflow_execution_id, [workflow_execution, was_informed_by, records] in valid_data.items():
+        generate_metadata_file(workflow_execution_id, workflow_execution, was_informed_by, records)
 
 
 def main():
