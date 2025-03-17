@@ -18,7 +18,6 @@ const logger = require('./util/logger');
 const common = require("./util/common");
 const pipelineMonitor = require("./crons/pipelineMonitor");
 const workflowMonitor = require("./crons/workflowMonitor");
-const workflowBigMemMonitor = require("./crons/workflowBigMemMonitor");
 const cromwellMonitor = require("./crons/cromwellMonitor");
 const fileUploadMonitor = require("./crons/fileUploadMonitor");
 const projectMonitor = require("./crons/projectMonitor");
@@ -197,10 +196,6 @@ if (config.NODE_ENV === 'production') {
   // monitor workflow requests on every 3 minutes 
   cron.schedule(config.CRON.SCHEDULES.WORKFLOW_MONITOR, function () {
     workflowMonitor();
-  });
-  // monitor workflow requests on every 3 minutes 
-  cron.schedule(config.CRON.SCHEDULES.WORKFLOW_BIG_MEM_MONITOR, function () {
-    workflowBigMemMonitor();
   });
   // monitor cromwell jobs on every 3 minutes 
   cron.schedule(config.CRON.SCHEDULES.CROMWELL_MONITOR, function () {

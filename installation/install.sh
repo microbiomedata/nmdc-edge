@@ -38,6 +38,10 @@ if [ ! -d  $io_home ]; then
   if [ -d  $test_data_home ]; then
     ln -s ${test_data_home} ${io_home}/public/test_data
   fi
+  opaver_web_app=$app_home/data/opaver_web
+  if [ -d  $opaver_web_app ]; then
+    ln -s ${opaver_web_app} ${io_home}/opaver_web
+  fi
 fi
 
 echo "Generate imports.zip"

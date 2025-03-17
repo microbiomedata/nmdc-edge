@@ -29,6 +29,15 @@ module.exports = function pipelineMonitor() {
                 logger.debug("No pipeline request to process");
                 return;
             }
+            //limit the running jobs the current project owner has
+            const runningProjects = await common.getRunningProjects(proj);
+            if(runningProjects > config.CROMWELL.NUM_JOBS_MAX_USER) {
+                logger.debug(proj.owner +" has max running projects.");
+                // set new updated time to move this request to the end of the queue
+                proj.updated = Date.now();
+                proj.save();
+                return;
+            }
             //parse conf.json 
             const proj_home = path.join(config.PROJECTS.BASE_DIR, proj.code);
             const conf_file = proj_home + "/conf.json";
@@ -131,6 +140,11 @@ function generateWDL(proj_home, pipeline) {
     const pipelineSettings = pipelinelist[pipeline];
     const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, pipelineSettings['wdl_tmpl']);
     let templWDL = String(fs.readFileSync(tmpl));
+    templWDL = templWDL.replace(/<READSQC_WDL>/g, workflowlist['ReadsQC']['wdl']);
+    templWDL = templWDL.replace(/<READBASEDANALYSIS_WDL>/g, workflowlist['ReadbasedAnalysis']['wdl']);
+    templWDL = templWDL.replace(/<ANNOTATION_WDL>/g, workflowlist['MetaAnnotation']['wdl']);
+    templWDL = templWDL.replace(/<MAGS_WDL>/g, workflowlist['MetaMAGs']['wdl']);
+    templWDL = templWDL.replace(/<ASSEMBLY_WDL>/g, workflowlist['MetaAssembly']['wdl']);
     //write to pipeline.wdl
     fs.writeFileSync(proj_home + '/pipeline.wdl', templWDL);
     return true;
@@ -240,6 +254,7 @@ async function generateInputs(proj_home, conf, proj) {
             templInputs = templInputs.replace(/<VIRUSPLASMID_OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
         } else if (workflow.name === 'MetaAnnotation') {
             templInputs = templInputs.replace(/<DOANNOTATION>/, workflow.paramsOn);
+            templInputs = templInputs.replace(/<OPAVER_WEB_DIR>/, config.IO.OPAVER_WEB_DIR);
             templInputs = templInputs.replace(/<METAANNOTATION_OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
         } else if (workflow.name === 'MetaMAGs') {
             templInputs = templInputs.replace(/<DOMETAMAGS>/, workflow.paramsOn);

@@ -1,20 +1,26 @@
-input {
-    Array[File] <WORKFLOW>_input_files
-    String      <WORKFLOW>_outdir
-    Boolean     <WORKFLOW>_input_interleaved=true
-    Boolean     <WORKFLOW>_short_read=true
-    Array[File] <WORKFLOW>_input_fq1
-    Array[File] <WORKFLOW>_input_fq2
-    String      <WORKFLOW>_prefix
-    String      <WORKFLOW>_vis_container="microbiomedata/fastqc_vis:1.1"
-}
+version <VERSION>
+import "<WDL_IMPORT>" as <WORKFLOW>
+import "readsqc_output.wdl" as readsqc_output
+import "readsqc_preprocess.wdl" as readsqc_preprocess
+
+workflow main_workflow {
+    input {
+        Array[File] <WORKFLOW>_input_files
+        String      <WORKFLOW>_outdir
+        Boolean     <WORKFLOW>_input_interleaved=true
+        Boolean     <WORKFLOW>_short_read=true
+        Array[File] <WORKFLOW>_input_fq1
+        Array[File] <WORKFLOW>_input_fq2
+        String      <WORKFLOW>_prefix
+        String      <WORKFLOW>_vis_container="microbiomedata/fastqc_vis:1.1"
+    }
 
 call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
     input:
         input_files=<WORKFLOW>_input_files,
         input_fq1=<WORKFLOW>_input_fq1,
         input_fq2=<WORKFLOW>_input_fq2,
-        outdir='preprocessed',
+        outdir=<WORKFLOW>_outdir,
         input_interleaved=<WORKFLOW>_input_interleaved,
         shortRead=<WORKFLOW>_short_read
 }

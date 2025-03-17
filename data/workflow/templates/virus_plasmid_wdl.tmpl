@@ -1,36 +1,41 @@
-input {
-    String <WORKFLOW>_database
-    File <WORKFLOW>_fasta
-    Float? <WORKFLOW>_min_score
-    Int? <WORKFLOW>_min_virus_hallmark
-    Int? <WORKFLOW>_min_plasmid_hallmark
-    Int <WORKFLOW>_cpu
-    Map[String, Boolean] <WORKFLOW>_option
-    Int? <WORKFLOW>_min_plasmid_hallmarks_short_seqs
-    Int? <WORKFLOW>_min_virus_hallmarks_short_seqs
-    Float? <WORKFLOW>_min_plasmid_marker_enrichment
-    Float? <WORKFLOW>_min_virus_marker_enrichment
-    Int? <WORKFLOW>_max_uscg
-    Boolean? <WORKFLOW>_score_calibration
-    Float? <WORKFLOW>_fdr
-    String <WORKFLOW>_outdir
-}
- 
-call <WORKFLOW>.viral as <ALIAS> {
-        input: 
-        database=<WORKFLOW>_database,
-        fasta=<WORKFLOW>_fasta,
-        min_score=<WORKFLOW>_min_score,
-        min_virus_hallmark=<WORKFLOW>_min_virus_hallmark,
-        min_plasmid_hallmark=<WORKFLOW>_min_plasmid_hallmark,
-        cpu=<WORKFLOW>_cpu,
-        option=<WORKFLOW>_option,
-        min_plasmid_hallmarks_short_seqs=<WORKFLOW>_min_plasmid_hallmarks_short_seqs,
-        min_virus_hallmarks_short_seqs=<WORKFLOW>_min_virus_hallmarks_short_seqs,
-        min_plasmid_marker_enrichment=<WORKFLOW>_min_plasmid_marker_enrichment,
-        min_virus_marker_enrichment=<WORKFLOW>_min_virus_marker_enrichment,
-        max_uscg=<WORKFLOW>_max_uscg,
-        score_calibration=<WORKFLOW>_score_calibration,
-        fdr=<WORKFLOW>_fdr,
-        outdir=<WORKFLOW>_outdir
+version <VERSION>
+import "<WDL_IMPORT>" as <WORKFLOW>
+
+workflow main_workflow {
+    input {
+        String <WORKFLOW>_database
+        File <WORKFLOW>_fasta
+        Float? <WORKFLOW>_min_score
+        Int? <WORKFLOW>_min_virus_hallmark
+        Int? <WORKFLOW>_min_plasmid_hallmark
+        Int <WORKFLOW>_cpu
+        Map[String, Boolean] <WORKFLOW>_option
+        Int? <WORKFLOW>_min_plasmid_hallmarks_short_seqs
+        Int? <WORKFLOW>_min_virus_hallmarks_short_seqs
+        Float? <WORKFLOW>_min_plasmid_marker_enrichment
+        Float? <WORKFLOW>_min_virus_marker_enrichment
+        Int? <WORKFLOW>_max_uscg
+        Boolean? <WORKFLOW>_score_calibration
+        Float? <WORKFLOW>_fdr
+        String <WORKFLOW>_outdir
+    }
+
+    call <WORKFLOW>.viral as <ALIAS> {
+            input:
+            database=<WORKFLOW>_database,
+            fasta=<WORKFLOW>_fasta,
+            min_score=<WORKFLOW>_min_score,
+            min_virus_hallmark=<WORKFLOW>_min_virus_hallmark,
+            min_plasmid_hallmark=<WORKFLOW>_min_plasmid_hallmark,
+            cpu=<WORKFLOW>_cpu,
+            option=<WORKFLOW>_option,
+            min_plasmid_hallmarks_short_seqs=<WORKFLOW>_min_plasmid_hallmarks_short_seqs,
+            min_virus_hallmarks_short_seqs=<WORKFLOW>_min_virus_hallmarks_short_seqs,
+            min_plasmid_marker_enrichment=<WORKFLOW>_min_plasmid_marker_enrichment,
+            min_virus_marker_enrichment=<WORKFLOW>_min_virus_marker_enrichment,
+            max_uscg=<WORKFLOW>_max_uscg,
+            score_calibration=<WORKFLOW>_score_calibration,
+            fdr=<WORKFLOW>_fdr,
+            outdir=<WORKFLOW>_outdir
+    }
 }

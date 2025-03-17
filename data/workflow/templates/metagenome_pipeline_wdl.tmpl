@@ -1,15 +1,15 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/microbiomedata/ReadsQC/refs/tags/v1.0.14/rqcfilter.wdl" as readsQC
+import "<READSQC_WDL>" as readsQC
 import "readsqc_preprocess.wdl" as readsqc_preprocess
 import "readsqc_output.wdl" as readsqc_output
-import "https://raw.githubusercontent.com/microbiomedata/ReadbasedAnalysis/refs/tags/v1.0.10/ReadbasedAnalysis.wdl" as readbasedAnalysis
+import "<READBASEDANALYSIS_WDL>" as readbasedAnalysis
 import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output
 import "nmdcEDGE_assembly.wdl" as metaAssembly
-import "https://raw.githubusercontent.com/microbiomedata/mg_annotation/refs/tags/v1.1.4/annotation_full.wdl" as metaAnnotation
+import "<ANNOTATION_WDL>" as metaAnnotation
 import "annotation_output.wdl" as metaAnnotationOutput
-import "https://raw.githubusercontent.com/microbiomedata/metaMAGs/v1.3.11/mbin_nmdc.wdl" as metaMAGs
+import "<MAGS_WDL>" as metaMAGs
 import "mbin_nmdc_output.wdl" as metaMAGsOutput
 import "viral-plasmid_wf.wdl" as viralPlasmid
 
@@ -62,7 +62,7 @@ workflow main_workflow {
         Int     metaAnnotation_additional_threads=8
         String  metaAnnotation_database_location="/refdata/img/"
         String  metaAnnotation_outdir
-        String  metaAnnotation_opaver_web_path="/expanse/projects/nmdc/edge_app/nmdc-edge/io/opaver_web/data"
+        String  metaAnnotation_opaver_web_path
         # metaMAGS
         String  metaMAGs_proj
         File    metaMAGs_contig_file = metaAnnotation_call.renamed_fasta
@@ -168,8 +168,16 @@ workflow main_workflow {
             centrifuge_krona_html=ReadbasedAnalysis_call.final_centrifuge_krona_html, 
             PREFIX=readbasedAnalysis_prefix
     }
+    call metaAssembly_preprocess.preprocess as preprocess {
+            input:
+                input_files= rqcfiltered_reads,
+                outdir=metaAssembly_outdir,
+                input_interleaved=input_interleaved,
+                input_fq1=input_fq1,
+                input_fq2=input_fq2,
 
-    call metaAssembly.nmdc_edge_assembly as metaAssembly_call {
+        }
+    call metaAssembly.jgi_metaASM as metaAssembly_call {
         input:
             input_file=rqcfiltered_reads,
             outdir=metaAssembly_outdir,

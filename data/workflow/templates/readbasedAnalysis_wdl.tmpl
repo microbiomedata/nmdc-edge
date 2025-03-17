@@ -1,47 +1,53 @@
+version <VERSION>
+import "<WDL_IMPORT>" as <WORKFLOW>
+import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
+import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output
 
-input {
-    Array[File] <WORKFLOW>_reads
-    Int         <WORKFLOW>_cpu = 4
-    String      <WORKFLOW>_prefix
-    String      <WORKFLOW>_outdir
-    Boolean     <WORKFLOW>_paired = false
-    Boolean     <WORKFLOW>_short_read = true
-    Boolean     <WORKFLOW>_long_read = <WORKFLOW>_short_read == false
-    String      <WORKFLOW>_container = "microbiomedata/nmdc_taxa_profilers:1.0.5"
-    String      <WORKFLOW>_db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
-    String      <WORKFLOW>_db_kraken2 = "/refdata/Kraken2"
-    String      <WORKFLOW>_db_centrifuge = "/refdata/Centrifuge/hpv"
-}
+workflow main_workflow {
+    input {
+        Array[File] <WORKFLOW>_reads
+        Int         <WORKFLOW>_cpu = 4
+        String      <WORKFLOW>_prefix
+        String      <WORKFLOW>_outdir
+        Boolean     <WORKFLOW>_paired = false
+        Boolean     <WORKFLOW>_short_read = true
+        Boolean     <WORKFLOW>_long_read = <WORKFLOW>_short_read == false
+        String      <WORKFLOW>_container = "microbiomedata/nmdc_taxa_profilers:1.0.5"
+        String      <WORKFLOW>_db_gottcha2 = "/refdata/GOTTCHA2_fungal/gottcha_db.BAVFPt.species.fna"
+        String      <WORKFLOW>_db_kraken2 = "/refdata/Kraken2"
+        String      <WORKFLOW>_db_centrifuge = "/refdata/Centrifuge/hpv"
+    }
 
-call readbasedanalysis_preprocess.preprocess as preprocess {
-    input:
-        input_files=<WORKFLOW>_reads,
-        paired=<WORKFLOW>_paired
-}
+        call readbasedanalysis_preprocess.preprocess as preprocess {
+            input:
+                input_files=<WORKFLOW>_reads,
+                paired=<WORKFLOW>_paired
+        }
 
-call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
-    input: 
-        input_file=select_first([preprocess.input_file_gz, [""]]), 
-        cpu=<WORKFLOW>_cpu,
-        proj=<WORKFLOW>_prefix, 
-        paired=<WORKFLOW>_paired,
-        long_read=<WORKFLOW>_long_read,
-        db_gottcha2=<WORKFLOW>_db_gottcha2, 
-        db_kraken2=<WORKFLOW>_db_kraken2, 
-        db_centrifuge=<WORKFLOW>_db_centrifuge
-}
+    call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
+        input: 
+            input_file=select_first([preprocess.input_file_gz, [""]]), 
+            cpu=<WORKFLOW>_cpu,
+            proj=<WORKFLOW>_prefix, 
+            paired=<WORKFLOW>_paired,
+            long_read=<WORKFLOW>_long_read,
+            db_gottcha2=<WORKFLOW>_db_gottcha2, 
+            db_kraken2=<WORKFLOW>_db_kraken2, 
+            db_centrifuge=<WORKFLOW>_db_centrifuge
+    }
 
-call readbasedAnalysis_output.readbasedAnalysis_output as readbasedAnalysis_output {
-    input: 
-        outdir=<WORKFLOW>_outdir,
-        gottcha2_report_tsv=ReadbasedAnalysis.final_gottcha2_report_tsv, 
-        gottcha2_full_tsv=ReadbasedAnalysis.final_gottcha2_full_tsv,
-        gottcha2_krona_html=ReadbasedAnalysis.final_gottcha2_krona_html, 
-        kraken2_report_tsv=ReadbasedAnalysis.final_kraken2_report_tsv,
-        kraken2_classification_tsv=ReadbasedAnalysis.final_kraken2_classification_tsv, 
-        kraken2_krona_html=ReadbasedAnalysis.final_kraken2_krona_html,
-        centrifuge_report_tsv=ReadbasedAnalysis.final_centrifuge_report_tsv,
-        centrifuge_classification_tsv=ReadbasedAnalysis.final_centrifuge_classification_tsv,
-        centrifuge_krona_html=ReadbasedAnalysis.final_centrifuge_krona_html, 
-        PREFIX=ReadbasedAnalysis_prefix
+    call readbasedAnalysis_output.readbasedAnalysis_output as readbasedAnalysis_output {
+        input: 
+            outdir=<WORKFLOW>_outdir,
+            gottcha2_report_tsv=ReadbasedAnalysis.final_gottcha2_report_tsv, 
+            gottcha2_full_tsv=ReadbasedAnalysis.final_gottcha2_full_tsv,
+            gottcha2_krona_html=ReadbasedAnalysis.final_gottcha2_krona_html, 
+            kraken2_report_tsv=ReadbasedAnalysis.final_kraken2_report_tsv,
+            kraken2_classification_tsv=ReadbasedAnalysis.final_kraken2_classification_tsv, 
+            kraken2_krona_html=ReadbasedAnalysis.final_kraken2_krona_html,
+            centrifuge_report_tsv=ReadbasedAnalysis.final_centrifuge_report_tsv,
+            centrifuge_classification_tsv=ReadbasedAnalysis.final_centrifuge_classification_tsv,
+            centrifuge_krona_html=ReadbasedAnalysis.final_centrifuge_krona_html, 
+            PREFIX=ReadbasedAnalysis_prefix
+    }
 }

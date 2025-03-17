@@ -55,27 +55,27 @@ function VirusPlasmid(props) {
                     <TabContent activeTab={activeTab}>
                         <TabPane key={0} tabId={0}>
                             <br></br>
-                            {props.result.virus_summary[0] ?
-                                <VirusSummary result={props.result.virus_summary} />
-                                : <span>Empty table
+                            {props.result.virus_summary && props.result.virus_summary[0] ?
+                                <VirusSummary result={props.result?.virus_summary} />
+                                : <span>{props.result.virus_summary ? <>Empty table</> : <>Data too large to display</>}
                                     <br></br>
                                     <br></br></span>
                             }
                         </TabPane>
                         <TabPane key={1} tabId={1}>
                             <br></br>
-                            {props.result.plasmid_summary[0] ?
+                            {props.result.plasmid_summary && props.result.plasmid_summary[0] ?
                                 <PlasmidSummary result={props.result.plasmid_summary} />
-                                : <span>Empty table
+                                : <span>{props.result.plasmid_summary ? <>Empty table</> : <>Data too large to display</>}
                                     <br></br>
                                     <br></br></span>
                             }
                         </TabPane>
                         <TabPane key={2} tabId={2}>
                             <br></br>
-                            {props.result.quality_summary[0] ?
+                            {props.result.quality_summary && props.result.quality_summary[0] ?
                                 <QualitySummary result={props.result.quality_summary} />
-                                : <span>Empty table
+                                : <span>{props.result.quality_summary ? <>Empty table</> : <>Data too large to display</>}
                                     <br></br>
                                     <br></br></span>
                             }

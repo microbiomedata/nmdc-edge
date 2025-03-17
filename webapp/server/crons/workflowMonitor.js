@@ -23,10 +23,19 @@ module.exports = function workflowMonitor() {
             jobInputsize += job.inputsize;
         });
         //only process one request at each time
-        Project.find({ 'type': { $nin: ['Viruses and Plasmids', 'Metagenome Pipeline'] }, 'status': 'in queue' }).sort({ updated: 1 }).then(async projs => {
+        Project.find({ 'type': { $nin: ['Metagenome Pipeline'] }, 'status': 'in queue' }).sort({ updated: 1 }).then(async projs => {
             let proj = projs[0];
             if (!proj) {
                 logger.debug("No workflow request to process");
+                return;
+            }
+            //limit the running jobs the current project owner has
+            const runningProjects = await common.getRunningProjects(proj);
+            if(runningProjects > config.CROMWELL.NUM_JOBS_MAX_USER) {
+                logger.debug(proj.owner +" has max running projects.");
+                // set new updated time to move this request to the end of the queue
+                proj.updated = Date.now();
+                proj.save();
                 return;
             }
             //parse conf.json
@@ -119,16 +128,15 @@ module.exports = function workflowMonitor() {
 
 function generateWDL(proj_home, workflow) {
     //build wdl
-    let imports = '';
-    let mainWDL = '';
+    let wdl = '';
 
     const workflowSettings = workflowlist[workflow.name];
     const workflowname = workflow.name;
     const workflowalias = workflowSettings['name'];
 
     //without wdl template
-    const tmpl_pipeline = path.join(config.WORKFLOWS.WDL_DIR, workflowSettings['wdl_pipeline']? workflowSettings['wdl_pipeline'] : "notfound");
-    if(fs.existsSync(tmpl_pipeline)) {
+    const tmpl_pipeline = path.join(config.WORKFLOWS.WDL_DIR, workflowSettings['wdl_pipeline'] ? workflowSettings['wdl_pipeline'] : "notfound");
+    if (fs.existsSync(tmpl_pipeline)) {
         //add pipeline.wdl link
         fs.symlinkSync(tmpl_pipeline, proj_home + '/pipeline.wdl', 'file');
         return true;
@@ -136,46 +144,25 @@ function generateWDL(proj_home, workflow) {
 
     //with wdl template
     const wdlVersion = workflowSettings['wdl_version'];
-    if(wdlVersion === '1.0') {
-        imports = "version 1.0\n";
-    }
-
-    imports += 'import "' + workflowSettings['wdl'] + '" as ' + workflowname + "\n";
-    if(workflowname === 'MetaAnnotation') {
-        imports += 'import "annotation_output.wdl" as MetaAnnotationOutput' + "\n";
-    }
-    //if(workflowname === 'MetaAssembly') {
-    //    imports += 'import "preprocess.wdl" as MetaAssembly_preprocess' + "\n";
-    //}
-    if(workflowname === 'ReadsQC') {
-        imports += 'import "readsqc_output.wdl" as ReadsQC_output' + "\n";
-        imports += 'import "readsqc_preprocess.wdl" as readsqc_preprocess' + "\n";
-    }
-    if(workflowname === 'MetaMAGs') {
-        imports += 'import "mbin_nmdc_output.wdl" as mbin_nmdc_output' + "\n";
-    }
-    if(workflowname === 'ReadbasedAnalysis') {
-        imports += 'import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess' + "\n";
-        imports += 'import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output' + "\n";
-    }
     const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowSettings['wdl_tmpl']);
     let templWDL = String(fs.readFileSync(tmpl));
+    templWDL = templWDL.replace(/<VERSION>/g, wdlVersion);
+    templWDL = templWDL.replace(/<WDL_IMPORT>/g, workflowSettings['wdl']);
     templWDL = templWDL.replace(/<WORKFLOW>/g, workflowname);
     templWDL = templWDL.replace(/<ALIAS>/g, workflowalias);
-    mainWDL += templWDL;
+    wdl += templWDL;
 
-    let wdl = imports + "\n";
-    wdl += "workflow main_workflow {\n";
-    wdl += mainWDL + "\n}\n";
     //write to pipeline.wdl
     fs.writeFileSync(proj_home + '/pipeline.wdl', wdl);
     return true;
 }
 async function generateOptions(proj_home, workflow) {
-
     const workflowSettings = workflowlist[workflow.name];
+    if(!workflowSettings['options_json']) {
+        return true;
+    }
     const tmpl = path.join(config.WORKFLOWS.TEMPLATE_DIR, workflowSettings['options_json']);
-    if(!fs.existsSync(tmpl)) {
+    if (!fs.existsSync(tmpl)) {
         return true;
     }
     let templInputs = String(fs.readFileSync(tmpl));
@@ -334,6 +321,7 @@ async function generateInputs(proj_home, workflow, proj) {
         let input_fasta = workflow['input_fasta'];
         templInputs = templInputs.replace(/<INPUT_FILE>/, '"' + input_fasta + '"');
         templInputs = templInputs.replace(/<PROJID>/, '"' + proj.name + '"');
+        templInputs = templInputs.replace(/<OPAVER_WEB_DIR>/, config.IO.OPAVER_WEB_DIR);
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
 
     } else if (workflow.name === 'MetaMAGs') {
