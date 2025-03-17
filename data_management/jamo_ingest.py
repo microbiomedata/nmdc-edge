@@ -252,7 +252,7 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
             return
 
     metadata_keys_list: List[Dict] = []
-    data_object_type_suffix_dict = _get_file_suffix()
+    # data_object_type_suffix_dict = _get_file_suffix()
 
     for record in records:
         """Process a single record and extract relevant information."""
@@ -267,7 +267,7 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
         # was_informed_by = url.removeprefix(prefix).split('/')[0]
         # metadata_keys["was_informed_by"] = was_informed_by
 
-        file = record["name"] = url.removeprefix(prefix)
+        file = record["name"] = "/global/cfs/cdirs/m3408/results/" + url.removeprefix(prefix)
         metadata_keys["file"] = file
 
         data_object_id = record["id"]
@@ -277,11 +277,6 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
 
         if file.endswith("scaffold_lineage.tsv"): # hardcoding label for this file format # bug in referenced nmdc config file?
             metadata_keys["label"] = "lineage_tsv"
-        # elif file.endswith("pairedMapped_sorted.bam"):
-        #     if workflow_execution == "MetagenomeAssembly":
-        #         metadata_keys["label"] = "covstats"
-        #     if workflow_execution == "MetatranscriptomeAssembly":
-        #         metadata_keys["label"] = "metatranscriptome_assembly_coverage"
         else:
             if file.endswith(".gz") or file.endswith("zip"):
                 metadata_keys["compression"] = file.split('.')[-1]
@@ -290,20 +285,6 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
                 metadata_keys["label"] = workflow_labels[workflow_execution][data_object_type]
             except KeyError:
                 logging.error(f"ERROR: label not found for workflow_execution:{workflow_execution}, data_object_type:{data_object_type}, url:{url}, data_object_id:{data_object_id} \n Stack trace: {traceback.format_exc()}")
-
-                # if file.endswith(data_object_type_suffix_dict[data_object_type]): # check if the file suffix matches what is given in the config file
-                #     logging.info("match found")
-                #     with open('workflow_labels.json', 'r') as workflow_labels_file:
-                #         workflow_labels = json.load(workflow_labels_file)
-                #         # json structure: {"mags": {data_object_type1, label1},..}
-                #         try:
-                #             metadata_keys["label"] = workflow_labels[workflow_execution][data_object_type]
-                #         except KeyError:
-                #             logging.error(f"ERROR: key not found {url}, {data_object_id} {workflow_execution}, {data_object_type}  \n Stack trace: {traceback.format_exc()}")
-            # except KeyError:
-            #     logging.error(f"ERROR: mismatch between expected and actual file format or data_object_type {url} \n Stack trace: {traceback.format_exc()}")
-
-
 
         metadata_keys_list.append(metadata_keys)
 
