@@ -168,16 +168,7 @@ workflow main_workflow {
             centrifuge_krona_html=ReadbasedAnalysis_call.final_centrifuge_krona_html, 
             PREFIX=readbasedAnalysis_prefix
     }
-    call metaAssembly_preprocess.preprocess as preprocess {
-            input:
-                input_files= rqcfiltered_reads,
-                outdir=metaAssembly_outdir,
-                input_interleaved=input_interleaved,
-                input_fq1=input_fq1,
-                input_fq2=input_fq2,
-
-        }
-    call metaAssembly.jgi_metaASM as metaAssembly_call {
+    call metaAssembly.nmdc_edge_assembly as metaAssembly_call {
         input:
             input_file=rqcfiltered_reads,
             outdir=metaAssembly_outdir,
