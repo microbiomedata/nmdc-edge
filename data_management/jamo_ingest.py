@@ -200,6 +200,7 @@ def create_json_structure(workflow_execution_id: str, workflow_execution: str, w
                 "label": metadata_keys["label"],
                 "metadata": {
                     "data_object_id": metadata_keys["data_object_id"],
+                    "data_object_type": metadata_keys["data_object_type"]
                 }
             }
             outputs.append(output)
@@ -266,12 +267,13 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
         # was_informed_by = url.removeprefix(prefix).split('/')[0]
         # metadata_keys["was_informed_by"] = was_informed_by
 
-        file = record["name"] = url.split('/')[-1]
+        file = record["name"] = url.removeprefix(prefix)
         metadata_keys["file"] = file
 
         data_object_id = record["id"]
         metadata_keys["data_object_id"] = data_object_id
         data_object_type = record["data_object_type"]
+        metadata_keys["data_object_type"] = data_object_type
 
         if file.endswith("scaffold_lineage.tsv"): # hardcoding label for this file format # bug in referenced nmdc config file?
             metadata_keys["label"] = "lineage_tsv"
