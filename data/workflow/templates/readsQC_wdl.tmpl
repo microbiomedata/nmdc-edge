@@ -37,7 +37,7 @@ workflow main_workflow {
         }
     }
 
-    call <WORKFLOW>_output.readsqc_output as readsqc_output {
+    call readsqc_output.readsqc_output as readsqc_output {
         input:
             input_files = select_all(nmdc_rqcfilter_call.filtered_final),
             input_files_prefix = select_first([readsqc_preprocess.input_files_prefix, []]),
