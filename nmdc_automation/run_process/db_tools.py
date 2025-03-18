@@ -119,10 +119,10 @@ def fix_data_object_urls(config_file, update_db):
 
     params = {
         'filter': '{"url": {"$regex": "/ficus/"}}',
-        'max_page_size': '1000', }
+        'max_page_size': '10000', }
 
     response = requests.get(
-        'https://api-dev.microbiomedata.org/nmdcschema/data_object_set', params=params, headers=headers
+        'https://api.microbiomedata.org/nmdcschema/data_object_set', params=params, headers=headers
     )
     if response.status_code != 200:
         logger.error(f"Error in response: {response.status_code}")
@@ -140,7 +140,8 @@ def fix_data_object_urls(config_file, update_db):
         # Raw reads don't get a URL
         if dobj['data_object_type'] == 'Metagenome Raw Reads':
             # delete the url
-            dobj.delete('url')
+            if 'url' in dobj:
+                dobj.pop('url')
             data_object_set.append(dobj)
             continue
 
