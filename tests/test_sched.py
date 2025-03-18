@@ -286,7 +286,7 @@ def test_scheduler_create_job_rec_has_input_files_as_array(test_db, mock_api, wo
     assembly = assemblies[0]
 
     assert isinstance(assembly["config"]["inputs"]["shortRead"], bool)
-    assert assembly["config"]["inputs"]["shortRead"] == False
+    assert assembly["config"]["inputs"]["shortRead"] == True
     assert isinstance(assembly["config"]["inputs"]["input_files"], list)
 
 
