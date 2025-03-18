@@ -481,7 +481,7 @@ Data Objects:
       multiple: false
       action: rename
     - data_object_type: Error Corrected Reads
-      description: Error correctde reads for {id}
+      description: Error corrected reads for {id}
       name: bbcms error corrected reads
       import_suffix: input\.corr\.fastq\.gz$
       nmdc_suffix: _input.corr.fastq.gz
