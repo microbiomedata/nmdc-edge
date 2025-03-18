@@ -1,5 +1,7 @@
 version <VERSION>
 import "<WDL_IMPORT>" as <WORKFLOW>
+import "assembly_preprocess.wdl" as <WORKFLOW>_preprocess
+import "assembly_output.wdl" as <WORKFLOW>Output
 
 workflow main_workflow {
     input {
@@ -18,21 +20,29 @@ workflow main_workflow {
         Boolean       <WORKFLOW>_short_read=true
     }
 
-    call <WORKFLOW>.nmdc_edge_assembly as <ALIAS> {
-        input: 
-            input_file=<WORKFLOW>_input_files, 
-            outdir=<WORKFLOW>_outdir, 
-            uniquekmer=<WORKFLOW>_uniquekmer, 
-            bbtools_container=<WORKFLOW>_bbtools_container, 
-            spades_container=<WORKFLOW>_spades_container, 
-            quast_container=<WORKFLOW>_quast_container,
-            memory=<WORKFLOW>_memory, 
-            threads=<WORKFLOW>_threads,
-            input_interleaved=<WORKFLOW>_input_interleaved, 
-            input_fq1=<WORKFLOW>_input_fq1, 
-            input_fq2=<WORKFLOW>_input_fq2,
-            proj=<WORKFLOW>_prefix,
-            shortRead=<WORKFLOW>_short_read
+    call <WORKFLOW>_preprocess.preprocess as preprocess {
+        input:
+            input_files= <WORKFLOW>_input_files,
+            outdir=<WORKFLOW>_outdir,
+            input_interleaved=<WORKFLOW>_input_interleaved,
+            input_fq1=<WORKFLOW>_input_fq1,
+            input_fq2=<WORKFLOW>_input_fq2
+    }
+    call <WORKFLOW>.jgi_metaASM as <ALIAS> {
+            input:
+                input_files = select_all([preprocess.input_file_gz]),
+                proj=proj,
+                memory=memory,
+                threads=threads,
+                shortRead=shortRead
+    }
+
+    call <WORKFLOW>Output.assembly_output as assembly_output{
+        input:
+            contigs=<ALIAS>.contig,
+            container=<WORKFLOW>_quast_container,
+            outdir=<WORKFLOW>_outdir,
+            proj=<WORKFLOW>_prefix
     }
 
     output {
@@ -44,7 +54,7 @@ workflow main_workflow {
         File? covstats=<ALIAS>.covstats
         File? asmstats=<ALIAS>.asmstats
         File? asminfo=<ALIAS>.asminfo
-        File? asmreportHtml=<ALIAS>.report_html
-        File? asmreportTxt=<ALIAS>.report_txt
+        File asmreportHtml=assembly_output.report_html
+        File asmreportTxt=assembly_output.report_txt
     }
 }
