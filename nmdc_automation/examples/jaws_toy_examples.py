@@ -7,7 +7,7 @@ jaws = api.JawsApi(config)
 import os
 os.environ["JAWS_USER_CONFIG"] = "/global/u2/n/nmdcda/jaws.conf"
 os.environ["JAWS_CLIENT_CONFIG"] = "/global/cfs/cdirs/m3408/jaws-install/jaws-client/nmdc-prod/jaws-prod.conf"
-os.environ["PYTHONPATH"] = += os.pathsep + "/global/cfs/cdirs/m3408/users/nmdcda"
+os.environ["PYTHONPATH"] += os.pathsep + "/global/cfs/cdirs/m3408/users/nmdcda"
 #submits a JAWS job, returns a dict with the jaws job ID
 response=jaws.submit(wdl_file="/my/awesome/wdl/shortReadsqc.wdl", inputs="/my/input/BMI_HCNKKBGX5_Plate4WellF4_R1.fastq.gz_inputs.json", site="nmdc")
 print(response)
