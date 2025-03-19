@@ -9,10 +9,19 @@ Additionally, for the tests to access any of the jaws client functionality, the 
 be running behind the firewall in the NERSC environment.
 """
 
+import json
 import pytest
 
 from jaws_client import api
 from jaws_client.config import Configuration
+
+from nmdc_automation.workflow_automation.wfutils import (
+    WorkflowJob,
+    WorkflowStateManager,
+    JawsRunner,
+)
+
+
 @pytest.mark.jaws
 def test_jaws_api_init(jaws_token_file, jaws_config_file_integration):
     config = Configuration.from_files(jaws_config_file_integration, jaws_token_file)
@@ -26,3 +35,15 @@ def test_jaws_api_get_user(jaws_token_file, jaws_config_file_integration):
     jaws = api.JawsApi(config)
     user = jaws.get_user()
     assert user is not None
+
+
+@pytest.mark.jaws
+def test_jaws_job_runner_submit_job(site_config, fixtures_dir, jaws_token_file, jaws_config_file_integration):
+    config = Configuration.from_files(jaws_config_file_integration, jaws_token_file)
+    jaws_api = api.JawsApi(config)
+
+    job_state = json.load(open(fixtures_dir / "rqc_workflow_state.json"))
+    state_manager = WorkflowStateManager(job_state)
+
+    runner = JawsRunner(site_config, state_manager, jaws_api)
+
