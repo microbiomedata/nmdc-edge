@@ -32,6 +32,7 @@ importlib = "^1.0.4"
 tomli = "^2.0.2"
 tenacity = "^9.0.0"
 jaws-client = {version = "2.5.2", source = "jgi"}
+regex = "^2024.11.6"
 
 [[tool.poetry.source]]
 name = "jgi"
