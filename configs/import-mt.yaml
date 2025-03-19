@@ -5,10 +5,10 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/metaT_ReadsQC
     Version: v0.0.7
     Collection: workflow_execution_set
-   WorkflowExecutionRange: ReadQcAnalysis
+    WorkflowExecutionRange: ReadQcAnalysis
     Inputs:
       - Metagenome Raw Reads
-   Workflow_Execution:
+    Workflow_Execution:
       name: "Read QC for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
       input_read_count: "{outputs.stats.input_read_count}"
@@ -27,10 +27,10 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/metaT_Assembly
     Version: v0.0.2
     Collection: workflow_execution_set
-   WorkflowExecutionRange: MetatranscriptomeAssembly
+    WorkflowExecutionRange: MetatranscriptomeAssembly
     Inputs:
       - Filtered Sequencing Reads
-   Workflow_Execution:
+    Workflow_Execution:
       name: "Metagenome Assembly for {id}"
       type: nmdc:MetatranscriptomeAssembly
       asm_score: "{outputs.stats.asm_score}"
@@ -71,10 +71,10 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/mg_annotation
     Version: v1.1.4
     Collection: workflow_execution_set
-   WorkflowExecutionRange: MetatranscriptomeAnnotation
+    WorkflowExecutionRange: MetatranscriptomeAnnotation
     Inputs:
       - Assembly Contigs
-   Workflow_Execution:
+    Workflow_Execution:
       name: "Metatranscriptome Annotation Analysis for {id}"
       type: nmdc:MetatranscriptomeAnnotation
     Outputs:
@@ -111,12 +111,12 @@ Workflows:
     Git_repo: https://github.com/microbiomedata/metaT_ReadCounts
     Version: v0.0.5
     Collection: metatranscriptome_expression_analysis_set
-   WorkflowExecutionRange: MetatranscriptomeExpressionAnalysis
+    WorkflowExecutionRange: MetatranscriptomeExpressionAnalysis
     Inputs:
       - Functional Annotation GFF
       - Contig Mapping File
       - Assembly Coverage BAM
-   Workflow_Execution:
+    Workflow_Execution:
       name: "Metatranscriptome Expression Analysis for {id}"
       type: nmdc:MetatranscriptomeExpressionAnalysis
     Outputs:
@@ -188,7 +188,7 @@ Data Objects:
       output_of: nmdc:MetatranscriptomeAnnotation
       multiple: false
       action: rename
-    - data_object_type Scaffold Lineage tsv
+    - data_object_type: Scaffold Lineage tsv
       description: Scaffold Lineage tsv for {id}
       name: Phylogeny at the scaffold level
       import_suffix: _scaffold_lineage\.tsv$
