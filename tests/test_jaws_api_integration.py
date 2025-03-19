@@ -47,8 +47,8 @@ def test_jaws_job_runner_submit_job(site_config, fixtures_dir, jaws_token_file, 
 
     runner = JawsRunner(site_config, state_manager, jaws_api)
     submission_files = runner.generate_submission_files()
-    validation_resp = jaws_api.validate(shell_check=True, wdl_file=submission_files["wdl"], inputs_file=submission_files[
-        "inputs"])
+    validation_resp = jaws_api.validate(shell_check=True, wdl_file=submission_files["wdl_file"],
+                                        inputs_file=submission_files["inputs"])
     assert validation_resp["result"] == "succeeded"
 
 
