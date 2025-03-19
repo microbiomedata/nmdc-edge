@@ -28,7 +28,7 @@ workflow main_workflow {
             input_fq1=<WORKFLOW>_input_fq1,
             input_fq2=<WORKFLOW>_input_fq2
     }
-    call <WORKFLOW>.jgi_metaASM as <ALIAS> {
+    call <WORKFLOW>.jgi_metaAssembly as <ALIAS> {
             input:
                 input_files = select_all([preprocess.input_file_gz]),
                 proj=proj,

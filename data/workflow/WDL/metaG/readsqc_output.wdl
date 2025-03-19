@@ -10,7 +10,7 @@ workflow readsqc_output {
         Array[File]   rqc_info
         String?       outdir
         String        bbtools_container="microbiomedata/bbtools:38.96"
-        String        vis_container="microbiomedata/fastqc_vis:1.1"
+        String        vis_container="microbiomedata/nmdc-fastqc_vis:1.1.1"
     }
 
     call make_output {
@@ -54,6 +54,7 @@ task fastqc_report{
         set -euo pipefail
 
         mkdir -p output
+        
         ARRAY=(~{sep=" " input_files_prefix})
         ARRAYFastq=(~{sep=" " input_files})
         ARRAYStats2=(~{sep=" " filtered_stats2_final})
