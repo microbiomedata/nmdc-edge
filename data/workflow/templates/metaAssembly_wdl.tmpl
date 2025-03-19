@@ -46,14 +46,14 @@ workflow main_workflow {
     }
 
     output {
-        File? contig=<ALIAS>.contig
-        File? scaffold=<ALIAS>.scaffold
-        File? agp=<ALIAS>.agp
-        File? bam=<ALIAS>.bam
-        File? samgz=<ALIAS>.samgz
-        File? covstats=<ALIAS>.covstats
-        File? asmstats=<ALIAS>.asmstats
-        File? asminfo=<ALIAS>.asminfo
+        File? contig = if(shortRead) then <ALIAS>.sr_contig else <ALIAS>.lr_contigs
+        File? scaffold = if(shortRead) then <ALIAS>.sr_scaffold else <ALIAS>.lr_scaffolds
+        File? agp= if(shortRead) then <ALIAS>.sr_agp else <ALIAS>.lr_agp
+        File? bam= if(shortRead) then <ALIAS>.sr_bam else <ALIAS>.lr_bam 
+        File? samgz= if(shortRead) then <ALIAS>.sr_samgz else <ALIAS>.lr_sam
+        File? covstats= if(shortRead) then <ALIAS>.sr_covstats else <ALIAS>.lr_basecov
+        File? asmstats= <ALIAS>.stats
+        File? asminfo= if(shortRead) then <ALIAS>.sr_asminfo else <ALIAS>.lr_asminfo
         File asmreportHtml=assembly_output.report_html
         File asmreportTxt=assembly_output.report_txt
     }
