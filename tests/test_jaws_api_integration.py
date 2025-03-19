@@ -46,4 +46,7 @@ def test_jaws_job_runner_submit_job(site_config, fixtures_dir, jaws_token_file, 
     state_manager = WorkflowStateManager(job_state)
 
     runner = JawsRunner(site_config, state_manager, jaws_api)
+    submission_files = runner.generate_submission_files()
+    jaws_api.validate(shell_check=True, **submission_files)
+
 
