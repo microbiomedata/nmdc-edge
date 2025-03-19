@@ -97,7 +97,7 @@ class JawsRunner(JobRunnerABC):
             files = {
                 "wdl_file": open(wdl_file, "rb"),
                 "sub": open(bundle_file, "rb"),
-                "inputs": open(workflow_inputs_path, "rb")
+                "inputs": workflow_inputs_path
             }
 
             logger.info(f"WDL file: {wdl_file}")
