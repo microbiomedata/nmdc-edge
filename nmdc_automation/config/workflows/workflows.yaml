@@ -95,7 +95,7 @@ Workflows:
     Enabled: True
     Analyte Category: Metagenome
     Git_repo: https://github.com/microbiomedata/metaAssembly
-    Version: v1.0.9
+    Version: v1.0.7-alpha.1
     WDL: jgi_assembly.wdl
     Collection: workflow_execution_set
     Predecessors:
