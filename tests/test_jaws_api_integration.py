@@ -38,11 +38,12 @@ def test_jaws_api_get_user(jaws_token_file, jaws_config_file_integration):
 
 
 @pytest.mark.jaws
-def test_jaws_job_runner_submit_job(site_config, fixtures_dir, jaws_token_file, jaws_config_file_integration):
+@pytest.mark.parametrize("fixture", ["rqc_workflow_state.json"])
+def test_jaws_job_runner_submit_job(site_config, fixtures_dir, jaws_token_file, jaws_config_file_integration, fixture):
     config = Configuration.from_files(jaws_config_file_integration, jaws_token_file)
     jaws_api = api.JawsApi(config)
 
-    job_state = json.load(open(fixtures_dir / "rqc_workflow_state.json"))
+    job_state = json.load(open(fixtures_dir / fixture))
     state_manager = WorkflowStateManager(job_state)
 
     runner = JawsRunner(site_config, state_manager, jaws_api)
