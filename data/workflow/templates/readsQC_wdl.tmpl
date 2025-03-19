@@ -12,7 +12,7 @@ workflow main_workflow {
         Array[File] <WORKFLOW>_input_fq1
         Array[File] <WORKFLOW>_input_fq2
         String      <WORKFLOW>_prefix
-        String      <WORKFLOW>_vis_container="microbiomedata/fastqc_vis:1.1"
+        String      <WORKFLOW>_vis_container="ghcr.io/microbiomedata/nmdc-fastqc_vis:1.1.1"
     }
 
     call readsqc_preprocess.readsqc_preprocess as readsqc_preprocess {
