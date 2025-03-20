@@ -192,9 +192,15 @@ class JawsRunner(JobRunnerABC):
         """ Get the outputs """
         return {}
 
+    @property
     def metadata(self) -> Dict[str, Any]:
         """ Get the metadata """
-        return {}
+        return self._metadata
+
+    @metadata.setter
+    def metadata(self, metadata: Dict[str, Any]):
+        """ Set the metadata """
+        self._metadata = metadata
 
     def max_retries(self) -> int:
         """ Get the maximum number of retries """
