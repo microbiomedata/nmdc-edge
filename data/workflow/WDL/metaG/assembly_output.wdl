@@ -2,7 +2,7 @@ version 1.0
 
 workflow assembly_output {
     input {
-        File contigs
+        File?  contigs
         String container
         String outdir
         String proj
