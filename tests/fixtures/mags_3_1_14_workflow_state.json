@@ -265,7 +265,7 @@
       },
       "claims": [],
       "opid": "nmdc:sys0kz401647",
-      "done": false,
+      "done": true,
       "start": "2025-03-20T02:55:39.157169+00:00",
       "cromwell_jobid": "8f4e1a0b-ca5c-455b-9db6-30957bcf4b4a",
       "last_status": "Succeeded",

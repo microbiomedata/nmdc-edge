@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 import pytz
 import requests
+import zipfile
 
 from nmdc_automation.config import SiteConfig
 from nmdc_automation.models.nmdc import DataObject, WorkflowExecution, workflow_process_factory
@@ -30,6 +31,16 @@ logger = logging.getLogger(__name__)
 
 class JobRunnerABC(ABC):
     """Abstract base class for job runners"""
+
+    # States that indicate a job is in some active state and does not need to be submitted
+    NO_SUBMIT_STATES = [
+        "Submitted",  # job is already submitted but not running
+        "Running",  # job is already running
+        "Succeeded",  # job succeeded
+        "Aborting"  # job is in the process of being aborted
+        "On Hold",  # job is on hold and not running. It can be manually resumed later
+    ]
+
     def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager"):
         self.config = site_config
         self.workflow = workflow
@@ -77,14 +88,107 @@ class JobRunnerABC(ABC):
 class JawsRunner(JobRunnerABC):
     """ Job runner for J.A.W.S"""
 
+    DEFAULT_JOB_SITE = 'nmdc'
+
     def __init__(self,
                  site_config: SiteConfig, workflow: "WorkflowStateManager", jaws_api: jaws_api.JawsApi,
                  job_metadata: Dict[str, Any] = None,):
         super().__init__(site_config, workflow)
+        self.jaws_api = jaws_api
+        self._metadata = {}
+        if job_metadata:
+            self._metadata = job_metadata
 
-    def submit_job(self) -> str:
-        """ Submit a job """
-        return "Not implemented"
+
+    def generate_submission_files(self) -> Dict[str, Any]:
+        """ Generate the files needed for a J.A.W.S job submission """
+        files = {}
+
+        try:
+            # Get file paths
+            wdl_file = self.workflow.fetch_release_file(self.workflow.config["wdl"], suffix=".wdl")
+            bundle_file = self.workflow.fetch_release_file("bundle.zip", suffix=".zip")
+            workflow_inputs_path = _json_tmp(self.workflow.generate_workflow_inputs())
+
+
+            # Open files
+            files = {
+                "wdl_file": wdl_file,
+                "sub": bundle_file,
+                "inputs": workflow_inputs_path
+            }
+
+            logger.info("Submission Files:")
+            logger.info(files)
+            # dump the workflow inputs and labels to the log
+            with open(workflow_inputs_path) as f:
+                inputs_dump = json.load(f)
+                logger.info("inputs:")
+                logger.info(json.dumps(inputs_dump, indent=2))
+
+        except Exception as e:
+            logger.error(f"Failed to generate submission files: {e}")
+            _cleanup_files(list(files.values()))
+            raise e
+
+        return files
+
+    def submit_job(self, force: bool = False) -> Optional[int]:
+        """
+        Submit a job to J.A.W.S. Update the workflow state with the job id and status.
+        :param force: if True, submit the job even if it is in a state that does not require submission
+        :return: {'run_id': 'int'}
+        """
+        status = self.workflow.last_status
+        if status in self.NO_SUBMIT_STATES and not force:
+            logger.info(f"Job {self.job_id} in state {status}, skipping submission")
+            return
+        cleanup_zip_files = []
+        try:
+            files = self.generate_submission_files()
+
+            # Temporary fix to handle the fact that the JAWS API does not handle the sub argument and the zip file
+            if files['sub']:
+                extract_dir = os.path.dirname(files["sub"])
+                with zipfile.ZipFile(files["sub"], 'r') as zip_ref:
+                    zip_ref.extractall(extract_dir)
+                cleanup_zip_files.append(extract_dir)
+
+            # Validate
+            validation_resp = self.jaws_api.validate(
+                shell_check=False, wdl_file=files["wdl_file"],
+                inputs_file=files["inputs"]
+            )
+            if validation_resp["result"] != "succeeded":
+                logger.error(f"Failed to Validate Job: {validation_resp}")
+                raise Exception(f"Failed to Validate Job: {validation_resp}")
+
+            # Submit to J.A.W.S
+            response = self.jaws_api.submit(
+                wdl_file=files["wdl_file"],
+                sub=files["sub"],
+                inputs=files["inputs"],
+                tag = self.workflow.workflow_execution_id,
+                site = self.DEFAULT_JOB_SITE
+            )
+            self.job_id = response['run_id']
+            logger.info(f"Submitted job {response['run_id']}")
+
+            # update workflow state
+            self.workflow.done = False
+            self.workflow.update_state({"start": datetime.now(pytz.utc).isoformat()})
+            self.workflow.update_state({"jaws_jobid": self.job_id})
+            self.workflow.update_state({"last_status": "Submitted"})
+
+            return self.job_id
+
+        except Exception as e:
+            logger.error(f"Failed to Submit Job: {e}")
+            raise e
+
+        finally:
+            _cleanup_files(cleanup_zip_files)
+
 
     def get_job_metadata(self) -> Dict[str, Any]:
         """ Get metadata for a job """
@@ -94,17 +198,29 @@ class JawsRunner(JobRunnerABC):
         """ Get the status of a job """
         return "Not implemented"
 
+    @property
     def job_id(self) -> Optional[str]:
-        """ Get the job id """
-        return None
+        """ Get the job id from the metadata """
+        return self.metadata.get("id", None)
+
+    @job_id.setter
+    def job_id(self, job_id: str):
+        """ Set the job id in the metadata """
+        self.metadata["id"] = job_id
 
     def outputs(self) -> Dict[str, str]:
         """ Get the outputs """
         return {}
 
+    @property
     def metadata(self) -> Dict[str, Any]:
         """ Get the metadata """
-        return {}
+        return self._metadata
+
+    @metadata.setter
+    def metadata(self, metadata: Dict[str, Any]):
+        """ Set the metadata """
+        self._metadata = metadata
 
     def max_retries(self) -> int:
         """ Get the maximum number of retries """
@@ -115,14 +231,6 @@ class CromwellRunner(JobRunnerABC):
     """Job runner for Cromwell"""
     LABEL_SUBMITTER_VALUE = "nmdcda"
     LABEL_PARAMETERS = ["release", "wdl", "git_repo"]
-    # States that indicate a job is in some active state and does not need to be submitted
-    NO_SUBMIT_STATES = [
-        "Submitted",  # job is already submitted but not running
-        "Running",  # job is already running
-        "Succeeded",  # job succeeded
-        "Aborting"  # job is in the process of being aborted
-        "On Hold",  # job is on hold and not running. It can be manually resumed later
-    ]
 
     def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager", job_metadata: Dict[str, Any] = None,
                  max_retries: int = DEFAULT_MAX_RETRIES, dry_run: bool = False) -> None:
@@ -144,13 +252,9 @@ class CromwellRunner(JobRunnerABC):
 
     def _generate_workflow_inputs(self) -> Dict[str, str]:
         """ Generate inputs for the job runner from the workflow state """
-        inputs = {}
-        prefix = self.workflow.input_prefix
-        for input_key, input_val in self.workflow.inputs.items():
-            # special case for resource
-            if input_val == "{resource}":
-                input_val = self.config.resource
-            inputs[f"{prefix}.{input_key}"] = input_val
+        inputs = self.workflow.generate_workflow_inputs()
+        # add the resource to the inputs
+        inputs["resource"] = self.config.resource
         return inputs
 
     def _generate_workflow_labels(self) -> Dict[str, str]:
@@ -197,18 +301,10 @@ class CromwellRunner(JobRunnerABC):
 
         except Exception as e:
             logger.error(f"Failed to generate submission files: {e}")
-            self._cleanup_files(list(files.values()))
+            _cleanup_files(list(files.values()))
             raise e
         return files
 
-    def _cleanup_files(self, files: List[Union[tempfile.NamedTemporaryFile, tempfile.SpooledTemporaryFile]]):
-        """Safely closes and removes files."""
-        for file in files:
-            try:
-                file.close()
-                os.unlink(file.name)
-            except Exception as e:
-                logger.error(f"Failed to cleanup file: {e}")
 
     def submit_job(self, force: bool = False) -> Optional[str]:
         """
@@ -250,7 +346,7 @@ class CromwellRunner(JobRunnerABC):
             logger.error(f"Failed to submit job: {e}")
             raise e
         finally:
-            self._cleanup_files(cleanup_files)
+            _cleanup_files(cleanup_files)
 
     def get_job_status(self) -> str:
         """ Get the status of a job from Cromwell """
@@ -321,6 +417,14 @@ class WorkflowStateManager:
             raise ValueError("opid already set in job state")
         if opid:
             self.cached_state["opid"] = opid
+
+    def generate_workflow_inputs(self) -> Dict[str, str]:
+        """ Generate inputs for the job runner from the workflow state """
+        inputs = {}
+        prefix = self.input_prefix
+        for input_key, input_val in self.inputs.items():
+            inputs[f"{prefix}.{input_key}"] = input_val
+        return inputs
 
     def update_state(self, state: Dict[str, Any]):
         self.cached_state.update(state)
@@ -653,6 +757,19 @@ class WorkflowJob:
         wfe = workflow_process_factory(wf_dict)
         return wfe
 
+    def generate_job_inputs(self) -> Dict[str, str]:
+        """
+        Generate the inputs for a job from the workflow state.
+        """
+        inputs = {}
+        prefix = self.workflow.input_prefix
+        for input_key, input_val in self.workflow.inputs.items():
+            # special case for resource
+            if input_val == "{resource}":
+                input_val = self.site_config.resource
+            inputs[f"{prefix}.{input_key}"] = input_val
+        return inputs
+
 
 
 def _json_tmp(data):
@@ -664,3 +781,13 @@ def _json_tmp(data):
 
 def _md5(file):
     return hashlib.md5(open(file, "rb").read()).hexdigest()
+
+
+def _cleanup_files(files: List[Union[tempfile.NamedTemporaryFile, tempfile.SpooledTemporaryFile]]):
+    """Safely closes and removes files."""
+    for file in files:
+        try:
+            file.close()
+            os.unlink(file.name)
+        except Exception as e:
+            logger.error(f"Failed to cleanup file: {e}")

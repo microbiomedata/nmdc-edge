@@ -114,6 +114,10 @@ def jaws_config_file_test(base_test_dir):
     return base_test_dir / "jaws-test.conf"
 
 @fixture(scope="session")
+def jaws_config_file_integration(base_test_dir):
+    return base_test_dir / "jaws-integration.conf"
+
+@fixture(scope="session")
 def fixtures_dir(base_test_dir):
     path = base_test_dir / "fixtures"
     # get the absolute path
