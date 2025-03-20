@@ -215,5 +215,12 @@
           }
         ]
       },
-      "claims": []
+      "claims": [],
+      "opid": "nmdc:sys0tg2c1k14",
+      "done": true,
+      "start": "2025-03-20T00:54:04.863124+00:00",
+      "cromwell_jobid": "7843fb87-7275-42a0-a46b-c7122461d40a",
+      "last_status": "Succeeded",
+      "nmdc_jobid": "nmdc:be0708e8-0525-11f0-9035-be45b851a8f7",
+      "end": "2025-03-20T02:18:59.253Z"
     }
