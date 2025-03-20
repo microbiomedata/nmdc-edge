@@ -75,17 +75,17 @@ def test_jaws_job_runner_jaws_validate(site_config, fixtures_dir, jaws_token_fil
     print(validation_resp)
     assert validation_resp["result"] == "succeeded"
 
-# @pytest.mark.jaws
-# @pytest.mark.parametrize("fixture", ["rqc_workflow_state.json", "meta_assembly_workflow_state.json"])
-# def test_jaws_job_runner_jaws_submit(site_config, fixtures_dir, jaws_token_file, jaws_config_file_integration,
-#                                      fixture):
-#     config = Configuration.from_files(jaws_config_file_integration, jaws_token_file)
-#     jaws_api = api.JawsApi(config)
-#
-#     job_state = json.load(open(fixtures_dir / fixture))
-#     state_manager = WorkflowStateManager(job_state)
-#
-#     runner = JawsRunner(site_config, state_manager, jaws_api)
-#     run_id = runner.submit_job()
-#     assert run_id is not None
-#     assert runner.job_id == run_id
+@pytest.mark.jaws_submit
+@pytest.mark.parametrize("fixture", ["rqc_workflow_state.json", "meta_assembly_workflow_state.json"])
+def test_jaws_job_runner_jaws_submit(site_config, fixtures_dir, jaws_token_file, jaws_config_file_integration,
+                                     fixture):
+    config = Configuration.from_files(jaws_config_file_integration, jaws_token_file)
+    jaws_api = api.JawsApi(config)
+
+    job_state = json.load(open(fixtures_dir / fixture))
+    state_manager = WorkflowStateManager(job_state)
+
+    runner = JawsRunner(site_config, state_manager, jaws_api)
+    run_id = runner.submit_job()
+    assert run_id is not None
+    assert runner.job_id == run_id
