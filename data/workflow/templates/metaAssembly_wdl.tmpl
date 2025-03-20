@@ -22,7 +22,7 @@ workflow main_workflow {
 
     call <WORKFLOW>_preprocess.preprocess as preprocess {
         input:
-            input_files= <WORKFLOW>_input_files,
+            input_files=<WORKFLOW>_input_files,
             outdir=<WORKFLOW>_outdir,
             input_interleaved=<WORKFLOW>_input_interleaved,
             input_fq1=<WORKFLOW>_input_fq1,
@@ -30,16 +30,16 @@ workflow main_workflow {
     }
     call <WORKFLOW>.jgi_metaAssembly as <ALIAS> {
             input:
-                input_files = select_all([preprocess.input_file_gz]),
-                proj=proj,
-                memory=memory,
-                threads=threads,
-                shortRead=shortRead
+                input_files=select_all([preprocess.input_file_gz]),
+                proj=<WORKFLOW>_prefix,
+                memory=<WORKFLOW>_memory,
+                threads=<WORKFLOW>_threads,
+                shortRead=<WORKFLOW>_short_read
     }
 
     call <WORKFLOW>Output.assembly_output as assembly_output{
         input:
-            contigs=<ALIAS>.contig,
+            contigs=if(<WORKFLOW>_short_read) then <ALIAS>.sr_contig else <ALIAS>.lr_contigs,
             container=<WORKFLOW>_quast_container,
             outdir=<WORKFLOW>_outdir,
             proj=<WORKFLOW>_prefix
@@ -48,13 +48,13 @@ workflow main_workflow {
     output {
         File? contig = if(shortRead) then <ALIAS>.sr_contig else <ALIAS>.lr_contigs
         File? scaffold = if(shortRead) then <ALIAS>.sr_scaffold else <ALIAS>.lr_scaffolds
-        File? agp= if(shortRead) then <ALIAS>.sr_agp else <ALIAS>.lr_agp
-        File? bam= if(shortRead) then <ALIAS>.sr_bam else <ALIAS>.lr_bam 
-        File? samgz= if(shortRead) then <ALIAS>.sr_samgz else <ALIAS>.lr_sam
-        File? covstats= if(shortRead) then <ALIAS>.sr_covstats else <ALIAS>.lr_basecov
-        File? asmstats= <ALIAS>.stats
-        File? asminfo= if(shortRead) then <ALIAS>.sr_asminfo else <ALIAS>.lr_asminfo
-        File asmreportHtml=assembly_output.report_html
-        File asmreportTxt=assembly_output.report_txt
+        File? agp = if(shortRead) then <ALIAS>.sr_agp else <ALIAS>.lr_agp
+        File? bam = if(shortRead) then <ALIAS>.sr_bam else <ALIAS>.lr_bam 
+        File? samgz = if(shortRead) then <ALIAS>.sr_samgz else <ALIAS>.lr_sam
+        File? covstats = if(shortRead) then <ALIAS>.sr_covstats else <ALIAS>.lr_basecov
+        File? asmstats = <ALIAS>.stats
+        File? asminfo = if(shortRead) then <ALIAS>.sr_asminfo else <ALIAS>.lr_asminfo
+        File asmreportHtml = assembly_output.report_html
+        File asmreportTxt = assembly_output.report_txt
     }
 }
