@@ -76,7 +76,10 @@ def test_jaws_job_runner_jaws_validate(site_config, fixtures_dir, jaws_token_fil
     assert validation_resp["result"] == "succeeded"
 
 @pytest.mark.jaws_submit
-@pytest.mark.parametrize("fixture", ["rqc_workflow_state.json", "meta_assembly_workflow_state.json"])
+@pytest.mark.parametrize(
+    "fixture", ["rqc_workflow_state.json", "meta_assembly_workflow_state.json",
+                "read_based_analysis_workflow_state.json", "mags_workflow_state.json", "annotation_workflow_state.json"]
+    )
 def test_jaws_job_runner_jaws_submit(site_config, fixtures_dir, jaws_token_file, jaws_config_file_integration,
                                      fixture):
     config = Configuration.from_files(jaws_config_file_integration, jaws_token_file)
