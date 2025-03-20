@@ -88,6 +88,9 @@ def test_jaws_job_runner_jaws_submit(site_config, fixtures_dir, jaws_token_file,
     job_state = json.load(open(fixtures_dir / fixture))
     state_manager = WorkflowStateManager(job_state)
 
+    # Set last_status to None to simulate a new job submission
+    state_manager.last_status = None
+
     runner = JawsRunner(site_config, state_manager, jaws_api)
     run_id = runner.submit_job()
     assert run_id is not None
