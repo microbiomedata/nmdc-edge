@@ -24,12 +24,12 @@ workflow assembly_output {
 
 task assembly_vis{
     input {
-        File contigs
-        String container
+        File?   contigs
+        String  container
         String? outdir = "report"
-        String proj
-        String prefix=sub(proj, ":", "_")
-        Int minContig = 500
+        String  proj
+        String  prefix=sub(proj, ":", "_")
+        Int     minContig = 500
     }
 
     command<<<
