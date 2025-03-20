@@ -1,11 +1,11 @@
 {
       "workflow": {
-        "id": "Metagenome Annotation: v1.1.0"
+        "id": "Metagenome Annotation: v1.1.5"
       },
       "created_at": "2025-03-20T00:53:30",
       "config": {
         "git_repo": "https://github.com/microbiomedata/mg_annotation",
-        "release": "v1.1.0",
+        "release": "v1.1.5",
         "wdl": "annotation_full.wdl",
         "activity_id": "nmdc:wfmgan-12-txbzp952.1",
         "activity_set": "workflow_execution_set",
