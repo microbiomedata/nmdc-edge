@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 import pytz
 import requests
+import zipfile
 
 from nmdc_automation.config import SiteConfig
 from nmdc_automation.models.nmdc import DataObject, WorkflowExecution, workflow_process_factory
@@ -142,9 +143,17 @@ class JawsRunner(JobRunnerABC):
         if status in self.NO_SUBMIT_STATES and not force:
             logger.info(f"Job {self.job_id} in state {status}, skipping submission")
             return
+        cleanup_zip_files = []
         try:
             files = self.generate_submission_files()
-            cleanup_files = list(files.values())
+
+            # Temporary fix to handle the fact that the JAWS API does not handle the sub argument and the zip file
+            if files['sub']:
+                extract_dir = os.path.dirname(files["sub"])
+                with zipfile.ZipFile(files["sub"], 'r') as zip_ref:
+                    zip_ref.extractall(extract_dir)
+                cleanup_zip_files.append(extract_dir)
+
 
             # Submit to J.A.W.S
             response = self.jaws_api.submit(
@@ -168,6 +177,9 @@ class JawsRunner(JobRunnerABC):
         except Exception as e:
             logger.error(f"Failed to Submit Job: {e}")
             raise e
+
+        finally:
+            _cleanup_files(cleanup_zip_files)
 
 
     def get_job_metadata(self) -> Dict[str, Any]:
