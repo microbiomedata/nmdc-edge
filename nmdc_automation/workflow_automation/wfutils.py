@@ -142,7 +142,6 @@ class JawsRunner(JobRunnerABC):
         if status in self.NO_SUBMIT_STATES and not force:
             logger.info(f"Job {self.job_id} in state {status}, skipping submission")
             return
-        cleanup_files = []
         try:
             files = self.generate_submission_files()
             cleanup_files = list(files.values())
@@ -150,8 +149,8 @@ class JawsRunner(JobRunnerABC):
             # Submit to J.A.W.S
             response = self.jaws_api.submit(
                 wdl_file=files["wdl_file"],
-                sub_file=files["sub"],
-                inputs_file=files["inputs"],
+                sub=files["sub"],
+                inputs=files["inputs"],
                 tag = self.workflow.workflow_execution_id,
                 site = self.DEFAULT_JOB_SITE
             )
@@ -168,10 +167,8 @@ class JawsRunner(JobRunnerABC):
 
         except Exception as e:
             logger.error(f"Failed to Submit Job: {e}")
-            _cleanup_files(cleanup_files)
             raise e
-        finally:
-            _cleanup_files(cleanup_files)
+
 
     def get_job_metadata(self) -> Dict[str, Any]:
         """ Get metadata for a job """
