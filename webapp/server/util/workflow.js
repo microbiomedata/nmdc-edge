@@ -274,10 +274,20 @@ const generateWorkflowResult = function (proj) {
                 const summaryFiles = fs.readdirSync(outdir + "/" + dir);
                 summaryFiles.forEach(function (summaryFile) {
                     if (summaryFile.endsWith('plasmid_summary.tsv')) {
-                        result['plasmid_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                        var rows = parseInt(execSync("wc -l < " + outdir + "/" + dir + "/" + summaryFile).toString().trim());
+                        if (rows > config.IO.MAX_DATATABLE_ROWS) {
+                            result['plasmid_summary-too-large'] = true;
+                        } else {
+                            result['plasmid_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                        }
                     }
                     if (summaryFile.endsWith('virus_summary.tsv')) {
-                        result['virus_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                        var rows = parseInt(execSync("wc -l < " + outdir + "/" + dir + "/" + summaryFile).toString().trim());
+                        if (rows > config.IO.MAX_DATATABLE_ROWS) {
+                            result['virus_summary-too-large'] = true;
+                        } else {
+                            result['virus_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                        }
                     }
                 });
             }
@@ -285,7 +295,12 @@ const generateWorkflowResult = function (proj) {
                 const summaryFiles = fs.readdirSync(outdir + "/" + dir);
                 summaryFiles.forEach(function (summaryFile) {
                     if (summaryFile.endsWith('quality_summary.tsv')) {
-                        result['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                        var rows = parseInt(execSync("wc -l < " + outdir + "/" + dir + "/" + summaryFile).toString().trim());
+                        if (rows > config.IO.MAX_DATATABLE_ROWS) {
+                            result['quality_summary-too-large'] = true;
+                        } else {
+                            result['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                        }
                     }
                 });
             }
@@ -396,10 +411,20 @@ const generatePipelineResult = function (proj) {
                             const summaryFiles = fs.readdirSync(outdir + "/" + dir);
                             summaryFiles.forEach(function (summaryFile) {
                                 if (summaryFile.endsWith('plasmid_summary.tsv')) {
-                                    result[workflow.name]['plasmid_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                                    var rows = parseInt(execSync("wc -l < " + outdir + "/" + dir + "/" + summaryFile).toString().trim());
+                                    if (rows > config.IO.MAX_DATATABLE_ROWS) {
+                                        result[workflow.name]['plasmid_summary-too-large'] = true;
+                                    } else {
+                                        result[workflow.name]['plasmid_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                                    }
                                 }
                                 if (summaryFile.endsWith('virus_summary.tsv')) {
-                                    result[workflow.name]['virus_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                                    var rows = parseInt(execSync("wc -l < " + outdir + "/" + dir + "/" + summaryFile).toString().trim());
+                                    if (rows > config.IO.MAX_DATATABLE_ROWS) {
+                                        result[workflow.name]['virus_summary-too-large'] = true;
+                                    } else {
+                                        result[workflow.name]['virus_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                                    }
                                 }
                             });
                         }
@@ -407,7 +432,12 @@ const generatePipelineResult = function (proj) {
                             const summaryFiles = fs.readdirSync(outdir + "/" + dir);
                             summaryFiles.forEach(function (summaryFile) {
                                 if (summaryFile.endsWith('quality_summary.tsv')) {
-                                    result[workflow.name]['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                                    var rows = parseInt(execSync("wc -l < " + outdir + "/" + dir + "/" + summaryFile).toString().trim());
+                                    if (rows > config.IO.MAX_DATATABLE_ROWS) {
+                                        result[workflow.name]['quality_summary-too-large'] = true;
+                                    } else {
+                                        result[workflow.name]['quality_summary'] = Papa.parse(fs.readFileSync(outdir + "/" + dir + "/" + summaryFile).toString(), { delimiter: '\t', header: true, skipEmptyLines: true }).data;
+                                    }
                                 }
                             });
                         }

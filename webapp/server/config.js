@@ -87,8 +87,8 @@ const config = {
         API_BASE_URL: process.env.CROMWELL_API_BASE_URL || "http://localhost:8000",
         // Max allowed number of jobs in cromwell.
         NUM_JOBS_MAX: makeIntIfDefined(process.env.CROMWELL_NUM_JOBS_MAX) || 100000,
-        // Max allowd number of big mem (virus_plasmid) jobs in cromwell.
-        NUM_BIG_MEM_JOBS_MAX: makeIntIfDefined(process.env.CROMWELL_NUM_BIG_MEM_JOBS_MAX) || 4,
+        // Max allowed number of jobs per user in cromwell.
+        NUM_JOBS_MAX_USER: makeIntIfDefined(process.env.CROMWELL_NUM_JOBS_MAX_USER) || 10,
         // Total size of the input files allowed per job.
         // Note: 161061273600 Bytes is 150 Gibibytes (161 Gigabytes).
         JOBS_INPUT_MAX_SIZE_BYTES: makeIntIfDefined(process.env.CROMWELL_JOBS_INPUT_MAX_SIZE_BYTES) || 161061273600,
@@ -105,7 +105,6 @@ const config = {
         SCHEDULES: {
             PIPELINE_MONITOR: process.env.CRON_PIPELINE_MONITOR_SCHEDULE || "0-59/3 * * * *",
             WORKFLOW_MONITOR: process.env.CRON_WORKFLOW_MONITOR_SCHEDULE || "1-59/3 * * * *",
-            WORKFLOW_BIG_MEM_MONITOR: process.env.CRON_WORKFLOW_BIG_MEM_MONITOR_SCHEDULE || "0-59/3 * * * *",
             BULKSUBMISSION_MONITOR: process.env.CRON_WORKFLOW_MONITOR_SCHEDULE || "0-59/3 * * * *",
             CROMWELL_MONITOR: process.env.CRON_CROMWELL_MONITOR_SCHEDULE || "2-59/3 * * * *",
             FILE_UPLOAD_MONITOR: process.env.CRON_FILE_UPLOAD_MONITOR_SCHEDULE || "0 0 * * *",
@@ -175,6 +174,8 @@ const config = {
         UPLOADED_FILES_TEMP_DIR: process.env.UPLOADED_FILES_TEMP_DIR || path.join(IO_BASE_DIR, "upload/tmp"),
         // Maximum rows to pass to UI data table
         MAX_DATATABLE_ROWS: process.env.MAX_DATATABLE_ROWS || 300000,
+        // opaver_web_path
+        OPAVER_WEB_DIR: process.env.OPAVER_WEB_DIR || path.join(__dirname, "../../io/opaver_web/data"),
     },
     // Parameters that influence the behavior of `Winston.js`, a logging library.
     // Reference: https://github.com/winstonjs/winston-daily-rotate-file#options

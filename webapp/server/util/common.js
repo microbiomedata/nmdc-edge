@@ -2,6 +2,7 @@ const axios = require("axios");
 const fs = require('fs');
 const logger = require('./logger');
 const Upload = require("../models/Upload");
+const Project = require("../models/Project");
 const config = require("../config");
 
 function fileExistsSync(path) {
@@ -22,6 +23,11 @@ async function getRealName(dir) {
         name = upload.name;
     }
     return name;
+}
+
+async function getRunningProjects(proj) {
+    const projects = await Project.find({ 'owner': proj.owner, 'status': { $in: ['processing', 'submitted', 'running'] } });
+    return projects.length;
 }
 
 
@@ -98,4 +104,9 @@ const deleteData = (url, header) => {
     });
 };
 
-module.exports = { fileExistsSync, getRealName, write2log, postData, getData, deleteData };
+// nmdc api
+const nmdcAPI = axios.create({
+    baseURL: config.PROJECTS.NMDC_SERVER_URL,
+});
+
+module.exports = { getRealName, getRunningProjects, write2log, postData, getData, deleteData };

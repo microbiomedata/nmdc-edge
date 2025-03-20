@@ -1,3 +1,7 @@
+version <VERSION>
+import "<WDL_IMPORT>" as <WORKFLOW>
+
+workflow main_workflow {
     input {
         String <WORKFLOW>_project_id
         File? <WORKFLOW>_input_file
@@ -14,3 +18,4 @@
         input_fq1=<WORKFLOW>_input_fq1, 
         input_fq2=<WORKFLOW>_input_fq2
     }
+}

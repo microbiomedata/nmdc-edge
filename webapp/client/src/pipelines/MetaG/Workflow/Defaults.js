@@ -50,9 +50,9 @@ export const initialReadbasedAnalysis = {
     validForm: false,
     errMessage: '',
     enabled_tools: {
-        "gottcha2": false,
-        "kraken2": false,
-        "centrifuge": false
+        "gottcha2": true,
+        "kraken2": true,
+        "centrifuge": true
     },
     fastqPaired: [],
     fastqSingle: [],

@@ -1,3 +1,7 @@
+version <VERSION>
+import "<WDL_IMPORT>" as <WORKFLOW>
+
+workflow main_workflow {
     Array[File] <WORKFLOW>_file_paths
     String <WORKFLOW>_output_directory
     String <WORKFLOW>_output_type
@@ -34,3 +38,4 @@
         plot_ms_classes=<WORKFLOW>_plot_ms_classes,
         plot_mz_error_classes=<WORKFLOW>_plot_mz_error_classes
     }
+}

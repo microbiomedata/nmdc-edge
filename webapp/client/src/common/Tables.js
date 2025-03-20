@@ -65,7 +65,7 @@ export function StatsTable(props) {
                 </tr>
             </thead>
             <tbody>
-                {Object.keys(props.data).map((item, index) => (
+                {props.data && Object.keys(props.data).map((item, index) => (
                     <tr key={index} >
                         <td>{item}</td>
                         <td>{(!props.data[item]||isNaN(Number(props.data[item]))||props.data[item].length===0)? props.data[item]: Number(props.data[item]).toLocaleString("en-US")}</td>
