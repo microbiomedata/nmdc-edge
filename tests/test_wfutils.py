@@ -33,7 +33,7 @@ def test_workflow_job(site_config, fixtures_dir):
 
     job = WorkflowJob(site_config, workflow_state, job_metadata)
     assert job
-    assert job.workflow_execution_id == workflow_state['activity_id']
+    assert job.workflow_execution_id == workflow_state['config']['activity_id']
 
 
 def test_cromwell_job_runner(site_config, fixtures_dir):
@@ -109,10 +109,10 @@ def test_workflow_state_manager(fixtures_dir):
     mags_job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
 
     state = WorkflowStateManager(mags_job_state)
-    assert state.workflow_execution_id == mags_job_state['activity_id']
-    assert state.config == mags_job_state['conf']
-    assert state.execution_template == mags_job_state['conf']['activity']
-    assert state.was_informed_by == mags_job_state['conf']['was_informed_by']
+    assert state.workflow_execution_id == mags_job_state['config']['activity_id']
+    assert state.config == mags_job_state['config']
+    assert state.execution_template == mags_job_state['config']['activity']
+    assert state.was_informed_by == mags_job_state['config']['was_informed_by']
 
 
 # Mock response content
