@@ -47,9 +47,12 @@ def test_jaws_api_get_user(jaws_token_file, jaws_config_file_integration):
 
 
 @pytest.mark.jaws
-@pytest.mark.parametrize("fixture", ["rqc_workflow_state.json", "meta_assembly_workflow_state.json"])
+@pytest.mark.parametrize(
+    "fixture", ["rqc_workflow_state.json", "meta_assembly_workflow_state.json",
+                "annotation_workflow_state.json"]
+    )
 def test_jaws_job_runner_jaws_validate(site_config, fixtures_dir, jaws_token_file, jaws_config_file_integration,
-                                      fixture):
+                                       fixture):
     config = Configuration.from_files(jaws_config_file_integration, jaws_token_file)
     jaws_api = api.JawsApi(config)
 
@@ -65,12 +68,12 @@ def test_jaws_job_runner_jaws_validate(site_config, fixtures_dir, jaws_token_fil
         with zipfile.ZipFile(submission_files["sub"], 'r') as zip_ref:
             zip_ref.extractall(extract_dir)
 
-
-    validation_resp = jaws_api.validate(shell_check=False, wdl_file=submission_files["wdl_file"],
-                                        inputs_file=submission_files["inputs"])
+    validation_resp = jaws_api.validate(
+        shell_check=False, wdl_file=submission_files["wdl_file"],
+        inputs_file=submission_files["inputs"]
+        )
     print(validation_resp)
     assert validation_resp["result"] == "succeeded"
-
 
 # @pytest.mark.jaws
 # @pytest.mark.parametrize("fixture", ["rqc_workflow_state.json", "meta_assembly_workflow_state.json"])
