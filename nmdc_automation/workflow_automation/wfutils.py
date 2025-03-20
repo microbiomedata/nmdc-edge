@@ -30,6 +30,16 @@ logger = logging.getLogger(__name__)
 
 class JobRunnerABC(ABC):
     """Abstract base class for job runners"""
+
+    # States that indicate a job is in some active state and does not need to be submitted
+    NO_SUBMIT_STATES = [
+        "Submitted",  # job is already submitted but not running
+        "Running",  # job is already running
+        "Succeeded",  # job succeeded
+        "Aborting"  # job is in the process of being aborted
+        "On Hold",  # job is on hold and not running. It can be manually resumed later
+    ]
+
     def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager"):
         self.config = site_config
         self.workflow = workflow
@@ -77,10 +87,17 @@ class JobRunnerABC(ABC):
 class JawsRunner(JobRunnerABC):
     """ Job runner for J.A.W.S"""
 
+    DEFAULT_JOB_SITE = 'nmdc'
+
     def __init__(self,
                  site_config: SiteConfig, workflow: "WorkflowStateManager", jaws_api: jaws_api.JawsApi,
                  job_metadata: Dict[str, Any] = None,):
         super().__init__(site_config, workflow)
+        self.jaws_api = jaws_api
+        self._metadata = {}
+        if job_metadata:
+            self._metadata = job_metadata
+
 
     def generate_submission_files(self) -> Dict[str, Any]:
         """ Generate the files needed for a J.A.W.S job submission """
@@ -115,9 +132,46 @@ class JawsRunner(JobRunnerABC):
 
         return files
 
-    def submit_job(self) -> str:
-        """ Submit a job """
-        return "Not implemented"
+    def submit_job(self, force: bool = False) -> Optional[int]:
+        """
+        Submit a job to J.A.W.S. Update the workflow state with the job id and status.
+        :param force: if True, submit the job even if it is in a state that does not require submission
+        :return: {'run_id': 'int'}
+        """
+        status = self.workflow.last_status
+        if status in self.NO_SUBMIT_STATES and not force:
+            logger.info(f"Job {self.job_id} in state {status}, skipping submission")
+            return
+        cleanup_files = []
+        try:
+            files = self.generate_submission_files()
+            cleanup_files = list(files.values())
+
+            # Submit to J.A.W.S
+            response = self.jaws_api.submit(
+                wdl_file=files["wdl_file"],
+                sub_file=files["sub"],
+                inputs_file=files["inputs"],
+                tag = self.workflow.workflow_execution_id,
+                site = self.DEFAULT_JOB_SITE
+            )
+            self.job_id = response['run_id']
+            logger.info(f"Submitted job {response['run_id']}")
+
+            # update workflow state
+            self.workflow.done = False
+            self.workflow.update_state({"start": datetime.now(pytz.utc).isoformat()})
+            self.workflow.update_state({"jaws_jobid": self.job_id})
+            self.workflow.update_state({"last_status": "Submitted"})
+
+            return self.job_id
+
+        except Exception as e:
+            logger.error(f"Failed to Submit Job: {e}")
+            _cleanup_files(cleanup_files)
+            raise e
+        finally:
+            _cleanup_files(cleanup_files)
 
     def get_job_metadata(self) -> Dict[str, Any]:
         """ Get metadata for a job """
@@ -127,9 +181,15 @@ class JawsRunner(JobRunnerABC):
         """ Get the status of a job """
         return "Not implemented"
 
+    @property
     def job_id(self) -> Optional[str]:
-        """ Get the job id """
-        return None
+        """ Get the job id from the metadata """
+        return self.metadata.get("id", None)
+
+    @job_id.setter
+    def job_id(self, job_id: str):
+        """ Set the job id in the metadata """
+        self.metadata["id"] = job_id
 
     def outputs(self) -> Dict[str, str]:
         """ Get the outputs """
@@ -148,14 +208,6 @@ class CromwellRunner(JobRunnerABC):
     """Job runner for Cromwell"""
     LABEL_SUBMITTER_VALUE = "nmdcda"
     LABEL_PARAMETERS = ["release", "wdl", "git_repo"]
-    # States that indicate a job is in some active state and does not need to be submitted
-    NO_SUBMIT_STATES = [
-        "Submitted",  # job is already submitted but not running
-        "Running",  # job is already running
-        "Succeeded",  # job succeeded
-        "Aborting"  # job is in the process of being aborted
-        "On Hold",  # job is on hold and not running. It can be manually resumed later
-    ]
 
     def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager", job_metadata: Dict[str, Any] = None,
                  max_retries: int = DEFAULT_MAX_RETRIES, dry_run: bool = False) -> None:

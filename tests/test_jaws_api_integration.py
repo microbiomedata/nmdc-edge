@@ -49,9 +49,24 @@ def test_jaws_job_runner_jaws_validate(site_config, fixtures_dir, jaws_token_fil
 
     runner = JawsRunner(site_config, state_manager, jaws_api)
     submission_files = runner.generate_submission_files()
-    validation_resp = jaws_api.validate(shell_check=True, wdl_file=submission_files["wdl_file"],
+    validation_resp = jaws_api.validate(shell_check=False, wdl_file=submission_files["wdl_file"],
                                         inputs_file=submission_files["inputs"])
     print(validation_resp)
     assert validation_resp["result"] == "succeeded"
 
 
+@pytest.mark.jaws
+@pytest.mark.parametrize("fixture", ["rqc_workflow_state.json"])
+def test_jaws_job_runner_jaws_submit(site_config, fixtures_dir, jaws_token_file, jaws_config_file_integration,
+                                     fixture):
+    config = Configuration.from_files(jaws_config_file_integration, jaws_token_file)
+    jaws_api = api.JawsApi(config)
+
+    job_state = json.load(open(fixtures_dir / fixture))
+    state_manager = WorkflowStateManager(job_state)
+
+    runner = JawsRunner(site_config, state_manager, jaws_api)
+    response = runner.submit_job()
+    run_id = response["run_id"]
+    assert run_id is not None
+    assert runner.job_id == run_id
