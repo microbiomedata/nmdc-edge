@@ -48,7 +48,8 @@ def test_jaws_api_get_user(jaws_token_file, jaws_config_file_integration):
 
 @pytest.mark.jaws
 @pytest.mark.parametrize(
-    "fixture", ["rqc_workflow_state.json", "meta_assembly_workflow_state.json", "read_based_analysis_workflow_state.json"]
+    "fixture", ["rqc_workflow_state.json", "meta_assembly_workflow_state.json",
+                "read_based_analysis_workflow_state.json", "mags_3_1_14_workflow_state.json"]
     )
 def test_jaws_job_runner_jaws_validate(site_config, fixtures_dir, jaws_token_file, jaws_config_file_integration,
                                        fixture):
