@@ -66,7 +66,6 @@ def test_jaws_job_runner_jaws_submit(site_config, fixtures_dir, jaws_token_file,
     state_manager = WorkflowStateManager(job_state)
 
     runner = JawsRunner(site_config, state_manager, jaws_api)
-    response = runner.submit_job()
-    run_id = response["run_id"]
+    run_id = runner.submit_job()
     assert run_id is not None
     assert runner.job_id == run_id
