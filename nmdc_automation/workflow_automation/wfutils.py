@@ -154,6 +154,14 @@ class JawsRunner(JobRunnerABC):
                     zip_ref.extractall(extract_dir)
                 cleanup_zip_files.append(extract_dir)
 
+            # Validate
+            validation_resp = self.jaws_api.validate(
+                shell_check=False, wdl_file=files["wdl_file"],
+                inputs_file=files["inputs"]
+            )
+            if validation_resp["result"] != "succeeded":
+                logger.error(f"Failed to Validate Job: {validation_resp}")
+                raise Exception(f"Failed to Validate Job: {validation_resp}")
 
             # Submit to J.A.W.S
             response = self.jaws_api.submit(
