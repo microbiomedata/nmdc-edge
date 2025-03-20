@@ -296,26 +296,6 @@ def test_jaws_job_runner_generate_submission_files(mock_fetch_release_file, site
     job_runner = JawsRunner(site_config, state_manager, api)
     assert job_runner
 
-    # Now mock 'open' for the workflow submission files
-    # with mock.patch("builtins.open", new_callable=mock.mock_open) as mock_open:
-    #     # Create 4 BytesIO objects for each expected open() call.
-    #     fake_file_1 = io.BytesIO(b"mock wdl file content")
-    #     fake_file_2 = io.BytesIO(b"mock bundle file content")
-    #     fake_file_3 = io.BytesIO(b'{"key": "value"}') # workflowInputs (binary mode)
-    #     fake_file_4 = io.BytesIO(b'{"key": "value"}') # workflowInputs (text mode read)
-    #
-    #     fake_file_1.name = "/tmp/test_workflow.wdl"
-    #     fake_file_2.name = "/tmp/test_bundle.zip"
-    #     fake_file_3.name = "/tmp/test_workflow_inputs.json"
-    #     fake_file_4.name = "/tmp/test_workflow_inputs.json"
-    #
-    #     mock_open.side_effect = [
-    #         fake_file_1,
-    #         fake_file_2,
-    #         fake_file_3,
-    #         fake_file_4
-    #     ]
-
     submission_files = job_runner.generate_submission_files()
     assert submission_files
     assert "wdl_file" in submission_files
