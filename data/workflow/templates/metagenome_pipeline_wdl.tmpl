@@ -23,7 +23,7 @@ workflow main_workflow {
         Boolean     input_interleaved
         Boolean     short_read
         String      proj = "metagenome_workflow"
-        String      readsQC_vis_container="microbiomedata/nmdc-fastqc_vis:1.1.1"
+        String      readsQC_vis_container="ghcr.io/microbiomedata/nmdc-fastqc_vis:1.1.2"
         Array[File] rqcfiltered_reads = select_all(nmdc_rqcfilter_call.filtered_final)
         # ReadbasedAnalysis
         Map[String, Boolean] readbasedAnalysis_enabled_tools = {
