@@ -1,0 +1,20 @@
+{
+    "compute_site_id": "nmdc",
+    "cpu_hours": 17.1,
+    "cromwell_run_id": "27acc0ae-963f-4b07-956d-8c033abaa852",
+    "id": 102194,
+    "input_site_id": "nmdc",
+    "json_file": "/tmp/tmp2dkuuba8.json",
+    "output_dir": "/pscratch/sd/n/nmdcda/jaws_outputs/nmdcda/102194/27acc0ae-963f-4b07-956d-8c033abaa852",
+    "result": "succeeded",
+    "status": "done",
+    "status_detail": "The run is complete.",
+    "submitted": "2025-03-20 14:28:28",
+    "tag": "nmdc:wfmgan-12-txbzp952.1",
+    "team_id": "nmdc",
+    "updated": "2025-03-21 06:16:30",
+    "user_id": "nmdcda",
+    "wdl_file": "/tmp/tmpm816n_e0.wdl",
+    "workflow_name": "annotation",
+    "workflow_root": "/pscratch/sd/n/nmjaws/nmdc-prod/cromwell-executions/annotation/27acc0ae-963f-4b07-956d-8c033abaa852"
+  }

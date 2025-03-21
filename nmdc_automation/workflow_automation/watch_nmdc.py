@@ -199,7 +199,7 @@ class JobManager:
     def get_finished_jobs(self)->Tuple[List[WorkflowJob], List[WorkflowJob]]:
         """
         Get finished jobs
-        Returns a tuple of successful jobs and failed jobs
+        Returns a tuple of successful jobs and failed jobs.
         Jobs are considered finished if they have a last status of "Succeeded" or "Failed"
         or if they have reached the maximum number of failures
 
@@ -210,20 +210,20 @@ class JobManager:
         failed_jobs = []
         for job in self.job_cache:
             if not job.done:
-                if job.workflow.last_status == "Succeeded" and job.opid:
+                if job.workflow.last_status.lower() == "succeeded" and job.opid:
                     successful_jobs.append(job)
                     continue
-                if job.workflow.last_status == "Failed" and job.workflow.failed_count >= self._MAX_FAILS:
+                if job.workflow.last_status.lower() == "failed" and job.workflow.failed_count >= self._MAX_FAILS:
                     failed_jobs.append(job)
                     continue
                 # check status
                 status = job.job.get_job_status()
 
-                if status == "Succeded":
+                if status.lower() == "succeded":
                     job.workflow.last_status = status
                     successful_jobs.append(job)
                     continue
-                elif status == "Failed":
+                elif status.lower() == "failed":
                     job.workflow.last_status = status
                     job.workflow.failed_count += 1
                     failed_jobs.append(job)

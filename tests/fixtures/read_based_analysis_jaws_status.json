@@ -1,0 +1,20 @@
+{
+    "compute_site_id": "nmdc",
+    "cpu_hours": 11.1,
+    "cromwell_run_id": "db8a11fe-eab4-489b-9983-3d0de10b7ea7",
+    "id": 102192,
+    "input_site_id": "nmdc",
+    "json_file": "/tmp/tmpp8zg3ns3.json",
+    "output_dir": "/pscratch/sd/n/nmdcda/jaws_outputs/nmdcda/102192/db8a11fe-eab4-489b-9983-3d0de10b7ea7",
+    "result": "succeeded",
+    "status": "done",
+    "status_detail": "The run is complete.",
+    "submitted": "2025-03-20 14:28:04",
+    "tag": "nmdc:wfrbt-12-yw16js60.1",
+    "team_id": "nmdc",
+    "updated": "2025-03-20 21:44:02",
+    "user_id": "nmdcda",
+    "wdl_file": "/tmp/tmp9jvxpzis.wdl",
+    "workflow_name": "ReadbasedAnalysis",
+    "workflow_root": "/pscratch/sd/n/nmjaws/nmdc-prod/cromwell-executions/ReadbasedAnalysis/db8a11fe-eab4-489b-9983-3d0de10b7ea7"
+  }

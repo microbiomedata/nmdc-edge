@@ -220,8 +220,20 @@ class JawsRunner(JobRunnerABC):
 
     def get_job_metadata(self) -> Dict[str, Any]:
         """ Get metadata for a job. In JAYS this is the response from the status call """
-        resp = self.jaws_api.status(self.job_id)
-        return resp
+        metadata = self.jaws_api.status(self.job_id)
+        # load output_dir / outputs.json file
+        if "outputs" in metadata:
+            outputs = metadata["outputs"]
+            if "output_dir" in outputs:
+                output_dir = outputs["output_dir"]
+                outputs_path = Path(output_dir) / "outputs.json"
+                if outputs_path.exists():
+                    with open(outputs_path) as f:
+                        outputs = json.load(f)
+                        metadata["outputs"] = outputs
+        # update cached metadata
+        self.metadata = metadata
+        return metadata
 
     def get_job_status(self) -> str:
         """
@@ -350,7 +362,6 @@ class CromwellRunner(JobRunnerABC):
             raise e
         return files
 
-
     def submit_job(self, force: bool = False) -> Optional[str]:
         """
         Submit a job to Cromwell. Update the workflow state with the job id and status.
@@ -358,9 +369,9 @@ class CromwellRunner(JobRunnerABC):
         :return: the job id
         """
         status = self.workflow.last_status
-        if status.lower() in self.NO_SUBMIT_STATES and not force:
+        if status and status.lower() in self.NO_SUBMIT_STATES and not force:
             logger.info(f"Job {self.job_id} in state {status}, skipping submission")
-            return
+            return None
         cleanup_files = []
         try:
             files = self.generate_submission_files()
@@ -624,12 +635,14 @@ class WorkflowJob:
 
     """
     def __init__(self, site_config: SiteConfig, workflow_state: Dict[str, Any] = None,
-                 job_metadata: Dict['str', Any] = None, opid: str = None, job_runner: JobRunnerABC = None) -> None:
+                 job_metadata: Dict['str', Any] = None, opid: str = None, jaws_api: jaws_api.JawsApi = None) -> None:
         self.site_config = site_config
         self.workflow = WorkflowStateManager(workflow_state, opid)
-        # default to CromwellRunner if no job_runner is provided
-        if job_runner is None:
+        # Use JawsRunner if jaws_api is provided, otherwise use CromwellRunner
+        if jaws_api is None:
             job_runner = CromwellRunner(site_config, self.workflow, job_metadata)
+        else:
+            job_runner = JawsRunner(site_config, self.workflow, jaws_api, job_metadata)
         self.job = job_runner
 
     # Properties to access the site config, job state, and job runner attributes
