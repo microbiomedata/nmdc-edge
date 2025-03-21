@@ -29,12 +29,12 @@ workflow main_workflow {
             input_fq2=<WORKFLOW>_input_fq2
     }
     call <WORKFLOW>.jgi_metaAssembly as <ALIAS> {
-            input:
-                input_files=select_all([preprocess.input_file_gz]),
-                proj=<WORKFLOW>_prefix,
-                memory=<WORKFLOW>_memory,
-                threads=<WORKFLOW>_threads,
-                shortRead=<WORKFLOW>_short_read
+        input:
+            input_files=select_all([preprocess.input_file_gz]),
+            proj=<WORKFLOW>_prefix,
+            memory=<WORKFLOW>_memory,
+            threads=<WORKFLOW>_threads,
+            shortRead=<WORKFLOW>_short_read
     }
 
     call <WORKFLOW>Output.assembly_output as assembly_output{

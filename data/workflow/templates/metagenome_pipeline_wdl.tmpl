@@ -6,7 +6,9 @@ import "readsqc_output.wdl" as readsqc_output
 import "<READBASEDANALYSIS_WDL>" as readbasedAnalysis
 import "readbasedanalysis_preprocess.wdl" as readbasedanalysis_preprocess
 import "readbasedAnalysis_output.wdl" as readbasedAnalysis_output
-import "nmdcEDGE_assembly.wdl" as metaAssembly
+import "<ASSEMBLY_WDL>" as  metaAssembly
+import "assembly_preprocess.wdl" as metaAssembly_preprocess
+import "assembly_output.wdl" as metaAssembly_output
 import "<ANNOTATION_WDL>" as metaAnnotation
 import "annotation_output.wdl" as metaAnnotationOutput
 import "<MAGS_WDL>" as metaMAGs
@@ -47,7 +49,7 @@ workflow main_workflow {
         String  metaAssembly_memory="100g"
         String  metaAssembly_threads="4"
         # ViralPlasmid
-        File  metaAssembly_contig = metaAssembly_call.contig
+        File    metaAssembly_contig = select_all([metaAssembly_call.contig])
         Map[String, Boolean] virusPlasmid_options = {
             "default": true,
             "relaxed": false,
@@ -183,6 +185,33 @@ workflow main_workflow {
             input_fq2=input_fq2,
             proj=metaMAGs_proj,
             shortRead=short_read
+    }
+
+    call metaAssembly_preprocess.preprocess as metaAssembly_preprocess {
+            input:
+                input_files= rqcfiltered_reads,
+                outdir=metaAssembly_outdir,
+                input_interleaved=input_interleaved,
+                input_fq1=input_fq1,
+                input_fq2=input_fq2,
+
+        }
+
+    call metaAssembly.jgi_metaAssembly as metaAssembly_call {
+        input:
+            input_files=select_all([metaAssembly_preprocess.input_file_gz]),
+            proj=metaMAGs_proj,
+            memory=metaAssembly_memory,
+            threads=metaAssembly_threads,
+            shortRead=short_read
+    }
+
+    call metaAssembly_output.assembly.output as assembly_output{
+        input: 
+            contigs=if(short_read) then metaAssembly_call.sr_contig else metaAssembly_call.lr_contigs,
+            container=metaAssembly_quast_container,
+            outdir=metaAssembly_outdir,
+            proj=metaMAGs_proj
     }
 
     call viralPlasmid.viral as viralPlasmid_call {
