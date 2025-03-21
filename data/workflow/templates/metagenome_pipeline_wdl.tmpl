@@ -49,7 +49,7 @@ workflow main_workflow {
         String  metaAssembly_memory="100g"
         String  metaAssembly_threads="4"
         # ViralPlasmid
-        File    metaAssembly_contig = select_all([if(shortRead) then metaAssembly_call.sr_contig else metaAssembly_call.lr_contigs])
+        File    metaAssembly_contig = select_all([if(short_read) then metaAssembly_call.sr_contig else metaAssembly_call.lr_contigs])
         Map[String, Boolean] virusPlasmid_options = {
             "default": true,
             "relaxed": false,
@@ -68,7 +68,7 @@ workflow main_workflow {
         # metaMAGS
         String  metaMAGs_proj
         File    metaMAGs_contig_file = metaAnnotation_call.renamed_fasta
-        File    metaMAGs_sam_file = metaAssembly_call.bam
+        File    metaMAGs_sam_file = if(short_read) then metaAssembly_call.sr_bam else metaAssembly_call.lr_bam 
         File    metaMAGs_gff_file = metaAnnotation_call.functional_gff
         File    metaMAGs_proteins_file = metaAnnotation_call.proteins_faa
         File    metaMAGs_cog_file = metaAnnotation_call.cog_gff
