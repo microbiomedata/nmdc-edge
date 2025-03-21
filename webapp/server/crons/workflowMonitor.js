@@ -12,7 +12,7 @@ const config = require("../config");
 module.exports = function workflowMonitor() {
     logger.debug("workflow monitor");
     //only process one job at each time based on job updated time
-    CromwellJob.find({ 'status': { $in: ['Submitted', 'Running'] } }).sort({ updated: 1 }).then(jobs => {
+    CromwellJob.find({ 'status': { $in: ['Submitted', 'Running'] } }).sort({ updated: 1 }).then(async jobs => {
         //submit request only when the current cromwell running jobs less than the max allowed jobs
         if (jobs.length >= config.CROMWELL.NUM_JOBS_MAX) {
             return;
@@ -22,20 +22,14 @@ module.exports = function workflowMonitor() {
         jobs.forEach(job => {
             jobInputsize += job.inputsize;
         });
+        //limit the running jobs the current project owner has
+        const excludedUsers = await common.getUsersWithMaxRunningJobs();
+        const owners = common.getValuesForKey(excludedUsers, "owner");
         //only process one request at each time
-        Project.find({ 'type': { $nin: ['Metagenome Pipeline'] }, 'status': 'in queue' }).sort({ updated: 1 }).then(async projs => {
+        Project.find({ 'type': { $nin: ['Metagenome Pipeline'] }, 'owner':{$nin: owners}, 'status': 'in queue' }).sort({ updated: 1 }).then(async projs => {
             let proj = projs[0];
             if (!proj) {
                 logger.debug("No workflow request to process");
-                return;
-            }
-            //limit the running jobs the current project owner has
-            const runningProjects = await common.getRunningProjects(proj);
-            if(runningProjects > config.CROMWELL.NUM_JOBS_MAX_USER) {
-                logger.debug(proj.owner +" has max running projects.");
-                // set new updated time to move this request to the end of the queue
-                proj.updated = Date.now();
-                proj.save();
                 return;
             }
             //parse conf.json
