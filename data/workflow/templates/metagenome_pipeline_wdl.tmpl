@@ -170,22 +170,6 @@ workflow main_workflow {
             centrifuge_krona_html=ReadbasedAnalysis_call.final_centrifuge_krona_html, 
             PREFIX=readbasedAnalysis_prefix
     }
-    call metaAssembly.nmdc_edge_assembly as metaAssembly_call {
-        input:
-            input_file=rqcfiltered_reads,
-            outdir=metaAssembly_outdir,
-            uniquekmer=metaAssembly_uniquekmer,
-            bbtools_container=metaAssembly_bbtools_container,
-            spades_container=metaAssembly_spades_container, 
-            quast_container=metaAssembly_quast_container,
-            memory=metaAssembly_memory,
-            threads=metaAssembly_threads,
-            input_interleaved = true,
-            input_fq1=input_fq1,
-            input_fq2=input_fq2,
-            proj=metaMAGs_proj,
-            shortRead=short_read
-    }
 
     call metaAssembly_preprocess.preprocess as metaAssembly_preprocess {
             input:
@@ -193,8 +177,7 @@ workflow main_workflow {
                 outdir=metaAssembly_outdir,
                 input_interleaved=input_interleaved,
                 input_fq1=input_fq1,
-                input_fq2=input_fq2,
-
+                input_fq2=input_fq2
         }
 
     call metaAssembly.jgi_metaAssembly as metaAssembly_call {
