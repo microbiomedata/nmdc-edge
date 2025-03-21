@@ -189,7 +189,7 @@ workflow main_workflow {
             shortRead=short_read
     }
 
-    call metaAssembly_output.assembly.output as assembly_output{
+    call metaAssembly_output.assembly_output as assembly_output{
         input: 
             contigs=if(short_read) then metaAssembly_call.sr_contig else metaAssembly_call.lr_contigs,
             container=metaAssembly_quast_container,
