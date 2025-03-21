@@ -303,8 +303,12 @@ def process_data(valid_data: Dict[str, List]):
             - key (str): workflow_execution_id
             - value (List): [workflow_execution_type (str), list_of_records (List[Dict])]
     """
+    count_workflow_execution_records = {} # sanity check
     for workflow_execution_id, [workflow_execution, was_informed_by, records] in valid_data.items():
+        count_workflow_execution_records[workflow_execution] = count_workflow_execution_records.get(workflow_execution, 0) + 1
         generate_metadata_file(workflow_execution_id, workflow_execution, was_informed_by, records)
+
+    click.echo(f"number of records of each workflow execution: {count_workflow_execution_records}")
 
 
 def main():
