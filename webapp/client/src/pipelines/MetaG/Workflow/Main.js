@@ -62,6 +62,13 @@ function Main(props) {
         if (workflow === 'ReadbasedAnalysis') {
             myWorkflow.enabled_tools = selectedWorkflows[workflow].enabled_tools;
             inputDisplay.input['Analysis Tools'] = selectedWorkflows[workflow].enabled_tools;
+            if (selectedWorkflows[workflow].shortRead) {
+                myWorkflow.shortRead = true;
+                inputDisplay.input['Sequencing Platform'] = "Illumina";
+            } else {
+                myWorkflow.shortRead = false;
+                inputDisplay.input['Sequencing Platform'] = "PacBio";
+            }
             myWorkflow.paired = selectedWorkflows[workflow].paired;
             if (selectedWorkflows[workflow].paired) {
                 let reads = [];
@@ -70,7 +77,9 @@ function Main(props) {
                     reads.push(paired.fq2);
                 });
                 myWorkflow.reads = reads;
-                inputDisplay.input['Is single-end'] = false;
+                if (selectedWorkflows[workflow].shortRead) {
+                    inputDisplay.input['Is single-end'] = false;
+                }
                 let readsDisplay = [];
                 selectedWorkflows[workflow].fastqPairedDisplay.forEach((paired, id) => {
                     readsDisplay.push(paired.fq1);
@@ -78,7 +87,9 @@ function Main(props) {
                 });
                 inputDisplay.input.fastqs = readsDisplay;
             } else {
-                inputDisplay.input['Is single-end'] = true;
+                if (selectedWorkflows[workflow].shortRead) {
+                    inputDisplay.input['Is single-end'] = true;
+                }
                 myWorkflow.reads = selectedWorkflows[workflow].fastqSingle;
                 inputDisplay.input.fastqs = selectedWorkflows[workflow].fastqSingleDisplay;
             }
@@ -88,7 +99,7 @@ function Main(props) {
             inputDisplay.input['Input FASTA File'] = selectedWorkflows[workflow].input_fasta_display;
 
         } else if (workflow === 'MetaMAGs') {
-            myWorkflow.sam_file= selectedWorkflows[workflow].sam_file;
+            myWorkflow.sam_file = selectedWorkflows[workflow].sam_file;
             myWorkflow.proteins_file = selectedWorkflows[workflow].proteins_file;
             myWorkflow.contig_file = selectedWorkflows[workflow].contig_file;
             myWorkflow.gff_file = selectedWorkflows[workflow].gff_file;
@@ -120,15 +131,26 @@ function Main(props) {
 
         } else if (workflow === 'MetaAssembly' || workflow === 'ReadsQC') {
             let myInputs = {};
+            if (selectedWorkflows[workflow].shortRead) {
+                myInputs.shortRead = true;
+                inputDisplay.input['Sequencing Platform'] = "Illumina";
+            } else {
+                myInputs.shortRead = false;
+                inputDisplay.input['Sequencing Platform'] = "PacBio";
+            }
             if (selectedWorkflows[workflow].interleaved) {
                 myInputs.interleaved = true;
                 myInputs.fastqs = selectedWorkflows[workflow].fastqSingle;
-                inputDisplay.input['Is interleaved'] = true;
+                if (selectedWorkflows[workflow].shortRead) {
+                    inputDisplay.input['Is interleaved'] = true;
+                }
                 inputDisplay.input.fastqs = selectedWorkflows[workflow].fastqSingleDisplay;
             } else {
                 myInputs.interleaved = false;
                 myInputs.fastqs = selectedWorkflows[workflow].fastqPaired;
-                inputDisplay.input['Is interleaved'] = false;
+                if (selectedWorkflows[workflow].shortRead) {
+                    inputDisplay.input['Is interleaved'] = false;
+                }
                 inputDisplay.input.fastqs = selectedWorkflows[workflow].fastqPairedDisplay;
             }
             myWorkflow.input_fastq = myInputs;

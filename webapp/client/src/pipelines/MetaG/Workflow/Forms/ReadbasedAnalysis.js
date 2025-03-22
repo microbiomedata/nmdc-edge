@@ -76,7 +76,7 @@ export function ReadbasedAnalysis(props) {
                 }
                 form.errMessage = errMessage;
             }
-            if(!form.validInputArray) {
+            if (!form.validInputArray) {
                 form.validForm = false;
             }
             //force updating parent's inputParams
@@ -114,7 +114,8 @@ export function ReadbasedAnalysis(props) {
                     </Row>
                     <br></br> */}
                     <MyTooltip id='ReadbasedAnalysis' text="Input Raw Reads" tooltip={workflowInputTips['ReadbasedAnalysis']['fastq_tip']} showTooltip={true} place="right" />
-                    <FastqInput projectTypes={['ReadsQC','Retrieve SRA Data']} singleType={'single-end or interleaved'} name={props.name} full_name={props.full_name} setParams={updateFastqInputs} collapseParms={true} paired-input-max={form['paired-input-max']} />
+                    <FastqInput projectTypes={['ReadsQC', 'Retrieve SRA Data']} singleType={'single-end or interleaved'} name={props.name} full_name={props.full_name}
+                        setParams={updateFastqInputs} collapseParms={true} paired-input-max={form['paired-input-max']} platformOptions={true} />
                 </CardBody>
             </Collapse>
         </Card >

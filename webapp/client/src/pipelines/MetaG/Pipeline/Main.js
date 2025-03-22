@@ -89,15 +89,26 @@ function Main(props) {
         inputDisplay.input = {};
         inputDisplay.input['Input Raw Reads'] = {};
         let myInputs = {};
+        if (inputsParams.shortRead) {
+            myInputs.shortRead = true;
+            inputDisplay.input['Input Raw Reads']['Sequencing Platform'] = "Illumina";
+        } else {
+            myInputs.shortRead = false;
+            inputDisplay.input['Input Raw Reads']['Sequencing Platform'] = "PacBio";
+        }
         if (inputsParams.interleaved) {
             myInputs.interleaved = true;
             myInputs.fastqs = inputsParams.fastqSingle;
-            inputDisplay.input['Input Raw Reads'].interleaved = true;
+            if (inputsParams.shortRead) {
+                inputDisplay.input['Input Raw Reads'].interleaved = true;
+            }
             inputDisplay.input['Input Raw Reads'].fastqs = inputsParams.fastqSingleDisplay;
         } else {
             myInputs.interleaved = false;
             myInputs.fastqs = inputsParams.fastqPaired;
-            inputDisplay.input['Input Raw Reads'].interleaved = false;
+            if (inputsParams.shortRead) {
+                inputDisplay.input['Input Raw Reads'].interleaved = false;
+            }
             inputDisplay.input['Input Raw Reads'].fastqs = inputsParams.fastqPairedDisplay;
         }
         formData.append('inputs', JSON.stringify(myInputs));
