@@ -18,17 +18,17 @@ workflow main_workflow {
         String      <WORKFLOW>_db_centrifuge = "/refdata/Centrifuge/hpv"
     }
 
-        call readbasedanalysis_preprocess.preprocess as preprocess {
-            input:
-                input_files=<WORKFLOW>_reads,
-                paired=<WORKFLOW>_paired
-        }
+    call readbasedanalysis_preprocess.preprocess as preprocess {
+        input:
+            input_files=<WORKFLOW>_reads,
+            paired=<WORKFLOW>_paired
+    }
 
     call <WORKFLOW>.ReadbasedAnalysis as <ALIAS> {
         input: 
-            input_file=select_first([preprocess.input_file_gz, [""]]), 
+            input_file=select_first([preprocess.input_file_gz, [""]]),
             cpu=<WORKFLOW>_cpu,
-            proj=<WORKFLOW>_prefix, 
+            proj=<WORKFLOW>_prefix,
             paired=<WORKFLOW>_paired,
             long_read=<WORKFLOW>_long_read,
             db_gottcha2=<WORKFLOW>_db_gottcha2, 
@@ -37,17 +37,17 @@ workflow main_workflow {
     }
 
     call readbasedAnalysis_output.readbasedAnalysis_output as readbasedAnalysis_output {
-        input: 
+        input:
             outdir=<WORKFLOW>_outdir,
-            gottcha2_report_tsv=ReadbasedAnalysis.final_gottcha2_report_tsv, 
+            gottcha2_report_tsv=ReadbasedAnalysis.final_gottcha2_report_tsv,
             gottcha2_full_tsv=ReadbasedAnalysis.final_gottcha2_full_tsv,
-            gottcha2_krona_html=ReadbasedAnalysis.final_gottcha2_krona_html, 
+            gottcha2_krona_html=ReadbasedAnalysis.final_gottcha2_krona_html,
             kraken2_report_tsv=ReadbasedAnalysis.final_kraken2_report_tsv,
-            kraken2_classification_tsv=ReadbasedAnalysis.final_kraken2_classification_tsv, 
+            kraken2_classification_tsv=ReadbasedAnalysis.final_kraken2_classification_tsv,
             kraken2_krona_html=ReadbasedAnalysis.final_kraken2_krona_html,
             centrifuge_report_tsv=ReadbasedAnalysis.final_centrifuge_report_tsv,
             centrifuge_classification_tsv=ReadbasedAnalysis.final_centrifuge_classification_tsv,
-            centrifuge_krona_html=ReadbasedAnalysis.final_centrifuge_krona_html, 
+            centrifuge_krona_html=ReadbasedAnalysis.final_centrifuge_krona_html,
             PREFIX=ReadbasedAnalysis_prefix
     }
 }
