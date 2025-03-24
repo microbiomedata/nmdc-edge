@@ -219,7 +219,8 @@ class JawsRunner(JobRunnerABC):
 
 
     def get_job_metadata(self) -> Dict[str, Any]:
-        """ Get metadata for a job. In JAYS this is the response from the status call """
+        """ Get metadata for a job. In JAWS this is the response from the status call and the
+        logical names and file paths for the outputs specified in outputs.json """
         metadata = self.jaws_api.status(self.job_id)
         # load output_dir / outputs.json file
         if "outputs" in metadata:
