@@ -19,7 +19,8 @@ from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import SiteConfig
 from nmdc_automation.workflow_automation.wfutils import WorkflowJob
 
-
+from jaws_client import api as jaws_api
+from jaws_client.config import Configuration as jaws_Configuration
 
 DEFAULT_STATE_DIR = Path(__file__).parent / "_state"
 DEFAULT_STATE_FILE = DEFAULT_STATE_DIR / "state.json"
@@ -335,6 +336,12 @@ class Watcher:
         self.should_skip_claim = False
         self.config = SiteConfig(site_configuration_file)
         self.file_handler = FileHandler(self.config, state_file)
+
+        if use_jaws:
+            jaws_config = jaws_Configuration.from_files(self.config.jaws_config, self.config.jaws_token)
+            self.jaws_api = jaws_api.JawsApi(jaws_config)
+
+
         self.runtime_api_handler = RuntimeApiHandler(self.config)
         self.job_manager = JobManager(self.config, self.file_handler)
         self.nmdc_materialized = _get_nmdc_materialized()

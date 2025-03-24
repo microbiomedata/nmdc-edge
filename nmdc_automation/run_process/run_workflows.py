@@ -19,15 +19,16 @@ def cli():
     type=click.Path(exists=True),
     required=True,
 )
+@click.option(  "-jaws", "--jaws", is_flag=True, type=bool, default=False)
 @click.pass_context
-def watcher(ctx, site_configuration_file):
+def watcher(ctx, site_configuration_file, jaws):
     logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
     logging.basicConfig(
         level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
     )
     logger = logging.getLogger(__name__)
     logger.info(f"Initializing Watcher: config file: {site_configuration_file}")
-    ctx.obj = Watcher(site_configuration_file)
+    ctx.obj = Watcher(site_configuration_file, use_jaws=jaws)
 
 
 @cli.command()
