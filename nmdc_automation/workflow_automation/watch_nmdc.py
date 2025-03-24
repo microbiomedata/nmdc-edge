@@ -107,10 +107,11 @@ class FileHandler:
 
 class JobManager:
     """ JobManager class for managing WorkflowJob objects """
-    def __init__(self, config: SiteConfig, file_handler: FileHandler, init_cache: bool = True):
+    def __init__(self, config: SiteConfig, file_handler: FileHandler, init_cache: bool = True, jaws_api=None):
         """ Initialize the JobManager with a Config object and a FileHandler object """
         self.config = config
         self.file_handler = file_handler
+        self.jaws_api = jaws_api
         self._job_cache = []
         self._MAX_FAILS = 2
         if init_cache:
@@ -162,7 +163,7 @@ class JobManager:
             if job.get("opid") and job.get("opid") in job_cache_ids:
                 # already in cache
                 continue
-            wf_job = WorkflowJob(self.config, workflow_state=job)
+            wf_job = WorkflowJob(self.config, workflow_state=job, jaws_api=self.jaws_api)
             logger.info(f"Job from State: {wf_job.was_informed_by} / {wf_job.workflow_execution_id}, Last Status: {wf_job.workflow.last_status} /{wf_job.opid} / {wf_job.workflow.nmdc_jobid}")
             job_cache_ids.append(wf_job.opid)
             wf_job_list.append(wf_job)
@@ -294,9 +295,10 @@ class JobManager:
 
 class RuntimeApiHandler:
     """ RuntimeApiHandler class for managing API calls to the runtime """
-    def __init__(self, config):
+    def __init__(self, config, jaws_api=None):
         self.runtime_api = NmdcRuntimeApi(config)
         self.config = config
+        self.jaws_api = jaws_api
 
     def claim_job(self, job_id):
         """ Claim a job by its ID """
@@ -312,7 +314,7 @@ class RuntimeApiHandler:
         job_records = self.runtime_api.list_jobs(filt=filt)
 
         for job in job_records:
-            jobs.append(WorkflowJob(self.config, workflow_state=job))
+            jobs.append(WorkflowJob(self.config, workflow_state=job, jaws_api=self.jaws_api))
 
         return jobs
 
@@ -327,7 +329,7 @@ class RuntimeApiHandler:
 
 class Watcher:
     """ Watcher class for monitoring and managing jobs """
-    def __init__(self, site_configuration_file: Union[str, Path],  state_file: Union[str, Path] = None):
+    def __init__(self, site_configuration_file: Union[str, Path],  state_file: Union[str, Path] = None, use_jaws: bool = False):
         self._POLL_INTERVAL_SEC = 60
         self._MAX_FAILS = 2
         self.should_skip_claim = False
