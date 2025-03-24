@@ -280,8 +280,8 @@ class JawsRunner(JobRunnerABC):
         self._metadata = metadata
 
     def max_retries(self) -> int:
-        """ Get the maximum number of retries """
-        return DEFAULT_MAX_RETRIES
+        """ Get the maximum number of retries - Set this at 1 for now """
+        return 1
 
 
 class CromwellRunner(JobRunnerABC):
