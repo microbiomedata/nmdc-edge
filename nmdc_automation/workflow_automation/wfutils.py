@@ -21,7 +21,7 @@ from nmdc_automation.models.nmdc import DataObject, WorkflowExecution, workflow_
 from jaws_client import api as jaws_api
 from jaws_client.config import Configuration as jaws_Configuration
 
-DEFAULT_MAX_RETRIES = 2
+DEFAULT_MAX_RETRIES = 1
 
 logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
 logging.basicConfig(
@@ -281,7 +281,7 @@ class JawsRunner(JobRunnerABC):
 
     def max_retries(self) -> int:
         """ Get the maximum number of retries - Set this at 1 for now """
-        return 1
+        return DEFAULT_MAX_RETRIES
 
 
 class CromwellRunner(JobRunnerABC):
