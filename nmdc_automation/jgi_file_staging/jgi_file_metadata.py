@@ -56,7 +56,6 @@ def get_request(url: str, ACCESS_TOKEN: str, delay=1.0) -> dict:
 def get_samples_data(project: str, config_file: str) -> None:
     """
     Get JGI sample metadata using the gold API and store in a mongodb
-    :param proposal_id: JGI proposal ID
     :param project: Name of project (e.g., GROW, Bioscales, NEON)
     :param config_file: Config file with parameters
     :return:
@@ -120,7 +119,6 @@ def get_sample_files(proposal_id: int, ACCESS_TOKEN: str, delay: float) -> List[
     :param proposal_id: proposal id
     :param ACCESS_TOKEN: gold api token
     :param delay: delay between API requests
-    :param verify: whether to verify SSL certificates for requests
     :return: list of sample files for each biosample
     """
 
@@ -129,15 +127,11 @@ def get_sample_files(proposal_id: int, ACCESS_TOKEN: str, delay: float) -> List[
     for idx, biosample_id in samples_df.itertuples():
         logging.debug(f"biosample {biosample_id}")
         ACCESS_TOKEN = check_access_token(ACCESS_TOKEN, delay)
-        try:
-            seq_id = get_sequence_id(biosample_id, ACCESS_TOKEN, delay)
-            sample_files_list, agg_id_list = get_files_and_agg_ids(seq_id, ACCESS_TOKEN)
-        except IndexError:
-            logging.exception(f'skipping biosample_id: {biosample_id}')
-            continue
-        combine_sample_ids_with_agg_ids(sample_files_list, agg_id_list, biosample_id, seq_id, all_files_list)
-    # pd.DataFrame(all_files_list).to_csv('all_files_list.csv', index=False)
-    # logging.debug(f"all_files_list: {all_files_list}")
+        seq_id_list = get_sequence_id(biosample_id, ACCESS_TOKEN, delay)
+        for seq_id in seq_id_list:
+            sample_files_list = get_files_and_agg_ids(seq_id, ACCESS_TOKEN)
+            create_all_files_list(sample_files_list, biosample_id, seq_id, all_files_list)
+
     return all_files_list
 
 
@@ -148,15 +142,17 @@ def get_biosample_ids(proposal_id: int, ACCESS_TOKEN: str) -> List[str]:
     return biosample_ids
 
 
-def get_sequence_id(gold_id: str, ACCESS_TOKEN: str, delay: float) -> str:
+def get_sequence_id(gold_id: str, ACCESS_TOKEN: str, delay: float) -> List[str]:
     # given a gold biosample id, get the JGI sequencing ID
-    gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId={gold_id}'
+    gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/analysis_projects?biosampleGoldId={gold_id}'
     gold_biosample_response = get_request(gold_biosample_url, ACCESS_TOKEN, delay=delay)
-    if gold_biosample_response:
-        return gold_biosample_response[0]['itsSpid']
-    else:
-        logging.debug(f"gold_biosample_response: {gold_biosample_response.text}")
-        return None
+    sequence_id_list = []
+    if not gold_biosample_response:
+        return sequence_id_list
+    for seq in gold_biosample_response:
+        if seq['apType'] in ["Metagenome Analysis", "Metatranscriptome Analysis"]:
+            sequence_id_list.append(seq['itsApId'])
+    return sequence_id_list
 
 
 def get_analysis_projects_from_proposal_id(proposal_id: int, ACCESS_TOKEN: str) -> List[dict]:
@@ -167,25 +163,21 @@ def get_analysis_projects_from_proposal_id(proposal_id: int, ACCESS_TOKEN: str) 
     return ap_type_gold_analysis_data
 
 
-def get_files_and_agg_ids(sequencing_id: str, ACCESS_TOKEN: str) -> (List[dict], List[str]):
+def get_files_and_agg_ids(sequencing_id: str, ACCESS_TOKEN: str) -> List[dict]:
     # Given a JGI sequencing ID, get the list of files and agg_ids associated with the biosample
     logging.debug(f"sequencing_id {sequencing_id}")
     seqid_url = f"https://files.jgi.doe.gov/search/?q={sequencing_id}&f=project_id&a=false&h=false&d=asc&p=1&x=10&api_version=2"
     files_data = get_request(seqid_url, ACCESS_TOKEN)
     files_data_list = []
-    agg_id_list = []
     if 'organisms' in files_data.keys():
         for org in files_data['organisms']:
-            files_data_list.append(org['files'])
-            agg_id_list.append(org['agg_id'])
-        return files_data_list, agg_id_list
-    else:
-        return None, []
+            files_data_list.append({'files':org['files'], 'agg_id':org['agg_id']})
+    return files_data_list
 
 
-def combine_sample_ids_with_agg_ids(sample_files_list, agg_id_list, biosample_id, seq_id, all_files_list) -> None:
-    for sample, agg_id in zip(sample_files_list, agg_id_list):
-        for files_dict in sample:
+def create_all_files_list(sample_files_list, biosample_id, seq_id, all_files_list) -> None:
+    for sample in sample_files_list:
+        for files_dict in sample['files']:
             seq_unit_name = files_dict['metadata']['seq_unit_name'] if 'seq_unit_name' in files_dict[
                 'metadata'].keys() else None
             file_format = files_dict['metadata']['file_format'] if 'file_format' in files_dict[
@@ -196,7 +188,7 @@ def combine_sample_ids_with_agg_ids(sample_files_list, agg_id_list, biosample_id
                                    'file_size': files_dict['file_size'],
                                    'jdp_file_id': files_dict['_id'], 'md5sum': md5sum,
                                    'file_format': file_format,
-                                   'analysis_project_id': agg_id, 'seq_unit_name': seq_unit_name})
+                                   'analysis_project_id': sample['agg_id'], 'seq_unit_name': seq_unit_name})
             if 'metadata' not in files_dict.keys():
                 print(f"biosample_id {biosample_id}, seq_id{seq_id}")
 
