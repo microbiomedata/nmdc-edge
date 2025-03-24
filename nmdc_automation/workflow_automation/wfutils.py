@@ -21,7 +21,7 @@ from nmdc_automation.models.nmdc import DataObject, WorkflowExecution, workflow_
 from jaws_client import api as jaws_api
 from jaws_client.config import Configuration as jaws_Configuration
 
-DEFAULT_MAX_RETRIES = 2
+DEFAULT_MAX_RETRIES = 1
 
 logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
 logging.basicConfig(
@@ -34,11 +34,11 @@ class JobRunnerABC(ABC):
 
     # States that indicate a job is in some active state and does not need to be submitted
     NO_SUBMIT_STATES = [
-        "Submitted",  # job is already submitted but not running
-        "Running",  # job is already running
-        "Succeeded",  # job succeeded
-        "Aborting"  # job is in the process of being aborted
-        "On Hold",  # job is on hold and not running. It can be manually resumed later
+        "submitted",  # job is already submitted but not running
+        "running",  # job is already running
+        "succeeded",  # job succeeded
+        "aborting"  # job is in the process of being aborted
+        "on hold",  # job is on hold and not running. It can be manually resumed later
     ]
 
     def __init__(self, site_config: SiteConfig, workflow: "WorkflowStateManager"):
@@ -89,15 +89,42 @@ class JawsRunner(JobRunnerABC):
     """ Job runner for J.A.W.S"""
 
     DEFAULT_JOB_SITE = 'nmdc'
+    JAWS_NO_SUBMIT_STATES = [
+        "created",          # The Run was accepted and a run_id assigned.
+        "upload queued",    # The Run's input files are waiting to be transferred to the compute-site.
+        "uploading",        # Your Run's input files are being transferred to the compute-site.
+        "upload failed",    # The transfer of your run to the compute-site failed.
+        "upload inactive",  # Globus transfer stalled.
+        "upload complete",  # Your Run's input files have been transferred to the compute-site successfully.
+        "ready",            # The Run has been transferred to the compute-site.
+        "submitted",        # The run has been submitted to Cromwell and tasks should start to queue within moments.
+        "submission failed", # The run was submitted to Cromwell but rejected due to invalid input.
+        "queued",           # At least one task has requested resources but no tasks have started running yet.
+        "running",          # The run is being executed; you can check `tasks` for more detail.
+        "succeeded",        # The run has completed successfully.
+        "complete",         # Supplementary files have been written to the run's output dir.
+        "finished",         # The task-summary has been published to the performance metrics service.
+        "cancelling",       # Your run is in the process of being canceled.
+        "cancelled",        # The run was cancelled by either the user or an admin.
+        "download queued",  # Your Run's output files are waiting to be transferred from the compute-site.
+        "downloading",      # The Run's output files are being transferred from the compute-site.
+        "download failed",  # The Run's output files could not be transferred from the compute-site.
+        "download inactive", # Globus transfer stalled.
+        "download complete", # Your Run's output (succeeded or failed) have been transferred to the team outdir.
+        "download skipped",  # The run was not successful so the results were not downloaded.
+        "done",             # The run is complete.
+    ]
 
     def __init__(self,
                  site_config: SiteConfig, workflow: "WorkflowStateManager", jaws_api: jaws_api.JawsApi,
-                 job_metadata: Dict[str, Any] = None,):
+                 job_metadata: Dict[str, Any] = None, job_site: str = None) -> None:
         super().__init__(site_config, workflow)
         self.jaws_api = jaws_api
         self._metadata = {}
         if job_metadata:
             self._metadata = job_metadata
+        self.job_site = job_site or self.DEFAULT_JOB_SITE
+        self.no_submit_states = self.JAWS_NO_SUBMIT_STATES + self.NO_SUBMIT_STATES
 
 
     def generate_submission_files(self) -> Dict[str, Any]:
@@ -140,7 +167,7 @@ class JawsRunner(JobRunnerABC):
         :return: {'run_id': 'int'}
         """
         status = self.workflow.last_status
-        if status in self.NO_SUBMIT_STATES and not force:
+        if status.lower() in self.no_submit_states and not force:
             logger.info(f"Job {self.job_id} in state {status}, skipping submission")
             return
         cleanup_zip_files = []
@@ -163,13 +190,14 @@ class JawsRunner(JobRunnerABC):
                 logger.error(f"Failed to Validate Job: {validation_resp}")
                 raise Exception(f"Failed to Validate Job: {validation_resp}")
 
+            tag_value = self.workflow.was_informed_by + "/" + self.workflow.workflow_execution_id
             # Submit to J.A.W.S
             response = self.jaws_api.submit(
                 wdl_file=files["wdl_file"],
                 sub=files["sub"],
                 inputs=files["inputs"],
-                tag = self.workflow.workflow_execution_id,
-                site = self.DEFAULT_JOB_SITE
+                tag = tag_value,
+                site = self.job_site
             )
             self.job_id = response['run_id']
             logger.info(f"Submitted job {response['run_id']}")
@@ -191,26 +219,56 @@ class JawsRunner(JobRunnerABC):
 
 
     def get_job_metadata(self) -> Dict[str, Any]:
-        """ Get metadata for a job """
-        return {}
+        """ Get metadata for a job. In JAWS this is the response from the status call and the
+        logical names and file paths for the outputs specified in outputs.json """
+        metadata = self.jaws_api.status(self.job_id)
+        # load output_dir / outputs.json file
+        if "outputs" in metadata:
+            outputs = metadata["outputs"]
+            if "output_dir" in outputs:
+                output_dir = outputs["output_dir"]
+                outputs_path = Path(output_dir) / "outputs.json"
+                if outputs_path.exists():
+                    with open(outputs_path) as f:
+                        outputs = json.load(f)
+                        metadata["outputs"] = outputs
+        # update cached metadata
+        self.metadata = metadata
+        return metadata
 
     def get_job_status(self) -> str:
-        """ Get the status of a job """
-        return "Not implemented"
+        """
+        Get the status of a job. In JAWS this is the response from the status call
+        and the status and results keys.
+        """
+        resp = self.jaws_api.status(self.job_id)
+        # If the status is not 'done' then the job is still running
+        if resp['status'] != 'done':
+            return 'running'
+        # If the status is 'done' then return the result key
+        return resp['result']
+
+
 
     @property
-    def job_id(self) -> Optional[str]:
+    def job_id(self) -> Optional[int]:
         """ Get the job id from the metadata """
         return self.metadata.get("id", None)
 
     @job_id.setter
-    def job_id(self, job_id: str):
+    def job_id(self, job_id: int):
         """ Set the job id in the metadata """
         self.metadata["id"] = job_id
 
+    @property
     def outputs(self) -> Dict[str, str]:
-        """ Get the outputs """
-        return {}
+        """ Get the outputs from the metadata """
+        return self.metadata.get("outputs", {})
+
+    @outputs.setter
+    def outputs(self, outputs: Dict[str, str]):
+        """ Set the outputs in the metadata """
+        self.metadata["outputs"] = outputs
 
     @property
     def metadata(self) -> Dict[str, Any]:
@@ -223,7 +281,7 @@ class JawsRunner(JobRunnerABC):
         self._metadata = metadata
 
     def max_retries(self) -> int:
-        """ Get the maximum number of retries """
+        """ Get the maximum number of retries - Set this at 1 for now """
         return DEFAULT_MAX_RETRIES
 
 
@@ -305,7 +363,6 @@ class CromwellRunner(JobRunnerABC):
             raise e
         return files
 
-
     def submit_job(self, force: bool = False) -> Optional[str]:
         """
         Submit a job to Cromwell. Update the workflow state with the job id and status.
@@ -313,9 +370,9 @@ class CromwellRunner(JobRunnerABC):
         :return: the job id
         """
         status = self.workflow.last_status
-        if status in self.NO_SUBMIT_STATES and not force:
+        if status and status.lower() in self.NO_SUBMIT_STATES and not force:
             logger.info(f"Job {self.job_id} in state {status}, skipping submission")
-            return
+            return None
         cleanup_files = []
         try:
             files = self.generate_submission_files()
@@ -579,12 +636,14 @@ class WorkflowJob:
 
     """
     def __init__(self, site_config: SiteConfig, workflow_state: Dict[str, Any] = None,
-                 job_metadata: Dict['str', Any] = None, opid: str = None, job_runner: JobRunnerABC = None) -> None:
+                 job_metadata: Dict['str', Any] = None, opid: str = None, jaws_api: jaws_api.JawsApi = None) -> None:
         self.site_config = site_config
         self.workflow = WorkflowStateManager(workflow_state, opid)
-        # default to CromwellRunner if no job_runner is provided
-        if job_runner is None:
+        # Use JawsRunner if jaws_api is provided, otherwise use CromwellRunner
+        if jaws_api is None:
             job_runner = CromwellRunner(site_config, self.workflow, job_metadata)
+        else:
+            job_runner = JawsRunner(site_config, self.workflow, jaws_api, job_metadata)
         self.job = job_runner
 
     # Properties to access the site config, job state, and job runner attributes

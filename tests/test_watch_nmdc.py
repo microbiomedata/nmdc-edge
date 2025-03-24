@@ -283,7 +283,7 @@ def test_job_manager_get_finished_jobs(site_config, initial_state_file_1_failure
     failed_job_state = json.load(open(fixtures_dir / "failed_job_state_2.json"))
     assert failed_job_state
     failed_job = WorkflowJob(site_config, failed_job_state)
-    assert failed_job.job_status == "Failed"
+    assert failed_job.job_status.lower() == "failed"
     jm.job_cache.append(failed_job)
     # sanity check
     assert len(jm.job_cache) == 3

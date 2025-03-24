@@ -19,18 +19,19 @@ def cli():
     type=click.Path(exists=True),
     required=True,
 )
+@click.option(  "-jaws", "--jaws", is_flag=True, type=bool, default=False)
 @click.pass_context
-def watcher(ctx, site_configuration_file):
+def watcher(ctx, site_configuration_file, jaws):
     logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
     logging.basicConfig(
         level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
     )
     logger = logging.getLogger(__name__)
     logger.info(f"Initializing Watcher: config file: {site_configuration_file}")
-    ctx.obj = Watcher(site_configuration_file)
+    ctx.obj = Watcher(site_configuration_file, use_jaws=jaws)
 
 
-@watcher.command()
+@cli.command()
 @click.pass_context
 @click.argument("job_ids", nargs=-1)
 def submit(ctx, job_ids):
@@ -52,7 +53,7 @@ def submit(ctx, job_ids):
         watcher.job_checkpoint()
 
 
-@watcher.command()
+@cli.command()
 @click.pass_context
 @click.argument("workflow_execution_ids", nargs=-1)
 def resubmit(ctx, workflow_execution_ids):
@@ -83,7 +84,7 @@ def resubmit(ctx, workflow_execution_ids):
         watcher.job_manager.save_checkpoint()
 
 
-@watcher.command()
+@cli.command()
 @click.pass_context
 def sync(ctx):
     watcher = ctx.obj
@@ -91,14 +92,14 @@ def sync(ctx):
     watcher.update_op_state_all()
 
 
-@watcher.command()
+@cli.command()
 @click.pass_context
 def daemon(ctx):
     watcher = ctx.obj
     watcher.watch()
 
 
-@watcher.command()
+@cli.command()
 @click.pass_context
 @click.argument("opid")
 def reset(ctx, opid):

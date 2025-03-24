@@ -95,9 +95,32 @@ def test_jaws_job_runner(site_config, fixtures_dir, jaws_config_file_test, jaws_
     assert job_runner
 
 
+@pytest.fixture(scope="session")
+def mock_jaws_api():
+    with mock.patch("jaws_client.api.JawsApi") as mock_jaws_api:
+        yield mock_jaws_api
+
+
 def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
     workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
     job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
+
+    wfj = WorkflowJob(site_config, workflow_state, job_metadata)
+
+    wfe_dict = wfj.as_workflow_execution_dict
+    assert wfe_dict
+
+
+@pytest.mark.parametrize("fixture_pair", [
+    ("mags_workflow_state.json", "mags_jaws_status.json"),
+    ("annotation_workflow_state.json", "annotation_jaws_status.json"),
+    ("meta_assembly_workflow_state.json", "meta_assembly_jaws_status.json"),
+    ("read_based_analysis_workflow_state.json", "read_based_analysis_jaws_status.json"),
+    ("rqc_workflow_state.json", "rqc_jaws_status.json"),
+])
+def test_jaws_workflow_job_as_workflow_execution_dict(fixture_pair, site_config, fixtures_dir, mock_jaws_api):
+    workflow_state = json.load(open(fixtures_dir / fixture_pair[0]))
+    job_metadata = json.load(open(fixtures_dir / fixture_pair[1]))
 
     wfj = WorkflowJob(site_config, workflow_state, job_metadata)
 

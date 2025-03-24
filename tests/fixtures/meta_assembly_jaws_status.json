@@ -1,0 +1,20 @@
+{
+    "compute_site_id": "nmdc",
+    "cpu_hours": 3.37,
+    "cromwell_run_id": "1f9e9431-3eeb-47ee-8f92-11b63d4ee371",
+    "id": 102191,
+    "input_site_id": "nmdc",
+    "json_file": "/tmp/tmp_nf5jcux.json",
+    "output_dir": "/pscratch/sd/n/nmdcda/jaws_outputs/nmdcda/102191/1f9e9431-3eeb-47ee-8f92-11b63d4ee371",
+    "result": "succeeded",
+    "status": "done",
+    "status_detail": "The run is complete.",
+    "submitted": "2025-03-20 14:27:54",
+    "tag": "nmdc:wfmgas-12-ypcg9r09.1",
+    "team_id": "nmdc",
+    "updated": "2025-03-20 21:21:03",
+    "user_id": "nmdcda",
+    "wdl_file": "/tmp/tmpcycmtjln.wdl",
+    "workflow_name": "jgi_metaAssembly",
+    "workflow_root": "/pscratch/sd/n/nmjaws/nmdc-prod/cromwell-executions/jgi_metaAssembly/1f9e9431-3eeb-47ee-8f92-11b63d4ee371"
+  }
