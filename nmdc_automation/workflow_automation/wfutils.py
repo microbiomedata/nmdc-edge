@@ -167,9 +167,9 @@ class JawsRunner(JobRunnerABC):
         :return: {'run_id': 'int'}
         """
         status = self.workflow.last_status
-        if status.lower() in self.no_submit_states and not force:
+        if status and status.lower() in self.no_submit_states and not force:
             logger.info(f"Job {self.job_id} in state {status}, skipping submission")
-            return
+            return None
         cleanup_zip_files = []
         try:
             files = self.generate_submission_files()
