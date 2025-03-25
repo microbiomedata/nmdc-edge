@@ -189,6 +189,8 @@ class JawsRunner(JobRunnerABC):
             if validation_resp["result"] != "succeeded":
                 logger.error(f"Failed to Validate Job: {validation_resp}")
                 raise Exception(f"Failed to Validate Job: {validation_resp}")
+            else:
+                logger.info(f"Validation Succeeded: {validation_resp}")
 
             tag_value = self.workflow.was_informed_by + "/" + self.workflow.workflow_execution_id
             # Submit to J.A.W.S

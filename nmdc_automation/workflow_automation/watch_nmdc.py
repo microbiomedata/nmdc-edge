@@ -342,6 +342,11 @@ class Watcher:
             logger.info(f"Using JAWS token from file: {self.config.jaws_token}")
             jaws_config = jaws_Configuration.from_files(self.config.jaws_config, self.config.jaws_token)
             self.jaws_api = jaws_api.JawsApi(jaws_config)
+
+            # Check jaws_api connection
+            user = self.jaws_api.get_user()
+            if user:
+                logger.info(f"Jaws API user: {user['uid']}")
         else:
             self.jaws_api = None
 
