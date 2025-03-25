@@ -346,7 +346,7 @@ class Watcher:
             # Check jaws_api connection
             user = self.jaws_api.get_user()
             if user:
-                logger.info(f"Jaws API user: {user['uid']}")
+                logger.info(f"Jaws API user: {user}")
         else:
             self.jaws_api = None
 
