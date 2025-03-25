@@ -339,6 +339,7 @@ class Watcher:
 
         if use_jaws:
             logger.info(f"Initializing Jaws API: config file: {self.config.jaws_config}")
+            logger.info(f"Using JAWS token from file: {self.config.jaws_token}")
             jaws_config = jaws_Configuration.from_files(self.config.jaws_config, self.config.jaws_token)
             self.jaws_api = jaws_api.JawsApi(jaws_config)
         else:

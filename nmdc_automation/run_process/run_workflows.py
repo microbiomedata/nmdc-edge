@@ -28,6 +28,10 @@ def watcher(ctx, site_configuration_file, jaws):
     )
     logger = logging.getLogger(__name__)
     logger.info(f"Initializing Watcher: config file: {site_configuration_file}")
+    if jaws:
+        logger.info("Using JAWS")
+    else:
+        logger.info("Using Cromwell")
     ctx.obj = Watcher(site_configuration_file, use_jaws=jaws)
 
 
