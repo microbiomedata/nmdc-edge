@@ -53,11 +53,12 @@ def get_request(url: str, ACCESS_TOKEN: str, delay=1.0) -> dict:
         logging.exception(f"Something Else: {err}")
 
 
-def get_samples_data(project: str, config_file: str) -> None:
+def get_samples_data(project: str, config_file: str, csv_file: str = None) -> None:
     """
     Get JGI sample metadata using the gold API and store in a mongodb
     :param project: Name of project (e.g., GROW, Bioscales, NEON)
     :param config_file: Config file with parameters
+    :param csv_file: csv file with files to stage
     :return:
     """
     # check_restore_status()
@@ -66,10 +67,12 @@ def get_samples_data(project: str, config_file: str) -> None:
     ACCESS_TOKEN = get_access_token()
     mdb = get_mongo_db()
     seq_project = mdb.sequencing_projects.find_one({'project_name': project})
-    files_df = get_files_df_from_proposal_id(seq_project['proposal_id'], ACCESS_TOKEN, eval(config['JDP']['delay']))
+    if csv_file is not None:
+        gold_analysis_files_df = pd.read_csv(csv_file)
+    else:
+        gold_analysis_files_df = get_files_df_from_proposal_id(seq_project['proposal_id'], ACCESS_TOKEN,
+                                                               eval(config['JDP']['delay']))
 
-    gold_analysis_files_df = get_analysis_files_df(seq_project['proposal_id'], files_df, ACCESS_TOKEN,
-                                                   eval(config['JDP']['remove_files']))
     gold_analysis_files_df['project'] = project
     logging.debug(f'number of samples to insert: {len(gold_analysis_files_df)}')
     logging.debug(gold_analysis_files_df.head().to_dict('records'))
@@ -341,11 +344,12 @@ if __name__ == '__main__':
     parser.add_argument('-i', '--insert_project', action='store_true',
                         help='insert new project into mongodb',
                         default=False)
+    parser.add_argument('-f', '--file', help='csv file with files to stage')
     args = vars((parser.parse_args()))
     if args['verify_downloads']:
         if verify_downloads(args['config_file'], args['project_name']):
             print('Downloads verified')
-    if args['insert_project']:
+    elif args['insert_project']:
         insert_new_project_into_mongodb(args['config_file'])
 
-    get_samples_data(args['project_name'], args['config_file'])
+    get_samples_data(args['project_name'], args['config_file'], csv_file=args['file'])
