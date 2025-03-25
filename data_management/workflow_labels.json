@@ -46,7 +46,7 @@
     "Assembly AGP": "agp",
     "Assembly Coverage BAM": "bam",
     "Assembly Info File": "asminfo",
-    "Error Corrected Reads": "sr_bbcms_fq"
+    "Error Corrected Reads": "bbcms_corrected_fastq"
   },
   "MetatranscriptomeAnnotation": {
     "Annotation Amino Acid FASTA": "proteins_faa",
