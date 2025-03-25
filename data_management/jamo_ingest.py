@@ -136,6 +136,7 @@ def get_workflow_execution_set(base_api_url: str = _BASE_URL, max_page_size: int
 
     # Process workflows
     workflow_outputs_dict = {}
+    total_file_size_bytes = 0
     for record in workflow_records.get("resources", []):
         has_output_list = record.get("has_output", [])
         workflow_execution = record.get("type").removeprefix("nmdc:")
@@ -147,10 +148,12 @@ def get_workflow_execution_set(base_api_url: str = _BASE_URL, max_page_size: int
             output_record = data_object_set.get(output_id)
             if output_record:
                 valid_records.append(output_record)
+                total_file_size_bytes += output_record.get('file_size_bytes', 0)
         workflow_outputs_dict[workflow_execution_id] = [workflow_execution, was_informed_by, valid_records]
 
     # Save results
     save_json(workflow_outputs_dict, "valid_data/valid_data.json")
+    click.echo(f"Total file size: {total_file_size_bytes} bytes.")
     # throws an exception due to makedirs in save_json if filename does not contain dir in path
     # add try except block, and print stack trace using traceback module
 
@@ -252,7 +255,6 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
             return
 
     metadata_keys_list: List[Dict] = []
-    # data_object_type_suffix_dict = _get_file_suffix()
 
     for record in records:
         """Process a single record and extract relevant information."""
@@ -264,8 +266,6 @@ def generate_metadata_file(workflow_execution_id: str, workflow_execution: str, 
         if not url.startswith(prefix):
             logging.warning(f"Data {url} outside NERSC")
             continue
-        # was_informed_by = url.removeprefix(prefix).split('/')[0]
-        # metadata_keys["was_informed_by"] = was_informed_by
 
         file = record["name"] = "/global/cfs/cdirs/m3408/results/" + url.removeprefix(prefix)
         metadata_keys["file"] = file
@@ -333,7 +333,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-# todo import into jamo
-# jat import template.yaml metadata.json
 
 # todo logging
