@@ -35,7 +35,7 @@ def watcher(ctx, site_configuration_file, jaws):
     ctx.obj = Watcher(site_configuration_file, use_jaws=jaws)
 
 
-@cli.command()
+@watcher.command()
 @click.pass_context
 @click.argument("job_ids", nargs=-1)
 def submit(ctx, job_ids):
@@ -57,7 +57,7 @@ def submit(ctx, job_ids):
         watcher.job_checkpoint()
 
 
-@cli.command()
+@watcher.command()
 @click.pass_context
 @click.argument("workflow_execution_ids", nargs=-1)
 def resubmit(ctx, workflow_execution_ids):
@@ -88,7 +88,7 @@ def resubmit(ctx, workflow_execution_ids):
         watcher.job_manager.save_checkpoint()
 
 
-@cli.command()
+@watcher.command()
 @click.pass_context
 def sync(ctx):
     watcher = ctx.obj
@@ -96,14 +96,14 @@ def sync(ctx):
     watcher.update_op_state_all()
 
 
-@cli.command()
+@watcher.command()
 @click.pass_context
 def daemon(ctx):
     watcher = ctx.obj
     watcher.watch()
 
 
-@cli.command()
+@watcher.command()
 @click.pass_context
 @click.argument("opid")
 def reset(ctx, opid):
