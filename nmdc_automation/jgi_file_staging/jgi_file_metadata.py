@@ -11,8 +11,8 @@ import argparse
 from pathlib import Path
 from itertools import chain
 
-from mongo import get_mongo_db
-from models import Sample, SequencingProject
+from nmdc_automation.jgi_file_staging.mongo import get_mongo_db
+from nmdc_automation.jgi_file_staging.models import Sample, SequencingProject
 from typing import List
 from pydantic import ValidationError
 
@@ -243,20 +243,15 @@ def get_seq_unit_names(analysis_files_df, gold_id):
     for idx, row in analysis_files_df.loc[pd.notna(analysis_files_df.seq_unit_name)
                                           & (analysis_files_df.apGoldId == gold_id)
                                           & (analysis_files_df.file_type == "['contigs']")].iterrows():
-        if gold_id == 'Ga0210394':
-            logging.debug(f"seq_unit_name: {row.seq_unit_name}")
-        seq_unit_type = type(row.seq_unit_name)
-        if seq_unit_type is str:
+        if type(row.seq_unit_name) is str:
             seq_unit_names.append(row.seq_unit_name)
-        elif seq_unit_type is list:
+        elif type(row.seq_unit_name) is list:
             seq_unit_names.extend(row.seq_unit_name)
 
     seq_unit_names_list = list(set(seq_unit_names))
     seq_unit_names_list = [
         ".".join(filename.split(".")[:4]) for filename in seq_unit_names_list
     ]
-    if gold_id == 'Ga0210394':
-        logging.debug(f"seq_unit_names_list: {seq_unit_names_list}")
     return seq_unit_names_list
 
 

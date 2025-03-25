@@ -22,7 +22,7 @@ from nmdc_automation.models.nmdc import DataObject, WorkflowExecution, workflow_
 
 DEFAULT_MAX_RETRIES = 2
 
-logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
 logging.basicConfig(
     level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
 )
@@ -131,11 +131,33 @@ class CromwellRunner(JobRunnerABC):
         """ Generate the files needed for a Cromwell job submission """
         files = {}
         try:
+            # Get file paths
             wdl_file = self.workflow.fetch_release_file(self.workflow.config["wdl"], suffix=".wdl")
             bundle_file = self.workflow.fetch_release_file("bundle.zip", suffix=".zip")
-            files = {"workflowSource": open(wdl_file, "rb"), "workflowDependencies": open(bundle_file, "rb"),
-                "workflowInputs": open(_json_tmp(self._generate_workflow_inputs()), "rb"),
-                "labels": open(_json_tmp(self._generate_workflow_labels()), "rb"), }
+            workflow_inputs_path = _json_tmp(self._generate_workflow_inputs())
+            workflow_labels_path = _json_tmp(self._generate_workflow_labels())
+
+            # Open files
+            files = {
+                "workflowSource": open(wdl_file, "rb"),
+                "workflowDependencies": open(bundle_file, "rb"),
+                "workflowInputs": open(workflow_inputs_path, "rb"),
+                "labels": open(workflow_labels_path, "rb"),
+            }
+
+            logger.info(f"WDL file: {wdl_file}")
+            logger.info(f"Bundle file: {bundle_file}")
+            # dump the workflow inputs and labels to the log
+            with open(workflow_inputs_path) as f:
+                inputs_dump = json.load(f)
+                logger.info("Workflow inputs:")
+                logger.info(json.dumps(inputs_dump, indent=2))
+
+            with open(workflow_labels_path) as f:
+                labels_dump = json.load(f)
+                logger.info("Workflow labels:")
+                logger.info(json.dumps(labels_dump, indent=2))
+
         except Exception as e:
             logger.error(f"Failed to generate submission files: {e}")
             self._cleanup_files(list(files.values()))
@@ -171,6 +193,10 @@ class CromwellRunner(JobRunnerABC):
                 self.metadata = response.json()
                 self.job_id = self.metadata["id"]
                 logger.info(f"Submitted job {self.job_id}")
+
+                metadata_dump = json.dumps(self.metadata, indent=2)
+                logger.info("Metadata:")
+                logger.info(metadata_dump)
             else:
                 logger.info(f"Dry run: skipping job submission")
                 self.job_id = "dry_run"

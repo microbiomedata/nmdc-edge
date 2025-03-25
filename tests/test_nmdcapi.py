@@ -26,7 +26,7 @@ def test_objects(requests_mock, site_config_file, test_data_dir, mock_api):
     resp = n.create_object(test_data_dir / "afile", "desc", "http://localhost:8000/")
     url = "http://localhost:8000/workflows/workflow_executions"
     requests_mock.post(url, json={"a": "b"})
-    resp = n.post_objects({"a": "b"})
+    resp = n.post_workflow_executions({"a": "b"})
     assert "a" in resp
 
     requests_mock.put("http://localhost:8000/objects/abc/types", json={})

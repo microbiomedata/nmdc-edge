@@ -25,7 +25,7 @@ DEFAULT_STATE_DIR = Path(__file__).parent / "_state"
 DEFAULT_STATE_FILE = DEFAULT_STATE_DIR / "state.json"
 INITIAL_STATE = {"jobs": []}
 
-logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
 logging.basicConfig(
     level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
 )
@@ -318,7 +318,7 @@ class RuntimeApiHandler:
 
     def post_objects(self, database_obj):
         """ Post a Database with workflow executions and their data objects to the workflow_executions endpoint """
-        return self.runtime_api.post_objects(database_obj)
+        return self.runtime_api.post_workflow_executions(database_obj)
 
     def update_operation(self, opid, done, meta):
         """ Update the state of an operation with new metadata, results, and done status """

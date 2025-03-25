@@ -4,6 +4,7 @@ import json
 import sys
 import os
 from os.path import join, dirname
+from urllib.parse import urlencode
 from pydantic import BaseModel
 import requests
 import hashlib
@@ -16,7 +17,7 @@ from nmdc_automation.config import SiteConfig, UserConfig
 import logging
 from tenacity import retry, wait_exponential, stop_after_attempt
 
-logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
 logging.basicConfig(
     level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
 )
@@ -65,6 +66,10 @@ class NmdcRuntimeApi:
         self._base_url = self.config.api_url
         self.client_id = self.config.client_id
         self.client_secret = self.config.client_secret
+        self.header = {
+            "accept": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+        }
         if self._base_url[-1] != "/":
             self._base_url += "/"
 
@@ -228,7 +233,7 @@ class NmdcRuntimeApi:
 
     @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
     @refresh_token
-    def post_objects(self, obj_data):
+    def post_workflow_executions(self, obj_data):
         url = self._base_url + "workflows/workflow_executions"
 
         resp = requests.post(url, headers=self.header, data=json.dumps(obj_data))
@@ -395,6 +400,48 @@ class NmdcRuntimeApi:
             resp.raise_for_status()
         return resp.json()
 
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
+    def find_planned_processes(self, filter: dict):
+        # construct filter params
+        filter_parts = []
+        for k, v in filter.items():
+            filter_parts.append(f"{k}:{v}")
+        filter_terms = ",".join(filter_parts)
+        params = {
+            "filter": filter_terms,
+            "per_page": 100,
+        }
+        encoded_params = urlencode(params)
+        url = f"{self._base_url}planned_processes?{encoded_params}"
+        logger.info(url)
+        resp = requests.get(url, headers=self.header)
+        if not resp.ok:
+            resp.raise_for_status()
+        return resp.json()["results"]
+
+    @retry(wait=wait_exponential(multiplier=4, min=8, max=120), stop=stop_after_attempt(6), reraise=True)
+    def find_data_objects(self, data_object_id):
+        url = "%sdata_objects/%s" % (self._base_url, data_object_id)
+        resp = requests.get(url, headers=self.header)
+        if not resp.ok:
+            resp.raise_for_status()
+        return resp.json()
+
+    @refresh_token
+    def validate_metadata(self, metadata):
+        url = "%smetadata/json:validate" % self._base_url
+        resp = requests.post(url, headers=self.header, data=json.dumps(metadata))
+        if not resp.ok:
+            resp.raise_for_status()
+        return resp.json()
+
+    @refresh_token
+    def submit_metadata(self, metadata):
+        url = "%smetadata/json:submit" % self._base_url
+        resp = requests.post(url, headers=self.header, data=json.dumps(metadata))
+        if not resp.ok:
+            resp.raise_for_status()
+        return resp.json()
 
 def jprint(obj):
     print(json.dumps(obj, indent=2))

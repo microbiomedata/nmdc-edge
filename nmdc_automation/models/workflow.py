@@ -101,13 +101,16 @@ class WorkflowConfig:
     # populated after initialization
     children: Set["WorkflowConfig"] = field(default_factory=set)
     parents: Set["WorkflowConfig"] = field(default_factory=set)
-    data_object_types: List[str] = field(default_factory=list)
+    input_data_object_types: List[str] = field(default_factory=list)
 
     def __post_init__(self):
-        """ Initialize the object """
+        """ Parse input data object types from the inputs """
         for _, inp_param in self.inputs.items():
+            # Some input params are boolean values, skip these
+            if isinstance(inp_param, bool):
+                continue
             if inp_param.startswith("do:"):
-                self.data_object_types.append(inp_param[3:])
+                self.input_data_object_types.append(inp_param[3:])
         if not self.type:
             # Infer the type from the name
             if self.collection == 'data_generation_set' and 'Sequencing' in self.name:
