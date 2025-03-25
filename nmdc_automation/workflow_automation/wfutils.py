@@ -192,6 +192,12 @@ class JawsRunner(JobRunnerABC):
 
             tag_value = self.workflow.was_informed_by + "/" + self.workflow.workflow_execution_id
             # Submit to J.A.W.S
+            logger.info(f"Submitting job to JAWS with tag: {tag_value}")
+            logger.info(f"Site: {self.job_site}")
+            logger.info(f"Inputs: {files['inputs']}")
+            logger.info(f"WDL: {files['wdl_file']}")
+            logger.info(f"Sub: {files['sub']}")
+
             response = self.jaws_api.submit(
                 wdl_file=files["wdl_file"],
                 sub=files["sub"],
