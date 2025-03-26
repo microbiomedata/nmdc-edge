@@ -307,11 +307,20 @@ def test_cromwell_runner_generate_submission_files_exception(mock_cleanup_files,
 
 
 @mock.patch("nmdc_automation.workflow_automation.wfutils.WorkflowStateManager.fetch_release_file")
-def test_jaws_job_runner_generate_submission_files(mock_fetch_release_file, site_config, fixtures_dir, jaws_config_file_test, jaws_test_token_file):
-    mock_fetch_release_file.side_effect = [
-        '/tmp/test_workflow.wdl',
-        '/tmp/test_bundle.zip',
-    ]
+def test_jaws_job_runner_generate_submission_files(mock_fetch_release_file, site_config, fixtures_dir,
+                                                   jaws_config_file_test, jaws_test_token_file):
+    # Mock the file paths returned by fetch_release_file
+    mock_wdl_path = '/tmp/test_workflow.wdl'
+    mock_bundle_path = '/tmp/test_bundle.zip'
+    mock_fetch_release_file.side_effect = [mock_wdl_path, mock_bundle_path]
+
+    # Create temporary files to avoid FileNotFoundError
+    with open(mock_wdl_path, 'w') as f:
+        f.write("mock WDL content")
+    with open(mock_bundle_path, 'w') as f:
+        f.write("mock bundle content")
+
+    # Load job state and set up objects
     job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
     state_manager = WorkflowStateManager(job_state)
     config = Configuration.from_files(jaws_config_file_test, jaws_test_token_file)
@@ -319,11 +328,17 @@ def test_jaws_job_runner_generate_submission_files(mock_fetch_release_file, site
     job_runner = JawsRunner(site_config, state_manager, api)
     assert job_runner
 
+    # Generate submission files and assert keys
     submission_files = state_manager.generate_submission_files()
     assert submission_files
-    assert "wdl_file" in submission_files
-    assert "sub" in submission_files
-    assert "inputs" in submission_files
+    assert "workflowSource" in submission_files
+    assert "workflowDependencies" in submission_files
+    assert "workflowInputs" in submission_files
+    assert "labels" in submission_files
+
+    # Clean up temporary files
+    os.remove(mock_wdl_path)
+    os.remove(mock_bundle_path)
 
 
 
