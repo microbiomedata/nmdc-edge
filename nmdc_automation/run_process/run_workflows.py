@@ -91,9 +91,9 @@ def resubmit(ctx, workflow_execution_ids):
 @watcher.command()
 @click.pass_context
 def sync(ctx):
-    watcher = ctx.obj
-    watcher.restore_from_checkpoint()
-    watcher.update_op_state_all()
+    # TODO: Implement sync
+    pass
+
 
 
 @watcher.command()
