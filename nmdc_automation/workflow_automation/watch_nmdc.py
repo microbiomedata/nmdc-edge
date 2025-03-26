@@ -425,6 +425,15 @@ class Watcher:
                 new_job.job.submit_job()
         self.file_handler.write_state(self.job_manager.job_checkpoint())
 
+    def report(self):
+        """ Report the current state of the Watcher """
+        self.restore_from_checkpoint()
+
+        for job in self.job_manager.job_cache:
+            print(
+                f"{job.workflow.wdl}\t{job.workflow.release}\t{job.workflow.last_status}\t{job.workflow.was_informed_by}\t{job.workflow.workflow_execution_id}"
+            )
+
 @lru_cache(maxsize=None)
 def _get_nmdc_materialized():
     with importlib.resources.open_text("nmdc_schema", "nmdc_materialized_patterns.yaml") as f:
