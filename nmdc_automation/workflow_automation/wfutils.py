@@ -409,7 +409,7 @@ class WorkflowStateManager:
         labels["opid"] = self.opid
         return labels
 
-    def generate_submission_files(self) -> Dict[str, Any]:
+    def generate_submission_files(self, for_jaws: bool = False) -> Dict[str, Any]:
         """ Generate the files needed for a Cromwell job submission """
         files = {}
         try:
@@ -419,13 +419,19 @@ class WorkflowStateManager:
             workflow_inputs_path = _json_tmp(self.generate_workflow_inputs())
             workflow_labels_path = _json_tmp(self.generate_workflow_labels())
 
-            # Open files
-            files = {
-                "workflowSource": open(wdl_file, "rb"),
-                "workflowDependencies": open(bundle_file, "rb"),
-                "workflowInputs": open(workflow_inputs_path, "rb"),
-                "labels": open(workflow_labels_path, "rb"),
-            }
+            if for_jaws:
+                files = {
+                    "wdl_file": wdl_file,
+                    "sub": bundle_file,
+                    "inputs": workflow_inputs_path,
+                }
+            else: # open the files for submission
+                files = {
+                    "workflowSource": open(wdl_file, "rb"),
+                    "workflowDependencies": open(bundle_file, "rb"),
+                    "workflowInputs": open(workflow_inputs_path, "rb"),
+                    "labels": open(workflow_labels_path, "rb"),
+                }
 
             logger.info(f"WDL file: {wdl_file}")
             logger.info(f"Bundle file: {bundle_file}")
