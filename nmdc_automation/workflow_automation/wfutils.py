@@ -316,12 +316,6 @@ class CromwellRunner(JobRunnerABC):
         self._max_retries = max_retries
         self.dry_run = dry_run
 
-    def _generate_workflow_inputs(self) -> Dict[str, str]:
-        """ Generate inputs for the job runner from the workflow state """
-        inputs = self.workflow.generate_workflow_inputs()
-        # add the resource to the inputs
-        inputs["resource"] = self.config.resource
-        return inputs
 
     def _generate_workflow_labels(self) -> Dict[str, str]:
         """ Generate labels for the job runner from the workflow state """
@@ -341,7 +335,7 @@ class CromwellRunner(JobRunnerABC):
             # Get file paths
             wdl_file = self.workflow.fetch_release_file(self.workflow.config["wdl"], suffix=".wdl")
             bundle_file = self.workflow.fetch_release_file("bundle.zip", suffix=".zip")
-            workflow_inputs_path = _json_tmp(self._generate_workflow_inputs())
+            workflow_inputs_path = _json_tmp(self.workflow.generate_workflow_inputs())
             workflow_labels_path = _json_tmp(self._generate_workflow_labels())
 
             # Open files

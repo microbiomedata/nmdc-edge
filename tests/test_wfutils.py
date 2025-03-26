@@ -213,7 +213,7 @@ def test_cromwell_runner_setup_inputs_and_labels(site_config, fixtures_dir):
     job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
     workflow = WorkflowStateManager(job_state)
     runner = CromwellRunner(site_config, workflow)
-    inputs = runner._generate_workflow_inputs()
+    inputs = workflow.generate_workflow_inputs()
     assert inputs
     # we expect the inputs to be a key-value dict with URLs as values
     for key, value in inputs.items():
