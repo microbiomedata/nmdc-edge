@@ -62,7 +62,7 @@ def submit(ctx, job_ids):
 @click.argument("workflow_execution_ids", nargs=-1)
 def resubmit(ctx, workflow_execution_ids):
     watcher = ctx.obj
-    # watcher.restore_from_checkpoint()
+    watcher.restore_from_checkpoint()
     for wf_id in workflow_execution_ids:
         logging.info(f"Checking {wf_id}")
         wfj = None
@@ -101,6 +101,21 @@ def sync(ctx):
 def daemon(ctx):
     watcher = ctx.obj
     watcher.watch()
+
+
+@watcher.command()
+@click.pass_context
+def report(ctx):
+    watcher = ctx.obj
+    watcher.restore_from_checkpoint()
+
+    reports = watcher.job_manager.report()
+
+    header = "wdl, release, last_status, was_informed_by, workflow_execution_id"
+    print(header)
+    for rpt in reports:
+        print(f"{rpt['wdl']}, {rpt['release']}, {rpt['last_status']}, {rpt['was_informed_by']}, {rpt['workflow_execution_id']}")
+
 
 
 @watcher.command()
