@@ -139,10 +139,10 @@ class JawsRunner(JobRunnerABC):
             return None
         cleanup_zip_files = []
         try:
-            files = self.workflow.generate_submission_files()
+            files = self.workflow.generate_submission_files(for_jaws=True)
 
             # Temporary fix to handle the fact that the JAWS API does not handle the sub argument and the zip file
-            if files['sub']:
+            if 'sub' in files:
                 extract_dir = os.path.dirname(files["sub"])
                 with zipfile.ZipFile(files["sub"], 'r') as zip_ref:
                     zip_ref.extractall(extract_dir)
