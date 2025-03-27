@@ -334,7 +334,7 @@ class RuntimeApiHandler:
 class Watcher:
     """ Watcher class for monitoring and managing jobs """
     def __init__(self, site_configuration_file: Union[str, Path],  state_file: Union[str, Path] = None, use_jaws: bool = False):
-        self._POLL_INTERVAL_SEC = 60
+        self._POLL_INTERVAL_SEC = 600   # 10 minutes to avoid spamming the API
         self._MAX_FAILS = 2
         self.should_skip_claim = False
         self.config = SiteConfig(site_configuration_file)
