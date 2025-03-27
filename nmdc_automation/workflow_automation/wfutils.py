@@ -230,17 +230,16 @@ class JawsRunner(JobRunnerABC):
         """ Get metadata for a job. In JAWS this is the response from the status call and the
         logical names and file paths for the outputs specified in outputs.json """
         metadata = self.jaws_api.status(self.job_id)
-        # load output_dir / outputs.json file
-        output_dir = metadata["output_dir"]
-
-        # read outputs.json -> metadata["outputs"]
-        outputs_path = Path(output_dir) / "outputs.json"
-        with open(outputs_path) as f:
-            outputs = json.load(f)
-            # output paths are relative to the output_dir
-            for key, val in outputs.items():
-                outputs[key] = str(Path(output_dir) / val)
-        metadata["outputs"] = outputs
+        # load output_dir / outputs.json file if the job is done and the outputs are available
+        if "output_dir" in metadata and metadata["status"] == "done":
+            output_dir = metadata["output_dir"]
+            outputs_path = Path(output_dir) / "outputs.json"
+            with open(outputs_path) as f:
+                outputs = json.load(f)
+                # output paths are relative to the output_dir
+                for key, val in outputs.items():
+                    outputs[key] = str(Path(output_dir) / val)
+                metadata["outputs"] = outputs
         # update cached metadata
         self.metadata = metadata
         return metadata
@@ -262,8 +261,12 @@ class JawsRunner(JobRunnerABC):
 
     @property
     def job_id(self) -> Optional[int]:
-        """ Get the job id from the metadata """
-        return self.metadata.get("id", None)
+        """
+        Get the job id from the metadata if set or the workflow state
+        """
+        if self.metadata.get("id"):
+            return self.metadata.get("id")
+        return self.workflow.job_runner_id
 
     @job_id.setter
     def job_id(self, job_id: int):
