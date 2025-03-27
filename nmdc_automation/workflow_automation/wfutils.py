@@ -566,7 +566,7 @@ class WorkflowStateManager:
     @property
     def job_runner_id(self) -> Optional[str]:
         # for now we only have cromwell as a job runner
-        job_runner_ids = ["cromwell_jobid", ]
+        job_runner_ids = ["cromwell_jobid", "jaws_jobid"]
         for job_runner_id in job_runner_ids:
             if job_runner_id in self.cached_state:
                 return self.cached_state[job_runner_id]
