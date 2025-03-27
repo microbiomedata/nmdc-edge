@@ -139,10 +139,10 @@ class JawsRunner(JobRunnerABC):
             return None
         cleanup_zip_files = []
         try:
-            files = self.workflow.generate_submission_files()
+            files = self.workflow.generate_submission_files(for_jaws=True)
 
             # Temporary fix to handle the fact that the JAWS API does not handle the sub argument and the zip file
-            if files['sub']:
+            if 'sub' in files:
                 extract_dir = os.path.dirname(files["sub"])
                 with zipfile.ZipFile(files["sub"], 'r') as zip_ref:
                     zip_ref.extractall(extract_dir)
@@ -197,16 +197,18 @@ class JawsRunner(JobRunnerABC):
         """ Get metadata for a job. In JAWS this is the response from the status call and the
         logical names and file paths for the outputs specified in outputs.json """
         metadata = self.jaws_api.status(self.job_id)
-        # load output_dir / outputs.json file
-        if "outputs" in metadata:
-            outputs = metadata["outputs"]
-            if "output_dir" in outputs:
-                output_dir = outputs["output_dir"]
-                outputs_path = Path(output_dir) / "outputs.json"
-                if outputs_path.exists():
-                    with open(outputs_path) as f:
-                        outputs = json.load(f)
-                        metadata["outputs"] = outputs
+        # load output_dir / outputs.json file if the job is done and the outputs are available
+        if "output_dir" in metadata and metadata["status"] == "done":
+            output_dir = metadata["output_dir"]
+            outputs_path = Path(output_dir) / "outputs.json"
+            with open(outputs_path) as f:
+                outputs = json.load(f)
+                # output paths are relative to the output_dir
+                for key, val in outputs.items():
+                    # some values may be 'null' if the output was not generated
+                    if val:
+                        outputs[key] = str(Path(output_dir) / val)
+                metadata["outputs"] = outputs
         # update cached metadata
         self.metadata = metadata
         return metadata
@@ -216,6 +218,7 @@ class JawsRunner(JobRunnerABC):
         Get the status of a job. In JAWS this is the response from the status call
         and the status and results keys.
         """
+        logger.debug(f"Getting job status for job {self.job_id}")
         resp = self.jaws_api.status(self.job_id)
         # If the status is not 'done' then the job is still running
         if resp['status'] != 'done':
@@ -227,8 +230,12 @@ class JawsRunner(JobRunnerABC):
 
     @property
     def job_id(self) -> Optional[int]:
-        """ Get the job id from the metadata """
-        return self.metadata.get("id", None)
+        """
+        Get the job id from the metadata if set or the workflow state
+        """
+        if self.metadata.get("id"):
+            return self.metadata.get("id")
+        return self.workflow.job_runner_id
 
     @job_id.setter
     def job_id(self, job_id: int):
@@ -541,7 +548,7 @@ class WorkflowStateManager:
     @property
     def job_runner_id(self) -> Optional[str]:
         # for now we only have cromwell as a job runner
-        job_runner_ids = ["cromwell_jobid", ]
+        job_runner_ids = ["cromwell_jobid", "jaws_jobid"]
         for job_runner_id in job_runner_ids:
             if job_runner_id in self.cached_state:
                 return self.cached_state[job_runner_id]
@@ -714,9 +721,11 @@ class WorkflowJob:
 
         data_objects = []
 
+        logger.info(f"Creating data objects for job {self.workflow_execution_id}")
         for output_spec in self.workflow.data_outputs:  # specs are defined in the workflow.yaml file under Outputs
             output_key = f"{self.workflow.input_prefix}.{output_spec['output']}"
             # get the full path to the output file from the job_runner
+            logger.info(f"Searching job outputs: {self.job.outputs}")
             output_file_path = Path(self.job.outputs[output_key])
             logger.info(f"Create Data Object: {output_key} file path: {output_file_path}")
             if output_key not in self.job.outputs:

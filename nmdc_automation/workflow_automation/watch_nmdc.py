@@ -250,11 +250,14 @@ class JobManager:
         database = Database()
 
         # Update the job metadata
-        logger.info(f"Create Data Objects: for {job.was_informed_by} job{job.opid} : {job.workflow.job_runner_id}")
+        logger.info(f"Getting job metadata: for {job.was_informed_by} job{job.opid} : {job.workflow.job_runner_id}")
         job.job.job_id = job.workflow.job_runner_id
         metadata = job.job.get_job_metadata()
         job.job.metadata = metadata
+        logger.debug(f"Job metadata: {metadata}")
 
+
+        logger.info("Creating data objects")
         data_objects = job.make_data_objects(output_dir=output_path)
         if not data_objects:
             logger.error(f"No data objects found for job {job.opid}.")
@@ -331,7 +334,7 @@ class RuntimeApiHandler:
 class Watcher:
     """ Watcher class for monitoring and managing jobs """
     def __init__(self, site_configuration_file: Union[str, Path],  state_file: Union[str, Path] = None, use_jaws: bool = False):
-        self._POLL_INTERVAL_SEC = 60
+        self._POLL_INTERVAL_SEC = 600   # 10 minutes to avoid spamming the API
         self._MAX_FAILS = 2
         self.should_skip_claim = False
         self.config = SiteConfig(site_configuration_file)
