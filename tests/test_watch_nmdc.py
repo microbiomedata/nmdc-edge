@@ -355,7 +355,7 @@ def test_job_manager_get_finished_jobs_1_failure(site_config, initial_state_file
         failed_job = failed_jobs[0]
         assert failed_job.job_status == "Failed"
 
-@mock.patch("nmdc_automation.workflow_automation.wfutils.CromwellRunner.generate_submission_files")
+@mock.patch("nmdc_automation.workflow_automation.wfutils.WorkflowStateManager.generate_submission_files")
 def test_job_manager_process_failed_job_1_failure(
         mock_generate_submission_files, site_config, initial_state_file_1_failure, mock_cromwell_api):
     # Arrange
