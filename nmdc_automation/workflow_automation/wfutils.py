@@ -127,39 +127,6 @@ class JawsRunner(JobRunnerABC):
         self.no_submit_states = self.JAWS_NO_SUBMIT_STATES + self.NO_SUBMIT_STATES
 
 
-    def generate_submission_files(self) -> Dict[str, Any]:
-        """ Generate the files needed for a J.A.W.S job submission """
-        files = {}
-
-        try:
-            # Get file paths
-            wdl_file = self.workflow.fetch_release_file(self.workflow.config["wdl"], suffix=".wdl")
-            bundle_file = self.workflow.fetch_release_file("bundle.zip", suffix=".zip")
-            workflow_inputs_path = _json_tmp(self.workflow.generate_workflow_inputs())
-
-
-            # Open files
-            files = {
-                "wdl_file": wdl_file,
-                "sub": bundle_file,
-                "inputs": workflow_inputs_path
-            }
-
-            logger.info("Submission Files:")
-            logger.info(files)
-            # dump the workflow inputs and labels to the log
-            with open(workflow_inputs_path) as f:
-                inputs_dump = json.load(f)
-                logger.info("inputs:")
-                logger.info(json.dumps(inputs_dump, indent=2))
-
-        except Exception as e:
-            logger.error(f"Failed to generate submission files: {e}")
-            _cleanup_files(list(files.values()))
-            raise e
-
-        return files
-
     def submit_job(self, force: bool = False) -> Optional[int]:
         """
         Submit a job to J.A.W.S. Update the workflow state with the job id and status.
@@ -172,7 +139,7 @@ class JawsRunner(JobRunnerABC):
             return None
         cleanup_zip_files = []
         try:
-            files = self.generate_submission_files()
+            files = self.workflow.generate_submission_files()
 
             # Temporary fix to handle the fact that the JAWS API does not handle the sub argument and the zip file
             if files['sub']:
@@ -317,54 +284,6 @@ class CromwellRunner(JobRunnerABC):
         self.dry_run = dry_run
 
 
-    def _generate_workflow_labels(self) -> Dict[str, str]:
-        """ Generate labels for the job runner from the workflow state """
-        labels = {param: self.workflow.config[param] for param in self.LABEL_PARAMETERS}
-        labels["submitter"] = self.LABEL_SUBMITTER_VALUE
-        # some Cromwell-specific labels
-        labels["pipeline_version"] = self.workflow.config["release"]
-        labels["pipeline"] = self.workflow.config["wdl"]
-        labels["activity_id"] = self.workflow.workflow_execution_id
-        labels["opid"] = self.workflow.opid
-        return labels
-
-    def generate_submission_files(self) -> Dict[str, Any]:
-        """ Generate the files needed for a Cromwell job submission """
-        files = {}
-        try:
-            # Get file paths
-            wdl_file = self.workflow.fetch_release_file(self.workflow.config["wdl"], suffix=".wdl")
-            bundle_file = self.workflow.fetch_release_file("bundle.zip", suffix=".zip")
-            workflow_inputs_path = _json_tmp(self.workflow.generate_workflow_inputs())
-            workflow_labels_path = _json_tmp(self._generate_workflow_labels())
-
-            # Open files
-            files = {
-                "workflowSource": open(wdl_file, "rb"),
-                "workflowDependencies": open(bundle_file, "rb"),
-                "workflowInputs": open(workflow_inputs_path, "rb"),
-                "labels": open(workflow_labels_path, "rb"),
-            }
-
-            logger.info(f"WDL file: {wdl_file}")
-            logger.info(f"Bundle file: {bundle_file}")
-            # dump the workflow inputs and labels to the log
-            with open(workflow_inputs_path) as f:
-                inputs_dump = json.load(f)
-                logger.info("Workflow inputs:")
-                logger.info(json.dumps(inputs_dump, indent=2))
-
-            with open(workflow_labels_path) as f:
-                labels_dump = json.load(f)
-                logger.info("Workflow labels:")
-                logger.info(json.dumps(labels_dump, indent=2))
-
-        except Exception as e:
-            logger.error(f"Failed to generate submission files: {e}")
-            _cleanup_files(list(files.values()))
-            raise e
-        return files
-
     def submit_job(self, force: bool = False) -> Optional[str]:
         """
         Submit a job to Cromwell. Update the workflow state with the job id and status.
@@ -377,7 +296,7 @@ class CromwellRunner(JobRunnerABC):
             return None
         cleanup_files = []
         try:
-            files = self.generate_submission_files()
+            files = self.workflow.generate_submission_files()
             cleanup_files = list(files.values())
             if not self.dry_run:
                 response = requests.post(self.service_url, files=files)
@@ -467,6 +386,8 @@ class CromwellRunner(JobRunnerABC):
 class WorkflowStateManager:
     CHUNK_SIZE = 1000000  # 1 MB
     GIT_RELEASES_PATH = "/releases/download"
+    LABEL_SUBMITTER_VALUE = "nmdcda"
+    LABEL_PARAMETERS = ["release", "wdl", "git_repo"]
 
     def __init__(self, state: Dict[str, Any] = None, opid: str = None):
         if state is None:
@@ -484,6 +405,60 @@ class WorkflowStateManager:
         for input_key, input_val in self.inputs.items():
             inputs[f"{prefix}.{input_key}"] = input_val
         return inputs
+
+    def generate_workflow_labels(self) -> Dict[str, str]:
+        """ Generate labels for the job runner from the workflow state """
+        labels = {param: self.config[param] for param in self.LABEL_PARAMETERS}
+        labels["submitter"] = self.LABEL_SUBMITTER_VALUE
+        # some Cromwell-specific labels
+        labels["pipeline_version"] = self.config["release"]
+        labels["pipeline"] = self.config["wdl"]
+        labels["activity_id"] = self.workflow_execution_id
+        labels["opid"] = self.opid
+        return labels
+
+    def generate_submission_files(self, for_jaws: bool = False) -> Dict[str, Any]:
+        """ Generate the files needed for a Cromwell job submission """
+        files = {}
+        try:
+            # Get file paths
+            wdl_file = self.fetch_release_file(self.config["wdl"], suffix=".wdl")
+            bundle_file = self.fetch_release_file("bundle.zip", suffix=".zip")
+            workflow_inputs_path = _json_tmp(self.generate_workflow_inputs())
+            workflow_labels_path = _json_tmp(self.generate_workflow_labels())
+
+            if for_jaws:
+                files = {
+                    "wdl_file": wdl_file,
+                    "sub": bundle_file,
+                    "inputs": workflow_inputs_path,
+                }
+            else: # open the files for submission
+                files = {
+                    "workflowSource": open(wdl_file, "rb"),
+                    "workflowDependencies": open(bundle_file, "rb"),
+                    "workflowInputs": open(workflow_inputs_path, "rb"),
+                    "labels": open(workflow_labels_path, "rb"),
+                }
+
+            logger.info(f"WDL file: {wdl_file}")
+            logger.info(f"Bundle file: {bundle_file}")
+            # dump the workflow inputs and labels to the log
+            with open(workflow_inputs_path) as f:
+                inputs_dump = json.load(f)
+                logger.info("Workflow inputs:")
+                logger.info(json.dumps(inputs_dump, indent=2))
+
+            with open(workflow_labels_path) as f:
+                labels_dump = json.load(f)
+                logger.info("Workflow labels:")
+                logger.info(json.dumps(labels_dump, indent=2))
+
+        except Exception as e:
+            logger.error(f"Failed to generate submission files: {e}")
+            _cleanup_files(list(files.values()))
+            raise e
+        return files
 
     def update_state(self, state: Dict[str, Any]):
         self.cached_state.update(state)
