@@ -739,9 +739,11 @@ class WorkflowJob:
 
         data_objects = []
 
+        logger.info(f"Creating data objects for job {self.workflow_execution_id}")
         for output_spec in self.workflow.data_outputs:  # specs are defined in the workflow.yaml file under Outputs
             output_key = f"{self.workflow.input_prefix}.{output_spec['output']}"
             # get the full path to the output file from the job_runner
+            logger.info(f"Searching job outputs: {self.job.outputs}")
             output_file_path = Path(self.job.outputs[output_key])
             logger.info(f"Create Data Object: {output_key} file path: {output_file_path}")
             if output_key not in self.job.outputs:

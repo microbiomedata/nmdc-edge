@@ -254,6 +254,8 @@ class JobManager:
         job.job.job_id = job.workflow.job_runner_id
         metadata = job.job.get_job_metadata()
         job.job.metadata = metadata
+        logger.info(f"Job metadata: {metadata}")
+
 
         logger.info("Creating data objects")
         data_objects = job.make_data_objects(output_dir=output_path)
