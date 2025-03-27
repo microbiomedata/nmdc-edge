@@ -205,7 +205,9 @@ class JawsRunner(JobRunnerABC):
                 outputs = json.load(f)
                 # output paths are relative to the output_dir
                 for key, val in outputs.items():
-                    outputs[key] = str(Path(output_dir) / val)
+                    # some values may be 'null' if the output was not generated
+                    if val:
+                        outputs[key] = str(Path(output_dir) / val)
                 metadata["outputs"] = outputs
         # update cached metadata
         self.metadata = metadata
