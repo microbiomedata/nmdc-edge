@@ -338,12 +338,21 @@ class Watcher:
         self.file_handler = FileHandler(self.config, state_file)
 
         if use_jaws:
+            logger.info(f"Initializing Jaws API: config file: {self.config.jaws_config}")
+            logger.info(f"Using JAWS token from file: {self.config.jaws_token}")
             jaws_config = jaws_Configuration.from_files(self.config.jaws_config, self.config.jaws_token)
             self.jaws_api = jaws_api.JawsApi(jaws_config)
 
+            # Check jaws_api connection
+            user = self.jaws_api.get_user()
+            if user:
+                logger.info(f"Jaws API user: {user}")
+        else:
+            self.jaws_api = None
 
-        self.runtime_api_handler = RuntimeApiHandler(self.config)
-        self.job_manager = JobManager(self.config, self.file_handler)
+
+        self.runtime_api_handler = RuntimeApiHandler(self.config, self.jaws_api)
+        self.job_manager = JobManager(self.config, self.file_handler, jaws_api=self.jaws_api)
         self.nmdc_materialized = _get_nmdc_materialized()
 
     def restore_from_checkpoint(self, state_data: Dict[str, Any] = None)-> None:

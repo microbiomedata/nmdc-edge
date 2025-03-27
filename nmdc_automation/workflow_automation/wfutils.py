@@ -167,9 +167,9 @@ class JawsRunner(JobRunnerABC):
         :return: {'run_id': 'int'}
         """
         status = self.workflow.last_status
-        if status.lower() in self.no_submit_states and not force:
+        if status and status.lower() in self.no_submit_states and not force:
             logger.info(f"Job {self.job_id} in state {status}, skipping submission")
-            return
+            return None
         cleanup_zip_files = []
         try:
             files = self.generate_submission_files()
@@ -189,9 +189,17 @@ class JawsRunner(JobRunnerABC):
             if validation_resp["result"] != "succeeded":
                 logger.error(f"Failed to Validate Job: {validation_resp}")
                 raise Exception(f"Failed to Validate Job: {validation_resp}")
+            else:
+                logger.info(f"Validation Succeeded: {validation_resp}")
 
             tag_value = self.workflow.was_informed_by + "/" + self.workflow.workflow_execution_id
             # Submit to J.A.W.S
+            logger.info(f"Submitting job to JAWS with tag: {tag_value}")
+            logger.info(f"Site: {self.job_site}")
+            logger.info(f"Inputs: {files['inputs']}")
+            logger.info(f"WDL: {files['wdl_file']}")
+            logger.info(f"Sub: {files['sub']}")
+
             response = self.jaws_api.submit(
                 wdl_file=files["wdl_file"],
                 sub=files["sub"],
