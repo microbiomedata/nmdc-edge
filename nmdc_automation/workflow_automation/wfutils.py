@@ -231,15 +231,17 @@ class JawsRunner(JobRunnerABC):
         logical names and file paths for the outputs specified in outputs.json """
         metadata = self.jaws_api.status(self.job_id)
         # load output_dir / outputs.json file
-        if "outputs" in metadata:
-            outputs = metadata["outputs"]
-            if "output_dir" in outputs:
-                output_dir = outputs["output_dir"]
-                outputs_path = Path(output_dir) / "outputs.json"
-                if outputs_path.exists():
-                    with open(outputs_path) as f:
-                        outputs = json.load(f)
-                        metadata["outputs"] = outputs
+        output_dir = metadata.get("output_dir", None)
+        if not output_dir:
+            raise Exception("Output directory not found in metadata")
+
+        # read outputs.json -> metadata["outputs"]
+        outputs_path = Path(output_dir) / "outputs.json"
+        if not outputs_path.exists():
+            raise Exception(f"Outputs file not found: {outputs_path}")
+        with open(outputs_path) as f:
+            outputs = json.load(f)
+            metadata["outputs"] = outputs
         # update cached metadata
         self.metadata = metadata
         return metadata
