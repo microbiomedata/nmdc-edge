@@ -218,7 +218,7 @@ class JawsRunner(JobRunnerABC):
         Get the status of a job. In JAWS this is the response from the status call
         and the status and results keys.
         """
-        logger.info(f"Getting job status for job {self.job_id}")
+        logger.debug(f"Getting job status for job {self.job_id}")
         resp = self.jaws_api.status(self.job_id)
         # If the status is not 'done' then the job is still running
         if resp['status'] != 'done':
