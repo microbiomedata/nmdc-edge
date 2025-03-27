@@ -59,11 +59,10 @@ def test_jaws_job_runner_jaws_validate(site_config, fixtures_dir, jaws_token_fil
     job_state = json.load(open(fixtures_dir / fixture))
     state_manager = WorkflowStateManager(job_state)
 
-    runner = JawsRunner(site_config, state_manager, jaws_api)
-    submission_files = runner.generate_submission_files()
+    submission_files = state_manager.generate_submission_files(for_jaws=True)
 
     # For now, we have to manually unzip the sub workflow zip file
-    if submission_files['sub']:
+    if submission_files.get("sub"):
         extract_dir = os.path.dirname(submission_files["sub"])
         with zipfile.ZipFile(submission_files["sub"], 'r') as zip_ref:
             zip_ref.extractall(extract_dir)
