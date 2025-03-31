@@ -726,9 +726,12 @@ class WorkflowJob:
             output_key = f"{self.workflow.input_prefix}.{output_spec['output']}"
             # get the full path to the output file from the job_runner
             logger.info(f"Searching job outputs: {self.job.outputs}")
-            output_file_path = Path(self.job.outputs[output_key])
-            logger.info(f"Create Data Object: {output_key} file path: {output_file_path}")
             if output_key not in self.job.outputs:
+                logger.warning(f"Output key {output_key} not found in job outputs")
+                continue
+            output_file = Path(self.job.outputs[output_key])
+            logger.info(f"Create Data Object: {output_key} file path: {output_file}")
+            if not output_file.exists():
                 if output_spec.get("optional"):
                     logger.debug(f"Optional output {output_key} not found in job outputs")
                     continue
@@ -737,22 +740,28 @@ class WorkflowJob:
                     continue
 
 
-            md5_sum = _md5(output_file_path)
-            file_size_bytes = output_file_path.stat().st_size
-            file_url = f"{self.url_root}/{self.was_informed_by}/{self.workflow_execution_id}/{output_file_path.name}"
+            md5_sum = _md5(output_file)
+            file_size_bytes = output_file.stat().st_size
+            file_url = f"{self.url_root}/{self.was_informed_by}/{self.workflow_execution_id}/{output_file.name}"
 
-            # copy the file to the output directory if provided
-            new_output_file_path = None
             if output_dir:
-                new_output_file_path = Path(output_dir) / output_file_path.name
+                new_output_file_path = Path(output_dir) / output_file.name
                 # copy the file to the output directory
-                shutil.copy(output_file_path, new_output_file_path)
+                shutil.copy(output_file, new_output_file_path)
+
+                # Check that the file was completely copied by md5 value. If not, try one more time.
+                # If it still fails, raise an exception.
+                if md5_sum != _md5(new_output_file_path):
+                    shutil.copy(output_file, new_output_file_path)
+                    if md5_sum != _md5(new_output_file_path):
+                        raise IOError(f"Failed to copy {output_file} to {new_output_file_path}")
+
             else:
-                logger.warning(f"Output directory not provided, not copying {output_file_path} to output directory")
+                logger.warning(f"Output directory not provided, not copying {output_file} to output directory")
 
             # create a DataObject object
             data_object = DataObject(
-                id=output_spec["id"], name=output_file_path.name, type="nmdc:DataObject", url=file_url,
+                id=output_spec["id"], name=output_file.name, type="nmdc:DataObject", url=file_url,
                 data_object_type=output_spec["data_object_type"], md5_checksum=md5_sum,
                 file_size_bytes=file_size_bytes,
                 description=output_spec["description"].replace('{id}', self.workflow_execution_id),
