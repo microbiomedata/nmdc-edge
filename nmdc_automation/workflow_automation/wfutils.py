@@ -726,9 +726,9 @@ class WorkflowJob:
             output_key = f"{self.workflow.input_prefix}.{output_spec['output']}"
             # get the full path to the output file from the job_runner
             logger.info(f"Searching job outputs: {self.job.outputs}")
-            output_file = Path(self.job.outputs[output_key])
+            output_file = Path(self.job.outputs.get(output_key))
             logger.info(f"Create Data Object: {output_key} file path: {output_file}")
-            if output_key not in self.job.outputs:
+            if not output_file.exists():
                 if output_spec.get("optional"):
                     logger.debug(f"Optional output {output_key} not found in job outputs")
                     continue
@@ -751,7 +751,7 @@ class WorkflowJob:
                 if md5_sum != _md5(new_output_file_path):
                     shutil.copy(output_file, new_output_file_path)
                     if md5_sum != _md5(new_output_file_path):
-                        raise Exception(f"Failed to copy {output_file} to {new_output_file_path}")
+                        raise IOError(f"Failed to copy {output_file} to {new_output_file_path}")
 
             else:
                 logger.warning(f"Output directory not provided, not copying {output_file} to output directory")
