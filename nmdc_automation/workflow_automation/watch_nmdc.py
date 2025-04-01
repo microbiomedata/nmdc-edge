@@ -19,13 +19,14 @@ from nmdc_automation.api import NmdcRuntimeApi
 from nmdc_automation.config import SiteConfig
 from nmdc_automation.workflow_automation.wfutils import WorkflowJob
 
-
+from jaws_client import api as jaws_api
+from jaws_client.config import Configuration as jaws_Configuration
 
 DEFAULT_STATE_DIR = Path(__file__).parent / "_state"
 DEFAULT_STATE_FILE = DEFAULT_STATE_DIR / "state.json"
 INITIAL_STATE = {"jobs": []}
 
-logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
 logging.basicConfig(
     level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
 )
@@ -107,10 +108,11 @@ class FileHandler:
 
 class JobManager:
     """ JobManager class for managing WorkflowJob objects """
-    def __init__(self, config: SiteConfig, file_handler: FileHandler, init_cache: bool = True):
+    def __init__(self, config: SiteConfig, file_handler: FileHandler, init_cache: bool = True, jaws_api=None):
         """ Initialize the JobManager with a Config object and a FileHandler object """
         self.config = config
         self.file_handler = file_handler
+        self.jaws_api = jaws_api
         self._job_cache = []
         self._MAX_FAILS = 2
         if init_cache:
@@ -162,7 +164,7 @@ class JobManager:
             if job.get("opid") and job.get("opid") in job_cache_ids:
                 # already in cache
                 continue
-            wf_job = WorkflowJob(self.config, workflow_state=job)
+            wf_job = WorkflowJob(self.config, workflow_state=job, jaws_api=self.jaws_api)
             logger.info(f"Job from State: {wf_job.was_informed_by} / {wf_job.workflow_execution_id}, Last Status: {wf_job.workflow.last_status} /{wf_job.opid} / {wf_job.workflow.nmdc_jobid}")
             job_cache_ids.append(wf_job.opid)
             wf_job_list.append(wf_job)
@@ -199,7 +201,7 @@ class JobManager:
     def get_finished_jobs(self)->Tuple[List[WorkflowJob], List[WorkflowJob]]:
         """
         Get finished jobs
-        Returns a tuple of successful jobs and failed jobs
+        Returns a tuple of successful jobs and failed jobs.
         Jobs are considered finished if they have a last status of "Succeeded" or "Failed"
         or if they have reached the maximum number of failures
 
@@ -210,20 +212,20 @@ class JobManager:
         failed_jobs = []
         for job in self.job_cache:
             if not job.done:
-                if job.workflow.last_status == "Succeeded" and job.opid:
+                if job.workflow.last_status.lower() == "succeeded" and job.opid:
                     successful_jobs.append(job)
                     continue
-                if job.workflow.last_status == "Failed" and job.workflow.failed_count >= self._MAX_FAILS:
+                if job.workflow.last_status.lower() == "failed" and job.workflow.failed_count >= self._MAX_FAILS:
                     failed_jobs.append(job)
                     continue
                 # check status
                 status = job.job.get_job_status()
 
-                if status == "Succeded":
+                if status.lower() == "succeded":
                     job.workflow.last_status = status
                     successful_jobs.append(job)
                     continue
-                elif status == "Failed":
+                elif status.lower() == "failed":
                     job.workflow.last_status = status
                     job.workflow.failed_count += 1
                     failed_jobs.append(job)
@@ -248,11 +250,14 @@ class JobManager:
         database = Database()
 
         # Update the job metadata
-        logger.info(f"Create Data Objects: for {job.was_informed_by} job{job.opid} : {job.workflow.job_runner_id}")
+        logger.info(f"Getting job metadata: for {job.was_informed_by} job{job.opid} : {job.workflow.job_runner_id}")
         job.job.job_id = job.workflow.job_runner_id
         metadata = job.job.get_job_metadata()
         job.job.metadata = metadata
+        logger.debug(f"Job metadata: {metadata}")
 
+
+        logger.info("Creating data objects")
         data_objects = job.make_data_objects(output_dir=output_path)
         if not data_objects:
             logger.error(f"No data objects found for job {job.opid}.")
@@ -294,9 +299,10 @@ class JobManager:
 
 class RuntimeApiHandler:
     """ RuntimeApiHandler class for managing API calls to the runtime """
-    def __init__(self, config):
+    def __init__(self, config, jaws_api=None):
         self.runtime_api = NmdcRuntimeApi(config)
         self.config = config
+        self.jaws_api = jaws_api
 
     def claim_job(self, job_id):
         """ Claim a job by its ID """
@@ -312,13 +318,13 @@ class RuntimeApiHandler:
         job_records = self.runtime_api.list_jobs(filt=filt)
 
         for job in job_records:
-            jobs.append(WorkflowJob(self.config, workflow_state=job))
+            jobs.append(WorkflowJob(self.config, workflow_state=job, jaws_api=self.jaws_api))
 
         return jobs
 
     def post_objects(self, database_obj):
         """ Post a Database with workflow executions and their data objects to the workflow_executions endpoint """
-        return self.runtime_api.post_objects(database_obj)
+        return self.runtime_api.post_workflow_executions(database_obj)
 
     def update_operation(self, opid, done, meta):
         """ Update the state of an operation with new metadata, results, and done status """
@@ -327,14 +333,29 @@ class RuntimeApiHandler:
 
 class Watcher:
     """ Watcher class for monitoring and managing jobs """
-    def __init__(self, site_configuration_file: Union[str, Path],  state_file: Union[str, Path] = None):
-        self._POLL_INTERVAL_SEC = 60
+    def __init__(self, site_configuration_file: Union[str, Path],  state_file: Union[str, Path] = None, use_jaws: bool = False):
+        self._POLL_INTERVAL_SEC = 600   # 10 minutes to avoid spamming the API
         self._MAX_FAILS = 2
         self.should_skip_claim = False
         self.config = SiteConfig(site_configuration_file)
         self.file_handler = FileHandler(self.config, state_file)
-        self.runtime_api_handler = RuntimeApiHandler(self.config)
-        self.job_manager = JobManager(self.config, self.file_handler)
+
+        if use_jaws:
+            logger.info(f"Initializing Jaws API: config file: {self.config.jaws_config}")
+            logger.info(f"Using JAWS token from file: {self.config.jaws_token}")
+            jaws_config = jaws_Configuration.from_files(self.config.jaws_config, self.config.jaws_token)
+            self.jaws_api = jaws_api.JawsApi(jaws_config)
+
+            # Check jaws_api connection
+            user = self.jaws_api.get_user()
+            if user:
+                logger.info(f"Jaws API user: {user}")
+        else:
+            self.jaws_api = None
+
+
+        self.runtime_api_handler = RuntimeApiHandler(self.config, self.jaws_api)
+        self.job_manager = JobManager(self.config, self.file_handler, jaws_api=self.jaws_api)
         self.nmdc_materialized = _get_nmdc_materialized()
 
     def restore_from_checkpoint(self, state_data: Dict[str, Any] = None)-> None:

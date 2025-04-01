@@ -1,5 +1,6 @@
 import configparser
 import pandas as pd
+import ast
 import pytest
 from pathlib import Path
 
@@ -46,5 +47,5 @@ def grow_analysis_df():
             "analysis_project_id",
         ]
     ]
-    # grow_analysis_df["project"] = "test_project"
+    grow_analysis_df["projects"] = grow_analysis_df["projects"].apply(ast.literal_eval)
     return grow_analysis_df

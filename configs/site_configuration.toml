@@ -27,3 +27,8 @@ workflows_config = "./configs/workflows.yaml"
 [credentials]
 client_id = "xxxxxx"
 client_secret = "xxxxxxxx"
+
+[jaws]
+jaws_config = "path/to/jaws/config"
+jaws_token = "path/to/jaws/token"
+

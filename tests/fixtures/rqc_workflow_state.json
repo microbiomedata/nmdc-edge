@@ -1,0 +1,74 @@
+{
+  "workflow": {
+    "id": "Reads QC Interleave: v1.0.14"
+  },
+  "created_at": "2025-03-18T18:30:41",
+  "config": {
+    "git_repo": "https://github.com/microbiomedata/ReadsQC",
+    "release": "v1.0.14",
+    "wdl": "interleave_rqcfilter.wdl",
+    "activity_id": "nmdc:wfrqc-12-s66ntc59.1",
+    "activity_set": "workflow_execution_set",
+    "was_informed_by": "nmdc:omprc-11-wjrnsc56",
+    "trigger_activity": "nmdc:omprc-11-wjrnsc56",
+    "iteration": 1,
+    "input_prefix": "nmdc_rqcfilter",
+    "inputs": {
+      "proj": "nmdc:wfrqc-12-s66ntc59.1",
+      "input_fastq1": "https://storage.neonscience.org/neon-microbial-raw-seq-files/2023/argonne_R1/DSNY_009-M-33-14-20140409-gen_R1.fastq.gz",
+      "input_fastq2": "https://storage.neonscience.org/neon-microbial-raw-seq-files/2023/argonne_R2/DSNY_009-M-33-14-20140409-gen_R2.fastq.gz"
+    },
+    "input_data_objects": [
+      {
+        "id": "nmdc:dobj-11-h273kv91",
+        "type": "nmdc:DataObject",
+        "name": "DSNY_009-M-33-14-20140409-gen_R1.fastq.gz",
+        "description": "sequencing results for DSNY_009-M-33-14-20140409-gen_R1",
+        "data_object_type": "Metagenome Raw Read 1",
+        "md5_checksum": "191e8d1e3a1ac39e55c023e4d5e36436",
+        "url": "https://storage.neonscience.org/neon-microbial-raw-seq-files/2023/argonne_R1/DSNY_009-M-33-14-20140409-gen_R1.fastq.gz"
+      },
+      {
+        "id": "nmdc:dobj-11-6r3wrg57",
+        "type": "nmdc:DataObject",
+        "name": "DSNY_009-M-33-14-20140409-gen_R2.fastq.gz",
+        "description": "sequencing results for DSNY_009-M-33-14-20140409-gen_R2",
+        "data_object_type": "Metagenome Raw Read 2",
+        "md5_checksum": "480c5dead8ea67554592eb4aeb262afe",
+        "url": "https://storage.neonscience.org/neon-microbial-raw-seq-files/2023/argonne_R2/DSNY_009-M-33-14-20140409-gen_R2.fastq.gz"
+      }
+    ],
+    "activity": {
+      "name": "Read QC for {id}",
+      "input_read_bases": "{outputs.stats.input_read_bases}",
+      "input_read_count": "{outputs.stats.input_read_count}",
+      "output_read_bases": "{outputs.stats.output_read_bases}",
+      "output_read_count": "{outputs.stats.output_read_count}",
+      "type": "nmdc:ReadQcAnalysis"
+    },
+    "outputs": [
+      {
+        "output": "filtered_final",
+        "name": "Reads QC result fastq (clean data)",
+        "data_object_type": "Filtered Sequencing Reads",
+        "description": "Reads QC for {id}",
+        "id": "nmdc:dobj-12-qzw2sa85"
+      },
+      {
+        "output": "filtered_stats_final",
+        "name": "Reads QC summary statistics",
+        "data_object_type": "QC Statistics",
+        "description": "Reads QC summary for {id}",
+        "id": "nmdc:dobj-12-mbb9fx54"
+      },
+      {
+        "output": "rqc_info",
+        "name": "File containing read filtering information",
+        "data_object_type": "Read Filtering Info File",
+        "description": "Read filtering info for {id}",
+        "id": "nmdc:dobj-12-36pm6g48"
+      }
+    ]
+  },
+  "claims": []
+}

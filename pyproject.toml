@@ -8,13 +8,13 @@ readme = "README.md"
 packages = [{include = "nmdc_automation"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.10,<3.12"
 pymongo = "^4.3.3"
 pyYAML = "^6.0"
 requests = "^2.28.2"
 nmdc-schema = "^11.2.1"
-deepdiff = "^6.2.1"
-pytz = "^2023.3"
+deepdiff = ">=7.0.1"
+pytz = ">=2024.1"
 python-dotenv = "^1.0.0"
 click = "^8.1.3"
 pytest = "^7.3.1"
@@ -31,6 +31,13 @@ pysam = "^0.22.1"
 importlib = "^1.0.4"
 tomli = "^2.0.2"
 tenacity = "^9.0.0"
+jaws-client = {version = "2.5.2", source = "jgi"}
+regex = "^2024.11.6"
+
+[[tool.poetry.source]]
+name = "jgi"
+url = "https://code.jgi.doe.gov/api/v4/projects/312/packages/pypi/simple"
+priority = 'supplemental'  # Ensures it doesn't override PyPI as the default source
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.1"

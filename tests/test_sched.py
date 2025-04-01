@@ -1,4 +1,6 @@
 from nmdc_automation.workflow_automation.sched import Scheduler, SchedulerJob
+from nmdc_automation.workflow_automation.workflows import load_workflow_configs
+from nmdc_automation.models.workflow import WorkflowConfig, WorkflowProcessNode
 from pytest import mark
 
 from nmdc_automation.workflow_automation.workflow_process import get_required_data_objects_map, load_workflow_process_nodes
@@ -73,6 +75,12 @@ def test_progress(test_db, mock_api, workflow_file, workflows_config_dir, site_c
         # assembly, rba
         exp_num_post_rqc_jobs = 2
         exp_num_post_annotation_jobs = 2
+
+        # Get the assembly job record from resp and check the inputs
+        asm_job = [j for j in resp if j["config"]["activity"]["type"] == "nmdc:MetagenomeAssembly"][0]
+        assert "shortRead" in asm_job["config"]["inputs"]
+        assert isinstance(asm_job["config"]["inputs"]["shortRead"], bool)
+
     assert len(resp) == exp_num_post_rqc_jobs
 
     if metatranscriptome:
@@ -257,5 +265,28 @@ def test_scheduler_find_new_jobs(test_db, mock_api, workflows_config_dir, site_c
     assert job_req["config"]["was_informed_by"] == "nmdc:omprc-11-cegmwy02"
     assert job_req["config"]["input_data_objects"]
 
+
+def test_scheduler_create_job_rec_has_input_files_as_array(test_db, mock_api, workflows_config_dir, site_config_file):
+    """
+    Test that the input_data_objects field is an array of strings.
+    """
+    reset_db(test_db)
+    load_fixture(test_db, "data_object_set.json")
+    load_fixture(test_db, "data_generation_set.json")
+    load_fixture(test_db, "read_qc_analysis.json", col="workflow_execution_set")
+
+    jm = Scheduler(
+        test_db, workflow_yaml=workflows_config_dir / "workflows.yaml",
+        site_conf=site_config_file
+        )
+
+    resp = jm.cycle()
+    assemblies = [j for j in resp if j["config"]["activity"]["type"] == "nmdc:MetagenomeAssembly"]
+    assert assemblies
+    assembly = assemblies[0]
+
+    assert isinstance(assembly["config"]["inputs"]["shortRead"], bool)
+    assert assembly["config"]["inputs"]["shortRead"] == True
+    assert isinstance(assembly["config"]["inputs"]["input_files"], list)
 
 

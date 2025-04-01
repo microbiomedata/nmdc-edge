@@ -1,0 +1,10 @@
+Ga0597026_0000002	tRNAscan-SE v.2.0.12 (Nov 2022)	tRNA	142067	142138	70.6	+	.	ID=Ga0597026_0000002_142067_142138;product=tRNA_Lys_CTT;codon=AAG;used_search_mode=Bacterial
+Ga0597026_0000004	tRNAscan-SE v.2.0.12 (Nov 2022)	tRNA	52286	52368	79.2	+	.	ID=Ga0597026_0000004_52286_52368;product=tRNA_Leu_CAA;codon=TTG;used_search_mode=Bacterial
+Ga0597026_0000005	tRNAscan-SE v.2.0.12 (Nov 2022)	tRNA	150364	150454	84.3	+	.	ID=Ga0597026_0000005_150364_150454;product=tRNA_Ser_GCT;codon=AGC;used_search_mode=Bacterial
+Ga0597026_0000006	tRNAscan-SE v.2.0.12 (Nov 2022)	tRNA	10948	11030	46.8	+	.	ID=Ga0597026_0000006_10948_11030;product=tRNA_Arg_CCT;codon=AGG;used_search_mode=Bacterial
+Ga0597026_0000006	tRNAscan-SE v.2.0.12 (Nov 2022)	tRNA	16244	16315	12.5	+	.	ID=Ga0597026_0000006_16244_16315;product=tRNA_Xxx;codon=Pseudo;used_search_mode=Bacterial;note=pseudo
+Ga0597026_0000006	tRNAscan-SE v.2.0.12 (Nov 2022)	tRNA	27253	27317	25.2	-	.	ID=Ga0597026_0000006_27253_27317;product=tRNA_Xxx;codon=Pseudo;used_search_mode=Bacterial;note=pseudo
+Ga0597026_0000006	tRNAscan-SE v.2.0.12 (Nov 2022)	tRNA	109212	109266	27.4	+	.	ID=Ga0597026_0000006_109212_109266;product=tRNA_Xxx;codon=Pseudo;used_search_mode=Bacterial
+Ga0597026_0000006	tRNAscan-SE v.2.0.12 (Nov 2022)	tRNA	139385	139457	76.0	+	.	ID=Ga0597026_0000006_139385_139457;product=tRNA_Arg_CCT;codon=AGG;used_search_mode=Bacterial
+Ga0597026_0000009	tRNAscan-SE v.2.0.12 (Nov 2022)	tRNA	16994	17066	71.4	-	.	ID=Ga0597026_0000009_16994_17066;product=tRNA_Ala_GGC;codon=GCC;used_search_mode=Bacterial
+Ga0597026_0000012	tRNAscan-SE v.2.0.12 (Nov 2022)	tRNA	55783	55858	84.0	+	.	ID=Ga0597026_0000012_55783_55858;product=tRNA_Gly_CCC;codon=GGG;used_search_mode=Bacterial

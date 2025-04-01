@@ -19,15 +19,20 @@ def cli():
     type=click.Path(exists=True),
     required=True,
 )
+@click.option(  "-jaws", "--jaws", is_flag=True, type=bool, default=False)
 @click.pass_context
-def watcher(ctx, site_configuration_file):
-    logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
+def watcher(ctx, site_configuration_file, jaws):
+    logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
     logging.basicConfig(
         level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
     )
     logger = logging.getLogger(__name__)
     logger.info(f"Initializing Watcher: config file: {site_configuration_file}")
-    ctx.obj = Watcher(site_configuration_file)
+    if jaws:
+        logger.info("Using JAWS")
+    else:
+        logger.info("Using Cromwell")
+    ctx.obj = Watcher(site_configuration_file, use_jaws=jaws)
 
 
 @watcher.command()
@@ -86,9 +91,9 @@ def resubmit(ctx, workflow_execution_ids):
 @watcher.command()
 @click.pass_context
 def sync(ctx):
-    watcher = ctx.obj
-    watcher.restore_from_checkpoint()
-    watcher.update_op_state_all()
+    # TODO: Implement sync
+    pass
+
 
 
 @watcher.command()
