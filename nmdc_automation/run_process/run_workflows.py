@@ -79,7 +79,7 @@ def resubmit(ctx, operation_ids, all_failures, submit):
         logger.info(f"Found {len(failed_jobs)} failed jobs")
 
         for job in failed_jobs:
-            msg =f"Job for {job.was_informed_by} / {job.workflow_execution_id} Status: {job.job_status}"
+            msg =f"Job {job.opid} for {job.was_informed_by} / {job.workflow_execution_id} Status: {job.job_status}"
 
             if submit:
                 logger.info(f"Resubmitting {msg}")
@@ -102,36 +102,11 @@ def resubmit(ctx, operation_ids, all_failures, submit):
     watcher.job_manager.save_checkpoint()
 
 
-
-    # for wf_id in workflow_execution_ids:
-    #     logging.info(f"Checking {wf_id}")
-    #     wfj = None
-    #     if wf_id.startswith("nmdc:sys"):
-    #         key = "opid"
-    #     else:
-    #         key = "activity_id"
-    #     found_jobs = watcher.job_manager.job_cache
-    #     logging.info(f"Checking {len(found_jobs)} jobs")
-    #     for found_job in watcher.job_manager.job_cache:
-    #         job_record = found_job.workflow.state
-    #         logging.info(f"Checking {job_record[key]} against {wf_id}")
-    #         if job_record[key] == wf_id:
-    #             wfj = found_job
-    #             break
-    #     if not wfj:
-    #         print(f"No match found for {wf_id}")
-    #         continue
-    #     if wfj.job_status in ["Running", "Submitted"]:
-    #         print(f"Skipping {wf_id}, {wfj.last_status}")
-    #         continue
-
-
 @watcher.command()
 @click.pass_context
 def sync(ctx):
     # TODO: Implement sync
     pass
-
 
 
 @watcher.command()
