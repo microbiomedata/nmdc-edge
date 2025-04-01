@@ -68,6 +68,13 @@ def submit(ctx, job_ids):
 @click.option("--all-failures", is_flag=True, default=False, help="Resubmit all failed workflows")
 @click.option("--submit", is_flag=True, default=False, help="Submit the workflows")
 def resubmit(ctx, operation_ids, all_failures, submit):
+    """
+    Resubmit failed jobs
+
+    If --all-failures is set, all failed jobs will be resubmitted.
+    If --opid is set, the specified operation IDs will be resubmitted.
+    If --submit is set, the jobs will be submitted. Otherwise, the jobs will be listed in the log output.
+    """
     watcher = ctx.obj
 
 
