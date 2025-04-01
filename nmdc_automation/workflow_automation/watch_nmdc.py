@@ -300,6 +300,8 @@ class JobManager:
         """ Get failed jobs """
         failed_jobs = []
         for job in self.job_cache:
+            if not job.workflow.last_status:
+                continue
             if job.workflow.last_status.lower() == "failed" and job.done:
                 failed_jobs.append(job)
         return failed_jobs
