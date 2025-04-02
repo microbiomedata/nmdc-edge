@@ -518,6 +518,15 @@ class WorkflowStateManager:
         return self.config.get("was_informed_by", None)
 
     @property
+    def wdl(self) -> Optional[str]:
+        return self.config.get("wdl", None)
+
+    @property
+    def release(self) -> Optional[str]:
+        return self.config.get("release", None)
+
+
+    @property
     def workflow_execution_type(self) -> Optional[str]:
         return self.execution_template.get("type", None)
 
