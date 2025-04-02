@@ -49,7 +49,7 @@ def submit(ctx, job_ids):
             sys.exit(1)
         else:
             opid = claims[0]["op_id"]
-            job = watcher.find_job_by_opid(opid)
+            job = watcher.job_manager.find_job_by_opid(opid)
             if job:
                 print(f"{job_id} use resubmit")
                 continue
@@ -94,7 +94,7 @@ def resubmit(ctx, operation_ids, all_failures, submit):
 
     if operation_ids:
         for opid in operation_ids:
-            job = watcher.find_job_by_opid(opid)
+            job = watcher.job_manager.find_job_by_opid(opid)
             if job:
                 msg = f"Job for {job.was_informed_by} / {job.workflow_execution_id} Status: {job.job_status}"
                 if submit:
