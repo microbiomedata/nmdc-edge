@@ -316,7 +316,7 @@ class JobManager:
     def get_failed_jobs(self) -> List[WorkflowJob]:
         """ Get failed jobs """
         failed_jobs = [job for job in self.job_cache if
-                       job.workflow.last_status and job.workflow.last_status.lower() == "failed"]
+                       getattr(job.workflow, "last_status", "").lower() == "failed"]
         return failed_jobs
 
 
