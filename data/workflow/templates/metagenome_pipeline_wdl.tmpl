@@ -119,11 +119,11 @@ workflow main_workflow {
     scatter (file in select_first([readsqc_preprocess.input_files_gz, [""]])) {
         call readsQC.ShortReadsQC  as nmdc_rqcfilter_call {
             input:
-                input_files=input_files,
-                input_fq1=input_fq1,
-                input_fq2=input_fq2,
+                input_files=[file],
+                input_fq1=[],
+                input_fq2=[],
                 proj=proj,
-                interleaved=input_interleaved
+                interleaved=true
         }
     }
 
