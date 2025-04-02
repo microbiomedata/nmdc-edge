@@ -296,15 +296,21 @@ class JobManager:
         jobid = job.job.submit_job()
         return jobid
 
-    def get_failed_jobs(self):
-        """ Get failed jobs """
-        failed_jobs = []
+    def report(self) -> List[dict]:
+        """ Report the current state of the JobManager's job cache """
+        job_reports = []
         for job in self.job_cache:
-            if not job.workflow.last_status:
-                continue
-            if job.workflow.last_status.lower() == "failed" and job.done:
-                failed_jobs.append(job)
-        return failed_jobs
+            rpt ={
+                "wdl": job.workflow.wdl, "release": job.workflow.release, "last_status": job.workflow.last_status, "was_informed_by": job.workflow.was_informed_by, "workflow_execution_id": job.workflow.workflow_execution_id
+            }
+            job_reports.append(rpt)
+
+        # Log the job reports
+        for rpt in job_reports:
+            logger.info(f"Job Report: {rpt}")
+
+        return job_reports
+
 
 
 class RuntimeApiHandler:
@@ -446,6 +452,7 @@ class Watcher:
             if new_job:
                 new_job.job.submit_job()
         self.file_handler.write_state(self.job_manager.job_checkpoint())
+
 
 @lru_cache(maxsize=None)
 def _get_nmdc_materialized():

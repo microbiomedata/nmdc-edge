@@ -437,5 +437,19 @@ def test_reclaim_job(requests_mock, site_config_file, mock_api):
         )  # w.claim_jobs()  # resp = w.job_manager.find_job_by_opid("nmdc:1234")  # assert resp
 
 
-def test_watcher_restore_from_checkpoint(site_config_file, fixtures_dir):
-    state_file = fixtures_dir / "mags_workflow_state.json"
+def test_watcher_restore_from_checkpoint_and_report(site_config_file, fixtures_dir):
+    state_file = fixtures_dir / "agent_state_1_failure.json"
+    w = Watcher(site_config_file, state_file)
+    w.restore_from_checkpoint()
+    assert w.job_manager.job_cache
+
+    # get job reports
+    reports = w.job_manager.report()
+    assert reports
+    assert len(reports) == 1
+
+    rpt = reports[0]
+    assert rpt
+    assert rpt['wdl'] == "mbin_nmdc.wdl"
+    assert rpt['last_status'] == "Failed"
+

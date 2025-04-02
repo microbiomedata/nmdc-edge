@@ -76,8 +76,6 @@ def resubmit(ctx, operation_ids, all_failures, submit):
     If --submit is set, the jobs will be submitted. Otherwise, the jobs will be listed in the log output.
     """
     watcher = ctx.obj
-
-
     watcher.restore_from_checkpoint()
 
     if all_failures:
@@ -121,6 +119,21 @@ def sync(ctx):
 def daemon(ctx):
     watcher = ctx.obj
     watcher.watch()
+
+
+@watcher.command()
+@click.pass_context
+def report(ctx):
+    watcher = ctx.obj
+    watcher.restore_from_checkpoint()
+
+    reports = watcher.job_manager.report()
+
+    header = "wdl, release, last_status, was_informed_by, workflow_execution_id"
+    print(header)
+    for rpt in reports:
+        print(f"{rpt['wdl']}, {rpt['release']}, {rpt['last_status']}, {rpt['was_informed_by']}, {rpt['workflow_execution_id']}")
+
 
 
 @watcher.command()
