@@ -288,7 +288,7 @@ class JobManager:
             logger.error(f"Job {job.opid} failed {self._MAX_FAILS} times. Skipping.")
             job.done = True
             self.save_checkpoint()
-            return
+            return None
         job.workflow.state["failed_count"] = job.workflow.state.get("failed_count", 0) + 1
         job.workflow.state["last_status"] = job.job_status
         self.save_checkpoint()
@@ -310,7 +310,6 @@ class JobManager:
             logger.info(f"Job Report: {rpt}")
 
         return job_reports
-
 
 
 

@@ -335,9 +335,9 @@ class CromwellRunner(JobRunnerABC):
 
     def get_job_status(self) -> str:
         """ Get the status of a job from Cromwell """
-        if not self.workflow.cromwell_jobid:
+        if not self.workflow.job_runner_id:
             return "Unknown"
-        status_url = f"{self.service_url}/{self.workflow.cromwell_jobid}/status"
+        status_url = f"{self.service_url}/{self.workflow.job_runner_id}/status"
         # There can be a delay between submitting a job and it
         # being available in Cromwell so handle 404 errors
         logger.debug(f"Getting job status from {status_url}")
@@ -496,14 +496,6 @@ class WorkflowStateManager:
         self.cached_state["failed_count"] = count
 
     @property
-    def nmdc_jobid(self) -> Optional[str]:
-        return self.cached_state.get("nmdc_jobid", None)
-
-    @property
-    def cromwell_jobid(self) -> Optional[str]:
-        return self.cached_state.get("cromwell_jobid", None)
-
-    @property
     def execution_template(self) -> Dict[str, str]:
         # for backward compatibility we need to check for both keys
         return self.config.get("workflow_execution", self.config.get("activity", {}))
@@ -556,7 +548,7 @@ class WorkflowStateManager:
 
     @property
     def job_runner_id(self) -> Optional[str]:
-        # for now we only have cromwell as a job runner
+        # Cromwell and JAWS job ids
         job_runner_ids = ["cromwell_jobid", "jaws_jobid"]
         for job_runner_id in job_runner_ids:
             if job_runner_id in self.cached_state:
@@ -670,7 +662,7 @@ class WorkflowJob:
         """
         status = None
         # extend this list as needed for other job runners
-        job_id_keys = ["cromwell_jobid"]
+        job_id_keys = ["cromwell_jobid", "jaws_jobid"]
         failed_count = self.workflow.state.get("failed_count", 0)
         # if none of the job id keys are in the workflow state, it is unsubmitted
         if not any(key in self.workflow.state for key in job_id_keys):
