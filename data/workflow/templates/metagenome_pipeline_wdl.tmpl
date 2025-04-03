@@ -194,7 +194,7 @@ workflow main_workflow {
             contigs=if(short_read) then metaAssembly_call.sr_contig else metaAssembly_call.lr_contigs,
             container=metaAssembly_quast_container,
             outdir=metaAssembly_outdir,
-            proj=metaMAGs_proj
+            proj=proj
     }
 
     call viralPlasmid.viral as viralPlasmid_call {
