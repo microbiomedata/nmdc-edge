@@ -37,10 +37,10 @@ task assembly_vis{
         metaquast.py --version > version.txt
         metaquast.py -o ~{outdir} -m ~{minContig} --no-icarus --max-ref-number 0 ~{contigs}
         if [ -f ~{outdir}/report.html ]; then
-            sed -e 's/.top-panel {/.top-panel {\n display:none;/' ~{outdir}/report.html > ~{outdir}/~{prefix}_report.html
+            sed -e 's/.top-panel {/.top-panel {\n display:none;/' ~{outdir}/report.html > ~{outdir}/metagenome_workflow_report.html
             mv ~{outdir}/report.txt ~{outdir}/~{prefix}_report.txt
         else
-            echo "None of the assembly files contains correct contigs. contigs should >= 500 bp for the report" > ~{outdir}/~{prefix}_report.html
+            echo "None of the assembly files contains correct contigs. contigs should >= 500 bp for the report" > ~{outdir}/metagenome_workflow_report.html
             echo "None of the assembly files contains correct contigs. contigs should >= 500 bp for the report" > ~{outdir}/~{prefix}_report.txt
         fi
     >>>
@@ -53,7 +53,7 @@ task assembly_vis{
 
     output{
         File tool_version = "version.txt"
-        File report_html = "~{outdir}/~{prefix}_report.html"
+        File report_html = "~{outdir}/metagenome_workflow_report.html"
         File report_txt = "~{outdir}/~{prefix}_report.txt"
     }
 }
