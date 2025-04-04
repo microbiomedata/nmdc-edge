@@ -161,6 +161,7 @@ async function generateInputs(proj_home, conf, proj) {
     templInputs = templInputs.replace(/<PREFIX>/g, '"' + proj.name + '"');
     templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + pipelineSettings['outdir'] + '"');
     templInputs = templInputs.replace(/<INTERLEAVED>/, conf.inputs.interleaved);
+    templInputs = templInputs.replace(/<SHORT_READ>/, conf.inputs.shortRead);
     if (conf.inputs.interleaved) {
         //inputs 
         let inputs = [];

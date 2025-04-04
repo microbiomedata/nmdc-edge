@@ -26,6 +26,7 @@ export const initialFastqInput = {
     fastqPaired: [],
     fastqSingle: [],
     fastqSingle_validInput: [],
+    shortRead: true,
     interleaved: true,
     fastqPairedDisplay: [],
     fastqSingleDisplay: []

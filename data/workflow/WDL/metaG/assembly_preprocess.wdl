@@ -6,7 +6,7 @@ workflow preprocess {
         Array[File] input_fq1
         Array[File] input_fq2
         String  container="bfoster1/img-omics:0.1.9"
-        String outdir
+        String  outdir
         Boolean input_interleaved
     }
 
@@ -48,17 +48,17 @@ task gzip_input_int{
  	    Array[File] input_files
 	    String container
 	    String outdir
-	    String filename = "output_fastq.gz"
+	    String filename = "output.fastq.gz"
     }
 
  	command<<<
 
         mkdir -p ~{outdir}
         if file --mime -b ~{input_files[0]} | grep gzip > /dev/null ; then
-            cat ~{sep=" " input_files} > output_fastq.gz
+            cat ~{sep=" " input_files} > ~{filename}
         else
             cat ~{sep=" " input_files} > input_files.fastq
-            gzip -f input_files.fastq > output_fastq.gz
+            gzip -f input_files.fastq > ~{filename}
         fi
 
  	>>>
@@ -68,7 +68,7 @@ task gzip_input_int{
             cpu:  1
         }
 	output{
-        File input_file_gz = "output_fastq.gz"
+        File input_file_gz = "~{filename}"
 	}
 }
 

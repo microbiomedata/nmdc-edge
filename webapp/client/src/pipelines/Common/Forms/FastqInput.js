@@ -50,7 +50,7 @@ export function FastqInput(props) {
     }
 
     const handleFastqFileSelection = (path, type, index, key) => {
-        if(!validFile(key, path)) {
+        if (!validFile(key, path)) {
             if (type === 'fastqPaired1') {
                 if (form.fastqPaired[index]) {
                     form.fastqPaired[index].validInput1 = false;
@@ -67,7 +67,7 @@ export function FastqInput(props) {
             } else if (type === 'fastqSingle') {
                 form.fastqSingle_validInput[index] = false;
             }
-    
+
             form.validForm = false;
             props.setParams(form, props.name);
             return;
@@ -126,7 +126,7 @@ export function FastqInput(props) {
     useEffect(() => {
         fastqSingleAppend({ name: "fastqSingle" });
         fastqPairedAppend({ name: "fastqPaired" });
-        setState({ ...form, ['fastqPaired']: [], ['fastqSingle']: [], ['fastqSingle_validInput']: [],['fastqPairedDisplay']: [], ['fastqSingleDisplay']: [] });
+        setState({ ...form, ['fastqPaired']: [], ['fastqSingle']: [], ['fastqSingle_validInput']: [], ['fastqPairedDisplay']: [], ['fastqSingleDisplay']: [] });
         setDoValidation(doValidation + 1);
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
@@ -171,7 +171,36 @@ export function FastqInput(props) {
 
     return (
         <>
-            {!props.interleavedOnly &&
+            {props.platformOptions &&
+                <>
+                    <Row>
+                        <Col md="3"> Sequencing Platform </Col>
+                        <Col xs="12" md="9">
+                            <ButtonGroup className="mr-3" aria-label="First group" size="sm">
+                                <Button color="outline-primary" onClick={() => {
+                                    resetFastqInput();
+                                    setNewState2("shortRead", true);
+                                    if (props.singleType) {
+                                        setSingleType(props.singleType);
+                                    } else {
+                                        setSingleType("interleaved");
+                                    }
+                                }}
+                                    active={form.shortRead}>Illumina</Button>
+                                <Button color="outline-primary" onClick={() => {
+                                    resetFastqInput();
+                                    setNewState2("shortRead", false);
+                                    setSingleType("PacBio");
+                                }}
+                                    active={!form.shortRead}>PacBio</Button>
+                            </ButtonGroup>
+                        </Col>
+                    </Row>
+                    <br></br>
+                </>
+            }
+
+            {!props.interleavedOnly && form.shortRead &&
                 <>
                     <Row>
                         <Col md="3"> Is {singleType}? </Col>
@@ -302,7 +331,7 @@ export function FastqInput(props) {
                                             <FileSelector {...rest} {...fieldState}
                                                 enableInput={true}
                                                 placeholder={'Select a file or enter a file http(s) url'}
-                                                validFile={form.fastqPaired[index]?form.fastqPaired[index].validInput1:false}
+                                                validFile={form.fastqPaired[index] ? form.fastqPaired[index].validInput1 : false}
                                                 dataSources={props.dataSources ? props.dataSources : ['project', 'upload', 'public', 'globus']}
                                                 fileTypes={['fastq', 'fq', 'fastq.gz', 'fq.gz']} viewFile={false}
                                                 projectTypes={props.projectTypes ? props.projectTypes : null}
@@ -327,7 +356,7 @@ export function FastqInput(props) {
                                             <FileSelector {...rest} {...fieldState}
                                                 enableInput={true}
                                                 placeholder={'Select a file or enter a file http(s) url'}
-                                                validFile={form.fastqPaired[index]?form.fastqPaired[index].validInput2:false}
+                                                validFile={form.fastqPaired[index] ? form.fastqPaired[index].validInput2 : false}
                                                 dataSources={props.dataSources ? props.dataSources : ['project', 'upload', 'public', 'globus']}
                                                 fileTypes={['fastq', 'fq', 'fastq.gz', 'fq.gz']} viewFile={false}
                                                 projectTypes={props.projectTypes ? props.projectTypes : null}
