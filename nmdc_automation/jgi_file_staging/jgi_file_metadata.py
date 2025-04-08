@@ -346,5 +346,5 @@ if __name__ == '__main__':
             print('Downloads verified')
     elif args['insert_project']:
         insert_new_project_into_mongodb(args['config_file'])
-
-    get_samples_data(args['project_name'], args['config_file'], csv_file=args['file'])
+    else:
+        get_samples_data(args['project_name'], args['config_file'], csv_file=args['file'])
