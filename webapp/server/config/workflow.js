@@ -83,7 +83,7 @@ workflowlist = {
         cromwell_calls: ['main_workflow.enviroMS'],
         wdl_version: 'draft-2'
     },
-    'virus_plasmid': {
+    virus_plasmid: {
         wdl: 'viral-plasmid_wf.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'viral',
@@ -95,7 +95,7 @@ workflowlist = {
         cromwell_calls: ['main_workflow.viral'],
         wdl_version: '1.0'
     },
-    'Metaproteomics': {
+    Metaproteomics: {
         wdl_pipeline: 'metaP/metapro_main.wdl',
         wdl_imports: 'metaP/imports.zip',
         name: 'metapro',
@@ -107,7 +107,7 @@ workflowlist = {
         cromwell_calls: ['metapro.job_analysis','metapro.report_gen','metapro.make_output','metapro.gen_metadata'],
         wdl_version: '1.0'
     },
-    'sra2fastq': {
+    sra2fastq: {
         wdl: 'sra2fastq.wdl',
         wdl_imports: 'sra/imports.zip',
         name: 'sra',
