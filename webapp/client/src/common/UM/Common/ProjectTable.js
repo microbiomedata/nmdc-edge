@@ -303,7 +303,7 @@ function ProjectTable(props) {
                         {
                             title: 'Status', field: 'status', editable: 'never', grouping: false,
                             render: rowData => { return <Badge color={projectStatusColors[rowData.status]}>{projectStatusNames[rowData.status]}</Badge> },
-                            lookup: { 'in queue': 'In queue', 'running': 'Running', 'failed': 'Failed', 'rerun': 'Re-run', 'complete': 'Complete' }
+                            lookup: { 'in queue': 'In queue', 'running': 'Running', 'failed': 'Failed', 'rerun': 'Re-run', 'complete': 'Complete', 'delete':'Deleted' }
                         },
                         {
                             title: "Result",

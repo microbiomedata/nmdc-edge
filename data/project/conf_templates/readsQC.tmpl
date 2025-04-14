@@ -3,6 +3,7 @@
   "workflow": {
     "name": "ReadsQC",
     "input_fastq": {
+      "shortRead": <%= shortRead %>,
       "interleaved": <%= interleaved %>,
       "fastqs": <%- JSON.stringify(input_fastqs) %>
     }
@@ -10,7 +11,8 @@
   "inputDisplay": {
     "workflow": "ReadsQC",
       "input": {
-      "Is interleaved": <%= interleaved %>,
+      "Sequencing Platform": "<%= platform %>",
+      <% if(platform === "Illumina") { %>"Is interleaved": <%= interleaved %>,<% } else { %><%} %>
       "fastqs": <%- JSON.stringify(input_fastqs_display) %>
     }
   }

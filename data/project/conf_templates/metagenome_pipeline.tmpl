@@ -1,6 +1,7 @@
 {
   "pipeline":"Metagenome Pipeline",
   "inputs": {
+    "shortRead": <%= shortRead %>,
     "interleaved": <%= interleaved %>,
     "fastqs": <%- JSON.stringify(input_fastqs) %>
   },
@@ -41,7 +42,8 @@
     "type":"Metagenome | Run Multiple Workflows",
     "input": {
       "Input Raw Reads": {
-        "interleaved": <%= interleaved %>,
+        "Sequencing Platform": "<%= platform %>",
+        <% if(platform === "Illumina") { %>"Is interleaved": <%= interleaved %>,<% } else { %><%} %>
         "fastqs": <%- JSON.stringify(input_fastqs_display) %>
       },
       "ReadsQC Workflow": {
