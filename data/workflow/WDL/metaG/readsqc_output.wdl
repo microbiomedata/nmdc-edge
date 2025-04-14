@@ -10,7 +10,7 @@ workflow readsqc_output {
         Array[File]   rqc_info
         String?       outdir
         String        bbtools_container="microbiomedata/bbtools:38.96"
-        String        vis_container="microbiomedata/fastqc_vis:1.0"
+        String        vis_container="ghcr.io/microbiomedata/nmdc-fastqc_vis:1.1.2"
     }
 
     call make_output {
@@ -54,6 +54,7 @@ task fastqc_report{
         set -euo pipefail
 
         mkdir -p output
+        
         ARRAY=(~{sep=" " input_files_prefix})
         ARRAYFastq=(~{sep=" " input_files})
         ARRAYStats2=(~{sep=" " filtered_stats2_final})
@@ -111,7 +112,7 @@ task make_output{
             dir=~{dollar}(dirname ~{dollar}{ARRAYFastq[$i]})
             prefix=~{dollar}{ARRAY[$i]}
             mkdir -p ~{outdir}/$prefix
-            cp -f ~{dollar}{ARRAYFastq[$i]} ~{outdir}/$prefix/$prefix.filtered.gz
+            cp -f ~{dollar}{ARRAYFastq[$i]} ~{outdir}/$prefix/$prefix_filtered.fastq.gz
             cp -f ~{dollar}{ARRAYStats[$i]}  ~{outdir}/$prefix/filterStats.txt
             cp -f ~{dollar}{ARRAYStats2[$i]}  ~{outdir}/$prefix/filterStats2.txt
             cp -f ~{dollar}{ARRAYStatjson[$i]}  ~{outdir}/$prefix/filterStats.json

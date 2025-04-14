@@ -186,6 +186,7 @@ async function generateInputs(proj_home, workflow, proj) {
         templInputs = templInputs.replace(/<READS>/, JSON.stringify(reads));
         templInputs = templInputs.replace(/<ENABLED_TOOLS>/, JSON.stringify(workflow['enabled_tools']));
         templInputs = templInputs.replace(/<PAIRED>/, workflow['paired']);
+        templInputs = templInputs.replace(/<SHORT_READ>/, workflow['shortRead']);
         templInputs = templInputs.replace(/<PREFIX>/, '"' + proj.name + '"');
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
 
@@ -197,6 +198,7 @@ async function generateInputs(proj_home, workflow, proj) {
         templInputs = templInputs.replace(/<PROJNAME>/g, '"' + proj.name + '"');
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
         templInputs = templInputs.replace(/<INTERLEAVED>/, interleaved);
+        templInputs = templInputs.replace(/<SHORT_READ>/, workflow['input_fastq']['shortRead']);
         if (interleaved) {
             //inputs 
             let inputs_fq = [];
