@@ -7,7 +7,7 @@ class Sample(BaseModel):
     apGoldId: str
     studyId: str
     itsApId: int
-    projects: list[str]
+    projects: list
     biosample_id: str
     seq_id: str
     file_name: str
