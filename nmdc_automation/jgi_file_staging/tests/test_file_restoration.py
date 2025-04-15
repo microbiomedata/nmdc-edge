@@ -10,7 +10,7 @@ from mongo import get_mongo_db
 from jgi_file_metadata import insert_samples_into_mongodb
 
 
-class MyTestCase(unittest.TestCase):
+class FileRestoreTest(unittest.TestCase):
     def setUp(self) -> None:
         self.fixtures = os.path.join(os.path.dirname(__file__), 'fixtures')
         self.config_file = os.path.join(self.fixtures, 'config.ini')
@@ -37,8 +37,9 @@ class MyTestCase(unittest.TestCase):
         grow_analysis_df = grow_analysis_df[['apGoldId', 'studyId', 'itsApId', 'biosample_id', 'seq_id',
                                              'file_name', 'file_status', 'file_size', 'jdp_file_id', 'md5sum',
                                              'analysis_project_id']]
+        grow_analysis_df['project'] = "test_project"
+        grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(lambda x: str(x))
         grow_analysis_df.loc[grow_analysis_df['file_size'] > 30000, 'file_status'] = 'PURGED'
-        grow_analysis_df['project'] = 'test_project'
         insert_samples_into_mongodb(grow_analysis_df.to_dict('records'))
         mdb = get_mongo_db()
         num_restore_samples = len([m for m in mdb.samples.find({'file_status': 'PURGED'})])
