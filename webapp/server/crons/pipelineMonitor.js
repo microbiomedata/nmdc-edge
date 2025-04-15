@@ -12,7 +12,7 @@ const config = require("../config");
 module.exports = function pipelineMonitor() {
     logger.debug("pipeline monitor");
     //only process one job at each time based on job updated time
-    CromwellJob.find({ 'status': { $in: ['Submitted', 'Running'] } }).sort({ updated: 1 }).then(jobs => {
+    CromwellJob.find({ 'status': { $in: ['Submitted', 'Running'] } }).sort({ updated: 1 }).then(async jobs => {
         if (jobs.length >= config.CROMWELL.NUM_JOBS_MAX) {
             return;
         }
@@ -21,21 +21,15 @@ module.exports = function pipelineMonitor() {
         jobs.forEach(job => {
             jobInputsize += job.inputsize;
         });
+        //limit the running jobs the current project owner has
+        const excludedUsers = await common.getUsersWithMaxRunningJobs();
+        const owners = common.getValuesForKey(excludedUsers, "owner");
 
         //only process one request at each time
-        Project.find({ 'type': 'Metagenome Pipeline', 'status': 'in queue' }).sort({ updated: 1 }).then(async projs => {
+        Project.find({ 'type': 'Metagenome Pipeline', 'owner':{$nin: owners}, 'status': 'in queue' }).sort({ updated: 1 }).then(async projs => {
             let proj = projs[0];
             if (!proj) {
                 logger.debug("No pipeline request to process");
-                return;
-            }
-            //limit the running jobs the current project owner has
-            const runningProjects = await common.getRunningProjects(proj);
-            if(runningProjects > config.CROMWELL.NUM_JOBS_MAX_USER) {
-                logger.debug(proj.owner +" has max running projects.");
-                // set new updated time to move this request to the end of the queue
-                proj.updated = Date.now();
-                proj.save();
                 return;
             }
             //parse conf.json 
@@ -178,10 +172,10 @@ async function generateInputs(proj_home, conf, proj) {
                 const fileCode = path.basename(fq);
                 let name = await common.getRealName(fileCode);
                 const inputFq = inputDir + "/" + name;
-                if (!fs.existsSync(inputFq)) {
+                if (!common.fileExistsSync(inputFq)) {
                     fs.symlinkSync(fq, inputFq, 'file');
-                    inputs.push(inputFq);
                 }
+                inputs.push(inputFq);
             } else {
                 inputs.push(fq);
             }
@@ -206,10 +200,10 @@ async function generateInputs(proj_home, conf, proj) {
                 const fileCode = path.basename(fq1);
                 let name = await common.getRealName(fileCode);
                 const inputFq = inputDir + "/" + name;
-                if (!fs.existsSync(inputFq)) {
+                if (!common.fileExistsSync(inputFq)) {
                     fs.symlinkSync(fq1, inputFq, 'file');
-                    inputs_fq1.push(inputFq);
                 }
+                inputs_fq1.push(inputFq);
             } else {
                 inputs_fq1.push(fq1);
             }
@@ -223,10 +217,10 @@ async function generateInputs(proj_home, conf, proj) {
                 const fileCode = path.basename(fq2);
                 let name = await common.getRealName(fileCode);
                 const inputFq = inputDir + "/" + name;
-                if (!fs.existsSync(inputFq)) {
+                if (!common.fileExistsSync(inputFq)) {
                     fs.symlinkSync(fq2, inputFq, 'file');
-                    inputs_fq2.push(inputFq);
                 }
+                inputs_fq2.push(inputFq);
             } else {
                 inputs_fq2.push(fq2);
             }

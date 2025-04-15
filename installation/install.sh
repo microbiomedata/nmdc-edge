@@ -24,6 +24,7 @@ if [ ! -d  $io_home ]; then
     "upload/tmp" 
     "log"
     "projects"
+    "bulksubmissions"
     "public"
     "db"
     "sra"

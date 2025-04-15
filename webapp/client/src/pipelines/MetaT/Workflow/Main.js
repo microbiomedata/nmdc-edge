@@ -7,10 +7,10 @@ import { getData, postData, notify } from '../../../common/util';
 import { LoaderDialog, MessageDialog } from '../../../common/Dialogs';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import { workflowlist, workflowOptions } from './Defaults';
+import { workflowlist } from '../../Defaults';
 import { Project } from '../../Common/Forms/Project';
 import { Metatranscriptome } from './Forms/Metatranscriptome';
+import { workflowOptions } from './Defaults';
 
 function Main(props) {
     const [openDialog, setOpenDialog] = useState(false);

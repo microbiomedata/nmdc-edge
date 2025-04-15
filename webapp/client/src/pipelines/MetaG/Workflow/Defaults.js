@@ -46,62 +46,6 @@ export const workflowInputTips = {
     },
 }
 
-export const workflowlist = {
-    ReadsQC: {
-        title: 'ReadsQC',
-        name: 'ReadsQC Workflow',
-        img: '/docs/images/ReadsQC.png',
-        thumbnail: '/docs/images/ReadsQC-thumbnail.png',
-        video: '/docs/videos/ReadsQC.mp4',
-        pdf: '/docs/help/ReadsQC.pdf',
-        link: 'https://github.com/microbiomedata/ReadsQC',
-        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/1_RQC_index.html',
-        info: 'This workflow utilizes the program “rqcfilter2” from BBTools to perform quality control on raw Illumina reads.'
-    },
-    ReadbasedAnalysis: {
-        title: 'Read-based Taxonomy Classification',
-        name: 'Read-based Taxonomy Classification Workflow',
-        img: '/docs/images/ReadBasedAnalysis.png',
-        thumbnail: '/docs/images/ReadBasedAnalysis-thumbnail.png',
-        video: '/docs/videos/ReadBasedAnalysis.mp4',
-        pdf: '/docs/help/ReadBasedAnalysis.pdf',
-        link: 'https://github.com/microbiomedata/ReadbasedAnalysis',
-        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/2_ReadAnalysis_index.html',
-        info: 'The pipeline takes sequencing files (single- or paired-end) and profiles them using multiple taxonomic classification tools.'
-    },
-    MetaAssembly: {
-        title: 'Metagenome Assembly',
-        name: 'Metagenome Assembly Workflow',
-        img: '/docs/images/MetagenomeAssembly.png',
-        thumbnail: '/docs/images/MetagenomeAssembly-thumbnail.png',
-        video: '/docs/videos/MetagenomeAssembly.mp4',
-        pdf: '/docs/help/MetagenomeAssembly.pdf',
-        link: 'https://github.com/microbiomedata/metaAssembly',
-        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/3_MetaGAssemly_index.html',
-        info: 'This workflow takes in paired-end Illumina reads in interleaved format and performs error correction, then reformats the interleaved file into two FASTQ files for downstream tasks using bbcms (BBTools).'
-    },
-    MetaAnnotation: {
-        title: 'Metagenome Annotation',
-        name: 'Metagenome Annotation Workflow',
-        img: '/docs/images/MetagenomeAnnotation.png',
-        thumbnail: '/docs/images/MetagenomeAnnotation-thumbnail.png',
-        //video:'/docs/videos/MetagenomeAnnotation.mp4',
-        pdf: '/docs/help/MetagenomeAnnotation.pdf',
-        link: 'https://github.com/microbiomedata/mg_annotation',
-        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/4_MetaGAnnotation_index.html',
-        info: 'It takes assembled metagenomes and generates structrual and functional annotations.'
-    },
-    MetaMAGs: {
-        title: 'Metagenome MAGs',
-        name: 'Metagenome MAGs Workflow',
-        img: '/docs/images/MetagenomeMAGs.png',
-        thumbnail: '/docs/images/MetagenomeMAGs-thumbnail.png',
-        link: 'https://github.com/microbiomedata/metaMAGs',
-        doclink: 'https://github.com/microbiomedata/metaMAGs',
-        info: 'This workflow is based on IMG’s metagenome assembled genomes (MAGs) pipeline.'
-    },
-}
-
 export const initialReadbasedAnalysis = {
     validForm: false,
     errMessage: '',

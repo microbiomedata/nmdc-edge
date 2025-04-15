@@ -13,6 +13,12 @@ export const initialProject = {
     project_name_tip: '(required, at least 3 but less than 30 characters)<br/>Only alphabets, numbers, dashs, dot and underscore are allowed.',
 }
 
+export const initialFileUpload = {
+    file: '',
+    validForm: false,
+    errMessage: 'Excel file is required',
+}
+
 export const initialConfigFile = {
     use_conf_file: false,
     conf_file_path: '',

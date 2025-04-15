@@ -58,6 +58,7 @@ export const projectStatusColors= {
     'rerun': 'info',
     'processing': 'info',
     'submitted': 'info',
+    'delete':'danger',
 };
 
 export const projectStatusNames= {
@@ -67,7 +68,30 @@ export const projectStatusNames= {
     'complete': 'Complete',
     'rerun': 'Re-run',
     'processing': 'Processing',
-    'submitted': 'Submitted'
+    'submitted': 'Submitted',
+    'delete': 'Deleted',
+};
+
+export const bulkSubmissionStatusColors= {
+    'running': 'warning',
+    'in queue': 'secondary',
+    'failed': 'danger',
+    'complete': 'success',
+    'rerun': 'info',
+    'processing': 'info',
+    'submitted': 'info',
+    'delete': 'danger',
+};
+
+export const bulkSubmissionStatusNames= {
+    'running': 'Running',
+    'in queue': 'In queue',
+    'failed': 'Failed',
+    'complete': 'Complete',
+    'rerun': 'Re-run',
+    'processing': 'Processing',
+    'submitted': 'Submitted',
+    'delete': 'Deleted',
 };
 
 export const userStatusColors= {

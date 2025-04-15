@@ -12,6 +12,7 @@ workflowlist = {
         wdl_version: '1.0'
     },
     ReadsQC: {
+        project_conf_tmpl: 'readsQC.tmpl',
         wdl: 'https://raw.githubusercontent.com/microbiomedata/ReadsQC/refs/tags/v1.0.14/rqcfilter.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'jgi_rqcfilter',
@@ -123,6 +124,7 @@ workflowlist = {
 
 pipelinelist = {
     'Metagenome Pipeline': {
+        project_conf_tmpl: 'metagenome_pipeline.tmpl',
         wdl: 'metagenome_pipeline.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'metagenome',

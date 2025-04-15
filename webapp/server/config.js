@@ -105,6 +105,7 @@ const config = {
         SCHEDULES: {
             PIPELINE_MONITOR: process.env.CRON_PIPELINE_MONITOR_SCHEDULE || "0-59/3 * * * *",
             WORKFLOW_MONITOR: process.env.CRON_WORKFLOW_MONITOR_SCHEDULE || "1-59/3 * * * *",
+            BULKSUBMISSION_MONITOR: process.env.CRON_WORKFLOW_MONITOR_SCHEDULE || "0-59/3 * * * *",
             CROMWELL_MONITOR: process.env.CRON_CROMWELL_MONITOR_SCHEDULE || "2-59/3 * * * *",
             FILE_UPLOAD_MONITOR: process.env.CRON_FILE_UPLOAD_MONITOR_SCHEDULE || "0 0 * * *",
             PROJECT_STATUS_MONITOR: process.env.CRON_PROJECT_STATUS_MONITOR_SCHEDULE || "*/1 * * * *",
@@ -189,6 +190,10 @@ const config = {
     PROJECTS: {
         // Directory to store workflow results.
         BASE_DIR: process.env.PROJECTS_BASE_DIR || path.join(IO_BASE_DIR, "projects"),
+        // Directory to store bulk submissions.
+        BULK_DIR: process.env.PROJECTS_BULK_SUBMISSION_BASE_DIR || path.join(IO_BASE_DIR, "bulksubmissions"),
+        // Directory to store project conf.json templates for bulk submission.
+        CONF_TEMPLATE_DIR: process.env.PROJECTS_CONF_TEMPLATE_DIR || path.join(DATA_BASE_DIR, "project/conf_templates"),
         // Number of days for which the system will preserve a project after a user opts to delete it.
         PROJECT_DELETION_GRACE_PERIOD_DAYS: makeIntIfDefined(process.env.PROJECT_DELETION_GRACE_PERIOD_DAYS) || 7,
     },

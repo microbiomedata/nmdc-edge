@@ -36,7 +36,6 @@ const _nav = [
     _tag: 'CSidebarNavTitle',
     _children: ['Workflows'],
   },
-
   {
     _tag: 'CSidebarNavDropdown',
     name: 'Metagenomics',
@@ -51,6 +50,11 @@ const _nav = [
         _tag: 'CSidebarNavItem',
         name: 'Run Multiple Workflows',
         to: '/metag/pipeline',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Bulk Submission',
+        to: '/metag/bulksubmission',
       },
     ],
   },

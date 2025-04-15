@@ -8,7 +8,8 @@ import { LoaderDialog, MessageDialog } from '../../../common/Dialogs';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { workflowlist, workflowOptions } from './Defaults';
+import { workflowlist } from '../../Defaults';
+import { workflowOptions } from './Defaults';
 import { Project } from '../../Common/Forms/Project';
 import { VirusPlasmid } from './Forms/VirusPlasmid';
 const HtmlToReactParser = require('html-to-react').Parser;
