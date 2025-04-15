@@ -83,37 +83,9 @@ class JgiFileTestCase(unittest.TestCase):
         grow_analysis_df = pd.read_csv(
             os.path.join(self.fixtures, "grow_analysis_projects.csv")
         )
-        # grow_analysis_df.columns = [
-        #     "apGoldId",
-        #     "studyId",
-        #     "itsApId",
-        #     "projects",
-        #     "biosample_id",
-        #     "seq_id",
-        #     "file_name",
-        #     "file_status",
-        #     "file_size",
-        #     "jdp_file_id",
-        #     "md5sum",
-        #     "analysis_project_id",
-        # ]
-        # grow_analysis_df = grow_analysis_df[
-        #     [
-        #         "apGoldId",
-        #         "studyId",
-        #         "itsApId",
-        #         "biosample_id",
-        #         "seq_id",
-        #         "file_name",
-        #         "file_status",
-        #         "file_size",
-        #         "jdp_file_id",
-        #         "md5sum",
-        #         "analysis_project_id",
-        #     ]
-        # ]
+
         grow_analysis_df["project"] = "test_project"
-        grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(lambda x: eval(x))
+        # grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(lambda x: eval(x))
         grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(lambda x: str(x))
         insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
         mdb = get_mongo_db()
@@ -142,9 +114,8 @@ class JgiFileTestCase(unittest.TestCase):
         grow_analysis_df = pd.read_csv(
             os.path.join(self.fixtures, "grow_analysis_projects.csv")
         )
-        grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(lambda x: eval(x))
+        grow_analysis_df['project'] = "test_project"
         grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(lambda x: str(x))
-        grow_analysis_df["project"] = "test_project"
         insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
         mdb = get_mongo_db()
         sample = mdb.samples.find_one({"jdp_file_id": "6190d7d30de2fc3298da6f7a"})
