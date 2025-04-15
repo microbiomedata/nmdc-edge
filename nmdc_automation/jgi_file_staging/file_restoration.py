@@ -45,9 +45,8 @@ def restore_files(project: str, config_file: str, restore_csv=None) -> str:
     update_file_statuses(project, config_file)
     mdb = get_mongo_db()
     if not restore_csv:
-        restore_df = pd.DataFrame(
-            [sample for sample in mdb.samples.find({'project': project,
-                                                    'file_status': {'$ne': ['in transit', 'transferred']}})])
+        restore_df = pd.DataFrame([sample for sample in mdb.samples.find({'project': project, 'file_status':
+            {'$nin': ['in transit', 'transferred', 'RESTORED']}})])
     else:
         restore_df = pd.read_csv(restore_csv)
     if restore_df.empty:
