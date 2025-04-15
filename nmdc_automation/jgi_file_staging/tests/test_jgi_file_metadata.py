@@ -18,13 +18,12 @@ from jgi_file_metadata import (
     get_sequence_id,
     insert_samples_into_mongodb,
     get_files_and_agg_ids,
-    combine_sample_ids_with_agg_ids,
     remove_unneeded_files,
     get_samples_data,
     remove_duplicate_analysis_files,
     remove_large_files,
     get_seq_unit_names,
-    get_request, get_biosample_ids
+    get_request, get_biosample_ids, create_all_files_list
 )
 from mongo import get_mongo_db
 from models import SequencingProject
@@ -114,48 +113,22 @@ class JgiFileTestCase(unittest.TestCase):
         #     ]
         # ]
         grow_analysis_df["project"] = "test_project"
+        grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(lambda x: eval(x))
+        grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(lambda x: str(x))
         insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
         mdb = get_mongo_db()
         sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
         self.assertEqual(sample["studyId"], "Gs0149396")
         sample = mdb.samples.find_one({"jdp_file_id": "61a9d6ee8277d7ede604d0f6"})
         self.assertEqual(sample["file_name"], "Ga0499978_imgap.info")
-        self.assertEqual(sample["file_status"], "PURGED")
+        self.assertEqual(sample["file_status"], "RESTORED")
 
     @mongomock.patch(servers=(('localhost', 27017),))
     def test_insert_samples_into_mongodb_fail_valid(self):
         grow_analysis_df = pd.read_csv(
             os.path.join(self.fixtures, "grow_analysis_projects.csv")
         )
-        # grow_analysis_df.columns = [
-        #     "apGoldId",
-        #     "studyId",
-        #     "itsApId",
-        #     "projects",
-        #     "biosample_id",
-        #     "seq_id",
-        #     "file_name",
-        #     "file_status",
-        #     "file_size",
-        #     "_id",
-        #     "md5sum",
-        #     "analysis_project_id",
-        # ]
-        # grow_analysis_df = grow_analysis_df[
-        #     [
-        #         "apGoldId",
-        #         "studyId",
-        #         "itsApId",
-        #         "biosample_id",
-        #         "seq_id",
-        #         "file_name",
-        #         "file_status",
-        #         "file_size",
-        #         "_id",
-        #         "md5sum",
-        #         "analysis_project_id",
-        #     ]
-        # ]
+
         grow_analysis_df["project"] = None
         mdb = get_mongo_db()
         sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
@@ -169,35 +142,8 @@ class JgiFileTestCase(unittest.TestCase):
         grow_analysis_df = pd.read_csv(
             os.path.join(self.fixtures, "grow_analysis_projects.csv")
         )
-        # grow_analysis_df.columns = [
-        #     "apGoldId",
-        #     "studyId",
-        #     "itsApId",
-        #     "projects",
-        #     "biosample_id",
-        #     "seq_id",
-        #     "file_name",
-        #     "file_status",
-        #     "file_size",
-        #     "jdp_file_id",
-        #     "md5sum",
-        #     "analysis_project_id",
-        # ]
-        # grow_analysis_df = grow_analysis_df[
-        #     [
-        #         "apGoldId",
-        #         "studyId",
-        #         "itsApId",
-        #         "biosample_id",
-        #         "seq_id",
-        #         "file_name",
-        #         "file_status",
-        #         "file_size",
-        #         "jdp_file_id",
-        #         "md5sum",
-        #         "analysis_project_id",
-        #     ]
-        # ]
+        grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(lambda x: eval(x))
+        grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(lambda x: str(x))
         grow_analysis_df["project"] = "test_project"
         insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
         mdb = get_mongo_db()
@@ -222,13 +168,13 @@ class JgiFileTestCase(unittest.TestCase):
             files_json = json.load(f)
         mock_get.return_value.json.return_value = files_json
         mock_get.return_value.status_code = 200
-        files_dict, agg_id_list = get_files_and_agg_ids(1323459, "ed42ef155670")
+        files_data_list = get_files_and_agg_ids(1323459, "ed42ef155670")
         self.assertEqual(
-            files_dict[0][0]["file_name"],
+            files_data_list[0]['files'][0]["file_name"],
             "Table_8_-_3300049478.taxonomic_composition.txt",
         )
-        self.assertEqual(files_dict[0][0]["file_type"], "report")
-        self.assertEqual(agg_id_list[0], 1323348)
+        self.assertEqual(files_data_list[0]['files'][0]["file_type"], "report")
+        self.assertEqual(files_data_list[0]['agg_id'], 1323348)
 
     @patch("jgi_file_metadata.requests.get")
     def test_get_files_and_agg_ids_no_organisms(self, mock_get):
@@ -237,27 +183,41 @@ class JgiFileTestCase(unittest.TestCase):
         files_json.pop("organisms")
         mock_get.return_value.json.return_value = files_json
         mock_get.return_value.status_code = 200
-        files_dict, agg_id_list = get_files_and_agg_ids(1323459, "ed42ef155670")
-        self.assertEqual(files_dict, None)
-        self.assertEqual(agg_id_list, [])
+        files_data_list = get_files_and_agg_ids(1323459, "ed42ef155670")
+        self.assertEqual(files_data_list, [])
+
+    def test_create_all_files_list(self):
+        with open(os.path.join(self.fixtures, "files_data_list.json"), "r") as f:
+            files_json = json.load(f)
+        all_files_list = []
+        create_all_files_list(files_json, 'Gb0156560', 1323459, all_files_list)
+        self.assertEqual(len(all_files_list), 85)
+        self.assertEqual(all_files_list[3]['file_name'], 'Ga0499978_ko.tsv')
+        self.assertEqual(all_files_list[3]['biosample_id'], 'Gb0156560')
+        self.assertEqual(all_files_list[3]['seq_id'], 1323459)
+        self.assertEqual(all_files_list[3]['analysis_project_id'], 1323348)
+        self.assertEqual(all_files_list[3]['seq_unit_name'], None)
+        self.assertEqual(all_files_list[66]['seq_unit_name'], ['52614.1.394702.GCACTAAC-CCAAGACT.fastq.gz'])
 
     @patch('jgi_file_metadata.get_request')
     @patch("jgi_file_metadata.get_files_and_agg_ids")
     @patch("jgi_file_metadata.get_access_token")
     def test_get_sample_files(self, mock_token,  mock_get_files_list, mock_get_request):
-        with open(os.path.join(self.fixtures, "files_data.json"), "r") as f:
+        # with open(os.path.join(self.fixtures, "files_data.json"), "r") as f:
+        #     files_json = json.load(f)
+        # files_data_list = []
+        # agg_id_list = []
+        # for org in files_json["organisms"]:
+        #     files_data_list.append(org["files"])
+        #     agg_id_list.append(org["agg_id"])
+        with open(os.path.join(self.fixtures, "files_data_list.json"), "r") as f:
             files_json = json.load(f)
-        files_data_list = []
-        agg_id_list = []
-        for org in files_json["organisms"]:
-            files_data_list.append(org["files"])
-            agg_id_list.append(org["agg_id"])
-        mock_get_files_list.return_value = (files_data_list, [1295131, 1309801])
+        mock_get_files_list.return_value = files_json
         mock_token.return_value = "ed42ef155670"
         # mock_get.return_value.json.return_value = [{"itsSpid": 1323348}]
         # mock_get.return_value.status_code = 200
         mock_get_request.side_effect = [[{'biosampleGoldId': 'Gb0156560'}], 'lekl%l',
-                                        [{"itsSpid": 1323348}]]
+                                        [{"itsApId": 1323348, 'apType': "Metagenome Analysis"}]]
         grow_samples = get_sample_files(
             12345,
             "ed42ef155670",
@@ -268,111 +228,104 @@ class JgiFileTestCase(unittest.TestCase):
             "Table_8_-_3300049478.taxonomic_composition.txt",
         )
 
-    def test_remove_large_files(self):
-        with open(os.path.join(self.fixtures, "seq_files_df.json"), "r") as f:
-            files_data_list = json.load(f)
-        seq_files_df = pd.DataFrame(files_data_list)
-        self.assertFalse(
-            seq_files_df[
-                seq_files_df.file_name == "Ga0451670_proteins.img_nr.last.blasttab"
-            ].empty
-        )
-        self.assertFalse(
-            seq_files_df[
-                seq_files_df.file_name == "Ga0451670_proteins.supfam.domtblout"
-            ].empty
-        )
-        seq_files_df = remove_large_files(
-            seq_files_df, ["img_nr.last.blasttab", "domtblout"]
-        )
-        self.assertEqual(len(seq_files_df), 71)
-        self.assertTrue(
-            seq_files_df[
-                seq_files_df.file_name == "Ga0451670_proteins.img_nr.last.blasttab"
-            ].empty
-        )
-        self.assertTrue(
-            seq_files_df[
-                seq_files_df.file_name == "Ga0451670_proteins.supfam.domtblout"
-            ].empty
-        )
+    # def test_remove_large_files(self):
+    #     with open(os.path.join(self.fixtures, "seq_files_df.json"), "r") as f:
+    #         files_data_list = json.load(f)
+    #     seq_files_df = pd.DataFrame(files_data_list)
+    #     self.assertFalse(
+    #         seq_files_df[
+    #             seq_files_df.file_name == "Ga0451670_proteins.img_nr.last.blasttab"
+    #         ].empty
+    #     )
+    #     self.assertFalse(
+    #         seq_files_df[
+    #             seq_files_df.file_name == "Ga0451670_proteins.supfam.domtblout"
+    #         ].empty
+    #     )
+    #     seq_files_df = remove_large_files(
+    #         seq_files_df, ["img_nr.last.blasttab", "domtblout"]
+    #     )
+    #     self.assertEqual(len(seq_files_df), 71)
+    #     self.assertTrue(
+    #         seq_files_df[
+    #             seq_files_df.file_name == "Ga0451670_proteins.img_nr.last.blasttab"
+    #         ].empty
+    #     )
+    #     self.assertTrue(
+    #         seq_files_df[
+    #             seq_files_df.file_name == "Ga0451670_proteins.supfam.domtblout"
+    #         ].empty
+    #     )
 
     def test_get_seq_unit_names(self):
-        seq_files_df = pd.read_csv(os.path.join(self.fixtures, "seq_unit_names_df.csv"))
+        seq_files_df = pd.read_csv(os.path.join(self.fixtures, "Gb0258377_gold_analysis_files.csv"))
+        seq_files_df.loc[pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'] = seq_files_df.loc[
+            pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'].apply(lambda x: eval(x))
         seq_unit_names = get_seq_unit_names(seq_files_df, "Ga0451670")
         self.assertEqual(seq_unit_names, ["52444.3.336346.GAGCTCAA-GAGCTCAA"])
 
     def test_remove_duplicate_analysis_files(self):
-        seq_files_df = pd.read_csv(os.path.join(self.fixtures, "seq_unit_names_df.csv"))
+        seq_files_df = pd.read_csv(os.path.join(self.fixtures, "Gb0258377_gold_analysis_files.csv"))
+        seq_files_df.loc[pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'] = seq_files_df.loc[
+            pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'].apply(lambda x: eval(x))
+        seq_files_df = seq_files_df[(seq_files_df.apGoldId == 'Ga0485222')]
         self.assertFalse(
-            seq_files_df[
-                seq_files_df.file_name == "52554.2.382557.CCCTGTAT-GGATAACG.fastq.gz"
-            ].empty
+            seq_files_df[(seq_files_df.apGoldId == 'Ga0485222') &
+                         (seq_files_df.file_name == "52444.3.336346.GAGCTCAA-GAGCTCAA.fastq.gz")
+                         ].empty
         )
         grow_samples_df = remove_duplicate_analysis_files(seq_files_df)
         self.assertTrue(
-            grow_samples_df[
-                grow_samples_df.file_name == "52554.2.382557.CCCTGTAT-GGATAACG.fastq.gz"
-            ].empty
+            seq_files_df[(seq_files_df.apGoldId == 'Ga0485222') &
+                         (seq_files_df.file_name == "52444.3.336346.GAGCTCAA-GAGCTCAA.fastq.gz")
+                         ].empty
         )
+
+    def test_remove_large_files(self):
+        seq_files_df = pd.read_csv(os.path.join(self.fixtures, "Gb0258377_gold_analysis_files.csv"))
+        seq_files_df.loc[pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'] = seq_files_df.loc[
+            pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'].apply(lambda x: eval(x))
+        seq_files_df = seq_files_df[(seq_files_df.apGoldId == 'Ga0485222')]
+        self.assertFalse(seq_files_df[seq_files_df.file_name == 'Ga0485222_proteins.pfam.domtblout'].empty)
+        grow_samples_df = remove_large_files(seq_files_df, ["img_nr.last.blasttab", "domtblout"])
+        self.assertEqual(len(grow_samples_df), 74)
+        self.assertTrue(grow_samples_df[grow_samples_df.file_name == 'Ga0485222_proteins.pfam.domtblout'].empty)
 
     @patch("jgi_file_metadata.get_files_and_agg_ids")
     @patch("jgi_file_metadata.requests.get")
     @patch("jgi_file_metadata.get_access_token")
     def test_remove_unneeded_files(self, mock_token, mock_get, mock_get_files_list):
-        seq_files_df = pd.read_csv(os.path.join(self.fixtures, "seq_unit_names_df.csv"))
+        seq_files_df = pd.read_csv(os.path.join(self.fixtures, "Gb0258377_gold_analysis_files.csv"))
+        seq_files_df.loc[pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'] = seq_files_df.loc[
+            pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'].apply(lambda x: eval(x))
 
+        seq_files_df = seq_files_df[(seq_files_df.apGoldId == 'Ga0485222')]
         self.assertFalse(
-            seq_files_df[
-                seq_files_df.file_name == "52554.2.382557.CCCTGTAT-GGATAACG.fastq.gz"
-            ].empty
+            seq_files_df[(seq_files_df.apGoldId == 'Ga0485222') &
+                         (seq_files_df.file_name == "52444.3.336346.GAGCTCAA-GAGCTCAA.fastq.gz")
+                         ].empty
         )
         self.assertFalse(
-            seq_files_df[
-                seq_files_df.file_name == "Ga0451670_proteins.img_nr.last.blasttab"
-            ].empty
+            seq_files_df[(seq_files_df.apGoldId == 'Ga0485222') &
+                         (seq_files_df.file_name == "Ga0485222_proteins.img_nr.last.blasttab")
+                         ].empty
         )
         grow_samples_df = remove_unneeded_files(
             seq_files_df, ["img_nr.last.blasttab", "domtblout"]
         )
-        self.assertEqual(len(grow_samples_df), 70)
+        self.assertEqual(len(grow_samples_df), 73)
         self.assertTrue(
             grow_samples_df[
-                grow_samples_df.file_name == "52554.2.382557.CCCTGTAT-GGATAACG.fastq.gz"
+                grow_samples_df.file_name == "52444.3.336346.GAGCTCAA-GAGCTCAA.fastq.gz"
             ].empty
         )
         self.assertTrue(
             grow_samples_df[
-                grow_samples_df.file_name == "Ga0451670_proteins.img_nr.last.blasttab"
+                grow_samples_df.file_name == "Ga0485222_proteins.img_nr.last.blasttab"
             ].empty
         )
-
-    def test_combine_sample_ids_with_agg_ids(self):
-        with open(os.path.join(self.fixtures, "files_data.json"), "r") as f:
-            files_json = json.load(f)
-        files_data_list = []
-        agg_id_list = []
-        if files_json["organisms"]:
-            for org in files_json["organisms"]:
-                files_data_list.append(org["files"])
-                agg_id_list.append(org["agg_id"])
-        all_files_list = []
-        combine_sample_ids_with_agg_ids(
-            files_data_list, agg_id_list, "Gb0291644", 1310172, all_files_list
-        )
-        self.assertEqual(len(all_files_list), 85)
-        self.assertEqual(
-            all_files_list[0]["file_name"],
-            "Table_8_-_3300049478.taxonomic_composition.txt",
-        )
-        self.assertEqual(all_files_list[0]["file_status"], "PURGED")
-        self.assertEqual(
-            all_files_list[12]["md5sum"], "c407751c775a82b72053b72532690e21"
-        )
-        self.assertEqual(all_files_list[12]["file_size"], 965025)
-        self.assertEqual(all_files_list[-1]["seq_id"], 1310172)
-        self.assertEqual(all_files_list[-1]["jdp_file_id"], "61b40ec08277d7ede605605c")
-
+    @patch("jgi_file_metadata.get_files_and_agg_ids")
+    @patch("jgi_file_metadata.get_biosample_ids")
     @patch("jgi_file_metadata.requests.get")
     @patch("jgi_file_metadata.get_sequence_id")
     @patch("jgi_file_metadata.check_access_token")
@@ -386,6 +339,8 @@ class JgiFileTestCase(unittest.TestCase):
         mock_check_token,
         mock_sequence_id,
         mock_get,
+        mock_biosample_ids,
+        mock_file_ids
     ):
         self.insert_sequencing_project()
         with open(os.path.join(self.fixtures, "gold_analysis_data.txt"), "r") as f:
@@ -393,11 +348,15 @@ class JgiFileTestCase(unittest.TestCase):
         mock_analysis_projects.return_value = files_json
         mock_token.return_value = "ed42ef155670"
         mock_check_token.return_value = "ed42ef155670"
-        mock_sequence_id.return_value = 1323348
+        mock_sequence_id.return_value = [1323348]
         with open(os.path.join(self.fixtures, "files_data.json"), "r") as f:
             files_json = json.load(f)
         mock_get.return_value.json.return_value = files_json
         mock_get.return_value.status_code = 200
+        mock_biosample_ids.return_value = ['Gb0258377']
+        with open(os.path.join(self.fixtures, "files_data_list.json"), "r") as f:
+            files_json_list = json.load(f)
+        mock_file_ids.return_value = files_json_list
         get_samples_data('bioscales', self.config_file)
         mdb = get_mongo_db()
         sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
