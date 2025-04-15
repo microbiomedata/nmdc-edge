@@ -123,7 +123,7 @@ export const workflowlist = {
         link: 'https://github.com/microbiomedata/ReadsQC',
         doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/1_RQC_index.html',
         info: 'This workflow utilizes the program “rqcfilter2” from BBTools to perform quality control on raw Illumina reads.',
-        bulk_file_tip: '(required)<br/>Column headers must be labeled: "Project/Run Name", "Description", "Interleaved FASTQ", "Pair-1 FASTQ", "Pair-2 FASTQ".',
+        bulk_file_tip: 'Required',
         bulk_submission_template: '/docs/bulk-submissions/NMDC-EDGE-Metagenomics-ReadsQC-bulk-submission.xlsx',
     },
     ReadbasedAnalysis: {
@@ -180,7 +180,7 @@ export const workflowlist = {
     'Metagenome Pipeline': {
         title: 'Metagenome Pipeline',
         info: 'Run multiple metagenomics workflows: ReadsQC, Read-based Taxonomy Classification, Metagenome Assembly, Viruses and Plasmids, Metagenome Annotation and Metagemone MAGs.',
-        bulk_file_tip: '(required)<br/>Column headers must be labeled: "Project/Run Name", "Description", "Interleaved FASTQ", "Pair-1 FASTQ", "Pair-2 FASTQ".',
+        bulk_file_tip: 'Required',
         bulk_submission_template: '/docs/bulk-submissions/NMDC-EDGE-Metagenomics-pipeline-bulk-submission.xlsx',
     }
 }
