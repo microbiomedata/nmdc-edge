@@ -11,8 +11,8 @@ import argparse
 from pathlib import Path
 from itertools import chain
 
-from nmdc_automation.jgi_file_staging.mongo import get_mongo_db
-from nmdc_automation.jgi_file_staging.models import Sample, SequencingProject
+from mongo import get_mongo_db
+from models import Sample, SequencingProject
 from typing import List
 from pydantic import ValidationError
 
@@ -70,8 +70,9 @@ def get_samples_data(project: str, config_file: str, csv_file: str = None) -> No
     if csv_file is not None:
         gold_analysis_files_df = pd.read_csv(csv_file)
     else:
-        gold_analysis_files_df = get_files_df_from_proposal_id(seq_project['proposal_id'], ACCESS_TOKEN,
-                                                               eval(config['JDP']['delay']))
+        files_df = get_files_df_from_proposal_id(seq_project['proposal_id'], ACCESS_TOKEN, eval(config['JDP']['delay']))
+        gold_analysis_files_df = get_analysis_files_df(seq_project['proposal_id'], files_df, ACCESS_TOKEN,
+                                                       eval(config['JDP']['remove_files']))
 
     gold_analysis_files_df['project'] = project
     logging.debug(f'number of samples to insert: {len(gold_analysis_files_df)}')
@@ -145,9 +146,9 @@ def get_biosample_ids(proposal_id: int, ACCESS_TOKEN: str) -> List[str]:
     return biosample_ids
 
 
-def get_sequence_id(gold_id: str, ACCESS_TOKEN: str, delay: float) -> List[str]:
+def get_sequence_id(biosample_id: str, ACCESS_TOKEN: str, delay: float) -> List[str]:
     # given a gold biosample id, get the JGI sequencing ID
-    gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/analysis_projects?biosampleGoldId={gold_id}'
+    gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/analysis_projects?biosampleGoldId={biosample_id}'
     gold_biosample_response = get_request(gold_biosample_url, ACCESS_TOKEN, delay=delay)
     sequence_id_list = []
     if not gold_biosample_response:
@@ -174,17 +175,18 @@ def get_files_and_agg_ids(sequencing_id: str, ACCESS_TOKEN: str) -> List[dict]:
     files_data_list = []
     if 'organisms' in files_data.keys():
         for org in files_data['organisms']:
-            files_data_list.append({'files':org['files'], 'agg_id':org['agg_id']})
+            files_data_list.append({'files': org['files'], 'agg_id': org['agg_id']})
     return files_data_list
 
 
 def create_all_files_list(sample_files_list, biosample_id, seq_id, all_files_list) -> None:
     for sample in sample_files_list:
         for files_dict in sample['files']:
-            seq_unit_name = files_dict['metadata']['seq_unit_name'] if 'seq_unit_name' in files_dict[
-                'metadata'].keys() else None
-            file_format = files_dict['metadata']['file_format'] if 'file_format' in files_dict[
-                'metadata'].keys() else None
+            seq_unit_name = None if 'seq_unit_name' not in files_dict['metadata'].keys() else files_dict['metadata'][
+                'seq_unit_name']
+            seq_unit_name = [seq_unit_name] if type(seq_unit_name) is str else seq_unit_name
+            file_format = None if 'file_format' not in files_dict[
+                'metadata'].keys() else files_dict['metadata']['file_format']
             md5sum = files_dict['md5sum'] if 'md5sum' in files_dict.keys() else None
             all_files_list.append({'biosample_id': biosample_id, 'seq_id': seq_id, 'file_name': files_dict['file_name'],
                                    'file_status': files_dict['file_status'], 'file_type': files_dict['file_type'],
@@ -211,9 +213,8 @@ def remove_unneeded_files(seq_files_df: pd.DataFrame, remove_files_list: list) -
 
 
 def remove_large_files(seq_files_df: pd.DataFrame, remove_files_list: list) -> pd.DataFrame:
-    for file_type in remove_files_list:
-        seq_files_df = seq_files_df[(~seq_files_df['file_name'].str.contains(file_type))]
-    return seq_files_df
+    pattern = '|'.join(remove_files_list)
+    return seq_files_df[~(seq_files_df.file_name.str.contains(pattern))]
 
 
 def remove_duplicate_analysis_files(seq_files_df: pd.DataFrame) -> pd.DataFrame:
@@ -228,11 +229,12 @@ def remove_duplicate_analysis_files(seq_files_df: pd.DataFrame) -> pd.DataFrame:
     for gold_id in ap_gold_ids:
         print(gold_id)
         seq_unit_names_list = get_seq_unit_names(seq_files_df, gold_id)
-        for idx, row in seq_files_df.loc[seq_files_df.apGoldId == gold_id, :].iterrows():
+        for idx, row in seq_files_df.loc[(seq_files_df.apGoldId == gold_id) &
+                                         (seq_files_df.file_name.str.contains('fastq')) &
+                                         (seq_files_df.file_name != 'input.corr.fastq.gz'), :].iterrows():
             # find rows with fastq files to remove (fastq file name is not in list of seq_unit_names and is not
             # input.corr.fastq.gz)
-            if 'fastq' in row.file_name and ~np.any(
-                    [seq in row.file_name for seq in seq_unit_names_list]) and row.file_name != 'input.corr.fastq.gz':
+            if ~np.any([seq in row.file_name for seq in seq_unit_names_list]):
                 drop_idx.append(idx)
     seq_files_df.drop(drop_idx, inplace=True)
     return seq_files_df
@@ -243,10 +245,7 @@ def get_seq_unit_names(analysis_files_df, gold_id):
     for idx, row in analysis_files_df.loc[pd.notna(analysis_files_df.seq_unit_name)
                                           & (analysis_files_df.apGoldId == gold_id)
                                           & (analysis_files_df.file_type == "['contigs']")].iterrows():
-        if type(row.seq_unit_name) is str:
-            seq_unit_names.append(row.seq_unit_name)
-        elif type(row.seq_unit_name) is list:
-            seq_unit_names.extend(row.seq_unit_name)
+        seq_unit_names.extend(row.seq_unit_name)
 
     seq_unit_names_list = list(set(seq_unit_names))
     seq_unit_names_list = [
