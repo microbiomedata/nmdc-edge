@@ -14,6 +14,7 @@ const isEmpty = require("is-empty");
 const common = require("../common");
 const logger = require('../../util/logger');
 const config = require("../../config");
+const BulkSubmission = require("../../models/BulkSubmission");
 
 const sysError = "API server error";
 
@@ -360,6 +361,98 @@ router.post("/upload/update", (req, res) => {
                 return res.status(400).json(errors);
             });
         }
+    }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
+});
+
+// @route POST auth-api/admin/bulkSubmission/list
+// @access Private
+router.get("/bulkSubmission/list", (req, res) => {
+    logger.debug("/auth-api/admin/bulkSubmission/list: " + JSON.stringify(req.body));
+    //get all bulkSubmissions
+    BulkSubmission.find({ 'status': { $ne: 'delete' } }).sort([['updated', -1]]).then(function (bulkSubmissions) {
+        return res.send(bulkSubmissions);
+    }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
+});
+
+// @route POST auth-api/admin/bulkSubmission/update
+// @desc update bulkSubmission 
+// @access Private
+router.post("/bulkSubmission/update", (req, res) => {
+    logger.debug("/auth-api/admin/bulkSubmission/update: " + JSON.stringify(req.body));
+    //assume project code is provided
+    const code = req.body.code;
+    BulkSubmission.findOne({ code: dbsanitize(req.body.code), 'status': { $ne: 'delete' } }).then(bulkSubmission => {
+        if (!bulkSubmission) {
+            errors[code] = "BulkSubmission not found.";
+            return res.status(400).json(errors);
+        } else {
+            bulkSubmission.name = req.body.name;
+            bulkSubmission.desc = req.body.desc;
+            bulkSubmission.status = req.body.status;
+
+            bulkSubmission.updated = Date.now();
+            bulkSubmission.save().then(proj => {
+                return res.json({
+                    success: true,
+                });
+            }).catch(err => {
+                errors[code] = "Failed to update bulkSubmission.";
+                return res.status(400).json(errors);
+            });
+        }
+    }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
+});
+
+// @route POST auth-api/admin/bulkSubmission/projects
+// @access Private
+//projects in bulk submission
+router.post("/bulkSubmission/projects", async (req, res) => {
+    logger.debug("/auth-api/admin/bulkSubmission/projects: " + JSON.stringify(req.body));
+    //find project codes in bulk submission
+    const bulkSubmission = await BulkSubmission.findOne({ 'code': req.body.code });
+    //return projects
+    if (!bulkSubmission.projects || bulkSubmission.projects.length === 0) {
+        return res.send([]);
+    }
+    Project.find({ 'code': { $in: bulkSubmission.projects } }).sort([['updated', -1]]).then(function (projects) {
+        return res.send(projects);
+    }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
+});
+
+// @route POST auth-api/admin/bulkSubmission/info
+// @access Private
+router.post("/bulkSubmission/info", (req, res) => {
+    logger.debug("/auth-api/admin/bulkSubmission/info: " + JSON.stringify(req.body));
+    if (!req.body.code) {
+        return res.status(400).json("BulkSubmission code is required.");
+    }
+    //find bulkSubmission 
+    BulkSubmission.findOne({
+        'status': { $ne: 'delete' }, 'code': dbsanitize(req.body.code)
+    }).then(function (bulkSubmission) {
+        if (bulkSubmission === null) {
+            return res.status(400).json("BulkSubmission not found.");
+        }
+        return res.send(bulkSubmission);
+    }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
+});
+
+// @route POST  auth-api/admin/bulkSubmission/conf
+// @access Private
+router.post("/bulkSubmission/conf", (req, res) => {
+    logger.debug("/auth-api/admin/bulkSubmission/conf: " + JSON.stringify(req.body));
+    if (!req.body.code) {
+        return res.status(400).json("BulkSubmission code is required.");
+    }
+    BulkSubmission.findOne({
+        'status': { $ne: 'delete' }, 'code': dbsanitize(req.body.code)
+    }).then(function (bulkSubmission) {
+        if (bulkSubmission === null) {
+            return res.status(400).json("BulkSubmission not found.");
+        }
+
+        let result = common.bulkSubmissionConf(bulkSubmission);
+        return res.send(result);
     }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
 });
 

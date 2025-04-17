@@ -3,7 +3,7 @@ import {
     Col, Row, Input
 } from 'reactstrap';
 import { useForm } from "react-hook-form";
-import {MyTooltip } from '../../../common/MyTooltip';
+import { MyTooltip } from '../../../common/MyTooltip';
 import { defaults, initialProject } from './Defaults';
 
 export function Project(props) {
@@ -63,7 +63,7 @@ export function Project(props) {
         <>
             <Row>
                 <Col md="3">
-                    <MyTooltip id='projectname' text="Project/Run Name" tooltip={initialProject.project_name_tip} showTooltip={true} place="right" />
+                    <MyTooltip id='projectname' text={props.text ? props.text : "Project/Run Name"} tooltip={initialProject.project_name_tip} showTooltip={true} place="right" />
                 </Col>
                 <Col xs="12" md="9">
                     <Input type="text" name="proj_name" id="proj_name" defaultValue={form.proj_name}

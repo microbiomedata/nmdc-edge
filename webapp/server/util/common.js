@@ -5,6 +5,15 @@ const Upload = require("../models/Upload");
 const Project = require("../models/Project");
 const config = require("../config");
 
+function fileExistsSync(path) {
+    try {
+        fs.lstatSync(path)
+        return true
+    } catch (err) {
+        return false
+    }
+}
+
 async function getRealName(dir) {
     let name = dir;
     //check if input is a uploaded file
@@ -20,7 +29,20 @@ async function getRunningProjects(proj) {
     const projects = await Project.find({ 'owner': proj.owner, 'status': { $in: ['processing', 'submitted', 'running'] } });
     return projects.length;
 }
+async function getUsersWithMaxRunningJobs() {
+    const users = await Project.aggregate([
+        { $match: { status: { $in: ["running", "processing", "submitted"] } } },
+        { "$group": { _id: "$owner", owner: { $first: "$owner" }, count: { $sum: 1 } } },
+        { $match: { count: { $gte: config.CROMWELL.NUM_JOBS_MAX_USER } } },
+        { $project: { "_id": 0, "count": 0 } },
+        { $sort: { count: -1 } }
+    ]);
+    return users;
+}
 
+const getValuesForKey = (arr, key) => {
+    return arr.map(obj => obj[key]);
+}
 
 //append message to a log
 const write2log = (log, msg) => {
@@ -95,9 +117,14 @@ const deleteData = (url, header) => {
     });
 };
 
-// nmdc api
-const nmdcAPI = axios.create({
-    baseURL: config.PROJECTS.NMDC_SERVER_URL,
-});
-
-module.exports = { getRealName, getRunningProjects, write2log, postData, getData, deleteData };
+module.exports = {
+    getRealName,
+    fileExistsSync,
+    getRunningProjects,
+    getUsersWithMaxRunningJobs,
+    getValuesForKey,
+    write2log,
+    postData,
+    getData,
+    deleteData
+};

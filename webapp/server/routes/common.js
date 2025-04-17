@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
 
-const { getResult, getRunStats, getConf } = require("../util/pipeline");
+const { getResult, getRunStats, getConf, getBulkSubmissionConf } = require("../util/pipeline");
 
 const projectResult = function (project) {
     return getResult(project);
@@ -16,6 +16,10 @@ const runStats = function (project) {
 
 const conf = function (project) {
     return getConf(project);
+}
+
+const bulkSubmissionConf = function (bulkSubmission) {
+    return getBulkSubmissionConf(bulkSubmission);
 }
 
 const encodePassword = function (password) {
@@ -76,9 +80,9 @@ const getAllFiles = function (dirPath, arrayOfFiles, extentions, displayPath, ap
                             pass = true;
                         } else if (file.endsWith("." + extentions[i])) {
                             pass = true;
-                        } else if(endsWith && file.endsWith(extentions[i])) {
+                        } else if (endsWith && file.endsWith(extentions[i])) {
                             pass = true;
-                        } 
+                        }
                     }
                 } else {
                     //get all files
@@ -123,4 +127,4 @@ const sortObject = function (unordered, sortArrays = false) {
     return ordered;
 }
 
-module.exports = { projectResult, runStats, conf, getAllFiles, encodePassword, signToken, sortObject };
+module.exports = { projectResult, runStats, conf, bulkSubmissionConf, getAllFiles, encodePassword, signToken, sortObject };

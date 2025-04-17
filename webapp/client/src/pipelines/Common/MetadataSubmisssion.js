@@ -150,7 +150,7 @@ const MetadataSubmisssion = (props) => {
           </>}
         </ModalBody>
         <ModalFooter className="justify-content-center">
-          <Button color="primary" type="submit" disabled={packageNames.length === 0}>Submit</Button>{' '}
+          <Button color="primary" type="submit" disabled={Object.keys(errors).length !== 0 || (study === 'new' && packageNames.length === 0)}>Submit</Button>{' '}
           <Button color="secondary" onClick={props.handleClickClose}>
             Cancel
           </Button>

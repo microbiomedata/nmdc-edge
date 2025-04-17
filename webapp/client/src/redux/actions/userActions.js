@@ -417,6 +417,28 @@ export const updateProject = projData => dispatch => {
         });
 };
 
+// Update bulkSubmission
+export const updateBulkSubmission = projData => dispatch => {
+    postData("/auth-api/user/bulkSubmission/update", projData)
+        .then(data => {
+        })
+        .catch(err => {
+            if (typeof err === 'string') {
+                dispatch({
+                    type: ADD_ERRORS,
+                    key: projData.code,
+                    payload: err
+                });
+            } else {
+                dispatch({
+                    type: ADD_ERRORS,
+                    key: projData.code,
+                    payload: err[projData.code]
+                })
+            }
+        });
+};
+
 //uploaded file
 export const updateFile = fileData => dispatch => {
     postData("/auth-api/user/upload/update", fileData)

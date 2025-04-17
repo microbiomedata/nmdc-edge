@@ -53,44 +53,134 @@ export const pipelinelist = {
 }
 
 export const workflowlist = {
-    MetaT: {
-        title: 'Metatranscriptome',
-        name: 'Metatranscriptome',
-        video:  '/docs/videos/MetaT.mp4', 
-        pdf: '/docs/help/NMDC_EDGE_metaT.pdf', 
+    Metatranscriptome: {
+        inTutorial: true,
+        title: 'Metatranscriptomics',
+        name: 'Metatranscriptomics Workflow',
+        video: '/docs/videos/MetaT.mp4',
+        pdf: '/docs/help/NMDC_EDGE_metaT.pdf',
         // pdfSpanish: {
         //     'Metatranscriptome': '/docs/help/NMDC_EDGE_metaT_español_INCOMPLETE.pdf',
         // },
         // pdfFrench: {
         //     'Metatranscriptome': '/docs/help/NMDC_EDGE_metaT-French.pdf',
         // },
-        doclink:  'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/6_MetaT_index.html', 
-        bgcolor: '#4F3C80'
+        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/6_MetaT_index.html',
+        bgcolor: '#4F3C80',
+        img: '/docs/images/Metatranscriptome.png',
+        thumbnail: '/docs/images/Metatranscriptome-thumbnail.png',
+        link: 'https://github.com/microbiomedata/metaT',
+        info: 'This workflow is designed to analyze metatranscriptomes.'
     },
-    MetaP: {
+    'Metaproteomics': {
+        inTutorial: true,
         title: 'Metaproteomics',
-        name: 'Metaproteomics',
+        name: 'Metaproteomics Workflow',
         // pdf: {
         //     'Metaproteomics': '/docs/help/NMDC_EDGE_metaP.pdf',
         // },
-        bgcolor: '#4F3C80'
+        bgcolor: '#4F3C80',
+        // img: '/docs/images/Metaproteomics.png',
+        // thumbnail: '/docs/images/Metaproteomics-thumbnail.png',
+        link: 'https://github.com/microbiomedata/metaPro',
+        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/7_Metaproteomics_index.html',
+        info: 'Metaproteomics workflow/pipeline is an end-to-end data processing and analyzing pipeline for studying proteomes i.e studying protein identification and characterization using MS/MS data.'
     },
-    OrganicM: {
+    EnviroMS: {
+        inTutorial: true,
         title: 'Natural Organic Matter',
-        name: 'Natural Organic Matter',
-        pdf: '/docs/help/NMDC_EDGE_NOM.pdf', 
-        pdfSpanish:  '/docs/help/NMDC_EDGE_NOM_español.pdf', 
-        pdfFrench:   '/docs/help/NMDC_EDGE_NOM-French.pdf', 
-        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/9_NOM_index.html#', 
-        bgcolor: '#4F3C80'
+        name: 'Natural Organic Matter Workflow',
+        pdf: '/docs/help/NMDC_EDGE_NOM.pdf',
+        pdfSpanish: '/docs/help/NMDC_EDGE_NOM_español.pdf',
+        pdfFrench: '/docs/help/NMDC_EDGE_NOM-French.pdf',
+        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/9_NOM_index.html#',
+        bgcolor: '#4F3C80',
+        link: 'https://github.com/microbiomedata/enviroMS',
+        info: 'This workflow is for natural organic matter data processing and annotation'
     },
-    geNomad: {
+    'virus_plasmid': {
+        inTutorial: true,
         title: 'Viruses and Plasmids',
-        name: 'Viruses and Plasmids',
-        video:   '/docs/videos/Viruses_plasmids_tutorial_v1.mp4', 
-        pdf: '/docs/help/NMDC_EDGE_geNomad.pdf', 
-        pdfSpanish:  '/docs/help/NMDC_EDGE_geNomad_español.pdf', 
-        pdfFrench:  '/docs/help/NMDC_EDGE_geNomad-French.pdf', 
-        bgcolor: '#4F3C80'
+        name: 'Viruses and Plasmids Workflow',
+        video: '/docs/videos/Viruses_plasmids_tutorial_v1.mp4',
+        pdf: '/docs/help/NMDC_EDGE_geNomad.pdf',
+        pdfSpanish: '/docs/help/NMDC_EDGE_geNomad_español.pdf',
+        pdfFrench: '/docs/help/NMDC_EDGE_geNomad-French.pdf',
+        bgcolor: '#4F3C80',
+        // img: '/docs/images/virus_plasmid.png',
+        // thumbnail: '/docs/images/virus_plasmid-thumbnail.png',
+        doclink: 'https://portal.nersc.gov/genomad/',
+        link: 'https://portal.nersc.gov/genomad/',
+        info: 'This workflow identifies virus and plasmid sequences in assembled scaffolds using <a href="https://github.com/apcamargo/genomad/" target="_blank" rel="noreferrer">geNomad</a> and estimates the quality of viral genomes with <a href="https://bitbucket.org/berkeleylab/checkv/src/master/" target="_blank" rel="noreferrer">CheckV</a>.'
     },
+    ReadsQC: {
+        title: 'ReadsQC',
+        name: 'ReadsQC Workflow',
+        img: '/docs/images/ReadsQC.png',
+        thumbnail: '/docs/images/ReadsQC-thumbnail.png',
+        video: '/docs/videos/ReadsQC.mp4',
+        pdf: '/docs/help/ReadsQC.pdf',
+        link: 'https://github.com/microbiomedata/ReadsQC',
+        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/1_RQC_index.html',
+        info: 'This workflow utilizes the program “rqcfilter2” from BBTools to perform quality control on raw Illumina reads.',
+        bulk_file_tip: 'Required',
+        bulk_submission_template: '/docs/bulk-submissions/NMDC-EDGE-Metagenomics-ReadsQC-bulk-submission.xlsx',
+    },
+    ReadbasedAnalysis: {
+        title: 'Read-based Taxonomy Classification',
+        name: 'Read-based Taxonomy Classification Workflow',
+        img: '/docs/images/ReadBasedAnalysis.png',
+        thumbnail: '/docs/images/ReadBasedAnalysis-thumbnail.png',
+        video: '/docs/videos/ReadBasedAnalysis.mp4',
+        pdf: '/docs/help/ReadBasedAnalysis.pdf',
+        link: 'https://github.com/microbiomedata/ReadbasedAnalysis',
+        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/2_ReadAnalysis_index.html',
+        info: 'The pipeline takes sequencing files (single- or paired-end) and profiles them using multiple taxonomic classification tools.'
+    },
+    MetaAssembly: {
+        title: 'Metagenome Assembly',
+        name: 'Metagenome Assembly Workflow',
+        img: '/docs/images/MetagenomeAssembly.png',
+        thumbnail: '/docs/images/MetagenomeAssembly-thumbnail.png',
+        video: '/docs/videos/MetagenomeAssembly.mp4',
+        pdf: '/docs/help/MetagenomeAssembly.pdf',
+        link: 'https://github.com/microbiomedata/metaAssembly',
+        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/3_MetaGAssemly_index.html',
+        info: 'This workflow takes in paired-end Illumina reads in interleaved format and performs error correction, then reformats the interleaved file into two FASTQ files for downstream tasks using bbcms (BBTools).'
+    },
+    MetaAnnotation: {
+        title: 'Metagenome Annotation',
+        name: 'Metagenome Annotation Workflow',
+        img: '/docs/images/MetagenomeAnnotation.png',
+        thumbnail: '/docs/images/MetagenomeAnnotation-thumbnail.png',
+        //video:'/docs/videos/MetagenomeAnnotation.mp4',
+        pdf: '/docs/help/MetagenomeAnnotation.pdf',
+        link: 'https://github.com/microbiomedata/mg_annotation',
+        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/4_MetaGAnnotation_index.html',
+        info: 'It takes assembled metagenomes and generates structrual and functional annotations.'
+    },
+    MetaMAGs: {
+        title: 'Metagenome MAGs',
+        name: 'Metagenome MAGs Workflow',
+        img: '/docs/images/MetagenomeMAGs.png',
+        thumbnail: '/docs/images/MetagenomeMAGs-thumbnail.png',
+        link: 'https://github.com/microbiomedata/metaMAGs',
+        doclink: 'https://github.com/microbiomedata/metaMAGs',
+        info: 'This workflow is based on IMG’s metagenome assembled genomes (MAGs) pipeline.'
+    },
+    'sra2fastq': {
+        title: 'Retrieve SRA Data',
+        name: 'Retrieve SRA Data Workflow',
+        // img: '/docs/images/sra2fastq.png',
+        // thumbnail: '/docs/images/sra2fastq-thumbnail.png',
+        link: 'https://github.com/LANL-Bioinformatics/EDGE_workflows/tree/main/sra2fastq',
+        doclink: 'https://github.com/LANL-Bioinformatics/EDGE_workflows/tree/main/sra2fastq',
+        info: 'This tool retrieves sequence project in FASTQ files from  NCBI- SRA / EBI - ENA / DDBJ database. Input accession number supports studies(SRP*/ ERP * /DRP*), experiments (SRX*/ERX * /DRX*), samples(SRS * /ERS*/DRS *), runs(SRR * /ERR*/DRR *), or submissions (SRA * /ERA*/DRA *).'
+    },
+    'Metagenome Pipeline': {
+        title: 'Metagenome Pipeline',
+        info: 'Run multiple metagenomics workflows: ReadsQC, Read-based Taxonomy Classification, Metagenome Assembly, Viruses and Plasmids, Metagenome Annotation and Metagemone MAGs.',
+        bulk_file_tip: 'Required',
+        bulk_submission_template: '/docs/bulk-submissions/NMDC-EDGE-Metagenomics-pipeline-bulk-submission.xlsx',
+    }
 }

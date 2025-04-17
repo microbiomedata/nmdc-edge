@@ -23,6 +23,7 @@ const isEmpty = require("is-empty");
 // Load User model
 const User = require("../../models/User");
 const Project = require("../../models/Project");
+const BulkSubmission = require("../../models/BulkSubmission");
 const Upload = require("../../models/Upload");
 const OrcidUser = require("../../models/OrcidUser");
 const validateLoginInput = require("../../validation/user/login");
@@ -256,19 +257,6 @@ router.post("/project/add", (req, res) => {
         }
         let data = JSON.stringify(conf);
         fs.writeFileSync(proj_home + '/conf.json', data);
-
-        //if it's batch submission, save uploaded excel sheet to project home
-        if (conf.pipeline.endsWith('/batch')) {
-            //save uploaded file
-            const file = req.files.file;
-            const mvTo = proj_home + "/" + file.name;
-            file.mv(`${mvTo}`, err => {
-                if (err) {
-                    reject(sysError);
-                }
-                logger.debug("upload to:" + `${mvTo}`);
-            })
-        }
         resolve(proj_home);
     });
 
@@ -373,6 +361,7 @@ router.post("/project/runstats", (req, res) => {
         return res.send(result);
     }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
 });
+
 // @route POST  auth-api/user/project/conf
 // @access Private
 router.post("/project/conf", (req, res) => {
@@ -989,6 +978,173 @@ router.post("/import-old-data", async (req, res) => {
             return res.status(400).json({ password: "Password incorrect" });
         }
     } catch (err) { logger.error(err); return res.status(500).json(sysError); };
+});
+
+//bulk project submissions
+// @route POST auth-api/user/bulkSubmission/add
+// @desc Add bulk project submission
+// @access Private
+router.post("/bulkSubmission/add", (req, res) => {
+    logger.debug("/auth-api/user/bulkSubmission/add: " + JSON.stringify(req.body));
+    let conf = req.body;
+    if (typeof conf.project === 'string') {
+        conf.project = JSON.parse(conf.project);
+    }
+    if (typeof conf.bulkfile === 'string') {
+        conf.bulkfile = JSON.parse(conf.bulkfile);
+    }
+    if (typeof conf.inputDisplay === 'string') {
+        conf.inputDisplay = JSON.parse(conf.inputDisplay);
+    }
+
+    let code = randomize('Aa0', 16);
+    let bulk_home = path.join(config.PROJECTS.BULK_DIR, code);
+    while (fs.existsSync(bulk_home)) {
+        code = randomize('Aa0', 16);
+        bulk_home = path.join(config.PROJECTS.BULK_DIR, code);
+    }
+
+    //sanitize input
+    const proj_name = Validator.whitelist(Validator.trim(conf.project.name), '^0-9a-zA-Z\,\-\_\^\@\=\:\\\.\/\+ \'\"');
+    const proj_desc = conf.project.desc;
+    const fileName = conf.bulkfile.name;
+
+    let promise = new Promise(function (resolve, reject) {
+        fs.mkdirSync(bulk_home);
+        delete conf.project;
+        let data = JSON.stringify(conf);
+        fs.writeFileSync(bulk_home + '/conf.json', data);
+
+        //save uploaded excel sheet to home
+        const file = req.files.file;
+        const mvTo = bulk_home + "/" + file.name;
+        file.mv(`${mvTo}`, err => {
+            if (err) {
+                reject(sysError);
+            }
+            logger.debug("upload to:" + `${mvTo}`);
+        })
+        resolve(bulk_home);
+    });
+
+    promise.then(function (proj_dir) {
+        const newBulkSubmission = new BulkSubmission({
+            name: proj_name,
+            desc: proj_desc,
+            filename: fileName,
+            type: conf.pipeline,
+            owner: req.user.email,
+            code: code
+        });
+        newBulkSubmission
+            .save()
+            .then(bulkSubmission => {
+                return res.json({ bulkSubmission: bulkSubmission });
+            })
+            .catch(err => {
+                //clean up
+                //fs.rmSync(bulk_home, { recursive: true });
+                logger.error(err);
+                return res.status(500).json(sysError);
+            });
+    }).catch(function (err) {
+        //clean up
+        //fs.rmSync(bulk_home, { recursive: true });
+        logger.error(err); return res.status(400).json(sysError);
+    });
+});
+
+// @route POST auth-api/user/bulkSubmission/list
+// @access Private
+//projects owned by an user
+router.get("/bulkSubmission/list", (req, res) => {
+    logger.debug("/auth-api/user/bulkSubmission/list: " + req.user.email);
+    //find all bulk submissions owned by user 
+    BulkSubmission.find({ 'status': { $ne: 'delete' }, 'owner': dbsanitize(req.user.email) }).sort([['updated', -1]]).then(function (bulkSubmissions) {
+        return res.send(bulkSubmissions);
+    }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
+});
+
+// @route POST auth-api/user/bulkSubmission/update
+// @desc update bulkSubmission 
+// @access Private
+router.post("/bulkSubmission/update", (req, res) => {
+    logger.debug("/auth-api/user/bulkSubmission/update: " + JSON.stringify(req.body));
+    //assume project code is provided
+    const code = req.body.code;
+    BulkSubmission.findOne({ code: dbsanitize(req.body.code), 'status': { $ne: 'delete' }, 'owner': dbsanitize(req.user.email) }).then(bulkSubmission => {
+        if (!bulkSubmission) {
+            errors[code] = "BulkSubmission not found.";
+            return res.status(400).json(errors);
+        } else {
+            bulkSubmission.name = req.body.name;
+            bulkSubmission.desc = req.body.desc;
+            bulkSubmission.status = req.body.status;
+
+            bulkSubmission.updated = Date.now();
+            bulkSubmission.save().then(proj => {
+                return res.json({
+                    success: true,
+                });
+            }).catch(err => {
+                errors[code] = "Failed to update bulkSubmission.";
+                return res.status(400).json(errors);
+            });
+        }
+    }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
+});
+
+// @route POST auth-api/user/bulkSubmission/projects
+// @access Private
+//projects in bulk submission
+router.post("/bulkSubmission/projects", async (req, res) => {
+    logger.debug("/auth-api/user/bulkSubmission/projects: " + JSON.stringify(req.body));
+    //find project codes in bulk submission
+    const bulkSubmission = await BulkSubmission.findOne({ 'code': req.body.code });
+    //return projects
+    if (!bulkSubmission.projects || bulkSubmission.projects.length === 0) {
+        return res.send([]);
+    }
+    Project.find({ 'code': { $in: bulkSubmission.projects }, 'owner': dbsanitize(req.user.email) }).sort([['updated', -1]]).then(function (projects) {
+        return res.send(projects);
+    }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
+});
+
+// @route POST auth-api/user/bulkSubmission/info
+// @access Private
+router.post("/bulkSubmission/info", (req, res) => {
+    logger.debug("/auth-api/user/bulkSubmission/info: " + JSON.stringify(req.body));
+    if (!req.body.code) {
+        return res.status(400).json("BulkSubmission code is required.");
+    }
+    //find bulkSubmission owned by user 
+    BulkSubmission.findOne({
+        'status': { $ne: 'delete' }, 'code': dbsanitize(req.body.code), 'owner': dbsanitize(req.user.email)
+    }).then(function (bulkSubmission) {
+        if (bulkSubmission === null) {
+            return res.status(400).json("BulkSubmission not found.");
+        }
+        return res.send(bulkSubmission);
+    }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
+});
+
+// @route POST  auth-api/user/bulkSubmission/conf
+// @access Private
+router.post("/bulkSubmission/conf", (req, res) => {
+    logger.debug("/auth-api/user/bulkSubmission/conf: " + JSON.stringify(req.body));
+    if (!req.body.code) {
+        return res.status(400).json("BulkSubmission code is required.");
+    }
+    BulkSubmission.findOne({
+        'status': { $ne: 'delete' }, 'code': dbsanitize(req.body.code), 'owner': dbsanitize(req.user.email)
+    }).then(function (bulkSubmission) {
+        if (bulkSubmission === null) {
+            return res.status(400).json("BulkSubmission not found.");
+        }
+
+        let result = common.bulkSubmissionConf(bulkSubmission);
+        return res.send(result);
+    }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
 });
 
 module.exports = router;

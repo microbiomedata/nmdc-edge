@@ -39,5 +39,11 @@ const getConf = function (project) {
     return JSON.parse(fs.readFileSync(conf_json));
 }
 
+const getBulkSubmissionConf = function (bulkSubmission) {
+    const proj_home = path.join(config.PROJECTS.BULK_DIR, bulkSubmission.code);
+    const conf_json = proj_home + "/conf.json";
+    return JSON.parse(fs.readFileSync(conf_json));
+}
 
-module.exports = { getResult, getRunStats, getConf }
+
+module.exports = { getResult, getRunStats, getConf, getBulkSubmissionConf }

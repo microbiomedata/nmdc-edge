@@ -714,7 +714,7 @@ async function findInputsize(conf) {
 }
 
 async function fileStats(file) {
-    if (!file) {
+    if (!file || !fs.existsSync(file)) {
         return { size: 0 };
     }
     if (file.toLowerCase().startsWith('http')) {

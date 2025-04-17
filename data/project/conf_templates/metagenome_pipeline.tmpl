@@ -1,0 +1,71 @@
+{
+  "pipeline":"Metagenome Pipeline",
+  "inputs": {
+    "shortRead": <%= shortRead %>,
+    "interleaved": <%= interleaved %>,
+    "fastqs": <%- JSON.stringify(input_fastqs) %>
+  },
+  "workflows":[
+    {
+      "name":"ReadsQC",
+      "paramsOn":true
+    },
+    {
+      "name":"ReadbasedAnalysis",
+      "paramsOn":true,
+      "enabled_tools": {
+        "gottcha2":true,
+        "kraken2":true,
+        "centrifuge":true
+      }
+    },
+    {
+      "name":"MetaAssembly",
+      "paramsOn":true
+    },
+    {
+      "name":"virus_plasmid",
+      "paramsOn":true
+    },
+    {
+      "name":"MetaAnnotation",
+      "paramsOn":true
+    },
+    {
+      "name":"MetaMAGs",
+      "paramsOn":true,
+      "input_map":"",
+      "input_domain":""
+    }
+  ],
+  "inputDisplay": {
+    "type":"Metagenome | Run Multiple Workflows",
+    "input": {
+      "Input Raw Reads": {
+        "Sequencing Platform": "<%= platform %>",
+        <% if(platform === "Illumina") { %>"Is interleaved": <%= interleaved %>,<% } else { %><%} %>
+        "fastqs": <%- JSON.stringify(input_fastqs_display) %>
+      },
+      "ReadsQC Workflow": {
+        "On/Off":"On"
+      },
+      "Read-based Taxonomy Classification Workflow": {
+        "On/Off":"On"
+      },
+      "Metagenome Assembly Workflow": {
+        "On/Off":"On"
+      },
+      "Viruses and Plasmids Workflow": {
+        "On/Off":"On"
+      },
+      "Metagenome Annotation Workflow": {
+        "On/Off":"On"
+      },
+      "Metagenome MAGs Workflow": {
+        "On/Off":"On",
+        "Input Map File":"",
+        "Input Domain File":""
+      }
+    }
+  }
+}

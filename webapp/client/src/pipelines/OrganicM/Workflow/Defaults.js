@@ -17,16 +17,6 @@ export const workflowInputTips = {
     }
 }
 
-export const workflowlist = {
-    EnviroMS: {
-        title: 'Natural Organic Matter',
-        name: 'Natural Organic Matter Workflow',
-        link: 'https://github.com/microbiomedata/enviroMS',
-        doclink: 'https://nmdc-workflow-documentation.readthedocs.io/en/latest/chapters/9_NOM_index.html',
-        info: 'This workflow is for natural organic matter data processing and annotation'
-    }
-}
-
 export const initialEnviroMS = {
     validForm: false,
     errMessage: '',
