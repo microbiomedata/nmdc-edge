@@ -18,6 +18,8 @@ import zipfile
 from nmdc_automation.config import SiteConfig
 from nmdc_automation.models.nmdc import DataObject, WorkflowExecution, workflow_process_factory
 
+from nmdc_schema.nmdc import DataCategoryEnum
+
 from jaws_client import api as jaws_api
 from jaws_client.config import Configuration as jaws_Configuration
 
@@ -761,14 +763,21 @@ class WorkflowJob:
                 logger.warning(f"Output directory not provided, not copying {output_file} to output directory")
 
             # create a DataObject object
-            data_object = DataObject(
-                id=output_spec["id"], name=output_file.name, type="nmdc:DataObject", url=file_url,
-                data_object_type=output_spec["data_object_type"], md5_checksum=md5_sum,
+            data_object = DataObject (
+                id=output_spec["id"], 
+                name=output_file.name, 
+                type="nmdc:DataObject", 
+                url=file_url,
+                data_object_type=output_spec["data_object_type"], 
+                md5_checksum=md5_sum,
                 file_size_bytes=file_size_bytes,
                 description=output_spec["description"].replace('{id}', self.workflow_execution_id),
-                was_generated_by=self.workflow_execution_id, )
+                was_generated_by=self.workflow_execution_id, 
+                data_category=DataCategoryEnum.processed_data
+            )
 
             data_objects.append(data_object)
+            
         return data_objects
 
     def make_workflow_execution(self, data_objects: List[DataObject]) -> WorkflowExecution:
