@@ -112,7 +112,7 @@ task make_output{
             dir=~{dollar}(dirname ~{dollar}{ARRAYFastq[$i]})
             prefix=~{dollar}{ARRAY[$i]}
             mkdir -p ~{outdir}/$prefix
-            cp -f ~{dollar}{ARRAYFastq[$i]} ~{outdir}/$prefix/$prefix_filtered.fastq.gz
+            cp -f ~{dollar}{ARRAYFastq[$i]} ~{outdir}/$prefix/${prefix}_filtered.fastq.gz
             cp -f ~{dollar}{ARRAYStats[$i]}  ~{outdir}/$prefix/filterStats.txt
             cp -f ~{dollar}{ARRAYStats2[$i]}  ~{outdir}/$prefix/filterStats2.txt
             cp -f ~{dollar}{ARRAYStatjson[$i]}  ~{outdir}/$prefix/filterStats.json
