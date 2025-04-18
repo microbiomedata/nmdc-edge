@@ -5,6 +5,11 @@ import os
 import sys
 from nmdc_automation.workflow_automation import Watcher
 
+logging_level = os.getenv("NMDC_LOG_LEVEL", logging.INFO)
+logging.basicConfig(
+    level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
+)
+logger = logging.getLogger(__name__)
 
 @click.group()
 def cli():
@@ -19,15 +24,15 @@ def cli():
     type=click.Path(exists=True),
     required=True,
 )
+@click.option(  "-jaws", "--jaws", is_flag=True, type=bool, default=False)
 @click.pass_context
-def watcher(ctx, site_configuration_file):
-    logging_level = os.getenv("NMDC_LOG_LEVEL", logging.DEBUG)
-    logging.basicConfig(
-        level=logging_level, format="%(asctime)s %(levelname)s: %(message)s"
-    )
-    logger = logging.getLogger(__name__)
+def watcher(ctx, site_configuration_file, jaws):
     logger.info(f"Initializing Watcher: config file: {site_configuration_file}")
-    ctx.obj = Watcher(site_configuration_file)
+    if jaws:
+        logger.info("Using JAWS")
+    else:
+        logger.info("Using Cromwell")
+    ctx.obj = Watcher(site_configuration_file, use_jaws=jaws)
 
 
 @watcher.command()
@@ -44,7 +49,7 @@ def submit(ctx, job_ids):
             sys.exit(1)
         else:
             opid = claims[0]["op_id"]
-            job = watcher.find_job_by_opid(opid)
+            job = watcher.job_manager.find_job_by_opid(opid)
             if job:
                 print(f"{job_id} use resubmit")
                 continue
@@ -52,43 +57,61 @@ def submit(ctx, job_ids):
         watcher.job_checkpoint()
 
 
+
+
 @watcher.command()
 @click.pass_context
-@click.argument("workflow_execution_ids", nargs=-1)
-def resubmit(ctx, workflow_execution_ids):
+@click.option(
+    "operation_ids", "-o", "--opid", multiple=True, required=False,
+    help="Operation IDs to resubmit"
+    )
+@click.option("--all-failures", is_flag=True, default=False, help="Resubmit all failed workflows")
+@click.option("--submit", is_flag=True, default=False, help="Submit the workflows")
+def resubmit(ctx, operation_ids, all_failures, submit):
+    """
+    Resubmit failed jobs
+
+    If --all-failures is set, all failed jobs will be resubmitted.
+    If --opid is set, the specified operation IDs will be resubmitted.
+    If --submit is set, the jobs will be submitted. Otherwise, the jobs will be listed in the log output.
+    """
     watcher = ctx.obj
-    # watcher.restore_from_checkpoint()
-    for wf_id in workflow_execution_ids:
-        logging.info(f"Checking {wf_id}")
-        wfj = None
-        if wf_id.startswith("nmdc:sys"):
-            key = "opid"
-        else:
-            key = "activity_id"
-        found_jobs = watcher.job_manager.job_cache
-        logging.info(f"Checking {len(found_jobs)} jobs")
-        for found_job in watcher.job_manager.job_cache:
-            job_record = found_job.workflow.state
-            logging.info(f"Checking {job_record[key]} against {wf_id}")
-            if job_record[key] == wf_id:
-                wfj = found_job
-                break
-        if not wfj:
-            print(f"No match found for {wf_id}")
-            continue
-        if wfj.job_status in ["Running", "Submitted"]:
-            print(f"Skipping {wf_id}, {wfj.last_status}")
-            continue
-        wfj.job.submit_job(force=True)
-        watcher.job_manager.save_checkpoint()
+    watcher.restore_from_checkpoint()
+
+    if all_failures:
+        logger.info("Resubmitting all failed jobs")
+        failed_jobs = watcher.job_manager.get_failed_jobs()
+        logger.info(f"Found {len(failed_jobs)} failed jobs")
+
+        for job in failed_jobs:
+            msg =f"Job {job.opid} for {job.was_informed_by} / {job.workflow_execution_id} Status: {job.job_status}"
+
+            if submit:
+                logger.info(f"Resubmitting {msg}")
+                job.job.submit_job()
+            else:
+                logger.info(f"Submit flag not set. Found {msg}")
+
+    if operation_ids:
+        for opid in operation_ids:
+            job = watcher.job_manager.find_job_by_opid(opid)
+            if job:
+                msg = f"Job for {job.was_informed_by} / {job.workflow_execution_id} Status: {job.job_status}"
+                if submit:
+                    logger.info(f"Resubmitting {msg}")
+                    job.job.submit_job()
+                else:
+                    logger.info(f"Submit flag not set. Found {msg}")
+
+    logger.info("Saving checkpoint")
+    watcher.job_manager.save_checkpoint()
 
 
 @watcher.command()
 @click.pass_context
 def sync(ctx):
-    watcher = ctx.obj
-    watcher.restore_from_checkpoint()
-    watcher.update_op_state_all()
+    # TODO: Implement sync
+    pass
 
 
 @watcher.command()
@@ -96,6 +119,21 @@ def sync(ctx):
 def daemon(ctx):
     watcher = ctx.obj
     watcher.watch()
+
+
+@watcher.command()
+@click.pass_context
+def report(ctx):
+    watcher = ctx.obj
+    watcher.restore_from_checkpoint()
+
+    reports = watcher.job_manager.report()
+
+    header = "wdl, release, last_status, was_informed_by, workflow_execution_id"
+    print(header)
+    for rpt in reports:
+        print(f"{rpt['wdl']}, {rpt['release']}, {rpt['last_status']}, {rpt['was_informed_by']}, {rpt['workflow_execution_id']}")
+
 
 
 @watcher.command()

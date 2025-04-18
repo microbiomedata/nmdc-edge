@@ -18,13 +18,7 @@ import sys
 _POLL_INTERVAL = 60
 _WF_YAML_ENV = "NMDC_WORKFLOW_YAML_FILE"
 
-# TODO: Berkley refactoring:
-#   The Scheduler interacts with the API to mint new IDs for activities and jobs.
-#   The Scheduler pulls WorkflowExecution and DataObject records from the MongoDB database - need to ensure these
-#   the handling of these records is compatible with the Berkley schema.
-#   The Scheduler looks for new jobs to create by examining the 'Activity' object graph that is constructed from
-#   the retrieved WorkflowExecution and DataObject records. This data structure will be somewhat different in the
-#   Berkley schema, so the find_new_jobs method will need to be updated to handle this.
+
 # configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -63,12 +57,6 @@ def within_range(wf1: WorkflowConfig, wf2: WorkflowConfig, force=False) -> bool:
     return False
 
 
-"""
-This is still a prototype implementation.  The plan
-is to migrate this fucntion into Dagster.
-"""
-
-# TODO: Change the name of this to distinguish it from the database Job object
 class SchedulerJob:
     """
     Class to hold information for new jobs
@@ -141,7 +129,12 @@ class Scheduler:
                         continue
                     raise ValueError(f"Unable to find {do_type} in {do_by_type}")
                 input_data_objects.append(dobj.as_dict())
-                v = dobj["url"]
+
+                if k == "input_files":
+                    v = [dobj["url"]]
+                else:
+                    v = dobj["url"]
+                    
             # TODO: Make this smarter
             elif v == "{was_informed_by}":
                 v = job.informed_by
@@ -236,9 +229,6 @@ class Scheduler:
             root_id = ".".join(last_id.split(".")[0:-1])
             return root_id, ct + 1
 
-    # TODO: Rename this to reflect what it does - it returns a list of the trigger activity IDs
-    #      from the jobs collection for a given workflow. Also activity should be execution to conform
-    #      to the new schema.
     @lru_cache(maxsize=128)
     def get_existing_jobs(self, wf: WorkflowConfig):
         existing_jobs = set()
@@ -252,7 +242,6 @@ class Scheduler:
             existing_jobs.add(act)
         return existing_jobs
 
-    # TODO: Rename this to reflect what it does and add unit tests
     def find_new_jobs(self, wfp_node: WorkflowProcessNode) -> list[SchedulerJob]:
         """
         For a given activity see if there are any new jobs

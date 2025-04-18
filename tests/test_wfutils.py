@@ -1,23 +1,24 @@
+
 from nmdc_automation.workflow_automation.wfutils import (
     CromwellRunner,
     WorkflowJob,
     WorkflowStateManager,
-    _json_tmp,
+    JawsRunner,
 )
-from nmdc_automation.models.nmdc import DataObject, workflow_process_factory
+from nmdc_automation.models.nmdc import DataObject
 from nmdc_schema.nmdc import MagsAnalysis, EukEval
 import io
 import json
 import os
 import pytest
 import requests
-import tempfile
 from unittest import mock
 import importlib.resources
 import yaml
 from functools import lru_cache
-import linkml.validator
-from linkml_runtime.dumpers import yaml_dumper
+
+from jaws_client.api import JawsApi
+from jaws_client.config import Configuration
 
 
 @lru_cache(maxsize=None)
@@ -32,7 +33,7 @@ def test_workflow_job(site_config, fixtures_dir):
 
     job = WorkflowJob(site_config, workflow_state, job_metadata)
     assert job
-    assert job.workflow_execution_id == workflow_state['activity_id']
+    assert job.workflow_execution_id == workflow_state['config']['activity_id']
 
 
 def test_cromwell_job_runner(site_config, fixtures_dir):
@@ -85,9 +86,41 @@ def test_cromwell_job_runner_get_job_metadata(site_config, fixtures_dir, mock_cr
     assert job_runner.metadata == metadata
 
 
+def test_jaws_job_runner(site_config, fixtures_dir, jaws_config_file_test, jaws_test_token_file):
+    job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    state_manager = WorkflowStateManager(job_state)
+    config = Configuration.from_files(jaws_config_file_test, jaws_test_token_file)
+    api = JawsApi(config)
+    job_runner = JawsRunner(site_config, state_manager, api)
+    assert job_runner
+
+
+@pytest.fixture(scope="session")
+def mock_jaws_api():
+    with mock.patch("jaws_client.api.JawsApi") as mock_jaws_api:
+        yield mock_jaws_api
+
+
 def test_workflow_job_as_workflow_execution_dict(site_config, fixtures_dir):
     workflow_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
     job_metadata = json.load(open(fixtures_dir / "mags_job_metadata.json"))
+
+    wfj = WorkflowJob(site_config, workflow_state, job_metadata)
+
+    wfe_dict = wfj.as_workflow_execution_dict
+    assert wfe_dict
+
+
+@pytest.mark.parametrize("fixture_pair", [
+    ("mags_workflow_state.json", "mags_jaws_status.json"),
+    ("annotation_workflow_state.json", "annotation_jaws_status.json"),
+    ("meta_assembly_workflow_state.json", "meta_assembly_jaws_status.json"),
+    ("read_based_analysis_workflow_state.json", "read_based_analysis_jaws_status.json"),
+    ("rqc_workflow_state.json", "rqc_jaws_status.json"),
+])
+def test_jaws_workflow_job_as_workflow_execution_dict(fixture_pair, site_config, fixtures_dir, mock_jaws_api):
+    workflow_state = json.load(open(fixtures_dir / fixture_pair[0]))
+    job_metadata = json.load(open(fixtures_dir / fixture_pair[1]))
 
     wfj = WorkflowJob(site_config, workflow_state, job_metadata)
 
@@ -99,10 +132,10 @@ def test_workflow_state_manager(fixtures_dir):
     mags_job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
 
     state = WorkflowStateManager(mags_job_state)
-    assert state.workflow_execution_id == mags_job_state['activity_id']
-    assert state.config == mags_job_state['conf']
-    assert state.execution_template == mags_job_state['conf']['activity']
-    assert state.was_informed_by == mags_job_state['conf']['was_informed_by']
+    assert state.workflow_execution_id == mags_job_state['config']['activity_id']
+    assert state.config == mags_job_state['config']
+    assert state.execution_template == mags_job_state['config']['activity']
+    assert state.was_informed_by == mags_job_state['config']['was_informed_by']
 
 
 # Mock response content
@@ -180,14 +213,14 @@ def test_cromwell_runner_setup_inputs_and_labels(site_config, fixtures_dir):
     job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
     workflow = WorkflowStateManager(job_state)
     runner = CromwellRunner(site_config, workflow)
-    inputs = runner._generate_workflow_inputs()
+    inputs = workflow.generate_workflow_inputs()
     assert inputs
     # we expect the inputs to be a key-value dict with URLs as values
     for key, value in inputs.items():
         if key.endswith("file"):
             assert value.startswith("http")
 
-    labels = runner._generate_workflow_labels()
+    labels = workflow.generate_workflow_labels()
     assert labels
     assert labels['submitter'] == "nmdcda"
     assert labels['git_repo'].startswith("https://github.com/microbiomedata")
@@ -195,7 +228,7 @@ def test_cromwell_runner_setup_inputs_and_labels(site_config, fixtures_dir):
 
 
 @mock.patch("nmdc_automation.workflow_automation.wfutils.WorkflowStateManager.fetch_release_file")
-def test_cromwell_runner_generate_submission_files( mock_fetch_release_file, site_config, fixtures_dir):
+def test_workflow_manager_generate_submission_files( mock_fetch_release_file, site_config, fixtures_dir):
     mock_fetch_release_file.side_effect = [
         '/tmp/test_workflow.wdl',
         '/tmp/test_bundle.zip',
@@ -231,8 +264,8 @@ def test_cromwell_runner_generate_submission_files( mock_fetch_release_file, sit
             fake_file_6,
         ]
 
-        runner = CromwellRunner(site_config, workflow)
-        submission_files = runner.generate_submission_files()
+        # runner = CromwellRunner(site_config, workflow)
+        submission_files = workflow.generate_submission_files()
         assert submission_files
         assert "workflowSource" in submission_files
         assert "workflowDependencies" in submission_files
@@ -246,7 +279,7 @@ def test_cromwell_runner_generate_submission_files( mock_fetch_release_file, sit
 
 
 @mock.patch("nmdc_automation.workflow_automation.wfutils.WorkflowStateManager.fetch_release_file")
-@mock.patch("nmdc_automation.workflow_automation.wfutils.CromwellRunner._cleanup_files")
+@mock.patch("nmdc_automation.workflow_automation.wfutils._cleanup_files")
 def test_cromwell_runner_generate_submission_files_exception(mock_cleanup_files, mock_fetch_release_file,
                                                              site_config, fixtures_dir):
     # Mock file fetching
@@ -268,12 +301,48 @@ def test_cromwell_runner_generate_submission_files_exception(mock_cleanup_files,
         ]
         runner = CromwellRunner(site_config, workflow)
         with pytest.raises(OSError):
-            runner.generate_submission_files()
+            workflow.generate_submission_files()
         # Check that the cleanup function was called
         mock_cleanup_files.assert_called_once()
 
 
-@mock.patch("nmdc_automation.workflow_automation.wfutils.CromwellRunner.generate_submission_files")
+@mock.patch("nmdc_automation.workflow_automation.wfutils.WorkflowStateManager.fetch_release_file")
+def test_jaws_job_runner_generate_submission_files(mock_fetch_release_file, site_config, fixtures_dir,
+                                                   jaws_config_file_test, jaws_test_token_file):
+    # Mock the file paths returned by fetch_release_file
+    mock_wdl_path = '/tmp/test_workflow.wdl'
+    mock_bundle_path = '/tmp/test_bundle.zip'
+    mock_fetch_release_file.side_effect = [mock_wdl_path, mock_bundle_path]
+
+    # Create temporary files to avoid FileNotFoundError
+    with open(mock_wdl_path, 'w') as f:
+        f.write("mock WDL content")
+    with open(mock_bundle_path, 'w') as f:
+        f.write("mock bundle content")
+
+    # Load job state and set up objects
+    job_state = json.load(open(fixtures_dir / "mags_workflow_state.json"))
+    state_manager = WorkflowStateManager(job_state)
+    config = Configuration.from_files(jaws_config_file_test, jaws_test_token_file)
+    api = JawsApi(config)
+    job_runner = JawsRunner(site_config, state_manager, api)
+    assert job_runner
+
+    # Generate submission files and assert keys
+    submission_files = state_manager.generate_submission_files()
+    assert submission_files
+    assert "workflowSource" in submission_files
+    assert "workflowDependencies" in submission_files
+    assert "workflowInputs" in submission_files
+    assert "labels" in submission_files
+
+    # Clean up temporary files
+    os.remove(mock_wdl_path)
+    os.remove(mock_bundle_path)
+
+
+
+@mock.patch("nmdc_automation.workflow_automation.wfutils.WorkflowStateManager.generate_submission_files")
 def test_cromwell_job_runner_submit_job_new_job(mock_generate_submission_files, site_config, fixtures_dir, mock_cromwell_api):
     mock_generate_submission_files.return_value = {
         "workflowSource": "workflowSource",
@@ -349,7 +418,6 @@ def test_make_data_objects_includes_workflow_execution_id_and_file_size(site_con
         assert isinstance(data_object, DataObject)
         assert job.workflow_execution_id in data_object.description
         assert data_object.file_size_bytes
-
 
 
 def test_workflow_job_from_database_job_record(site_config, fixtures_dir):

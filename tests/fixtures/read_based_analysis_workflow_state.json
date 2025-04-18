@@ -1,0 +1,119 @@
+    {
+      "workflow": {
+        "id": "Readbased Analysis: v1.0.9"
+      },
+      "created_at": "2025-02-18T18:55:57",
+      "config": {
+        "git_repo": "https://github.com/microbiomedata/ReadbasedAnalysis",
+        "release": "v1.0.9",
+        "wdl": "ReadbasedAnalysis.wdl",
+        "activity_id": "nmdc:wfrbt-12-yw16js60.1",
+        "activity_set": "workflow_execution_set",
+        "was_informed_by": "nmdc:omprc-11-0g272j90",
+        "trigger_activity": "nmdc:wfrqc-12-7btzkt48.1",
+        "iteration": 1,
+        "input_prefix": "ReadbasedAnalysis",
+        "inputs": {
+          "input_file": "https://data.microbiomedata.org/data/nmdc:omprc-11-0g272j90/nmdc:wfrqc-12-7btzkt48.1/nmdc_wfrqc-12-7btzkt48.1_filtered.fastq.gz",
+          "proj": "nmdc:wfrbt-12-yw16js60.1"
+        },
+        "input_data_objects": [
+          {
+            "id": "nmdc:dobj-12-qgzeqt75",
+            "type": "nmdc:DataObject",
+            "name": "nmdc_wfrqc-12-7btzkt48.1_filtered.fastq.gz",
+            "description": "Reads QC for nmdc:wfrqc-12-7btzkt48.1",
+            "data_object_type": "Filtered Sequencing Reads",
+            "file_size_bytes": 1190321326,
+            "md5_checksum": "8ff4202346165a8c30e47187c469c1f8",
+            "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-0g272j90/nmdc:wfrqc-12-7btzkt48.1/nmdc_wfrqc-12-7btzkt48.1_filtered.fastq.gz",
+            "was_generated_by": "nmdc:wfrqc-12-7btzkt48.1"
+          }
+        ],
+        "activity": {
+          "name": "Readbased Taxonomy Analysis for {id}",
+          "type": "nmdc:ReadBasedTaxonomyAnalysis"
+        },
+        "outputs": [
+          {
+            "output": "final_gottcha2_report_tsv",
+            "data_object_type": "GOTTCHA2 Classification Report",
+            "description": "GOTTCHA2 Classification for {id}",
+            "name": "GOTTCHA2 classification report file",
+            "id": "nmdc:dobj-12-6yw6wx75"
+          },
+          {
+            "output": "final_gottcha2_full_tsv",
+            "data_object_type": "GOTTCHA2 Report Full",
+            "description": "GOTTCHA2 Full Report for {id}",
+            "name": "GOTTCHA2 report file",
+            "id": "nmdc:dobj-12-22x0h881"
+          },
+          {
+            "output": "final_gottcha2_krona_html",
+            "data_object_type": "GOTTCHA2 Krona Plot",
+            "description": "GOTTCHA2 Krona for {id}",
+            "name": "GOTTCHA2 krona plot HTML file",
+            "id": "nmdc:dobj-12-w4bm0p04"
+          },
+          {
+            "output": "final_centrifuge_classification_tsv",
+            "data_object_type": "Centrifuge Taxonomic Classification",
+            "description": "Centrifuge Classification for {id}",
+            "name": "Centrifuge output read classification file",
+            "id": "nmdc:dobj-12-5pax0715"
+          },
+          {
+            "output": "final_centrifuge_report_tsv",
+            "data_object_type": "Centrifuge output report file",
+            "description": "Centrifuge Report for {id}",
+            "name": "Centrifuge Classification Report",
+            "id": "nmdc:dobj-12-frm86r56"
+          },
+          {
+            "output": "final_centrifuge_krona_html",
+            "data_object_type": "Centrifuge Krona Plot",
+            "description": "Centrifuge Krona for {id}",
+            "name": "Centrifug krona plot HTML file",
+            "id": "nmdc:dobj-12-xhw3qr70"
+          },
+          {
+            "output": "final_kraken2_classification_tsv",
+            "data_object_type": "Kraken2 Taxonomic Classification",
+            "description": "Kraken2 Classification for {id}",
+            "name": "Kraken2 output read classification file",
+            "id": "nmdc:dobj-12-zhhy3404"
+          },
+          {
+            "output": "final_kraken2_report_tsv",
+            "data_object_type": "Kraken2 Classification Report",
+            "description": "Kraken2 Report for {id}",
+            "name": "Kraken2 output report file",
+            "id": "nmdc:dobj-12-ktfm6812"
+          },
+          {
+            "output": "final_kraken2_krona_html",
+            "data_object_type": "Kraken2 Krona Plot",
+            "description": "Kraken2 Krona for {id}",
+            "name": "Kraken2 Krona plot HTML file",
+            "id": "nmdc:dobj-12-ywrdtj03"
+          },
+          {
+            "output": "info_file",
+            "data_object_type": "Read Based Analysis Info File",
+            "description": "Read based analysis info for {id}",
+            "name": "File containing reads based analysis information",
+            "suffix": "profiler.info",
+            "id": "nmdc:dobj-12-0jdjqs30"
+          }
+        ]
+      },
+      "claims": [],
+      "opid": "nmdc:sys0p5m0ch17",
+      "done": true,
+      "start": "2025-02-18T18:56:29.132339+00:00",
+      "cromwell_jobid": "d5386a59-9890-495d-80a7-d06548ec86a3",
+      "last_status": "Succeeded",
+      "nmdc_jobid": "nmdc:fcd24ad2-ee29-11ef-89dd-1680ce44ff41",
+      "end": "2025-02-19T01:30:13.435Z"
+    }

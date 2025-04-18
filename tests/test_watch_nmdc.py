@@ -283,7 +283,7 @@ def test_job_manager_get_finished_jobs(site_config, initial_state_file_1_failure
     failed_job_state = json.load(open(fixtures_dir / "failed_job_state_2.json"))
     assert failed_job_state
     failed_job = WorkflowJob(site_config, failed_job_state)
-    assert failed_job.job_status == "Failed"
+    assert failed_job.job_status.lower() == "failed"
     jm.job_cache.append(failed_job)
     # sanity check
     assert len(jm.job_cache) == 3
@@ -355,7 +355,7 @@ def test_job_manager_get_finished_jobs_1_failure(site_config, initial_state_file
         failed_job = failed_jobs[0]
         assert failed_job.job_status == "Failed"
 
-@mock.patch("nmdc_automation.workflow_automation.wfutils.CromwellRunner.generate_submission_files")
+@mock.patch("nmdc_automation.workflow_automation.wfutils.WorkflowStateManager.generate_submission_files")
 def test_job_manager_process_failed_job_1_failure(
         mock_generate_submission_files, site_config, initial_state_file_1_failure, mock_cromwell_api):
     # Arrange
@@ -437,5 +437,19 @@ def test_reclaim_job(requests_mock, site_config_file, mock_api):
         )  # w.claim_jobs()  # resp = w.job_manager.find_job_by_opid("nmdc:1234")  # assert resp
 
 
-def test_watcher_restore_from_checkpoint(site_config_file, fixtures_dir):
-    state_file = fixtures_dir / "mags_workflow_state.json"
+def test_watcher_restore_from_checkpoint_and_report(site_config_file, fixtures_dir):
+    state_file = fixtures_dir / "agent_state_1_failure.json"
+    w = Watcher(site_config_file, state_file)
+    w.restore_from_checkpoint()
+    assert w.job_manager.job_cache
+
+    # get job reports
+    reports = w.job_manager.report()
+    assert reports
+    assert len(reports) == 1
+
+    rpt = reports[0]
+    assert rpt
+    assert rpt['wdl'] == "mbin_nmdc.wdl"
+    assert rpt['last_status'] == "Failed"
+

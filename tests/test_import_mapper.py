@@ -32,6 +32,9 @@ def mock_minted_ids():
 def test_update_do_mappings_from_import_files(import_mapper_instance):
     import_mapper_instance.update_do_mappings_from_import_files()
     assert len(import_mapper_instance.mappings) == 22
+    for fm_all in import_mapper_instance.mappings:
+        print("Import File:", fm_all.import_file)
+        assert not fm_all.import_file.endswith(".md5"), f"Unexpected .md5 file found: {fm_all.import_file}"
 
 
 def test_update_do_mapping_from_import_files_correct_protein_file_import(import_mapper_instance):
