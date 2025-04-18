@@ -1,4 +1,5 @@
 import configparser
+import sys
 
 import pandas as pd
 import requests
@@ -52,6 +53,8 @@ def restore_files(project: str, config_file: str, restore_csv=None) -> str:
     if restore_df.empty:
         return 'No samples'
     JDP_TOKEN = os.environ.get('JDP_TOKEN')
+    if not JDP_TOKEN:
+        sys.exit('JDP_TOKEN environment variable not set')
     headers = {'Authorization': JDP_TOKEN, "accept": "application/json"}
     url = 'https://files.jgi.doe.gov/download_files/'
     proxies = eval(config['JDP']['proxies'])
