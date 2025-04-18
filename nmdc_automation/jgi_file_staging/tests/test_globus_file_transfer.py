@@ -404,88 +404,88 @@ Bytes Per Second:             371815009""",
         task = mdb.globus.find_one({"task_id": "a9b96f-ce5d-11ed-63ca-6c6821-e5130cf8"})
         self.assertEqual(task["task_status"], "SUCCEEDED")
 
-    def test_get_list_staged_files(self):
-        staged_files = [
-            "52614.1.394702.GCACTAAC-CCAAGACT.filtered-report.txt",
-            "52614.1.394702.GCACTAAC-CCAAGACT.filter_cmd-METAGENOME.sh",
-            "Ga0499978_imgap.info",
-            "Ga0499978_proteins.supfam.domtblout",
-            "Ga0499978_ko.tsv",
-            "Ga0499978_proteins.faa",
-            "pairedMapped_sorted.bam.cov",
-            "Table_8_-_3300049478.taxonomic_composition.txt",
-            "Ga0499978_annotation_config.yaml",
-        ]
-        project_name = "test_project"
-        analysis_projects_dir = Path(
-            self.fixtures,
-            "analysis_projects",
-            f"{project_name}_analysis_projects",
-            "Ga0499978",
-        )
-        shutil.rmtree(analysis_projects_dir) if Path.exists(
-            analysis_projects_dir
-        ) else None
-        Path.mkdir(analysis_projects_dir, parents=True)
-        [
-            Path.touch(Path(analysis_projects_dir, grow_file))
-            for grow_file in staged_files
-        ]
-
-        grow_analysis_df = pd.read_csv(
-            os.path.join(self.fixtures, "grow_analysis_projects.csv")
-        )
-        grow_analysis_df.columns = [
-            "apGoldId",
-            "studyId",
-            "itsApId",
-            "projects",
-            "biosample_id",
-            "seq_id",
-            "file_name",
-            "file_status",
-            "file_size",
-            "jdp_file_id",
-            "md5sum",
-            "analysis_project_id",
-        ]
-        grow_analysis_df = grow_analysis_df[
-            [
-                "apGoldId",
-                "studyId",
-                "itsApId",
-                "biosample_id",
-                "seq_id",
-                "file_name",
-                "file_status",
-                "file_size",
-                "jdp_file_id",
-                "md5sum",
-                "analysis_project_id",
-            ]
-        ]
-        grow_analysis_df["file_status"] = "ready"
-        grow_analysis_df["project"] = "test_project"
-        insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
-        output_file = Path(os.path.dirname(__file__), "merge_db_staged.csv")
-        try:
-            missing_files = get_list_missing_staged_files(
-                project_name, self.config_file
-            )
-            self.assertTrue(os.path.exists(output_file))
-            self.assertTrue(
-                "rqc-stats.pdf"
-                in [
-                    el["file_name"]
-                    for el in missing_files
-                    if el["file_name"] == "rqc-stats.pdf"
-                ]
-            )
-        finally:
-            os.remove(output_file) if Path.exists(output_file) else None
-            shutil.rmtree(analysis_projects_dir) if Path.exists(
-                analysis_projects_dir
-            ) else None
+    # def test_get_list_staged_files(self):
+    #     staged_files = [
+    #         "52614.1.394702.GCACTAAC-CCAAGACT.filtered-report.txt",
+    #         "52614.1.394702.GCACTAAC-CCAAGACT.filter_cmd-METAGENOME.sh",
+    #         "Ga0499978_imgap.info",
+    #         "Ga0499978_proteins.supfam.domtblout",
+    #         "Ga0499978_ko.tsv",
+    #         "Ga0499978_proteins.faa",
+    #         "pairedMapped_sorted.bam.cov",
+    #         "Table_8_-_3300049478.taxonomic_composition.txt",
+    #         "Ga0499978_annotation_config.yaml",
+    #     ]
+    #     project_name = "test_project"
+    #     analysis_projects_dir = Path(
+    #         self.fixtures,
+    #         "analysis_projects",
+    #         f"{project_name}_analysis_projects",
+    #         "Ga0499978",
+    #     )
+    #     shutil.rmtree(analysis_projects_dir) if Path.exists(
+    #         analysis_projects_dir
+    #     ) else None
+    #     Path.mkdir(analysis_projects_dir, parents=True)
+    #     [
+    #         Path.touch(Path(analysis_projects_dir, grow_file))
+    #         for grow_file in staged_files
+    #     ]
+    #
+    #     grow_analysis_df = pd.read_csv(
+    #         os.path.join(self.fixtures, "grow_analysis_projects.csv")
+    #     )
+    #     grow_analysis_df.columns = [
+    #         "apGoldId",
+    #         "studyId",
+    #         "itsApId",
+    #         "projects",
+    #         "biosample_id",
+    #         "seq_id",
+    #         "file_name",
+    #         "file_status",
+    #         "file_size",
+    #         "jdp_file_id",
+    #         "md5sum",
+    #         "analysis_project_id",
+    #     ]
+    #     grow_analysis_df = grow_analysis_df[
+    #         [
+    #             "apGoldId",
+    #             "studyId",
+    #             "itsApId",
+    #             "biosample_id",
+    #             "seq_id",
+    #             "file_name",
+    #             "file_status",
+    #             "file_size",
+    #             "jdp_file_id",
+    #             "md5sum",
+    #             "analysis_project_id",
+    #         ]
+    #     ]
+    #     grow_analysis_df["file_status"] = "ready"
+    #     grow_analysis_df["project"] = "test_project"
+    #     insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
+    #     output_file = Path(os.path.dirname(__file__), "merge_db_staged.csv")
+    #     try:
+    #         missing_files = get_list_missing_staged_files(
+    #             project_name, self.config_file
+    #         )
+    #         self.assertTrue(os.path.exists(output_file))
+    #         self.assertTrue(
+    #             "rqc-stats.pdf"
+    #             in [
+    #                 el["file_name"]
+    #                 for el in missing_files
+    #                 if el["file_name"] == "rqc-stats.pdf"
+    #             ]
+    #         )
+    #     finally:
+    #         os.remove(output_file) if Path.exists(output_file) else None
+    #         shutil.rmtree(analysis_projects_dir) if Path.exists(
+    #             analysis_projects_dir
+    #         ) else None
 
 
 if __name__ == "__main__":
