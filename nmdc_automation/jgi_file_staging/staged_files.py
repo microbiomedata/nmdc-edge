@@ -16,7 +16,7 @@ logging.basicConfig(
 
 
 def get_list_staged_files(project, config, save_file_list=None):
-    base_dir = Path(config["GLOBUS"]["dest_root_dir"], f"{project}_analysis_projects")
+    base_dir = Path(config["PROJECT"]["analysis_projects_dir"], f"{project}_analysis_projects")
     proj_list = []
     for analysis_proj in os.listdir(base_dir):
         [
