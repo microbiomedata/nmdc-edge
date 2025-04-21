@@ -109,7 +109,7 @@ def get_file_statuses(samples_df, config):
     return restore_response_df
 
 
-def update_file_statuses(project: str, config_file: str, config: configparser.ConfigParser=None):
+def update_file_statuses(project: str, config_file: str=None, config: configparser.ConfigParser=None):
     if config is None:
         config = configparser.ConfigParser()
         config.read(config_file)
@@ -155,6 +155,6 @@ if __name__ == '__main__':
     parser.add_argument('-r', '--restore_csv', default=None,  help='csv with files to restore')
     args = vars((parser.parse_args()))
     if args['update_file_statuses']:
-        update_file_statuses(args['project_name'], args['config_file'])
+        update_file_statuses(args['project_name'], config_file=args['config_file'])
     else:
         restore_files(args['project_name'], args['config_file'], args['restore_csv'])
