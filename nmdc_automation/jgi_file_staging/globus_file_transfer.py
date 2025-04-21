@@ -26,7 +26,7 @@ def get_project_globus_manifests(project_name: str, config_file: str = None,
         config.read(config_file)
     mdb = get_mongo_db()
     samples_df = pd.DataFrame(mdb.samples.find({'project': project_name, 'file_status':
-        {'$nin': ['in transit', 'transferred']}}))
+        {'$nin': ['in transit', 'transferred', 'expired', 'PURGED']}}))
     samples_df = samples_df[pd.notna(samples_df.request_id)]
     samples_df['request_id'] = samples_df['request_id'].astype(int)
     manifests_list = []
