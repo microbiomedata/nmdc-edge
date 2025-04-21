@@ -109,9 +109,10 @@ def get_file_statuses(samples_df, config):
     return restore_response_df
 
 
-def update_file_statuses(project: str, config_file: str):
-    config = configparser.ConfigParser()
-    config.read(config_file)
+def update_file_statuses(project: str, config_file: str, config: configparser.ConfigParser=None):
+    if config is None:
+        config = configparser.ConfigParser()
+        config.read(config_file)
     mdb = get_mongo_db()
     samples_df = pd.DataFrame([sample for sample in mdb.samples.find({'project': project})])
     samples_df = samples_df[pd.notna(samples_df.request_id)]
