@@ -9,7 +9,7 @@ from mongo import get_mongo_db
 import subprocess
 import argparse
 from typing import List
-from file_restoration import update_sample_in_mongodb
+from file_restoration import update_sample_in_mongodb, update_file_statuses
 
 logging.basicConfig(filename='file_staging.log',
                     format='%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
@@ -91,15 +91,17 @@ def create_globus_batch_file(project: str, config: configparser.ConfigParser) ->
     :param project: name of project
     :param config: configparser object with parameters for globus transfers
     :return: globus batch file name and dataframe with sample files being transferred
+    1) update statuses of files
     1) get samples from database that have been restored from tape (file_status: 'ready')
     2) create a dataframe from the Globus manifests
     3) write to globus batch file
     """
+    update_file_statuses(project=project, config=config)
     mdb = get_mongo_db()
     samples_df = pd.DataFrame(mdb.samples.find({'file_status': 'ready'}))
     if samples_df.empty:
         logging.debug(f"no samples ready to transfer")
-        sys.exit('no samples ready to transfer')
+        sys.exit('no samples ready to transfer, try running file_restoration.py -u')
     samples_df = samples_df[pd.notna(samples_df.request_id)]
     samples_df['request_id'] = samples_df['request_id'].astype(int)
     # logging.debug(f"nan request_ids {samples_df['request_id']}")
