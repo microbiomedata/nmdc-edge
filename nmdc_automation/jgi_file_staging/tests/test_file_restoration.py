@@ -1,11 +1,11 @@
 import unittest
 import os
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 import mongomock
 import pandas as pd
 import configparser
 
-from file_restoration import restore_files, update_file_statuses, update_sample_in_mongodb, check_restore_status
+from file_restoration import restore_files, update_file_statuses, check_restore_status
 from mongo import get_mongo_db
 from jgi_file_metadata import insert_samples_into_mongodb
 
