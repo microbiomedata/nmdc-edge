@@ -100,7 +100,7 @@ def get_file_statuses(samples_df, config):
         url = f"https://files.jgi.doe.gov/request_archived_files/requests/{request_id}?api_version=1"
         r = requests.get(url, headers=headers, proxies=eval(config['JDP']['proxies']))
         response_json = r.json()
-        file_status_list = [response_json['status'] for i in range(len(response_json['file_ids']))]
+        file_status_list = [response_json['status'] for _ in response_json['file_ids']]
         jdp_response_df = pd.concat([jdp_response_df, pd.DataFrame({'jdp_file_id': response_json['file_ids'],
                                                                     'file_status': file_status_list})])
         logging.debug(jdp_response_df.jdp_file_id.unique())
@@ -131,7 +131,7 @@ def check_restore_status(restore_request_id, config):
     """
     Status of a restore request made to the JGI Data Portal restore API
     :param restore_request_id: ID of request returned by restore_files
-    :param JDP_TOKEN: Token from JDP website
+    :param config: ConfigParser instance
     :return:
     """
     JDP_TOKEN = os.environ.get('JDP_TOKEN')
