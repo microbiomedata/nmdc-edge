@@ -40,7 +40,7 @@ def get_list_missing_staged_files(
     config.read(config_file)
     stage_df = get_list_staged_files(project_name, config, save_file_list)
     stage_df["file_key"] = stage_df.apply(
-        lambda x: f"{x.analysis_project}-{x.import_file}", axis=1
+        lambda x: f"{x.analysis_project}-{x.file}", axis=1
     )
     mdb = get_mongo_db()
     samples_df = pd.DataFrame([s for s in mdb.samples.find({"project": project_name})])
