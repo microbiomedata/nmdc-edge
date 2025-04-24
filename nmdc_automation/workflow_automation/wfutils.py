@@ -10,6 +10,7 @@ import tempfile
 from abc import ABC, abstractmethod
 from datetime import datetime
 from pathlib import Path
+from tenacity import retry, wait_exponential, stop_after_attempt
 from typing import Any, Dict, List, Optional, Union
 import pytz
 import requests
@@ -195,6 +196,7 @@ class JawsRunner(JobRunnerABC):
             _cleanup_files(cleanup_zip_files)
 
 
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def get_job_metadata(self) -> Dict[str, Any]:
         """ Get metadata for a job. In JAWS this is the response from the status call and the
         logical names and file paths for the outputs specified in outputs.json """
