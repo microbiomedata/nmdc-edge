@@ -865,4 +865,4 @@ def _cleanup_dirs(dir_paths: list[str | Path]):
         try:
             shutil.rmtree(path)
         except Exception as e:
-            print(f"Error removing directory {path}: {e}")
+            logger.error(f"Error removing directory {path}: {e}")
