@@ -130,6 +130,7 @@ class JawsRunner(JobRunnerABC):
         self.no_submit_states = self.JAWS_NO_SUBMIT_STATES + self.NO_SUBMIT_STATES
 
 
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(1))
     def submit_job(self, force: bool = False) -> Optional[int]:
         """
         Submit a job to J.A.W.S. Update the workflow state with the job id and status.
