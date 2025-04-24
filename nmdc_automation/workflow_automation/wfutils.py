@@ -217,6 +217,7 @@ class JawsRunner(JobRunnerABC):
         self.metadata = metadata
         return metadata
 
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def get_job_status(self) -> str:
         """
         Get the status of a job. In JAWS this is the response from the status call
