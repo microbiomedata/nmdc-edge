@@ -462,7 +462,7 @@ router.post("/project/createmetadatasubmission", async (req, res) => {
         // create metadata_submission json
         const tmpl = config.NMDC.METADATA_SUBMISSION_TEMPLATE;
         // render template
-        const metadata = ejs.render(String(fs.readFileSync(tmpl)), req.body);
+        const metadata = JSON.parse(ejs.render(String(fs.readFileSync(tmpl)), req.body));
         // console.log(metadata)
         // get nmdc access token
         let url = `${config.NMDC.SERVER_URL}/auth/oidc-login`;

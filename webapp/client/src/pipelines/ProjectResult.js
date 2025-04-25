@@ -254,6 +254,7 @@ function ProjectResult(props) {
                 handleSuccess={submit2nmdc}
                 handleClickClose={handleMetadataSubmissionClose}
                 connect2nmdcserver={connect2nmdcserver}
+                reset={openMetadataSubmission}
             />
             <ConfirmDialog isOpen={openMetadataDeletion} action={'Delete'} title={"Are you sure to delete the metadata submission?"}
                 message={"This action is not undoable."} handleClickYes={deleteMetadata} handleClickClose={handleMetadataDeletionClose} />

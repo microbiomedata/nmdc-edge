@@ -84,10 +84,12 @@ const MetadataSubmisssion = (props) => {
         });
     }
     clearErrors();
+    setStudyOptions([{ value: 'new', label: 'New Study' }]);
+    setStudy('new');
     if (props.connect2nmdcserver) {
       getNmdcMetadataSubmissions();
     }
-  }, [props]);// eslint-disable-line react-hooks/exhaustive-deps
+  }, [props.reset]);// eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Modal isOpen={props.isOpen} centered>

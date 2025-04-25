@@ -1,14 +1,6 @@
 {
   "metadata_submission": {
-    "packageName": <%- JSON.stringify(packageNames) %>,
-    "contextForm": {
-      "datasetDoi": "",
-      "dataGenerated": false,
-      "facilityGenerated": null,
-      "facilities": [],
-      "award": null,
-      "otherAward": ""
-    },
+    "packageName":  <%- JSON.stringify(packageNames) %>,
     "addressForm": {
       "shipper": {
         "name": "",
@@ -18,19 +10,19 @@
         "line2": "",
         "city": "",
         "state": "",
-        "country": "",
-        "postalCode": ""
+        "postalCode": "",
+        "country": ""
       },
-      "expectedShippingDate": null,
+      "expectedShippingDate": "",
       "shippingConditions": "",
       "sample": "",
       "description": "",
       "experimentalGoals": "",
       "randomization": "",
-      "usdaRegulated": null,
+      "usdaRegulated": true,
       "permitNumber": "",
       "biosafetyLevel": "",
-      "irbOrHipaa": null,
+      "irbOrHipaa": true,
       "comments": ""
     },
     "templates": <%- JSON.stringify(packageNames) %>,
@@ -41,22 +33,42 @@
       "piOrcid": "",
       "fundingSources": [],
       "linkOutWebpage": [],
-      "studyDate": null,
+      "studyDate": "",
       "description": "",
       "notes": "",
+      "contributors": [
+        {
+          "name": "",
+          "orcid": "",
+          "roles": [],
+          "permissionLevel": ""
+        }
+      ],
+      "alternativeNames": [],
       "GOLDStudyId": "",
-      "NCBIBioProjectId": "",
-      "contributors": []
+      "NCBIBioProjectId": ""
     },
     "multiOmicsForm": {
-      "alternativeNames": [],
-      "studyNumber": "",
-      "GOLDStudyId": "",
+      "award": "",
+      "awardDois": [],
+      "dataGenerated": true,
+      "doe": true,
+      "facilities": [],
+      "facilityGenerated": true,
       "JGIStudyId": "",
-      "NCBIBioProjectId": "",
-      "omicsProcessingTypes": []
+      "mgCompatible": true,
+      "mgInterleaved": true,
+      "mtCompatible": true,
+      "mtInterleaved": true,
+      "omicsProcessingTypes": [],
+      "otherAward": "",
+      "ship": true,
+      "studyNumber": "",
+      "unknownDoi": true
     },
     "sampleData": {}
   },
-  "source_client": "nmdc_edge"
+  "status": "in-progress",
+  "source_client": "nmdc_edge",
+  "is_test_submission": false
 }
