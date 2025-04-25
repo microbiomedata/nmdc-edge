@@ -500,9 +500,7 @@ router.post("/project/getmetadatasubmission", async (req, res) => {
         //     // get nmdc access token
         //     let url = `${config.NMDC.SERVER_URL}/auth/oidc-login`;
         //     //const tokenData = await utilCommon.postData(url, { id_token: user.orcidtoken }, { headers: { "Content-Type": "application/json" } });
-        //     const tokenData = { "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5OWMxODE0YS1kMDFiLTQ2YzgtOWY5OC0xMTg3ZWY2YTA4ZTYiLCJ0eXAiOiJCZWFyZXIiLCJpc3MiOiJodHRwczovL2RhdGEtZGV2Lm1pY3JvYmlvbWVkYXRhLm9yZy8iLCJpYXQiOjE3Mjc5MTEzODEsImV4cCI6MTcyNzk5Nzc4MX0.Lov43OCcD_Z8b_DLTiq4G2LjVj2tTQAKMM082TGDX_E", "token_type": "bearer", "expires_in": 86400 };
-        //     // console.log(tokenData);
-
+        //     
         //     // get metadata submission by id
         //     url = `${config.NMDC.SERVER_URL}/api/metadata_submission/${project.metadatasubmissionid}`;
         //     const submissionData = await utilCommon.getData(url, { headers: { "Authorization": `Bearer ${tokenData.access_token}` } });
