@@ -86,6 +86,7 @@ const MetadataSubmisssion = (props) => {
     clearErrors();
     setStudyOptions([{ value: 'new', label: 'New Study' }]);
     setStudy('new');
+    setPackageNames([]);
     if (props.connect2nmdcserver) {
       getNmdcMetadataSubmissions();
     }
