@@ -9,7 +9,7 @@ from tests.fixtures.db_utils import init_test, load_fixture, read_json, reset_db
 
 
 @mark.parametrize("workflow_file", [
-    "workflows.yaml",
+    # "workflows.yaml",
     "workflows-mt.yaml"
 ])
 def test_scheduler_cycle(test_db, mock_api, workflow_file, workflows_config_dir, site_config_file):

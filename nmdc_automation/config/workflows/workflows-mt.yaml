@@ -25,8 +25,7 @@ Workflows:
     Filter Input Objects:
     - Metatranscriptome Raw Reads
     Predecessors:
-    - Sequencing
-    - Sequencing Interleaved
+    - Metatranscriptome Sequencing Interleaved
     Input_prefix: metaTReadsQC
     Inputs:
       input_files: do:Metatranscriptome Raw Reads
@@ -73,7 +72,7 @@ Workflows:
     - Metatranscriptome Raw Read 1
     - Metatranscriptome Raw Read 2
     Predecessors:
-    - Sequencing Noninterleaved
+    - Metatranscriptome Sequencing Noninterleaved
     Workflow Execution:
       name: "Read QC for {id}"
       input_read_bases: "{outputs.stats.input_read_bases}"
