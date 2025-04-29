@@ -453,7 +453,7 @@
     "description": "Sequencing results for metaT_R1",
     "file_size_bytes": 123456,
     "md5_checksum": "4c7f1be37f805836162b49da4ed9c7e5",
-    "data_object_type": "Metagenome Raw Read 1",
+    "data_object_type": "Metatranscriptome Raw Read 1",
     "type": "nmdc:DataObject",
     "url": "https://portal.nersc.gov"
   },
@@ -463,7 +463,7 @@
     "description": "Sequencing results for metaT_R2",
     "file_size_bytes": 123456,
     "md5_checksum": "4c7f1be37f805836162b49da4ed9c7e5",
-    "data_object_type": "Metagenome Raw Read 2",
+    "data_object_type": "Metatranscriptome Raw Read 2",
     "type": "nmdc:DataObject",
     "url": "https://portal.nersc.gov"
   },
