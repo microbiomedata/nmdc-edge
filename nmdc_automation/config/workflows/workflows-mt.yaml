@@ -4,15 +4,15 @@ Workflows:
     Enabled: True
     Analyte Category: Metatranscriptome
     Filter Output Objects:
-    - Metagenome Raw Read 1
-    - Metagenome Raw Read 2
+    - Metatranscriptome Raw Read 1
+    - Metatranscriptome Raw Read 2
 
   - Name: Sequencing Interleaved
     Collection: data_generation_set
     Enabled: True
     Analyte Category: Metatranscriptome
     Filter Output Objects:
-    - Metagenome Raw Reads
+    - Metatranscriptome Raw Reads
 
   - Name: Metatranscriptome Reads QC
     Type: nmdc:ReadQcAnalysis
@@ -23,13 +23,13 @@ Workflows:
     WDL: rqcfilter.wdl
     Collection: workflow_execution_set
     Filter Input Objects:
-    - Metagenome Raw Reads
+    - Metatranscriptome Raw Reads
     Predecessors:
     - Sequencing
     - Sequencing Interleaved
     Input_prefix: nmdc_rqcfilter
     Inputs:
-      input_files: do:Metagenome Raw Reads
+      input_files: do:Metatranscriptome Raw Reads
       proj: "{workflow_execution_id}"
     Workflow Execution:
       name: "Read QC for {id}"
@@ -67,11 +67,11 @@ Workflows:
     Input_prefix: nmdc_rqcfilter
     Inputs:
       proj: "{workflow_execution_id}"
-      input_fastq1: do:Metagenome Raw Read 1
-      input_fastq2: do:Metagenome Raw Read 2
+      input_fastq1: do:Metatranscriptome Raw Read 1
+      input_fastq2: do:Metatranscriptome Raw Read 2
     Filter Input Objects:
-    - Metagenome Raw Read 1
-    - Metagenome Raw Read 2
+    - Metatranscriptome Raw Read 1
+    - Metatranscriptome Raw Read 2
     Predecessors:
     - Sequencing Noninterleaved
     Workflow Execution:
