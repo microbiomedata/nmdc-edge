@@ -120,16 +120,16 @@ class JgiFileTestCase(unittest.TestCase):
         mdb = get_mongo_db()
         sample = mdb.samples.find_one({"jdp_file_id": "6190d7d30de2fc3298da6f7a"})
         update_sample_in_mongodb(
-            sample, {"file_status": "RESTORE_IN_PROGRESS", "request_id": 217934}
+            sample, {"file_status": "RESTORE_IN_PROGRESS", "request_id": '217934'}
         )
-        updated_sample = mdb.samples.find_one(sample)
+        updated_sample = mdb.samples.find_one({"jdp_file_id": "6190d7d30de2fc3298da6f7a"})
         self.assertEqual(updated_sample["file_status"], "RESTORE_IN_PROGRESS")
-        self.assertEqual(updated_sample["request_id"], 217934)
+        self.assertEqual(updated_sample["request_id"], '217934')
 
         sample = mdb.samples.find_one({"jdp_file_id": "6190d7d30de2fc3298da6f7a"})
         sample.pop("file_name")
         success = update_sample_in_mongodb(
-            sample, {"file_status": "RESTORE_IN_PROGRESS", "request_id": 217934}
+            sample, {"file_status": "RESTORE_IN_PROGRESS", "request_id": '217934'}
         )
         self.assertFalse(success)
 
