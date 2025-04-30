@@ -50,7 +50,7 @@ task annotation_vis{
         cp /opt/conda/envs/annotationVis/bin/opaver_anno.pl .
         cp -r /opt/conda/envs/annotationVis/bin/ec_info ec_info
         if grep -q "EC:" ~{gff}; then
-            perl opaver_anno.pl -g "${gff}" -o "${OUTPATH}/kegg_map"
+            perl opaver_anno.pl -g ~{gff} -o ~{OUTPATH}/kegg_map
         else
             echo "Input GFF file does not contain any EC numbers (pattern 'EC:'). Skipping annotation."
         fi
