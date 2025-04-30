@@ -49,7 +49,11 @@ task annotation_vis{
         set -euo pipefail
         cp /opt/conda/envs/annotationVis/bin/opaver_anno.pl .
         cp -r /opt/conda/envs/annotationVis/bin/ec_info ec_info
-        perl opaver_anno.pl -g ~{gff}  -o ~{OUTPATH}/kegg_map
+        if grep -q "EC:" ~{gff}; then
+            perl opaver_anno.pl -g ~{gff} -o ~{OUTPATH}/kegg_map
+        else
+            echo "Input GFF file does not contain any EC numbers (pattern 'EC:'). Skipping annotation."
+        fi
         ## make symlink to omics-pathway-viewer/data location
         projectID=`basename ~{PROJPATH}`
         ln -s ~{OUTPATH}/kegg_map ~{opaver_web_path}/$projectID
@@ -89,13 +93,12 @@ task make_output {
         echo ~{OUTPATH}
         mkdir -p ~{OUTPATH}
             Statspath=`dirname ~{stats}`
-        echo $Statspath
+            echo $Statspath
             GFFPath=`dirname ~{gff}`
-        echo $GFFPath
-            cp $Statspath/* ~{OUTPATH}/
+            echo $GFFPath
+            cp $GFFPath/~{projectName}* ~{OUTPATH}/
             cp ~{OUTPATH}/~{projectName}_stats.json ~{OUTPATH}/~{projectName}_structural_annotation_stats.json
-            cp $GFFPath/* ~{OUTPATH}/
-        ls ~{OUTPATH}
+       
             chmod 764 -R ~{OUTPATH}
     >>>
 
