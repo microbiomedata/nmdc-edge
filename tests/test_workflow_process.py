@@ -13,7 +13,10 @@ from tests.fixtures.db_utils import  load_fixture, reset_db
 
 
 @mark.parametrize(
-    "workflow_file", ["workflows.yaml", "workflows-mt.yaml"]
+    "workflow_file", [
+        "workflows.yaml",
+        "workflows-mt.yaml"
+    ]
 )
 def test_load_workflow_process_nodes(test_db, workflow_file, workflows_config_dir):
     """
@@ -228,7 +231,11 @@ def test_get_required_data_objects_by_id(test_db, workflows_config_dir, workflow
     Test get_required_data_objects_by_id
     """
     # non-comprehensive list of expected data object types
-    exp_do_types = ["Metagenome Raw Read 1", "Metagenome Raw Read 2", "Filtered Sequencing Reads"]
+    if workflow_file == "workflows.yaml":
+        exp_do_types = ["Metagenome Raw Read 1", "Metagenome Raw Read 2", "Filtered Sequencing Reads"]
+    else:
+        exp_do_types = ["Metatranscriptome Raw Read 1", "Metatranscriptome Raw Read 2", "Filtered Sequencing Reads"]
+
     # TODO: add workflow specific data objects
     reset_db(test_db)
     load_fixture(test_db, "data_object_set.json")

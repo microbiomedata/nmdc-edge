@@ -213,16 +213,16 @@ class ImportMapper:
                 - The second list contains IDs of data objects that serve as outputs
                   of the specified workflow type.
         """
-        has_input = []
-        has_output = []
+        has_input = set()
+        has_output = set()
         for fm in self.mappings:
             if fm.output_of == workflow_type:
-                has_output.append(fm.data_object_id)
+                has_output.add(fm.data_object_id)
             else:
                 for wf_type in fm.input_to:
                     if wf_type == workflow_type:
-                        has_input.append(fm.data_object_id)
-        return has_input, has_output
+                        has_input.add(fm.data_object_id)
+        return list(has_input), list(has_output)
 
 
     def add_do_mappings_from_data_generation(self) -> None:
