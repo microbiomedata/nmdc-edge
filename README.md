@@ -148,9 +148,17 @@ each workflow job for its status and process successful or failed jobs when they
 
 WorkflowJob
 : A `WorkflowJob` consists of a `WorkflowStateManager` and a `JobRunner` and is responsible for preparing the 
-required inputs for an analysis job, submitting it to the job running service (e.g., J.A.W.S, Cromwell) and 
-for processing the resulting data and metadata when the job completes.  The watcher maintains a record of it's
-current activity in a `State File`
+required inputs for an analysis job, submitting it to the job running service.
+
+The default job running service is JAWS:
+https://ipo.lbl.gov/joint-genome-institute-analysis-workflow-service-jaws-for-complex-computational-pipelines-on-multiple-compute-resources/
+
+The legacy job running service is a self-managed SLURM/Condor/Cromwell stack running on Permutter. 
+
+Details can be found in [README_Slurm.md](README_Slurm.md)
+
+The `JobRunner` is also responsible for processing the resulting data and metadata when the job completes.  
+The watcher maintains a record of it's current activity in a `State File`
 
 ### System Configuration
 
@@ -324,6 +332,8 @@ Same process as as [Checking the Watcher Status](#check-the-watcher-status)
 
 ##### JAWS
 
+JAWS is the default job running service.  It is a Cromwell-based service that runs jobs on NERSC and other compute resources.
+Documentation can be found [here](https://jaws-docs.readthedocs.io/en/latest/)'
 
 With the jaws_jobid, you can check the status of the job in the JAWS service
 
@@ -477,4 +487,4 @@ If the job fails again, the watcher will mark the job as `done` and update the s
 
 Some things to note:
 
-For jobs that have failed for with a transient incomplete data download, these may be resolved by invoking the `jaws download` command
+For jobs that have failed for with a transient incomplete data download, these may be resolved by invoking the `jaws download $jaws_jobid` command
