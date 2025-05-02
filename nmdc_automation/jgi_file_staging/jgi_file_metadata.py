@@ -13,7 +13,7 @@ from itertools import chain
 
 from nmdc_automation.jgi_file_staging.mongo import get_mongo_db
 from nmdc_automation.jgi_file_staging.models import Sample, SequencingProject
-from typing import List
+from typing import List, Dict, Any
 from pydantic import ValidationError
 
 logging.basicConfig(filename='file_staging.log',
@@ -77,7 +77,11 @@ def get_samples_data(project: str, config_file: str, csv_file: str = None) -> No
     gold_analysis_files_df['project'] = project
     logging.debug(f'number of samples to insert: {len(gold_analysis_files_df)}')
     logging.debug(gold_analysis_files_df.head().to_dict('records'))
-    insert_samples_into_mongodb(gold_analysis_files_df.to_dict('records'))
+
+    sample_objects = sample_records_to_sample_objects(gold_analysis_files_df.to_dict('records'))
+    if len(sample_objects) > 0:
+        mdb.samples.insert_many(sample_objects)
+        logging.info(f"Inserted {len(sample_objects)} samples into mongodb")
 
 
 def get_files_df_from_proposal_id(proposal_id: id, ACCESS_TOKEN: str, delay: float):
@@ -269,19 +273,23 @@ def get_seq_unit_names(analysis_files_df, gold_id):
     return seq_unit_names_list
 
 
-def insert_samples_into_mongodb(sample_list: list) -> None:
-    """ create workflows from list of samples to process"""
-    mdb = get_mongo_db()
-    try:
-        db_records_list = []
-        for d in sample_list:
-            db_records_list.append({key: value for (key, value) in d.items() if key in
-                                    list(Sample.__fields__.keys())})
-        sample_objects = [Sample(**sample).dict() for sample in sample_list]
-        mdb.samples.insert_many(sample_objects)
-    except ValidationError:
-        logging.exception(f'ValidationError {sample_list[0]["biosample_id"]}')
-        return None
+def sample_records_to_sample_objects(sample_records: List[Dict[str, Any]]) -> List[Sample]:
+    """
+    Convert sample records to Sample objects
+    :param sample_records: list of sample records
+    :return: list of Sample objects
+    """
+    sample_objects = []
+    for sample_record in sample_records:
+        try:
+            sample_object = Sample(**sample_record)
+            sample_objects.append(sample_object)
+        except ValidationError as e:
+            logging.exception(f"Validation error: {e}")
+            continue
+    return sample_objects
+
+
 
 
 def get_nmdc_study_id(proposal_id: int, ACCESS_TOKEN: str, delay) -> str:

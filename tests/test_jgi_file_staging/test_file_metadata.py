@@ -10,7 +10,7 @@ from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     check_access_token,
     get_sequence_id,
     get_analysis_projects_from_proposal_id,
-    insert_samples_into_mongodb,
+    sample_records_to_sample_objects,
 )
 from nmdc_automation.jgi_file_staging.models import Sample
 
@@ -108,13 +108,13 @@ def test_sample_model_instance_creation(monkeypatch, grow_analysis_df):
     assert sample_model.analysis_project_id == "p1323348"
 
 
-@mongomock.patch(servers=(("localhost", 27017),), on_new="create")
-def test_insert_samples_into_mongodb(monkeypatch, grow_analysis_df):
-    monkeypatch.setenv("MONGO_DBNAME", "test_db")
-    client = get_mongo_db()
-    mdb = client["test_db"]
 
-    insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
-    mdb = get_mongo_db()
-    sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
-    assert sample["studyId"] == "Gs0149396"
+def test_sample_records_to_sample_objects(test_db, grow_analysis_df):
+    exp_sample_count = len(grow_analysis_df)
+
+    sample_records = grow_analysis_df.to_dict("records")
+    assert len(sample_records) == exp_sample_count
+
+    sample_objects = sample_records_to_sample_objects(sample_records)
+    assert len(sample_objects) == exp_sample_count
+
