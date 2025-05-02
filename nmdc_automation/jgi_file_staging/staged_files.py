@@ -5,7 +5,7 @@ import argparse
 import logging
 from pathlib import Path
 
-from mongo import get_mongo_db
+from nmdc_automation.db.nmdc_mongo import get_db
 
 logging.basicConfig(
     filename="file_staging.log",
@@ -42,7 +42,7 @@ def get_list_missing_staged_files(
     stage_df["file_key"] = stage_df.apply(
         lambda x: f"{x.analysis_project}-{x.file}", axis=1
     )
-    mdb = get_mongo_db()
+    mdb = get_db()
     samples_df = pd.DataFrame([s for s in mdb.samples.find({"project": project_name})])
     samples_df["file_key"] = samples_df.apply(
         lambda x: f"{x.apGoldId}-{x.file_name}", axis=1

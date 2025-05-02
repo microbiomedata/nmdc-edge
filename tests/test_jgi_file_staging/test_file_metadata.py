@@ -55,17 +55,17 @@ def test_check_access_token_invalid(mocker, mock_get, config):
 
 def test_get_sequence_id(mock_get, config):
     mock_get.return_value.status_code = 200
-    mock_get.return_value.json.return_value = [{"itsSpid": 1323348}]
+    mock_get.return_value.json.return_value = [{"itsApId": 1323348}]
     sequence_id = get_sequence_id(
         "Ga0499978", "ed42ef155670", eval(config["JDP"]["delay"])
     )
-    assert sequence_id == 1323348
+    assert sequence_id == [1323348]
 
     mock_get.return_value.status_code = 403
     sequence_id = get_sequence_id(
         "Ga0499978", "ed42ef155670", eval(config["JDP"]["delay"])
     )
-    assert sequence_id == None
+    assert sequence_id == []
 
 
 def test_get_analysis_projects_from_proposal_id(mock_get):

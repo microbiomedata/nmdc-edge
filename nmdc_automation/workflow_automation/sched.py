@@ -5,7 +5,7 @@ import uuid
 import os
 from time import sleep as _sleep
 from nmdc_automation.api.nmdcapi import NmdcRuntimeApi
-from nmdc_automation.db.nmdc_mongo import get_mongo_db
+from nmdc_automation.db.nmdc_mongo import get_db
 from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from functools import lru_cache
 from nmdc_automation.workflow_automation.workflow_process import load_workflow_process_nodes
@@ -327,7 +327,7 @@ def main(site_conf, wf_file):  # pragma: no cover
     Main function
     """
     # site_conf = os.environ.get("NMDC_SITE_CONF", "site_configuration.toml")
-    db = get_mongo_db()
+    db = get_db()
     logger.info("Initializing Scheduler")
     sched = Scheduler(db, wf_file, site_conf=site_conf)
 

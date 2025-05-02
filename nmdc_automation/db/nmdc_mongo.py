@@ -6,7 +6,7 @@ from pymongo.synchronous.database import Database as MongoDatabase
 
 
 @lru_cache
-def get_mongo_db() -> MongoDatabase:
+def get_db() -> MongoDatabase:
     _client = MongoClient(
         host=os.getenv("MONGO_HOST", "localhost"),
         port=int(os.getenv("MONGO_PORT", "27018")),

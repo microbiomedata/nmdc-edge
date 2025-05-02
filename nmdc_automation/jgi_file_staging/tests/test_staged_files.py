@@ -5,8 +5,8 @@ import pandas as pd
 import os
 import configparser
 
-from jgi_file_metadata import insert_samples_into_mongodb
-from staged_files import get_list_missing_staged_files, get_list_staged_files
+from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to_sample_objects
+from nmdc_automation.jgi_file_staging.staged_files import get_list_missing_staged_files, get_list_staged_files
 
 class StagedFilesTestCase(unittest.TestCase):
     def setUp(self) -> None:
@@ -91,7 +91,7 @@ class StagedFilesTestCase(unittest.TestCase):
         ]
         grow_analysis_df["file_status"] = "ready"
         grow_analysis_df["project"] = "test_project"
-        insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
+        sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
         output_file = Path(os.path.dirname(__file__), "merge_db_staged.csv")
         try:
             missing_files = get_list_missing_staged_files(

@@ -11,7 +11,7 @@ import argparse
 from pathlib import Path
 from itertools import chain
 
-from nmdc_automation.jgi_file_staging.mongo import get_mongo_db
+from nmdc_automation.db.nmdc_mongo import get_db
 from nmdc_automation.jgi_file_staging.models import Sample, SequencingProject
 from typing import List, Dict, Any
 from pydantic import ValidationError
@@ -65,7 +65,7 @@ def get_samples_data(project: str, config_file: str, csv_file: str = None) -> No
     config = configparser.ConfigParser()
     config.read(config_file)
     ACCESS_TOKEN = get_access_token()
-    mdb = get_mongo_db()
+    mdb = get_db()
     seq_project = mdb.sequencing_projects.find_one({'project_name': project})
     if csv_file is not None:
         gold_analysis_files_df = pd.read_csv(csv_file)
@@ -169,12 +169,14 @@ def get_sequence_id(biosample_id: str, ACCESS_TOKEN: str, delay: float) -> List[
     # given a gold biosample id, get the JGI sequencing ID
     gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/analysis_projects?biosampleGoldId={biosample_id}'
     gold_biosample_response = get_request(gold_biosample_url, ACCESS_TOKEN, delay=delay)
+    if not gold_biosample_response.status_code == 200:
+        logging.exception(f"Error getting sequence id for biosample {biosample_id}")
+        return []
     sequence_id_list = []
     if not gold_biosample_response:
         return sequence_id_list
     for seq in gold_biosample_response:
-        if seq['apType'] in ["Metagenome Analysis", "Metatranscriptome Analysis"]:
-            sequence_id_list.append(seq['itsApId'])
+        sequence_id_list.append(seq['itsApId'])
     return sequence_id_list
 
 
@@ -315,7 +317,7 @@ def insert_new_project_into_mongodb(config_file: str) -> None:
     insert_dict = {'proposal_id': config['PROJECT']['proposal_id'], 'project_name': config['PROJECT']['name'],
                    'nmdc_study_id': nmdc_study_id, 'analysis_projects_dir': config['PROJECT']['analysis_projects_dir']}
     insert_object = SequencingProject(**insert_dict)
-    mdb = get_mongo_db()
+    mdb = get_db()
     mdb.sequencing_projects.insert_one(insert_object.dict())
 
 
@@ -326,7 +328,7 @@ def verify_downloads(config_file: str, project_name: str) -> bool:
     config = configparser.ConfigParser()
     config.read(config_file)
     ACCESS_TOKEN = get_access_token()
-    mdb = get_mongo_db()
+    mdb = get_db()
     project = mdb.sequencing_projects.find_one({'project_name': project_name})
     project_files_df = pd.DataFrame({'downloaded_files': get_downloaded_files(project_name)})
     files_df = get_files_df_from_proposal_id(project['proposal_id'],
@@ -344,7 +346,7 @@ def get_downloaded_files(project: str) -> List[str]:
     """
     Returns list of downloaded files from file system
     """
-    mdb = get_mongo_db()
+    mdb = get_db()
     sequencing_project = mdb.sequencing_projects.find_one({'project_name': project})
     analysis_projects_dir = Path(sequencing_project['analysis_projects_dir'])
     project_files = [str(path.name) for path in analysis_projects_dir.rglob('*') if not path.is_dir()]

@@ -6,8 +6,8 @@ import requests
 import os
 import logging
 from datetime import datetime
-from mongo import get_mongo_db
-from models import Sample
+from nmdc_automation.db.nmdc_mongo import get_db
+from nmdc_automation.jgi_file_staging.models import Sample
 from pydantic import ValidationError
 import argparse
 
@@ -17,7 +17,7 @@ logging.basicConfig(filename='file_staging.log',
 
 
 def update_sample_in_mongodb(sample: dict, update_dict: dict) -> bool:
-    mdb = get_mongo_db()
+    mdb = get_db()
     update_dict.update({'update_date': datetime.now()})
     sample.update(update_dict)
     try:
@@ -44,7 +44,7 @@ def restore_files(project: str, config_file: str, restore_csv=None) -> str:
     config = configparser.ConfigParser()
     config.read(config_file)
     update_file_statuses(project, config_file)
-    mdb = get_mongo_db()
+    mdb = get_db()
     if not restore_csv:
         restore_df = pd.DataFrame([sample for sample in mdb.samples.find({'project': project, 'file_status':
             {'$nin': ['in transit', 'transferred', 'RESTORED']}})])
@@ -113,7 +113,7 @@ def update_file_statuses(project: str, config_file: str=None, config: configpars
     if config is None:
         config = configparser.ConfigParser()
         config.read(config_file)
-    mdb = get_mongo_db()
+    mdb = get_db()
     samples_df = pd.DataFrame([sample for sample in mdb.samples.find({'project': project})])
     samples_df = samples_df[pd.notna(samples_df.request_id)]
     if samples_df.empty:

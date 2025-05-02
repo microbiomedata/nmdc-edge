@@ -5,9 +5,9 @@ import mongomock
 import pandas as pd
 import configparser
 
-from file_restoration import restore_files, update_file_statuses, check_restore_status
-from mongo import get_mongo_db
-from jgi_file_metadata import insert_samples_into_mongodb
+from nmdc_automation.jgi_file_staging.file_restoration import restore_files, update_file_statuses, check_restore_status
+from nmdc_automation.db.nmdc_mongo import get_db
+from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to_sample_objects
 
 
 class FileRestoreTest(unittest.TestCase):
@@ -16,7 +16,7 @@ class FileRestoreTest(unittest.TestCase):
         self.config_file = os.path.join(self.fixtures, 'config.ini')
 
     def tearDown(self) -> None:
-        mdb = get_mongo_db()
+        mdb = get_db()
         mdb.samples.drop()
         mdb.globus.drop()
 
@@ -40,8 +40,10 @@ class FileRestoreTest(unittest.TestCase):
         grow_analysis_df['project'] = "test_project"
         grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(lambda x: str(x))
         grow_analysis_df.loc[grow_analysis_df['file_size'] > 30000, 'file_status'] = 'PURGED'
-        insert_samples_into_mongodb(grow_analysis_df.to_dict('records'))
-        mdb = get_mongo_db()
+        sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict('records'))
+        mdb = get_db()
+        mdb.samples.insert_many([sample.model_dump() for sample in sample_objects])
+
         num_restore_samples = len([m for m in mdb.samples.find({'file_status': 'PURGED'})])
         self.assertEqual(num_restore_samples, 5)
         output = restore_files('test_project', self.config_file)
@@ -89,7 +91,9 @@ class FileRestoreTest(unittest.TestCase):
                                              'analysis_project_id']]
         grow_analysis_df.loc[grow_analysis_df['file_size'] > 30000, 'file_status'] = 'PURGED'
         grow_analysis_df['project'] = 'test_project'
-        insert_samples_into_mongodb(grow_analysis_df.to_dict('records'))
+        sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict('records'))
+        mdb = get_db()
+        mdb.samples.insert_many([sample.model_dump() for sample in sample_objects])
         output = restore_files('test_project', self.config_file)
         self.assertEqual(output, {"detail": "Authentication credentials were not provided."})
 
@@ -132,7 +136,7 @@ class FileRestoreTest(unittest.TestCase):
         config = configparser.ConfigParser()
         config.read(self.config_file)
         update_file_statuses('test_project', self.config_file)
-        mdb = get_mongo_db()
+        mdb = get_db()
         samples = [s for s in mdb.samples.find({'file_status': 'pending'})]
         self.assertEqual(len(samples), 5)
         self.assertEqual(samples[0]['file_name'], 'Ga0499978_proteins.supfam.domtblout')
@@ -157,7 +161,7 @@ class FileRestoreTest(unittest.TestCase):
         config = configparser.ConfigParser()
         config.read(self.config_file)
         update_file_statuses('test_project', self.config_file)
-        mdb = get_mongo_db()
+        mdb = get_db()
         samples = [s for s in mdb.samples.find({'file_status': 'pending'})]
         self.assertEqual(len(samples), 0)
 
