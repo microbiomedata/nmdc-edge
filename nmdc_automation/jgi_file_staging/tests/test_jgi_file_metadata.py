@@ -10,24 +10,23 @@ import configparser
 import sys
 from datetime import datetime
 
-from jgi_file_metadata import (
+from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     get_access_token,
     check_access_token,
     get_analysis_projects_from_proposal_id,
     get_sample_files,
     get_sequence_id,
-    insert_samples_into_mongodb,
     get_files_and_agg_ids,
     remove_unneeded_files,
     get_samples_data,
     remove_duplicate_analysis_files,
     remove_large_files,
     get_seq_unit_names,
-    get_request, get_biosample_ids, create_all_files_list
+    get_request, get_biosample_ids, create_all_files_list, sample_records_to_sample_objects
 )
-from mongo import get_mongo_db
-from models import SequencingProject
-from file_restoration import update_sample_in_mongodb
+from nmdc_automation.db.nmdc_mongo import get_db
+from nmdc_automation.jgi_file_staging.models import SequencingProject
+from nmdc_automation.jgi_file_staging.file_restoration import update_sample_in_mongodb
 
 
 class JgiFileTestCase(unittest.TestCase):
@@ -40,7 +39,7 @@ class JgiFileTestCase(unittest.TestCase):
 
     @mongomock.patch(servers=(("localhost", 27017),))
     def tearDown(self) -> None:
-        mdb = get_mongo_db()
+        mdb = get_db()
         mdb.samples.drop()
         mdb.globus.drop()
 
@@ -51,7 +50,7 @@ class JgiFileTestCase(unittest.TestCase):
                        'nmdc_study_id': 'nmdc:sty-11-r2h77870',
                        'analysis_projects_dir': 'nmdc_automation/jgi_file_staging/tests/fixtures/test_project'}
         insert_object = SequencingProject(**insert_dict)
-        mdb = get_mongo_db()
+        mdb = get_db()
         mdb.sequencing_projects.insert_one(insert_object.dict())
         insert_dict = {'proposal_id': '508306', 'project_name': '1000_soils', 'nmdc_study_id': 'nmdc:sty-11-28tm5d36',
                        'analysis_projects_dir': '/global/cfs/cdirs/m3408/aim2/dev'}
@@ -87,8 +86,8 @@ class JgiFileTestCase(unittest.TestCase):
         grow_analysis_df["project"] = "test_project"
         # grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(lambda x: eval(x))
         grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(lambda x: str(x))
-        insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
-        mdb = get_mongo_db()
+        sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
+        mdb = get_db()
         sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
         self.assertEqual(sample["studyId"], "Gs0149396")
         sample = mdb.samples.find_one({"jdp_file_id": "61a9d6ee8277d7ede604d0f6"})
@@ -102,10 +101,11 @@ class JgiFileTestCase(unittest.TestCase):
         )
 
         grow_analysis_df["project"] = None
-        mdb = get_mongo_db()
+        mdb = get_db()
         sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
-        insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
-        mdb = get_mongo_db()
+        sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
+        mdb = get_db()
+        mdb.insert_many(sample_objects)
         sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
         self.assertEqual(sample, None)
 
@@ -116,8 +116,9 @@ class JgiFileTestCase(unittest.TestCase):
         )
         grow_analysis_df['project'] = "test_project"
         grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(lambda x: str(x))
-        insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
-        mdb = get_mongo_db()
+        sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
+        mdb = get_db()
+        mdb.insert_many(sample_objects)
         sample = mdb.samples.find_one({"jdp_file_id": "6190d7d30de2fc3298da6f7a"})
         update_sample_in_mongodb(
             sample, {"file_status": "RESTORE_IN_PROGRESS", "request_id": 217934}
@@ -329,7 +330,7 @@ class JgiFileTestCase(unittest.TestCase):
             files_json_list = json.load(f)
         mock_file_ids.return_value = files_json_list
         get_samples_data('bioscales', self.config_file)
-        mdb = get_mongo_db()
+        mdb = get_db()
         sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
         self.assertEqual(sample["studyId"], "Gs0149396")
 
