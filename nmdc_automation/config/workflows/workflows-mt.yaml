@@ -286,7 +286,7 @@ Workflows:
     - Metatranscriptome Annotation
     Input_prefix: readcount
     Inputs:
-      gff_file: do:Functional Annotation GFF
+      gff: do:Functional Annotation GFF
       map: do:Contig Mapping File
       bam: do:Assembly Coverage BAM
       rna_type: "aRNA"
@@ -316,7 +316,7 @@ Workflows:
     - Metatranscriptome Annotation
     Input_prefix: readcount
     Inputs:
-      gff_file: do:Functional Annotation GFF
+      gff: do:Functional Annotation GFF
       map: do:Contig Mapping File
       bam: do:Assembly Coverage BAM
       proj_id: "{workflow_execution_id}"
@@ -345,7 +345,7 @@ Workflows:
     - Metatranscriptome Annotation
     Input_prefix: readcount
     Inputs:
-      gff_file: do:Functional Annotation GFF
+      gff: do:Functional Annotation GFF
       map: do:Contig Mapping File
       bam: do:Assembly Coverage BAM
       rna_type: "non_stranded_RNA"
