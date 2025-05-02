@@ -37,7 +37,7 @@ def get_request(url: str, ACCESS_TOKEN: str, delay=1.0) -> dict:
     headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
     time.sleep(delay)
     try:
-        response = requests.get(url, headers=headers, verify=eval(os.environ.get('VERIFY')))
+        response = requests.get(url, headers=headers, verify=_verify())
         if response.status_code == 404:
             logging.exception('404 error')
             return None
@@ -102,10 +102,25 @@ def get_analysis_files_df(proposal_id: int, files_df: pd.DataFrame, ACCESS_TOKEN
 
 def get_access_token() -> str:
     url = f'https://gold-ws.jgi.doe.gov/exchange?offlineToken={os.environ.get("OFFLINE_TOKEN")}'
-    response = requests.get(url, verify=eval(os.getenv('VERIFY')))
+    verify = _verify()
+
+    response = requests.get(url, verify=verify)
     sys.exit(f"get_access_token: {response.text}") if response.status_code != 200 else None
 
     return response.text
+
+
+def _verify() -> bool:
+    # Set verify based on environment variable - default to False
+    # if not set
+    verify = os.getenv('VERIFY', 'False')
+    if verify.lower() == 'true':
+        verify = True
+    elif verify.lower() == 'false':
+        verify = False
+    else:
+        verify = eval(verify)
+    return verify
 
 
 def check_access_token(ACCESS_TOKEN: str, delay: float) -> str:
