@@ -7,9 +7,9 @@ import mongomock
 import json
 import pandas as pd
 
-from mapping_tsv import get_gold_ids, get_gold_analysis_project, get_study_id, create_mapping_tsv
-from mongo import get_mongo_db
-from models import SequencingProject
+from nmdc_automation.jgi_file_staging.mapping_tsv import get_gold_ids, get_gold_analysis_project, get_study_id, create_mapping_tsv
+from nmdc_automation.db.nmdc_mongo import get_db
+from nmdc_automation.jgi_file_staging.models import SequencingProject
 
 
 class TestMappingFile(unittest.TestCase):
@@ -27,7 +27,7 @@ class TestMappingFile(unittest.TestCase):
                        'nmdc_study_id': 'nmdc:sty-11-r2h77870',
                        'analysis_projects_dir': 'nmdc_automation/jgi_file_staging/tests/fixtures/test_project'}
         insert_object = SequencingProject(**insert_dict)
-        mdb = get_mongo_db()
+        mdb = get_db()
         mdb.sequencing_projects.insert_one(insert_object.dict())
         insert_dict = {'proposal_id': '508306', 'project_name': '1000_soils', 'nmdc_study_id': 'nmdc:sty-11-28tm5d36',
                        'analysis_projects_dir': '/global/cfs/cdirs/m3408/aim2/dev'}

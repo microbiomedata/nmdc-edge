@@ -5,7 +5,8 @@ import pandas as pd
 from pathlib import Path
 from argparse import ArgumentParser
 
-from jgi_file_metadata import get_access_token, get_mongo_db, get_request
+from nmdc_automation.db.nmdc_mongo import get_db
+from nmdc_automation.jgi_file_staging.jgi_file_metadata import get_access_token, get_request
 
 
 def create_mapping_tsv(project_name: str, mapping_file_path: pathlib.Path, study_id=None) -> None:
@@ -39,7 +40,7 @@ def create_mapping_tsv(project_name: str, mapping_file_path: pathlib.Path, study
 
 
 def create_tsv_file(study_df, mapping_file_path, project_name, ap_type):
-    mdb = get_mongo_db()
+    mdb = get_db()
     sequencing_project = mdb.sequencing_projects.find_one({'project_name': project_name})
     study_df['project_path'] = study_df.apply(lambda x: str(
         Path(sequencing_project['analysis_projects_dir'], sequencing_project['project_name'],
@@ -54,7 +55,7 @@ def get_study_id(project_name, ACCESS_TOKEN):
     """
     Given a proposal_id for a project, return the corresponding NMDC study id
     """
-    mdb = get_mongo_db()
+    mdb = get_db()
     sequencing_project = mdb.sequencing_projects.find_one({'project_name': project_name})
     proposal_id = sequencing_project['proposal_id']
     url = (f'https://api.microbiomedata.org/nmdcschema/study_set?filter='
