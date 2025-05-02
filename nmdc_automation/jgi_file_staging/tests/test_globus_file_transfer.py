@@ -8,9 +8,8 @@ import configparser
 from pathlib import Path
 from testfixtures import Replace, mock_datetime
 
-from globus_file_transfer import (
+from nmdc_automation.jgi_file_staging.globus_file_transfer import (
     get_globus_manifest,
-    get_mongo_db,
     get_globus_task_status,
     create_globus_batch_file,
     create_globus_dataframe,
@@ -18,9 +17,11 @@ from globus_file_transfer import (
     update_globus_statuses,
     submit_globus_batch_file, get_project_globus_manifests
 )
-from staged_files import get_list_missing_staged_files
+from nmdc_automation.jgi_file_staging.staged_files import get_list_missing_staged_files
 
-from jgi_file_metadata import insert_samples_into_mongodb
+from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to_sample_objects
+from nmdc_automation.db.nmdc_mongo import get_db
+
 
 
 class GlobusTestCase(unittest.TestCase):
@@ -31,7 +32,7 @@ class GlobusTestCase(unittest.TestCase):
         self.config.read(self.config_file)
 
     def tearDown(self) -> None:
-        mdb = get_mongo_db()
+        mdb = get_db()
         mdb.samples.drop()
         mdb.globus.drop()
 
@@ -105,7 +106,9 @@ class GlobusTestCase(unittest.TestCase):
         grow_analysis_df.loc[:5, 'request_id'] = '201545'
         grow_analysis_df.loc[5:8, 'request_id'] = '201547'
         grow_analysis_df.loc[9, 'request_id'] = '201572'
-        insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
+        sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
+        mdb = get_db()
+        mdb.insert_many(sample_objects)
         get_project_globus_manifests('test_project', config=self.config)
         self.assertEqual(mock_manifest.call_count, 2)
         self.assertEqual(mock_manifest.mock_calls[0].args[0], 201547)
@@ -124,7 +127,9 @@ class GlobusTestCase(unittest.TestCase):
         grow_analysis_df.loc[:5, 'request_id'] = '201545'
         grow_analysis_df.loc[5:8, 'request_id'] = '201547'
         grow_analysis_df.loc[9, 'request_id'] = '201572'
-        insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
+        sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
+        mdb = get_db()
+        mdb.insert_many(sample_objects)
         mock_run.side_effect = [
             "Globus_Download_201545_File_Manifest.csv",
             "Globus_Download_201547_File_Manifest.csv",

@@ -5,11 +5,11 @@ import pandas as pd
 import os
 import logging
 from pathlib import Path
-from mongo import get_mongo_db
 import subprocess
 import argparse
 from typing import List
-from file_restoration import update_sample_in_mongodb, update_file_statuses
+from nmdc_automation.jgi_file_staging.file_restoration import update_sample_in_mongodb, update_file_statuses
+from nmdc_automation.db.nmdc_mongo import get_db
 
 logging.basicConfig(filename='file_staging.log',
                     format='%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
@@ -24,7 +24,7 @@ def get_project_globus_manifests(project_name: str, config_file: str = None,
     if config_file:
         config = configparser.ConfigParser()
         config.read(config_file)
-    mdb = get_mongo_db()
+    mdb = get_db()
     samples_df = pd.DataFrame(mdb.samples.find({'project': project_name, 'file_status':
         {'$nin': ['in transit', 'transferred', 'expired', 'PURGED']}}))
     samples_df = samples_df[pd.notna(samples_df.request_id)]
@@ -97,7 +97,7 @@ def create_globus_batch_file(project: str, config: configparser.ConfigParser) ->
     3) write to globus batch file
     """
     update_file_statuses(project=project, config=config)
-    mdb = get_mongo_db()
+    mdb = get_db()
     samples_df = pd.DataFrame(mdb.samples.find({'file_status': 'ready'}))
     if samples_df.empty:
         logging.debug(f"no samples ready to transfer")
@@ -150,7 +150,7 @@ def submit_globus_batch_file(project: str, config_file: str):
 
 
 def insert_globus_status_into_mongodb(task_id: str, task_status: str):
-    mdb = get_mongo_db()
+    mdb = get_db()
     mdb.globus.insert_one({'task_id': task_id, 'task_status': task_status})
 
 
@@ -160,12 +160,12 @@ def get_globus_task_status(task_id: str):
 
 
 def update_globus_task_status(task_id: str, task_status: str):
-    mdb = get_mongo_db()
+    mdb = get_db()
     mdb.globus.update_one({'task_id': task_id}, {'$set': {'task_status': task_status}})
 
 
 def update_globus_statuses():
-    mdb = get_mongo_db()
+    mdb = get_db()
     tasks = [t for t in mdb.globus.find({'task_status': {'$ne': 'SUCCEEDED'}})]
     for task in tasks:
         task_status = get_globus_task_status(task['task_id'])
