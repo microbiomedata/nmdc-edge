@@ -8,29 +8,17 @@ import yaml
 import pandas as pd
 import configparser
 from datetime import datetime
-from src.jgi_file_staging import (
-    get_access_token,
-    check_access_token,
-    get_analysis_projects_from_proposal_id,
-    get_sample_files,
-    get_sequence_id,
-    insert_samples_into_mongodb,
-    get_mongo_db,
-    get_files_and_agg_ids,
-    combine_sample_ids_with_agg_ids,
+
+
+from nmdc_automation.jgi_file_staging.file_restoration import (
     update_sample_in_mongodb,
     restore_files,
     check_restore_status,
-    get_globus_manifests,
-    create_globus_batch_file,
-    submit_globus_batch_file,
     update_file_statuses,
+)
+from nmdc_automation.jgi_file_staging.globus_file_transfer import (
     create_globus_dataframe,
-    insert_globus_status_into_mongodb,
-    update_globus_task_status,
-    update_globus_statuses,
-    get_globus_task_status,
-    remove_unneeded_files,
+    create_globus_batch_file,
 )
 
 from functools import wraps
@@ -48,14 +36,14 @@ def mock_decorator(*args, **kwargs):
 
     return decorator
 
+#
+# patch("jgi_file_staging.click.command", mock_decorator).start()
+# patch("jgi_file_staging.click.argument", mock_decorator).start()
+# # patch('jgi_file_staging.cli.command', mock_decorator).start()
+# patch("jgi_file_staging.click.core", mock_decorator).start()
 
-patch("jgi_file_staging.click.command", mock_decorator).start()
-patch("jgi_file_staging.click.argument", mock_decorator).start()
-# patch('jgi_file_staging.cli.command', mock_decorator).start()
-patch("jgi_file_staging.click.core", mock_decorator).start()
 
 
-from jgi_file_staging import get_samples_data
 
 
 class JgiFileTestCase(unittest.TestCase):

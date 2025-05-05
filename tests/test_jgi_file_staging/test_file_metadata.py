@@ -6,7 +6,6 @@ import pytest
 
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     get_access_token,
-    get_mongo_db,
     check_access_token,
     get_sequence_id,
     get_analysis_projects_from_proposal_id,
@@ -35,35 +34,40 @@ def test_get_access_token(mock_get):
 def test_check_access_token(mock_get, config):
     mock_get.return_value.status_code = 200
     access_token = "ed42ef1556708305eaf8"
-    access_token = check_access_token(access_token, eval(config["JDP"]["delay"]))
+    access_token = check_access_token(access_token)
     assert access_token == "ed42ef1556708305eaf8"
 
 
-def test_check_access_token_invalid(mocker, mock_get, config):
-    response_mock1 = mocker.Mock()
-    response_mock1.status_code = 400
-    response_mock1.text = "ed42ef1556"
-    response_mock2 = mocker.Mock()
-    response_mock2.status_code = 200
-    response_mock2.text = "ed42ef155670"
-    mock_get.side_effect = [response_mock1, response_mock2]
+def test_check_access_token_invalid(mocker):
+    # Mock get_request to fail once, then succeed
+    get_request_mock = mocker.patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_request')
+    get_request_mock.side_effect = [
+        None,  # simulate 404 or failure → triggers fallback
+        {"some": "data"}  # simulate success after new token
+    ]
+
+    # Mock get_access_token to return a new token
+    get_access_token_mock = mocker.patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_access_token')
+    get_access_token_mock.return_value = "ed42ef155670"
 
     access_token = "ed42ef1556708305eaf8"
-    access_token = check_access_token(access_token, eval(config["JDP"]["delay"]))
-    assert access_token == "ed42ef155670"
+    result = check_access_token(access_token)
+
+    assert result == "ed42ef155670"
+
 
 
 def test_get_sequence_id(mock_get, config):
     mock_get.return_value.status_code = 200
     mock_get.return_value.json.return_value = [{"itsApId": 1323348}]
     sequence_id = get_sequence_id(
-        "Ga0499978", "ed42ef155670", eval(config["JDP"]["delay"])
+        "Ga0499978", "ed42ef155670",
     )
     assert sequence_id == [1323348]
 
     mock_get.return_value.status_code = 403
     sequence_id = get_sequence_id(
-        "Ga0499978", "ed42ef155670", eval(config["JDP"]["delay"])
+        "Ga0499978", "ed42ef155670",
     )
     assert sequence_id == []
 

@@ -10,6 +10,8 @@ import time
 import argparse
 from pathlib import Path
 from itertools import chain
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 from nmdc_automation.db.nmdc_mongo import get_db
 from nmdc_automation.jgi_file_staging.models import Sample, SequencingProject
@@ -33,24 +35,34 @@ Config file contains parameters that can change.
 ACCEPT = "application/json"
 
 
-def get_request(url: str, ACCESS_TOKEN: str, delay=1.0) -> dict:
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type(requests.exceptions.RequestException),
+    reraise=True
+)
+def get_request(url: str, ACCESS_TOKEN: str) -> List[Dict[str, Any]]:
+    """
+    Make a GET request to the specified URL with the provided access token.
+    :param url: URL to send the request to
+    :param ACCESS_TOKEN: Access token for authorization
+    :return: Response object if successful, None if 404
+    """
     headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
-    time.sleep(delay)
-    try:
-        response = requests.get(url, headers=headers, verify=_verify())
-        if response.status_code == 404:
-            logging.exception('404 error')
-            return None
-        else:
-            return response.json()
-    except requests.exceptions.HTTPError as errh:
-        logging.exception(f"HTTP Error: {errh}")
-    except requests.exceptions.ConnectionError as errc:
-        logging.exception(f"Error Connecting: {errc}")
-    except requests.exceptions.Timeout as errt:
-        logging.exception(f"Timeout Error: {errt}")
-    except requests.exceptions.RequestException as err:
-        logging.exception(f"Something Else: {err}")
+    response = requests.get( url, headers=headers, verify=_verify())
+    if response.status_code == 200:
+        return response.json()
+    # warn and carry on if not found / forbidden
+    elif response.status_code == 404:
+        logging.warning(f"404 Not Found: {url}")
+        return []
+    elif response.status_code == 403:
+        logging.warning(f"403 Forbidden: {url}")
+        return []
+    # raise an exception for other errors
+    else:
+        logging.error(f"Error {response.status_code}: {response.text}")
+        raise requests.exceptions.RequestException(f"Error {response.status_code}: {response.text}")
 
 
 def get_samples_data(project: str, config_file: str, csv_file: str = None) -> None:
@@ -127,16 +139,16 @@ def _verify() -> bool:
     return verify
 
 
-def check_access_token(ACCESS_TOKEN: str, delay: float) -> str:
+def check_access_token(ACCESS_TOKEN: str) -> str:
     url = 'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId=Gb0291582'
-    gold_biosample_response = get_request(url, ACCESS_TOKEN, delay=delay)
+    gold_biosample_response = get_request(url, ACCESS_TOKEN)
     if gold_biosample_response:
         return ACCESS_TOKEN
     else:
         return get_access_token()
 
 
-def get_sample_files(proposal_id: int, ACCESS_TOKEN: str, delay: float) -> List[dict]:
+def get_sample_files(proposal_id: int, ACCESS_TOKEN: str) -> List[dict]:
     """
     Get all sample files for a project
     :param proposal_id: proposal id
@@ -149,8 +161,8 @@ def get_sample_files(proposal_id: int, ACCESS_TOKEN: str, delay: float) -> List[
     all_files_list = []
     for idx, biosample_id in samples_df.itertuples():
         logging.debug(f"biosample {biosample_id}")
-        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN, delay)
-        seq_id_list = get_sequence_id(biosample_id, ACCESS_TOKEN, delay)
+        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN)
+        seq_id_list = get_sequence_id(biosample_id, ACCESS_TOKEN)
         for seq_id in seq_id_list:
             sample_files_list = get_files_and_agg_ids(seq_id, ACCESS_TOKEN)
             create_all_files_list(sample_files_list, biosample_id, seq_id, all_files_list)
@@ -165,13 +177,10 @@ def get_biosample_ids(proposal_id: int, ACCESS_TOKEN: str) -> List[str]:
     return biosample_ids
 
 
-def get_sequence_id(biosample_id: str, ACCESS_TOKEN: str, delay: float) -> List[str]:
+def get_sequence_id(biosample_id: str, ACCESS_TOKEN: str) -> List[str]:
     # given a gold biosample id, get the JGI sequencing ID
     gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/analysis_projects?biosampleGoldId={biosample_id}'
-    gold_biosample_response = get_request(gold_biosample_url, ACCESS_TOKEN, delay=delay)
-    if not gold_biosample_response.status_code == 200:
-        logging.exception(f"Error getting sequence id for biosample {biosample_id}")
-        return []
+    gold_biosample_response = get_request(gold_biosample_url, ACCESS_TOKEN)
     sequence_id_list = []
     if not gold_biosample_response:
         return sequence_id_list

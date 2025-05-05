@@ -1,3 +1,4 @@
+import ast
 import unittest
 import os
 from unittest.mock import patch
@@ -6,23 +7,22 @@ import pandas as pd
 import configparser
 
 from nmdc_automation.jgi_file_staging.file_restoration import restore_files, update_file_statuses, check_restore_status
-from nmdc_automation.db.nmdc_mongo import get_db
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to_sample_objects
+
 
 
 class FileRestoreTest(unittest.TestCase):
     def setUp(self) -> None:
         self.fixtures = os.path.join(os.path.dirname(__file__), 'fixtures')
         self.config_file = os.path.join(self.fixtures, 'config.ini')
+        self.db = get_db()
 
-    def tearDown(self) -> None:
-        mdb = get_db()
-        mdb.samples.drop()
-        mdb.globus.drop()
 
-    @patch('file_restoration.update_file_statuses')
-    @patch('jgi_file_metadata.requests.post')
-    @mongomock.patch(servers=(('localhost', 27017),))
+
+
+    @patch('nmdc_automation.jgi_file_staging.file_restoration.update_file_statuses')
+    @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.post')
+    # @mongomock.patch(servers=(('localhost', 27017),))
     def test_restore_files(self, mock_post, mock_update):
         # mock API call for file restore request
         mock_post.return_value.status_code = 200
@@ -34,23 +34,24 @@ class FileRestoreTest(unittest.TestCase):
         grow_analysis_df = pd.read_csv(os.path.join(self.fixtures, 'grow_analysis_projects.csv'))
         grow_analysis_df.columns = ['apGoldId', 'studyId', 'itsApId', 'projects', 'biosample_id', 'seq_id', 'file_name',
                                     'file_status', 'file_size', 'jdp_file_id', 'md5sum', 'analysis_project_id']
-        grow_analysis_df = grow_analysis_df[['apGoldId', 'studyId', 'itsApId', 'biosample_id', 'seq_id',
+        grow_analysis_df = grow_analysis_df[['apGoldId', 'studyId', 'itsApId', 'projects', 'biosample_id', 'seq_id',
                                              'file_name', 'file_status', 'file_size', 'jdp_file_id', 'md5sum',
                                              'analysis_project_id']]
-        grow_analysis_df['project'] = "test_project"
+        grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(lambda x: ast.literal_eval(x))
         grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(lambda x: str(x))
         grow_analysis_df.loc[grow_analysis_df['file_size'] > 30000, 'file_status'] = 'PURGED'
-        sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict('records'))
-        mdb = get_db()
-        mdb.samples.insert_many([sample.model_dump() for sample in sample_objects])
+        sample_records = grow_analysis_df.to_dict('records')
+        sample_objects = sample_records_to_sample_objects(sample_records)
 
-        num_restore_samples = len([m for m in mdb.samples.find({'file_status': 'PURGED'})])
+        self.db.samples.insert_many([sample.model_dump() for sample in sample_objects])
+
+        num_restore_samples = len([m for m in self.db.samples.find({'file_status': 'PURGED'})])
         self.assertEqual(num_restore_samples, 5)
         output = restore_files('test_project', self.config_file)
         self.assertEqual(output, f"requested restoration of 5 files")
-        num_restore_samples = len([m for m in mdb.samples.find({'file_status': 'PURGED'})])
+        num_restore_samples = len([m for m in self.db.samples.find({'file_status': 'PURGED'})])
         self.assertEqual(num_restore_samples, 0)
-        samples = [s for s in mdb.samples.find({})]
+        samples = [s for s in self.db.samples.find({})]
         self.assertEqual(samples[3]['request_id'], 220699)
         self.assertEqual(samples[0]['request_id'], None)
 
@@ -97,7 +98,7 @@ class FileRestoreTest(unittest.TestCase):
         output = restore_files('test_project', self.config_file)
         self.assertEqual(output, {"detail": "Authentication credentials were not provided."})
 
-    @patch('jgi_file_metadata.requests.get')
+    @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get')
     @mongomock.patch(servers=(('localhost', 27017),))
     def test_check_restore_status(self, mock_get):
         config = configparser.ConfigParser()
@@ -115,7 +116,7 @@ class FileRestoreTest(unittest.TestCase):
         response = check_restore_status(220699, config)
         self.assertEqual(response, None)
 
-    @patch('jgi_file_metadata.requests.get')
+    @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get')
     @mongomock.patch(servers=(('localhost', 27017),))
     def test_update_file_status(self, mock_get):
         mock_get.return_value.status_code = 200
@@ -132,7 +133,7 @@ class FileRestoreTest(unittest.TestCase):
                                              'analysis_project_id']]
         grow_analysis_df.loc[grow_analysis_df['file_size'] > 30000, 'file_status'] = 'pending'
         grow_analysis_df['project'] = 'test_project'
-        insert_samples_into_mongodb(grow_analysis_df.to_dict('records'))
+        sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict('records'))
         config = configparser.ConfigParser()
         config.read(self.config_file)
         update_file_statuses('test_project', self.config_file)
@@ -141,7 +142,7 @@ class FileRestoreTest(unittest.TestCase):
         self.assertEqual(len(samples), 5)
         self.assertEqual(samples[0]['file_name'], 'Ga0499978_proteins.supfam.domtblout')
 
-    @patch('jgi_file_metadata.requests.get')
+    @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get')
     @mongomock.patch(servers=(('localhost', 27017),))
     def test_update_file_status_no_samples_to_restore(self, mock_get):
         mock_get.return_value.status_code = 200

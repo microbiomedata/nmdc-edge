@@ -1,0 +1,36 @@
+"""
+Unit tests for the file restoration process in the JGI file staging system.
+"""
+import ast
+import os
+import pandas as pd
+import pytest
+
+
+from unittest.mock import patch
+
+from tests.fixtures import db_utils
+
+from nmdc_automation.jgi_file_staging.file_restoration import restore_files, update_file_statuses, check_restore_status
+from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to_sample_objects
+
+
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.post')
+# @mongomock.patch(servers=(('localhost', 27017),))
+def test_restore_files(mock_post, config, grow_analysis_df, test_db):
+    db_utils.reset_db(test_db)
+    test_db.samples.delete_many({})
+    # mock API call for file restore request
+    mock_post.return_value.status_code = 200
+    mock_post.return_value.json.return_value = {
+        'updated_count': 0, 'restored_count': 4, 'request_id': 220699, 'request_status_url':
+            'https://files.jgi.doe.gov/request_archived_files/requests/220699'}
+
+    # insert samples into database
+    grow_analysis_df.loc[grow_analysis_df['file_size'] > 30000, 'file_status'] = 'PURGED'
+    sample_records = grow_analysis_df.to_dict('records')
+    sample_objects = sample_records_to_sample_objects(sample_records)
+    test_db.samples.insert_many([sample.model_dump() for sample in sample_objects])
+
+    num_restore_samples = len([m for m in test_db.samples.find({'file_status': 'PURGED'})])
+    assert num_restore_samples == 5
