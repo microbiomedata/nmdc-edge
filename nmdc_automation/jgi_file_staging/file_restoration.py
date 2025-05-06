@@ -33,25 +33,42 @@ def update_sample_in_mongodb(sample: dict, update_dict: dict, mdb) -> bool:
 
 def restore_files(project: str, config_file: str, mdb, restore_csv=None) -> str:
     """
-    restore files from tape backup on JGI
-    1) update file statuses
-    2) for any files that are still PURGED, submit request to restore from tape
-    There is a limit of 10TB/day for restore requests
-    :param project: name of project (i.e. grow or bioscales)
-    :param config_file: config file
-    :param restore_csv: csv file with files to restore
-    :return:
+    Restore files from tape backup at JGI.
+
+    1. Update file statuses
+    2. Submit restore requests for files that are not in transit, transferred, or restored
+    Limitations: max restore request size is 10TB/day, and max number of files is 750
+
+    :param project: Name of project (e.g., 'grow', 'bioscales').
+    :param config_file: Path to config file.
+    :param mdb: MongoDB connection.
+    :param restore_csv: Optional CSV file with files to restore.
+    :return: Status message.
     """
+    # Read config file
     config = configparser.ConfigParser()
     config.read(config_file)
-    update_file_statuses(project, mdb, config_file)
-    if not restore_csv:
-        restore_df = pd.DataFrame([sample for sample in mdb.samples.find({'project': project, 'file_status':
-            {'$nin': ['in transit', 'transferred', 'RESTORED']}})])
-    else:
+
+    # Update statuses first
+    # update_file_statuses(project, mdb, config_file)
+
+    # Load restore DataFrame
+    if restore_csv:
         restore_df = pd.read_csv(restore_csv)
-    if restore_df.empty:
-        return 'No samples'
+    else:
+        samples = list(
+            mdb.samples.find(
+                {
+                    'projects': project,
+                    'file_status': {'$nin': ['in transit', 'transferred', 'RESTORED']}
+                }
+            )
+        )
+        if not samples:
+            return 'No samples to restore'
+        restore_df = pd.DataFrame(samples)
+
+
     JDP_TOKEN = os.environ.get('JDP_TOKEN')
     if not JDP_TOKEN:
         sys.exit('JDP_TOKEN environment variable not set')
@@ -93,7 +110,7 @@ def restore_files(project: str, config_file: str, mdb, restore_csv=None) -> str:
             logging.debug(f"{begin_idx, end_idx, restore_df.loc[begin_idx:end_idx, 'file_size'].sum(), sum_files}")
         begin_idx = end_idx
     restore_df.apply(lambda x: update_sample_in_mongodb(x, {'request_id': x['request_id'],
-                                                            'file_status': x['file_status']}), axis=1)
+                                                            'file_status': x['file_status']}, mdb), axis=1)
 
     return f"requested restoration of {count} files"
 
@@ -191,7 +208,10 @@ if __name__ == '__main__':
                         default=False)
     parser.add_argument('-r', '--restore_csv', default=None,  help='csv with files to restore')
     args = vars((parser.parse_args()))
+
+    mdb = get_db()
+
     if args['update_file_statuses']:
-        update_file_statuses(args['project_name'], config_file=args['config_file'])
+        update_file_statuses(args['project_name'], mdb, config_file=args['config_file'])
     else:
-        restore_files(args['project_name'], args['config_file'], args['restore_csv'])
+        restore_files(args['project_name'], args['config_file'], mdb, args['restore_csv'])
