@@ -65,7 +65,7 @@ def get_request(url: str, ACCESS_TOKEN: str) -> List[Dict[str, Any]]:
         raise requests.exceptions.RequestException(f"Error {response.status_code}: {response.text}")
 
 
-def get_samples_data(project: str, config_file: str, csv_file: str = None) -> None:
+def get_samples_data(project: str, config_file: str, mdb, csv_file: str = None) -> None:
     """
     Get JGI sample metadata using the gold API and store in a mongodb
     :param project: Name of project (e.g., GROW, Bioscales, NEON)
@@ -77,7 +77,6 @@ def get_samples_data(project: str, config_file: str, csv_file: str = None) -> No
     config = configparser.ConfigParser()
     config.read(config_file)
     ACCESS_TOKEN = get_access_token()
-    mdb = get_db()
     seq_project = mdb.sequencing_projects.find_one({'project_name': project})
     if csv_file is not None:
         gold_analysis_files_df = pd.read_csv(csv_file)
@@ -314,7 +313,7 @@ def get_nmdc_study_id(proposal_id: int, ACCESS_TOKEN: str, delay) -> str:
     return response_json['resources'][0]['id']
 
 
-def insert_new_project_into_mongodb(config_file: str) -> None:
+def insert_new_project_into_mongodb(config_file: str, mdb) -> None:
     """
     Create a new project in mongodb
     """
@@ -326,18 +325,16 @@ def insert_new_project_into_mongodb(config_file: str) -> None:
     insert_dict = {'proposal_id': config['PROJECT']['proposal_id'], 'project_name': config['PROJECT']['name'],
                    'nmdc_study_id': nmdc_study_id, 'analysis_projects_dir': config['PROJECT']['analysis_projects_dir']}
     insert_object = SequencingProject(**insert_dict)
-    mdb = get_db()
     mdb.sequencing_projects.insert_one(insert_object.dict())
 
 
-def verify_downloads(config_file: str, project_name: str) -> bool:
+def verify_downloads(config_file: str, project_name: str, mdb) -> bool:
     """
     Verifies that all files are downloaded
     """
     config = configparser.ConfigParser()
     config.read(config_file)
     ACCESS_TOKEN = get_access_token()
-    mdb = get_db()
     project = mdb.sequencing_projects.find_one({'project_name': project_name})
     project_files_df = pd.DataFrame({'downloaded_files': get_downloaded_files(project_name)})
     files_df = get_files_df_from_proposal_id(project['proposal_id'],
@@ -351,11 +348,10 @@ def verify_downloads(config_file: str, project_name: str) -> bool:
     return len(download_gold_df) == len(gold_analysis_files_df)
 
 
-def get_downloaded_files(project: str) -> List[str]:
+def get_downloaded_files(project: str, mdb) -> List[str]:
     """
     Returns list of downloaded files from file system
     """
-    mdb = get_db()
     sequencing_project = mdb.sequencing_projects.find_one({'project_name': project})
     analysis_projects_dir = Path(sequencing_project['analysis_projects_dir'])
     project_files = [str(path.name) for path in analysis_projects_dir.rglob('*') if not path.is_dir()]
@@ -374,10 +370,21 @@ if __name__ == '__main__':
                         default=False)
     parser.add_argument('-f', '--file', help='csv file with files to stage')
     args = vars((parser.parse_args()))
-    if args['verify_downloads']:
-        if verify_downloads(args['config_file'], args['project_name']):
-            print('Downloads verified')
-    elif args['insert_project']:
-        insert_new_project_into_mongodb(args['config_file'])
+
+    project_name = args['project_name']
+    config_file = args['config_file']
+    verify_downloads = args['verify_downloads']
+    insert_project = args['insert_project']
+    file = args['file']
+    mdb = get_db()
+    if insert_project:
+        insert_new_project_into_mongodb(config_file, mdb)
+    if verify_downloads:
+        verify = verify_downloads(config_file, project_name, mdb)
+        if verify:
+            print("All files downloaded")
+        else:
+            print("Not all files downloaded")
     else:
-        get_samples_data(args['project_name'], args['config_file'], csv_file=args['file'])
+        get_samples_data(project_name, config_file, mdb, file)
+        print("Sample metadata inserted into mongodb")
