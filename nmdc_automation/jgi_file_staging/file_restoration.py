@@ -11,7 +11,7 @@ from nmdc_automation.jgi_file_staging.models import Sample
 from pydantic import ValidationError
 import argparse
 import json
-from pymongo.synchronous.database import Database as MongoDatabase
+
 
 logging.basicConfig(filename='file_staging.log',
                     format='%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
@@ -121,18 +121,46 @@ def update_file_statuses(project: str, mdb, config_file: str=None, config: confi
     if config is None:
         config = configparser.ConfigParser()
         config.read(config_file)
-    # mdb = get_db()
-    samples_df = pd.DataFrame([sample for sample in mdb.samples.find({'project': project})])
-    samples_df = samples_df[pd.notna(samples_df.request_id)]
-    if samples_df.empty:
+
+    samples_cursor = mdb.samples.find({'project': project})
+    samples_list = list(samples_cursor)
+    if not samples_list:
         logging.debug(f"no samples to update for {project}")
         return
+    samples_df = pd.DataFrame(samples_list)
+
+    if 'request_id' not in samples_df.columns:
+        logging.debug(f"no samples with request_id to update for {project}")
+        return
+
     samples_df['request_id'] = samples_df['request_id'].astype(int)
-    restore_response_df = get_file_statuses(samples_df, config)
-    for idx, row in restore_response_df.loc[
-                    restore_response_df.file_status_x != restore_response_df.file_status_y, :].iterrows():
+
+    # get file statuses from JGI Data Portal
+    try:
+        restore_response_df = get_file_statuses(samples_df, config)
+    except Exception as e:
+        logging.error(f"Error getting file statuses: {e}")
+        return
+
+    if 'file_status_x' not in restore_response_df.columns or 'file_status_y' not in restore_response_df.columns:
+        logging.debug(f"no file statuses to update for {project}")
+        return
+
+    changed_rows = restore_response_df.loc[
+        restore_response_df.file_status_x != restore_response_df.file_status_y, :]
+    if changed_rows.empty:
+        logging.debug(f"no file statuses changed for {project}")
+        return
+    logging.debug(f"updating {len(changed_rows)} file statuses for {project}")
+
+    # update file statuses in MongoDB
+    for idx, row in changed_rows.iterrows():
         sample = row[row.keys().drop(['file_status_x', 'file_status_y'])].to_dict()
-        update_sample_in_mongodb(sample, {'jdp_file_id': row.jdp_file_id, 'file_status': row.file_status_y})
+        try:
+            update_sample_in_mongodb(sample, {'jdp_file_id': row.jdp_file_id, 'file_status': row.file_status_y}, mdb)
+        except Exception as e:
+            logging.error(f"Error updating sample {sample['jdp_file_id']}: {e}")
+            continue
 
 
 def check_restore_status(restore_request_id, config):

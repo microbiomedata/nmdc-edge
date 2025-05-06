@@ -31,7 +31,7 @@ def test_get_access_token(mock_get):
     assert access_token == "ed42ef1556708305eaf8"
 
 
-def test_check_access_token(mock_get, config):
+def test_check_access_token(mock_get, import_config):
     mock_get.return_value.status_code = 200
     access_token = "ed42ef1556708305eaf8"
     access_token = check_access_token(access_token)
@@ -57,7 +57,7 @@ def test_check_access_token_invalid(mocker):
 
 
 
-def test_get_sequence_id(mock_get, config):
+def test_get_sequence_id(mock_get, import_config):
     mock_get.return_value.status_code = 200
     mock_get.return_value.json.return_value = [{"itsApId": 1323348}]
     sequence_id = get_sequence_id(

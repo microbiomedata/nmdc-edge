@@ -29,8 +29,7 @@ def test_restore_files(mock_post, import_config_file, grow_analysis_df, test_db)
 
     num_restore_samples = len([m for m in test_db.samples.find({'file_status': 'PURGED'})])
     assert num_restore_samples == 5
-
-    output = restore_files('test_project', import_config_file, test_db)
+    output = restore_files('Gp0587070', import_config_file, test_db)
 
 
 @patch.dict(os.environ, {'JDP_TOKEN': 'dummy_token'})
