@@ -1,5 +1,6 @@
 import logging
 import pathlib
+import sys
 
 import pandas as pd
 from pathlib import Path
@@ -9,7 +10,7 @@ from nmdc_automation.db.nmdc_mongo import get_db
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import get_access_token, get_request
 
 
-def create_mapping_tsv(project_name: str, mapping_file_path: pathlib.Path, study_id=None) -> None:
+def create_mapping_tsv(project_name: str, mapping_file_path: pathlib.Path, mdb, study_id) -> None:
     """
     Creates mapping tsv file for a given project
     :param project_name: Name of the project
@@ -20,8 +21,6 @@ def create_mapping_tsv(project_name: str, mapping_file_path: pathlib.Path, study
     2) for each gold id, get the gold analysis record
     """
     ACCESS_TOKEN = get_access_token()
-    if study_id is None:
-        study_id = get_study_id(project_name, ACCESS_TOKEN)
     study_df = get_gold_ids(study_id, ACCESS_TOKEN)
     study_df['gold_project'] = study_df.gold_sequencing_project_identifiers.apply(lambda x: x[0].split(':')[1])
     study_df = study_df.apply(
@@ -36,11 +35,11 @@ def create_mapping_tsv(project_name: str, mapping_file_path: pathlib.Path, study
     metag_study_df = study_df.loc[study_df.ap_type == 'Metagenome Analysis', ['id', 'gold_analysis_project']]
     create_tsv_file(metag_study_df, mapping_file_path, project_name, 'metag')
     if not metat_study_df.empty:
-        create_tsv_file(metat_study_df, mapping_file_path, project_name, 'metat')
+        create_tsv_file(metat_study_df, mapping_file_path, project_name, 'metat', mdb)
 
 
-def create_tsv_file(study_df, mapping_file_path, project_name, ap_type):
-    mdb = get_db()
+def create_tsv_file(study_df, mapping_file_path, project_name, ap_type, mdb):
+
     sequencing_project = mdb.sequencing_projects.find_one({'project_name': project_name})
     study_df['project_path'] = study_df.apply(lambda x: str(
         Path(sequencing_project['analysis_projects_dir'], sequencing_project['project_name'],
@@ -51,11 +50,10 @@ def create_tsv_file(study_df, mapping_file_path, project_name, ap_type):
     study_df.to_csv(Path(mapping_file_path, f'{project_name}.{ap_type}.map.tsv'), sep='\t', index=False)
 
 
-def get_study_id(project_name, ACCESS_TOKEN):
+def get_study_id(project_name, ACCESS_TOKEN, mdb):
     """
     Given a proposal_id for a project, return the corresponding NMDC study id
     """
-    mdb = get_db()
     sequencing_project = mdb.sequencing_projects.find_one({'project_name': project_name})
     proposal_id = sequencing_project['proposal_id']
     url = (f'https://api.microbiomedata.org/nmdcschema/study_set?filter='
@@ -113,4 +111,16 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--study_id', default=None)
     parser.add_argument('-f', '--file_path', default='.')
     args = vars((parser.parse_args()))
-    create_mapping_tsv(args['project_name'], Path(args['file_path']), args['study_id'])
+
+    # Get the database connection
+    mdb = get_db()
+    if not mdb:
+        logging.error("MongoDB connection failed")
+        sys.exit(1)
+    # Study ID is optional, if not provided, we try to determine it from the project name via the database
+    if args['study_id'] is None:
+        # Get the study ID from the database
+        study_id = get_study_id(args['project_name'], get_access_token(), mdb)
+        args['study_id'] = study_id
+    # Create the mapping TSV file
+    create_mapping_tsv(args['project_name'], Path(args['file_path']), mdb, args['study_id'])
