@@ -16,7 +16,7 @@ logging.basicConfig(filename='file_staging.log',
                     datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG)
 
 
-def get_project_globus_manifests(project_name: str, config_file: str = None,
+def get_project_globus_manifests(project_name: str, mdb, config_file: str = None,
                                  config: configparser.ConfigParser = None) -> List[str]:
     """
     Retrieve the globus manifest files for files to be transferred from Globus to MongoDB
@@ -24,7 +24,6 @@ def get_project_globus_manifests(project_name: str, config_file: str = None,
     if config_file:
         config = configparser.ConfigParser()
         config.read(config_file)
-    mdb = get_db()
     samples_df = pd.DataFrame(mdb.samples.find({'project': project_name, 'file_status':
         {'$nin': ['in transit', 'transferred', 'expired', 'PURGED']}}))
     samples_df = samples_df[pd.notna(samples_df.request_id)]
@@ -85,7 +84,7 @@ def create_globus_dataframe(project_name: str, config: configparser.ConfigParser
     return globus_df
 
 
-def create_globus_batch_file(project: str, config: configparser.ConfigParser) -> (str, pd.DataFrame):
+def create_globus_batch_file(project: str, config: configparser.ConfigParser, mdb) -> (str, pd.DataFrame):
     """
     Creates batch file for the globus file transfer
     :param project: name of project
@@ -97,7 +96,6 @@ def create_globus_batch_file(project: str, config: configparser.ConfigParser) ->
     3) write to globus batch file
     """
     update_file_statuses(project=project, config=config)
-    mdb = get_db()
     samples_df = pd.DataFrame(mdb.samples.find({'file_status': 'ready'}))
     if samples_df.empty:
         logging.debug(f"no samples ready to transfer")
@@ -149,8 +147,7 @@ def submit_globus_batch_file(project: str, config_file: str):
     return output.stdout
 
 
-def insert_globus_status_into_mongodb(task_id: str, task_status: str):
-    mdb = get_db()
+def insert_globus_status_into_mongodb(task_id: str, task_status: str, mdb):
     mdb.globus.insert_one({'task_id': task_id, 'task_status': task_status})
 
 
@@ -159,13 +156,11 @@ def get_globus_task_status(task_id: str):
     return output.stdout.split('\n')[6].split(':')[1].strip()
 
 
-def update_globus_task_status(task_id: str, task_status: str):
-    mdb = get_db()
+def update_globus_task_status(task_id: str, task_status: str, mdb):
     mdb.globus.update_one({'task_id': task_id}, {'$set': {'task_status': task_status}})
 
 
-def update_globus_statuses():
-    mdb = get_db()
+def update_globus_statuses(mdb):
     tasks = [t for t in mdb.globus.find({'task_status': {'$ne': 'SUCCEEDED'}})]
     for task in tasks:
         task_status = get_globus_task_status(task['task_id'])
@@ -183,12 +178,17 @@ if __name__ == '__main__':
                         help='get all globus project manifests', default=False)
 
     args = vars((parser.parse_args()))
-
-    if args['get_project_manifests']:
-        get_project_globus_manifests(args['project_name'], args['config_file'])
+    config_file = args['config_file']
+    mdb = get_db()
+    if not mdb:
+        logging.error("MongoDB connection failed")
+        sys.exit(1)
+    if args['request_id']:
+        get_globus_manifest(args['request_id'], config_file=config_file)
     elif args['update_globus_statuses']:
-        update_globus_statuses()
-    elif args['request_id']:
-        get_globus_manifest(args['request_id'], config_file=args['config_file'])
+        update_globus_statuses(mdb)
+    elif args['get_project_manifests']:
+        get_project_globus_manifests(args['project_name'], mdb, config_file)
     else:
         submit_globus_batch_file(args['project_name'], args['config_file'])
+

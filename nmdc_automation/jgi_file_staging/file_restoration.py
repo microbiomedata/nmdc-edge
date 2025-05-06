@@ -10,14 +10,15 @@ from nmdc_automation.db.nmdc_mongo import get_db
 from nmdc_automation.jgi_file_staging.models import Sample
 from pydantic import ValidationError
 import argparse
+import json
+from pymongo.synchronous.database import Database as MongoDatabase
 
 logging.basicConfig(filename='file_staging.log',
                     format='%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
                     datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG)
 
 
-def update_sample_in_mongodb(sample: dict, update_dict: dict) -> bool:
-    mdb = get_db()
+def update_sample_in_mongodb(sample: dict, update_dict: dict, mdb) -> bool:
     update_dict.update({'update_date': datetime.now()})
     sample.update(update_dict)
     try:
@@ -30,7 +31,7 @@ def update_sample_in_mongodb(sample: dict, update_dict: dict) -> bool:
         return False
 
 
-def restore_files(project: str, config_file: str, restore_csv=None) -> str:
+def restore_files(project: str, config_file: str, mdb, restore_csv=None) -> str:
     """
     restore files from tape backup on JGI
     1) update file statuses
@@ -43,8 +44,7 @@ def restore_files(project: str, config_file: str, restore_csv=None) -> str:
     """
     config = configparser.ConfigParser()
     config.read(config_file)
-    update_file_statuses(project, config_file)
-    mdb = get_db()
+    update_file_statuses(project, mdb, config_file)
     if not restore_csv:
         restore_df = pd.DataFrame([sample for sample in mdb.samples.find({'project': project, 'file_status':
             {'$nin': ['in transit', 'transferred', 'RESTORED']}})])
@@ -57,7 +57,13 @@ def restore_files(project: str, config_file: str, restore_csv=None) -> str:
         sys.exit('JDP_TOKEN environment variable not set')
     headers = {'Authorization': JDP_TOKEN, "accept": "application/json"}
     url = 'https://files.jgi.doe.gov/download_files/'
-    proxies = eval(config['JDP']['proxies'])
+
+    try:
+        proxies = json.loads(config['JDP'].get('proxies', '{}'))
+    except json.JSONDecodeError:
+        logging.error("Failed to parse proxies from config file.")
+        proxies = {}
+
     begin_idx = restore_df.iloc[0, :].name
     # break requests up into batches because of the limit to the size of the request
     batch_size = 750
@@ -98,7 +104,9 @@ def get_file_statuses(samples_df, config):
         JDP_TOKEN = os.environ.get('JDP_TOKEN')
         headers = {'Authorization': JDP_TOKEN, "accept": "application/json"}
         url = f"https://files.jgi.doe.gov/request_archived_files/requests/{request_id}?api_version=1"
-        r = requests.get(url, headers=headers, proxies=eval(config['JDP']['proxies']))
+
+        proxies = json.loads(config['JDP'].get('proxies', '{}'))
+        r = requests.get(url, headers=headers, proxies=proxies)
         response_json = r.json()
         file_status_list = [response_json['status'] for _ in response_json['file_ids']]
         jdp_response_df = pd.concat([jdp_response_df, pd.DataFrame({'jdp_file_id': response_json['file_ids'],
@@ -109,11 +117,11 @@ def get_file_statuses(samples_df, config):
     return restore_response_df
 
 
-def update_file_statuses(project: str, config_file: str=None, config: configparser.ConfigParser=None):
+def update_file_statuses(project: str, mdb, config_file: str=None, config: configparser.ConfigParser=None):
     if config is None:
         config = configparser.ConfigParser()
         config.read(config_file)
-    mdb = get_db()
+    # mdb = get_db()
     samples_df = pd.DataFrame([sample for sample in mdb.samples.find({'project': project})])
     samples_df = samples_df[pd.notna(samples_df.request_id)]
     if samples_df.empty:
@@ -138,7 +146,8 @@ def check_restore_status(restore_request_id, config):
     headers = {'Authorization': JDP_TOKEN, "accept": "application/json"}
 
     url = f"https://files.jgi.doe.gov/request_archived_files/requests/{restore_request_id}?api_version=1"
-    r = requests.get(url, headers=headers, proxies=eval(config['JDP']['proxies']))
+    proxies = json.loads(config['JDP'].get('proxies', '{}'))
+    r = requests.get(url, headers=headers, proxies=proxies)
     if r.status_code == 200:
         return r.json()
     else:
