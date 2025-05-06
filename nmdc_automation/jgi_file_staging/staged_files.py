@@ -31,7 +31,7 @@ def get_list_staged_files(project, config, save_file_list=None):
 
 
 def get_list_missing_staged_files(
-    project_name, config_file, save_file_list=None
+    project_name, config_file, mdb, save_file_list=False
 ) -> list:
     """
     Get list of files on file system for a project and compare to list of files in database
@@ -42,7 +42,6 @@ def get_list_missing_staged_files(
     stage_df["file_key"] = stage_df.apply(
         lambda x: f"{x.analysis_project}-{x.file}", axis=1
     )
-    mdb = get_db()
     samples_df = pd.DataFrame([s for s in mdb.samples.find({"project": project_name})])
     samples_df["file_key"] = samples_df.apply(
         lambda x: f"{x.apGoldId}-{x.file_name}", axis=1
@@ -68,6 +67,16 @@ if __name__ == "__main__":
         default=False,
     )
     args = vars((parser.parse_args()))
-    get_list_missing_staged_files(
-        args["project_name"], args["config_file"], args["save_file_list"]
+    project_name = args["project_name"]
+    config_file = args["config_file"]
+    save_file_list = args["save_file_list"]
+    # Get the database connection
+    mdb = get_db()
+    if not mdb:
+        logging.error("MongoDB connection failed")
+        exit(1)
+
+    # Get the list of missing staged files
+    missing_files = get_list_missing_staged_files(
+        project_name, config_file, mdb, save_file_list
     )
