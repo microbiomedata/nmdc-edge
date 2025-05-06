@@ -19,8 +19,16 @@ logger = logging.getLogger(__name__)
 
 @pytest.mark.integration
 @pytest.mark.parametrize(
-    "fixture", ["rqc_workflow_state.json", "meta_assembly_workflow_state.json",
-                "read_based_analysis_workflow_state.json", "mags_workflow_state.json", "annotation_workflow_state.json"]
+    "fixture", ["rqc_workflow_state.json",
+                "meta_assembly_workflow_state.json",
+                "read_based_analysis_workflow_state.json",
+                "mags_workflow_state.json",
+                "annotation_workflow_state.json",
+                "metat_rqc_workflow_state.json",
+                "metat_assembly_workflow_state.json",
+                "metat_annotation_workflow_state.json",
+                "metat_expression_workflow_state.json"
+                ]
     )
 def test_workflow_inputs_and_wdl(site_config, fixtures_dir, fixture):
     """

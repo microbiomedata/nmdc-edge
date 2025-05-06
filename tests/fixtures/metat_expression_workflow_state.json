@@ -1,0 +1,89 @@
+{
+    "workflow": {
+      "id": "Expression Analysis Sense: v0.0.7"
+    },
+    "created_at": "2025-05-02T22:40:11",
+    "config": {
+      "git_repo": "https://github.com/microbiomedata/metaT_ReadCounts",
+      "release": "v0.0.7",
+      "wdl": "readcount.wdl",
+      "activity_id": "nmdc:wfmtex-12-2y23pa57.1",
+      "activity_set": "workflow_execution_set",
+      "was_informed_by": "nmdc:dgns-11-6tsbsj80",
+      "trigger_activity": "nmdc:wfmtan-12-c5amja84.1",
+      "iteration": 1,
+      "input_prefix": "readcount",
+      "inputs": {
+        "gff": "https://data.microbiomedata.org/data/nmdc:dgns-11-6tsbsj80/nmdc:wfmtan-12-c5amja84.1/nmdc_wfmtan-12-c5amja84.1_functional_annotation.gff",
+        "map": "https://data.microbiomedata.org/data/nmdc:dgns-11-6tsbsj80/nmdc:wfmtan-12-c5amja84.1/nmdc_wfmtan-12-c5amja84.1_contig_names_mapping.tsv",
+        "bam": "https://data.microbiomedata.org/data/nmdc:dgns-11-6tsbsj80/nmdc:wfmtas-12-g8a36789.1/nmdc_wfmtas-12-g8a36789.1_pairedMapped_sorted.bam",
+        "proj_id": "nmdc:wfmtex-12-2y23pa57.1"
+      },
+      "input_data_objects": [
+        {
+          "id": "nmdc:dobj-12-fnz1bg24",
+          "type": "nmdc:DataObject",
+          "name": "nmdc_wfmtan-12-c5amja84.1_functional_annotation.gff",
+          "description": "Functional Annotation for nmdc:wfmtan-12-c5amja84.1",
+          "data_category": "processed_data",
+          "data_object_type": "Functional Annotation GFF",
+          "file_size_bytes": 157945873,
+          "md5_checksum": "be8f9aae7c0f627196229e1191fdcd9a",
+          "url": "https://data.microbiomedata.org/data/nmdc:dgns-11-6tsbsj80/nmdc:wfmtan-12-c5amja84.1/nmdc_wfmtan-12-c5amja84.1_functional_annotation.gff",
+          "was_generated_by": "nmdc:wfmtan-12-c5amja84.1"
+        },
+        {
+          "id": "nmdc:dobj-12-7vfthd13",
+          "type": "nmdc:DataObject",
+          "name": "nmdc_wfmtan-12-c5amja84.1_contig_names_mapping.tsv",
+          "description": "Contig mappings file for nmdc:wfmtan-12-c5amja84.1",
+          "data_category": "processed_data",
+          "data_object_type": "Contig Mapping File",
+          "file_size_bytes": 38101207,
+          "md5_checksum": "c56f16b959e32933ddb0a600087f6b2d",
+          "url": "https://data.microbiomedata.org/data/nmdc:dgns-11-6tsbsj80/nmdc:wfmtan-12-c5amja84.1/nmdc_wfmtan-12-c5amja84.1_contig_names_mapping.tsv",
+          "was_generated_by": "nmdc:wfmtan-12-c5amja84.1"
+        },
+        {
+          "id": "nmdc:dobj-12-y0dv2s25",
+          "type": "nmdc:DataObject",
+          "name": "nmdc_wfmtas-12-g8a36789.1_pairedMapped_sorted.bam",
+          "description": "Sorted Bam for nmdc:wfmtas-12-g8a36789.1",
+          "data_category": "processed_data",
+          "data_object_type": "Assembly Coverage BAM",
+          "file_size_bytes": 1204830825,
+          "md5_checksum": "77ed72bbba812fd77962643d6de43bcb",
+          "url": "https://data.microbiomedata.org/data/nmdc:dgns-11-6tsbsj80/nmdc:wfmtas-12-g8a36789.1/nmdc_wfmtas-12-g8a36789.1_pairedMapped_sorted.bam",
+          "was_generated_by": "nmdc:wfmtas-12-g8a36789.1"
+        }
+      ],
+      "activity": {
+        "name": "Metatranscriptome Expression Analysis for {id}",
+        "type": "nmdc:MetatranscriptomeExpressionAnalysis"
+      },
+      "outputs": [
+        {
+          "output": "count_table",
+          "data_object_type": "Metatranscriptome Expression",
+          "description": "Expression counts for {id}",
+          "name": "Metatranscriptome expression table",
+          "id": "nmdc:dobj-12-6q4cp633"
+        },
+        {
+          "output": "info_file",
+          "data_object_type": "Metatranscriptome Expression Info File",
+          "description": "Expression info for {id}",
+          "name": "Metatranscriptome Expression Info File",
+          "id": "nmdc:dobj-12-b0282r70"
+        }
+      ]
+    },
+    "claims": [],
+    "opid": "nmdc:sys0bngrzz95",
+    "done": true,
+    "start": "2025-05-02T22:43:58.669104+00:00",
+    "jaws_jobid": 109650,
+    "last_status": "succeeded",
+    "nmdc_jobid": "nmdc:6864c0b2-27a6-11f0-861e-5a1008471c16",
+    "end": null
+  }
