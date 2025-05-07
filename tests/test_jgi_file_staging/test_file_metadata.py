@@ -5,6 +5,7 @@ import pytest
 import requests
 import os
 import json
+import configparser
 
 
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
@@ -23,6 +24,7 @@ from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     remove_duplicate_analysis_files,
     remove_large_files,
     remove_unneeded_files,
+    verify_downloads,
 )
 from nmdc_automation.jgi_file_staging.models import Sample
 
@@ -470,3 +472,4 @@ def test_remove_unneeded_files(fixtures_dir):
     assert filtered_df[(filtered_df.apGoldId == 'Ga0485222') &
                             (filtered_df.file_name == "Ga0485222_proteins.img_nr.last.blasttab")
                             ].empty
+
