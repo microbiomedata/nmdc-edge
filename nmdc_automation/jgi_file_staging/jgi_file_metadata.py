@@ -96,7 +96,7 @@ def get_samples_data(project: str, config_file: str, mdb, csv_file: str = None) 
 
 
 def get_files_df_from_proposal_id(proposal_id: id, ACCESS_TOKEN: str, delay: float):
-    all_files_list = get_sample_files(proposal_id, ACCESS_TOKEN, delay)
+    all_files_list = get_sample_files(proposal_id, ACCESS_TOKEN)
     files_df = pd.DataFrame(all_files_list)
     return files_df
 

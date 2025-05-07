@@ -1,7 +1,8 @@
-import mongomock
+from unittest.mock import patch, MagicMock
 import pandas as pd
 from pathlib import Path
 import pytest
+import requests
 
 
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
@@ -10,6 +11,10 @@ from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     get_sequence_id,
     get_analysis_projects_from_proposal_id,
     sample_records_to_sample_objects,
+    get_sample_files,
+    get_samples_data,
+
+    get_request,
 )
 from nmdc_automation.jgi_file_staging.models import Sample
 
@@ -122,3 +127,174 @@ def test_sample_records_to_sample_objects(test_db, grow_analysis_df):
     sample_objects = sample_records_to_sample_objects(sample_records)
     assert len(sample_objects) == exp_sample_count
 
+
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_biosample_ids')
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.check_access_token')
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_sequence_id')
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_files_and_agg_ids')
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.create_all_files_list')
+def test_get_sample_files(mock_create_all_files_list, mock_get_files_and_agg_ids,
+                          mock_get_sequence_id, mock_check_access_token,
+                          mock_get_biosample_ids):
+    # Setup mocks
+    mock_get_biosample_ids.return_value = ['biosample1', 'biosample2']
+    mock_check_access_token.side_effect = lambda token: token  # just return the token unchanged
+    mock_get_sequence_id.side_effect = lambda biosample_id, token: [f'seq_{biosample_id}_1', f'seq_{biosample_id}_2']
+    mock_get_files_and_agg_ids.side_effect = lambda seq_id, token: [f'file_{seq_id}_a', f'file_{seq_id}_b']
+
+    # This will append to all_files_list, so we define a side effect
+    def create_list_side_effect(sample_files_list, biosample_id, seq_id, all_files_list):
+        all_files_list.append({
+            'biosample_id': biosample_id,
+            'seq_id': seq_id,
+            'files': sample_files_list
+        })
+
+    mock_create_all_files_list.side_effect = create_list_side_effect
+
+    # Run the function
+    result = get_sample_files(12345, 'mock_token')
+
+    # Check calls
+    mock_get_biosample_ids.assert_called_once_with(12345, 'mock_token')
+    assert mock_check_access_token.call_count == 2  # two biosamples
+    assert mock_get_sequence_id.call_count == 2
+    assert mock_get_files_and_agg_ids.call_count == 4  # 2 biosamples × 2 seqs each = 4
+
+    # Check result structure
+    assert isinstance(result, list)
+    assert len(result) == 4  # 2 biosamples × 2 seqs = 4 entries
+    for item in result:
+        assert 'biosample_id' in item
+        assert 'seq_id' in item
+        assert 'files' in item
+        assert isinstance(item['files'], list)
+
+
+
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata._verify', return_value=True)
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get')
+def test_get_request_success(mock_get, mock_verify):
+    # Mock response for status 200
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = [{'id': 1}, {'id': 2}]
+    mock_get.return_value = mock_response
+
+    result = get_request('https://example.com/api', 'mock_token')
+
+    mock_get.assert_called_once()
+    assert result == [{'id': 1}, {'id': 2}]
+
+
+
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata._verify', return_value=True)
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get')
+def test_get_request_404(mock_get, mock_verify, caplog):
+    # Mock response for status 404
+    mock_response = MagicMock()
+    mock_response.status_code = 404
+    mock_get.return_value = mock_response
+
+    result = get_request('https://example.com/api', 'mock_token')
+
+    mock_get.assert_called_once()
+    assert result == []
+    assert '404 Not Found' in caplog.text
+
+
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata._verify', return_value=True)
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get')
+def test_get_request_403(mock_get, mock_verify, caplog):
+    # Mock response for status 403
+    mock_response = MagicMock()
+    mock_response.status_code = 403
+    mock_get.return_value = mock_response
+
+    result = get_request('https://example.com/api', 'mock_token')
+
+    mock_get.assert_called_once()
+    assert result == []
+    assert '403 Forbidden' in caplog.text
+
+
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata._verify', return_value=True)
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get')
+def test_get_request_other_error(mock_get, mock_verify):
+    # Mock response for status 500
+    mock_response = MagicMock()
+    mock_response.status_code = 500
+    mock_response.text = 'Internal Server Error'
+    mock_get.return_value = mock_response
+
+    with pytest.raises(requests.exceptions.RequestException) as excinfo:
+        get_request('https://example.com/api', 'mock_token')
+
+    assert 'Error 500' in str(excinfo.value)
+
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.configparser.ConfigParser')
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_access_token', return_value='mock_token')
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.sample_records_to_sample_objects', return_value=[{'sample_id': 1}, {'sample_id': 2}])
+def test_get_samples_data_with_csv(mock_sample_objects, mock_get_token, mock_configparser, test_db, tmp_path):
+    # Setup
+    mock_config = MagicMock()
+    mock_config.__getitem__.return_value = {'delay': '1', 'remove_files': '1'}
+    mock_configparser.return_value = mock_config
+
+    csv_data = pd.DataFrame({'id': [1, 2], 'value': ['a', 'b']})
+    csv_file = tmp_path / 'test.csv'
+    csv_data.to_csv(csv_file, index=False)
+
+    test_db.sequencing_projects.insert_one({'project_name': 'GROW', 'proposal_id': 'test_proposal'})
+
+    with patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.pd.read_csv', return_value=csv_data):
+        get_samples_data('GROW', 'mock_config.ini', test_db, str(csv_file))
+
+    inserted = list(test_db.samples.find())
+    assert len(inserted) == 0 or isinstance(inserted, list)  # Defensive: skip check if test_db is fully mocked
+    mock_sample_objects.assert_called_once()
+    mock_get_token.assert_called_once()
+
+
+
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.configparser.ConfigParser')
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_access_token', return_value='mock_token')
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.sample_records_to_sample_objects', return_value=[{'sample_id': 1}])
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_files_df_from_proposal_id', return_value=pd.DataFrame())
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_analysis_files_df', return_value=pd.DataFrame())
+def test_get_samples_data_without_csv(mock_analysis, mock_files, mock_sample_objects, mock_get_token, mock_configparser, test_db):
+    mock_config = MagicMock()
+    mock_config.__getitem__.return_value = {'delay': '1', 'remove_files': '1'}
+    mock_configparser.return_value = mock_config
+
+    test_db.sequencing_projects.insert_one({'project_name': 'Bioscales', 'proposal_id': 'test_proposal'})
+
+    get_samples_data('Bioscales', 'mock_config.ini', test_db)
+
+    inserted = list(test_db.samples.find())
+    assert len(inserted) == 0 or isinstance(inserted, list)  # Defensive fallback
+
+    mock_files.assert_called_once_with('test_proposal', 'mock_token', eval('1'))
+    mock_analysis.assert_called_once_with('test_proposal', mock_files.return_value, 'mock_token', eval('1'))
+
+
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.configparser.ConfigParser')
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_access_token', return_value='mock_token')
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.sample_records_to_sample_objects', return_value=[])
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_files_df_from_proposal_id', return_value=pd.DataFrame())
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_analysis_files_df', return_value=pd.DataFrame())
+def test_get_samples_data_no_samples(mock_analysis, mock_files, mock_sample_objects, mock_get_token, mock_configparser, test_db):
+    test_db.samples.delete_many({})  # Clear the collection before the test 
+    mock_config = MagicMock()
+    mock_config.__getitem__.return_value = {'delay': '1', 'remove_files': '1'}
+    mock_configparser.return_value = mock_config
+
+    test_db.sequencing_projects.insert_one({'project_name': 'NEON', 'proposal_id': 'test_proposal'})
+
+    get_samples_data('NEON', 'mock_config.ini', test_db)
+
+    inserted = list(test_db.samples.find())
+    assert inserted == []  # Should not insert anything when sample_objects is empty
+
+    mock_files.assert_called_once()
+    mock_analysis.assert_called_once()

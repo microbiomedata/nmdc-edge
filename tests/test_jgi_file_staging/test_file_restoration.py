@@ -6,8 +6,9 @@ from unittest.mock import patch, MagicMock
 import pytest
 from tests.fixtures import db_utils
 import pandas as pd
+import logging
 
-from nmdc_automation.jgi_file_staging.file_restoration import restore_files, update_file_statuses, check_restore_status
+from nmdc_automation.jgi_file_staging.file_restoration import restore_files, update_file_statuses
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to_sample_objects
 
 
@@ -128,3 +129,83 @@ def test_restore_files_bad_proxies(mock_post, tmp_path, test_db, monkeypatch):
     restore_files('Gp0587070', str(config_file), test_db)
     mock_post.assert_called()
 
+
+@patch('nmdc_automation.jgi_file_staging.file_restoration.get_file_statuses')
+@patch('nmdc_automation.jgi_file_staging.file_restoration.update_sample_in_mongodb')
+def test_update_file_statuses_no_samples(mock_update, mock_get, test_db, caplog, import_config):
+    caplog.set_level(logging.DEBUG)
+
+    update_file_statuses('Gp123', test_db, config=import_config)
+    assert "no samples to update" in caplog.text
+    mock_get.assert_not_called()
+    mock_update.assert_not_called()
+
+
+@patch('nmdc_automation.jgi_file_staging.file_restoration.get_file_statuses')
+@patch('nmdc_automation.jgi_file_staging.file_restoration.update_sample_in_mongodb')
+def test_update_file_statuses_no_request_id(mock_update, mock_get, test_db, caplog, import_config):
+    caplog.set_level(logging.DEBUG)
+    test_db.samples.insert_one({'project': 'Gp123', 'file_status': 'RESTORED'})
+    update_file_statuses('Gp123', test_db, config=import_config)
+    assert "no samples with request_id to update" in caplog.text
+    mock_get.assert_not_called()
+    mock_update.assert_not_called()
+
+
+@patch('nmdc_automation.jgi_file_staging.file_restoration.get_file_statuses')
+@patch('nmdc_automation.jgi_file_staging.file_restoration.update_sample_in_mongodb')
+def test_update_file_statuses_no_file_status_columns(mock_update, mock_get, test_db, caplog, import_config):
+    caplog.set_level(logging.DEBUG)
+    test_db.samples.insert_one({'project': 'Gp123', 'file_status': 'RESTORED', 'request_id': 1})
+    df = pd.DataFrame([{'request_id': 1, 'jdp_file_id': 'id1'}])
+    mock_get.return_value = df
+
+    update_file_statuses('Gp123', test_db, config=import_config)
+    assert "no file statuses to update" in caplog.text
+    mock_update.assert_not_called()
+
+
+
+@patch('nmdc_automation.jgi_file_staging.file_restoration.get_file_statuses')
+@patch('nmdc_automation.jgi_file_staging.file_restoration.update_sample_in_mongodb')
+def test_update_file_statuses_no_changes(mock_update, mock_get, test_db, caplog, import_config):
+    caplog.set_level(logging.DEBUG)
+    test_db.samples.insert_one({'project': 'Gp123', 'file_status': 'RESTORED', 'request_id': 1, 'jdp_file_id': 'id1'})
+    df = pd.DataFrame([{
+        'request_id': 1,
+        'jdp_file_id': 'id1',
+        'file_status_x': 'RESTORED',
+        'file_status_y': 'RESTORED'
+    }])
+    mock_get.return_value = df
+
+    update_file_statuses('Gp123', test_db, config=import_config)
+    assert "no file statuses changed" in caplog.text
+    mock_update.assert_not_called()
+
+
+@patch('nmdc_automation.jgi_file_staging.file_restoration.get_file_statuses')
+@patch('nmdc_automation.jgi_file_staging.file_restoration.update_sample_in_mongodb')
+def test_update_file_statuses_success(mock_update, mock_get, test_db, caplog, import_config):
+    caplog.set_level(logging.DEBUG)
+    test_db.samples.insert_one({'project': 'Gp123', 'file_status': 'RESTORED', 'request_id': 1, 'jdp_file_id': 'id1'})
+    df = pd.DataFrame([{
+        'request_id': 1,
+        'jdp_file_id': 'id1',
+        'file_status_x': 'RESTORED',
+        'file_status_y': 'PURGED'
+    }])
+    mock_get.return_value = df
+
+    update_file_statuses('Gp123', test_db, config=import_config)
+    assert "updating 1 file statuses" in caplog.text
+    mock_update.assert_called_once()
+
+
+@patch('nmdc_automation.jgi_file_staging.file_restoration.get_file_statuses', side_effect=Exception("boom"))
+@patch('nmdc_automation.jgi_file_staging.file_restoration.update_sample_in_mongodb')
+def test_update_file_statuses_get_file_statuses_exception(mock_update, mock_get, test_db, caplog, import_config):
+    test_db.samples.insert_one({'project': 'Gp123', 'file_status': 'RESTORED', 'request_id': 1, 'jdp_file_id': 'id1'})
+    update_file_statuses('Gp123', test_db, config=import_config)
+    assert "Error getting file statuses" in caplog.text
+    mock_update.assert_not_called()

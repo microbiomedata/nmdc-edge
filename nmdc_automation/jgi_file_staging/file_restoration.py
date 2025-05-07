@@ -150,8 +150,6 @@ def update_file_statuses(project: str, mdb, config_file: str=None, config: confi
         logging.debug(f"no samples with request_id to update for {project}")
         return
 
-    samples_df['request_id'] = samples_df['request_id'].astype(int)
-
     # get file statuses from JGI Data Portal
     try:
         restore_response_df = get_file_statuses(samples_df, config)
