@@ -95,7 +95,7 @@ def create_globus_batch_file(project: str, config: configparser.ConfigParser, md
     2) create a dataframe from the Globus manifests
     3) write to globus batch file
     """
-    update_file_statuses(project=project, config=config)
+    update_file_statuses(project=project, mdb=mdb, config=config)
     samples_df = pd.DataFrame(mdb.samples.find({'file_status': 'ready'}))
     if samples_df.empty:
         logging.debug(f"no samples ready to transfer")
