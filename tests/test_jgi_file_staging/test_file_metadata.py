@@ -3,11 +3,14 @@ import pandas as pd
 from pathlib import Path
 import pytest
 import requests
+import os
+import json
 
 
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     get_access_token,
     check_access_token,
+    create_all_files_list,
     get_sequence_id,
     get_analysis_projects_from_proposal_id,
     sample_records_to_sample_objects,
@@ -15,7 +18,11 @@ from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     get_samples_data,
     get_analysis_files_df,
     get_biosample_ids,
+    get_files_and_agg_ids,
     get_request,
+    remove_duplicate_analysis_files,
+    remove_large_files,
+    remove_unneeded_files,
 )
 from nmdc_automation.jgi_file_staging.models import Sample
 
@@ -365,3 +372,101 @@ def test_get_biosample_ids(mock_get_request):
         f'https://gold-ws.jgi.doe.gov/api/v1/biosamples?itsProposalId={proposal_id}',
         ACCESS_TOKEN
     )
+
+
+@pytest.fixture
+def files_data_json(fixtures_dir):
+    with open(os.path.join(fixtures_dir, "files_data.json")) as f:
+        return json.load(f)
+
+
+def test_get_files_and_agg_ids(monkeypatch, files_data_json):
+    # Patch get_request to return files_data_json
+    def mock_get_request(url, access_token):
+        return files_data_json
+
+    monkeypatch.setattr(
+        "nmdc_automation.jgi_file_staging.jgi_file_metadata.get_request",
+        mock_get_request
+    )
+
+    result = get_files_and_agg_ids(1323459, "ed42ef155670")
+
+    # Assuming new function returns list of dicts [{'files': [...], 'agg_id': ...}]
+    first_file = result[0]['files'][0]
+    first_agg_id = result[0]['agg_id']
+
+    assert first_file['file_name'] == "Table_8_-_3300049478.taxonomic_composition.txt"
+    assert first_file['file_type'] == "report"
+    assert first_agg_id == 1323348
+
+def test_get_files_and_agg_ids_no_organisms(monkeypatch, files_data_json):
+    # Remove 'organisms' key
+    files_data_json.pop("organisms", None)
+
+    def mock_get_request(url, access_token):
+        return files_data_json
+
+    monkeypatch.setattr(
+        "nmdc_automation.jgi_file_staging.jgi_file_metadata.get_request",
+        mock_get_request
+    )
+
+    result = get_files_and_agg_ids(1323459, "ed42ef155670")
+
+    assert result == []
+
+
+def test_create_all_files_list(fixtures_dir):
+    with open(os.path.join(fixtures_dir, "files_data_list.json")) as f:
+        files_data_list = json.load(f)
+    all_files_list = []
+    create_all_files_list(files_data_list, 'Gb0156560', 1323459, all_files_list)
+    assert len(all_files_list) == 85
+
+def test_remove_duplicate_analysis_files(fixtures_dir):
+    seq_files_df = pd.read_csv(os.path.join(fixtures_dir, "Gb0258377_gold_analysis_files.csv"))
+    seq_files_df.loc[pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'] = seq_files_df.loc[
+        pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'].apply(lambda x: eval(x))
+    seq_files_df = seq_files_df[(seq_files_df.apGoldId == 'Ga0485222')]
+    assert not seq_files_df[(seq_files_df.apGoldId == 'Ga0485222') &
+                         (seq_files_df.file_name == "52444.3.336346.GAGCTCAA-GAGCTCAA.fastq.gz")
+                         ].empty
+    remove_duplicate_analysis_files(seq_files_df)
+    assert seq_files_df[(seq_files_df.apGoldId == 'Ga0485222') &
+                         (seq_files_df.file_name == "52444.3.336346.GAGCTCAA-GAGCTCAA.fastq.gz")
+                         ].empty
+
+def test_remove_large_files(fixtures_dir):
+    seq_files_df = pd.read_csv(os.path.join(fixtures_dir, "Gb0258377_gold_analysis_files.csv"))
+    seq_files_df.loc[pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'] = seq_files_df.loc[
+        pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'].apply(lambda x: eval(x))
+    seq_files_df = seq_files_df[(seq_files_df.apGoldId == 'Ga0485222')]
+    assert not seq_files_df[seq_files_df.file_name == 'Ga0485222_proteins.pfam.domtblout'].empty
+    large_removed_df = remove_large_files(seq_files_df, ["img_nr.last.blasttab", "domtblout"])
+    assert len(large_removed_df) == 74
+    assert large_removed_df[large_removed_df.file_name == 'Ga0485222_proteins.pfam.domtblout'].empty
+
+def test_remove_unneeded_files(fixtures_dir):
+    seq_files_df = pd.read_csv(os.path.join(fixtures_dir, "Gb0258377_gold_analysis_files.csv"))
+    seq_files_df.loc[pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'] = seq_files_df.loc[
+        pd.notna(seq_files_df.seq_unit_name), 'seq_unit_name'].apply(lambda x: eval(x))
+
+    seq_files_df = seq_files_df[(seq_files_df.apGoldId == 'Ga0485222')]
+
+    assert not seq_files_df[(seq_files_df.apGoldId == 'Ga0485222') &
+                         (seq_files_df.file_name == "52444.3.336346.GAGCTCAA-GAGCTCAA.fastq.gz")
+                         ].empty
+
+    assert not seq_files_df[(seq_files_df.apGoldId == 'Ga0485222') &
+                         (seq_files_df.file_name == "Ga0485222_proteins.img_nr.last.blasttab")
+                         ].empty
+
+    filtered_df = remove_unneeded_files(seq_files_df, ["img_nr.last.blasttab", "domtblout"])
+    assert len(filtered_df) == 73
+    assert filtered_df[(filtered_df.apGoldId == 'Ga0485222') &
+                         (filtered_df.file_name == "52444.3.336346.GAGCTCAA-GAGCTCAA.fastq.gz")
+                         ].empty
+    assert filtered_df[(filtered_df.apGoldId == 'Ga0485222') &
+                            (filtered_df.file_name == "Ga0485222_proteins.img_nr.last.blasttab")
+                            ].empty

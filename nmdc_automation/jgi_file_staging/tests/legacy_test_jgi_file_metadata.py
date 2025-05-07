@@ -43,71 +43,71 @@ class JgiFileTestCase(unittest.TestCase):
         mdb.samples.drop()
         mdb.globus.drop()
 
-    @staticmethod
-    @mongomock.patch(servers=(('localhost', 27017),))
-    def insert_sequencing_project():
-        insert_dict = {'proposal_id': '507130', 'project_name': 'bioscales',
-                       'nmdc_study_id': 'nmdc:sty-11-r2h77870',
-                       'analysis_projects_dir': 'nmdc_automation/jgi_file_staging/tests/fixtures/test_project'}
-        insert_object = SequencingProject(**insert_dict)
-        mdb = get_db()
-        mdb.sequencing_projects.insert_one(insert_object.dict())
-        insert_dict = {'proposal_id': '508306', 'project_name': '1000_soils', 'nmdc_study_id': 'nmdc:sty-11-28tm5d36',
-                       'analysis_projects_dir': '/global/cfs/cdirs/m3408/aim2/dev'}
-        insert_object = SequencingProject(**insert_dict)
-        mdb.sequencing_projects.insert_one(insert_object.dict())
+    # @staticmethod
+    # @mongomock.patch(servers=(('localhost', 27017),))
+    # def insert_sequencing_project():
+    #     insert_dict = {'proposal_id': '507130', 'project_name': 'bioscales',
+    #                    'nmdc_study_id': 'nmdc:sty-11-r2h77870',
+    #                    'analysis_projects_dir': 'nmdc_automation/jgi_file_staging/tests/fixtures/test_project'}
+    #     insert_object = SequencingProject(**insert_dict)
+    #     mdb = get_db()
+    #     mdb.sequencing_projects.insert_one(insert_object.dict())
+    #     insert_dict = {'proposal_id': '508306', 'project_name': '1000_soils', 'nmdc_study_id': 'nmdc:sty-11-28tm5d36',
+    #                    'analysis_projects_dir': '/global/cfs/cdirs/m3408/aim2/dev'}
+    #     insert_object = SequencingProject(**insert_dict)
+    #     mdb.sequencing_projects.insert_one(insert_object.dict())
 
-    @patch("jgi_file_metadata.requests.get")
-    def test_get_request(self, mock_get):
-        mock_get.return_value.json.return_value = "[{'itsSpid': 1323348}]"
-        mock_get.return_value.status_code = 200
-        url = 'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId=Gb0291582'
-        ACCESS_TOKEN = '33k0krk2k4k56l'
-        value = get_request(url, ACCESS_TOKEN)
-        self.assertEqual(value, "[{'itsSpid': 1323348}]")
+    # @patch("jgi_file_metadata.requests.get")
+    # def test_get_request(self, mock_get):
+    #     mock_get.return_value.json.return_value = "[{'itsSpid': 1323348}]"
+    #     mock_get.return_value.status_code = 200
+    #     url = 'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId=Gb0291582'
+    #     ACCESS_TOKEN = '33k0krk2k4k56l'
+    #     value = get_request(url, ACCESS_TOKEN)
+    #     self.assertEqual(value, "[{'itsSpid': 1323348}]")
 
-    @patch('jgi_file_metadata.get_request')
-    def test_get_biosample_ids(self, mock_get_request):
-        mock_get_request.return_value = [{'biosampleGoldId': 'Gb0156560'}, {'biosampleGoldId': 'Gb0156587'},
-                                         {'biosampleGoldId': 'Gb0156618'}, {'biosampleGoldId': 'Gb0156656'},
-                                         {'biosampleGoldId': 'Gb0156820'}, {'biosampleGoldId': 'Gb0156898'},
-                                         {'biosampleGoldId': 'Gb0158490'}, {'biosampleGoldId': 'Gb0158497'},
-                                         {'biosampleGoldId': 'Gb0158498'}, {'biosampleGoldId': 'Gb0158504'}]
-        samples_df = pd.DataFrame({'Biosample ID': get_biosample_ids(503125, '')})
-        self.assertEqual(len(samples_df), 10)
-        self.assertEqual(samples_df.loc[0,'Biosample ID'], 'Gb0156560')
+    # @patch('jgi_file_metadata.get_request')
+    # def test_get_biosample_ids(self, mock_get_request):
+    #     mock_get_request.return_value = [{'biosampleGoldId': 'Gb0156560'}, {'biosampleGoldId': 'Gb0156587'},
+    #                                      {'biosampleGoldId': 'Gb0156618'}, {'biosampleGoldId': 'Gb0156656'},
+    #                                      {'biosampleGoldId': 'Gb0156820'}, {'biosampleGoldId': 'Gb0156898'},
+    #                                      {'biosampleGoldId': 'Gb0158490'}, {'biosampleGoldId': 'Gb0158497'},
+    #                                      {'biosampleGoldId': 'Gb0158498'}, {'biosampleGoldId': 'Gb0158504'}]
+    #     samples_df = pd.DataFrame({'Biosample ID': get_biosample_ids(503125, '')})
+    #     self.assertEqual(len(samples_df), 10)
+    #     self.assertEqual(samples_df.loc[0,'Biosample ID'], 'Gb0156560')
 
-    @mongomock.patch(servers=(("localhost", 27017),))
-    def test_insert_samples_into_mongodb(self):
-        grow_analysis_df = pd.read_csv(
-            os.path.join(self.fixtures, "grow_analysis_projects.csv")
-        )
+    # @mongomock.patch(servers=(("localhost", 27017),))
+    # def test_insert_samples_into_mongodb(self):
+    #     grow_analysis_df = pd.read_csv(
+    #         os.path.join(self.fixtures, "grow_analysis_projects.csv")
+    #     )
+    #
+    #     grow_analysis_df["project"] = "test_project"
+    #     # grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(lambda x: eval(x))
+    #     grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(lambda x: str(x))
+    #     sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
+    #     mdb = get_db()
+    #     sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
+    #     self.assertEqual(sample["studyId"], "Gs0149396")
+    #     sample = mdb.samples.find_one({"jdp_file_id": "61a9d6ee8277d7ede604d0f6"})
+    #     self.assertEqual(sample["file_name"], "Ga0499978_imgap.info")
+    #     self.assertEqual(sample["file_status"], "RESTORED")
 
-        grow_analysis_df["project"] = "test_project"
-        # grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(lambda x: eval(x))
-        grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(lambda x: str(x))
-        sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
-        mdb = get_db()
-        sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
-        self.assertEqual(sample["studyId"], "Gs0149396")
-        sample = mdb.samples.find_one({"jdp_file_id": "61a9d6ee8277d7ede604d0f6"})
-        self.assertEqual(sample["file_name"], "Ga0499978_imgap.info")
-        self.assertEqual(sample["file_status"], "RESTORED")
-
-    @mongomock.patch(servers=(('localhost', 27017),))
-    def test_insert_samples_into_mongodb_fail_valid(self):
-        grow_analysis_df = pd.read_csv(
-            os.path.join(self.fixtures, "grow_analysis_projects.csv")
-        )
-
-        grow_analysis_df["project"] = None
-        mdb = get_db()
-        sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
-        sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
-        mdb = get_db()
-        mdb.insert_many(sample_objects)
-        sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
-        self.assertEqual(sample, None)
+    # @mongomock.patch(servers=(('localhost', 27017),))
+    # def test_insert_samples_into_mongodb_fail_valid(self):
+    #     grow_analysis_df = pd.read_csv(
+    #         os.path.join(self.fixtures, "grow_analysis_projects.csv")
+    #     )
+    #
+    #     grow_analysis_df["project"] = None
+    #     mdb = get_db()
+    #     sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
+    #     sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
+    #     mdb = get_db()
+    #     mdb.insert_many(sample_objects)
+    #     sample = mdb.samples.find_one({"apGoldId": "Ga0499978"})
+    #     self.assertEqual(sample, None)
 
     @mongomock.patch(servers=(("localhost", 27017),))
     def test_update_samples_in_mongodb(self):
