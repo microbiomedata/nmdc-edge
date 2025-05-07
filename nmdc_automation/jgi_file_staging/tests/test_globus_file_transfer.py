@@ -1,4 +1,5 @@
 import shutil
+import ast
 import unittest
 import os
 from unittest.mock import patch, Mock
@@ -20,7 +21,7 @@ from nmdc_automation.jgi_file_staging.globus_file_transfer import (
 from nmdc_automation.jgi_file_staging.staged_files import get_list_missing_staged_files
 
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to_sample_objects
-from nmdc_automation.db.nmdc_mongo import get_db
+from nmdc_automation.db.nmdc_mongo import get_test_db
 
 
 
@@ -32,11 +33,11 @@ class GlobusTestCase(unittest.TestCase):
         self.config.read(self.config_file)
 
     def tearDown(self) -> None:
-        mdb = get_db()
+        mdb = get_test_db()
         mdb.samples.drop()
         mdb.globus.drop()
 
-    @patch("globus_file_transfer.subprocess.run")
+    @patch("nmdc_automation.jgi_file_staging.globus_file_transfer.subprocess.run")
     def test_get_globus_manifests(self, mock_run):
         attrs = {"stdout": "R201545/\n, R201547/\n, R201572/\n", "returncode": 0}
         process_mock = Mock()
@@ -88,7 +89,7 @@ class GlobusTestCase(unittest.TestCase):
             mock_run.mock_calls[0].args[0][2],"65fa2422-e080-11ec-990f-3b4cfda38030:/73709/R201670"
         )
 
-    @patch("globus_file_transfer.get_globus_manifest")
+    @patch("nmdc_automation.jgi_file_staging.globus_file_transfer.get_globus_manifest")
     def test_get_project_globus_manifests(self, mock_manifest):
         mock_manifest.side_effect =  [
             "Globus_Download_201545_File_Manifest.csv",
@@ -99,45 +100,52 @@ class GlobusTestCase(unittest.TestCase):
             os.path.join(self.fixtures, "grow_analysis_projects.csv")
         )
 
-        grow_analysis_df["project"] = "test_project"
-        # grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(lambda x: eval(x))
+        project_name = "Gp0587070"
+        grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(ast.literal_eval)
         grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(lambda x: str(x))
         grow_analysis_df.loc[:5, 'file_status'] = 'in transit'
-        grow_analysis_df.loc[:5, 'request_id'] = '201545'
-        grow_analysis_df.loc[5:8, 'request_id'] = '201547'
-        grow_analysis_df.loc[9, 'request_id'] = '201572'
+        grow_analysis_df.loc[:5, 'request_id'] = 201545
+        grow_analysis_df.loc[5:8, 'request_id'] = 201547
+        grow_analysis_df.loc[9, 'request_id'] = 201572
         sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
-        mdb = get_db()
-        mdb.insert_many(sample_objects)
-        get_project_globus_manifests('test_project', config=self.config)
+        mdb = get_test_db()
+        mdb.samples.insert_many([sample.model_dump() for sample in sample_objects])
+        get_project_globus_manifests(project_name, mdb, config=self.config)
         self.assertEqual(mock_manifest.call_count, 2)
         self.assertEqual(mock_manifest.mock_calls[0].args[0], 201547)
         self.assertEqual(mock_manifest.mock_calls[1].args[0], 201572)
 
-    @patch("globus_file_transfer.get_globus_manifest")
+    @patch("nmdc_automation.jgi_file_staging.globus_file_transfer.get_globus_manifest")
     def test_create_globus_df(self, mock_run):
         grow_analysis_df = pd.read_csv(
             os.path.join(self.fixtures, "grow_analysis_projects.csv")
         )
 
-        grow_analysis_df["project"] = "test_project"
-        # grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(lambda x: eval(x))
+        project_id = "Gp0587070"
+        grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(ast.literal_eval)
         grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(lambda x: str(x))
+
         grow_analysis_df.loc[:5, 'file_status'] = 'in transit'
-        grow_analysis_df.loc[:5, 'request_id'] = '201545'
-        grow_analysis_df.loc[5:8, 'request_id'] = '201547'
-        grow_analysis_df.loc[9, 'request_id'] = '201572'
-        sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
-        mdb = get_db()
-        mdb.insert_many(sample_objects)
+        grow_analysis_df.loc[:5, 'request_id'] = 201545
+        grow_analysis_df.loc[5:8, 'request_id'] = 201547
+        grow_analysis_df.loc[9, 'request_id'] = 201572
+        sample_records = grow_analysis_df.to_dict("records")
+        sample_objects = sample_records_to_sample_objects(sample_records)
+        # sanity check
+        num_sample_objects = len(sample_objects)
+        self.assertEqual(num_sample_objects, 10)
+        mdb = get_test_db()
+        mdb.samples.insert_many([sample.model_dump() for sample in sample_objects])
+
         mock_run.side_effect = [
             "Globus_Download_201545_File_Manifest.csv",
             "Globus_Download_201547_File_Manifest.csv",
             "Globus_Download_201572_File_Manifest.csv",
         ]
         globus_df = create_globus_dataframe(
-            'test_project',
+            project_id,
             self.config,
+            mdb,
         )
         self.assertEqual(len(globus_df), 2)
         self.assertEqual(globus_df.loc[0, "directory/path"], "ERLowmetatpilot/IMG_Data")
@@ -156,7 +164,7 @@ class GlobusTestCase(unittest.TestCase):
         )
         self.assertEqual(globus_df.loc[1, "subdir"], "R201547")
 
-    @patch("globus_file_transfer.get_globus_manifest")
+    @patch("nmdc_automation.jgi_file_staging.globus_file_transfer.get_globus_manifest")
     @mongomock.patch(servers=(("localhost", 27017),))
     def test_create_globus_batch_file(self, mock_get_manifest):
         mock_get_manifest.side_effect = ["Globus_Download_201572_File_Manifest.csv"]
@@ -182,6 +190,7 @@ class GlobusTestCase(unittest.TestCase):
                 "apGoldId",
                 "studyId",
                 "itsApId",
+                "projects",
                 "biosample_id",
                 "seq_id",
                 "file_name",
@@ -192,21 +201,29 @@ class GlobusTestCase(unittest.TestCase):
                 "analysis_project_id",
             ]
         ]
+        project_id = "Gp0587070"
+        grow_analysis_df["projects"] = grow_analysis_df["projects"].apply(ast.literal_eval)
         grow_analysis_df["file_status"] = "ready"
-        grow_analysis_df["project"] = "test_project"
-        grow_analysis_df["request_id"] = 201572
-        insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
+        grow_analysis_df["request_id"] = "201572"
+        sample_records = grow_analysis_df.to_dict("records")
+        sample_objects = sample_records_to_sample_objects(sample_records)
+        # sanity check
+        num_sample_objects = len(sample_objects)
+        self.assertEqual(num_sample_objects, 10)
+
+        mdb = get_test_db()
+        mdb.samples.insert_many([sample.model_dump() for sample in sample_objects])
         try:
             with Replace(
-                "globus_file_transfer.datetime",
+                "nmdc_automation.jgi_file_staging.globus_file_transfer.datetime",
                 mock_datetime(2022, 1, 1, 12, 22, 55, delta=0),
             ) as d:
                 globus_batch_filename, globus_analysis_df = create_globus_batch_file(
-                    "test_project", self.config
+                    project_id, self.config, mdb
                 )
             self.assertEqual(
                 globus_batch_filename,
-                "test_project_201572_2022-01-01_12-22-55_globus_batch_file.txt",
+                f"{project_id}_201572_2022-01-01_12-22-55_globus_batch_file.txt",
             )
             self.assertEqual(len(globus_analysis_df), 3)
             self.assertEqual(
@@ -219,13 +236,13 @@ class GlobusTestCase(unittest.TestCase):
             self.assertTrue(os.path.exists(globus_batch_filename))
         finally:
             os.remove(
-                "test_project_201572_2022-01-01_12-22-55_globus_batch_file.txt"
+                f"{project_id}_201572_2022-01-01_12-22-55_globus_batch_file.txt"
             ) if os.path.exists(
-                "test_project_201572_2022-01-01_12-22-55_globus_batch_file.txt"
+                f"{project_id}_201572_2022-01-01_12-22-55_globus_batch_file.txt"
             ) else None
 
-    @patch("globus_file_transfer.get_globus_manifest")
-    @patch("globus_file_transfer.subprocess.run")
+    @patch("nmdc_automation.jgi_file_staging.globus_file_transfer.get_globus_manifest")
+    @patch("nmdc_automation.jgi_file_staging.globus_file_transfer.subprocess.run")
     @mongomock.patch(servers=(("localhost", 27017),))
     def test_submit_globus_batch_file(self, mock_run, mock_get_manifest):
         mock_get_manifest.side_effect = ["Globus_Download_201572_File_Manifest.csv"]
@@ -240,41 +257,17 @@ class GlobusTestCase(unittest.TestCase):
         grow_analysis_df = pd.read_csv(
             os.path.join(self.fixtures, "grow_analysis_projects.csv")
         )
-        grow_analysis_df.columns = [
-            "apGoldId",
-            "studyId",
-            "itsApId",
-            "projects",
-            "biosample_id",
-            "seq_id",
-            "file_name",
-            "file_status",
-            "file_size",
-            "jdp_file_id",
-            "md5sum",
-            "analysis_project_id",
-        ]
-        grow_analysis_df = grow_analysis_df[
-            [
-                "apGoldId",
-                "studyId",
-                "itsApId",
-                "biosample_id",
-                "seq_id",
-                "file_name",
-                "file_status",
-                "file_size",
-                "jdp_file_id",
-                "md5sum",
-                "analysis_project_id",
-            ]
-        ]
         grow_analysis_df["file_status"] = "ready"
-        grow_analysis_df["project"] = "test_project"
+        project_name = "Gp0587070"
+
         grow_analysis_df["request_id"] = 201572
-        insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
-        output = submit_globus_batch_file("test_project", self.config_file)
-        mdb = get_mongo_db()
+        grow_analysis_df["projects"] = grow_analysis_df["projects"].apply(ast.literal_eval)
+        sample_records = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
+        mdb = get_test_db()
+        mdb.samples.insert_many([sample.model_dump() for sample in sample_records])
+
+        output = submit_globus_batch_file(project_name, self.config_file, mdb)
+
         samples = [s for s in mdb.samples.find({"file_status": "in transit"})]
         self.assertEqual(len(samples), 3)
         self.assertEqual(
@@ -285,14 +278,15 @@ class GlobusTestCase(unittest.TestCase):
 
     @mongomock.patch(servers=(("localhost", 27017),))
     def test_insert_globus_status_into_mongodb(self):
+        mdb = get_test_db()
         insert_globus_status_into_mongodb(
-            "e5130cf8-ce5d-11ed-a9b9-63ca5f6c6821", "SUCCEEDED"
+            "e5130cf8-ce5d-11ed-a9b9-63ca5f6c6821", "SUCCEEDED", mdb
         )
-        mdb = get_mongo_db()
+
         task = mdb.globus.find_one({"task_id": "e5130cf8-ce5d-11ed-a9b9-63ca5f6c6821"})
         self.assertEqual(task["task_status"], "SUCCEEDED")
 
-    @patch("globus_file_transfer.subprocess.run")
+    @patch("nmdc_automation.jgi_file_staging.globus_file_transfer.subprocess.run")
     def test_get_globus_task_status(self, mock_run):
         attrs = {
             "stdout": """Label:                        None
@@ -327,7 +321,7 @@ Bytes Per Second:             371815009""",
         output = get_globus_task_status("e5130cf8-ce5d-11ed-a9b9-63ca5f6c6821")
         self.assertEqual(output, "SUCCEEDED")
 
-    @patch("globus_file_transfer.subprocess.run")
+    @patch("nmdc_automation.jgi_file_staging.globus_file_transfer.subprocess.run")
     def test_update_globus_statuses(self, mock_run):
         attrs = {
             "stdout": """Label:                        None
@@ -390,19 +384,20 @@ Bytes Per Second:             371815009""",
         process_mock3.configure_mock(**attrs)
 
         mock_run.side_effect = [process_mock2, process_mock3]
+        mdb = get_test_db()
         insert_globus_status_into_mongodb(
-            "e5130cf8-ce5d-11ed-a9b9-63ca5f6c6821", "SUCCEEDED"
+            "e5130cf8-ce5d-11ed-a9b9-63ca5f6c6821", "SUCCEEDED", mdb
         )
         insert_globus_status_into_mongodb(
-            "63ca5f-ce5d-11ed-a9b9-6c6821-e5130cf8", "transferring"
+            "63ca5f-ce5d-11ed-a9b9-6c6821-e5130cf8", "transferring", mdb
         )
         insert_globus_status_into_mongodb(
-            "a9b96f-ce5d-11ed-63ca-6c6821-e5130cf8", "error"
+            "a9b96f-ce5d-11ed-63ca-6c6821-e5130cf8", "error", mdb
         )
 
-        update_globus_statuses()
+        update_globus_statuses(mdb)
         self.assertEqual(mock_run.call_count, 2)
-        mdb = get_mongo_db()
+
         task = mdb.globus.find_one({"task_id": "63ca5f-ce5d-11ed-a9b9-6c6821-e5130cf8"})
         self.assertEqual(task["task_status"], "SUCCEEDED")
 

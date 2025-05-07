@@ -24,7 +24,7 @@ def get_project_globus_manifests(project_name: str, mdb, config_file: str = None
     if config_file:
         config = configparser.ConfigParser()
         config.read(config_file)
-    samples_df = pd.DataFrame(mdb.samples.find({'project': project_name, 'file_status':
+    samples_df = pd.DataFrame(mdb.samples.find({'projects': project_name, 'file_status':
         {'$nin': ['in transit', 'transferred', 'expired', 'PURGED']}}))
     samples_df = samples_df[pd.notna(samples_df.request_id)]
     samples_df['request_id'] = samples_df['request_id'].astype(int)
@@ -71,13 +71,16 @@ def get_globus_manifest(request_id: int, config_file: str = None, config: config
         return ''
 
 
-def create_globus_dataframe(project_name: str, config: configparser.ConfigParser) -> pd.DataFrame:
+def create_globus_dataframe(project_name: str, config: configparser.ConfigParser, mdb) -> pd.DataFrame:
 
-    globus_manifest_files = get_project_globus_manifests(project_name, config=config)
+    globus_manifest_files = get_project_globus_manifests(project_name, mdb, config=config)
 
     globus_df = pd.DataFrame()
+    manifest_relative_path = os.path.join(config['GLOBUS']['nersc_manifests_directory'])
+    project_root = Path(__file__).parent.parent.parent
+    nersc_manifests_directory = os.path.join(project_root, manifest_relative_path)
     for manifest in globus_manifest_files:
-        mani_df = pd.read_csv(os.path.join(config['GLOBUS']['nersc_manifests_directory'], manifest))
+        mani_df = pd.read_csv(os.path.join(nersc_manifests_directory, manifest))
         subdir = f"R{manifest.split('_')[2]}"
         mani_df['subdir'] = subdir
         globus_df = pd.concat([globus_df, mani_df], ignore_index=True)
@@ -105,7 +108,7 @@ def create_globus_batch_file(project: str, config: configparser.ConfigParser, md
     # logging.debug(f"nan request_ids {samples_df['request_id']}")
     root_dir = config['GLOBUS']['globus_root_dir']
     dest_root_dir = os.path.join(config['PROJECT']['analysis_projects_dir'], f'{project}_analysis_projects')
-    globus_df = create_globus_dataframe(project, config)
+    globus_df = create_globus_dataframe(project, config, mdb)
 
     logging.debug(f"samples_df columns {samples_df.columns}, globus_df columns {globus_df.columns}")
     globus_analysis_df = pd.merge(samples_df, globus_df, left_on='jdp_file_id', right_on='file_id')
@@ -120,7 +123,7 @@ def create_globus_batch_file(project: str, config: configparser.ConfigParser, md
     return globus_batch_filename, globus_analysis_df
 
 
-def submit_globus_batch_file(project: str, config_file: str):
+def submit_globus_batch_file(project: str, config_file: str, mdb) -> str:
     """
     *Must run globus login first!*
     create a globus batch file and submit it to globus
@@ -136,14 +139,15 @@ def submit_globus_batch_file(project: str, config_file: str):
     nersc_globus_id = config['GLOBUS']['nersc_globus_id']
 
     batch_file, globus_analysis_df = create_globus_batch_file(project,
-                                                              config)
+                                                              config=config, mdb=mdb)
 
     output = subprocess.run(['globus', 'transfer', '--batch', batch_file, jgi_globus_id,
                              nersc_globus_id], capture_output=True, text=True)
 
     logging.debug(output.stdout)
-    globus_analysis_df.apply(lambda x: update_sample_in_mongodb(x, {'file_status': 'in transit'}), axis=1)
-    insert_globus_status_into_mongodb(output.stdout.split('\n')[1].split(':')[1], 'submitted')
+    globus_analysis_df.apply(lambda x: update_sample_in_mongodb(x, {'file_status': 'in transit'}, mdb), axis=1)
+
+    insert_globus_status_into_mongodb(output.stdout.split('\n')[1].split(':')[1], 'submitted', mdb)
     return output.stdout
 
 
@@ -164,7 +168,7 @@ def update_globus_statuses(mdb):
     tasks = [t for t in mdb.globus.find({'task_status': {'$ne': 'SUCCEEDED'}})]
     for task in tasks:
         task_status = get_globus_task_status(task['task_id'])
-        update_globus_task_status(task['task_id'], task_status)
+        update_globus_task_status(task['task_id'], task_status, mdb)
 
 
 if __name__ == '__main__':

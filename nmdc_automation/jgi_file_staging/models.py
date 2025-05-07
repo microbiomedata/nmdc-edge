@@ -18,7 +18,13 @@ class Sample(BaseModel):
     analysis_project_id: str
     create_date: datetime = datetime.now()
     update_date: Optional[datetime] = None
-    request_id: Optional[str] = None
+    request_id: Optional[int] = None
+
+    @property
+    def request_id_str(self) -> Optional[str]:
+        """Convert request_id to string if it exists."""
+        return str(self.request_id) if self.request_id else None
+
 
 
 class Globus(BaseModel):
