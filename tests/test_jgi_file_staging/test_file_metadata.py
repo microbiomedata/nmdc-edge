@@ -72,13 +72,17 @@ def test_check_access_token_invalid(mocker):
 
 
 
-def test_get_sequence_id(mock_get, import_config):
+def test_get_sequence_id(mock_get, import_config, fixtures_dir):
     mock_get.return_value.status_code = 200
-    mock_get.return_value.json.return_value = [{"itsApId": 1323348}]
+    test_fixture = Path.joinpath(fixtures_dir, "gold_api/analysis_project.json")
+    with open(test_fixture) as f:
+        mock_get.return_value.json.return_value = json.load(f)
+
+
     sequence_id = get_sequence_id(
-        "Ga0499978", "ed42ef155670",
+        "Ga0500001", "ed42ef155670",
     )
-    assert sequence_id == [1323348]
+    assert sequence_id == [1323394]
 
     mock_get.return_value.status_code = 403
     sequence_id = get_sequence_id(

@@ -1,0 +1,23 @@
+[
+  {
+    "apGoldId": "Ga0500001",
+    "organismGoldId": null,
+    "referenceApGoldId": null,
+    "apName": "River sediment microbial communities from Utah, USA - logan2_2019_sed_WHONDRS-S19S_0098",
+    "apType": "Metagenome Analysis",
+    "studyId": "Gs0149396",
+    "itsApId": 1323394,
+    "imgSubmissionId": 258763,
+    "imgTaxonOid": 3300049487,
+    "imgPipelineVersion": "IMG Annotation Pipeline v.5.0.25",
+    "assemblyMethod": "metaspades v. 3.15.2",
+    "publications": [],
+    "sraRuns": [],
+    "projects": [
+      "Gp0587093"
+    ],
+    "contacts": [],
+    "modDate": "2025-03-26",
+    "addDate": "2021-08-18"
+  }
+]

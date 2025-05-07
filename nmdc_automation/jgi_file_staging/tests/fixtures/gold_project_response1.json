@@ -1,1 +1,51 @@
-[{"apGoldId": "Ga0210394", "organismGoldId": null, "referenceApGoldId": null, "apType": "Metagenome Analysis", "studyId": "Gs0130354", "itsApId": 1159545, "projects": ["Gp0225778"]}, {"apGoldId": "Ga0505706", "organismGoldId": null, "referenceApGoldId": null, "apType": "Combined Assembly", "studyId": "Gs0130354", "itsApId": 1343191, "projects": ["Gp0225773", "Gp0225794", "Gp0225772", "Gp0225775", "Gp0225774", "Gp0225791", "Gp0225790", "Gp0225771", "Gp0225793", "Gp0225792", "Gp0225770", "Gp0225777", "Gp0225776", "Gp0225779", "Gp0225778", "Gp0225784", "Gp0225783", "Gp0225786", "Gp0225785", "Gp0225780", "Gp0225782", "Gp0225781", "Gp0225769", "Gp0225788", "Gp0225787", "Gp0225768", "Gp0225789", "Gp0225767"]}]
+[
+  {
+    "apGoldId": "Ga0210394",
+    "organismGoldId": null,
+    "referenceApGoldId": null,
+    "apType": "Metagenome Analysis",
+    "studyId": "Gs0130354",
+    "itsApId": 1159545,
+    "projects": [
+      "Gp0225778"
+    ]
+  },
+  {
+    "apGoldId": "Ga0505706",
+    "organismGoldId": null,
+    "referenceApGoldId": null,
+    "apType": "Combined Assembly",
+    "studyId": "Gs0130354",
+    "itsApId": 1343191,
+    "projects": [
+      "Gp0225773",
+      "Gp0225794",
+      "Gp0225772",
+      "Gp0225775",
+      "Gp0225774",
+      "Gp0225791",
+      "Gp0225790",
+      "Gp0225771",
+      "Gp0225793",
+      "Gp0225792",
+      "Gp0225770",
+      "Gp0225777",
+      "Gp0225776",
+      "Gp0225779",
+      "Gp0225778",
+      "Gp0225784",
+      "Gp0225783",
+      "Gp0225786",
+      "Gp0225785",
+      "Gp0225780",
+      "Gp0225782",
+      "Gp0225781",
+      "Gp0225769",
+      "Gp0225788",
+      "Gp0225787",
+      "Gp0225768",
+      "Gp0225789",
+      "Gp0225767"
+    ]
+  }
+]

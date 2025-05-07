@@ -185,8 +185,12 @@ def get_sequence_id(biosample_id: str, ACCESS_TOKEN: str) -> List[str]:
         return sequence_id_list
     for seq in gold_biosample_response:
         # only get the sequencing id for metagenome and metatranscriptome
-        if seq['apType'] in ["Metagenome Analysis", "Metatranscriptome Analysis"]:
-            sequence_id_list.append(seq['itsApId'])
+        ap_type = seq.get('apType')
+        if ap_type in ["Metagenome Analysis", "Metatranscriptome Analysis"]:
+            sequence_id = seq.get('itsApId')
+            if sequence_id:
+                sequence_id_list.append(sequence_id)
+
     return sequence_id_list
 
 
