@@ -13,7 +13,8 @@ from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     sample_records_to_sample_objects,
     get_sample_files,
     get_samples_data,
-
+    get_analysis_files_df,
+    get_biosample_ids,
     get_request,
 )
 from nmdc_automation.jgi_file_staging.models import Sample
@@ -284,7 +285,7 @@ def test_get_samples_data_without_csv(mock_analysis, mock_files, mock_sample_obj
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_files_df_from_proposal_id', return_value=pd.DataFrame())
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_analysis_files_df', return_value=pd.DataFrame())
 def test_get_samples_data_no_samples(mock_analysis, mock_files, mock_sample_objects, mock_get_token, mock_configparser, test_db):
-    test_db.samples.delete_many({})  # Clear the collection before the test 
+    test_db.samples.delete_many({})  # Clear the collection before the test
     mock_config = MagicMock()
     mock_config.__getitem__.return_value = {'delay': '1', 'remove_files': '1'}
     mock_configparser.return_value = mock_config
@@ -298,3 +299,69 @@ def test_get_samples_data_no_samples(mock_analysis, mock_files, mock_sample_obje
 
     mock_files.assert_called_once()
     mock_analysis.assert_called_once()
+
+
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_analysis_projects_from_proposal_id')
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.remove_unneeded_files')
+def test_get_analysis_files_df(mock_remove_unneeded, mock_get_analysis_projects):
+    # Setup mock data
+    proposal_id = 123
+    ACCESS_TOKEN = 'mock_token'
+    remove_files = ['badfile']
+
+    # Mock return from get_analysis_projects_from_proposal_id
+    mock_get_analysis_projects.return_value = [
+        {'itsApId': 'ap1', 'other_field': 'value1'},
+        {'itsApId': 'ap2', 'other_field': 'value2'}
+    ]
+
+    # Input files_df
+    files_df = pd.DataFrame({
+        'analysis_project_id': ['ap1', 'ap2'],
+        'file_type': ['type1', 'type2'],
+        'seq_id': [111, 222]
+    })
+
+    # Mock remove_unneeded_files to just return its input unchanged
+    mock_remove_unneeded.side_effect = lambda df, remove_files: df
+
+    # Call the function
+    result_df = get_analysis_files_df(proposal_id, files_df, ACCESS_TOKEN, remove_files)
+
+    # Assertions
+    assert isinstance(result_df, pd.DataFrame)
+    assert len(result_df) == 2
+    assert set(result_df.columns).issuperset({'file_type', 'analysis_project_id', 'seq_id', 'update_date', 'request_id'})
+    assert all(result_df['file_type'].apply(lambda x: isinstance(x, str)))
+    assert all(result_df['analysis_project_id'].apply(lambda x: isinstance(x, str)))
+    assert all(result_df['seq_id'].apply(lambda x: isinstance(x, str)))
+    assert pd.notnull(result_df['update_date']).all()
+    assert result_df['request_id'].isnull().all()
+
+    # Verify mocks were called
+    mock_get_analysis_projects.assert_called_once_with(proposal_id, ACCESS_TOKEN)
+    mock_remove_unneeded.assert_called_once()
+
+
+
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_request')
+def test_get_biosample_ids(mock_get_request):
+    # Arrange
+    proposal_id = 456
+    ACCESS_TOKEN = 'mock_token'
+    mock_response = [
+        {'biosampleGoldId': 'biosample1'},
+        {'biosampleGoldId': 'biosample2'},
+        {'biosampleGoldId': 'biosample3'}
+    ]
+    mock_get_request.return_value = mock_response
+
+    # Act
+    result = get_biosample_ids(proposal_id, ACCESS_TOKEN)
+
+    # Assert
+    assert result == ['biosample1', 'biosample2', 'biosample3']
+    mock_get_request.assert_called_once_with(
+        f'https://gold-ws.jgi.doe.gov/api/v1/biosamples?itsProposalId={proposal_id}',
+        ACCESS_TOKEN
+    )
