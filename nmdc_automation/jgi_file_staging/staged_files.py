@@ -16,7 +16,15 @@ logging.basicConfig(
 
 
 def get_list_staged_files(project, config, save_file_list=None):
-    base_dir = Path(config["PROJECT"]["analysis_projects_dir"], f"{project}_analysis_projects")
+    projects_dir_relative = Path(config["PROJECT"]["analysis_projects_dir"])
+    # project root based on current file location
+    project_root_dir = Path(__file__).resolve().parent.parent.parent
+    project_dirname = f"{project}_analysis_projects"
+    base_dir = os.path.join(
+        project_root_dir, projects_dir_relative, project_dirname
+    )
+
+
     proj_list = []
     for analysis_proj in os.listdir(base_dir):
         [

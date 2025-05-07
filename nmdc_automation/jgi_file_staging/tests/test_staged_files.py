@@ -5,6 +5,7 @@ import pandas as pd
 import os
 import configparser
 
+from nmdc_automation.db.nmdc_mongo import get_test_db
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to_sample_objects
 from nmdc_automation.jgi_file_staging.staged_files import get_list_missing_staged_files, get_list_staged_files
 
@@ -60,42 +61,14 @@ class StagedFilesTestCase(unittest.TestCase):
         grow_analysis_df = pd.read_csv(
             os.path.join(self.fixtures, "grow_analysis_projects.csv")
         )
-        grow_analysis_df.columns = [
-            "apGoldId",
-            "studyId",
-            "itsApId",
-            "projects",
-            "biosample_id",
-            "seq_id",
-            "file_name",
-            "file_status",
-            "file_size",
-            "jdp_file_id",
-            "md5sum",
-            "analysis_project_id",
-        ]
-        grow_analysis_df = grow_analysis_df[
-            [
-                "apGoldId",
-                "studyId",
-                "itsApId",
-                "biosample_id",
-                "seq_id",
-                "file_name",
-                "file_status",
-                "file_size",
-                "jdp_file_id",
-                "md5sum",
-                "analysis_project_id",
-            ]
-        ]
         grow_analysis_df["file_status"] = "ready"
-        grow_analysis_df["project"] = "test_project"
+
         sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
+        mdb = get_test_db()
         output_file = Path(os.path.dirname(__file__), "merge_db_staged.csv")
         try:
             missing_files = get_list_missing_staged_files(
-                self.project_name, self.config_file
+                self.project_name, self.config_file, mdb
             )
             self.assertTrue(os.path.exists(output_file))
             self.assertTrue(

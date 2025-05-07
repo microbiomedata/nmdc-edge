@@ -33,7 +33,7 @@ def create_mapping_tsv(project_name: str, mapping_file_path: pathlib.Path, mdb, 
         new_row_list.append({'id': row.id, 'gold_analysis_project': row.gold_analysis_project[1]})
     metat_study_df = pd.DataFrame(new_row_list)
     metag_study_df = study_df.loc[study_df.ap_type == 'Metagenome Analysis', ['id', 'gold_analysis_project']]
-    create_tsv_file(metag_study_df, mapping_file_path, project_name, 'metag')
+    create_tsv_file(metag_study_df, mapping_file_path, project_name, 'metag', mdb)
     if not metat_study_df.empty:
         create_tsv_file(metat_study_df, mapping_file_path, project_name, 'metat', mdb)
 
