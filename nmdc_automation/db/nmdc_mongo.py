@@ -2,7 +2,7 @@ import os
 from functools import lru_cache
 
 from pymongo import MongoClient
-from pymongo.synchronous.database import Database as MongoDatabase
+from pymongo.database import Database as MongoDatabase
 
 
 @lru_cache
