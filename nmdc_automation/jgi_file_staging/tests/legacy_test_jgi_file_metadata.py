@@ -10,7 +10,7 @@ import configparser
 import sys
 from datetime import datetime
 
-from jgi_file_metadata import (
+from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     get_access_token,
     check_access_token,
     get_analysis_projects_from_proposal_id,
