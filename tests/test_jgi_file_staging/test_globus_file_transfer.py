@@ -16,15 +16,6 @@ from nmdc_automation.jgi_file_staging.globus_file_transfer import (
 )
 from nmdc_automation.jgi_file_staging.staged_files import get_list_missing_staged_files
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to_sample_objects
-from nmdc_automation.db.nmdc_mongo import get_test_db
-
-
-@pytest.fixture
-def config(fixtures_dir):
-    config_file = os.path.join(fixtures_dir, "config.ini")
-    cfg = configparser.ConfigParser()
-    cfg.read(config_file)
-    return cfg
 
 
 def test_get_globus_manifests(monkeypatch, config):
@@ -78,10 +69,7 @@ def test_get_project_globus_manifests(monkeypatch, fixtures_dir, config):
     assert mock_manifest.mock_calls[1].args[0] == 201572
 
 
-def test_create_globus_df(monkeypatch, fixtures_dir, config):
-    grow_analysis_df = pd.read_csv(os.path.join(fixtures_dir, "grow_analysis_projects.csv"))
-    grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(ast.literal_eval)
-    grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(str)
+def test_create_globus_df(monkeypatch, fixtures_dir, jgi_staging_config, grow_analysis_df, test_db):
     grow_analysis_df.loc[:5, 'file_status'] = 'in transit'
     grow_analysis_df.loc[:5, 'request_id'] = 201545
     grow_analysis_df.loc[5:8, 'request_id'] = 201547
@@ -91,8 +79,7 @@ def test_create_globus_df(monkeypatch, fixtures_dir, config):
     sample_objects = sample_records_to_sample_objects(sample_records)
     assert len(sample_objects) == 10
 
-    mdb = get_test_db()
-    mdb.samples.insert_many([s.model_dump() for s in sample_objects])
+    test_db.samples.insert_many([s.model_dump() for s in sample_objects])
 
     mock_manifest = Mock(side_effect=[
         "Globus_Download_201545_File_Manifest.csv",

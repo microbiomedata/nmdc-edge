@@ -12,15 +12,13 @@ from nmdc_automation.jgi_file_staging.mapping_tsv import (
     get_study_id,
     create_mapping_tsv,
 )
-from nmdc_automation.db.nmdc_mongo import get_test_db
 from nmdc_automation.jgi_file_staging.models import SequencingProject
 
 
 @pytest.fixture
-def insert_sequencing_project():
+def insert_sequencing_project(test_db):
     @mongomock.patch(servers=(('localhost', 27017),))
     def _insert():
-        mdb = get_test_db()
         projects = [
             {'proposal_id': '507130', 'project_name': 'bioscales', 'nmdc_study_id': 'nmdc:sty-11-r2h77870',
              'analysis_projects_dir': 'nmdc_automation/jgi_file_staging/tests/fixtures/test_project'},
@@ -29,8 +27,8 @@ def insert_sequencing_project():
         ]
         for p in projects:
             obj = SequencingProject(**p)
-            mdb.sequencing_projects.insert_one(obj.dict())
-        return mdb
+            test_db.sequencing_projects.insert_one(obj.dict())
+        return test_db
     return _insert
 
 
