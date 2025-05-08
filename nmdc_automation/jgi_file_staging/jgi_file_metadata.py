@@ -128,14 +128,13 @@ def get_access_token() -> str:
 def _verify() -> bool:
     # Set verify based on environment variable - default to False
     # if not set
-    verify = os.getenv('VERIFY', 'False')
-    if verify.lower() == 'true':
-        verify = True
-    elif verify.lower() == 'false':
-        verify = False
+    verify = os.getenv('VERIFY', 'False').strip().lower()
+    if verify == 'true':
+        return True
+    elif verify == 'false':
+        return False
     else:
-        verify = eval(verify)
-    return verify
+        raise ValueError(f"Invalid value for VERIFY environment variable: {verify}")
 
 
 def check_access_token(ACCESS_TOKEN: str) -> str:
