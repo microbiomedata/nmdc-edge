@@ -36,7 +36,8 @@ def test_get_globus_manifests(monkeypatch, jgi_staging_config):
 
     get_globus_manifest(201670, config=jgi_staging_config)
     assert mock_run.call_count == 2
-    assert mock_run.mock_calls[0].args[0][2] == "65fa2422-e080-11ec-990f-3b4cfda38030:/73709/R201670"
+    expected_path = f"65fa2422-e080-11ec-990f-3b4cfda38030:{jgi_staging_config['GLOBUS']['globus_root_dir']}/R201670"
+    assert mock_run.mock_calls[0].args[0][2] == expected_path
 
 
 def test_get_project_globus_manifests(monkeypatch, fixtures_dir, jgi_staging_config, test_db):

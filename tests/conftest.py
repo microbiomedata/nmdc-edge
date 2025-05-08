@@ -309,10 +309,12 @@ def grow_analysis_df(fixtures_dir):
     return grow_analysis_df
 
 @fixture
-def jgi_staging_config(fixtures_dir):
+def jgi_staging_config(fixtures_dir, tmp_path):
     config_file = fixtures_dir / "jgi_staging_config.ini"
     config = configparser.ConfigParser()
     read_files = config.read(config_file)
     if not read_files:
         raise FileNotFoundError(f"Config file {config_file} not found.")
+    # set Globus root dir to tmp_path
+    config["GLOBUS"]["globus_root_dir"] = str(tmp_path)
     return config

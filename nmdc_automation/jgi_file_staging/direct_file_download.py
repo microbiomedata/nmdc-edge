@@ -15,20 +15,18 @@ logging.basicConfig(
 )
 
 
-def download_files(project, config_file, csv_file):
+def download_files(project, config, csv_file):
     # Download all files for a JAMO ID from the JGI Data Portal
     # purged_list = get_purged_jamo_ids(sample_files_list)
     # download_list = [f for f in sample_files_list if f['_id'] not in purged_list]
     JDP_TOKEN = os.environ.get("JDP_TOKEN")
-    config = configparser.ConfigParser()
-    config.read(config_file)
     base_dir = os.path.join(
-        config["GLOBUS"]["dest_root_dir"], f"{project}_analysis_projects"
+        config["GLOBUS"]["globus_root_dir"], f"{project}_analysis_projects"
     )
     download_df = pd.read_csv(csv_file)
     for sample_dict in download_df.to_dict("records"):
         save_dir = os.path.join(base_dir, sample_dict["apGoldId"])
-        os.mkdir(save_dir) if not os.path.exists(save_dir) else None
+        os.makedirs(save_dir, exist_ok=True)
         download_sample_file(JDP_TOKEN, save_dir, sample_dict)
 
 

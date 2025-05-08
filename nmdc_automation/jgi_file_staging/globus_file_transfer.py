@@ -4,7 +4,7 @@ from datetime import datetime
 import pandas as pd
 import os
 import logging
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import subprocess
 import argparse
 from typing import List, Optional, Union
@@ -38,39 +38,41 @@ def get_project_globus_manifests(project_name: str, mdb, config_file: str = None
 
 
 def get_globus_manifest(request_id: int, config_file: str = None, config: configparser.ConfigParser = None) -> str:
-    """
-    This gets the Globus file manifest with the list of Globus paths for each requested file
-    This function requires installation of the Globus CLI
-    :return:
-    """
     if config_file:
         config = configparser.ConfigParser()
         config.read(config_file)
     jgi_globus_id = config['GLOBUS']['jgi_globus_id']
     nersc_globus_id = config['GLOBUS']['nersc_globus_id']
     nersc_manifests_directory = config['GLOBUS']['nersc_manifests_directory']
-    globus_root_dir = config['GLOBUS']['globus_root_dir']
+    globus_root_dir = config['GLOBUS']['globus_root_dir'].lstrip('/')
 
-    sub_output = subprocess.run(['globus', 'ls', f'{jgi_globus_id}:/{globus_root_dir}/R{request_id}'],
+    globus_path = PurePosixPath(globus_root_dir) / f"R{request_id}"
+
+    sub_output = subprocess.run(['globus', 'ls', f'{jgi_globus_id}:/{globus_path}'],
                                 capture_output=True, text=True)
+    sub_output.check_returncode()
     sub_output_split = sub_output.stdout.split('\n')
     logging.debug(f"request_id: {request_id} globus ls: {sub_output_split}")
-    manifest_file_name = [fn for fn in sub_output_split if 'Globus_Download' in fn][0]
+
+    manifest_files = [fn for fn in sub_output_split if 'Globus_Download' in fn]
+    if not manifest_files:
+        logging.warning("No Globus_Download file found")
+        return ''
+    manifest_file_name = manifest_files[0]
     logging.debug(f"manifest filename {manifest_file_name}")
 
-    if 'Globus_Download' in manifest_file_name:
-        if Path(nersc_manifests_directory, manifest_file_name).exists():
-            return manifest_file_name
-        logging.debug(f"transferring {manifest_file_name}")
-        # Use Globus to transfer manifest file to destination directory
-        manifest_sub_out = subprocess.run(['globus', 'transfer', '--sync-level', 'exists',
-                        f"{jgi_globus_id}:/{globus_root_dir}/R{request_id}/{manifest_file_name}",
-                        f"{nersc_globus_id}:{nersc_manifests_directory}/{manifest_file_name}"],
-                                          capture_output=True, text=True)
-        logging.debug(f"manifest globus transfer: {manifest_sub_out}")
+    if Path(nersc_manifests_directory, manifest_file_name).exists():
         return manifest_file_name
-    else:
-        return ''
+
+    logging.debug(f"transferring {manifest_file_name}")
+    manifest_sub_out = subprocess.run(['globus', 'transfer', '--sync-level', 'exists',
+        f"{jgi_globus_id}:/{globus_path}/{manifest_file_name}",
+        f"{nersc_globus_id}:{nersc_manifests_directory}/{manifest_file_name}"],
+        capture_output=True, text=True)
+    manifest_sub_out.check_returncode()
+    logging.debug(f"manifest globus transfer: {manifest_sub_out.stdout}, errors: {manifest_sub_out.stderr}")
+
+    return manifest_file_name
 
 
 def create_globus_dataframe(project_name: str, config: configparser.ConfigParser, mdb) -> pd.DataFrame:
