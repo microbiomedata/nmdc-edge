@@ -1,46 +1,48 @@
 import pytest
 import pandas as pd
-import ast
-import os
-from pathlib import Path
+
 
 from nmdc_automation.jgi_file_staging.staged_files import get_list_missing_staged_files
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to_sample_objects
-from nmdc_automation.db.nmdc_mongo import get_test_db
 
 
-@pytest.fixture
-def grow_analysis_df(fixtures_dir):
-    df = pd.read_csv(os.path.join(fixtures_dir, "grow_analysis_projects.csv"))
-    df["file_status"] = "ready"
-    df["projects"] = df["projects"].apply(ast.literal_eval)
-    return df
-
-
-@pytest.fixture
-def populated_mdb(grow_analysis_df):
-    sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
-    mdb = get_test_db()
-    mdb.projects.insert_many([so.model_dump() for so in sample_objects])
-    return mdb
-
-
-@pytest.mark.parametrize("project_name,config_file", [
-    ("test_project", "test_config.yaml"),
-])
 def test_get_list_missing_staged_files(
-    populated_mdb, project_name, config_file, monkeypatch, tmp_path
+    test_db, jgi_staging_config, monkeypatch, tmp_path, grow_analysis_df
 ):
-    # Patch anything that would write to disk (if necessary)
-    monkeypatch.setattr(
-        "nmdc_automation.jgi_file_staging.staged_files.OUTPUT_FILE", tmp_path / "dummy.csv"
-    )
+    import os
+    from pathlib import Path
+
+    # Patch DataFrame.to_csv to a no-op to prevent file writes
+    monkeypatch.setattr(pd.DataFrame, "to_csv", lambda *args, **kwargs: None)
+
+    project_name = "Gp0587070"
+
+    # Setup fake directory structure under tmp_path
+    projects_dir_relative = jgi_staging_config["PROJECT"]["analysis_projects_dir"]
+    project_dirname = f"{project_name}_analysis_projects"
+
+    # Patch config to point to tmp_path
+    jgi_staging_config["PROJECT"]["analysis_projects_dir"] = str(tmp_path)
+
+    base_dir = tmp_path / project_dirname
+    base_dir.mkdir(parents=True)
+
+    analysis_proj_dir = base_dir / "Gp0587070"
+    analysis_proj_dir.mkdir()
+
+    # Add fake file
+    (analysis_proj_dir / "fakefile.txt").touch()
+
+    # Prepare the test database
+    sample_objs = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
+    test_db.projects.insert_many([so.model_dump() for so in sample_objs])
+
     # Run the function under test
-    missing_files = get_list_missing_staged_files(project_name, config_file, populated_mdb)
+    missing_files = get_list_missing_staged_files(project_name, jgi_staging_config, test_db)
 
     # Check type and basic properties
     assert isinstance(missing_files, list)
 
-    # Optional: add more specific assertions here
-    # Example: check that no file was written
+    # Optional: assert no CSV files were written
     assert not any(tmp_path.glob("*.csv"))
+

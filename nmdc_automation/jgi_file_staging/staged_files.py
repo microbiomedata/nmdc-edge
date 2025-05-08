@@ -39,18 +39,17 @@ def get_list_staged_files(project, config, save_file_list=None):
 
 
 def get_list_missing_staged_files(
-    project_name, config_file, mdb, save_file_list=False
+    project_name, config, mdb, save_file_list=False
 ) -> list:
     """
     Get list of files on file system for a project and compare to list of files in database
     """
-    config = configparser.ConfigParser()
-    config.read(config_file)
+
     stage_df = get_list_staged_files(project_name, config, save_file_list)
     stage_df["file_key"] = stage_df.apply(
         lambda x: f"{x.analysis_project}-{x.file}", axis=1
     )
-    samples_df = pd.DataFrame([s for s in mdb.samples.find({"project": project_name})])
+    samples_df = pd.DataFrame([s for s in mdb.samples.find({"projects": project_name})])
     samples_df["file_key"] = samples_df.apply(
         lambda x: f"{x.apGoldId}-{x.file_name}", axis=1
     )
@@ -85,6 +84,8 @@ if __name__ == "__main__":
         exit(1)
 
     # Get the list of missing staged files
+    config = configparser.ConfigParser()
+    config.read(config_file)
     missing_files = get_list_missing_staged_files(
-        project_name, config_file, mdb, save_file_list
+        project_name, config, mdb, save_file_list
     )

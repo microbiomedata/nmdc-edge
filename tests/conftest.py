@@ -307,3 +307,12 @@ def grow_analysis_df(fixtures_dir):
     ]
     grow_analysis_df["projects"] = grow_analysis_df["projects"].apply(ast.literal_eval)
     return grow_analysis_df
+
+@fixture
+def jgi_staging_config(fixtures_dir):
+    config_file = fixtures_dir / "jgi_staging_config.ini"
+    config = configparser.ConfigParser()
+    read_files = config.read(config_file)
+    if not read_files:
+        raise FileNotFoundError(f"Config file {config_file} not found.")
+    return config

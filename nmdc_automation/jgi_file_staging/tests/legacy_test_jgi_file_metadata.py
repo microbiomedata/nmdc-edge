@@ -16,7 +16,6 @@ from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     get_analysis_projects_from_proposal_id,
     get_sample_files,
     get_sequence_id,
-    insert_samples_into_mongodb,
     get_files_and_agg_ids,
     remove_unneeded_files,
     get_samples_data,
@@ -25,9 +24,9 @@ from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     get_seq_unit_names,
     get_request, get_biosample_ids, create_all_files_list
 )
-from mongo import get_mongo_db
-from models import SequencingProject
-from file_restoration import update_sample_in_mongodb
+
+from nmdc_automation.jgi_file_staging.models import SequencingProject
+from nmdc_automation.jgi_file_staging.file_restoration import update_sample_in_mongodb
 
 
 class JgiFileTestCase(unittest.TestCase):

@@ -17,11 +17,6 @@ from nmdc_automation.jgi_file_staging.models import SequencingProject
 
 
 @pytest.fixture
-def fixtures_dir():
-    return Path(__file__).parent / 'fixtures'
-
-
-@pytest.fixture
 def insert_sequencing_project():
     @mongomock.patch(servers=(('localhost', 27017),))
     def _insert():
