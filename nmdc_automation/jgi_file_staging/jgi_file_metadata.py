@@ -176,7 +176,13 @@ def get_biosample_ids(proposal_id: int, ACCESS_TOKEN: str) -> List[str]:
 
 
 def get_sequence_id(biosample_id: str, ACCESS_TOKEN: str) -> List[str]:
-    # given a gold biosample id, get the JGI sequencing ID
+    """
+    Given a GOLD biosample ID, retrieve the list of JGI sequencing IDs.
+
+    :param biosample_id: The GOLD biosample ID.
+    :param ACCESS_TOKEN: The API access token.
+    :return: A list of sequencing IDs associated with the biosample.
+    """
     gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/analysis_projects?biosampleGoldId={biosample_id}'
     gold_biosample_response = get_request(gold_biosample_url, ACCESS_TOKEN)
     sequence_id_list = []
