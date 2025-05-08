@@ -44,9 +44,12 @@ ACCEPT = "application/json"
 def get_request(url: str, ACCESS_TOKEN: str) -> List[Dict[str, Any]]:
     """
     Make a GET request to the specified URL with the provided access token.
-    :param url: URL to send the request to
-    :param ACCESS_TOKEN: Access token for authorization
-    :return: Response object if successful, None if 404
+    
+    :param url: URL to send the request to.
+    :param ACCESS_TOKEN: Access token for authorization.
+    :return: A list of dictionaries containing the JSON response data if the request is successful.
+             Returns an empty list if the status code is 404 (Not Found) or 403 (Forbidden).
+             Raises a requests.exceptions.RequestException for other HTTP errors.
     """
     headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
     response = requests.get( url, headers=headers, verify=_verify())
