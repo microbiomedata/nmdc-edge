@@ -277,7 +277,7 @@ def remove_duplicate_analysis_files(seq_files_df: pd.DataFrame) -> pd.DataFrame:
                                          (seq_files_df.file_name != 'input.corr.fastq.gz'), :].iterrows():
             # find rows with fastq files to remove (fastq file name is not in list of seq_unit_names and is not
             # input.corr.fastq.gz)
-            if ~np.any([seq in row.file_name for seq in seq_unit_names_list]):
+            if not any([seq in row.file_name for seq in seq_unit_names_list]):
                 drop_idx.append(idx)
     seq_files_df.drop(drop_idx, inplace=True)
     return seq_files_df
