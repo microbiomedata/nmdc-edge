@@ -36,14 +36,6 @@ def config(fixtures_dir):
     return cfg
 
 
-@pytest.fixture(autouse=True)
-def cleanup_mongodb():
-    yield
-    mdb = get_test_db()
-    mdb.samples.drop()
-    mdb.globus.drop()
-
-
 def test_get_globus_manifests(monkeypatch, config):
     mock_run = Mock()
     process_mocks = []
@@ -131,22 +123,12 @@ def test_create_globus_df(monkeypatch, fixtures_dir, config):
     assert globus_df.loc[1, "subdir"] == "R201547"
 
 
-@pytest.mark.usefixtures("cleanup_mongodb")
-@mongomock.patch(servers=(("localhost", 27017),))
-def test_create_globus_batch_file(monkeypatch, fixtures_dir, config):
-    mock_manifest = Mock(side_effect=["Globus_Download_201572_File_Manifest.csv"])
-    monkeypatch.setattr("nmdc_automation.jgi_file_staging.globus_file_transfer.get_globus_manifest", mock_manifest)
 
-    grow_analysis_df = pd.read_csv(os.path.join(fixtures_dir, "grow_analysis_projects.csv"))
-    grow_analysis_df.columns = [
-        "apGoldId", "studyId", "itsApId", "projects", "biosample_id", "seq_id",
-        "file_name", "file_status", "file_size", "jdp_file_id", "md5sum", "analysis_project_id"
-    ]
-    grow_analysis_df = grow_analysis_df[
-        ["apGoldId", "studyId", "itsApId", "projects", "biosample_id", "seq_id",
-         "file_name", "file_status", "file_size", "jdp_file_id", "md5sum", "analysis_project_id"]
-    ]
-    grow_analysis_df["projects"] = grow_analysis_df["projects"].apply(ast.literal_eval)
+def test_create_globus_batch_file(monkeypatch, fixtures_dir, config, test_db, grow_analysis_df, tmp_path):
+    import os
+
+    mock_manifest = Mock(return_value="Globus_Download_201572_File_Manifest.csv")
+    monkeypatch.setattr("nmdc_automation.jgi_file_staging.globus_file_transfer.get_globus_manifest", mock_manifest)
     grow_analysis_df["file_status"] = "ready"
     grow_analysis_df["request_id"] = "201572"
 
@@ -154,14 +136,19 @@ def test_create_globus_batch_file(monkeypatch, fixtures_dir, config):
     sample_objects = sample_records_to_sample_objects(sample_records)
     assert len(sample_objects) == 10
 
-    mdb = get_test_db()
-    mdb.samples.insert_many([s.model_dump() for s in sample_objects])
+    test_db.samples.insert_many([s.model_dump() for s in sample_objects])
+
+    # Patch where the file gets written to go into tmp_path
+    monkeypatch.setattr("nmdc_automation.jgi_file_staging.globus_file_transfer.OUTPUT_DIR", tmp_path)
 
     with Replace(
         "nmdc_automation.jgi_file_staging.globus_file_transfer.datetime",
         mock_datetime(2022, 1, 1, 12, 22, 55, delta=0),
     ):
-        globus_batch_filename, globus_analysis_df = create_globus_batch_file("Gp0587070", config, mdb)
+        globus_batch_filename, globus_analysis_df = create_globus_batch_file("Gp0587070", config, test_db, tmp_path)
 
-    assert globus_batch_filename.endswith(".batch")
-    assert not globus_analysis_df.empty
+    assert globus_batch_filename.endswith(".txt")
+    assert tmp_path in Path(globus_batch_filename).parents
+    assert os.path.exists(globus_batch_filename)
+
+

@@ -7,13 +7,15 @@ import logging
 from pathlib import Path
 import subprocess
 import argparse
-from typing import List
+from typing import List, Optional, Union
 from nmdc_automation.jgi_file_staging.file_restoration import update_sample_in_mongodb, update_file_statuses
 from nmdc_automation.db.nmdc_mongo import get_db
 
 logging.basicConfig(filename='file_staging.log',
                     format='%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
                     datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG)
+
+OUTPUT_DIR = Path(".")
 
 
 def get_project_globus_manifests(project_name: str, mdb, config_file: str = None,
@@ -87,7 +89,8 @@ def create_globus_dataframe(project_name: str, config: configparser.ConfigParser
     return globus_df
 
 
-def create_globus_batch_file(project: str, config: configparser.ConfigParser, mdb) -> (str, pd.DataFrame):
+def create_globus_batch_file(project: str, config: configparser.ConfigParser, mdb,
+                             output_dir: Optional[Union[str, Path]]) -> (str, pd.DataFrame):
     """
     Creates batch file for the globus file transfer
     :param project: name of project
@@ -98,6 +101,11 @@ def create_globus_batch_file(project: str, config: configparser.ConfigParser, md
     2) create a dataframe from the Globus manifests
     3) write to globus batch file
     """
+    if output_dir is None:
+        output_dir = Path(".")
+    else:
+        output_dir = Path(output_dir)
+
     update_file_statuses(project=project, mdb=mdb, config=config)
     samples_df = pd.DataFrame(mdb.samples.find({'file_status': 'ready'}))
     if samples_df.empty:
@@ -117,10 +125,13 @@ def create_globus_batch_file(project: str, config: configparser.ConfigParser, md
         filepath = os.path.join(root_dir, row.subdir, row['directory/path'], row.filename)
         dest_file_path = os.path.join(dest_root_dir, row.apGoldId, row.filename)
         write_list.append(f"{filepath} {dest_file_path}")
-    globus_batch_filename = f"{project}_{samples_df['request_id'].unique()[0]}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_globus_batch_file.txt"
+    globus_batch_filename = (
+            output_dir / f"{project}_{samples_df['request_id'].unique()[0]}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_globus_batch_file.txt"
+    )
+
     with open(globus_batch_filename, 'w') as f:
         f.write('\n'.join(write_list))
-    return globus_batch_filename, globus_analysis_df
+    return str(globus_batch_filename), globus_analysis_df
 
 
 def submit_globus_batch_file(project: str, config_file: str, mdb) -> str:
