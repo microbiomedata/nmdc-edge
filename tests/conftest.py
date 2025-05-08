@@ -1,3 +1,4 @@
+import ast
 import configparser
 import json
 import os
@@ -7,7 +8,7 @@ from pytest import fixture
 import requests_mock
 import shutil
 from time import time
-from unittest.mock import MagicMock
+import pandas as pd
 from yaml import load, Loader
 
 
@@ -266,11 +267,43 @@ class MockNmdcRuntimeApi:
         }
 
 
-
-
-
-
-
 @fixture(scope="session")
 def mock_nmdc_runtime_api():
     return MockNmdcRuntimeApi()
+
+
+@fixture
+def grow_analysis_df(fixtures_dir):
+    grow_analysis_df = pd.read_csv(fixtures_dir / "grow_analysis_projects.csv")
+    grow_analysis_df.columns = [
+        "apGoldId",
+        "studyId",
+        "itsApId",
+        "projects",
+        "biosample_id",
+        "seq_id",
+        "file_name",
+        "file_status",
+        "file_size",
+        "jdp_file_id",
+        "md5sum",
+        "analysis_project_id",
+    ]
+    grow_analysis_df = grow_analysis_df[
+        [
+            "apGoldId",
+            "studyId",
+            "itsApId",
+            "projects",
+            "biosample_id",
+            "seq_id",
+            "file_name",
+            "file_status",
+            "file_size",
+            "jdp_file_id",
+            "md5sum",
+            "analysis_project_id",
+        ]
+    ]
+    grow_analysis_df["projects"] = grow_analysis_df["projects"].apply(ast.literal_eval)
+    return grow_analysis_df
