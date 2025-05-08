@@ -1,10 +1,8 @@
 """Test the globus_file_transfer module."""
 import ast
-import pytest
 import os
 from unittest.mock import patch, Mock
 import pandas as pd
-import configparser
 from pathlib import Path
 from testfixtures import Replace, mock_datetime
 
@@ -14,11 +12,10 @@ from nmdc_automation.jgi_file_staging.globus_file_transfer import (
     create_globus_dataframe,
     get_project_globus_manifests
 )
-from nmdc_automation.jgi_file_staging.staged_files import get_list_missing_staged_files
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to_sample_objects
 
 
-def test_get_globus_manifests(monkeypatch, config):
+def test_get_globus_manifests(monkeypatch, jgi_staging_config):
     mock_run = Mock()
     process_mocks = []
     side_effects = [
@@ -37,12 +34,12 @@ def test_get_globus_manifests(monkeypatch, config):
     mock_run.side_effect = process_mocks
     monkeypatch.setattr("nmdc_automation.jgi_file_staging.globus_file_transfer.subprocess.run", mock_run)
 
-    get_globus_manifest(201670, config=config)
+    get_globus_manifest(201670, config=jgi_staging_config)
     assert mock_run.call_count == 2
     assert mock_run.mock_calls[0].args[0][2] == "65fa2422-e080-11ec-990f-3b4cfda38030:/73709/R201670"
 
 
-def test_get_project_globus_manifests(monkeypatch, fixtures_dir, config):
+def test_get_project_globus_manifests(monkeypatch, fixtures_dir, jgi_staging_config, test_db):
     mock_manifest = Mock(side_effect=[
         "Globus_Download_201545_File_Manifest.csv",
         "Globus_Download_201547_File_Manifest.csv",
@@ -59,10 +56,10 @@ def test_get_project_globus_manifests(monkeypatch, fixtures_dir, config):
     grow_analysis_df.loc[9, 'request_id'] = 201572
 
     sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
-    mdb = get_test_db()
-    mdb.samples.insert_many([s.model_dump() for s in sample_objects])
 
-    get_project_globus_manifests("Gp0587070", mdb, config=config)
+    test_db.samples.insert_many([s.model_dump() for s in sample_objects])
+
+    get_project_globus_manifests("Gp0587070", test_db, config=jgi_staging_config)
 
     assert mock_manifest.call_count == 2
     assert mock_manifest.mock_calls[0].args[0] == 201547
@@ -88,7 +85,7 @@ def test_create_globus_df(monkeypatch, fixtures_dir, jgi_staging_config, grow_an
     ])
     monkeypatch.setattr("nmdc_automation.jgi_file_staging.globus_file_transfer.get_globus_manifest", mock_manifest)
 
-    globus_df = create_globus_dataframe("Gp0587070", config, mdb)
+    globus_df = create_globus_dataframe("Gp0587070", jgi_staging_config, test_db)
 
     assert len(globus_df) == 2
     assert globus_df.loc[0, "directory/path"] == "ERLowmetatpilot/IMG_Data"
@@ -102,7 +99,7 @@ def test_create_globus_df(monkeypatch, fixtures_dir, jgi_staging_config, grow_an
 
 
 
-def test_create_globus_batch_file(monkeypatch, fixtures_dir, config, test_db, grow_analysis_df, tmp_path):
+def test_create_globus_batch_file(monkeypatch, fixtures_dir, jgi_staging_config, test_db, grow_analysis_df, tmp_path):
     import os
 
     mock_manifest = Mock(return_value="Globus_Download_201572_File_Manifest.csv")
@@ -123,7 +120,7 @@ def test_create_globus_batch_file(monkeypatch, fixtures_dir, config, test_db, gr
         "nmdc_automation.jgi_file_staging.globus_file_transfer.datetime",
         mock_datetime(2022, 1, 1, 12, 22, 55, delta=0),
     ):
-        globus_batch_filename, globus_analysis_df = create_globus_batch_file("Gp0587070", config, test_db, tmp_path)
+        globus_batch_filename, globus_analysis_df = create_globus_batch_file("Gp0587070", jgi_staging_config, test_db, tmp_path)
 
     assert globus_batch_filename.endswith(".txt")
     assert tmp_path in Path(globus_batch_filename).parents
