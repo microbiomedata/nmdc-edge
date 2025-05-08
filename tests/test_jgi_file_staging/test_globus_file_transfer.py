@@ -1,9 +1,8 @@
-import shutil
+"""Test the globus_file_transfer module."""
 import ast
 import pytest
 import os
 from unittest.mock import patch, Mock
-import mongomock
 import pandas as pd
 import configparser
 from pathlib import Path
@@ -11,21 +10,13 @@ from testfixtures import Replace, mock_datetime
 
 from nmdc_automation.jgi_file_staging.globus_file_transfer import (
     get_globus_manifest,
-    get_globus_task_status,
     create_globus_batch_file,
     create_globus_dataframe,
-    insert_globus_status_into_mongodb,
-    update_globus_statuses,
-    submit_globus_batch_file, get_project_globus_manifests
+    get_project_globus_manifests
 )
 from nmdc_automation.jgi_file_staging.staged_files import get_list_missing_staged_files
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to_sample_objects
 from nmdc_automation.db.nmdc_mongo import get_test_db
-
-
-@pytest.fixture(scope="module")
-def fixtures_dir():
-    return os.path.join(os.path.dirname(__file__), "fixtures")
 
 
 @pytest.fixture
@@ -150,5 +141,3 @@ def test_create_globus_batch_file(monkeypatch, fixtures_dir, config, test_db, gr
     assert globus_batch_filename.endswith(".txt")
     assert tmp_path in Path(globus_batch_filename).parents
     assert os.path.exists(globus_batch_filename)
-
-
