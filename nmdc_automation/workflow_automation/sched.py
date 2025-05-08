@@ -5,10 +5,9 @@ import uuid
 import os
 from time import sleep as _sleep
 from nmdc_automation.api.nmdcapi import NmdcRuntimeApi
+from nmdc_automation.db.nmdc_mongo import get_db
 from nmdc_automation.workflow_automation.workflows import load_workflow_configs
 from functools import lru_cache
-from pymongo import MongoClient
-from pymongo.database import Database as MongoDatabase
 from nmdc_automation.workflow_automation.workflow_process import load_workflow_process_nodes
 from nmdc_automation.models.workflow import WorkflowConfig, WorkflowProcessNode
 from semver.version import Version
@@ -22,17 +21,6 @@ _WF_YAML_ENV = "NMDC_WORKFLOW_YAML_FILE"
 # configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-@lru_cache
-def get_mongo_db() -> MongoDatabase:
-    _client = MongoClient(
-        host=os.getenv("MONGO_HOST", "localhost"),
-        port=int(os.getenv("MONGO_PORT", "27018")),
-        username=os.getenv("MONGO_USERNAME", None),
-        password=os.getenv("MONGO_PASSWORD", None),
-        directConnection=True,
-    )[os.getenv("MONGO_DBNAME", "nmdc")]
-    return _client
-
 
 
 def within_range(wf1: WorkflowConfig, wf2: WorkflowConfig, force=False) -> bool:
@@ -339,7 +327,7 @@ def main(site_conf, wf_file):  # pragma: no cover
     Main function
     """
     # site_conf = os.environ.get("NMDC_SITE_CONF", "site_configuration.toml")
-    db = get_mongo_db()
+    db = get_db()
     logger.info("Initializing Scheduler")
     sched = Scheduler(db, wf_file, site_conf=site_conf)
 

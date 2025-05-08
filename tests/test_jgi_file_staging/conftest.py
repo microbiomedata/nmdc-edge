@@ -7,11 +7,11 @@ from pathlib import Path
 FIXTURE_DIR = Path(__file__).parent / "fixtures"
 
 
-@pytest.fixture
-def config():
-    config = configparser.ConfigParser()
-    config.read(FIXTURE_DIR / "test_config.ini")
-    return config
+# @pytest.fixture
+# def import_config():
+#     config = configparser.ConfigParser()
+#     config.read(FIXTURE_DIR / "import_config.ini")
+#     return config
 
 
 @pytest.fixture

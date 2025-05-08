@@ -10,10 +10,12 @@ import time
 import argparse
 from pathlib import Path
 from itertools import chain
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
-from mongo import get_mongo_db
-from models import Sample, SequencingProject
-from typing import List
+from nmdc_automation.db.nmdc_mongo import get_db
+from nmdc_automation.jgi_file_staging.models import Sample, SequencingProject
+from typing import List, Dict, Any
 from pydantic import ValidationError
 
 logging.basicConfig(filename='file_staging.log',
@@ -33,27 +35,40 @@ Config file contains parameters that can change.
 ACCEPT = "application/json"
 
 
-def get_request(url: str, ACCESS_TOKEN: str, delay=1.0) -> dict:
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type(requests.exceptions.RequestException),
+    reraise=True
+)
+def get_request(url: str, ACCESS_TOKEN: str) -> List[Dict[str, Any]]:
+    """
+    Make a GET request to the specified URL with the provided access token.
+    
+    :param url: URL to send the request to.
+    :param ACCESS_TOKEN: Access token for authorization.
+    :return: A list of dictionaries containing the JSON response data if the request is successful.
+             Returns an empty list if the status code is 404 (Not Found) or 403 (Forbidden).
+             Raises a requests.exceptions.RequestException for other HTTP errors.
+    """
     headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "accept": ACCEPT, 'User-agent': 'nmdc bot 0.1'}
-    time.sleep(delay)
-    try:
-        response = requests.get(url, headers=headers, verify=eval(os.environ.get('VERIFY')))
-        if response.status_code == 404:
-            logging.exception('404 error')
-            return None
-        else:
-            return response.json()
-    except requests.exceptions.HTTPError as errh:
-        logging.exception(f"HTTP Error: {errh}")
-    except requests.exceptions.ConnectionError as errc:
-        logging.exception(f"Error Connecting: {errc}")
-    except requests.exceptions.Timeout as errt:
-        logging.exception(f"Timeout Error: {errt}")
-    except requests.exceptions.RequestException as err:
-        logging.exception(f"Something Else: {err}")
+    response = requests.get( url, headers=headers, verify=_verify())
+    if response.status_code == 200:
+        return response.json()
+    # warn and carry on if not found / forbidden
+    elif response.status_code == 404:
+        logging.warning(f"404 Not Found: {url}")
+        return []
+    elif response.status_code == 403:
+        logging.warning(f"403 Forbidden: {url}")
+        return []
+    # raise an exception for other errors
+    else:
+        logging.error(f"Error {response.status_code}: {response.text}")
+        raise requests.exceptions.RequestException(f"Error {response.status_code}: {response.text}")
 
 
-def get_samples_data(project: str, config_file: str, csv_file: str = None) -> None:
+def get_samples_data(project: str, config_file: str, mdb, csv_file: str = None) -> None:
     """
     Get JGI sample metadata using the gold API and store in a mongodb
     :param project: Name of project (e.g., GROW, Bioscales, NEON)
@@ -65,7 +80,6 @@ def get_samples_data(project: str, config_file: str, csv_file: str = None) -> No
     config = configparser.ConfigParser()
     config.read(config_file)
     ACCESS_TOKEN = get_access_token()
-    mdb = get_mongo_db()
     seq_project = mdb.sequencing_projects.find_one({'project_name': project})
     if csv_file is not None:
         gold_analysis_files_df = pd.read_csv(csv_file)
@@ -77,11 +91,15 @@ def get_samples_data(project: str, config_file: str, csv_file: str = None) -> No
     gold_analysis_files_df['project'] = project
     logging.debug(f'number of samples to insert: {len(gold_analysis_files_df)}')
     logging.debug(gold_analysis_files_df.head().to_dict('records'))
-    insert_samples_into_mongodb(gold_analysis_files_df.to_dict('records'))
+
+    sample_objects = sample_records_to_sample_objects(gold_analysis_files_df.to_dict('records'))
+    if len(sample_objects) > 0:
+        mdb.samples.insert_many(sample_objects)
+        logging.info(f"Inserted {len(sample_objects)} samples into mongodb")
 
 
 def get_files_df_from_proposal_id(proposal_id: id, ACCESS_TOKEN: str, delay: float):
-    all_files_list = get_sample_files(proposal_id, ACCESS_TOKEN, delay)
+    all_files_list = get_sample_files(proposal_id, ACCESS_TOKEN)
     files_df = pd.DataFrame(all_files_list)
     return files_df
 
@@ -102,22 +120,36 @@ def get_analysis_files_df(proposal_id: int, files_df: pd.DataFrame, ACCESS_TOKEN
 
 def get_access_token() -> str:
     url = f'https://gold-ws.jgi.doe.gov/exchange?offlineToken={os.environ.get("OFFLINE_TOKEN")}'
-    response = requests.get(url, verify=eval(os.getenv('VERIFY')))
+    verify = _verify()
+
+    response = requests.get(url, verify=verify)
     sys.exit(f"get_access_token: {response.text}") if response.status_code != 200 else None
 
     return response.text
 
 
-def check_access_token(ACCESS_TOKEN: str, delay: float) -> str:
+def _verify() -> bool:
+    # Set verify based on environment variable - default to False
+    # if not set
+    verify = os.getenv('VERIFY', 'False').strip().lower()
+    if verify == 'true':
+        return True
+    elif verify == 'false':
+        return False
+    else:
+        raise ValueError(f"Invalid value for VERIFY environment variable: {verify}")
+
+
+def check_access_token(ACCESS_TOKEN: str) -> str:
     url = 'https://gold-ws.jgi.doe.gov/api/v1/projects?biosampleGoldId=Gb0291582'
-    gold_biosample_response = get_request(url, ACCESS_TOKEN, delay=delay)
+    gold_biosample_response = get_request(url, ACCESS_TOKEN)
     if gold_biosample_response:
         return ACCESS_TOKEN
     else:
         return get_access_token()
 
 
-def get_sample_files(proposal_id: int, ACCESS_TOKEN: str, delay: float) -> List[dict]:
+def get_sample_files(proposal_id: int, ACCESS_TOKEN: str) -> List[dict]:
     """
     Get all sample files for a project
     :param proposal_id: proposal id
@@ -130,8 +162,8 @@ def get_sample_files(proposal_id: int, ACCESS_TOKEN: str, delay: float) -> List[
     all_files_list = []
     for idx, biosample_id in samples_df.itertuples():
         logging.debug(f"biosample {biosample_id}")
-        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN, delay)
-        seq_id_list = get_sequence_id(biosample_id, ACCESS_TOKEN, delay)
+        ACCESS_TOKEN = check_access_token(ACCESS_TOKEN)
+        seq_id_list = get_sequence_id(biosample_id, ACCESS_TOKEN)
         for seq_id in seq_id_list:
             sample_files_list = get_files_and_agg_ids(seq_id, ACCESS_TOKEN)
             create_all_files_list(sample_files_list, biosample_id, seq_id, all_files_list)
@@ -146,16 +178,27 @@ def get_biosample_ids(proposal_id: int, ACCESS_TOKEN: str) -> List[str]:
     return biosample_ids
 
 
-def get_sequence_id(biosample_id: str, ACCESS_TOKEN: str, delay: float) -> List[str]:
-    # given a gold biosample id, get the JGI sequencing ID
+def get_sequence_id(biosample_id: str, ACCESS_TOKEN: str) -> List[str]:
+    """
+    Given a GOLD biosample ID, retrieve the list of JGI sequencing IDs.
+
+    :param biosample_id: The GOLD biosample ID.
+    :param ACCESS_TOKEN: The API access token.
+    :return: A list of sequencing IDs associated with the biosample.
+    """
     gold_biosample_url = f'https://gold-ws.jgi.doe.gov/api/v1/analysis_projects?biosampleGoldId={biosample_id}'
-    gold_biosample_response = get_request(gold_biosample_url, ACCESS_TOKEN, delay=delay)
+    gold_biosample_response = get_request(gold_biosample_url, ACCESS_TOKEN)
     sequence_id_list = []
     if not gold_biosample_response:
         return sequence_id_list
     for seq in gold_biosample_response:
-        if seq['apType'] in ["Metagenome Analysis", "Metatranscriptome Analysis"]:
-            sequence_id_list.append(seq['itsApId'])
+        # only get the sequencing id for metagenome and metatranscriptome
+        ap_type = seq.get('apType')
+        if ap_type in ["Metagenome Analysis", "Metatranscriptome Analysis"]:
+            sequence_id = seq.get('itsApId')
+            if sequence_id:
+                sequence_id_list.append(sequence_id)
+
     return sequence_id_list
 
 
@@ -254,19 +297,23 @@ def get_seq_unit_names(analysis_files_df, gold_id):
     return seq_unit_names_list
 
 
-def insert_samples_into_mongodb(sample_list: list) -> None:
-    """ create workflows from list of samples to process"""
-    mdb = get_mongo_db()
-    try:
-        db_records_list = []
-        for d in sample_list:
-            db_records_list.append({key: value for (key, value) in d.items() if key in
-                                    list(Sample.__fields__.keys())})
-        sample_objects = [Sample(**sample).dict() for sample in sample_list]
-        mdb.samples.insert_many(sample_objects)
-    except ValidationError:
-        logging.exception(f'ValidationError {sample_list[0]["biosample_id"]}')
-        return None
+def sample_records_to_sample_objects(sample_records: List[Dict[str, Any]]) -> List[Sample]:
+    """
+    Convert sample records to Sample objects
+    :param sample_records: list of sample records
+    :return: list of Sample objects
+    """
+    sample_objects = []
+    for sample_record in sample_records:
+        try:
+            sample_object = Sample(**sample_record)
+            sample_objects.append(sample_object)
+        except ValidationError as e:
+            logging.exception(f"Validation error: {e}")
+            continue
+    return sample_objects
+
+
 
 
 def get_nmdc_study_id(proposal_id: int, ACCESS_TOKEN: str, delay) -> str:
@@ -280,7 +327,7 @@ def get_nmdc_study_id(proposal_id: int, ACCESS_TOKEN: str, delay) -> str:
     return response_json['resources'][0]['id']
 
 
-def insert_new_project_into_mongodb(config_file: str) -> None:
+def insert_new_project_into_mongodb(config_file: str, mdb) -> None:
     """
     Create a new project in mongodb
     """
@@ -292,18 +339,16 @@ def insert_new_project_into_mongodb(config_file: str) -> None:
     insert_dict = {'proposal_id': config['PROJECT']['proposal_id'], 'project_name': config['PROJECT']['name'],
                    'nmdc_study_id': nmdc_study_id, 'analysis_projects_dir': config['PROJECT']['analysis_projects_dir']}
     insert_object = SequencingProject(**insert_dict)
-    mdb = get_mongo_db()
     mdb.sequencing_projects.insert_one(insert_object.dict())
 
 
-def verify_downloads(config_file: str, project_name: str) -> bool:
+def verify_downloads(config_file: str, project_name: str, mdb) -> bool:
     """
     Verifies that all files are downloaded
     """
     config = configparser.ConfigParser()
     config.read(config_file)
     ACCESS_TOKEN = get_access_token()
-    mdb = get_mongo_db()
     project = mdb.sequencing_projects.find_one({'project_name': project_name})
     project_files_df = pd.DataFrame({'downloaded_files': get_downloaded_files(project_name)})
     files_df = get_files_df_from_proposal_id(project['proposal_id'],
@@ -317,11 +362,10 @@ def verify_downloads(config_file: str, project_name: str) -> bool:
     return len(download_gold_df) == len(gold_analysis_files_df)
 
 
-def get_downloaded_files(project: str) -> List[str]:
+def get_downloaded_files(project: str, mdb) -> List[str]:
     """
     Returns list of downloaded files from file system
     """
-    mdb = get_mongo_db()
     sequencing_project = mdb.sequencing_projects.find_one({'project_name': project})
     analysis_projects_dir = Path(sequencing_project['analysis_projects_dir'])
     project_files = [str(path.name) for path in analysis_projects_dir.rglob('*') if not path.is_dir()]
@@ -340,10 +384,21 @@ if __name__ == '__main__':
                         default=False)
     parser.add_argument('-f', '--file', help='csv file with files to stage')
     args = vars((parser.parse_args()))
-    if args['verify_downloads']:
-        if verify_downloads(args['config_file'], args['project_name']):
-            print('Downloads verified')
-    elif args['insert_project']:
-        insert_new_project_into_mongodb(args['config_file'])
+
+    project_name = args['project_name']
+    config_file = args['config_file']
+    verify_downloads = args['verify_downloads']
+    insert_project = args['insert_project']
+    file = args['file']
+    mdb = get_db()
+    if insert_project:
+        insert_new_project_into_mongodb(config_file, mdb)
+    if verify_downloads:
+        verify = verify_downloads(config_file, project_name, mdb)
+        if verify:
+            print("All files downloaded")
+        else:
+            print("Not all files downloaded")
     else:
-        get_samples_data(args['project_name'], args['config_file'], csv_file=args['file'])
+        get_samples_data(project_name, config_file, mdb, file)
+        print("Sample metadata inserted into mongodb")

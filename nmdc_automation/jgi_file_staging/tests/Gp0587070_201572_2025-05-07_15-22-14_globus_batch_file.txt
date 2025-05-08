@@ -1,0 +1,3 @@
+73709/R201572/ERLowmetatpilot/IMG_Data/Ga0502004_crt.crisprs ./nmdc_automation/jgi_file_staging/tests/fixtures/analysis_projects/Gp0587070_analysis_projects/Ga0499978/Ga0502004_crt.crisprs
+73709/R201572/ERLowmetatpilot/IMG_Data/Ga0502004_pfam.gff ./nmdc_automation/jgi_file_staging/tests/fixtures/analysis_projects/Gp0587070_analysis_projects/Ga0499978/Ga0502004_pfam.gff
+73709/R201572/ERLowmetatpilot/IMG_Data/Ga0502004_trnascan_archaeal.out ./nmdc_automation/jgi_file_staging/tests/fixtures/analysis_projects/Gp0587070_analysis_projects/Ga0499978/Ga0502004_trnascan_archaeal.out

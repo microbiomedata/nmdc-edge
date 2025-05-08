@@ -5,7 +5,7 @@ import argparse
 import logging
 from pathlib import Path
 
-from mongo import get_mongo_db
+from nmdc_automation.db.nmdc_mongo import get_db
 
 logging.basicConfig(
     filename="file_staging.log",
@@ -16,7 +16,15 @@ logging.basicConfig(
 
 
 def get_list_staged_files(project, config, save_file_list=None):
-    base_dir = Path(config["PROJECT"]["analysis_projects_dir"], f"{project}_analysis_projects")
+    projects_dir_relative = Path(config["PROJECT"]["analysis_projects_dir"])
+    # project root based on current file location
+    project_root_dir = Path(__file__).resolve().parent.parent.parent
+    project_dirname = f"{project}_analysis_projects"
+    base_dir = os.path.join(
+        project_root_dir, projects_dir_relative, project_dirname
+    )
+
+
     proj_list = []
     for analysis_proj in os.listdir(base_dir):
         [
@@ -31,7 +39,7 @@ def get_list_staged_files(project, config, save_file_list=None):
 
 
 def get_list_missing_staged_files(
-    project_name, config_file, save_file_list=None
+    project_name, config_file, mdb, save_file_list=False
 ) -> list:
     """
     Get list of files on file system for a project and compare to list of files in database
@@ -42,7 +50,6 @@ def get_list_missing_staged_files(
     stage_df["file_key"] = stage_df.apply(
         lambda x: f"{x.analysis_project}-{x.file}", axis=1
     )
-    mdb = get_mongo_db()
     samples_df = pd.DataFrame([s for s in mdb.samples.find({"project": project_name})])
     samples_df["file_key"] = samples_df.apply(
         lambda x: f"{x.apGoldId}-{x.file_name}", axis=1
@@ -68,6 +75,16 @@ if __name__ == "__main__":
         default=False,
     )
     args = vars((parser.parse_args()))
-    get_list_missing_staged_files(
-        args["project_name"], args["config_file"], args["save_file_list"]
+    project_name = args["project_name"]
+    config_file = args["config_file"]
+    save_file_list = args["save_file_list"]
+    # Get the database connection
+    mdb = get_db()
+    if not mdb:
+        logging.error("MongoDB connection failed")
+        exit(1)
+
+    # Get the list of missing staged files
+    missing_files = get_list_missing_staged_files(
+        project_name, config_file, mdb, save_file_list
     )

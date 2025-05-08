@@ -1,3 +1,4 @@
+import configparser
 import json
 import os
 from pymongo import MongoClient
@@ -218,6 +219,16 @@ def gold_import_files(gold_import_dir):
     # return the full paths to fixtures that simulate JGI import files. These are used to test the GoldMapper class.
     # One (1) file is a nucleotide sequencing file. All the other files are RQC, assembly, MAGs, etc.
     return [str(f) for f in gold_import_dir.iterdir() if f.is_file()]
+
+@fixture(scope="session")
+def import_config():
+    config = configparser.ConfigParser()
+    config.read(Path(__file__).parent / "fixtures" / "import_config.ini")
+    return config
+
+@fixture(scope="session")
+def import_config_file():
+    return Path(__file__).parent / "fixtures" / "import_config.ini"
 
 
 class MockNmdcRuntimeApi:

@@ -6,18 +6,19 @@ import requests
 import os
 import logging
 from datetime import datetime
-from mongo import get_mongo_db
-from models import Sample
+from nmdc_automation.db.nmdc_mongo import get_db
+from nmdc_automation.jgi_file_staging.models import Sample
 from pydantic import ValidationError
 import argparse
+import json
+
 
 logging.basicConfig(filename='file_staging.log',
                     format='%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
                     datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG)
 
 
-def update_sample_in_mongodb(sample: dict, update_dict: dict) -> bool:
-    mdb = get_mongo_db()
+def update_sample_in_mongodb(sample: dict, update_dict: dict, mdb) -> bool:
     update_dict.update({'update_date': datetime.now()})
     sample.update(update_dict)
     try:
@@ -30,34 +31,56 @@ def update_sample_in_mongodb(sample: dict, update_dict: dict) -> bool:
         return False
 
 
-def restore_files(project: str, config_file: str, restore_csv=None) -> str:
+def restore_files(project: str, config_file: str, mdb, restore_csv=None) -> str:
     """
-    restore files from tape backup on JGI
-    1) update file statuses
-    2) for any files that are still PURGED, submit request to restore from tape
-    There is a limit of 10TB/day for restore requests
-    :param project: name of project (i.e. grow or bioscales)
-    :param config_file: config file
-    :param restore_csv: csv file with files to restore
-    :return:
+    Restore files from tape backup at JGI.
+
+    1. Update file statuses
+    2. Submit restore requests for files that are not in transit, transferred, or restored
+    Limitations: max restore request size is 10TB/day, and max number of files is 750
+
+    :param project: Name of project (e.g., 'grow', 'bioscales').
+    :param config_file: Path to config file.
+    :param mdb: MongoDB connection.
+    :param restore_csv: Optional CSV file with files to restore.
+    :return: Status message.
     """
+    # Read config file
     config = configparser.ConfigParser()
     config.read(config_file)
-    update_file_statuses(project, config_file)
-    mdb = get_mongo_db()
-    if not restore_csv:
-        restore_df = pd.DataFrame([sample for sample in mdb.samples.find({'project': project, 'file_status':
-            {'$nin': ['in transit', 'transferred', 'RESTORED']}})])
-    else:
+
+    # Update statuses first
+    # update_file_statuses(project, mdb, config_file)
+
+    # Load restore DataFrame
+    if restore_csv:
         restore_df = pd.read_csv(restore_csv)
-    if restore_df.empty:
-        return 'No samples'
+    else:
+        samples = list(
+            mdb.samples.find(
+                {
+                    'projects': project,
+                    'file_status': {'$nin': ['in transit', 'transferred', 'RESTORED']}
+                }
+            )
+        )
+        if not samples:
+            return 'No samples to restore'
+        restore_df = pd.DataFrame(samples)
+
+
     JDP_TOKEN = os.environ.get('JDP_TOKEN')
     if not JDP_TOKEN:
         sys.exit('JDP_TOKEN environment variable not set')
     headers = {'Authorization': JDP_TOKEN, "accept": "application/json"}
     url = 'https://files.jgi.doe.gov/download_files/'
-    proxies = eval(config['JDP']['proxies'])
+
+    try:
+        proxies = json.loads(config['JDP'].get('proxies', '{}'))
+    except json.JSONDecodeError:
+        logging.error("Failed to parse proxies from config file.")
+        proxies = {}
+
     begin_idx = restore_df.iloc[0, :].name
     # break requests up into batches because of the limit to the size of the request
     batch_size = 750
@@ -87,7 +110,7 @@ def restore_files(project: str, config_file: str, restore_csv=None) -> str:
             logging.debug(f"{begin_idx, end_idx, restore_df.loc[begin_idx:end_idx, 'file_size'].sum(), sum_files}")
         begin_idx = end_idx
     restore_df.apply(lambda x: update_sample_in_mongodb(x, {'request_id': x['request_id'],
-                                                            'file_status': x['file_status']}), axis=1)
+                                                            'file_status': x['file_status']}, mdb), axis=1)
 
     return f"requested restoration of {count} files"
 
@@ -98,7 +121,9 @@ def get_file_statuses(samples_df, config):
         JDP_TOKEN = os.environ.get('JDP_TOKEN')
         headers = {'Authorization': JDP_TOKEN, "accept": "application/json"}
         url = f"https://files.jgi.doe.gov/request_archived_files/requests/{request_id}?api_version=1"
-        r = requests.get(url, headers=headers, proxies=eval(config['JDP']['proxies']))
+
+        proxies = json.loads(config['JDP'].get('proxies', '{}'))
+        r = requests.get(url, headers=headers, proxies=proxies)
         response_json = r.json()
         file_status_list = [response_json['status'] for _ in response_json['file_ids']]
         jdp_response_df = pd.concat([jdp_response_df, pd.DataFrame({'jdp_file_id': response_json['file_ids'],
@@ -109,22 +134,48 @@ def get_file_statuses(samples_df, config):
     return restore_response_df
 
 
-def update_file_statuses(project: str, config_file: str=None, config: configparser.ConfigParser=None):
+def update_file_statuses(project: str, mdb, config_file: str=None, config: configparser.ConfigParser=None):
     if config is None:
         config = configparser.ConfigParser()
         config.read(config_file)
-    mdb = get_mongo_db()
-    samples_df = pd.DataFrame([sample for sample in mdb.samples.find({'project': project})])
-    samples_df = samples_df[pd.notna(samples_df.request_id)]
-    if samples_df.empty:
+
+    samples_cursor = mdb.samples.find({'project': project})
+    samples_list = list(samples_cursor)
+    if not samples_list:
         logging.debug(f"no samples to update for {project}")
         return
-    samples_df['request_id'] = samples_df['request_id'].astype(int)
-    restore_response_df = get_file_statuses(samples_df, config)
-    for idx, row in restore_response_df.loc[
-                    restore_response_df.file_status_x != restore_response_df.file_status_y, :].iterrows():
+    samples_df = pd.DataFrame(samples_list)
+
+    if 'request_id' not in samples_df.columns:
+        logging.debug(f"no samples with request_id to update for {project}")
+        return
+
+    # get file statuses from JGI Data Portal
+    try:
+        restore_response_df = get_file_statuses(samples_df, config)
+    except Exception as e:
+        logging.error(f"Error getting file statuses: {e}")
+        return
+
+    if 'file_status_x' not in restore_response_df.columns or 'file_status_y' not in restore_response_df.columns:
+        logging.debug(f"no file statuses to update for {project}")
+        return
+
+    changed_rows = restore_response_df.loc[
+        restore_response_df.file_status_x != restore_response_df.file_status_y, :]
+    if changed_rows.empty:
+        logging.debug(f"no file statuses changed for {project}")
+        return
+    logging.debug(f"updating {len(changed_rows)} file statuses for {project}")
+
+    # update file statuses in MongoDB
+    for idx, row in changed_rows.iterrows():
         sample = row[row.keys().drop(['file_status_x', 'file_status_y'])].to_dict()
-        update_sample_in_mongodb(sample, {'jdp_file_id': row.jdp_file_id, 'file_status': row.file_status_y})
+        try:
+            update_sample_in_mongodb(sample, {'jdp_file_id': row.jdp_file_id, 'file_status': row.file_status_y}, mdb)
+        except Exception as e:
+            logging.error(f"Error updating sample {sample['jdp_file_id']}: {e}")
+            continue
 
 
 def check_restore_status(restore_request_id, config):
@@ -138,7 +189,8 @@ def check_restore_status(restore_request_id, config):
     headers = {'Authorization': JDP_TOKEN, "accept": "application/json"}
 
     url = f"https://files.jgi.doe.gov/request_archived_files/requests/{restore_request_id}?api_version=1"
-    r = requests.get(url, headers=headers, proxies=eval(config['JDP']['proxies']))
+    proxies = json.loads(config['JDP'].get('proxies', '{}'))
+    r = requests.get(url, headers=headers, proxies=proxies)
     if r.status_code == 200:
         return r.json()
     else:
@@ -154,7 +206,10 @@ if __name__ == '__main__':
                         default=False)
     parser.add_argument('-r', '--restore_csv', default=None,  help='csv with files to restore')
     args = vars((parser.parse_args()))
+
+    mdb = get_db()
+
     if args['update_file_statuses']:
-        update_file_statuses(args['project_name'], config_file=args['config_file'])
+        update_file_statuses(args['project_name'], mdb, config_file=args['config_file'])
     else:
-        restore_files(args['project_name'], args['config_file'], args['restore_csv'])
+        restore_files(args['project_name'], args['config_file'], mdb, args['restore_csv'])

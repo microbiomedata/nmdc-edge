@@ -1243,14 +1243,14 @@ files = [
 
 [[package]]
 name = "nmdc-schema"
-version = "11.5.1"
+version = "11.6.1"
 description = "Schema resources for the National Microbiome Data Collaborative (NMDC)"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "nmdc_schema-11.5.1-py3-none-any.whl", hash = "sha256:130a52a716195421be587d9707f4e6a98a60356f7363835441002ff2915dc760"},
-    {file = "nmdc_schema-11.5.1.tar.gz", hash = "sha256:787944312ad0051e7e649370cb6bf347501a0d5a636512c4f74de2d4b25f8ba0"},
+    {file = "nmdc_schema-11.6.1-py3-none-any.whl", hash = "sha256:fd2fbda7dc933a36dddd59f59b45fac93926ef93190ae9ec61aa179e9ded654e"},
+    {file = "nmdc_schema-11.6.1.tar.gz", hash = "sha256:93dbe18a0ab15e3bb770db52447d76db1b2ff58b0e6973d08739caf6d9441260"},
 ]
 
 [package.dependencies]
@@ -2928,6 +2928,23 @@ doc = ["reno", "sphinx"]
 test = ["pytest", "tornado (>=4.5)", "typeguard"]
 
 [[package]]
+name = "testfixtures"
+version = "8.3.0"
+description = "A collection of helpers and mock objects for unit tests and doc tests."
+optional = false
+python-versions = ">=3.7"
+groups = ["main"]
+files = [
+    {file = "testfixtures-8.3.0-py3-none-any.whl", hash = "sha256:3d1e0e0005c4d6ac2a2ab27916704c6471047f0d2f78f2e54adf20abdacc7b10"},
+    {file = "testfixtures-8.3.0.tar.gz", hash = "sha256:d4c0b84af2f267610f908009b50d6f983a4e58ade22c67bab6787b5a402d59c0"},
+]
+
+[package.extras]
+build = ["setuptools-git", "twine", "wheel"]
+docs = ["django", "furo", "sphinx", "sybil (>=6)", "twisted"]
+test = ["django", "mypy", "pytest (>=7.1)", "pytest-cov", "pytest-django", "sybil (>=6)", "twisted"]
+
+[[package]]
 name = "tomli"
 version = "2.2.1"
 description = "A lil' TOML parser"
@@ -3273,4 +3290,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.12"
-content-hash = "8c0405911883bfd867c663562be43f63424390f479264dd88249c00a19c2acac"
+content-hash = "83505bf96115d61bcf84d9d929986a5bf0ecf2e72276085ad1f350f6974d8b24"

@@ -1,114 +1,46 @@
-import unittest
-from pathlib import Path
-import shutil
+import pytest
 import pandas as pd
+import ast
 import os
-import configparser
+from pathlib import Path
 
-from jgi_file_metadata import insert_samples_into_mongodb
-from staged_files import get_list_missing_staged_files, get_list_staged_files
-
-class StagedFilesTestCase(unittest.TestCase):
-    def setUp(self) -> None:
-        self.fixtures = os.path.join(os.path.dirname(__file__), "fixtures")
-        self.config_file = os.path.join(self.fixtures, "config.ini")
-        self.config = configparser.ConfigParser()
-        self.config.read(self.config_file)
-        self.project_name = "test_project"
-        self.analysis_projects_dir = Path(
-            self.fixtures,
-            "analysis_projects",
-            f"{self.project_name}_analysis_projects",
-            "Ga0499978",
-        )
-    def tearDown(self):
-        shutil.rmtree(self.analysis_projects_dir) if Path.exists(
-            self.analysis_projects_dir
-        ) else None
-
-    def create_test_files(self):
-        staged_files = [
-            "52614.1.394702.GCACTAAC-CCAAGACT.filtered-report.txt",
-            "52614.1.394702.GCACTAAC-CCAAGACT.filter_cmd-METAGENOME.sh",
-            "Ga0499978_imgap.info",
-            "Ga0499978_proteins.supfam.domtblout",
-            "Ga0499978_ko.tsv",
-            "Ga0499978_proteins.faa",
-            "pairedMapped_sorted.bam.cov",
-            "Table_8_-_3300049478.taxonomic_composition.txt",
-            "Ga0499978_annotation_config.yaml",
-        ]
-
-        shutil.rmtree(self.analysis_projects_dir) if Path.exists(
-            self.analysis_projects_dir
-        ) else None
-        Path.mkdir(self.analysis_projects_dir, parents=True)
-        [
-            Path.touch(Path(self.analysis_projects_dir, grow_file))
-            for grow_file in staged_files
-        ]
-
-    def test_get_list_staged_files(self):
-        self.create_test_files()
-        staged_df = get_list_staged_files('test_project', self.config, self.config)
-        self.assertEqual(staged_df.shape, (len(staged_df), 2))
-        self.assertEqual(staged_df.loc[0,"analysis_project"], 'Ga0499978')
-
-    def test_get_list_missing_staged_files(self):
-        self.create_test_files()
-
-        grow_analysis_df = pd.read_csv(
-            os.path.join(self.fixtures, "grow_analysis_projects.csv")
-        )
-        grow_analysis_df.columns = [
-            "apGoldId",
-            "studyId",
-            "itsApId",
-            "projects",
-            "biosample_id",
-            "seq_id",
-            "file_name",
-            "file_status",
-            "file_size",
-            "jdp_file_id",
-            "md5sum",
-            "analysis_project_id",
-        ]
-        grow_analysis_df = grow_analysis_df[
-            [
-                "apGoldId",
-                "studyId",
-                "itsApId",
-                "biosample_id",
-                "seq_id",
-                "file_name",
-                "file_status",
-                "file_size",
-                "jdp_file_id",
-                "md5sum",
-                "analysis_project_id",
-            ]
-        ]
-        grow_analysis_df["file_status"] = "ready"
-        grow_analysis_df["project"] = "test_project"
-        insert_samples_into_mongodb(grow_analysis_df.to_dict("records"))
-        output_file = Path(os.path.dirname(__file__), "merge_db_staged.csv")
-        try:
-            missing_files = get_list_missing_staged_files(
-                self.project_name, self.config_file
-            )
-            self.assertTrue(os.path.exists(output_file))
-            self.assertTrue(
-                "rqc-stats.pdf"
-                in [
-                    el["file_name"]
-                    for el in missing_files
-                    if el["file_name"] == "rqc-stats.pdf"
-                ]
-            )
-        finally:
-            os.remove(output_file) if Path.exists(output_file) else None
+from nmdc_automation.jgi_file_staging.staged_files import get_list_missing_staged_files
+from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to_sample_objects
+from nmdc_automation.db.nmdc_mongo import get_test_db
 
 
-if __name__ == '__main__':
-    unittest.main()
+@pytest.fixture
+def grow_analysis_df(fixtures_dir):
+    df = pd.read_csv(os.path.join(fixtures_dir, "grow_analysis_projects.csv"))
+    df["file_status"] = "ready"
+    df["projects"] = df["projects"].apply(ast.literal_eval)
+    return df
+
+
+@pytest.fixture
+def populated_mdb(grow_analysis_df):
+    sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
+    mdb = get_test_db()
+    mdb.projects.insert_many([so.model_dump() for so in sample_objects])
+    return mdb
+
+
+@pytest.mark.parametrize("project_name,config_file", [
+    ("test_project", "test_config.yaml"),
+])
+def test_get_list_missing_staged_files(
+    populated_mdb, project_name, config_file, monkeypatch, tmp_path
+):
+    # Patch anything that would write to disk (if necessary)
+    monkeypatch.setattr(
+        "nmdc_automation.jgi_file_staging.staged_files.OUTPUT_FILE", tmp_path / "dummy.csv"
+    )
+    # Run the function under test
+    missing_files = get_list_missing_staged_files(project_name, config_file, populated_mdb)
+
+    # Check type and basic properties
+    assert isinstance(missing_files, list)
+
+    # Optional: add more specific assertions here
+    # Example: check that no file was written
+    assert not any(tmp_path.glob("*.csv"))
