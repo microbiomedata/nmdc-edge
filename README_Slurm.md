@@ -22,7 +22,7 @@ This document provides instructions for running jobs on SLURM and Condor using t
 
 ##### Slurm and Condor
 
-- `sqs` Shows the Slurm queue
+- `sqs` Shows the Slurm queue. Note: `sqs` is a project-specific alias for the standard Slurm command `squeue`. If `sqs` is not recognized, ensure that the alias is set up correctly or use `squeue` instead. For more details, refer to the project documentation [here](./docs/sqs-setup.md).
 ```shell
 JOBID            ST USER      NAME          NODES TIME_LIMIT       TIME  SUBMIT_TIME          QOS             START_TIME           FEATURES       NODELIST(REASON)
 35153609         PD nmdcda    condor        1     14-00:00:00       0:00  2025-01-23T09:33:27  workflow        N/A                  cron           (Dependency)   
