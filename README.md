@@ -315,7 +315,7 @@ We run the watcher using `nohup` (No Hangup) - this prevents the watcher process
 when the user's terminal session ends.  This will cause stdout and stderr to be written to a file
 names `nohup.out` in addition to being written to the `watcher.log` file.  
 
-1. change to the working `prod` or `dir` directory
+1. change to the working `prod` or `dev` directory
 - `/global/homes/n/nmdcda/nmdc_automation/prod`
 - `/global/homes/n/nmdcda/nmdc_automation/dev`
 2. `export NMDC_LOG_LEVEL=INFO`
