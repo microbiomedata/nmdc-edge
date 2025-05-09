@@ -242,6 +242,7 @@ nmdcda   2044782  0.0  0.0   5504   744 ?        S    Mar06   0:00 tee -a watche
 ```shell
 (base) nmdcda@perlmutter:login24:~> kill -9 2044781
 ```
+note: This will also terminate the `tee` process that is writing to the log file
 
 
 #### Set-Up and Configuration
