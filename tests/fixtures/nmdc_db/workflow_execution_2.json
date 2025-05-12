@@ -36,7 +36,7 @@
       "nmdc:dobj-11-mbr36m97"
     ],
     "type": "nmdc:MetagenomeAnnotation",
-    "version": "v1.0.4",
+    "version": "v0.9.4",
     "gold_analysis_project_identifiers": [
     ]
   },
@@ -134,7 +134,7 @@
       "nmdc:dobj-11-azjee549"
     ],
     "type": "nmdc:MagsAnalysis",
-    "version": "v1.0.6",
+    "version": "v0.9.5",
     "mags_list": [
     ]
   },
@@ -171,7 +171,7 @@
       "nmdc:dobj-11-kjnzfq20"
     ],
     "type": "nmdc:MagsAnalysis",
-    "version": "v1.0.6",
+    "version": "v0.9.6",
     "mags_list": [
     ]
   },

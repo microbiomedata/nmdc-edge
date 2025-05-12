@@ -36,17 +36,20 @@ def get_required_data_objects_map(db, workflows: List[WorkflowConfig]) -> Dict[s
 @lru_cache
 def _within_range(ver1: str, ver2: str) -> bool:
     """
-    Determine if two workflows are within a major and minor
-    version of each other.
-    """
+    Determine if the version of the workflow is within the range of the
+    version of the workflow execution record. This is used to determine if the
+    workflow execution record satisfies the version of the workflow. If the execution
+    record is not within the range, that workflow will be re-processed.
 
+    The current rule is that if the major version is the same, then it is within the range.
+    """
     def get_version(version):
         v_string = version.lstrip("b").lstrip("v").rstrip("-beta")
         return Version.parse(v_string)
 
     v1 = get_version(ver1)
     v2 = get_version(ver2)
-    if v1.major == v2.major and v1.minor == v2.minor:
+    if v1.major == v2.major:
         return True
     return False
 
