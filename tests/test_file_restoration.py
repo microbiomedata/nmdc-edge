@@ -29,7 +29,7 @@ def test_restore_files(mock_post, import_config_file, grow_analysis_df, test_db,
     # insert samples into database
     grow_analysis_df.loc[grow_analysis_df['file_size'] > 30000, 'file_status'] = 'PURGED'
     grow_analysis_df['request_id'] = '220699'
-    grow_analysis_df['project'] = 'Gp0587070'
+    grow_analysis_df['project_name'] = 'Gp0587070'
     sample_records = grow_analysis_df.to_dict('records')
     sample_objects = sample_records_to_sample_objects(sample_records)
     test_db.samples.insert_many([sample.model_dump() for sample in sample_objects])
@@ -52,8 +52,8 @@ def test_restore_files_no_samples(mock_post, import_config_file, test_db, monkey
 
     # Insert samples that are NOT PURGED
     test_db.samples.insert_many([
-        {'sample_id': 's1', 'file_status': 'restored', 'project': 'Gp0587070'},
-        {'sample_id': 's2', 'file_status': 'restored', 'project': 'Gp0587070'},
+        {'sample_id': 's1', 'file_status': 'RESTORED', 'project_name': 'Gp0587070'},
+        {'sample_id': 's2', 'file_status': 'RESTORED', 'project_name': 'Gp0587070'},
     ])
 
     output = restore_files('Gp0587070', import_config_file, test_db)
@@ -66,7 +66,7 @@ def test_restore_files_missing_token(import_config_file, test_db, monkeypatch):
     Test that the restore_files function raises a SystemExit when the JDP_TOKEN is not set.
     """
     test_db.samples.delete_many({})
-    test_db.samples.insert_one({'projects': 'Gp0587070', 'file_status': 'PURGED'})
+    test_db.samples.insert_one({'project_name': 'Gp0587070', 'file_status': 'PURGED'})
     monkeypatch.delenv('JDP_TOKEN', raising=False)
 
     with pytest.raises(SystemExit):
@@ -81,7 +81,7 @@ def test_restore_files_api_failure(mock_post, import_config_file, test_db, monke
     mock_post.return_value.status_code = 500
     mock_post.return_value.text = 'Internal Server Error'
 
-    test_db.samples.insert_one({'projects': 'Gp0587070', 'file_status': 'PURGED', 'file_size': 1, 'jdp_file_id': 'id1'})
+    test_db.samples.insert_one({'project_name': 'Gp0587070', 'file_status': 'PURGED', 'file_size': 1, 'jdp_file_id': 'id1'})
 
     output = restore_files('Gp0587070', import_config_file, test_db)
     assert output == 'Internal Server Error'
@@ -97,7 +97,7 @@ def test_restore_files_with_restore_csv(mock_post, tmp_path, import_config_file,
     # Create restore CSV
     csv_file = tmp_path / 'restore.csv'
     df = pd.DataFrame([{
-        'projects': 'Gp0587070',
+        'project_name': 'Gp0587070',
         'file_status': 'PURGED',
         'file_size': 1,
         'jdp_file_id': 'id1'
@@ -124,7 +124,7 @@ def test_restore_files_bad_proxies(mock_post, tmp_path, test_db, monkeypatch):
     mock_post.return_value.status_code = 200
     mock_post.return_value.json.return_value = {'request_id': '123'}
 
-    test_db.samples.insert_one({'projects': 'Gp0587070', 'file_status': 'PURGED', 'file_size': 1, 'jdp_file_id': 'id1'})
+    test_db.samples.insert_one({'project_name': 'Gp0587070', 'file_status': 'PURGED', 'file_size': 1, 'jdp_file_id': 'id1'})
 
     restore_files('Gp0587070', str(config_file), test_db)
     mock_post.assert_called()
@@ -145,7 +145,7 @@ def test_update_file_statuses_no_samples(mock_update, mock_get, test_db, caplog,
 @patch('nmdc_automation.jgi_file_staging.file_restoration.update_sample_in_mongodb')
 def test_update_file_statuses_no_request_id(mock_update, mock_get, test_db, caplog, import_config):
     caplog.set_level(logging.DEBUG)
-    test_db.samples.insert_one({'project': 'Gp123', 'file_status': 'RESTORED'})
+    test_db.samples.insert_one({'project_name': 'Gp123', 'file_status': 'RESTORED'})
     update_file_statuses('Gp123', test_db, config=import_config)
     assert "no samples with request_id to update" in caplog.text
     mock_get.assert_not_called()
@@ -156,7 +156,7 @@ def test_update_file_statuses_no_request_id(mock_update, mock_get, test_db, capl
 @patch('nmdc_automation.jgi_file_staging.file_restoration.update_sample_in_mongodb')
 def test_update_file_statuses_no_file_status_columns(mock_update, mock_get, test_db, caplog, import_config):
     caplog.set_level(logging.DEBUG)
-    test_db.samples.insert_one({'project': 'Gp123', 'file_status': 'RESTORED', 'request_id': 1})
+    test_db.samples.insert_one({'project_name': 'Gp123', 'file_status': 'RESTORED', 'request_id': 1})
     df = pd.DataFrame([{'request_id': 1, 'jdp_file_id': 'id1'}])
     mock_get.return_value = df
 
@@ -170,7 +170,7 @@ def test_update_file_statuses_no_file_status_columns(mock_update, mock_get, test
 @patch('nmdc_automation.jgi_file_staging.file_restoration.update_sample_in_mongodb')
 def test_update_file_statuses_no_changes(mock_update, mock_get, test_db, caplog, import_config):
     caplog.set_level(logging.DEBUG)
-    test_db.samples.insert_one({'project': 'Gp123', 'file_status': 'RESTORED', 'request_id': 1, 'jdp_file_id': 'id1'})
+    test_db.samples.insert_one({'project_name': 'Gp123', 'file_status': 'RESTORED', 'request_id': 1, 'jdp_file_id': 'id1'})
     df = pd.DataFrame([{
         'request_id': 1,
         'jdp_file_id': 'id1',
@@ -188,7 +188,7 @@ def test_update_file_statuses_no_changes(mock_update, mock_get, test_db, caplog,
 @patch('nmdc_automation.jgi_file_staging.file_restoration.update_sample_in_mongodb')
 def test_update_file_statuses_success(mock_update, mock_get, test_db, caplog, import_config):
     caplog.set_level(logging.DEBUG)
-    test_db.samples.insert_one({'project': 'Gp123', 'file_status': 'RESTORED', 'request_id': 1, 'jdp_file_id': 'id1'})
+    test_db.samples.insert_one({'project_name': 'Gp123', 'file_status': 'RESTORED', 'request_id': 1, 'jdp_file_id': 'id1'})
     df = pd.DataFrame([{
         'request_id': 1,
         'jdp_file_id': 'id1',
@@ -205,7 +205,7 @@ def test_update_file_statuses_success(mock_update, mock_get, test_db, caplog, im
 @patch('nmdc_automation.jgi_file_staging.file_restoration.get_file_statuses', side_effect=Exception("boom"))
 @patch('nmdc_automation.jgi_file_staging.file_restoration.update_sample_in_mongodb')
 def test_update_file_statuses_get_file_statuses_exception(mock_update, mock_get, test_db, caplog, import_config):
-    test_db.samples.insert_one({'project': 'Gp123', 'file_status': 'RESTORED', 'request_id': 1, 'jdp_file_id': 'id1'})
+    test_db.samples.insert_one({'project_name': 'Gp123', 'file_status': 'RESTORED', 'request_id': 1, 'jdp_file_id': 'id1'})
     update_file_statuses('Gp123', test_db, config=import_config)
     assert "Error getting file statuses" in caplog.text
     mock_update.assert_not_called()

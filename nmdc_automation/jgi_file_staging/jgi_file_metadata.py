@@ -68,10 +68,10 @@ def get_request(url: str, ACCESS_TOKEN: str) -> List[Dict[str, Any]]:
         raise requests.exceptions.RequestException(f"Error {response.status_code}: {response.text}")
 
 
-def get_samples_data(project: str, config_file: str, mdb, csv_file: str = None) -> None:
+def get_samples_data(project_name: str, config_file: str, mdb, csv_file: str = None) -> None:
     """
     Get JGI sample metadata using the gold API and store in a mongodb
-    :param project: Name of project (e.g., GROW, Bioscales, NEON)
+    :param project_name: Name of project_name (e.g., GROW, Bioscales, NEON)
     :param config_file: Config file with parameters
     :param csv_file: csv file with files to stage
     :return:
@@ -80,7 +80,7 @@ def get_samples_data(project: str, config_file: str, mdb, csv_file: str = None) 
     config = configparser.ConfigParser()
     config.read(config_file)
     ACCESS_TOKEN = get_access_token()
-    seq_project = mdb.sequencing_projects.find_one({'project_name': project})
+    seq_project = mdb.sequencing_projects.find_one({'project_name': project_name})
     if csv_file is not None:
         gold_analysis_files_df = pd.read_csv(csv_file)
     else:
@@ -88,7 +88,7 @@ def get_samples_data(project: str, config_file: str, mdb, csv_file: str = None) 
         gold_analysis_files_df = get_analysis_files_df(seq_project['proposal_id'], files_df, ACCESS_TOKEN,
                                                        eval(config['JDP']['remove_files']))
 
-    gold_analysis_files_df['project'] = project
+    gold_analysis_files_df['project_name'] = project_name
     logging.debug(f'number of samples to insert: {len(gold_analysis_files_df)}')
     logging.debug(gold_analysis_files_df.head().to_dict('records'))
 
@@ -151,7 +151,7 @@ def check_access_token(ACCESS_TOKEN: str) -> str:
 
 def get_sample_files(proposal_id: int, ACCESS_TOKEN: str) -> List[dict]:
     """
-    Get all sample files for a project
+    Get all sample files for a project_name
     :param proposal_id: proposal id
     :param ACCESS_TOKEN: gold api token
     :param delay: delay between API requests

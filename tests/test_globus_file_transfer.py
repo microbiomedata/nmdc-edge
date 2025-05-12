@@ -49,7 +49,7 @@ def test_get_project_globus_manifests(monkeypatch, fixtures_dir, jgi_staging_con
     monkeypatch.setattr("nmdc_automation.jgi_file_staging.globus_file_transfer.get_globus_manifest", mock_manifest)
 
     grow_analysis_df = pd.read_csv(os.path.join(fixtures_dir, "grow_analysis_projects.csv"))
-    grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(ast.literal_eval)
+    # grow_analysis_df['projects'] = grow_analysis_df['projects'].apply(ast.literal_eval)
     grow_analysis_df['analysis_project_id'] = grow_analysis_df['analysis_project_id'].apply(str)
     grow_analysis_df.loc[:5, 'file_status'] = 'in transit'
     grow_analysis_df.loc[:5, 'request_id'] = 201545
@@ -60,7 +60,7 @@ def test_get_project_globus_manifests(monkeypatch, fixtures_dir, jgi_staging_con
 
     test_db.samples.insert_many([s.model_dump() for s in sample_objects])
 
-    get_project_globus_manifests("Gp0587070", test_db, config=jgi_staging_config)
+    get_project_globus_manifests("grow_project", test_db, config=jgi_staging_config)
 
     assert mock_manifest.call_count == 2
     assert mock_manifest.mock_calls[0].args[0] == 201547
@@ -86,7 +86,7 @@ def test_create_globus_df(monkeypatch, fixtures_dir, jgi_staging_config, grow_an
     ])
     monkeypatch.setattr("nmdc_automation.jgi_file_staging.globus_file_transfer.get_globus_manifest", mock_manifest)
 
-    globus_df = create_globus_dataframe("Gp0587070", jgi_staging_config, test_db)
+    globus_df = create_globus_dataframe("grow_project", jgi_staging_config, test_db)
 
     assert len(globus_df) == 2
     assert globus_df.loc[0, "directory/path"] == "ERLowmetatpilot/IMG_Data"
@@ -121,7 +121,7 @@ def test_create_globus_batch_file(monkeypatch, fixtures_dir, jgi_staging_config,
         "nmdc_automation.jgi_file_staging.globus_file_transfer.datetime",
         mock_datetime(2022, 1, 1, 12, 22, 55, delta=0),
     ):
-        globus_batch_filename, globus_analysis_df = create_globus_batch_file("Gp0587070", jgi_staging_config, test_db, tmp_path)
+        globus_batch_filename, globus_analysis_df = create_globus_batch_file("grow_project", jgi_staging_config, test_db, tmp_path)
 
     assert globus_batch_filename.endswith(".txt")
     assert tmp_path in Path(globus_batch_filename).parents

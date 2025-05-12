@@ -26,7 +26,7 @@ def get_project_globus_manifests(project_name: str, mdb, config_file: str = None
     if config_file:
         config = configparser.ConfigParser()
         config.read(config_file)
-    samples_df = pd.DataFrame(mdb.samples.find({'projects': project_name, 'file_status':
+    samples_df = pd.DataFrame(mdb.samples.find({'project_name': project_name, 'file_status':
         {'$nin': ['in transit', 'transferred', 'expired', 'PURGED']}}))
     samples_df = samples_df[pd.notna(samples_df.request_id)]
     samples_df['request_id'] = samples_df['request_id'].astype(int)

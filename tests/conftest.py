@@ -279,7 +279,7 @@ def grow_analysis_df(fixtures_dir):
         "apGoldId",
         "studyId",
         "itsApId",
-        "projects",
+        "project_name",
         "biosample_id",
         "seq_id",
         "file_name",
@@ -294,7 +294,7 @@ def grow_analysis_df(fixtures_dir):
             "apGoldId",
             "studyId",
             "itsApId",
-            "projects",
+            "project_name",
             "biosample_id",
             "seq_id",
             "file_name",
@@ -305,7 +305,7 @@ def grow_analysis_df(fixtures_dir):
             "analysis_project_id",
         ]
     ]
-    grow_analysis_df["projects"] = grow_analysis_df["projects"].apply(ast.literal_eval)
+    # grow_analysis_df["project_name"] = grow_analysis_df["project_name"].apply(ast.literal_eval)
     return grow_analysis_df
 
 @fixture

@@ -120,7 +120,7 @@ def test_sample_model_instance_creation(monkeypatch, grow_analysis_df):
     assert sample_model.apGoldId == "Ga0499978"
     assert sample_model.studyId == "Gs0149396"
     assert sample_model.itsApId == 1323348
-    assert sample_model.projects == ['Gp0587070']
+    assert sample_model.project_name == 'grow_project'
     assert sample_model.biosample_id == "Gb0305643"
     assert sample_model.seq_id == "s1323445"
     assert sample_model.file_name == "52614.1.394702.GCACTAAC-CCAAGACT.filtered-report.txt"

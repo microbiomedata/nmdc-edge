@@ -59,7 +59,7 @@ def restore_files(project: str, config_file: str, mdb, restore_csv=None) -> str:
         samples = list(
             mdb.samples.find(
                 {
-                    'projects': project,
+                    'project_name': project,
                     'file_status': {'$nin': ['in transit', 'transferred', 'RESTORED']}
                 }
             )
@@ -139,7 +139,7 @@ def update_file_statuses(project: str, mdb, config_file: str=None, config: confi
         config = configparser.ConfigParser()
         config.read(config_file)
 
-    samples_cursor = mdb.samples.find({'project': project})
+    samples_cursor = mdb.samples.find({'project_name': project})
     samples_list = list(samples_cursor)
     if not samples_list:
         logging.debug(f"no samples to update for {project}")
