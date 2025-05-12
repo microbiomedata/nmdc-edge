@@ -122,9 +122,10 @@ def test_jaws_workflow_job_as_workflow_execution_dict(fixture_pair, site_config,
     workflow_state = json.load(open(fixtures_dir / fixture_pair[0]))
     job_metadata = json.load(open(fixtures_dir / fixture_pair[1]))
 
-    wfj = WorkflowJob(site_config, workflow_state, job_metadata)
+    wfj = WorkflowJob(site_config, workflow_state, job_metadata, jaws_api=mock_jaws_api)
 
     wfe_dict = wfj.as_workflow_execution_dict
+    assert wfe_dict['ended_at_time']
     assert wfe_dict
 
 
