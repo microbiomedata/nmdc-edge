@@ -11,7 +11,7 @@ def test_get_list_missing_staged_files(
 ):
     import os
     from pathlib import Path
-
+    test_db.samples.drop()
     # Patch DataFrame.to_csv to a no-op to prevent file writes
     monkeypatch.setattr(pd.DataFrame, "to_csv", lambda *args, **kwargs: None)
 
