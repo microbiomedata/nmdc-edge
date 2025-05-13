@@ -331,32 +331,12 @@ class RuntimeApiHandler:
         return self.runtime_api.claim_job(job_id)
 
     def get_unclaimed_jobs(self, allowed_workflows) -> List[WorkflowJob]:
-        """ Get unclaimed jobs from the runtime:
-            - jobs with no claims
-            - OR jobs where all claims are cancelled
-        """
+        """ Get unclaimed jobs from the runtime """
         jobs = []
-
         filt = {
-            "$and": [
-                {"workflow.id": {"$in": allowed_workflows}},
-                {
-                    "$or": [
-                        {"claims": {"$size": 0}},
-                        {
-                            "claims": {
-                                "$not": {
-                                    "$elemMatch": {
-                                        "cancelled": {"$ne": True}
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                }
-            ]
+            "workflow.id": {"$in": allowed_workflows},
+            "claims": {"$size": 0}
         }
-
         job_records = self.runtime_api.list_jobs(filt=filt)
 
         for job in job_records:
