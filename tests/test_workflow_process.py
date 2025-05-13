@@ -253,5 +253,16 @@ def test_get_required_data_objects_by_id(test_db, workflows_config_dir, workflow
         assert do_type in do_types
 
 def test_within_range():
+    """
+    Test that the version is within the range.
+    """
+    # Exact match
     assert _within_range('v1.0.8', 'v1.0.8')
+    # Patch version
     assert _within_range('v1.0.8', 'v1.0.9')
+    assert _within_range('v1.0.8', 'v1.0.7')
+    # Minor version
+    assert _within_range('v1.0.8', 'v1.1.0')
+    assert _within_range('v1.0.8', 'v1.0.0')
+    # Major version - out of range
+    assert not _within_range('v1.0.8', 'v2.0.0')
