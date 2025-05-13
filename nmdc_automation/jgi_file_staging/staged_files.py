@@ -18,10 +18,9 @@ logging.basicConfig(
 def get_list_staged_files(project, config, save_file_list=None):
     projects_dir_relative = Path(config["PROJECT"]["analysis_projects_dir"])
     # project root based on current file location
-    project_root_dir = Path(__file__).resolve().parent.parent.parent
     project_dirname = f"{project}_analysis_projects"
     base_dir = os.path.join(
-        project_root_dir, projects_dir_relative, project_dirname
+        projects_dir_relative, project_dirname
     )
 
 
@@ -49,14 +48,16 @@ def get_list_missing_staged_files(
     stage_df["file_key"] = stage_df.apply(
         lambda x: f"{x.analysis_project}-{x.file}", axis=1
     )
-    samples_df = pd.DataFrame([s for s in mdb.samples.find({"projects": project_name})])
+    samples_df = pd.DataFrame([s for s in mdb.samples.find({"project_name": project_name})])
     samples_df["file_key"] = samples_df.apply(
         lambda x: f"{x.apGoldId}-{x.file_name}", axis=1
     )
     db_samples_df = pd.merge(
         samples_df, stage_df, left_on="file_key", right_on="file_key", how="outer"
     )
-    db_samples_df.to_csv("merge_db_staged.csv", index=False)
+    db_samples_df.loc[
+        pd.isna(db_samples_df.analysis_project), ["apGoldId", "file_name"]
+    ].to_csv("missing_staged.csv", index=False)
     return db_samples_df.loc[
         pd.isna(db_samples_df.analysis_project), ["apGoldId", "file_name"]
     ].to_dict("records")
