@@ -1,0 +1,79 @@
+{
+    "workflow": {
+      "id": "Metatranscriptome Reads QC: v0.0.10"
+    },
+    "created_at": "2025-04-29T22:09:34",
+    "config": {
+      "git_repo": "https://github.com/microbiomedata/metaT_ReadsQC",
+      "release": "v0.0.10",
+      "wdl": "rqcfilter.wdl",
+      "activity_id": "nmdc:wfrqc-12-ctc9vt05.1",
+      "activity_set": "workflow_execution_set",
+      "was_informed_by": "nmdc:dgns-11-6tsbsj80",
+      "trigger_activity": "nmdc:dgns-11-6tsbsj80",
+      "iteration": 1,
+      "input_prefix": "metaTReadsQC",
+      "inputs": {
+        "input_files": [
+          "https://data.microbiomedata.org/data/nmdc:omprc-11-6tsbsj78/nmdc:wfrqc-11-8emfgd73.1/nmdc_wfrqc-11-8emfgd73.1_190755.filtered.fastq.gz"
+        ],
+        "proj": "nmdc:wfrqc-12-ctc9vt05.1"
+      },
+      "input_data_objects": [
+        {
+          "id": "nmdc:dobj-12-rtymec73",
+          "type": "nmdc:DataObject",
+          "name": "nmdc_wfrqc-11-8emfgd73.1_190755.filtered.fastq.gz",
+          "description": "TEST DATA",
+          "data_object_type": "Metatranscriptome Raw Reads",
+          "url": "https://data.microbiomedata.org/data/nmdc:omprc-11-6tsbsj78/nmdc:wfrqc-11-8emfgd73.1/nmdc_wfrqc-11-8emfgd73.1_190755.filtered.fastq.gz"
+        }
+      ],
+      "activity": {
+        "name": "Read QC for {id}",
+        "input_read_bases": "{outputs.stats.input_read_bases}",
+        "input_read_count": "{outputs.stats.input_read_count}",
+        "output_read_bases": "{outputs.stats.output_read_bases}",
+        "output_read_count": "{outputs.stats.output_read_count}",
+        "type": "nmdc:ReadQcAnalysis"
+      },
+      "outputs": [
+        {
+          "output": "filtered_final",
+          "name": "Reads QC result fastq (clean data)",
+          "data_object_type": "Filtered Sequencing Reads",
+          "description": "Reads QC for {id}",
+          "id": "nmdc:dobj-12-9r9h6k20"
+        },
+        {
+          "output": "filtered_stats_final",
+          "name": "Reads QC summary statistics",
+          "data_object_type": "QC Statistics",
+          "description": "Reads QC summary for {id}",
+          "id": "nmdc:dobj-12-r8qsnw40"
+        },
+        {
+          "output": "rqc_info",
+          "name": "File containing read filtering information",
+          "data_object_type": "Read Filtering Info File",
+          "description": "Read filtering info for {id}",
+          "id": "nmdc:dobj-12-w13hdk37"
+        },
+        {
+          "output": "filtered_ribo_final",
+          "name": "Fastq file containing filtered ribosomal sequences",
+          "data_object_type": "rRNA Filtered Sequencing Reads",
+          "description": "rRNA fastq for {id}",
+          "id": "nmdc:dobj-12-7w3gaj72"
+        }
+      ]
+    },
+    "claims": [],
+    "opid": "nmdc:sys00bb78920",
+    "done": true,
+    "start": "2025-04-29T22:22:56.603473+00:00",
+    "jaws_jobid": 108597,
+    "last_status": "succeeded",
+    "nmdc_jobid": "nmdc:a21c7d66-2546-11f0-aeb9-5a1008471c16",
+    "end": null
+  }
