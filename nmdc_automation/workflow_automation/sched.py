@@ -231,11 +231,20 @@ class Scheduler:
 
     @lru_cache(maxsize=128)
     def get_existing_jobs(self, wf: WorkflowConfig):
+        """
+        Get the existing jobs for a workflow. Ignore cancelled jobs.
+        """
         existing_jobs = set()
         # Filter by git_repo and version
         # Find all existing jobs for this workflow
         q = {"config.git_repo": wf.git_repo, "config.release": wf.version}
         for j in self.db.jobs.find(q):
+            # If all claims are 'cancelled' then we can ignore this job for scheduling purposes
+            claims = j.get("claims", [])
+            if claims:
+                all_cancelled = all([c.get('cancelled', False) for c in claims])
+                if all_cancelled:
+                    continue
             # the assumption is that a job in any state has been triggered by an activity
             # that was the result of an existing (completed) job
             act = j["config"]["trigger_activity"]
@@ -244,8 +253,10 @@ class Scheduler:
 
     def find_new_jobs(self, wfp_node: WorkflowProcessNode) -> list[SchedulerJob]:
         """
-        For a given activity see if there are any new jobs
-        that should be created.
+        Find new jobs for a workflow process node. A new job:
+        - Is either not in the Jobs collection or is cancelled
+        - Is not satisfied by an existing version of a workflow execution
+        - Is for a workflow that is enabled
         """
         new_jobs = []
         # Loop over the derived workflows for this
