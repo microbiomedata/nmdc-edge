@@ -13,7 +13,7 @@ workflowlist = {
     },
     ReadsQC: {
         project_conf_tmpl: 'readsQC.tmpl',
-        wdl: 'https://raw.githubusercontent.com/microbiomedata/ReadsQC/refs/heads/nmdc_edge_chastity_filter/rqcfilter.wdl',
+        wdl: 'https://raw.githubusercontent.com/microbiomedata/ReadsQC/refs/tags/v1.0.14-alpha.1/rqcfilter.wdl',
         wdl_imports: 'metaG/imports.zip',
         name: 'jgi_rqcfilter',
         full_name: 'ReadsQC',
