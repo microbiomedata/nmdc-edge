@@ -123,7 +123,8 @@ workflow main_workflow {
                 input_fq2=[],
                 proj=proj,
                 interleaved=true,
-                shortRead=short_read
+                shortRead=short_read,
+                chastityfilter_flag=readsqc_preprocess.isIllumina
         }
     }
 
