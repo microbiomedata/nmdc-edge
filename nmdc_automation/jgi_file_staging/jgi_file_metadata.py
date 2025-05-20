@@ -129,8 +129,11 @@ def get_access_token() -> str:
 
 
 def _verify() -> bool:
-    # Set verify based on environment variable - default to False
-    # if not set
+    """
+    Handle different variations of the Verify environment var. This var may not be set in all environments,
+    or may be set to different values. This function will return True or False based on the value of the
+    environment variable.
+    """
     verify = os.getenv('VERIFY', 'False').strip().lower()
     if verify == 'true':
         return True
