@@ -22,16 +22,9 @@ const AppBanner = (props) => {
                     <CardTitle tag="h4">
                       <MdInfo size={28} /> <b>Announcement</b>
                     </CardTitle>
-                    The Email/Password login is disabled. NMDC EDGE now requires an ORCID iD to log in. 
-                    Click the "ORCID LOGIN" button, to either register for an ORCID iD or, if you 
-                    already have one, to sign into your ORCID account, then grant permission for NMDC EDGE 
-                    to access your ORCID iD.
-
-                    <br></br><br></br>
-                    For users with existing projects under an Email/Password account, you will be able to 
-                    migrate your old projects and uploads to your newly created ORCID iD account by clicking 
-                    the "Import Old Projects/Uploads with Email/Password" button.
-
+                    Please note that NMDC EDGE has experience intermittent issues with running workflows. We are aware of these issues
+                    and are actively working to fix them. Thank you for your patience and please reach out at support@microbiomedata.org 
+                    if you have specific concerns.
                   </CardText>
                 </CardBody>
               </Card>
