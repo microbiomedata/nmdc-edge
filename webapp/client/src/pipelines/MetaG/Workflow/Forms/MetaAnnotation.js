@@ -85,7 +85,7 @@ export function MetaAnnotation(props) {
                                 validFile={form.input_fasta_validInput}
                                 dataSources={['project', 'upload', 'public', 'globus']}
                                 fileTypes={['fasta', 'fa', 'fna', 'fasta.gz', 'fa.gz', 'fna.gz']}
-                                projectTypes={['Metagenome Assembly']} viewFile={false} />
+                                projectTypes={['Metagenome Pipeline', 'Metagenome Assembly']} viewFile={false} />
 
                             <input type="hidden" name="fasta_hidden" id="fasta_hidden"
                                 value={form['input_fasta']}
