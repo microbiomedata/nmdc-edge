@@ -342,43 +342,10 @@ def insert_new_project_into_mongodb(config_file: str, mdb) -> None:
     mdb.sequencing_projects.insert_one(insert_object.dict())
 
 
-def verify_downloads(config_file: str, project_name: str, mdb) -> bool:
-    """
-    Verifies that all files are downloaded
-    """
-    config = configparser.ConfigParser()
-    config.read(config_file)
-    ACCESS_TOKEN = get_access_token()
-    project = mdb.sequencing_projects.find_one({'project_name': project_name})
-    project_files_df = pd.DataFrame({'downloaded_files': get_downloaded_files(project_name)})
-    files_df = get_files_df_from_proposal_id(project['proposal_id'],
-                                             ACCESS_TOKEN, eval(config['JDP']['delay']))
-    gold_analysis_files_df = get_analysis_files_df(int(config['PROJECT']['proposal_id']), files_df, ACCESS_TOKEN,
-                                                   eval(config['JDP']['remove_files']))
-    download_gold_df = pd.merge(project_files_df, gold_analysis_files_df, right_on='file_name',
-                                left_on='downloaded_files')
-    download_gold_df.to_csv('download_gold_df.csv', index=False)
-    files_df.to_csv('files_df.csv', index=False)
-    return len(download_gold_df) == len(gold_analysis_files_df)
-
-
-def get_downloaded_files(project: str, mdb) -> List[str]:
-    """
-    Returns list of downloaded files from file system
-    """
-    sequencing_project = mdb.sequencing_projects.find_one({'project_name': project})
-    analysis_projects_dir = Path(sequencing_project['analysis_projects_dir'])
-    project_files = [str(path.name) for path in analysis_projects_dir.rglob('*') if not path.is_dir()]
-    return project_files
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('project_name')
     parser.add_argument('config_file')
-    parser.add_argument('-v', '--verify_downloads', action='store_true',
-                        help='compare list of downloaded files to expected files',
-                        default=False)
     parser.add_argument('-i', '--insert_project', action='store_true',
                         help='insert new project into mongodb',
                         default=False)
@@ -387,18 +354,11 @@ if __name__ == '__main__':
 
     project_name = args['project_name']
     config_file = args['config_file']
-    verify_downloads = args['verify_downloads']
     insert_project = args['insert_project']
     file = args['file']
     mdb = get_db()
     if insert_project:
         insert_new_project_into_mongodb(config_file, mdb)
-    if verify_downloads:
-        verify = verify_downloads(config_file, project_name, mdb)
-        if verify:
-            print("All files downloaded")
-        else:
-            print("Not all files downloaded")
     else:
         get_samples_data(project_name, config_file, mdb, file)
         print("Sample metadata inserted into mongodb")
