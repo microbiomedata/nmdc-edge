@@ -20,8 +20,8 @@ export function MetaAssembly(props) {
             <Header toggle={true} toggleParms={toggleParms} title={'Input'} collapseParms={collapseParms} />
             <Collapse isOpen={!collapseParms} id={"collapseParameters-" + props.name} >
                 <CardBody>
-                    <MyTooltip id='MetaAssembly' text="Input Raw Reads" tooltip={workflowInputTips['MetaAssembly']['fastq_tip']} showTooltip={true} place="right" />
-                    <FastqInput projectTypes={['ReadsQC','Retrieve SRA Data']} name={props.name} full_name={props.full_name} 
+                    <MyTooltip id='MetaAssembly' text="Input Filtered Reads" tooltip={workflowInputTips['MetaAssembly']['fastq_tip']} showTooltip={true} place="right" />
+                    <FastqInput projectTypes={['Metagenome Pipeline','ReadsQC','Retrieve SRA Data']} name={props.name} full_name={props.full_name} 
                     setParams={props.setParams} collapseParms={true} platformOptions={true} />
                 </CardBody>
             </Collapse>
