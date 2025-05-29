@@ -130,7 +130,7 @@ class ImportMapper:
         """Return the import specifications by data object type (unique and multiple)."""
         import_specs = {do['data_object_type']: do for do in self.import_specifications["Data Objects"]["Unique"]}
         import_specs.update(
-            {do['data_object_type']: do for do in self.import_specifications["Data Objects"]["Multiples"]}
+            {do['data_object_type']: do for do in self.import_specifications["Data Objects"].get("Multiples", [])}
             )
         return import_specs
 
