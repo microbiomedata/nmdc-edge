@@ -24,7 +24,6 @@ from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     remove_duplicate_analysis_files,
     remove_large_files,
     remove_unneeded_files,
-    verify_downloads,
 )
 from nmdc_automation.jgi_file_staging.models import Sample
 
