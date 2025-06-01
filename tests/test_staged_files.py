@@ -9,8 +9,7 @@ from nmdc_automation.jgi_file_staging.jgi_file_metadata import sample_records_to
 def test_get_list_missing_staged_files(
     test_db, jgi_staging_config, monkeypatch, tmp_path, grow_analysis_df
 ):
-    import os
-    from pathlib import Path
+
     test_db.samples.drop()
     # Patch DataFrame.to_csv to a no-op to prevent file writes
     monkeypatch.setattr(pd.DataFrame, "to_csv", lambda *args, **kwargs: None)
@@ -18,12 +17,10 @@ def test_get_list_missing_staged_files(
     project_name = "grow_project"
 
     # Setup fake directory structure under tmp_path
-    project_dirname = f"{project_name}_analysis_projects"
-
     # Patch config to point to tmp_path
     jgi_staging_config["PROJECT"]["analysis_projects_dir"] = str(tmp_path)
 
-    base_dir = tmp_path / project_dirname
+    base_dir = tmp_path / project_name / "analysis_files"
     base_dir.mkdir(parents=True)
 
     # Prepare the test database
@@ -44,6 +41,7 @@ def test_get_list_missing_staged_files(
 
         # Optional: assert no CSV files were written
         assert not any(tmp_path.glob("*.csv"))
+        # check that file is missing
         assert equal(missing_files[0], {'apGoldId': 'Ga0499978', 'file_name': 'rqc-stats.pdf'})
     finally:
         test_db.samples.drop()

@@ -117,7 +117,8 @@ def create_globus_batch_file(project: str, config: configparser.ConfigParser, md
     samples_df['request_id'] = samples_df['request_id'].astype(int)
     # logging.debug(f"nan request_ids {samples_df['request_id']}")
     root_dir = config['GLOBUS']['globus_root_dir']
-    dest_root_dir = os.path.join(config['PROJECT']['analysis_projects_dir'], f'{project}_analysis_projects')
+    # e.g. /global/cfs/cdirs/m3408/aim2/dev/staged_files/blanchard_ficus/analysis_files
+    dest_root_dir = os.path.join(config['PROJECT']['analysis_projects_dir'], f'{project}', 'analysis_files')
     globus_df = create_globus_dataframe(project, config, mdb)
 
     logging.debug(f"samples_df columns {samples_df.columns}, globus_df columns {globus_df.columns}")

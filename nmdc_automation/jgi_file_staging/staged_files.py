@@ -5,6 +5,10 @@ import argparse
 import logging
 from pathlib import Path
 
+from WDL.Type import Boolean
+from mongomock.database import Database
+from mongomock.mongo_client import MongoClient
+
 from nmdc_automation.db.nmdc_mongo import get_db
 
 logging.basicConfig(
@@ -15,13 +19,15 @@ logging.basicConfig(
 )
 
 
-def get_list_staged_files(project, config, save_file_list=None):
-    projects_dir_relative = Path(config["PROJECT"]["analysis_projects_dir"])
+def get_list_staged_files(project: str, config: configparser, save_file_list: Boolean = None) -> pd.DataFrame:
+    """
+    Get list of files that have been staged to filesystem
+    :param project: name of the project
+    :param config: configparser instance
+    :param save_file_list: Save list of staged files
+    """
     # project root based on current file location
-    project_dirname = f"{project}_analysis_projects"
-    base_dir = os.path.join(
-        projects_dir_relative, project_dirname
-    )
+    base_dir = Path(config["PROJECT"]["analysis_projects_dir"]) / project / f"analysis_files"
 
 
     proj_list = []
@@ -38,10 +44,14 @@ def get_list_staged_files(project, config, save_file_list=None):
 
 
 def get_list_missing_staged_files(
-    project_name, config, mdb, save_file_list=False
+    project_name:str, config: configparser, mdb: Database, save_file_list: Boolean=False
 ) -> list:
     """
     Get list of files on file system for a project and compare to list of files in database
+    :param project_name: name of the project
+    :param config: configparser instance
+    :param mdb: MongoDB instance
+    :param save_file_list: Save list of staged files
     """
 
     stage_df = get_list_staged_files(project_name, config, save_file_list)
