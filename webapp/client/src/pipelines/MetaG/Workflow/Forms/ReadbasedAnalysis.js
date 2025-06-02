@@ -48,6 +48,7 @@ export function ReadbasedAnalysis(props) {
     };
 
     const updateFastqInputs = (fastqInputs) => {
+        form.shortRead = fastqInputs.shortRead;
         form.fastqPaired = fastqInputs.fastqPaired;
         form.fastqSingle = fastqInputs.fastqSingle;
         form.paired = !fastqInputs.interleaved;
