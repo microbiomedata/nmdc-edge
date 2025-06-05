@@ -115,9 +115,7 @@ def get_gold_analysis_project(row: pd.Series, ACCESS_TOKEN: str) -> pd.Series:
                                          ((analysis_df.apType == mapping_type) &
                                           (analysis_df.referenceApGoldId == ap_gold_id)), 'apGoldId'].values
         elif ap_type == 'Metagenome Analysis' and len(analysis_df[(analysis_df.apType == 'Metagenome Analysis')]) > 1:
-            row['gold_analysis_project'] = None
-            row['ap_type'] = ap_type
-            return row
+            ap_gold_id = None
         row['gold_analysis_project'] = ap_gold_id
         row['ap_type'] = ap_type
     return row
