@@ -6,6 +6,8 @@ import pandas as pd
 import pytest
 from unittest.mock import patch
 
+from tests.fixtures import db_utils
+
 from nmdc_automation.jgi_file_staging.mapping_tsv import (
     get_gold_ids,
     get_gold_analysis_project,
@@ -80,10 +82,9 @@ def test_get_gold_analysis_project_multiple_metag(mock_get_request, fixtures_dir
 @mongomock.patch(servers=(('localhost', 27017),))
 def test_create_mapping_tsv(mock_get_access_token, mock_get_request, fixtures_dir, tmp_path, insert_sequencing_project):
     mock_get_access_token.return_value = 'dummy_token'
-
-    test_file = fixtures_dir / 'data_generation_set_response_create_mapping_file.json'
-    if not test_file.exists():
-        pytest.skip(f"Fixture file not found: {test_file}")
+    test_file = fixtures_dir / 'data_generation_set_response_mapping_tsv.json'
+    # if not test_file.exists():
+    #     pytest.skip(f"Fixture file not found: {test_file}")
 
     with open(test_file, 'r', encoding='utf-8') as f:
         data_response = json.load(f)
@@ -93,15 +94,20 @@ def test_create_mapping_tsv(mock_get_access_token, mock_get_request, fixtures_di
         [{
             'apGoldId': 'Ga0268315',
             'apType': 'Metagenome Analysis',
-            'projects': ['Gp0307487'],
         }],
+        [{'apGoldId': 'Ga0222738', 'apType': 'Metatranscriptome Analysis'},
+         {'apGoldId': 'Ga0224388','referenceApGoldId': 'Ga0222738','apType': 'Metatranscriptome mapping (self)'}]
     ]
 
     mdb = insert_sequencing_project()
-    output_file = tmp_path / 'bioscales.metag.map.tsv'
+    metag_file = tmp_path / 'bioscales.metag.map.tsv'
+    metat_file = tmp_path / 'bioscales.metat.map.tsv'
 
     create_mapping_tsv('bioscales', tmp_path, mdb, 'nmdc:sty-11-r2h77870')
 
-    old_tsv = pd.read_csv(fixtures_dir / 'mapping.tsv', sep='\t')
-    new_tsv = pd.read_csv(output_file, sep='\t')
-    pd.testing.assert_frame_equal(old_tsv, new_tsv)
+    reference_metag_tsv = pd.read_csv(fixtures_dir / 'metag_mapping.tsv', sep='\t')
+    reference_metat_tsv = pd.read_csv(fixtures_dir / 'metat_mapping.tsv', sep='\t')
+    metag_tsv = pd.read_csv(metag_file, sep='\t')
+    metat_tsv = pd.read_csv(metat_file, sep='\t')
+    pd.testing.assert_frame_equal(reference_metag_tsv, metag_tsv)
+    pd.testing.assert_frame_equal(reference_metat_tsv, metat_tsv)
