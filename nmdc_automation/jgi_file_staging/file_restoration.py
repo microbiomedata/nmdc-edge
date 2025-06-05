@@ -27,7 +27,7 @@ def update_sample_in_mongodb(sample: dict, update_dict: dict, mdb) -> bool:
         mdb.samples.update_one({'jdp_file_id': sample_update_dict['jdp_file_id']}, {'$set': update_dict})
         return True
     except ValidationError as e:
-        logging.debug(f'Update error: {e}')
+        logging.error(f'Validation error when updating Sample: {sample.get("jdp_file_id")} Error Details: {e}')
         return False
 
 
