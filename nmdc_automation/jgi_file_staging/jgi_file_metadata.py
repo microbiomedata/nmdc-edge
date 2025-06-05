@@ -84,7 +84,7 @@ def get_samples_data(project_name: str, config_file: str, mdb, csv_file: str = N
     if csv_file is not None:
         gold_analysis_files_df = pd.read_csv(csv_file)
     else:
-        files_df = get_files_df_from_proposal_id(seq_project['proposal_id'], ACCESS_TOKEN, eval(config['JDP']['delay']))
+        files_df = get_sample_files(seq_project['proposal_id'], ACCESS_TOKEN)
         gold_analysis_files_df = get_analysis_files_df(seq_project['proposal_id'], files_df, ACCESS_TOKEN,
                                                        eval(config['JDP']['remove_files']))
 
@@ -96,12 +96,6 @@ def get_samples_data(project_name: str, config_file: str, mdb, csv_file: str = N
     if len(sample_objects) > 0:
         mdb.samples.insert_many(sample_objects)
         logging.info(f"Inserted {len(sample_objects)} samples into mongodb")
-
-
-def get_files_df_from_proposal_id(proposal_id: id, ACCESS_TOKEN: str, delay: float):
-    all_files_list = get_sample_files(proposal_id, ACCESS_TOKEN)
-    files_df = pd.DataFrame(all_files_list)
-    return files_df
 
 
 def get_analysis_files_df(proposal_id: int, files_df: pd.DataFrame, ACCESS_TOKEN: str, remove_files: List[str]) -> pd.DataFrame:
@@ -149,12 +143,11 @@ def check_access_token(ACCESS_TOKEN: str) -> str:
         return get_access_token()
 
 
-def get_sample_files(proposal_id: int, ACCESS_TOKEN: str) -> List[dict]:
+def get_sample_files(proposal_id: int, ACCESS_TOKEN: str) -> pd.DataFrame:
     """
     Get all sample files for a project_name
     :param proposal_id: proposal id
     :param ACCESS_TOKEN: gold api token
-    :param delay: delay between API requests
     :return: list of sample files for each biosample
     """
 
@@ -168,7 +161,7 @@ def get_sample_files(proposal_id: int, ACCESS_TOKEN: str) -> List[dict]:
             sample_files_list = get_files_and_agg_ids(seq_id, ACCESS_TOKEN)
             create_all_files_list(sample_files_list, biosample_id, seq_id, all_files_list)
 
-    return all_files_list
+    return pd.DataFrame(all_files_list)
 
 
 def get_biosample_ids(proposal_id: int, ACCESS_TOKEN: str) -> List[str]:
