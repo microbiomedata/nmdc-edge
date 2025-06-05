@@ -72,9 +72,11 @@ def test_get_gold_analysis_project_multiple_metag(mock_get_request, fixtures_dir
     with open(fixtures_dir / 'analysis_proj_multi_metag_response.json', 'r', encoding='utf-8') as f:
         response = json.load(f)
     mock_get_request.return_value = response
-    row = {'gold_project': 'Gp0061139'}
+    row = pd.Series({'gold_project': 'Gp0061139'})
     result = get_gold_analysis_project(row, '')
-    assert result == (None, 'Metagenome Analysis')
+    expected = pd.Series({'gold_project': 'Gp0061139', 'gold_analysis_project': None,
+                                                     'ap_type':'Metagenome Analysis'})
+    pd.testing.assert_series_equal(result, expected)
 
 
 @patch('nmdc_automation.jgi_file_staging.mapping_tsv.get_request')
