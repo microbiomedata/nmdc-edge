@@ -148,7 +148,7 @@ def test_sample_records_to_sample_objects(test_db, grow_analysis_df):
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.create_all_files_list')
 def test_get_sample_files(mock_create_all_files_list, mock_get_files_and_agg_ids,
                           mock_get_sequence_id, mock_check_access_token,
-                          mock_get_biosample_ids):
+                          mock_get_biosample_ids, fixtures_dir):
     # Setup mocks
     mock_get_biosample_ids.return_value = ['biosample1', 'biosample2']
     mock_check_access_token.side_effect = lambda token: token  # just return the token unchanged
@@ -175,14 +175,20 @@ def test_get_sample_files(mock_create_all_files_list, mock_get_files_and_agg_ids
     assert mock_get_files_and_agg_ids.call_count == 4  # 2 biosamples × 2 seqs each = 4
 
     # Check result structure
-    assert isinstance(result, list)
-    assert len(result) == 4  # 2 biosamples × 2 seqs = 4 entries
-    for item in result:
-        assert 'biosample_id' in item
-        assert 'seq_id' in item
-        assert 'files' in item
-        assert isinstance(item['files'], list)
-
+    assert isinstance(result, pd.DataFrame)
+    expected =pd.DataFrame([{'biosample_id': 'biosample1',
+      'seq_id': 'seq_biosample1_1',
+      'files': ['file_seq_biosample1_1_a', 'file_seq_biosample1_1_b']},
+     {'biosample_id': 'biosample1',
+      'seq_id': 'seq_biosample1_2',
+      'files': ['file_seq_biosample1_2_a', 'file_seq_biosample1_2_b']},
+     {'biosample_id': 'biosample2',
+      'seq_id': 'seq_biosample2_1',
+      'files': ['file_seq_biosample2_1_a', 'file_seq_biosample2_1_b']},
+     {'biosample_id': 'biosample2',
+      'seq_id': 'seq_biosample2_2',
+      'files': ['file_seq_biosample2_2_a', 'file_seq_biosample2_2_b']}])
+    pd.testing.assert_frame_equal(result, expected)
 
 
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata._verify', return_value=True)
@@ -273,7 +279,7 @@ def test_get_samples_data_with_csv(mock_sample_objects, mock_get_token, mock_con
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.configparser.ConfigParser')
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_access_token', return_value='mock_token')
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.sample_records_to_sample_objects', return_value=[{'sample_id': 1}])
-@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_files_df_from_proposal_id', return_value=pd.DataFrame())
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_sample_files', return_value=pd.DataFrame())
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_analysis_files_df', return_value=pd.DataFrame())
 def test_get_samples_data_without_csv(mock_analysis, mock_files, mock_sample_objects, mock_get_token, mock_configparser, test_db):
     mock_config = MagicMock()
@@ -287,14 +293,14 @@ def test_get_samples_data_without_csv(mock_analysis, mock_files, mock_sample_obj
     inserted = list(test_db.samples.find())
     assert len(inserted) == 0 or isinstance(inserted, list)  # Defensive fallback
 
-    mock_files.assert_called_once_with('test_proposal', 'mock_token', eval('1'))
+    mock_files.assert_called_once_with('test_proposal', 'mock_token')
     mock_analysis.assert_called_once_with('test_proposal', mock_files.return_value, 'mock_token', eval('1'))
 
 
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.configparser.ConfigParser')
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_access_token', return_value='mock_token')
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.sample_records_to_sample_objects', return_value=[])
-@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_files_df_from_proposal_id', return_value=pd.DataFrame())
+@patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_sample_files', return_value=pd.DataFrame())
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_analysis_files_df', return_value=pd.DataFrame())
 def test_get_samples_data_no_samples(mock_analysis, mock_files, mock_sample_objects, mock_get_token, mock_configparser, test_db):
     test_db.samples.delete_many({})  # Clear the collection before the test
