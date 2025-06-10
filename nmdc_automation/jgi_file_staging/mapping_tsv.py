@@ -12,12 +12,13 @@ from nmdc_automation.db.nmdc_mongo import get_db
 from nmdc_automation.jgi_file_staging.jgi_file_metadata import get_access_token, get_request
 
 
-def create_mapping_tsv(project_name: str, mapping_file_path: pathlib.Path, mdb: Database, study_id: str) -> None:
+def create_mapping_tsv(project_name: str, mdb: Database, study_id: str, mapping_file_path: pathlib.Path=None) -> None:
     """
     Creates mapping tsv file(s) for a given project
     :param project_name: Name of the project
-    :param mapping_file_path: path where to save the mapping tsv file
+    :param mdb: MongoDB instance
     :param study_id: study id of the project that will be used to get the proposal id
+    :param mapping_file_path: path where to save the mapping tsv file
     Not all studies have an associated proposal id
     1) get gold ids from the data_generation_set API
     2) for each gold id, get the gold analysis record
@@ -42,7 +43,7 @@ def create_mapping_tsv(project_name: str, mapping_file_path: pathlib.Path, mdb: 
 
 
 def create_tsv_file(study_df: pandas.DataFrame, project_name: str, ap_type: str, mdb: Database,
-                    mapping_file_path: str = None):
+                    mapping_file_path: pathlib.Path = None):
     """
     Create mapping tsv file for either metaG or metaT analysis projects
     :param study_df: pandas DataFrame containing gold analysis records

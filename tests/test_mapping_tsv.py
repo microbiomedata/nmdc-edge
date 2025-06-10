@@ -105,7 +105,7 @@ def test_create_mapping_tsv(mock_get_access_token, mock_get_request, fixtures_di
     metag_file = tmp_path / 'bioscales.metag.map.tsv'
     metat_file = tmp_path / 'bioscales.metat.map.tsv'
 
-    create_mapping_tsv('bioscales', tmp_path, mdb, 'nmdc:sty-11-r2h77870')
+    create_mapping_tsv('bioscales', mdb, 'nmdc:sty-11-r2h77870', tmp_path)
 
     reference_metag_tsv = pd.read_csv(fixtures_dir / 'metag_mapping.tsv', sep='\t')
     reference_metat_tsv = pd.read_csv(fixtures_dir / 'metat_mapping.tsv', sep='\t')
