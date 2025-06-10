@@ -124,9 +124,10 @@ def get_gold_analysis_project(row: pd.Series, ACCESS_TOKEN: str) -> pd.Series:
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument('project_name')
-    parser.add_argument('-s', '--study_id', default=None)
-    parser.add_argument('-f', '--file_path', default=None)
+    parser.add_argument('project_name', help='The project name from MongoDB')
+    parser.add_argument('-s', '--study_id', default=None, help='NMDC study id')
+    parser.add_argument('-f', '--file_path', default=None,
+                        help='path where mapping tsv file is saved. default is <analysis_projects_dir>/<project_name>')
     args = vars((parser.parse_args()))
 
     # Get the database connection
