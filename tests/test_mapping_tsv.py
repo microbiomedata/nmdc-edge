@@ -39,7 +39,7 @@ def insert_sequencing_project(test_db):
 def test_get_study_id(mock_get_request, insert_sequencing_project):
     mdb = insert_sequencing_project()
     mock_get_request.return_value = {'resources': [{'id': 'nmdc:sty-11-r2h77870'}]}
-    study_id = get_study_id('bioscales', '', mdb)
+    study_id = get_study_id('bioscales', mdb)
     assert study_id == 'nmdc:sty-11-r2h77870'
 
 

@@ -63,20 +63,13 @@ def create_tsv_file(study_df: pandas.DataFrame, project_name: str, ap_type: str,
     study_df.to_csv(Path(mapping_file_path, f'{project_name}.{ap_type}.map.tsv'), sep='\t', index=False)
 
 
-def get_study_id(project_name: str, ACCESS_TOKEN: str, mdb: Database) -> str:
+def get_study_id(project_name: str, mdb: Database) -> str:
     """
     Given a proposal_id for a project, return the corresponding NMDC study id
     """
     sequencing_project = mdb.sequencing_projects.find_one({'project_name': project_name})
-    proposal_id = sequencing_project['proposal_id']
-    url = (f'https://api.microbiomedata.org/nmdcschema/study_set?filter='
-           f'{{"jgi_portal_study_identifiers":"jgi.proposal:{proposal_id}"}}')
-    response_json = get_request(url, ACCESS_TOKEN)
-    if response_json:
-        return response_json['resources'][0]['id']
-    else:
-        return None
 
+    return sequencing_project['nmdc_study_id']
 
 def get_gold_ids(nmdc_study_id: str, ACCESS_TOKEN: str) -> pd.DataFrame:
     """
@@ -138,8 +131,8 @@ if __name__ == '__main__':
     # Study ID is optional, if not provided, we try to determine it from the project name via the database
     if args['study_id'] is None:
         # Get the study ID from the database
-        study_id = get_study_id(args['project_name'], get_access_token(), mdb)
-        args['study_id'] = study_id
+        sequencing_project = mdb.sequencing_projects.find_one({'project_name': args['project_name']})
+        args['study_id'] = sequencing_project['nmdc_study_id']
     # Create the mapping TSV file
 
     create_mapping_tsv(args['project_name'], mdb, args['study_id'], args['file_path'])
