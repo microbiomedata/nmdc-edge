@@ -24,14 +24,19 @@ def cli():
     type=click.Path(exists=True),
     required=True,
 )
-@click.option(  "-jaws", "--jaws", is_flag=True, type=bool, default=False)
+@click.option(  "-slurm", "--slurm", is_flag=True, default=False)
 @click.pass_context
-def watcher(ctx, site_configuration_file, jaws):
+def watcher(ctx, site_configuration_file, slurm):
+    """
+    Watcher CLI for managing workflows. Jaws is the default.
+    """
     logger.info(f"Initializing Watcher: config file: {site_configuration_file}")
-    if jaws:
-        logger.info("Using JAWS")
+    if slurm:
+        jaws = False
+        logger.info(f"Initializing Watcher - using Slurm")
     else:
-        logger.info("Using Cromwell")
+        jaws = True
+        logger.info(f"Initializing Watcher - using JAWS")
     ctx.obj = Watcher(site_configuration_file, use_jaws=jaws)
 
 

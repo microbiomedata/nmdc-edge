@@ -130,7 +130,7 @@ class ImportMapper:
         """Return the import specifications by data object type (unique and multiple)."""
         import_specs = {do['data_object_type']: do for do in self.import_specifications["Data Objects"]["Unique"]}
         import_specs.update(
-            {do['data_object_type']: do for do in self.import_specifications["Data Objects"]["Multiples"]}
+            {do['data_object_type']: do for do in self.import_specifications["Data Objects"].get("Multiples", [])}
             )
         return import_specs
 
@@ -411,7 +411,8 @@ class DataObjectMapping:
             )
 
     def __hash__(self):
-        return hash((self.data_object_type, self.import_file, self.output_of, self.data_object_id, self.nmdc_process_id, self.data_category))
+        return hash((self.data_object_type, self.import_file, self.output_of, self.data_object_id,
+                     self.nmdc_process_id, str(self.data_category)))
         
 
 @lru_cache
