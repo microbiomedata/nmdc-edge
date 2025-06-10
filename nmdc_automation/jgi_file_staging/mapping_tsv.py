@@ -131,7 +131,7 @@ if __name__ == '__main__':
 
     # Get the database connection
     mdb = get_db()
-    if not mdb:
+    if mdb is None:
         logging.error("MongoDB connection failed")
         sys.exit(1)
     # Study ID is optional, if not provided, we try to determine it from the project name via the database
@@ -140,4 +140,4 @@ if __name__ == '__main__':
         study_id = get_study_id(args['project_name'], get_access_token(), mdb)
         args['study_id'] = study_id
     # Create the mapping TSV file
-    create_mapping_tsv(args['project_name'], Path(args['file_path']), mdb, args['study_id'])
+    create_mapping_tsv(args['project_name'], mdb, args['study_id'], Path(args['file_path']))
