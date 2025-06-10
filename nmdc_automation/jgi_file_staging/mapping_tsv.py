@@ -140,4 +140,5 @@ if __name__ == '__main__':
         study_id = get_study_id(args['project_name'], get_access_token(), mdb)
         args['study_id'] = study_id
     # Create the mapping TSV file
-    create_mapping_tsv(args['project_name'], mdb, args['study_id'], Path(args['file_path']))
+
+    create_mapping_tsv(args['project_name'], mdb, args['study_id'], args['file_path'])
