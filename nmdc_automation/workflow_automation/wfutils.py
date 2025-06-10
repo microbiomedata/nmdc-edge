@@ -506,8 +506,8 @@ class WorkflowStateManager:
         return self.cached_state.get("conf", self.cached_state.get("config", {}))
 
     @property
-    def last_status(self) -> Optional[str]:
-        return self.cached_state.get("last_status", None)
+    def last_status(self) -> str:
+        return self.cached_state.get("last_status", "unknown")
 
     @last_status.setter
     def last_status(self, status: str):

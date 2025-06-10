@@ -253,9 +253,8 @@ note: This will also terminate the `tee` process that is writing to the log file
    3. `git fetch origin`
    4. `git pull`
 2. Setup NMDC automation environment with `conda` and `poetry`. 
-   1. load conda: `eval "$__conda_setup"`
-   2. in the `nmdc_automation` directory: `poetry update`
-   3. Install the nmdc_automation project with `poetry install`
+   1. load conda: `eval "$__conda_setup"` 
+   3. in the `nmdc_automation` directory, install the nmdc_automation project with `poetry install`
    4. `poetry shell` to use the environment
 
 Example setup:
@@ -267,29 +266,6 @@ Example setup:
 (nersc-python) nmdcda@perlmutter:login38:~> cd nmdc_automation/dev/
 (nersc-python) nmdcda@perlmutter:login38:~/nmdc_automation/dev> eval "$__conda_setup"
 (base) nmdcda@perlmutter:login38:~/nmdc_automation/dev> cd nmdc_automation/
-(base) nmdcda@perlmutter:login38:~/nmdc_automation/dev/nmdc_automation> poetry update
-Package operations: 0 installs, 18 updates, 0 removals
-
-  • Updating attrs (24.3.0 -> 25.1.0)
-  • Updating certifi (2024.12.14 -> 2025.1.31)
-  • Updating pydantic (2.10.5 -> 2.10.6)
-  • Updating rdflib (7.1.2 -> 7.1.3)
-  • Updating referencing (0.35.1 -> 0.36.2)
-  • Updating curies (0.10.2 -> 0.10.4)
-  • Updating wrapt (1.17.0 -> 1.17.2)
-  • Updating deprecated (1.2.15 -> 1.2.18)
-  • Updating babel (2.16.0 -> 2.17.0)
-  • Updating pymdown-extensions (10.14 -> 10.14.3)
-  • Updating beautifulsoup4 (4.12.3 -> 4.13.3)
-  • Updating mkdocs-material (9.5.49 -> 9.6.2)
-  • Updating linkml (1.8.5 -> 1.8.6)
-  • Updating numpy (2.2.1 -> 2.2.2)
-  • Updating pymongo (4.10.1 -> 4.11)
-  • Updating tzdata (2024.2 -> 2025.1)
-  • Updating nmdc-schema (11.2.1 -> 11.3.0)
-  • Updating semver (3.0.2 -> 3.0.4)
-
-Writing lock file
 (base) nmdcda@perlmutter:login38:~/nmdc_automation/dev/nmdc_automation> poetry install
 Installing dependencies from lock file
 
@@ -319,8 +295,7 @@ names `nohup.out` in addition to being written to the `watcher.log` file.
 1. change to the working `prod` or `dev` directory
 - `/global/homes/n/nmdcda/nmdc_automation/prod`
 - `/global/homes/n/nmdcda/nmdc_automation/dev`
-2. `export NMDC_LOG_LEVEL=INFO`
-3. `rm nohup.out`
+3. `rm nohup.out` (logging is also captured in the watcher log file)
 4. `nohup ./run_dev.sh &` (for dev) OR `nohup ./run_prod.sh &` (for prod)
     
    5. Note: These scripts use the JAWS service to run jobs.  If you want to use SLURM/Condor, use `run_dev_slurm.sh` or `run_prod_slurm.sh`
