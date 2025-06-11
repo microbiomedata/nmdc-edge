@@ -6,6 +6,7 @@ workflow readsqc_preprocess {
         Array[File] input_fq1
         Array[File] input_fq2
         String  container="bfoster1/img-omics:0.1.9"
+        String  bbtools_container="microbiomedata/bbtools:38.96"
         String  outdir
         Boolean input_interleaved
         Boolean shortRead
@@ -26,7 +27,7 @@ workflow readsqc_preprocess {
             input:
                 input_files = [file.left,file.right],
                 output_file = basename(file.left) + "_" + basename(file.right),
-                container = container
+                container = bbtools_container
         }
         }
         call gzip_input_int as gzip_pe {
@@ -54,24 +55,40 @@ task gzip_input_int {
 
     command <<<
         set -euo pipefail
+        
         mkdir -p ~{outdir}
-        if file --mime -b ~{input_files[0]} | grep gzip > /dev/null ; then
-            cp ~{sep=" " input_files} ~{outdir}/
-            header=`zcat ~{input_files[0]} | (head -n1; dd status=none of=/dev/null)`
-        else
-            cp ~{sep=" " input_files} ~{outdir}/
-            gzip -f ~{outdir}/*.fastq
-            header=`cat ~{input_files[0]} | (head -n1; dd status=none of=/dev/null)`
-        fi
-        # prefix array
-        for i in ~{outdir}/*.gz
+        cp ~{sep=" " input_files} ~{outdir}/
+
+        needs_merge=false
+        for f in ~{outdir}/*; 
         do
-            name=~{dollar}(basename "$i")
-            prefix=~{dollar}{name%%.*}
-            echo $prefix >> fileprefix.txt
-        done    
-        # simple format check 
-        NumField=`echo $header | cut -d' ' -f2 | awk -F':' "{print NF}"`
+            base=$(basename "$f")
+            if [[ ! "$base" =~ \.fastq$ && ! "$base" =~ \.gz$ ]]; then
+                needs_merge=true
+            fi
+        done
+
+        if $needs_merge; then
+            cat ~{outdir}/* > ~{outdir}/merged.fastq.gz
+            header=$(zcat ~{outdir}/merged.fastq.gz | (head -n1; dd status=none of=/dev/null))
+            echo "merged.fastq" > fileprefix.txt
+        else
+            if file --mime -b ~{input_files[0]} | grep gzip > /dev/null ; then
+                header=$(zcat ~{input_files[0]} | (head -n1; dd status=none of=/dev/null))
+            else
+                gzip -f ~{outdir}/*.fastq
+                header=$(cat ~{input_files[0]} | (head -n1; dd status=none of=/dev/null))
+            fi
+            # prefix array
+            for i in ~{outdir}/*.gz ~{outdir}/*.fastq;
+            do
+                name=~{dollar}(basename "$i")
+                prefix=~{dollar}{name%%.*}
+                echo $prefix >> fileprefix.txt
+            done
+        fi
+
+        NumField=$(echo $header | cut -d' ' -f2 | awk -F':' '{print NF}')
         if [ $NumField -eq 4 ]; then echo "true"; else echo "false"; fi
     >>>
 
@@ -88,28 +105,21 @@ task gzip_input_int {
 	}
 }
 
-
 task interleave_reads{
     input {
         Array[File] input_files
         String output_file = "interleaved.fastq.gz"
         String container
+        Int memory = 10
     }
 
     command <<<
         set -euo pipefail
-        if file --mime -b ~{input_files[0]} | grep gzip > /dev/null ; then
-            paste <(gunzip -c ~{input_files[0]} | paste - - - -) <(gunzip -c ~{input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ~{output_file}
-            echo ~{output_file}
-        else
-            if [[ "~{output_file}" == *.gz ]]; then
-                paste <(cat ~{input_files[0]} | paste - - - -) <(cat ~{input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ~{output_file}
-                echo ~{output_file}
-            else
-                paste <(cat ~{input_files[0]} | paste - - - -) <(cat ~{input_files[1]} | paste - - - -) | tr '\t' '\n' | gzip -c > ~{output_file}.gz
-                echo ~{output_file}.gz
-            fi
-        fi
+        reformat.sh in=~{input_files[0]} in2=~{input_files[1]} out=~{output_file}
+
+        # Validate that the read1 and read2 files are sorted correctly
+        reformat.sh -Xmx~{memory}G verifypaired=t in=~{output_file}
+        echo ~{output_file}
     >>>
 
     runtime {
