@@ -51,6 +51,7 @@ task gzip_input_int {
         String container
         String outdir
         String dollar ="$"
+        Int    memory = 10
     }
 
     command <<<
@@ -70,17 +71,33 @@ task gzip_input_int {
 
         if $needs_merge; then
             cat ~{outdir}/* > ~{outdir}/merged.fastq.gz
+            # Validate gzipped file
+            reformat.sh -Xmx~{memory}G verifypaired=t in=~{outdir}/merged.fastq.gz of=/dev/null
+            
             header=$(zcat ~{outdir}/merged.fastq.gz | (head -n1; dd status=none of=/dev/null))
             echo "merged.fastq" > fileprefix.txt
         else
-            if file --mime -b ~{input_files[0]} | grep gzip > /dev/null ; then
-                header=$(zcat ~{input_files[0]} | (head -n1; dd status=none of=/dev/null))
+            # gzip fastqs
+            gzip -f ~{outdir}/*.fastq
+            # Validate gzipped file
+            for file in ~{outdir}/*.gz; do
+                reformat.sh \
+                    -Xmx~{memory}G \
+                    verifypaired=t \
+                    in="$file" \
+                    of=/dev/null
+            done
+
+            if file --mime -b ~{input_files[0]} | grep -q gzip; then
+                header=$(zcat ~{input_files[0]} \
+                        | (head -n1; dd status=none of=/dev/null))
             else
-                gzip -f ~{outdir}/*.fastq
-                header=$(cat ~{input_files[0]} | (head -n1; dd status=none of=/dev/null))
+                header=$(cat ~{input_files[0]} \
+                        | (head -n1; dd status=none of=/dev/null))
             fi
+
             # prefix array
-            for i in ~{outdir}/*.gz ~{outdir}/*.fastq;
+            for i in ~{outdir}/*.gz;
             do
                 name=~{dollar}(basename "$i")
                 prefix=~{dollar}{name%%.*}
@@ -118,27 +135,17 @@ task interleave_reads{
     command <<<
         set -euo pipefail
 
-        # load wdl array to shell array
-        FQ1_ARRAY=(~{sep=" " input_files[0]})
-        FQ2_ARRAY=(~{sep=" " input_files[1]})
-        
-        for (( i = 0; i < 2; i++ )) ;do
-            fq1_name=$(basename ${FQ1_ARRAY[$i]})
-            fq2_name=$(basename ${FQ2_ARRAY[$i]})
-            if [ $( echo ${FQ1_ARRAY[$i]} | egrep -c "https*:") -gt 0 ] ; then
-                    wget ${FQ1_ARRAY[$i]} -O $fq1_name
-                    wget ${FQ2_ARRAY[$i]} -O $fq2_name
-            else
-                    ln -s ${FQ1_ARRAY[$i]} $fq1_name || cp ${FQ1_ARRAY[$i]} $fq1_name 
-                    ln -s ${FQ2_ARRAY[$i]} $fq2_name || cp ${FQ2_ARRAY[$i]} $fq2_name
-            fi
-            
-            cat $fq1_name  >> ~{target_reads_1}
-            cat $fq2_name  >> ~{target_reads_2}
-        done
-
-
-        reformat.sh in=~{target_reads_1} in2=~{target_reads_2} out=~{output_file}
+        # Check if file is gzip
+        if file --mime -b ~{input_files[0]} | grep -q gzip ; then
+            # Check if filename ends with .gz
+            if [[ ~{input_files[0]}  != *.gz ]]; then
+                mv ~{input_files[0]} ~{input_files[0]}.gz
+            if [[ ~{input_files[1]}  != *.gz ]]; then
+                mv ~{input_files[1]} ~{input_files[1]}.gz
+            reformat.sh in=~{input_files[0]}.gz in2=~{input_files[1]}.gz out=~{output_file}
+        else
+            reformat.sh in=~{input_files[0]} in2=~{input_files[1]} out=~{output_file}
+        fi
 
         # Validate that the read1 and read2 files are sorted correctly
         reformat.sh -Xmx~{memory}G verifypaired=t in=~{output_file}
