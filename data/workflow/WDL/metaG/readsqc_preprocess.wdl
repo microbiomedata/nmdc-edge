@@ -35,7 +35,8 @@ workflow readsqc_preprocess {
         input:
             input_files=interleave_reads.out_fastq,
             container=bbtools_container,
-            outdir=outdir
+            outdir=outdir,
+            shortRead=true
         }
 
     }
