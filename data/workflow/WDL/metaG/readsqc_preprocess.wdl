@@ -72,7 +72,7 @@ task gzip_input_int {
         if $needs_merge; then
             cat ~{outdir}/* > ~{outdir}/merged.fastq.gz
             # Validate gzipped file
-            reformat.sh -Xmx~{memory}G verifypaired=t in=~{outdir}/merged.fastq.gz of=/dev/null
+            reformat.sh -Xmx~{memory}G verifypaired=t in=~{outdir}/merged.fastq.gz
             
             header=$(zcat ~{outdir}/merged.fastq.gz | (head -n1; dd status=none of=/dev/null))
             echo "merged.fastq" > fileprefix.txt
@@ -84,8 +84,7 @@ task gzip_input_int {
                 reformat.sh \
                     -Xmx~{memory}G \
                     verifypaired=t \
-                    in="$file" \
-                    of=/dev/null
+                    in="$file"
             done
 
             if file --mime -b ~{input_files[0]} | grep -q gzip; then
