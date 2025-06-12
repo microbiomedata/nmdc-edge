@@ -17,7 +17,8 @@ workflow readsqc_preprocess {
         input:
             input_files=input_files,
             container=bbtools_container,
-            outdir=outdir
+            outdir=outdir,
+            shortRead=shortRead
         }
     }
 
@@ -48,10 +49,11 @@ workflow readsqc_preprocess {
 task gzip_input_int {
     input {
         Array[File] input_files
-        String container
-        String outdir
-        String dollar ="$"
-        Int    memory = 10
+        String  container
+        String  outdir
+        String  dollar ="$"
+        Int     memory = 10
+        Boolean shortRead
     }
 
     command <<<
@@ -71,8 +73,10 @@ task gzip_input_int {
 
         if $needs_merge; then
             cat ~{outdir}/* > ~{outdir}/merged.fastq.gz
-            # Validate gzipped file
-            reformat.sh -Xmx~{memory}G verifypaired=t in=~{outdir}/merged.fastq.gz
+            # Validate gzipped file for shortreads
+            if [ "~{shortRead}" = "true" ]; then
+                reformat.sh -Xmx~{memory}G verifypaired=t in=~{outdir}/merged.fastq.gz
+            fi
             
             header=$(zcat ~{outdir}/merged.fastq.gz | (head -n1; dd status=none of=/dev/null))
             echo "merged.fastq" > fileprefix.txt
@@ -84,7 +88,9 @@ task gzip_input_int {
 
             # Validate gzipped file
             for file in ~{outdir}/*.gz; do
-                reformat.sh -Xmx~{memory}G verifypaired=t in="$file"
+                if [ "~{shortRead}" = "true" ]; then
+                    reformat.sh -Xmx~{memory}G verifypaired=t in="$file"
+                fi
             done
 
             if file --mime -b ~{input_files[0]} | grep -q gzip; then
