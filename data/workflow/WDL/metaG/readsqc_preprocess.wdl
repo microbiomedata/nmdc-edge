@@ -78,13 +78,13 @@ task gzip_input_int {
             echo "merged.fastq" > fileprefix.txt
         else
             # gzip fastqs
-            gzip -f ~{outdir}/*.fastq
+            if ls ~{outdir}/*.fastq 1> /dev/null 2>&1; then
+                gzip -f ~{outdir}/*.fastq
+            fi
+
             # Validate gzipped file
             for file in ~{outdir}/*.gz; do
-                reformat.sh \
-                    -Xmx~{memory}G \
-                    verifypaired=t \
-                    in="$file"
+                reformat.sh -Xmx~{memory}G verifypaired=t in="$file"
             done
 
             if file --mime -b ~{input_files[0]} | grep -q gzip; then
