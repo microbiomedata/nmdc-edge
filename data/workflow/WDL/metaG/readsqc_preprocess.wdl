@@ -76,7 +76,7 @@ task gzip_input_int {
             cat ~{outdir}/* > ~{outdir}/merged.fastq.gz
             # Validate gzipped file for shortreads
             if [ "~{shortRead}" = "true" ]; then
-                reformat.sh -Xmx~{memory}G verifypaired=t in=~{outdir}/merged.fastq.gz
+                reformat.sh -Xmx~{memory}G verifypaired=t in=~{outdir}/merged.fastq.gz out=/dev/null
             fi
             
             header=$(zcat ~{outdir}/merged.fastq.gz | (head -n1; dd status=none of=/dev/null))
@@ -90,7 +90,7 @@ task gzip_input_int {
             # Validate gzipped file
             for file in ~{outdir}/*.gz; do
                 if [ "~{shortRead}" = "true" ]; then
-                    reformat.sh -Xmx~{memory}G verifypaired=t in="$file"
+                    reformat.sh -Xmx~{memory}G verifypaired=t in="$file" out=/dev/null
                 fi
             done
 
