@@ -40,7 +40,11 @@ def create_mapping_tsv(project_name: str, mdb: Database, study_id: str, mapping_
         for idx, row in metat_study_df.iterrows():
             logging.debug(f'Processing row {row.id}, len={len(row.gold_analysis_project)}')
             new_row_list.append({'id': row.id, 'gold_analysis_project': row.gold_analysis_project[0]})
-            new_row_list.append({'id': row.id, 'gold_analysis_project': row.gold_analysis_project[1]})
+            try:
+                new_row_list.append({'id': row.id, 'gold_analysis_project': row.gold_analysis_project[1]})
+            except IndexError as e:
+                logging.exception(f"Index Error: {e, study_df.loc[study_df.id==row.id, 'gold_project']}")
+                new_row_list.append({'id': row.id, 'gold_analysis_project': None})
         metat_study_df = pd.DataFrame(new_row_list)
         create_tsv_file(metat_study_df, project_name, 'metat', mdb, mapping_file_path)
 

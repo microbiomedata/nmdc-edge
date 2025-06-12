@@ -113,3 +113,39 @@ def test_create_mapping_tsv(mock_get_access_token, mock_get_request, fixtures_di
     metat_tsv = pd.read_csv(metat_file, sep='\t')
     pd.testing.assert_frame_equal(reference_metag_tsv, metag_tsv)
     pd.testing.assert_frame_equal(reference_metat_tsv, metat_tsv)
+
+@patch('nmdc_automation.jgi_file_staging.mapping_tsv.get_request')
+@patch('nmdc_automation.jgi_file_staging.mapping_tsv.get_access_token')
+@mongomock.patch(servers=(('localhost', 27017),))
+def test_create_mapping_tsv_missing_analysis_project(mock_get_access_token, mock_get_request, fixtures_dir, tmp_path, insert_sequencing_project):
+    mock_get_access_token.return_value = 'dummy_token'
+    test_file = fixtures_dir / 'data_generation_set_response_mapping_tsv.json'
+    # if not test_file.exists():
+    #     pytest.skip(f"Fixture file not found: {test_file}")
+
+    with open(test_file, 'r', encoding='utf-8') as f:
+        data_response = json.load(f)
+
+    mock_get_request.side_effect = [
+        data_response,
+        [{
+            'apGoldId': 'Ga0268315',
+            'apType': 'Metagenome Analysis',
+        }],
+        [{'apGoldId': 'Ga0222738', 'apType': 'Metatranscriptome Analysis','referenceApGoldId':None}]
+    ]
+
+    mdb = insert_sequencing_project()
+    metag_file = tmp_path / 'bioscales.metag.map.tsv'
+    metat_file = tmp_path / 'bioscales.metat.map.tsv'
+
+    create_mapping_tsv('bioscales', mdb, 'nmdc:sty-11-r2h77870', tmp_path)
+
+    reference_metag_tsv = pd.read_csv(fixtures_dir / 'metag_mapping.tsv', sep='\t')
+    reference_metat_tsv = pd.read_csv(fixtures_dir / 'metat_mapping.tsv', sep='\t')
+    reference_metat_tsv.loc[1, 'project_id'] = None
+    reference_metat_tsv.loc[1, 'project_path'] = None
+    metag_tsv = pd.read_csv(metag_file, sep='\t')
+    metat_tsv = pd.read_csv(metat_file, sep='\t')
+    pd.testing.assert_frame_equal(reference_metag_tsv, metag_tsv)
+    pd.testing.assert_frame_equal(reference_metat_tsv, metat_tsv)
