@@ -155,7 +155,6 @@ task interleave_reads{
 
         # Validate that the read1 and read2 files are sorted correctly
         reformat.sh -Xmx~{memory}G verifypaired=t in=~{output_file}
-        echo ~{output_file}
     >>>
 
     runtime {
@@ -165,6 +164,6 @@ task interleave_reads{
     }
 
     output {
-            File out_fastq = read_string(stdout())
+            File out_fastq = "~{output_file}"
     }
 }
