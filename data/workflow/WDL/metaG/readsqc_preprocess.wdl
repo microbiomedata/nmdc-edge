@@ -146,8 +146,10 @@ task interleave_reads{
             # Check if filename ends with .gz
             if [[ ~{input_files[0]}  != *.gz ]]; then
                 mv ~{input_files[0]} ~{input_files[0]}.gz
+            fi
             if [[ ~{input_files[1]}  != *.gz ]]; then
                 mv ~{input_files[1]} ~{input_files[1]}.gz
+            fi
             reformat.sh in=~{input_files[0]}.gz in2=~{input_files[1]}.gz out=~{output_file}
         else
             reformat.sh in=~{input_files[0]} in2=~{input_files[1]} out=~{output_file}
