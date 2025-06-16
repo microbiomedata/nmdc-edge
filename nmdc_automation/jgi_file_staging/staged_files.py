@@ -90,7 +90,7 @@ if __name__ == "__main__":
     save_file_list = args["save_file_list"]
     # Get the database connection
     mdb = get_db()
-    if not mdb:
+    if mdb is None:
         logging.error("MongoDB connection failed")
         exit(1)
 
