@@ -58,7 +58,7 @@ def get_list_missing_staged_files(
     stage_df["file_key"] = stage_df.apply(
         lambda x: f"{x.analysis_project}-{x.file}", axis=1
     )
-    samples_df = pd.DataFrame([s for s in mdb.samples.find({"project_name": project_name})])
+    samples_df = pd.DataFrame(mdb.samples.find({"project": project_name}))
     samples_df["file_key"] = samples_df.apply(
         lambda x: f"{x.apGoldId}-{x.file_name}", axis=1
     )
