@@ -73,7 +73,13 @@ task gzip_input_int {
         done
 
         if $needs_merge; then
-            cat ~{outdir}/* > ~{outdir}/merged.fastq.gz
+            if file --mime -b ~{input_files[0]} | grep -q gzip; then
+                cat ~{outdir}/* > ~{outdir}/merged.fastq.gz
+            else
+                cat ~{outdir}/* > ~{outdir}/merged.fastq 
+                gzip ~{outdir}/merged.fastq
+            fi
+
             # Validate gzipped file for shortreads
             if [ "~{shortRead}" = "true" ]; then
                 reformat.sh -Xmx~{memory}G verifypaired=t in=~{outdir}/merged.fastq.gz out=/dev/null
@@ -132,8 +138,6 @@ task interleave_reads{
     input {
         Array[File] input_files
         String output_file = "interleaved.fastq.gz"
-        String target_reads_1="raw_reads_1.fastq.gz"
-        String target_reads_2="raw_reads_2.fastq.gz"
         String container
         Int memory = 10
     }
