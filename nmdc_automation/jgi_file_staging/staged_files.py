@@ -27,7 +27,7 @@ def get_list_staged_files(project: str, config: configparser, save_file_list: Bo
     :param save_file_list: Save list of staged files
     """
     # project root based on current file location
-    base_dir = Path(config["PROJECT"]["analysis_projects_dir"]) / project
+    base_dir = Path(config["PROJECT"]["analysis_projects_dir"]) / project / f"analysis_files"
 
 
     proj_list = []
