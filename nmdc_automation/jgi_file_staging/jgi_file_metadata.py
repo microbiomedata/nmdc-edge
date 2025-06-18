@@ -176,7 +176,7 @@ def get_biosample_ids(proposal_id: int, ACCESS_TOKEN: str) -> List[str]:
 
 def get_sequence_id(biosample_id: str, ACCESS_TOKEN: str) -> List[str]:
     """
-    Given a GOLD biosample ID, retrieve the list of JGI sequencing IDs.
+    Given a GOLD biosample ID, retrieve the list of JGI analysis id.
 
     :param biosample_id: The GOLD biosample ID.
     :param ACCESS_TOKEN: The API access token.
@@ -312,7 +312,7 @@ def sample_records_to_sample_objects(sample_records: List[Dict[str, Any]]) -> Li
 
 
 
-def get_nmdc_study_id(proposal_id: int, ACCESS_TOKEN: str, delay) -> str:
+def get_nmdc_study_id(proposal_id: int, ACCESS_TOKEN: str) -> str:
     """
     Get NMDC study from proposal id
     """
