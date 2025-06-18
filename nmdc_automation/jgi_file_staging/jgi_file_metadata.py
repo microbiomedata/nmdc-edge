@@ -312,10 +312,12 @@ def sample_records_to_sample_objects(sample_records: List[Dict[str, Any]]) -> Li
 
 
 
-def get_nmdc_study_id(proposal_id: int, ACCESS_TOKEN: str) -> str:
+def get_nmdc_study_id(proposal_id: int, ACCESS_TOKEN: str, config: configparser.ConfigParser) -> str:
     """
     Get NMDC study from proposal id
     """
+    if config['PROJECT']['nmdc_study_id']:
+        return config['PROJECT']['nmdc_study_id']
     url = f'https://api.microbiomedata.org/nmdcschema/study_set?filter= \
     {{"jgi_portal_study_identifiers":"jgi.proposal:{proposal_id}"}}'
 
@@ -330,7 +332,7 @@ def insert_new_project_into_mongodb(config_file: str, mdb) -> None:
     config = configparser.ConfigParser()
     config.read(config_file)
 
-    nmdc_study_id = get_nmdc_study_id(int(config['PROJECT']['proposal_id']), get_access_token())
+    nmdc_study_id = get_nmdc_study_id(int(config['PROJECT']['proposal_id']), get_access_token(), config)
 
     insert_dict = {'proposal_id': config['PROJECT']['proposal_id'], 'project_name': config['PROJECT']['name'],
                    'nmdc_study_id': nmdc_study_id, 'analysis_projects_dir': config['PROJECT']['analysis_projects_dir']}
