@@ -24,6 +24,7 @@ from nmdc_automation.jgi_file_staging.jgi_file_metadata import (
     remove_duplicate_analysis_files,
     remove_large_files,
     remove_unneeded_files,
+    get_nmdc_study_id,
 )
 from nmdc_automation.jgi_file_staging.models import Sample
 
@@ -37,6 +38,10 @@ def mock_get(mocker):
         "nmdc_automation.jgi_file_staging.jgi_file_metadata.requests.get"
     )
 
+def test_get_nmdc_study_id(mock_get, import_config):
+    ACCESS_TOKEN = 'mock_token'
+    nmdc_study_id = get_nmdc_study_id(import_config['PROJECT']['nmdc_study_id'], ACCESS_TOKEN, import_config)
+    assert nmdc_study_id == import_config['PROJECT']['nmdc_study_id']
 
 def test_get_access_token(mock_get):
     mock_get.return_value.status_code = 200
@@ -139,7 +144,9 @@ def test_sample_records_to_sample_objects(test_db, grow_analysis_df):
 
     sample_objects = sample_records_to_sample_objects(sample_records)
     assert len(sample_objects) == exp_sample_count
-
+    assert sample_objects[0]['analysis_project_id'] == 'p1323348'
+    #'biosample_id': 'Gb0305643', 'file_name': '52614.1.394702.GCACTAAC-CCAAGACT.filtered-report.txt', 'file_size': 3645, 'file_status': 'RESTORED', 'itsApId': 1323348, 'jdp_file_id': '6190d7d30de2fc3298da6f7a', 'md5sum': 'fcd87248b5922a8bd0d530bcb23bffae', 'project_name': 'grow_project', 'seq_id': 's1323445', 'studyId': 'Gs0149396'}
+    assert sample_objects[0]['apGoldId'] == 'Ga0499978'
 
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.get_biosample_ids')
 @patch('nmdc_automation.jgi_file_staging.jgi_file_metadata.check_access_token')

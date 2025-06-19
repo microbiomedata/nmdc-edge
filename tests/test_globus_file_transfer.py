@@ -58,7 +58,7 @@ def test_get_project_globus_manifests(monkeypatch, fixtures_dir, jgi_staging_con
 
     sample_objects = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
 
-    test_db.samples.insert_many([s.model_dump() for s in sample_objects])
+    test_db.samples.insert_many(sample_objects)
 
     get_project_globus_manifests("grow_project", test_db, config=jgi_staging_config)
 
@@ -77,7 +77,7 @@ def test_create_globus_df(monkeypatch, fixtures_dir, jgi_staging_config, grow_an
     sample_objects = sample_records_to_sample_objects(sample_records)
     assert len(sample_objects) == 10
 
-    test_db.samples.insert_many([s.model_dump() for s in sample_objects])
+    test_db.samples.insert_many(sample_objects)
 
     mock_manifest = Mock(side_effect=[
         "Globus_Download_201545_File_Manifest.csv",
@@ -112,7 +112,7 @@ def test_create_globus_batch_file(monkeypatch, fixtures_dir, jgi_staging_config,
     sample_objects = sample_records_to_sample_objects(sample_records)
     assert len(sample_objects) == 10
 
-    test_db.samples.insert_many([s.model_dump() for s in sample_objects])
+    test_db.samples.insert_many(sample_objects)
 
     # Patch where the file gets written to go into tmp_path
     monkeypatch.setattr("nmdc_automation.jgi_file_staging.globus_file_transfer.OUTPUT_DIR", tmp_path)

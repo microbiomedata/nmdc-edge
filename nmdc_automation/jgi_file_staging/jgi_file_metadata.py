@@ -303,7 +303,7 @@ def sample_records_to_sample_objects(sample_records: List[Dict[str, Any]]) -> Li
     for sample_record in sample_records:
         try:
             sample_object = Sample(**sample_record)
-            sample_objects.append(sample_object)
+            sample_objects.append(sample_object.model_dump())
         except ValidationError as e:
             logging.exception(f"Validation error: {e}")
             continue

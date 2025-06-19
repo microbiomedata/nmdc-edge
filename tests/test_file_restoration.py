@@ -32,7 +32,7 @@ def test_restore_files(mock_post, import_config_file, grow_analysis_df, test_db,
     grow_analysis_df['project_name'] = 'Gp0587070'
     sample_records = grow_analysis_df.to_dict('records')
     sample_objects = sample_records_to_sample_objects(sample_records)
-    test_db.samples.insert_many([sample.model_dump() for sample in sample_objects])
+    test_db.samples.insert_many(sample_objects)
 
     num_restore_samples = len([m for m in test_db.samples.find({'file_status': 'PURGED'})])
     assert num_restore_samples == 5

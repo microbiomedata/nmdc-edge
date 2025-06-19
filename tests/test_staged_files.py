@@ -26,7 +26,7 @@ def test_get_list_missing_staged_files(
     # Prepare the test database
     sample_objs = sample_records_to_sample_objects(grow_analysis_df.to_dict("records"))
     try:
-        test_db.samples.insert_many([so.model_dump() for so in sample_objs])
+        test_db.samples.insert_many(sample_objs)
         # Add fake files
         for row in grow_analysis_df.loc[0:8, :].itertuples():
             analysis_proj_dir = base_dir / row.apGoldId
