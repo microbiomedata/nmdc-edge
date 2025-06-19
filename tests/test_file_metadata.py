@@ -40,8 +40,17 @@ def mock_get(mocker):
 
 def test_get_nmdc_study_id(mock_get, import_config):
     ACCESS_TOKEN = 'mock_token'
-    nmdc_study_id = get_nmdc_study_id(import_config['PROJECT']['nmdc_study_id'], ACCESS_TOKEN, import_config)
+    nmdc_study_id = get_nmdc_study_id(import_config['PROJECT']['proposal_id'], ACCESS_TOKEN, import_config)
     assert nmdc_study_id == import_config['PROJECT']['nmdc_study_id']
+
+    import_config['PROJECT']['nmdc_study_id'] = ''
+    mock_get.return_value.json.return_value = {'resources': [{'id': 'nmdc:sty-11-28tm5d36',
+   'name': '1000 Soils Research Campaign',
+   'websites': [],}]}
+    mock_get.return_value.status_code = 200
+
+    nmdc_study_id = get_nmdc_study_id(import_config['PROJECT']['proposal_id'], ACCESS_TOKEN, import_config)
+    assert nmdc_study_id == 'nmdc:sty-11-28tm5d36'
 
 def test_get_access_token(mock_get):
     mock_get.return_value.status_code = 200
