@@ -13,7 +13,7 @@ from nmdc_automation.jgi_file_staging.jgi_file_metadata import get_access_token,
 
 logging.basicConfig(filename='mapping_tsv.log',
                     format='%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
-                    datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG)
+                    datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG, force=True)
 def create_mapping_tsv(project_name: str, mdb: Database, study_id: str, mapping_file_path: pathlib.Path=None) -> None:
     """
     Creates mapping tsv file(s) for a given project

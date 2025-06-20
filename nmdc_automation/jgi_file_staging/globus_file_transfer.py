@@ -13,7 +13,7 @@ from nmdc_automation.db.nmdc_mongo import get_db
 
 logging.basicConfig(filename='file_staging.log',
                     format='%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
-                    datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG)
+                    datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG, force=True)
 
 OUTPUT_DIR = Path(".")
 

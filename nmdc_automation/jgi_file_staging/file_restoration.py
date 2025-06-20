@@ -13,9 +13,9 @@ import argparse
 import json
 
 
-logging.basicConfig(filename='file_staging.log',
+logging.basicConfig(filename='file_restore.log',
                     format='%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
-                    datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG)
+                    datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG, force=True)
 
 
 def update_sample_in_mongodb(sample: dict, update_dict: dict, mdb) -> bool:

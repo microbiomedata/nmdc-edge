@@ -20,7 +20,7 @@ from pydantic import ValidationError
 
 logging.basicConfig(filename='file_staging.log',
                     format='%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
-                    datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG)
+                    datefmt='%Y-%m-%d,%H:%M:%S', level=logging.DEBUG, force=True)
 
 """
 1. Get sample metadata and enter into mongodb
