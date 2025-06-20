@@ -198,7 +198,7 @@ if __name__ == '__main__':
     args = vars((parser.parse_args()))
     config_file = args['config_file']
     mdb = get_db()
-    if not mdb:
+    if mdb is None:
         logging.error("MongoDB connection failed")
         sys.exit(1)
     if args['request_id']:
