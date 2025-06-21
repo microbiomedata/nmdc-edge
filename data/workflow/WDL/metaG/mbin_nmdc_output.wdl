@@ -186,7 +186,7 @@ task make_output{
     command <<<
         set -euo pipefail
         mkdir -p ~{outdir}
-        cp ~{activity_json} ~{object_json} ~{outdir}
+        # cp ~{activity_json} ~{object_json} ~{outdir}
         cp ~{low}  ~{outdir}/~{proj}_bins.lowDepth.fa
         cp ~{short} ~{outdir}/~{proj}_bins.tooShort.fa
         cp ~{unbinned} ~{outdir}/~{proj}_bins.unbinned.fa
