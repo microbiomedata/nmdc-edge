@@ -4,7 +4,7 @@ workflow annotation_output {
     input {
         String  imgap_project_type="metagenome"
         String  container="bfoster1/img-omics:0.1.9"
-        String  vis_container="microbiomedata/annotation_vis:0.1.0"
+        String  vis_container="ghcr.io/microbiomedata/nmdc-annotation_vis:0.1.1"
         String  opaver_web_path
         String  outdir
         File final_stats_tsv
@@ -56,8 +56,17 @@ task annotation_vis{
         fi
         ## make symlink to omics-pathway-viewer/data location
         projectID=`basename ~{PROJPATH}`
-        ln -s ~{OUTPATH}/kegg_map ~{opaver_web_path}/$projectID
-
+        target_link="~{opaver_web_path}/$projectID"
+        if [ -z "~{opaver_web_path}" ]; then
+            echo "Error: opaver_web_path is empty. Cannot create symlink."
+        else
+            if [ -e "$target_link" ] || [ -L "$target_link" ]; then
+                echo "Warning: Path $target_link already exists. Skipping symlink creation."
+            else
+                ln -s ~{OUTPATH}/kegg_map "$target_link"
+            fi
+        fi
+        
         plot_protein_len.py --input ~{gff} --output ~{OUTPATH}/~{projectName}.protein_size_histogram.html
 
         mapid=`head -n 1 ~{OUTPATH}/kegg_map/exp_pathway.txt | cut -f 1 `
