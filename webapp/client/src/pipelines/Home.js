@@ -24,7 +24,7 @@ function Home() {
             <br></br>
             <p className="edge-text-font edge-text-size-large float-left">
               Access the detailed <a href='https://docs.microbiomedata.org/howto_guides/run_workflows/' target='_blank' rel="noreferrer">Quick Start Guide</a>, <a href='https://docs.microbiomedata.org/tutorials/run_workflows/' target='_blank' rel="noreferrer">Video Tutorial</a>, and <a href='https://docs.microbiomedata.org/workflows/index.html' target='_blank' rel="noreferrer">Workflow Documentation</a> through 
-              the full <a href='https://docs.microbiomedata.org/' target='_blank' rel="noreferrer">NMDC documentation site</a>. NMDC EDGE and its workflows are availabile for locally or online using shared NMDC computing resources.
+              the full <a href='https://docs.microbiomedata.org/' target='_blank' rel="noreferrer">NMDC documentation site</a> (also available via the Documentation tab on the left menu bar or under Resources at the top banner).  
             </p>
             <br></br><br></br>
             <p className="edge-text-font edge-text-size-large float-left">
