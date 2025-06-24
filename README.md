@@ -7,24 +7,26 @@ The NMDC EDGE web application is the web-based interface through which researche
 The NMDC EDGE platform is a [Cromwell](https://cromwell.readthedocs.io/en/stable/)-based system researchers can use to
 process omics data using standardized bioinformatics workflows.
 
-You can learn more about the NMDC EDGE platform by reading the [NMDC EDGE tutorials](https://nmdc-edge.org/tutorial).
+You can learn more about the NMDC EDGE platform by reading the [NMDC EDGE Quick Start Tutorial](https://docs.microbiomedata.org/howto_guides/run_workflows/). 
+For a deeper dive into the workflows, you can refer to the [Workflow Documentation](https://docs.microbiomedata.org/workflows/chapters/overview.html).  
 
 ## Table of contents
 
 <!-- TOC -->
-* [nmdc-edge](#nmdc-edge)
-  * [Table of contents](#table-of-contents)
-  * [Architecture](#architecture)
-  * [Development](#development)
-    * [Development stack](#development-stack)
-      * [Setup](#setup)
-        * [Prerequisites](#prerequisites)
-        * [Procedure](#procedure)
-      * [Usage](#usage)
-  * [Deployment](#deployment)
-    * [Building and publishing a container image](#building-and-publishing-a-container-image)
-    * [Instantiating the container image](#instantiating-the-container-image)
-  * [Appendix](#appendix)
+- [nmdc-edge](#nmdc-edge)
+  - [Table of contents](#table-of-contents)
+  - [Architecture](#architecture)
+  - [Development](#development)
+    - [Development stack](#development-stack)
+      - [Setup](#setup)
+        - [Prerequisites](#prerequisites)
+        - [Procedure](#procedure)
+      - [Usage](#usage)
+  - [Deployment](#deployment)
+    - [Building and publishing a container image](#building-and-publishing-a-container-image)
+    - [Instantiating the container image](#instantiating-the-container-image)
+  - [Appendix](#appendix)
+    - [Admin users](#admin-users)
 <!-- TOC -->
 
 ## Architecture
