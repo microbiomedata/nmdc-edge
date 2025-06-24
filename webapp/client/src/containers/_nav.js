@@ -9,10 +9,35 @@ const _nav = [
     icon: <CIcon name="cilHome" customClasses="c-sidebar-nav-icon" />
   },
   {
-    _tag: 'CSidebarNavItem',
-    name: 'Tutorials',
-    to: '/tutorial',
-    icon: <CIcon name="cilStar" customClasses="c-sidebar-nav-icon" />
+    _tag: 'CSidebarNavDropdown',
+    name: 'Documentation',
+    icon: 'cilStar',
+    _children: [
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Quick Start Guide',
+        component: 'a',
+        href: 'https://docs.microbiomedata.org/howto_guides/run_workflows/',
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Tutorial Walkthrough',
+        component: 'a',
+        href: 'https://docs.microbiomedata.org/tutorials/run_workflows/',
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Workflow Documentation',
+        component: 'a',
+        href: 'https://docs.microbiomedata.org/workflows/index.html',
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      }
+    ],
   },
   {
     _tag: 'CSidebarNavItem',

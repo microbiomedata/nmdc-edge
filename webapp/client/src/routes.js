@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Home = React.lazy(() => import('./pipelines/Home'));
-const Tutorial = React.lazy(() => import('./pipelines/Tutorial'));
 const PublicProjectList = React.lazy(() => import('./common/UM/Public/ProjectList'));
 const PublicProjectPage = React.lazy(() => import('./pipelines/Common/Results/ProjectPage/Public'));
 const tempLogin = React.lazy(() => import('./common/UM/User/Login'));
@@ -14,7 +13,6 @@ const OAuth = React.lazy(() => import('./common/UM/Common/OrcidLogin'));
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/home', name: 'Home', component: Home },
-  { path: '/tutorial', name: 'Home', component: Tutorial },
   { path: '/public/projectlist', name: 'ProjectList', component: PublicProjectList },
   { path: '/public/project', name: 'ProjectPage', component: PublicProjectPage },
   { path: '/nmdcedgeadminlogin', exact: true, name: 'tempLogin', component: tempLogin },

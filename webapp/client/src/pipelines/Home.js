@@ -17,17 +17,14 @@ function Home() {
               The National Microbiome Data Collaborative (<a href='https://microbiomedata.org/' target='_blank' rel="noreferrer">NMDC</a>) supports a Findable, Accessible,
               Interoperable, and Reusable (FAIR) microbiome data sharing network through infrastructure, data standards, and community building to address pressing challenges
               in environmental sciences. The NMDC EDGE (Empowering the Development of Genomics Expertise) platform was created so that all researchers can access and process
-              their ‘omics data using the NMDC standardized bioinformatics workflows, regardless of resource availability or expertise level. All microbiome datasets in
+              their 'omics data using the NMDC standardized bioinformatics workflows, regardless of resource availability or expertise level. All microbiome datasets in
               the <a href='https://data.microbiomedata.org/' target='_blank' rel="noreferrer">NMDC Data Portal</a> have been processed using the same workflows as those housed
               in NMDC EDGE, allowing datasets to be directly compared between the two interfaces.
             </p>
             <br></br>
             <p className="edge-text-font edge-text-size-large float-left">
-              A <a href={config.API.BASE_URI + "/docs/help/quickStart.pdf"} target="_blank" rel="noreferrer">Quick Start Guide</a> along with
-              other <a href={"/tutorial"} target="_blank" rel="noreferrer">Tutorials and User Guides</a> are available for running workflows in NMDC EDGE.
-              The full <a href='https://nmdc-documentation.readthedocs.io/en/latest/index.html' target='_blank' rel="noreferrer">NMDC documentation site</a> provides more specific
-              information about the NMDC workflows and their associated tools and parameters. NMDC EDGE can either be installed locally
-              or the workflows can be run online using shared NMDC computing resources.
+              Access the detailed <a href='https://docs.microbiomedata.org/howto_guides/run_workflows/' target='_blank' rel="noreferrer">Quick Start Guide</a>, <a href='https://docs.microbiomedata.org/tutorials/run_workflows/' target='_blank' rel="noreferrer">Video Tutorial</a>, and <a href='https://docs.microbiomedata.org/workflows/index.html' target='_blank' rel="noreferrer">Workflow Documentation</a> through 
+              the full <a href='https://docs.microbiomedata.org/' target='_blank' rel="noreferrer">NMDC documentation site</a>. NMDC EDGE and its workflows are availabile for locally or online using shared NMDC computing resources.
             </p>
             <br></br><br></br>
             <p className="edge-text-font edge-text-size-large float-left">

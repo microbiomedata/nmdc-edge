@@ -115,7 +115,7 @@ const MetadataSubmisssion = (props) => {
           />
           <br></br>
           {study === 'new' && <>
-            Study Name <a href='https://nmdc-documentation.readthedocs.io/en/latest/howto_guides/submit2nmdc.html#study' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
+            Study Name <a href='https://docs.microbiomedata.org/howto_guides/submit2nmdc/' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
             <Input type="text" name="study_name" id="study_name" defaultValue={''}
               onChange={(e) => {
                 studyNameReg.onChange(e); // method from hook form register
@@ -125,7 +125,7 @@ const MetadataSubmisssion = (props) => {
             {errors.study_name && <p className="edge-form-input-error">{errors.study_name.message}</p>}
             <br></br>
 
-            PI Email <a href='https://nmdc-documentation.readthedocs.io/en/latest/howto_guides/submit2nmdc.html#study' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
+            PI Email <a href='https://docs.microbiomedata.org/howto_guides/submit2nmdc/#study' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
             <Input type="text" name="email"
               onChange={(e) => {
                 emailReg.onChange(e); // method from hook form register
@@ -135,7 +135,7 @@ const MetadataSubmisssion = (props) => {
             {errors.email && <p className="edge-form-input-error">{errors.email.message}</p>}
             <br></br>
 
-            Environmental Package <a href='https://nmdc-documentation.readthedocs.io/en/latest/howto_guides/submit2nmdc.html#environmental-package' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
+            Environmental Package <a href='https://docs.microbiomedata.org/howto_guides/submit2nmdc/#sample-environment' target='_blank' rel="noreferrer"><FaInfoCircle /></a>
             <br></br>
             <span className="text-muted edge-text-size-small">
             (Select the environmental packages that you collected samples from.)
