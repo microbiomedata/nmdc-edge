@@ -48,6 +48,7 @@ export function ReadbasedAnalysis(props) {
     };
 
     const updateFastqInputs = (fastqInputs) => {
+        form.shortRead = fastqInputs.shortRead;
         form.fastqPaired = fastqInputs.fastqPaired;
         form.fastqSingle = fastqInputs.fastqSingle;
         form.paired = !fastqInputs.interleaved;
@@ -113,8 +114,8 @@ export function ReadbasedAnalysis(props) {
                         </Col>
                     </Row>
                     <br></br> */}
-                    <MyTooltip id='ReadbasedAnalysis' text="Input Raw Reads" tooltip={workflowInputTips['ReadbasedAnalysis']['fastq_tip']} showTooltip={true} place="right" />
-                    <FastqInput projectTypes={['ReadsQC', 'Retrieve SRA Data']} singleType={'single-end or interleaved'} name={props.name} full_name={props.full_name}
+                    <MyTooltip id='ReadbasedAnalysis' text="Input FASTQ File" tooltip={workflowInputTips['ReadbasedAnalysis']['fastq_tip']} showTooltip={true} place="right" />
+                    <FastqInput projectTypes={['Metagenome Pipeline','ReadsQC', 'Retrieve SRA Data']} singleType={'single-end or interleaved'} name={props.name} full_name={props.full_name}
                         setParams={updateFastqInputs} collapseParms={true} paired-input-max={form['paired-input-max']} platformOptions={true} />
                 </CardBody>
             </Collapse>
