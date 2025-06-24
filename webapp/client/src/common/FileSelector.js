@@ -29,7 +29,7 @@ export const FileSelector = (props) => {
         setFiles_loading(true);
         const userData = {
             projectTypes: props.projectTypes,
-            projectScope: props.projectScope,
+            projectScope: props.projectScope ? props.projectScope : 'self+shared',
             fileTypes: props.fileTypes,
             projectStatuses: props.projectStatuses,
             endsWith: props.endsWith,
