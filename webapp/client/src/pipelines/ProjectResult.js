@@ -281,7 +281,7 @@ function ProjectResult(props) {
                             <br></br>
                         </>
                     }
-                    {(connect2nmdcserver && project && project.status === 'complete' && props.type === 'user' && !metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
+                    {(!conf?.shared && connect2nmdcserver && project && project.status === 'complete' && props.type === 'user' && !metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
                         <>
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
@@ -291,7 +291,7 @@ function ProjectResult(props) {
                             <br></br>
                         </>
                     }
-                    {(connect2nmdcserver && project && project.status === 'complete' && props.type === 'user' && metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
+                    {(!conf?.shared && connect2nmdcserver && project && project.status === 'complete' && props.type === 'user' && metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
                         <>
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
