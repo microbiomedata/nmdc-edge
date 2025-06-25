@@ -155,6 +155,10 @@ export const validFile = (filename, path) => {
     }
 }
 
+export const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
 export const openLink = (url) => window.open(url, '_blank')?.focus();
 
 

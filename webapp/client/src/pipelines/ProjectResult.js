@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Button } from 'reactstrap';
 import { LoaderDialog, FileViewerDialog, ConfirmDialog } from '../common/Dialogs';
-import { postData, getData, fetchFile, openLink, notify } from '../common/util';
+import { postData, getData, fetchFile, openLink, notify, sleep } from '../common/util';
 import ProjectGeneral from './Common/Results/ProjectGeneral';
 import ProjectOutputs from './Common/Results/ProjectOutputs';
 import MetadataSubmisssion from './Common/MetadataSubmisssion';
@@ -114,7 +114,9 @@ function ProjectResult(props) {
                 .then(data => {
                     //console.log(data.result)
                     setResult(data.result);
-                    setLoading(false);
+                    // Temporary solution for page scrolling issue
+                    // Pause for 5 seconds in case the getProjectOutputs() is still running. 
+                    sleep(5000).then(()=> setLoading(false));
                 })
                 .catch(error => {
                     alert(error);
@@ -246,7 +248,7 @@ function ProjectResult(props) {
 
     return (
         <div className="animated fadeIn">
-            <LoaderDialog loading={loading === true} text="Submitting..." />
+            <LoaderDialog loading={loading === true} text="Loading..." />
             <FileViewerDialog type={'text'} isOpen={view_log_file} toggle={e => setView_log_file(!view_log_file)} title={'log.txt'}
                 src={log_file_content} onChange={onLogChange} />
             <MetadataSubmisssion
