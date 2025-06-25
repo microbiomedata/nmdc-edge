@@ -115,8 +115,8 @@ function ProjectResult(props) {
                     //console.log(data.result)
                     setResult(data.result);
                     // Temporary solution for page scrolling issue
-                    // Pause for 5 seconds in case the getProjectOutputs() is still running. 
-                    sleep(5000).then(()=> setLoading(false));
+                    // Pause for 3 seconds in case the getProjectOutputs() is still running. 
+                    sleep(3000).then(()=> setLoading(false));
                 })
                 .catch(error => {
                     alert(error);
