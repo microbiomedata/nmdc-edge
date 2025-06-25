@@ -172,7 +172,7 @@ function ProjectResult(props) {
             setLoading(true);
             getProjectConf();
             getProjectRunStats();
-            if (project.status === 'complete' && !notMetadataProjects.includes(project.type) && connect2nmdcserver) {
+            if (project.status === 'complete' && !notMetadataProjects.includes(project.type) && connect2nmdcserver && !conf?.shared) {
                 getProjectMetadataSubmissionUrl(project.code);
             }
             if (project.status === 'complete' || (project.type === 'Metagenome Pipeline' && project.status === 'failed')) {
@@ -183,7 +183,7 @@ function ProjectResult(props) {
             }
 
         }
-    }, [project, type, connect2nmdcserver]);
+    }, [project, type, connect2nmdcserver, conf]);
 
     function viewLogFile() {
         let url = "/projects/" + project.code + "/log.txt";
