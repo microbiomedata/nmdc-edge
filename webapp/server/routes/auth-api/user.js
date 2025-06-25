@@ -378,6 +378,11 @@ router.post("/project/conf", (req, res) => {
         }
 
         let result = common.conf(project);
+        if (project.owner === req.user.email) {
+            result.shared = false;
+        } else {
+            result.shared = true;
+        }
         return res.send(result);
     }).catch(err => { logger.error(err); return res.status(500).json(sysError); });
 });

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Button } from 'reactstrap';
 import { LoaderDialog, FileViewerDialog, ConfirmDialog } from '../common/Dialogs';
-import { postData, getData, fetchFile, openLink, notify } from '../common/util';
+import { postData, getData, fetchFile, openLink, notify, sleep } from '../common/util';
 import ProjectGeneral from './Common/Results/ProjectGeneral';
 import ProjectOutputs from './Common/Results/ProjectOutputs';
 import MetadataSubmisssion from './Common/MetadataSubmisssion';
@@ -114,7 +114,9 @@ function ProjectResult(props) {
                 .then(data => {
                     //console.log(data.result)
                     setResult(data.result);
-                    setLoading(false);
+                    // Temporary solution for page scrolling issue
+                    // Pause for 3 seconds in case the getProjectOutputs() is still running. 
+                    sleep(3000).then(()=> setLoading(false));
                 })
                 .catch(error => {
                     alert(error);
@@ -172,7 +174,7 @@ function ProjectResult(props) {
             setLoading(true);
             getProjectConf();
             getProjectRunStats();
-            if (project.status === 'complete' && !notMetadataProjects.includes(project.type) && connect2nmdcserver) {
+            if (project.status === 'complete' && !notMetadataProjects.includes(project.type) && connect2nmdcserver && !conf?.shared) {
                 getProjectMetadataSubmissionUrl(project.code);
             }
             if (project.status === 'complete' || (project.type === 'Metagenome Pipeline' && project.status === 'failed')) {
@@ -246,7 +248,7 @@ function ProjectResult(props) {
 
     return (
         <div className="animated fadeIn">
-            <LoaderDialog loading={loading === true} text="Submitting..." />
+            <LoaderDialog loading={loading === true} text="Loading..." />
             <FileViewerDialog type={'text'} isOpen={view_log_file} toggle={e => setView_log_file(!view_log_file)} title={'log.txt'}
                 src={log_file_content} onChange={onLogChange} />
             <MetadataSubmisssion
@@ -281,7 +283,7 @@ function ProjectResult(props) {
                             <br></br>
                         </>
                     }
-                    {(connect2nmdcserver && project && project.status === 'complete' && props.type === 'user' && !metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
+                    {(!conf?.shared && connect2nmdcserver && project && project.status === 'complete' && props.type === 'user' && !metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
                         <>
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
@@ -291,7 +293,7 @@ function ProjectResult(props) {
                             <br></br>
                         </>
                     }
-                    {(connect2nmdcserver && project && project.status === 'complete' && props.type === 'user' && metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
+                    {(!conf?.shared && connect2nmdcserver && project && project.status === 'complete' && props.type === 'user' && metadataSubmissionUrl && !notMetadataProjects.includes(project.type)) &&
                         <>
                             <Row className="justify-content-center">
                                 <Col xs="12" md="10">
