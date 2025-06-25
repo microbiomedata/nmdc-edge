@@ -183,7 +183,7 @@ function ProjectResult(props) {
             }
 
         }
-    }, [project, type, connect2nmdcserver, conf]);
+    }, [project, type, connect2nmdcserver]);
 
     function viewLogFile() {
         let url = "/projects/" + project.code + "/log.txt";
