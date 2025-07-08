@@ -315,7 +315,7 @@ async function generateInputs(proj_home, workflow, proj) {
         let input_fasta = workflow['input_fasta'];
         templInputs = templInputs.replace(/<INPUT_FILE>/, '"' + input_fasta + '"');
         templInputs = templInputs.replace(/<PROJID>/, '"' + proj.name + '"');
-        templInputs = templInputs.replace(/<OPAVER_WEB_DIR>/, config.IO.OPAVER_WEB_DIR);
+        templInputs = templInputs.replace(/<OPAVER_WEB_DIR>/, '"' + config.IO.OPAVER_WEB_DIR + '"');
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
 
     } else if (workflow.name === 'MetaMAGs') {

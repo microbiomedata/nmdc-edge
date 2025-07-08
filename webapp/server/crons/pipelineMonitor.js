@@ -248,7 +248,7 @@ async function generateInputs(proj_home, conf, proj) {
             templInputs = templInputs.replace(/<VIRUSPLASMID_OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
         } else if (workflow.name === 'MetaAnnotation') {
             templInputs = templInputs.replace(/<DOANNOTATION>/, workflow.paramsOn);
-            templInputs = templInputs.replace(/<OPAVER_WEB_DIR>/, config.IO.OPAVER_WEB_DIR);
+            templInputs = templInputs.replace(/<OPAVER_WEB_DIR>/,  '"' + config.IO.OPAVER_WEB_DIR + '"');
             templInputs = templInputs.replace(/<METAANNOTATION_OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
         } else if (workflow.name === 'MetaMAGs') {
             templInputs = templInputs.replace(/<DOMETAMAGS>/, workflow.paramsOn);
