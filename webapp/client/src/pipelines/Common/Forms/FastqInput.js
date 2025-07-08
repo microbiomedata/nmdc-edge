@@ -5,7 +5,7 @@ import {
 
 import { validFile } from '../../../common/util';
 import FileSelector from '../../../common/FileSelector';
-import { WarningTooltip } from '../../../common/MyTooltip';
+import { MyTooltip, WarningTooltip } from '../../../common/MyTooltip';
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { defaults, initialFastqInput } from './Defaults';
 
@@ -30,7 +30,8 @@ export function FastqInput(props) {
     //need initial array for workflow selected more than once, otherwise workflows will share same inputs
     const [form, setState] = useState({ ...initialFastqInput });
     const [doValidation, setDoValidation] = useState(0);
-    const [singleType, setSingleType] = useState("interleaved");
+    const [singleType, setSingleType] = useState(props.singleType? props.singleType: "interleaved or single-end");
+    const fastqInputTooltip = 'Select "Yes" if the input data is interleaved or single end (one sequencing file) or select "No" if the data is paired end and it will allow you to choose forward and reverse read files';
 
     const setNewState2 = (name, value) => {
         setState({
@@ -130,14 +131,6 @@ export function FastqInput(props) {
         setDoValidation(doValidation + 1);
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
-    useEffect(() => {
-        if (props.singleType) {
-            setSingleType(props.singleType);
-        } else {
-            setSingleType("interleaved");
-        }
-    }, [props.singleType]);
-
     //trigger validation method when input changes
     useEffect(() => {
         //validate fastq data inputs
@@ -179,18 +172,21 @@ export function FastqInput(props) {
                             <ButtonGroup className="mr-3" aria-label="First group" size="sm">
                                 <Button color="outline-primary" onClick={() => {
                                     resetFastqInput();
-                                    setNewState2("shortRead", true);
+                                    form.shortRead = true;
+                                    form.interleaved = false;
                                     if (props.singleType) {
                                         setSingleType(props.singleType);
                                     } else {
-                                        setSingleType("interleaved");
+                                        setSingleType("interleaved or single-end");
                                     }
                                 }}
                                     active={form.shortRead}>Illumina</Button>
                                 <Button color="outline-primary" onClick={() => {
                                     resetFastqInput();
-                                    setNewState2("shortRead", false);
+                                    form.shortRead = false;
+                                    form.interleaved = true;
                                     setSingleType("PacBio");
+                                    
                                 }}
                                     active={!form.shortRead}>PacBio</Button>
                             </ButtonGroup>
@@ -203,7 +199,9 @@ export function FastqInput(props) {
             {!props.interleavedOnly && form.shortRead &&
                 <>
                     <Row>
-                        <Col md="3"> Is {singleType}? </Col>
+                        <Col md="3">
+                            <MyTooltip id='fastqInputTooltip' text={`Is ${singleType}?`} tooltip={fastqInputTooltip} showTooltip={true} place="right" />
+                        </Col>
                         <Col xs="12" md="9">
                             <ButtonGroup className="mr-3" aria-label="First group" size="sm">
                                 <Button color="outline-primary" onClick={() => {
@@ -299,7 +297,7 @@ export function FastqInput(props) {
             {!form.interleaved &&
                 <>
                     <Row>
-                        <Col md="3">Input paired fastq
+                        <Col md="3">Input paired-end fastq
                             {errors.hidden_fastq && fastqPairedFields.length === 0 &&
                                 <WarningTooltip id='InputsInputFastq' tooltip={errors.hidden_fastq.message} />
                             }
@@ -324,7 +322,7 @@ export function FastqInput(props) {
                     {fastqPairedFields.map((item, index) => (
                         <div key={item.id}>
                             <Row>
-                                <Col md="3" className="edge-sub-field"> Pair-1 FASTQ #{index + 1}</Col>
+                                <Col md="3" className="edge-sub-field"> R1 FASTQ #{index + 1}</Col>
                                 <Col xs="12" md="9">
                                     <Controller
                                         render={({ field: { ref, ...rest }, fieldState }) => (
@@ -349,7 +347,7 @@ export function FastqInput(props) {
                             </Row>
                             <br></br>
                             <Row>
-                                <Col md="3" className="edge-sub-field"> Pair-2 FASTQ #{index + 1}</Col>
+                                <Col md="3" className="edge-sub-field"> R2 FASTQ #{index + 1}</Col>
                                 <Col xs="12" md="9">
                                     <Controller
                                         render={({ field: { ref, ...rest }, fieldState }) => (
