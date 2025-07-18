@@ -19,7 +19,7 @@ task geNomad_full {
         Int? CPU = 4
         Boolean? calibration = false
         Float? fdr = 0.1
-        String prefix=sub(sub(sub(basename(ASM_FASTA), "\\.fna", ""), "\\.fasta", ""), "\\.fa", "")
+        String prefix=sub(sub(sub(sub(sub(sub(basename(ASM_FASTA), "\\.fna", ""), "\\.fasta", ""), "\\.fa", ""), "\\.fna\\.gz", ""), "\\.fasta\\.gz", ""), "\\.fa\\.gz", "")
     }
 
     command <<<
