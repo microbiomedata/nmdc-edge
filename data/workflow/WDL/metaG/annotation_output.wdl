@@ -68,9 +68,11 @@ task annotation_vis{
         fi
         
         plot_protein_len.py --input ~{gff} --output ~{OUTPATH}/~{projectName}.protein_size_histogram.html
-
-        mapid=`head -n 1 ~{OUTPATH}/kegg_map/exp_pathway.txt | cut -f 1 `
-        echo "{ \"opaver_web_path\":\"opaver_web/pathway_anno.html?data=$projectID&mapid=$mapid\" }" > ~{OUTPATH}/opaver_web_path.json 
+        
+        if [[ -f "~{OUTPATH}/kegg_map/exp_pathway.txt" ]]; then
+            mapid=`head -n 1 ~{OUTPATH}/kegg_map/exp_pathway.txt | cut -f 1 `
+            echo "{ \"opaver_web_path\":\"opaver_web/pathway_anno.html?data=$projectID&mapid=$mapid\" }" > ~{OUTPATH}/opaver_web_path.json 
+        fi
 
         chmod -R 755 ~{OUTPATH}
     >>>
