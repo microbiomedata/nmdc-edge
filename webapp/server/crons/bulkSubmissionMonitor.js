@@ -60,11 +60,10 @@ const bulkSubmissionMonitor = async () => {
     let errMsg = '';
     let currRow = 1;
     let submissions = [];
-    const uploadReg = /^upload\//i;
-    const sraReg = /^sra\//i;
 
     for (cols of rows) {
       let submission = {};
+      let dataSource = cols[2] ? cols[2].trim() : 'Uploaded File';
       currRow++;
       if(cols.length < 6) {
         validInput = false;
@@ -80,7 +79,7 @@ const bulkSubmissionMonitor = async () => {
         submission['proj_desc'] = cols[1];
       }
       //get Sequencing Platform, default is Illumina
-      if (cols[5] && cols[5] === 'PacBio') {
+      if (cols[6] && cols[6] === 'PacBio') {
         submission['platform'] = 'PacBio';
         submission['shortRead'] = false;
       } else {
@@ -88,30 +87,18 @@ const bulkSubmissionMonitor = async () => {
         submission['shortRead'] = true;
       }
 
-      if (cols[2] && cols[2].trim()) {
+      if (cols[3] && cols[3].trim()) {
         // validate Interleaved or Single-end Illumina/PacBio fastq and ignore the Illumina Pair-1/paire-2
         submission['interleaved'] = true;
         let fastqs = [];
         let fastqs_display = [];
-        const fqs = cols[2].trim().split(/,/);
+        const fqs = cols[3].split(/,/);
         for (fq of fqs) {
           fq = fq.trim();
-          if (fq.toUpperCase().startsWith('HTTP')) {
+          if (dataSource === 'HTTP(s) URL') {
             fastqs.push(fq);
             fastqs_display.push(fq);
-          } else if (fq.toUpperCase().startsWith('UPLOAD')) {
-            fq = fq.replace(uploadReg, '');
-            // it's uploaded file
-            const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
-            if (!file) {
-              validInput = false;
-              errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not found.\n`;
-            } else {
-              fastqs.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
-              fastqs_display.push(`uploads/${file.owner}/${fq}`);
-            }
-          } else if (fq.toUpperCase().startsWith('SRA')) {
-            fq = fq.replace(sraReg, '');
+          } else if (dataSource === 'Retrieved SRA Data') {
             const regex = /[\._]/; // Split on dot and _
             const accession = fq.split(regex)[0];
             if(isValidSRAInput(fq, accession)) {
@@ -122,9 +109,16 @@ const bulkSubmissionMonitor = async () => {
               errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not found.\n`;
             }
           } else {
-            validInput = false;
-            errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not valid.\n`;
-          }
+            // it's uploaded file
+            const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
+            if (!file) {
+              validInput = false;
+              errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not found.\n`;
+            } else {
+              fastqs.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
+              fastqs_display.push(`uploads/${file.owner}/${fq}`);
+            }
+          } 
         }
         submission['input_fastqs'] = fastqs;
         submission['input_fastqs_display'] = fastqs_display;
@@ -141,29 +135,17 @@ const bulkSubmissionMonitor = async () => {
           let fq1s = null;
           let fq2s = null;
           // validate the Illumina Pair-1/paire-2
-          if (!(cols[3] && cols[3].trim())) {
+          if (!(cols[4] && cols[4].trim())) {
             validInput = false;
             errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R1 required.\n`;
           } else {
-            fq1s = cols[3].trim().split(/,/);
+            fq1s = cols[4].split(/,/);
             for (fq of fq1s) {
               fq = fq.trim();
-              if (fq.toUpperCase().startsWith('HTTP')) {
+              if (dataSource === 'HTTP(s) URL') {
                 pairFq1.push(fq);
                 pairFq1_display.push(fq);
-              } else if (fq.toUpperCase().startsWith('UPLOAD')) {
-                fq = fq.replace(uploadReg, '');
-                // it's uploaded file
-                const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
-                if (!file) {
-                  validInput = false;
-                  errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R1 ${fq} not found.\n`;
-                } else {
-                  pairFq1.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
-                  pairFq1_display.push(`uploads/${file.owner}/${fq}`);
-                }
-              } else if (fq.toUpperCase().startsWith('SRA')) {
-                fq = fq.replace(sraReg, '');
+              } else if (dataSource === 'Retrieved SRA Data') {
                 const regex = /[\._]/; // Split on dot and _
                 const accession = fq.split(regex)[0];
                 if(isValidSRAInput(fq, accession)) {
@@ -174,35 +156,30 @@ const bulkSubmissionMonitor = async () => {
                   errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not found.\n`;
                 }
               } else {
-                validInput = false;
-                errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R1 ${fq} not valid.\n`;
-              }
-            };
-          }
-
-          if (!(cols[4] && cols[4].trim())) {
-            validInput = false;
-            errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R2 required.\n`;
-          } else {
-            fq2s = cols[4].trim().split(/,/);
-            for (fq of fq2s) {
-              fq = fq.trim();
-              if (fq.toUpperCase().startsWith('HTTP')) {
-                pairFq2.push(fq);
-                pairFq2_display.push(fq);
-              } else if (fq.toUpperCase().startsWith('UPLOAD')) {
-                fq = fq.replace(uploadReg, '');
                 // it's uploaded file
                 const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
                 if (!file) {
                   validInput = false;
-                  errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R2 ${fq} not found.\n`;
+                  errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R1 ${fq} not found.\n`;
                 } else {
-                  pairFq2.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
-                  pairFq2_display.push(`uploads/${file.owner}/${fq}`);
+                  pairFq1.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
+                  pairFq1_display.push(`uploads/${file.owner}/${fq}`);
                 }
-              } else if (fq.toUpperCase().startsWith('SRA')) {
-                fq = fq.replace(sraReg, '');
+              } 
+            };
+          }
+
+          if (!(cols[5] && cols[5].trim())) {
+            validInput = false;
+            errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R2 required.\n`;
+          } else {
+            fq2s = cols[5].split(/,/);
+            for (fq of fq2s) {
+              fq = fq.trim();
+              if (dataSource === 'HTTP(s) URL') {
+                pairFq2.push(fq);
+                pairFq2_display.push(fq);
+              } else if (dataSource === 'Retrieved SRA Data') {
                 const regex = /[\._]/; // Split on dot and _
                 const accession = fq.split(regex)[0];
                 if(isValidSRAInput(fq, accession)) {
@@ -213,9 +190,16 @@ const bulkSubmissionMonitor = async () => {
                   errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not found.\n`;
                 }
               } else {
-                validInput = false;
-                errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R2 ${fq} not valid.\n`;
-              }
+                // it's uploaded file
+                const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
+                if (!file) {
+                  validInput = false;
+                  errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R2 ${fq} not found.\n`;
+                } else {
+                  pairFq2.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
+                  pairFq2_display.push(`uploads/${file.owner}/${fq}`);
+                }
+              } 
             };
           }
 
