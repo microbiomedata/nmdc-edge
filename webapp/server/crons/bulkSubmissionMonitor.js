@@ -65,7 +65,7 @@ const bulkSubmissionMonitor = async () => {
       let submission = {};
       let dataSource = cols[2] ? cols[2].trim() : 'Uploaded File';
       currRow++;
-      if(cols.length < 6) {
+      if(cols.length < 4) {
         validInput = false;
         errMsg += `ERROR: Row ${currRow}: Invalid input.\n`;
         continue;
@@ -106,14 +106,14 @@ const bulkSubmissionMonitor = async () => {
               fastqs_display.push(`sradata/${accession}/${fq}`);
             } else {
               validInput = false;
-              errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not found.\n`;
+              errMsg += `ERROR: Row ${currRow}: ${dataSource}: Interleaved or Single-end Illumina/PacBio FASTQ: ${fq} not found.\n`;
             }
           } else {
             // it's uploaded file
             const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
             if (!file) {
               validInput = false;
-              errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not found.\n`;
+              errMsg += `ERROR: Row ${currRow}: ${dataSource}: Interleaved or Single-end Illumina/PacBio FASTQ: ${fq} not found.\n`;
             } else {
               fastqs.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
               fastqs_display.push(`uploads/${file.owner}/${fq}`);
@@ -153,14 +153,14 @@ const bulkSubmissionMonitor = async () => {
                   pairFq1_display.push(`sradata/${accession}/${fq}`);
                 } else {
                   validInput = false;
-                  errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not found.\n`;
+                  errMsg += `ERROR: Row ${currRow}: ${dataSource}: Illumina Paired-end R1 FASTQ: ${fq} not found.\n`;
                 }
               } else {
                 // it's uploaded file
                 const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
                 if (!file) {
                   validInput = false;
-                  errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R1 ${fq} not found.\n`;
+                  errMsg += `ERROR: Row ${currRow}: ${dataSource}: Illumina Paired-end R1 FASTQ: ${fq} not found.\n`;
                 } else {
                   pairFq1.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
                   pairFq1_display.push(`uploads/${file.owner}/${fq}`);
@@ -187,14 +187,14 @@ const bulkSubmissionMonitor = async () => {
                   pairFq2_display.push(`sradata/${accession}/${fq}`);
                 } else {
                   validInput = false;
-                  errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not found.\n`;
+                  errMsg += `ERROR: Row ${currRow}: ${dataSource}: Illumina Paired-end R2 FASTQ: ${fq} not found.\n`;
                 }
               } else {
                 // it's uploaded file
                 const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
                 if (!file) {
                   validInput = false;
-                  errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R2 ${fq} not found.\n`;
+                  errMsg += `ERROR: Row ${currRow}: ${dataSource}: Illumina Paired-end R2 FASTQ: ${fq} not found.\n`;
                 } else {
                   pairFq2.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
                   pairFq2_display.push(`uploads/${file.owner}/${fq}`);
@@ -224,7 +224,7 @@ const bulkSubmissionMonitor = async () => {
       // submit projects
       const workflowSettings = { ...workflowlist, ...pipelinelist };
       let projects = [];
-
+      let submission = null;
       for (submission of submissions) {
         //console.log(submission)
         let code = randomize('Aa0', 16);
