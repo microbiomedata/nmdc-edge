@@ -11,11 +11,14 @@ const config = require("../config");
 const { workflowlist, pipelinelist } = require("../config/workflow");
 
 const isValidProjectName = (name) => {
+  if(!name || name.trim() === '') {
+    return false;
+  }
   const regexp = new RegExp(/^[a-zA-Z0-9\-_.]{3,30}$/)
   return regexp.test(name.trim())
 }
 const isValidSRAInput = (name, accession) => {
-  return common.fileExistsSync(`${config.IO.SRA_BASE_DIR}/${accession}/${name}`);
+  return fs.existsSync(`${config.IO.SRA_BASE_DIR}/${accession}/${name}`);
 }
 
 const bulkSubmissionMonitor = async () => {
@@ -46,7 +49,10 @@ const bulkSubmissionMonitor = async () => {
     const bulkExcel = bulkSubmission_home + "/" + conf.bulkfile.name;
     // Parse a file
     const workSheetsFromFile = xlsx.parse(bulkExcel);
-    let rows = workSheetsFromFile[0].data;
+    let rows = workSheetsFromFile[0].data.filter(row => {
+        // Check if all cells in the row are empty (null, undefined, or empty string after trim)
+        return row.some(cell => cell !== null && cell !== undefined && String(cell).trim() !== '');
+    });
     // Remove header
     rows.shift();
     // validate inputs
@@ -60,6 +66,11 @@ const bulkSubmissionMonitor = async () => {
     for (cols of rows) {
       let submission = {};
       currRow++;
+      if(cols.length < 6) {
+        validInput = false;
+        errMsg += `ERROR: Row ${currRow}: Invalid input.\n`;
+        continue;
+      } 
       // validate project name
       if (!isValidProjectName(cols[0])) {
         validInput = false;
@@ -69,16 +80,16 @@ const bulkSubmissionMonitor = async () => {
         submission['proj_desc'] = cols[1];
       }
       //get Sequencing Platform, default is Illumina
-      if (!cols[5] || cols[5] === 'Illumina') {
-        submission['platform'] = 'Illumina';
-        submission['shortRead'] = true;
-      } else {
+      if (cols[5] && cols[5] === 'PacBio') {
         submission['platform'] = 'PacBio';
         submission['shortRead'] = false;
+      } else {
+        submission['platform'] = 'Illumina';
+        submission['shortRead'] = true;
       }
 
       if (cols[2] && cols[2].trim()) {
-        // validate Paired-end Illumina/PacBio fastq and ignore the Illumina Pair-1/paire-2
+        // validate Interleaved or Single-end Illumina/PacBio fastq and ignore the Illumina Pair-1/paire-2
         submission['interleaved'] = true;
         let fastqs = [];
         let fastqs_display = [];
@@ -94,7 +105,7 @@ const bulkSubmissionMonitor = async () => {
             const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
             if (!file) {
               validInput = false;
-              errMsg += `ERROR: Row ${currRow}: Paired-end Illumina/PacBio FASTQ ${fq} not found.\n`;
+              errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not found.\n`;
             } else {
               fastqs.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
               fastqs_display.push(`uploads/${file.owner}/${fq}`);
@@ -108,11 +119,11 @@ const bulkSubmissionMonitor = async () => {
               fastqs_display.push(`sradata/${accession}/${fq}`);
             } else {
               validInput = false;
-              errMsg += `ERROR: Row ${currRow}: Paired-end Illumina/PacBio FASTQ ${fq} not found.\n`;
+              errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not found.\n`;
             }
           } else {
             validInput = false;
-            errMsg += `ERROR: Row ${currRow}: Paired-end Illumina/PacBio FASTQ ${fq} not valid.\n`;
+            errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not valid.\n`;
           }
         }
         submission['input_fastqs'] = fastqs;
@@ -132,7 +143,7 @@ const bulkSubmissionMonitor = async () => {
           // validate the Illumina Pair-1/paire-2
           if (!(cols[3] && cols[3].trim())) {
             validInput = false;
-            errMsg += `ERROR: Row ${currRow}: Illumina Pair-1 FASTQ required.\n`;
+            errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R1 required.\n`;
           } else {
             fq1s = cols[3].trim().split(/,/);
             for (fq of fq1s) {
@@ -146,7 +157,7 @@ const bulkSubmissionMonitor = async () => {
                 const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
                 if (!file) {
                   validInput = false;
-                  errMsg += `ERROR: Row ${currRow}: Illumina Pair-1 FASTQ ${fq} not found.\n`;
+                  errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R1 ${fq} not found.\n`;
                 } else {
                   pairFq1.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
                   pairFq1_display.push(`uploads/${file.owner}/${fq}`);
@@ -160,32 +171,32 @@ const bulkSubmissionMonitor = async () => {
                   pairFq1_display.push(`sradata/${accession}/${fq}`);
                 } else {
                   validInput = false;
-                  errMsg += `ERROR: Row ${currRow}: Paired-end Illumina/PacBio FASTQ ${fq} not found.\n`;
+                  errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not found.\n`;
                 }
               } else {
                 validInput = false;
-                errMsg += `ERROR: Row ${currRow}: Illumina Pair-1 FASTQ ${fq} not valid.\n`;
+                errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R1 ${fq} not valid.\n`;
               }
             };
           }
 
           if (!(cols[4] && cols[4].trim())) {
             validInput = false;
-            errMsg += `ERROR: Row ${currRow}: Illumina Pair-2 FASTQ required.\n`;
+            errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R2 required.\n`;
           } else {
             fq2s = cols[4].trim().split(/,/);
             for (fq of fq2s) {
               fq = fq.trim();
               if (fq.toUpperCase().startsWith('HTTP')) {
                 pairFq2.push(fq);
-                pairFq1_display.push(fq);
+                pairFq2_display.push(fq);
               } else if (fq.toUpperCase().startsWith('UPLOAD')) {
                 fq = fq.replace(uploadReg, '');
                 // it's uploaded file
                 const file = await Upload.findOne({ name: { $eq: fq }, status: { $ne: 'delete' } });
                 if (!file) {
                   validInput = false;
-                  errMsg += `ERROR: Row ${currRow}: Illumina Pair-2 FASTQ ${fq} not found.\n`;
+                  errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R2 ${fq} not found.\n`;
                 } else {
                   pairFq2.push(`${config.IO.UPLOADED_FILES_DIR}/${file.code}`);
                   pairFq2_display.push(`uploads/${file.owner}/${fq}`);
@@ -199,18 +210,18 @@ const bulkSubmissionMonitor = async () => {
                   pairFq2_display.push(`sradata/${accession}/${fq}`);
                 } else {
                   validInput = false;
-                  errMsg += `ERROR: Row ${currRow}: Paired-end Illumina/PacBio FASTQ ${fq} not found.\n`;
+                  errMsg += `ERROR: Row ${currRow}: Interleaved or Single-end Illumina/PacBio FASTQ ${fq} not found.\n`;
                 }
               } else {
                 validInput = false;
-                errMsg += `ERROR: Row ${currRow}: Illumina Pair-2 FASTQ ${fq} not valid.\n`;
+                errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R2 ${fq} not valid.\n`;
               }
             };
           }
 
           if (fq1s && fq2s && fq1s.length !== fq2s.length) {
             validInput = false;
-            errMsg += `ERROR: Row ${currRow}: Illumina Pair-1 FASTQ and Illumina Pair-2 FASTQ have different input fastq file counts.\n`;
+            errMsg += `ERROR: Row ${currRow}: Illumina Paired-end R1 and Illumina Paired-end R2 have different input fastq file counts.\n`;
           }
           if (validInput) {
             submission['input_fastqs'] = [];
