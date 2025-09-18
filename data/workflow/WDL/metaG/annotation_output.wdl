@@ -29,8 +29,8 @@ workflow annotation_output {
         container = container
     }
     output{
-        File protein_size_hist = annotation_vis.opaver_web_path_json 
-        File opaver_web_path_json = annotation_vis.protein_size_hist
+        File protein_size_hist = annotation_vis.protein_size_hist
+        File? opaver_web_path_json = annotation_vis.opaver_web_path_json 
     }
 }
 
@@ -80,7 +80,7 @@ task annotation_vis{
 
     output {
         File protein_size_hist = "~{OUTPATH}/~{projectName}.protein_size_histogram.html"
-        File opaver_web_path_json = "~{OUTPATH}/opaver_web_path.json"
+        File? opaver_web_path_json = "~{OUTPATH}/opaver_web_path.json"
     }
 
     runtime {
