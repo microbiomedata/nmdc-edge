@@ -4,7 +4,7 @@ const ProductsDropdown = (props) => {
   return (
     <>
       <div className="nmdc-header-nav-link" >
-        PRODUCTS
+        Products
         <button className="nmdc-header-chevron"> </button>
         <div className="nmdc-header-dropdown-menu" >
           <a title="Data Portal" href="https://data.microbiomedata.org/">
