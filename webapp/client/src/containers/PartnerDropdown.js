@@ -4,11 +4,11 @@ const PartnerDropdown = (props) => {
   return (
     <>
       <div className="nmdc-header-nav-link nmdc-header-nav-link-no-min" >
-        Partner with Us
+        Get Involved
         <button className="nmdc-header-chevron"> </button>
         <div className="nmdc-header-dropdown-menu" >
           <a title="Community" href="https://microbiomedata.org/community/">
-            Communitys
+            Community
           </a>
           <a title="Ambassadors" href="https://microbiomedata.org/ambassadors/">
             Ambassadors

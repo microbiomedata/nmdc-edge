@@ -5,7 +5,7 @@ const AboutDropdown = (props) => {
     <>
       <div className="nmdc-header-nav-link" >
         <a title="About Us" href="https://microbiomedata.org/about/">
-          ABOUT US
+          About Us
         </a>
         <button className="nmdc-header-chevron"> </button>
         <div className="nmdc-header-dropdown-menu" >
@@ -18,8 +18,8 @@ const AboutDropdown = (props) => {
           <a title="Advisory" href="https://microbiomedata.org/advisory/">
             Advisory
           </a>
-          <a title="Faqs" href="https://microbiomedata.org/faqs/">
-            Faqs
+          <a title="FAQs" href="https://microbiomedata.org/faqs/">
+            FAQs
           </a>
           <a title="Data Use Policy" href="https://microbiomedata.org/nmdc-data-use-policy/">
             Data Use Policy
