@@ -67,11 +67,11 @@ task geNomad_full {
     >>>
 
     output {
-    File plasmids_fasta = "~{GeNomad_Summary}/"*"_plasmid.fna"
-    File plasmid_genes = "~{GeNomad_Summary}/"*"_plasmid_genes.tsv"
-    File plasmid_protiens = "~{GeNomad_Summary}/"*"_plasmid_proteins.faa"
-    File plasmid_summary = "~{GeNomad_Summary}/"*"_plasmid_summary.tsv"
-    File virus_fasta = "~{GeNomad_Summary}/"*"_virus.fna"
+    File plasmids_fasta = "~{GeNomad_Summary}/~{prefix}_plasmid.fna"
+    File plasmid_genes = "~{GeNomad_Summary}/~{prefix}_plasmid_genes.tsv"
+    File plasmid_protiens = "~{GeNomad_Summary}/~{prefix}_plasmid_proteins.faa"
+    File plasmid_summary = "~{GeNomad_Summary}/~{prefix}_plasmid_summary.tsv"
+    File virus_fasta = "~{GeNomad_Summary}//~{prefix}_virus.fna"
     File virus_genes = "~{GeNomad_Summary}/~{prefix}_virus_genes.tsv"
     File virus_proteins = "~{GeNomad_Summary}/~{prefix}_virus_proteins.faa"
     File virus_summary = "~{GeNomad_Summary}/~{prefix}_virus_summary.tsv"
