@@ -35,7 +35,7 @@ task geNomad_full {
         fi
         if [ ~{OPTION["conservative"]} == true ]; then
             genomad end-to-end --conservative --splits 4 ~{ASM_FASTA} ~{OUTDIR} ~{GENOMAD_DB} \
-            && mv ~{OUTDIR}/"*"_summary ~{GeNomad_Summary} 
+            && mv ~{OUTDIR}/*_summary ~{GeNomad_Summary} 
         fi
         if [ ~{OPTION["custom"]} == true ]; then
             if [ ~{calibration} == true ]; then
@@ -49,7 +49,7 @@ task geNomad_full {
                 --max-uscg ~{max_uscg} \
                 --enable-score-calibration --max-fdr ~{fdr} \
                 ~{ASM_FASTA} ~{OUTDIR} ~{GENOMAD_DB} \
-                && mv ~{OUTDIR}/"*"_summary/ ~{GeNomad_Summary} 
+                && mv ~{OUTDIR}/*_summary ~{GeNomad_Summary} 
             else
                 genomad end-to-end --cleanup --splits 4 --min-score ~{min_score} \
                 --min-virus-hallmarks ~{min_virus_hallmark} \
@@ -60,27 +60,27 @@ task geNomad_full {
                 --min-virus-marker-enrichment ~{min_virus_marker_enrichment} \
                 --max-uscg ~{max_uscg} \
                 ~{ASM_FASTA} ~{OUTDIR} ~{GENOMAD_DB} \
-                && mv ~{OUTDIR}/"*"_summary/ ~{GeNomad_Summary} 
+                && mv ~{OUTDIR}/*_summary ~{GeNomad_Summary} 
             fi
         fi
 
     >>>
 
     output {
-    File plasmids_fasta = "~{GeNomad_Summary}/~{prefix}_plasmid.fna"
-    File plasmid_genes = "~{GeNomad_Summary}/~{prefix}_plasmid_genes.tsv"
-    File plasmid_protiens = "~{GeNomad_Summary}/~{prefix}_plasmid_proteins.faa"
-    File plasmid_summary = "~{GeNomad_Summary}/~{prefix}_plasmid_summary.tsv"
-    File virus_fasta = "~{GeNomad_Summary}//~{prefix}_virus.fna"
-    File virus_genes = "~{GeNomad_Summary}/~{prefix}_virus_genes.tsv"
-    File virus_proteins = "~{GeNomad_Summary}/~{prefix}_virus_proteins.faa"
-    File virus_summary = "~{GeNomad_Summary}/~{prefix}_virus_summary.tsv"
-    File summary_log = "~{OUTDIR}/~{prefix}_summary.log"
-    File aggregated_log = "~{OUTDIR}/~{prefix}_aggregated_classification.log" 
-    File annotate_log = "~{OUTDIR}/~{prefix}_annotate.log"
-    File provirus_log = "~{OUTDIR}/~{prefix}_find_proviruses.log"
-    File marker_log = "~{OUTDIR}/~{prefix}_marker_classification.log"
-    File nn_log = "~{OUTDIR}/~{prefix}_nn_classification.log"
+    File plasmids_fasta = "~{GeNomad_Summary}/*_plasmid.fna"
+    File plasmid_genes = "~{GeNomad_Summary}/*_plasmid_genes.tsv"
+    File plasmid_protiens = "~{GeNomad_Summary}/*_plasmid_proteins.faa"
+    File plasmid_summary = "~{GeNomad_Summary}/*_plasmid_summary.tsv"
+    File virus_fasta = "~{GeNomad_Summary}//*_virus.fna"
+    File virus_genes = "~{GeNomad_Summary}/*_virus_genes.tsv"
+    File virus_proteins = "~{GeNomad_Summary}/*_virus_proteins.faa"
+    File virus_summary = "~{GeNomad_Summary}/*_virus_summary.tsv"
+    File summary_log = "~{OUTDIR}/*_summary.log"
+    File aggregated_log = "~{OUTDIR}/*_aggregated_classification.log" 
+    File annotate_log = "~{OUTDIR}/*_annotate.log"
+    File provirus_log = "~{OUTDIR}/*_find_proviruses.log"
+    File marker_log = "~{OUTDIR}/*_marker_classification.log"
+    File nn_log = "~{OUTDIR}/*_nn_classification.log"
     }
     runtime {
         docker: DOCKER
