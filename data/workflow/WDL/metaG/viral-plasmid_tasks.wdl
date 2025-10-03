@@ -25,13 +25,14 @@ task geNomad_full {
     command <<<
 
         set -eo pipefail
+        mkdir -p ~{OUTDIR}
         if [ ~{OPTION["default"]} == true ]; then 
             genomad end-to-end --cleanup --splits 4 ~{ASM_FASTA} ~{OUTDIR} ~{GENOMAD_DB} \
-            && mv ~{OUTDIR}/"*"_summary ~{GeNomad_Summary} 
+            && mv ~{OUTDIR}/*_summary ~{GeNomad_Summary} 
         fi
         if [ ~{OPTION["relaxed"]} == true ]; then
             genomad end-to-end --relaxed --splits 4 ~{ASM_FASTA} ~{OUTDIR} ~{GENOMAD_DB} \
-            && mv ~{OUTDIR}/"*"_summary ~{GeNomad_Summary} 
+            && mv ~{OUTDIR}/*_summary ~{GeNomad_Summary} 
         fi
         if [ ~{OPTION["conservative"]} == true ]; then
             genomad end-to-end --conservative --splits 4 ~{ASM_FASTA} ~{OUTDIR} ~{GENOMAD_DB} \
