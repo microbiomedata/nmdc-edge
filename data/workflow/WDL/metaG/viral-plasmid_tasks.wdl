@@ -70,20 +70,20 @@ task geNomad_full {
     >>>
 
     output {
-    File plasmids_fasta = "~{GeNomad_Summary}/*_plasmid.fna"
-    File plasmid_genes = "~{GeNomad_Summary}/*_plasmid_genes.tsv"
-    File plasmid_protiens = "~{GeNomad_Summary}/*_plasmid_proteins.faa"
-    File plasmid_summary = "~{GeNomad_Summary}/*_plasmid_summary.tsv"
-    File virus_fasta = "~{GeNomad_Summary}//*_virus.fna"
-    File virus_genes = "~{GeNomad_Summary}/*_virus_genes.tsv"
-    File virus_proteins = "~{GeNomad_Summary}/*_virus_proteins.faa"
-    File virus_summary = "~{GeNomad_Summary}/*_virus_summary.tsv"
-    File summary_log = "~{OUTDIR}/*_summary.log"
-    File aggregated_log = "~{OUTDIR}/*_aggregated_classification.log" 
-    File annotate_log = "~{OUTDIR}/*_annotate.log"
-    File provirus_log = "~{OUTDIR}/*_find_proviruses.log"
-    File marker_log = "~{OUTDIR}/*_marker_classification.log"
-    File nn_log = "~{OUTDIR}/*_nn_classification.log"
+    File plasmids_fasta = "~{GeNomad_Summary}/~{proj_name}_plasmid.fna"
+    File plasmid_genes = "~{GeNomad_Summary}/~{proj_name}_plasmid_genes.tsv"
+    File plasmid_protiens = "~{GeNomad_Summary}/~{proj_name}_plasmid_proteins.faa"
+    File plasmid_summary = "~{GeNomad_Summary}/~{proj_name}_plasmid_summary.tsv"
+    File virus_fasta = "~{GeNomad_Summary}/~{proj_name}_virus.fna"
+    File virus_genes = "~{GeNomad_Summary}/~{proj_name}_virus_genes.tsv"
+    File virus_proteins = "~{GeNomad_Summary}/~{proj_name}_virus_proteins.faa"
+    File virus_summary = "~{GeNomad_Summary}/~{proj_name}_virus_summary.tsv"
+    File summary_log = "~{OUTDIR}/~{proj_name}_summary.log"
+    File aggregated_log = "~{OUTDIR}/~{proj_name}_aggregated_classification.log" 
+    File annotate_log = "~{OUTDIR}/~{proj_name}_annotate.log"
+    File provirus_log = "~{OUTDIR}/~{proj_name}_find_proviruses.log"
+    File marker_log = "~{OUTDIR}/~{proj_name}_marker_classification.log"
+    File nn_log = "~{OUTDIR}/~{proj_name}_nn_classification.log"
     }
     runtime {
         docker: DOCKER
