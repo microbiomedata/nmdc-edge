@@ -29,7 +29,7 @@ workflow viral {
     call tasks.geNomad_full as gn {
         input: 
             ASM_FASTA = fasta,
-            proj_name = proj_name
+            proj_name = proj_name,
             GENOMAD_DB = genomad_db,
             OPTION = option,
             min_score = min_score,
