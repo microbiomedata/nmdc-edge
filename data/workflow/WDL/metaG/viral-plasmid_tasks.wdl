@@ -3,6 +3,7 @@ version 1.0
 task geNomad_full {
     input {
         File ASM_FASTA
+        String proj_name
         String GENOMAD_DB
         String OUTDIR
         String DOCKER
@@ -25,19 +26,21 @@ task geNomad_full {
     command <<<
 
         set -eo pipefail
+        cp  ~{ASM_FASTA} ~{proj_name}
         mkdir -p ~{OUTDIR}
         if [ ~{OPTION["default"]} == true ]; then 
-            genomad end-to-end --cleanup --splits 4 ~{ASM_FASTA} ~{OUTDIR} ~{GENOMAD_DB} \
-            && mv ~{OUTDIR}/*_summary ~{GeNomad_Summary} 
+            genomad end-to-end --cleanup --splits 4 ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB} \
+
         fi
         if [ ~{OPTION["relaxed"]} == true ]; then
-            genomad end-to-end --relaxed --splits 4 ~{ASM_FASTA} ~{OUTDIR} ~{GENOMAD_DB} \
-            && mv ~{OUTDIR}/*_summary ~{GeNomad_Summary} 
+            genomad end-to-end --relaxed --splits 4 ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB} \
+
         fi
         if [ ~{OPTION["conservative"]} == true ]; then
-            genomad end-to-end --conservative --splits 4 ~{ASM_FASTA} ~{OUTDIR} ~{GENOMAD_DB} \
-            && mv ~{OUTDIR}/*_summary ~{GeNomad_Summary} 
+            genomad end-to-end --conservative --splits 4 ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB} \
+ 
         fi
+ 
         if [ ~{OPTION["custom"]} == true ]; then
             if [ ~{calibration} == true ]; then
                 genomad end-to-end --cleanup --splits 4 --min-score ~{min_score} \
@@ -49,8 +52,7 @@ task geNomad_full {
                 --min-virus-marker-enrichment ~{min_virus_marker_enrichment} \
                 --max-uscg ~{max_uscg} \
                 --enable-score-calibration --max-fdr ~{fdr} \
-                ~{ASM_FASTA} ~{OUTDIR} ~{GENOMAD_DB} \
-                && mv ~{OUTDIR}/*_summary ~{GeNomad_Summary} 
+                ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB}
             else
                 genomad end-to-end --cleanup --splits 4 --min-score ~{min_score} \
                 --min-virus-hallmarks ~{min_virus_hallmark} \
@@ -60,10 +62,10 @@ task geNomad_full {
                 --min-plasmid-marker-enrichment ~{min_plasmid_marker_enrichment} \
                 --min-virus-marker-enrichment ~{min_virus_marker_enrichment} \
                 --max-uscg ~{max_uscg} \
-                ~{ASM_FASTA} ~{OUTDIR} ~{GENOMAD_DB} \
-                && mv ~{OUTDIR}/*_summary ~{GeNomad_Summary} 
+                ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB} 
             fi
         fi
+        mv ~{OUTDIR}/*_summary ~{GeNomad_Summary}
 
     >>>
 
