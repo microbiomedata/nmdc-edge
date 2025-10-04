@@ -66,7 +66,7 @@ task geNomad_full {
             fi
         fi
         
-
+        mv OUTDIR/~{proj_name}_summary ~{GeNomad_Summary}
     >>>
 
     output {
