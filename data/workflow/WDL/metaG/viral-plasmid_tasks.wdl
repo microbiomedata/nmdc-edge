@@ -65,7 +65,7 @@ task geNomad_full {
                 ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB} 
             fi
         fi
-        mv ~{OUTDIR}/*_summary ~{GeNomad_Summary}
+        
 
     >>>
 
