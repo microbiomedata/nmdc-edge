@@ -30,14 +30,17 @@ task geNomad_full {
         mkdir -p ~{OUTDIR}
         if [ ~{OPTION["default"]} == true ]; then 
             genomad end-to-end --cleanup --splits 4 ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB} \
+            && mv OUTDIR/~{proj_name}_summary ~{GeNomad_Summary}
 
         fi
         if [ ~{OPTION["relaxed"]} == true ]; then
             genomad end-to-end --relaxed --splits 4 ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB} \
+            && mv OUTDIR/~{proj_name}_summary ~{GeNomad_Summary}
 
         fi
         if [ ~{OPTION["conservative"]} == true ]; then
             genomad end-to-end --conservative --splits 4 ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB} \
+            && mv OUTDIR/~{proj_name}_summary ~{GeNomad_Summary}
  
         fi
  
@@ -52,7 +55,8 @@ task geNomad_full {
                 --min-virus-marker-enrichment ~{min_virus_marker_enrichment} \
                 --max-uscg ~{max_uscg} \
                 --enable-score-calibration --max-fdr ~{fdr} \
-                ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB}
+                ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB} \
+                && mv OUTDIR/~{proj_name}_summary ~{GeNomad_Summary}
             else
                 genomad end-to-end --cleanup --splits 4 --min-score ~{min_score} \
                 --min-virus-hallmarks ~{min_virus_hallmark} \
@@ -62,11 +66,12 @@ task geNomad_full {
                 --min-plasmid-marker-enrichment ~{min_plasmid_marker_enrichment} \
                 --min-virus-marker-enrichment ~{min_virus_marker_enrichment} \
                 --max-uscg ~{max_uscg} \
-                ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB} 
+                ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB} \
+                && mv OUTDIR/~{proj_name}_summary ~{GeNomad_Summary}
             fi
         fi
         
-        mv OUTDIR/~{proj_name}_summary ~{GeNomad_Summary}
+        
     >>>
 
     output {
