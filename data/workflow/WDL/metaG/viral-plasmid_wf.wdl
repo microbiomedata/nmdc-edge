@@ -8,6 +8,7 @@ workflow viral {
         String genomad_db = database + '/genomad_db-v1.6'
         String checkv_db = database + '/checkv-db-v1.4'
         File fasta
+        String proj_name
         Map[String, Boolean] option
         Float? min_score
         Int? min_virus_hallmark
@@ -28,6 +29,7 @@ workflow viral {
     call tasks.geNomad_full as gn {
         input: 
             ASM_FASTA = fasta,
+            proj_name = proj_name,
             GENOMAD_DB = genomad_db,
             OPTION = option,
             min_score = min_score,

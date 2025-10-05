@@ -401,6 +401,7 @@ async function generateInputs(proj_home, workflow, proj) {
     } else if (workflow.name === 'virus_plasmid') {
         templInputs = templInputs.replace(/<OUTDIR>/, '"' + proj_home + "/" + workflowSettings['outdir'] + '"');
         templInputs = templInputs.replace(/<FASTA>/, JSON.stringify(workflow['input_fasta']));
+        templInputs = templInputs.replace(/<PROJ_NAME>/, '"' + proj.name + '"');
         // templInputs = templInputs.replace(/<ENABLED_MODULES>/, JSON.stringify(workflow['enabled_modules']));
         templInputs = templInputs.replace(/<MIN_SCORE>/, JSON.stringify(workflow['min_score']));
         templInputs = templInputs.replace(/<MIN_VIRUS_HALLMARK>/, JSON.stringify(workflow['min_virus_hallmark']));
