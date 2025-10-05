@@ -4,6 +4,7 @@ import "<WDL_IMPORT>" as <WORKFLOW>
 workflow main_workflow {
     input {
         String <WORKFLOW>_database
+        String <WORKFLOW>_proj_name
         File <WORKFLOW>_fasta
         Float? <WORKFLOW>_min_score
         Int? <WORKFLOW>_min_virus_hallmark
@@ -24,6 +25,7 @@ workflow main_workflow {
             input:
             database=<WORKFLOW>_database,
             fasta=<WORKFLOW>_fasta,
+            proj_name=<WORKFLOW>_proj_name,
             min_score=<WORKFLOW>_min_score,
             min_virus_hallmark=<WORKFLOW>_min_virus_hallmark,
             min_plasmid_hallmark=<WORKFLOW>_min_plasmid_hallmark,
