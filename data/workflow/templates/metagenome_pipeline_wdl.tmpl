@@ -59,6 +59,7 @@ workflow main_workflow {
         String virusPlasmid_outdir
         Int    virusPlasmid_cpu=8
         String virusPlasmid_database_location="/refdata"
+        String virusPlasmid_proj_name
         # MetaAnnotation
         String  metaAnnotation_imgap_project_id
         Int     metaAnnotation_additional_threads=8
@@ -201,6 +202,7 @@ workflow main_workflow {
     call viralPlasmid.viral as viralPlasmid_call {
         input:
             fasta=metaAssembly_contig,
+            proj_name=virusPlasmid_proj_name,
             outdir=virusPlasmid_outdir,
             option=virusPlasmid_options,
             cpu=virusPlasmid_cpu,
