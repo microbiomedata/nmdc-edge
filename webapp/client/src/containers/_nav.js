@@ -42,7 +42,7 @@ const _nav = [
   {
     _tag: 'CSidebarNavItem',
     name: 'Public Projects',
-    to: '/public/projectlist',
+    to: '/disabled',
     icon: <CIcon name="cilGrid" customClasses="c-sidebar-nav-icon" />
   },
   {

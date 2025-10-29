@@ -14,7 +14,7 @@ const PrivateRoute = ({ component: Component, user, ...rest }) => {
                     <Component {...props} />
                 ) : (
                         <Redirect to={{
-                            pathname: '/oauth',
+                            pathname: '/home',
                             state: { from: rest.location.pathname+rest.location.search }
                         }} />
                     )

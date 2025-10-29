@@ -22,9 +22,7 @@ const AppBanner = (props) => {
                     <CardTitle tag="h4">
                       <MdInfo size={28} /> <b>Announcement</b>
                     </CardTitle>
-                    Please note that NMDC EDGE has experience intermittent issues with running workflows. We are aware of these issues
-                    and are actively working to fix them. Thank you for your patience and please reach out at support@microbiomedata.org 
-                    if you have specific concerns.
+                    Due to a fire at the San Diego Supercomputing Center, nmdc-edge is down. There is no access to user projects and no new projects can be created. We do not know how long it will take for this to be resolved. We will update this message when we get more information
                   </CardText>
                 </CardBody>
               </Card>
