@@ -89,7 +89,7 @@ const NMDCHeader = (props) => {
       ) : (
         <>
           <CHeaderNav className="nmdc-header-orcid nmdc-header-orcid-login">
-            <a href="/oauth" >
+            <a href="/disabled" >
               <img alt="OrcId login" src="https://orcid.org/assets/vectors/orcid.logo.icon.svg" className="nmdc-header-orcid-img mr-2" />
               OrcID Login
             </a>
