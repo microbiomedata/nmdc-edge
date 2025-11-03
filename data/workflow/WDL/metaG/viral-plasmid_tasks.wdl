@@ -35,7 +35,7 @@ task geNomad_full {
         fi
         if [ ~{OPTION["relaxed"]} == true ]; then
             genomad end-to-end --relaxed --splits 4 ~{proj_name} ~{OUTDIR} ~{GENOMAD_DB} \
-            && mv OUTDIR/~{proj_name}_summary ~{GeNomad_Summary}
+            && mv ~{OUTDIR}/~{proj_name}_summary ~{GeNomad_Summary}
 
         fi
         if [ ~{OPTION["conservative"]} == true ]; then
