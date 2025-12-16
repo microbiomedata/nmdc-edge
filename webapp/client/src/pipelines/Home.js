@@ -27,6 +27,8 @@ function Home() {
               Processed data submitted in this way will be made available through the <a href='https://data.microbiomedata.org/' target='_blank' rel="noreferrer">NMDC Data Portal</a>. 
               We will be incorporating the NMDC workflows into the main <a href='https://edgebioinformatics.org' target='_blank' rel="noreferrer">EDGE bioinformatics platform</a> so that users can continue running standardized multi-omics microbiome 
               workflows. Thank you for your interest, contributions, and usage of this site.
+              </p>
+              <p className="edge-text-font edge-text-size-large float-left">
               For any issues or questions that require support from a team member, please contact nmdc-edge@lanl.gov.
               </p>
               <p className="edge-text-font edge-text-size-large float-left">
