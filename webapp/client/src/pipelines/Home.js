@@ -15,14 +15,17 @@ function Home() {
             <br></br>
             <br></br>
             <br></br>
-            <p style={{ color: 'blue', fontSize: '20px' }}className="edge-text-font edge-text-size-large float-left">
-              Important Notice: Due to a shift in project budget and priorities, we will no longer support running workflows in NMDC EDGE beyond February 12th, 2026. Users will be able to 
+            <p style={{ color: 'blue', fontSize: '20px', fontWeight:'bold' }}className="edge-text-font edge-text-size-large float-left">
+              Important Notice: 
+              </p>
+              <p style={{ color: 'blue', fontSize: '20px' }}className="edge-text-font edge-text-size-large float-left">
+              Due to a shift in project budget and priorities, we will no longer support running workflows in NMDC EDGE beyond February 12th, 2026. Users will be able to 
               view their previously run projects until January 2027; however, no new projects will be run on nmdc-edge.org beyond Feb. 12th, 2026. We encourage users to 
               download the results of existing projects before the data is removed. 
-              To ensure continued access and discoverability, users are also encouraged to submit their microbiome data (along with sample metadata) through the 
-               <a href='https://data.microbiomedata.org/submission/home' target='_blank' rel="noreferrer">NMDC Submission Portal</a>. 
+              To ensure continued access and discoverability, users are also encouraged to submit their microbiome data (along with sample metadata) through 
+              the <a href='https://data.microbiomedata.org/submission/home' target='_blank' rel="noreferrer">NMDC Submission Portal</a>. 
               Processed data submitted in this way will be made available through the <a href='https://data.microbiomedata.org/' target='_blank' rel="noreferrer">NMDC Data Portal</a> . 
-              We will be incorporating the NMDC workflows into the original EDGE bioinformatics platform so that users can continue running standardized multi-omics microbiome 
+              We will be incorporating the NMDC workflows into the main <a href='https://edgebioinformatics.org' target='_blank' rel="noreferrer">EDGE bioinformatics platform</a> so that users can continue running standardized multi-omics microbiome 
               workflows.Thank you for your interest, contributions, and usage of this site.
               For any issues or questions that require support from a team member, please contact nmdc-edge@lanl.gov.
               </p>
