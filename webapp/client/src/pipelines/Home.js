@@ -19,10 +19,18 @@ function Home() {
               download the results of existing projects before the data is removed. 
               To ensure continued access and discoverability, users are also encouraged to submit their microbiome data (along with sample metadata) through the 
               <a href='https://data.microbiomedata.org/submission/home' target='_blank' rel="noreferrer">NMDC Submission Portal</a>. 
-              Processed data submitted in this way will be made available through the  . 
+              Processed data submitted in this way will be made available through the <a href='https://data.microbiomedata.org/' target='_blank' rel="noreferrer">NMDC Data Portal</a> . 
               We will be incorporating the NMDC workflows into the original EDGE bioinformatics platform so that users can continue running standardized multi-omics microbiome 
               workflows.Thank you for your interest, contributions, and usage of this site.
               For any issues or questions that require support from a team member, please contact nmdc-edge@lanl.gov.
+              </p>
+              <p className="edge-text-font edge-text-size-large float-left">
+              The National Microbiome Data Collaborative (<a href='https://microbiomedata.org/' target='_blank' rel="noreferrer">NMDC</a>) supports a Findable, Accessible,
+              Interoperable, and Reusable (FAIR) microbiome data sharing network through infrastructure, data standards, and community building to address pressing challenges
+              in environmental sciences. The NMDC EDGE (Empowering the Development of Genomics Expertise) platform was created so that all researchers can access and process
+              their 'omics data using the NMDC standardized bioinformatics workflows, regardless of resource availability or expertise level. All microbiome datasets in
+              the <a href='https://data.microbiomedata.org/' target='_blank' rel="noreferrer">NMDC Data Portal</a> have been processed using the same workflows as those housed
+              in NMDC EDGE, allowing datasets to be directly compared between the two interfaces.
             </p>
             <br></br>
             <p className="edge-text-font edge-text-size-large float-left">
