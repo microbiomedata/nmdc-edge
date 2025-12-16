@@ -13,12 +13,14 @@ function Home() {
         <Col xs="12" sm="12" md="12">
           <div className="clearfix">
             <br></br>
-            <p style={{ color: 'blue' }}className="edge-text-font edge-text-size-large float-left">
-              Due to a shift in project budget and priorities, we will no longer support running workflows in NMDC EDGE beyond February 12th, 2026. Users will be able to 
+            <br></br>
+            <br></br>
+            <p style={{ color: 'blue', fontSize: '20px' }}className="edge-text-font edge-text-size-large float-left">
+              Important Notice: Due to a shift in project budget and priorities, we will no longer support running workflows in NMDC EDGE beyond February 12th, 2026. Users will be able to 
               view their previously run projects until January 2027; however, no new projects will be run on nmdc-edge.org beyond Feb. 12th, 2026. We encourage users to 
               download the results of existing projects before the data is removed. 
               To ensure continued access and discoverability, users are also encouraged to submit their microbiome data (along with sample metadata) through the 
-              <a href='https://data.microbiomedata.org/submission/home' target='_blank' rel="noreferrer">NMDC Submission Portal</a>. 
+               <a href='https://data.microbiomedata.org/submission/home' target='_blank' rel="noreferrer">NMDC Submission Portal</a>. 
               Processed data submitted in this way will be made available through the <a href='https://data.microbiomedata.org/' target='_blank' rel="noreferrer">NMDC Data Portal</a> . 
               We will be incorporating the NMDC workflows into the original EDGE bioinformatics platform so that users can continue running standardized multi-omics microbiome 
               workflows.Thank you for your interest, contributions, and usage of this site.
@@ -32,6 +34,8 @@ function Home() {
               the <a href='https://data.microbiomedata.org/' target='_blank' rel="noreferrer">NMDC Data Portal</a> have been processed using the same workflows as those housed
               in NMDC EDGE, allowing datasets to be directly compared between the two interfaces.
             </p>
+            <br></br>
+            <br></br>
             <br></br>
             <p className="edge-text-font edge-text-size-large float-left">
               Access the detailed <a href='https://docs.microbiomedata.org/howto_guides/run_workflows/' target='_blank' rel="noreferrer">Quick Start Guide</a>, <a href='https://docs.microbiomedata.org/tutorials/run_workflows/' target='_blank' rel="noreferrer">Video Tutorial</a>, and <a href='https://docs.microbiomedata.org/workflows/index.html' target='_blank' rel="noreferrer">Workflow Documentation</a> through 
