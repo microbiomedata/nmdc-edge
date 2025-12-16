@@ -14,6 +14,16 @@ function Home() {
           <div className="clearfix">
             <br></br>
             <p className="edge-text-font edge-text-size-large float-left">
+              Due to a shift in project budget and priorities, we will no longer support running workflows in NMDC EDGE beyond February 12th, 2026. Users will be able to 
+              view their previously run projects until January 2027; however, no new projects will be run on nmdc-edge.org beyond Feb. 12th, 2026. We encourage users to 
+              download the results of existing projects before the data is removed. 
+              To ensure continued access and discoverability, users are also encouraged to submit their microbiome data (along with sample metadata) through the 
+              <a href='https://data.microbiomedata.org/submission/home' target='_blank' rel="noreferrer">NMDC Submission Portal</a>. 
+              Processed data submitted in this way will be made available through the  . 
+              We will be incorporating the NMDC workflows into the original EDGE bioinformatics platform so that users can continue running standardized multi-omics microbiome 
+              workflows.Thank you for your interest, contributions, and usage of this site.
+              For any issues or questions that require support from a team member, please contact nmdc-edge@lanl.gov.
+              
               The National Microbiome Data Collaborative (<a href='https://microbiomedata.org/' target='_blank' rel="noreferrer">NMDC</a>) supports a Findable, Accessible,
               Interoperable, and Reusable (FAIR) microbiome data sharing network through infrastructure, data standards, and community building to address pressing challenges
               in environmental sciences. The NMDC EDGE (Empowering the Development of Genomics Expertise) platform was created so that all researchers can access and process
