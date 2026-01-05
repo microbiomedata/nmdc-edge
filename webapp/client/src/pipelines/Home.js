@@ -19,8 +19,8 @@ function Home() {
               Important Notice: 
               </p>
               <p style={{ color: 'blue', fontSize: '20px' }}className="edge-text-font edge-text-size-large float-left">
-              Due to a shift in project budget and priorities, we will no longer support running workflows in NMDC EDGE beyond February 12th, 2026. Users will be able to 
-              view their previously run projects until January 2027; however, no new projects will be run on nmdc-edge.org beyond Feb. 12th, 2026. We encourage users to 
+              Due to a shift in project budget and priorities, we will no longer support running workflows in NMDC EDGE beyond January 31st, 2026. Users will be able to 
+              view their previously run projects until January 2027; however, no new projects will be run on nmdc-edge.org beyond January 31st, 2026. We encourage users to 
               download the results of existing projects before the data is removed. 
               To ensure continued access and discoverability, users are also encouraged to submit their microbiome data (along with sample metadata) through 
               the <a href='https://data.microbiomedata.org/submission/home' target='_blank' rel="noreferrer">NMDC Submission Portal</a>. 
