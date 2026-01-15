@@ -450,7 +450,8 @@ task finish {
                 ~{scaffold} 'Assembled scaffold fasta' \
                 ~{agp} 'Assembled AGP file' \
                 ~{bam} 'Metagenome Alignment BAM file'
-            cp ~{fasta} ~{scaffold} ~{agp} ~{bam} ~{covstats} ~{asmstats} activity.json data_objects.json ~{assemdir}/
+            cp ~{fasta} ~{scaffold} ~{agp} ~{bam} ~{covstats} ~{asmstats} ~{assemdir}/
+            # cp ~{fasta} ~{scaffold} ~{agp} ~{bam} ~{covstats} ~{asmstats} activity.json data_objects.json ~{assemdir}/
 
             # Generate annotation objects
             nmdc gff2json ~{functional_gff} -of features.json -oa annotations.json -ai ~{informed_by}
@@ -486,9 +487,11 @@ task finish {
             #	~{smart_gff} ~{supfam_gff} ~{cath_funfam_gff} ~{ko_ec_gff} \
             #	~{stats_tsv} ~{stats_json} \
             #	~{annodir}/
-            cp features.json annotations.json activity.json data_objects.json ~{annodir}/
+            cp features.json annotations.json ~{annodir}/
+            # cp features.json annotations.json activity.json data_objects.json ~{annodir}/
 
-            cp activity.json data_objects.json ~{final_hqmq_bins_zip} \
+            # cp activity.json data_objects.json ~{final_hqmq_bins_zip} \
+            cp ~{final_hqmq_bins_zip} \
             ~{final_lq_bins_zip} ~{final_gtdbtk_bac_summary} ~{final_gtdbtk_ar_summary} ~{short} ~{low} \
             ~{final_unbinned_fa} ~{final_checkm} ~{mags_version} ~{final_stats_json} ~{barplot} ~{heatmap} \
             ~{kronaplot} ~{magsdir}/
